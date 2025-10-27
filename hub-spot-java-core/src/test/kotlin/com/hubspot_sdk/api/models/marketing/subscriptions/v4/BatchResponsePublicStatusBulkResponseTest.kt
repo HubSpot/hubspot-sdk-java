@@ -1,0 +1,137 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.marketing.subscriptions.v4
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.core.jsonMapper
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class BatchResponsePublicStatusBulkResponseTest {
+
+    @Test
+    fun create() {
+        val batchResponsePublicStatusBulkResponse =
+            BatchResponsePublicStatusBulkResponse.builder()
+                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addResult(
+                    PublicStatusBulkResponse.builder()
+                        .addStatus(
+                            PublicStatus.builder()
+                                .channel(PublicStatus.Channel.EMAIL)
+                                .source("source")
+                                .status(PublicStatus.Status.SUBSCRIBED)
+                                .subscriberIdString("subscriberIdString")
+                                .subscriptionId(0)
+                                .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .businessUnitId(0L)
+                                .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                                .legalBasisExplanation("legalBasisExplanation")
+                                .setStatusSuccessReason(
+                                    PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                                )
+                                .subscriptionName("subscriptionName")
+                                .build()
+                        )
+                        .subscriberIdString("subscriberIdString")
+                        .build()
+                )
+                .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .status(BatchResponsePublicStatusBulkResponse.Status.PENDING)
+                .links(
+                    BatchResponsePublicStatusBulkResponse.Links.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        assertThat(batchResponsePublicStatusBulkResponse.completedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(batchResponsePublicStatusBulkResponse.results())
+            .containsExactly(
+                PublicStatusBulkResponse.builder()
+                    .addStatus(
+                        PublicStatus.builder()
+                            .channel(PublicStatus.Channel.EMAIL)
+                            .source("source")
+                            .status(PublicStatus.Status.SUBSCRIBED)
+                            .subscriberIdString("subscriberIdString")
+                            .subscriptionId(0)
+                            .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .businessUnitId(0L)
+                            .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                            .legalBasisExplanation("legalBasisExplanation")
+                            .setStatusSuccessReason(
+                                PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                            )
+                            .subscriptionName("subscriptionName")
+                            .build()
+                    )
+                    .subscriberIdString("subscriberIdString")
+                    .build()
+            )
+        assertThat(batchResponsePublicStatusBulkResponse.startedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(batchResponsePublicStatusBulkResponse.status())
+            .isEqualTo(BatchResponsePublicStatusBulkResponse.Status.PENDING)
+        assertThat(batchResponsePublicStatusBulkResponse.links())
+            .contains(
+                BatchResponsePublicStatusBulkResponse.Links.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .build()
+            )
+        assertThat(batchResponsePublicStatusBulkResponse.requestedAt())
+            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val batchResponsePublicStatusBulkResponse =
+            BatchResponsePublicStatusBulkResponse.builder()
+                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .addResult(
+                    PublicStatusBulkResponse.builder()
+                        .addStatus(
+                            PublicStatus.builder()
+                                .channel(PublicStatus.Channel.EMAIL)
+                                .source("source")
+                                .status(PublicStatus.Status.SUBSCRIBED)
+                                .subscriberIdString("subscriberIdString")
+                                .subscriptionId(0)
+                                .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .businessUnitId(0L)
+                                .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                                .legalBasisExplanation("legalBasisExplanation")
+                                .setStatusSuccessReason(
+                                    PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                                )
+                                .subscriptionName("subscriptionName")
+                                .build()
+                        )
+                        .subscriberIdString("subscriberIdString")
+                        .build()
+                )
+                .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .status(BatchResponsePublicStatusBulkResponse.Status.PENDING)
+                .links(
+                    BatchResponsePublicStatusBulkResponse.Links.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .build()
+
+        val roundtrippedBatchResponsePublicStatusBulkResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(batchResponsePublicStatusBulkResponse),
+                jacksonTypeRef<BatchResponsePublicStatusBulkResponse>(),
+            )
+
+        assertThat(roundtrippedBatchResponsePublicStatusBulkResponse)
+            .isEqualTo(batchResponsePublicStatusBulkResponse)
+    }
+}

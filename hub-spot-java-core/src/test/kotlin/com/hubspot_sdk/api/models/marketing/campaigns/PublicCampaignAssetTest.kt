@@ -1,0 +1,58 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.marketing.campaigns
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class PublicCampaignAssetTest {
+
+    @Test
+    fun create() {
+        val publicCampaignAsset =
+            PublicCampaignAsset.builder()
+                .id("id")
+                .metrics(
+                    PublicCampaignAsset.Metrics.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(0))
+                        .build()
+                )
+                .name("name")
+                .build()
+
+        assertThat(publicCampaignAsset.id()).isEqualTo("id")
+        assertThat(publicCampaignAsset.metrics())
+            .isEqualTo(
+                PublicCampaignAsset.Metrics.builder()
+                    .putAdditionalProperty("foo", JsonValue.from(0))
+                    .build()
+            )
+        assertThat(publicCampaignAsset.name()).contains("name")
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val publicCampaignAsset =
+            PublicCampaignAsset.builder()
+                .id("id")
+                .metrics(
+                    PublicCampaignAsset.Metrics.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(0))
+                        .build()
+                )
+                .name("name")
+                .build()
+
+        val roundtrippedPublicCampaignAsset =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(publicCampaignAsset),
+                jacksonTypeRef<PublicCampaignAsset>(),
+            )
+
+        assertThat(roundtrippedPublicCampaignAsset).isEqualTo(publicCampaignAsset)
+    }
+}

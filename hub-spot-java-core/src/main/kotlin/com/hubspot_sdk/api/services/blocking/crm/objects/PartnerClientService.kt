@@ -1,0 +1,311 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.blocking.crm.objects
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListPage
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientSearchParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientUpdateParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.partnerclients.AssociationService
+import com.hubspot_sdk.api.services.blocking.crm.objects.partnerclients.BatchService
+import java.util.function.Consumer
+
+interface PartnerClientService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): PartnerClientService
+
+    fun associations(): AssociationService
+
+    fun batch(): BatchService
+
+    /**
+     * Perform a partial update of an Object identified by `{objectId}`. `{objectId}` refers to the
+     * internal object ID by default, or optionally any unique property value as specified by the
+     * `idProperty` query param. Provided property values will be overwritten. Read-only and
+     * non-existent properties will be ignored. Properties values can be cleared by passing an empty
+     * string.
+     */
+    fun update(partnerClientId: String, params: PartnerClientUpdateParams): SimplePublicObject =
+        update(partnerClientId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        partnerClientId: String,
+        params: PartnerClientUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject =
+        update(params.toBuilder().partnerClientId(partnerClientId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: PartnerClientUpdateParams): SimplePublicObject =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: PartnerClientUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject
+
+    /** Read a page of objects. Control what is returned via the `properties` query param. */
+    fun list(): PartnerClientListPage = list(PartnerClientListParams.none())
+
+    /** @see list */
+    fun list(
+        params: PartnerClientListParams = PartnerClientListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PartnerClientListPage
+
+    /** @see list */
+    fun list(
+        params: PartnerClientListParams = PartnerClientListParams.none()
+    ): PartnerClientListPage = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): PartnerClientListPage =
+        list(PartnerClientListParams.none(), requestOptions)
+
+    /**
+     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
+     */
+    fun get(partnerClientId: String): SimplePublicObjectWithAssociations =
+        get(partnerClientId, PartnerClientGetParams.none())
+
+    /** @see get */
+    fun get(
+        partnerClientId: String,
+        params: PartnerClientGetParams = PartnerClientGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().partnerClientId(partnerClientId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        partnerClientId: String,
+        params: PartnerClientGetParams = PartnerClientGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(partnerClientId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: PartnerClientGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations
+
+    /** @see get */
+    fun get(params: PartnerClientGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        partnerClientId: String,
+        requestOptions: RequestOptions,
+    ): SimplePublicObjectWithAssociations =
+        get(partnerClientId, PartnerClientGetParams.none(), requestOptions)
+
+    fun search(params: PartnerClientSearchParams): CollectionResponseWithTotalSimplePublicObject =
+        search(params, RequestOptions.none())
+
+    /** @see search */
+    fun search(
+        params: PartnerClientSearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CollectionResponseWithTotalSimplePublicObject
+
+    /** @see search */
+    fun search(
+        publicObjectSearchRequest: PublicObjectSearchRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CollectionResponseWithTotalSimplePublicObject =
+        search(
+            PartnerClientSearchParams.builder()
+                .publicObjectSearchRequest(publicObjectSearchRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see search */
+    fun search(
+        publicObjectSearchRequest: PublicObjectSearchRequest
+    ): CollectionResponseWithTotalSimplePublicObject =
+        search(publicObjectSearchRequest, RequestOptions.none())
+
+    /**
+     * A view of [PartnerClientService] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): PartnerClientService.WithRawResponse
+
+        fun associations(): AssociationService.WithRawResponse
+
+        fun batch(): BatchService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `patch
+         * /crm/v3/objects/partner_clients/{partnerClientId}`, but is otherwise the same as
+         * [PartnerClientService.update].
+         */
+        @MustBeClosed
+        fun update(
+            partnerClientId: String,
+            params: PartnerClientUpdateParams,
+        ): HttpResponseFor<SimplePublicObject> =
+            update(partnerClientId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            partnerClientId: String,
+            params: PartnerClientUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().partnerClientId(partnerClientId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: PartnerClientUpdateParams): HttpResponseFor<SimplePublicObject> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: PartnerClientUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject>
+
+        /**
+         * Returns a raw HTTP response for `get /crm/v3/objects/partner_clients`, but is otherwise
+         * the same as [PartnerClientService.list].
+         */
+        @MustBeClosed
+        fun list(): HttpResponseFor<PartnerClientListPage> = list(PartnerClientListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: PartnerClientListParams = PartnerClientListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PartnerClientListPage>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: PartnerClientListParams = PartnerClientListParams.none()
+        ): HttpResponseFor<PartnerClientListPage> = list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PartnerClientListPage> =
+            list(PartnerClientListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /crm/v3/objects/partner_clients/{partnerClientId}`,
+         * but is otherwise the same as [PartnerClientService.get].
+         */
+        @MustBeClosed
+        fun get(partnerClientId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(partnerClientId, PartnerClientGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            partnerClientId: String,
+            params: PartnerClientGetParams = PartnerClientGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().partnerClientId(partnerClientId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            partnerClientId: String,
+            params: PartnerClientGetParams = PartnerClientGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(partnerClientId, params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: PartnerClientGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: PartnerClientGetParams
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> = get(params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            partnerClientId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(partnerClientId, PartnerClientGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /crm/v3/objects/partner_clients/search`, but is
+         * otherwise the same as [PartnerClientService.search].
+         */
+        @MustBeClosed
+        fun search(
+            params: PartnerClientSearchParams
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(params, RequestOptions.none())
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            params: PartnerClientSearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            publicObjectSearchRequest: PublicObjectSearchRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(
+                PartnerClientSearchParams.builder()
+                    .publicObjectSearchRequest(publicObjectSearchRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            publicObjectSearchRequest: PublicObjectSearchRequest
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(publicObjectSearchRequest, RequestOptions.none())
+    }
+}

@@ -1,0 +1,324 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.blocking.automation.actions
+
+import com.google.errorprone.annotations.MustBeClosed
+import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
+import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.automation.actions.PublicActionDefinition
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionCreateParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionDeleteParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListPage
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionReadParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionUpdateParams
+import java.util.function.Consumer
+
+interface DefinitionService {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): DefinitionService
+
+    /** Create a new custom workflow action. */
+    fun create(appId: Int, params: DefinitionCreateParams): PublicActionDefinition =
+        create(appId, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        appId: Int,
+        params: DefinitionCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionDefinition = create(params.toBuilder().appId(appId).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: DefinitionCreateParams): PublicActionDefinition =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: DefinitionCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionDefinition
+
+    /** Update an existing action definition by ID. */
+    fun update(definitionId: String, params: DefinitionUpdateParams): PublicActionDefinition =
+        update(definitionId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        definitionId: String,
+        params: DefinitionUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionDefinition =
+        update(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: DefinitionUpdateParams): PublicActionDefinition =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: DefinitionUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionDefinition
+
+    /** Retrieve custom workflow action definitions by app ID. */
+    fun list(appId: Int): DefinitionListPage = list(appId, DefinitionListParams.none())
+
+    /** @see list */
+    fun list(
+        appId: Int,
+        params: DefinitionListParams = DefinitionListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DefinitionListPage = list(params.toBuilder().appId(appId).build(), requestOptions)
+
+    /** @see list */
+    fun list(
+        appId: Int,
+        params: DefinitionListParams = DefinitionListParams.none(),
+    ): DefinitionListPage = list(appId, params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        params: DefinitionListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DefinitionListPage
+
+    /** @see list */
+    fun list(params: DefinitionListParams): DefinitionListPage = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(appId: Int, requestOptions: RequestOptions): DefinitionListPage =
+        list(appId, DefinitionListParams.none(), requestOptions)
+
+    /** Delete an action definition by ID. */
+    fun delete(definitionId: String, params: DefinitionDeleteParams) =
+        delete(definitionId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        definitionId: String,
+        params: DefinitionDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(params: DefinitionDeleteParams) = delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        params: DefinitionDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** Retrieve a custom workflow action definition by ID. */
+    fun read(definitionId: String, params: DefinitionReadParams): PublicActionDefinition =
+        read(definitionId, params, RequestOptions.none())
+
+    /** @see read */
+    fun read(
+        definitionId: String,
+        params: DefinitionReadParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionDefinition =
+        read(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+
+    /** @see read */
+    fun read(params: DefinitionReadParams): PublicActionDefinition =
+        read(params, RequestOptions.none())
+
+    /** @see read */
+    fun read(
+        params: DefinitionReadParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionDefinition
+
+    /** A view of [DefinitionService] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DefinitionService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /automation/v4/actions/{appId}`, but is otherwise
+         * the same as [DefinitionService.create].
+         */
+        @MustBeClosed
+        fun create(
+            appId: Int,
+            params: DefinitionCreateParams,
+        ): HttpResponseFor<PublicActionDefinition> = create(appId, params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            appId: Int,
+            params: DefinitionCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionDefinition> =
+            create(params.toBuilder().appId(appId).build(), requestOptions)
+
+        /** @see create */
+        @MustBeClosed
+        fun create(params: DefinitionCreateParams): HttpResponseFor<PublicActionDefinition> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            params: DefinitionCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionDefinition>
+
+        /**
+         * Returns a raw HTTP response for `patch /automation/v4/actions/{appId}/{definitionId}`,
+         * but is otherwise the same as [DefinitionService.update].
+         */
+        @MustBeClosed
+        fun update(
+            definitionId: String,
+            params: DefinitionUpdateParams,
+        ): HttpResponseFor<PublicActionDefinition> =
+            update(definitionId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            definitionId: String,
+            params: DefinitionUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionDefinition> =
+            update(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: DefinitionUpdateParams): HttpResponseFor<PublicActionDefinition> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: DefinitionUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionDefinition>
+
+        /**
+         * Returns a raw HTTP response for `get /automation/v4/actions/{appId}`, but is otherwise
+         * the same as [DefinitionService.list].
+         */
+        @MustBeClosed
+        fun list(appId: Int): HttpResponseFor<DefinitionListPage> =
+            list(appId, DefinitionListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            appId: Int,
+            params: DefinitionListParams = DefinitionListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DefinitionListPage> =
+            list(params.toBuilder().appId(appId).build(), requestOptions)
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            appId: Int,
+            params: DefinitionListParams = DefinitionListParams.none(),
+        ): HttpResponseFor<DefinitionListPage> = list(appId, params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: DefinitionListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DefinitionListPage>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(params: DefinitionListParams): HttpResponseFor<DefinitionListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(appId: Int, requestOptions: RequestOptions): HttpResponseFor<DefinitionListPage> =
+            list(appId, DefinitionListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete /automation/v4/actions/{appId}/{definitionId}`,
+         * but is otherwise the same as [DefinitionService.delete].
+         */
+        @MustBeClosed
+        fun delete(definitionId: String, params: DefinitionDeleteParams): HttpResponse =
+            delete(definitionId, params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            definitionId: String,
+            params: DefinitionDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            delete(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(params: DefinitionDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            params: DefinitionDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /**
+         * Returns a raw HTTP response for `get /automation/v4/actions/{appId}/{definitionId}`, but
+         * is otherwise the same as [DefinitionService.read].
+         */
+        @MustBeClosed
+        fun read(
+            definitionId: String,
+            params: DefinitionReadParams,
+        ): HttpResponseFor<PublicActionDefinition> =
+            read(definitionId, params, RequestOptions.none())
+
+        /** @see read */
+        @MustBeClosed
+        fun read(
+            definitionId: String,
+            params: DefinitionReadParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionDefinition> =
+            read(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+
+        /** @see read */
+        @MustBeClosed
+        fun read(params: DefinitionReadParams): HttpResponseFor<PublicActionDefinition> =
+            read(params, RequestOptions.none())
+
+        /** @see read */
+        @MustBeClosed
+        fun read(
+            params: DefinitionReadParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionDefinition>
+    }
+}

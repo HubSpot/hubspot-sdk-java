@@ -1,0 +1,44 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.crm.extensions.cards
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class DisplayOptionTest {
+
+    @Test
+    fun create() {
+        val displayOption =
+            DisplayOption.builder()
+                .label("label")
+                .name("name")
+                .type(DisplayOption.Type.DEFAULT)
+                .build()
+
+        assertThat(displayOption.label()).isEqualTo("label")
+        assertThat(displayOption.name()).isEqualTo("name")
+        assertThat(displayOption.type()).isEqualTo(DisplayOption.Type.DEFAULT)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val displayOption =
+            DisplayOption.builder()
+                .label("label")
+                .name("name")
+                .type(DisplayOption.Type.DEFAULT)
+                .build()
+
+        val roundtrippedDisplayOption =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(displayOption),
+                jacksonTypeRef<DisplayOption>(),
+            )
+
+        assertThat(roundtrippedDisplayOption).isEqualTo(displayOption)
+    }
+}

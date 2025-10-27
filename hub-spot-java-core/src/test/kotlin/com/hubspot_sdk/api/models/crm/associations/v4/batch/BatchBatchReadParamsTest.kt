@@ -1,0 +1,104 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.crm.associations.v4.batch
+
+import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicFetchAssociationsBatchRequest
+import com.hubspot_sdk.api.models.crm.associations.v4.PublicFetchAssociationsBatchRequest
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class BatchBatchReadParamsTest {
+
+    @Test
+    fun create() {
+        BatchBatchReadParams.builder()
+            .fromObjectType("fromObjectType")
+            .toObjectType("toObjectType")
+            .batchInputPublicFetchAssociationsBatchRequest(
+                BatchInputPublicFetchAssociationsBatchRequest.builder()
+                    .addInput(
+                        PublicFetchAssociationsBatchRequest.builder()
+                            .id("id")
+                            .after("after")
+                            .build()
+                    )
+                    .build()
+            )
+            .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            BatchBatchReadParams.builder()
+                .fromObjectType("fromObjectType")
+                .toObjectType("toObjectType")
+                .batchInputPublicFetchAssociationsBatchRequest(
+                    BatchInputPublicFetchAssociationsBatchRequest.builder()
+                        .addInput(PublicFetchAssociationsBatchRequest.builder().id("id").build())
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("fromObjectType")
+        assertThat(params._pathParam(1)).isEqualTo("toObjectType")
+        // out-of-bound path param
+        assertThat(params._pathParam(2)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            BatchBatchReadParams.builder()
+                .fromObjectType("fromObjectType")
+                .toObjectType("toObjectType")
+                .batchInputPublicFetchAssociationsBatchRequest(
+                    BatchInputPublicFetchAssociationsBatchRequest.builder()
+                        .addInput(
+                            PublicFetchAssociationsBatchRequest.builder()
+                                .id("id")
+                                .after("after")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                BatchInputPublicFetchAssociationsBatchRequest.builder()
+                    .addInput(
+                        PublicFetchAssociationsBatchRequest.builder()
+                            .id("id")
+                            .after("after")
+                            .build()
+                    )
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            BatchBatchReadParams.builder()
+                .fromObjectType("fromObjectType")
+                .toObjectType("toObjectType")
+                .batchInputPublicFetchAssociationsBatchRequest(
+                    BatchInputPublicFetchAssociationsBatchRequest.builder()
+                        .addInput(PublicFetchAssociationsBatchRequest.builder().id("id").build())
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                BatchInputPublicFetchAssociationsBatchRequest.builder()
+                    .addInput(PublicFetchAssociationsBatchRequest.builder().id("id").build())
+                    .build()
+            )
+    }
+}

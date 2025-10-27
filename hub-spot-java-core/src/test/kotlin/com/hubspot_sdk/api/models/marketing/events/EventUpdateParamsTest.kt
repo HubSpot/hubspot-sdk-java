@@ -1,0 +1,191 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.marketing.events
+
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class EventUpdateParamsTest {
+
+    @Test
+    fun create() {
+        EventUpdateParams.builder()
+            .objectId("objectId")
+            .marketingEventPublicUpdateRequestV2(
+                MarketingEventPublicUpdateRequestV2.builder()
+                    .addCustomProperty(
+                        PropertyValue.builder()
+                            .name("")
+                            .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                            .value("")
+                            .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                            .isEncrypted(false)
+                            .isLargeValue(true)
+                            .persistenceTimestamp(0L)
+                            .requestId("")
+                            .selectedByUser(false)
+                            .selectedByUserTimestamp(0L)
+                            .source(PropertyValue.Source.UNKNOWN)
+                            .sourceId("")
+                            .sourceLabel("")
+                            .sourceMetadata("")
+                            .addSourceVid(0L)
+                            .timestamp(0L)
+                            .unit("")
+                            .updatedByUserId(0)
+                            .useTimestampAsPersistenceTimestamp(true)
+                            .build()
+                    )
+                    .endDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .eventCancelled(true)
+                    .eventDescription("eventDescription")
+                    .eventName("eventName")
+                    .eventOrganizer("eventOrganizer")
+                    .eventType("eventType")
+                    .eventUrl("eventUrl")
+                    .startDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+            .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params =
+            EventUpdateParams.builder()
+                .objectId("objectId")
+                .marketingEventPublicUpdateRequestV2(
+                    MarketingEventPublicUpdateRequestV2.builder()
+                        .addCustomProperty(
+                            PropertyValue.builder()
+                                .name("")
+                                .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                                .value("")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("objectId")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            EventUpdateParams.builder()
+                .objectId("objectId")
+                .marketingEventPublicUpdateRequestV2(
+                    MarketingEventPublicUpdateRequestV2.builder()
+                        .addCustomProperty(
+                            PropertyValue.builder()
+                                .name("")
+                                .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                                .value("")
+                                .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                                .isEncrypted(false)
+                                .isLargeValue(true)
+                                .persistenceTimestamp(0L)
+                                .requestId("")
+                                .selectedByUser(false)
+                                .selectedByUserTimestamp(0L)
+                                .source(PropertyValue.Source.UNKNOWN)
+                                .sourceId("")
+                                .sourceLabel("")
+                                .sourceMetadata("")
+                                .addSourceVid(0L)
+                                .timestamp(0L)
+                                .unit("")
+                                .updatedByUserId(0)
+                                .useTimestampAsPersistenceTimestamp(true)
+                                .build()
+                        )
+                        .endDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .eventCancelled(true)
+                        .eventDescription("eventDescription")
+                        .eventName("eventName")
+                        .eventOrganizer("eventOrganizer")
+                        .eventType("eventType")
+                        .eventUrl("eventUrl")
+                        .startDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                MarketingEventPublicUpdateRequestV2.builder()
+                    .addCustomProperty(
+                        PropertyValue.builder()
+                            .name("")
+                            .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                            .value("")
+                            .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                            .isEncrypted(false)
+                            .isLargeValue(true)
+                            .persistenceTimestamp(0L)
+                            .requestId("")
+                            .selectedByUser(false)
+                            .selectedByUserTimestamp(0L)
+                            .source(PropertyValue.Source.UNKNOWN)
+                            .sourceId("")
+                            .sourceLabel("")
+                            .sourceMetadata("")
+                            .addSourceVid(0L)
+                            .timestamp(0L)
+                            .unit("")
+                            .updatedByUserId(0)
+                            .useTimestampAsPersistenceTimestamp(true)
+                            .build()
+                    )
+                    .endDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .eventCancelled(true)
+                    .eventDescription("eventDescription")
+                    .eventName("eventName")
+                    .eventOrganizer("eventOrganizer")
+                    .eventType("eventType")
+                    .eventUrl("eventUrl")
+                    .startDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            EventUpdateParams.builder()
+                .objectId("objectId")
+                .marketingEventPublicUpdateRequestV2(
+                    MarketingEventPublicUpdateRequestV2.builder()
+                        .addCustomProperty(
+                            PropertyValue.builder()
+                                .name("")
+                                .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                                .value("")
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                MarketingEventPublicUpdateRequestV2.builder()
+                    .addCustomProperty(
+                        PropertyValue.builder()
+                            .name("")
+                            .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                            .value("")
+                            .build()
+                    )
+                    .build()
+            )
+    }
+}
