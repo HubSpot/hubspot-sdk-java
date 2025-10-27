@@ -1,0 +1,245 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.async.marketing.campaigns
+
+import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
+import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.marketing.campaigns.PublicSpendItem
+import com.hubspot_sdk.api.models.marketing.campaigns.spend.SpendCreateParams
+import com.hubspot_sdk.api.models.marketing.campaigns.spend.SpendDeleteParams
+import com.hubspot_sdk.api.models.marketing.campaigns.spend.SpendGetParams
+import com.hubspot_sdk.api.models.marketing.campaigns.spend.SpendUpdateParams
+import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
+
+interface SpendServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): SpendServiceAsync
+
+    /** Create a new campaign spend item */
+    fun create(
+        campaignGuid: String,
+        params: SpendCreateParams,
+    ): CompletableFuture<PublicSpendItem> = create(campaignGuid, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        campaignGuid: String,
+        params: SpendCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicSpendItem> =
+        create(params.toBuilder().campaignGuid(campaignGuid).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: SpendCreateParams): CompletableFuture<PublicSpendItem> =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: SpendCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicSpendItem>
+
+    /** Update a specific campaign spend item by ID */
+    fun update(spendId: Long, params: SpendUpdateParams): CompletableFuture<PublicSpendItem> =
+        update(spendId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        spendId: Long,
+        params: SpendUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicSpendItem> =
+        update(params.toBuilder().spendId(spendId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: SpendUpdateParams): CompletableFuture<PublicSpendItem> =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: SpendUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicSpendItem>
+
+    /** Delete a specific campaign spend item by ID */
+    fun delete(spendId: Long, params: SpendDeleteParams): CompletableFuture<Void?> =
+        delete(spendId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        spendId: Long,
+        params: SpendDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        delete(params.toBuilder().spendId(spendId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(params: SpendDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        params: SpendDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** Read a campaign spend item by its spendId */
+    fun get(spendId: Long, params: SpendGetParams): CompletableFuture<PublicSpendItem> =
+        get(spendId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        spendId: Long,
+        params: SpendGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicSpendItem> =
+        get(params.toBuilder().spendId(spendId).build(), requestOptions)
+
+    /** @see get */
+    fun get(params: SpendGetParams): CompletableFuture<PublicSpendItem> =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: SpendGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicSpendItem>
+
+    /** A view of [SpendServiceAsync] that provides access to raw HTTP responses for each method. */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): SpendServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /marketing/v3/campaigns/{campaignGuid}/spend`, but
+         * is otherwise the same as [SpendServiceAsync.create].
+         */
+        fun create(
+            campaignGuid: String,
+            params: SpendCreateParams,
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            create(campaignGuid, params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            campaignGuid: String,
+            params: SpendCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            create(params.toBuilder().campaignGuid(campaignGuid).build(), requestOptions)
+
+        /** @see create */
+        fun create(params: SpendCreateParams): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            params: SpendCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>>
+
+        /**
+         * Returns a raw HTTP response for `put
+         * /marketing/v3/campaigns/{campaignGuid}/spend/{spendId}`, but is otherwise the same as
+         * [SpendServiceAsync.update].
+         */
+        fun update(
+            spendId: Long,
+            params: SpendUpdateParams,
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            update(spendId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            spendId: Long,
+            params: SpendUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            update(params.toBuilder().spendId(spendId).build(), requestOptions)
+
+        /** @see update */
+        fun update(params: SpendUpdateParams): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: SpendUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>>
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /marketing/v3/campaigns/{campaignGuid}/spend/{spendId}`, but is otherwise the same as
+         * [SpendServiceAsync.delete].
+         */
+        fun delete(spendId: Long, params: SpendDeleteParams): CompletableFuture<HttpResponse> =
+            delete(spendId, params, RequestOptions.none())
+
+        /** @see delete */
+        fun delete(
+            spendId: Long,
+            params: SpendDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().spendId(spendId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(params: SpendDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
+
+        /** @see delete */
+        fun delete(
+            params: SpendDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /marketing/v3/campaigns/{campaignGuid}/spend/{spendId}`, but is otherwise the same as
+         * [SpendServiceAsync.get].
+         */
+        fun get(
+            spendId: Long,
+            params: SpendGetParams,
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            get(spendId, params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            spendId: Long,
+            params: SpendGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            get(params.toBuilder().spendId(spendId).build(), requestOptions)
+
+        /** @see get */
+        fun get(params: SpendGetParams): CompletableFuture<HttpResponseFor<PublicSpendItem>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            params: SpendGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicSpendItem>>
+    }
+}

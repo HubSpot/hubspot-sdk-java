@@ -1,0 +1,159 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.async.cms
+
+import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.domains.Domain
+import com.hubspot_sdk.api.models.cms.domains.DomainListPageAsync
+import com.hubspot_sdk.api.models.cms.domains.DomainListParams
+import com.hubspot_sdk.api.models.cms.domains.DomainReadParams
+import java.util.concurrent.CompletableFuture
+import java.util.function.Consumer
+
+interface DomainServiceAsync {
+
+    /**
+     * Returns a view of this service that provides access to raw HTTP responses for each method.
+     */
+    fun withRawResponse(): WithRawResponse
+
+    /**
+     * Returns a view of this service with the given option modifications applied.
+     *
+     * The original service is not modified.
+     */
+    fun withOptions(modifier: Consumer<ClientOptions.Builder>): DomainServiceAsync
+
+    /**
+     * Returns all existing domains that have been created. Results can be limited and filtered by
+     * creation or updated date.
+     */
+    fun list(): CompletableFuture<DomainListPageAsync> = list(DomainListParams.none())
+
+    /** @see list */
+    fun list(
+        params: DomainListParams = DomainListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<DomainListPageAsync>
+
+    /** @see list */
+    fun list(
+        params: DomainListParams = DomainListParams.none()
+    ): CompletableFuture<DomainListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): CompletableFuture<DomainListPageAsync> =
+        list(DomainListParams.none(), requestOptions)
+
+    /** Returns a single domains with the id specified. */
+    fun read(domainId: String): CompletableFuture<Domain> = read(domainId, DomainReadParams.none())
+
+    /** @see read */
+    fun read(
+        domainId: String,
+        params: DomainReadParams = DomainReadParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Domain> =
+        read(params.toBuilder().domainId(domainId).build(), requestOptions)
+
+    /** @see read */
+    fun read(
+        domainId: String,
+        params: DomainReadParams = DomainReadParams.none(),
+    ): CompletableFuture<Domain> = read(domainId, params, RequestOptions.none())
+
+    /** @see read */
+    fun read(
+        params: DomainReadParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Domain>
+
+    /** @see read */
+    fun read(params: DomainReadParams): CompletableFuture<Domain> =
+        read(params, RequestOptions.none())
+
+    /** @see read */
+    fun read(domainId: String, requestOptions: RequestOptions): CompletableFuture<Domain> =
+        read(domainId, DomainReadParams.none(), requestOptions)
+
+    /**
+     * A view of [DomainServiceAsync] that provides access to raw HTTP responses for each method.
+     */
+    interface WithRawResponse {
+
+        /**
+         * Returns a view of this service with the given option modifications applied.
+         *
+         * The original service is not modified.
+         */
+        fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): DomainServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `get /cms/v3/domains/`, but is otherwise the same as
+         * [DomainServiceAsync.list].
+         */
+        fun list(): CompletableFuture<HttpResponseFor<DomainListPageAsync>> =
+            list(DomainListParams.none())
+
+        /** @see list */
+        fun list(
+            params: DomainListParams = DomainListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DomainListPageAsync>>
+
+        /** @see list */
+        fun list(
+            params: DomainListParams = DomainListParams.none()
+        ): CompletableFuture<HttpResponseFor<DomainListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<DomainListPageAsync>> =
+            list(DomainListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/v3/domains/{domainId}`, but is otherwise the
+         * same as [DomainServiceAsync.read].
+         */
+        fun read(domainId: String): CompletableFuture<HttpResponseFor<Domain>> =
+            read(domainId, DomainReadParams.none())
+
+        /** @see read */
+        fun read(
+            domainId: String,
+            params: DomainReadParams = DomainReadParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Domain>> =
+            read(params.toBuilder().domainId(domainId).build(), requestOptions)
+
+        /** @see read */
+        fun read(
+            domainId: String,
+            params: DomainReadParams = DomainReadParams.none(),
+        ): CompletableFuture<HttpResponseFor<Domain>> =
+            read(domainId, params, RequestOptions.none())
+
+        /** @see read */
+        fun read(
+            params: DomainReadParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Domain>>
+
+        /** @see read */
+        fun read(params: DomainReadParams): CompletableFuture<HttpResponseFor<Domain>> =
+            read(params, RequestOptions.none())
+
+        /** @see read */
+        fun read(
+            domainId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Domain>> =
+            read(domainId, DomainReadParams.none(), requestOptions)
+    }
+}
