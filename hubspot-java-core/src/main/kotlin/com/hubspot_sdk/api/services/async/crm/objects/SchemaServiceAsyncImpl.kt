@@ -21,13 +21,13 @@ import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationResponse
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
+import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -75,7 +75,7 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SchemaCreateAssociationResponse> =
+    ): CompletableFuture<AssociationDefinition> =
         // post /crm-object-schemas/v3/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).thenApply { it.parse() }
 
@@ -228,13 +228,13 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val createAssociationHandler: Handler<SchemaCreateAssociationResponse> =
-            jsonHandler<SchemaCreateAssociationResponse>(clientOptions.jsonMapper)
+        private val createAssociationHandler: Handler<AssociationDefinition> =
+            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createAssociation(
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>> {
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

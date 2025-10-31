@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.services.async.settings
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.settings.taxrates.CollectionResponsePublicTaxRateGroupForwardPaging
+import com.hubspot_sdk.api.models.settings.taxrates.PublicTaxRateGroup
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetParams
-import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetResponse
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListParams
-import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,25 +27,29 @@ interface TaxRateServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TaxRateServiceAsync
 
     /** Retrieve a paginated list of all tax rates set up in the account tax rate library */
-    fun list(): CompletableFuture<TaxRateListResponse> = list(TaxRateListParams.none())
+    fun list(): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
+        list(TaxRateListParams.none())
 
     /** @see list */
     fun list(
         params: TaxRateListParams = TaxRateListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TaxRateListResponse>
+    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging>
 
     /** @see list */
     fun list(
         params: TaxRateListParams = TaxRateListParams.none()
-    ): CompletableFuture<TaxRateListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<TaxRateListResponse> =
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
         list(TaxRateListParams.none(), requestOptions)
 
     /** Retrieve a specific tax rate by its `taxRateGroupId`. */
-    fun get(taxRateGroupId: String): CompletableFuture<TaxRateGetResponse> =
+    fun get(taxRateGroupId: String): CompletableFuture<PublicTaxRateGroup> =
         get(taxRateGroupId, TaxRateGetParams.none())
 
     /** @see get */
@@ -53,30 +57,30 @@ interface TaxRateServiceAsync {
         taxRateGroupId: String,
         params: TaxRateGetParams = TaxRateGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TaxRateGetResponse> =
+    ): CompletableFuture<PublicTaxRateGroup> =
         get(params.toBuilder().taxRateGroupId(taxRateGroupId).build(), requestOptions)
 
     /** @see get */
     fun get(
         taxRateGroupId: String,
         params: TaxRateGetParams = TaxRateGetParams.none(),
-    ): CompletableFuture<TaxRateGetResponse> = get(taxRateGroupId, params, RequestOptions.none())
+    ): CompletableFuture<PublicTaxRateGroup> = get(taxRateGroupId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: TaxRateGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TaxRateGetResponse>
+    ): CompletableFuture<PublicTaxRateGroup>
 
     /** @see get */
-    fun get(params: TaxRateGetParams): CompletableFuture<TaxRateGetResponse> =
+    fun get(params: TaxRateGetParams): CompletableFuture<PublicTaxRateGroup> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         taxRateGroupId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TaxRateGetResponse> =
+    ): CompletableFuture<PublicTaxRateGroup> =
         get(taxRateGroupId, TaxRateGetParams.none(), requestOptions)
 
     /**
@@ -97,32 +101,33 @@ interface TaxRateServiceAsync {
          * Returns a raw HTTP response for `get /tax-rates/v1/tax-rates`, but is otherwise the same
          * as [TaxRateServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<TaxRateListResponse>> =
+        fun list():
+            CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> =
             list(TaxRateListParams.none())
 
         /** @see list */
         fun list(
             params: TaxRateListParams = TaxRateListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TaxRateListResponse>>
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>>
 
         /** @see list */
         fun list(
             params: TaxRateListParams = TaxRateListParams.none()
-        ): CompletableFuture<HttpResponseFor<TaxRateListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TaxRateListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> =
             list(TaxRateListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /tax-rates/v1/tax-rates/{taxRateGroupId}`, but is
          * otherwise the same as [TaxRateServiceAsync.get].
          */
-        fun get(taxRateGroupId: String): CompletableFuture<HttpResponseFor<TaxRateGetResponse>> =
+        fun get(taxRateGroupId: String): CompletableFuture<HttpResponseFor<PublicTaxRateGroup>> =
             get(taxRateGroupId, TaxRateGetParams.none())
 
         /** @see get */
@@ -130,31 +135,31 @@ interface TaxRateServiceAsync {
             taxRateGroupId: String,
             params: TaxRateGetParams = TaxRateGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TaxRateGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicTaxRateGroup>> =
             get(params.toBuilder().taxRateGroupId(taxRateGroupId).build(), requestOptions)
 
         /** @see get */
         fun get(
             taxRateGroupId: String,
             params: TaxRateGetParams = TaxRateGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<TaxRateGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicTaxRateGroup>> =
             get(taxRateGroupId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: TaxRateGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TaxRateGetResponse>>
+        ): CompletableFuture<HttpResponseFor<PublicTaxRateGroup>>
 
         /** @see get */
-        fun get(params: TaxRateGetParams): CompletableFuture<HttpResponseFor<TaxRateGetResponse>> =
+        fun get(params: TaxRateGetParams): CompletableFuture<HttpResponseFor<PublicTaxRateGroup>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             taxRateGroupId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TaxRateGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicTaxRateGroup>> =
             get(taxRateGroupId, TaxRateGetParams.none(), requestOptions)
     }
 }

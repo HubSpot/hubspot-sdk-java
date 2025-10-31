@@ -13,13 +13,13 @@ internal class ApiActionDataValueTest {
     fun create() {
         val apiActionDataValue =
             ApiActionDataValue.builder()
-                .actionId("1")
-                .dataKey("hs_execution_state")
+                .actionId("actionId")
+                .dataKey("dataKey")
                 .type(ApiActionDataValue.Type.FIELD_DATA)
                 .build()
 
-        assertThat(apiActionDataValue.actionId()).isEqualTo("1")
-        assertThat(apiActionDataValue.dataKey()).isEqualTo("hs_execution_state")
+        assertThat(apiActionDataValue.actionId()).isEqualTo("actionId")
+        assertThat(apiActionDataValue.dataKey()).isEqualTo("dataKey")
         assertThat(apiActionDataValue.type()).isEqualTo(ApiActionDataValue.Type.FIELD_DATA)
     }
 
@@ -28,8 +28,8 @@ internal class ApiActionDataValueTest {
         val jsonMapper = jsonMapper()
         val apiActionDataValue =
             ApiActionDataValue.builder()
-                .actionId("1")
-                .dataKey("hs_execution_state")
+                .actionId("actionId")
+                .dataKey("dataKey")
                 .type(ApiActionDataValue.Type.FIELD_DATA)
                 .build()
 

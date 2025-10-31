@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectId
 import java.util.Objects
 
-/** Archive a batch of deals by ID */
+/** Archive multiple deals using their IDs. */
 class BatchDeleteParams
 private constructor(
     private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,

@@ -13,14 +13,14 @@ internal class ApiCustomCodeActionTest {
     fun create() {
         val apiCustomCodeAction =
             ApiCustomCodeAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .addInputField(
                     ApiInputVariable.builder()
                         .name("name")
                         .value(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
@@ -33,11 +33,9 @@ internal class ApiCustomCodeActionTest {
                         .type(ApiEnumerationOutputField.Type.ENUMERATION)
                         .build()
                 )
-                .runtime("PYTHON39")
+                .runtime("runtime")
                 .addSecretName("string")
-                .sourceCode(
-                    "def main(event):   # Use inputs to get data from any action in your workflow and use it in your code instead of having to use the HubSpot API.   email = event[\"inputFields\"][\"email\"]   # Return the output data that can be used in later actions in your workflow.   return {     \"outputFields\": {       \"email\": email     }   }"
-                )
+                .sourceCode("sourceCode")
                 .type(ApiCustomCodeAction.Type.CUSTOM_CODE)
                 .connection(
                     ApiConnection.builder()
@@ -47,15 +45,15 @@ internal class ApiCustomCodeActionTest {
                 )
                 .build()
 
-        assertThat(apiCustomCodeAction.actionId()).isEqualTo("1")
+        assertThat(apiCustomCodeAction.actionId()).isEqualTo("actionId")
         assertThat(apiCustomCodeAction.inputFields())
             .containsExactly(
                 ApiInputVariable.builder()
                     .name("name")
                     .value(
                         ApiActionDataValue.builder()
-                            .actionId("1")
-                            .dataKey("hs_execution_state")
+                            .actionId("actionId")
+                            .dataKey("dataKey")
                             .type(ApiActionDataValue.Type.FIELD_DATA)
                             .build()
                     )
@@ -69,12 +67,9 @@ internal class ApiCustomCodeActionTest {
                     .type(ApiEnumerationOutputField.Type.ENUMERATION)
                     .build()
             )
-        assertThat(apiCustomCodeAction.runtime()).isEqualTo("PYTHON39")
+        assertThat(apiCustomCodeAction.runtime()).isEqualTo("runtime")
         assertThat(apiCustomCodeAction.secretNames()).containsExactly("string")
-        assertThat(apiCustomCodeAction.sourceCode())
-            .isEqualTo(
-                "def main(event):   # Use inputs to get data from any action in your workflow and use it in your code instead of having to use the HubSpot API.   email = event[\"inputFields\"][\"email\"]   # Return the output data that can be used in later actions in your workflow.   return {     \"outputFields\": {       \"email\": email     }   }"
-            )
+        assertThat(apiCustomCodeAction.sourceCode()).isEqualTo("sourceCode")
         assertThat(apiCustomCodeAction.type()).isEqualTo(ApiCustomCodeAction.Type.CUSTOM_CODE)
         assertThat(apiCustomCodeAction.connection())
             .contains(
@@ -87,14 +82,14 @@ internal class ApiCustomCodeActionTest {
         val jsonMapper = jsonMapper()
         val apiCustomCodeAction =
             ApiCustomCodeAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .addInputField(
                     ApiInputVariable.builder()
                         .name("name")
                         .value(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
@@ -107,11 +102,9 @@ internal class ApiCustomCodeActionTest {
                         .type(ApiEnumerationOutputField.Type.ENUMERATION)
                         .build()
                 )
-                .runtime("PYTHON39")
+                .runtime("runtime")
                 .addSecretName("string")
-                .sourceCode(
-                    "def main(event):   # Use inputs to get data from any action in your workflow and use it in your code instead of having to use the HubSpot API.   email = event[\"inputFields\"][\"email\"]   # Return the output data that can be used in later actions in your workflow.   return {     \"outputFields\": {       \"email\": email     }   }"
-                )
+                .sourceCode("sourceCode")
                 .type(ApiCustomCodeAction.Type.CUSTOM_CODE)
                 .connection(
                     ApiConnection.builder()

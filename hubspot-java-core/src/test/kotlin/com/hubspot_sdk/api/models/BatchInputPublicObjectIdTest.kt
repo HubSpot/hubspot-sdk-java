@@ -13,11 +13,11 @@ internal class BatchInputPublicObjectIdTest {
     fun create() {
         val batchInputPublicObjectId =
             BatchInputPublicObjectId.builder()
-                .addInput(PublicObjectId.builder().id("37295").build())
+                .addInput(PublicObjectId.builder().id("id").build())
                 .build()
 
         assertThat(batchInputPublicObjectId.inputs())
-            .containsExactly(PublicObjectId.builder().id("37295").build())
+            .containsExactly(PublicObjectId.builder().id("id").build())
     }
 
     @Test
@@ -25,7 +25,7 @@ internal class BatchInputPublicObjectIdTest {
         val jsonMapper = jsonMapper()
         val batchInputPublicObjectId =
             BatchInputPublicObjectId.builder()
-                .addInput(PublicObjectId.builder().id("37295").build())
+                .addInput(PublicObjectId.builder().id("id").build())
                 .build()
 
         val roundtrippedBatchInputPublicObjectId =

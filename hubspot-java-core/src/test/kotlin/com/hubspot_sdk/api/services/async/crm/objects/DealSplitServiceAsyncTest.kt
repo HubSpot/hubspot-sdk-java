@@ -6,7 +6,9 @@ import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertParams
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitInput
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitsBatchCreateRequest
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitsCreateRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,15 +26,15 @@ internal class DealSplitServiceAsyncTest {
                 .build()
         val dealSplitServiceAsync = client.crm().objects().dealSplits()
 
-        val responseFuture =
+        val batchResponseDealToDealSplitsFuture =
             dealSplitServiceAsync.batchRead(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("37295").build())
+                    .addInput(PublicObjectId.builder().id("id").build())
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val batchResponseDealToDealSplits = batchResponseDealToDealSplitsFuture.get()
+        batchResponseDealToDealSplits.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -45,24 +47,21 @@ internal class DealSplitServiceAsyncTest {
                 .build()
         val dealSplitServiceAsync = client.crm().objects().dealSplits()
 
-        val responseFuture =
+        val batchResponseDealToDealSplitsFuture =
             dealSplitServiceAsync.batchUpsert(
-                DealSplitBatchUpsertParams.builder()
+                PublicDealSplitsBatchCreateRequest.builder()
                     .addInput(
-                        DealSplitBatchUpsertParams.Input.builder()
+                        PublicDealSplitsCreateRequest.builder()
                             .id(0)
                             .addSplit(
-                                DealSplitBatchUpsertParams.Input.Split.builder()
-                                    .ownerId(0)
-                                    .percentage(0.0)
-                                    .build()
+                                PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build()
                             )
                             .build()
                     )
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val batchResponseDealToDealSplits = batchResponseDealToDealSplitsFuture.get()
+        batchResponseDealToDealSplits.validate()
     }
 }

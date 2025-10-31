@@ -4,6 +4,11 @@ package com.hubspot_sdk.api.services.async.cms.mediabridge
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.models.cms.mediabridge.Endpoints
+import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorObjectCreationRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderPartial
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateObjectDefinitionParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateOembedDomainParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetObjectDefinitionsByMediaTypeParams
@@ -29,16 +34,20 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val bulkIntegratorObjectCreationResponseFuture =
             integratorSettingServiceAsync.createObjectDefinition(
                 IntegratorSettingCreateObjectDefinitionParams.builder()
                     .appId("appId")
-                    .addMediaType(IntegratorSettingCreateObjectDefinitionParams.MediaType.VIDEO)
+                    .integratorObjectCreationRequest(
+                        IntegratorObjectCreationRequest.builder()
+                            .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
+                            .build()
+                    )
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val bulkIntegratorObjectCreationResponse = bulkIntegratorObjectCreationResponseFuture.get()
+        bulkIntegratorObjectCreationResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -51,23 +60,27 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val integratorOEmbedDomainModelFuture =
             integratorSettingServiceAsync.createOembedDomain(
                 IntegratorSettingCreateOembedDomainParams.builder()
                     .appId("appId")
-                    .endpoints(
-                        IntegratorSettingCreateOembedDomainParams.Endpoints.builder()
-                            .discovery(true)
-                            .addScheme("string")
-                            .url("url")
+                    .integratorOEmbedDomainRequest(
+                        IntegratorOEmbedDomainRequest.builder()
+                            .endpoints(
+                                Endpoints.builder()
+                                    .discovery(true)
+                                    .addScheme("string")
+                                    .url("url")
+                                    .build()
+                            )
+                            .portalId(0)
                             .build()
                     )
-                    .portalId(0)
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val integratorOEmbedDomainModel = integratorOEmbedDomainModelFuture.get()
+        integratorOEmbedDomainModel.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -95,10 +108,11 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture = integratorSettingServiceAsync.getEventVisibilitySettings("appId")
+        val eventVisibilityResponseFuture =
+            integratorSettingServiceAsync.getEventVisibilitySettings("appId")
 
-        val response = responseFuture.get()
-        response.validate()
+        val eventVisibilityResponse = eventVisibilityResponseFuture.get()
+        eventVisibilityResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -111,7 +125,7 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val objectDefinitionResponseFuture =
             integratorSettingServiceAsync.getObjectDefinitionsByMediaType(
                 IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
                     .appId("appId")
@@ -119,8 +133,8 @@ internal class IntegratorSettingServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val objectDefinitionResponse = objectDefinitionResponseFuture.get()
+        objectDefinitionResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -133,7 +147,7 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val integratorOEmbedDomainModelFuture =
             integratorSettingServiceAsync.getOembedDomain(
                 IntegratorSettingGetOembedDomainParams.builder()
                     .appId("appId")
@@ -141,8 +155,8 @@ internal class IntegratorSettingServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val integratorOEmbedDomainModel = integratorOEmbedDomainModelFuture.get()
+        integratorOEmbedDomainModel.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -155,10 +169,11 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture = integratorSettingServiceAsync.listOembedDomains("appId")
+        val oEmbedDomainsCollectionResponseFuture =
+            integratorSettingServiceAsync.listOembedDomains("appId")
 
-        val response = responseFuture.get()
-        response.validate()
+        val oEmbedDomainsCollectionResponse = oEmbedDomainsCollectionResponseFuture.get()
+        oEmbedDomainsCollectionResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -171,17 +186,19 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val mediaBridgeProviderRegistrationResponseFuture =
             integratorSettingServiceAsync.registerAppName(
                 IntegratorSettingRegisterAppNameParams.builder()
                     .appId("appId")
-                    .updatedAt(0L)
-                    .name("name")
+                    .mediaBridgeProviderPartial(
+                        MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
+                    )
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val mediaBridgeProviderRegistrationResponse =
+            mediaBridgeProviderRegistrationResponseFuture.get()
+        mediaBridgeProviderRegistrationResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -194,17 +211,19 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val mediaBridgeProviderRegistrationResponseFuture =
             integratorSettingServiceAsync.updateAppName(
                 IntegratorSettingUpdateAppNameParams.builder()
                     .appId("appId")
-                    .updatedAt(0L)
-                    .name("name")
+                    .mediaBridgeProviderPartial(
+                        MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
+                    )
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val mediaBridgeProviderRegistrationResponse =
+            mediaBridgeProviderRegistrationResponseFuture.get()
+        mediaBridgeProviderRegistrationResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -217,20 +236,24 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val eventVisibilityChangeFuture =
             integratorSettingServiceAsync.updateEventVisibilitySettings(
                 IntegratorSettingUpdateEventVisibilitySettingsParams.builder()
                     .appId("appId")
-                    .eventType(IntegratorSettingUpdateEventVisibilitySettingsParams.EventType.ALL)
-                    .updatedAt(0L)
-                    .showInReporting(true)
-                    .showInTimeline(true)
-                    .showInWorkflows(true)
+                    .eventVisibilityChange(
+                        EventVisibilityChange.builder()
+                            .eventType(EventVisibilityChange.EventType.ALL)
+                            .updatedAt(0L)
+                            .showInReporting(true)
+                            .showInTimeline(true)
+                            .showInWorkflows(true)
+                            .build()
+                    )
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val eventVisibilityChange = eventVisibilityChangeFuture.get()
+        eventVisibilityChange.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -243,23 +266,27 @@ internal class IntegratorSettingServiceAsyncTest {
                 .build()
         val integratorSettingServiceAsync = client.cms().mediaBridge().integratorSettings()
 
-        val responseFuture =
+        val integratorOEmbedDomainModelFuture =
             integratorSettingServiceAsync.updateOembedDomain(
                 IntegratorSettingUpdateOembedDomainParams.builder()
                     .appId("appId")
                     .oEmbedDomainId("oEmbedDomainId")
-                    .endpoints(
-                        IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                            .discovery(true)
-                            .addScheme("string")
-                            .url("url")
+                    .integratorOEmbedDomainRequest(
+                        IntegratorOEmbedDomainRequest.builder()
+                            .endpoints(
+                                Endpoints.builder()
+                                    .discovery(true)
+                                    .addScheme("string")
+                                    .url("url")
+                                    .build()
+                            )
+                            .portalId(0)
                             .build()
                     )
-                    .portalId(0)
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val integratorOEmbedDomainModel = integratorOEmbedDomainModelFuture.get()
+        integratorOEmbedDomainModel.validate()
     }
 }

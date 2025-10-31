@@ -38,8 +38,6 @@ private constructor(
     ) : this(actionId, testBranches, type, mutableMapOf())
 
     /**
-     * The ID for this action.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -52,9 +50,6 @@ private constructor(
     fun testBranches(): List<ApiConnection> = testBranches.getRequired("testBranches")
 
     /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -126,7 +121,6 @@ private constructor(
             additionalProperties = apiAbTestBranchAction.additionalProperties.toMutableMap()
         }
 
-        /** The ID for this action. */
         fun actionId(actionId: String) = actionId(JsonField.of(actionId))
 
         /**
@@ -163,10 +157,6 @@ private constructor(
                 }
         }
 
-        /**
-         * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-         * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -251,10 +241,6 @@ private constructor(
             (testBranches.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

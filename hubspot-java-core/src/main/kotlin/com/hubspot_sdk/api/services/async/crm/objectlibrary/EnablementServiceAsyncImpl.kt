@@ -15,10 +15,10 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.objectlibrary.ObjectTypeEnablementPublicResponse
+import com.hubspot_sdk.api.models.crm.objectlibrary.PortalObjectTypeEnablementPublicResponse
 import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementGetParams
-import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementGetResponse
 import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementListParams
-import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -38,14 +38,14 @@ class EnablementServiceAsyncImpl internal constructor(private val clientOptions:
     override fun list(
         params: EnablementListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnablementListResponse> =
+    ): CompletableFuture<PortalObjectTypeEnablementPublicResponse> =
         // get /crm/v3/object-library/enablement
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: EnablementGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnablementGetResponse> =
+    ): CompletableFuture<ObjectTypeEnablementPublicResponse> =
         // get /crm/v3/object-library/enablement/{objectTypeId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -62,13 +62,13 @@ class EnablementServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<EnablementListResponse> =
-            jsonHandler<EnablementListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PortalObjectTypeEnablementPublicResponse> =
+            jsonHandler<PortalObjectTypeEnablementPublicResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EnablementListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnablementListResponse>> {
+        ): CompletableFuture<HttpResponseFor<PortalObjectTypeEnablementPublicResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -92,13 +92,13 @@ class EnablementServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val getHandler: Handler<EnablementGetResponse> =
-            jsonHandler<EnablementGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<ObjectTypeEnablementPublicResponse> =
+            jsonHandler<ObjectTypeEnablementPublicResponse>(clientOptions.jsonMapper)
 
         override fun get(
             params: EnablementGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnablementGetResponse>> {
+        ): CompletableFuture<HttpResponseFor<ObjectTypeEnablementPublicResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectTypeId", params.objectTypeId().getOrNull())

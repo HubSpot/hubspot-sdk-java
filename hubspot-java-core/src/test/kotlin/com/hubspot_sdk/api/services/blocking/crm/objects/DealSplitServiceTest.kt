@@ -6,7 +6,9 @@ import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertParams
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitInput
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitsBatchCreateRequest
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitsCreateRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,14 +26,14 @@ internal class DealSplitServiceTest {
                 .build()
         val dealSplitService = client.crm().objects().dealSplits()
 
-        val response =
+        val batchResponseDealToDealSplits =
             dealSplitService.batchRead(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("37295").build())
+                    .addInput(PublicObjectId.builder().id("id").build())
                     .build()
             )
 
-        response.validate()
+        batchResponseDealToDealSplits.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -44,23 +46,20 @@ internal class DealSplitServiceTest {
                 .build()
         val dealSplitService = client.crm().objects().dealSplits()
 
-        val response =
+        val batchResponseDealToDealSplits =
             dealSplitService.batchUpsert(
-                DealSplitBatchUpsertParams.builder()
+                PublicDealSplitsBatchCreateRequest.builder()
                     .addInput(
-                        DealSplitBatchUpsertParams.Input.builder()
+                        PublicDealSplitsCreateRequest.builder()
                             .id(0)
                             .addSplit(
-                                DealSplitBatchUpsertParams.Input.Split.builder()
-                                    .ownerId(0)
-                                    .percentage(0.0)
-                                    .build()
+                                PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build()
                             )
                             .build()
                     )
                     .build()
             )
 
-        response.validate()
+        batchResponseDealToDealSplits.validate()
     }
 }

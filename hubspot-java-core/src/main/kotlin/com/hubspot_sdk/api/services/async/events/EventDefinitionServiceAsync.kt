@@ -9,16 +9,15 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeleteParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeletePropertyParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListPageAsync
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateResponse
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinitionEgg
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -39,50 +38,59 @@ interface EventDefinitionServiceAsync {
     /** Create a custom event definition. */
     fun create(
         params: EventDefinitionCreateParams
-    ): CompletableFuture<EventDefinitionCreateResponse> = create(params, RequestOptions.none())
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: EventDefinitionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventDefinitionCreateResponse>
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition>
+
+    /** @see create */
+    fun create(
+        externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
+        create(
+            EventDefinitionCreateParams.builder()
+                .externalBehavioralEventTypeDefinitionEgg(externalBehavioralEventTypeDefinitionEgg)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
+        create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
     /** Update a specific custom event definition by name. */
-    fun update(eventName: String): CompletableFuture<EventDefinitionUpdateResponse> =
-        update(eventName, EventDefinitionUpdateParams.none())
+    fun update(
+        eventName: String,
+        params: EventDefinitionUpdateParams,
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
+        update(eventName, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         eventName: String,
-        params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
+        params: EventDefinitionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventDefinitionUpdateResponse> =
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         update(params.toBuilder().eventName(eventName).build(), requestOptions)
 
     /** @see update */
     fun update(
-        eventName: String,
-        params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
-    ): CompletableFuture<EventDefinitionUpdateResponse> =
-        update(eventName, params, RequestOptions.none())
+        params: EventDefinitionUpdateParams
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
+        update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: EventDefinitionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventDefinitionUpdateResponse>
-
-    /** @see update */
-    fun update(
-        params: EventDefinitionUpdateParams
-    ): CompletableFuture<EventDefinitionUpdateResponse> = update(params, RequestOptions.none())
-
-    /** @see update */
-    fun update(
-        eventName: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<EventDefinitionUpdateResponse> =
-        update(eventName, EventDefinitionUpdateParams.none(), requestOptions)
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition>
 
     /** Retrieve existing custom event definitions. */
     fun list(): CompletableFuture<EventDefinitionListPageAsync> =
@@ -184,7 +192,7 @@ interface EventDefinitionServiceAsync {
     ): CompletableFuture<Void?>
 
     /** Fetch a single custom event definition by name. */
-    fun get(eventName: String): CompletableFuture<EventDefinitionGetResponse> =
+    fun get(eventName: String): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         get(eventName, EventDefinitionGetParams.none())
 
     /** @see get */
@@ -192,30 +200,32 @@ interface EventDefinitionServiceAsync {
         eventName: String,
         params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventDefinitionGetResponse> =
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         get(params.toBuilder().eventName(eventName).build(), requestOptions)
 
     /** @see get */
     fun get(
         eventName: String,
         params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
-    ): CompletableFuture<EventDefinitionGetResponse> = get(eventName, params, RequestOptions.none())
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
+        get(eventName, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: EventDefinitionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventDefinitionGetResponse>
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition>
 
     /** @see get */
-    fun get(params: EventDefinitionGetParams): CompletableFuture<EventDefinitionGetResponse> =
-        get(params, RequestOptions.none())
+    fun get(
+        params: EventDefinitionGetParams
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> = get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         eventName: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventDefinitionGetResponse> =
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         get(eventName, EventDefinitionGetParams.none(), requestOptions)
 
     /** Update an existing property in a custom event definition. */
@@ -263,57 +273,64 @@ interface EventDefinitionServiceAsync {
          */
         fun create(
             params: EventDefinitionCreateParams
-        ): CompletableFuture<HttpResponseFor<EventDefinitionCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: EventDefinitionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventDefinitionCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>>
+
+        /** @see create */
+        fun create(
+            externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
+            create(
+                EventDefinitionCreateParams.builder()
+                    .externalBehavioralEventTypeDefinitionEgg(
+                        externalBehavioralEventTypeDefinitionEgg
+                    )
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
+            create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /events/v3/event-definitions/{eventName}`, but is
          * otherwise the same as [EventDefinitionServiceAsync.update].
          */
         fun update(
-            eventName: String
-        ): CompletableFuture<HttpResponseFor<EventDefinitionUpdateResponse>> =
-            update(eventName, EventDefinitionUpdateParams.none())
+            eventName: String,
+            params: EventDefinitionUpdateParams,
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
+            update(eventName, params, RequestOptions.none())
 
         /** @see update */
         fun update(
             eventName: String,
-            params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
+            params: EventDefinitionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventDefinitionUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
             update(params.toBuilder().eventName(eventName).build(), requestOptions)
 
         /** @see update */
         fun update(
-            eventName: String,
-            params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
-        ): CompletableFuture<HttpResponseFor<EventDefinitionUpdateResponse>> =
-            update(eventName, params, RequestOptions.none())
+            params: EventDefinitionUpdateParams
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
+            update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: EventDefinitionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventDefinitionUpdateResponse>>
-
-        /** @see update */
-        fun update(
-            params: EventDefinitionUpdateParams
-        ): CompletableFuture<HttpResponseFor<EventDefinitionUpdateResponse>> =
-            update(params, RequestOptions.none())
-
-        /** @see update */
-        fun update(
-            eventName: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventDefinitionUpdateResponse>> =
-            update(eventName, EventDefinitionUpdateParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>>
 
         /**
          * Returns a raw HTTP response for `get /events/v3/event-definitions`, but is otherwise the
@@ -442,7 +459,9 @@ interface EventDefinitionServiceAsync {
          * Returns a raw HTTP response for `get /events/v3/event-definitions/{eventName}`, but is
          * otherwise the same as [EventDefinitionServiceAsync.get].
          */
-        fun get(eventName: String): CompletableFuture<HttpResponseFor<EventDefinitionGetResponse>> =
+        fun get(
+            eventName: String
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
             get(eventName, EventDefinitionGetParams.none())
 
         /** @see get */
@@ -450,33 +469,33 @@ interface EventDefinitionServiceAsync {
             eventName: String,
             params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventDefinitionGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
             get(params.toBuilder().eventName(eventName).build(), requestOptions)
 
         /** @see get */
         fun get(
             eventName: String,
             params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<EventDefinitionGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
             get(eventName, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: EventDefinitionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventDefinitionGetResponse>>
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>>
 
         /** @see get */
         fun get(
             params: EventDefinitionGetParams
-        ): CompletableFuture<HttpResponseFor<EventDefinitionGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             eventName: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventDefinitionGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> =
             get(eventName, EventDefinitionGetParams.none(), requestOptions)
 
         /**

@@ -15,8 +15,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.cms.auditlogs.AuditLogListPageAsync
-import com.hubspot_sdk.api.models.cms.auditlogs.AuditLogListPageResponse
 import com.hubspot_sdk.api.models.cms.auditlogs.AuditLogListParams
+import com.hubspot_sdk.api.models.cms.auditlogs.CollectionResponsePublicAuditLog
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -52,8 +52,8 @@ class AuditLogServiceAsyncImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<AuditLogListPageResponse> =
-            jsonHandler<AuditLogListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CollectionResponsePublicAuditLog> =
+            jsonHandler<CollectionResponsePublicAuditLog>(clientOptions.jsonMapper)
 
         override fun list(
             params: AuditLogListParams,

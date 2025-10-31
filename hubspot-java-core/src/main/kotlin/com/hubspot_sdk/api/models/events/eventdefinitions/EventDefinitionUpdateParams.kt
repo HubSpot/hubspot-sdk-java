@@ -2,19 +2,11 @@
 
 package com.hubspot_sdk.api.models.events.eventdefinitions
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.hubspot_sdk.api.core.ExcludeMissing
-import com.hubspot_sdk.api.core.JsonField
-import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -23,44 +15,19 @@ import kotlin.jvm.optionals.getOrNull
 class EventDefinitionUpdateParams
 private constructor(
     private val eventName: String?,
-    private val body: Body,
+    private val externalBehavioralEventTypeDefinitionPatch:
+        ExternalBehavioralEventTypeDefinitionPatch,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun eventName(): Optional<String> = Optional.ofNullable(eventName)
 
-    /**
-     * A description of the event that will be shown as help text in HubSpot.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun description(): Optional<String> = body.description()
+    fun externalBehavioralEventTypeDefinitionPatch(): ExternalBehavioralEventTypeDefinitionPatch =
+        externalBehavioralEventTypeDefinitionPatch
 
-    /**
-     * Human readable label for the event. Used in HubSpot UI
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun label(): Optional<String> = body.label()
-
-    /**
-     * Returns the raw JSON value of [description].
-     *
-     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _description(): JsonField<String> = body._description()
-
-    /**
-     * Returns the raw JSON value of [label].
-     *
-     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _label(): JsonField<String> = body._label()
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        externalBehavioralEventTypeDefinitionPatch._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -72,10 +39,13 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): EventDefinitionUpdateParams = builder().build()
-
         /**
          * Returns a mutable builder for constructing an instance of [EventDefinitionUpdateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .externalBehavioralEventTypeDefinitionPatch()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -84,14 +54,17 @@ private constructor(
     class Builder internal constructor() {
 
         private var eventName: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var externalBehavioralEventTypeDefinitionPatch:
+            ExternalBehavioralEventTypeDefinitionPatch? =
+            null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(eventDefinitionUpdateParams: EventDefinitionUpdateParams) = apply {
             eventName = eventDefinitionUpdateParams.eventName
-            body = eventDefinitionUpdateParams.body.toBuilder()
+            externalBehavioralEventTypeDefinitionPatch =
+                eventDefinitionUpdateParams.externalBehavioralEventTypeDefinitionPatch
             additionalHeaders = eventDefinitionUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = eventDefinitionUpdateParams.additionalQueryParams.toBuilder()
         }
@@ -101,56 +74,11 @@ private constructor(
         /** Alias for calling [Builder.eventName] with `eventName.orElse(null)`. */
         fun eventName(eventName: Optional<String>) = eventName(eventName.getOrNull())
 
-        /**
-         * Sets the entire request body.
-         *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [description]
-         * - [label]
-         */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        /** A description of the event that will be shown as help text in HubSpot. */
-        fun description(description: String) = apply { body.description(description) }
-
-        /**
-         * Sets [Builder.description] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.description] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun description(description: JsonField<String>) = apply { body.description(description) }
-
-        /** Human readable label for the event. Used in HubSpot UI */
-        fun label(label: String) = apply { body.label(label) }
-
-        /**
-         * Sets [Builder.label] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.label] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun label(label: JsonField<String>) = apply { body.label(label) }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
+        fun externalBehavioralEventTypeDefinitionPatch(
+            externalBehavioralEventTypeDefinitionPatch: ExternalBehavioralEventTypeDefinitionPatch
+        ) = apply {
+            this.externalBehavioralEventTypeDefinitionPatch =
+                externalBehavioralEventTypeDefinitionPatch
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -255,17 +183,28 @@ private constructor(
          * Returns an immutable instance of [EventDefinitionUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .externalBehavioralEventTypeDefinitionPatch()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EventDefinitionUpdateParams =
             EventDefinitionUpdateParams(
                 eventName,
-                body.build(),
+                checkRequired(
+                    "externalBehavioralEventTypeDefinitionPatch",
+                    externalBehavioralEventTypeDefinitionPatch,
+                ),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): ExternalBehavioralEventTypeDefinitionPatch =
+        externalBehavioralEventTypeDefinitionPatch
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -277,189 +216,6 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val description: JsonField<String>,
-        private val label: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("description")
-            @ExcludeMissing
-            description: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
-        ) : this(description, label, mutableMapOf())
-
-        /**
-         * A description of the event that will be shown as help text in HubSpot.
-         *
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun description(): Optional<String> = description.getOptional("description")
-
-        /**
-         * Human readable label for the event. Used in HubSpot UI
-         *
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun label(): Optional<String> = label.getOptional("label")
-
-        /**
-         * Returns the raw JSON value of [description].
-         *
-         * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("description")
-        @ExcludeMissing
-        fun _description(): JsonField<String> = description
-
-        /**
-         * Returns the raw JSON value of [label].
-         *
-         * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Body]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var description: JsonField<String> = JsonMissing.of()
-            private var label: JsonField<String> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                description = body.description
-                label = body.label
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            /** A description of the event that will be shown as help text in HubSpot. */
-            fun description(description: String) = description(JsonField.of(description))
-
-            /**
-             * Sets [Builder.description] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.description] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun description(description: JsonField<String>) = apply {
-                this.description = description
-            }
-
-            /** Human readable label for the event. Used in HubSpot UI */
-            fun label(label: String) = label(JsonField.of(label))
-
-            /**
-             * Sets [Builder.label] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.label] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun label(label: JsonField<String>) = apply { this.label = label }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Body = Body(description, label, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            description()
-            label()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: HubspotInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (description.asKnown().isPresent) 1 else 0) +
-                (if (label.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Body &&
-                description == other.description &&
-                label == other.label &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(description, label, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{description=$description, label=$label, additionalProperties=$additionalProperties}"
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -467,14 +223,20 @@ private constructor(
 
         return other is EventDefinitionUpdateParams &&
             eventName == other.eventName &&
-            body == other.body &&
+            externalBehavioralEventTypeDefinitionPatch ==
+                other.externalBehavioralEventTypeDefinitionPatch &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(eventName, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            eventName,
+            externalBehavioralEventTypeDefinitionPatch,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "EventDefinitionUpdateParams{eventName=$eventName, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EventDefinitionUpdateParams{eventName=$eventName, externalBehavioralEventTypeDefinitionPatch=$externalBehavioralEventTypeDefinitionPatch, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

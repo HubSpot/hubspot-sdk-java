@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.blocking.crm.featureflags
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.crm.featureflags.FlagPutRequest
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteParams
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetParams
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsParams
@@ -25,17 +26,21 @@ internal class AppServiceTest {
                 .build()
         val appService = client.crm().featureFlags().apps()
 
-        val app =
+        val flagResponse =
             appService.update(
                 AppUpdateParams.builder()
                     .appId(0)
                     .flagName("flagName")
-                    .defaultState(AppUpdateParams.DefaultState.OFF)
-                    .overrideState(AppUpdateParams.OverrideState.OFF)
+                    .flagPutRequest(
+                        FlagPutRequest.builder()
+                            .defaultState(FlagPutRequest.DefaultState.OFF)
+                            .overrideState(FlagPutRequest.OverrideState.OFF)
+                            .build()
+                    )
                     .build()
             )
 
-        app.validate()
+        flagResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -48,9 +53,10 @@ internal class AppServiceTest {
                 .build()
         val appService = client.crm().featureFlags().apps()
 
-        val app = appService.delete(AppDeleteParams.builder().appId(0).flagName("flagName").build())
+        val flagResponse =
+            appService.delete(AppDeleteParams.builder().appId(0).flagName("flagName").build())
 
-        app.validate()
+        flagResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -63,9 +69,10 @@ internal class AppServiceTest {
                 .build()
         val appService = client.crm().featureFlags().apps()
 
-        val app = appService.get(AppGetParams.builder().appId(0).flagName("flagName").build())
+        val flagResponse =
+            appService.get(AppGetParams.builder().appId(0).flagName("flagName").build())
 
-        app.validate()
+        flagResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -78,7 +85,7 @@ internal class AppServiceTest {
                 .build()
         val appService = client.crm().featureFlags().apps()
 
-        val response =
+        val portalFlagStateBatchResponse =
             appService.listPortals(
                 AppListPortalsParams.builder()
                     .appId(0)
@@ -88,6 +95,6 @@ internal class AppServiceTest {
                     .build()
             )
 
-        response.validate()
+        portalFlagStateBatchResponse.validate()
     }
 }

@@ -389,7 +389,7 @@ internal class ApiEventBasedEnrollmentCriteriaTest {
                         )
                         .build()
                 )
-                .shouldReEnroll(false)
+                .shouldReEnroll(true)
                 .type(ApiEventBasedEnrollmentCriteria.Type.EVENT_BASED)
                 .refinementCriteria(
                     PublicOrFilterBranch.builder()
@@ -764,7 +764,7 @@ internal class ApiEventBasedEnrollmentCriteriaTest {
                         .build()
                 )
             )
-        assertThat(apiEventBasedEnrollmentCriteria.shouldReEnroll()).isEqualTo(false)
+        assertThat(apiEventBasedEnrollmentCriteria.shouldReEnroll()).isEqualTo(true)
         assertThat(apiEventBasedEnrollmentCriteria.type())
             .isEqualTo(ApiEventBasedEnrollmentCriteria.Type.EVENT_BASED)
         assertThat(apiEventBasedEnrollmentCriteria.refinementCriteria())
@@ -1165,7 +1165,7 @@ internal class ApiEventBasedEnrollmentCriteriaTest {
                         )
                         .build()
                 )
-                .shouldReEnroll(false)
+                .shouldReEnroll(true)
                 .type(ApiEventBasedEnrollmentCriteria.Type.EVENT_BASED)
                 .refinementCriteria(
                     PublicOrFilterBranch.builder()

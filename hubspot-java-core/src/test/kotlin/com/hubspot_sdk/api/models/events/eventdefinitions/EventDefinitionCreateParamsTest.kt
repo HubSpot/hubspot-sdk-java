@@ -11,27 +11,31 @@ internal class EventDefinitionCreateParamsTest {
     @Test
     fun create() {
         EventDefinitionCreateParams.builder()
-            .label("label")
-            .addPropertyDefinition(
-                EventDefinitionCreateParams.PropertyDefinition.builder()
+            .externalBehavioralEventTypeDefinitionEgg(
+                ExternalBehavioralEventTypeDefinitionEgg.builder()
                     .label("label")
-                    .type("type")
-                    .description("description")
-                    .name("name")
-                    .addOption(
-                        OptionInput.builder()
-                            .displayOrder(0)
-                            .hidden(true)
+                    .addPropertyDefinition(
+                        ExternalBehavioralEventPropertyCreate.builder()
                             .label("label")
-                            .value("value")
+                            .type("type")
                             .description("description")
+                            .name("name")
+                            .addOption(
+                                OptionInput.builder()
+                                    .displayOrder(0)
+                                    .hidden(true)
+                                    .label("label")
+                                    .value("value")
+                                    .description("description")
+                                    .build()
+                            )
                             .build()
                     )
+                    .description("description")
+                    .name("name")
+                    .primaryObject("primaryObject")
                     .build()
             )
-            .description("description")
-            .name("name")
-            .primaryObject("primaryObject")
             .build()
     }
 
@@ -39,76 +43,92 @@ internal class EventDefinitionCreateParamsTest {
     fun body() {
         val params =
             EventDefinitionCreateParams.builder()
-                .label("label")
-                .addPropertyDefinition(
-                    EventDefinitionCreateParams.PropertyDefinition.builder()
+                .externalBehavioralEventTypeDefinitionEgg(
+                    ExternalBehavioralEventTypeDefinitionEgg.builder()
                         .label("label")
-                        .type("type")
-                        .description("description")
-                        .name("name")
-                        .addOption(
-                            OptionInput.builder()
-                                .displayOrder(0)
-                                .hidden(true)
+                        .addPropertyDefinition(
+                            ExternalBehavioralEventPropertyCreate.builder()
                                 .label("label")
-                                .value("value")
+                                .type("type")
                                 .description("description")
+                                .name("name")
+                                .addOption(
+                                    OptionInput.builder()
+                                        .displayOrder(0)
+                                        .hidden(true)
+                                        .label("label")
+                                        .value("value")
+                                        .description("description")
+                                        .build()
+                                )
                                 .build()
                         )
+                        .description("description")
+                        .name("name")
+                        .primaryObject("primaryObject")
                         .build()
                 )
-                .description("description")
-                .name("name")
-                .primaryObject("primaryObject")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.label()).isEqualTo("label")
-        assertThat(body.propertyDefinitions())
-            .containsExactly(
-                EventDefinitionCreateParams.PropertyDefinition.builder()
+        assertThat(body)
+            .isEqualTo(
+                ExternalBehavioralEventTypeDefinitionEgg.builder()
                     .label("label")
-                    .type("type")
-                    .description("description")
-                    .name("name")
-                    .addOption(
-                        OptionInput.builder()
-                            .displayOrder(0)
-                            .hidden(true)
+                    .addPropertyDefinition(
+                        ExternalBehavioralEventPropertyCreate.builder()
                             .label("label")
-                            .value("value")
+                            .type("type")
                             .description("description")
+                            .name("name")
+                            .addOption(
+                                OptionInput.builder()
+                                    .displayOrder(0)
+                                    .hidden(true)
+                                    .label("label")
+                                    .value("value")
+                                    .description("description")
+                                    .build()
+                            )
                             .build()
                     )
+                    .description("description")
+                    .name("name")
+                    .primaryObject("primaryObject")
                     .build()
             )
-        assertThat(body.description()).contains("description")
-        assertThat(body.name()).contains("name")
-        assertThat(body.primaryObject()).contains("primaryObject")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
             EventDefinitionCreateParams.builder()
-                .label("label")
-                .addPropertyDefinition(
-                    EventDefinitionCreateParams.PropertyDefinition.builder()
+                .externalBehavioralEventTypeDefinitionEgg(
+                    ExternalBehavioralEventTypeDefinitionEgg.builder()
                         .label("label")
-                        .type("type")
+                        .addPropertyDefinition(
+                            ExternalBehavioralEventPropertyCreate.builder()
+                                .label("label")
+                                .type("type")
+                                .build()
+                        )
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.label()).isEqualTo("label")
-        assertThat(body.propertyDefinitions())
-            .containsExactly(
-                EventDefinitionCreateParams.PropertyDefinition.builder()
+        assertThat(body)
+            .isEqualTo(
+                ExternalBehavioralEventTypeDefinitionEgg.builder()
                     .label("label")
-                    .type("type")
+                    .addPropertyDefinition(
+                        ExternalBehavioralEventPropertyCreate.builder()
+                            .label("label")
+                            .type("type")
+                            .build()
+                    )
                     .build()
             )
     }

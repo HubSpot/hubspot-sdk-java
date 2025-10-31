@@ -4,7 +4,8 @@ package com.hubspot_sdk.api.services.async.cms
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMappingCreateRequestBody
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -24,9 +25,9 @@ internal class UrlRedirectServiceAsyncTest {
                 .build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
-        val urlRedirectFuture =
+        val urlMappingFuture =
             urlRedirectServiceAsync.create(
-                UrlRedirectCreateParams.builder()
+                UrlMappingCreateRequestBody.builder()
                     .destination("destination")
                     .redirectStyle(0)
                     .routePrefix("routePrefix")
@@ -40,8 +41,8 @@ internal class UrlRedirectServiceAsyncTest {
                     .build()
             )
 
-        val urlRedirect = urlRedirectFuture.get()
-        urlRedirect.validate()
+        val urlMapping = urlMappingFuture.get()
+        urlMapping.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -54,28 +55,32 @@ internal class UrlRedirectServiceAsyncTest {
                 .build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
-        val urlRedirectFuture =
+        val urlMappingFuture =
             urlRedirectServiceAsync.update(
                 UrlRedirectUpdateParams.builder()
                     .urlRedirectId("urlRedirectId")
-                    .id("id")
-                    .destination("destination")
-                    .isMatchFullUrl(true)
-                    .isMatchQueryString(true)
-                    .isOnlyAfterNotFound(true)
-                    .isPattern(true)
-                    .isProtocolAgnostic(true)
-                    .isTrailingSlashOptional(true)
-                    .precedence(0)
-                    .redirectStyle(0)
-                    .routePrefix("routePrefix")
-                    .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .urlMapping(
+                        UrlMapping.builder()
+                            .id("id")
+                            .destination("destination")
+                            .isMatchFullUrl(true)
+                            .isMatchQueryString(true)
+                            .isOnlyAfterNotFound(true)
+                            .isPattern(true)
+                            .isProtocolAgnostic(true)
+                            .isTrailingSlashOptional(true)
+                            .precedence(0)
+                            .redirectStyle(0)
+                            .routePrefix("routePrefix")
+                            .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
                     .build()
             )
 
-        val urlRedirect = urlRedirectFuture.get()
-        urlRedirect.validate()
+        val urlMapping = urlMappingFuture.get()
+        urlMapping.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -119,9 +124,9 @@ internal class UrlRedirectServiceAsyncTest {
                 .build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
-        val urlRedirectFuture = urlRedirectServiceAsync.get("urlRedirectId")
+        val urlMappingFuture = urlRedirectServiceAsync.get("urlRedirectId")
 
-        val urlRedirect = urlRedirectFuture.get()
-        urlRedirect.validate()
+        val urlMapping = urlMappingFuture.get()
+        urlMapping.validate()
     }
 }

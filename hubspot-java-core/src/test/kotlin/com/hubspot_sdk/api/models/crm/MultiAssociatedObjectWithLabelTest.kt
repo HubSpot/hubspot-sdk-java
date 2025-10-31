@@ -4,7 +4,6 @@ package com.hubspot_sdk.api.models.crm
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpecWithLabel1
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,8 +14,8 @@ internal class MultiAssociatedObjectWithLabelTest {
         val multiAssociatedObjectWithLabel =
             MultiAssociatedObjectWithLabel.builder()
                 .addAssociationType(
-                    AssociationSpecWithLabel1.builder()
-                        .category(AssociationSpecWithLabel1.Category.HUBSPOT_DEFINED)
+                    AssociationSpecWithLabel.builder()
+                        .category(AssociationSpecWithLabel.Category.HUBSPOT_DEFINED)
                         .typeId(0)
                         .label("label")
                         .build()
@@ -26,8 +25,8 @@ internal class MultiAssociatedObjectWithLabelTest {
 
         assertThat(multiAssociatedObjectWithLabel.associationTypes())
             .containsExactly(
-                AssociationSpecWithLabel1.builder()
-                    .category(AssociationSpecWithLabel1.Category.HUBSPOT_DEFINED)
+                AssociationSpecWithLabel.builder()
+                    .category(AssociationSpecWithLabel.Category.HUBSPOT_DEFINED)
                     .typeId(0)
                     .label("label")
                     .build()
@@ -41,8 +40,8 @@ internal class MultiAssociatedObjectWithLabelTest {
         val multiAssociatedObjectWithLabel =
             MultiAssociatedObjectWithLabel.builder()
                 .addAssociationType(
-                    AssociationSpecWithLabel1.builder()
-                        .category(AssociationSpecWithLabel1.Category.HUBSPOT_DEFINED)
+                    AssociationSpecWithLabel.builder()
+                        .category(AssociationSpecWithLabel.Category.HUBSPOT_DEFINED)
                         .typeId(0)
                         .label("label")
                         .build()

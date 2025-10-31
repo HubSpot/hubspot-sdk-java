@@ -12,17 +12,17 @@ internal class PublicObjectListRecordTest {
     @Test
     fun create() {
         val publicObjectListRecord =
-            PublicObjectListRecord.builder().listId("3").objectType("contacts").build()
+            PublicObjectListRecord.builder().listId("listId").objectType("objectType").build()
 
-        assertThat(publicObjectListRecord.listId()).isEqualTo("3")
-        assertThat(publicObjectListRecord.objectType()).isEqualTo("contacts")
+        assertThat(publicObjectListRecord.listId()).isEqualTo("listId")
+        assertThat(publicObjectListRecord.objectType()).isEqualTo("objectType")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val publicObjectListRecord =
-            PublicObjectListRecord.builder().listId("3").objectType("contacts").build()
+            PublicObjectListRecord.builder().listId("listId").objectType("objectType").build()
 
         val roundtrippedPublicObjectListRecord =
             jsonMapper.readValue(

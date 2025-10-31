@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingTokenUpdateRequest
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -24,19 +25,26 @@ internal class ChannelAccountStagingTokenServiceAsyncTest {
         val channelAccountStagingTokenServiceAsync =
             client.conversations().customChannels().channelAccountStagingTokens()
 
-        val channelAccountStagingTokenFuture =
+        val publicChannelAccountStagingTokenFuture =
             channelAccountStagingTokenServiceAsync.update(
                 ChannelAccountStagingTokenUpdateParams.builder()
                     .channelId("channelId")
                     .accountToken("accountToken")
-                    .accountName("accountName")
-                    .deliveryIdentifier(
-                        PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                    .publicChannelAccountStagingTokenUpdateRequest(
+                        PublicChannelAccountStagingTokenUpdateRequest.builder()
+                            .accountName("accountName")
+                            .deliveryIdentifier(
+                                PublicDeliveryIdentifier.builder()
+                                    .type("type")
+                                    .value("value")
+                                    .build()
+                            )
+                            .build()
                     )
                     .build()
             )
 
-        val channelAccountStagingToken = channelAccountStagingTokenFuture.get()
-        channelAccountStagingToken.validate()
+        val publicChannelAccountStagingToken = publicChannelAccountStagingTokenFuture.get()
+        publicChannelAccountStagingToken.validate()
     }
 }

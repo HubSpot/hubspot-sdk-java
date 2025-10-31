@@ -47,8 +47,6 @@ private constructor(
     ) : this(actionId, listBranches, type, defaultBranch, defaultBranchName, mutableMapOf())
 
     /**
-     * The ID for this action.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -61,9 +59,6 @@ private constructor(
     fun listBranches(): List<ApiListBranch> = listBranches.getRequired("listBranches")
 
     /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -76,9 +71,6 @@ private constructor(
     fun defaultBranch(): Optional<ApiConnection> = defaultBranch.getOptional("defaultBranch")
 
     /**
-     * The name of the default branch, the branch that gets executed if the object does not match
-     * any of the `listBranch` criteria.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -173,7 +165,6 @@ private constructor(
             additionalProperties = apiListBranchAction.additionalProperties.toMutableMap()
         }
 
-        /** The ID for this action. */
         fun actionId(actionId: String) = actionId(JsonField.of(actionId))
 
         /**
@@ -210,10 +201,6 @@ private constructor(
                 }
         }
 
-        /**
-         * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-         * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -237,10 +224,6 @@ private constructor(
             this.defaultBranch = defaultBranch
         }
 
-        /**
-         * The name of the default branch, the branch that gets executed if the object does not
-         * match any of the `listBranch` criteria.
-         */
         fun defaultBranchName(defaultBranchName: String) =
             defaultBranchName(JsonField.of(defaultBranchName))
 
@@ -335,10 +318,6 @@ private constructor(
             (defaultBranch.asKnown().getOrNull()?.validity() ?: 0) +
             (if (defaultBranchName.asKnown().isPresent) 1 else 0)
 
-    /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

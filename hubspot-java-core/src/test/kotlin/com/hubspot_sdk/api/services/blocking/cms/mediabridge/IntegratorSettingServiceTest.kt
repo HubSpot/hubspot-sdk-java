@@ -4,6 +4,11 @@ package com.hubspot_sdk.api.services.blocking.cms.mediabridge
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.cms.mediabridge.Endpoints
+import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorObjectCreationRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderPartial
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateObjectDefinitionParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateOembedDomainParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetObjectDefinitionsByMediaTypeParams
@@ -29,15 +34,19 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val bulkIntegratorObjectCreationResponse =
             integratorSettingService.createObjectDefinition(
                 IntegratorSettingCreateObjectDefinitionParams.builder()
                     .appId("appId")
-                    .addMediaType(IntegratorSettingCreateObjectDefinitionParams.MediaType.VIDEO)
+                    .integratorObjectCreationRequest(
+                        IntegratorObjectCreationRequest.builder()
+                            .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
+                            .build()
+                    )
                     .build()
             )
 
-        response.validate()
+        bulkIntegratorObjectCreationResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -50,22 +59,26 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val integratorOEmbedDomainModel =
             integratorSettingService.createOembedDomain(
                 IntegratorSettingCreateOembedDomainParams.builder()
                     .appId("appId")
-                    .endpoints(
-                        IntegratorSettingCreateOembedDomainParams.Endpoints.builder()
-                            .discovery(true)
-                            .addScheme("string")
-                            .url("url")
+                    .integratorOEmbedDomainRequest(
+                        IntegratorOEmbedDomainRequest.builder()
+                            .endpoints(
+                                Endpoints.builder()
+                                    .discovery(true)
+                                    .addScheme("string")
+                                    .url("url")
+                                    .build()
+                            )
+                            .portalId(0)
                             .build()
                     )
-                    .portalId(0)
                     .build()
             )
 
-        response.validate()
+        integratorOEmbedDomainModel.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -91,9 +104,9 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response = integratorSettingService.getEventVisibilitySettings("appId")
+        val eventVisibilityResponse = integratorSettingService.getEventVisibilitySettings("appId")
 
-        response.validate()
+        eventVisibilityResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -106,7 +119,7 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val objectDefinitionResponse =
             integratorSettingService.getObjectDefinitionsByMediaType(
                 IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
                     .appId("appId")
@@ -114,7 +127,7 @@ internal class IntegratorSettingServiceTest {
                     .build()
             )
 
-        response.validate()
+        objectDefinitionResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -127,7 +140,7 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val integratorOEmbedDomainModel =
             integratorSettingService.getOembedDomain(
                 IntegratorSettingGetOembedDomainParams.builder()
                     .appId("appId")
@@ -135,7 +148,7 @@ internal class IntegratorSettingServiceTest {
                     .build()
             )
 
-        response.validate()
+        integratorOEmbedDomainModel.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -148,9 +161,9 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response = integratorSettingService.listOembedDomains("appId")
+        val oEmbedDomainsCollectionResponse = integratorSettingService.listOembedDomains("appId")
 
-        response.validate()
+        oEmbedDomainsCollectionResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -163,16 +176,17 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val mediaBridgeProviderRegistrationResponse =
             integratorSettingService.registerAppName(
                 IntegratorSettingRegisterAppNameParams.builder()
                     .appId("appId")
-                    .updatedAt(0L)
-                    .name("name")
+                    .mediaBridgeProviderPartial(
+                        MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
+                    )
                     .build()
             )
 
-        response.validate()
+        mediaBridgeProviderRegistrationResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -185,16 +199,17 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val mediaBridgeProviderRegistrationResponse =
             integratorSettingService.updateAppName(
                 IntegratorSettingUpdateAppNameParams.builder()
                     .appId("appId")
-                    .updatedAt(0L)
-                    .name("name")
+                    .mediaBridgeProviderPartial(
+                        MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
+                    )
                     .build()
             )
 
-        response.validate()
+        mediaBridgeProviderRegistrationResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -207,19 +222,23 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val eventVisibilityChange =
             integratorSettingService.updateEventVisibilitySettings(
                 IntegratorSettingUpdateEventVisibilitySettingsParams.builder()
                     .appId("appId")
-                    .eventType(IntegratorSettingUpdateEventVisibilitySettingsParams.EventType.ALL)
-                    .updatedAt(0L)
-                    .showInReporting(true)
-                    .showInTimeline(true)
-                    .showInWorkflows(true)
+                    .eventVisibilityChange(
+                        EventVisibilityChange.builder()
+                            .eventType(EventVisibilityChange.EventType.ALL)
+                            .updatedAt(0L)
+                            .showInReporting(true)
+                            .showInTimeline(true)
+                            .showInWorkflows(true)
+                            .build()
+                    )
                     .build()
             )
 
-        response.validate()
+        eventVisibilityChange.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -232,22 +251,26 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val response =
+        val integratorOEmbedDomainModel =
             integratorSettingService.updateOembedDomain(
                 IntegratorSettingUpdateOembedDomainParams.builder()
                     .appId("appId")
                     .oEmbedDomainId("oEmbedDomainId")
-                    .endpoints(
-                        IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                            .discovery(true)
-                            .addScheme("string")
-                            .url("url")
+                    .integratorOEmbedDomainRequest(
+                        IntegratorOEmbedDomainRequest.builder()
+                            .endpoints(
+                                Endpoints.builder()
+                                    .discovery(true)
+                                    .addScheme("string")
+                                    .url("url")
+                                    .build()
+                            )
+                            .portalId(0)
                             .build()
                     )
-                    .portalId(0)
                     .build()
             )
 
-        response.validate()
+        integratorOEmbedDomainModel.validate()
     }
 }

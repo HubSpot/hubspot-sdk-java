@@ -9,7 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns an object and its enablement status */
 class EnablementGetParams
 private constructor(
     private val objectTypeId: String?,

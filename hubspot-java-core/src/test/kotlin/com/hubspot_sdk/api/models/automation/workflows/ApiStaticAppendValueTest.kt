@@ -13,11 +13,11 @@ internal class ApiStaticAppendValueTest {
     fun create() {
         val apiStaticAppendValue =
             ApiStaticAppendValue.builder()
-                .staticAppendValue("some_value")
+                .staticAppendValue("staticAppendValue")
                 .type(ApiStaticAppendValue.Type.STATIC_APPEND_VALUE)
                 .build()
 
-        assertThat(apiStaticAppendValue.staticAppendValue()).isEqualTo("some_value")
+        assertThat(apiStaticAppendValue.staticAppendValue()).isEqualTo("staticAppendValue")
         assertThat(apiStaticAppendValue.type())
             .isEqualTo(ApiStaticAppendValue.Type.STATIC_APPEND_VALUE)
     }
@@ -27,7 +27,7 @@ internal class ApiStaticAppendValueTest {
         val jsonMapper = jsonMapper()
         val apiStaticAppendValue =
             ApiStaticAppendValue.builder()
-                .staticAppendValue("some_value")
+                .staticAppendValue("staticAppendValue")
                 .type(ApiStaticAppendValue.Type.STATIC_APPEND_VALUE)
                 .build()
 

@@ -2,8 +2,8 @@
 
 package com.hubspot_sdk.api.models.crm.associations.v4.batch
 
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicFetchAssociationsBatchRequest
-import com.hubspot_sdk.api.models.crm.associations.v4.PublicFetchAssociationsBatchRequest
+import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicFetchAssociationsBatchRequest
+import com.hubspot_sdk.api.models.crm.associations.PublicFetchAssociationsBatchRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

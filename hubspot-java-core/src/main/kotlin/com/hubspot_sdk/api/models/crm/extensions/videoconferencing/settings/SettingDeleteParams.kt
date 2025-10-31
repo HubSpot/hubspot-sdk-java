@@ -11,7 +11,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Deletes the settings for a video conference application with the specified ID. */
 class SettingDeleteParams
 private constructor(
     private val appId: Int?,

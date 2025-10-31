@@ -67,8 +67,6 @@ private constructor(
     )
 
     /**
-     * The ID for this action.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -81,42 +79,30 @@ private constructor(
     fun inputFields(): List<ApiInputVariable> = inputFields.getRequired("inputFields")
 
     /**
-     * The list of output fields that this custom action makes available to the rest of the flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun outputFields(): List<ApiEnumerationOutputField> = outputFields.getRequired("outputFields")
 
     /**
-     * The runtime to use to execute the source code. Supported runtimes are: "NODE16X", "NODE20X",
-     * "PYTHON39"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun runtime(): String = runtime.getRequired("runtime")
 
     /**
-     * The names of any "secrets" setup in this portal that will be used in this action.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun secretNames(): List<String> = secretNames.getRequired("secretNames")
 
     /**
-     * The source code to execute when this action executes.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sourceCode(): String = sourceCode.getRequired("sourceCode")
 
     /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -249,7 +235,6 @@ private constructor(
             additionalProperties = apiCustomCodeAction.additionalProperties.toMutableMap()
         }
 
-        /** The ID for this action. */
         fun actionId(actionId: String) = actionId(JsonField.of(actionId))
 
         /**
@@ -286,10 +271,6 @@ private constructor(
                 }
         }
 
-        /**
-         * The list of output fields that this custom action makes available to the rest of the
-         * flow.
-         */
         fun outputFields(outputFields: List<ApiEnumerationOutputField>) =
             outputFields(JsonField.of(outputFields))
 
@@ -316,10 +297,6 @@ private constructor(
                 }
         }
 
-        /**
-         * The runtime to use to execute the source code. Supported runtimes are: "NODE16X",
-         * "NODE20X", "PYTHON39"
-         */
         fun runtime(runtime: String) = runtime(JsonField.of(runtime))
 
         /**
@@ -330,7 +307,6 @@ private constructor(
          */
         fun runtime(runtime: JsonField<String>) = apply { this.runtime = runtime }
 
-        /** The names of any "secrets" setup in this portal that will be used in this action. */
         fun secretNames(secretNames: List<String>) = secretNames(JsonField.of(secretNames))
 
         /**
@@ -356,7 +332,6 @@ private constructor(
                 }
         }
 
-        /** The source code to execute when this action executes. */
         fun sourceCode(sourceCode: String) = sourceCode(JsonField.of(sourceCode))
 
         /**
@@ -368,10 +343,6 @@ private constructor(
          */
         fun sourceCode(sourceCode: JsonField<String>) = apply { this.sourceCode = sourceCode }
 
-        /**
-         * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-         * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -488,10 +459,6 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (connection.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

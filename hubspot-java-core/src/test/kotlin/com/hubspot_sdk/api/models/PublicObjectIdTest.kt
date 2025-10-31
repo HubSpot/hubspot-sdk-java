@@ -11,15 +11,15 @@ internal class PublicObjectIdTest {
 
     @Test
     fun create() {
-        val publicObjectId = PublicObjectId.builder().id("37295").build()
+        val publicObjectId = PublicObjectId.builder().id("id").build()
 
-        assertThat(publicObjectId.id()).isEqualTo("37295")
+        assertThat(publicObjectId.id()).isEqualTo("id")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val publicObjectId = PublicObjectId.builder().id("37295").build()
+        val publicObjectId = PublicObjectId.builder().id("id").build()
 
         val roundtrippedPublicObjectId =
             jsonMapper.readValue(

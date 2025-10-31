@@ -30,6 +30,8 @@ private constructor(
     ) : this(urlToRetrieveAuthedRecording, mutableMapOf())
 
     /**
+     * The URL used to retrieve authenticated call recordings.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -83,6 +85,7 @@ private constructor(
             additionalProperties = recordingSettingsResponse.additionalProperties.toMutableMap()
         }
 
+        /** The URL used to retrieve authenticated call recordings. */
         fun urlToRetrieveAuthedRecording(urlToRetrieveAuthedRecording: String) =
             urlToRetrieveAuthedRecording(JsonField.of(urlToRetrieveAuthedRecording))
 

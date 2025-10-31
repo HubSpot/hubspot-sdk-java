@@ -12,7 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Removes an existing association from a schema. */
 class SchemaDeleteAssociationParams
 private constructor(
     private val objectType: String,

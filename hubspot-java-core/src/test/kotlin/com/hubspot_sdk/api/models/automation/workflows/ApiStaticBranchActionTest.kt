@@ -13,17 +13,17 @@ internal class ApiStaticBranchActionTest {
     fun create() {
         val apiStaticBranchAction =
             ApiStaticBranchAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .inputValue(
                     ApiActionDataValue.builder()
-                        .actionId("1")
-                        .dataKey("hs_execution_state")
+                        .actionId("actionId")
+                        .dataKey("dataKey")
                         .type(ApiActionDataValue.Type.FIELD_DATA)
                         .build()
                 )
                 .addStaticBranch(
                     ApiStaticBranch.builder()
-                        .branchValue("some_value")
+                        .branchValue("branchValue")
                         .connection(
                             ApiConnection.builder()
                                 .edgeType("edgeType")
@@ -39,16 +39,16 @@ internal class ApiStaticBranchActionTest {
                         .nextActionId("nextActionId")
                         .build()
                 )
-                .defaultBranchName("Other")
+                .defaultBranchName("defaultBranchName")
                 .build()
 
-        assertThat(apiStaticBranchAction.actionId()).isEqualTo("1")
+        assertThat(apiStaticBranchAction.actionId()).isEqualTo("actionId")
         assertThat(apiStaticBranchAction.inputValue())
             .isEqualTo(
                 ApiStaticBranchAction.InputValue.ofApiActionData(
                     ApiActionDataValue.builder()
-                        .actionId("1")
-                        .dataKey("hs_execution_state")
+                        .actionId("actionId")
+                        .dataKey("dataKey")
                         .type(ApiActionDataValue.Type.FIELD_DATA)
                         .build()
                 )
@@ -56,7 +56,7 @@ internal class ApiStaticBranchActionTest {
         assertThat(apiStaticBranchAction.staticBranches())
             .containsExactly(
                 ApiStaticBranch.builder()
-                    .branchValue("some_value")
+                    .branchValue("branchValue")
                     .connection(
                         ApiConnection.builder()
                             .edgeType("edgeType")
@@ -70,7 +70,7 @@ internal class ApiStaticBranchActionTest {
             .contains(
                 ApiConnection.builder().edgeType("edgeType").nextActionId("nextActionId").build()
             )
-        assertThat(apiStaticBranchAction.defaultBranchName()).contains("Other")
+        assertThat(apiStaticBranchAction.defaultBranchName()).contains("defaultBranchName")
     }
 
     @Test
@@ -78,17 +78,17 @@ internal class ApiStaticBranchActionTest {
         val jsonMapper = jsonMapper()
         val apiStaticBranchAction =
             ApiStaticBranchAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .inputValue(
                     ApiActionDataValue.builder()
-                        .actionId("1")
-                        .dataKey("hs_execution_state")
+                        .actionId("actionId")
+                        .dataKey("dataKey")
                         .type(ApiActionDataValue.Type.FIELD_DATA)
                         .build()
                 )
                 .addStaticBranch(
                     ApiStaticBranch.builder()
-                        .branchValue("some_value")
+                        .branchValue("branchValue")
                         .connection(
                             ApiConnection.builder()
                                 .edgeType("edgeType")
@@ -104,7 +104,7 @@ internal class ApiStaticBranchActionTest {
                         .nextActionId("nextActionId")
                         .build()
                 )
-                .defaultBranchName("Other")
+                .defaultBranchName("defaultBranchName")
                 .build()
 
         val roundtrippedApiStaticBranchAction =

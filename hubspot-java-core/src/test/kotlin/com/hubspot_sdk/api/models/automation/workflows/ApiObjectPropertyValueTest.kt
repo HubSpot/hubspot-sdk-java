@@ -13,11 +13,11 @@ internal class ApiObjectPropertyValueTest {
     fun create() {
         val apiObjectPropertyValue =
             ApiObjectPropertyValue.builder()
-                .propertyName("firstname")
+                .propertyName("propertyName")
                 .type(ApiObjectPropertyValue.Type.OBJECT_PROPERTY)
                 .build()
 
-        assertThat(apiObjectPropertyValue.propertyName()).isEqualTo("firstname")
+        assertThat(apiObjectPropertyValue.propertyName()).isEqualTo("propertyName")
         assertThat(apiObjectPropertyValue.type())
             .isEqualTo(ApiObjectPropertyValue.Type.OBJECT_PROPERTY)
     }
@@ -27,7 +27,7 @@ internal class ApiObjectPropertyValueTest {
         val jsonMapper = jsonMapper()
         val apiObjectPropertyValue =
             ApiObjectPropertyValue.builder()
-                .propertyName("firstname")
+                .propertyName("propertyName")
                 .type(ApiObjectPropertyValue.Type.OBJECT_PROPERTY)
                 .build()
 

@@ -4,16 +4,16 @@ package com.hubspot_sdk.api.services.blocking.crm.associations.v4
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiArchive
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiPost
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicDefaultAssociationMultiPost
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicFetchAssociationsBatchRequest
-import com.hubspot_sdk.api.models.crm.associations.v4.PublicAssociationMultiArchive
-import com.hubspot_sdk.api.models.crm.associations.v4.PublicAssociationMultiPost
-import com.hubspot_sdk.api.models.crm.associations.v4.PublicDefaultAssociationMultiPost
-import com.hubspot_sdk.api.models.crm.associations.v4.PublicFetchAssociationsBatchRequest
+import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicAssociationMultiArchive
+import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicAssociationMultiPost
+import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicDefaultAssociationMultiPost
+import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicFetchAssociationsBatchRequest
+import com.hubspot_sdk.api.models.crm.associations.PublicAssociationMultiArchive
+import com.hubspot_sdk.api.models.crm.associations.PublicAssociationMultiPost
+import com.hubspot_sdk.api.models.crm.associations.PublicDefaultAssociationMultiPost
+import com.hubspot_sdk.api.models.crm.associations.PublicFetchAssociationsBatchRequest
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateDefaultParams
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteLabelsParams
@@ -45,12 +45,12 @@ internal class BatchServiceTest {
                         BatchInputPublicAssociationMultiPost.builder()
                             .addInput(
                                 PublicAssociationMultiPost.builder()
-                                    .from(PublicObjectId.builder().id("37295").build())
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .from(PublicObjectId.builder().id("id").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
@@ -84,8 +84,8 @@ internal class BatchServiceTest {
                         BatchInputPublicAssociationMultiArchive.builder()
                             .addInput(
                                 PublicAssociationMultiArchive.builder()
-                                    .from(PublicObjectId.builder().id("37295").build())
-                                    .addTo(PublicObjectId.builder().id("37295").build())
+                                    .from(PublicObjectId.builder().id("id").build())
+                                    .addTo(PublicObjectId.builder().id("id").build())
                                     .build()
                             )
                             .build()
@@ -115,8 +115,8 @@ internal class BatchServiceTest {
                         BatchInputPublicDefaultAssociationMultiPost.builder()
                             .addInput(
                                 PublicDefaultAssociationMultiPost.builder()
-                                    .from(PublicObjectId.builder().id("37295").build())
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .from(PublicObjectId.builder().id("id").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .build()
                             )
                             .build()
@@ -146,12 +146,12 @@ internal class BatchServiceTest {
                         BatchInputPublicAssociationMultiPost.builder()
                             .addInput(
                                 PublicAssociationMultiPost.builder()
-                                    .from(PublicObjectId.builder().id("37295").build())
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .from(PublicObjectId.builder().id("id").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()

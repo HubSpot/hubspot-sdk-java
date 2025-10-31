@@ -117,7 +117,7 @@ interface PipelineService {
     ): CollectionResponsePipelineNoPaging =
         list(objectType, PipelineListParams.none(), requestOptions)
 
-    /** Delete the pipeline identified by `{pipelineId}`. */
+    /** Delete a pipeline */
     fun delete(pipelineId: String, params: PipelineDeleteParams) =
         delete(pipelineId, params, RequestOptions.none())
 
@@ -182,11 +182,7 @@ interface PipelineService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponsePublicAuditInfoNoPaging
 
-    /**
-     * Replace all the properties of an existing pipeline with the values provided. This will
-     * overwrite any existing pipeline stages. The updated pipeline will be returned in the
-     * response.
-     */
+    /** Replace a pipeline */
     fun replace(pipelineId: String, params: PipelineReplaceParams): Pipeline =
         replace(pipelineId, params, RequestOptions.none())
 

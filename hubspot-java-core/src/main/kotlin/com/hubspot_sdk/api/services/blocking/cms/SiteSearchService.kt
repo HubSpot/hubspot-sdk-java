@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.sitesearch.IndexedData
+import com.hubspot_sdk.api.models.cms.sitesearch.PublicSearchResults
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataParams
-import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataResponse
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchParams
-import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchResponse
 import java.util.function.Consumer
 
 interface SiteSearchService {
@@ -31,7 +31,7 @@ interface SiteSearchService {
      * indexed data for that document. This is useful when debugging why a particular document is
      * not returned from a custom search.
      */
-    fun getIndexedData(contentId: String): SiteSearchGetIndexedDataResponse =
+    fun getIndexedData(contentId: String): IndexedData =
         getIndexedData(contentId, SiteSearchGetIndexedDataParams.none())
 
     /** @see getIndexedData */
@@ -39,51 +39,47 @@ interface SiteSearchService {
         contentId: String,
         params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiteSearchGetIndexedDataResponse =
-        getIndexedData(params.toBuilder().contentId(contentId).build(), requestOptions)
+    ): IndexedData = getIndexedData(params.toBuilder().contentId(contentId).build(), requestOptions)
 
     /** @see getIndexedData */
     fun getIndexedData(
         contentId: String,
         params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
-    ): SiteSearchGetIndexedDataResponse = getIndexedData(contentId, params, RequestOptions.none())
+    ): IndexedData = getIndexedData(contentId, params, RequestOptions.none())
 
     /** @see getIndexedData */
     fun getIndexedData(
         params: SiteSearchGetIndexedDataParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiteSearchGetIndexedDataResponse
+    ): IndexedData
 
     /** @see getIndexedData */
-    fun getIndexedData(params: SiteSearchGetIndexedDataParams): SiteSearchGetIndexedDataResponse =
+    fun getIndexedData(params: SiteSearchGetIndexedDataParams): IndexedData =
         getIndexedData(params, RequestOptions.none())
 
     /** @see getIndexedData */
-    fun getIndexedData(
-        contentId: String,
-        requestOptions: RequestOptions,
-    ): SiteSearchGetIndexedDataResponse =
+    fun getIndexedData(contentId: String, requestOptions: RequestOptions): IndexedData =
         getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
 
     /**
      * Returns any website content matching the given search criteria for a given HubSpot account.
      * Searches can be filtered by content type, domain, or URL path.
      */
-    fun search(): SiteSearchSearchResponse = search(SiteSearchSearchParams.none())
+    fun search(): PublicSearchResults = search(SiteSearchSearchParams.none())
 
     /** @see search */
     fun search(
         params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SiteSearchSearchResponse
+    ): PublicSearchResults
 
     /** @see search */
     fun search(
         params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-    ): SiteSearchSearchResponse = search(params, RequestOptions.none())
+    ): PublicSearchResults = search(params, RequestOptions.none())
 
     /** @see search */
-    fun search(requestOptions: RequestOptions): SiteSearchSearchResponse =
+    fun search(requestOptions: RequestOptions): PublicSearchResults =
         search(SiteSearchSearchParams.none(), requestOptions)
 
     /** A view of [SiteSearchService] that provides access to raw HTTP responses for each method. */
@@ -103,7 +99,7 @@ interface SiteSearchService {
          * is otherwise the same as [SiteSearchService.getIndexedData].
          */
         @MustBeClosed
-        fun getIndexedData(contentId: String): HttpResponseFor<SiteSearchGetIndexedDataResponse> =
+        fun getIndexedData(contentId: String): HttpResponseFor<IndexedData> =
             getIndexedData(contentId, SiteSearchGetIndexedDataParams.none())
 
         /** @see getIndexedData */
@@ -112,7 +108,7 @@ interface SiteSearchService {
             contentId: String,
             params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiteSearchGetIndexedDataResponse> =
+        ): HttpResponseFor<IndexedData> =
             getIndexedData(params.toBuilder().contentId(contentId).build(), requestOptions)
 
         /** @see getIndexedData */
@@ -120,21 +116,18 @@ interface SiteSearchService {
         fun getIndexedData(
             contentId: String,
             params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
-        ): HttpResponseFor<SiteSearchGetIndexedDataResponse> =
-            getIndexedData(contentId, params, RequestOptions.none())
+        ): HttpResponseFor<IndexedData> = getIndexedData(contentId, params, RequestOptions.none())
 
         /** @see getIndexedData */
         @MustBeClosed
         fun getIndexedData(
             params: SiteSearchGetIndexedDataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiteSearchGetIndexedDataResponse>
+        ): HttpResponseFor<IndexedData>
 
         /** @see getIndexedData */
         @MustBeClosed
-        fun getIndexedData(
-            params: SiteSearchGetIndexedDataParams
-        ): HttpResponseFor<SiteSearchGetIndexedDataResponse> =
+        fun getIndexedData(params: SiteSearchGetIndexedDataParams): HttpResponseFor<IndexedData> =
             getIndexedData(params, RequestOptions.none())
 
         /** @see getIndexedData */
@@ -142,7 +135,7 @@ interface SiteSearchService {
         fun getIndexedData(
             contentId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SiteSearchGetIndexedDataResponse> =
+        ): HttpResponseFor<IndexedData> =
             getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
 
         /**
@@ -150,25 +143,24 @@ interface SiteSearchService {
          * same as [SiteSearchService.search].
          */
         @MustBeClosed
-        fun search(): HttpResponseFor<SiteSearchSearchResponse> =
-            search(SiteSearchSearchParams.none())
+        fun search(): HttpResponseFor<PublicSearchResults> = search(SiteSearchSearchParams.none())
 
         /** @see search */
         @MustBeClosed
         fun search(
             params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SiteSearchSearchResponse>
+        ): HttpResponseFor<PublicSearchResults>
 
         /** @see search */
         @MustBeClosed
         fun search(
             params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-        ): HttpResponseFor<SiteSearchSearchResponse> = search(params, RequestOptions.none())
+        ): HttpResponseFor<PublicSearchResults> = search(params, RequestOptions.none())
 
         /** @see search */
         @MustBeClosed
-        fun search(requestOptions: RequestOptions): HttpResponseFor<SiteSearchSearchResponse> =
+        fun search(requestOptions: RequestOptions): HttpResponseFor<PublicSearchResults> =
             search(SiteSearchSearchParams.none(), requestOptions)
     }
 }

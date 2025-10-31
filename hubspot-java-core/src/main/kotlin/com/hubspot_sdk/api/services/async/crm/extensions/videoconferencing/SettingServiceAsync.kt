@@ -27,7 +27,6 @@ interface SettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingServiceAsync
 
-    /** Updates the settings for a video conference application with the specified ID. */
     fun update(appId: Int, params: SettingUpdateParams): CompletableFuture<ExternalSettings> =
         update(appId, params, RequestOptions.none())
 
@@ -49,7 +48,6 @@ interface SettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalSettings>
 
-    /** Deletes the settings for a video conference application with the specified ID. */
     fun delete(appId: Int): CompletableFuture<Void?> = delete(appId, SettingDeleteParams.none())
 
     /** @see delete */
@@ -79,7 +77,6 @@ interface SettingServiceAsync {
     fun delete(appId: Int, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(appId, SettingDeleteParams.none(), requestOptions)
 
-    /** Return the settings for a video conference application with the specified ID. */
     fun get(appId: Int): CompletableFuture<ExternalSettings> = get(appId, SettingGetParams.none())
 
     /** @see get */

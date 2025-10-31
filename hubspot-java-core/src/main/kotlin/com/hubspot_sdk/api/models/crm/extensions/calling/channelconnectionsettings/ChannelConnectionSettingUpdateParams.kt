@@ -12,11 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Update existing
- * [channel connection settings](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#manage-the-webhook-settings-for-channel-connection)
- * for your app.
- */
 class ChannelConnectionSettingUpdateParams
 private constructor(
     private val appId: Int?,

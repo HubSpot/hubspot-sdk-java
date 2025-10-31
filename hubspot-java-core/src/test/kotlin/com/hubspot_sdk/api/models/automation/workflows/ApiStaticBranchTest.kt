@@ -13,7 +13,7 @@ internal class ApiStaticBranchTest {
     fun create() {
         val apiStaticBranch =
             ApiStaticBranch.builder()
-                .branchValue("some_value")
+                .branchValue("branchValue")
                 .connection(
                     ApiConnection.builder()
                         .edgeType("edgeType")
@@ -22,7 +22,7 @@ internal class ApiStaticBranchTest {
                 )
                 .build()
 
-        assertThat(apiStaticBranch.branchValue()).isEqualTo("some_value")
+        assertThat(apiStaticBranch.branchValue()).isEqualTo("branchValue")
         assertThat(apiStaticBranch.connection())
             .contains(
                 ApiConnection.builder().edgeType("edgeType").nextActionId("nextActionId").build()
@@ -34,7 +34,7 @@ internal class ApiStaticBranchTest {
         val jsonMapper = jsonMapper()
         val apiStaticBranch =
             ApiStaticBranch.builder()
-                .branchValue("some_value")
+                .branchValue("branchValue")
                 .connection(
                     ApiConnection.builder()
                         .edgeType("edgeType")

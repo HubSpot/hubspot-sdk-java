@@ -3,8 +3,8 @@
 package com.hubspot_sdk.api.models.crm.associations.v4.batch
 
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiArchive
-import com.hubspot_sdk.api.models.crm.associations.v4.PublicAssociationMultiArchive
+import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicAssociationMultiArchive
+import com.hubspot_sdk.api.models.crm.associations.PublicAssociationMultiArchive
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -19,8 +19,8 @@ internal class BatchDeleteParamsTest {
                 BatchInputPublicAssociationMultiArchive.builder()
                     .addInput(
                         PublicAssociationMultiArchive.builder()
-                            .from(PublicObjectId.builder().id("37295").build())
-                            .addTo(PublicObjectId.builder().id("37295").build())
+                            .from(PublicObjectId.builder().id("id").build())
+                            .addTo(PublicObjectId.builder().id("id").build())
                             .build()
                     )
                     .build()
@@ -38,8 +38,8 @@ internal class BatchDeleteParamsTest {
                     BatchInputPublicAssociationMultiArchive.builder()
                         .addInput(
                             PublicAssociationMultiArchive.builder()
-                                .from(PublicObjectId.builder().id("37295").build())
-                                .addTo(PublicObjectId.builder().id("37295").build())
+                                .from(PublicObjectId.builder().id("id").build())
+                                .addTo(PublicObjectId.builder().id("id").build())
                                 .build()
                         )
                         .build()
@@ -62,8 +62,8 @@ internal class BatchDeleteParamsTest {
                     BatchInputPublicAssociationMultiArchive.builder()
                         .addInput(
                             PublicAssociationMultiArchive.builder()
-                                .from(PublicObjectId.builder().id("37295").build())
-                                .addTo(PublicObjectId.builder().id("37295").build())
+                                .from(PublicObjectId.builder().id("id").build())
+                                .addTo(PublicObjectId.builder().id("id").build())
                                 .build()
                         )
                         .build()
@@ -77,8 +77,8 @@ internal class BatchDeleteParamsTest {
                 BatchInputPublicAssociationMultiArchive.builder()
                     .addInput(
                         PublicAssociationMultiArchive.builder()
-                            .from(PublicObjectId.builder().id("37295").build())
-                            .addTo(PublicObjectId.builder().id("37295").build())
+                            .from(PublicObjectId.builder().id("id").build())
+                            .addTo(PublicObjectId.builder().id("id").build())
                             .build()
                     )
                     .build()

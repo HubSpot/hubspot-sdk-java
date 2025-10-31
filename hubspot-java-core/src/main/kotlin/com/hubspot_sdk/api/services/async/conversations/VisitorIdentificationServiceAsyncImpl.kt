@@ -15,8 +15,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.conversations.visitoridentification.IdentificationTokenResponse
 import com.hubspot_sdk.api.models.conversations.visitoridentification.VisitorIdentificationGenerateTokenParams
-import com.hubspot_sdk.api.models.conversations.visitoridentification.VisitorIdentificationGenerateTokenResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,7 +40,7 @@ internal constructor(private val clientOptions: ClientOptions) : VisitorIdentifi
     override fun generateToken(
         params: VisitorIdentificationGenerateTokenParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<VisitorIdentificationGenerateTokenResponse> =
+    ): CompletableFuture<IdentificationTokenResponse> =
         // post /visitor-identification/v3/tokens/create
         withRawResponse().generateToken(params, requestOptions).thenApply { it.parse() }
 
@@ -57,13 +57,13 @@ internal constructor(private val clientOptions: ClientOptions) : VisitorIdentifi
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val generateTokenHandler: Handler<VisitorIdentificationGenerateTokenResponse> =
-            jsonHandler<VisitorIdentificationGenerateTokenResponse>(clientOptions.jsonMapper)
+        private val generateTokenHandler: Handler<IdentificationTokenResponse> =
+            jsonHandler<IdentificationTokenResponse>(clientOptions.jsonMapper)
 
         override fun generateToken(
             params: VisitorIdentificationGenerateTokenParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<VisitorIdentificationGenerateTokenResponse>> {
+        ): CompletableFuture<HttpResponseFor<IdentificationTokenResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

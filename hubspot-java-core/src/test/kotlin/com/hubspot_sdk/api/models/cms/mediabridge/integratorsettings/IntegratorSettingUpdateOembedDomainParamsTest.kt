@@ -2,6 +2,8 @@
 
 package com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings
 
+import com.hubspot_sdk.api.models.cms.mediabridge.Endpoints
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,14 +14,14 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
         IntegratorSettingUpdateOembedDomainParams.builder()
             .appId("appId")
             .oEmbedDomainId("oEmbedDomainId")
-            .endpoints(
-                IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                    .discovery(true)
-                    .addScheme("string")
-                    .url("url")
+            .integratorOEmbedDomainRequest(
+                IntegratorOEmbedDomainRequest.builder()
+                    .endpoints(
+                        Endpoints.builder().discovery(true).addScheme("string").url("url").build()
+                    )
+                    .portalId(0)
                     .build()
             )
-            .portalId(0)
             .build()
     }
 
@@ -29,11 +31,15 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
             IntegratorSettingUpdateOembedDomainParams.builder()
                 .appId("appId")
                 .oEmbedDomainId("oEmbedDomainId")
-                .endpoints(
-                    IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                        .discovery(true)
-                        .addScheme("string")
-                        .url("url")
+                .integratorOEmbedDomainRequest(
+                    IntegratorOEmbedDomainRequest.builder()
+                        .endpoints(
+                            Endpoints.builder()
+                                .discovery(true)
+                                .addScheme("string")
+                                .url("url")
+                                .build()
+                        )
                         .build()
                 )
                 .build()
@@ -50,27 +56,31 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
             IntegratorSettingUpdateOembedDomainParams.builder()
                 .appId("appId")
                 .oEmbedDomainId("oEmbedDomainId")
-                .endpoints(
-                    IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                        .discovery(true)
-                        .addScheme("string")
-                        .url("url")
+                .integratorOEmbedDomainRequest(
+                    IntegratorOEmbedDomainRequest.builder()
+                        .endpoints(
+                            Endpoints.builder()
+                                .discovery(true)
+                                .addScheme("string")
+                                .url("url")
+                                .build()
+                        )
+                        .portalId(0)
                         .build()
                 )
-                .portalId(0)
                 .build()
 
         val body = params._body()
 
-        assertThat(body.endpoints())
+        assertThat(body)
             .isEqualTo(
-                IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                    .discovery(true)
-                    .addScheme("string")
-                    .url("url")
+                IntegratorOEmbedDomainRequest.builder()
+                    .endpoints(
+                        Endpoints.builder().discovery(true).addScheme("string").url("url").build()
+                    )
+                    .portalId(0)
                     .build()
             )
-        assertThat(body.portalId()).contains(0)
     }
 
     @Test
@@ -79,23 +89,27 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
             IntegratorSettingUpdateOembedDomainParams.builder()
                 .appId("appId")
                 .oEmbedDomainId("oEmbedDomainId")
-                .endpoints(
-                    IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                        .discovery(true)
-                        .addScheme("string")
-                        .url("url")
+                .integratorOEmbedDomainRequest(
+                    IntegratorOEmbedDomainRequest.builder()
+                        .endpoints(
+                            Endpoints.builder()
+                                .discovery(true)
+                                .addScheme("string")
+                                .url("url")
+                                .build()
+                        )
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.endpoints())
+        assertThat(body)
             .isEqualTo(
-                IntegratorSettingUpdateOembedDomainParams.Endpoints.builder()
-                    .discovery(true)
-                    .addScheme("string")
-                    .url("url")
+                IntegratorOEmbedDomainRequest.builder()
+                    .endpoints(
+                        Endpoints.builder().discovery(true).addScheme("string").url("url").build()
+                    )
                     .build()
             )
     }

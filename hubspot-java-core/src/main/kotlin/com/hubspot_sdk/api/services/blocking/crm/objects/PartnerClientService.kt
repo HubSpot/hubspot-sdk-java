@@ -37,13 +37,6 @@ interface PartnerClientService {
 
     fun batch(): BatchService
 
-    /**
-     * Perform a partial update of an Object identified by `{objectId}`. `{objectId}` refers to the
-     * internal object ID by default, or optionally any unique property value as specified by the
-     * `idProperty` query param. Provided property values will be overwritten. Read-only and
-     * non-existent properties will be ignored. Properties values can be cleared by passing an empty
-     * string.
-     */
     fun update(partnerClientId: String, params: PartnerClientUpdateParams): SimplePublicObject =
         update(partnerClientId, params, RequestOptions.none())
 
@@ -65,7 +58,6 @@ interface PartnerClientService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /** Read a page of objects. Control what is returned via the `properties` query param. */
     fun list(): PartnerClientListPage = list(PartnerClientListParams.none())
 
     /** @see list */
@@ -83,11 +75,6 @@ interface PartnerClientService {
     fun list(requestOptions: RequestOptions): PartnerClientListPage =
         list(PartnerClientListParams.none(), requestOptions)
 
-    /**
-     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
-     * default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
-     */
     fun get(partnerClientId: String): SimplePublicObjectWithAssociations =
         get(partnerClientId, PartnerClientGetParams.none())
 

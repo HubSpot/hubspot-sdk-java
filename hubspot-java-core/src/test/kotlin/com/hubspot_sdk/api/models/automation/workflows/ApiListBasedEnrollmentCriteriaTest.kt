@@ -397,9 +397,9 @@ internal class ApiListBasedEnrollmentCriteriaTest {
                         )
                         .build()
                 )
-                .shouldReEnroll(false)
+                .shouldReEnroll(true)
                 .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                .unEnrollObjectsNotMeetingCriteria(false)
+                .unEnrollObjectsNotMeetingCriteria(true)
                 .build()
 
         assertThat(apiListBasedEnrollmentCriteria.listFilterBranch())
@@ -781,11 +781,11 @@ internal class ApiListBasedEnrollmentCriteriaTest {
                         .build()
                 )
             )
-        assertThat(apiListBasedEnrollmentCriteria.shouldReEnroll()).isEqualTo(false)
+        assertThat(apiListBasedEnrollmentCriteria.shouldReEnroll()).isEqualTo(true)
         assertThat(apiListBasedEnrollmentCriteria.type())
             .isEqualTo(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
         assertThat(apiListBasedEnrollmentCriteria.unEnrollObjectsNotMeetingCriteria())
-            .isEqualTo(false)
+            .isEqualTo(true)
     }
 
     @Test
@@ -1166,9 +1166,9 @@ internal class ApiListBasedEnrollmentCriteriaTest {
                         )
                         .build()
                 )
-                .shouldReEnroll(false)
+                .shouldReEnroll(true)
                 .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                .unEnrollObjectsNotMeetingCriteria(false)
+                .unEnrollObjectsNotMeetingCriteria(true)
                 .build()
 
         val roundtrippedApiListBasedEnrollmentCriteria =

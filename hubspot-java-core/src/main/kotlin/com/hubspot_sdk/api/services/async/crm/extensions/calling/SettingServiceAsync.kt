@@ -28,7 +28,6 @@ interface SettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingServiceAsync
 
-    /** Set the menu label, target iframe URL, and dimensions for your calling extension. */
     fun create(appId: Int, params: SettingCreateParams): CompletableFuture<SettingsResponse> =
         create(appId, params, RequestOptions.none())
 
@@ -50,7 +49,6 @@ interface SettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SettingsResponse>
 
-    /** Update existing calling extension settings. */
     fun update(appId: Int, params: SettingUpdateParams): CompletableFuture<SettingsResponse> =
         update(appId, params, RequestOptions.none())
 
@@ -72,10 +70,6 @@ interface SettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SettingsResponse>
 
-    /**
-     * Delete a calling extension. This will remove your service as an option for all connected
-     * accounts.
-     */
     fun delete(appId: Int): CompletableFuture<Void?> = delete(appId, SettingDeleteParams.none())
 
     /** @see delete */
@@ -105,7 +99,6 @@ interface SettingServiceAsync {
     fun delete(appId: Int, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(appId, SettingDeleteParams.none(), requestOptions)
 
-    /** Retrieve the settings configured for the app. */
     fun get(appId: Int): CompletableFuture<SettingsResponse> = get(appId, SettingGetParams.none())
 
     /** @see get */

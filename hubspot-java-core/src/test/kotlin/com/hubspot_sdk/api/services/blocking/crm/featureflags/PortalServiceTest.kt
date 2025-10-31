@@ -4,6 +4,10 @@ package com.hubspot_sdk.api.services.blocking.crm.featureflags
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.crm.featureflags.BatchPortalEntry
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchDeleteRequest
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchPutRequest
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStatePutRequest
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchDeleteParams
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchUpsertParams
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalDeleteParams
@@ -26,17 +30,21 @@ internal class PortalServiceTest {
                 .build()
         val portalService = client.crm().featureFlags().portals()
 
-        val portal =
+        val portalFlagStateResponse =
             portalService.update(
                 PortalUpdateParams.builder()
                     .appId(0)
                     .flagName("flagName")
                     .portalId(0)
-                    .flagState(PortalUpdateParams.FlagState.OFF)
+                    .portalFlagStatePutRequest(
+                        PortalFlagStatePutRequest.builder()
+                            .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                            .build()
+                    )
                     .build()
             )
 
-        portal.validate()
+        portalFlagStateResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -49,12 +57,12 @@ internal class PortalServiceTest {
                 .build()
         val portalService = client.crm().featureFlags().portals()
 
-        val portal =
+        val portalFlagStateResponse =
             portalService.delete(
                 PortalDeleteParams.builder().appId(0).flagName("flagName").portalId(0).build()
             )
 
-        portal.validate()
+        portalFlagStateResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -67,16 +75,18 @@ internal class PortalServiceTest {
                 .build()
         val portalService = client.crm().featureFlags().portals()
 
-        val response =
+        val portalFlagStateBatchResponse =
             portalService.batchDelete(
                 PortalBatchDeleteParams.builder()
                     .appId(0)
                     .flagName("flagName")
-                    .addPortalId(0)
+                    .portalFlagStateBatchDeleteRequest(
+                        PortalFlagStateBatchDeleteRequest.builder().addPortalId(0).build()
+                    )
                     .build()
             )
 
-        response.validate()
+        portalFlagStateBatchResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -89,21 +99,25 @@ internal class PortalServiceTest {
                 .build()
         val portalService = client.crm().featureFlags().portals()
 
-        val response =
+        val portalFlagStateBatchResponse =
             portalService.batchUpsert(
                 PortalBatchUpsertParams.builder()
                     .appId(0)
                     .flagName("flagName")
-                    .addPortalState(
-                        PortalBatchUpsertParams.PortalState.builder()
-                            .flagState(PortalBatchUpsertParams.PortalState.FlagState.OFF)
-                            .portalId(0)
+                    .portalFlagStateBatchPutRequest(
+                        PortalFlagStateBatchPutRequest.builder()
+                            .addPortalState(
+                                BatchPortalEntry.builder()
+                                    .flagState(BatchPortalEntry.FlagState.OFF)
+                                    .portalId(0)
+                                    .build()
+                            )
                             .build()
                     )
                     .build()
             )
 
-        response.validate()
+        portalFlagStateBatchResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -116,11 +130,11 @@ internal class PortalServiceTest {
                 .build()
         val portalService = client.crm().featureFlags().portals()
 
-        val portal =
+        val portalFlagStateResponse =
             portalService.get(
                 PortalGetParams.builder().appId(0).flagName("flagName").portalId(0).build()
             )
 
-        portal.validate()
+        portalFlagStateResponse.validate()
     }
 }

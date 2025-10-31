@@ -9,15 +9,20 @@ internal class SourceCodeExtractAsyncParamsTest {
 
     @Test
     fun create() {
-        SourceCodeExtractAsyncParams.builder().path("path").build()
+        SourceCodeExtractAsyncParams.builder()
+            .fileExtractRequest(FileExtractRequest.builder().path("path").build())
+            .build()
     }
 
     @Test
     fun body() {
-        val params = SourceCodeExtractAsyncParams.builder().path("path").build()
+        val params =
+            SourceCodeExtractAsyncParams.builder()
+                .fileExtractRequest(FileExtractRequest.builder().path("path").build())
+                .build()
 
         val body = params._body()
 
-        assertThat(body.path()).isEqualTo("path")
+        assertThat(body).isEqualTo(FileExtractRequest.builder().path("path").build())
     }
 }

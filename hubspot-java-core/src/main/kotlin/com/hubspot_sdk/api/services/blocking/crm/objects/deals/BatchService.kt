@@ -35,7 +35,7 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
-    /** Create a batch of deals */
+    /** Create multiple deals in a single request. */
     fun create(params: BatchCreateParams): BatchResponseSimplePublicObject =
         create(params, RequestOptions.none())
 
@@ -67,7 +67,7 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
-    /** Update a batch of deals by internal ID, or unique property values */
+    /** Update multiple deals using their internal IDs or unique property values. */
     fun update(params: BatchUpdateParams): BatchResponseSimplePublicObject =
         update(params, RequestOptions.none())
 
@@ -95,7 +95,7 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /** Archive a batch of deals by ID */
+    /** Archive multiple deals using their IDs. */
     fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */

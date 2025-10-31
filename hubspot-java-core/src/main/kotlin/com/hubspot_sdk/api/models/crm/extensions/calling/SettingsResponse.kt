@@ -74,41 +74,30 @@ private constructor(
     )
 
     /**
-     * When this calling extension was created.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
-     * The target height of the iframe that will contain your phone/calling UI.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun height(): Int = height.getRequired("height")
 
     /**
-     * When true, this indicates that your calling app is ready for production. Users will be able
-     * to select your calling app as their provider and can then click to dial within HubSpot.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isReady(): Boolean = isReady.getRequired("isReady")
 
     /**
-     * The name of your calling service to display to users.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
 
     /**
-     * When true, users will be able to click to dial from custom objects.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -116,8 +105,6 @@ private constructor(
         supportsCustomObjects.getRequired("supportsCustomObjects")
 
     /**
-     * When true, this indicates that your calling app supports inbound calling within HubSpot.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -125,42 +112,30 @@ private constructor(
         supportsInboundCalling.getRequired("supportsInboundCalling")
 
     /**
-     * The last time the settings for this calling extension were modified.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
-     * The URL to your phone/calling UI, built with the [Calling SDK](#).
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun url(): String = url.getRequired("url")
 
     /**
-     * When false, this indicates that your calling app does not require the use of the separate
-     * calling window to hold the call connection.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun usesCallingWindow(): Boolean = usesCallingWindow.getRequired("usesCallingWindow")
 
     /**
-     * When false, this indicates that your calling app does not use the anchored calling remote
-     * within the HubSpot app.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun usesRemote(): Boolean = usesRemote.getRequired("usesRemote")
 
     /**
-     * The target width of the iframe that will contain your phone/calling UI.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -323,7 +298,6 @@ private constructor(
             additionalProperties = settingsResponse.additionalProperties.toMutableMap()
         }
 
-        /** When this calling extension was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -335,7 +309,6 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The target height of the iframe that will contain your phone/calling UI. */
         fun height(height: Int) = height(JsonField.of(height))
 
         /**
@@ -346,11 +319,6 @@ private constructor(
          */
         fun height(height: JsonField<Int>) = apply { this.height = height }
 
-        /**
-         * When true, this indicates that your calling app is ready for production. Users will be
-         * able to select your calling app as their provider and can then click to dial within
-         * HubSpot.
-         */
         fun isReady(isReady: Boolean) = isReady(JsonField.of(isReady))
 
         /**
@@ -361,7 +329,6 @@ private constructor(
          */
         fun isReady(isReady: JsonField<Boolean>) = apply { this.isReady = isReady }
 
-        /** The name of your calling service to display to users. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -372,7 +339,6 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
-        /** When true, users will be able to click to dial from custom objects. */
         fun supportsCustomObjects(supportsCustomObjects: Boolean) =
             supportsCustomObjects(JsonField.of(supportsCustomObjects))
 
@@ -387,9 +353,6 @@ private constructor(
             this.supportsCustomObjects = supportsCustomObjects
         }
 
-        /**
-         * When true, this indicates that your calling app supports inbound calling within HubSpot.
-         */
         fun supportsInboundCalling(supportsInboundCalling: Boolean) =
             supportsInboundCalling(JsonField.of(supportsInboundCalling))
 
@@ -404,7 +367,6 @@ private constructor(
             this.supportsInboundCalling = supportsInboundCalling
         }
 
-        /** The last time the settings for this calling extension were modified. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -416,7 +378,6 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        /** The URL to your phone/calling UI, built with the [Calling SDK](#). */
         fun url(url: String) = url(JsonField.of(url))
 
         /**
@@ -427,10 +388,6 @@ private constructor(
          */
         fun url(url: JsonField<String>) = apply { this.url = url }
 
-        /**
-         * When false, this indicates that your calling app does not require the use of the separate
-         * calling window to hold the call connection.
-         */
         fun usesCallingWindow(usesCallingWindow: Boolean) =
             usesCallingWindow(JsonField.of(usesCallingWindow))
 
@@ -445,10 +402,6 @@ private constructor(
             this.usesCallingWindow = usesCallingWindow
         }
 
-        /**
-         * When false, this indicates that your calling app does not use the anchored calling remote
-         * within the HubSpot app.
-         */
         fun usesRemote(usesRemote: Boolean) = usesRemote(JsonField.of(usesRemote))
 
         /**
@@ -460,7 +413,6 @@ private constructor(
          */
         fun usesRemote(usesRemote: JsonField<Boolean>) = apply { this.usesRemote = usesRemote }
 
-        /** The target width of the iframe that will contain your phone/calling UI. */
         fun width(width: Int) = width(JsonField.of(width))
 
         /**

@@ -15,10 +15,10 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.cms.sitesearch.IndexedData
+import com.hubspot_sdk.api.models.cms.sitesearch.PublicSearchResults
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataParams
-import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataResponse
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchParams
-import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -37,14 +37,14 @@ class SiteSearchServiceImpl internal constructor(private val clientOptions: Clie
     override fun getIndexedData(
         params: SiteSearchGetIndexedDataParams,
         requestOptions: RequestOptions,
-    ): SiteSearchGetIndexedDataResponse =
+    ): IndexedData =
         // get /cms/v3/site-search/indexed-data/{contentId}
         withRawResponse().getIndexedData(params, requestOptions).parse()
 
     override fun search(
         params: SiteSearchSearchParams,
         requestOptions: RequestOptions,
-    ): SiteSearchSearchResponse =
+    ): PublicSearchResults =
         // get /cms/v3/site-search/search
         withRawResponse().search(params, requestOptions).parse()
 
@@ -61,13 +61,13 @@ class SiteSearchServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val getIndexedDataHandler: Handler<SiteSearchGetIndexedDataResponse> =
-            jsonHandler<SiteSearchGetIndexedDataResponse>(clientOptions.jsonMapper)
+        private val getIndexedDataHandler: Handler<IndexedData> =
+            jsonHandler<IndexedData>(clientOptions.jsonMapper)
 
         override fun getIndexedData(
             params: SiteSearchGetIndexedDataParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SiteSearchGetIndexedDataResponse> {
+        ): HttpResponseFor<IndexedData> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("contentId", params.contentId().getOrNull())
@@ -97,13 +97,13 @@ class SiteSearchServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val searchHandler: Handler<SiteSearchSearchResponse> =
-            jsonHandler<SiteSearchSearchResponse>(clientOptions.jsonMapper)
+        private val searchHandler: Handler<PublicSearchResults> =
+            jsonHandler<PublicSearchResults>(clientOptions.jsonMapper)
 
         override fun search(
             params: SiteSearchSearchParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SiteSearchSearchResponse> {
+        ): HttpResponseFor<PublicSearchResults> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

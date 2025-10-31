@@ -6,10 +6,10 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleMapNoPaging
+import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleNoPaging
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetParams
-import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetResponse
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationListParams
-import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationListResponse
 import java.util.function.Consumer
 
 interface PropertyValidationService {
@@ -27,7 +27,7 @@ interface PropertyValidationService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PropertyValidationService
 
     /** Read all properties with validation rules for a given object. */
-    fun list(objectTypeId: String): PropertyValidationListResponse =
+    fun list(objectTypeId: String): CollectionResponsePublicPropertyValidationRuleMapNoPaging =
         list(objectTypeId, PropertyValidationListParams.none())
 
     /** @see list */
@@ -35,52 +35,60 @@ interface PropertyValidationService {
         objectTypeId: String,
         params: PropertyValidationListParams = PropertyValidationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PropertyValidationListResponse =
+    ): CollectionResponsePublicPropertyValidationRuleMapNoPaging =
         list(params.toBuilder().objectTypeId(objectTypeId).build(), requestOptions)
 
     /** @see list */
     fun list(
         objectTypeId: String,
         params: PropertyValidationListParams = PropertyValidationListParams.none(),
-    ): PropertyValidationListResponse = list(objectTypeId, params, RequestOptions.none())
+    ): CollectionResponsePublicPropertyValidationRuleMapNoPaging =
+        list(objectTypeId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PropertyValidationListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PropertyValidationListResponse
+    ): CollectionResponsePublicPropertyValidationRuleMapNoPaging
 
     /** @see list */
-    fun list(params: PropertyValidationListParams): PropertyValidationListResponse =
+    fun list(
+        params: PropertyValidationListParams
+    ): CollectionResponsePublicPropertyValidationRuleMapNoPaging =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(objectTypeId: String, requestOptions: RequestOptions): PropertyValidationListResponse =
+    fun list(
+        objectTypeId: String,
+        requestOptions: RequestOptions,
+    ): CollectionResponsePublicPropertyValidationRuleMapNoPaging =
         list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
 
     /** Read a property's validation rules identified by {propertyName}. */
     fun get(
         propertyName: String,
         params: PropertyValidationGetParams,
-    ): PropertyValidationGetResponse = get(propertyName, params, RequestOptions.none())
+    ): CollectionResponsePublicPropertyValidationRuleNoPaging =
+        get(propertyName, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         propertyName: String,
         params: PropertyValidationGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PropertyValidationGetResponse =
+    ): CollectionResponsePublicPropertyValidationRuleNoPaging =
         get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
     /** @see get */
-    fun get(params: PropertyValidationGetParams): PropertyValidationGetResponse =
-        get(params, RequestOptions.none())
+    fun get(
+        params: PropertyValidationGetParams
+    ): CollectionResponsePublicPropertyValidationRuleNoPaging = get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PropertyValidationGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PropertyValidationGetResponse
+    ): CollectionResponsePublicPropertyValidationRuleNoPaging
 
     /**
      * A view of [PropertyValidationService] that provides access to raw HTTP responses for each
@@ -102,7 +110,9 @@ interface PropertyValidationService {
          * otherwise the same as [PropertyValidationService.list].
          */
         @MustBeClosed
-        fun list(objectTypeId: String): HttpResponseFor<PropertyValidationListResponse> =
+        fun list(
+            objectTypeId: String
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
             list(objectTypeId, PropertyValidationListParams.none())
 
         /** @see list */
@@ -111,7 +121,7 @@ interface PropertyValidationService {
             objectTypeId: String,
             params: PropertyValidationListParams = PropertyValidationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PropertyValidationListResponse> =
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
             list(params.toBuilder().objectTypeId(objectTypeId).build(), requestOptions)
 
         /** @see list */
@@ -119,7 +129,7 @@ interface PropertyValidationService {
         fun list(
             objectTypeId: String,
             params: PropertyValidationListParams = PropertyValidationListParams.none(),
-        ): HttpResponseFor<PropertyValidationListResponse> =
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
             list(objectTypeId, params, RequestOptions.none())
 
         /** @see list */
@@ -127,20 +137,21 @@ interface PropertyValidationService {
         fun list(
             params: PropertyValidationListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PropertyValidationListResponse>
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PropertyValidationListParams
-        ): HttpResponseFor<PropertyValidationListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             objectTypeId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PropertyValidationListResponse> =
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
             list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
 
         /**
@@ -152,7 +163,7 @@ interface PropertyValidationService {
         fun get(
             propertyName: String,
             params: PropertyValidationGetParams,
-        ): HttpResponseFor<PropertyValidationGetResponse> =
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging> =
             get(propertyName, params, RequestOptions.none())
 
         /** @see get */
@@ -161,20 +172,21 @@ interface PropertyValidationService {
             propertyName: String,
             params: PropertyValidationGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PropertyValidationGetResponse> =
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging> =
             get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: PropertyValidationGetParams
-        ): HttpResponseFor<PropertyValidationGetResponse> = get(params, RequestOptions.none())
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: PropertyValidationGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PropertyValidationGetResponse>
+        ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging>
     }
 }

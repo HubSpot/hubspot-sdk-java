@@ -13,12 +13,12 @@ internal class ApiFlowBatchFetchMigrationFlowIdCoordinateTest {
     fun create() {
         val apiFlowBatchFetchMigrationFlowIdCoordinate =
             ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                .flowMigrationStatuses("12345")
+                .flowMigrationStatuses("flowMigrationStatuses")
                 .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                 .build()
 
         assertThat(apiFlowBatchFetchMigrationFlowIdCoordinate.flowMigrationStatuses())
-            .isEqualTo("12345")
+            .isEqualTo("flowMigrationStatuses")
         assertThat(apiFlowBatchFetchMigrationFlowIdCoordinate.type())
             .isEqualTo(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
     }
@@ -28,7 +28,7 @@ internal class ApiFlowBatchFetchMigrationFlowIdCoordinateTest {
         val jsonMapper = jsonMapper()
         val apiFlowBatchFetchMigrationFlowIdCoordinate =
             ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                .flowMigrationStatuses("12345")
+                .flowMigrationStatuses("flowMigrationStatuses")
                 .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                 .build()
 

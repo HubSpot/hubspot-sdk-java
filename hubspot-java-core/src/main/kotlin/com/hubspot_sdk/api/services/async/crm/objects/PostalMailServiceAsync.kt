@@ -40,8 +40,8 @@ interface PostalMailServiceAsync {
     fun batch(): BatchServiceAsync
 
     /**
-     * Create a postal mail with the given properties and return a copy of the object, including the
-     * ID. Documentation and examples for creating standard postal mail is provided.
+     * Create a postal mail object with the given properties and return a copy of the object,
+     * including the ID.
      */
     fun create(
         params: PostalMailCreateParams
@@ -71,14 +71,6 @@ interface PostalMailServiceAsync {
     ): CompletableFuture<CreatedResponseSimplePublicObject> =
         create(simplePublicObjectInputForCreate, RequestOptions.none())
 
-    /**
-     * Perform a partial update of an Object identified by `{postalMailId}`or optionally a unique
-     * property value as specified by the `idProperty` query param. `{postalMailId}` refers to the
-     * internal object ID by default, and the `idProperty` query param refers to a property whose
-     * values are unique for the object. Provided property values will be overwritten. Read-only and
-     * non-existent properties will result in an error. Properties values can be cleared by passing
-     * an empty string.
-     */
     fun update(
         postalMailId: String,
         params: PostalMailUpdateParams,
@@ -102,7 +94,6 @@ interface PostalMailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /** Read a page of postal mail. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<PostalMailListPageAsync> = list(PostalMailListParams.none())
 
     /** @see list */
@@ -120,7 +111,7 @@ interface PostalMailServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<PostalMailListPageAsync> =
         list(PostalMailListParams.none(), requestOptions)
 
-    /** Move an Object identified by `{postalMailId}` to the recycling bin. */
+    /** Move the postal mail object with the ID `{postalMailId}` to the recycling bin. */
     fun delete(postalMailId: String): CompletableFuture<Void?> =
         delete(postalMailId, PostalMailDeleteParams.none())
 
@@ -152,11 +143,6 @@ interface PostalMailServiceAsync {
     fun delete(postalMailId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(postalMailId, PostalMailDeleteParams.none(), requestOptions)
 
-    /**
-     * Read an Object identified by `{postalMailId}`. `{postalMailId}` refers to the internal object
-     * ID by default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
-     */
     fun get(postalMailId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(postalMailId, PostalMailGetParams.none())
 
@@ -192,6 +178,7 @@ interface PostalMailServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(postalMailId, PostalMailGetParams.none(), requestOptions)
 
+    /** Search for postal mail objects using specific criteria in the request. */
     fun search(
         params: PostalMailSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

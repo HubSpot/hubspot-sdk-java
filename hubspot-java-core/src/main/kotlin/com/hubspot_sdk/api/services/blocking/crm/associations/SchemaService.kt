@@ -27,7 +27,6 @@ interface SchemaService {
 
     fun v4(): V4Service
 
-    /** List all the valid association types available between two object types */
     fun list(
         toObjectType: String,
         params: SchemaListParams,

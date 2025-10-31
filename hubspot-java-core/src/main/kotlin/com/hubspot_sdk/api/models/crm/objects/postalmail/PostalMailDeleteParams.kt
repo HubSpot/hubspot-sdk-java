@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Move an Object identified by `{postalMailId}` to the recycling bin. */
+/** Move the postal mail object with the ID `{postalMailId}` to the recycling bin. */
 class PostalMailDeleteParams
 private constructor(
     private val postalMailId: String?,

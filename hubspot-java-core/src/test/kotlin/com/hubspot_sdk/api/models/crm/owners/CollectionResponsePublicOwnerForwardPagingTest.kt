@@ -44,7 +44,7 @@ internal class CollectionResponsePublicOwnerForwardPagingTest {
                                 .build()
                         )
                         .userId(1296619)
-                        .userIdIncludingInactive(6166860)
+                        .userIdIncludingInactive(0)
                         .build()
                 )
                 .paging(
@@ -82,7 +82,7 @@ internal class CollectionResponsePublicOwnerForwardPagingTest {
                             .build()
                     )
                     .userId(1296619)
-                    .userIdIncludingInactive(6166860)
+                    .userIdIncludingInactive(0)
                     .build()
             )
         assertThat(collectionResponsePublicOwnerForwardPaging.paging())
@@ -123,7 +123,7 @@ internal class CollectionResponsePublicOwnerForwardPagingTest {
                                 .build()
                         )
                         .userId(1296619)
-                        .userIdIncludingInactive(6166860)
+                        .userIdIncludingInactive(0)
                         .build()
                 )
                 .paging(

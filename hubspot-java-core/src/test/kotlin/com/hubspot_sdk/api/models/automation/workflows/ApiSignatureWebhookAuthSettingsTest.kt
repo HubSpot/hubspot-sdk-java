@@ -13,11 +13,11 @@ internal class ApiSignatureWebhookAuthSettingsTest {
     fun create() {
         val apiSignatureWebhookAuthSettings =
             ApiSignatureWebhookAuthSettings.builder()
-                .appId(121)
+                .appId(0)
                 .type(ApiSignatureWebhookAuthSettings.Type.SIGNATURE)
                 .build()
 
-        assertThat(apiSignatureWebhookAuthSettings.appId()).isEqualTo(121)
+        assertThat(apiSignatureWebhookAuthSettings.appId()).isEqualTo(0)
         assertThat(apiSignatureWebhookAuthSettings.type())
             .isEqualTo(ApiSignatureWebhookAuthSettings.Type.SIGNATURE)
     }
@@ -27,7 +27,7 @@ internal class ApiSignatureWebhookAuthSettingsTest {
         val jsonMapper = jsonMapper()
         val apiSignatureWebhookAuthSettings =
             ApiSignatureWebhookAuthSettings.builder()
-                .appId(121)
+                .appId(0)
                 .type(ApiSignatureWebhookAuthSettings.Type.SIGNATURE)
                 .build()
 

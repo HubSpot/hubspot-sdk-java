@@ -16,8 +16,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingToken
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -41,7 +41,7 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
     override fun update(
         params: ChannelAccountStagingTokenUpdateParams,
         requestOptions: RequestOptions,
-    ): ChannelAccountStagingTokenUpdateResponse =
+    ): PublicChannelAccountStagingToken =
         // patch
         // /conversations/v3/custom-channels/{channelId}/channel-account-staging-tokens/{accountToken}
         withRawResponse().update(params, requestOptions).parse()
@@ -59,13 +59,13 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<ChannelAccountStagingTokenUpdateResponse> =
-            jsonHandler<ChannelAccountStagingTokenUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PublicChannelAccountStagingToken> =
+            jsonHandler<PublicChannelAccountStagingToken>(clientOptions.jsonMapper)
 
         override fun update(
             params: ChannelAccountStagingTokenUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ChannelAccountStagingTokenUpdateResponse> {
+        ): HttpResponseFor<PublicChannelAccountStagingToken> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("accountToken", params.accountToken().getOrNull())

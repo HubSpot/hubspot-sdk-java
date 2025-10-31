@@ -2,10 +2,10 @@
 
 package com.hubspot_sdk.api.models.crm.associations.v4.batch
 
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiPost
-import com.hubspot_sdk.api.models.crm.associations.v4.PublicAssociationMultiPost
+import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicAssociationMultiPost
+import com.hubspot_sdk.api.models.crm.associations.PublicAssociationMultiPost
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -20,12 +20,12 @@ internal class BatchCreateParamsTest {
                 BatchInputPublicAssociationMultiPost.builder()
                     .addInput(
                         PublicAssociationMultiPost.builder()
-                            .from(PublicObjectId.builder().id("37295").build())
-                            .to(PublicObjectId.builder().id("37295").build())
+                            .from(PublicObjectId.builder().id("id").build())
+                            .to(PublicObjectId.builder().id("id").build())
                             .addType(
-                                AssociationSpec1.builder()
+                                AssociationSpec.builder()
                                     .associationCategory(
-                                        AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
                                     .associationTypeId(0)
                                     .build()
@@ -47,12 +47,12 @@ internal class BatchCreateParamsTest {
                     BatchInputPublicAssociationMultiPost.builder()
                         .addInput(
                             PublicAssociationMultiPost.builder()
-                                .from(PublicObjectId.builder().id("37295").build())
-                                .to(PublicObjectId.builder().id("37295").build())
+                                .from(PublicObjectId.builder().id("id").build())
+                                .to(PublicObjectId.builder().id("id").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
@@ -79,12 +79,12 @@ internal class BatchCreateParamsTest {
                     BatchInputPublicAssociationMultiPost.builder()
                         .addInput(
                             PublicAssociationMultiPost.builder()
-                                .from(PublicObjectId.builder().id("37295").build())
-                                .to(PublicObjectId.builder().id("37295").build())
+                                .from(PublicObjectId.builder().id("id").build())
+                                .to(PublicObjectId.builder().id("id").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
@@ -102,12 +102,12 @@ internal class BatchCreateParamsTest {
                 BatchInputPublicAssociationMultiPost.builder()
                     .addInput(
                         PublicAssociationMultiPost.builder()
-                            .from(PublicObjectId.builder().id("37295").build())
-                            .to(PublicObjectId.builder().id("37295").build())
+                            .from(PublicObjectId.builder().id("id").build())
+                            .to(PublicObjectId.builder().id("id").build())
                             .addType(
-                                AssociationSpec1.builder()
+                                AssociationSpec.builder()
                                     .associationCategory(
-                                        AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
                                     .associationTypeId(0)
                                     .build()

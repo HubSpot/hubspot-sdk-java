@@ -56,12 +56,12 @@ internal class GroupServiceTest {
                 .build()
         val groupService = client.cms().mediaBridge().groups()
 
-        val groups =
+        val collectionResponsePropertyGroupNoPaging =
             groupService.list(
                 GroupListParams.builder().appId("appId").objectType("objectType").build()
             )
 
-        groups.validate()
+        collectionResponsePropertyGroupNoPaging.validate()
     }
 
     @Disabled("Prism tests are disabled")

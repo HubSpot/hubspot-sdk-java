@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.businessunits.BusinessUnitGetByUserIdParams
-import com.hubspot_sdk.api.models.businessunits.BusinessUnitGetByUserIdResponse
+import com.hubspot_sdk.api.models.businessunits.CollectionResponsePublicBusinessUnitNoPaging
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -36,7 +36,7 @@ class BusinessUnitServiceAsyncImpl internal constructor(private val clientOption
     override fun getByUserId(
         params: BusinessUnitGetByUserIdParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BusinessUnitGetByUserIdResponse> =
+    ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging> =
         // get /business-units/v3/business-units/user/{userId}
         withRawResponse().getByUserId(params, requestOptions).thenApply { it.parse() }
 
@@ -53,13 +53,13 @@ class BusinessUnitServiceAsyncImpl internal constructor(private val clientOption
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val getByUserIdHandler: Handler<BusinessUnitGetByUserIdResponse> =
-            jsonHandler<BusinessUnitGetByUserIdResponse>(clientOptions.jsonMapper)
+        private val getByUserIdHandler: Handler<CollectionResponsePublicBusinessUnitNoPaging> =
+            jsonHandler<CollectionResponsePublicBusinessUnitNoPaging>(clientOptions.jsonMapper)
 
         override fun getByUserId(
             params: BusinessUnitGetByUserIdParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BusinessUnitGetByUserIdResponse>> {
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("userId", params.userId().getOrNull())

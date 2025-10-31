@@ -9,10 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve the settings related to the app's
- * [channel connection](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#fetch-existing-channel-connection-settings).
- */
 class ChannelConnectionSettingGetParams
 private constructor(
     private val appId: Int?,

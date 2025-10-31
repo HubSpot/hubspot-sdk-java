@@ -9,11 +9,6 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
-/**
- * Define a new object schema, along with custom properties and associations. The entire object
- * schema, including its object type ID, properties, and associations will be returned in the
- * response.
- */
 class SchemaCreateParams
 private constructor(
     private val objectSchemaEgg: ObjectSchemaEgg,

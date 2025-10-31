@@ -10,7 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInput
 import java.util.Objects
 
-/** Update a batch of objects */
 class BatchBatchUpdateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,

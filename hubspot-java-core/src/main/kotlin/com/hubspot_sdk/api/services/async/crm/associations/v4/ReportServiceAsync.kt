@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.services.async.crm.associations.v4
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.crm.associations.v4.ReportCreationResponse
+import com.hubspot_sdk.api.models.crm.associations.ReportCreationResponse
 import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportGetHighUsageReportParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer

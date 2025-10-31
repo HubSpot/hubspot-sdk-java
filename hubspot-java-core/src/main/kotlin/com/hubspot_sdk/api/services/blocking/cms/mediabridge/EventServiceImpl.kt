@@ -15,12 +15,12 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEvent
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEvent
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateAttentionSpanEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateAttentionSpanEventResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedEventResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedPercentEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedPercentEventResponse
 import java.util.function.Consumer
 
 class EventServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -38,21 +38,21 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun createAttentionSpanEvent(
         params: EventCreateAttentionSpanEventParams,
         requestOptions: RequestOptions,
-    ): EventCreateAttentionSpanEventResponse =
+    ): AttentionSpanEvent =
         // post /media-bridge/v1/events/attention-span
         withRawResponse().createAttentionSpanEvent(params, requestOptions).parse()
 
     override fun createMediaPlayedEvent(
         params: EventCreateMediaPlayedEventParams,
         requestOptions: RequestOptions,
-    ): EventCreateMediaPlayedEventResponse =
+    ): MediaPlayedEvent =
         // post /media-bridge/v1/events/media-played
         withRawResponse().createMediaPlayedEvent(params, requestOptions).parse()
 
     override fun createMediaPlayedPercentEvent(
         params: EventCreateMediaPlayedPercentEventParams,
         requestOptions: RequestOptions,
-    ): EventCreateMediaPlayedPercentEventResponse =
+    ): MediaPlayedPercentageEvent =
         // post /media-bridge/v1/events/media-played-percent
         withRawResponse().createMediaPlayedPercentEvent(params, requestOptions).parse()
 
@@ -69,14 +69,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createAttentionSpanEventHandler:
-            Handler<EventCreateAttentionSpanEventResponse> =
-            jsonHandler<EventCreateAttentionSpanEventResponse>(clientOptions.jsonMapper)
+        private val createAttentionSpanEventHandler: Handler<AttentionSpanEvent> =
+            jsonHandler<AttentionSpanEvent>(clientOptions.jsonMapper)
 
         override fun createAttentionSpanEvent(
             params: EventCreateAttentionSpanEventParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventCreateAttentionSpanEventResponse> {
+        ): HttpResponseFor<AttentionSpanEvent> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -98,13 +97,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val createMediaPlayedEventHandler: Handler<EventCreateMediaPlayedEventResponse> =
-            jsonHandler<EventCreateMediaPlayedEventResponse>(clientOptions.jsonMapper)
+        private val createMediaPlayedEventHandler: Handler<MediaPlayedEvent> =
+            jsonHandler<MediaPlayedEvent>(clientOptions.jsonMapper)
 
         override fun createMediaPlayedEvent(
             params: EventCreateMediaPlayedEventParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventCreateMediaPlayedEventResponse> {
+        ): HttpResponseFor<MediaPlayedEvent> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -126,14 +125,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val createMediaPlayedPercentEventHandler:
-            Handler<EventCreateMediaPlayedPercentEventResponse> =
-            jsonHandler<EventCreateMediaPlayedPercentEventResponse>(clientOptions.jsonMapper)
+        private val createMediaPlayedPercentEventHandler: Handler<MediaPlayedPercentageEvent> =
+            jsonHandler<MediaPlayedPercentageEvent>(clientOptions.jsonMapper)
 
         override fun createMediaPlayedPercentEvent(
             params: EventCreateMediaPlayedPercentEventParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventCreateMediaPlayedPercentEventResponse> {
+        ): HttpResponseFor<MediaPlayedPercentageEvent> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

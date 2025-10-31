@@ -58,7 +58,7 @@ interface FunctionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponsePublicActionFunctionIdentifierNoPaging
 
-    /** Archive a function for a definition */
+    /** Archive a function for a specific definition. */
     fun delete(functionId: String, params: FunctionDeleteParams) =
         delete(functionId, params, RequestOptions.none())
 
@@ -171,7 +171,7 @@ interface FunctionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionFunction
 
-    /** Retrieve functions by a type for a given definition */
+    /** Retrieve functions of a specific type for a given definition. */
     fun getByFunctionType(
         functionType: FunctionGetByFunctionTypeParams.FunctionType,
         params: FunctionGetByFunctionTypeParams,

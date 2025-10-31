@@ -29,10 +29,6 @@ interface RecordingSettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingSettingServiceAsync
 
-    /**
-     * Register an external URL that HubSpot will use to retrieve
-     * [call recordings](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
-     */
     fun create(
         appId: Int,
         params: RecordingSettingCreateParams,
@@ -56,10 +52,6 @@ interface RecordingSettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RecordingSettingsResponse>
 
-    /**
-     * Update the URL that HubSpot will use to retrieve
-     * [call recordings](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
-     */
     fun update(
         appId: Int,
         params: RecordingSettingUpdateParams,
@@ -83,10 +75,6 @@ interface RecordingSettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RecordingSettingsResponse>
 
-    /**
-     * Retrieve the URL that is registered for
-     * [call recording](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
-     */
     fun get(appId: Int): CompletableFuture<RecordingSettingsResponse> =
         get(appId, RecordingSettingGetParams.none())
 
@@ -121,10 +109,6 @@ interface RecordingSettingServiceAsync {
     ): CompletableFuture<RecordingSettingsResponse> =
         get(appId, RecordingSettingGetParams.none(), requestOptions)
 
-    /**
-     * Mark a call recording as ready for transcription, specifying the call by its ID
-     * (`engagementid`).
-     */
     fun markReady(params: RecordingSettingMarkReadyParams): CompletableFuture<Void?> =
         markReady(params, RequestOptions.none())
 

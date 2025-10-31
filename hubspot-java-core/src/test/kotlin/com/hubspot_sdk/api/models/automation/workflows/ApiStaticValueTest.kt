@@ -13,11 +13,11 @@ internal class ApiStaticValueTest {
     fun create() {
         val apiStaticValue =
             ApiStaticValue.builder()
-                .staticValue("some value")
+                .staticValue("staticValue")
                 .type(ApiStaticValue.Type.STATIC_VALUE)
                 .build()
 
-        assertThat(apiStaticValue.staticValue()).isEqualTo("some value")
+        assertThat(apiStaticValue.staticValue()).isEqualTo("staticValue")
         assertThat(apiStaticValue.type()).isEqualTo(ApiStaticValue.Type.STATIC_VALUE)
     }
 
@@ -26,7 +26,7 @@ internal class ApiStaticValueTest {
         val jsonMapper = jsonMapper()
         val apiStaticValue =
             ApiStaticValue.builder()
-                .staticValue("some value")
+                .staticValue("staticValue")
                 .type(ApiStaticValue.Type.STATIC_VALUE)
                 .build()
 

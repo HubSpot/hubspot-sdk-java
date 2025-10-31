@@ -27,17 +27,17 @@ internal class ApiContactFlowPutRequestTest {
             ApiContactFlowPutRequest.builder()
                 .addAction(
                     ApiStaticBranchAction.builder()
-                        .actionId("1")
+                        .actionId("actionId")
                         .inputValue(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .addStaticBranch(
                             ApiStaticBranch.builder()
-                                .branchValue("some_value")
+                                .branchValue("branchValue")
                                 .connection(
                                     ApiConnection.builder()
                                         .edgeType("edgeType")
@@ -53,7 +53,7 @@ internal class ApiContactFlowPutRequestTest {
                                 .nextActionId("nextActionId")
                                 .build()
                         )
-                        .defaultBranchName("Other")
+                        .defaultBranchName("defaultBranchName")
                         .build()
                 )
                 .addBlockedDate(
@@ -480,9 +480,9 @@ internal class ApiContactFlowPutRequestTest {
                                 )
                                 .build()
                         )
-                        .shouldReEnroll(false)
+                        .shouldReEnroll(true)
                         .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                        .unEnrollObjectsNotMeetingCriteria(false)
+                        .unEnrollObjectsNotMeetingCriteria(true)
                         .build()
                 )
                 .enrollmentSchedule(
@@ -493,7 +493,7 @@ internal class ApiContactFlowPutRequestTest {
                 )
                 .eventAnchor(
                     ApiContactPropertyAnchor.builder()
-                        .contactProperty("example_date_property")
+                        .contactProperty("contactProperty")
                         .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                         .build()
                 )
@@ -535,17 +535,17 @@ internal class ApiContactFlowPutRequestTest {
             .containsExactly(
                 ApiContactFlowPutRequest.Action.ofApiStaticBranch(
                     ApiStaticBranchAction.builder()
-                        .actionId("1")
+                        .actionId("actionId")
                         .inputValue(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .addStaticBranch(
                             ApiStaticBranch.builder()
-                                .branchValue("some_value")
+                                .branchValue("branchValue")
                                 .connection(
                                     ApiConnection.builder()
                                         .edgeType("edgeType")
@@ -561,7 +561,7 @@ internal class ApiContactFlowPutRequestTest {
                                 .nextActionId("nextActionId")
                                 .build()
                         )
-                        .defaultBranchName("Other")
+                        .defaultBranchName("defaultBranchName")
                         .build()
                 )
             )
@@ -995,9 +995,9 @@ internal class ApiContactFlowPutRequestTest {
                                 )
                                 .build()
                         )
-                        .shouldReEnroll(false)
+                        .shouldReEnroll(true)
                         .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                        .unEnrollObjectsNotMeetingCriteria(false)
+                        .unEnrollObjectsNotMeetingCriteria(true)
                         .build()
                 )
             )
@@ -1014,7 +1014,7 @@ internal class ApiContactFlowPutRequestTest {
             .contains(
                 ApiContactFlowPutRequest.EventAnchor.ofApiContactProperty(
                     ApiContactPropertyAnchor.builder()
-                        .contactProperty("example_date_property")
+                        .contactProperty("contactProperty")
                         .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                         .build()
                 )
@@ -1064,17 +1064,17 @@ internal class ApiContactFlowPutRequestTest {
             ApiContactFlowPutRequest.builder()
                 .addAction(
                     ApiStaticBranchAction.builder()
-                        .actionId("1")
+                        .actionId("actionId")
                         .inputValue(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .addStaticBranch(
                             ApiStaticBranch.builder()
-                                .branchValue("some_value")
+                                .branchValue("branchValue")
                                 .connection(
                                     ApiConnection.builder()
                                         .edgeType("edgeType")
@@ -1090,7 +1090,7 @@ internal class ApiContactFlowPutRequestTest {
                                 .nextActionId("nextActionId")
                                 .build()
                         )
-                        .defaultBranchName("Other")
+                        .defaultBranchName("defaultBranchName")
                         .build()
                 )
                 .addBlockedDate(
@@ -1517,9 +1517,9 @@ internal class ApiContactFlowPutRequestTest {
                                 )
                                 .build()
                         )
-                        .shouldReEnroll(false)
+                        .shouldReEnroll(true)
                         .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                        .unEnrollObjectsNotMeetingCriteria(false)
+                        .unEnrollObjectsNotMeetingCriteria(true)
                         .build()
                 )
                 .enrollmentSchedule(
@@ -1530,7 +1530,7 @@ internal class ApiContactFlowPutRequestTest {
                 )
                 .eventAnchor(
                     ApiContactPropertyAnchor.builder()
-                        .contactProperty("example_date_property")
+                        .contactProperty("contactProperty")
                         .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                         .build()
                 )

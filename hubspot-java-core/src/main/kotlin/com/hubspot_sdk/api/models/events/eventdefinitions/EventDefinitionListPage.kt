@@ -16,25 +16,28 @@ class EventDefinitionListPage
 private constructor(
     private val service: EventDefinitionService,
     private val params: EventDefinitionListParams,
-    private val response: EventDefinitionListPageResponse,
-) : Page<EventDefinitionListResponse> {
+    private val response:
+        CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging,
+) : Page<ExternalBehavioralEventTypeDefinition> {
 
     /**
-     * Delegates to [EventDefinitionListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging],
+     * but gracefully handles missing data.
      *
-     * @see EventDefinitionListPageResponse.results
+     * @see CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging.results
      */
-    fun results(): List<EventDefinitionListResponse> =
+    fun results(): List<ExternalBehavioralEventTypeDefinition> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [EventDefinitionListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging],
+     * but gracefully handles missing data.
      *
-     * @see EventDefinitionListPageResponse.paging
+     * @see CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging.paging
      */
     fun paging(): Optional<ForwardPaging> = response._paging().getOptional("paging")
 
-    override fun items(): List<EventDefinitionListResponse> = results()
+    override fun items(): List<ExternalBehavioralEventTypeDefinition> = results()
 
     override fun hasNextPage(): Boolean =
         items().isNotEmpty() &&
@@ -54,13 +57,14 @@ private constructor(
 
     override fun nextPage(): EventDefinitionListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<EventDefinitionListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<ExternalBehavioralEventTypeDefinition> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): EventDefinitionListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): EventDefinitionListPageResponse = response
+    fun response(): CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging =
+        response
 
     fun toBuilder() = Builder().from(this)
 
@@ -84,7 +88,9 @@ private constructor(
 
         private var service: EventDefinitionService? = null
         private var params: EventDefinitionListParams? = null
-        private var response: EventDefinitionListPageResponse? = null
+        private var response:
+            CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging? =
+            null
 
         @JvmSynthetic
         internal fun from(eventDefinitionListPage: EventDefinitionListPage) = apply {
@@ -99,7 +105,9 @@ private constructor(
         fun params(params: EventDefinitionListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: EventDefinitionListPageResponse) = apply { this.response = response }
+        fun response(
+            response: CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging
+        ) = apply { this.response = response }
 
         /**
          * Returns an immutable instance of [EventDefinitionListPage].

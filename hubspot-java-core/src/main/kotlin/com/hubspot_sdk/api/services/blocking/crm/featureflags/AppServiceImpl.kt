@@ -16,14 +16,12 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.featureflags.FlagResponse
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppUpdateParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -38,28 +36,22 @@ class AppServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AppService =
         AppServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun update(
-        params: AppUpdateParams,
-        requestOptions: RequestOptions,
-    ): AppUpdateResponse =
+    override fun update(params: AppUpdateParams, requestOptions: RequestOptions): FlagResponse =
         // put /feature-flags/v3/{appId}/flags/{flagName}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun delete(
-        params: AppDeleteParams,
-        requestOptions: RequestOptions,
-    ): AppDeleteResponse =
+    override fun delete(params: AppDeleteParams, requestOptions: RequestOptions): FlagResponse =
         // delete /feature-flags/v3/{appId}/flags/{flagName}
         withRawResponse().delete(params, requestOptions).parse()
 
-    override fun get(params: AppGetParams, requestOptions: RequestOptions): AppGetResponse =
+    override fun get(params: AppGetParams, requestOptions: RequestOptions): FlagResponse =
         // get /feature-flags/v3/{appId}/flags/{flagName}
         withRawResponse().get(params, requestOptions).parse()
 
     override fun listPortals(
         params: AppListPortalsParams,
         requestOptions: RequestOptions,
-    ): AppListPortalsResponse =
+    ): PortalFlagStateBatchResponse =
         // get /feature-flags/v3/{appId}/flags/{flagName}/portals
         withRawResponse().listPortals(params, requestOptions).parse()
 
@@ -76,13 +68,13 @@ class AppServiceImpl internal constructor(private val clientOptions: ClientOptio
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<AppUpdateResponse> =
-            jsonHandler<AppUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<FlagResponse> =
+            jsonHandler<FlagResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: AppUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AppUpdateResponse> {
+        ): HttpResponseFor<FlagResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())
@@ -113,13 +105,13 @@ class AppServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val deleteHandler: Handler<AppDeleteResponse> =
-            jsonHandler<AppDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<FlagResponse> =
+            jsonHandler<FlagResponse>(clientOptions.jsonMapper)
 
         override fun delete(
             params: AppDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AppDeleteResponse> {
+        ): HttpResponseFor<FlagResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())
@@ -150,13 +142,13 @@ class AppServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val getHandler: Handler<AppGetResponse> =
-            jsonHandler<AppGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<FlagResponse> =
+            jsonHandler<FlagResponse>(clientOptions.jsonMapper)
 
         override fun get(
             params: AppGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AppGetResponse> {
+        ): HttpResponseFor<FlagResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())
@@ -186,13 +178,13 @@ class AppServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val listPortalsHandler: Handler<AppListPortalsResponse> =
-            jsonHandler<AppListPortalsResponse>(clientOptions.jsonMapper)
+        private val listPortalsHandler: Handler<PortalFlagStateBatchResponse> =
+            jsonHandler<PortalFlagStateBatchResponse>(clientOptions.jsonMapper)
 
         override fun listPortals(
             params: AppListPortalsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AppListPortalsResponse> {
+        ): HttpResponseFor<PortalFlagStateBatchResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())

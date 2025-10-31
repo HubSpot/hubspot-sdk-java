@@ -10,9 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.MarkRecordingAsReadyRequest
 import java.util.Objects
 
-/**
- * Mark a call recording as ready for transcription, specifying the call by its ID (`engagementid`).
- */
 class RecordingSettingMarkReadyParams
 private constructor(
     private val markRecordingAsReadyRequest: MarkRecordingAsReadyRequest,

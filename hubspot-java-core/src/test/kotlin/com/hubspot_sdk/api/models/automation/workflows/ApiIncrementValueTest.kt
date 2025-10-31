@@ -13,11 +13,11 @@ internal class ApiIncrementValueTest {
     fun create() {
         val apiIncrementValue =
             ApiIncrementValue.builder()
-                .incrementAmount(2.0)
+                .incrementAmount(0.0)
                 .type(ApiIncrementValue.Type.INCREMENT)
                 .build()
 
-        assertThat(apiIncrementValue.incrementAmount()).isEqualTo(2.0)
+        assertThat(apiIncrementValue.incrementAmount()).isEqualTo(0.0)
         assertThat(apiIncrementValue.type()).isEqualTo(ApiIncrementValue.Type.INCREMENT)
     }
 
@@ -26,7 +26,7 @@ internal class ApiIncrementValueTest {
         val jsonMapper = jsonMapper()
         val apiIncrementValue =
             ApiIncrementValue.builder()
-                .incrementAmount(2.0)
+                .incrementAmount(0.0)
                 .type(ApiIncrementValue.Type.INCREMENT)
                 .build()
 

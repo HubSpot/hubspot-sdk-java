@@ -27,7 +27,7 @@ internal class BatchCreateParamsTest {
                             )
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .addType(
                                         AssociationSpec.builder()
                                             .associationCategory(
@@ -61,7 +61,7 @@ internal class BatchCreateParamsTest {
                                 )
                                 .addAssociation(
                                     PublicAssociationsForObject.builder()
-                                        .to(PublicObjectId.builder().id("37295").build())
+                                        .to(PublicObjectId.builder().id("id").build())
                                         .addType(
                                             AssociationSpec.builder()
                                                 .associationCategory(
@@ -94,7 +94,7 @@ internal class BatchCreateParamsTest {
                             )
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .addType(
                                         AssociationSpec.builder()
                                             .associationCategory(

@@ -7,15 +7,14 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.conversations.customchannels.CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelDeleteParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateResponse
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannel
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannelCreate
 import com.hubspot_sdk.api.services.blocking.conversations.customchannels.ChannelAccountService
 import com.hubspot_sdk.api.services.blocking.conversations.customchannels.ChannelAccountStagingTokenService
 import com.hubspot_sdk.api.services.blocking.conversations.customchannels.MessageService
@@ -45,56 +44,80 @@ interface CustomChannelService {
      * Register a new channel along with its capabilities and the webhook url that will be used to
      * receive messages published over the channel
      */
-    fun create(params: CustomChannelCreateParams): CustomChannelCreateResponse =
+    fun create(params: CustomChannelCreateParams): PublicChannelIntegrationChannel =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: CustomChannelCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CustomChannelCreateResponse
+    ): PublicChannelIntegrationChannel
+
+    /** @see create */
+    fun create(
+        publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicChannelIntegrationChannel =
+        create(
+            CustomChannelCreateParams.builder()
+                .publicChannelIntegrationChannelCreate(publicChannelIntegrationChannelCreate)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate
+    ): PublicChannelIntegrationChannel =
+        create(publicChannelIntegrationChannelCreate, RequestOptions.none())
 
     /**
      * Update the capabilities for an existing. You can also use it to update the channel's
      * webhookUri and its channelAccountConnectionRedirectUrl.
      */
-    fun update(channelId: String, params: CustomChannelUpdateParams): CustomChannelUpdateResponse =
-        update(channelId, params, RequestOptions.none())
+    fun update(
+        channelId: String,
+        params: CustomChannelUpdateParams,
+    ): PublicChannelIntegrationChannel = update(channelId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         channelId: String,
         params: CustomChannelUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CustomChannelUpdateResponse =
+    ): PublicChannelIntegrationChannel =
         update(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: CustomChannelUpdateParams): CustomChannelUpdateResponse =
+    fun update(params: CustomChannelUpdateParams): PublicChannelIntegrationChannel =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: CustomChannelUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CustomChannelUpdateResponse
+    ): PublicChannelIntegrationChannel
 
     /** Retrieve all custom channels associated with the app. */
-    fun list(): CustomChannelListResponse = list(CustomChannelListParams.none())
+    fun list(): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
+        list(CustomChannelListParams.none())
 
     /** @see list */
     fun list(
         params: CustomChannelListParams = CustomChannelListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CustomChannelListResponse
+    ): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
 
     /** @see list */
     fun list(
         params: CustomChannelListParams = CustomChannelListParams.none()
-    ): CustomChannelListResponse = list(params, RequestOptions.none())
+    ): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CustomChannelListResponse =
+    fun list(
+        requestOptions: RequestOptions
+    ): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
         list(CustomChannelListParams.none(), requestOptions)
 
     /** Archive an existing registered custom channel */
@@ -130,7 +153,7 @@ interface CustomChannelService {
      * Retrieve the details about a custom channel. This API allows you to see a custom channel's
      * current capabilties and other configuration metadata
      */
-    fun get(channelId: String): CustomChannelGetResponse =
+    fun get(channelId: String): PublicChannelIntegrationChannel =
         get(channelId, CustomChannelGetParams.none())
 
     /** @see get */
@@ -138,27 +161,27 @@ interface CustomChannelService {
         channelId: String,
         params: CustomChannelGetParams = CustomChannelGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CustomChannelGetResponse =
+    ): PublicChannelIntegrationChannel =
         get(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see get */
     fun get(
         channelId: String,
         params: CustomChannelGetParams = CustomChannelGetParams.none(),
-    ): CustomChannelGetResponse = get(channelId, params, RequestOptions.none())
+    ): PublicChannelIntegrationChannel = get(channelId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: CustomChannelGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CustomChannelGetResponse
+    ): PublicChannelIntegrationChannel
 
     /** @see get */
-    fun get(params: CustomChannelGetParams): CustomChannelGetResponse =
+    fun get(params: CustomChannelGetParams): PublicChannelIntegrationChannel =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(channelId: String, requestOptions: RequestOptions): CustomChannelGetResponse =
+    fun get(channelId: String, requestOptions: RequestOptions): PublicChannelIntegrationChannel =
         get(channelId, CustomChannelGetParams.none(), requestOptions)
 
     /**
@@ -188,14 +211,34 @@ interface CustomChannelService {
         @MustBeClosed
         fun create(
             params: CustomChannelCreateParams
-        ): HttpResponseFor<CustomChannelCreateResponse> = create(params, RequestOptions.none())
+        ): HttpResponseFor<PublicChannelIntegrationChannel> = create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: CustomChannelCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CustomChannelCreateResponse>
+        ): HttpResponseFor<PublicChannelIntegrationChannel>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicChannelIntegrationChannel> =
+            create(
+                CustomChannelCreateParams.builder()
+                    .publicChannelIntegrationChannelCreate(publicChannelIntegrationChannelCreate)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate
+        ): HttpResponseFor<PublicChannelIntegrationChannel> =
+            create(publicChannelIntegrationChannelCreate, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /conversations/v3/custom-channels/{channelId}`,
@@ -205,7 +248,7 @@ interface CustomChannelService {
         fun update(
             channelId: String,
             params: CustomChannelUpdateParams,
-        ): HttpResponseFor<CustomChannelUpdateResponse> =
+        ): HttpResponseFor<PublicChannelIntegrationChannel> =
             update(channelId, params, RequestOptions.none())
 
         /** @see update */
@@ -214,47 +257,54 @@ interface CustomChannelService {
             channelId: String,
             params: CustomChannelUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CustomChannelUpdateResponse> =
+        ): HttpResponseFor<PublicChannelIntegrationChannel> =
             update(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: CustomChannelUpdateParams
-        ): HttpResponseFor<CustomChannelUpdateResponse> = update(params, RequestOptions.none())
+        ): HttpResponseFor<PublicChannelIntegrationChannel> = update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: CustomChannelUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CustomChannelUpdateResponse>
+        ): HttpResponseFor<PublicChannelIntegrationChannel>
 
         /**
          * Returns a raw HTTP response for `get /conversations/v3/custom-channels/`, but is
          * otherwise the same as [CustomChannelService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CustomChannelListResponse> =
-            list(CustomChannelListParams.none())
+        fun list():
+            HttpResponseFor<
+                CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
+            > = list(CustomChannelListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CustomChannelListParams = CustomChannelListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CustomChannelListResponse>
+        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CustomChannelListParams = CustomChannelListParams.none()
-        ): HttpResponseFor<CustomChannelListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<
+            CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
+        > = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CustomChannelListResponse> =
-            list(CustomChannelListParams.none(), requestOptions)
+        fun list(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<
+            CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
+        > = list(CustomChannelListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /conversations/v3/custom-channels/{channelId}`,
@@ -301,7 +351,7 @@ interface CustomChannelService {
          * is otherwise the same as [CustomChannelService.get].
          */
         @MustBeClosed
-        fun get(channelId: String): HttpResponseFor<CustomChannelGetResponse> =
+        fun get(channelId: String): HttpResponseFor<PublicChannelIntegrationChannel> =
             get(channelId, CustomChannelGetParams.none())
 
         /** @see get */
@@ -310,7 +360,7 @@ interface CustomChannelService {
             channelId: String,
             params: CustomChannelGetParams = CustomChannelGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CustomChannelGetResponse> =
+        ): HttpResponseFor<PublicChannelIntegrationChannel> =
             get(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see get */
@@ -318,18 +368,19 @@ interface CustomChannelService {
         fun get(
             channelId: String,
             params: CustomChannelGetParams = CustomChannelGetParams.none(),
-        ): HttpResponseFor<CustomChannelGetResponse> = get(channelId, params, RequestOptions.none())
+        ): HttpResponseFor<PublicChannelIntegrationChannel> =
+            get(channelId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: CustomChannelGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CustomChannelGetResponse>
+        ): HttpResponseFor<PublicChannelIntegrationChannel>
 
         /** @see get */
         @MustBeClosed
-        fun get(params: CustomChannelGetParams): HttpResponseFor<CustomChannelGetResponse> =
+        fun get(params: CustomChannelGetParams): HttpResponseFor<PublicChannelIntegrationChannel> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -337,7 +388,7 @@ interface CustomChannelService {
         fun get(
             channelId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CustomChannelGetResponse> =
+        ): HttpResponseFor<PublicChannelIntegrationChannel> =
             get(channelId, CustomChannelGetParams.none(), requestOptions)
     }
 }

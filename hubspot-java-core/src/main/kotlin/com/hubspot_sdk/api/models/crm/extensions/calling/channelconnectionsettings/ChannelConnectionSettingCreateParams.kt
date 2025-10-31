@@ -12,11 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Configure
- * [channel connection settings](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#create-channel-connection-settings)
- * for the app.
- */
 class ChannelConnectionSettingCreateParams
 private constructor(
     private val appId: Int?,

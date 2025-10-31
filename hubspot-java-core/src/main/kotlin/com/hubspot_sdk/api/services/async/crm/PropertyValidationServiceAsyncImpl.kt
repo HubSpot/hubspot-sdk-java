@@ -15,10 +15,10 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleMapNoPaging
+import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleNoPaging
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetParams
-import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetResponse
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationListParams
-import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -42,14 +42,14 @@ internal constructor(private val clientOptions: ClientOptions) : PropertyValidat
     override fun list(
         params: PropertyValidationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PropertyValidationListResponse> =
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
         // get /crm/v3/property-validations/{objectTypeId}
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: PropertyValidationGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PropertyValidationGetResponse> =
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleNoPaging> =
         // get /crm/v3/property-validations/{objectTypeId}/{propertyName}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -66,13 +66,18 @@ internal constructor(private val clientOptions: ClientOptions) : PropertyValidat
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<PropertyValidationListResponse> =
-            jsonHandler<PropertyValidationListResponse>(clientOptions.jsonMapper)
+        private val listHandler:
+            Handler<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
+            jsonHandler<CollectionResponsePublicPropertyValidationRuleMapNoPaging>(
+                clientOptions.jsonMapper
+            )
 
         override fun list(
             params: PropertyValidationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PropertyValidationListResponse>> {
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
+        > {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectTypeId", params.objectTypeId().getOrNull())
@@ -99,13 +104,17 @@ internal constructor(private val clientOptions: ClientOptions) : PropertyValidat
                 }
         }
 
-        private val getHandler: Handler<PropertyValidationGetResponse> =
-            jsonHandler<PropertyValidationGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<CollectionResponsePublicPropertyValidationRuleNoPaging> =
+            jsonHandler<CollectionResponsePublicPropertyValidationRuleNoPaging>(
+                clientOptions.jsonMapper
+            )
 
         override fun get(
             params: PropertyValidationGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PropertyValidationGetResponse>> {
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging>
+        > {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("propertyName", params.propertyName().getOrNull())

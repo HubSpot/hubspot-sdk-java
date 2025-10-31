@@ -21,9 +21,9 @@ internal class EnablementServiceTest {
                 .build()
         val enablementService = client.crm().objectLibrary().enablement()
 
-        val enablements = enablementService.list()
+        val portalObjectTypeEnablementPublicResponse = enablementService.list()
 
-        enablements.validate()
+        portalObjectTypeEnablementPublicResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -36,8 +36,8 @@ internal class EnablementServiceTest {
                 .build()
         val enablementService = client.crm().objectLibrary().enablement()
 
-        val enablement = enablementService.get("objectTypeId")
+        val objectTypeEnablementPublicResponse = enablementService.get("objectTypeId")
 
-        enablement.validate()
+        objectTypeEnablementPublicResponse.validate()
     }
 }

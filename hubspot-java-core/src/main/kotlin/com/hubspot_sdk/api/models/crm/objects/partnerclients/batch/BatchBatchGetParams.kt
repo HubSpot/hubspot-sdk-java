@@ -12,7 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Read a batch of objects by internal ID, or unique property values */
 class BatchBatchGetParams
 private constructor(
     private val archived: Boolean?,
@@ -21,7 +20,6 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /**
@@ -73,7 +71,6 @@ private constructor(
             additionalQueryParams = batchBatchGetParams.additionalQueryParams.toBuilder()
         }
 
-        /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**

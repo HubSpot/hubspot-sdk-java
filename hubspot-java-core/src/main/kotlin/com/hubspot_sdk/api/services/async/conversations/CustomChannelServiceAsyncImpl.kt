@@ -17,15 +17,13 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.conversations.customchannels.CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelDeleteParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateResponse
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannel
 import com.hubspot_sdk.api.services.async.conversations.customchannels.ChannelAccountServiceAsync
 import com.hubspot_sdk.api.services.async.conversations.customchannels.ChannelAccountServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.conversations.customchannels.ChannelAccountStagingTokenServiceAsync
@@ -68,21 +66,21 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
     override fun create(
         params: CustomChannelCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomChannelCreateResponse> =
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
         // post /conversations/v3/custom-channels/
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: CustomChannelUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomChannelUpdateResponse> =
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
         // patch /conversations/v3/custom-channels/{channelId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: CustomChannelListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomChannelListResponse> =
+    ): CompletableFuture<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging> =
         // get /conversations/v3/custom-channels/
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -96,7 +94,7 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
     override fun get(
         params: CustomChannelGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomChannelGetResponse> =
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
         // get /conversations/v3/custom-channels/{channelId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -133,13 +131,13 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
 
         override fun messages(): MessageServiceAsync.WithRawResponse = messages
 
-        private val createHandler: Handler<CustomChannelCreateResponse> =
-            jsonHandler<CustomChannelCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<PublicChannelIntegrationChannel> =
+            jsonHandler<PublicChannelIntegrationChannel>(clientOptions.jsonMapper)
 
         override fun create(
             params: CustomChannelCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomChannelCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -164,13 +162,13 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val updateHandler: Handler<CustomChannelUpdateResponse> =
-            jsonHandler<CustomChannelUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PublicChannelIntegrationChannel> =
+            jsonHandler<PublicChannelIntegrationChannel>(clientOptions.jsonMapper)
 
         override fun update(
             params: CustomChannelUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomChannelUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelId", params.channelId().getOrNull())
@@ -198,13 +196,18 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<CustomChannelListResponse> =
-            jsonHandler<CustomChannelListResponse>(clientOptions.jsonMapper)
+        private val listHandler:
+            Handler<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging> =
+            jsonHandler<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>(
+                clientOptions.jsonMapper
+            )
 
         override fun list(
             params: CustomChannelListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomChannelListResponse>> {
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
+        > {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -255,13 +258,13 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val getHandler: Handler<CustomChannelGetResponse> =
-            jsonHandler<CustomChannelGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PublicChannelIntegrationChannel> =
+            jsonHandler<PublicChannelIntegrationChannel>(clientOptions.jsonMapper)
 
         override fun get(
             params: CustomChannelGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomChannelGetResponse>> {
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelId", params.channelId().getOrNull())

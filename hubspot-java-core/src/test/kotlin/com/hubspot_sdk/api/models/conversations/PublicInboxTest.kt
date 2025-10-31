@@ -15,7 +15,7 @@ internal class PublicInboxTest {
         val publicInbox =
             PublicInbox.builder()
                 .archived(true)
-                .type("HELP_DESK")
+                .type("type")
                 .id("id")
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -24,7 +24,7 @@ internal class PublicInboxTest {
                 .build()
 
         assertThat(publicInbox.archived()).isEqualTo(true)
-        assertThat(publicInbox.type()).isEqualTo("HELP_DESK")
+        assertThat(publicInbox.type()).isEqualTo("type")
         assertThat(publicInbox.id()).contains("id")
         assertThat(publicInbox.archivedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -41,7 +41,7 @@ internal class PublicInboxTest {
         val publicInbox =
             PublicInbox.builder()
                 .archived(true)
-                .type("HELP_DESK")
+                .type("type")
                 .id("id")
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

@@ -23,7 +23,7 @@ internal class SiteSearchServiceTest {
                 .build()
         val siteSearchService = client.cms().siteSearch()
 
-        val response =
+        val indexedData =
             siteSearchService.getIndexedData(
                 SiteSearchGetIndexedDataParams.builder()
                     .contentId("contentId")
@@ -31,7 +31,7 @@ internal class SiteSearchServiceTest {
                     .build()
             )
 
-        response.validate()
+        indexedData.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -44,7 +44,7 @@ internal class SiteSearchServiceTest {
                 .build()
         val siteSearchService = client.cms().siteSearch()
 
-        val response =
+        val publicSearchResults =
             siteSearchService.search(
                 SiteSearchSearchParams.builder()
                     .autocomplete(true)
@@ -67,6 +67,6 @@ internal class SiteSearchServiceTest {
                     .build()
             )
 
-        response.validate()
+        publicSearchResults.validate()
     }
 }

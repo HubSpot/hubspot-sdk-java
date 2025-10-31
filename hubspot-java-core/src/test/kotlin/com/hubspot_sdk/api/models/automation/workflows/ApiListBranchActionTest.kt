@@ -24,10 +24,10 @@ internal class ApiListBranchActionTest {
     fun create() {
         val apiListBranchAction =
             ApiListBranchAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .addListBranch(
                     ApiListBranch.builder()
-                        .branchName("Branch name")
+                        .branchName("branchName")
                         .connection(
                             ApiConnection.builder()
                                 .edgeType("edgeType")
@@ -417,14 +417,14 @@ internal class ApiListBranchActionTest {
                         .nextActionId("nextActionId")
                         .build()
                 )
-                .defaultBranchName("other")
+                .defaultBranchName("defaultBranchName")
                 .build()
 
-        assertThat(apiListBranchAction.actionId()).isEqualTo("1")
+        assertThat(apiListBranchAction.actionId()).isEqualTo("actionId")
         assertThat(apiListBranchAction.listBranches())
             .containsExactly(
                 ApiListBranch.builder()
-                    .branchName("Branch name")
+                    .branchName("branchName")
                     .connection(
                         ApiConnection.builder()
                             .edgeType("edgeType")
@@ -797,7 +797,7 @@ internal class ApiListBranchActionTest {
             .contains(
                 ApiConnection.builder().edgeType("edgeType").nextActionId("nextActionId").build()
             )
-        assertThat(apiListBranchAction.defaultBranchName()).contains("other")
+        assertThat(apiListBranchAction.defaultBranchName()).contains("defaultBranchName")
     }
 
     @Test
@@ -805,10 +805,10 @@ internal class ApiListBranchActionTest {
         val jsonMapper = jsonMapper()
         val apiListBranchAction =
             ApiListBranchAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .addListBranch(
                     ApiListBranch.builder()
-                        .branchName("Branch name")
+                        .branchName("branchName")
                         .connection(
                             ApiConnection.builder()
                                 .edgeType("edgeType")
@@ -1198,7 +1198,7 @@ internal class ApiListBranchActionTest {
                         .nextActionId("nextActionId")
                         .build()
                 )
-                .defaultBranchName("other")
+                .defaultBranchName("defaultBranchName")
                 .build()
 
         val roundtrippedApiListBranchAction =

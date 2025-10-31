@@ -73,16 +73,12 @@ private constructor(
     )
 
     /**
-     * The ID for this action.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionId(): String = actionId.getRequired("actionId")
 
     /**
-     * The HTTP method to use when calling the webhook URL
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -95,25 +91,18 @@ private constructor(
     fun queryParams(): List<ApiInputVariable> = queryParams.getRequired("queryParams")
 
     /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The URL to call each time this action is executed.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun webhookUrl(): String = webhookUrl.getRequired("webhookUrl")
 
     /**
-     * The type of auth to use when calling the webhook endpoint.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -233,7 +222,6 @@ private constructor(
             additionalProperties = apiWebhookAction.additionalProperties.toMutableMap()
         }
 
-        /** The ID for this action. */
         fun actionId(actionId: String) = actionId(JsonField.of(actionId))
 
         /**
@@ -244,7 +232,6 @@ private constructor(
          */
         fun actionId(actionId: JsonField<String>) = apply { this.actionId = actionId }
 
-        /** The HTTP method to use when calling the webhook URL */
         fun method(method: Method) = method(JsonField.of(method))
 
         /**
@@ -281,10 +268,6 @@ private constructor(
                 }
         }
 
-        /**
-         * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-         * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -295,7 +278,6 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /** The URL to call each time this action is executed. */
         fun webhookUrl(webhookUrl: String) = webhookUrl(JsonField.of(webhookUrl))
 
         /**
@@ -307,7 +289,6 @@ private constructor(
          */
         fun webhookUrl(webhookUrl: JsonField<String>) = apply { this.webhookUrl = webhookUrl }
 
-        /** The type of auth to use when calling the webhook endpoint. */
         fun authSettings(authSettings: AuthSettings) = authSettings(JsonField.of(authSettings))
 
         /**
@@ -436,7 +417,6 @@ private constructor(
             (authSettings.asKnown().getOrNull()?.validity() ?: 0) +
             (connection.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The HTTP method to use when calling the webhook URL */
     class Method @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -604,10 +584,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -727,7 +703,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The type of auth to use when calling the webhook endpoint. */
     @JsonDeserialize(using = AuthSettings.Deserializer::class)
     @JsonSerialize(using = AuthSettings.Serializer::class)
     class AuthSettings

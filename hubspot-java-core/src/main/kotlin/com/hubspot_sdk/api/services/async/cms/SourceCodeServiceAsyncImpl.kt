@@ -20,16 +20,14 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.ActionResponse
 import com.hubspot_sdk.api.models.TaskLocator
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeDeleteParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeExtractAsyncParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetExtractionStatusParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeValidateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -51,7 +49,7 @@ class SourceCodeServiceAsyncImpl internal constructor(private val clientOptions:
     override fun create(
         params: SourceCodeCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SourceCodeCreateResponse> =
+    ): CompletableFuture<AssetFileMetadata> =
         // post /cms/v3/source-code/{environment}/content/{path}
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
@@ -86,14 +84,14 @@ class SourceCodeServiceAsyncImpl internal constructor(private val clientOptions:
     override fun getMetadata(
         params: SourceCodeGetMetadataParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SourceCodeGetMetadataResponse> =
+    ): CompletableFuture<AssetFileMetadata> =
         // get /cms/v3/source-code/{environment}/metadata/{path}
         withRawResponse().getMetadata(params, requestOptions).thenApply { it.parse() }
 
     override fun upsert(
         params: SourceCodeUpsertParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SourceCodeUpsertResponse> =
+    ): CompletableFuture<AssetFileMetadata> =
         // put /cms/v3/source-code/{environment}/content/{path}
         withRawResponse().upsert(params, requestOptions).thenApply { it.parse() }
 
@@ -117,14 +115,14 @@ class SourceCodeServiceAsyncImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<SourceCodeCreateResponse> =
-            jsonHandler<SourceCodeCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<AssetFileMetadata> =
+            jsonHandler<AssetFileMetadata>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
         override fun create(
             params: SourceCodeCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SourceCodeCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("path", params.path().getOrNull())
@@ -293,13 +291,13 @@ class SourceCodeServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val getMetadataHandler: Handler<SourceCodeGetMetadataResponse> =
-            jsonHandler<SourceCodeGetMetadataResponse>(clientOptions.jsonMapper)
+        private val getMetadataHandler: Handler<AssetFileMetadata> =
+            jsonHandler<AssetFileMetadata>(clientOptions.jsonMapper)
 
         override fun getMetadata(
             params: SourceCodeGetMetadataParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SourceCodeGetMetadataResponse>> {
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("path", params.path().getOrNull())
@@ -333,13 +331,13 @@ class SourceCodeServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val upsertHandler: Handler<SourceCodeUpsertResponse> =
-            jsonHandler<SourceCodeUpsertResponse>(clientOptions.jsonMapper)
+        private val upsertHandler: Handler<AssetFileMetadata> =
+            jsonHandler<AssetFileMetadata>(clientOptions.jsonMapper)
 
         override fun upsert(
             params: SourceCodeUpsertParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SourceCodeUpsertResponse>> {
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("path", params.path().getOrNull())

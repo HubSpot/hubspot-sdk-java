@@ -41,10 +41,6 @@ interface SettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingServiceAsync
 
-    /**
-     * Get the list of Blogs. Supports paging and filtering. This method would be useful for an
-     * integration that examined these models and used an external service to suggest edits.
-     */
     fun list(): CompletableFuture<SettingListPageAsync> = list(SettingListParams.none())
 
     /** @see list */
@@ -62,7 +58,6 @@ interface SettingServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<SettingListPageAsync> =
         list(SettingListParams.none(), requestOptions)
 
-    /** Attach a blog to a multi-language group. */
     fun attachToLangGroup(params: SettingAttachToLangGroupParams): CompletableFuture<Void?> =
         attachToLangGroup(params, RequestOptions.none())
 
@@ -90,7 +85,6 @@ interface SettingServiceAsync {
     ): CompletableFuture<Void?> =
         attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
-    /** Create a new language variation from an existing blog */
     fun createLanguageVariation(
         params: SettingCreateLanguageVariationParams
     ): CompletableFuture<Blog> = createLanguageVariation(params, RequestOptions.none())
@@ -119,7 +113,6 @@ interface SettingServiceAsync {
     ): CompletableFuture<Blog> =
         createLanguageVariation(blogLanguageCloneRequestVNext, RequestOptions.none())
 
-    /** Detach a blog from a multi-language group. */
     fun detachFromLangGroup(params: SettingDetachFromLangGroupParams): CompletableFuture<Void?> =
         detachFromLangGroup(params, RequestOptions.none())
 
@@ -147,7 +140,6 @@ interface SettingServiceAsync {
     ): CompletableFuture<Void?> =
         detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
-    /** Retrieve the Blog object identified by the id in the path. */
     fun get(blogId: String): CompletableFuture<Blog> = get(blogId, SettingGetParams.none())
 
     /** @see get */
@@ -176,7 +168,6 @@ interface SettingServiceAsync {
     fun get(blogId: String, requestOptions: RequestOptions): CompletableFuture<Blog> =
         get(blogId, SettingGetParams.none(), requestOptions)
 
-    /** Retrieves a previous version of a Blog */
     fun getRevision(
         revisionId: String,
         params: SettingGetRevisionParams,
@@ -200,7 +191,6 @@ interface SettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VersionBlog>
 
-    /** Retrieves all the previous versions of a Blog */
     fun listRevisions(blogId: String): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
         listRevisions(blogId, SettingListRevisionsParams.none())
 
@@ -238,7 +228,6 @@ interface SettingServiceAsync {
     ): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
         listRevisions(blogId, SettingListRevisionsParams.none(), requestOptions)
 
-    /** Set a blog as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: SettingSetNewLangPrimaryParams): CompletableFuture<Void?> =
         setNewLangPrimary(params, RequestOptions.none())
 
@@ -266,7 +255,6 @@ interface SettingServiceAsync {
     ): CompletableFuture<Void?> =
         setNewLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
 
-    /** Explicitly set new languages for each blog in a multi-language group. */
     fun updateLanguages(params: SettingUpdateLanguagesParams): CompletableFuture<Void?> =
         updateLanguages(params, RequestOptions.none())
 

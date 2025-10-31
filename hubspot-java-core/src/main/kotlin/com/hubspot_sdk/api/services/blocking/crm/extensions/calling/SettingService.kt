@@ -28,7 +28,6 @@ interface SettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingService
 
-    /** Set the menu label, target iframe URL, and dimensions for your calling extension. */
     fun create(appId: Int, params: SettingCreateParams): SettingsResponse =
         create(appId, params, RequestOptions.none())
 
@@ -49,7 +48,6 @@ interface SettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SettingsResponse
 
-    /** Update existing calling extension settings. */
     fun update(appId: Int, params: SettingUpdateParams): SettingsResponse =
         update(appId, params, RequestOptions.none())
 
@@ -70,10 +68,6 @@ interface SettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SettingsResponse
 
-    /**
-     * Delete a calling extension. This will remove your service as an option for all connected
-     * accounts.
-     */
     fun delete(appId: Int) = delete(appId, SettingDeleteParams.none())
 
     /** @see delete */
@@ -97,7 +91,6 @@ interface SettingService {
     fun delete(appId: Int, requestOptions: RequestOptions) =
         delete(appId, SettingDeleteParams.none(), requestOptions)
 
-    /** Retrieve the settings configured for the app. */
     fun get(appId: Int): SettingsResponse = get(appId, SettingGetParams.none())
 
     /** @see get */

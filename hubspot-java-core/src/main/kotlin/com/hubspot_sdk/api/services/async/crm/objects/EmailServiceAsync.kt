@@ -189,6 +189,10 @@ interface EmailServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(emailId, EmailGetParams.none(), requestOptions)
 
+    /**
+     * Perform a search for emails based on the provided query parameters and return matching
+     * results.
+     */
     fun search(
         params: EmailSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

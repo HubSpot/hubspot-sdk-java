@@ -16,7 +16,7 @@ internal class BatchGetParamsTest {
             .toObjectType("toObjectType")
             .batchInputPublicObjectId(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("37295").build())
+                    .addInput(PublicObjectId.builder().id("id").build())
                     .build()
             )
             .build()
@@ -30,7 +30,7 @@ internal class BatchGetParamsTest {
                 .toObjectType("toObjectType")
                 .batchInputPublicObjectId(
                     BatchInputPublicObjectId.builder()
-                        .addInput(PublicObjectId.builder().id("37295").build())
+                        .addInput(PublicObjectId.builder().id("id").build())
                         .build()
                 )
                 .build()
@@ -49,7 +49,7 @@ internal class BatchGetParamsTest {
                 .toObjectType("toObjectType")
                 .batchInputPublicObjectId(
                     BatchInputPublicObjectId.builder()
-                        .addInput(PublicObjectId.builder().id("37295").build())
+                        .addInput(PublicObjectId.builder().id("id").build())
                         .build()
                 )
                 .build()
@@ -59,7 +59,7 @@ internal class BatchGetParamsTest {
         assertThat(body)
             .isEqualTo(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("37295").build())
+                    .addInput(PublicObjectId.builder().id("id").build())
                     .build()
             )
     }

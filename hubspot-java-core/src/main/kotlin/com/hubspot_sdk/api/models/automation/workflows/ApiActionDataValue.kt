@@ -34,26 +34,18 @@ private constructor(
     ) : this(actionId, dataKey, type, mutableMapOf())
 
     /**
-     * Which action to pull data from.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionId(): String = actionId.getRequired("actionId")
 
     /**
-     * The output field name for that action
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dataKey(): String = dataKey.getRequired("dataKey")
 
     /**
-     * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-     * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-     * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -123,7 +115,6 @@ private constructor(
             additionalProperties = apiActionDataValue.additionalProperties.toMutableMap()
         }
 
-        /** Which action to pull data from. */
         fun actionId(actionId: String) = actionId(JsonField.of(actionId))
 
         /**
@@ -134,7 +125,6 @@ private constructor(
          */
         fun actionId(actionId: JsonField<String>) = apply { this.actionId = actionId }
 
-        /** The output field name for that action */
         fun dataKey(dataKey: String) = dataKey(JsonField.of(dataKey))
 
         /**
@@ -145,11 +135,6 @@ private constructor(
          */
         fun dataKey(dataKey: JsonField<String>) = apply { this.dataKey = dataKey }
 
-        /**
-         * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-         * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-         * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -234,11 +219,6 @@ private constructor(
             (if (dataKey.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-     * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-     * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

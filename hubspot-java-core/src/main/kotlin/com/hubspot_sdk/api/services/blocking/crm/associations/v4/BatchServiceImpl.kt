@@ -17,9 +17,9 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchResponseLabelsBetweenObjectPair
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchResponsePublicAssociationMultiWithLabel
-import com.hubspot_sdk.api.models.crm.associations.v4.BatchResponseVoid
+import com.hubspot_sdk.api.models.crm.associations.BatchResponseLabelsBetweenObjectPair
+import com.hubspot_sdk.api.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
+import com.hubspot_sdk.api.models.crm.associations.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateDefaultParams
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteLabelsParams

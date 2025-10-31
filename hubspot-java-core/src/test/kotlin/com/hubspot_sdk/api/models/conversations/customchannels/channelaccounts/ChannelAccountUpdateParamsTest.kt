@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts
 
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountUpdateRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,8 +13,9 @@ internal class ChannelAccountUpdateParamsTest {
         ChannelAccountUpdateParams.builder()
             .channelId("channelId")
             .channelAccountId("channelAccountId")
-            .authorized(true)
-            .name("name")
+            .publicChannelAccountUpdateRequest(
+                PublicChannelAccountUpdateRequest.builder().authorized(true).name("name").build()
+            )
             .build()
     }
 
@@ -23,6 +25,9 @@ internal class ChannelAccountUpdateParamsTest {
             ChannelAccountUpdateParams.builder()
                 .channelId("channelId")
                 .channelAccountId("channelAccountId")
+                .publicChannelAccountUpdateRequest(
+                    PublicChannelAccountUpdateRequest.builder().build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("channelId")
@@ -37,14 +42,20 @@ internal class ChannelAccountUpdateParamsTest {
             ChannelAccountUpdateParams.builder()
                 .channelId("channelId")
                 .channelAccountId("channelAccountId")
-                .authorized(true)
-                .name("name")
+                .publicChannelAccountUpdateRequest(
+                    PublicChannelAccountUpdateRequest.builder()
+                        .authorized(true)
+                        .name("name")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.authorized()).contains(true)
-        assertThat(body.name()).contains("name")
+        assertThat(body)
+            .isEqualTo(
+                PublicChannelAccountUpdateRequest.builder().authorized(true).name("name").build()
+            )
     }
 
     @Test
@@ -53,8 +64,13 @@ internal class ChannelAccountUpdateParamsTest {
             ChannelAccountUpdateParams.builder()
                 .channelId("channelId")
                 .channelAccountId("channelAccountId")
+                .publicChannelAccountUpdateRequest(
+                    PublicChannelAccountUpdateRequest.builder().build()
+                )
                 .build()
 
         val body = params._body()
+
+        assertThat(body).isEqualTo(PublicChannelAccountUpdateRequest.builder().build())
     }
 }

@@ -15,7 +15,7 @@ internal class ApiFlowBatchMigrationInputTest {
             ApiFlowBatchMigrationInput.builder()
                 .addInput(
                     ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                        .flowMigrationStatuses("12345")
+                        .flowMigrationStatuses("flowMigrationStatuses")
                         .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                         .build()
                 )
@@ -25,7 +25,7 @@ internal class ApiFlowBatchMigrationInputTest {
             .containsExactly(
                 ApiFlowBatchMigrationInput.Input.ofApiFlowBatchFetchMigrationFlowIdCoordinate(
                     ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                        .flowMigrationStatuses("12345")
+                        .flowMigrationStatuses("flowMigrationStatuses")
                         .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                         .build()
                 )
@@ -39,7 +39,7 @@ internal class ApiFlowBatchMigrationInputTest {
             ApiFlowBatchMigrationInput.builder()
                 .addInput(
                     ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                        .flowMigrationStatuses("12345")
+                        .flowMigrationStatuses("flowMigrationStatuses")
                         .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                         .build()
                 )

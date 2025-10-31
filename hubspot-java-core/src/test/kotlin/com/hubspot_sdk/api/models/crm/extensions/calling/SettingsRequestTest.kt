@@ -13,26 +13,26 @@ internal class SettingsRequestTest {
     fun create() {
         val settingsRequest =
             SettingsRequest.builder()
-                .name("HubPhone")
-                .url("https://www.example.com/hubspot/iframe")
-                .height(350)
+                .name("name")
+                .url("url")
+                .height(0)
                 .isReady(true)
                 .supportsCustomObjects(true)
                 .supportsInboundCalling(true)
                 .usesCallingWindow(true)
                 .usesRemote(true)
-                .width(200)
+                .width(0)
                 .build()
 
-        assertThat(settingsRequest.name()).isEqualTo("HubPhone")
-        assertThat(settingsRequest.url()).isEqualTo("https://www.example.com/hubspot/iframe")
-        assertThat(settingsRequest.height()).contains(350)
+        assertThat(settingsRequest.name()).isEqualTo("name")
+        assertThat(settingsRequest.url()).isEqualTo("url")
+        assertThat(settingsRequest.height()).contains(0)
         assertThat(settingsRequest.isReady()).contains(true)
         assertThat(settingsRequest.supportsCustomObjects()).contains(true)
         assertThat(settingsRequest.supportsInboundCalling()).contains(true)
         assertThat(settingsRequest.usesCallingWindow()).contains(true)
         assertThat(settingsRequest.usesRemote()).contains(true)
-        assertThat(settingsRequest.width()).contains(200)
+        assertThat(settingsRequest.width()).contains(0)
     }
 
     @Test
@@ -40,15 +40,15 @@ internal class SettingsRequestTest {
         val jsonMapper = jsonMapper()
         val settingsRequest =
             SettingsRequest.builder()
-                .name("HubPhone")
-                .url("https://www.example.com/hubspot/iframe")
-                .height(350)
+                .name("name")
+                .url("url")
+                .height(0)
                 .isReady(true)
                 .supportsCustomObjects(true)
                 .supportsInboundCalling(true)
                 .usesCallingWindow(true)
                 .usesRemote(true)
-                .width(200)
+                .width(0)
                 .build()
 
         val roundtrippedSettingsRequest =

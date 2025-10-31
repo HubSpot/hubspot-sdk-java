@@ -10,9 +10,13 @@ internal class VisitorIdentificationGenerateTokenParamsTest {
     @Test
     fun create() {
         VisitorIdentificationGenerateTokenParams.builder()
-            .email("visitor-email@example.com")
-            .firstName("Gob")
-            .lastName("Bluth")
+            .identificationTokenGenerationRequest(
+                IdentificationTokenGenerationRequest.builder()
+                    .email("visitor-email@example.com")
+                    .firstName("Gob")
+                    .lastName("Bluth")
+                    .build()
+            )
             .build()
     }
 
@@ -20,27 +24,45 @@ internal class VisitorIdentificationGenerateTokenParamsTest {
     fun body() {
         val params =
             VisitorIdentificationGenerateTokenParams.builder()
-                .email("visitor-email@example.com")
-                .firstName("Gob")
-                .lastName("Bluth")
+                .identificationTokenGenerationRequest(
+                    IdentificationTokenGenerationRequest.builder()
+                        .email("visitor-email@example.com")
+                        .firstName("Gob")
+                        .lastName("Bluth")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.email()).isEqualTo("visitor-email@example.com")
-        assertThat(body.firstName()).contains("Gob")
-        assertThat(body.lastName()).contains("Bluth")
+        assertThat(body)
+            .isEqualTo(
+                IdentificationTokenGenerationRequest.builder()
+                    .email("visitor-email@example.com")
+                    .firstName("Gob")
+                    .lastName("Bluth")
+                    .build()
+            )
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
             VisitorIdentificationGenerateTokenParams.builder()
-                .email("visitor-email@example.com")
+                .identificationTokenGenerationRequest(
+                    IdentificationTokenGenerationRequest.builder()
+                        .email("visitor-email@example.com")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.email()).isEqualTo("visitor-email@example.com")
+        assertThat(body)
+            .isEqualTo(
+                IdentificationTokenGenerationRequest.builder()
+                    .email("visitor-email@example.com")
+                    .build()
+            )
     }
 }

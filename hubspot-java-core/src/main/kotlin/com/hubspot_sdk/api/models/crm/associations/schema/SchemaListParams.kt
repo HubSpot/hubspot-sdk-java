@@ -10,7 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List all the valid association types available between two object types */
 class SchemaListParams
 private constructor(
     private val fromObjectType: String,

@@ -15,10 +15,10 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.settings.taxrates.CollectionResponsePublicTaxRateGroupForwardPaging
+import com.hubspot_sdk.api.models.settings.taxrates.PublicTaxRateGroup
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetParams
-import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetResponse
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListParams
-import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -38,14 +38,14 @@ class TaxRateServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: TaxRateListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TaxRateListResponse> =
+    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
         // get /tax-rates/v1/tax-rates
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: TaxRateGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TaxRateGetResponse> =
+    ): CompletableFuture<PublicTaxRateGroup> =
         // get /tax-rates/v1/tax-rates/{taxRateGroupId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -62,13 +62,13 @@ class TaxRateServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<TaxRateListResponse> =
-            jsonHandler<TaxRateListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CollectionResponsePublicTaxRateGroupForwardPaging> =
+            jsonHandler<CollectionResponsePublicTaxRateGroupForwardPaging>(clientOptions.jsonMapper)
 
         override fun list(
             params: TaxRateListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TaxRateListResponse>> {
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -92,13 +92,13 @@ class TaxRateServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val getHandler: Handler<TaxRateGetResponse> =
-            jsonHandler<TaxRateGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PublicTaxRateGroup> =
+            jsonHandler<PublicTaxRateGroup>(clientOptions.jsonMapper)
 
         override fun get(
             params: TaxRateGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TaxRateGetResponse>> {
+        ): CompletableFuture<HttpResponseFor<PublicTaxRateGroup>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("taxRateGroupId", params.taxRateGroupId().getOrNull())

@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens
 
 import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingTokenUpdateRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,9 +14,13 @@ internal class ChannelAccountStagingTokenUpdateParamsTest {
         ChannelAccountStagingTokenUpdateParams.builder()
             .channelId("channelId")
             .accountToken("accountToken")
-            .accountName("accountName")
-            .deliveryIdentifier(
-                PublicDeliveryIdentifier.builder().type("type").value("value").build()
+            .publicChannelAccountStagingTokenUpdateRequest(
+                PublicChannelAccountStagingTokenUpdateRequest.builder()
+                    .accountName("accountName")
+                    .deliveryIdentifier(
+                        PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                    )
+                    .build()
             )
             .build()
     }
@@ -26,9 +31,13 @@ internal class ChannelAccountStagingTokenUpdateParamsTest {
             ChannelAccountStagingTokenUpdateParams.builder()
                 .channelId("channelId")
                 .accountToken("accountToken")
-                .accountName("accountName")
-                .deliveryIdentifier(
-                    PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                .publicChannelAccountStagingTokenUpdateRequest(
+                    PublicChannelAccountStagingTokenUpdateRequest.builder()
+                        .accountName("accountName")
+                        .deliveryIdentifier(
+                            PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                        )
+                        .build()
                 )
                 .build()
 
@@ -44,16 +53,26 @@ internal class ChannelAccountStagingTokenUpdateParamsTest {
             ChannelAccountStagingTokenUpdateParams.builder()
                 .channelId("channelId")
                 .accountToken("accountToken")
-                .accountName("accountName")
-                .deliveryIdentifier(
-                    PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                .publicChannelAccountStagingTokenUpdateRequest(
+                    PublicChannelAccountStagingTokenUpdateRequest.builder()
+                        .accountName("accountName")
+                        .deliveryIdentifier(
+                            PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                        )
+                        .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.accountName()).isEqualTo("accountName")
-        assertThat(body.deliveryIdentifier())
-            .isEqualTo(PublicDeliveryIdentifier.builder().type("type").value("value").build())
+        assertThat(body)
+            .isEqualTo(
+                PublicChannelAccountStagingTokenUpdateRequest.builder()
+                    .accountName("accountName")
+                    .deliveryIdentifier(
+                        PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                    )
+                    .build()
+            )
     }
 }

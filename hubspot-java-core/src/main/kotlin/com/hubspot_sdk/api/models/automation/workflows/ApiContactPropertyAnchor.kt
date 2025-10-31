@@ -34,16 +34,12 @@ private constructor(
     ) : this(contactProperty, type, mutableMapOf())
 
     /**
-     * A date property on the contact to use as the anchor point of this workflow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun contactProperty(): String = contactProperty.getRequired("contactProperty")
 
     /**
-     * The type of event anchor this is, can be: "CONTACT_PROPERTY_ANCHOR" or "STATIC_DATE_ANCHOR"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -105,7 +101,6 @@ private constructor(
             additionalProperties = apiContactPropertyAnchor.additionalProperties.toMutableMap()
         }
 
-        /** A date property on the contact to use as the anchor point of this workflow. */
         fun contactProperty(contactProperty: String) =
             contactProperty(JsonField.of(contactProperty))
 
@@ -120,10 +115,6 @@ private constructor(
             this.contactProperty = contactProperty
         }
 
-        /**
-         * The type of event anchor this is, can be: "CONTACT_PROPERTY_ANCHOR" or
-         * "STATIC_DATE_ANCHOR"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -204,9 +195,6 @@ private constructor(
         (if (contactProperty.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * The type of event anchor this is, can be: "CONTACT_PROPERTY_ANCHOR" or "STATIC_DATE_ANCHOR"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

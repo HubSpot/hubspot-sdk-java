@@ -15,10 +15,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.BatchResponseDealToDealSplits
 import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchReadParams
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchReadResponse
 import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertParams
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertResponse
 import java.util.function.Consumer
 
 class DealSplitServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -36,14 +35,14 @@ class DealSplitServiceImpl internal constructor(private val clientOptions: Clien
     override fun batchRead(
         params: DealSplitBatchReadParams,
         requestOptions: RequestOptions,
-    ): DealSplitBatchReadResponse =
+    ): BatchResponseDealToDealSplits =
         // post /crm/v3/objects/deals/splits/batch/read
         withRawResponse().batchRead(params, requestOptions).parse()
 
     override fun batchUpsert(
         params: DealSplitBatchUpsertParams,
         requestOptions: RequestOptions,
-    ): DealSplitBatchUpsertResponse =
+    ): BatchResponseDealToDealSplits =
         // post /crm/v3/objects/deals/splits/batch/upsert
         withRawResponse().batchUpsert(params, requestOptions).parse()
 
@@ -60,13 +59,13 @@ class DealSplitServiceImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val batchReadHandler: Handler<DealSplitBatchReadResponse> =
-            jsonHandler<DealSplitBatchReadResponse>(clientOptions.jsonMapper)
+        private val batchReadHandler: Handler<BatchResponseDealToDealSplits> =
+            jsonHandler<BatchResponseDealToDealSplits>(clientOptions.jsonMapper)
 
         override fun batchRead(
             params: DealSplitBatchReadParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DealSplitBatchReadResponse> {
+        ): HttpResponseFor<BatchResponseDealToDealSplits> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -88,13 +87,13 @@ class DealSplitServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val batchUpsertHandler: Handler<DealSplitBatchUpsertResponse> =
-            jsonHandler<DealSplitBatchUpsertResponse>(clientOptions.jsonMapper)
+        private val batchUpsertHandler: Handler<BatchResponseDealToDealSplits> =
+            jsonHandler<BatchResponseDealToDealSplits>(clientOptions.jsonMapper)
 
         override fun batchUpsert(
             params: DealSplitBatchUpsertParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DealSplitBatchUpsertResponse> {
+        ): HttpResponseFor<BatchResponseDealToDealSplits> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

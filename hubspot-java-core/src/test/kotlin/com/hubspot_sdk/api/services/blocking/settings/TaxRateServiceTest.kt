@@ -21,9 +21,9 @@ internal class TaxRateServiceTest {
                 .build()
         val taxRateService = client.settings().taxRates()
 
-        val taxRates = taxRateService.list()
+        val collectionResponsePublicTaxRateGroupForwardPaging = taxRateService.list()
 
-        taxRates.validate()
+        collectionResponsePublicTaxRateGroupForwardPaging.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -36,8 +36,8 @@ internal class TaxRateServiceTest {
                 .build()
         val taxRateService = client.settings().taxRates()
 
-        val taxRate = taxRateService.get("taxRateGroupId")
+        val publicTaxRateGroup = taxRateService.get("taxRateGroupId")
 
-        taxRate.validate()
+        publicTaxRateGroup.validate()
     }
 }

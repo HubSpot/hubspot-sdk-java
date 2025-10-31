@@ -65,75 +65,54 @@ private constructor(
     )
 
     /**
-     * The unique ID for this flow. This is auto-generated when creating the flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
-     * The timestamp this flow was created.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
-     * Deprecated. Will be removed.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun flowType(): String = flowType.getRequired("flowType")
 
     /**
-     * This controls whether or not the flow is "enabled" if it's actively listening for enrollment
-     * triggers and executing actions. If this is `false` the flow is not accepting any enrollments
-     * or executing any actions.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isEnabled(): Boolean = isEnabled.getRequired("isEnabled")
 
     /**
-     * The CRM object type for objects that can be enrolled into this flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectTypeId(): String = objectTypeId.getRequired("objectTypeId")
 
     /**
-     * Deprecated. Will be removed.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun revisionId(): String = revisionId.getRequired("revisionId")
 
     /**
-     * The timestamp this flow was last updated.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
-     * The user-provided name for this flow. Names get auto-created for workflows that are created
-     * without a name.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
 
     /**
-     * An optional unique key for this flow. This is only unique per-portal.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -267,7 +246,6 @@ private constructor(
             additionalProperties = apiFlowListing.additionalProperties.toMutableMap()
         }
 
-        /** The unique ID for this flow. This is auto-generated when creating the flow. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -278,7 +256,6 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** The timestamp this flow was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -290,7 +267,6 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** Deprecated. Will be removed. */
         fun flowType(flowType: String) = flowType(JsonField.of(flowType))
 
         /**
@@ -301,11 +277,6 @@ private constructor(
          */
         fun flowType(flowType: JsonField<String>) = apply { this.flowType = flowType }
 
-        /**
-         * This controls whether or not the flow is "enabled" if it's actively listening for
-         * enrollment triggers and executing actions. If this is `false` the flow is not accepting
-         * any enrollments or executing any actions.
-         */
         fun isEnabled(isEnabled: Boolean) = isEnabled(JsonField.of(isEnabled))
 
         /**
@@ -317,7 +288,6 @@ private constructor(
          */
         fun isEnabled(isEnabled: JsonField<Boolean>) = apply { this.isEnabled = isEnabled }
 
-        /** The CRM object type for objects that can be enrolled into this flow. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -331,7 +301,6 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
-        /** Deprecated. Will be removed. */
         fun revisionId(revisionId: String) = revisionId(JsonField.of(revisionId))
 
         /**
@@ -343,7 +312,6 @@ private constructor(
          */
         fun revisionId(revisionId: JsonField<String>) = apply { this.revisionId = revisionId }
 
-        /** The timestamp this flow was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -355,10 +323,6 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        /**
-         * The user-provided name for this flow. Names get auto-created for workflows that are
-         * created without a name.
-         */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -369,7 +333,6 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
-        /** An optional unique key for this flow. This is only unique per-portal. */
         fun uuid(uuid: String) = uuid(JsonField.of(uuid))
 
         /**

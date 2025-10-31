@@ -11,10 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Replace all the properties of an existing pipeline with the values provided. This will overwrite
- * any existing pipeline stages. The updated pipeline will be returned in the response.
- */
+/** Replace a pipeline */
 class PipelineReplaceParams
 private constructor(
     private val objectType: String,

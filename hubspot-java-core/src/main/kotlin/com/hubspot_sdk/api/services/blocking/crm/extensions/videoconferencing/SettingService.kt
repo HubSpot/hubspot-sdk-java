@@ -27,7 +27,6 @@ interface SettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingService
 
-    /** Updates the settings for a video conference application with the specified ID. */
     fun update(appId: Int, params: SettingUpdateParams): ExternalSettings =
         update(appId, params, RequestOptions.none())
 
@@ -48,7 +47,6 @@ interface SettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalSettings
 
-    /** Deletes the settings for a video conference application with the specified ID. */
     fun delete(appId: Int) = delete(appId, SettingDeleteParams.none())
 
     /** @see delete */
@@ -72,7 +70,6 @@ interface SettingService {
     fun delete(appId: Int, requestOptions: RequestOptions) =
         delete(appId, SettingDeleteParams.none(), requestOptions)
 
-    /** Return the settings for a video conference application with the specified ID. */
     fun get(appId: Int): ExternalSettings = get(appId, SettingGetParams.none())
 
     /** @see get */

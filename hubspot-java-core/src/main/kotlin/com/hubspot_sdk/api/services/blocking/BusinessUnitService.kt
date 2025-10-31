@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.businessunits.BusinessUnitGetByUserIdParams
-import com.hubspot_sdk.api.models.businessunits.BusinessUnitGetByUserIdResponse
+import com.hubspot_sdk.api.models.businessunits.CollectionResponsePublicBusinessUnitNoPaging
 import java.util.function.Consumer
 
 interface BusinessUnitService {
@@ -25,7 +25,7 @@ interface BusinessUnitService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BusinessUnitService
 
     /** Get Business Units identified by `userId`. The `userId` refers to the user’s ID. */
-    fun getByUserId(userId: String): BusinessUnitGetByUserIdResponse =
+    fun getByUserId(userId: String): CollectionResponsePublicBusinessUnitNoPaging =
         getByUserId(userId, BusinessUnitGetByUserIdParams.none())
 
     /** @see getByUserId */
@@ -33,30 +33,32 @@ interface BusinessUnitService {
         userId: String,
         params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BusinessUnitGetByUserIdResponse =
+    ): CollectionResponsePublicBusinessUnitNoPaging =
         getByUserId(params.toBuilder().userId(userId).build(), requestOptions)
 
     /** @see getByUserId */
     fun getByUserId(
         userId: String,
         params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
-    ): BusinessUnitGetByUserIdResponse = getByUserId(userId, params, RequestOptions.none())
+    ): CollectionResponsePublicBusinessUnitNoPaging =
+        getByUserId(userId, params, RequestOptions.none())
 
     /** @see getByUserId */
     fun getByUserId(
         params: BusinessUnitGetByUserIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BusinessUnitGetByUserIdResponse
+    ): CollectionResponsePublicBusinessUnitNoPaging
 
     /** @see getByUserId */
-    fun getByUserId(params: BusinessUnitGetByUserIdParams): BusinessUnitGetByUserIdResponse =
-        getByUserId(params, RequestOptions.none())
+    fun getByUserId(
+        params: BusinessUnitGetByUserIdParams
+    ): CollectionResponsePublicBusinessUnitNoPaging = getByUserId(params, RequestOptions.none())
 
     /** @see getByUserId */
     fun getByUserId(
         userId: String,
         requestOptions: RequestOptions,
-    ): BusinessUnitGetByUserIdResponse =
+    ): CollectionResponsePublicBusinessUnitNoPaging =
         getByUserId(userId, BusinessUnitGetByUserIdParams.none(), requestOptions)
 
     /**
@@ -78,7 +80,9 @@ interface BusinessUnitService {
          * but is otherwise the same as [BusinessUnitService.getByUserId].
          */
         @MustBeClosed
-        fun getByUserId(userId: String): HttpResponseFor<BusinessUnitGetByUserIdResponse> =
+        fun getByUserId(
+            userId: String
+        ): HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging> =
             getByUserId(userId, BusinessUnitGetByUserIdParams.none())
 
         /** @see getByUserId */
@@ -87,7 +91,7 @@ interface BusinessUnitService {
             userId: String,
             params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BusinessUnitGetByUserIdResponse> =
+        ): HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging> =
             getByUserId(params.toBuilder().userId(userId).build(), requestOptions)
 
         /** @see getByUserId */
@@ -95,7 +99,7 @@ interface BusinessUnitService {
         fun getByUserId(
             userId: String,
             params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
-        ): HttpResponseFor<BusinessUnitGetByUserIdResponse> =
+        ): HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging> =
             getByUserId(userId, params, RequestOptions.none())
 
         /** @see getByUserId */
@@ -103,13 +107,13 @@ interface BusinessUnitService {
         fun getByUserId(
             params: BusinessUnitGetByUserIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BusinessUnitGetByUserIdResponse>
+        ): HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>
 
         /** @see getByUserId */
         @MustBeClosed
         fun getByUserId(
             params: BusinessUnitGetByUserIdParams
-        ): HttpResponseFor<BusinessUnitGetByUserIdResponse> =
+        ): HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging> =
             getByUserId(params, RequestOptions.none())
 
         /** @see getByUserId */
@@ -117,7 +121,7 @@ interface BusinessUnitService {
         fun getByUserId(
             userId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BusinessUnitGetByUserIdResponse> =
+        ): HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging> =
             getByUserId(userId, BusinessUnitGetByUserIdParams.none(), requestOptions)
     }
 }

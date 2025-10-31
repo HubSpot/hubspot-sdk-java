@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.crm.featureflags.apps
 
+import com.hubspot_sdk.api.models.crm.featureflags.FlagPutRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,8 +13,12 @@ internal class AppUpdateParamsTest {
         AppUpdateParams.builder()
             .appId(0)
             .flagName("flagName")
-            .defaultState(AppUpdateParams.DefaultState.OFF)
-            .overrideState(AppUpdateParams.OverrideState.OFF)
+            .flagPutRequest(
+                FlagPutRequest.builder()
+                    .defaultState(FlagPutRequest.DefaultState.OFF)
+                    .overrideState(FlagPutRequest.OverrideState.OFF)
+                    .build()
+            )
             .build()
     }
 
@@ -23,7 +28,9 @@ internal class AppUpdateParamsTest {
             AppUpdateParams.builder()
                 .appId(0)
                 .flagName("flagName")
-                .defaultState(AppUpdateParams.DefaultState.OFF)
+                .flagPutRequest(
+                    FlagPutRequest.builder().defaultState(FlagPutRequest.DefaultState.OFF).build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
@@ -38,14 +45,23 @@ internal class AppUpdateParamsTest {
             AppUpdateParams.builder()
                 .appId(0)
                 .flagName("flagName")
-                .defaultState(AppUpdateParams.DefaultState.OFF)
-                .overrideState(AppUpdateParams.OverrideState.OFF)
+                .flagPutRequest(
+                    FlagPutRequest.builder()
+                        .defaultState(FlagPutRequest.DefaultState.OFF)
+                        .overrideState(FlagPutRequest.OverrideState.OFF)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.defaultState()).isEqualTo(AppUpdateParams.DefaultState.OFF)
-        assertThat(body.overrideState()).contains(AppUpdateParams.OverrideState.OFF)
+        assertThat(body)
+            .isEqualTo(
+                FlagPutRequest.builder()
+                    .defaultState(FlagPutRequest.DefaultState.OFF)
+                    .overrideState(FlagPutRequest.OverrideState.OFF)
+                    .build()
+            )
     }
 
     @Test
@@ -54,11 +70,16 @@ internal class AppUpdateParamsTest {
             AppUpdateParams.builder()
                 .appId(0)
                 .flagName("flagName")
-                .defaultState(AppUpdateParams.DefaultState.OFF)
+                .flagPutRequest(
+                    FlagPutRequest.builder().defaultState(FlagPutRequest.DefaultState.OFF).build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.defaultState()).isEqualTo(AppUpdateParams.DefaultState.OFF)
+        assertThat(body)
+            .isEqualTo(
+                FlagPutRequest.builder().defaultState(FlagPutRequest.DefaultState.OFF).build()
+            )
     }
 }

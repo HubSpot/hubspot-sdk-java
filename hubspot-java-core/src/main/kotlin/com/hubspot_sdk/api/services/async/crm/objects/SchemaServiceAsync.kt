@@ -11,13 +11,13 @@ import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationResponse
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
+import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -35,11 +35,6 @@ interface SchemaServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SchemaServiceAsync
 
-    /**
-     * Define a new object schema, along with custom properties and associations. The entire object
-     * schema, including its object type ID, properties, and associations will be returned in the
-     * response.
-     */
     fun create(params: SchemaCreateParams): CompletableFuture<ObjectSchema> =
         create(params, RequestOptions.none())
 
@@ -63,7 +58,6 @@ interface SchemaServiceAsync {
     fun create(objectSchemaEgg: ObjectSchemaEgg): CompletableFuture<ObjectSchema> =
         create(objectSchemaEgg, RequestOptions.none())
 
-    /** Update the details for an existing object schema. */
     fun update(
         objectType: String,
         params: SchemaUpdateParams,
@@ -87,7 +81,6 @@ interface SchemaServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ObjectTypeDefinition>
 
-    /** Returns all object schemas that have been defined for your account. */
     fun list(): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         list(SchemaListParams.none())
 
@@ -109,10 +102,6 @@ interface SchemaServiceAsync {
     ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         list(SchemaListParams.none(), requestOptions)
 
-    /**
-     * Deletes a schema. Any existing records of this schema must be deleted **first**. Otherwise
-     * this call will fail.
-     */
     fun delete(objectType: String): CompletableFuture<Void?> =
         delete(objectType, SchemaDeleteParams.none())
 
@@ -144,13 +133,10 @@ interface SchemaServiceAsync {
     fun delete(objectType: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(objectType, SchemaDeleteParams.none(), requestOptions)
 
-    /**
-     * Defines a new association between the primary schema's object type and other object types.
-     */
     fun createAssociation(
         objectType: String,
         params: SchemaCreateAssociationParams,
-    ): CompletableFuture<SchemaCreateAssociationResponse> =
+    ): CompletableFuture<AssociationDefinition> =
         createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
@@ -158,22 +144,20 @@ interface SchemaServiceAsync {
         objectType: String,
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SchemaCreateAssociationResponse> =
+    ): CompletableFuture<AssociationDefinition> =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
     fun createAssociation(
         params: SchemaCreateAssociationParams
-    ): CompletableFuture<SchemaCreateAssociationResponse> =
-        createAssociation(params, RequestOptions.none())
+    ): CompletableFuture<AssociationDefinition> = createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SchemaCreateAssociationResponse>
+    ): CompletableFuture<AssociationDefinition>
 
-    /** Removes an existing association from a schema. */
     fun deleteAssociation(
         associationIdentifier: String,
         params: SchemaDeleteAssociationParams,
@@ -201,7 +185,6 @@ interface SchemaServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Returns an existing object schema. */
     fun get(objectType: String): CompletableFuture<ObjectSchema> =
         get(objectType, SchemaGetParams.none())
 
@@ -377,7 +360,7 @@ interface SchemaServiceAsync {
         fun createAssociation(
             objectType: String,
             params: SchemaCreateAssociationParams,
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -385,20 +368,20 @@ interface SchemaServiceAsync {
             objectType: String,
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         fun createAssociation(
             params: SchemaCreateAssociationParams
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         fun createAssociation(
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>>
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>>
 
         /**
          * Returns a raw HTTP response for `delete

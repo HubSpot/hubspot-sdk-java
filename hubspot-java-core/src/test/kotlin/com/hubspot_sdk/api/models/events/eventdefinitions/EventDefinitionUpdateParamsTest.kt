@@ -11,14 +11,24 @@ internal class EventDefinitionUpdateParamsTest {
     fun create() {
         EventDefinitionUpdateParams.builder()
             .eventName("eventName")
-            .description("description")
-            .label("label")
+            .externalBehavioralEventTypeDefinitionPatch(
+                ExternalBehavioralEventTypeDefinitionPatch.builder()
+                    .description("description")
+                    .label("label")
+                    .build()
+            )
             .build()
     }
 
     @Test
     fun pathParams() {
-        val params = EventDefinitionUpdateParams.builder().eventName("eventName").build()
+        val params =
+            EventDefinitionUpdateParams.builder()
+                .eventName("eventName")
+                .externalBehavioralEventTypeDefinitionPatch(
+                    ExternalBehavioralEventTypeDefinitionPatch.builder().build()
+                )
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("eventName")
         // out-of-bound path param
@@ -30,20 +40,37 @@ internal class EventDefinitionUpdateParamsTest {
         val params =
             EventDefinitionUpdateParams.builder()
                 .eventName("eventName")
-                .description("description")
-                .label("label")
+                .externalBehavioralEventTypeDefinitionPatch(
+                    ExternalBehavioralEventTypeDefinitionPatch.builder()
+                        .description("description")
+                        .label("label")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.description()).contains("description")
-        assertThat(body.label()).contains("label")
+        assertThat(body)
+            .isEqualTo(
+                ExternalBehavioralEventTypeDefinitionPatch.builder()
+                    .description("description")
+                    .label("label")
+                    .build()
+            )
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
-        val params = EventDefinitionUpdateParams.builder().eventName("eventName").build()
+        val params =
+            EventDefinitionUpdateParams.builder()
+                .eventName("eventName")
+                .externalBehavioralEventTypeDefinitionPatch(
+                    ExternalBehavioralEventTypeDefinitionPatch.builder().build()
+                )
+                .build()
 
         val body = params._body()
+
+        assertThat(body).isEqualTo(ExternalBehavioralEventTypeDefinitionPatch.builder().build())
     }
 }

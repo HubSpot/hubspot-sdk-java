@@ -11,8 +11,8 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import java.util.Objects
 
 /**
- * Create a postal mail with the given properties and return a copy of the object, including the ID.
- * Documentation and examples for creating standard postal mail is provided.
+ * Create a postal mail object with the given properties and return a copy of the object, including
+ * the ID.
  */
 class PostalMailCreateParams
 private constructor(

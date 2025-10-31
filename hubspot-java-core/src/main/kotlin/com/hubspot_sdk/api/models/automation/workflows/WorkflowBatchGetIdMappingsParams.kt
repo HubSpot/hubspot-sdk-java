@@ -9,7 +9,6 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
-/** Retrieve the IDs of v3 workflows that have been migrated to the v4 API. */
 class WorkflowBatchGetIdMappingsParams
 private constructor(
     private val apiFlowBatchMigrationInput: ApiFlowBatchMigrationInput,

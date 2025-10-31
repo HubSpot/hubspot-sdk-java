@@ -22,9 +22,10 @@ internal class PropertyValidationServiceTest {
                 .build()
         val propertyValidationService = client.crm().propertyValidations()
 
-        val propertyValidations = propertyValidationService.list("objectTypeId")
+        val collectionResponsePublicPropertyValidationRuleMapNoPaging =
+            propertyValidationService.list("objectTypeId")
 
-        propertyValidations.validate()
+        collectionResponsePublicPropertyValidationRuleMapNoPaging.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -37,7 +38,7 @@ internal class PropertyValidationServiceTest {
                 .build()
         val propertyValidationService = client.crm().propertyValidations()
 
-        val propertyValidation =
+        val collectionResponsePublicPropertyValidationRuleNoPaging =
             propertyValidationService.get(
                 PropertyValidationGetParams.builder()
                     .objectTypeId("objectTypeId")
@@ -45,6 +46,6 @@ internal class PropertyValidationServiceTest {
                     .build()
             )
 
-        propertyValidation.validate()
+        collectionResponsePublicPropertyValidationRuleNoPaging.validate()
     }
 }

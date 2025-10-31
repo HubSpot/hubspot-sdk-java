@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingToken
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateResponse
 import java.util.function.Consumer
 
 interface ChannelAccountStagingTokenService {
@@ -32,27 +32,25 @@ interface ChannelAccountStagingTokenService {
     fun update(
         accountToken: String,
         params: ChannelAccountStagingTokenUpdateParams,
-    ): ChannelAccountStagingTokenUpdateResponse =
-        update(accountToken, params, RequestOptions.none())
+    ): PublicChannelAccountStagingToken = update(accountToken, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         accountToken: String,
         params: ChannelAccountStagingTokenUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ChannelAccountStagingTokenUpdateResponse =
+    ): PublicChannelAccountStagingToken =
         update(params.toBuilder().accountToken(accountToken).build(), requestOptions)
 
     /** @see update */
-    fun update(
-        params: ChannelAccountStagingTokenUpdateParams
-    ): ChannelAccountStagingTokenUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: ChannelAccountStagingTokenUpdateParams): PublicChannelAccountStagingToken =
+        update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ChannelAccountStagingTokenUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ChannelAccountStagingTokenUpdateResponse
+    ): PublicChannelAccountStagingToken
 
     /**
      * A view of [ChannelAccountStagingTokenService] that provides access to raw HTTP responses for
@@ -78,7 +76,7 @@ interface ChannelAccountStagingTokenService {
         fun update(
             accountToken: String,
             params: ChannelAccountStagingTokenUpdateParams,
-        ): HttpResponseFor<ChannelAccountStagingTokenUpdateResponse> =
+        ): HttpResponseFor<PublicChannelAccountStagingToken> =
             update(accountToken, params, RequestOptions.none())
 
         /** @see update */
@@ -87,21 +85,20 @@ interface ChannelAccountStagingTokenService {
             accountToken: String,
             params: ChannelAccountStagingTokenUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ChannelAccountStagingTokenUpdateResponse> =
+        ): HttpResponseFor<PublicChannelAccountStagingToken> =
             update(params.toBuilder().accountToken(accountToken).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: ChannelAccountStagingTokenUpdateParams
-        ): HttpResponseFor<ChannelAccountStagingTokenUpdateResponse> =
-            update(params, RequestOptions.none())
+        ): HttpResponseFor<PublicChannelAccountStagingToken> = update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: ChannelAccountStagingTokenUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ChannelAccountStagingTokenUpdateResponse>
+        ): HttpResponseFor<PublicChannelAccountStagingToken>
     }
 }

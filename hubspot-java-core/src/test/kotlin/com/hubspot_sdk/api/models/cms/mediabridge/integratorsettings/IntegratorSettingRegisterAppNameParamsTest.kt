@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings
 
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderPartial
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -11,15 +12,21 @@ internal class IntegratorSettingRegisterAppNameParamsTest {
     fun create() {
         IntegratorSettingRegisterAppNameParams.builder()
             .appId("appId")
-            .updatedAt(0L)
-            .name("name")
+            .mediaBridgeProviderPartial(
+                MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
+            )
             .build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            IntegratorSettingRegisterAppNameParams.builder().appId("appId").updatedAt(0L).build()
+            IntegratorSettingRegisterAppNameParams.builder()
+                .appId("appId")
+                .mediaBridgeProviderPartial(
+                    MediaBridgeProviderPartial.builder().updatedAt(0L).build()
+                )
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("appId")
         // out-of-bound path param
@@ -31,23 +38,29 @@ internal class IntegratorSettingRegisterAppNameParamsTest {
         val params =
             IntegratorSettingRegisterAppNameParams.builder()
                 .appId("appId")
-                .updatedAt(0L)
-                .name("name")
+                .mediaBridgeProviderPartial(
+                    MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.updatedAt()).isEqualTo(0L)
-        assertThat(body.name()).contains("name")
+        assertThat(body)
+            .isEqualTo(MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build())
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            IntegratorSettingRegisterAppNameParams.builder().appId("appId").updatedAt(0L).build()
+            IntegratorSettingRegisterAppNameParams.builder()
+                .appId("appId")
+                .mediaBridgeProviderPartial(
+                    MediaBridgeProviderPartial.builder().updatedAt(0L).build()
+                )
+                .build()
 
         val body = params._body()
 
-        assertThat(body.updatedAt()).isEqualTo(0L)
+        assertThat(body).isEqualTo(MediaBridgeProviderPartial.builder().updatedAt(0L).build())
     }
 }

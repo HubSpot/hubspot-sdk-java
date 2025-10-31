@@ -10,7 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieves a previous version of a Blog */
 class SettingGetRevisionParams
 private constructor(
     private val blogId: String,

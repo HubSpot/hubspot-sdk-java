@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
 import java.util.Objects
 
-/** Create a batch of deals */
+/** Create multiple deals in a single request. */
 class BatchCreateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInputForCreate:

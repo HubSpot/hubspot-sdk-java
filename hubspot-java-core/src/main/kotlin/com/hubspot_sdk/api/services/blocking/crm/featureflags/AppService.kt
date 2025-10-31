@@ -6,14 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.featureflags.FlagResponse
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppUpdateParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppUpdateResponse
 import java.util.function.Consumer
 
 interface AppService {
@@ -34,7 +32,7 @@ interface AppService {
      * Set a feature flag for an app. For example, update the `hs-hide-crm-cards` flag's
      * `defaultState` to `ON` to hide classic CRM cards from new installs.
      */
-    fun update(flagName: String, params: AppUpdateParams): AppUpdateResponse =
+    fun update(flagName: String, params: AppUpdateParams): FlagResponse =
         update(flagName, params, RequestOptions.none())
 
     /** @see update */
@@ -42,22 +40,22 @@ interface AppService {
         flagName: String,
         params: AppUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppUpdateResponse = update(params.toBuilder().flagName(flagName).build(), requestOptions)
+    ): FlagResponse = update(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see update */
-    fun update(params: AppUpdateParams): AppUpdateResponse = update(params, RequestOptions.none())
+    fun update(params: AppUpdateParams): FlagResponse = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: AppUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppUpdateResponse
+    ): FlagResponse
 
     /**
      * Delete a feature flag in an app. For example, delete the `hs-release-app-cards` flag after
      * all accounts have been migrated.
      */
-    fun delete(flagName: String, params: AppDeleteParams): AppDeleteResponse =
+    fun delete(flagName: String, params: AppDeleteParams): FlagResponse =
         delete(flagName, params, RequestOptions.none())
 
     /** @see delete */
@@ -65,19 +63,19 @@ interface AppService {
         flagName: String,
         params: AppDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppDeleteResponse = delete(params.toBuilder().flagName(flagName).build(), requestOptions)
+    ): FlagResponse = delete(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see delete */
-    fun delete(params: AppDeleteParams): AppDeleteResponse = delete(params, RequestOptions.none())
+    fun delete(params: AppDeleteParams): FlagResponse = delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: AppDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppDeleteResponse
+    ): FlagResponse
 
     /** Retrieve the current status of the app's feature flags. No request body is included. */
-    fun get(flagName: String, params: AppGetParams): AppGetResponse =
+    fun get(flagName: String, params: AppGetParams): FlagResponse =
         get(flagName, params, RequestOptions.none())
 
     /** @see get */
@@ -85,22 +83,22 @@ interface AppService {
         flagName: String,
         params: AppGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppGetResponse = get(params.toBuilder().flagName(flagName).build(), requestOptions)
+    ): FlagResponse = get(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see get */
-    fun get(params: AppGetParams): AppGetResponse = get(params, RequestOptions.none())
+    fun get(params: AppGetParams): FlagResponse = get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: AppGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppGetResponse
+    ): FlagResponse
 
     /**
      * Retrieve a list of HubSpot accounts with an account-level flag setting for the specified app.
      * No request body is included.
      */
-    fun listPortals(flagName: String, params: AppListPortalsParams): AppListPortalsResponse =
+    fun listPortals(flagName: String, params: AppListPortalsParams): PortalFlagStateBatchResponse =
         listPortals(flagName, params, RequestOptions.none())
 
     /** @see listPortals */
@@ -108,18 +106,18 @@ interface AppService {
         flagName: String,
         params: AppListPortalsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppListPortalsResponse =
+    ): PortalFlagStateBatchResponse =
         listPortals(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see listPortals */
-    fun listPortals(params: AppListPortalsParams): AppListPortalsResponse =
+    fun listPortals(params: AppListPortalsParams): PortalFlagStateBatchResponse =
         listPortals(params, RequestOptions.none())
 
     /** @see listPortals */
     fun listPortals(
         params: AppListPortalsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AppListPortalsResponse
+    ): PortalFlagStateBatchResponse
 
     /** A view of [AppService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -136,7 +134,7 @@ interface AppService {
          * otherwise the same as [AppService.update].
          */
         @MustBeClosed
-        fun update(flagName: String, params: AppUpdateParams): HttpResponseFor<AppUpdateResponse> =
+        fun update(flagName: String, params: AppUpdateParams): HttpResponseFor<FlagResponse> =
             update(flagName, params, RequestOptions.none())
 
         /** @see update */
@@ -145,12 +143,12 @@ interface AppService {
             flagName: String,
             params: AppUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppUpdateResponse> =
+        ): HttpResponseFor<FlagResponse> =
             update(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: AppUpdateParams): HttpResponseFor<AppUpdateResponse> =
+        fun update(params: AppUpdateParams): HttpResponseFor<FlagResponse> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -158,14 +156,14 @@ interface AppService {
         fun update(
             params: AppUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppUpdateResponse>
+        ): HttpResponseFor<FlagResponse>
 
         /**
          * Returns a raw HTTP response for `delete /feature-flags/v3/{appId}/flags/{flagName}`, but
          * is otherwise the same as [AppService.delete].
          */
         @MustBeClosed
-        fun delete(flagName: String, params: AppDeleteParams): HttpResponseFor<AppDeleteResponse> =
+        fun delete(flagName: String, params: AppDeleteParams): HttpResponseFor<FlagResponse> =
             delete(flagName, params, RequestOptions.none())
 
         /** @see delete */
@@ -174,12 +172,12 @@ interface AppService {
             flagName: String,
             params: AppDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppDeleteResponse> =
+        ): HttpResponseFor<FlagResponse> =
             delete(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: AppDeleteParams): HttpResponseFor<AppDeleteResponse> =
+        fun delete(params: AppDeleteParams): HttpResponseFor<FlagResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
@@ -187,14 +185,14 @@ interface AppService {
         fun delete(
             params: AppDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppDeleteResponse>
+        ): HttpResponseFor<FlagResponse>
 
         /**
          * Returns a raw HTTP response for `get /feature-flags/v3/{appId}/flags/{flagName}`, but is
          * otherwise the same as [AppService.get].
          */
         @MustBeClosed
-        fun get(flagName: String, params: AppGetParams): HttpResponseFor<AppGetResponse> =
+        fun get(flagName: String, params: AppGetParams): HttpResponseFor<FlagResponse> =
             get(flagName, params, RequestOptions.none())
 
         /** @see get */
@@ -203,12 +201,12 @@ interface AppService {
             flagName: String,
             params: AppGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppGetResponse> =
+        ): HttpResponseFor<FlagResponse> =
             get(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
-        fun get(params: AppGetParams): HttpResponseFor<AppGetResponse> =
+        fun get(params: AppGetParams): HttpResponseFor<FlagResponse> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -216,7 +214,7 @@ interface AppService {
         fun get(
             params: AppGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppGetResponse>
+        ): HttpResponseFor<FlagResponse>
 
         /**
          * Returns a raw HTTP response for `get /feature-flags/v3/{appId}/flags/{flagName}/portals`,
@@ -226,7 +224,7 @@ interface AppService {
         fun listPortals(
             flagName: String,
             params: AppListPortalsParams,
-        ): HttpResponseFor<AppListPortalsResponse> =
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
             listPortals(flagName, params, RequestOptions.none())
 
         /** @see listPortals */
@@ -235,12 +233,14 @@ interface AppService {
             flagName: String,
             params: AppListPortalsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppListPortalsResponse> =
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
             listPortals(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see listPortals */
         @MustBeClosed
-        fun listPortals(params: AppListPortalsParams): HttpResponseFor<AppListPortalsResponse> =
+        fun listPortals(
+            params: AppListPortalsParams
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
             listPortals(params, RequestOptions.none())
 
         /** @see listPortals */
@@ -248,6 +248,6 @@ interface AppService {
         fun listPortals(
             params: AppListPortalsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AppListPortalsResponse>
+        ): HttpResponseFor<PortalFlagStateBatchResponse>
     }
 }

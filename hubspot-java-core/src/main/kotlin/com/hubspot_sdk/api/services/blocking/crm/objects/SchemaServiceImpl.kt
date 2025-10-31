@@ -21,13 +21,13 @@ import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationResponse
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
+import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -69,7 +69,7 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions,
-    ): SchemaCreateAssociationResponse =
+    ): AssociationDefinition =
         // post /crm-object-schemas/v3/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).parse()
 
@@ -208,13 +208,13 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val createAssociationHandler: Handler<SchemaCreateAssociationResponse> =
-            jsonHandler<SchemaCreateAssociationResponse>(clientOptions.jsonMapper)
+        private val createAssociationHandler: Handler<AssociationDefinition> =
+            jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
         override fun createAssociation(
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SchemaCreateAssociationResponse> {
+        ): HttpResponseFor<AssociationDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

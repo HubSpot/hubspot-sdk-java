@@ -14,15 +14,15 @@ internal class SettingCreateParamsTest {
             .appId(0)
             .settingsRequest(
                 SettingsRequest.builder()
-                    .name("HubPhone")
-                    .url("https://www.example.com/hubspot/iframe")
-                    .height(350)
+                    .name("name")
+                    .url("url")
+                    .height(0)
                     .isReady(true)
                     .supportsCustomObjects(true)
                     .supportsInboundCalling(true)
                     .usesCallingWindow(true)
                     .usesRemote(true)
-                    .width(200)
+                    .width(0)
                     .build()
             )
             .build()
@@ -33,12 +33,7 @@ internal class SettingCreateParamsTest {
         val params =
             SettingCreateParams.builder()
                 .appId(0)
-                .settingsRequest(
-                    SettingsRequest.builder()
-                        .name("HubPhone")
-                        .url("https://www.example.com/hubspot/iframe")
-                        .build()
-                )
+                .settingsRequest(SettingsRequest.builder().name("name").url("url").build())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
@@ -53,15 +48,15 @@ internal class SettingCreateParamsTest {
                 .appId(0)
                 .settingsRequest(
                     SettingsRequest.builder()
-                        .name("HubPhone")
-                        .url("https://www.example.com/hubspot/iframe")
-                        .height(350)
+                        .name("name")
+                        .url("url")
+                        .height(0)
                         .isReady(true)
                         .supportsCustomObjects(true)
                         .supportsInboundCalling(true)
                         .usesCallingWindow(true)
                         .usesRemote(true)
-                        .width(200)
+                        .width(0)
                         .build()
                 )
                 .build()
@@ -71,15 +66,15 @@ internal class SettingCreateParamsTest {
         assertThat(body)
             .isEqualTo(
                 SettingsRequest.builder()
-                    .name("HubPhone")
-                    .url("https://www.example.com/hubspot/iframe")
-                    .height(350)
+                    .name("name")
+                    .url("url")
+                    .height(0)
                     .isReady(true)
                     .supportsCustomObjects(true)
                     .supportsInboundCalling(true)
                     .usesCallingWindow(true)
                     .usesRemote(true)
-                    .width(200)
+                    .width(0)
                     .build()
             )
     }
@@ -89,22 +84,11 @@ internal class SettingCreateParamsTest {
         val params =
             SettingCreateParams.builder()
                 .appId(0)
-                .settingsRequest(
-                    SettingsRequest.builder()
-                        .name("HubPhone")
-                        .url("https://www.example.com/hubspot/iframe")
-                        .build()
-                )
+                .settingsRequest(SettingsRequest.builder().name("name").url("url").build())
                 .build()
 
         val body = params._body()
 
-        assertThat(body)
-            .isEqualTo(
-                SettingsRequest.builder()
-                    .name("HubPhone")
-                    .url("https://www.example.com/hubspot/iframe")
-                    .build()
-            )
+        assertThat(body).isEqualTo(SettingsRequest.builder().name("name").url("url").build())
     }
 }

@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.models
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
+import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -19,11 +20,11 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                     ObjectSchema.builder()
                         .id("123456")
                         .addAssociation(
-                            ObjectSchema.Association.builder()
+                            AssociationDefinition.builder()
                                 .id(0)
                                 .allowsCustomLabels(false)
-                                .cardinality(ObjectSchema.Association.Cardinality.ONE_TO_ONE)
-                                .category(ObjectSchema.Association.Category.HUBSPOT_DEFINED)
+                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                                .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                                 .fromObjectTypeId("2-123456")
                                 .hasAllAssociatedObjects(false)
                                 .hasCascadingDeletes(false)
@@ -32,7 +33,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                 .hidden(false)
                                 .inverseAllowsCustomLabels(false)
                                 .inverseCardinality(
-                                    ObjectSchema.Association.InverseCardinality.ONE_TO_ONE
+                                    AssociationDefinition.InverseCardinality.ONE_TO_ONE
                                 )
                                 .inverseHasAllAssociatedObjects(false)
                                 .inverseId(0)
@@ -44,10 +45,10 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                 .name("my_object_to_contact")
                                 .portalUniqueIdentifier("")
                                 .toObjectTypeId("0-1")
-                                .fromObjectType(ObjectSchema.Association.FromObjectType.CONTACT)
+                                .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
                                 .inverseLabel("")
                                 .label("")
-                                .toObjectType(ObjectSchema.Association.ToObjectType.CONTACT)
+                                .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
                                 .build()
                         )
                         .labels(
@@ -136,11 +137,11 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                 ObjectSchema.builder()
                     .id("123456")
                     .addAssociation(
-                        ObjectSchema.Association.builder()
+                        AssociationDefinition.builder()
                             .id(0)
                             .allowsCustomLabels(false)
-                            .cardinality(ObjectSchema.Association.Cardinality.ONE_TO_ONE)
-                            .category(ObjectSchema.Association.Category.HUBSPOT_DEFINED)
+                            .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                            .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                             .fromObjectTypeId("2-123456")
                             .hasAllAssociatedObjects(false)
                             .hasCascadingDeletes(false)
@@ -148,9 +149,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                             .hasUserEnforcedMaxToObjectIds(false)
                             .hidden(false)
                             .inverseAllowsCustomLabels(false)
-                            .inverseCardinality(
-                                ObjectSchema.Association.InverseCardinality.ONE_TO_ONE
-                            )
+                            .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_ONE)
                             .inverseHasAllAssociatedObjects(false)
                             .inverseId(0)
                             .inverseName("")
@@ -161,10 +160,10 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                             .name("my_object_to_contact")
                             .portalUniqueIdentifier("")
                             .toObjectTypeId("0-1")
-                            .fromObjectType(ObjectSchema.Association.FromObjectType.CONTACT)
+                            .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
                             .inverseLabel("")
                             .label("")
-                            .toObjectType(ObjectSchema.Association.ToObjectType.CONTACT)
+                            .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
                             .build()
                     )
                     .labels(
@@ -257,11 +256,11 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                     ObjectSchema.builder()
                         .id("123456")
                         .addAssociation(
-                            ObjectSchema.Association.builder()
+                            AssociationDefinition.builder()
                                 .id(0)
                                 .allowsCustomLabels(false)
-                                .cardinality(ObjectSchema.Association.Cardinality.ONE_TO_ONE)
-                                .category(ObjectSchema.Association.Category.HUBSPOT_DEFINED)
+                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                                .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                                 .fromObjectTypeId("2-123456")
                                 .hasAllAssociatedObjects(false)
                                 .hasCascadingDeletes(false)
@@ -270,7 +269,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                 .hidden(false)
                                 .inverseAllowsCustomLabels(false)
                                 .inverseCardinality(
-                                    ObjectSchema.Association.InverseCardinality.ONE_TO_ONE
+                                    AssociationDefinition.InverseCardinality.ONE_TO_ONE
                                 )
                                 .inverseHasAllAssociatedObjects(false)
                                 .inverseId(0)
@@ -282,10 +281,10 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                                 .name("my_object_to_contact")
                                 .portalUniqueIdentifier("")
                                 .toObjectTypeId("0-1")
-                                .fromObjectType(ObjectSchema.Association.FromObjectType.CONTACT)
+                                .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
                                 .inverseLabel("")
                                 .label("")
-                                .toObjectType(ObjectSchema.Association.ToObjectType.CONTACT)
+                                .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
                                 .build()
                         )
                         .labels(

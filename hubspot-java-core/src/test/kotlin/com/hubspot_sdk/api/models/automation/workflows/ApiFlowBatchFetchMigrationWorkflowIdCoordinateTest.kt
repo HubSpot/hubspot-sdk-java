@@ -13,7 +13,7 @@ internal class ApiFlowBatchFetchMigrationWorkflowIdCoordinateTest {
     fun create() {
         val apiFlowBatchFetchMigrationWorkflowIdCoordinate =
             ApiFlowBatchFetchMigrationWorkflowIdCoordinate.builder()
-                .flowMigrationStatusForClassicWorkflows("12345")
+                .flowMigrationStatusForClassicWorkflows("flowMigrationStatusForClassicWorkflows")
                 .type(ApiFlowBatchFetchMigrationWorkflowIdCoordinate.Type.WORKFLOW_ID)
                 .build()
 
@@ -21,7 +21,7 @@ internal class ApiFlowBatchFetchMigrationWorkflowIdCoordinateTest {
                 apiFlowBatchFetchMigrationWorkflowIdCoordinate
                     .flowMigrationStatusForClassicWorkflows()
             )
-            .isEqualTo("12345")
+            .isEqualTo("flowMigrationStatusForClassicWorkflows")
         assertThat(apiFlowBatchFetchMigrationWorkflowIdCoordinate.type())
             .isEqualTo(ApiFlowBatchFetchMigrationWorkflowIdCoordinate.Type.WORKFLOW_ID)
     }
@@ -31,7 +31,7 @@ internal class ApiFlowBatchFetchMigrationWorkflowIdCoordinateTest {
         val jsonMapper = jsonMapper()
         val apiFlowBatchFetchMigrationWorkflowIdCoordinate =
             ApiFlowBatchFetchMigrationWorkflowIdCoordinate.builder()
-                .flowMigrationStatusForClassicWorkflows("12345")
+                .flowMigrationStatusForClassicWorkflows("flowMigrationStatusForClassicWorkflows")
                 .type(ApiFlowBatchFetchMigrationWorkflowIdCoordinate.Type.WORKFLOW_ID)
                 .build()
 

@@ -2,20 +2,11 @@
 
 package com.hubspot_sdk.api.models.cms.sourcecode
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.hubspot_sdk.api.core.ExcludeMissing
-import com.hubspot_sdk.api.core.JsonField
-import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import java.util.Collections
 import java.util.Objects
 
 /**
@@ -24,25 +15,15 @@ import java.util.Objects
  */
 class SourceCodeExtractAsyncParams
 private constructor(
-    private val body: Body,
+    private val fileExtractRequest: FileExtractRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun path(): String = body.path()
+    fun fileExtractRequest(): FileExtractRequest = fileExtractRequest
 
-    /**
-     * Returns the raw JSON value of [path].
-     *
-     * Unlike [path], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _path(): JsonField<String> = body._path()
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        fileExtractRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -59,7 +40,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .path()
+         * .fileExtractRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -68,53 +49,19 @@ private constructor(
     /** A builder for [SourceCodeExtractAsyncParams]. */
     class Builder internal constructor() {
 
-        private var body: Body.Builder = Body.builder()
+        private var fileExtractRequest: FileExtractRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(sourceCodeExtractAsyncParams: SourceCodeExtractAsyncParams) = apply {
-            body = sourceCodeExtractAsyncParams.body.toBuilder()
+            fileExtractRequest = sourceCodeExtractAsyncParams.fileExtractRequest
             additionalHeaders = sourceCodeExtractAsyncParams.additionalHeaders.toBuilder()
             additionalQueryParams = sourceCodeExtractAsyncParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * Sets the entire request body.
-         *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [path]
-         */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        fun path(path: String) = apply { body.path(path) }
-
-        /**
-         * Sets [Builder.path] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.path] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun path(path: JsonField<String>) = apply { body.path(path) }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
+        fun fileExtractRequest(fileExtractRequest: FileExtractRequest) = apply {
+            this.fileExtractRequest = fileExtractRequest
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -222,176 +169,24 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .path()
+         * .fileExtractRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): SourceCodeExtractAsyncParams =
             SourceCodeExtractAsyncParams(
-                body.build(),
+                checkRequired("fileExtractRequest", fileExtractRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): FileExtractRequest = fileExtractRequest
 
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
-
-    class Body
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val path: JsonField<String>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("path") @ExcludeMissing path: JsonField<String> = JsonMissing.of()
-        ) : this(path, mutableMapOf())
-
-        /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun path(): String = path.getRequired("path")
-
-        /**
-         * Returns the raw JSON value of [path].
-         *
-         * Unlike [path], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("path") @ExcludeMissing fun _path(): JsonField<String> = path
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .path()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var path: JsonField<String>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                path = body.path
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            fun path(path: String) = path(JsonField.of(path))
-
-            /**
-             * Sets [Builder.path] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.path] with a well-typed [String] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun path(path: JsonField<String>) = apply { this.path = path }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .path()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(checkRequired("path", path), additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            path()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: HubspotInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = (if (path.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Body &&
-                path == other.path &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(path, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Body{path=$path, additionalProperties=$additionalProperties}"
-    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -399,13 +194,14 @@ private constructor(
         }
 
         return other is SourceCodeExtractAsyncParams &&
-            body == other.body &&
+            fileExtractRequest == other.fileExtractRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(fileExtractRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SourceCodeExtractAsyncParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SourceCodeExtractAsyncParams{fileExtractRequest=$fileExtractRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

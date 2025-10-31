@@ -40,8 +40,8 @@ interface PostalMailService {
     fun batch(): BatchService
 
     /**
-     * Create a postal mail with the given properties and return a copy of the object, including the
-     * ID. Documentation and examples for creating standard postal mail is provided.
+     * Create a postal mail object with the given properties and return a copy of the object,
+     * including the ID.
      */
     fun create(params: PostalMailCreateParams): CreatedResponseSimplePublicObject =
         create(params, RequestOptions.none())
@@ -70,14 +70,6 @@ interface PostalMailService {
     ): CreatedResponseSimplePublicObject =
         create(simplePublicObjectInputForCreate, RequestOptions.none())
 
-    /**
-     * Perform a partial update of an Object identified by `{postalMailId}`or optionally a unique
-     * property value as specified by the `idProperty` query param. `{postalMailId}` refers to the
-     * internal object ID by default, and the `idProperty` query param refers to a property whose
-     * values are unique for the object. Provided property values will be overwritten. Read-only and
-     * non-existent properties will result in an error. Properties values can be cleared by passing
-     * an empty string.
-     */
     fun update(postalMailId: String, params: PostalMailUpdateParams): SimplePublicObject =
         update(postalMailId, params, RequestOptions.none())
 
@@ -99,7 +91,6 @@ interface PostalMailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /** Read a page of postal mail. Control what is returned via the `properties` query param. */
     fun list(): PostalMailListPage = list(PostalMailListParams.none())
 
     /** @see list */
@@ -116,7 +107,7 @@ interface PostalMailService {
     fun list(requestOptions: RequestOptions): PostalMailListPage =
         list(PostalMailListParams.none(), requestOptions)
 
-    /** Move an Object identified by `{postalMailId}` to the recycling bin. */
+    /** Move the postal mail object with the ID `{postalMailId}` to the recycling bin. */
     fun delete(postalMailId: String) = delete(postalMailId, PostalMailDeleteParams.none())
 
     /** @see delete */
@@ -145,11 +136,6 @@ interface PostalMailService {
     fun delete(postalMailId: String, requestOptions: RequestOptions) =
         delete(postalMailId, PostalMailDeleteParams.none(), requestOptions)
 
-    /**
-     * Read an Object identified by `{postalMailId}`. `{postalMailId}` refers to the internal object
-     * ID by default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
-     */
     fun get(postalMailId: String): SimplePublicObjectWithAssociations =
         get(postalMailId, PostalMailGetParams.none())
 
@@ -184,6 +170,7 @@ interface PostalMailService {
     ): SimplePublicObjectWithAssociations =
         get(postalMailId, PostalMailGetParams.none(), requestOptions)
 
+    /** Search for postal mail objects using specific criteria in the request. */
     fun search(params: PostalMailSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 

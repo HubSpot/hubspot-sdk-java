@@ -20,19 +20,12 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The paging cursor token of the last successfully read resource will be returned as the
-     * `paging.next.after` JSON property of a paged response containing more results (optional).
-     */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    /** Filter by email address (optional). */
     fun email(): Optional<String> = Optional.ofNullable(email)
 
-    /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
     /** Additional headers to send with the request. */
@@ -71,16 +64,11 @@ private constructor(
             additionalQueryParams = ownerListParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The paging cursor token of the last successfully read resource will be returned as the
-         * `paging.next.after` JSON property of a paged response containing more results (optional).
-         */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**
@@ -93,13 +81,11 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        /** Filter by email address (optional). */
         fun email(email: String?) = apply { this.email = email }
 
         /** Alias for calling [Builder.email] with `email.orElse(null)`. */
         fun email(email: Optional<String>) = email(email.getOrNull())
 
-        /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**

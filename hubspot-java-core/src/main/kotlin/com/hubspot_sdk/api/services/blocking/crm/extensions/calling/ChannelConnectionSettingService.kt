@@ -28,11 +28,6 @@ interface ChannelConnectionSettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChannelConnectionSettingService
 
-    /**
-     * Configure
-     * [channel connection settings](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#create-channel-connection-settings)
-     * for the app.
-     */
     fun create(
         appId: Int,
         params: ChannelConnectionSettingCreateParams,
@@ -56,11 +51,6 @@ interface ChannelConnectionSettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ChannelConnectionSettingsResponse
 
-    /**
-     * Update existing
-     * [channel connection settings](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#manage-the-webhook-settings-for-channel-connection)
-     * for your app.
-     */
     fun update(
         appId: Int,
         params: ChannelConnectionSettingUpdateParams,
@@ -84,11 +74,6 @@ interface ChannelConnectionSettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ChannelConnectionSettingsResponse
 
-    /**
-     * Delete the
-     * [channel connection settings](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#delete-existing-channel-connection-settings)
-     * for the app.
-     */
     fun delete(appId: Int) = delete(appId, ChannelConnectionSettingDeleteParams.none())
 
     /** @see delete */
@@ -117,10 +102,6 @@ interface ChannelConnectionSettingService {
     fun delete(appId: Int, requestOptions: RequestOptions) =
         delete(appId, ChannelConnectionSettingDeleteParams.none(), requestOptions)
 
-    /**
-     * Retrieve the settings related to the app's
-     * [channel connection](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#fetch-existing-channel-connection-settings).
-     */
     fun get(appId: Int): ChannelConnectionSettingsResponse =
         get(appId, ChannelConnectionSettingGetParams.none())
 

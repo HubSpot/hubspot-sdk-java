@@ -9,13 +9,13 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationParams
-import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.function.Consumer
 
 interface SchemaService {
@@ -92,26 +92,25 @@ interface SchemaService {
     fun createAssociation(
         objectType: String,
         params: SchemaCreateAssociationParams,
-    ): SchemaCreateAssociationResponse =
-        createAssociation(objectType, params, RequestOptions.none())
+    ): AssociationDefinition = createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         objectType: String,
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SchemaCreateAssociationResponse =
+    ): AssociationDefinition =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
-    fun createAssociation(params: SchemaCreateAssociationParams): SchemaCreateAssociationResponse =
+    fun createAssociation(params: SchemaCreateAssociationParams): AssociationDefinition =
         createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SchemaCreateAssociationResponse
+    ): AssociationDefinition
 
     /** Delete an existing association definition for an object type. */
     fun deleteAssociation(associationId: String, params: SchemaDeleteAssociationParams) =
@@ -251,7 +250,7 @@ interface SchemaService {
         fun createAssociation(
             objectType: String,
             params: SchemaCreateAssociationParams,
-        ): HttpResponseFor<SchemaCreateAssociationResponse> =
+        ): HttpResponseFor<AssociationDefinition> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -260,22 +259,21 @@ interface SchemaService {
             objectType: String,
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SchemaCreateAssociationResponse> =
+        ): HttpResponseFor<AssociationDefinition> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: SchemaCreateAssociationParams
-        ): HttpResponseFor<SchemaCreateAssociationResponse> =
-            createAssociation(params, RequestOptions.none())
+        ): HttpResponseFor<AssociationDefinition> = createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SchemaCreateAssociationResponse>
+        ): HttpResponseFor<AssociationDefinition>
 
         /**
          * Returns a raw HTTP response for `delete

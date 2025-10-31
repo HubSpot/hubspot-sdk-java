@@ -11,18 +11,16 @@ internal class ActingUserTest {
 
     @Test
     fun create() {
-        val actingUser =
-            ActingUser.builder().userId(2931299).userEmail("pgibbons@initech.com").build()
+        val actingUser = ActingUser.builder().userId(0).userEmail("userEmail").build()
 
-        assertThat(actingUser.userId()).isEqualTo(2931299)
-        assertThat(actingUser.userEmail()).contains("pgibbons@initech.com")
+        assertThat(actingUser.userId()).isEqualTo(0)
+        assertThat(actingUser.userEmail()).contains("userEmail")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val actingUser =
-            ActingUser.builder().userId(2931299).userEmail("pgibbons@initech.com").build()
+        val actingUser = ActingUser.builder().userId(0).userEmail("userEmail").build()
 
         val roundtrippedActingUser =
             jsonMapper.readValue(

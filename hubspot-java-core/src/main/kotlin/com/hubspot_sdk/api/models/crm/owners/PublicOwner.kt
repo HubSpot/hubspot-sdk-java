@@ -76,48 +76,64 @@ private constructor(
     )
 
     /**
+     * The unique identifier of the owner.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * Indicates whether the owner is archived.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun archived(): Boolean = archived.getRequired("archived")
 
     /**
+     * The date and time when the owner was created.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
+     * The type of the owner, which can be either PERSON or QUEUE.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
+     * The date and time when the owner was last updated.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
+     * The email address of the owner.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun email(): Optional<String> = email.getOptional("email")
 
     /**
+     * The first name of the owner.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun firstName(): Optional<String> = firstName.getOptional("firstName")
 
     /**
+     * The last name of the owner.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -130,12 +146,16 @@ private constructor(
     fun teams(): Optional<List<PublicTeam>> = teams.getOptional("teams")
 
     /**
+     * The user ID of the owner.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun userId(): Optional<Int> = userId.getOptional("userId")
 
     /**
+     * The user ID of the owner, including inactive users.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -287,6 +307,7 @@ private constructor(
             additionalProperties = publicOwner.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier of the owner. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -297,6 +318,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** Indicates whether the owner is archived. */
         fun archived(archived: Boolean) = archived(JsonField.of(archived))
 
         /**
@@ -308,6 +330,7 @@ private constructor(
          */
         fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
+        /** The date and time when the owner was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -319,6 +342,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        /** The type of the owner, which can be either PERSON or QUEUE. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -329,6 +353,7 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** The date and time when the owner was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -340,6 +365,7 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
+        /** The email address of the owner. */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -350,6 +376,7 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
+        /** The first name of the owner. */
         fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
         /**
@@ -361,6 +388,7 @@ private constructor(
          */
         fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
+        /** The last name of the owner. */
         fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
         /**
@@ -394,6 +422,7 @@ private constructor(
                 (teams ?: JsonField.of(mutableListOf())).also { checkKnown("teams", it).add(team) }
         }
 
+        /** The user ID of the owner. */
         fun userId(userId: Int) = userId(JsonField.of(userId))
 
         /**
@@ -404,6 +433,7 @@ private constructor(
          */
         fun userId(userId: JsonField<Int>) = apply { this.userId = userId }
 
+        /** The user ID of the owner, including inactive users. */
         fun userIdIncludingInactive(userIdIncludingInactive: Int) =
             userIdIncludingInactive(JsonField.of(userIdIncludingInactive))
 
@@ -518,6 +548,7 @@ private constructor(
             (if (userId.asKnown().isPresent) 1 else 0) +
             (if (userIdIncludingInactive.asKnown().isPresent) 1 else 0)
 
+    /** The type of the owner, which can be either PERSON or QUEUE. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

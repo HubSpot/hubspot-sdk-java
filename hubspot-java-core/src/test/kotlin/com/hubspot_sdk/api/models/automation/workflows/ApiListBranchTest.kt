@@ -24,7 +24,7 @@ internal class ApiListBranchTest {
     fun create() {
         val apiListBranch =
             ApiListBranch.builder()
-                .branchName("Branch name")
+                .branchName("branchName")
                 .connection(
                     ApiConnection.builder()
                         .edgeType("edgeType")
@@ -383,7 +383,7 @@ internal class ApiListBranchTest {
                 )
                 .build()
 
-        assertThat(apiListBranch.branchName()).contains("Branch name")
+        assertThat(apiListBranch.branchName()).contains("branchName")
         assertThat(apiListBranch.connection())
             .contains(
                 ApiConnection.builder().edgeType("edgeType").nextActionId("nextActionId").build()
@@ -748,7 +748,7 @@ internal class ApiListBranchTest {
         val jsonMapper = jsonMapper()
         val apiListBranch =
             ApiListBranch.builder()
-                .branchName("Branch name")
+                .branchName("branchName")
                 .connection(
                     ApiConnection.builder()
                         .edgeType("edgeType")

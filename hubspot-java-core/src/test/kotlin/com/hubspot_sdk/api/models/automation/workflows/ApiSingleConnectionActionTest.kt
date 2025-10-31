@@ -14,8 +14,8 @@ internal class ApiSingleConnectionActionTest {
     fun create() {
         val apiSingleConnectionAction =
             ApiSingleConnectionAction.builder()
-                .actionId("1")
-                .actionTypeId("0-1")
+                .actionId("actionId")
+                .actionTypeId("actionTypeId")
                 .actionTypeVersion(0)
                 .fields(
                     ApiSingleConnectionAction.Fields.builder()
@@ -31,8 +31,8 @@ internal class ApiSingleConnectionActionTest {
                 )
                 .build()
 
-        assertThat(apiSingleConnectionAction.actionId()).isEqualTo("1")
-        assertThat(apiSingleConnectionAction.actionTypeId()).isEqualTo("0-1")
+        assertThat(apiSingleConnectionAction.actionId()).isEqualTo("actionId")
+        assertThat(apiSingleConnectionAction.actionTypeId()).isEqualTo("actionTypeId")
         assertThat(apiSingleConnectionAction.actionTypeVersion()).isEqualTo(0)
         assertThat(apiSingleConnectionAction.fields())
             .isEqualTo(
@@ -53,8 +53,8 @@ internal class ApiSingleConnectionActionTest {
         val jsonMapper = jsonMapper()
         val apiSingleConnectionAction =
             ApiSingleConnectionAction.builder()
-                .actionId("1")
-                .actionTypeId("0-1")
+                .actionId("actionId")
+                .actionTypeId("actionTypeId")
                 .actionTypeVersion(0)
                 .fields(
                     ApiSingleConnectionAction.Fields.builder()

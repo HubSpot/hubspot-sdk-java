@@ -38,32 +38,24 @@ private constructor(
     ) : this(location, name, secretName, type, mutableMapOf())
 
     /**
-     * Where in the request this auth key should be located: "HEADER" or "QUERY_PARAM"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun location(): Location = location.getRequired("location")
 
     /**
-     * The name to use for this auth key.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
 
     /**
-     * The secret to pass through in this auth key.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun secretName(): String = secretName.getRequired("secretName")
 
     /**
-     * The type of webhook auth settings this is, can be: "AUTH_KEY" or "SIGNATURE"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -144,7 +136,6 @@ private constructor(
             additionalProperties = apiAuthKeyWebhookAuthSettings.additionalProperties.toMutableMap()
         }
 
-        /** Where in the request this auth key should be located: "HEADER" or "QUERY_PARAM" */
         fun location(location: Location) = location(JsonField.of(location))
 
         /**
@@ -156,7 +147,6 @@ private constructor(
          */
         fun location(location: JsonField<Location>) = apply { this.location = location }
 
-        /** The name to use for this auth key. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -167,7 +157,6 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
-        /** The secret to pass through in this auth key. */
         fun secretName(secretName: String) = secretName(JsonField.of(secretName))
 
         /**
@@ -179,7 +168,6 @@ private constructor(
          */
         fun secretName(secretName: JsonField<String>) = apply { this.secretName = secretName }
 
-        /** The type of webhook auth settings this is, can be: "AUTH_KEY" or "SIGNATURE" */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -268,7 +256,6 @@ private constructor(
             (if (secretName.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** Where in the request this auth key should be located: "HEADER" or "QUERY_PARAM" */
     class Location @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -394,7 +381,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The type of webhook auth settings this is, can be: "AUTH_KEY" or "SIGNATURE" */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

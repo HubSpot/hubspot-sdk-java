@@ -27,7 +27,6 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
-    /** Read a batch of objects by internal ID, or unique property values */
     fun batchGet(params: BatchBatchGetParams): BatchResponseSimplePublicObject =
         batchGet(params, RequestOptions.none())
 
@@ -55,7 +54,6 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         batchGet(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Update a batch of objects */
     fun batchUpdate(params: BatchBatchUpdateParams): BatchResponseSimplePublicObject =
         batchUpdate(params, RequestOptions.none())
 

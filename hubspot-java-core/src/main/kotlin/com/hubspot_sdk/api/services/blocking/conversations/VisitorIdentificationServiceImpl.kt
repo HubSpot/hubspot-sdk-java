@@ -15,8 +15,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.conversations.visitoridentification.IdentificationTokenResponse
 import com.hubspot_sdk.api.models.conversations.visitoridentification.VisitorIdentificationGenerateTokenParams
-import com.hubspot_sdk.api.models.conversations.visitoridentification.VisitorIdentificationGenerateTokenResponse
 import java.util.function.Consumer
 
 class VisitorIdentificationServiceImpl
@@ -36,7 +36,7 @@ internal constructor(private val clientOptions: ClientOptions) : VisitorIdentifi
     override fun generateToken(
         params: VisitorIdentificationGenerateTokenParams,
         requestOptions: RequestOptions,
-    ): VisitorIdentificationGenerateTokenResponse =
+    ): IdentificationTokenResponse =
         // post /visitor-identification/v3/tokens/create
         withRawResponse().generateToken(params, requestOptions).parse()
 
@@ -53,13 +53,13 @@ internal constructor(private val clientOptions: ClientOptions) : VisitorIdentifi
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val generateTokenHandler: Handler<VisitorIdentificationGenerateTokenResponse> =
-            jsonHandler<VisitorIdentificationGenerateTokenResponse>(clientOptions.jsonMapper)
+        private val generateTokenHandler: Handler<IdentificationTokenResponse> =
+            jsonHandler<IdentificationTokenResponse>(clientOptions.jsonMapper)
 
         override fun generateToken(
             params: VisitorIdentificationGenerateTokenParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<VisitorIdentificationGenerateTokenResponse> {
+        ): HttpResponseFor<IdentificationTokenResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

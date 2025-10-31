@@ -40,8 +40,6 @@ private constructor(
     ) : this(daysOfWeek, timeOfDay, type, mutableMapOf())
 
     /**
-     * Which days of the week to allow enrollments.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -54,9 +52,6 @@ private constructor(
     fun timeOfDay(): ApiTimeOfDay = timeOfDay.getRequired("timeOfDay")
 
     /**
-     * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY", "MONTHLY_SPECIFIC_DAYS",
-     * "MONTHLY_RELATIVE_DAYS", "YEARLY"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -128,7 +123,6 @@ private constructor(
             additionalProperties = apiWeeklyEnrollmentSchedule.additionalProperties.toMutableMap()
         }
 
-        /** Which days of the week to allow enrollments. */
         fun daysOfWeek(daysOfWeek: List<DaysOfWeek>) = daysOfWeek(JsonField.of(daysOfWeek))
 
         /**
@@ -165,10 +159,6 @@ private constructor(
          */
         fun timeOfDay(timeOfDay: JsonField<ApiTimeOfDay>) = apply { this.timeOfDay = timeOfDay }
 
-        /**
-         * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY",
-         * "MONTHLY_SPECIFIC_DAYS", "MONTHLY_RELATIVE_DAYS", "YEARLY"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -410,10 +400,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY", "MONTHLY_SPECIFIC_DAYS",
-     * "MONTHLY_RELATIVE_DAYS", "YEARLY"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

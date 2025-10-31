@@ -29,10 +29,6 @@ interface RecordingSettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): RecordingSettingService
 
-    /**
-     * Register an external URL that HubSpot will use to retrieve
-     * [call recordings](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
-     */
     fun create(appId: Int, params: RecordingSettingCreateParams): RecordingSettingsResponse =
         create(appId, params, RequestOptions.none())
 
@@ -53,10 +49,6 @@ interface RecordingSettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RecordingSettingsResponse
 
-    /**
-     * Update the URL that HubSpot will use to retrieve
-     * [call recordings](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
-     */
     fun update(appId: Int, params: RecordingSettingUpdateParams): RecordingSettingsResponse =
         update(appId, params, RequestOptions.none())
 
@@ -77,10 +69,6 @@ interface RecordingSettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RecordingSettingsResponse
 
-    /**
-     * Retrieve the URL that is registered for
-     * [call recording](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
-     */
     fun get(appId: Int): RecordingSettingsResponse = get(appId, RecordingSettingGetParams.none())
 
     /** @see get */
@@ -110,10 +98,6 @@ interface RecordingSettingService {
     fun get(appId: Int, requestOptions: RequestOptions): RecordingSettingsResponse =
         get(appId, RecordingSettingGetParams.none(), requestOptions)
 
-    /**
-     * Mark a call recording as ready for transcription, specifying the call by its ID
-     * (`engagementid`).
-     */
     fun markReady(params: RecordingSettingMarkReadyParams) =
         markReady(params, RequestOptions.none())
 

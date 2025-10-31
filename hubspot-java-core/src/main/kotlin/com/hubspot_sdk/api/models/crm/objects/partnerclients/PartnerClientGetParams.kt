@@ -10,11 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
- * default, or optionally any unique property value as specified by the `idProperty` query param.
- * Control what is returned via the `properties` query param.
- */
 class PartnerClientGetParams
 private constructor(
     private val partnerClientId: String?,
@@ -29,29 +24,14 @@ private constructor(
 
     fun partnerClientId(): Optional<String> = Optional.ofNullable(partnerClientId)
 
-    /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    /**
-     * A comma separated list of object types to retrieve associated IDs for. If any of the
-     * specified associations do not exist, they will be ignored.
-     */
     fun associations(): Optional<List<String>> = Optional.ofNullable(associations)
 
-    /** The name of a property whose values are unique for this object */
     fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
-    /**
-     * A comma separated list of the properties to be returned in the response. If any of the
-     * specified properties are not present on the requested object(s), they will be ignored.
-     */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
-    /**
-     * A comma separated list of the properties to be returned along with their history of previous
-     * values. If any of the specified properties are not present on the requested object(s), they
-     * will be ignored.
-     */
     fun propertiesWithHistory(): Optional<List<String>> = Optional.ofNullable(propertiesWithHistory)
 
     /** Additional headers to send with the request. */
@@ -102,7 +82,6 @@ private constructor(
         fun partnerClientId(partnerClientId: Optional<String>) =
             partnerClientId(partnerClientId.getOrNull())
 
-        /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**
@@ -115,10 +94,6 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        /**
-         * A comma separated list of object types to retrieve associated IDs for. If any of the
-         * specified associations do not exist, they will be ignored.
-         */
         fun associations(associations: List<String>?) = apply {
             this.associations = associations?.toMutableList()
         }
@@ -136,16 +111,11 @@ private constructor(
             associations = (associations ?: mutableListOf()).apply { add(association) }
         }
 
-        /** The name of a property whose values are unique for this object */
         fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
 
         /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
         fun idProperty(idProperty: Optional<String>) = idProperty(idProperty.getOrNull())
 
-        /**
-         * A comma separated list of the properties to be returned in the response. If any of the
-         * specified properties are not present on the requested object(s), they will be ignored.
-         */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -162,11 +132,6 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
-        /**
-         * A comma separated list of the properties to be returned along with their history of
-         * previous values. If any of the specified properties are not present on the requested
-         * object(s), they will be ignored.
-         */
         fun propertiesWithHistory(propertiesWithHistory: List<String>?) = apply {
             this.propertiesWithHistory = propertiesWithHistory?.toMutableList()
         }

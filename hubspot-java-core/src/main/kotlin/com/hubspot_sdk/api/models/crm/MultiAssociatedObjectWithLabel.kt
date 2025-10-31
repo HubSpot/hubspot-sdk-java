@@ -14,7 +14,6 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpecWithLabel1
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -22,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 class MultiAssociatedObjectWithLabel
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val associationTypes: JsonField<List<AssociationSpecWithLabel1>>,
+    private val associationTypes: JsonField<List<AssociationSpecWithLabel>>,
     private val toObjectId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -31,7 +30,7 @@ private constructor(
     private constructor(
         @JsonProperty("associationTypes")
         @ExcludeMissing
-        associationTypes: JsonField<List<AssociationSpecWithLabel1>> = JsonMissing.of(),
+        associationTypes: JsonField<List<AssociationSpecWithLabel>> = JsonMissing.of(),
         @JsonProperty("toObjectId") @ExcludeMissing toObjectId: JsonField<String> = JsonMissing.of(),
     ) : this(associationTypes, toObjectId, mutableMapOf())
 
@@ -39,7 +38,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun associationTypes(): List<AssociationSpecWithLabel1> =
+    fun associationTypes(): List<AssociationSpecWithLabel> =
         associationTypes.getRequired("associationTypes")
 
     /**
@@ -56,7 +55,7 @@ private constructor(
      */
     @JsonProperty("associationTypes")
     @ExcludeMissing
-    fun _associationTypes(): JsonField<List<AssociationSpecWithLabel1>> = associationTypes
+    fun _associationTypes(): JsonField<List<AssociationSpecWithLabel>> = associationTypes
 
     /**
      * Returns the raw JSON value of [toObjectId].
@@ -95,7 +94,7 @@ private constructor(
     /** A builder for [MultiAssociatedObjectWithLabel]. */
     class Builder internal constructor() {
 
-        private var associationTypes: JsonField<MutableList<AssociationSpecWithLabel1>>? = null
+        private var associationTypes: JsonField<MutableList<AssociationSpecWithLabel>>? = null
         private var toObjectId: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -108,26 +107,26 @@ private constructor(
                 multiAssociatedObjectWithLabel.additionalProperties.toMutableMap()
         }
 
-        fun associationTypes(associationTypes: List<AssociationSpecWithLabel1>) =
+        fun associationTypes(associationTypes: List<AssociationSpecWithLabel>) =
             associationTypes(JsonField.of(associationTypes))
 
         /**
          * Sets [Builder.associationTypes] to an arbitrary JSON value.
          *
          * You should usually call [Builder.associationTypes] with a well-typed
-         * `List<AssociationSpecWithLabel1>` value instead. This method is primarily for setting the
+         * `List<AssociationSpecWithLabel>` value instead. This method is primarily for setting the
          * field to an undocumented or not yet supported value.
          */
-        fun associationTypes(associationTypes: JsonField<List<AssociationSpecWithLabel1>>) = apply {
+        fun associationTypes(associationTypes: JsonField<List<AssociationSpecWithLabel>>) = apply {
             this.associationTypes = associationTypes.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [AssociationSpecWithLabel1] to [associationTypes].
+         * Adds a single [AssociationSpecWithLabel] to [associationTypes].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addAssociationType(associationType: AssociationSpecWithLabel1) = apply {
+        fun addAssociationType(associationType: AssociationSpecWithLabel) = apply {
             associationTypes =
                 (associationTypes ?: JsonField.of(mutableListOf())).also {
                     checkKnown("associationTypes", it).add(associationType)

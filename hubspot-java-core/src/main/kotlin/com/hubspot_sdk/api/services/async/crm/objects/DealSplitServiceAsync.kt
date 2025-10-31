@@ -6,10 +6,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.BatchInputPublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.BatchResponseDealToDealSplits
 import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchReadParams
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchReadResponse
 import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertParams
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertResponse
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitsBatchCreateRequest
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -28,20 +28,21 @@ interface DealSplitServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DealSplitServiceAsync
 
     /** Read a batch of deal split objects by their associated deal object internal ID */
-    fun batchRead(params: DealSplitBatchReadParams): CompletableFuture<DealSplitBatchReadResponse> =
-        batchRead(params, RequestOptions.none())
+    fun batchRead(
+        params: DealSplitBatchReadParams
+    ): CompletableFuture<BatchResponseDealToDealSplits> = batchRead(params, RequestOptions.none())
 
     /** @see batchRead */
     fun batchRead(
         params: DealSplitBatchReadParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DealSplitBatchReadResponse>
+    ): CompletableFuture<BatchResponseDealToDealSplits>
 
     /** @see batchRead */
     fun batchRead(
         batchInputPublicObjectId: BatchInputPublicObjectId,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DealSplitBatchReadResponse> =
+    ): CompletableFuture<BatchResponseDealToDealSplits> =
         batchRead(
             DealSplitBatchReadParams.builder()
                 .batchInputPublicObjectId(batchInputPublicObjectId)
@@ -52,7 +53,7 @@ interface DealSplitServiceAsync {
     /** @see batchRead */
     fun batchRead(
         batchInputPublicObjectId: BatchInputPublicObjectId
-    ): CompletableFuture<DealSplitBatchReadResponse> =
+    ): CompletableFuture<BatchResponseDealToDealSplits> =
         batchRead(batchInputPublicObjectId, RequestOptions.none())
 
     /**
@@ -61,13 +62,31 @@ interface DealSplitServiceAsync {
      */
     fun batchUpsert(
         params: DealSplitBatchUpsertParams
-    ): CompletableFuture<DealSplitBatchUpsertResponse> = batchUpsert(params, RequestOptions.none())
+    ): CompletableFuture<BatchResponseDealToDealSplits> = batchUpsert(params, RequestOptions.none())
 
     /** @see batchUpsert */
     fun batchUpsert(
         params: DealSplitBatchUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DealSplitBatchUpsertResponse>
+    ): CompletableFuture<BatchResponseDealToDealSplits>
+
+    /** @see batchUpsert */
+    fun batchUpsert(
+        publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseDealToDealSplits> =
+        batchUpsert(
+            DealSplitBatchUpsertParams.builder()
+                .publicDealSplitsBatchCreateRequest(publicDealSplitsBatchCreateRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see batchUpsert */
+    fun batchUpsert(
+        publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest
+    ): CompletableFuture<BatchResponseDealToDealSplits> =
+        batchUpsert(publicDealSplitsBatchCreateRequest, RequestOptions.none())
 
     /**
      * A view of [DealSplitServiceAsync] that provides access to raw HTTP responses for each method.
@@ -89,20 +108,20 @@ interface DealSplitServiceAsync {
          */
         fun batchRead(
             params: DealSplitBatchReadParams
-        ): CompletableFuture<HttpResponseFor<DealSplitBatchReadResponse>> =
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>> =
             batchRead(params, RequestOptions.none())
 
         /** @see batchRead */
         fun batchRead(
             params: DealSplitBatchReadParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DealSplitBatchReadResponse>>
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>>
 
         /** @see batchRead */
         fun batchRead(
             batchInputPublicObjectId: BatchInputPublicObjectId,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DealSplitBatchReadResponse>> =
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>> =
             batchRead(
                 DealSplitBatchReadParams.builder()
                     .batchInputPublicObjectId(batchInputPublicObjectId)
@@ -113,7 +132,7 @@ interface DealSplitServiceAsync {
         /** @see batchRead */
         fun batchRead(
             batchInputPublicObjectId: BatchInputPublicObjectId
-        ): CompletableFuture<HttpResponseFor<DealSplitBatchReadResponse>> =
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>> =
             batchRead(batchInputPublicObjectId, RequestOptions.none())
 
         /**
@@ -122,13 +141,31 @@ interface DealSplitServiceAsync {
          */
         fun batchUpsert(
             params: DealSplitBatchUpsertParams
-        ): CompletableFuture<HttpResponseFor<DealSplitBatchUpsertResponse>> =
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>> =
             batchUpsert(params, RequestOptions.none())
 
         /** @see batchUpsert */
         fun batchUpsert(
             params: DealSplitBatchUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DealSplitBatchUpsertResponse>>
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>>
+
+        /** @see batchUpsert */
+        fun batchUpsert(
+            publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>> =
+            batchUpsert(
+                DealSplitBatchUpsertParams.builder()
+                    .publicDealSplitsBatchCreateRequest(publicDealSplitsBatchCreateRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see batchUpsert */
+        fun batchUpsert(
+            publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest
+        ): CompletableFuture<HttpResponseFor<BatchResponseDealToDealSplits>> =
+            batchUpsert(publicDealSplitsBatchCreateRequest, RequestOptions.none())
     }
 }

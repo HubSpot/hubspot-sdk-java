@@ -183,7 +183,7 @@ internal class SchemaServiceAsyncTest {
                 .build()
         val schemaServiceAsync = client.crm().objects().schemas()
 
-        val responseFuture =
+        val associationDefinitionFuture =
             schemaServiceAsync.createAssociation(
                 SchemaCreateAssociationParams.builder()
                     .objectType("objectType")
@@ -197,8 +197,8 @@ internal class SchemaServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val associationDefinition = associationDefinitionFuture.get()
+        associationDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -14,7 +14,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve functions by a type for a given definition */
+/** Retrieve functions of a specific type for a given definition. */
 class FunctionGetByFunctionTypeParams
 private constructor(
     private val appId: Int,

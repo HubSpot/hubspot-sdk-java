@@ -13,22 +13,22 @@ internal class ApiWebhookActionTest {
     fun create() {
         val apiWebhookAction =
             ApiWebhookAction.builder()
-                .actionId("1")
-                .method(ApiWebhookAction.Method.POST)
+                .actionId("actionId")
+                .method(ApiWebhookAction.Method.CONNECT)
                 .addQueryParam(
                     ApiInputVariable.builder()
                         .name("name")
                         .value(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .build()
                 )
                 .type(ApiWebhookAction.Type.WEBHOOK)
-                .webhookUrl("https://example.com/test_webhook")
+                .webhookUrl("webhookUrl")
                 .authSettings(
                     ApiAuthKeyWebhookAuthSettings.builder()
                         .location(ApiAuthKeyWebhookAuthSettings.Location.HEADER)
@@ -45,23 +45,23 @@ internal class ApiWebhookActionTest {
                 )
                 .build()
 
-        assertThat(apiWebhookAction.actionId()).isEqualTo("1")
-        assertThat(apiWebhookAction.method()).isEqualTo(ApiWebhookAction.Method.POST)
+        assertThat(apiWebhookAction.actionId()).isEqualTo("actionId")
+        assertThat(apiWebhookAction.method()).isEqualTo(ApiWebhookAction.Method.CONNECT)
         assertThat(apiWebhookAction.queryParams())
             .containsExactly(
                 ApiInputVariable.builder()
                     .name("name")
                     .value(
                         ApiActionDataValue.builder()
-                            .actionId("1")
-                            .dataKey("hs_execution_state")
+                            .actionId("actionId")
+                            .dataKey("dataKey")
                             .type(ApiActionDataValue.Type.FIELD_DATA)
                             .build()
                     )
                     .build()
             )
         assertThat(apiWebhookAction.type()).isEqualTo(ApiWebhookAction.Type.WEBHOOK)
-        assertThat(apiWebhookAction.webhookUrl()).isEqualTo("https://example.com/test_webhook")
+        assertThat(apiWebhookAction.webhookUrl()).isEqualTo("webhookUrl")
         assertThat(apiWebhookAction.authSettings())
             .contains(
                 ApiWebhookAction.AuthSettings.ofApiAuthKeyWebhook(
@@ -84,22 +84,22 @@ internal class ApiWebhookActionTest {
         val jsonMapper = jsonMapper()
         val apiWebhookAction =
             ApiWebhookAction.builder()
-                .actionId("1")
-                .method(ApiWebhookAction.Method.POST)
+                .actionId("actionId")
+                .method(ApiWebhookAction.Method.CONNECT)
                 .addQueryParam(
                     ApiInputVariable.builder()
                         .name("name")
                         .value(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .build()
                 )
                 .type(ApiWebhookAction.Type.WEBHOOK)
-                .webhookUrl("https://example.com/test_webhook")
+                .webhookUrl("webhookUrl")
                 .authSettings(
                     ApiAuthKeyWebhookAuthSettings.builder()
                         .location(ApiAuthKeyWebhookAuthSettings.Location.HEADER)

@@ -19,6 +19,7 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.BatchResponseProperty
 import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
@@ -26,7 +27,6 @@ import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteParam
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyListParams
-import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -54,7 +54,7 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: PropertyListParams,
         requestOptions: RequestOptions,
-    ): PropertyListResponse =
+    ): CollectionResponsePropertyNoPaging =
         // get /media-bridge/v1/{appId}/properties/{objectType}
         withRawResponse().list(params, requestOptions).parse()
 
@@ -174,13 +174,13 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<PropertyListResponse> =
-            jsonHandler<PropertyListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CollectionResponsePropertyNoPaging> =
+            jsonHandler<CollectionResponsePropertyNoPaging>(clientOptions.jsonMapper)
 
         override fun list(
             params: PropertyListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PropertyListResponse> {
+        ): HttpResponseFor<CollectionResponsePropertyNoPaging> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

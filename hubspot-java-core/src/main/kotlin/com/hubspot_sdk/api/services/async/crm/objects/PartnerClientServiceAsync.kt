@@ -37,13 +37,6 @@ interface PartnerClientServiceAsync {
 
     fun batch(): BatchServiceAsync
 
-    /**
-     * Perform a partial update of an Object identified by `{objectId}`. `{objectId}` refers to the
-     * internal object ID by default, or optionally any unique property value as specified by the
-     * `idProperty` query param. Provided property values will be overwritten. Read-only and
-     * non-existent properties will be ignored. Properties values can be cleared by passing an empty
-     * string.
-     */
     fun update(
         partnerClientId: String,
         params: PartnerClientUpdateParams,
@@ -68,7 +61,6 @@ interface PartnerClientServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /** Read a page of objects. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<PartnerClientListPageAsync> = list(PartnerClientListParams.none())
 
     /** @see list */
@@ -86,11 +78,6 @@ interface PartnerClientServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<PartnerClientListPageAsync> =
         list(PartnerClientListParams.none(), requestOptions)
 
-    /**
-     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
-     * default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
-     */
     fun get(partnerClientId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(partnerClientId, PartnerClientGetParams.none())
 

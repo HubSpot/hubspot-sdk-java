@@ -11,9 +11,9 @@ import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputUpse
 import java.util.Objects
 
 /**
- * Create or update records identified by a unique property value as specified by the `idProperty`
- * query param. `idProperty` query param refers to a property whose values are unique for the
- * object.
+ * Create or update postal mails identified by a unique property value as specified by the
+ * `idProperty` query param. `idProperty` query param refers to a property whose values are unique
+ * for the object.
  */
 class BatchUpsertParams
 private constructor(

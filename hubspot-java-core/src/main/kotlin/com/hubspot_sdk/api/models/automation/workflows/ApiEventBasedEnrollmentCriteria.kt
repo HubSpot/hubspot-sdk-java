@@ -83,10 +83,6 @@ private constructor(
         eventFilterBranches.getRequired("eventFilterBranches")
 
     /**
-     * If you want to listen to list-membership events (an object was added to a list, an object was
-     * removed from a list) you need to use this `listMembershipFilterBranches` property instead of
-     * `eventFilterBranches`, because list membership events work differently.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -94,25 +90,18 @@ private constructor(
         listMembershipFilterBranches.getRequired("listMembershipFilterBranches")
 
     /**
-     * Whether or not the same object can enroll in this workflow twice.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun shouldReEnroll(): Boolean = shouldReEnroll.getRequired("shouldReEnroll")
 
     /**
-     * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-     * "MANUAL".
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * List-based criteria to further refine which contacts will enroll in this flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -251,11 +240,6 @@ private constructor(
                 }
         }
 
-        /**
-         * If you want to listen to list-membership events (an object was added to a list, an object
-         * was removed from a list) you need to use this `listMembershipFilterBranches` property
-         * instead of `eventFilterBranches`, because list membership events work differently.
-         */
         fun listMembershipFilterBranches(
             listMembershipFilterBranches: List<ListMembershipFilterBranch>
         ) = listMembershipFilterBranches(JsonField.of(listMembershipFilterBranches))
@@ -354,7 +338,6 @@ private constructor(
                 ListMembershipFilterBranch.ofPublicAssociation(publicAssociation)
             )
 
-        /** Whether or not the same object can enroll in this workflow twice. */
         fun shouldReEnroll(shouldReEnroll: Boolean) = shouldReEnroll(JsonField.of(shouldReEnroll))
 
         /**
@@ -368,10 +351,6 @@ private constructor(
             this.shouldReEnroll = shouldReEnroll
         }
 
-        /**
-         * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-         * "MANUAL".
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -382,7 +361,6 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /** List-based criteria to further refine which contacts will enroll in this flow. */
         fun refinementCriteria(refinementCriteria: RefinementCriteria) =
             refinementCriteria(JsonField.of(refinementCriteria))
 
@@ -954,10 +932,6 @@ private constructor(
         }
     }
 
-    /**
-     * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-     * "MANUAL".
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -1077,7 +1051,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** List-based criteria to further refine which contacts will enroll in this flow. */
     @JsonDeserialize(using = RefinementCriteria.Deserializer::class)
     @JsonSerialize(using = RefinementCriteria.Serializer::class)
     class RefinementCriteria

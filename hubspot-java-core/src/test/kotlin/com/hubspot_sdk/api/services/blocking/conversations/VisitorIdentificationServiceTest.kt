@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.services.blocking.conversations
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.conversations.visitoridentification.VisitorIdentificationGenerateTokenParams
+import com.hubspot_sdk.api.models.conversations.visitoridentification.IdentificationTokenGenerationRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,15 +22,15 @@ internal class VisitorIdentificationServiceTest {
                 .build()
         val visitorIdentificationService = client.conversations().visitorIdentification()
 
-        val response =
+        val identificationTokenResponse =
             visitorIdentificationService.generateToken(
-                VisitorIdentificationGenerateTokenParams.builder()
+                IdentificationTokenGenerationRequest.builder()
                     .email("visitor-email@example.com")
                     .firstName("Gob")
                     .lastName("Bluth")
                     .build()
             )
 
-        response.validate()
+        identificationTokenResponse.validate()
     }
 }

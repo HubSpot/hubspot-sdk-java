@@ -32,16 +32,12 @@ private constructor(
     ) : this(appId, type, mutableMapOf())
 
     /**
-     * The appId that this signature will be generated for.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun appId(): Int = appId.getRequired("appId")
 
     /**
-     * The type of webhook auth settings this is, can be: "AUTH_KEY" or "SIGNATURE"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -104,7 +100,6 @@ private constructor(
                     apiSignatureWebhookAuthSettings.additionalProperties.toMutableMap()
             }
 
-        /** The appId that this signature will be generated for. */
         fun appId(appId: Int) = appId(JsonField.of(appId))
 
         /**
@@ -115,7 +110,6 @@ private constructor(
          */
         fun appId(appId: JsonField<Int>) = apply { this.appId = appId }
 
-        /** The type of webhook auth settings this is, can be: "AUTH_KEY" or "SIGNATURE" */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -195,7 +189,6 @@ private constructor(
     internal fun validity(): Int =
         (if (appId.asKnown().isPresent) 1 else 0) + (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The type of webhook auth settings this is, can be: "AUTH_KEY" or "SIGNATURE" */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

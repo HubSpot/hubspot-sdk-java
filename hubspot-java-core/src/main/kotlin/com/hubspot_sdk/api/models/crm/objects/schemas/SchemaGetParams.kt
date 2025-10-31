@@ -9,7 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns an existing object schema. */
 class SchemaGetParams
 private constructor(
     private val objectType: String?,

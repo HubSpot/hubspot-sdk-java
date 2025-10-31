@@ -12,13 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Perform a partial update of an Object identified by `{objectId}`. `{objectId}` refers to the
- * internal object ID by default, or optionally any unique property value as specified by the
- * `idProperty` query param. Provided property values will be overwritten. Read-only and
- * non-existent properties will be ignored. Properties values can be cleared by passing an empty
- * string.
- */
 class PartnerClientUpdateParams
 private constructor(
     private val partnerClientId: String?,
@@ -30,7 +23,6 @@ private constructor(
 
     fun partnerClientId(): Optional<String> = Optional.ofNullable(partnerClientId)
 
-    /** The name of a property whose values are unique for this object */
     fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
     /**
@@ -89,7 +81,6 @@ private constructor(
         fun partnerClientId(partnerClientId: Optional<String>) =
             partnerClientId(partnerClientId.getOrNull())
 
-        /** The name of a property whose values are unique for this object */
         fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
 
         /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */

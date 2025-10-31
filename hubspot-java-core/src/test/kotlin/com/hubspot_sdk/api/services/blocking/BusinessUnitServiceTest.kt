@@ -22,7 +22,7 @@ internal class BusinessUnitServiceTest {
                 .build()
         val businessUnitService = client.businessUnits()
 
-        val response =
+        val collectionResponsePublicBusinessUnitNoPaging =
             businessUnitService.getByUserId(
                 BusinessUnitGetByUserIdParams.builder()
                     .userId("userId")
@@ -31,6 +31,6 @@ internal class BusinessUnitServiceTest {
                     .build()
             )
 
-        response.validate()
+        collectionResponsePublicBusinessUnitNoPaging.validate()
     }
 }

@@ -51,6 +51,8 @@ private constructor(
         associationCategory.getRequired("associationCategory")
 
     /**
+     * The ID representing the type of association.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -183,6 +185,7 @@ private constructor(
             this.associationCategory = associationCategory
         }
 
+        /** The ID representing the type of association. */
         fun associationTypeId(associationTypeId: Int) =
             associationTypeId(JsonField.of(associationTypeId))
 

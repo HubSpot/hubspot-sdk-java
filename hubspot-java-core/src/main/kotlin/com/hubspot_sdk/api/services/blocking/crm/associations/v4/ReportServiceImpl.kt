@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.crm.associations.v4.ReportCreationResponse
+import com.hubspot_sdk.api.models.crm.associations.ReportCreationResponse
 import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportGetHighUsageReportParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull

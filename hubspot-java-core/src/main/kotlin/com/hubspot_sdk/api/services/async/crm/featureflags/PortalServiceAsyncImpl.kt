@@ -16,16 +16,13 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchResponse
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchUpsertParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchUpsertResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalGetParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalGetResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalUpdateParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,35 +42,35 @@ class PortalServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun update(
         params: PortalUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortalUpdateResponse> =
+    ): CompletableFuture<PortalFlagStateResponse> =
         // put /feature-flags/v3/{appId}/flags/{flagName}/portals/{portalId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: PortalDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortalDeleteResponse> =
+    ): CompletableFuture<PortalFlagStateResponse> =
         // delete /feature-flags/v3/{appId}/flags/{flagName}/portals/{portalId}
         withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
 
     override fun batchDelete(
         params: PortalBatchDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortalBatchDeleteResponse> =
+    ): CompletableFuture<PortalFlagStateBatchResponse> =
         // post /feature-flags/v3/{appId}/flags/{flagName}/portals/batch/delete
         withRawResponse().batchDelete(params, requestOptions).thenApply { it.parse() }
 
     override fun batchUpsert(
         params: PortalBatchUpsertParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortalBatchUpsertResponse> =
+    ): CompletableFuture<PortalFlagStateBatchResponse> =
         // post /feature-flags/v3/{appId}/flags/{flagName}/portals/batch/upsert
         withRawResponse().batchUpsert(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: PortalGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PortalGetResponse> =
+    ): CompletableFuture<PortalFlagStateResponse> =
         // get /feature-flags/v3/{appId}/flags/{flagName}/portals/{portalId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -90,13 +87,13 @@ class PortalServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<PortalUpdateResponse> =
-            jsonHandler<PortalUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PortalFlagStateResponse> =
+            jsonHandler<PortalFlagStateResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: PortalUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortalUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portalId", params.portalId().getOrNull())
@@ -132,13 +129,13 @@ class PortalServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val deleteHandler: Handler<PortalDeleteResponse> =
-            jsonHandler<PortalDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<PortalFlagStateResponse> =
+            jsonHandler<PortalFlagStateResponse>(clientOptions.jsonMapper)
 
         override fun delete(
             params: PortalDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortalDeleteResponse>> {
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portalId", params.portalId().getOrNull())
@@ -174,13 +171,13 @@ class PortalServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val batchDeleteHandler: Handler<PortalBatchDeleteResponse> =
-            jsonHandler<PortalBatchDeleteResponse>(clientOptions.jsonMapper)
+        private val batchDeleteHandler: Handler<PortalFlagStateBatchResponse> =
+            jsonHandler<PortalFlagStateBatchResponse>(clientOptions.jsonMapper)
 
         override fun batchDelete(
             params: PortalBatchDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortalBatchDeleteResponse>> {
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateBatchResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())
@@ -217,13 +214,13 @@ class PortalServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val batchUpsertHandler: Handler<PortalBatchUpsertResponse> =
-            jsonHandler<PortalBatchUpsertResponse>(clientOptions.jsonMapper)
+        private val batchUpsertHandler: Handler<PortalFlagStateBatchResponse> =
+            jsonHandler<PortalFlagStateBatchResponse>(clientOptions.jsonMapper)
 
         override fun batchUpsert(
             params: PortalBatchUpsertParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortalBatchUpsertResponse>> {
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateBatchResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())
@@ -260,13 +257,13 @@ class PortalServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val getHandler: Handler<PortalGetResponse> =
-            jsonHandler<PortalGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PortalFlagStateResponse> =
+            jsonHandler<PortalFlagStateResponse>(clientOptions.jsonMapper)
 
         override fun get(
             params: PortalGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PortalGetResponse>> {
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portalId", params.portalId().getOrNull())
