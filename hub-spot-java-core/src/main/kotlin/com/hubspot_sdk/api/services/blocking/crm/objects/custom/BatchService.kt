@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicUpsertObject
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchUpsertParams
 import java.util.function.Consumer
@@ -95,24 +95,24 @@ interface BatchService {
      * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
      * custom unique value property.
      */
-    fun read(objectType: String, params: BatchReadParams): BatchResponseSimplePublicObject =
-        read(objectType, params, RequestOptions.none())
+    fun get(objectType: String, params: BatchGetParams): BatchResponseSimplePublicObject =
+        get(objectType, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectType: String,
-        params: BatchReadParams,
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseSimplePublicObject =
-        read(params.toBuilder().objectType(objectType).build(), requestOptions)
+        get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: BatchReadParams): BatchResponseSimplePublicObject =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseSimplePublicObject
 
@@ -247,33 +247,33 @@ interface BatchService {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/batch/read`, but is
-         * otherwise the same as [BatchService.read].
+         * otherwise the same as [BatchService.get].
          */
         @MustBeClosed
-        fun read(
+        fun get(
             objectType: String,
-            params: BatchReadParams,
+            params: BatchGetParams,
         ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(objectType, params, RequestOptions.none())
+            get(objectType, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             objectType: String,
-            params: BatchReadParams,
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(params.toBuilder().objectType(objectType).build(), requestOptions)
+            get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: BatchReadParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(params, RequestOptions.none())
+        fun get(params: BatchGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: BatchReadParams,
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseSimplePublicObject>
 

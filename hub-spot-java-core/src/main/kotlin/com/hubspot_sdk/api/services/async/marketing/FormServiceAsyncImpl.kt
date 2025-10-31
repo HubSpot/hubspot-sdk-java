@@ -21,9 +21,9 @@ import com.hubspot_sdk.api.models.marketing.forms.CollectionResponseFormDefiniti
 import com.hubspot_sdk.api.models.marketing.forms.FormCreateParams
 import com.hubspot_sdk.api.models.marketing.forms.FormDefinitionBase
 import com.hubspot_sdk.api.models.marketing.forms.FormDeleteParams
+import com.hubspot_sdk.api.models.marketing.forms.FormGetParams
 import com.hubspot_sdk.api.models.marketing.forms.FormListPageAsync
 import com.hubspot_sdk.api.models.marketing.forms.FormListParams
-import com.hubspot_sdk.api.models.marketing.forms.FormReadParams
 import com.hubspot_sdk.api.models.marketing.forms.FormReplaceParams
 import com.hubspot_sdk.api.models.marketing.forms.FormUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -70,12 +70,12 @@ class FormServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // delete /marketing/v3/forms/{formId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: FormReadParams,
+    override fun get(
+        params: FormGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<FormDefinitionBase> =
         // get /marketing/v3/forms/{formId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun replace(
         params: FormReplaceParams,
@@ -227,11 +227,11 @@ class FormServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val readHandler: Handler<FormDefinitionBase> =
+        private val getHandler: Handler<FormDefinitionBase> =
             jsonHandler<FormDefinitionBase>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: FormReadParams,
+        override fun get(
+            params: FormGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<FormDefinitionBase>> {
             // We check here instead of in the params builder because this can be specified
@@ -250,7 +250,7 @@ class FormServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

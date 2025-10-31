@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchResponseBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchReadParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchUpdateParams
 import java.util.function.Consumer
 
@@ -54,12 +54,12 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(
-        params: BatchReadParams,
+    override fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions,
     ): BatchResponseBlogPost =
         // post /cms/v3/blogs/posts/batch/read
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BatchService.WithRawResponse {
@@ -151,11 +151,11 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val readHandler: Handler<BatchResponseBlogPost> =
+        private val getHandler: Handler<BatchResponseBlogPost> =
             jsonHandler<BatchResponseBlogPost>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: BatchReadParams,
+        override fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseBlogPost> {
             val request =
@@ -170,7 +170,7 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

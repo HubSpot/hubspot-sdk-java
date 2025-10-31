@@ -29,7 +29,7 @@ internal class DomainServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -37,7 +37,7 @@ internal class DomainServiceAsyncTest {
                 .build()
         val domainServiceAsync = client.cms().domains()
 
-        val domainFuture = domainServiceAsync.read("domainId")
+        val domainFuture = domainServiceAsync.get("domainId")
 
         val domain = domainFuture.get()
         domain.validate()

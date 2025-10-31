@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.associations.v4.ReportCreationResponse
-import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportRequestHighUsageReportParams
+import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportGetHighUsageReportParams
 import java.util.function.Consumer
 
 interface ReportService {
@@ -25,39 +25,36 @@ interface ReportService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportService
 
     /** Requests a report of all objects in the portal which have a high usage of associations */
-    fun requestHighUsageReport(userId: Int): ReportCreationResponse =
-        requestHighUsageReport(userId, ReportRequestHighUsageReportParams.none())
+    fun getHighUsageReport(userId: Int): ReportCreationResponse =
+        getHighUsageReport(userId, ReportGetHighUsageReportParams.none())
 
-    /** @see requestHighUsageReport */
-    fun requestHighUsageReport(
+    /** @see getHighUsageReport */
+    fun getHighUsageReport(
         userId: Int,
-        params: ReportRequestHighUsageReportParams = ReportRequestHighUsageReportParams.none(),
+        params: ReportGetHighUsageReportParams = ReportGetHighUsageReportParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReportCreationResponse =
-        requestHighUsageReport(params.toBuilder().userId(userId).build(), requestOptions)
+        getHighUsageReport(params.toBuilder().userId(userId).build(), requestOptions)
 
-    /** @see requestHighUsageReport */
-    fun requestHighUsageReport(
+    /** @see getHighUsageReport */
+    fun getHighUsageReport(
         userId: Int,
-        params: ReportRequestHighUsageReportParams = ReportRequestHighUsageReportParams.none(),
-    ): ReportCreationResponse = requestHighUsageReport(userId, params, RequestOptions.none())
+        params: ReportGetHighUsageReportParams = ReportGetHighUsageReportParams.none(),
+    ): ReportCreationResponse = getHighUsageReport(userId, params, RequestOptions.none())
 
-    /** @see requestHighUsageReport */
-    fun requestHighUsageReport(
-        params: ReportRequestHighUsageReportParams,
+    /** @see getHighUsageReport */
+    fun getHighUsageReport(
+        params: ReportGetHighUsageReportParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ReportCreationResponse
 
-    /** @see requestHighUsageReport */
-    fun requestHighUsageReport(params: ReportRequestHighUsageReportParams): ReportCreationResponse =
-        requestHighUsageReport(params, RequestOptions.none())
+    /** @see getHighUsageReport */
+    fun getHighUsageReport(params: ReportGetHighUsageReportParams): ReportCreationResponse =
+        getHighUsageReport(params, RequestOptions.none())
 
-    /** @see requestHighUsageReport */
-    fun requestHighUsageReport(
-        userId: Int,
-        requestOptions: RequestOptions,
-    ): ReportCreationResponse =
-        requestHighUsageReport(userId, ReportRequestHighUsageReportParams.none(), requestOptions)
+    /** @see getHighUsageReport */
+    fun getHighUsageReport(userId: Int, requestOptions: RequestOptions): ReportCreationResponse =
+        getHighUsageReport(userId, ReportGetHighUsageReportParams.none(), requestOptions)
 
     /** A view of [ReportService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -72,53 +69,49 @@ interface ReportService {
         /**
          * Returns a raw HTTP response for `post
          * /crm/v4/associations/usage/high-usage-report/{userId}`, but is otherwise the same as
-         * [ReportService.requestHighUsageReport].
+         * [ReportService.getHighUsageReport].
          */
         @MustBeClosed
-        fun requestHighUsageReport(userId: Int): HttpResponseFor<ReportCreationResponse> =
-            requestHighUsageReport(userId, ReportRequestHighUsageReportParams.none())
+        fun getHighUsageReport(userId: Int): HttpResponseFor<ReportCreationResponse> =
+            getHighUsageReport(userId, ReportGetHighUsageReportParams.none())
 
-        /** @see requestHighUsageReport */
+        /** @see getHighUsageReport */
         @MustBeClosed
-        fun requestHighUsageReport(
+        fun getHighUsageReport(
             userId: Int,
-            params: ReportRequestHighUsageReportParams = ReportRequestHighUsageReportParams.none(),
+            params: ReportGetHighUsageReportParams = ReportGetHighUsageReportParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReportCreationResponse> =
-            requestHighUsageReport(params.toBuilder().userId(userId).build(), requestOptions)
+            getHighUsageReport(params.toBuilder().userId(userId).build(), requestOptions)
 
-        /** @see requestHighUsageReport */
+        /** @see getHighUsageReport */
         @MustBeClosed
-        fun requestHighUsageReport(
+        fun getHighUsageReport(
             userId: Int,
-            params: ReportRequestHighUsageReportParams = ReportRequestHighUsageReportParams.none(),
+            params: ReportGetHighUsageReportParams = ReportGetHighUsageReportParams.none(),
         ): HttpResponseFor<ReportCreationResponse> =
-            requestHighUsageReport(userId, params, RequestOptions.none())
+            getHighUsageReport(userId, params, RequestOptions.none())
 
-        /** @see requestHighUsageReport */
+        /** @see getHighUsageReport */
         @MustBeClosed
-        fun requestHighUsageReport(
-            params: ReportRequestHighUsageReportParams,
+        fun getHighUsageReport(
+            params: ReportGetHighUsageReportParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ReportCreationResponse>
 
-        /** @see requestHighUsageReport */
+        /** @see getHighUsageReport */
         @MustBeClosed
-        fun requestHighUsageReport(
-            params: ReportRequestHighUsageReportParams
+        fun getHighUsageReport(
+            params: ReportGetHighUsageReportParams
         ): HttpResponseFor<ReportCreationResponse> =
-            requestHighUsageReport(params, RequestOptions.none())
+            getHighUsageReport(params, RequestOptions.none())
 
-        /** @see requestHighUsageReport */
+        /** @see getHighUsageReport */
         @MustBeClosed
-        fun requestHighUsageReport(
+        fun getHighUsageReport(
             userId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ReportCreationResponse> =
-            requestHighUsageReport(
-                userId,
-                ReportRequestHighUsageReportParams.none(),
-                requestOptions,
-            )
+            getHighUsageReport(userId, ReportGetHighUsageReportParams.none(), requestOptions)
     }
 }

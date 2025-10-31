@@ -15,8 +15,8 @@ import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPostLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostReadParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateDraftParams
@@ -688,6 +688,28 @@ internal class PostServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
+    fun get() {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val postService = client.cms().blogs().posts()
+
+        val blogPost =
+            postService.get(
+                PostGetParams.builder()
+                    .objectId("objectId")
+                    .archived(true)
+                    .property("property")
+                    .build()
+            )
+
+        blogPost.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
     fun getDraftById() {
         val client =
             HubSpotOkHttpClient.builder()
@@ -748,28 +770,6 @@ internal class PostServiceTest {
         val postService = client.cms().blogs().posts()
 
         postService.pushLive("objectId")
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun read() {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val postService = client.cms().blogs().posts()
-
-        val blogPost =
-            postService.read(
-                PostReadParams.builder()
-                    .objectId("objectId")
-                    .archived(true)
-                    .property("property")
-                    .build()
-            )
-
-        blogPost.validate()
     }
 
     @Disabled("Prism tests are disabled")

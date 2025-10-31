@@ -116,7 +116,7 @@ internal class UrlRedirectServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -124,7 +124,7 @@ internal class UrlRedirectServiceAsyncTest {
                 .build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
-        val urlMappingFuture = urlRedirectServiceAsync.read("urlRedirectId")
+        val urlMappingFuture = urlRedirectServiceAsync.get("urlRedirectId")
 
         val urlMapping = urlMappingFuture.get()
         urlMapping.validate()

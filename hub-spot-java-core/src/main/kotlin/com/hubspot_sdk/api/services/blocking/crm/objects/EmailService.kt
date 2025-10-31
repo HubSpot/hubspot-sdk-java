@@ -15,9 +15,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailCreateParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.emails.EmailGetParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListPage
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListParams
-import com.hubspot_sdk.api.models.crm.objects.emails.EmailReadParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailSearchParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.emails.BatchService
@@ -144,36 +144,36 @@ interface EmailService {
      * default, or optionally any unique property value as specified by the `idProperty` query
      * param. Control what is returned via the `properties` query param.
      */
-    fun read(emailId: String): SimplePublicObjectWithAssociations =
-        read(emailId, EmailReadParams.none())
+    fun get(emailId: String): SimplePublicObjectWithAssociations =
+        get(emailId, EmailGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         emailId: String,
-        params: EmailReadParams = EmailReadParams.none(),
+        params: EmailGetParams = EmailGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations =
-        read(params.toBuilder().emailId(emailId).build(), requestOptions)
+        get(params.toBuilder().emailId(emailId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         emailId: String,
-        params: EmailReadParams = EmailReadParams.none(),
-    ): SimplePublicObjectWithAssociations = read(emailId, params, RequestOptions.none())
+        params: EmailGetParams = EmailGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(emailId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: EmailReadParams,
+    /** @see get */
+    fun get(
+        params: EmailGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations
 
-    /** @see read */
-    fun read(params: EmailReadParams): SimplePublicObjectWithAssociations =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: EmailGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(emailId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
-        read(emailId, EmailReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(emailId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(emailId, EmailGetParams.none(), requestOptions)
 
     fun search(params: EmailSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
@@ -343,48 +343,48 @@ interface EmailService {
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/objects/emails/{emailId}`, but is otherwise
-         * the same as [EmailService.read].
+         * the same as [EmailService.get].
          */
         @MustBeClosed
-        fun read(emailId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(emailId, EmailReadParams.none())
+        fun get(emailId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(emailId, EmailGetParams.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             emailId: String,
-            params: EmailReadParams = EmailReadParams.none(),
+            params: EmailGetParams = EmailGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(params.toBuilder().emailId(emailId).build(), requestOptions)
+            get(params.toBuilder().emailId(emailId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             emailId: String,
-            params: EmailReadParams = EmailReadParams.none(),
+            params: EmailGetParams = EmailGetParams.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(emailId, params, RequestOptions.none())
+            get(emailId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: EmailReadParams,
+        fun get(
+            params: EmailGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: EmailReadParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(params, RequestOptions.none())
+        fun get(params: EmailGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             emailId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(emailId, EmailReadParams.none(), requestOptions)
+            get(emailId, EmailGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/emails/search`, but is otherwise

@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchResponseBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchReadParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -57,12 +57,12 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // post /cms/v3/blogs/posts/batch/archive
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: BatchReadParams,
+    override fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BatchResponseBlogPost> =
         // post /cms/v3/blogs/posts/batch/read
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BatchServiceAsync.WithRawResponse {
@@ -163,11 +163,11 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val readHandler: Handler<BatchResponseBlogPost> =
+        private val getHandler: Handler<BatchResponseBlogPost> =
             jsonHandler<BatchResponseBlogPost>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: BatchReadParams,
+        override fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BatchResponseBlogPost>> {
             val request =
@@ -184,7 +184,7 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

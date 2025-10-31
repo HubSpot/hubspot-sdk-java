@@ -24,9 +24,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectCreateParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.objects.ObjectGetParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectListPage
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectListParams
-import com.hubspot_sdk.api.models.crm.objects.objects.ObjectReadParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectSearchParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.objects.BatchService
@@ -73,12 +73,12 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(
-        params: ObjectReadParams,
+    override fun get(
+        params: ObjectGetParams,
         requestOptions: RequestOptions,
     ): SimplePublicObjectWithAssociations =
         // get /crm/v3/objects/{objectType}/{objectId}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun search(
         params: ObjectSearchParams,
@@ -243,11 +243,11 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val readHandler: Handler<SimplePublicObjectWithAssociations> =
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
             jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: ObjectReadParams,
+        override fun get(
+            params: ObjectGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObjectWithAssociations> {
             // We check here instead of in the params builder because this can be specified
@@ -270,7 +270,7 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

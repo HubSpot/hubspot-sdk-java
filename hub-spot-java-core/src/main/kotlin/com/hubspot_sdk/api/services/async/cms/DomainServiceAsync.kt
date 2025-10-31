@@ -6,9 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.domains.Domain
+import com.hubspot_sdk.api.models.cms.domains.DomainGetParams
 import com.hubspot_sdk.api.models.cms.domains.DomainListPageAsync
 import com.hubspot_sdk.api.models.cms.domains.DomainListParams
-import com.hubspot_sdk.api.models.cms.domains.DomainReadParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -48,35 +48,34 @@ interface DomainServiceAsync {
         list(DomainListParams.none(), requestOptions)
 
     /** Returns a single domains with the id specified. */
-    fun read(domainId: String): CompletableFuture<Domain> = read(domainId, DomainReadParams.none())
+    fun get(domainId: String): CompletableFuture<Domain> = get(domainId, DomainGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         domainId: String,
-        params: DomainReadParams = DomainReadParams.none(),
+        params: DomainGetParams = DomainGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Domain> =
-        read(params.toBuilder().domainId(domainId).build(), requestOptions)
+        get(params.toBuilder().domainId(domainId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         domainId: String,
-        params: DomainReadParams = DomainReadParams.none(),
-    ): CompletableFuture<Domain> = read(domainId, params, RequestOptions.none())
+        params: DomainGetParams = DomainGetParams.none(),
+    ): CompletableFuture<Domain> = get(domainId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: DomainReadParams,
+    /** @see get */
+    fun get(
+        params: DomainGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Domain>
 
-    /** @see read */
-    fun read(params: DomainReadParams): CompletableFuture<Domain> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: DomainGetParams): CompletableFuture<Domain> = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(domainId: String, requestOptions: RequestOptions): CompletableFuture<Domain> =
-        read(domainId, DomainReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(domainId: String, requestOptions: RequestOptions): CompletableFuture<Domain> =
+        get(domainId, DomainGetParams.none(), requestOptions)
 
     /**
      * A view of [DomainServiceAsync] that provides access to raw HTTP responses for each method.
@@ -119,41 +118,40 @@ interface DomainServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/domains/{domainId}`, but is otherwise the
-         * same as [DomainServiceAsync.read].
+         * same as [DomainServiceAsync.get].
          */
-        fun read(domainId: String): CompletableFuture<HttpResponseFor<Domain>> =
-            read(domainId, DomainReadParams.none())
+        fun get(domainId: String): CompletableFuture<HttpResponseFor<Domain>> =
+            get(domainId, DomainGetParams.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             domainId: String,
-            params: DomainReadParams = DomainReadParams.none(),
+            params: DomainGetParams = DomainGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Domain>> =
-            read(params.toBuilder().domainId(domainId).build(), requestOptions)
+            get(params.toBuilder().domainId(domainId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             domainId: String,
-            params: DomainReadParams = DomainReadParams.none(),
-        ): CompletableFuture<HttpResponseFor<Domain>> =
-            read(domainId, params, RequestOptions.none())
+            params: DomainGetParams = DomainGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<Domain>> = get(domainId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: DomainReadParams,
+        /** @see get */
+        fun get(
+            params: DomainGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Domain>>
 
-        /** @see read */
-        fun read(params: DomainReadParams): CompletableFuture<HttpResponseFor<Domain>> =
-            read(params, RequestOptions.none())
+        /** @see get */
+        fun get(params: DomainGetParams): CompletableFuture<HttpResponseFor<Domain>> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             domainId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Domain>> =
-            read(domainId, DomainReadParams.none(), requestOptions)
+            get(domainId, DomainGetParams.none(), requestOptions)
     }
 }

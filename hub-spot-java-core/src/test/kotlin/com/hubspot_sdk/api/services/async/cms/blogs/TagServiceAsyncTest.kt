@@ -15,8 +15,8 @@ import com.hubspot_sdk.api.models.cms.blogs.tags.BatchInputTag
 import com.hubspot_sdk.api.models.cms.blogs.tags.Tag
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadBatchParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateParams
 import java.time.OffsetDateTime
@@ -123,22 +123,6 @@ internal class TagServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun archiveBatch() {
-        val client =
-            HubSpotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val tagServiceAsync = client.cms().blogs().tags()
-
-        val future =
-            tagServiceAsync.archiveBatch(BatchInputString.builder().addInput("string").build())
-
-        val response = future.get()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
     fun attachToLangGroup() {
         val client =
             HubSpotOkHttpClientAsync.builder()
@@ -217,6 +201,22 @@ internal class TagServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
+    fun deleteBatch() {
+        val client =
+            HubSpotOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val tagServiceAsync = client.cms().blogs().tags()
+
+        val future =
+            tagServiceAsync.deleteBatch(BatchInputString.builder().addInput("string").build())
+
+        val response = future.get()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
     fun detachFromLangGroup() {
         val client =
             HubSpotOkHttpClientAsync.builder()
@@ -235,7 +235,7 @@ internal class TagServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -244,8 +244,8 @@ internal class TagServiceAsyncTest {
         val tagServiceAsync = client.cms().blogs().tags()
 
         val tagFuture =
-            tagServiceAsync.read(
-                TagReadParams.builder()
+            tagServiceAsync.get(
+                TagGetParams.builder()
                     .objectId("objectId")
                     .archived(true)
                     .property("property")
@@ -258,7 +258,7 @@ internal class TagServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun readBatch() {
+    fun getBatch() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -267,8 +267,8 @@ internal class TagServiceAsyncTest {
         val tagServiceAsync = client.cms().blogs().tags()
 
         val batchResponseTagFuture =
-            tagServiceAsync.readBatch(
-                TagReadBatchParams.builder()
+            tagServiceAsync.getBatch(
+                TagGetBatchParams.builder()
                     .archived(true)
                     .batchInputString(BatchInputString.builder().addInput("string").build())
                     .build()

@@ -15,18 +15,18 @@ import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.BatchInputTag
 import com.hubspot_sdk.api.models.cms.blogs.tags.BatchResponseTag
 import com.hubspot_sdk.api.models.cms.blogs.tags.Tag
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDetachFromLangGroupParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadBatchParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagSetLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateLangsParams
@@ -144,30 +144,6 @@ interface TagServiceAsync {
     fun delete(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(objectId, TagDeleteParams.none(), requestOptions)
 
-    /** Delete the Blog Tag objects identified in the request body. */
-    fun archiveBatch(params: TagArchiveBatchParams): CompletableFuture<Void?> =
-        archiveBatch(params, RequestOptions.none())
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        params: TagArchiveBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        batchInputString: BatchInputString,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        archiveBatch(
-            TagArchiveBatchParams.builder().batchInputString(batchInputString).build(),
-            requestOptions,
-        )
-
-    /** @see archiveBatch */
-    fun archiveBatch(batchInputString: BatchInputString): CompletableFuture<Void?> =
-        archiveBatch(batchInputString, RequestOptions.none())
-
     /** Attach a Blog Tag to a multi-language group. */
     fun attachToLangGroup(params: TagAttachToLangGroupParams): CompletableFuture<Void?> =
         attachToLangGroup(params, RequestOptions.none())
@@ -246,6 +222,30 @@ interface TagServiceAsync {
     fun createLangVariation(tagCloneRequestVNext: TagCloneRequestVNext): CompletableFuture<Tag> =
         createLangVariation(tagCloneRequestVNext, RequestOptions.none())
 
+    /** Delete the Blog Tag objects identified in the request body. */
+    fun deleteBatch(params: TagDeleteBatchParams): CompletableFuture<Void?> =
+        deleteBatch(params, RequestOptions.none())
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        params: TagDeleteBatchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        batchInputString: BatchInputString,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteBatch(
+            TagDeleteBatchParams.builder().batchInputString(batchInputString).build(),
+            requestOptions,
+        )
+
+    /** @see deleteBatch */
+    fun deleteBatch(batchInputString: BatchInputString): CompletableFuture<Void?> =
+        deleteBatch(batchInputString, RequestOptions.none())
+
     /** Detach a Blog Tag from a multi-language group. */
     fun detachFromLangGroup(params: TagDetachFromLangGroupParams): CompletableFuture<Void?> =
         detachFromLangGroup(params, RequestOptions.none())
@@ -275,57 +275,55 @@ interface TagServiceAsync {
         detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
     /** Retrieve the Blog Tag object identified by the id in the path. */
-    fun read(objectId: String): CompletableFuture<Tag> = read(objectId, TagReadParams.none())
+    fun get(objectId: String): CompletableFuture<Tag> = get(objectId, TagGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectId: String,
-        params: TagReadParams = TagReadParams.none(),
+        params: TagGetParams = TagGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Tag> = read(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): CompletableFuture<Tag> = get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
-        objectId: String,
-        params: TagReadParams = TagReadParams.none(),
-    ): CompletableFuture<Tag> = read(objectId, params, RequestOptions.none())
+    /** @see get */
+    fun get(objectId: String, params: TagGetParams = TagGetParams.none()): CompletableFuture<Tag> =
+        get(objectId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: TagReadParams,
+    /** @see get */
+    fun get(
+        params: TagGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Tag>
 
-    /** @see read */
-    fun read(params: TagReadParams): CompletableFuture<Tag> = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: TagGetParams): CompletableFuture<Tag> = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(objectId: String, requestOptions: RequestOptions): CompletableFuture<Tag> =
-        read(objectId, TagReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<Tag> =
+        get(objectId, TagGetParams.none(), requestOptions)
 
     /** Retrieve the Blog Tag objects identified in the request body. */
-    fun readBatch(params: TagReadBatchParams): CompletableFuture<BatchResponseTag> =
-        readBatch(params, RequestOptions.none())
+    fun getBatch(params: TagGetBatchParams): CompletableFuture<BatchResponseTag> =
+        getBatch(params, RequestOptions.none())
 
-    /** @see readBatch */
-    fun readBatch(
-        params: TagReadBatchParams,
+    /** @see getBatch */
+    fun getBatch(
+        params: TagGetBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseTag>
 
-    /** @see readBatch */
-    fun readBatch(
+    /** @see getBatch */
+    fun getBatch(
         batchInputString: BatchInputString,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseTag> =
-        readBatch(
-            TagReadBatchParams.builder().batchInputString(batchInputString).build(),
+        getBatch(
+            TagGetBatchParams.builder().batchInputString(batchInputString).build(),
             requestOptions,
         )
 
-    /** @see readBatch */
-    fun readBatch(batchInputString: BatchInputString): CompletableFuture<BatchResponseTag> =
-        readBatch(batchInputString, RequestOptions.none())
+    /** @see getBatch */
+    fun getBatch(batchInputString: BatchInputString): CompletableFuture<BatchResponseTag> =
+        getBatch(batchInputString, RequestOptions.none())
 
     /** Set a Blog Tag as the primary language of a multi-language group. */
     fun setLangPrimary(params: TagSetLangPrimaryParams): CompletableFuture<Void?> =
@@ -531,33 +529,6 @@ interface TagServiceAsync {
             delete(objectId, TagDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /cms/v3/blogs/tags/batch/archive`, but is otherwise
-         * the same as [TagServiceAsync.archiveBatch].
-         */
-        fun archiveBatch(params: TagArchiveBatchParams): CompletableFuture<HttpResponse> =
-            archiveBatch(params, RequestOptions.none())
-
-        /** @see archiveBatch */
-        fun archiveBatch(
-            params: TagArchiveBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see archiveBatch */
-        fun archiveBatch(
-            batchInputString: BatchInputString,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            archiveBatch(
-                TagArchiveBatchParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
-
-        /** @see archiveBatch */
-        fun archiveBatch(batchInputString: BatchInputString): CompletableFuture<HttpResponse> =
-            archiveBatch(batchInputString, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `post
          * /cms/v3/blogs/tags/multi-language/attach-to-lang-group`, but is otherwise the same as
          * [TagServiceAsync.attachToLangGroup].
@@ -655,6 +626,33 @@ interface TagServiceAsync {
             createLangVariation(tagCloneRequestVNext, RequestOptions.none())
 
         /**
+         * Returns a raw HTTP response for `post /cms/v3/blogs/tags/batch/archive`, but is otherwise
+         * the same as [TagServiceAsync.deleteBatch].
+         */
+        fun deleteBatch(params: TagDeleteBatchParams): CompletableFuture<HttpResponse> =
+            deleteBatch(params, RequestOptions.none())
+
+        /** @see deleteBatch */
+        fun deleteBatch(
+            params: TagDeleteBatchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see deleteBatch */
+        fun deleteBatch(
+            batchInputString: BatchInputString,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteBatch(
+                TagDeleteBatchParams.builder().batchInputString(batchInputString).build(),
+                requestOptions,
+            )
+
+        /** @see deleteBatch */
+        fun deleteBatch(batchInputString: BatchInputString): CompletableFuture<HttpResponse> =
+            deleteBatch(batchInputString, RequestOptions.none())
+
+        /**
          * Returns a raw HTTP response for `post
          * /cms/v3/blogs/tags/multi-language/detach-from-lang-group`, but is otherwise the same as
          * [TagServiceAsync.detachFromLangGroup].
@@ -689,72 +687,72 @@ interface TagServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/blogs/tags/{objectId}`, but is otherwise the
-         * same as [TagServiceAsync.read].
+         * same as [TagServiceAsync.get].
          */
-        fun read(objectId: String): CompletableFuture<HttpResponseFor<Tag>> =
-            read(objectId, TagReadParams.none())
+        fun get(objectId: String): CompletableFuture<HttpResponseFor<Tag>> =
+            get(objectId, TagGetParams.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             objectId: String,
-            params: TagReadParams = TagReadParams.none(),
+            params: TagGetParams = TagGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Tag>> =
-            read(params.toBuilder().objectId(objectId).build(), requestOptions)
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             objectId: String,
-            params: TagReadParams = TagReadParams.none(),
-        ): CompletableFuture<HttpResponseFor<Tag>> = read(objectId, params, RequestOptions.none())
+            params: TagGetParams = TagGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<Tag>> = get(objectId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: TagReadParams,
+        /** @see get */
+        fun get(
+            params: TagGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Tag>>
 
-        /** @see read */
-        fun read(params: TagReadParams): CompletableFuture<HttpResponseFor<Tag>> =
-            read(params, RequestOptions.none())
+        /** @see get */
+        fun get(params: TagGetParams): CompletableFuture<HttpResponseFor<Tag>> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             objectId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Tag>> =
-            read(objectId, TagReadParams.none(), requestOptions)
+            get(objectId, TagGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /cms/v3/blogs/tags/batch/read`, but is otherwise
-         * the same as [TagServiceAsync.readBatch].
+         * the same as [TagServiceAsync.getBatch].
          */
-        fun readBatch(
-            params: TagReadBatchParams
+        fun getBatch(
+            params: TagGetBatchParams
         ): CompletableFuture<HttpResponseFor<BatchResponseTag>> =
-            readBatch(params, RequestOptions.none())
+            getBatch(params, RequestOptions.none())
 
-        /** @see readBatch */
-        fun readBatch(
-            params: TagReadBatchParams,
+        /** @see getBatch */
+        fun getBatch(
+            params: TagGetBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponseTag>>
 
-        /** @see readBatch */
-        fun readBatch(
+        /** @see getBatch */
+        fun getBatch(
             batchInputString: BatchInputString,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponseTag>> =
-            readBatch(
-                TagReadBatchParams.builder().batchInputString(batchInputString).build(),
+            getBatch(
+                TagGetBatchParams.builder().batchInputString(batchInputString).build(),
                 requestOptions,
             )
 
-        /** @see readBatch */
-        fun readBatch(
+        /** @see getBatch */
+        fun getBatch(
             batchInputString: BatchInputString
         ): CompletableFuture<HttpResponseFor<BatchResponseTag>> =
-            readBatch(batchInputString, RequestOptions.none())
+            getBatch(batchInputString, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `put

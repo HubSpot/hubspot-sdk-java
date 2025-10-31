@@ -11,8 +11,8 @@ import com.hubspot_sdk.api.models.marketing.forms.EmailFieldValidation
 import com.hubspot_sdk.api.models.marketing.forms.FieldGroup
 import com.hubspot_sdk.api.models.marketing.forms.FormDefinitionCreateRequestBase
 import com.hubspot_sdk.api.models.marketing.forms.FormDisplayOptions
+import com.hubspot_sdk.api.models.marketing.forms.FormGetParams
 import com.hubspot_sdk.api.models.marketing.forms.FormPostSubmitAction
-import com.hubspot_sdk.api.models.marketing.forms.FormReadParams
 import com.hubspot_sdk.api.models.marketing.forms.FormReplaceParams
 import com.hubspot_sdk.api.models.marketing.forms.FormStyle
 import com.hubspot_sdk.api.models.marketing.forms.FormUpdateParams
@@ -344,7 +344,7 @@ internal class FormServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -353,7 +353,7 @@ internal class FormServiceTest {
         val formService = client.marketing().forms()
 
         val formDefinitionBase =
-            formService.read(FormReadParams.builder().formId("formId").archived(true).build())
+            formService.get(FormGetParams.builder().formId("formId").archived(true).build())
 
         formDefinitionBase.validate()
     }

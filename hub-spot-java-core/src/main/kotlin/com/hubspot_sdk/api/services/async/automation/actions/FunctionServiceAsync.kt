@@ -9,13 +9,13 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.actions.CollectionResponsePublicActionFunctionIdentifierNoPaging
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunction
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunctionIdentifier
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionArchiveByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetByFunctionTypeParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionListParams
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionReadParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -82,31 +82,6 @@ interface FunctionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Delete a function within a given definition. */
-    fun archiveByFunctionType(
-        functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-        params: FunctionArchiveByFunctionTypeParams,
-    ): CompletableFuture<Void?> = archiveByFunctionType(functionType, params, RequestOptions.none())
-
-    /** @see archiveByFunctionType */
-    fun archiveByFunctionType(
-        functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-        params: FunctionArchiveByFunctionTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        archiveByFunctionType(params.toBuilder().functionType(functionType).build(), requestOptions)
-
-    /** @see archiveByFunctionType */
-    fun archiveByFunctionType(
-        params: FunctionArchiveByFunctionTypeParams
-    ): CompletableFuture<Void?> = archiveByFunctionType(params, RequestOptions.none())
-
-    /** @see archiveByFunctionType */
-    fun archiveByFunctionType(
-        params: FunctionArchiveByFunctionTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
     /** Update a function for a given definition by ID. */
     fun createOrReplace(
         functionId: String,
@@ -164,6 +139,54 @@ interface FunctionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionFunctionIdentifier>
 
+    /** Delete a function within a given definition. */
+    fun deleteByFunctionType(
+        functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+        params: FunctionDeleteByFunctionTypeParams,
+    ): CompletableFuture<Void?> = deleteByFunctionType(functionType, params, RequestOptions.none())
+
+    /** @see deleteByFunctionType */
+    fun deleteByFunctionType(
+        functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+        params: FunctionDeleteByFunctionTypeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteByFunctionType(params.toBuilder().functionType(functionType).build(), requestOptions)
+
+    /** @see deleteByFunctionType */
+    fun deleteByFunctionType(params: FunctionDeleteByFunctionTypeParams): CompletableFuture<Void?> =
+        deleteByFunctionType(params, RequestOptions.none())
+
+    /** @see deleteByFunctionType */
+    fun deleteByFunctionType(
+        params: FunctionDeleteByFunctionTypeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** Retrieve a specific function from a given definition. */
+    fun get(
+        functionId: String,
+        params: FunctionGetParams,
+    ): CompletableFuture<PublicActionFunction> = get(functionId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        functionId: String,
+        params: FunctionGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicActionFunction> =
+        get(params.toBuilder().functionId(functionId).build(), requestOptions)
+
+    /** @see get */
+    fun get(params: FunctionGetParams): CompletableFuture<PublicActionFunction> =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: FunctionGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicActionFunction>
+
     /** Retrieve functions by a type for a given definition */
     fun getByFunctionType(
         functionType: FunctionGetByFunctionTypeParams.FunctionType,
@@ -187,30 +210,6 @@ interface FunctionServiceAsync {
     /** @see getByFunctionType */
     fun getByFunctionType(
         params: FunctionGetByFunctionTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicActionFunction>
-
-    /** Retrieve a specific function from a given definition. */
-    fun read(
-        functionId: String,
-        params: FunctionReadParams,
-    ): CompletableFuture<PublicActionFunction> = read(functionId, params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        functionId: String,
-        params: FunctionReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicActionFunction> =
-        read(params.toBuilder().functionId(functionId).build(), requestOptions)
-
-    /** @see read */
-    fun read(params: FunctionReadParams): CompletableFuture<PublicActionFunction> =
-        read(params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        params: FunctionReadParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionFunction>
 
@@ -293,39 +292,6 @@ interface FunctionServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}`, but is otherwise
-         * the same as [FunctionServiceAsync.archiveByFunctionType].
-         */
-        fun archiveByFunctionType(
-            functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-            params: FunctionArchiveByFunctionTypeParams,
-        ): CompletableFuture<HttpResponse> =
-            archiveByFunctionType(functionType, params, RequestOptions.none())
-
-        /** @see archiveByFunctionType */
-        fun archiveByFunctionType(
-            functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-            params: FunctionArchiveByFunctionTypeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            archiveByFunctionType(
-                params.toBuilder().functionType(functionType).build(),
-                requestOptions,
-            )
-
-        /** @see archiveByFunctionType */
-        fun archiveByFunctionType(
-            params: FunctionArchiveByFunctionTypeParams
-        ): CompletableFuture<HttpResponse> = archiveByFunctionType(params, RequestOptions.none())
-
-        /** @see archiveByFunctionType */
-        fun archiveByFunctionType(
-            params: FunctionArchiveByFunctionTypeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /**
          * Returns a raw HTTP response for `put
          * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}`, but
          * is otherwise the same as [FunctionServiceAsync.createOrReplace].
@@ -391,6 +357,70 @@ interface FunctionServiceAsync {
         ): CompletableFuture<HttpResponseFor<PublicActionFunctionIdentifier>>
 
         /**
+         * Returns a raw HTTP response for `delete
+         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}`, but is otherwise
+         * the same as [FunctionServiceAsync.deleteByFunctionType].
+         */
+        fun deleteByFunctionType(
+            functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+            params: FunctionDeleteByFunctionTypeParams,
+        ): CompletableFuture<HttpResponse> =
+            deleteByFunctionType(functionType, params, RequestOptions.none())
+
+        /** @see deleteByFunctionType */
+        fun deleteByFunctionType(
+            functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+            params: FunctionDeleteByFunctionTypeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteByFunctionType(
+                params.toBuilder().functionType(functionType).build(),
+                requestOptions,
+            )
+
+        /** @see deleteByFunctionType */
+        fun deleteByFunctionType(
+            params: FunctionDeleteByFunctionTypeParams
+        ): CompletableFuture<HttpResponse> = deleteByFunctionType(params, RequestOptions.none())
+
+        /** @see deleteByFunctionType */
+        fun deleteByFunctionType(
+            params: FunctionDeleteByFunctionTypeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}`, but
+         * is otherwise the same as [FunctionServiceAsync.get].
+         */
+        fun get(
+            functionId: String,
+            params: FunctionGetParams,
+        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> =
+            get(functionId, params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            functionId: String,
+            params: FunctionGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> =
+            get(params.toBuilder().functionId(functionId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            params: FunctionGetParams
+        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            params: FunctionGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicActionFunction>>
+
+        /**
          * Returns a raw HTTP response for `get
          * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}`, but is otherwise
          * the same as [FunctionServiceAsync.getByFunctionType].
@@ -418,37 +448,6 @@ interface FunctionServiceAsync {
         /** @see getByFunctionType */
         fun getByFunctionType(
             params: FunctionGetByFunctionTypeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicActionFunction>>
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}`, but
-         * is otherwise the same as [FunctionServiceAsync.read].
-         */
-        fun read(
-            functionId: String,
-            params: FunctionReadParams,
-        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> =
-            read(functionId, params, RequestOptions.none())
-
-        /** @see read */
-        fun read(
-            functionId: String,
-            params: FunctionReadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> =
-            read(params.toBuilder().functionId(functionId).build(), requestOptions)
-
-        /** @see read */
-        fun read(
-            params: FunctionReadParams
-        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> =
-            read(params, RequestOptions.none())
-
-        /** @see read */
-        fun read(
-            params: FunctionReadParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicActionFunction>>
     }

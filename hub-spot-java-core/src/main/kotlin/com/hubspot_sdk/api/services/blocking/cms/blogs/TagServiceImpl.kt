@@ -20,17 +20,17 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.cms.blogs.tags.BatchResponseTag
 import com.hubspot_sdk.api.models.cms.blogs.tags.CollectionResponseWithTotalTagForwardPaging
 import com.hubspot_sdk.api.models.cms.blogs.tags.Tag
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDetachFromLangGroupParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPage
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadBatchParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagSetLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateLangsParams
@@ -66,11 +66,6 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun archiveBatch(params: TagArchiveBatchParams, requestOptions: RequestOptions) {
-        // post /cms/v3/blogs/tags/batch/archive
-        withRawResponse().archiveBatch(params, requestOptions)
-    }
-
     override fun attachToLangGroup(
         params: TagAttachToLangGroupParams,
         requestOptions: RequestOptions,
@@ -93,6 +88,11 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
         // post /cms/v3/blogs/tags/multi-language/create-language-variation
         withRawResponse().createLangVariation(params, requestOptions).parse()
 
+    override fun deleteBatch(params: TagDeleteBatchParams, requestOptions: RequestOptions) {
+        // post /cms/v3/blogs/tags/batch/archive
+        withRawResponse().deleteBatch(params, requestOptions)
+    }
+
     override fun detachFromLangGroup(
         params: TagDetachFromLangGroupParams,
         requestOptions: RequestOptions,
@@ -101,16 +101,16 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
         withRawResponse().detachFromLangGroup(params, requestOptions)
     }
 
-    override fun read(params: TagReadParams, requestOptions: RequestOptions): Tag =
+    override fun get(params: TagGetParams, requestOptions: RequestOptions): Tag =
         // get /cms/v3/blogs/tags/{objectId}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
-    override fun readBatch(
-        params: TagReadBatchParams,
+    override fun getBatch(
+        params: TagGetBatchParams,
         requestOptions: RequestOptions,
     ): BatchResponseTag =
         // post /cms/v3/blogs/tags/batch/read
-        withRawResponse().readBatch(params, requestOptions).parse()
+        withRawResponse().getBatch(params, requestOptions).parse()
 
     override fun setLangPrimary(params: TagSetLangPrimaryParams, requestOptions: RequestOptions) {
         // put /cms/v3/blogs/tags/multi-language/set-new-lang-primary
@@ -254,27 +254,6 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val archiveBatchHandler: Handler<Void?> = emptyHandler()
-
-        override fun archiveBatch(
-            params: TagArchiveBatchParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "v3", "blogs", "tags", "batch", "archive")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { archiveBatchHandler.handle(it) }
-            }
-        }
-
         private val attachToLangGroupHandler: Handler<Void?> = emptyHandler()
 
         override fun attachToLangGroup(
@@ -366,6 +345,27 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
+        private val deleteBatchHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteBatch(
+            params: TagDeleteBatchParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "v3", "blogs", "tags", "batch", "archive")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteBatchHandler.handle(it) }
+            }
+        }
+
         private val detachFromLangGroupHandler: Handler<Void?> = emptyHandler()
 
         override fun detachFromLangGroup(
@@ -394,10 +394,10 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val readHandler: Handler<Tag> = jsonHandler<Tag>(clientOptions.jsonMapper)
+        private val getHandler: Handler<Tag> = jsonHandler<Tag>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: TagReadParams,
+        override fun get(
+            params: TagGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Tag> {
             // We check here instead of in the params builder because this can be specified
@@ -414,7 +414,7 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -423,11 +423,11 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val readBatchHandler: Handler<BatchResponseTag> =
+        private val getBatchHandler: Handler<BatchResponseTag> =
             jsonHandler<BatchResponseTag>(clientOptions.jsonMapper)
 
-        override fun readBatch(
-            params: TagReadBatchParams,
+        override fun getBatch(
+            params: TagGetBatchParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseTag> {
             val request =
@@ -442,7 +442,7 @@ class TagServiceImpl internal constructor(private val clientOptions: ClientOptio
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readBatchHandler.handle(it) }
+                    .use { getBatchHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

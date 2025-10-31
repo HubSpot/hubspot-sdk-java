@@ -17,9 +17,9 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.cms.domains.CollectionResponseWithTotalDomainForwardPaging
 import com.hubspot_sdk.api.models.cms.domains.Domain
+import com.hubspot_sdk.api.models.cms.domains.DomainGetParams
 import com.hubspot_sdk.api.models.cms.domains.DomainListPageAsync
 import com.hubspot_sdk.api.models.cms.domains.DomainListParams
-import com.hubspot_sdk.api.models.cms.domains.DomainReadParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -43,12 +43,12 @@ class DomainServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // get /cms/v3/domains/
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    override fun read(
-        params: DomainReadParams,
+    override fun get(
+        params: DomainGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Domain> =
         // get /cms/v3/domains/{domainId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DomainServiceAsync.WithRawResponse {
@@ -101,10 +101,10 @@ class DomainServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val readHandler: Handler<Domain> = jsonHandler<Domain>(clientOptions.jsonMapper)
+        private val getHandler: Handler<Domain> = jsonHandler<Domain>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: DomainReadParams,
+        override fun get(
+            params: DomainGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Domain>> {
             // We check here instead of in the params builder because this can be specified
@@ -123,7 +123,7 @@ class DomainServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -6,9 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.actions.PublicActionRevision
+import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionGetParams
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListPageAsync
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListParams
-import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionReadParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -51,26 +51,26 @@ interface RevisionServiceAsync {
     ): CompletableFuture<RevisionListPageAsync>
 
     /** Retrieve a specific revision of a definition by revision ID. */
-    fun read(
+    fun get(
         revisionId: String,
-        params: RevisionReadParams,
-    ): CompletableFuture<PublicActionRevision> = read(revisionId, params, RequestOptions.none())
+        params: RevisionGetParams,
+    ): CompletableFuture<PublicActionRevision> = get(revisionId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         revisionId: String,
-        params: RevisionReadParams,
+        params: RevisionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionRevision> =
-        read(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+        get(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: RevisionReadParams): CompletableFuture<PublicActionRevision> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: RevisionGetParams): CompletableFuture<PublicActionRevision> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: RevisionReadParams,
+    /** @see get */
+    fun get(
+        params: RevisionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionRevision>
 
@@ -122,31 +122,31 @@ interface RevisionServiceAsync {
         /**
          * Returns a raw HTTP response for `get
          * /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}`, but is otherwise
-         * the same as [RevisionServiceAsync.read].
+         * the same as [RevisionServiceAsync.get].
          */
-        fun read(
+        fun get(
             revisionId: String,
-            params: RevisionReadParams,
+            params: RevisionGetParams,
         ): CompletableFuture<HttpResponseFor<PublicActionRevision>> =
-            read(revisionId, params, RequestOptions.none())
+            get(revisionId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             revisionId: String,
-            params: RevisionReadParams,
+            params: RevisionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicActionRevision>> =
-            read(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+            get(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
-            params: RevisionReadParams
+        /** @see get */
+        fun get(
+            params: RevisionGetParams
         ): CompletableFuture<HttpResponseFor<PublicActionRevision>> =
-            read(params, RequestOptions.none())
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: RevisionReadParams,
+        /** @see get */
+        fun get(
+            params: RevisionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicActionRevision>>
     }

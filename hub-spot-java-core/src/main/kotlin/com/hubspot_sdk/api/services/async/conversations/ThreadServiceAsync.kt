@@ -8,7 +8,7 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicThreadForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicThread
-import com.hubspot_sdk.api.models.conversations.threads.ThreadArchiveParams
+import com.hubspot_sdk.api.models.conversations.threads.ThreadDeleteParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadListParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
@@ -80,36 +80,36 @@ interface ThreadServiceAsync {
      * Archives a single thread. The thread will be permanently deleted 30 days after placed in an
      * archived state.
      */
-    fun archive(threadId: String): CompletableFuture<Void?> =
-        archive(threadId, ThreadArchiveParams.none())
+    fun delete(threadId: String): CompletableFuture<Void?> =
+        delete(threadId, ThreadDeleteParams.none())
 
-    /** @see archive */
-    fun archive(
+    /** @see delete */
+    fun delete(
         threadId: String,
-        params: ThreadArchiveParams = ThreadArchiveParams.none(),
+        params: ThreadDeleteParams = ThreadDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        archive(params.toBuilder().threadId(threadId).build(), requestOptions)
+        delete(params.toBuilder().threadId(threadId).build(), requestOptions)
 
-    /** @see archive */
-    fun archive(
+    /** @see delete */
+    fun delete(
         threadId: String,
-        params: ThreadArchiveParams = ThreadArchiveParams.none(),
-    ): CompletableFuture<Void?> = archive(threadId, params, RequestOptions.none())
+        params: ThreadDeleteParams = ThreadDeleteParams.none(),
+    ): CompletableFuture<Void?> = delete(threadId, params, RequestOptions.none())
 
-    /** @see archive */
-    fun archive(
-        params: ThreadArchiveParams,
+    /** @see delete */
+    fun delete(
+        params: ThreadDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see archive */
-    fun archive(params: ThreadArchiveParams): CompletableFuture<Void?> =
-        archive(params, RequestOptions.none())
+    /** @see delete */
+    fun delete(params: ThreadDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
-    /** @see archive */
-    fun archive(threadId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        archive(threadId, ThreadArchiveParams.none(), requestOptions)
+    /** @see delete */
+    fun delete(threadId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        delete(threadId, ThreadDeleteParams.none(), requestOptions)
 
     /** Retrieve a single thread by its ID */
     fun get(threadId: String): CompletableFuture<PublicThread> =
@@ -215,41 +215,41 @@ interface ThreadServiceAsync {
         /**
          * Returns a raw HTTP response for `delete
          * /conversations/v3/conversations/threads/{threadId}`, but is otherwise the same as
-         * [ThreadServiceAsync.archive].
+         * [ThreadServiceAsync.delete].
          */
-        fun archive(threadId: String): CompletableFuture<HttpResponse> =
-            archive(threadId, ThreadArchiveParams.none())
+        fun delete(threadId: String): CompletableFuture<HttpResponse> =
+            delete(threadId, ThreadDeleteParams.none())
 
-        /** @see archive */
-        fun archive(
+        /** @see delete */
+        fun delete(
             threadId: String,
-            params: ThreadArchiveParams = ThreadArchiveParams.none(),
+            params: ThreadDeleteParams = ThreadDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            archive(params.toBuilder().threadId(threadId).build(), requestOptions)
+            delete(params.toBuilder().threadId(threadId).build(), requestOptions)
 
-        /** @see archive */
-        fun archive(
+        /** @see delete */
+        fun delete(
             threadId: String,
-            params: ThreadArchiveParams = ThreadArchiveParams.none(),
-        ): CompletableFuture<HttpResponse> = archive(threadId, params, RequestOptions.none())
+            params: ThreadDeleteParams = ThreadDeleteParams.none(),
+        ): CompletableFuture<HttpResponse> = delete(threadId, params, RequestOptions.none())
 
-        /** @see archive */
-        fun archive(
-            params: ThreadArchiveParams,
+        /** @see delete */
+        fun delete(
+            params: ThreadDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see archive */
-        fun archive(params: ThreadArchiveParams): CompletableFuture<HttpResponse> =
-            archive(params, RequestOptions.none())
+        /** @see delete */
+        fun delete(params: ThreadDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
-        /** @see archive */
-        fun archive(
+        /** @see delete */
+        fun delete(
             threadId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            archive(threadId, ThreadArchiveParams.none(), requestOptions)
+            delete(threadId, ThreadDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /conversations/v3/conversations/threads/{threadId}`,

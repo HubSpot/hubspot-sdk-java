@@ -21,9 +21,9 @@ import com.hubspot_sdk.api.models.automation.actions.CollectionResponsePublicAct
 import com.hubspot_sdk.api.models.automation.actions.PublicActionDefinition
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionDeleteParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListPageAsync
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListParams
-import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionReadParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -69,12 +69,12 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
         // delete /automation/v4/actions/{appId}/{definitionId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: DefinitionReadParams,
+    override fun get(
+        params: DefinitionGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PublicActionDefinition> =
         // get /automation/v4/actions/{appId}/{definitionId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DefinitionServiceAsync.WithRawResponse {
@@ -239,11 +239,11 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val readHandler: Handler<PublicActionDefinition> =
+        private val getHandler: Handler<PublicActionDefinition> =
             jsonHandler<PublicActionDefinition>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: DefinitionReadParams,
+        override fun get(
+            params: DefinitionGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<PublicActionDefinition>> {
             // We check here instead of in the params builder because this can be specified
@@ -268,7 +268,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

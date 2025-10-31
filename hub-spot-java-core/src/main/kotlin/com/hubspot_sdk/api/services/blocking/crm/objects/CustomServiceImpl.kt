@@ -24,10 +24,10 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListPage
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
-import com.hubspot_sdk.api.models.crm.objects.custom.CustomReadParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.custom.BatchService
@@ -74,19 +74,19 @@ class CustomServiceImpl internal constructor(private val clientOptions: ClientOp
         withRawResponse().delete(params, requestOptions)
     }
 
+    override fun get(
+        params: CustomGetParams,
+        requestOptions: RequestOptions,
+    ): SimplePublicObjectWithAssociations =
+        // get /crm/v3/objects/{objectType}/{objectId}
+        withRawResponse().get(params, requestOptions).parse()
+
     override fun merge(
         params: CustomMergeParams,
         requestOptions: RequestOptions,
     ): SimplePublicObject =
         // post /crm/v3/objects/{objectType}/merge
         withRawResponse().merge(params, requestOptions).parse()
-
-    override fun read(
-        params: CustomReadParams,
-        requestOptions: RequestOptions,
-    ): SimplePublicObjectWithAssociations =
-        // get /crm/v3/objects/{objectType}/{objectId}
-        withRawResponse().read(params, requestOptions).parse()
 
     override fun search(
         params: CustomSearchParams,
@@ -251,6 +251,42 @@ class CustomServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
+            jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: CustomGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectId", params.objectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "v3",
+                        "objects",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val mergeHandler: Handler<SimplePublicObject> =
             jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
 
@@ -274,42 +310,6 @@ class CustomServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { mergeHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val readHandler: Handler<SimplePublicObjectWithAssociations> =
-            jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
-
-        override fun read(
-            params: CustomReadParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<SimplePublicObjectWithAssociations> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "v3",
-                        "objects",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { readHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

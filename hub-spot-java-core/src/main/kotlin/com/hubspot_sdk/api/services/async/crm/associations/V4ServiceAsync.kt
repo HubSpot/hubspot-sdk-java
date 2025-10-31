@@ -7,12 +7,12 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabel
 import com.hubspot_sdk.api.models.crm.CreatedResponseLabelsBetweenObjectPair
-import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateDefaultAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4ListAssociationsByTypeParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateAssociationLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListPageAsync
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateParams
 import com.hubspot_sdk.api.services.async.crm.associations.v4.BatchServiceAsync
 import com.hubspot_sdk.api.services.async.crm.associations.v4.ReportServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -37,112 +37,98 @@ interface V4ServiceAsync {
     fun report(): ReportServiceAsync
 
     /** Create the default (most generic) association type between two object types */
-    fun createDefaultAssociation(
+    fun create(
         toObjectId: String,
-        params: V4CreateDefaultAssociationParams,
+        params: V4CreateParams,
     ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
-        createDefaultAssociation(toObjectId, params, RequestOptions.none())
+        create(toObjectId, params, RequestOptions.none())
 
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
+    /** @see create */
+    fun create(
         toObjectId: String,
-        params: V4CreateDefaultAssociationParams,
+        params: V4CreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
-        createDefaultAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
-        params: V4CreateDefaultAssociationParams
-    ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
-        createDefaultAssociation(params, RequestOptions.none())
+    /** @see create */
+    fun create(params: V4CreateParams): CompletableFuture<BatchResponsePublicDefaultAssociation> =
+        create(params, RequestOptions.none())
 
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
-        params: V4CreateDefaultAssociationParams,
+    /** @see create */
+    fun create(
+        params: V4CreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponsePublicDefaultAssociation>
 
-    /** deletes all associations between two records. */
-    fun deleteAssociation(
-        toObjectId: String,
-        params: V4DeleteAssociationParams,
-    ): CompletableFuture<Void?> = deleteAssociation(toObjectId, params, RequestOptions.none())
-
-    /** @see deleteAssociation */
-    fun deleteAssociation(
-        toObjectId: String,
-        params: V4DeleteAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        deleteAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
-
-    /** @see deleteAssociation */
-    fun deleteAssociation(params: V4DeleteAssociationParams): CompletableFuture<Void?> =
-        deleteAssociation(params, RequestOptions.none())
-
-    /** @see deleteAssociation */
-    fun deleteAssociation(
-        params: V4DeleteAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** List all associations of an object by object type. Limit 500 per call. */
-    fun listAssociationsByType(
-        toObjectType: String,
-        params: V4ListAssociationsByTypeParams,
-    ): CompletableFuture<CollectionResponseMultiAssociatedObjectWithLabel> =
-        listAssociationsByType(toObjectType, params, RequestOptions.none())
-
-    /** @see listAssociationsByType */
-    fun listAssociationsByType(
-        toObjectType: String,
-        params: V4ListAssociationsByTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseMultiAssociatedObjectWithLabel> =
-        listAssociationsByType(
-            params.toBuilder().toObjectType(toObjectType).build(),
-            requestOptions,
-        )
-
-    /** @see listAssociationsByType */
-    fun listAssociationsByType(
-        params: V4ListAssociationsByTypeParams
-    ): CompletableFuture<CollectionResponseMultiAssociatedObjectWithLabel> =
-        listAssociationsByType(params, RequestOptions.none())
-
-    /** @see listAssociationsByType */
-    fun listAssociationsByType(
-        params: V4ListAssociationsByTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseMultiAssociatedObjectWithLabel>
-
     /** Set association labels between two records. */
-    fun updateAssociationLabels(
+    fun update(
         toObjectId: String,
-        params: V4UpdateAssociationLabelsParams,
+        params: V4UpdateParams,
     ): CompletableFuture<CreatedResponseLabelsBetweenObjectPair> =
-        updateAssociationLabels(toObjectId, params, RequestOptions.none())
+        update(toObjectId, params, RequestOptions.none())
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
+    /** @see update */
+    fun update(
         toObjectId: String,
-        params: V4UpdateAssociationLabelsParams,
+        params: V4UpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CreatedResponseLabelsBetweenObjectPair> =
-        updateAssociationLabels(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        update(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
-        params: V4UpdateAssociationLabelsParams
-    ): CompletableFuture<CreatedResponseLabelsBetweenObjectPair> =
-        updateAssociationLabels(params, RequestOptions.none())
+    /** @see update */
+    fun update(params: V4UpdateParams): CompletableFuture<CreatedResponseLabelsBetweenObjectPair> =
+        update(params, RequestOptions.none())
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
-        params: V4UpdateAssociationLabelsParams,
+    /** @see update */
+    fun update(
+        params: V4UpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CreatedResponseLabelsBetweenObjectPair>
+
+    /** List all associations of an object by object type. Limit 500 per call. */
+    fun list(toObjectType: String, params: V4ListParams): CompletableFuture<V4ListPageAsync> =
+        list(toObjectType, params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        toObjectType: String,
+        params: V4ListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<V4ListPageAsync> =
+        list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+    /** @see list */
+    fun list(params: V4ListParams): CompletableFuture<V4ListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        params: V4ListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<V4ListPageAsync>
+
+    /** deletes all associations between two records. */
+    fun delete(toObjectId: String, params: V4DeleteParams): CompletableFuture<Void?> =
+        delete(toObjectId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        toObjectId: String,
+        params: V4DeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(params: V4DeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        params: V4DeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
 
     /** A view of [V4ServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -161,132 +147,118 @@ interface V4ServiceAsync {
         /**
          * Returns a raw HTTP response for `put
          * /crm/v4/objects/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [V4ServiceAsync.createDefaultAssociation].
+         * but is otherwise the same as [V4ServiceAsync.create].
          */
-        fun createDefaultAssociation(
+        fun create(
             toObjectId: String,
-            params: V4CreateDefaultAssociationParams,
+            params: V4CreateParams,
         ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
-            createDefaultAssociation(toObjectId, params, RequestOptions.none())
+            create(toObjectId, params, RequestOptions.none())
 
-        /** @see createDefaultAssociation */
-        fun createDefaultAssociation(
+        /** @see create */
+        fun create(
             toObjectId: String,
-            params: V4CreateDefaultAssociationParams,
+            params: V4CreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
-            createDefaultAssociation(
-                params.toBuilder().toObjectId(toObjectId).build(),
-                requestOptions,
-            )
+            create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-        /** @see createDefaultAssociation */
-        fun createDefaultAssociation(
-            params: V4CreateDefaultAssociationParams
+        /** @see create */
+        fun create(
+            params: V4CreateParams
         ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
-            createDefaultAssociation(params, RequestOptions.none())
+            create(params, RequestOptions.none())
 
-        /** @see createDefaultAssociation */
-        fun createDefaultAssociation(
-            params: V4CreateDefaultAssociationParams,
+        /** @see create */
+        fun create(
+            params: V4CreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>>
 
         /**
-         * Returns a raw HTTP response for `delete
+         * Returns a raw HTTP response for `put
          * /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`, but is
-         * otherwise the same as [V4ServiceAsync.deleteAssociation].
+         * otherwise the same as [V4ServiceAsync.update].
          */
-        fun deleteAssociation(
+        fun update(
             toObjectId: String,
-            params: V4DeleteAssociationParams,
-        ): CompletableFuture<HttpResponse> =
-            deleteAssociation(toObjectId, params, RequestOptions.none())
+            params: V4UpdateParams,
+        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>> =
+            update(toObjectId, params, RequestOptions.none())
 
-        /** @see deleteAssociation */
-        fun deleteAssociation(
+        /** @see update */
+        fun update(
             toObjectId: String,
-            params: V4DeleteAssociationParams,
+            params: V4UpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            deleteAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>> =
+            update(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-        /** @see deleteAssociation */
-        fun deleteAssociation(params: V4DeleteAssociationParams): CompletableFuture<HttpResponse> =
-            deleteAssociation(params, RequestOptions.none())
+        /** @see update */
+        fun update(
+            params: V4UpdateParams
+        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>> =
+            update(params, RequestOptions.none())
 
-        /** @see deleteAssociation */
-        fun deleteAssociation(
-            params: V4DeleteAssociationParams,
+        /** @see update */
+        fun update(
+            params: V4UpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>>
 
         /**
          * Returns a raw HTTP response for `get
          * /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}`, but is otherwise
-         * the same as [V4ServiceAsync.listAssociationsByType].
+         * the same as [V4ServiceAsync.list].
          */
-        fun listAssociationsByType(
+        fun list(
             toObjectType: String,
-            params: V4ListAssociationsByTypeParams,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel>> =
-            listAssociationsByType(toObjectType, params, RequestOptions.none())
+            params: V4ListParams,
+        ): CompletableFuture<HttpResponseFor<V4ListPageAsync>> =
+            list(toObjectType, params, RequestOptions.none())
 
-        /** @see listAssociationsByType */
-        fun listAssociationsByType(
+        /** @see list */
+        fun list(
             toObjectType: String,
-            params: V4ListAssociationsByTypeParams,
+            params: V4ListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel>> =
-            listAssociationsByType(
-                params.toBuilder().toObjectType(toObjectType).build(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponseFor<V4ListPageAsync>> =
+            list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-        /** @see listAssociationsByType */
-        fun listAssociationsByType(
-            params: V4ListAssociationsByTypeParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel>> =
-            listAssociationsByType(params, RequestOptions.none())
+        /** @see list */
+        fun list(params: V4ListParams): CompletableFuture<HttpResponseFor<V4ListPageAsync>> =
+            list(params, RequestOptions.none())
 
-        /** @see listAssociationsByType */
-        fun listAssociationsByType(
-            params: V4ListAssociationsByTypeParams,
+        /** @see list */
+        fun list(
+            params: V4ListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel>>
+        ): CompletableFuture<HttpResponseFor<V4ListPageAsync>>
 
         /**
-         * Returns a raw HTTP response for `put
+         * Returns a raw HTTP response for `delete
          * /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`, but is
-         * otherwise the same as [V4ServiceAsync.updateAssociationLabels].
+         * otherwise the same as [V4ServiceAsync.delete].
          */
-        fun updateAssociationLabels(
+        fun delete(toObjectId: String, params: V4DeleteParams): CompletableFuture<HttpResponse> =
+            delete(toObjectId, params, RequestOptions.none())
+
+        /** @see delete */
+        fun delete(
             toObjectId: String,
-            params: V4UpdateAssociationLabelsParams,
-        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>> =
-            updateAssociationLabels(toObjectId, params, RequestOptions.none())
-
-        /** @see updateAssociationLabels */
-        fun updateAssociationLabels(
-            toObjectId: String,
-            params: V4UpdateAssociationLabelsParams,
+            params: V4DeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>> =
-            updateAssociationLabels(
-                params.toBuilder().toObjectId(toObjectId).build(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-        /** @see updateAssociationLabels */
-        fun updateAssociationLabels(
-            params: V4UpdateAssociationLabelsParams
-        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>> =
-            updateAssociationLabels(params, RequestOptions.none())
+        /** @see delete */
+        fun delete(params: V4DeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
-        /** @see updateAssociationLabels */
-        fun updateAssociationLabels(
-            params: V4UpdateAssociationLabelsParams,
+        /** @see delete */
+        fun delete(
+            params: V4DeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>>
+        ): CompletableFuture<HttpResponse>
     }
 }

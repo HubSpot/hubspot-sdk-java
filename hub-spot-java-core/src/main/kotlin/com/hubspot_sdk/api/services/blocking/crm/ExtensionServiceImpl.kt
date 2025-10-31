@@ -7,6 +7,8 @@ import com.hubspot_sdk.api.services.blocking.crm.extensions.CallingService
 import com.hubspot_sdk.api.services.blocking.crm.extensions.CallingServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.extensions.CardService
 import com.hubspot_sdk.api.services.blocking.crm.extensions.CardServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.extensions.VideoConferencingService
+import com.hubspot_sdk.api.services.blocking.crm.extensions.VideoConferencingServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.extensions.VideoconferencingService
 import com.hubspot_sdk.api.services.blocking.crm.extensions.VideoconferencingServiceImpl
 import java.util.function.Consumer
@@ -22,6 +24,10 @@ class ExtensionServiceImpl internal constructor(private val clientOptions: Clien
 
     private val cards: CardService by lazy { CardServiceImpl(clientOptions) }
 
+    private val videoConferencing: VideoConferencingService by lazy {
+        VideoConferencingServiceImpl(clientOptions)
+    }
+
     private val videoconferencing: VideoconferencingService by lazy {
         VideoconferencingServiceImpl(clientOptions)
     }
@@ -35,6 +41,8 @@ class ExtensionServiceImpl internal constructor(private val clientOptions: Clien
 
     override fun cards(): CardService = cards
 
+    override fun videoConferencing(): VideoConferencingService = videoConferencing
+
     override fun videoconferencing(): VideoconferencingService = videoconferencing
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -46,6 +54,10 @@ class ExtensionServiceImpl internal constructor(private val clientOptions: Clien
 
         private val cards: CardService.WithRawResponse by lazy {
             CardServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val videoConferencing: VideoConferencingService.WithRawResponse by lazy {
+            VideoConferencingServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val videoconferencing: VideoconferencingService.WithRawResponse by lazy {
@@ -62,6 +74,9 @@ class ExtensionServiceImpl internal constructor(private val clientOptions: Clien
         override fun calling(): CallingService.WithRawResponse = calling
 
         override fun cards(): CardService.WithRawResponse = cards
+
+        override fun videoConferencing(): VideoConferencingService.WithRawResponse =
+            videoConferencing
 
         override fun videoconferencing(): VideoconferencingService.WithRawResponse =
             videoconferencing

@@ -24,10 +24,10 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
-import com.hubspot_sdk.api.models.crm.objects.custom.CustomReadParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
 import com.hubspot_sdk.api.services.async.crm.objects.custom.BatchServiceAsync
@@ -80,19 +80,19 @@ class CustomServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // delete /crm/v3/objects/{objectType}/{objectId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
+    override fun get(
+        params: CustomGetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        // get /crm/v3/objects/{objectType}/{objectId}
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+
     override fun merge(
         params: CustomMergeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObject> =
         // post /crm/v3/objects/{objectType}/merge
         withRawResponse().merge(params, requestOptions).thenApply { it.parse() }
-
-    override fun read(
-        params: CustomReadParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        // get /crm/v3/objects/{objectType}/{objectId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
 
     override fun search(
         params: CustomSearchParams,
@@ -270,6 +270,45 @@ class CustomServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
+            jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: CustomGetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectId", params.objectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "v3",
+                        "objects",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val mergeHandler: Handler<SimplePublicObject> =
             jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
 
@@ -295,45 +334,6 @@ class CustomServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { mergeHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val readHandler: Handler<SimplePublicObjectWithAssociations> =
-            jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
-
-        override fun read(
-            params: CustomReadParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "v3",
-                        "objects",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { readHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

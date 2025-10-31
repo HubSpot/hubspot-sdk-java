@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.services.async.crm.associations
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.AssociationSpec
-import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateDefaultAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4ListAssociationsByTypeParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateAssociationLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -18,7 +18,7 @@ internal class V4ServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun createDefaultAssociation() {
+    fun create() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -27,8 +27,8 @@ internal class V4ServiceAsyncTest {
         val v4ServiceAsync = client.crm().associations().v4()
 
         val batchResponsePublicDefaultAssociationFuture =
-            v4ServiceAsync.createDefaultAssociation(
-                V4CreateDefaultAssociationParams.builder()
+            v4ServiceAsync.create(
+                V4CreateParams.builder()
                     .fromObjectType("fromObjectType")
                     .fromObjectId("fromObjectId")
                     .toObjectType("toObjectType")
@@ -43,56 +43,7 @@ internal class V4ServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun deleteAssociation() {
-        val client =
-            HubSpotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val v4ServiceAsync = client.crm().associations().v4()
-
-        val future =
-            v4ServiceAsync.deleteAssociation(
-                V4DeleteAssociationParams.builder()
-                    .objectType("objectType")
-                    .objectId("objectId")
-                    .toObjectType("toObjectType")
-                    .toObjectId("toObjectId")
-                    .build()
-            )
-
-        val response = future.get()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun listAssociationsByType() {
-        val client =
-            HubSpotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val v4ServiceAsync = client.crm().associations().v4()
-
-        val collectionResponseMultiAssociatedObjectWithLabelFuture =
-            v4ServiceAsync.listAssociationsByType(
-                V4ListAssociationsByTypeParams.builder()
-                    .objectType("objectType")
-                    .objectId("objectId")
-                    .toObjectType("toObjectType")
-                    .after("after")
-                    .limit(0)
-                    .build()
-            )
-
-        val collectionResponseMultiAssociatedObjectWithLabel =
-            collectionResponseMultiAssociatedObjectWithLabelFuture.get()
-        collectionResponseMultiAssociatedObjectWithLabel.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun updateAssociationLabels() {
+    fun update() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -101,8 +52,8 @@ internal class V4ServiceAsyncTest {
         val v4ServiceAsync = client.crm().associations().v4()
 
         val createdResponseLabelsBetweenObjectPairFuture =
-            v4ServiceAsync.updateAssociationLabels(
-                V4UpdateAssociationLabelsParams.builder()
+            v4ServiceAsync.update(
+                V4UpdateParams.builder()
                     .objectType("objectType")
                     .objectId("objectId")
                     .toObjectType("toObjectType")
@@ -121,5 +72,51 @@ internal class V4ServiceAsyncTest {
         val createdResponseLabelsBetweenObjectPair =
             createdResponseLabelsBetweenObjectPairFuture.get()
         createdResponseLabelsBetweenObjectPair.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            HubSpotOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val v4ServiceAsync = client.crm().associations().v4()
+
+        val pageFuture =
+            v4ServiceAsync.list(
+                V4ListParams.builder()
+                    .objectType("objectType")
+                    .objectId("objectId")
+                    .toObjectType("toObjectType")
+                    .build()
+            )
+
+        val page = pageFuture.get()
+        page.response().validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            HubSpotOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val v4ServiceAsync = client.crm().associations().v4()
+
+        val future =
+            v4ServiceAsync.delete(
+                V4DeleteParams.builder()
+                    .objectType("objectType")
+                    .objectId("objectId")
+                    .toObjectType("toObjectType")
+                    .toObjectId("toObjectId")
+                    .build()
+            )
+
+        val response = future.get()
     }
 }

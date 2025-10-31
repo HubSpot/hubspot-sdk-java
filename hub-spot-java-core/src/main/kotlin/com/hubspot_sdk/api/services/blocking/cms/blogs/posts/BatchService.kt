@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchResponseBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchReadParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchUpdateParams
 import java.util.function.Consumer
 
@@ -103,24 +103,24 @@ interface BatchService {
     fun delete(batchInputString: BatchInputString) = delete(batchInputString, RequestOptions.none())
 
     /** Retrieve a batch of blog posts by ID. identified in the request body. */
-    fun read(params: BatchReadParams): BatchResponseBlogPost = read(params, RequestOptions.none())
+    fun get(params: BatchGetParams): BatchResponseBlogPost = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseBlogPost
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         batchInputString: BatchInputString,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseBlogPost =
-        read(BatchReadParams.builder().batchInputString(batchInputString).build(), requestOptions)
+        get(BatchGetParams.builder().batchInputString(batchInputString).build(), requestOptions)
 
-    /** @see read */
-    fun read(batchInputString: BatchInputString): BatchResponseBlogPost =
-        read(batchInputString, RequestOptions.none())
+    /** @see get */
+    fun get(batchInputString: BatchInputString): BatchResponseBlogPost =
+        get(batchInputString, RequestOptions.none())
 
     /** A view of [BatchService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -226,33 +226,30 @@ interface BatchService {
 
         /**
          * Returns a raw HTTP response for `post /cms/v3/blogs/posts/batch/read`, but is otherwise
-         * the same as [BatchService.read].
+         * the same as [BatchService.get].
          */
         @MustBeClosed
-        fun read(params: BatchReadParams): HttpResponseFor<BatchResponseBlogPost> =
-            read(params, RequestOptions.none())
+        fun get(params: BatchGetParams): HttpResponseFor<BatchResponseBlogPost> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: BatchReadParams,
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseBlogPost>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             batchInputString: BatchInputString,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseBlogPost> =
-            read(
-                BatchReadParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
+            get(BatchGetParams.builder().batchInputString(batchInputString).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(batchInputString: BatchInputString): HttpResponseFor<BatchResponseBlogPost> =
-            read(batchInputString, RequestOptions.none())
+        fun get(batchInputString: BatchInputString): HttpResponseFor<BatchResponseBlogPost> =
+            get(batchInputString, RequestOptions.none())
     }
 }

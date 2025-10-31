@@ -11,8 +11,8 @@ import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForC
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchArchiveParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchCreateParams
+import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -93,31 +93,31 @@ interface BatchServiceAsync {
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
     /** Archive a batch of leads by ID */
-    fun archive(params: BatchArchiveParams): CompletableFuture<Void?> =
-        archive(params, RequestOptions.none())
+    fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
-    /** @see archive */
-    fun archive(
-        params: BatchArchiveParams,
+    /** @see delete */
+    fun delete(
+        params: BatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see archive */
-    fun archive(
+    /** @see delete */
+    fun delete(
         batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        archive(
-            BatchArchiveParams.builder()
+        delete(
+            BatchDeleteParams.builder()
                 .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
                 .build(),
             requestOptions,
         )
 
-    /** @see archive */
-    fun archive(
+    /** @see delete */
+    fun delete(
         batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-    ): CompletableFuture<Void?> = archive(batchInputSimplePublicObjectId, RequestOptions.none())
+    ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
     /**
      * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
@@ -234,34 +234,34 @@ interface BatchServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/leads/batch/archive`, but is
-         * otherwise the same as [BatchServiceAsync.archive].
+         * otherwise the same as [BatchServiceAsync.delete].
          */
-        fun archive(params: BatchArchiveParams): CompletableFuture<HttpResponse> =
-            archive(params, RequestOptions.none())
+        fun delete(params: BatchDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
-        /** @see archive */
-        fun archive(
-            params: BatchArchiveParams,
+        /** @see delete */
+        fun delete(
+            params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see archive */
-        fun archive(
+        /** @see delete */
+        fun delete(
             batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            archive(
-                BatchArchiveParams.builder()
+            delete(
+                BatchDeleteParams.builder()
                     .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
                     .build(),
                 requestOptions,
             )
 
-        /** @see archive */
-        fun archive(
+        /** @see delete */
+        fun delete(
             batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
         ): CompletableFuture<HttpResponse> =
-            archive(batchInputSimplePublicObjectId, RequestOptions.none())
+            delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/leads/batch/read`, but is otherwise

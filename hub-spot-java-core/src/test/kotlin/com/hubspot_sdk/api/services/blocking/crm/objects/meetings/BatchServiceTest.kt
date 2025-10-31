@@ -17,7 +17,7 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.meetings.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.meetings.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -100,7 +100,7 @@ internal class BatchServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun archive() {
+    fun delete() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -108,7 +108,7 @@ internal class BatchServiceTest {
                 .build()
         val batchService = client.crm().objects().meetings().batch()
 
-        batchService.archive(
+        batchService.delete(
             BatchInputSimplePublicObjectId.builder()
                 .addInput(SimplePublicObjectId.builder().id("id").build())
                 .build()
@@ -117,7 +117,7 @@ internal class BatchServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -126,8 +126,8 @@ internal class BatchServiceTest {
         val batchService = client.crm().objects().meetings().batch()
 
         val batchResponseSimplePublicObject =
-            batchService.read(
-                BatchReadParams.builder()
+            batchService.get(
+                BatchGetParams.builder()
                     .archived(true)
                     .batchReadInputSimplePublicObjectId(
                         BatchReadInputSimplePublicObjectId.builder()

@@ -20,12 +20,12 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaArchiveAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaReadParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.function.Consumer
@@ -66,14 +66,6 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun archiveAssociation(
-        params: SchemaArchiveAssociationParams,
-        requestOptions: RequestOptions,
-    ) {
-        // delete /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}
-        withRawResponse().archiveAssociation(params, requestOptions)
-    }
-
     override fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions,
@@ -81,9 +73,17 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
         // post /crm-object-schemas/v3/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).parse()
 
-    override fun read(params: SchemaReadParams, requestOptions: RequestOptions): ObjectSchema =
+    override fun deleteAssociation(
+        params: SchemaDeleteAssociationParams,
+        requestOptions: RequestOptions,
+    ) {
+        // delete /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}
+        withRawResponse().deleteAssociation(params, requestOptions)
+    }
+
+    override fun get(params: SchemaGetParams, requestOptions: RequestOptions): ObjectSchema =
         // get /crm-object-schemas/v3/schemas/{objectType}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SchemaService.WithRawResponse {
@@ -208,37 +208,6 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val archiveAssociationHandler: Handler<Void?> = emptyHandler()
-
-        override fun archiveAssociation(
-            params: SchemaArchiveAssociationParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("associationIdentifier", params.associationIdentifier().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm-object-schemas",
-                        "v3",
-                        "schemas",
-                        params._pathParam(0),
-                        "associations",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { archiveAssociationHandler.handle(it) }
-            }
-        }
-
         private val createAssociationHandler: Handler<AssociationDefinition> =
             jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
@@ -276,11 +245,42 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val readHandler: Handler<ObjectSchema> =
+        private val deleteAssociationHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteAssociation(
+            params: SchemaDeleteAssociationParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("associationIdentifier", params.associationIdentifier().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm-object-schemas",
+                        "v3",
+                        "schemas",
+                        params._pathParam(0),
+                        "associations",
+                        params._pathParam(1),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteAssociationHandler.handle(it) }
+            }
+        }
+
+        private val getHandler: Handler<ObjectSchema> =
             jsonHandler<ObjectSchema>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: SchemaReadParams,
+        override fun get(
+            params: SchemaGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ObjectSchema> {
             // We check here instead of in the params builder because this can be specified
@@ -297,7 +297,7 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

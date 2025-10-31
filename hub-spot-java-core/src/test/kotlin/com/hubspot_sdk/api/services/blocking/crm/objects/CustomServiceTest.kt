@@ -16,8 +16,8 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
-import com.hubspot_sdk.api.models.crm.objects.custom.CustomReadParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -156,6 +156,32 @@ internal class CustomServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
+    fun get() {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val customService = client.crm().objects().custom()
+
+        val simplePublicObjectWithAssociations =
+            customService.get(
+                CustomGetParams.builder()
+                    .objectType("objectType")
+                    .objectId("objectId")
+                    .archived(true)
+                    .addAssociation("string")
+                    .idProperty("idProperty")
+                    .addProperty("string")
+                    .addPropertiesWithHistory("string")
+                    .build()
+            )
+
+        simplePublicObjectWithAssociations.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
     fun merge() {
         val client =
             HubSpotOkHttpClient.builder()
@@ -178,32 +204,6 @@ internal class CustomServiceTest {
             )
 
         simplePublicObject.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun read() {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val customService = client.crm().objects().custom()
-
-        val simplePublicObjectWithAssociations =
-            customService.read(
-                CustomReadParams.builder()
-                    .objectType("objectType")
-                    .objectId("objectId")
-                    .archived(true)
-                    .addAssociation("string")
-                    .idProperty("idProperty")
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .build()
-            )
-
-        simplePublicObjectWithAssociations.validate()
     }
 
     @Disabled("Prism tests are disabled")

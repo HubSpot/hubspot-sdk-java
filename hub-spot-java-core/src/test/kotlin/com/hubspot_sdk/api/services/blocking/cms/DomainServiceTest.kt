@@ -28,7 +28,7 @@ internal class DomainServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -36,7 +36,7 @@ internal class DomainServiceTest {
                 .build()
         val domainService = client.cms().domains()
 
-        val domain = domainService.read("domainId")
+        val domain = domainService.get("domainId")
 
         domain.validate()
     }

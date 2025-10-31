@@ -13,9 +13,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectCreateParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.objects.ObjectGetParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectListPage
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectListParams
-import com.hubspot_sdk.api.models.crm.objects.objects.ObjectReadParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectSearchParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.objects.BatchService
@@ -141,24 +141,24 @@ interface ObjectService {
      * default, or optionally any unique property value as specified by the `idProperty` query
      * param. Control what is returned via the `properties` query param.
      */
-    fun read(objectId: String, params: ObjectReadParams): SimplePublicObjectWithAssociations =
-        read(objectId, params, RequestOptions.none())
+    fun get(objectId: String, params: ObjectGetParams): SimplePublicObjectWithAssociations =
+        get(objectId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectId: String,
-        params: ObjectReadParams,
+        params: ObjectGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations =
-        read(params.toBuilder().objectId(objectId).build(), requestOptions)
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: ObjectReadParams): SimplePublicObjectWithAssociations =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: ObjectGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: ObjectReadParams,
+    /** @see get */
+    fun get(
+        params: ObjectGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations
 
@@ -334,33 +334,33 @@ interface ObjectService {
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}/{objectId}`, but is
-         * otherwise the same as [ObjectService.read].
+         * otherwise the same as [ObjectService.get].
          */
         @MustBeClosed
-        fun read(
+        fun get(
             objectId: String,
-            params: ObjectReadParams,
+            params: ObjectGetParams,
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(objectId, params, RequestOptions.none())
+            get(objectId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             objectId: String,
-            params: ObjectReadParams,
+            params: ObjectGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(params.toBuilder().objectId(objectId).build(), requestOptions)
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: ObjectReadParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(params, RequestOptions.none())
+        fun get(params: ObjectGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: ObjectReadParams,
+        fun get(
+            params: ObjectGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations>
 

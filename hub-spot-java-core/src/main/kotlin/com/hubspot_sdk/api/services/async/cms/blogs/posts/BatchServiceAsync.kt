@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchResponseBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchReadParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -108,25 +108,25 @@ interface BatchServiceAsync {
         delete(batchInputString, RequestOptions.none())
 
     /** Retrieve a batch of blog posts by ID. identified in the request body. */
-    fun read(params: BatchReadParams): CompletableFuture<BatchResponseBlogPost> =
-        read(params, RequestOptions.none())
+    fun get(params: BatchGetParams): CompletableFuture<BatchResponseBlogPost> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseBlogPost>
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         batchInputString: BatchInputString,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseBlogPost> =
-        read(BatchReadParams.builder().batchInputString(batchInputString).build(), requestOptions)
+        get(BatchGetParams.builder().batchInputString(batchInputString).build(), requestOptions)
 
-    /** @see read */
-    fun read(batchInputString: BatchInputString): CompletableFuture<BatchResponseBlogPost> =
-        read(batchInputString, RequestOptions.none())
+    /** @see get */
+    fun get(batchInputString: BatchInputString): CompletableFuture<BatchResponseBlogPost> =
+        get(batchInputString, RequestOptions.none())
 
     /** A view of [BatchServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -231,33 +231,28 @@ interface BatchServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /cms/v3/blogs/posts/batch/read`, but is otherwise
-         * the same as [BatchServiceAsync.read].
+         * the same as [BatchServiceAsync.get].
          */
-        fun read(
-            params: BatchReadParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseBlogPost>> =
-            read(params, RequestOptions.none())
+        fun get(params: BatchGetParams): CompletableFuture<HttpResponseFor<BatchResponseBlogPost>> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: BatchReadParams,
+        /** @see get */
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponseBlogPost>>
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             batchInputString: BatchInputString,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponseBlogPost>> =
-            read(
-                BatchReadParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
+            get(BatchGetParams.builder().batchInputString(batchInputString).build(), requestOptions)
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             batchInputString: BatchInputString
         ): CompletableFuture<HttpResponseFor<BatchResponseBlogPost>> =
-            read(batchInputString, RequestOptions.none())
+            get(batchInputString, RequestOptions.none())
     }
 }

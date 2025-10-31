@@ -21,13 +21,13 @@ import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetDraftByIdParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostPushLiveParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostReadParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostResetDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
@@ -269,6 +269,36 @@ interface PostServiceAsync {
     ): CompletableFuture<Void?> =
         detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
+    /** Retrieve a blog post by the post ID. */
+    fun get(objectId: String): CompletableFuture<BlogPost> = get(objectId, PostGetParams.none())
+
+    /** @see get */
+    fun get(
+        objectId: String,
+        params: PostGetParams = PostGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BlogPost> =
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        objectId: String,
+        params: PostGetParams = PostGetParams.none(),
+    ): CompletableFuture<BlogPost> = get(objectId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: PostGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BlogPost>
+
+    /** @see get */
+    fun get(params: PostGetParams): CompletableFuture<BlogPost> = get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<BlogPost> =
+        get(objectId, PostGetParams.none(), requestOptions)
+
     /** Retrieve the full draft version of a blog post. */
     fun getDraftById(objectId: String): CompletableFuture<BlogPost> =
         getDraftById(objectId, PostGetDraftByIdParams.none())
@@ -399,37 +429,6 @@ interface PostServiceAsync {
     /** @see pushLive */
     fun pushLive(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         pushLive(objectId, PostPushLiveParams.none(), requestOptions)
-
-    /** Retrieve a blog post by the post ID. */
-    fun read(objectId: String): CompletableFuture<BlogPost> = read(objectId, PostReadParams.none())
-
-    /** @see read */
-    fun read(
-        objectId: String,
-        params: PostReadParams = PostReadParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BlogPost> =
-        read(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see read */
-    fun read(
-        objectId: String,
-        params: PostReadParams = PostReadParams.none(),
-    ): CompletableFuture<BlogPost> = read(objectId, params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        params: PostReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BlogPost>
-
-    /** @see read */
-    fun read(params: PostReadParams): CompletableFuture<BlogPost> =
-        read(params, RequestOptions.none())
-
-    /** @see read */
-    fun read(objectId: String, requestOptions: RequestOptions): CompletableFuture<BlogPost> =
-        read(objectId, PostReadParams.none(), requestOptions)
 
     /**
      * Discard all drafted content, resetting the draft to contain the content in the currently
@@ -896,6 +895,45 @@ interface PostServiceAsync {
             detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
         /**
+         * Returns a raw HTTP response for `get /cms/v3/blogs/posts/{objectId}`, but is otherwise
+         * the same as [PostServiceAsync.get].
+         */
+        fun get(objectId: String): CompletableFuture<HttpResponseFor<BlogPost>> =
+            get(objectId, PostGetParams.none())
+
+        /** @see get */
+        fun get(
+            objectId: String,
+            params: PostGetParams = PostGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BlogPost>> =
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            objectId: String,
+            params: PostGetParams = PostGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<BlogPost>> =
+            get(objectId, params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            params: PostGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BlogPost>>
+
+        /** @see get */
+        fun get(params: PostGetParams): CompletableFuture<HttpResponseFor<BlogPost>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BlogPost>> =
+            get(objectId, PostGetParams.none(), requestOptions)
+
+        /**
          * Returns a raw HTTP response for `get /cms/v3/blogs/posts/{objectId}/draft`, but is
          * otherwise the same as [PostServiceAsync.getDraftById].
          */
@@ -1047,45 +1085,6 @@ interface PostServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
             pushLive(objectId, PostPushLiveParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/v3/blogs/posts/{objectId}`, but is otherwise
-         * the same as [PostServiceAsync.read].
-         */
-        fun read(objectId: String): CompletableFuture<HttpResponseFor<BlogPost>> =
-            read(objectId, PostReadParams.none())
-
-        /** @see read */
-        fun read(
-            objectId: String,
-            params: PostReadParams = PostReadParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BlogPost>> =
-            read(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see read */
-        fun read(
-            objectId: String,
-            params: PostReadParams = PostReadParams.none(),
-        ): CompletableFuture<HttpResponseFor<BlogPost>> =
-            read(objectId, params, RequestOptions.none())
-
-        /** @see read */
-        fun read(
-            params: PostReadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BlogPost>>
-
-        /** @see read */
-        fun read(params: PostReadParams): CompletableFuture<HttpResponseFor<BlogPost>> =
-            read(params, RequestOptions.none())
-
-        /** @see read */
-        fun read(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BlogPost>> =
-            read(objectId, PostReadParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /cms/v3/blogs/posts/{objectId}/draft/reset`, but is

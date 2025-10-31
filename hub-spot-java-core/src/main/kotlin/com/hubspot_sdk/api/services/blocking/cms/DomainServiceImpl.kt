@@ -17,9 +17,9 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.cms.domains.CollectionResponseWithTotalDomainForwardPaging
 import com.hubspot_sdk.api.models.cms.domains.Domain
+import com.hubspot_sdk.api.models.cms.domains.DomainGetParams
 import com.hubspot_sdk.api.models.cms.domains.DomainListPage
 import com.hubspot_sdk.api.models.cms.domains.DomainListParams
-import com.hubspot_sdk.api.models.cms.domains.DomainReadParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -39,9 +39,9 @@ class DomainServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /cms/v3/domains/
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun read(params: DomainReadParams, requestOptions: RequestOptions): Domain =
+    override fun get(params: DomainGetParams, requestOptions: RequestOptions): Domain =
         // get /cms/v3/domains/{domainId}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DomainService.WithRawResponse {
@@ -90,10 +90,10 @@ class DomainServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val readHandler: Handler<Domain> = jsonHandler<Domain>(clientOptions.jsonMapper)
+        private val getHandler: Handler<Domain> = jsonHandler<Domain>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: DomainReadParams,
+        override fun get(
+            params: DomainGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Domain> {
             // We check here instead of in the params builder because this can be specified
@@ -110,7 +110,7 @@ class DomainServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

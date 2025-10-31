@@ -14,9 +14,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationCreateParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationGetParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListParams
-import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationReadParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationSearchParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationUpdateParams
 import com.hubspot_sdk.api.services.async.crm.objects.communications.BatchServiceAsync
@@ -158,41 +158,40 @@ interface CommunicationServiceAsync {
      * object ID by default, or optionally any unique property value as specified by the
      * `idProperty` query param. Control what is returned via the `properties` query param.
      */
-    fun read(communicationId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(communicationId, CommunicationReadParams.none())
+    fun get(communicationId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(communicationId, CommunicationGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         communicationId: String,
-        params: CommunicationReadParams = CommunicationReadParams.none(),
+        params: CommunicationGetParams = CommunicationGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(params.toBuilder().communicationId(communicationId).build(), requestOptions)
+        get(params.toBuilder().communicationId(communicationId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         communicationId: String,
-        params: CommunicationReadParams = CommunicationReadParams.none(),
+        params: CommunicationGetParams = CommunicationGetParams.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(communicationId, params, RequestOptions.none())
+        get(communicationId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: CommunicationReadParams,
+    /** @see get */
+    fun get(
+        params: CommunicationGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations>
 
-    /** @see read */
-    fun read(
-        params: CommunicationReadParams
-    ): CompletableFuture<SimplePublicObjectWithAssociations> = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: CommunicationGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         communicationId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(communicationId, CommunicationReadParams.none(), requestOptions)
+        get(communicationId, CommunicationGetParams.none(), requestOptions)
 
     /**
      * Search for messages by filtering on properties, searching through associations, and sorting
@@ -374,46 +373,46 @@ interface CommunicationServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/objects/communications/{communicationId}`,
-         * but is otherwise the same as [CommunicationServiceAsync.read].
+         * but is otherwise the same as [CommunicationServiceAsync.get].
          */
-        fun read(
+        fun get(
             communicationId: String
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(communicationId, CommunicationReadParams.none())
+            get(communicationId, CommunicationGetParams.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             communicationId: String,
-            params: CommunicationReadParams = CommunicationReadParams.none(),
+            params: CommunicationGetParams = CommunicationGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params.toBuilder().communicationId(communicationId).build(), requestOptions)
+            get(params.toBuilder().communicationId(communicationId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             communicationId: String,
-            params: CommunicationReadParams = CommunicationReadParams.none(),
+            params: CommunicationGetParams = CommunicationGetParams.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(communicationId, params, RequestOptions.none())
+            get(communicationId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: CommunicationReadParams,
+        /** @see get */
+        fun get(
+            params: CommunicationGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
-        /** @see read */
-        fun read(
-            params: CommunicationReadParams
+        /** @see get */
+        fun get(
+            params: CommunicationGetParams
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params, RequestOptions.none())
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             communicationId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(communicationId, CommunicationReadParams.none(), requestOptions)
+            get(communicationId, CommunicationGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/communications/search`, but is

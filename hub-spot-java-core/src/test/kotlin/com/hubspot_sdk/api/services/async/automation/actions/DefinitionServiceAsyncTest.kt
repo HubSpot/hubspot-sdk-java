@@ -17,7 +17,7 @@ import com.hubspot_sdk.api.models.automation.actions.PublicObjectRequestOptions
 import com.hubspot_sdk.api.models.automation.actions.PublicSingleFieldDependency
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionDeleteParams
-import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionReadParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -373,7 +373,7 @@ internal class DefinitionServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -382,8 +382,8 @@ internal class DefinitionServiceAsyncTest {
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val publicActionDefinitionFuture =
-            definitionServiceAsync.read(
-                DefinitionReadParams.builder()
+            definitionServiceAsync.get(
+                DefinitionGetParams.builder()
                     .appId(0)
                     .definitionId("definitionId")
                     .archived(true)

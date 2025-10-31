@@ -14,11 +14,11 @@ import com.hubspot_sdk.api.models.crm.associations.v4.PublicAssociationMultiArch
 import com.hubspot_sdk.api.models.crm.associations.v4.PublicAssociationMultiPost
 import com.hubspot_sdk.api.models.crm.associations.v4.PublicDefaultAssociationMultiPost
 import com.hubspot_sdk.api.models.crm.associations.v4.PublicFetchAssociationsBatchRequest
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchAssociateDefaultParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchCreateParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchDeleteLabelsParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchDeleteParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchReadParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateDefaultParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -28,38 +28,7 @@ internal class BatchServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun batchAssociateDefault() {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val batchService = client.crm().associations().v4().batch()
-
-        val batchResponsePublicDefaultAssociation =
-            batchService.batchAssociateDefault(
-                BatchBatchAssociateDefaultParams.builder()
-                    .fromObjectType("fromObjectType")
-                    .toObjectType("toObjectType")
-                    .batchInputPublicDefaultAssociationMultiPost(
-                        BatchInputPublicDefaultAssociationMultiPost.builder()
-                            .addInput(
-                                PublicDefaultAssociationMultiPost.builder()
-                                    .from(PublicObjectId.builder().id("37295").build())
-                                    .to(PublicObjectId.builder().id("37295").build())
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        batchResponsePublicDefaultAssociation.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun batchCreate() {
+    fun create() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -68,8 +37,8 @@ internal class BatchServiceTest {
         val batchService = client.crm().associations().v4().batch()
 
         val batchResponseLabelsBetweenObjectPair =
-            batchService.batchCreate(
-                BatchBatchCreateParams.builder()
+            batchService.create(
+                BatchCreateParams.builder()
                     .fromObjectType("fromObjectType")
                     .toObjectType("toObjectType")
                     .batchInputPublicAssociationMultiPost(
@@ -98,7 +67,7 @@ internal class BatchServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun batchDelete() {
+    fun delete() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -107,8 +76,8 @@ internal class BatchServiceTest {
         val batchService = client.crm().associations().v4().batch()
 
         val batchResponseVoid =
-            batchService.batchDelete(
-                BatchBatchDeleteParams.builder()
+            batchService.delete(
+                BatchDeleteParams.builder()
                     .fromObjectType("fromObjectType")
                     .toObjectType("toObjectType")
                     .batchInputPublicAssociationMultiArchive(
@@ -129,7 +98,38 @@ internal class BatchServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun batchDeleteLabels() {
+    fun createDefault() {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val batchService = client.crm().associations().v4().batch()
+
+        val batchResponsePublicDefaultAssociation =
+            batchService.createDefault(
+                BatchCreateDefaultParams.builder()
+                    .fromObjectType("fromObjectType")
+                    .toObjectType("toObjectType")
+                    .batchInputPublicDefaultAssociationMultiPost(
+                        BatchInputPublicDefaultAssociationMultiPost.builder()
+                            .addInput(
+                                PublicDefaultAssociationMultiPost.builder()
+                                    .from(PublicObjectId.builder().id("37295").build())
+                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        batchResponsePublicDefaultAssociation.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun deleteLabels() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -138,8 +138,8 @@ internal class BatchServiceTest {
         val batchService = client.crm().associations().v4().batch()
 
         val batchResponseVoid =
-            batchService.batchDeleteLabels(
-                BatchBatchDeleteLabelsParams.builder()
+            batchService.deleteLabels(
+                BatchDeleteLabelsParams.builder()
                     .fromObjectType("fromObjectType")
                     .toObjectType("toObjectType")
                     .batchInputPublicAssociationMultiPost(
@@ -168,7 +168,7 @@ internal class BatchServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun batchRead() {
+    fun get() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -177,8 +177,8 @@ internal class BatchServiceTest {
         val batchService = client.crm().associations().v4().batch()
 
         val batchResponsePublicAssociationMultiWithLabel =
-            batchService.batchRead(
-                BatchBatchReadParams.builder()
+            batchService.get(
+                BatchGetParams.builder()
                     .fromObjectType("fromObjectType")
                     .toObjectType("toObjectType")
                     .batchInputPublicFetchAssociationsBatchRequest(

@@ -3,8 +3,6 @@
 package com.hubspot_sdk.api.services.async.crm.extensions
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.crm.extensions.videoconferencing.SettingServiceAsync
-import com.hubspot_sdk.api.services.async.crm.extensions.videoconferencing.SettingServiceAsyncImpl
 import java.util.function.Consumer
 
 class VideoconferencingServiceAsyncImpl
@@ -14,8 +12,6 @@ internal constructor(private val clientOptions: ClientOptions) : Videoconferenci
         WithRawResponseImpl(clientOptions)
     }
 
-    private val settings: SettingServiceAsync by lazy { SettingServiceAsyncImpl(clientOptions) }
-
     override fun withRawResponse(): VideoconferencingServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(
@@ -23,14 +19,8 @@ internal constructor(private val clientOptions: ClientOptions) : Videoconferenci
     ): VideoconferencingServiceAsync =
         VideoconferencingServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun settings(): SettingServiceAsync = settings
-
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         VideoconferencingServiceAsync.WithRawResponse {
-
-        private val settings: SettingServiceAsync.WithRawResponse by lazy {
-            SettingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -38,7 +28,5 @@ internal constructor(private val clientOptions: ClientOptions) : Videoconferenci
             VideoconferencingServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        override fun settings(): SettingServiceAsync.WithRawResponse = settings
     }
 }

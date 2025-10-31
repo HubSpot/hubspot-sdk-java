@@ -12,9 +12,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectCreateParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.objects.ObjectGetParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectListParams
-import com.hubspot_sdk.api.models.crm.objects.objects.ObjectReadParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectSearchParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectUpdateParams
 import com.hubspot_sdk.api.services.async.crm.objects.objects.BatchServiceAsync
@@ -158,27 +158,27 @@ interface ObjectServiceAsync {
      * default, or optionally any unique property value as specified by the `idProperty` query
      * param. Control what is returned via the `properties` query param.
      */
-    fun read(
+    fun get(
         objectId: String,
-        params: ObjectReadParams,
+        params: ObjectGetParams,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(objectId, params, RequestOptions.none())
+        get(objectId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectId: String,
-        params: ObjectReadParams,
+        params: ObjectGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(params.toBuilder().objectId(objectId).build(), requestOptions)
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: ObjectReadParams): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: ObjectGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: ObjectReadParams,
+    /** @see get */
+    fun get(
+        params: ObjectGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations>
 
@@ -352,31 +352,31 @@ interface ObjectServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}/{objectId}`, but is
-         * otherwise the same as [ObjectServiceAsync.read].
+         * otherwise the same as [ObjectServiceAsync.get].
          */
-        fun read(
+        fun get(
             objectId: String,
-            params: ObjectReadParams,
+            params: ObjectGetParams,
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(objectId, params, RequestOptions.none())
+            get(objectId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             objectId: String,
-            params: ObjectReadParams,
+            params: ObjectGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params.toBuilder().objectId(objectId).build(), requestOptions)
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
-            params: ObjectReadParams
+        /** @see get */
+        fun get(
+            params: ObjectGetParams
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params, RequestOptions.none())
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: ObjectReadParams,
+        /** @see get */
+        fun get(
+            params: ObjectGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 

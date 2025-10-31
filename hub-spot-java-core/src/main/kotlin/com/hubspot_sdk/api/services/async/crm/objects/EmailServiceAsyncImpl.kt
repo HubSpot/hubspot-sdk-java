@@ -24,9 +24,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailCreateParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.emails.EmailGetParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListParams
-import com.hubspot_sdk.api.models.crm.objects.emails.EmailReadParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailSearchParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailUpdateParams
 import com.hubspot_sdk.api.services.async.crm.objects.emails.BatchServiceAsync
@@ -79,12 +79,12 @@ class EmailServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // delete /crm/v3/objects/emails/{emailId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: EmailReadParams,
+    override fun get(
+        params: EmailGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         // get /crm/v3/objects/emails/{emailId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun search(
         params: EmailSearchParams,
@@ -244,11 +244,11 @@ class EmailServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val readHandler: Handler<SimplePublicObjectWithAssociations> =
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
             jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: EmailReadParams,
+        override fun get(
+            params: EmailGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> {
             // We check here instead of in the params builder because this can be specified
@@ -267,7 +267,7 @@ class EmailServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

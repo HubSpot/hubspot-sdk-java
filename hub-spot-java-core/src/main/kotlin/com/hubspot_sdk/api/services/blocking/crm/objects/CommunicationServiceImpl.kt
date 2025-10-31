@@ -24,9 +24,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationCreateParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationGetParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListPage
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListParams
-import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationReadParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationSearchParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.communications.BatchService
@@ -76,12 +76,12 @@ class CommunicationServiceImpl internal constructor(private val clientOptions: C
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(
-        params: CommunicationReadParams,
+    override fun get(
+        params: CommunicationGetParams,
         requestOptions: RequestOptions,
     ): SimplePublicObjectWithAssociations =
         // get /crm/v3/objects/communications/{communicationId}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun search(
         params: CommunicationSearchParams,
@@ -228,11 +228,11 @@ class CommunicationServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val readHandler: Handler<SimplePublicObjectWithAssociations> =
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
             jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: CommunicationReadParams,
+        override fun get(
+            params: CommunicationGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObjectWithAssociations> {
             // We check here instead of in the params builder because this can be specified
@@ -249,7 +249,7 @@ class CommunicationServiceImpl internal constructor(private val clientOptions: C
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

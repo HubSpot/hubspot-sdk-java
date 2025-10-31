@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicThreadForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicThread
-import com.hubspot_sdk.api.models.conversations.threads.ThreadArchiveParams
+import com.hubspot_sdk.api.models.conversations.threads.ThreadDeleteParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadListParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
@@ -53,12 +53,12 @@ class ThreadServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // get /conversations/v3/conversations/threads
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    override fun archive(
-        params: ThreadArchiveParams,
+    override fun delete(
+        params: ThreadDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /conversations/v3/conversations/threads/{threadId}
-        withRawResponse().archive(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun get(
         params: ThreadGetParams,
@@ -150,10 +150,10 @@ class ThreadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val archiveHandler: Handler<Void?> = emptyHandler()
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun archive(
-            params: ThreadArchiveParams,
+        override fun delete(
+            params: ThreadDeleteParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -178,7 +178,7 @@ class ThreadServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { archiveHandler.handle(it) }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

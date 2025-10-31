@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicUpsertObject
 import com.hubspot_sdk.api.models.crm.objects.companies.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.companies.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.objects.companies.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.companies.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.companies.batch.BatchUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.companies.batch.BatchUpsertParams
 import java.util.function.Consumer
@@ -130,32 +130,32 @@ interface BatchService {
      * Retrieve a batch of companies by ID (`companyId`) or by a unique property (`idProperty`). You
      * can specify what is returned using the `properties` query parameter.
      */
-    fun read(params: BatchReadParams): BatchResponseSimplePublicObject =
-        read(params, RequestOptions.none())
+    fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseSimplePublicObject
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseSimplePublicObject =
-        read(
-            BatchReadParams.builder()
+        get(
+            BatchGetParams.builder()
                 .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
                 .build(),
             requestOptions,
         )
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
     ): BatchResponseSimplePublicObject =
-        read(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
      * Create or update companies identified by a unique property value as specified by the
@@ -309,38 +309,38 @@ interface BatchService {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/companies/batch/read`, but is
-         * otherwise the same as [BatchService.read].
+         * otherwise the same as [BatchService.get].
          */
         @MustBeClosed
-        fun read(params: BatchReadParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(params, RequestOptions.none())
+        fun get(params: BatchGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: BatchReadParams,
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseSimplePublicObject>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(
-                BatchReadParams.builder()
+            get(
+                BatchGetParams.builder()
                     .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
                     .build(),
                 requestOptions,
             )
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
         ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/companies/batch/upsert`, but is

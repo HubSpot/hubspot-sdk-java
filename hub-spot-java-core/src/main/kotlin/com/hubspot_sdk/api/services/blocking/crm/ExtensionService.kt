@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.blocking.crm
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.crm.extensions.CallingService
 import com.hubspot_sdk.api.services.blocking.crm.extensions.CardService
+import com.hubspot_sdk.api.services.blocking.crm.extensions.VideoConferencingService
 import com.hubspot_sdk.api.services.blocking.crm.extensions.VideoconferencingService
 import java.util.function.Consumer
 
@@ -26,6 +27,8 @@ interface ExtensionService {
 
     fun cards(): CardService
 
+    fun videoConferencing(): VideoConferencingService
+
     fun videoconferencing(): VideoconferencingService
 
     /** A view of [ExtensionService] that provides access to raw HTTP responses for each method. */
@@ -41,6 +44,8 @@ interface ExtensionService {
         fun calling(): CallingService.WithRawResponse
 
         fun cards(): CardService.WithRawResponse
+
+        fun videoConferencing(): VideoConferencingService.WithRawResponse
 
         fun videoconferencing(): VideoconferencingService.WithRawResponse
     }

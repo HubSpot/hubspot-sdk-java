@@ -20,12 +20,12 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaArchiveAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaReadParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
@@ -72,13 +72,6 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // delete /crm-object-schemas/v3/schemas/{objectType}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun archiveAssociation(
-        params: SchemaArchiveAssociationParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // delete /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}
-        withRawResponse().archiveAssociation(params, requestOptions).thenAccept {}
-
     override fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions,
@@ -86,12 +79,19 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // post /crm-object-schemas/v3/schemas/{objectType}/associations
         withRawResponse().createAssociation(params, requestOptions).thenApply { it.parse() }
 
-    override fun read(
-        params: SchemaReadParams,
+    override fun deleteAssociation(
+        params: SchemaDeleteAssociationParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}
+        withRawResponse().deleteAssociation(params, requestOptions).thenAccept {}
+
+    override fun get(
+        params: SchemaGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ObjectSchema> =
         // get /crm-object-schemas/v3/schemas/{objectType}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SchemaServiceAsync.WithRawResponse {
@@ -228,40 +228,6 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val archiveAssociationHandler: Handler<Void?> = emptyHandler()
-
-        override fun archiveAssociation(
-            params: SchemaArchiveAssociationParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("associationIdentifier", params.associationIdentifier().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm-object-schemas",
-                        "v3",
-                        "schemas",
-                        params._pathParam(0),
-                        "associations",
-                        params._pathParam(1),
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { archiveAssociationHandler.handle(it) }
-                    }
-                }
-        }
-
         private val createAssociationHandler: Handler<AssociationDefinition> =
             jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
@@ -302,11 +268,45 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val readHandler: Handler<ObjectSchema> =
+        private val deleteAssociationHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteAssociation(
+            params: SchemaDeleteAssociationParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("associationIdentifier", params.associationIdentifier().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm-object-schemas",
+                        "v3",
+                        "schemas",
+                        params._pathParam(0),
+                        "associations",
+                        params._pathParam(1),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteAssociationHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val getHandler: Handler<ObjectSchema> =
             jsonHandler<ObjectSchema>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: SchemaReadParams,
+        override fun get(
+            params: SchemaGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ObjectSchema>> {
             // We check here instead of in the params builder because this can be specified
@@ -325,7 +325,7 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

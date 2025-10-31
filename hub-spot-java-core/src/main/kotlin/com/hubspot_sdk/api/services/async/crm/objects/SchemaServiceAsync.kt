@@ -10,12 +10,12 @@ import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaArchiveAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaReadParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
@@ -144,34 +144,6 @@ interface SchemaServiceAsync {
     fun delete(objectType: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(objectType, SchemaDeleteParams.none(), requestOptions)
 
-    /** Removes an existing association from a schema. */
-    fun archiveAssociation(
-        associationIdentifier: String,
-        params: SchemaArchiveAssociationParams,
-    ): CompletableFuture<Void?> =
-        archiveAssociation(associationIdentifier, params, RequestOptions.none())
-
-    /** @see archiveAssociation */
-    fun archiveAssociation(
-        associationIdentifier: String,
-        params: SchemaArchiveAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        archiveAssociation(
-            params.toBuilder().associationIdentifier(associationIdentifier).build(),
-            requestOptions,
-        )
-
-    /** @see archiveAssociation */
-    fun archiveAssociation(params: SchemaArchiveAssociationParams): CompletableFuture<Void?> =
-        archiveAssociation(params, RequestOptions.none())
-
-    /** @see archiveAssociation */
-    fun archiveAssociation(
-        params: SchemaArchiveAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
     /**
      * Defines a new association between the primary schema's object type and other object types.
      */
@@ -200,37 +172,65 @@ interface SchemaServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AssociationDefinition>
 
-    /** Returns an existing object schema. */
-    fun read(objectType: String): CompletableFuture<ObjectSchema> =
-        read(objectType, SchemaReadParams.none())
+    /** Removes an existing association from a schema. */
+    fun deleteAssociation(
+        associationIdentifier: String,
+        params: SchemaDeleteAssociationParams,
+    ): CompletableFuture<Void?> =
+        deleteAssociation(associationIdentifier, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see deleteAssociation */
+    fun deleteAssociation(
+        associationIdentifier: String,
+        params: SchemaDeleteAssociationParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteAssociation(
+            params.toBuilder().associationIdentifier(associationIdentifier).build(),
+            requestOptions,
+        )
+
+    /** @see deleteAssociation */
+    fun deleteAssociation(params: SchemaDeleteAssociationParams): CompletableFuture<Void?> =
+        deleteAssociation(params, RequestOptions.none())
+
+    /** @see deleteAssociation */
+    fun deleteAssociation(
+        params: SchemaDeleteAssociationParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** Returns an existing object schema. */
+    fun get(objectType: String): CompletableFuture<ObjectSchema> =
+        get(objectType, SchemaGetParams.none())
+
+    /** @see get */
+    fun get(
         objectType: String,
-        params: SchemaReadParams = SchemaReadParams.none(),
+        params: SchemaGetParams = SchemaGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ObjectSchema> =
-        read(params.toBuilder().objectType(objectType).build(), requestOptions)
+        get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectType: String,
-        params: SchemaReadParams = SchemaReadParams.none(),
-    ): CompletableFuture<ObjectSchema> = read(objectType, params, RequestOptions.none())
+        params: SchemaGetParams = SchemaGetParams.none(),
+    ): CompletableFuture<ObjectSchema> = get(objectType, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: SchemaReadParams,
+    /** @see get */
+    fun get(
+        params: SchemaGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ObjectSchema>
 
-    /** @see read */
-    fun read(params: SchemaReadParams): CompletableFuture<ObjectSchema> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: SchemaGetParams): CompletableFuture<ObjectSchema> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(objectType: String, requestOptions: RequestOptions): CompletableFuture<ObjectSchema> =
-        read(objectType, SchemaReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(objectType: String, requestOptions: RequestOptions): CompletableFuture<ObjectSchema> =
+        get(objectType, SchemaGetParams.none(), requestOptions)
 
     /**
      * A view of [SchemaServiceAsync] that provides access to raw HTTP responses for each method.
@@ -369,39 +369,6 @@ interface SchemaServiceAsync {
             delete(objectType, SchemaDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}`, but is
-         * otherwise the same as [SchemaServiceAsync.archiveAssociation].
-         */
-        fun archiveAssociation(
-            associationIdentifier: String,
-            params: SchemaArchiveAssociationParams,
-        ): CompletableFuture<HttpResponse> =
-            archiveAssociation(associationIdentifier, params, RequestOptions.none())
-
-        /** @see archiveAssociation */
-        fun archiveAssociation(
-            associationIdentifier: String,
-            params: SchemaArchiveAssociationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            archiveAssociation(
-                params.toBuilder().associationIdentifier(associationIdentifier).build(),
-                requestOptions,
-            )
-
-        /** @see archiveAssociation */
-        fun archiveAssociation(
-            params: SchemaArchiveAssociationParams
-        ): CompletableFuture<HttpResponse> = archiveAssociation(params, RequestOptions.none())
-
-        /** @see archiveAssociation */
-        fun archiveAssociation(
-            params: SchemaArchiveAssociationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /**
          * Returns a raw HTTP response for `post
          * /crm-object-schemas/v3/schemas/{objectType}/associations`, but is otherwise the same as
          * [SchemaServiceAsync.createAssociation].
@@ -433,42 +400,75 @@ interface SchemaServiceAsync {
         ): CompletableFuture<HttpResponseFor<AssociationDefinition>>
 
         /**
-         * Returns a raw HTTP response for `get /crm-object-schemas/v3/schemas/{objectType}`, but is
-         * otherwise the same as [SchemaServiceAsync.read].
+         * Returns a raw HTTP response for `delete
+         * /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}`, but is
+         * otherwise the same as [SchemaServiceAsync.deleteAssociation].
          */
-        fun read(objectType: String): CompletableFuture<HttpResponseFor<ObjectSchema>> =
-            read(objectType, SchemaReadParams.none())
+        fun deleteAssociation(
+            associationIdentifier: String,
+            params: SchemaDeleteAssociationParams,
+        ): CompletableFuture<HttpResponse> =
+            deleteAssociation(associationIdentifier, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see deleteAssociation */
+        fun deleteAssociation(
+            associationIdentifier: String,
+            params: SchemaDeleteAssociationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteAssociation(
+                params.toBuilder().associationIdentifier(associationIdentifier).build(),
+                requestOptions,
+            )
+
+        /** @see deleteAssociation */
+        fun deleteAssociation(
+            params: SchemaDeleteAssociationParams
+        ): CompletableFuture<HttpResponse> = deleteAssociation(params, RequestOptions.none())
+
+        /** @see deleteAssociation */
+        fun deleteAssociation(
+            params: SchemaDeleteAssociationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /crm-object-schemas/v3/schemas/{objectType}`, but is
+         * otherwise the same as [SchemaServiceAsync.get].
+         */
+        fun get(objectType: String): CompletableFuture<HttpResponseFor<ObjectSchema>> =
+            get(objectType, SchemaGetParams.none())
+
+        /** @see get */
+        fun get(
             objectType: String,
-            params: SchemaReadParams = SchemaReadParams.none(),
+            params: SchemaGetParams = SchemaGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ObjectSchema>> =
-            read(params.toBuilder().objectType(objectType).build(), requestOptions)
+            get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             objectType: String,
-            params: SchemaReadParams = SchemaReadParams.none(),
+            params: SchemaGetParams = SchemaGetParams.none(),
         ): CompletableFuture<HttpResponseFor<ObjectSchema>> =
-            read(objectType, params, RequestOptions.none())
+            get(objectType, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: SchemaReadParams,
+        /** @see get */
+        fun get(
+            params: SchemaGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ObjectSchema>>
 
-        /** @see read */
-        fun read(params: SchemaReadParams): CompletableFuture<HttpResponseFor<ObjectSchema>> =
-            read(params, RequestOptions.none())
+        /** @see get */
+        fun get(params: SchemaGetParams): CompletableFuture<HttpResponseFor<ObjectSchema>> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             objectType: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ObjectSchema>> =
-            read(objectType, SchemaReadParams.none(), requestOptions)
+            get(objectType, SchemaGetParams.none(), requestOptions)
     }
 }

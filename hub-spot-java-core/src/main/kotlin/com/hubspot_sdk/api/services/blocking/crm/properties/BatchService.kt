@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.BatchResponseProperty
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.properties.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.properties.batch.BatchGetParams
 import java.util.function.Consumer
 
 interface BatchService {
@@ -73,23 +73,23 @@ interface BatchService {
     fun delete(params: BatchDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** Read a provided list of properties. */
-    fun read(objectType: String, params: BatchReadParams): BatchResponseProperty =
-        read(objectType, params, RequestOptions.none())
+    fun get(objectType: String, params: BatchGetParams): BatchResponseProperty =
+        get(objectType, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectType: String,
-        params: BatchReadParams,
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseProperty =
-        read(params.toBuilder().objectType(objectType).build(), requestOptions)
+        get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: BatchReadParams): BatchResponseProperty = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: BatchGetParams): BatchResponseProperty = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseProperty
 
@@ -164,32 +164,32 @@ interface BatchService {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/properties/{objectType}/batch/read`, but is
-         * otherwise the same as [BatchService.read].
+         * otherwise the same as [BatchService.get].
          */
         @MustBeClosed
-        fun read(
+        fun get(
             objectType: String,
-            params: BatchReadParams,
-        ): HttpResponseFor<BatchResponseProperty> = read(objectType, params, RequestOptions.none())
+            params: BatchGetParams,
+        ): HttpResponseFor<BatchResponseProperty> = get(objectType, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             objectType: String,
-            params: BatchReadParams,
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseProperty> =
-            read(params.toBuilder().objectType(objectType).build(), requestOptions)
+            get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: BatchReadParams): HttpResponseFor<BatchResponseProperty> =
-            read(params, RequestOptions.none())
+        fun get(params: BatchGetParams): HttpResponseFor<BatchResponseProperty> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: BatchReadParams,
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseProperty>
     }

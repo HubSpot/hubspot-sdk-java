@@ -13,10 +13,10 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListPage
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
-import com.hubspot_sdk.api.models.crm.objects.custom.CustomReadParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.custom.BatchService
@@ -137,6 +137,32 @@ interface CustomService {
     /** @see delete */
     fun delete(params: CustomDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
+    /**
+     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
+     */
+    fun get(objectId: String, params: CustomGetParams): SimplePublicObjectWithAssociations =
+        get(objectId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        objectId: String,
+        params: CustomGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see get */
+    fun get(params: CustomGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: CustomGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations
+
     /** Merge two objects with same type */
     fun merge(objectType: String, params: CustomMergeParams): SimplePublicObject =
         merge(objectType, params, RequestOptions.none())
@@ -156,32 +182,6 @@ interface CustomService {
         params: CustomMergeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
-
-    /**
-     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
-     * default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
-     */
-    fun read(objectId: String, params: CustomReadParams): SimplePublicObjectWithAssociations =
-        read(objectId, params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        objectId: String,
-        params: CustomReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObjectWithAssociations =
-        read(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see read */
-    fun read(params: CustomReadParams): SimplePublicObjectWithAssociations =
-        read(params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        params: CustomReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObjectWithAssociations
 
     fun search(
         objectType: String,
@@ -354,6 +354,38 @@ interface CustomService {
         ): HttpResponse
 
         /**
+         * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}/{objectId}`, but is
+         * otherwise the same as [CustomService.get].
+         */
+        @MustBeClosed
+        fun get(
+            objectId: String,
+            params: CustomGetParams,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(objectId, params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            objectId: String,
+            params: CustomGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: CustomGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: CustomGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /**
          * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/merge`, but is
          * otherwise the same as [CustomService.merge].
          */
@@ -383,38 +415,6 @@ interface CustomService {
             params: CustomMergeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObject>
-
-        /**
-         * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}/{objectId}`, but is
-         * otherwise the same as [CustomService.read].
-         */
-        @MustBeClosed
-        fun read(
-            objectId: String,
-            params: CustomReadParams,
-        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(objectId, params, RequestOptions.none())
-
-        /** @see read */
-        @MustBeClosed
-        fun read(
-            objectId: String,
-            params: CustomReadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see read */
-        @MustBeClosed
-        fun read(params: CustomReadParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(params, RequestOptions.none())
-
-        /** @see read */
-        @MustBeClosed
-        fun read(
-            params: CustomReadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObjectWithAssociations>
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/search`, but is

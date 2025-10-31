@@ -17,7 +17,7 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.crm.associations.v4.ReportCreationResponse
-import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportRequestHighUsageReportParams
+import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportGetHighUsageReportParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -34,12 +34,12 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportServiceAsync =
         ReportServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun requestHighUsageReport(
-        params: ReportRequestHighUsageReportParams,
+    override fun getHighUsageReport(
+        params: ReportGetHighUsageReportParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ReportCreationResponse> =
         // post /crm/v4/associations/usage/high-usage-report/{userId}
-        withRawResponse().requestHighUsageReport(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getHighUsageReport(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ReportServiceAsync.WithRawResponse {
@@ -54,11 +54,11 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val requestHighUsageReportHandler: Handler<ReportCreationResponse> =
+        private val getHighUsageReportHandler: Handler<ReportCreationResponse> =
             jsonHandler<ReportCreationResponse>(clientOptions.jsonMapper)
 
-        override fun requestHighUsageReport(
-            params: ReportRequestHighUsageReportParams,
+        override fun getHighUsageReport(
+            params: ReportGetHighUsageReportParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ReportCreationResponse>> {
             // We check here instead of in the params builder because this can be specified
@@ -85,7 +85,7 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { requestHighUsageReportHandler.handle(it) }
+                            .use { getHighUsageReportHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

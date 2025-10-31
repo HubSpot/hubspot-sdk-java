@@ -27,13 +27,13 @@ import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetDraftByIdParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsPage
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListPage
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostPushLiveParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostReadParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostResetDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
@@ -107,6 +107,10 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
         withRawResponse().detachFromLangGroup(params, requestOptions)
     }
 
+    override fun get(params: PostGetParams, requestOptions: RequestOptions): BlogPost =
+        // get /cms/v3/blogs/posts/{objectId}
+        withRawResponse().get(params, requestOptions).parse()
+
     override fun getDraftById(
         params: PostGetDraftByIdParams,
         requestOptions: RequestOptions,
@@ -132,10 +136,6 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
         // post /cms/v3/blogs/posts/{objectId}/draft/push-live
         withRawResponse().pushLive(params, requestOptions)
     }
-
-    override fun read(params: PostReadParams, requestOptions: RequestOptions): BlogPost =
-        // get /cms/v3/blogs/posts/{objectId}
-        withRawResponse().read(params, requestOptions).parse()
 
     override fun resetDraft(params: PostResetDraftParams, requestOptions: RequestOptions) {
         // post /cms/v3/blogs/posts/{objectId}/draft/reset
@@ -433,6 +433,35 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
+        private val getHandler: Handler<BlogPost> = jsonHandler<BlogPost>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: PostGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BlogPost> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectId", params.objectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "v3", "blogs", "posts", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val getDraftByIdHandler: Handler<BlogPost> =
             jsonHandler<BlogPost>(clientOptions.jsonMapper)
 
@@ -575,35 +604,6 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { pushLiveHandler.handle(it) }
-            }
-        }
-
-        private val readHandler: Handler<BlogPost> = jsonHandler<BlogPost>(clientOptions.jsonMapper)
-
-        override fun read(
-            params: PostReadParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BlogPost> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "v3", "blogs", "posts", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { readHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
             }
         }
 

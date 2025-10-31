@@ -11,12 +11,12 @@ import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaArchiveAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaReadParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.function.Consumer
@@ -129,31 +129,6 @@ interface SchemaService {
     fun delete(objectType: String, requestOptions: RequestOptions) =
         delete(objectType, SchemaDeleteParams.none(), requestOptions)
 
-    /** Removes an existing association from a schema. */
-    fun archiveAssociation(associationIdentifier: String, params: SchemaArchiveAssociationParams) =
-        archiveAssociation(associationIdentifier, params, RequestOptions.none())
-
-    /** @see archiveAssociation */
-    fun archiveAssociation(
-        associationIdentifier: String,
-        params: SchemaArchiveAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        archiveAssociation(
-            params.toBuilder().associationIdentifier(associationIdentifier).build(),
-            requestOptions,
-        )
-
-    /** @see archiveAssociation */
-    fun archiveAssociation(params: SchemaArchiveAssociationParams) =
-        archiveAssociation(params, RequestOptions.none())
-
-    /** @see archiveAssociation */
-    fun archiveAssociation(
-        params: SchemaArchiveAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
     /**
      * Defines a new association between the primary schema's object type and other object types.
      */
@@ -180,32 +155,57 @@ interface SchemaService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AssociationDefinition
 
-    /** Returns an existing object schema. */
-    fun read(objectType: String): ObjectSchema = read(objectType, SchemaReadParams.none())
+    /** Removes an existing association from a schema. */
+    fun deleteAssociation(associationIdentifier: String, params: SchemaDeleteAssociationParams) =
+        deleteAssociation(associationIdentifier, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        objectType: String,
-        params: SchemaReadParams = SchemaReadParams.none(),
+    /** @see deleteAssociation */
+    fun deleteAssociation(
+        associationIdentifier: String,
+        params: SchemaDeleteAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ObjectSchema = read(params.toBuilder().objectType(objectType).build(), requestOptions)
+    ) =
+        deleteAssociation(
+            params.toBuilder().associationIdentifier(associationIdentifier).build(),
+            requestOptions,
+        )
 
-    /** @see read */
-    fun read(objectType: String, params: SchemaReadParams = SchemaReadParams.none()): ObjectSchema =
-        read(objectType, params, RequestOptions.none())
+    /** @see deleteAssociation */
+    fun deleteAssociation(params: SchemaDeleteAssociationParams) =
+        deleteAssociation(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: SchemaReadParams,
+    /** @see deleteAssociation */
+    fun deleteAssociation(
+        params: SchemaDeleteAssociationParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** Returns an existing object schema. */
+    fun get(objectType: String): ObjectSchema = get(objectType, SchemaGetParams.none())
+
+    /** @see get */
+    fun get(
+        objectType: String,
+        params: SchemaGetParams = SchemaGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ObjectSchema = get(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see get */
+    fun get(objectType: String, params: SchemaGetParams = SchemaGetParams.none()): ObjectSchema =
+        get(objectType, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: SchemaGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ObjectSchema
 
-    /** @see read */
-    fun read(params: SchemaReadParams): ObjectSchema = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: SchemaGetParams): ObjectSchema = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(objectType: String, requestOptions: RequestOptions): ObjectSchema =
-        read(objectType, SchemaReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(objectType: String, requestOptions: RequestOptions): ObjectSchema =
+        get(objectType, SchemaGetParams.none(), requestOptions)
 
     /** A view of [SchemaService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -347,41 +347,6 @@ interface SchemaService {
             delete(objectType, SchemaDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}`, but is
-         * otherwise the same as [SchemaService.archiveAssociation].
-         */
-        @MustBeClosed
-        fun archiveAssociation(
-            associationIdentifier: String,
-            params: SchemaArchiveAssociationParams,
-        ): HttpResponse = archiveAssociation(associationIdentifier, params, RequestOptions.none())
-
-        /** @see archiveAssociation */
-        @MustBeClosed
-        fun archiveAssociation(
-            associationIdentifier: String,
-            params: SchemaArchiveAssociationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            archiveAssociation(
-                params.toBuilder().associationIdentifier(associationIdentifier).build(),
-                requestOptions,
-            )
-
-        /** @see archiveAssociation */
-        @MustBeClosed
-        fun archiveAssociation(params: SchemaArchiveAssociationParams): HttpResponse =
-            archiveAssociation(params, RequestOptions.none())
-
-        /** @see archiveAssociation */
-        @MustBeClosed
-        fun archiveAssociation(
-            params: SchemaArchiveAssociationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /**
          * Returns a raw HTTP response for `post
          * /crm-object-schemas/v3/schemas/{objectType}/associations`, but is otherwise the same as
          * [SchemaService.createAssociation].
@@ -416,46 +381,79 @@ interface SchemaService {
         ): HttpResponseFor<AssociationDefinition>
 
         /**
-         * Returns a raw HTTP response for `get /crm-object-schemas/v3/schemas/{objectType}`, but is
-         * otherwise the same as [SchemaService.read].
+         * Returns a raw HTTP response for `delete
+         * /crm-object-schemas/v3/schemas/{objectType}/associations/{associationIdentifier}`, but is
+         * otherwise the same as [SchemaService.deleteAssociation].
          */
         @MustBeClosed
-        fun read(objectType: String): HttpResponseFor<ObjectSchema> =
-            read(objectType, SchemaReadParams.none())
+        fun deleteAssociation(
+            associationIdentifier: String,
+            params: SchemaDeleteAssociationParams,
+        ): HttpResponse = deleteAssociation(associationIdentifier, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see deleteAssociation */
         @MustBeClosed
-        fun read(
+        fun deleteAssociation(
+            associationIdentifier: String,
+            params: SchemaDeleteAssociationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            deleteAssociation(
+                params.toBuilder().associationIdentifier(associationIdentifier).build(),
+                requestOptions,
+            )
+
+        /** @see deleteAssociation */
+        @MustBeClosed
+        fun deleteAssociation(params: SchemaDeleteAssociationParams): HttpResponse =
+            deleteAssociation(params, RequestOptions.none())
+
+        /** @see deleteAssociation */
+        @MustBeClosed
+        fun deleteAssociation(
+            params: SchemaDeleteAssociationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /**
+         * Returns a raw HTTP response for `get /crm-object-schemas/v3/schemas/{objectType}`, but is
+         * otherwise the same as [SchemaService.get].
+         */
+        @MustBeClosed
+        fun get(objectType: String): HttpResponseFor<ObjectSchema> =
+            get(objectType, SchemaGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
             objectType: String,
-            params: SchemaReadParams = SchemaReadParams.none(),
+            params: SchemaGetParams = SchemaGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ObjectSchema> =
-            read(params.toBuilder().objectType(objectType).build(), requestOptions)
+            get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             objectType: String,
-            params: SchemaReadParams = SchemaReadParams.none(),
-        ): HttpResponseFor<ObjectSchema> = read(objectType, params, RequestOptions.none())
+            params: SchemaGetParams = SchemaGetParams.none(),
+        ): HttpResponseFor<ObjectSchema> = get(objectType, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: SchemaReadParams,
+        fun get(
+            params: SchemaGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ObjectSchema>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: SchemaReadParams): HttpResponseFor<ObjectSchema> =
-            read(params, RequestOptions.none())
+        fun get(params: SchemaGetParams): HttpResponseFor<ObjectSchema> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            objectType: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ObjectSchema> = read(objectType, SchemaReadParams.none(), requestOptions)
+        fun get(objectType: String, requestOptions: RequestOptions): HttpResponseFor<ObjectSchema> =
+            get(objectType, SchemaGetParams.none(), requestOptions)
     }
 }

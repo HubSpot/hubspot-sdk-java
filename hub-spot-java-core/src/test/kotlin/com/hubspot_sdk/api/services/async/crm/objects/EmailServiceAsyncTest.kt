@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.emails.EmailReadParams
+import com.hubspot_sdk.api.models.crm.objects.emails.EmailGetParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -148,7 +148,7 @@ internal class EmailServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -157,8 +157,8 @@ internal class EmailServiceAsyncTest {
         val emailServiceAsync = client.crm().objects().emails()
 
         val simplePublicObjectWithAssociationsFuture =
-            emailServiceAsync.read(
-                EmailReadParams.builder()
+            emailServiceAsync.get(
+                EmailGetParams.builder()
                     .emailId("emailId")
                     .archived(true)
                     .addAssociation("string")

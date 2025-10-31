@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchUpsertParams
 import org.junit.jupiter.api.Disabled
@@ -142,7 +142,7 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -151,8 +151,8 @@ internal class BatchServiceAsyncTest {
         val batchServiceAsync = client.crm().objects().custom().batch()
 
         val batchResponseSimplePublicObjectFuture =
-            batchServiceAsync.read(
-                BatchReadParams.builder()
+            batchServiceAsync.get(
+                BatchGetParams.builder()
                     .objectType("objectType")
                     .archived(true)
                     .batchReadInputSimplePublicObjectId(

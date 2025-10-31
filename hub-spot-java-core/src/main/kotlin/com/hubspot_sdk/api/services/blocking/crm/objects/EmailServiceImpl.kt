@@ -24,9 +24,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailCreateParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.emails.EmailGetParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListPage
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListParams
-import com.hubspot_sdk.api.models.crm.objects.emails.EmailReadParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailSearchParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.emails.BatchService
@@ -73,12 +73,12 @@ class EmailServiceImpl internal constructor(private val clientOptions: ClientOpt
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(
-        params: EmailReadParams,
+    override fun get(
+        params: EmailGetParams,
         requestOptions: RequestOptions,
     ): SimplePublicObjectWithAssociations =
         // get /crm/v3/objects/emails/{emailId}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun search(
         params: EmailSearchParams,
@@ -225,11 +225,11 @@ class EmailServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val readHandler: Handler<SimplePublicObjectWithAssociations> =
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
             jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: EmailReadParams,
+        override fun get(
+            params: EmailGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObjectWithAssociations> {
             // We check here instead of in the params builder because this can be specified
@@ -246,7 +246,7 @@ class EmailServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
