@@ -21,7 +21,7 @@ internal class ChannelConnectionSettingServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val channelConnectionSettingServiceAsync =
             client.crm().extensions().calling().channelConnectionSettings()
@@ -46,7 +46,7 @@ internal class ChannelConnectionSettingServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val channelConnectionSettingServiceAsync =
             client.crm().extensions().calling().channelConnectionSettings()
@@ -74,7 +74,7 @@ internal class ChannelConnectionSettingServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val channelConnectionSettingServiceAsync =
             client.crm().extensions().calling().channelConnectionSettings()
@@ -90,7 +90,7 @@ internal class ChannelConnectionSettingServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val channelConnectionSettingServiceAsync =
             client.crm().extensions().calling().channelConnectionSettings()

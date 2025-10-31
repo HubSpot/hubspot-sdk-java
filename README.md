@@ -45,7 +45,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
     // Or configures using the `HUBSPOT_BASE_URL` environment variable
     .fromEnv()
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
 SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
@@ -68,7 +68,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
     // Or configures using the `HUBSPOT_BASE_URL` environment variable
     .fromEnv()
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 
@@ -79,7 +79,7 @@ import com.hubspot_sdk.api.client.HubspotClient;
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
 
 HubspotClient client = HubspotOkHttpClient.builder()
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 
@@ -93,7 +93,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
     // Or configures using the `HUBSPOT_BASE_URL` environment variable
     .fromEnv()
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 
@@ -155,7 +155,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
     // Or configures using the `HUBSPOT_BASE_URL` environment variable
     .fromEnv()
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
 SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
@@ -181,7 +181,7 @@ HubspotClientAsync client = HubspotOkHttpClientAsync.builder()
     // Configures using the `hubspot.baseUrl` system property
     // Or configures using the `HUBSPOT_BASE_URL` environment variable
     .fromEnv()
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
 SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
@@ -522,7 +522,7 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
 HubspotClient client = HubspotOkHttpClient.builder()
     .fromEnv()
     .maxRetries(4)
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 
@@ -550,7 +550,7 @@ import java.time.Duration;
 HubspotClient client = HubspotOkHttpClient.builder()
     .fromEnv()
     .timeout(Duration.ofSeconds(30))
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 
@@ -571,7 +571,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
         "https://example.com", 8080
       )
     ))
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 
@@ -593,7 +593,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     .sslSocketFactory(yourSSLSocketFactory)
     .trustManager(yourTrustManager)
     .hostnameVerifier(yourHostnameVerifier)
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 
@@ -816,7 +816,7 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
 HubspotClient client = HubspotOkHttpClient.builder()
     .fromEnv()
     .responseValidation(true)
-    .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
 

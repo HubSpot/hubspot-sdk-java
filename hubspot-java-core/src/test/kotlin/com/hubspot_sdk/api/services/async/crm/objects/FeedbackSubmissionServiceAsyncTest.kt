@@ -21,7 +21,7 @@ internal class FeedbackSubmissionServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val feedbackSubmissionServiceAsync = client.crm().objects().feedbackSubmissions()
 
@@ -37,7 +37,7 @@ internal class FeedbackSubmissionServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val feedbackSubmissionServiceAsync = client.crm().objects().feedbackSubmissions()
 
@@ -63,7 +63,7 @@ internal class FeedbackSubmissionServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val feedbackSubmissionServiceAsync = client.crm().objects().feedbackSubmissions()
 

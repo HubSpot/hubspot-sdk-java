@@ -21,7 +21,7 @@ internal class ClientOptionsTest {
         var clientOptions =
             ClientOptions.builder()
                 .httpClient(httpClient)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         verify(httpClient, never()).close()
 
