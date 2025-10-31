@@ -24,9 +24,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationCreateParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationGetParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListParams
-import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationReadParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationSearchParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationUpdateParams
 import com.hubspot_sdk.api.services.async.crm.objects.communications.BatchServiceAsync
@@ -79,12 +79,12 @@ class CommunicationServiceAsyncImpl internal constructor(private val clientOptio
         // delete /crm/v3/objects/communications/{communicationId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: CommunicationReadParams,
+    override fun get(
+        params: CommunicationGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         // get /crm/v3/objects/communications/{communicationId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun search(
         params: CommunicationSearchParams,
@@ -244,11 +244,11 @@ class CommunicationServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val readHandler: Handler<SimplePublicObjectWithAssociations> =
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
             jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: CommunicationReadParams,
+        override fun get(
+            params: CommunicationGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> {
             // We check here instead of in the params builder because this can be specified
@@ -267,7 +267,7 @@ class CommunicationServiceAsyncImpl internal constructor(private val clientOptio
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

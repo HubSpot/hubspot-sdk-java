@@ -17,8 +17,8 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchArchiveParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchCreateParams
+import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -50,12 +50,12 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // post /crm/v3/objects/leads/batch/update
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
-    override fun archive(
-        params: BatchArchiveParams,
+    override fun delete(
+        params: BatchDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /crm/v3/objects/leads/batch/archive
-        withRawResponse().archive(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun get(
         params: BatchGetParams,
@@ -139,10 +139,10 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val archiveHandler: Handler<Void?> = emptyHandler()
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun archive(
-            params: BatchArchiveParams,
+        override fun delete(
+            params: BatchDeleteParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
@@ -158,7 +158,7 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { archiveHandler.handle(it) }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

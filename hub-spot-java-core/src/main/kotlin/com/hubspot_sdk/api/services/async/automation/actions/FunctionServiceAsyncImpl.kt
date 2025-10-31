@@ -20,13 +20,13 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.automation.actions.CollectionResponsePublicActionFunctionIdentifierNoPaging
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunction
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunctionIdentifier
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionArchiveByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetByFunctionTypeParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionListParams
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionReadParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -58,13 +58,6 @@ class FunctionServiceAsyncImpl internal constructor(private val clientOptions: C
         // /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun archiveByFunctionType(
-        params: FunctionArchiveByFunctionTypeParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // delete /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}
-        withRawResponse().archiveByFunctionType(params, requestOptions).thenAccept {}
-
     override fun createOrReplace(
         params: FunctionCreateOrReplaceParams,
         requestOptions: RequestOptions,
@@ -81,19 +74,26 @@ class FunctionServiceAsyncImpl internal constructor(private val clientOptions: C
             it.parse()
         }
 
+    override fun deleteByFunctionType(
+        params: FunctionDeleteByFunctionTypeParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}
+        withRawResponse().deleteByFunctionType(params, requestOptions).thenAccept {}
+
+    override fun get(
+        params: FunctionGetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PublicActionFunction> =
+        // get /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+
     override fun getByFunctionType(
         params: FunctionGetByFunctionTypeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PublicActionFunction> =
         // get /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}
         withRawResponse().getByFunctionType(params, requestOptions).thenApply { it.parse() }
-
-    override fun read(
-        params: FunctionReadParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PublicActionFunction> =
-        // get /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FunctionServiceAsync.WithRawResponse {
@@ -188,41 +188,6 @@ class FunctionServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val archiveByFunctionTypeHandler: Handler<Void?> = emptyHandler()
-
-        override fun archiveByFunctionType(
-            params: FunctionArchiveByFunctionTypeParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("functionType", params.functionType().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "automation",
-                        "v4",
-                        "actions",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "functions",
-                        params._pathParam(2),
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { archiveByFunctionTypeHandler.handle(it) }
-                    }
-                }
-        }
-
         private val createOrReplaceHandler: Handler<PublicActionFunctionIdentifier> =
             jsonHandler<PublicActionFunctionIdentifier>(clientOptions.jsonMapper)
 
@@ -308,6 +273,83 @@ class FunctionServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
+        private val deleteByFunctionTypeHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteByFunctionType(
+            params: FunctionDeleteByFunctionTypeParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("functionType", params.functionType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "automation",
+                        "v4",
+                        "actions",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "functions",
+                        params._pathParam(2),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteByFunctionTypeHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val getHandler: Handler<PublicActionFunction> =
+            jsonHandler<PublicActionFunction>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: FunctionGetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("functionId", params.functionId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "automation",
+                        "v4",
+                        "actions",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "functions",
+                        params._pathParam(2),
+                        params._pathParam(3),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val getByFunctionTypeHandler: Handler<PublicActionFunction> =
             jsonHandler<PublicActionFunction>(clientOptions.jsonMapper)
 
@@ -340,48 +382,6 @@ class FunctionServiceAsyncImpl internal constructor(private val clientOptions: C
                     errorHandler.handle(response).parseable {
                         response
                             .use { getByFunctionTypeHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val readHandler: Handler<PublicActionFunction> =
-            jsonHandler<PublicActionFunction>(clientOptions.jsonMapper)
-
-        override fun read(
-            params: FunctionReadParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicActionFunction>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("functionId", params.functionId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "automation",
-                        "v4",
-                        "actions",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "functions",
-                        params._pathParam(2),
-                        params._pathParam(3),
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { readHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

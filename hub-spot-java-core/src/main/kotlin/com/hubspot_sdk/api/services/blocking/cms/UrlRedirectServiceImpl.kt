@@ -21,9 +21,9 @@ import com.hubspot_sdk.api.models.cms.urlredirects.CollectionResponseWithTotalUr
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectDeleteParams
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListPage
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectReadParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -66,9 +66,9 @@ class UrlRedirectServiceImpl internal constructor(private val clientOptions: Cli
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(params: UrlRedirectReadParams, requestOptions: RequestOptions): UrlMapping =
+    override fun get(params: UrlRedirectGetParams, requestOptions: RequestOptions): UrlMapping =
         // get /cms/v3/url-redirects/{urlRedirectId}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UrlRedirectService.WithRawResponse {
@@ -202,11 +202,11 @@ class UrlRedirectServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val readHandler: Handler<UrlMapping> =
+        private val getHandler: Handler<UrlMapping> =
             jsonHandler<UrlMapping>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: UrlRedirectReadParams,
+        override fun get(
+            params: UrlRedirectGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<UrlMapping> {
             // We check here instead of in the params builder because this can be specified
@@ -223,7 +223,7 @@ class UrlRedirectServiceImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

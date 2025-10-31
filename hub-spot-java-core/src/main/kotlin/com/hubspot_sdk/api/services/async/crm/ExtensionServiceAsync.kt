@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.crm
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.crm.extensions.CallingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.extensions.CardServiceAsync
+import com.hubspot_sdk.api.services.async.crm.extensions.VideoConferencingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.extensions.VideoconferencingServiceAsync
 import java.util.function.Consumer
 
@@ -26,6 +27,8 @@ interface ExtensionServiceAsync {
 
     fun cards(): CardServiceAsync
 
+    fun videoConferencing(): VideoConferencingServiceAsync
+
     fun videoconferencing(): VideoconferencingServiceAsync
 
     /**
@@ -45,6 +48,8 @@ interface ExtensionServiceAsync {
         fun calling(): CallingServiceAsync.WithRawResponse
 
         fun cards(): CardServiceAsync.WithRawResponse
+
+        fun videoConferencing(): VideoConferencingServiceAsync.WithRawResponse
 
         fun videoconferencing(): VideoconferencingServiceAsync.WithRawResponse
     }

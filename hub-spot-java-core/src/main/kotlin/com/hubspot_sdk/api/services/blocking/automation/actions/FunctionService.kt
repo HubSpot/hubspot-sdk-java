@@ -10,13 +10,13 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.actions.CollectionResponsePublicActionFunctionIdentifierNoPaging
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunction
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunctionIdentifier
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionArchiveByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetByFunctionTypeParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionListParams
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionReadParams
 import java.util.function.Consumer
 
 interface FunctionService {
@@ -75,29 +75,6 @@ interface FunctionService {
     /** @see delete */
     fun delete(params: FunctionDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /** Delete a function within a given definition. */
-    fun archiveByFunctionType(
-        functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-        params: FunctionArchiveByFunctionTypeParams,
-    ) = archiveByFunctionType(functionType, params, RequestOptions.none())
-
-    /** @see archiveByFunctionType */
-    fun archiveByFunctionType(
-        functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-        params: FunctionArchiveByFunctionTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = archiveByFunctionType(params.toBuilder().functionType(functionType).build(), requestOptions)
-
-    /** @see archiveByFunctionType */
-    fun archiveByFunctionType(params: FunctionArchiveByFunctionTypeParams) =
-        archiveByFunctionType(params, RequestOptions.none())
-
-    /** @see archiveByFunctionType */
-    fun archiveByFunctionType(
-        params: FunctionArchiveByFunctionTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
     /** Update a function for a given definition by ID. */
     fun createOrReplace(
         functionId: String,
@@ -151,6 +128,49 @@ interface FunctionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionFunctionIdentifier
 
+    /** Delete a function within a given definition. */
+    fun deleteByFunctionType(
+        functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+        params: FunctionDeleteByFunctionTypeParams,
+    ) = deleteByFunctionType(functionType, params, RequestOptions.none())
+
+    /** @see deleteByFunctionType */
+    fun deleteByFunctionType(
+        functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+        params: FunctionDeleteByFunctionTypeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = deleteByFunctionType(params.toBuilder().functionType(functionType).build(), requestOptions)
+
+    /** @see deleteByFunctionType */
+    fun deleteByFunctionType(params: FunctionDeleteByFunctionTypeParams) =
+        deleteByFunctionType(params, RequestOptions.none())
+
+    /** @see deleteByFunctionType */
+    fun deleteByFunctionType(
+        params: FunctionDeleteByFunctionTypeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** Retrieve a specific function from a given definition. */
+    fun get(functionId: String, params: FunctionGetParams): PublicActionFunction =
+        get(functionId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        functionId: String,
+        params: FunctionGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionFunction = get(params.toBuilder().functionId(functionId).build(), requestOptions)
+
+    /** @see get */
+    fun get(params: FunctionGetParams): PublicActionFunction = get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: FunctionGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicActionFunction
+
     /** Retrieve functions by a type for a given definition */
     fun getByFunctionType(
         functionType: FunctionGetByFunctionTypeParams.FunctionType,
@@ -172,27 +192,6 @@ interface FunctionService {
     /** @see getByFunctionType */
     fun getByFunctionType(
         params: FunctionGetByFunctionTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicActionFunction
-
-    /** Retrieve a specific function from a given definition. */
-    fun read(functionId: String, params: FunctionReadParams): PublicActionFunction =
-        read(functionId, params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        functionId: String,
-        params: FunctionReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicActionFunction =
-        read(params.toBuilder().functionId(functionId).build(), requestOptions)
-
-    /** @see read */
-    fun read(params: FunctionReadParams): PublicActionFunction = read(params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        params: FunctionReadParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionFunction
 
@@ -271,41 +270,6 @@ interface FunctionService {
         ): HttpResponse
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}`, but is otherwise
-         * the same as [FunctionService.archiveByFunctionType].
-         */
-        @MustBeClosed
-        fun archiveByFunctionType(
-            functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-            params: FunctionArchiveByFunctionTypeParams,
-        ): HttpResponse = archiveByFunctionType(functionType, params, RequestOptions.none())
-
-        /** @see archiveByFunctionType */
-        @MustBeClosed
-        fun archiveByFunctionType(
-            functionType: FunctionArchiveByFunctionTypeParams.FunctionType,
-            params: FunctionArchiveByFunctionTypeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            archiveByFunctionType(
-                params.toBuilder().functionType(functionType).build(),
-                requestOptions,
-            )
-
-        /** @see archiveByFunctionType */
-        @MustBeClosed
-        fun archiveByFunctionType(params: FunctionArchiveByFunctionTypeParams): HttpResponse =
-            archiveByFunctionType(params, RequestOptions.none())
-
-        /** @see archiveByFunctionType */
-        @MustBeClosed
-        fun archiveByFunctionType(
-            params: FunctionArchiveByFunctionTypeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /**
          * Returns a raw HTTP response for `put
          * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}`, but
          * is otherwise the same as [FunctionService.createOrReplace].
@@ -379,6 +343,73 @@ interface FunctionService {
         ): HttpResponseFor<PublicActionFunctionIdentifier>
 
         /**
+         * Returns a raw HTTP response for `delete
+         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}`, but is otherwise
+         * the same as [FunctionService.deleteByFunctionType].
+         */
+        @MustBeClosed
+        fun deleteByFunctionType(
+            functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+            params: FunctionDeleteByFunctionTypeParams,
+        ): HttpResponse = deleteByFunctionType(functionType, params, RequestOptions.none())
+
+        /** @see deleteByFunctionType */
+        @MustBeClosed
+        fun deleteByFunctionType(
+            functionType: FunctionDeleteByFunctionTypeParams.FunctionType,
+            params: FunctionDeleteByFunctionTypeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            deleteByFunctionType(
+                params.toBuilder().functionType(functionType).build(),
+                requestOptions,
+            )
+
+        /** @see deleteByFunctionType */
+        @MustBeClosed
+        fun deleteByFunctionType(params: FunctionDeleteByFunctionTypeParams): HttpResponse =
+            deleteByFunctionType(params, RequestOptions.none())
+
+        /** @see deleteByFunctionType */
+        @MustBeClosed
+        fun deleteByFunctionType(
+            params: FunctionDeleteByFunctionTypeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}`, but
+         * is otherwise the same as [FunctionService.get].
+         */
+        @MustBeClosed
+        fun get(
+            functionId: String,
+            params: FunctionGetParams,
+        ): HttpResponseFor<PublicActionFunction> = get(functionId, params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            functionId: String,
+            params: FunctionGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionFunction> =
+            get(params.toBuilder().functionId(functionId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: FunctionGetParams): HttpResponseFor<PublicActionFunction> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: FunctionGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicActionFunction>
+
+        /**
          * Returns a raw HTTP response for `get
          * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}`, but is otherwise
          * the same as [FunctionService.getByFunctionType].
@@ -409,38 +440,6 @@ interface FunctionService {
         @MustBeClosed
         fun getByFunctionType(
             params: FunctionGetByFunctionTypeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicActionFunction>
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}`, but
-         * is otherwise the same as [FunctionService.read].
-         */
-        @MustBeClosed
-        fun read(
-            functionId: String,
-            params: FunctionReadParams,
-        ): HttpResponseFor<PublicActionFunction> = read(functionId, params, RequestOptions.none())
-
-        /** @see read */
-        @MustBeClosed
-        fun read(
-            functionId: String,
-            params: FunctionReadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicActionFunction> =
-            read(params.toBuilder().functionId(functionId).build(), requestOptions)
-
-        /** @see read */
-        @MustBeClosed
-        fun read(params: FunctionReadParams): HttpResponseFor<PublicActionFunction> =
-            read(params, RequestOptions.none())
-
-        /** @see read */
-        @MustBeClosed
-        fun read(
-            params: FunctionReadParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicActionFunction>
     }

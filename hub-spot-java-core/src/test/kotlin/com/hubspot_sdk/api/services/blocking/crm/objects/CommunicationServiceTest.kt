@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationReadParams
+import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationGetParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -143,7 +143,7 @@ internal class CommunicationServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -152,8 +152,8 @@ internal class CommunicationServiceTest {
         val communicationService = client.crm().objects().communications()
 
         val simplePublicObjectWithAssociations =
-            communicationService.read(
-                CommunicationReadParams.builder()
+            communicationService.get(
+                CommunicationGetParams.builder()
                     .communicationId("communicationId")
                     .archived(true)
                     .addAssociation("string")

@@ -16,18 +16,18 @@ import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.BatchInputTag
 import com.hubspot_sdk.api.models.cms.blogs.tags.BatchResponseTag
 import com.hubspot_sdk.api.models.cms.blogs.tags.Tag
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDetachFromLangGroupParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPage
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadBatchParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagSetLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateLangsParams
@@ -125,29 +125,6 @@ interface TagService {
     fun delete(objectId: String, requestOptions: RequestOptions) =
         delete(objectId, TagDeleteParams.none(), requestOptions)
 
-    /** Delete the Blog Tag objects identified in the request body. */
-    fun archiveBatch(params: TagArchiveBatchParams) = archiveBatch(params, RequestOptions.none())
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        params: TagArchiveBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        batchInputString: BatchInputString,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        archiveBatch(
-            TagArchiveBatchParams.builder().batchInputString(batchInputString).build(),
-            requestOptions,
-        )
-
-    /** @see archiveBatch */
-    fun archiveBatch(batchInputString: BatchInputString) =
-        archiveBatch(batchInputString, RequestOptions.none())
-
     /** Attach a Blog Tag to a multi-language group. */
     fun attachToLangGroup(params: TagAttachToLangGroupParams) =
         attachToLangGroup(params, RequestOptions.none())
@@ -224,6 +201,29 @@ interface TagService {
     fun createLangVariation(tagCloneRequestVNext: TagCloneRequestVNext): Tag =
         createLangVariation(tagCloneRequestVNext, RequestOptions.none())
 
+    /** Delete the Blog Tag objects identified in the request body. */
+    fun deleteBatch(params: TagDeleteBatchParams) = deleteBatch(params, RequestOptions.none())
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        params: TagDeleteBatchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        batchInputString: BatchInputString,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) =
+        deleteBatch(
+            TagDeleteBatchParams.builder().batchInputString(batchInputString).build(),
+            requestOptions,
+        )
+
+    /** @see deleteBatch */
+    fun deleteBatch(batchInputString: BatchInputString) =
+        deleteBatch(batchInputString, RequestOptions.none())
+
     /** Detach a Blog Tag from a multi-language group. */
     fun detachFromLangGroup(params: TagDetachFromLangGroupParams) =
         detachFromLangGroup(params, RequestOptions.none())
@@ -251,52 +251,52 @@ interface TagService {
         detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
     /** Retrieve the Blog Tag object identified by the id in the path. */
-    fun read(objectId: String): Tag = read(objectId, TagReadParams.none())
+    fun get(objectId: String): Tag = get(objectId, TagGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectId: String,
-        params: TagReadParams = TagReadParams.none(),
+        params: TagGetParams = TagGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): Tag = read(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): Tag = get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see read */
-    fun read(objectId: String, params: TagReadParams = TagReadParams.none()): Tag =
-        read(objectId, params, RequestOptions.none())
+    /** @see get */
+    fun get(objectId: String, params: TagGetParams = TagGetParams.none()): Tag =
+        get(objectId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(params: TagReadParams, requestOptions: RequestOptions = RequestOptions.none()): Tag
+    /** @see get */
+    fun get(params: TagGetParams, requestOptions: RequestOptions = RequestOptions.none()): Tag
 
-    /** @see read */
-    fun read(params: TagReadParams): Tag = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: TagGetParams): Tag = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(objectId: String, requestOptions: RequestOptions): Tag =
-        read(objectId, TagReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(objectId: String, requestOptions: RequestOptions): Tag =
+        get(objectId, TagGetParams.none(), requestOptions)
 
     /** Retrieve the Blog Tag objects identified in the request body. */
-    fun readBatch(params: TagReadBatchParams): BatchResponseTag =
-        readBatch(params, RequestOptions.none())
+    fun getBatch(params: TagGetBatchParams): BatchResponseTag =
+        getBatch(params, RequestOptions.none())
 
-    /** @see readBatch */
-    fun readBatch(
-        params: TagReadBatchParams,
+    /** @see getBatch */
+    fun getBatch(
+        params: TagGetBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseTag
 
-    /** @see readBatch */
-    fun readBatch(
+    /** @see getBatch */
+    fun getBatch(
         batchInputString: BatchInputString,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseTag =
-        readBatch(
-            TagReadBatchParams.builder().batchInputString(batchInputString).build(),
+        getBatch(
+            TagGetBatchParams.builder().batchInputString(batchInputString).build(),
             requestOptions,
         )
 
-    /** @see readBatch */
-    fun readBatch(batchInputString: BatchInputString): BatchResponseTag =
-        readBatch(batchInputString, RequestOptions.none())
+    /** @see getBatch */
+    fun getBatch(batchInputString: BatchInputString): BatchResponseTag =
+        getBatch(batchInputString, RequestOptions.none())
 
     /** Set a Blog Tag as the primary language of a multi-language group. */
     fun setLangPrimary(params: TagSetLangPrimaryParams) =
@@ -500,37 +500,6 @@ interface TagService {
             delete(objectId, TagDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /cms/v3/blogs/tags/batch/archive`, but is otherwise
-         * the same as [TagService.archiveBatch].
-         */
-        @MustBeClosed
-        fun archiveBatch(params: TagArchiveBatchParams): HttpResponse =
-            archiveBatch(params, RequestOptions.none())
-
-        /** @see archiveBatch */
-        @MustBeClosed
-        fun archiveBatch(
-            params: TagArchiveBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see archiveBatch */
-        @MustBeClosed
-        fun archiveBatch(
-            batchInputString: BatchInputString,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            archiveBatch(
-                TagArchiveBatchParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
-
-        /** @see archiveBatch */
-        @MustBeClosed
-        fun archiveBatch(batchInputString: BatchInputString): HttpResponse =
-            archiveBatch(batchInputString, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `post
          * /cms/v3/blogs/tags/multi-language/attach-to-lang-group`, but is otherwise the same as
          * [TagService.attachToLangGroup].
@@ -631,6 +600,37 @@ interface TagService {
             createLangVariation(tagCloneRequestVNext, RequestOptions.none())
 
         /**
+         * Returns a raw HTTP response for `post /cms/v3/blogs/tags/batch/archive`, but is otherwise
+         * the same as [TagService.deleteBatch].
+         */
+        @MustBeClosed
+        fun deleteBatch(params: TagDeleteBatchParams): HttpResponse =
+            deleteBatch(params, RequestOptions.none())
+
+        /** @see deleteBatch */
+        @MustBeClosed
+        fun deleteBatch(
+            params: TagDeleteBatchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see deleteBatch */
+        @MustBeClosed
+        fun deleteBatch(
+            batchInputString: BatchInputString,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            deleteBatch(
+                TagDeleteBatchParams.builder().batchInputString(batchInputString).build(),
+                requestOptions,
+            )
+
+        /** @see deleteBatch */
+        @MustBeClosed
+        fun deleteBatch(batchInputString: BatchInputString): HttpResponse =
+            deleteBatch(batchInputString, RequestOptions.none())
+
+        /**
          * Returns a raw HTTP response for `post
          * /cms/v3/blogs/tags/multi-language/detach-from-lang-group`, but is otherwise the same as
          * [TagService.detachFromLangGroup].
@@ -668,73 +668,72 @@ interface TagService {
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/blogs/tags/{objectId}`, but is otherwise the
-         * same as [TagService.read].
+         * same as [TagService.get].
          */
         @MustBeClosed
-        fun read(objectId: String): HttpResponseFor<Tag> = read(objectId, TagReadParams.none())
+        fun get(objectId: String): HttpResponseFor<Tag> = get(objectId, TagGetParams.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             objectId: String,
-            params: TagReadParams = TagReadParams.none(),
+            params: TagGetParams = TagGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Tag> =
-            read(params.toBuilder().objectId(objectId).build(), requestOptions)
+        ): HttpResponseFor<Tag> = get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             objectId: String,
-            params: TagReadParams = TagReadParams.none(),
-        ): HttpResponseFor<Tag> = read(objectId, params, RequestOptions.none())
+            params: TagGetParams = TagGetParams.none(),
+        ): HttpResponseFor<Tag> = get(objectId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: TagReadParams,
+        fun get(
+            params: TagGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Tag>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: TagReadParams): HttpResponseFor<Tag> = read(params, RequestOptions.none())
+        fun get(params: TagGetParams): HttpResponseFor<Tag> = get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(objectId: String, requestOptions: RequestOptions): HttpResponseFor<Tag> =
-            read(objectId, TagReadParams.none(), requestOptions)
+        fun get(objectId: String, requestOptions: RequestOptions): HttpResponseFor<Tag> =
+            get(objectId, TagGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /cms/v3/blogs/tags/batch/read`, but is otherwise
-         * the same as [TagService.readBatch].
+         * the same as [TagService.getBatch].
          */
         @MustBeClosed
-        fun readBatch(params: TagReadBatchParams): HttpResponseFor<BatchResponseTag> =
-            readBatch(params, RequestOptions.none())
+        fun getBatch(params: TagGetBatchParams): HttpResponseFor<BatchResponseTag> =
+            getBatch(params, RequestOptions.none())
 
-        /** @see readBatch */
+        /** @see getBatch */
         @MustBeClosed
-        fun readBatch(
-            params: TagReadBatchParams,
+        fun getBatch(
+            params: TagGetBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseTag>
 
-        /** @see readBatch */
+        /** @see getBatch */
         @MustBeClosed
-        fun readBatch(
+        fun getBatch(
             batchInputString: BatchInputString,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseTag> =
-            readBatch(
-                TagReadBatchParams.builder().batchInputString(batchInputString).build(),
+            getBatch(
+                TagGetBatchParams.builder().batchInputString(batchInputString).build(),
                 requestOptions,
             )
 
-        /** @see readBatch */
+        /** @see getBatch */
         @MustBeClosed
-        fun readBatch(batchInputString: BatchInputString): HttpResponseFor<BatchResponseTag> =
-            readBatch(batchInputString, RequestOptions.none())
+        fun getBatch(batchInputString: BatchInputString): HttpResponseFor<BatchResponseTag> =
+            getBatch(batchInputString, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `put

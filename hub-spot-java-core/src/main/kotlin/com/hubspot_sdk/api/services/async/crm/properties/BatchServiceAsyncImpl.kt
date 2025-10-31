@@ -20,7 +20,7 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.BatchResponseProperty
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.properties.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.properties.batch.BatchGetParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -51,12 +51,12 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // post /crm/v3/properties/{objectType}/batch/archive
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: BatchReadParams,
+    override fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BatchResponseProperty> =
         // post /crm/v3/properties/{objectType}/batch/read
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BatchServiceAsync.WithRawResponse {
@@ -146,11 +146,11 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val readHandler: Handler<BatchResponseProperty> =
+        private val getHandler: Handler<BatchResponseProperty> =
             jsonHandler<BatchResponseProperty>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: BatchReadParams,
+        override fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BatchResponseProperty>> {
             // We check here instead of in the params builder because this can be specified
@@ -177,7 +177,7 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

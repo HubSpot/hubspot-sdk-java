@@ -21,7 +21,7 @@ internal class SettingServiceAsyncTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
                 .build()
-        val settingServiceAsync = client.crm().extensions().videoconferencing().settings()
+        val settingServiceAsync = client.crm().extensions().videoConferencing().settings()
 
         val externalSettingsFuture =
             settingServiceAsync.update(
@@ -51,7 +51,7 @@ internal class SettingServiceAsyncTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
                 .build()
-        val settingServiceAsync = client.crm().extensions().videoconferencing().settings()
+        val settingServiceAsync = client.crm().extensions().videoConferencing().settings()
 
         val future = settingServiceAsync.delete(0)
 
@@ -66,7 +66,7 @@ internal class SettingServiceAsyncTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
                 .build()
-        val settingServiceAsync = client.crm().extensions().videoconferencing().settings()
+        val settingServiceAsync = client.crm().extensions().videoConferencing().settings()
 
         val externalSettingsFuture = settingServiceAsync.get(0)
 

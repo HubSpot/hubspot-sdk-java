@@ -9,9 +9,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.actions.PublicActionDefinition
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionDeleteParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListPageAsync
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListParams
-import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionReadParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -137,26 +137,26 @@ interface DefinitionServiceAsync {
     ): CompletableFuture<Void?>
 
     /** Retrieve a custom workflow action definition by ID. */
-    fun read(
+    fun get(
         definitionId: String,
-        params: DefinitionReadParams,
-    ): CompletableFuture<PublicActionDefinition> = read(definitionId, params, RequestOptions.none())
+        params: DefinitionGetParams,
+    ): CompletableFuture<PublicActionDefinition> = get(definitionId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         definitionId: String,
-        params: DefinitionReadParams,
+        params: DefinitionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionDefinition> =
-        read(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+        get(params.toBuilder().definitionId(definitionId).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: DefinitionReadParams): CompletableFuture<PublicActionDefinition> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: DefinitionGetParams): CompletableFuture<PublicActionDefinition> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: DefinitionReadParams,
+    /** @see get */
+    fun get(
+        params: DefinitionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionDefinition>
 
@@ -305,31 +305,31 @@ interface DefinitionServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /automation/v4/actions/{appId}/{definitionId}`, but
-         * is otherwise the same as [DefinitionServiceAsync.read].
+         * is otherwise the same as [DefinitionServiceAsync.get].
          */
-        fun read(
+        fun get(
             definitionId: String,
-            params: DefinitionReadParams,
+            params: DefinitionGetParams,
         ): CompletableFuture<HttpResponseFor<PublicActionDefinition>> =
-            read(definitionId, params, RequestOptions.none())
+            get(definitionId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             definitionId: String,
-            params: DefinitionReadParams,
+            params: DefinitionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicActionDefinition>> =
-            read(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+            get(params.toBuilder().definitionId(definitionId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
-            params: DefinitionReadParams
+        /** @see get */
+        fun get(
+            params: DefinitionGetParams
         ): CompletableFuture<HttpResponseFor<PublicActionDefinition>> =
-            read(params, RequestOptions.none())
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: DefinitionReadParams,
+        /** @see get */
+        fun get(
+            params: DefinitionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicActionDefinition>>
     }

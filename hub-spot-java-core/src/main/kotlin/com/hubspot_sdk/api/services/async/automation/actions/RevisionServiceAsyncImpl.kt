@@ -17,9 +17,9 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.automation.actions.CollectionResponsePublicActionRevisionForwardPaging
 import com.hubspot_sdk.api.models.automation.actions.PublicActionRevision
+import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionGetParams
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListPageAsync
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListParams
-import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionReadParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -43,12 +43,12 @@ class RevisionServiceAsyncImpl internal constructor(private val clientOptions: C
         // get /automation/v4/actions/{appId}/{definitionId}/revisions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    override fun read(
-        params: RevisionReadParams,
+    override fun get(
+        params: RevisionGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PublicActionRevision> =
         // get /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         RevisionServiceAsync.WithRawResponse {
@@ -113,11 +113,11 @@ class RevisionServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val readHandler: Handler<PublicActionRevision> =
+        private val getHandler: Handler<PublicActionRevision> =
             jsonHandler<PublicActionRevision>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: RevisionReadParams,
+        override fun get(
+            params: RevisionGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<PublicActionRevision>> {
             // We check here instead of in the params builder because this can be specified
@@ -144,7 +144,7 @@ class RevisionServiceAsyncImpl internal constructor(private val clientOptions: C
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

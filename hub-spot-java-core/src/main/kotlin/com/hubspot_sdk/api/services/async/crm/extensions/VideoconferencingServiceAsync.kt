@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.services.async.crm.extensions
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.crm.extensions.videoconferencing.SettingServiceAsync
 import java.util.function.Consumer
 
 interface VideoconferencingServiceAsync {
@@ -20,8 +19,6 @@ interface VideoconferencingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VideoconferencingServiceAsync
 
-    fun settings(): SettingServiceAsync
-
     /**
      * A view of [VideoconferencingServiceAsync] that provides access to raw HTTP responses for each
      * method.
@@ -36,7 +33,5 @@ interface VideoconferencingServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): VideoconferencingServiceAsync.WithRawResponse
-
-        fun settings(): SettingServiceAsync.WithRawResponse
     }
 }

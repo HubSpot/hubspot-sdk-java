@@ -9,7 +9,7 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicThreadForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicThread
-import com.hubspot_sdk.api.models.conversations.threads.ThreadArchiveParams
+import com.hubspot_sdk.api.models.conversations.threads.ThreadDeleteParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadListParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
@@ -74,28 +74,28 @@ interface ThreadService {
      * Archives a single thread. The thread will be permanently deleted 30 days after placed in an
      * archived state.
      */
-    fun archive(threadId: String) = archive(threadId, ThreadArchiveParams.none())
+    fun delete(threadId: String) = delete(threadId, ThreadDeleteParams.none())
 
-    /** @see archive */
-    fun archive(
+    /** @see delete */
+    fun delete(
         threadId: String,
-        params: ThreadArchiveParams = ThreadArchiveParams.none(),
+        params: ThreadDeleteParams = ThreadDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = archive(params.toBuilder().threadId(threadId).build(), requestOptions)
+    ) = delete(params.toBuilder().threadId(threadId).build(), requestOptions)
 
-    /** @see archive */
-    fun archive(threadId: String, params: ThreadArchiveParams = ThreadArchiveParams.none()) =
-        archive(threadId, params, RequestOptions.none())
+    /** @see delete */
+    fun delete(threadId: String, params: ThreadDeleteParams = ThreadDeleteParams.none()) =
+        delete(threadId, params, RequestOptions.none())
 
-    /** @see archive */
-    fun archive(params: ThreadArchiveParams, requestOptions: RequestOptions = RequestOptions.none())
+    /** @see delete */
+    fun delete(params: ThreadDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /** @see archive */
-    fun archive(params: ThreadArchiveParams) = archive(params, RequestOptions.none())
+    /** @see delete */
+    fun delete(params: ThreadDeleteParams) = delete(params, RequestOptions.none())
 
-    /** @see archive */
-    fun archive(threadId: String, requestOptions: RequestOptions) =
-        archive(threadId, ThreadArchiveParams.none(), requestOptions)
+    /** @see delete */
+    fun delete(threadId: String, requestOptions: RequestOptions) =
+        delete(threadId, ThreadDeleteParams.none(), requestOptions)
 
     /** Retrieve a single thread by its ID */
     fun get(threadId: String): PublicThread = get(threadId, ThreadGetParams.none())
@@ -196,42 +196,41 @@ interface ThreadService {
         /**
          * Returns a raw HTTP response for `delete
          * /conversations/v3/conversations/threads/{threadId}`, but is otherwise the same as
-         * [ThreadService.archive].
+         * [ThreadService.delete].
          */
         @MustBeClosed
-        fun archive(threadId: String): HttpResponse = archive(threadId, ThreadArchiveParams.none())
+        fun delete(threadId: String): HttpResponse = delete(threadId, ThreadDeleteParams.none())
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(
+        fun delete(
             threadId: String,
-            params: ThreadArchiveParams = ThreadArchiveParams.none(),
+            params: ThreadDeleteParams = ThreadDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = archive(params.toBuilder().threadId(threadId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().threadId(threadId).build(), requestOptions)
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(
+        fun delete(
             threadId: String,
-            params: ThreadArchiveParams = ThreadArchiveParams.none(),
-        ): HttpResponse = archive(threadId, params, RequestOptions.none())
+            params: ThreadDeleteParams = ThreadDeleteParams.none(),
+        ): HttpResponse = delete(threadId, params, RequestOptions.none())
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(
-            params: ThreadArchiveParams,
+        fun delete(
+            params: ThreadDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(params: ThreadArchiveParams): HttpResponse =
-            archive(params, RequestOptions.none())
+        fun delete(params: ThreadDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(threadId: String, requestOptions: RequestOptions): HttpResponse =
-            archive(threadId, ThreadArchiveParams.none(), requestOptions)
+        fun delete(threadId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(threadId, ThreadDeleteParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /conversations/v3/conversations/threads/{threadId}`,

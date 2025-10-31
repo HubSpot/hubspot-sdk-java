@@ -15,9 +15,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationCreateParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationGetParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListPage
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationListParams
-import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationReadParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationSearchParams
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationUpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.objects.communications.BatchService
@@ -151,39 +151,39 @@ interface CommunicationService {
      * object ID by default, or optionally any unique property value as specified by the
      * `idProperty` query param. Control what is returned via the `properties` query param.
      */
-    fun read(communicationId: String): SimplePublicObjectWithAssociations =
-        read(communicationId, CommunicationReadParams.none())
+    fun get(communicationId: String): SimplePublicObjectWithAssociations =
+        get(communicationId, CommunicationGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         communicationId: String,
-        params: CommunicationReadParams = CommunicationReadParams.none(),
+        params: CommunicationGetParams = CommunicationGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations =
-        read(params.toBuilder().communicationId(communicationId).build(), requestOptions)
+        get(params.toBuilder().communicationId(communicationId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         communicationId: String,
-        params: CommunicationReadParams = CommunicationReadParams.none(),
-    ): SimplePublicObjectWithAssociations = read(communicationId, params, RequestOptions.none())
+        params: CommunicationGetParams = CommunicationGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(communicationId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: CommunicationReadParams,
+    /** @see get */
+    fun get(
+        params: CommunicationGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations
 
-    /** @see read */
-    fun read(params: CommunicationReadParams): SimplePublicObjectWithAssociations =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: CommunicationGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         communicationId: String,
         requestOptions: RequestOptions,
     ): SimplePublicObjectWithAssociations =
-        read(communicationId, CommunicationReadParams.none(), requestOptions)
+        get(communicationId, CommunicationGetParams.none(), requestOptions)
 
     /**
      * Search for messages by filtering on properties, searching through associations, and sorting
@@ -371,49 +371,49 @@ interface CommunicationService {
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/objects/communications/{communicationId}`,
-         * but is otherwise the same as [CommunicationService.read].
+         * but is otherwise the same as [CommunicationService.get].
          */
         @MustBeClosed
-        fun read(communicationId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(communicationId, CommunicationReadParams.none())
+        fun get(communicationId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(communicationId, CommunicationGetParams.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             communicationId: String,
-            params: CommunicationReadParams = CommunicationReadParams.none(),
+            params: CommunicationGetParams = CommunicationGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(params.toBuilder().communicationId(communicationId).build(), requestOptions)
+            get(params.toBuilder().communicationId(communicationId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             communicationId: String,
-            params: CommunicationReadParams = CommunicationReadParams.none(),
+            params: CommunicationGetParams = CommunicationGetParams.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(communicationId, params, RequestOptions.none())
+            get(communicationId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: CommunicationReadParams,
+        fun get(
+            params: CommunicationGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: CommunicationReadParams
-        ): HttpResponseFor<SimplePublicObjectWithAssociations> = read(params, RequestOptions.none())
+        fun get(
+            params: CommunicationGetParams
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> = get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             communicationId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            read(communicationId, CommunicationReadParams.none(), requestOptions)
+            get(communicationId, CommunicationGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/communications/search`, but is

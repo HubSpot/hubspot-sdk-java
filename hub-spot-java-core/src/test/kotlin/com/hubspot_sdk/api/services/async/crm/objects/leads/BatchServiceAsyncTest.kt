@@ -100,7 +100,7 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun archive() {
+    fun delete() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -109,7 +109,7 @@ internal class BatchServiceAsyncTest {
         val batchServiceAsync = client.crm().objects().leads().batch()
 
         val future =
-            batchServiceAsync.archive(
+            batchServiceAsync.delete(
                 BatchInputSimplePublicObjectId.builder()
                     .addInput(SimplePublicObjectId.builder().id("id").build())
                     .build()

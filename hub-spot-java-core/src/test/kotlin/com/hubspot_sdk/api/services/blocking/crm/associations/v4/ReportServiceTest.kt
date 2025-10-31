@@ -13,7 +13,7 @@ internal class ReportServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun requestHighUsageReport() {
+    fun getHighUsageReport() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -21,7 +21,7 @@ internal class ReportServiceTest {
                 .build()
         val reportService = client.crm().associations().v4().report()
 
-        val reportCreationResponse = reportService.requestHighUsageReport(0)
+        val reportCreationResponse = reportService.getHighUsageReport(0)
 
         reportCreationResponse.validate()
     }

@@ -10,9 +10,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.actions.PublicActionDefinition
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionDeleteParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListPage
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListParams
-import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionReadParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionUpdateParams
 import java.util.function.Consumer
 
@@ -123,24 +123,24 @@ interface DefinitionService {
     )
 
     /** Retrieve a custom workflow action definition by ID. */
-    fun read(definitionId: String, params: DefinitionReadParams): PublicActionDefinition =
-        read(definitionId, params, RequestOptions.none())
+    fun get(definitionId: String, params: DefinitionGetParams): PublicActionDefinition =
+        get(definitionId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         definitionId: String,
-        params: DefinitionReadParams,
+        params: DefinitionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionDefinition =
-        read(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+        get(params.toBuilder().definitionId(definitionId).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: DefinitionReadParams): PublicActionDefinition =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: DefinitionGetParams): PublicActionDefinition =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: DefinitionReadParams,
+    /** @see get */
+    fun get(
+        params: DefinitionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionDefinition
 
@@ -291,33 +291,33 @@ interface DefinitionService {
 
         /**
          * Returns a raw HTTP response for `get /automation/v4/actions/{appId}/{definitionId}`, but
-         * is otherwise the same as [DefinitionService.read].
+         * is otherwise the same as [DefinitionService.get].
          */
         @MustBeClosed
-        fun read(
+        fun get(
             definitionId: String,
-            params: DefinitionReadParams,
+            params: DefinitionGetParams,
         ): HttpResponseFor<PublicActionDefinition> =
-            read(definitionId, params, RequestOptions.none())
+            get(definitionId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             definitionId: String,
-            params: DefinitionReadParams,
+            params: DefinitionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicActionDefinition> =
-            read(params.toBuilder().definitionId(definitionId).build(), requestOptions)
+            get(params.toBuilder().definitionId(definitionId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: DefinitionReadParams): HttpResponseFor<PublicActionDefinition> =
-            read(params, RequestOptions.none())
+        fun get(params: DefinitionGetParams): HttpResponseFor<PublicActionDefinition> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: DefinitionReadParams,
+        fun get(
+            params: DefinitionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicActionDefinition>
     }

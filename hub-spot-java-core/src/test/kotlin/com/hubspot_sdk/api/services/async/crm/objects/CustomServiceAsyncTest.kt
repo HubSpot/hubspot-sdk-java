@@ -16,8 +16,8 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
-import com.hubspot_sdk.api.models.crm.objects.custom.CustomReadParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -162,6 +162,33 @@ internal class CustomServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
+    fun get() {
+        val client =
+            HubSpotOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val customServiceAsync = client.crm().objects().custom()
+
+        val simplePublicObjectWithAssociationsFuture =
+            customServiceAsync.get(
+                CustomGetParams.builder()
+                    .objectType("objectType")
+                    .objectId("objectId")
+                    .archived(true)
+                    .addAssociation("string")
+                    .idProperty("idProperty")
+                    .addProperty("string")
+                    .addPropertiesWithHistory("string")
+                    .build()
+            )
+
+        val simplePublicObjectWithAssociations = simplePublicObjectWithAssociationsFuture.get()
+        simplePublicObjectWithAssociations.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
     fun merge() {
         val client =
             HubSpotOkHttpClientAsync.builder()
@@ -185,33 +212,6 @@ internal class CustomServiceAsyncTest {
 
         val simplePublicObject = simplePublicObjectFuture.get()
         simplePublicObject.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun read() {
-        val client =
-            HubSpotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val customServiceAsync = client.crm().objects().custom()
-
-        val simplePublicObjectWithAssociationsFuture =
-            customServiceAsync.read(
-                CustomReadParams.builder()
-                    .objectType("objectType")
-                    .objectId("objectId")
-                    .archived(true)
-                    .addAssociation("string")
-                    .idProperty("idProperty")
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .build()
-            )
-
-        val simplePublicObjectWithAssociations = simplePublicObjectWithAssociationsFuture.get()
-        simplePublicObjectWithAssociations.validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -14,9 +14,9 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailCreateParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.emails.EmailGetParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailListParams
-import com.hubspot_sdk.api.models.crm.objects.emails.EmailReadParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailSearchParams
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailUpdateParams
 import com.hubspot_sdk.api.services.async.crm.objects.emails.BatchServiceAsync
@@ -154,40 +154,40 @@ interface EmailServiceAsync {
      * default, or optionally any unique property value as specified by the `idProperty` query
      * param. Control what is returned via the `properties` query param.
      */
-    fun read(emailId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(emailId, EmailReadParams.none())
+    fun get(emailId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(emailId, EmailGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         emailId: String,
-        params: EmailReadParams = EmailReadParams.none(),
+        params: EmailGetParams = EmailGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(params.toBuilder().emailId(emailId).build(), requestOptions)
+        get(params.toBuilder().emailId(emailId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         emailId: String,
-        params: EmailReadParams = EmailReadParams.none(),
+        params: EmailGetParams = EmailGetParams.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(emailId, params, RequestOptions.none())
+        get(emailId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: EmailReadParams,
+    /** @see get */
+    fun get(
+        params: EmailGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObjectWithAssociations>
 
-    /** @see read */
-    fun read(params: EmailReadParams): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: EmailGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         emailId: String,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(emailId, EmailReadParams.none(), requestOptions)
+        get(emailId, EmailGetParams.none(), requestOptions)
 
     fun search(
         params: EmailSearchParams
@@ -360,46 +360,46 @@ interface EmailServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/objects/emails/{emailId}`, but is otherwise
-         * the same as [EmailServiceAsync.read].
+         * the same as [EmailServiceAsync.get].
          */
-        fun read(
+        fun get(
             emailId: String
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(emailId, EmailReadParams.none())
+            get(emailId, EmailGetParams.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             emailId: String,
-            params: EmailReadParams = EmailReadParams.none(),
+            params: EmailGetParams = EmailGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params.toBuilder().emailId(emailId).build(), requestOptions)
+            get(params.toBuilder().emailId(emailId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             emailId: String,
-            params: EmailReadParams = EmailReadParams.none(),
+            params: EmailGetParams = EmailGetParams.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(emailId, params, RequestOptions.none())
+            get(emailId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: EmailReadParams,
+        /** @see get */
+        fun get(
+            params: EmailGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
-        /** @see read */
-        fun read(
-            params: EmailReadParams
+        /** @see get */
+        fun get(
+            params: EmailGetParams
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params, RequestOptions.none())
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             emailId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(emailId, EmailReadParams.none(), requestOptions)
+            get(emailId, EmailGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/emails/search`, but is otherwise

@@ -20,17 +20,17 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.cms.blogs.tags.BatchResponseTag
 import com.hubspot_sdk.api.models.cms.blogs.tags.CollectionResponseWithTotalTagForwardPaging
 import com.hubspot_sdk.api.models.cms.blogs.tags.Tag
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDetachFromLangGroupParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadBatchParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagReadParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagSetLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateLangsParams
@@ -79,13 +79,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         // delete /cms/v3/blogs/tags/{objectId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun archiveBatch(
-        params: TagArchiveBatchParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // post /cms/v3/blogs/tags/batch/archive
-        withRawResponse().archiveBatch(params, requestOptions).thenAccept {}
-
     override fun attachToLangGroup(
         params: TagAttachToLangGroupParams,
         requestOptions: RequestOptions,
@@ -107,6 +100,13 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         // post /cms/v3/blogs/tags/multi-language/create-language-variation
         withRawResponse().createLangVariation(params, requestOptions).thenApply { it.parse() }
 
+    override fun deleteBatch(
+        params: TagDeleteBatchParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // post /cms/v3/blogs/tags/batch/archive
+        withRawResponse().deleteBatch(params, requestOptions).thenAccept {}
+
     override fun detachFromLangGroup(
         params: TagDetachFromLangGroupParams,
         requestOptions: RequestOptions,
@@ -114,19 +114,16 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         // post /cms/v3/blogs/tags/multi-language/detach-from-lang-group
         withRawResponse().detachFromLangGroup(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: TagReadParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Tag> =
+    override fun get(params: TagGetParams, requestOptions: RequestOptions): CompletableFuture<Tag> =
         // get /cms/v3/blogs/tags/{objectId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
-    override fun readBatch(
-        params: TagReadBatchParams,
+    override fun getBatch(
+        params: TagGetBatchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BatchResponseTag> =
         // post /cms/v3/blogs/tags/batch/read
-        withRawResponse().readBatch(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getBatch(params, requestOptions).thenApply { it.parse() }
 
     override fun setLangPrimary(
         params: TagSetLangPrimaryParams,
@@ -290,30 +287,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val archiveBatchHandler: Handler<Void?> = emptyHandler()
-
-        override fun archiveBatch(
-            params: TagArchiveBatchParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "v3", "blogs", "tags", "batch", "archive")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { archiveBatchHandler.handle(it) }
-                    }
-                }
-        }
-
         private val attachToLangGroupHandler: Handler<Void?> = emptyHandler()
 
         override fun attachToLangGroup(
@@ -414,6 +387,30 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
+        private val deleteBatchHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteBatch(
+            params: TagDeleteBatchParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "v3", "blogs", "tags", "batch", "archive")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteBatchHandler.handle(it) }
+                    }
+                }
+        }
+
         private val detachFromLangGroupHandler: Handler<Void?> = emptyHandler()
 
         override fun detachFromLangGroup(
@@ -445,10 +442,10 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val readHandler: Handler<Tag> = jsonHandler<Tag>(clientOptions.jsonMapper)
+        private val getHandler: Handler<Tag> = jsonHandler<Tag>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: TagReadParams,
+        override fun get(
+            params: TagGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Tag>> {
             // We check here instead of in the params builder because this can be specified
@@ -467,7 +464,7 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -477,11 +474,11 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val readBatchHandler: Handler<BatchResponseTag> =
+        private val getBatchHandler: Handler<BatchResponseTag> =
             jsonHandler<BatchResponseTag>(clientOptions.jsonMapper)
 
-        override fun readBatch(
-            params: TagReadBatchParams,
+        override fun getBatch(
+            params: TagGetBatchParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BatchResponseTag>> {
             val request =
@@ -498,7 +495,7 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readBatchHandler.handle(it) }
+                            .use { getBatchHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.models.PropertyName
 import com.hubspot_sdk.api.models.crm.properties.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.properties.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.properties.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -99,7 +99,7 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -108,8 +108,8 @@ internal class BatchServiceAsyncTest {
         val batchServiceAsync = client.crm().properties().batch()
 
         val batchResponsePropertyFuture =
-            batchServiceAsync.read(
-                BatchReadParams.builder()
+            batchServiceAsync.get(
+                BatchGetParams.builder()
                     .objectType("objectType")
                     .batchReadInputPropertyName(
                         BatchReadInputPropertyName.builder()

@@ -17,7 +17,7 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -102,7 +102,7 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun archive() {
+    fun delete() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -111,7 +111,7 @@ internal class BatchServiceAsyncTest {
         val batchServiceAsync = client.crm().objects().contacts().batch()
 
         val future =
-            batchServiceAsync.archive(
+            batchServiceAsync.delete(
                 BatchInputSimplePublicObjectId.builder()
                     .addInput(SimplePublicObjectId.builder().id("id").build())
                     .build()
@@ -122,7 +122,7 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -131,8 +131,8 @@ internal class BatchServiceAsyncTest {
         val batchServiceAsync = client.crm().objects().contacts().batch()
 
         val batchResponseSimplePublicObjectFuture =
-            batchServiceAsync.read(
-                BatchReadParams.builder()
+            batchServiceAsync.get(
+                BatchGetParams.builder()
                     .archived(true)
                     .batchReadInputSimplePublicObjectId(
                         BatchReadInputSimplePublicObjectId.builder()

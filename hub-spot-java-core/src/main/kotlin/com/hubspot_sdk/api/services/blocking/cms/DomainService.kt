@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.domains.Domain
+import com.hubspot_sdk.api.models.cms.domains.DomainGetParams
 import com.hubspot_sdk.api.models.cms.domains.DomainListPage
 import com.hubspot_sdk.api.models.cms.domains.DomainListParams
-import com.hubspot_sdk.api.models.cms.domains.DomainReadParams
 import java.util.function.Consumer
 
 interface DomainService {
@@ -47,31 +47,28 @@ interface DomainService {
         list(DomainListParams.none(), requestOptions)
 
     /** Returns a single domains with the id specified. */
-    fun read(domainId: String): Domain = read(domainId, DomainReadParams.none())
+    fun get(domainId: String): Domain = get(domainId, DomainGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         domainId: String,
-        params: DomainReadParams = DomainReadParams.none(),
+        params: DomainGetParams = DomainGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): Domain = read(params.toBuilder().domainId(domainId).build(), requestOptions)
+    ): Domain = get(params.toBuilder().domainId(domainId).build(), requestOptions)
 
-    /** @see read */
-    fun read(domainId: String, params: DomainReadParams = DomainReadParams.none()): Domain =
-        read(domainId, params, RequestOptions.none())
+    /** @see get */
+    fun get(domainId: String, params: DomainGetParams = DomainGetParams.none()): Domain =
+        get(domainId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: DomainReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Domain
+    /** @see get */
+    fun get(params: DomainGetParams, requestOptions: RequestOptions = RequestOptions.none()): Domain
 
-    /** @see read */
-    fun read(params: DomainReadParams): Domain = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: DomainGetParams): Domain = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(domainId: String, requestOptions: RequestOptions): Domain =
-        read(domainId, DomainReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(domainId: String, requestOptions: RequestOptions): Domain =
+        get(domainId, DomainGetParams.none(), requestOptions)
 
     /** A view of [DomainService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -109,43 +106,42 @@ interface DomainService {
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/domains/{domainId}`, but is otherwise the
-         * same as [DomainService.read].
+         * same as [DomainService.get].
          */
         @MustBeClosed
-        fun read(domainId: String): HttpResponseFor<Domain> =
-            read(domainId, DomainReadParams.none())
+        fun get(domainId: String): HttpResponseFor<Domain> = get(domainId, DomainGetParams.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             domainId: String,
-            params: DomainReadParams = DomainReadParams.none(),
+            params: DomainGetParams = DomainGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Domain> =
-            read(params.toBuilder().domainId(domainId).build(), requestOptions)
+            get(params.toBuilder().domainId(domainId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             domainId: String,
-            params: DomainReadParams = DomainReadParams.none(),
-        ): HttpResponseFor<Domain> = read(domainId, params, RequestOptions.none())
+            params: DomainGetParams = DomainGetParams.none(),
+        ): HttpResponseFor<Domain> = get(domainId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: DomainReadParams,
+        fun get(
+            params: DomainGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Domain>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: DomainReadParams): HttpResponseFor<Domain> =
-            read(params, RequestOptions.none())
+        fun get(params: DomainGetParams): HttpResponseFor<Domain> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(domainId: String, requestOptions: RequestOptions): HttpResponseFor<Domain> =
-            read(domainId, DomainReadParams.none(), requestOptions)
+        fun get(domainId: String, requestOptions: RequestOptions): HttpResponseFor<Domain> =
+            get(domainId, DomainGetParams.none(), requestOptions)
     }
 }

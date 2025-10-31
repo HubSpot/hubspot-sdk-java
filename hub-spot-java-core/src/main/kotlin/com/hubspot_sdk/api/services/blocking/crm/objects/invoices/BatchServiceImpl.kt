@@ -18,9 +18,9 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicUpsertObject
-import com.hubspot_sdk.api.models.crm.objects.invoices.batch.BatchArchiveParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.batch.BatchCreateParams
-import com.hubspot_sdk.api.models.crm.objects.invoices.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.invoices.batch.BatchDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.invoices.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.batch.BatchUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.batch.BatchUpsertParams
 import java.util.function.Consumer
@@ -51,17 +51,17 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
         // post /crm/v3/objects/invoices/batch/update
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun archive(params: BatchArchiveParams, requestOptions: RequestOptions) {
+    override fun delete(params: BatchDeleteParams, requestOptions: RequestOptions) {
         // post /crm/v3/objects/invoices/batch/archive
-        withRawResponse().archive(params, requestOptions)
+        withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(
-        params: BatchReadParams,
+    override fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions,
     ): BatchResponseSimplePublicObject =
         // post /crm/v3/objects/invoices/batch/read
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun upsert(
         params: BatchUpsertParams,
@@ -139,10 +139,10 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val archiveHandler: Handler<Void?> = emptyHandler()
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun archive(
-            params: BatchArchiveParams,
+        override fun delete(
+            params: BatchDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             val request =
@@ -156,15 +156,15 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { archiveHandler.handle(it) }
+                response.use { deleteHandler.handle(it) }
             }
         }
 
-        private val readHandler: Handler<BatchResponseSimplePublicObject> =
+        private val getHandler: Handler<BatchResponseSimplePublicObject> =
             jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: BatchReadParams,
+        override fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseSimplePublicObject> {
             val request =
@@ -179,7 +179,7 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

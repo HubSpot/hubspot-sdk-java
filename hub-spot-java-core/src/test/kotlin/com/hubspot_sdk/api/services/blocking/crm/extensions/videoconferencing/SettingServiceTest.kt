@@ -21,7 +21,7 @@ internal class SettingServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
                 .build()
-        val settingService = client.crm().extensions().videoconferencing().settings()
+        val settingService = client.crm().extensions().videoConferencing().settings()
 
         val externalSettings =
             settingService.update(
@@ -50,7 +50,7 @@ internal class SettingServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
                 .build()
-        val settingService = client.crm().extensions().videoconferencing().settings()
+        val settingService = client.crm().extensions().videoConferencing().settings()
 
         settingService.delete(0)
     }
@@ -63,7 +63,7 @@ internal class SettingServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
                 .build()
-        val settingService = client.crm().extensions().videoconferencing().settings()
+        val settingService = client.crm().extensions().videoConferencing().settings()
 
         val externalSettings = settingService.get(0)
 

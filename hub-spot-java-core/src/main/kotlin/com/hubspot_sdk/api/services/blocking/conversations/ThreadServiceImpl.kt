@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicThreadForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicThread
-import com.hubspot_sdk.api.models.conversations.threads.ThreadArchiveParams
+import com.hubspot_sdk.api.models.conversations.threads.ThreadDeleteParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadListParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
@@ -49,9 +49,9 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
         // get /conversations/v3/conversations/threads
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun archive(params: ThreadArchiveParams, requestOptions: RequestOptions) {
+    override fun delete(params: ThreadDeleteParams, requestOptions: RequestOptions) {
         // delete /conversations/v3/conversations/threads/{threadId}
-        withRawResponse().archive(params, requestOptions)
+        withRawResponse().delete(params, requestOptions)
     }
 
     override fun get(params: ThreadGetParams, requestOptions: RequestOptions): PublicThread =
@@ -135,10 +135,10 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val archiveHandler: Handler<Void?> = emptyHandler()
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
-        override fun archive(
-            params: ThreadArchiveParams,
+        override fun delete(
+            params: ThreadDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -161,7 +161,7 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { archiveHandler.handle(it) }
+                response.use { deleteHandler.handle(it) }
             }
         }
 

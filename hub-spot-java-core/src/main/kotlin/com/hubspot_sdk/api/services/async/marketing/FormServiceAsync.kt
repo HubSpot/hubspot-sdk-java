@@ -10,9 +10,9 @@ import com.hubspot_sdk.api.models.marketing.forms.FormCreateParams
 import com.hubspot_sdk.api.models.marketing.forms.FormDefinitionBase
 import com.hubspot_sdk.api.models.marketing.forms.FormDefinitionCreateRequestBase
 import com.hubspot_sdk.api.models.marketing.forms.FormDeleteParams
+import com.hubspot_sdk.api.models.marketing.forms.FormGetParams
 import com.hubspot_sdk.api.models.marketing.forms.FormListPageAsync
 import com.hubspot_sdk.api.models.marketing.forms.FormListParams
-import com.hubspot_sdk.api.models.marketing.forms.FormReadParams
 import com.hubspot_sdk.api.models.marketing.forms.FormReplaceParams
 import com.hubspot_sdk.api.models.marketing.forms.FormUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -136,38 +136,36 @@ interface FormServiceAsync {
         delete(formId, FormDeleteParams.none(), requestOptions)
 
     /** Returns a form based on the form ID provided. */
-    fun read(formId: String): CompletableFuture<FormDefinitionBase> =
-        read(formId, FormReadParams.none())
+    fun get(formId: String): CompletableFuture<FormDefinitionBase> =
+        get(formId, FormGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         formId: String,
-        params: FormReadParams = FormReadParams.none(),
+        params: FormGetParams = FormGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FormDefinitionBase> =
-        read(params.toBuilder().formId(formId).build(), requestOptions)
+        get(params.toBuilder().formId(formId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         formId: String,
-        params: FormReadParams = FormReadParams.none(),
-    ): CompletableFuture<FormDefinitionBase> = read(formId, params, RequestOptions.none())
+        params: FormGetParams = FormGetParams.none(),
+    ): CompletableFuture<FormDefinitionBase> = get(formId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: FormReadParams,
+    /** @see get */
+    fun get(
+        params: FormGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FormDefinitionBase>
 
-    /** @see read */
-    fun read(params: FormReadParams): CompletableFuture<FormDefinitionBase> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: FormGetParams): CompletableFuture<FormDefinitionBase> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        formId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<FormDefinitionBase> = read(formId, FormReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(formId: String, requestOptions: RequestOptions): CompletableFuture<FormDefinitionBase> =
+        get(formId, FormGetParams.none(), requestOptions)
 
     /** Update all fields of a hubspot form definition. */
     fun replace(formId: String, params: FormReplaceParams): CompletableFuture<FormDefinitionBase> =
@@ -328,42 +326,42 @@ interface FormServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get /marketing/v3/forms/{formId}`, but is otherwise the
-         * same as [FormServiceAsync.read].
+         * same as [FormServiceAsync.get].
          */
-        fun read(formId: String): CompletableFuture<HttpResponseFor<FormDefinitionBase>> =
-            read(formId, FormReadParams.none())
+        fun get(formId: String): CompletableFuture<HttpResponseFor<FormDefinitionBase>> =
+            get(formId, FormGetParams.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             formId: String,
-            params: FormReadParams = FormReadParams.none(),
+            params: FormGetParams = FormGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<FormDefinitionBase>> =
-            read(params.toBuilder().formId(formId).build(), requestOptions)
+            get(params.toBuilder().formId(formId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             formId: String,
-            params: FormReadParams = FormReadParams.none(),
+            params: FormGetParams = FormGetParams.none(),
         ): CompletableFuture<HttpResponseFor<FormDefinitionBase>> =
-            read(formId, params, RequestOptions.none())
+            get(formId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: FormReadParams,
+        /** @see get */
+        fun get(
+            params: FormGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<FormDefinitionBase>>
 
-        /** @see read */
-        fun read(params: FormReadParams): CompletableFuture<HttpResponseFor<FormDefinitionBase>> =
-            read(params, RequestOptions.none())
+        /** @see get */
+        fun get(params: FormGetParams): CompletableFuture<HttpResponseFor<FormDefinitionBase>> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             formId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<FormDefinitionBase>> =
-            read(formId, FormReadParams.none(), requestOptions)
+            get(formId, FormGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /marketing/v3/forms/{formId}`, but is otherwise the

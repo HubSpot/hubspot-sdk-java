@@ -20,10 +20,11 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
 import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabel
 import com.hubspot_sdk.api.models.crm.CreatedResponseLabelsBetweenObjectPair
-import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateDefaultAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4ListAssociationsByTypeParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateAssociationLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListPageAsync
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateParams
 import com.hubspot_sdk.api.services.async.crm.associations.v4.BatchServiceAsync
 import com.hubspot_sdk.api.services.async.crm.associations.v4.BatchServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.associations.v4.ReportServiceAsync
@@ -52,34 +53,34 @@ class V4ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     override fun report(): ReportServiceAsync = report
 
-    override fun createDefaultAssociation(
-        params: V4CreateDefaultAssociationParams,
+    override fun create(
+        params: V4CreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
         // put
         // /crm/v4/objects/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}
-        withRawResponse().createDefaultAssociation(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    override fun deleteAssociation(
-        params: V4DeleteAssociationParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // delete /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}
-        withRawResponse().deleteAssociation(params, requestOptions).thenAccept {}
-
-    override fun listAssociationsByType(
-        params: V4ListAssociationsByTypeParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseMultiAssociatedObjectWithLabel> =
-        // get /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}
-        withRawResponse().listAssociationsByType(params, requestOptions).thenApply { it.parse() }
-
-    override fun updateAssociationLabels(
-        params: V4UpdateAssociationLabelsParams,
+    override fun update(
+        params: V4UpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CreatedResponseLabelsBetweenObjectPair> =
         // put /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}
-        withRawResponse().updateAssociationLabels(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+
+    override fun list(
+        params: V4ListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<V4ListPageAsync> =
+        // get /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun delete(
+        params: V4DeleteParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         V4ServiceAsync.WithRawResponse {
@@ -106,12 +107,11 @@ class V4ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
         override fun report(): ReportServiceAsync.WithRawResponse = report
 
-        private val createDefaultAssociationHandler:
-            Handler<BatchResponsePublicDefaultAssociation> =
+        private val createHandler: Handler<BatchResponsePublicDefaultAssociation> =
             jsonHandler<BatchResponsePublicDefaultAssociation>(clientOptions.jsonMapper)
 
-        override fun createDefaultAssociation(
-            params: V4CreateDefaultAssociationParams,
+        override fun create(
+            params: V4CreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> {
             // We check here instead of in the params builder because this can be specified
@@ -141,7 +141,7 @@ class V4ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { createDefaultAssociationHandler.handle(it) }
+                            .use { createHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -151,90 +151,11 @@ class V4ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 }
         }
 
-        private val deleteAssociationHandler: Handler<Void?> = emptyHandler()
-
-        override fun deleteAssociation(
-            params: V4DeleteAssociationParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("toObjectId", params.toObjectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "v4",
-                        "objects",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "associations",
-                        params._pathParam(2),
-                        params._pathParam(3),
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { deleteAssociationHandler.handle(it) }
-                    }
-                }
-        }
-
-        private val listAssociationsByTypeHandler:
-            Handler<CollectionResponseMultiAssociatedObjectWithLabel> =
-            jsonHandler<CollectionResponseMultiAssociatedObjectWithLabel>(clientOptions.jsonMapper)
-
-        override fun listAssociationsByType(
-            params: V4ListAssociationsByTypeParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("toObjectType", params.toObjectType().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "v4",
-                        "objects",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "associations",
-                        params._pathParam(2),
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { listAssociationsByTypeHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val updateAssociationLabelsHandler:
-            Handler<CreatedResponseLabelsBetweenObjectPair> =
+        private val updateHandler: Handler<CreatedResponseLabelsBetweenObjectPair> =
             jsonHandler<CreatedResponseLabelsBetweenObjectPair>(clientOptions.jsonMapper)
 
-        override fun updateAssociationLabels(
-            params: V4UpdateAssociationLabelsParams,
+        override fun update(
+            params: V4UpdateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>> {
             // We check here instead of in the params builder because this can be specified
@@ -263,12 +184,97 @@ class V4ServiceAsyncImpl internal constructor(private val clientOptions: ClientO
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { updateAssociationLabelsHandler.handle(it) }
+                            .use { updateHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
                             }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<CollectionResponseMultiAssociatedObjectWithLabel> =
+            jsonHandler<CollectionResponseMultiAssociatedObjectWithLabel>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: V4ListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<V4ListPageAsync>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "v4",
+                        "objects",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "associations",
+                        params._pathParam(2),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                V4ListPageAsync.builder()
+                                    .service(V4ServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
+                    }
+                }
+        }
+
+        private val deleteHandler: Handler<Void?> = emptyHandler()
+
+        override fun delete(
+            params: V4DeleteParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectId", params.toObjectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "v4",
+                        "objects",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "associations",
+                        params._pathParam(2),
+                        params._pathParam(3),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }

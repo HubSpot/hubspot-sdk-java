@@ -59,7 +59,7 @@ internal class ThreadServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun archive() {
+    fun delete() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -67,7 +67,7 @@ internal class ThreadServiceAsyncTest {
                 .build()
         val threadServiceAsync = client.conversations().threads()
 
-        val future = threadServiceAsync.archive("threadId")
+        val future = threadServiceAsync.delete("threadId")
 
         val response = future.get()
     }

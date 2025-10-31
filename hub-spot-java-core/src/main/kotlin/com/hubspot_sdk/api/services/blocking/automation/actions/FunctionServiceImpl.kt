@@ -20,13 +20,13 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.automation.actions.CollectionResponsePublicActionFunctionIdentifierNoPaging
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunction
 import com.hubspot_sdk.api.models.automation.actions.PublicActionFunctionIdentifier
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionArchiveByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetByFunctionTypeParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionListParams
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionReadParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -55,14 +55,6 @@ class FunctionServiceImpl internal constructor(private val clientOptions: Client
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun archiveByFunctionType(
-        params: FunctionArchiveByFunctionTypeParams,
-        requestOptions: RequestOptions,
-    ) {
-        // delete /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}
-        withRawResponse().archiveByFunctionType(params, requestOptions)
-    }
-
     override fun createOrReplace(
         params: FunctionCreateOrReplaceParams,
         requestOptions: RequestOptions,
@@ -77,19 +69,27 @@ class FunctionServiceImpl internal constructor(private val clientOptions: Client
         // put /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}
         withRawResponse().createOrReplaceByFunctionType(params, requestOptions).parse()
 
+    override fun deleteByFunctionType(
+        params: FunctionDeleteByFunctionTypeParams,
+        requestOptions: RequestOptions,
+    ) {
+        // delete /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}
+        withRawResponse().deleteByFunctionType(params, requestOptions)
+    }
+
+    override fun get(
+        params: FunctionGetParams,
+        requestOptions: RequestOptions,
+    ): PublicActionFunction =
+        // get /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}
+        withRawResponse().get(params, requestOptions).parse()
+
     override fun getByFunctionType(
         params: FunctionGetByFunctionTypeParams,
         requestOptions: RequestOptions,
     ): PublicActionFunction =
         // get /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}
         withRawResponse().getByFunctionType(params, requestOptions).parse()
-
-    override fun read(
-        params: FunctionReadParams,
-        requestOptions: RequestOptions,
-    ): PublicActionFunction =
-        // get /automation/v4/actions/{appId}/{definitionId}/functions/{functionType}/{functionId}
-        withRawResponse().read(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FunctionService.WithRawResponse {
@@ -176,38 +176,6 @@ class FunctionServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val archiveByFunctionTypeHandler: Handler<Void?> = emptyHandler()
-
-        override fun archiveByFunctionType(
-            params: FunctionArchiveByFunctionTypeParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("functionType", params.functionType().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "automation",
-                        "v4",
-                        "actions",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "functions",
-                        params._pathParam(2),
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { archiveByFunctionTypeHandler.handle(it) }
-            }
-        }
-
         private val createOrReplaceHandler: Handler<PublicActionFunctionIdentifier> =
             jsonHandler<PublicActionFunctionIdentifier>(clientOptions.jsonMapper)
 
@@ -287,6 +255,77 @@ class FunctionServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
+        private val deleteByFunctionTypeHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteByFunctionType(
+            params: FunctionDeleteByFunctionTypeParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("functionType", params.functionType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "automation",
+                        "v4",
+                        "actions",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "functions",
+                        params._pathParam(2),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteByFunctionTypeHandler.handle(it) }
+            }
+        }
+
+        private val getHandler: Handler<PublicActionFunction> =
+            jsonHandler<PublicActionFunction>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: FunctionGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PublicActionFunction> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("functionId", params.functionId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "automation",
+                        "v4",
+                        "actions",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "functions",
+                        params._pathParam(2),
+                        params._pathParam(3),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val getByFunctionTypeHandler: Handler<PublicActionFunction> =
             jsonHandler<PublicActionFunction>(clientOptions.jsonMapper)
 
@@ -317,45 +356,6 @@ class FunctionServiceImpl internal constructor(private val clientOptions: Client
             return errorHandler.handle(response).parseable {
                 response
                     .use { getByFunctionTypeHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val readHandler: Handler<PublicActionFunction> =
-            jsonHandler<PublicActionFunction>(clientOptions.jsonMapper)
-
-        override fun read(
-            params: FunctionReadParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PublicActionFunction> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("functionId", params.functionId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "automation",
-                        "v4",
-                        "actions",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "functions",
-                        params._pathParam(2),
-                        params._pathParam(3),
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { readHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

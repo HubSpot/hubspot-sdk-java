@@ -21,9 +21,9 @@ import com.hubspot_sdk.api.models.cms.urlredirects.CollectionResponseWithTotalUr
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectDeleteParams
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListPageAsync
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectReadParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -69,12 +69,12 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
         // delete /cms/v3/url-redirects/{urlRedirectId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
-    override fun read(
-        params: UrlRedirectReadParams,
+    override fun get(
+        params: UrlRedirectGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<UrlMapping> =
         // get /cms/v3/url-redirects/{urlRedirectId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UrlRedirectServiceAsync.WithRawResponse {
@@ -221,11 +221,11 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val readHandler: Handler<UrlMapping> =
+        private val getHandler: Handler<UrlMapping> =
             jsonHandler<UrlMapping>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: UrlRedirectReadParams,
+        override fun get(
+            params: UrlRedirectGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<UrlMapping>> {
             // We check here instead of in the params builder because this can be specified
@@ -244,7 +244,7 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { readHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

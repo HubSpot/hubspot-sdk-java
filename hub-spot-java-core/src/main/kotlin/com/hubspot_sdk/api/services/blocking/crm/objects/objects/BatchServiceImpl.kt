@@ -21,7 +21,7 @@ import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicUpsertObject
 import com.hubspot_sdk.api.models.crm.objects.objects.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.objects.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.objects.objects.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.objects.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.objects.batch.BatchUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.objects.batch.BatchUpsertParams
 import java.util.function.Consumer
@@ -58,12 +58,12 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(
-        params: BatchReadParams,
+    override fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions,
     ): BatchResponseSimplePublicObject =
         // post /crm/v3/objects/{objectType}/batch/read
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun upsert(
         params: BatchUpsertParams,
@@ -192,11 +192,11 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val readHandler: Handler<BatchResponseSimplePublicObject> =
+        private val getHandler: Handler<BatchResponseSimplePublicObject> =
             jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: BatchReadParams,
+        override fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<BatchResponseSimplePublicObject> {
             // We check here instead of in the params builder because this can be specified
@@ -214,7 +214,7 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

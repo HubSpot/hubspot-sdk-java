@@ -11,9 +11,9 @@ import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlMappingCreateRequestBody
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectDeleteParams
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListPage
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectReadParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.util.function.Consumer
 
@@ -126,33 +126,33 @@ interface UrlRedirectService {
         delete(urlRedirectId, UrlRedirectDeleteParams.none(), requestOptions)
 
     /** Returns the details for a single existing URL redirect by ID. */
-    fun read(urlRedirectId: String): UrlMapping = read(urlRedirectId, UrlRedirectReadParams.none())
+    fun get(urlRedirectId: String): UrlMapping = get(urlRedirectId, UrlRedirectGetParams.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         urlRedirectId: String,
-        params: UrlRedirectReadParams = UrlRedirectReadParams.none(),
+        params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UrlMapping = read(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
+    ): UrlMapping = get(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         urlRedirectId: String,
-        params: UrlRedirectReadParams = UrlRedirectReadParams.none(),
-    ): UrlMapping = read(urlRedirectId, params, RequestOptions.none())
+        params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
+    ): UrlMapping = get(urlRedirectId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: UrlRedirectReadParams,
+    /** @see get */
+    fun get(
+        params: UrlRedirectGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): UrlMapping
 
-    /** @see read */
-    fun read(params: UrlRedirectReadParams): UrlMapping = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: UrlRedirectGetParams): UrlMapping = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(urlRedirectId: String, requestOptions: RequestOptions): UrlMapping =
-        read(urlRedirectId, UrlRedirectReadParams.none(), requestOptions)
+    /** @see get */
+    fun get(urlRedirectId: String, requestOptions: RequestOptions): UrlMapping =
+        get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
 
     /**
      * A view of [UrlRedirectService] that provides access to raw HTTP responses for each method.
@@ -301,46 +301,46 @@ interface UrlRedirectService {
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/url-redirects/{urlRedirectId}`, but is
-         * otherwise the same as [UrlRedirectService.read].
+         * otherwise the same as [UrlRedirectService.get].
          */
         @MustBeClosed
-        fun read(urlRedirectId: String): HttpResponseFor<UrlMapping> =
-            read(urlRedirectId, UrlRedirectReadParams.none())
+        fun get(urlRedirectId: String): HttpResponseFor<UrlMapping> =
+            get(urlRedirectId, UrlRedirectGetParams.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             urlRedirectId: String,
-            params: UrlRedirectReadParams = UrlRedirectReadParams.none(),
+            params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<UrlMapping> =
-            read(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
+            get(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             urlRedirectId: String,
-            params: UrlRedirectReadParams = UrlRedirectReadParams.none(),
-        ): HttpResponseFor<UrlMapping> = read(urlRedirectId, params, RequestOptions.none())
+            params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
+        ): HttpResponseFor<UrlMapping> = get(urlRedirectId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: UrlRedirectReadParams,
+        fun get(
+            params: UrlRedirectGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<UrlMapping>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: UrlRedirectReadParams): HttpResponseFor<UrlMapping> =
-            read(params, RequestOptions.none())
+        fun get(params: UrlRedirectGetParams): HttpResponseFor<UrlMapping> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             urlRedirectId: String,
             requestOptions: RequestOptions,
         ): HttpResponseFor<UrlMapping> =
-            read(urlRedirectId, UrlRedirectReadParams.none(), requestOptions)
+            get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
     }
 }

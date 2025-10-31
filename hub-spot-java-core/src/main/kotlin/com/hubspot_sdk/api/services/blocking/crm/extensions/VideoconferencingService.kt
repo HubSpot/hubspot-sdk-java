@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.services.blocking.crm.extensions
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.crm.extensions.videoconferencing.SettingService
 import java.util.function.Consumer
 
 interface VideoconferencingService {
@@ -20,8 +19,6 @@ interface VideoconferencingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VideoconferencingService
 
-    fun settings(): SettingService
-
     /**
      * A view of [VideoconferencingService] that provides access to raw HTTP responses for each
      * method.
@@ -36,7 +33,5 @@ interface VideoconferencingService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): VideoconferencingService.WithRawResponse
-
-        fun settings(): SettingService.WithRawResponse
     }
 }

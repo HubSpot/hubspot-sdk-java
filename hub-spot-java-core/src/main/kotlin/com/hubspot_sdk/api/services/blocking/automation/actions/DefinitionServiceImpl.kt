@@ -21,9 +21,9 @@ import com.hubspot_sdk.api.models.automation.actions.CollectionResponsePublicAct
 import com.hubspot_sdk.api.models.automation.actions.PublicActionDefinition
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionDeleteParams
+import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListPage
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionListParams
-import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionReadParams
 import com.hubspot_sdk.api.models.automation.actions.definitions.DefinitionUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -66,12 +66,12 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun read(
-        params: DefinitionReadParams,
+    override fun get(
+        params: DefinitionGetParams,
         requestOptions: RequestOptions,
     ): PublicActionDefinition =
         // get /automation/v4/actions/{appId}/{definitionId}
-        withRawResponse().read(params, requestOptions).parse()
+        withRawResponse().get(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DefinitionService.WithRawResponse {
@@ -223,11 +223,11 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val readHandler: Handler<PublicActionDefinition> =
+        private val getHandler: Handler<PublicActionDefinition> =
             jsonHandler<PublicActionDefinition>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: DefinitionReadParams,
+        override fun get(
+            params: DefinitionGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PublicActionDefinition> {
             // We check here instead of in the params builder because this can be specified
@@ -250,7 +250,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

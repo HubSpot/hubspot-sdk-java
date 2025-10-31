@@ -4,8 +4,8 @@ package com.hubspot_sdk.api.services.async.automation.actions
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
+import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionGetParams
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListParams
-import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionReadParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -34,7 +34,7 @@ internal class RevisionServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -43,8 +43,8 @@ internal class RevisionServiceAsyncTest {
         val revisionServiceAsync = client.automation().actions().revisions()
 
         val publicActionRevisionFuture =
-            revisionServiceAsync.read(
-                RevisionReadParams.builder()
+            revisionServiceAsync.get(
+                RevisionGetParams.builder()
                     .appId(0)
                     .definitionId("definitionId")
                     .revisionId("revisionId")

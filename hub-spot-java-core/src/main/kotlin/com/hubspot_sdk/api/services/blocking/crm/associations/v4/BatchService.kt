@@ -10,11 +10,11 @@ import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchResponseLabelsBetweenObjectPair
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchResponseVoid
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchAssociateDefaultParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchCreateParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchDeleteLabelsParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchDeleteParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchBatchReadParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateDefaultParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteParams
+import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchGetParams
 import java.util.function.Consumer
 
 interface BatchService {
@@ -31,103 +31,98 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
-    /** Create the default (most generic) association type between two object types */
-    fun batchAssociateDefault(
-        toObjectType: String,
-        params: BatchBatchAssociateDefaultParams,
-    ): BatchResponsePublicDefaultAssociation =
-        batchAssociateDefault(toObjectType, params, RequestOptions.none())
-
-    /** @see batchAssociateDefault */
-    fun batchAssociateDefault(
-        toObjectType: String,
-        params: BatchBatchAssociateDefaultParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponsePublicDefaultAssociation =
-        batchAssociateDefault(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
-
-    /** @see batchAssociateDefault */
-    fun batchAssociateDefault(
-        params: BatchBatchAssociateDefaultParams
-    ): BatchResponsePublicDefaultAssociation = batchAssociateDefault(params, RequestOptions.none())
-
-    /** @see batchAssociateDefault */
-    fun batchAssociateDefault(
-        params: BatchBatchAssociateDefaultParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponsePublicDefaultAssociation
-
     /** Batch create associations for objects */
-    fun batchCreate(
+    fun create(
         toObjectType: String,
-        params: BatchBatchCreateParams,
-    ): BatchResponseLabelsBetweenObjectPair =
-        batchCreate(toObjectType, params, RequestOptions.none())
+        params: BatchCreateParams,
+    ): BatchResponseLabelsBetweenObjectPair = create(toObjectType, params, RequestOptions.none())
 
-    /** @see batchCreate */
-    fun batchCreate(
+    /** @see create */
+    fun create(
         toObjectType: String,
-        params: BatchBatchCreateParams,
+        params: BatchCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseLabelsBetweenObjectPair =
-        batchCreate(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+        create(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-    /** @see batchCreate */
-    fun batchCreate(params: BatchBatchCreateParams): BatchResponseLabelsBetweenObjectPair =
-        batchCreate(params, RequestOptions.none())
+    /** @see create */
+    fun create(params: BatchCreateParams): BatchResponseLabelsBetweenObjectPair =
+        create(params, RequestOptions.none())
 
-    /** @see batchCreate */
-    fun batchCreate(
-        params: BatchBatchCreateParams,
+    /** @see create */
+    fun create(
+        params: BatchCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseLabelsBetweenObjectPair
 
     /** Batch delete associations for objects */
-    fun batchDelete(toObjectType: String, params: BatchBatchDeleteParams): BatchResponseVoid =
-        batchDelete(toObjectType, params, RequestOptions.none())
+    fun delete(toObjectType: String, params: BatchDeleteParams): BatchResponseVoid =
+        delete(toObjectType, params, RequestOptions.none())
 
-    /** @see batchDelete */
-    fun batchDelete(
+    /** @see delete */
+    fun delete(
         toObjectType: String,
-        params: BatchBatchDeleteParams,
+        params: BatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseVoid =
-        batchDelete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+        delete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-    /** @see batchDelete */
-    fun batchDelete(params: BatchBatchDeleteParams): BatchResponseVoid =
-        batchDelete(params, RequestOptions.none())
+    /** @see delete */
+    fun delete(params: BatchDeleteParams): BatchResponseVoid = delete(params, RequestOptions.none())
 
-    /** @see batchDelete */
-    fun batchDelete(
-        params: BatchBatchDeleteParams,
+    /** @see delete */
+    fun delete(
+        params: BatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseVoid
+
+    /** Create the default (most generic) association type between two object types */
+    fun createDefault(
+        toObjectType: String,
+        params: BatchCreateDefaultParams,
+    ): BatchResponsePublicDefaultAssociation =
+        createDefault(toObjectType, params, RequestOptions.none())
+
+    /** @see createDefault */
+    fun createDefault(
+        toObjectType: String,
+        params: BatchCreateDefaultParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponsePublicDefaultAssociation =
+        createDefault(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+    /** @see createDefault */
+    fun createDefault(params: BatchCreateDefaultParams): BatchResponsePublicDefaultAssociation =
+        createDefault(params, RequestOptions.none())
+
+    /** @see createDefault */
+    fun createDefault(
+        params: BatchCreateDefaultParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponsePublicDefaultAssociation
 
     /**
      * Batch delete specific association labels for objects. Deleting an unlabeled association will
      * also delete all labeled associations between those two objects
      */
-    fun batchDeleteLabels(
-        toObjectType: String,
-        params: BatchBatchDeleteLabelsParams,
-    ): BatchResponseVoid = batchDeleteLabels(toObjectType, params, RequestOptions.none())
+    fun deleteLabels(toObjectType: String, params: BatchDeleteLabelsParams): BatchResponseVoid =
+        deleteLabels(toObjectType, params, RequestOptions.none())
 
-    /** @see batchDeleteLabels */
-    fun batchDeleteLabels(
+    /** @see deleteLabels */
+    fun deleteLabels(
         toObjectType: String,
-        params: BatchBatchDeleteLabelsParams,
+        params: BatchDeleteLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseVoid =
-        batchDeleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+        deleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-    /** @see batchDeleteLabels */
-    fun batchDeleteLabels(params: BatchBatchDeleteLabelsParams): BatchResponseVoid =
-        batchDeleteLabels(params, RequestOptions.none())
+    /** @see deleteLabels */
+    fun deleteLabels(params: BatchDeleteLabelsParams): BatchResponseVoid =
+        deleteLabels(params, RequestOptions.none())
 
-    /** @see batchDeleteLabels */
-    fun batchDeleteLabels(
-        params: BatchBatchDeleteLabelsParams,
+    /** @see deleteLabels */
+    fun deleteLabels(
+        params: BatchDeleteLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseVoid
 
@@ -137,27 +132,27 @@ interface BatchService {
      * that objectId. The 'link' field is deprecated and should be ignored. Note: The 'paging' field
      * will only be present if there are more pages and absent otherwise.
      */
-    fun batchRead(
+    fun get(
         toObjectType: String,
-        params: BatchBatchReadParams,
+        params: BatchGetParams,
     ): BatchResponsePublicAssociationMultiWithLabel =
-        batchRead(toObjectType, params, RequestOptions.none())
+        get(toObjectType, params, RequestOptions.none())
 
-    /** @see batchRead */
-    fun batchRead(
+    /** @see get */
+    fun get(
         toObjectType: String,
-        params: BatchBatchReadParams,
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponsePublicAssociationMultiWithLabel =
-        batchRead(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+        get(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-    /** @see batchRead */
-    fun batchRead(params: BatchBatchReadParams): BatchResponsePublicAssociationMultiWithLabel =
-        batchRead(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: BatchGetParams): BatchResponsePublicAssociationMultiWithLabel =
+        get(params, RequestOptions.none())
 
-    /** @see batchRead */
-    fun batchRead(
-        params: BatchBatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponsePublicAssociationMultiWithLabel
 
@@ -173,176 +168,171 @@ interface BatchService {
 
         /**
          * Returns a raw HTTP response for `post
-         * /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/associate/default`, but is
-         * otherwise the same as [BatchService.batchAssociateDefault].
-         */
-        @MustBeClosed
-        fun batchAssociateDefault(
-            toObjectType: String,
-            params: BatchBatchAssociateDefaultParams,
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            batchAssociateDefault(toObjectType, params, RequestOptions.none())
-
-        /** @see batchAssociateDefault */
-        @MustBeClosed
-        fun batchAssociateDefault(
-            toObjectType: String,
-            params: BatchBatchAssociateDefaultParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            batchAssociateDefault(
-                params.toBuilder().toObjectType(toObjectType).build(),
-                requestOptions,
-            )
-
-        /** @see batchAssociateDefault */
-        @MustBeClosed
-        fun batchAssociateDefault(
-            params: BatchBatchAssociateDefaultParams
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            batchAssociateDefault(params, RequestOptions.none())
-
-        /** @see batchAssociateDefault */
-        @MustBeClosed
-        fun batchAssociateDefault(
-            params: BatchBatchAssociateDefaultParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation>
-
-        /**
-         * Returns a raw HTTP response for `post
          * /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/create`, but is otherwise the
-         * same as [BatchService.batchCreate].
+         * same as [BatchService.create].
          */
         @MustBeClosed
-        fun batchCreate(
+        fun create(
             toObjectType: String,
-            params: BatchBatchCreateParams,
+            params: BatchCreateParams,
         ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair> =
-            batchCreate(toObjectType, params, RequestOptions.none())
+            create(toObjectType, params, RequestOptions.none())
 
-        /** @see batchCreate */
+        /** @see create */
         @MustBeClosed
-        fun batchCreate(
+        fun create(
             toObjectType: String,
-            params: BatchBatchCreateParams,
+            params: BatchCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair> =
-            batchCreate(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+            create(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-        /** @see batchCreate */
+        /** @see create */
         @MustBeClosed
-        fun batchCreate(
-            params: BatchBatchCreateParams
+        fun create(
+            params: BatchCreateParams
         ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair> =
-            batchCreate(params, RequestOptions.none())
+            create(params, RequestOptions.none())
 
-        /** @see batchCreate */
+        /** @see create */
         @MustBeClosed
-        fun batchCreate(
-            params: BatchBatchCreateParams,
+        fun create(
+            params: BatchCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseLabelsBetweenObjectPair>
 
         /**
          * Returns a raw HTTP response for `post
          * /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/archive`, but is otherwise the
-         * same as [BatchService.batchDelete].
+         * same as [BatchService.delete].
          */
         @MustBeClosed
-        fun batchDelete(
+        fun delete(
             toObjectType: String,
-            params: BatchBatchDeleteParams,
-        ): HttpResponseFor<BatchResponseVoid> =
-            batchDelete(toObjectType, params, RequestOptions.none())
+            params: BatchDeleteParams,
+        ): HttpResponseFor<BatchResponseVoid> = delete(toObjectType, params, RequestOptions.none())
 
-        /** @see batchDelete */
+        /** @see delete */
         @MustBeClosed
-        fun batchDelete(
+        fun delete(
             toObjectType: String,
-            params: BatchBatchDeleteParams,
+            params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseVoid> =
-            batchDelete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+            delete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-        /** @see batchDelete */
+        /** @see delete */
         @MustBeClosed
-        fun batchDelete(params: BatchBatchDeleteParams): HttpResponseFor<BatchResponseVoid> =
-            batchDelete(params, RequestOptions.none())
+        fun delete(params: BatchDeleteParams): HttpResponseFor<BatchResponseVoid> =
+            delete(params, RequestOptions.none())
 
-        /** @see batchDelete */
+        /** @see delete */
         @MustBeClosed
-        fun batchDelete(
-            params: BatchBatchDeleteParams,
+        fun delete(
+            params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseVoid>
 
         /**
          * Returns a raw HTTP response for `post
-         * /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/labels/archive`, but is
-         * otherwise the same as [BatchService.batchDeleteLabels].
+         * /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/associate/default`, but is
+         * otherwise the same as [BatchService.createDefault].
          */
         @MustBeClosed
-        fun batchDeleteLabels(
+        fun createDefault(
             toObjectType: String,
-            params: BatchBatchDeleteLabelsParams,
-        ): HttpResponseFor<BatchResponseVoid> =
-            batchDeleteLabels(toObjectType, params, RequestOptions.none())
+            params: BatchCreateDefaultParams,
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+            createDefault(toObjectType, params, RequestOptions.none())
 
-        /** @see batchDeleteLabels */
+        /** @see createDefault */
         @MustBeClosed
-        fun batchDeleteLabels(
+        fun createDefault(
             toObjectType: String,
-            params: BatchBatchDeleteLabelsParams,
+            params: BatchCreateDefaultParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+            createDefault(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+        /** @see createDefault */
+        @MustBeClosed
+        fun createDefault(
+            params: BatchCreateDefaultParams
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+            createDefault(params, RequestOptions.none())
+
+        /** @see createDefault */
+        @MustBeClosed
+        fun createDefault(
+            params: BatchCreateDefaultParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/labels/archive`, but is
+         * otherwise the same as [BatchService.deleteLabels].
+         */
+        @MustBeClosed
+        fun deleteLabels(
+            toObjectType: String,
+            params: BatchDeleteLabelsParams,
+        ): HttpResponseFor<BatchResponseVoid> =
+            deleteLabels(toObjectType, params, RequestOptions.none())
+
+        /** @see deleteLabels */
+        @MustBeClosed
+        fun deleteLabels(
+            toObjectType: String,
+            params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseVoid> =
-            batchDeleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+            deleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-        /** @see batchDeleteLabels */
+        /** @see deleteLabels */
         @MustBeClosed
-        fun batchDeleteLabels(
-            params: BatchBatchDeleteLabelsParams
-        ): HttpResponseFor<BatchResponseVoid> = batchDeleteLabels(params, RequestOptions.none())
+        fun deleteLabels(params: BatchDeleteLabelsParams): HttpResponseFor<BatchResponseVoid> =
+            deleteLabels(params, RequestOptions.none())
 
-        /** @see batchDeleteLabels */
+        /** @see deleteLabels */
         @MustBeClosed
-        fun batchDeleteLabels(
-            params: BatchBatchDeleteLabelsParams,
+        fun deleteLabels(
+            params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseVoid>
 
         /**
          * Returns a raw HTTP response for `post
          * /crm/v4/associations/{fromObjectType}/{toObjectType}/batch/read`, but is otherwise the
-         * same as [BatchService.batchRead].
+         * same as [BatchService.get].
          */
         @MustBeClosed
-        fun batchRead(
+        fun get(
             toObjectType: String,
-            params: BatchBatchReadParams,
+            params: BatchGetParams,
         ): HttpResponseFor<BatchResponsePublicAssociationMultiWithLabel> =
-            batchRead(toObjectType, params, RequestOptions.none())
+            get(toObjectType, params, RequestOptions.none())
 
-        /** @see batchRead */
+        /** @see get */
         @MustBeClosed
-        fun batchRead(
+        fun get(
             toObjectType: String,
-            params: BatchBatchReadParams,
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponsePublicAssociationMultiWithLabel> =
-            batchRead(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+            get(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-        /** @see batchRead */
+        /** @see get */
         @MustBeClosed
-        fun batchRead(
-            params: BatchBatchReadParams
+        fun get(
+            params: BatchGetParams
         ): HttpResponseFor<BatchResponsePublicAssociationMultiWithLabel> =
-            batchRead(params, RequestOptions.none())
+            get(params, RequestOptions.none())
 
-        /** @see batchRead */
+        /** @see get */
         @MustBeClosed
-        fun batchRead(
-            params: BatchBatchReadParams,
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponsePublicAssociationMultiWithLabel>
     }

@@ -14,9 +14,9 @@ import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicUpsertObject
-import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchArchiveParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchCreateParams
-import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.batch.BatchUpsertParams
 import java.util.function.Consumer
@@ -111,54 +111,54 @@ interface BatchService {
      * and how to
      * [restore archived records](https://knowledge.hubspot.com/records/restore-deleted-records).
      */
-    fun archive(params: BatchArchiveParams) = archive(params, RequestOptions.none())
+    fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
 
-    /** @see archive */
-    fun archive(params: BatchArchiveParams, requestOptions: RequestOptions = RequestOptions.none())
+    /** @see delete */
+    fun delete(params: BatchDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /** @see archive */
-    fun archive(
+    /** @see delete */
+    fun delete(
         batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
         requestOptions: RequestOptions = RequestOptions.none(),
     ) =
-        archive(
-            BatchArchiveParams.builder()
+        delete(
+            BatchDeleteParams.builder()
                 .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
                 .build(),
             requestOptions,
         )
 
-    /** @see archive */
-    fun archive(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
-        archive(batchInputSimplePublicObjectId, RequestOptions.none())
+    /** @see delete */
+    fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
+        delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
     /** Retrieve a batch of contacts by ID (`contactId`) or unique property value (`idProperty`). */
-    fun read(params: BatchReadParams): BatchResponseSimplePublicObject =
-        read(params, RequestOptions.none())
+    fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseSimplePublicObject
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseSimplePublicObject =
-        read(
-            BatchReadParams.builder()
+        get(
+            BatchGetParams.builder()
                 .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
                 .build(),
             requestOptions,
         )
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
     ): BatchResponseSimplePublicObject =
-        read(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
      * Upsert a batch of contacts. The `inputs` array can contain a `properties` object to define
@@ -279,71 +279,70 @@ interface BatchService {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/contacts/batch/archive`, but is
-         * otherwise the same as [BatchService.archive].
+         * otherwise the same as [BatchService.delete].
          */
         @MustBeClosed
-        fun archive(params: BatchArchiveParams): HttpResponse =
-            archive(params, RequestOptions.none())
+        fun delete(params: BatchDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(
-            params: BatchArchiveParams,
+        fun delete(
+            params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(
+        fun delete(
             batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            archive(
-                BatchArchiveParams.builder()
+            delete(
+                BatchDeleteParams.builder()
                     .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
                     .build(),
                 requestOptions,
             )
 
-        /** @see archive */
+        /** @see delete */
         @MustBeClosed
-        fun archive(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
-            archive(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
+            delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/contacts/batch/read`, but is
-         * otherwise the same as [BatchService.read].
+         * otherwise the same as [BatchService.get].
          */
         @MustBeClosed
-        fun read(params: BatchReadParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(params, RequestOptions.none())
+        fun get(params: BatchGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: BatchReadParams,
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseSimplePublicObject>
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(
-                BatchReadParams.builder()
+            get(
+                BatchGetParams.builder()
                     .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
                     .build(),
                 requestOptions,
             )
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
         ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            read(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/contacts/batch/upsert`, but is

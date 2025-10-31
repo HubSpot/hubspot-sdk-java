@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.BatchResponseSimplePublicUpsertObject
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchDeleteParams
-import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchReadParams
+import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchUpsertParams
 import java.util.concurrent.CompletableFuture
@@ -106,27 +106,27 @@ interface BatchServiceAsync {
      * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
      * custom unique value property.
      */
-    fun read(
+    fun get(
         objectType: String,
-        params: BatchReadParams,
+        params: BatchGetParams,
     ): CompletableFuture<BatchResponseSimplePublicObject> =
-        read(objectType, params, RequestOptions.none())
+        get(objectType, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         objectType: String,
-        params: BatchReadParams,
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSimplePublicObject> =
-        read(params.toBuilder().objectType(objectType).build(), requestOptions)
+        get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: BatchReadParams): CompletableFuture<BatchResponseSimplePublicObject> =
-        read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
+        get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSimplePublicObject>
 
@@ -260,31 +260,31 @@ interface BatchServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/batch/read`, but is
-         * otherwise the same as [BatchServiceAsync.read].
+         * otherwise the same as [BatchServiceAsync.get].
          */
-        fun read(
+        fun get(
             objectType: String,
-            params: BatchReadParams,
+            params: BatchGetParams,
         ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            read(objectType, params, RequestOptions.none())
+            get(objectType, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
+        /** @see get */
+        fun get(
             objectType: String,
-            params: BatchReadParams,
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            read(params.toBuilder().objectType(objectType).build(), requestOptions)
+            get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-        /** @see read */
-        fun read(
-            params: BatchReadParams
+        /** @see get */
+        fun get(
+            params: BatchGetParams
         ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            read(params, RequestOptions.none())
+            get(params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: BatchReadParams,
+        /** @see get */
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
 

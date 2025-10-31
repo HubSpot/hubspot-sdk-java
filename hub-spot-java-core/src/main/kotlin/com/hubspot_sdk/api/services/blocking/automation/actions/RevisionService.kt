@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.actions.PublicActionRevision
+import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionGetParams
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListPage
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListParams
-import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionReadParams
 import java.util.function.Consumer
 
 interface RevisionService {
@@ -48,23 +48,22 @@ interface RevisionService {
     ): RevisionListPage
 
     /** Retrieve a specific revision of a definition by revision ID. */
-    fun read(revisionId: String, params: RevisionReadParams): PublicActionRevision =
-        read(revisionId, params, RequestOptions.none())
+    fun get(revisionId: String, params: RevisionGetParams): PublicActionRevision =
+        get(revisionId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
+    /** @see get */
+    fun get(
         revisionId: String,
-        params: RevisionReadParams,
+        params: RevisionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicActionRevision =
-        read(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+    ): PublicActionRevision = get(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-    /** @see read */
-    fun read(params: RevisionReadParams): PublicActionRevision = read(params, RequestOptions.none())
+    /** @see get */
+    fun get(params: RevisionGetParams): PublicActionRevision = get(params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: RevisionReadParams,
+    /** @see get */
+    fun get(
+        params: RevisionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionRevision
 
@@ -113,32 +112,32 @@ interface RevisionService {
         /**
          * Returns a raw HTTP response for `get
          * /automation/v4/actions/{appId}/{definitionId}/revisions/{revisionId}`, but is otherwise
-         * the same as [RevisionService.read].
+         * the same as [RevisionService.get].
          */
         @MustBeClosed
-        fun read(
+        fun get(
             revisionId: String,
-            params: RevisionReadParams,
-        ): HttpResponseFor<PublicActionRevision> = read(revisionId, params, RequestOptions.none())
+            params: RevisionGetParams,
+        ): HttpResponseFor<PublicActionRevision> = get(revisionId, params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
+        fun get(
             revisionId: String,
-            params: RevisionReadParams,
+            params: RevisionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicActionRevision> =
-            read(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+            get(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(params: RevisionReadParams): HttpResponseFor<PublicActionRevision> =
-            read(params, RequestOptions.none())
+        fun get(params: RevisionGetParams): HttpResponseFor<PublicActionRevision> =
+            get(params, RequestOptions.none())
 
-        /** @see read */
+        /** @see get */
         @MustBeClosed
-        fun read(
-            params: RevisionReadParams,
+        fun get(
+            params: RevisionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicActionRevision>
     }

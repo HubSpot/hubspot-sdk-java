@@ -10,8 +10,8 @@ import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinitionPatch
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypePropertyCreate
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaArchiveAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
@@ -175,27 +175,6 @@ internal class SchemaServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun archiveAssociation() {
-        val client =
-            HubSpotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val schemaServiceAsync = client.crm().objects().schemas()
-
-        val future =
-            schemaServiceAsync.archiveAssociation(
-                SchemaArchiveAssociationParams.builder()
-                    .objectType("objectType")
-                    .associationIdentifier("associationIdentifier")
-                    .build()
-            )
-
-        val response = future.get()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
     fun createAssociation() {
         val client =
             HubSpotOkHttpClientAsync.builder()
@@ -224,7 +203,7 @@ internal class SchemaServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun deleteAssociation() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -232,7 +211,28 @@ internal class SchemaServiceAsyncTest {
                 .build()
         val schemaServiceAsync = client.crm().objects().schemas()
 
-        val objectSchemaFuture = schemaServiceAsync.read("objectType")
+        val future =
+            schemaServiceAsync.deleteAssociation(
+                SchemaDeleteAssociationParams.builder()
+                    .objectType("objectType")
+                    .associationIdentifier("associationIdentifier")
+                    .build()
+            )
+
+        val response = future.get()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun get() {
+        val client =
+            HubSpotOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val schemaServiceAsync = client.crm().objects().schemas()
+
+        val objectSchemaFuture = schemaServiceAsync.get("objectType")
 
         val objectSchema = objectSchemaFuture.get()
         objectSchema.validate()

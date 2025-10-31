@@ -27,13 +27,13 @@ import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetDraftByIdParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostPushLiveParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostReadParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostResetDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
@@ -121,6 +121,13 @@ class PostServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // post /cms/v3/blogs/posts/multi-language/detach-from-lang-group
         withRawResponse().detachFromLangGroup(params, requestOptions).thenAccept {}
 
+    override fun get(
+        params: PostGetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BlogPost> =
+        // get /cms/v3/blogs/posts/{objectId}
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+
     override fun getDraftById(
         params: PostGetDraftByIdParams,
         requestOptions: RequestOptions,
@@ -148,13 +155,6 @@ class PostServiceAsyncImpl internal constructor(private val clientOptions: Clien
     ): CompletableFuture<Void?> =
         // post /cms/v3/blogs/posts/{objectId}/draft/push-live
         withRawResponse().pushLive(params, requestOptions).thenAccept {}
-
-    override fun read(
-        params: PostReadParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<BlogPost> =
-        // get /cms/v3/blogs/posts/{objectId}
-        withRawResponse().read(params, requestOptions).thenApply { it.parse() }
 
     override fun resetDraft(
         params: PostResetDraftParams,
@@ -487,6 +487,38 @@ class PostServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
+        private val getHandler: Handler<BlogPost> = jsonHandler<BlogPost>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: PostGetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BlogPost>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectId", params.objectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "v3", "blogs", "posts", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val getDraftByIdHandler: Handler<BlogPost> =
             jsonHandler<BlogPost>(clientOptions.jsonMapper)
 
@@ -641,38 +673,6 @@ class PostServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { pushLiveHandler.handle(it) }
-                    }
-                }
-        }
-
-        private val readHandler: Handler<BlogPost> = jsonHandler<BlogPost>(clientOptions.jsonMapper)
-
-        override fun read(
-            params: PostReadParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BlogPost>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "v3", "blogs", "posts", params._pathParam(0))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { readHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
                     }
                 }
         }

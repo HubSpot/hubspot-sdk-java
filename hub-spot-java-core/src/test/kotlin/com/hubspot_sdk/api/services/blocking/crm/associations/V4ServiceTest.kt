@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.services.blocking.crm.associations
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.AssociationSpec
-import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateDefaultAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4ListAssociationsByTypeParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateAssociationLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -18,7 +18,7 @@ internal class V4ServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun createDefaultAssociation() {
+    fun create() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -27,8 +27,8 @@ internal class V4ServiceTest {
         val v4Service = client.crm().associations().v4()
 
         val batchResponsePublicDefaultAssociation =
-            v4Service.createDefaultAssociation(
-                V4CreateDefaultAssociationParams.builder()
+            v4Service.create(
+                V4CreateParams.builder()
                     .fromObjectType("fromObjectType")
                     .fromObjectId("fromObjectId")
                     .toObjectType("toObjectType")
@@ -41,51 +41,7 @@ internal class V4ServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun deleteAssociation() {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val v4Service = client.crm().associations().v4()
-
-        v4Service.deleteAssociation(
-            V4DeleteAssociationParams.builder()
-                .objectType("objectType")
-                .objectId("objectId")
-                .toObjectType("toObjectType")
-                .toObjectId("toObjectId")
-                .build()
-        )
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun listAssociationsByType() {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val v4Service = client.crm().associations().v4()
-
-        val collectionResponseMultiAssociatedObjectWithLabel =
-            v4Service.listAssociationsByType(
-                V4ListAssociationsByTypeParams.builder()
-                    .objectType("objectType")
-                    .objectId("objectId")
-                    .toObjectType("toObjectType")
-                    .after("after")
-                    .limit(0)
-                    .build()
-            )
-
-        collectionResponseMultiAssociatedObjectWithLabel.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun updateAssociationLabels() {
+    fun update() {
         val client =
             HubSpotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -94,8 +50,8 @@ internal class V4ServiceTest {
         val v4Service = client.crm().associations().v4()
 
         val createdResponseLabelsBetweenObjectPair =
-            v4Service.updateAssociationLabels(
-                V4UpdateAssociationLabelsParams.builder()
+            v4Service.update(
+                V4UpdateParams.builder()
                     .objectType("objectType")
                     .objectId("objectId")
                     .toObjectType("toObjectType")
@@ -112,5 +68,47 @@ internal class V4ServiceTest {
             )
 
         createdResponseLabelsBetweenObjectPair.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun list() {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val v4Service = client.crm().associations().v4()
+
+        val page =
+            v4Service.list(
+                V4ListParams.builder()
+                    .objectType("objectType")
+                    .objectId("objectId")
+                    .toObjectType("toObjectType")
+                    .build()
+            )
+
+        page.response().validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val v4Service = client.crm().associations().v4()
+
+        v4Service.delete(
+            V4DeleteParams.builder()
+                .objectType("objectType")
+                .objectId("objectId")
+                .toObjectType("toObjectType")
+                .toObjectId("toObjectId")
+                .build()
+        )
     }
 }

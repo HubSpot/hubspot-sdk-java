@@ -4,13 +4,13 @@ package com.hubspot_sdk.api.services.blocking.automation.actions
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionArchiveByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionCreateOrReplaceParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionDeleteParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetByFunctionTypeParams
+import com.hubspot_sdk.api.models.automation.actions.functions.FunctionGetParams
 import com.hubspot_sdk.api.models.automation.actions.functions.FunctionListParams
-import com.hubspot_sdk.api.models.automation.actions.functions.FunctionReadParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -52,25 +52,6 @@ internal class FunctionServiceTest {
                 .definitionId("definitionId")
                 .functionType(FunctionDeleteParams.FunctionType.PRE_ACTION_EXECUTION)
                 .functionId("functionId")
-                .build()
-        )
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun archiveByFunctionType() {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val functionService = client.automation().actions().functions()
-
-        functionService.archiveByFunctionType(
-            FunctionArchiveByFunctionTypeParams.builder()
-                .appId(0)
-                .definitionId("definitionId")
-                .functionType(FunctionArchiveByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION)
                 .build()
         )
     }
@@ -127,6 +108,48 @@ internal class FunctionServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
+    fun deleteByFunctionType() {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val functionService = client.automation().actions().functions()
+
+        functionService.deleteByFunctionType(
+            FunctionDeleteByFunctionTypeParams.builder()
+                .appId(0)
+                .definitionId("definitionId")
+                .functionType(FunctionDeleteByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION)
+                .build()
+        )
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun get() {
+        val client =
+            HubSpotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val functionService = client.automation().actions().functions()
+
+        val publicActionFunction =
+            functionService.get(
+                FunctionGetParams.builder()
+                    .appId(0)
+                    .definitionId("definitionId")
+                    .functionType(FunctionGetParams.FunctionType.PRE_ACTION_EXECUTION)
+                    .functionId("functionId")
+                    .build()
+            )
+
+        publicActionFunction.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
     fun getByFunctionType() {
         val client =
             HubSpotOkHttpClient.builder()
@@ -141,29 +164,6 @@ internal class FunctionServiceTest {
                     .appId(0)
                     .definitionId("definitionId")
                     .functionType(FunctionGetByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION)
-                    .build()
-            )
-
-        publicActionFunction.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun read() {
-        val client =
-            HubSpotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
-                .build()
-        val functionService = client.automation().actions().functions()
-
-        val publicActionFunction =
-            functionService.read(
-                FunctionReadParams.builder()
-                    .appId(0)
-                    .definitionId("definitionId")
-                    .functionType(FunctionReadParams.FunctionType.PRE_ACTION_EXECUTION)
-                    .functionId("functionId")
                     .build()
             )
 

@@ -15,7 +15,7 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectCreateParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectDeleteParams
-import com.hubspot_sdk.api.models.crm.objects.objects.ObjectReadParams
+import com.hubspot_sdk.api.models.crm.objects.objects.ObjectGetParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectSearchParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -160,7 +160,7 @@ internal class ObjectServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -169,8 +169,8 @@ internal class ObjectServiceAsyncTest {
         val objectServiceAsync = client.crm().objects().objects()
 
         val simplePublicObjectWithAssociationsFuture =
-            objectServiceAsync.read(
-                ObjectReadParams.builder()
+            objectServiceAsync.get(
+                ObjectGetParams.builder()
                     .objectType("objectType")
                     .objectId("objectId")
                     .archived(true)

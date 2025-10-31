@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
 import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost
-import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchReadParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -362,7 +362,7 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun read() {
+    fun get() {
         val client =
             HubSpotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -371,8 +371,8 @@ internal class BatchServiceAsyncTest {
         val batchServiceAsync = client.cms().blogs().posts().batch()
 
         val batchResponseBlogPostFuture =
-            batchServiceAsync.read(
-                BatchReadParams.builder()
+            batchServiceAsync.get(
+                BatchGetParams.builder()
                     .archived(true)
                     .batchInputString(BatchInputString.builder().addInput("string").build())
                     .build()

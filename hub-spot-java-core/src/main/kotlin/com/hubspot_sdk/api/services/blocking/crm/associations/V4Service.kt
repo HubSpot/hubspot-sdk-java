@@ -8,12 +8,12 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabel
 import com.hubspot_sdk.api.models.crm.CreatedResponseLabelsBetweenObjectPair
-import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateDefaultAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteAssociationParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4ListAssociationsByTypeParams
-import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateAssociationLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListPage
+import com.hubspot_sdk.api.models.crm.associations.v4.V4ListParams
+import com.hubspot_sdk.api.models.crm.associations.v4.V4UpdateParams
 import com.hubspot_sdk.api.services.blocking.crm.associations.v4.BatchService
 import com.hubspot_sdk.api.services.blocking.crm.associations.v4.ReportService
 import java.util.function.Consumer
@@ -37,109 +37,85 @@ interface V4Service {
     fun report(): ReportService
 
     /** Create the default (most generic) association type between two object types */
-    fun createDefaultAssociation(
-        toObjectId: String,
-        params: V4CreateDefaultAssociationParams,
-    ): BatchResponsePublicDefaultAssociation =
-        createDefaultAssociation(toObjectId, params, RequestOptions.none())
+    fun create(toObjectId: String, params: V4CreateParams): BatchResponsePublicDefaultAssociation =
+        create(toObjectId, params, RequestOptions.none())
 
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
+    /** @see create */
+    fun create(
         toObjectId: String,
-        params: V4CreateDefaultAssociationParams,
+        params: V4CreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponsePublicDefaultAssociation =
-        createDefaultAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
-        params: V4CreateDefaultAssociationParams
-    ): BatchResponsePublicDefaultAssociation =
-        createDefaultAssociation(params, RequestOptions.none())
+    /** @see create */
+    fun create(params: V4CreateParams): BatchResponsePublicDefaultAssociation =
+        create(params, RequestOptions.none())
 
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
-        params: V4CreateDefaultAssociationParams,
+    /** @see create */
+    fun create(
+        params: V4CreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponsePublicDefaultAssociation
 
-    /** deletes all associations between two records. */
-    fun deleteAssociation(toObjectId: String, params: V4DeleteAssociationParams) =
-        deleteAssociation(toObjectId, params, RequestOptions.none())
-
-    /** @see deleteAssociation */
-    fun deleteAssociation(
-        toObjectId: String,
-        params: V4DeleteAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = deleteAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
-
-    /** @see deleteAssociation */
-    fun deleteAssociation(params: V4DeleteAssociationParams) =
-        deleteAssociation(params, RequestOptions.none())
-
-    /** @see deleteAssociation */
-    fun deleteAssociation(
-        params: V4DeleteAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** List all associations of an object by object type. Limit 500 per call. */
-    fun listAssociationsByType(
-        toObjectType: String,
-        params: V4ListAssociationsByTypeParams,
-    ): CollectionResponseMultiAssociatedObjectWithLabel =
-        listAssociationsByType(toObjectType, params, RequestOptions.none())
-
-    /** @see listAssociationsByType */
-    fun listAssociationsByType(
-        toObjectType: String,
-        params: V4ListAssociationsByTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseMultiAssociatedObjectWithLabel =
-        listAssociationsByType(
-            params.toBuilder().toObjectType(toObjectType).build(),
-            requestOptions,
-        )
-
-    /** @see listAssociationsByType */
-    fun listAssociationsByType(
-        params: V4ListAssociationsByTypeParams
-    ): CollectionResponseMultiAssociatedObjectWithLabel =
-        listAssociationsByType(params, RequestOptions.none())
-
-    /** @see listAssociationsByType */
-    fun listAssociationsByType(
-        params: V4ListAssociationsByTypeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseMultiAssociatedObjectWithLabel
-
     /** Set association labels between two records. */
-    fun updateAssociationLabels(
-        toObjectId: String,
-        params: V4UpdateAssociationLabelsParams,
-    ): CreatedResponseLabelsBetweenObjectPair =
-        updateAssociationLabels(toObjectId, params, RequestOptions.none())
+    fun update(toObjectId: String, params: V4UpdateParams): CreatedResponseLabelsBetweenObjectPair =
+        update(toObjectId, params, RequestOptions.none())
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
+    /** @see update */
+    fun update(
         toObjectId: String,
-        params: V4UpdateAssociationLabelsParams,
+        params: V4UpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CreatedResponseLabelsBetweenObjectPair =
-        updateAssociationLabels(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        update(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
-        params: V4UpdateAssociationLabelsParams
-    ): CreatedResponseLabelsBetweenObjectPair =
-        updateAssociationLabels(params, RequestOptions.none())
+    /** @see update */
+    fun update(params: V4UpdateParams): CreatedResponseLabelsBetweenObjectPair =
+        update(params, RequestOptions.none())
 
-    /** @see updateAssociationLabels */
-    fun updateAssociationLabels(
-        params: V4UpdateAssociationLabelsParams,
+    /** @see update */
+    fun update(
+        params: V4UpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CreatedResponseLabelsBetweenObjectPair
+
+    /** List all associations of an object by object type. Limit 500 per call. */
+    fun list(toObjectType: String, params: V4ListParams): V4ListPage =
+        list(toObjectType, params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        toObjectType: String,
+        params: V4ListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): V4ListPage = list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+    /** @see list */
+    fun list(params: V4ListParams): V4ListPage = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        params: V4ListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): V4ListPage
+
+    /** deletes all associations between two records. */
+    fun delete(toObjectId: String, params: V4DeleteParams) =
+        delete(toObjectId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        toObjectId: String,
+        params: V4DeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(params: V4DeleteParams) = delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(params: V4DeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** A view of [V4Service] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -158,145 +134,127 @@ interface V4Service {
         /**
          * Returns a raw HTTP response for `put
          * /crm/v4/objects/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [V4Service.createDefaultAssociation].
+         * but is otherwise the same as [V4Service.create].
          */
         @MustBeClosed
-        fun createDefaultAssociation(
+        fun create(
             toObjectId: String,
-            params: V4CreateDefaultAssociationParams,
+            params: V4CreateParams,
         ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            createDefaultAssociation(toObjectId, params, RequestOptions.none())
+            create(toObjectId, params, RequestOptions.none())
 
-        /** @see createDefaultAssociation */
+        /** @see create */
         @MustBeClosed
-        fun createDefaultAssociation(
+        fun create(
             toObjectId: String,
-            params: V4CreateDefaultAssociationParams,
+            params: V4CreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            createDefaultAssociation(
-                params.toBuilder().toObjectId(toObjectId).build(),
-                requestOptions,
-            )
+            create(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-        /** @see createDefaultAssociation */
+        /** @see create */
         @MustBeClosed
-        fun createDefaultAssociation(
-            params: V4CreateDefaultAssociationParams
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            createDefaultAssociation(params, RequestOptions.none())
+        fun create(params: V4CreateParams): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
+            create(params, RequestOptions.none())
 
-        /** @see createDefaultAssociation */
+        /** @see create */
         @MustBeClosed
-        fun createDefaultAssociation(
-            params: V4CreateDefaultAssociationParams,
+        fun create(
+            params: V4CreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponsePublicDefaultAssociation>
 
         /**
-         * Returns a raw HTTP response for `delete
+         * Returns a raw HTTP response for `put
          * /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`, but is
-         * otherwise the same as [V4Service.deleteAssociation].
+         * otherwise the same as [V4Service.update].
          */
         @MustBeClosed
-        fun deleteAssociation(toObjectId: String, params: V4DeleteAssociationParams): HttpResponse =
-            deleteAssociation(toObjectId, params, RequestOptions.none())
-
-        /** @see deleteAssociation */
-        @MustBeClosed
-        fun deleteAssociation(
+        fun update(
             toObjectId: String,
-            params: V4DeleteAssociationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            deleteAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+            params: V4UpdateParams,
+        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair> =
+            update(toObjectId, params, RequestOptions.none())
 
-        /** @see deleteAssociation */
+        /** @see update */
         @MustBeClosed
-        fun deleteAssociation(params: V4DeleteAssociationParams): HttpResponse =
-            deleteAssociation(params, RequestOptions.none())
-
-        /** @see deleteAssociation */
-        @MustBeClosed
-        fun deleteAssociation(
-            params: V4DeleteAssociationParams,
+        fun update(
+            toObjectId: String,
+            params: V4UpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair> =
+            update(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: V4UpdateParams
+        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            params: V4UpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>
 
         /**
          * Returns a raw HTTP response for `get
          * /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}`, but is otherwise
-         * the same as [V4Service.listAssociationsByType].
+         * the same as [V4Service.list].
          */
         @MustBeClosed
-        fun listAssociationsByType(
+        fun list(toObjectType: String, params: V4ListParams): HttpResponseFor<V4ListPage> =
+            list(toObjectType, params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
             toObjectType: String,
-            params: V4ListAssociationsByTypeParams,
-        ): HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel> =
-            listAssociationsByType(toObjectType, params, RequestOptions.none())
-
-        /** @see listAssociationsByType */
-        @MustBeClosed
-        fun listAssociationsByType(
-            toObjectType: String,
-            params: V4ListAssociationsByTypeParams,
+            params: V4ListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel> =
-            listAssociationsByType(
-                params.toBuilder().toObjectType(toObjectType).build(),
-                requestOptions,
-            )
+        ): HttpResponseFor<V4ListPage> =
+            list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-        /** @see listAssociationsByType */
+        /** @see list */
         @MustBeClosed
-        fun listAssociationsByType(
-            params: V4ListAssociationsByTypeParams
-        ): HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel> =
-            listAssociationsByType(params, RequestOptions.none())
+        fun list(params: V4ListParams): HttpResponseFor<V4ListPage> =
+            list(params, RequestOptions.none())
 
-        /** @see listAssociationsByType */
+        /** @see list */
         @MustBeClosed
-        fun listAssociationsByType(
-            params: V4ListAssociationsByTypeParams,
+        fun list(
+            params: V4ListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseMultiAssociatedObjectWithLabel>
+        ): HttpResponseFor<V4ListPage>
 
         /**
-         * Returns a raw HTTP response for `put
+         * Returns a raw HTTP response for `delete
          * /crm/v4/objects/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`, but is
-         * otherwise the same as [V4Service.updateAssociationLabels].
+         * otherwise the same as [V4Service.delete].
          */
         @MustBeClosed
-        fun updateAssociationLabels(
+        fun delete(toObjectId: String, params: V4DeleteParams): HttpResponse =
+            delete(toObjectId, params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
             toObjectId: String,
-            params: V4UpdateAssociationLabelsParams,
-        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair> =
-            updateAssociationLabels(toObjectId, params, RequestOptions.none())
-
-        /** @see updateAssociationLabels */
-        @MustBeClosed
-        fun updateAssociationLabels(
-            toObjectId: String,
-            params: V4UpdateAssociationLabelsParams,
+            params: V4DeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair> =
-            updateAssociationLabels(
-                params.toBuilder().toObjectId(toObjectId).build(),
-                requestOptions,
-            )
+        ): HttpResponse = delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-        /** @see updateAssociationLabels */
+        /** @see delete */
         @MustBeClosed
-        fun updateAssociationLabels(
-            params: V4UpdateAssociationLabelsParams
-        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair> =
-            updateAssociationLabels(params, RequestOptions.none())
+        fun delete(params: V4DeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
-        /** @see updateAssociationLabels */
+        /** @see delete */
         @MustBeClosed
-        fun updateAssociationLabels(
-            params: V4UpdateAssociationLabelsParams,
+        fun delete(
+            params: V4DeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CreatedResponseLabelsBetweenObjectPair>
+        ): HttpResponse
     }
 }

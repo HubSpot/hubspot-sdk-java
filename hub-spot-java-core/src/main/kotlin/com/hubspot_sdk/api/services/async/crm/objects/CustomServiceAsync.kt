@@ -12,10 +12,10 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomListParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
-import com.hubspot_sdk.api.models.crm.objects.custom.CustomReadParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
 import com.hubspot_sdk.api.services.async.crm.objects.custom.BatchServiceAsync
@@ -154,6 +154,35 @@ interface CustomServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /**
+     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
+     */
+    fun get(
+        objectId: String,
+        params: CustomGetParams,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(objectId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        objectId: String,
+        params: CustomGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see get */
+    fun get(params: CustomGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: CustomGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
+
     /** Merge two objects with same type */
     fun merge(
         objectType: String,
@@ -177,35 +206,6 @@ interface CustomServiceAsync {
         params: CustomMergeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
-
-    /**
-     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
-     * default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
-     */
-    fun read(
-        objectId: String,
-        params: CustomReadParams,
-    ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(objectId, params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        objectId: String,
-        params: CustomReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see read */
-    fun read(params: CustomReadParams): CompletableFuture<SimplePublicObjectWithAssociations> =
-        read(params, RequestOptions.none())
-
-    /** @see read */
-    fun read(
-        params: CustomReadParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimplePublicObjectWithAssociations>
 
     fun search(
         objectType: String,
@@ -376,6 +376,36 @@ interface CustomServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /**
+         * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}/{objectId}`, but is
+         * otherwise the same as [CustomServiceAsync.get].
+         */
+        fun get(
+            objectId: String,
+            params: CustomGetParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(objectId, params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            objectId: String,
+            params: CustomGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            params: CustomGetParams
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            params: CustomGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
+
+        /**
          * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/merge`, but is
          * otherwise the same as [CustomServiceAsync.merge].
          */
@@ -404,36 +434,6 @@ interface CustomServiceAsync {
             params: CustomMergeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
-
-        /**
-         * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}/{objectId}`, but is
-         * otherwise the same as [CustomServiceAsync.read].
-         */
-        fun read(
-            objectId: String,
-            params: CustomReadParams,
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(objectId, params, RequestOptions.none())
-
-        /** @see read */
-        fun read(
-            objectId: String,
-            params: CustomReadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see read */
-        fun read(
-            params: CustomReadParams
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            read(params, RequestOptions.none())
-
-        /** @see read */
-        fun read(
-            params: CustomReadParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/search`, but is
