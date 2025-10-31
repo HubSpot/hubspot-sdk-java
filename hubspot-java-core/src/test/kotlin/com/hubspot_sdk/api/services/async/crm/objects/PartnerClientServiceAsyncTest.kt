@@ -24,7 +24,7 @@ internal class PartnerClientServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val partnerClientServiceAsync = client.crm().objects().partnerClients()
 
@@ -79,7 +79,7 @@ internal class PartnerClientServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val partnerClientServiceAsync = client.crm().objects().partnerClients()
 
@@ -95,7 +95,7 @@ internal class PartnerClientServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val partnerClientServiceAsync = client.crm().objects().partnerClients()
 
@@ -121,7 +121,7 @@ internal class PartnerClientServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val partnerClientServiceAsync = client.crm().objects().partnerClients()
 

@@ -18,7 +18,7 @@ internal class OAuthServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val oauthService = client.auth().oauth()
 
@@ -43,7 +43,7 @@ internal class OAuthServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val oauthService = client.auth().oauth()
 
@@ -56,7 +56,7 @@ internal class OAuthServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val oauthService = client.auth().oauth()
 
@@ -71,7 +71,7 @@ internal class OAuthServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val oauthService = client.auth().oauth()
 

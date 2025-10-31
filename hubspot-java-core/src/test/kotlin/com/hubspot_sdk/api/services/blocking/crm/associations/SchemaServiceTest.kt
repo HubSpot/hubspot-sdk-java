@@ -18,7 +18,7 @@ internal class SchemaServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val schemaService = client.crm().associations().schema()
 

@@ -27,7 +27,7 @@ internal class StageServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val stageServiceAsync = client.crm().pipelines().stages()
 
@@ -60,7 +60,7 @@ internal class StageServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val stageServiceAsync = client.crm().pipelines().stages()
 
@@ -95,7 +95,7 @@ internal class StageServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val stageServiceAsync = client.crm().pipelines().stages()
 
@@ -115,7 +115,7 @@ internal class StageServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val stageServiceAsync = client.crm().pipelines().stages()
 
@@ -137,7 +137,7 @@ internal class StageServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val stageServiceAsync = client.crm().pipelines().stages()
 
@@ -160,7 +160,7 @@ internal class StageServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val stageServiceAsync = client.crm().pipelines().stages()
 
@@ -184,7 +184,7 @@ internal class StageServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val stageServiceAsync = client.crm().pipelines().stages()
 

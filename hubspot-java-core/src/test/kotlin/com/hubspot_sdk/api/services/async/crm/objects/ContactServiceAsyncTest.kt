@@ -30,7 +30,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 
@@ -68,7 +68,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 
@@ -122,7 +122,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 
@@ -138,7 +138,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 
@@ -153,7 +153,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 
@@ -174,7 +174,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 
@@ -199,7 +199,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 
@@ -221,7 +221,7 @@ internal class ContactServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val contactServiceAsync = client.crm().objects().contacts()
 

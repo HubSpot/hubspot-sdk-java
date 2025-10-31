@@ -28,7 +28,7 @@ internal class GoalTargetServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val goalTargetServiceAsync = client.crm().objects().goalTargets()
 
@@ -66,7 +66,7 @@ internal class GoalTargetServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val goalTargetServiceAsync = client.crm().objects().goalTargets()
 
@@ -121,7 +121,7 @@ internal class GoalTargetServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val goalTargetServiceAsync = client.crm().objects().goalTargets()
 
@@ -137,7 +137,7 @@ internal class GoalTargetServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val goalTargetServiceAsync = client.crm().objects().goalTargets()
 
@@ -152,7 +152,7 @@ internal class GoalTargetServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val goalTargetServiceAsync = client.crm().objects().goalTargets()
 
@@ -178,7 +178,7 @@ internal class GoalTargetServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val goalTargetServiceAsync = client.crm().objects().goalTargets()
 

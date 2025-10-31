@@ -28,7 +28,7 @@ internal class CartServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val cartService = client.crm().objects().carts()
 
@@ -65,7 +65,7 @@ internal class CartServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val cartService = client.crm().objects().carts()
 
@@ -119,7 +119,7 @@ internal class CartServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val cartService = client.crm().objects().carts()
 
@@ -134,7 +134,7 @@ internal class CartServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val cartService = client.crm().objects().carts()
 
@@ -147,7 +147,7 @@ internal class CartServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val cartService = client.crm().objects().carts()
 
@@ -172,7 +172,7 @@ internal class CartServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val cartService = client.crm().objects().carts()
 
