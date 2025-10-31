@@ -1,0 +1,124 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.blocking.crm.properties
+
+import com.hubspot_sdk.api.TestServerExtension
+import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.BatchInputPropertyCreate
+import com.hubspot_sdk.api.models.BatchInputPropertyName
+import com.hubspot_sdk.api.models.OptionInput
+import com.hubspot_sdk.api.models.PropertyCreate
+import com.hubspot_sdk.api.models.PropertyName
+import com.hubspot_sdk.api.models.crm.properties.BatchReadInputPropertyName
+import com.hubspot_sdk.api.models.crm.properties.batch.BatchCreateParams
+import com.hubspot_sdk.api.models.crm.properties.batch.BatchDeleteParams
+import com.hubspot_sdk.api.models.crm.properties.batch.BatchGetParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class BatchServiceTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun create() {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val batchService = client.crm().properties().batch()
+
+        val batchResponseProperty =
+            batchService.create(
+                BatchCreateParams.builder()
+                    .objectType("objectType")
+                    .batchInputPropertyCreate(
+                        BatchInputPropertyCreate.builder()
+                            .addInput(
+                                PropertyCreate.builder()
+                                    .fieldType(PropertyCreate.FieldType.BOOLEANCHECKBOX)
+                                    .groupName("groupName")
+                                    .label("label")
+                                    .name("name")
+                                    .type(PropertyCreate.Type.BOOL)
+                                    .calculationFormula("calculationFormula")
+                                    .dataSensitivity(PropertyCreate.DataSensitivity.NON_SENSITIVE)
+                                    .description("description")
+                                    .displayOrder(0)
+                                    .externalOptions(true)
+                                    .formField(true)
+                                    .hasUniqueValue(true)
+                                    .hidden(true)
+                                    .addOption(
+                                        OptionInput.builder()
+                                            .displayOrder(0)
+                                            .hidden(true)
+                                            .label("label")
+                                            .value("value")
+                                            .description("description")
+                                            .build()
+                                    )
+                                    .referencedObjectType("referencedObjectType")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        batchResponseProperty.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun delete() {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val batchService = client.crm().properties().batch()
+
+        batchService.delete(
+            BatchDeleteParams.builder()
+                .objectType("objectType")
+                .batchInputPropertyName(
+                    BatchInputPropertyName.builder()
+                        .addInput(PropertyName.builder().name("name").build())
+                        .build()
+                )
+                .build()
+        )
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun get() {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+                .build()
+        val batchService = client.crm().properties().batch()
+
+        val batchResponseProperty =
+            batchService.get(
+                BatchGetParams.builder()
+                    .objectType("objectType")
+                    .batchReadInputPropertyName(
+                        BatchReadInputPropertyName.builder()
+                            .archived(true)
+                            .addInput(PropertyName.builder().name("name").build())
+                            .dataSensitivity(
+                                BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        batchResponseProperty.validate()
+    }
+}
