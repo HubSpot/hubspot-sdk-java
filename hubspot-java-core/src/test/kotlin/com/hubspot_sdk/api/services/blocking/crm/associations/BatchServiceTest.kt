@@ -96,7 +96,7 @@ internal class BatchServiceTest {
                     .toObjectType("toObjectType")
                     .batchInputPublicObjectId(
                         BatchInputPublicObjectId.builder()
-                            .addInput(PublicObjectId.builder().id("37295").build())
+                            .addInput(PublicObjectId.builder().id("id").build())
                             .build()
                     )
                     .build()

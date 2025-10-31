@@ -55,38 +55,51 @@ private constructor(
     )
 
     /**
+     * The action performed that triggered the audit event.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun action(): String = action.getRequired("action")
 
     /**
+     * A unique string identifier for the audit event.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun identifier(): String = identifier.getRequired("identifier")
 
     /**
+     * The unique identifier for the HubSpot portal where the audit event occurred.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun portalId(): Int = portalId.getRequired("portalId")
 
     /**
+     * The ID of the user who initiated the audit event.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fromUserId(): Optional<Int> = fromUserId.getOptional("fromUserId")
 
     /**
+     * A descriptive message related to the audit event.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun message(): Optional<String> = message.getOptional("message")
 
+    /** An object containing the raw data associated with the audit event. */
     @JsonProperty("rawObject") @ExcludeMissing fun _rawObject(): JsonValue = rawObject
 
     /**
+     * The date and time when the audit event took place.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -187,6 +200,7 @@ private constructor(
             additionalProperties = publicAuditInfo.additionalProperties.toMutableMap()
         }
 
+        /** The action performed that triggered the audit event. */
         fun action(action: String) = action(JsonField.of(action))
 
         /**
@@ -197,6 +211,7 @@ private constructor(
          */
         fun action(action: JsonField<String>) = apply { this.action = action }
 
+        /** A unique string identifier for the audit event. */
         fun identifier(identifier: String) = identifier(JsonField.of(identifier))
 
         /**
@@ -208,6 +223,7 @@ private constructor(
          */
         fun identifier(identifier: JsonField<String>) = apply { this.identifier = identifier }
 
+        /** The unique identifier for the HubSpot portal where the audit event occurred. */
         fun portalId(portalId: Int) = portalId(JsonField.of(portalId))
 
         /**
@@ -218,6 +234,7 @@ private constructor(
          */
         fun portalId(portalId: JsonField<Int>) = apply { this.portalId = portalId }
 
+        /** The ID of the user who initiated the audit event. */
         fun fromUserId(fromUserId: Int) = fromUserId(JsonField.of(fromUserId))
 
         /**
@@ -228,6 +245,7 @@ private constructor(
          */
         fun fromUserId(fromUserId: JsonField<Int>) = apply { this.fromUserId = fromUserId }
 
+        /** A descriptive message related to the audit event. */
         fun message(message: String) = message(JsonField.of(message))
 
         /**
@@ -238,8 +256,10 @@ private constructor(
          */
         fun message(message: JsonField<String>) = apply { this.message = message }
 
+        /** An object containing the raw data associated with the audit event. */
         fun rawObject(rawObject: JsonValue) = apply { this.rawObject = rawObject }
 
+        /** The date and time when the audit event took place. */
         fun timestamp(timestamp: OffsetDateTime) = timestamp(JsonField.of(timestamp))
 
         /**

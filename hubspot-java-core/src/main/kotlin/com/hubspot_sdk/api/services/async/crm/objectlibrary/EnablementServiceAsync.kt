@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.services.async.crm.objectlibrary
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.objectlibrary.ObjectTypeEnablementPublicResponse
+import com.hubspot_sdk.api.models.crm.objectlibrary.PortalObjectTypeEnablementPublicResponse
 import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementGetParams
-import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementGetResponse
 import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementListParams
-import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -26,26 +26,28 @@ interface EnablementServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnablementServiceAsync
 
-    /** Returns all objects in the object library and their enablement status */
-    fun list(): CompletableFuture<EnablementListResponse> = list(EnablementListParams.none())
+    fun list(): CompletableFuture<PortalObjectTypeEnablementPublicResponse> =
+        list(EnablementListParams.none())
 
     /** @see list */
     fun list(
         params: EnablementListParams = EnablementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnablementListResponse>
+    ): CompletableFuture<PortalObjectTypeEnablementPublicResponse>
 
     /** @see list */
     fun list(
         params: EnablementListParams = EnablementListParams.none()
-    ): CompletableFuture<EnablementListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PortalObjectTypeEnablementPublicResponse> =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EnablementListResponse> =
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<PortalObjectTypeEnablementPublicResponse> =
         list(EnablementListParams.none(), requestOptions)
 
-    /** Returns an object and its enablement status */
-    fun get(objectTypeId: String): CompletableFuture<EnablementGetResponse> =
+    fun get(objectTypeId: String): CompletableFuture<ObjectTypeEnablementPublicResponse> =
         get(objectTypeId, EnablementGetParams.none())
 
     /** @see get */
@@ -53,30 +55,31 @@ interface EnablementServiceAsync {
         objectTypeId: String,
         params: EnablementGetParams = EnablementGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnablementGetResponse> =
+    ): CompletableFuture<ObjectTypeEnablementPublicResponse> =
         get(params.toBuilder().objectTypeId(objectTypeId).build(), requestOptions)
 
     /** @see get */
     fun get(
         objectTypeId: String,
         params: EnablementGetParams = EnablementGetParams.none(),
-    ): CompletableFuture<EnablementGetResponse> = get(objectTypeId, params, RequestOptions.none())
+    ): CompletableFuture<ObjectTypeEnablementPublicResponse> =
+        get(objectTypeId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: EnablementGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EnablementGetResponse>
+    ): CompletableFuture<ObjectTypeEnablementPublicResponse>
 
     /** @see get */
-    fun get(params: EnablementGetParams): CompletableFuture<EnablementGetResponse> =
+    fun get(params: EnablementGetParams): CompletableFuture<ObjectTypeEnablementPublicResponse> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         objectTypeId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EnablementGetResponse> =
+    ): CompletableFuture<ObjectTypeEnablementPublicResponse> =
         get(objectTypeId, EnablementGetParams.none(), requestOptions)
 
     /**
@@ -98,32 +101,34 @@ interface EnablementServiceAsync {
          * Returns a raw HTTP response for `get /crm/v3/object-library/enablement`, but is otherwise
          * the same as [EnablementServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EnablementListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PortalObjectTypeEnablementPublicResponse>> =
             list(EnablementListParams.none())
 
         /** @see list */
         fun list(
             params: EnablementListParams = EnablementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnablementListResponse>>
+        ): CompletableFuture<HttpResponseFor<PortalObjectTypeEnablementPublicResponse>>
 
         /** @see list */
         fun list(
             params: EnablementListParams = EnablementListParams.none()
-        ): CompletableFuture<HttpResponseFor<EnablementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortalObjectTypeEnablementPublicResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EnablementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortalObjectTypeEnablementPublicResponse>> =
             list(EnablementListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/object-library/enablement/{objectTypeId}`,
          * but is otherwise the same as [EnablementServiceAsync.get].
          */
-        fun get(objectTypeId: String): CompletableFuture<HttpResponseFor<EnablementGetResponse>> =
+        fun get(
+            objectTypeId: String
+        ): CompletableFuture<HttpResponseFor<ObjectTypeEnablementPublicResponse>> =
             get(objectTypeId, EnablementGetParams.none())
 
         /** @see get */
@@ -131,33 +136,33 @@ interface EnablementServiceAsync {
             objectTypeId: String,
             params: EnablementGetParams = EnablementGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnablementGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ObjectTypeEnablementPublicResponse>> =
             get(params.toBuilder().objectTypeId(objectTypeId).build(), requestOptions)
 
         /** @see get */
         fun get(
             objectTypeId: String,
             params: EnablementGetParams = EnablementGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<EnablementGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ObjectTypeEnablementPublicResponse>> =
             get(objectTypeId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: EnablementGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EnablementGetResponse>>
+        ): CompletableFuture<HttpResponseFor<ObjectTypeEnablementPublicResponse>>
 
         /** @see get */
         fun get(
             params: EnablementGetParams
-        ): CompletableFuture<HttpResponseFor<EnablementGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ObjectTypeEnablementPublicResponse>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             objectTypeId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EnablementGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<ObjectTypeEnablementPublicResponse>> =
             get(objectTypeId, EnablementGetParams.none(), requestOptions)
     }
 }

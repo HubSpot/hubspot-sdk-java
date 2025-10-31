@@ -9,16 +9,15 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.ActionResponse
 import com.hubspot_sdk.api.models.TaskLocator
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata
+import com.hubspot_sdk.api.models.cms.sourcecode.FileExtractRequest
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeDeleteParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeExtractAsyncParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetExtractionStatusParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeValidateParams
 import java.util.function.Consumer
 
@@ -42,7 +41,7 @@ interface SourceCodeService {
      * path.
      */
     @Deprecated("deprecated")
-    fun create(path: String, params: SourceCodeCreateParams): SourceCodeCreateResponse =
+    fun create(path: String, params: SourceCodeCreateParams): AssetFileMetadata =
         create(path, params, RequestOptions.none())
 
     /** @see create */
@@ -51,11 +50,11 @@ interface SourceCodeService {
         path: String,
         params: SourceCodeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SourceCodeCreateResponse = create(params.toBuilder().path(path).build(), requestOptions)
+    ): AssetFileMetadata = create(params.toBuilder().path(path).build(), requestOptions)
 
     /** @see create */
     @Deprecated("deprecated")
-    fun create(params: SourceCodeCreateParams): SourceCodeCreateResponse =
+    fun create(params: SourceCodeCreateParams): AssetFileMetadata =
         create(params, RequestOptions.none())
 
     /** @see create */
@@ -63,7 +62,7 @@ interface SourceCodeService {
     fun create(
         params: SourceCodeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SourceCodeCreateResponse
+    ): AssetFileMetadata
 
     /** Deletes the file at the specified path in the specified environment. */
     fun delete(path: String, params: SourceCodeDeleteParams) =
@@ -97,6 +96,20 @@ interface SourceCodeService {
         params: SourceCodeExtractAsyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TaskLocator
+
+    /** @see extractAsync */
+    fun extractAsync(
+        fileExtractRequest: FileExtractRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): TaskLocator =
+        extractAsync(
+            SourceCodeExtractAsyncParams.builder().fileExtractRequest(fileExtractRequest).build(),
+            requestOptions,
+        )
+
+    /** @see extractAsync */
+    fun extractAsync(fileExtractRequest: FileExtractRequest): TaskLocator =
+        extractAsync(fileExtractRequest, RequestOptions.none())
 
     /**
      * Downloads the byte contents of the file at the specified path in the specified environment.
@@ -160,34 +173,31 @@ interface SourceCodeService {
         getExtractionStatus(taskId, SourceCodeGetExtractionStatusParams.none(), requestOptions)
 
     /** Gets the metadata object for the file at the specified path in the specified environment. */
-    fun getMetadata(
-        path: String,
-        params: SourceCodeGetMetadataParams,
-    ): SourceCodeGetMetadataResponse = getMetadata(path, params, RequestOptions.none())
+    fun getMetadata(path: String, params: SourceCodeGetMetadataParams): AssetFileMetadata =
+        getMetadata(path, params, RequestOptions.none())
 
     /** @see getMetadata */
     fun getMetadata(
         path: String,
         params: SourceCodeGetMetadataParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SourceCodeGetMetadataResponse =
-        getMetadata(params.toBuilder().path(path).build(), requestOptions)
+    ): AssetFileMetadata = getMetadata(params.toBuilder().path(path).build(), requestOptions)
 
     /** @see getMetadata */
-    fun getMetadata(params: SourceCodeGetMetadataParams): SourceCodeGetMetadataResponse =
+    fun getMetadata(params: SourceCodeGetMetadataParams): AssetFileMetadata =
         getMetadata(params, RequestOptions.none())
 
     /** @see getMetadata */
     fun getMetadata(
         params: SourceCodeGetMetadataParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SourceCodeGetMetadataResponse
+    ): AssetFileMetadata
 
     /**
      * Upserts a file at the specified path in the specified environment. Accepts
      * multipart/form-data content type.
      */
-    fun upsert(path: String, params: SourceCodeUpsertParams): SourceCodeUpsertResponse =
+    fun upsert(path: String, params: SourceCodeUpsertParams): AssetFileMetadata =
         upsert(path, params, RequestOptions.none())
 
     /** @see upsert */
@@ -195,17 +205,17 @@ interface SourceCodeService {
         path: String,
         params: SourceCodeUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SourceCodeUpsertResponse = upsert(params.toBuilder().path(path).build(), requestOptions)
+    ): AssetFileMetadata = upsert(params.toBuilder().path(path).build(), requestOptions)
 
     /** @see upsert */
-    fun upsert(params: SourceCodeUpsertParams): SourceCodeUpsertResponse =
+    fun upsert(params: SourceCodeUpsertParams): AssetFileMetadata =
         upsert(params, RequestOptions.none())
 
     /** @see upsert */
     fun upsert(
         params: SourceCodeUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SourceCodeUpsertResponse
+    ): AssetFileMetadata
 
     /**
      * Validates the file contents passed to the endpoint given a specified path and environment.
@@ -256,7 +266,7 @@ interface SourceCodeService {
         fun create(
             path: String,
             params: SourceCodeCreateParams,
-        ): HttpResponseFor<SourceCodeCreateResponse> = create(path, params, RequestOptions.none())
+        ): HttpResponseFor<AssetFileMetadata> = create(path, params, RequestOptions.none())
 
         /** @see create */
         @Deprecated("deprecated")
@@ -265,13 +275,13 @@ interface SourceCodeService {
             path: String,
             params: SourceCodeCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SourceCodeCreateResponse> =
+        ): HttpResponseFor<AssetFileMetadata> =
             create(params.toBuilder().path(path).build(), requestOptions)
 
         /** @see create */
         @Deprecated("deprecated")
         @MustBeClosed
-        fun create(params: SourceCodeCreateParams): HttpResponseFor<SourceCodeCreateResponse> =
+        fun create(params: SourceCodeCreateParams): HttpResponseFor<AssetFileMetadata> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -280,7 +290,7 @@ interface SourceCodeService {
         fun create(
             params: SourceCodeCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SourceCodeCreateResponse>
+        ): HttpResponseFor<AssetFileMetadata>
 
         /**
          * Returns a raw HTTP response for `delete
@@ -325,6 +335,24 @@ interface SourceCodeService {
             params: SourceCodeExtractAsyncParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TaskLocator>
+
+        /** @see extractAsync */
+        @MustBeClosed
+        fun extractAsync(
+            fileExtractRequest: FileExtractRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<TaskLocator> =
+            extractAsync(
+                SourceCodeExtractAsyncParams.builder()
+                    .fileExtractRequest(fileExtractRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see extractAsync */
+        @MustBeClosed
+        fun extractAsync(fileExtractRequest: FileExtractRequest): HttpResponseFor<TaskLocator> =
+            extractAsync(fileExtractRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/source-code/{environment}/content/{path}`,
@@ -409,8 +437,7 @@ interface SourceCodeService {
         fun getMetadata(
             path: String,
             params: SourceCodeGetMetadataParams,
-        ): HttpResponseFor<SourceCodeGetMetadataResponse> =
-            getMetadata(path, params, RequestOptions.none())
+        ): HttpResponseFor<AssetFileMetadata> = getMetadata(path, params, RequestOptions.none())
 
         /** @see getMetadata */
         @MustBeClosed
@@ -418,14 +445,12 @@ interface SourceCodeService {
             path: String,
             params: SourceCodeGetMetadataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SourceCodeGetMetadataResponse> =
+        ): HttpResponseFor<AssetFileMetadata> =
             getMetadata(params.toBuilder().path(path).build(), requestOptions)
 
         /** @see getMetadata */
         @MustBeClosed
-        fun getMetadata(
-            params: SourceCodeGetMetadataParams
-        ): HttpResponseFor<SourceCodeGetMetadataResponse> =
+        fun getMetadata(params: SourceCodeGetMetadataParams): HttpResponseFor<AssetFileMetadata> =
             getMetadata(params, RequestOptions.none())
 
         /** @see getMetadata */
@@ -433,7 +458,7 @@ interface SourceCodeService {
         fun getMetadata(
             params: SourceCodeGetMetadataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SourceCodeGetMetadataResponse>
+        ): HttpResponseFor<AssetFileMetadata>
 
         /**
          * Returns a raw HTTP response for `put /cms/v3/source-code/{environment}/content/{path}`,
@@ -443,7 +468,7 @@ interface SourceCodeService {
         fun upsert(
             path: String,
             params: SourceCodeUpsertParams,
-        ): HttpResponseFor<SourceCodeUpsertResponse> = upsert(path, params, RequestOptions.none())
+        ): HttpResponseFor<AssetFileMetadata> = upsert(path, params, RequestOptions.none())
 
         /** @see upsert */
         @MustBeClosed
@@ -451,12 +476,12 @@ interface SourceCodeService {
             path: String,
             params: SourceCodeUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SourceCodeUpsertResponse> =
+        ): HttpResponseFor<AssetFileMetadata> =
             upsert(params.toBuilder().path(path).build(), requestOptions)
 
         /** @see upsert */
         @MustBeClosed
-        fun upsert(params: SourceCodeUpsertParams): HttpResponseFor<SourceCodeUpsertResponse> =
+        fun upsert(params: SourceCodeUpsertParams): HttpResponseFor<AssetFileMetadata> =
             upsert(params, RequestOptions.none())
 
         /** @see upsert */
@@ -464,7 +489,7 @@ interface SourceCodeService {
         fun upsert(
             params: SourceCodeUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SourceCodeUpsertResponse>
+        ): HttpResponseFor<AssetFileMetadata>
 
         /**
          * Returns a raw HTTP response for `post /cms/v3/source-code/{environment}/validate/{path}`,

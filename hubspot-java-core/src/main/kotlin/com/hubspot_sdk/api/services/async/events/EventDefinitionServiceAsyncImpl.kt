@@ -18,19 +18,17 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.events.eventdefinitions.CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeleteParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeletePropertyParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListPageAsync
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListPageResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateResponse
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinition
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -52,14 +50,14 @@ internal constructor(private val clientOptions: ClientOptions) : EventDefinition
     override fun create(
         params: EventDefinitionCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventDefinitionCreateResponse> =
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         // post /events/v3/event-definitions
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: EventDefinitionUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventDefinitionUpdateResponse> =
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         // patch /events/v3/event-definitions/{eventName}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -94,7 +92,7 @@ internal constructor(private val clientOptions: ClientOptions) : EventDefinition
     override fun get(
         params: EventDefinitionGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventDefinitionGetResponse> =
+    ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         // get /events/v3/event-definitions/{eventName}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -118,13 +116,13 @@ internal constructor(private val clientOptions: ClientOptions) : EventDefinition
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<EventDefinitionCreateResponse> =
-            jsonHandler<EventDefinitionCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<ExternalBehavioralEventTypeDefinition> =
+            jsonHandler<ExternalBehavioralEventTypeDefinition>(clientOptions.jsonMapper)
 
         override fun create(
             params: EventDefinitionCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventDefinitionCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -149,13 +147,13 @@ internal constructor(private val clientOptions: ClientOptions) : EventDefinition
                 }
         }
 
-        private val updateHandler: Handler<EventDefinitionUpdateResponse> =
-            jsonHandler<EventDefinitionUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ExternalBehavioralEventTypeDefinition> =
+            jsonHandler<ExternalBehavioralEventTypeDefinition>(clientOptions.jsonMapper)
 
         override fun update(
             params: EventDefinitionUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventDefinitionUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventName", params.eventName().getOrNull())
@@ -183,8 +181,13 @@ internal constructor(private val clientOptions: ClientOptions) : EventDefinition
                 }
         }
 
-        private val listHandler: Handler<EventDefinitionListPageResponse> =
-            jsonHandler<EventDefinitionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler:
+            Handler<CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging> =
+            jsonHandler<
+                CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging
+            >(
+                clientOptions.jsonMapper
+            )
 
         override fun list(
             params: EventDefinitionListParams,
@@ -322,13 +325,13 @@ internal constructor(private val clientOptions: ClientOptions) : EventDefinition
                 }
         }
 
-        private val getHandler: Handler<EventDefinitionGetResponse> =
-            jsonHandler<EventDefinitionGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<ExternalBehavioralEventTypeDefinition> =
+            jsonHandler<ExternalBehavioralEventTypeDefinition>(clientOptions.jsonMapper)
 
         override fun get(
             params: EventDefinitionGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventDefinitionGetResponse>> {
+        ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventName", params.eventName().getOrNull())

@@ -11,10 +11,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Fully delete a workflow by ID. Deleted workflows cannot be restored via the API. If you need to
- * restore an accidentally deleted flow, you'll need to contact support.
- */
 class WorkflowDeleteParams
 private constructor(
     private val flowId: Long?,

@@ -20,16 +20,14 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.ActionResponse
 import com.hubspot_sdk.api.models.TaskLocator
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeDeleteParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeExtractAsyncParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetExtractionStatusParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeValidateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -50,7 +48,7 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
     override fun create(
         params: SourceCodeCreateParams,
         requestOptions: RequestOptions,
-    ): SourceCodeCreateResponse =
+    ): AssetFileMetadata =
         // post /cms/v3/source-code/{environment}/content/{path}
         withRawResponse().create(params, requestOptions).parse()
 
@@ -80,14 +78,14 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
     override fun getMetadata(
         params: SourceCodeGetMetadataParams,
         requestOptions: RequestOptions,
-    ): SourceCodeGetMetadataResponse =
+    ): AssetFileMetadata =
         // get /cms/v3/source-code/{environment}/metadata/{path}
         withRawResponse().getMetadata(params, requestOptions).parse()
 
     override fun upsert(
         params: SourceCodeUpsertParams,
         requestOptions: RequestOptions,
-    ): SourceCodeUpsertResponse =
+    ): AssetFileMetadata =
         // put /cms/v3/source-code/{environment}/content/{path}
         withRawResponse().upsert(params, requestOptions).parse()
 
@@ -111,14 +109,14 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<SourceCodeCreateResponse> =
-            jsonHandler<SourceCodeCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<AssetFileMetadata> =
+            jsonHandler<AssetFileMetadata>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
         override fun create(
             params: SourceCodeCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SourceCodeCreateResponse> {
+        ): HttpResponseFor<AssetFileMetadata> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("path", params.path().getOrNull())
@@ -274,13 +272,13 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val getMetadataHandler: Handler<SourceCodeGetMetadataResponse> =
-            jsonHandler<SourceCodeGetMetadataResponse>(clientOptions.jsonMapper)
+        private val getMetadataHandler: Handler<AssetFileMetadata> =
+            jsonHandler<AssetFileMetadata>(clientOptions.jsonMapper)
 
         override fun getMetadata(
             params: SourceCodeGetMetadataParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SourceCodeGetMetadataResponse> {
+        ): HttpResponseFor<AssetFileMetadata> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("path", params.path().getOrNull())
@@ -311,13 +309,13 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val upsertHandler: Handler<SourceCodeUpsertResponse> =
-            jsonHandler<SourceCodeUpsertResponse>(clientOptions.jsonMapper)
+        private val upsertHandler: Handler<AssetFileMetadata> =
+            jsonHandler<AssetFileMetadata>(clientOptions.jsonMapper)
 
         override fun upsert(
             params: SourceCodeUpsertParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SourceCodeUpsertResponse> {
+        ): HttpResponseFor<AssetFileMetadata> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("path", params.path().getOrNull())

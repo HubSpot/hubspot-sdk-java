@@ -7,15 +7,14 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMappingCreateRequestBody
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateResponse
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectDeleteParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetResponse
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListPage
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateResponse
 import java.util.function.Consumer
 
 interface UrlRedirectService {
@@ -33,17 +32,32 @@ interface UrlRedirectService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UrlRedirectService
 
     /** Creates and configures a new URL redirect. */
-    fun create(params: UrlRedirectCreateParams): UrlRedirectCreateResponse =
-        create(params, RequestOptions.none())
+    fun create(params: UrlRedirectCreateParams): UrlMapping = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: UrlRedirectCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UrlRedirectCreateResponse
+    ): UrlMapping
+
+    /** @see create */
+    fun create(
+        urlMappingCreateRequestBody: UrlMappingCreateRequestBody,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): UrlMapping =
+        create(
+            UrlRedirectCreateParams.builder()
+                .urlMappingCreateRequestBody(urlMappingCreateRequestBody)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(urlMappingCreateRequestBody: UrlMappingCreateRequestBody): UrlMapping =
+        create(urlMappingCreateRequestBody, RequestOptions.none())
 
     /** Updates the settings for an existing URL redirect. */
-    fun update(urlRedirectId: String, params: UrlRedirectUpdateParams): UrlRedirectUpdateResponse =
+    fun update(urlRedirectId: String, params: UrlRedirectUpdateParams): UrlMapping =
         update(urlRedirectId, params, RequestOptions.none())
 
     /** @see update */
@@ -51,18 +65,16 @@ interface UrlRedirectService {
         urlRedirectId: String,
         params: UrlRedirectUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UrlRedirectUpdateResponse =
-        update(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
+    ): UrlMapping = update(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: UrlRedirectUpdateParams): UrlRedirectUpdateResponse =
-        update(params, RequestOptions.none())
+    fun update(params: UrlRedirectUpdateParams): UrlMapping = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: UrlRedirectUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UrlRedirectUpdateResponse
+    ): UrlMapping
 
     /**
      * Returns all existing URL redirects. Results can be limited and filtered by creation or
@@ -114,35 +126,32 @@ interface UrlRedirectService {
         delete(urlRedirectId, UrlRedirectDeleteParams.none(), requestOptions)
 
     /** Returns the details for a single existing URL redirect by ID. */
-    fun get(urlRedirectId: String): UrlRedirectGetResponse =
-        get(urlRedirectId, UrlRedirectGetParams.none())
+    fun get(urlRedirectId: String): UrlMapping = get(urlRedirectId, UrlRedirectGetParams.none())
 
     /** @see get */
     fun get(
         urlRedirectId: String,
         params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UrlRedirectGetResponse =
-        get(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
+    ): UrlMapping = get(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
     /** @see get */
     fun get(
         urlRedirectId: String,
         params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
-    ): UrlRedirectGetResponse = get(urlRedirectId, params, RequestOptions.none())
+    ): UrlMapping = get(urlRedirectId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: UrlRedirectGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UrlRedirectGetResponse
+    ): UrlMapping
 
     /** @see get */
-    fun get(params: UrlRedirectGetParams): UrlRedirectGetResponse =
-        get(params, RequestOptions.none())
+    fun get(params: UrlRedirectGetParams): UrlMapping = get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(urlRedirectId: String, requestOptions: RequestOptions): UrlRedirectGetResponse =
+    fun get(urlRedirectId: String, requestOptions: RequestOptions): UrlMapping =
         get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
 
     /**
@@ -164,7 +173,7 @@ interface UrlRedirectService {
          * as [UrlRedirectService.create].
          */
         @MustBeClosed
-        fun create(params: UrlRedirectCreateParams): HttpResponseFor<UrlRedirectCreateResponse> =
+        fun create(params: UrlRedirectCreateParams): HttpResponseFor<UrlMapping> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -172,7 +181,26 @@ interface UrlRedirectService {
         fun create(
             params: UrlRedirectCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UrlRedirectCreateResponse>
+        ): HttpResponseFor<UrlMapping>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            urlMappingCreateRequestBody: UrlMappingCreateRequestBody,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<UrlMapping> =
+            create(
+                UrlRedirectCreateParams.builder()
+                    .urlMappingCreateRequestBody(urlMappingCreateRequestBody)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            urlMappingCreateRequestBody: UrlMappingCreateRequestBody
+        ): HttpResponseFor<UrlMapping> = create(urlMappingCreateRequestBody, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /cms/v3/url-redirects/{urlRedirectId}`, but is
@@ -182,8 +210,7 @@ interface UrlRedirectService {
         fun update(
             urlRedirectId: String,
             params: UrlRedirectUpdateParams,
-        ): HttpResponseFor<UrlRedirectUpdateResponse> =
-            update(urlRedirectId, params, RequestOptions.none())
+        ): HttpResponseFor<UrlMapping> = update(urlRedirectId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -191,12 +218,12 @@ interface UrlRedirectService {
             urlRedirectId: String,
             params: UrlRedirectUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UrlRedirectUpdateResponse> =
+        ): HttpResponseFor<UrlMapping> =
             update(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: UrlRedirectUpdateParams): HttpResponseFor<UrlRedirectUpdateResponse> =
+        fun update(params: UrlRedirectUpdateParams): HttpResponseFor<UrlMapping> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -204,7 +231,7 @@ interface UrlRedirectService {
         fun update(
             params: UrlRedirectUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UrlRedirectUpdateResponse>
+        ): HttpResponseFor<UrlMapping>
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/url-redirects/`, but is otherwise the same
@@ -277,7 +304,7 @@ interface UrlRedirectService {
          * otherwise the same as [UrlRedirectService.get].
          */
         @MustBeClosed
-        fun get(urlRedirectId: String): HttpResponseFor<UrlRedirectGetResponse> =
+        fun get(urlRedirectId: String): HttpResponseFor<UrlMapping> =
             get(urlRedirectId, UrlRedirectGetParams.none())
 
         /** @see get */
@@ -286,7 +313,7 @@ interface UrlRedirectService {
             urlRedirectId: String,
             params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UrlRedirectGetResponse> =
+        ): HttpResponseFor<UrlMapping> =
             get(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
         /** @see get */
@@ -294,19 +321,18 @@ interface UrlRedirectService {
         fun get(
             urlRedirectId: String,
             params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
-        ): HttpResponseFor<UrlRedirectGetResponse> =
-            get(urlRedirectId, params, RequestOptions.none())
+        ): HttpResponseFor<UrlMapping> = get(urlRedirectId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: UrlRedirectGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UrlRedirectGetResponse>
+        ): HttpResponseFor<UrlMapping>
 
         /** @see get */
         @MustBeClosed
-        fun get(params: UrlRedirectGetParams): HttpResponseFor<UrlRedirectGetResponse> =
+        fun get(params: UrlRedirectGetParams): HttpResponseFor<UrlMapping> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -314,7 +340,7 @@ interface UrlRedirectService {
         fun get(
             urlRedirectId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UrlRedirectGetResponse> =
+        ): HttpResponseFor<UrlMapping> =
             get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
     }
 }

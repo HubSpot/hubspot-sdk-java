@@ -38,16 +38,12 @@ private constructor(
     ) : this(dayOfMonth, month, timeOfDay, type, mutableMapOf())
 
     /**
-     * The day of the date each year to run this flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dayOfMonth(): Int = dayOfMonth.getRequired("dayOfMonth")
 
     /**
-     * The month of the date each year to run this flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -60,9 +56,6 @@ private constructor(
     fun timeOfDay(): ApiTimeOfDay = timeOfDay.getRequired("timeOfDay")
 
     /**
-     * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY", "MONTHLY_SPECIFIC_DAYS",
-     * "MONTHLY_RELATIVE_DAYS", "YEARLY"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -142,7 +135,6 @@ private constructor(
             additionalProperties = apiYearlyEnrollmentSchedule.additionalProperties.toMutableMap()
         }
 
-        /** The day of the date each year to run this flow. */
         fun dayOfMonth(dayOfMonth: Int) = dayOfMonth(JsonField.of(dayOfMonth))
 
         /**
@@ -153,7 +145,6 @@ private constructor(
          */
         fun dayOfMonth(dayOfMonth: JsonField<Int>) = apply { this.dayOfMonth = dayOfMonth }
 
-        /** The month of the date each year to run this flow. */
         fun month(month: Month) = month(JsonField.of(month))
 
         /**
@@ -175,10 +166,6 @@ private constructor(
          */
         fun timeOfDay(timeOfDay: JsonField<ApiTimeOfDay>) = apply { this.timeOfDay = timeOfDay }
 
-        /**
-         * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY",
-         * "MONTHLY_SPECIFIC_DAYS", "MONTHLY_RELATIVE_DAYS", "YEARLY"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -267,7 +254,6 @@ private constructor(
             (timeOfDay.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The month of the date each year to run this flow. */
     class Month @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -453,10 +439,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY", "MONTHLY_SPECIFIC_DAYS",
-     * "MONTHLY_RELATIVE_DAYS", "YEARLY"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

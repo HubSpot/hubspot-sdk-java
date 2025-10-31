@@ -12,7 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Updates the settings for a video conference application with the specified ID. */
 class SettingUpdateParams
 private constructor(
     private val appId: Int?,

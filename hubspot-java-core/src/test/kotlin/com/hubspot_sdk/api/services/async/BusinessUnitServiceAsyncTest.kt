@@ -22,7 +22,7 @@ internal class BusinessUnitServiceAsyncTest {
                 .build()
         val businessUnitServiceAsync = client.businessUnits()
 
-        val responseFuture =
+        val collectionResponsePublicBusinessUnitNoPagingFuture =
             businessUnitServiceAsync.getByUserId(
                 BusinessUnitGetByUserIdParams.builder()
                     .userId("userId")
@@ -31,7 +31,8 @@ internal class BusinessUnitServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val collectionResponsePublicBusinessUnitNoPaging =
+            collectionResponsePublicBusinessUnitNoPagingFuture.get()
+        collectionResponsePublicBusinessUnitNoPaging.validate()
     }
 }

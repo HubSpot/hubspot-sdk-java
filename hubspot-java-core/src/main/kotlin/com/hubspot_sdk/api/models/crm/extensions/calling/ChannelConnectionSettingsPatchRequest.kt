@@ -30,16 +30,12 @@ private constructor(
     ) : this(isReady, url, mutableMapOf())
 
     /**
-     * If true, this app will be considered to support channel connection
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isReady(): Optional<Boolean> = isReady.getOptional("isReady")
 
     /**
-     * The URL to fetch phone numbers available for channel connection
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -97,7 +93,6 @@ private constructor(
                 channelConnectionSettingsPatchRequest.additionalProperties.toMutableMap()
         }
 
-        /** If true, this app will be considered to support channel connection */
         fun isReady(isReady: Boolean) = isReady(JsonField.of(isReady))
 
         /**
@@ -108,7 +103,6 @@ private constructor(
          */
         fun isReady(isReady: JsonField<Boolean>) = apply { this.isReady = isReady }
 
-        /** The URL to fetch phone numbers available for channel connection */
         fun url(url: String) = url(JsonField.of(url))
 
         /**

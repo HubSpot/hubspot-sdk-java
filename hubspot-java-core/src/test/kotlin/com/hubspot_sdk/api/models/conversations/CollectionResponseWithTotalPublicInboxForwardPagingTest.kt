@@ -19,7 +19,7 @@ internal class CollectionResponseWithTotalPublicInboxForwardPagingTest {
                 .addResult(
                     PublicInbox.builder()
                         .archived(true)
-                        .type("HELP_DESK")
+                        .type("type")
                         .id("id")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -39,7 +39,7 @@ internal class CollectionResponseWithTotalPublicInboxForwardPagingTest {
             .containsExactly(
                 PublicInbox.builder()
                     .archived(true)
-                    .type("HELP_DESK")
+                    .type("type")
                     .id("id")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -62,7 +62,7 @@ internal class CollectionResponseWithTotalPublicInboxForwardPagingTest {
                 .addResult(
                     PublicInbox.builder()
                         .archived(true)
-                        .type("HELP_DESK")
+                        .type("type")
                         .id("id")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

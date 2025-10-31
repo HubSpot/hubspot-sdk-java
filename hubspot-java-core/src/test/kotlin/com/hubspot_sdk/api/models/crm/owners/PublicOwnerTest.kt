@@ -41,7 +41,7 @@ internal class PublicOwnerTest {
                         .build()
                 )
                 .userId(1296619)
-                .userIdIncludingInactive(6166860)
+                .userIdIncludingInactive(0)
                 .build()
 
         assertThat(publicOwner.id()).isEqualTo("6166860")
@@ -70,7 +70,7 @@ internal class PublicOwnerTest {
                     .build(),
             )
         assertThat(publicOwner.userId()).contains(1296619)
-        assertThat(publicOwner.userIdIncludingInactive()).contains(6166860)
+        assertThat(publicOwner.userIdIncludingInactive()).contains(0)
     }
 
     @Test
@@ -103,7 +103,7 @@ internal class PublicOwnerTest {
                         .build()
                 )
                 .userId(1296619)
-                .userIdIncludingInactive(6166860)
+                .userIdIncludingInactive(0)
                 .build()
 
         val roundtrippedPublicOwner =

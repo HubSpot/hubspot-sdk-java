@@ -81,7 +81,7 @@ internal class SchemaServiceTest {
                 .build()
         val schemaService = client.cms().mediaBridge().schemas()
 
-        val response =
+        val associationDefinition =
             schemaService.createAssociation(
                 SchemaCreateAssociationParams.builder()
                     .appId("appId")
@@ -96,7 +96,7 @@ internal class SchemaServiceTest {
                     .build()
             )
 
-        response.validate()
+        associationDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -12,13 +12,13 @@ import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
-import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationResponse
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
+import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.function.Consumer
 
 interface SchemaService {
@@ -35,11 +35,6 @@ interface SchemaService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SchemaService
 
-    /**
-     * Define a new object schema, along with custom properties and associations. The entire object
-     * schema, including its object type ID, properties, and associations will be returned in the
-     * response.
-     */
     fun create(params: SchemaCreateParams): ObjectSchema = create(params, RequestOptions.none())
 
     /** @see create */
@@ -62,7 +57,6 @@ interface SchemaService {
     fun create(objectSchemaEgg: ObjectSchemaEgg): ObjectSchema =
         create(objectSchemaEgg, RequestOptions.none())
 
-    /** Update the details for an existing object schema. */
     fun update(objectType: String, params: SchemaUpdateParams): ObjectTypeDefinition =
         update(objectType, params, RequestOptions.none())
 
@@ -84,7 +78,6 @@ interface SchemaService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ObjectTypeDefinition
 
-    /** Returns all object schemas that have been defined for your account. */
     fun list(): CollectionResponseObjectSchemaNoPaging = list(SchemaListParams.none())
 
     /** @see list */
@@ -102,10 +95,6 @@ interface SchemaService {
     fun list(requestOptions: RequestOptions): CollectionResponseObjectSchemaNoPaging =
         list(SchemaListParams.none(), requestOptions)
 
-    /**
-     * Deletes a schema. Any existing records of this schema must be deleted **first**. Otherwise
-     * this call will fail.
-     */
     fun delete(objectType: String) = delete(objectType, SchemaDeleteParams.none())
 
     /** @see delete */
@@ -129,34 +118,29 @@ interface SchemaService {
     fun delete(objectType: String, requestOptions: RequestOptions) =
         delete(objectType, SchemaDeleteParams.none(), requestOptions)
 
-    /**
-     * Defines a new association between the primary schema's object type and other object types.
-     */
     fun createAssociation(
         objectType: String,
         params: SchemaCreateAssociationParams,
-    ): SchemaCreateAssociationResponse =
-        createAssociation(objectType, params, RequestOptions.none())
+    ): AssociationDefinition = createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         objectType: String,
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SchemaCreateAssociationResponse =
+    ): AssociationDefinition =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
-    fun createAssociation(params: SchemaCreateAssociationParams): SchemaCreateAssociationResponse =
+    fun createAssociation(params: SchemaCreateAssociationParams): AssociationDefinition =
         createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SchemaCreateAssociationResponse
+    ): AssociationDefinition
 
-    /** Removes an existing association from a schema. */
     fun deleteAssociation(associationIdentifier: String, params: SchemaDeleteAssociationParams) =
         deleteAssociation(associationIdentifier, params, RequestOptions.none())
 
@@ -181,7 +165,6 @@ interface SchemaService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** Returns an existing object schema. */
     fun get(objectType: String): ObjectSchema = get(objectType, SchemaGetParams.none())
 
     /** @see get */
@@ -356,7 +339,7 @@ interface SchemaService {
         fun createAssociation(
             objectType: String,
             params: SchemaCreateAssociationParams,
-        ): HttpResponseFor<SchemaCreateAssociationResponse> =
+        ): HttpResponseFor<AssociationDefinition> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -365,22 +348,21 @@ interface SchemaService {
             objectType: String,
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SchemaCreateAssociationResponse> =
+        ): HttpResponseFor<AssociationDefinition> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: SchemaCreateAssociationParams
-        ): HttpResponseFor<SchemaCreateAssociationResponse> =
-            createAssociation(params, RequestOptions.none())
+        ): HttpResponseFor<AssociationDefinition> = createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         @MustBeClosed
         fun createAssociation(
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SchemaCreateAssociationResponse>
+        ): HttpResponseFor<AssociationDefinition>
 
         /**
          * Returns a raw HTTP response for `delete

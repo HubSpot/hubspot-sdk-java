@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInput
 import java.util.Objects
 
-/** Update a batch of postal mail by internal ID, or unique property values */
+/** Update multiple postal mail objects in a single request. */
 class BatchUpdateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,

@@ -2,21 +2,12 @@
 
 package com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.hubspot_sdk.api.core.Enum
-import com.hubspot_sdk.api.core.ExcludeMissing
-import com.hubspot_sdk.api.core.JsonField
-import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import java.util.Collections
+import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -25,79 +16,17 @@ import kotlin.jvm.optionals.getOrNull
 class IntegratorSettingUpdateEventVisibilitySettingsParams
 private constructor(
     private val appId: String?,
-    private val body: Body,
+    private val eventVisibilityChange: EventVisibilityChange,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun appId(): Optional<String> = Optional.ofNullable(appId)
 
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun eventType(): EventType = body.eventType()
+    fun eventVisibilityChange(): EventVisibilityChange = eventVisibilityChange
 
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun updatedAt(): Long = body.updatedAt()
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun showInReporting(): Optional<Boolean> = body.showInReporting()
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun showInTimeline(): Optional<Boolean> = body.showInTimeline()
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun showInWorkflows(): Optional<Boolean> = body.showInWorkflows()
-
-    /**
-     * Returns the raw JSON value of [eventType].
-     *
-     * Unlike [eventType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _eventType(): JsonField<EventType> = body._eventType()
-
-    /**
-     * Returns the raw JSON value of [updatedAt].
-     *
-     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _updatedAt(): JsonField<Long> = body._updatedAt()
-
-    /**
-     * Returns the raw JSON value of [showInReporting].
-     *
-     * Unlike [showInReporting], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _showInReporting(): JsonField<Boolean> = body._showInReporting()
-
-    /**
-     * Returns the raw JSON value of [showInTimeline].
-     *
-     * Unlike [showInTimeline], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _showInTimeline(): JsonField<Boolean> = body._showInTimeline()
-
-    /**
-     * Returns the raw JSON value of [showInWorkflows].
-     *
-     * Unlike [showInWorkflows], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _showInWorkflows(): JsonField<Boolean> = body._showInWorkflows()
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        eventVisibilityChange._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -115,8 +44,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .eventType()
-         * .updatedAt()
+         * .eventVisibilityChange()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -126,7 +54,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var appId: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var eventVisibilityChange: EventVisibilityChange? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -136,7 +64,8 @@ private constructor(
                 IntegratorSettingUpdateEventVisibilitySettingsParams
         ) = apply {
             appId = integratorSettingUpdateEventVisibilitySettingsParams.appId
-            body = integratorSettingUpdateEventVisibilitySettingsParams.body.toBuilder()
+            eventVisibilityChange =
+                integratorSettingUpdateEventVisibilitySettingsParams.eventVisibilityChange
             additionalHeaders =
                 integratorSettingUpdateEventVisibilitySettingsParams.additionalHeaders.toBuilder()
             additionalQueryParams =
@@ -149,101 +78,8 @@ private constructor(
         /** Alias for calling [Builder.appId] with `appId.orElse(null)`. */
         fun appId(appId: Optional<String>) = appId(appId.getOrNull())
 
-        /**
-         * Sets the entire request body.
-         *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [eventType]
-         * - [updatedAt]
-         * - [showInReporting]
-         * - [showInTimeline]
-         * - [showInWorkflows]
-         * - etc.
-         */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        fun eventType(eventType: EventType) = apply { body.eventType(eventType) }
-
-        /**
-         * Sets [Builder.eventType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.eventType] with a well-typed [EventType] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun eventType(eventType: JsonField<EventType>) = apply { body.eventType(eventType) }
-
-        fun updatedAt(updatedAt: Long) = apply { body.updatedAt(updatedAt) }
-
-        /**
-         * Sets [Builder.updatedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.updatedAt] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun updatedAt(updatedAt: JsonField<Long>) = apply { body.updatedAt(updatedAt) }
-
-        fun showInReporting(showInReporting: Boolean) = apply {
-            body.showInReporting(showInReporting)
-        }
-
-        /**
-         * Sets [Builder.showInReporting] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.showInReporting] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun showInReporting(showInReporting: JsonField<Boolean>) = apply {
-            body.showInReporting(showInReporting)
-        }
-
-        fun showInTimeline(showInTimeline: Boolean) = apply { body.showInTimeline(showInTimeline) }
-
-        /**
-         * Sets [Builder.showInTimeline] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.showInTimeline] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun showInTimeline(showInTimeline: JsonField<Boolean>) = apply {
-            body.showInTimeline(showInTimeline)
-        }
-
-        fun showInWorkflows(showInWorkflows: Boolean) = apply {
-            body.showInWorkflows(showInWorkflows)
-        }
-
-        /**
-         * Sets [Builder.showInWorkflows] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.showInWorkflows] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun showInWorkflows(showInWorkflows: JsonField<Boolean>) = apply {
-            body.showInWorkflows(showInWorkflows)
-        }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
+        fun eventVisibilityChange(eventVisibilityChange: EventVisibilityChange) = apply {
+            this.eventVisibilityChange = eventVisibilityChange
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -351,8 +187,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .eventType()
-         * .updatedAt()
+         * .eventVisibilityChange()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -360,13 +195,13 @@ private constructor(
         fun build(): IntegratorSettingUpdateEventVisibilitySettingsParams =
             IntegratorSettingUpdateEventVisibilitySettingsParams(
                 appId,
-                body.build(),
+                checkRequired("eventVisibilityChange", eventVisibilityChange),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): EventVisibilityChange = eventVisibilityChange
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -378,479 +213,6 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val eventType: JsonField<EventType>,
-        private val updatedAt: JsonField<Long>,
-        private val showInReporting: JsonField<Boolean>,
-        private val showInTimeline: JsonField<Boolean>,
-        private val showInWorkflows: JsonField<Boolean>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("eventType")
-            @ExcludeMissing
-            eventType: JsonField<EventType> = JsonMissing.of(),
-            @JsonProperty("updatedAt")
-            @ExcludeMissing
-            updatedAt: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("showInReporting")
-            @ExcludeMissing
-            showInReporting: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("showInTimeline")
-            @ExcludeMissing
-            showInTimeline: JsonField<Boolean> = JsonMissing.of(),
-            @JsonProperty("showInWorkflows")
-            @ExcludeMissing
-            showInWorkflows: JsonField<Boolean> = JsonMissing.of(),
-        ) : this(
-            eventType,
-            updatedAt,
-            showInReporting,
-            showInTimeline,
-            showInWorkflows,
-            mutableMapOf(),
-        )
-
-        /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun eventType(): EventType = eventType.getRequired("eventType")
-
-        /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun updatedAt(): Long = updatedAt.getRequired("updatedAt")
-
-        /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun showInReporting(): Optional<Boolean> = showInReporting.getOptional("showInReporting")
-
-        /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun showInTimeline(): Optional<Boolean> = showInTimeline.getOptional("showInTimeline")
-
-        /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-         *   server responded with an unexpected value).
-         */
-        fun showInWorkflows(): Optional<Boolean> = showInWorkflows.getOptional("showInWorkflows")
-
-        /**
-         * Returns the raw JSON value of [eventType].
-         *
-         * Unlike [eventType], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("eventType")
-        @ExcludeMissing
-        fun _eventType(): JsonField<EventType> = eventType
-
-        /**
-         * Returns the raw JSON value of [updatedAt].
-         *
-         * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("updatedAt") @ExcludeMissing fun _updatedAt(): JsonField<Long> = updatedAt
-
-        /**
-         * Returns the raw JSON value of [showInReporting].
-         *
-         * Unlike [showInReporting], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("showInReporting")
-        @ExcludeMissing
-        fun _showInReporting(): JsonField<Boolean> = showInReporting
-
-        /**
-         * Returns the raw JSON value of [showInTimeline].
-         *
-         * Unlike [showInTimeline], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("showInTimeline")
-        @ExcludeMissing
-        fun _showInTimeline(): JsonField<Boolean> = showInTimeline
-
-        /**
-         * Returns the raw JSON value of [showInWorkflows].
-         *
-         * Unlike [showInWorkflows], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("showInWorkflows")
-        @ExcludeMissing
-        fun _showInWorkflows(): JsonField<Boolean> = showInWorkflows
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .eventType()
-             * .updatedAt()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var eventType: JsonField<EventType>? = null
-            private var updatedAt: JsonField<Long>? = null
-            private var showInReporting: JsonField<Boolean> = JsonMissing.of()
-            private var showInTimeline: JsonField<Boolean> = JsonMissing.of()
-            private var showInWorkflows: JsonField<Boolean> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                eventType = body.eventType
-                updatedAt = body.updatedAt
-                showInReporting = body.showInReporting
-                showInTimeline = body.showInTimeline
-                showInWorkflows = body.showInWorkflows
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            fun eventType(eventType: EventType) = eventType(JsonField.of(eventType))
-
-            /**
-             * Sets [Builder.eventType] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.eventType] with a well-typed [EventType] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun eventType(eventType: JsonField<EventType>) = apply { this.eventType = eventType }
-
-            fun updatedAt(updatedAt: Long) = updatedAt(JsonField.of(updatedAt))
-
-            /**
-             * Sets [Builder.updatedAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.updatedAt] with a well-typed [Long] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun updatedAt(updatedAt: JsonField<Long>) = apply { this.updatedAt = updatedAt }
-
-            fun showInReporting(showInReporting: Boolean) =
-                showInReporting(JsonField.of(showInReporting))
-
-            /**
-             * Sets [Builder.showInReporting] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.showInReporting] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun showInReporting(showInReporting: JsonField<Boolean>) = apply {
-                this.showInReporting = showInReporting
-            }
-
-            fun showInTimeline(showInTimeline: Boolean) =
-                showInTimeline(JsonField.of(showInTimeline))
-
-            /**
-             * Sets [Builder.showInTimeline] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.showInTimeline] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun showInTimeline(showInTimeline: JsonField<Boolean>) = apply {
-                this.showInTimeline = showInTimeline
-            }
-
-            fun showInWorkflows(showInWorkflows: Boolean) =
-                showInWorkflows(JsonField.of(showInWorkflows))
-
-            /**
-             * Sets [Builder.showInWorkflows] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.showInWorkflows] with a well-typed [Boolean] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun showInWorkflows(showInWorkflows: JsonField<Boolean>) = apply {
-                this.showInWorkflows = showInWorkflows
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .eventType()
-             * .updatedAt()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("eventType", eventType),
-                    checkRequired("updatedAt", updatedAt),
-                    showInReporting,
-                    showInTimeline,
-                    showInWorkflows,
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            eventType().validate()
-            updatedAt()
-            showInReporting()
-            showInTimeline()
-            showInWorkflows()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: HubspotInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (eventType.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (updatedAt.asKnown().isPresent) 1 else 0) +
-                (if (showInReporting.asKnown().isPresent) 1 else 0) +
-                (if (showInTimeline.asKnown().isPresent) 1 else 0) +
-                (if (showInWorkflows.asKnown().isPresent) 1 else 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Body &&
-                eventType == other.eventType &&
-                updatedAt == other.updatedAt &&
-                showInReporting == other.showInReporting &&
-                showInTimeline == other.showInTimeline &&
-                showInWorkflows == other.showInWorkflows &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(
-                eventType,
-                updatedAt,
-                showInReporting,
-                showInTimeline,
-                showInWorkflows,
-                additionalProperties,
-            )
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{eventType=$eventType, updatedAt=$updatedAt, showInReporting=$showInReporting, showInTimeline=$showInTimeline, showInWorkflows=$showInWorkflows, additionalProperties=$additionalProperties}"
-    }
-
-    class EventType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val ALL = of("ALL")
-
-            @JvmField val MEDIA_PLAYS = of("MEDIA_PLAYS")
-
-            @JvmField val MEDIA_PLAYS_PERCENT = of("MEDIA_PLAYS_PERCENT")
-
-            @JvmField val ATTENTION_SPAN = of("ATTENTION_SPAN")
-
-            @JvmStatic fun of(value: String) = EventType(JsonField.of(value))
-        }
-
-        /** An enum containing [EventType]'s known values. */
-        enum class Known {
-            ALL,
-            MEDIA_PLAYS,
-            MEDIA_PLAYS_PERCENT,
-            ATTENTION_SPAN,
-        }
-
-        /**
-         * An enum containing [EventType]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [EventType] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            ALL,
-            MEDIA_PLAYS,
-            MEDIA_PLAYS_PERCENT,
-            ATTENTION_SPAN,
-            /**
-             * An enum member indicating that [EventType] was instantiated with an unknown value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                ALL -> Value.ALL
-                MEDIA_PLAYS -> Value.MEDIA_PLAYS
-                MEDIA_PLAYS_PERCENT -> Value.MEDIA_PLAYS_PERCENT
-                ATTENTION_SPAN -> Value.ATTENTION_SPAN
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                ALL -> Known.ALL
-                MEDIA_PLAYS -> Known.MEDIA_PLAYS
-                MEDIA_PLAYS_PERCENT -> Known.MEDIA_PLAYS_PERCENT
-                ATTENTION_SPAN -> Known.ATTENTION_SPAN
-                else -> throw HubspotInvalidDataException("Unknown EventType: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        fun validate(): EventType = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: HubspotInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is EventType && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -858,14 +220,14 @@ private constructor(
 
         return other is IntegratorSettingUpdateEventVisibilitySettingsParams &&
             appId == other.appId &&
-            body == other.body &&
+            eventVisibilityChange == other.eventVisibilityChange &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(appId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(appId, eventVisibilityChange, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "IntegratorSettingUpdateEventVisibilitySettingsParams{appId=$appId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "IntegratorSettingUpdateEventVisibilitySettingsParams{appId=$appId, eventVisibilityChange=$eventVisibilityChange, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

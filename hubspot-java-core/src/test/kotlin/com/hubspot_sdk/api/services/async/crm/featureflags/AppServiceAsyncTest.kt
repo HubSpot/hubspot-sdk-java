@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.async.crm.featureflags
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.models.crm.featureflags.FlagPutRequest
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteParams
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetParams
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsParams
@@ -25,18 +26,22 @@ internal class AppServiceAsyncTest {
                 .build()
         val appServiceAsync = client.crm().featureFlags().apps()
 
-        val appFuture =
+        val flagResponseFuture =
             appServiceAsync.update(
                 AppUpdateParams.builder()
                     .appId(0)
                     .flagName("flagName")
-                    .defaultState(AppUpdateParams.DefaultState.OFF)
-                    .overrideState(AppUpdateParams.OverrideState.OFF)
+                    .flagPutRequest(
+                        FlagPutRequest.builder()
+                            .defaultState(FlagPutRequest.DefaultState.OFF)
+                            .overrideState(FlagPutRequest.OverrideState.OFF)
+                            .build()
+                    )
                     .build()
             )
 
-        val app = appFuture.get()
-        app.validate()
+        val flagResponse = flagResponseFuture.get()
+        flagResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -49,11 +54,11 @@ internal class AppServiceAsyncTest {
                 .build()
         val appServiceAsync = client.crm().featureFlags().apps()
 
-        val appFuture =
+        val flagResponseFuture =
             appServiceAsync.delete(AppDeleteParams.builder().appId(0).flagName("flagName").build())
 
-        val app = appFuture.get()
-        app.validate()
+        val flagResponse = flagResponseFuture.get()
+        flagResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -66,11 +71,11 @@ internal class AppServiceAsyncTest {
                 .build()
         val appServiceAsync = client.crm().featureFlags().apps()
 
-        val appFuture =
+        val flagResponseFuture =
             appServiceAsync.get(AppGetParams.builder().appId(0).flagName("flagName").build())
 
-        val app = appFuture.get()
-        app.validate()
+        val flagResponse = flagResponseFuture.get()
+        flagResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -83,7 +88,7 @@ internal class AppServiceAsyncTest {
                 .build()
         val appServiceAsync = client.crm().featureFlags().apps()
 
-        val responseFuture =
+        val portalFlagStateBatchResponseFuture =
             appServiceAsync.listPortals(
                 AppListPortalsParams.builder()
                     .appId(0)
@@ -93,7 +98,7 @@ internal class AppServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val portalFlagStateBatchResponse = portalFlagStateBatchResponseFuture.get()
+        portalFlagStateBatchResponse.validate()
     }
 }

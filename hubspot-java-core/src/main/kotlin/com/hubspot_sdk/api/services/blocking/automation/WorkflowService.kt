@@ -39,7 +39,6 @@ interface WorkflowService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WorkflowService
 
-    /** Create a new workflow. */
     fun create(params: WorkflowCreateParams): ApiFlow = create(params, RequestOptions.none())
 
     /** @see create */
@@ -62,7 +61,6 @@ interface WorkflowService {
     fun create(apiFlowCreateRequest: ApiFlowCreateRequest): ApiFlow =
         create(apiFlowCreateRequest, RequestOptions.none())
 
-    /** Update a workflow by ID. */
     fun update(flowId: String, params: WorkflowUpdateParams): ApiFlow =
         update(flowId, params, RequestOptions.none())
 
@@ -82,7 +80,6 @@ interface WorkflowService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ApiFlow
 
-    /** Retrieve all workflows from an account. */
     fun list(): WorkflowListPage = list(WorkflowListParams.none())
 
     /** @see list */
@@ -99,10 +96,6 @@ interface WorkflowService {
     fun list(requestOptions: RequestOptions): WorkflowListPage =
         list(WorkflowListParams.none(), requestOptions)
 
-    /**
-     * Fully delete a workflow by ID. Deleted workflows cannot be restored via the API. If you need
-     * to restore an accidentally deleted flow, you'll need to contact support.
-     */
     fun delete(flowId: Long) = delete(flowId, WorkflowDeleteParams.none())
 
     /** @see delete */
@@ -126,7 +119,6 @@ interface WorkflowService {
     fun delete(flowId: Long, requestOptions: RequestOptions) =
         delete(flowId, WorkflowDeleteParams.none(), requestOptions)
 
-    /** Retrieve a batch of workflows by ID. */
     fun batchGet(params: WorkflowBatchGetParams): BatchResponseApiFlow =
         batchGet(params, RequestOptions.none())
 
@@ -150,7 +142,6 @@ interface WorkflowService {
     fun batchGet(apiFlowBatchInput: ApiFlowBatchInput): BatchResponseApiFlow =
         batchGet(apiFlowBatchInput, RequestOptions.none())
 
-    /** Retrieve the IDs of v3 workflows that have been migrated to the v4 API. */
     fun batchGetIdMappings(
         params: WorkflowBatchGetIdMappingsParams
     ): BatchResponseFlowIdWorkflowIdMappingResponse =
@@ -180,7 +171,6 @@ interface WorkflowService {
     ): BatchResponseFlowIdWorkflowIdMappingResponse =
         batchGetIdMappings(apiFlowBatchMigrationInput, RequestOptions.none())
 
-    /** Retrieve all details for a specific workflow by ID. */
     fun get(flowId: String): ApiFlow = get(flowId, WorkflowGetParams.none())
 
     /** @see get */
@@ -207,7 +197,6 @@ interface WorkflowService {
     fun get(flowId: String, requestOptions: RequestOptions): ApiFlow =
         get(flowId, WorkflowGetParams.none(), requestOptions)
 
-    /** Retrieve emails sent by a workflow by ID. */
     fun listEmailCampaigns(): CollectionResponseApiFlowEmailCampaign =
         listEmailCampaigns(WorkflowListEmailCampaignsParams.none())
 

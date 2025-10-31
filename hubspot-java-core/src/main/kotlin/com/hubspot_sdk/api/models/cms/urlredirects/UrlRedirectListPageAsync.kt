@@ -19,25 +19,27 @@ private constructor(
     private val service: UrlRedirectServiceAsync,
     private val streamHandlerExecutor: Executor,
     private val params: UrlRedirectListParams,
-    private val response: UrlRedirectListPageResponse,
-) : PageAsync<UrlRedirectListResponse> {
+    private val response: CollectionResponseWithTotalUrlMappingForwardPaging,
+) : PageAsync<UrlMapping> {
 
     /**
-     * Delegates to [UrlRedirectListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponseWithTotalUrlMappingForwardPaging], but gracefully handles
+     * missing data.
      *
-     * @see UrlRedirectListPageResponse.results
+     * @see CollectionResponseWithTotalUrlMappingForwardPaging.results
      */
-    fun results(): List<UrlRedirectListResponse> =
+    fun results(): List<UrlMapping> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [UrlRedirectListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponseWithTotalUrlMappingForwardPaging], but gracefully handles
+     * missing data.
      *
-     * @see UrlRedirectListPageResponse.paging
+     * @see CollectionResponseWithTotalUrlMappingForwardPaging.paging
      */
     fun paging(): Optional<ForwardPaging> = response._paging().getOptional("paging")
 
-    override fun items(): List<UrlRedirectListResponse> = results()
+    override fun items(): List<UrlMapping> = results()
 
     override fun hasNextPage(): Boolean =
         items().isNotEmpty() &&
@@ -58,14 +60,13 @@ private constructor(
     override fun nextPage(): CompletableFuture<UrlRedirectListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<UrlRedirectListResponse> =
-        AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<UrlMapping> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): UrlRedirectListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): UrlRedirectListPageResponse = response
+    fun response(): CollectionResponseWithTotalUrlMappingForwardPaging = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -91,7 +92,7 @@ private constructor(
         private var service: UrlRedirectServiceAsync? = null
         private var streamHandlerExecutor: Executor? = null
         private var params: UrlRedirectListParams? = null
-        private var response: UrlRedirectListPageResponse? = null
+        private var response: CollectionResponseWithTotalUrlMappingForwardPaging? = null
 
         @JvmSynthetic
         internal fun from(urlRedirectListPageAsync: UrlRedirectListPageAsync) = apply {
@@ -111,7 +112,9 @@ private constructor(
         fun params(params: UrlRedirectListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: UrlRedirectListPageResponse) = apply { this.response = response }
+        fun response(response: CollectionResponseWithTotalUrlMappingForwardPaging) = apply {
+            this.response = response
+        }
 
         /**
          * Returns an immutable instance of [UrlRedirectListPageAsync].

@@ -9,7 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Returns all object schemas that have been defined for your account. */
 class SchemaListParams
 private constructor(
     private val archived: Boolean?,

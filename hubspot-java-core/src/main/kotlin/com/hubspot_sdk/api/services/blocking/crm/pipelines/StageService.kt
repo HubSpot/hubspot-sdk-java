@@ -33,10 +33,7 @@ interface StageService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): StageService
 
-    /**
-     * Create a new stage associated with the pipeline identified by `{pipelineId}`. The entire
-     * stage object, including its unique ID, will be returned in the response.
-     */
+    /** Create a pipeline stage */
     fun create(pipelineId: String, params: StageCreateParams): PipelineStage =
         create(pipelineId, params, RequestOptions.none())
 
@@ -56,11 +53,6 @@ interface StageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PipelineStage
 
-    /**
-     * Perform a partial update of the pipeline stage identified by `{stageId}` associated with the
-     * pipeline identified by `{pipelineId}`. Any properties not included in this update will keep
-     * their existing values. The updated stage will be returned in the response.
-     */
     fun update(stageId: String, params: StageUpdateParams): PipelineStage =
         update(stageId, params, RequestOptions.none())
 
@@ -102,10 +94,7 @@ interface StageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponsePipelineStageNoPaging
 
-    /**
-     * Delete the pipeline stage identified by `{stageId}` associated with the pipeline identified
-     * by `{pipelineId}`.
-     */
+    /** Delete a pipeline stage */
     fun delete(stageId: String, params: StageDeleteParams) =
         delete(stageId, params, RequestOptions.none())
 
@@ -122,10 +111,7 @@ interface StageService {
     /** @see delete */
     fun delete(params: StageDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /**
-     * Return the stage identified by `{stageId}` associated with the pipeline identified by
-     * `{pipelineId}`.
-     */
+    /** Return a pipeline stage by ID */
     fun get(stageId: String, params: StageGetParams): PipelineStage =
         get(stageId, params, RequestOptions.none())
 

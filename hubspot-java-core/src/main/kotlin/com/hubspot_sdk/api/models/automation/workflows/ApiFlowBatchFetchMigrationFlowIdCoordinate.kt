@@ -34,16 +34,12 @@ private constructor(
     ) : this(flowMigrationStatuses, type, mutableMapOf())
 
     /**
-     * The flowId from the V4 API
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun flowMigrationStatuses(): String = flowMigrationStatuses.getRequired("flowMigrationStatuses")
 
     /**
-     * The type of input this is, can be FLOW_ID or WORKFLOW_ID
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -110,7 +106,6 @@ private constructor(
                 apiFlowBatchFetchMigrationFlowIdCoordinate.additionalProperties.toMutableMap()
         }
 
-        /** The flowId from the V4 API */
         fun flowMigrationStatuses(flowMigrationStatuses: String) =
             flowMigrationStatuses(JsonField.of(flowMigrationStatuses))
 
@@ -125,7 +120,6 @@ private constructor(
             this.flowMigrationStatuses = flowMigrationStatuses
         }
 
-        /** The type of input this is, can be FLOW_ID or WORKFLOW_ID */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -206,7 +200,6 @@ private constructor(
         (if (flowMigrationStatuses.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The type of input this is, can be FLOW_ID or WORKFLOW_ID */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

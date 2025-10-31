@@ -5,6 +5,12 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
+import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationMessageEgg
+import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationParticipant
+import com.hubspot_sdk.api.models.conversations.customchannels.FileAttachment
+import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContact
+import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContacts
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationMessageUpdateRequest
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageUpdateParams
@@ -30,59 +36,59 @@ internal class MessageServiceAsyncTest {
             messageServiceAsync.create(
                 MessageCreateParams.builder()
                     .channelId("channelId")
-                    .addAttachment(
-                        MessageCreateParams.Attachment.ConversationsCustomchannelsFileAttachment
-                            .builder()
-                            .fileId("fileId")
-                            .type(
-                                MessageCreateParams.Attachment
-                                    .ConversationsCustomchannelsFileAttachment
-                                    .Type
-                                    .FILE
-                            )
-                            .fileUsageType("fileUsageType")
-                            .build()
-                    )
-                    .channelAccountId("channelAccountId")
-                    .integrationThreadId("integrationThreadId")
-                    .messageDirection(MessageCreateParams.MessageDirection.INCOMING)
-                    .addRecipient(
-                        MessageCreateParams.Recipient.builder()
-                            .deliveryIdentifier(
-                                PublicDeliveryIdentifier.builder()
-                                    .type("type")
-                                    .value("value")
+                    .channelIntegrationMessageEgg(
+                        ChannelIntegrationMessageEgg.builder()
+                            .addAttachment(
+                                FileAttachment.builder()
+                                    .fileId("fileId")
+                                    .type(FileAttachment.Type.FILE)
+                                    .fileUsageType("fileUsageType")
                                     .build()
                             )
-                            .name("name")
-                            .build()
-                    )
-                    .addSender(
-                        MessageCreateParams.Sender.builder()
-                            .deliveryIdentifier(
-                                PublicDeliveryIdentifier.builder()
-                                    .type("type")
-                                    .value("value")
+                            .channelAccountId("channelAccountId")
+                            .integrationThreadId("integrationThreadId")
+                            .messageDirection(
+                                ChannelIntegrationMessageEgg.MessageDirection.INCOMING
+                            )
+                            .addRecipient(
+                                ChannelIntegrationParticipant.builder()
+                                    .deliveryIdentifier(
+                                        PublicDeliveryIdentifier.builder()
+                                            .type("type")
+                                            .value("value")
+                                            .build()
+                                    )
+                                    .name("name")
                                     .build()
                             )
-                            .name("name")
-                            .build()
-                    )
-                    .text("text")
-                    .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .inReplyToId("inReplyToId")
-                    .integrationIdempotencyId("integrationIdempotencyId")
-                    .preResolvedContacts(
-                        MessageCreateParams.PreResolvedContacts.builder()
-                            .addContact(
-                                MessageCreateParams.PreResolvedContacts.Contact.builder()
-                                    .addContactPropertiesLeadingToMatch("string")
-                                    .contactVid(0)
+                            .addSender(
+                                ChannelIntegrationParticipant.builder()
+                                    .deliveryIdentifier(
+                                        PublicDeliveryIdentifier.builder()
+                                            .type("type")
+                                            .value("value")
+                                            .build()
+                                    )
+                                    .name("name")
                                     .build()
                             )
+                            .text("text")
+                            .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .inReplyToId("inReplyToId")
+                            .integrationIdempotencyId("integrationIdempotencyId")
+                            .preResolvedContacts(
+                                PreResolvedContacts.builder()
+                                    .addContact(
+                                        PreResolvedContact.builder()
+                                            .addContactPropertiesLeadingToMatch("string")
+                                            .contactVid(0)
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .richText("richText")
                             .build()
                     )
-                    .richText("richText")
                     .build()
             )
 
@@ -105,8 +111,14 @@ internal class MessageServiceAsyncTest {
                 MessageUpdateParams.builder()
                     .channelId("channelId")
                     .messageId("messageId")
-                    .statusType(MessageUpdateParams.StatusType.SENT)
-                    .errorMessage("errorMessage")
+                    .publicChannelIntegrationMessageUpdateRequest(
+                        PublicChannelIntegrationMessageUpdateRequest.builder()
+                            .statusType(
+                                PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT
+                            )
+                            .errorMessage("errorMessage")
+                            .build()
+                    )
                     .build()
             )
 

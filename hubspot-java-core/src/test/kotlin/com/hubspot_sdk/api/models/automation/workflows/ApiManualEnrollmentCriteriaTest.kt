@@ -13,11 +13,11 @@ internal class ApiManualEnrollmentCriteriaTest {
     fun create() {
         val apiManualEnrollmentCriteria =
             ApiManualEnrollmentCriteria.builder()
-                .shouldReEnroll(false)
+                .shouldReEnroll(true)
                 .type(ApiManualEnrollmentCriteria.Type.MANUAL)
                 .build()
 
-        assertThat(apiManualEnrollmentCriteria.shouldReEnroll()).isEqualTo(false)
+        assertThat(apiManualEnrollmentCriteria.shouldReEnroll()).isEqualTo(true)
         assertThat(apiManualEnrollmentCriteria.type())
             .isEqualTo(ApiManualEnrollmentCriteria.Type.MANUAL)
     }
@@ -27,7 +27,7 @@ internal class ApiManualEnrollmentCriteriaTest {
         val jsonMapper = jsonMapper()
         val apiManualEnrollmentCriteria =
             ApiManualEnrollmentCriteria.builder()
-                .shouldReEnroll(false)
+                .shouldReEnroll(true)
                 .type(ApiManualEnrollmentCriteria.Type.MANUAL)
                 .build()
 

@@ -175,7 +175,7 @@ interface DealService {
     fun get(dealId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
         get(dealId, DealGetParams.none(), requestOptions)
 
-    /** Merge two deals with same type */
+    /** Combine two deals of the same type into a single deal. */
     fun merge(params: DealMergeParams): SimplePublicObject = merge(params, RequestOptions.none())
 
     /** @see merge */
@@ -195,6 +195,7 @@ interface DealService {
     fun merge(publicMergeInput: PublicMergeInput): SimplePublicObject =
         merge(publicMergeInput, RequestOptions.none())
 
+    /** Search for deals using specified criteria and filters. */
     fun search(params: DealSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 

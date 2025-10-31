@@ -15,7 +15,7 @@ internal class ExternalAssociationCreateRequestTest {
     fun create() {
         val externalAssociationCreateRequest =
             ExternalAssociationCreateRequest.builder()
-                .to(PublicObjectId.builder().id("37295").build())
+                .to(PublicObjectId.builder().id("id").build())
                 .addType(
                     AssociationSpec.builder()
                         .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
@@ -25,7 +25,7 @@ internal class ExternalAssociationCreateRequestTest {
                 .build()
 
         assertThat(externalAssociationCreateRequest.to())
-            .isEqualTo(PublicObjectId.builder().id("37295").build())
+            .isEqualTo(PublicObjectId.builder().id("id").build())
         assertThat(externalAssociationCreateRequest.types())
             .containsExactly(
                 AssociationSpec.builder()
@@ -40,7 +40,7 @@ internal class ExternalAssociationCreateRequestTest {
         val jsonMapper = jsonMapper()
         val externalAssociationCreateRequest =
             ExternalAssociationCreateRequest.builder()
-                .to(PublicObjectId.builder().id("37295").build())
+                .to(PublicObjectId.builder().id("id").build())
                 .addType(
                     AssociationSpec.builder()
                         .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)

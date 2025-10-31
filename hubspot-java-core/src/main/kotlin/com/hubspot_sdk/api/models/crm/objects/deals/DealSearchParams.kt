@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 
+/** Search for deals using specified criteria and filters. */
 class DealSearchParams
 private constructor(
     private val publicObjectSearchRequest: PublicObjectSearchRequest,

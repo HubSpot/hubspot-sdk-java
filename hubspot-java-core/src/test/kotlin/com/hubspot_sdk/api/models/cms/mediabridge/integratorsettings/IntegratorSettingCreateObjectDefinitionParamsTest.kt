@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings
 
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorObjectCreationRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -11,7 +12,11 @@ internal class IntegratorSettingCreateObjectDefinitionParamsTest {
     fun create() {
         IntegratorSettingCreateObjectDefinitionParams.builder()
             .appId("appId")
-            .addMediaType(IntegratorSettingCreateObjectDefinitionParams.MediaType.VIDEO)
+            .integratorObjectCreationRequest(
+                IntegratorObjectCreationRequest.builder()
+                    .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
+                    .build()
+            )
             .build()
     }
 
@@ -20,7 +25,11 @@ internal class IntegratorSettingCreateObjectDefinitionParamsTest {
         val params =
             IntegratorSettingCreateObjectDefinitionParams.builder()
                 .appId("appId")
-                .addMediaType(IntegratorSettingCreateObjectDefinitionParams.MediaType.VIDEO)
+                .integratorObjectCreationRequest(
+                    IntegratorObjectCreationRequest.builder()
+                        .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("appId")
@@ -33,12 +42,20 @@ internal class IntegratorSettingCreateObjectDefinitionParamsTest {
         val params =
             IntegratorSettingCreateObjectDefinitionParams.builder()
                 .appId("appId")
-                .addMediaType(IntegratorSettingCreateObjectDefinitionParams.MediaType.VIDEO)
+                .integratorObjectCreationRequest(
+                    IntegratorObjectCreationRequest.builder()
+                        .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.mediaTypes())
-            .containsExactly(IntegratorSettingCreateObjectDefinitionParams.MediaType.VIDEO)
+        assertThat(body)
+            .isEqualTo(
+                IntegratorObjectCreationRequest.builder()
+                    .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
+                    .build()
+            )
     }
 }

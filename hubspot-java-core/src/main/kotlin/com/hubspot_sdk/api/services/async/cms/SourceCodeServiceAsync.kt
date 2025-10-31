@@ -8,16 +8,15 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.ActionResponse
 import com.hubspot_sdk.api.models.TaskLocator
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata
+import com.hubspot_sdk.api.models.cms.sourcecode.FileExtractRequest
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeDeleteParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeExtractAsyncParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetExtractionStatusParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertResponse
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeValidateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -42,10 +41,8 @@ interface SourceCodeServiceAsync {
      * path.
      */
     @Deprecated("deprecated")
-    fun create(
-        path: String,
-        params: SourceCodeCreateParams,
-    ): CompletableFuture<SourceCodeCreateResponse> = create(path, params, RequestOptions.none())
+    fun create(path: String, params: SourceCodeCreateParams): CompletableFuture<AssetFileMetadata> =
+        create(path, params, RequestOptions.none())
 
     /** @see create */
     @Deprecated("deprecated")
@@ -53,12 +50,12 @@ interface SourceCodeServiceAsync {
         path: String,
         params: SourceCodeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SourceCodeCreateResponse> =
+    ): CompletableFuture<AssetFileMetadata> =
         create(params.toBuilder().path(path).build(), requestOptions)
 
     /** @see create */
     @Deprecated("deprecated")
-    fun create(params: SourceCodeCreateParams): CompletableFuture<SourceCodeCreateResponse> =
+    fun create(params: SourceCodeCreateParams): CompletableFuture<AssetFileMetadata> =
         create(params, RequestOptions.none())
 
     /** @see create */
@@ -66,7 +63,7 @@ interface SourceCodeServiceAsync {
     fun create(
         params: SourceCodeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SourceCodeCreateResponse>
+    ): CompletableFuture<AssetFileMetadata>
 
     /** Deletes the file at the specified path in the specified environment. */
     fun delete(path: String, params: SourceCodeDeleteParams): CompletableFuture<Void?> =
@@ -101,6 +98,20 @@ interface SourceCodeServiceAsync {
         params: SourceCodeExtractAsyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TaskLocator>
+
+    /** @see extractAsync */
+    fun extractAsync(
+        fileExtractRequest: FileExtractRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<TaskLocator> =
+        extractAsync(
+            SourceCodeExtractAsyncParams.builder().fileExtractRequest(fileExtractRequest).build(),
+            requestOptions,
+        )
+
+    /** @see extractAsync */
+    fun extractAsync(fileExtractRequest: FileExtractRequest): CompletableFuture<TaskLocator> =
+        extractAsync(fileExtractRequest, RequestOptions.none())
 
     /**
      * Downloads the byte contents of the file at the specified path in the specified environment.
@@ -169,54 +180,50 @@ interface SourceCodeServiceAsync {
     fun getMetadata(
         path: String,
         params: SourceCodeGetMetadataParams,
-    ): CompletableFuture<SourceCodeGetMetadataResponse> =
-        getMetadata(path, params, RequestOptions.none())
+    ): CompletableFuture<AssetFileMetadata> = getMetadata(path, params, RequestOptions.none())
 
     /** @see getMetadata */
     fun getMetadata(
         path: String,
         params: SourceCodeGetMetadataParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SourceCodeGetMetadataResponse> =
+    ): CompletableFuture<AssetFileMetadata> =
         getMetadata(params.toBuilder().path(path).build(), requestOptions)
 
     /** @see getMetadata */
-    fun getMetadata(
-        params: SourceCodeGetMetadataParams
-    ): CompletableFuture<SourceCodeGetMetadataResponse> = getMetadata(params, RequestOptions.none())
+    fun getMetadata(params: SourceCodeGetMetadataParams): CompletableFuture<AssetFileMetadata> =
+        getMetadata(params, RequestOptions.none())
 
     /** @see getMetadata */
     fun getMetadata(
         params: SourceCodeGetMetadataParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SourceCodeGetMetadataResponse>
+    ): CompletableFuture<AssetFileMetadata>
 
     /**
      * Upserts a file at the specified path in the specified environment. Accepts
      * multipart/form-data content type.
      */
-    fun upsert(
-        path: String,
-        params: SourceCodeUpsertParams,
-    ): CompletableFuture<SourceCodeUpsertResponse> = upsert(path, params, RequestOptions.none())
+    fun upsert(path: String, params: SourceCodeUpsertParams): CompletableFuture<AssetFileMetadata> =
+        upsert(path, params, RequestOptions.none())
 
     /** @see upsert */
     fun upsert(
         path: String,
         params: SourceCodeUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SourceCodeUpsertResponse> =
+    ): CompletableFuture<AssetFileMetadata> =
         upsert(params.toBuilder().path(path).build(), requestOptions)
 
     /** @see upsert */
-    fun upsert(params: SourceCodeUpsertParams): CompletableFuture<SourceCodeUpsertResponse> =
+    fun upsert(params: SourceCodeUpsertParams): CompletableFuture<AssetFileMetadata> =
         upsert(params, RequestOptions.none())
 
     /** @see upsert */
     fun upsert(
         params: SourceCodeUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SourceCodeUpsertResponse>
+    ): CompletableFuture<AssetFileMetadata>
 
     /**
      * Validates the file contents passed to the endpoint given a specified path and environment.
@@ -266,7 +273,7 @@ interface SourceCodeServiceAsync {
         fun create(
             path: String,
             params: SourceCodeCreateParams,
-        ): CompletableFuture<HttpResponseFor<SourceCodeCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             create(path, params, RequestOptions.none())
 
         /** @see create */
@@ -275,14 +282,14 @@ interface SourceCodeServiceAsync {
             path: String,
             params: SourceCodeCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SourceCodeCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             create(params.toBuilder().path(path).build(), requestOptions)
 
         /** @see create */
         @Deprecated("deprecated")
         fun create(
             params: SourceCodeCreateParams
-        ): CompletableFuture<HttpResponseFor<SourceCodeCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -290,7 +297,7 @@ interface SourceCodeServiceAsync {
         fun create(
             params: SourceCodeCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SourceCodeCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>>
 
         /**
          * Returns a raw HTTP response for `delete
@@ -332,6 +339,24 @@ interface SourceCodeServiceAsync {
             params: SourceCodeExtractAsyncParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<TaskLocator>>
+
+        /** @see extractAsync */
+        fun extractAsync(
+            fileExtractRequest: FileExtractRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<TaskLocator>> =
+            extractAsync(
+                SourceCodeExtractAsyncParams.builder()
+                    .fileExtractRequest(fileExtractRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see extractAsync */
+        fun extractAsync(
+            fileExtractRequest: FileExtractRequest
+        ): CompletableFuture<HttpResponseFor<TaskLocator>> =
+            extractAsync(fileExtractRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/source-code/{environment}/content/{path}`,
@@ -408,7 +433,7 @@ interface SourceCodeServiceAsync {
         fun getMetadata(
             path: String,
             params: SourceCodeGetMetadataParams,
-        ): CompletableFuture<HttpResponseFor<SourceCodeGetMetadataResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             getMetadata(path, params, RequestOptions.none())
 
         /** @see getMetadata */
@@ -416,20 +441,20 @@ interface SourceCodeServiceAsync {
             path: String,
             params: SourceCodeGetMetadataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SourceCodeGetMetadataResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             getMetadata(params.toBuilder().path(path).build(), requestOptions)
 
         /** @see getMetadata */
         fun getMetadata(
             params: SourceCodeGetMetadataParams
-        ): CompletableFuture<HttpResponseFor<SourceCodeGetMetadataResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             getMetadata(params, RequestOptions.none())
 
         /** @see getMetadata */
         fun getMetadata(
             params: SourceCodeGetMetadataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SourceCodeGetMetadataResponse>>
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>>
 
         /**
          * Returns a raw HTTP response for `put /cms/v3/source-code/{environment}/content/{path}`,
@@ -438,7 +463,7 @@ interface SourceCodeServiceAsync {
         fun upsert(
             path: String,
             params: SourceCodeUpsertParams,
-        ): CompletableFuture<HttpResponseFor<SourceCodeUpsertResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             upsert(path, params, RequestOptions.none())
 
         /** @see upsert */
@@ -446,20 +471,20 @@ interface SourceCodeServiceAsync {
             path: String,
             params: SourceCodeUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SourceCodeUpsertResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             upsert(params.toBuilder().path(path).build(), requestOptions)
 
         /** @see upsert */
         fun upsert(
             params: SourceCodeUpsertParams
-        ): CompletableFuture<HttpResponseFor<SourceCodeUpsertResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>> =
             upsert(params, RequestOptions.none())
 
         /** @see upsert */
         fun upsert(
             params: SourceCodeUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SourceCodeUpsertResponse>>
+        ): CompletableFuture<HttpResponseFor<AssetFileMetadata>>
 
         /**
          * Returns a raw HTTP response for `post /cms/v3/source-code/{environment}/validate/{path}`,

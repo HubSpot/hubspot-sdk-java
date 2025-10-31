@@ -23,7 +23,7 @@ internal class SiteSearchServiceAsyncTest {
                 .build()
         val siteSearchServiceAsync = client.cms().siteSearch()
 
-        val responseFuture =
+        val indexedDataFuture =
             siteSearchServiceAsync.getIndexedData(
                 SiteSearchGetIndexedDataParams.builder()
                     .contentId("contentId")
@@ -31,8 +31,8 @@ internal class SiteSearchServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val indexedData = indexedDataFuture.get()
+        indexedData.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -45,7 +45,7 @@ internal class SiteSearchServiceAsyncTest {
                 .build()
         val siteSearchServiceAsync = client.cms().siteSearch()
 
-        val responseFuture =
+        val publicSearchResultsFuture =
             siteSearchServiceAsync.search(
                 SiteSearchSearchParams.builder()
                     .autocomplete(true)
@@ -68,7 +68,7 @@ internal class SiteSearchServiceAsyncTest {
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val publicSearchResults = publicSearchResultsFuture.get()
+        publicSearchResults.validate()
     }
 }

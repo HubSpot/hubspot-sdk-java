@@ -11,11 +11,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Delete the
- * [channel connection settings](https://developers.hubspot.com/docs/guides/api/crm/extensions/third-party-calling#delete-existing-channel-connection-settings)
- * for the app.
- */
 class ChannelConnectionSettingDeleteParams
 private constructor(
     private val appId: Int?,

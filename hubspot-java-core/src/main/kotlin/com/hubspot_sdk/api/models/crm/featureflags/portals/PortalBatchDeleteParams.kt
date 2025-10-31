@@ -2,22 +2,12 @@
 
 package com.hubspot_sdk.api.models.crm.featureflags.portals
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.hubspot_sdk.api.core.ExcludeMissing
-import com.hubspot_sdk.api.core.JsonField
-import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
-import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import java.util.Collections
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchDeleteRequest
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -30,7 +20,7 @@ class PortalBatchDeleteParams
 private constructor(
     private val appId: Int,
     private val flagName: String?,
-    private val body: Body,
+    private val portalFlagStateBatchDeleteRequest: PortalFlagStateBatchDeleteRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -39,20 +29,11 @@ private constructor(
 
     fun flagName(): Optional<String> = Optional.ofNullable(flagName)
 
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun portalIds(): List<Int> = body.portalIds()
+    fun portalFlagStateBatchDeleteRequest(): PortalFlagStateBatchDeleteRequest =
+        portalFlagStateBatchDeleteRequest
 
-    /**
-     * Returns the raw JSON value of [portalIds].
-     *
-     * Unlike [portalIds], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _portalIds(): JsonField<List<Int>> = body._portalIds()
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        portalFlagStateBatchDeleteRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -70,7 +51,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .portalIds()
+         * .portalFlagStateBatchDeleteRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -81,7 +62,7 @@ private constructor(
 
         private var appId: Int? = null
         private var flagName: String? = null
-        private var body: Body.Builder = Body.builder()
+        private var portalFlagStateBatchDeleteRequest: PortalFlagStateBatchDeleteRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -89,7 +70,8 @@ private constructor(
         internal fun from(portalBatchDeleteParams: PortalBatchDeleteParams) = apply {
             appId = portalBatchDeleteParams.appId
             flagName = portalBatchDeleteParams.flagName
-            body = portalBatchDeleteParams.body.toBuilder()
+            portalFlagStateBatchDeleteRequest =
+                portalBatchDeleteParams.portalFlagStateBatchDeleteRequest
             additionalHeaders = portalBatchDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = portalBatchDeleteParams.additionalQueryParams.toBuilder()
         }
@@ -101,51 +83,9 @@ private constructor(
         /** Alias for calling [Builder.flagName] with `flagName.orElse(null)`. */
         fun flagName(flagName: Optional<String>) = flagName(flagName.getOrNull())
 
-        /**
-         * Sets the entire request body.
-         *
-         * This is generally only useful if you are already constructing the body separately.
-         * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [portalIds]
-         */
-        fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        fun portalIds(portalIds: List<Int>) = apply { body.portalIds(portalIds) }
-
-        /**
-         * Sets [Builder.portalIds] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.portalIds] with a well-typed `List<Int>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun portalIds(portalIds: JsonField<List<Int>>) = apply { body.portalIds(portalIds) }
-
-        /**
-         * Adds a single [Int] to [portalIds].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addPortalId(portalId: Int) = apply { body.addPortalId(portalId) }
-
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            body.additionalProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            body.putAdditionalProperty(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                body.putAllAdditionalProperties(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            body.removeAllAdditionalProperties(keys)
-        }
+        fun portalFlagStateBatchDeleteRequest(
+            portalFlagStateBatchDeleteRequest: PortalFlagStateBatchDeleteRequest
+        ) = apply { this.portalFlagStateBatchDeleteRequest = portalFlagStateBatchDeleteRequest }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -253,7 +193,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .portalIds()
+         * .portalFlagStateBatchDeleteRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -262,13 +202,16 @@ private constructor(
             PortalBatchDeleteParams(
                 checkRequired("appId", appId),
                 flagName,
-                body.build(),
+                checkRequired(
+                    "portalFlagStateBatchDeleteRequest",
+                    portalFlagStateBatchDeleteRequest,
+                ),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Body = body
+    fun _body(): PortalFlagStateBatchDeleteRequest = portalFlagStateBatchDeleteRequest
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -281,180 +224,6 @@ private constructor(
 
     override fun _queryParams(): QueryParams = additionalQueryParams
 
-    class Body
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val portalIds: JsonField<List<Int>>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("portalIds")
-            @ExcludeMissing
-            portalIds: JsonField<List<Int>> = JsonMissing.of()
-        ) : this(portalIds, mutableMapOf())
-
-        /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun portalIds(): List<Int> = portalIds.getRequired("portalIds")
-
-        /**
-         * Returns the raw JSON value of [portalIds].
-         *
-         * Unlike [portalIds], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("portalIds")
-        @ExcludeMissing
-        fun _portalIds(): JsonField<List<Int>> = portalIds
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .portalIds()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Body]. */
-        class Builder internal constructor() {
-
-            private var portalIds: JsonField<MutableList<Int>>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(body: Body) = apply {
-                portalIds = body.portalIds.map { it.toMutableList() }
-                additionalProperties = body.additionalProperties.toMutableMap()
-            }
-
-            fun portalIds(portalIds: List<Int>) = portalIds(JsonField.of(portalIds))
-
-            /**
-             * Sets [Builder.portalIds] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.portalIds] with a well-typed `List<Int>` value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun portalIds(portalIds: JsonField<List<Int>>) = apply {
-                this.portalIds = portalIds.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [Int] to [portalIds].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addPortalId(portalId: Int) = apply {
-                portalIds =
-                    (portalIds ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("portalIds", it).add(portalId)
-                    }
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Body].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .portalIds()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Body =
-                Body(
-                    checkRequired("portalIds", portalIds).map { it.toImmutable() },
-                    additionalProperties.toMutableMap(),
-                )
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Body = apply {
-            if (validated) {
-                return@apply
-            }
-
-            portalIds()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: HubspotInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = (portalIds.asKnown().getOrNull()?.size ?: 0)
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Body &&
-                portalIds == other.portalIds &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(portalIds, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Body{portalIds=$portalIds, additionalProperties=$additionalProperties}"
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -463,14 +232,20 @@ private constructor(
         return other is PortalBatchDeleteParams &&
             appId == other.appId &&
             flagName == other.flagName &&
-            body == other.body &&
+            portalFlagStateBatchDeleteRequest == other.portalFlagStateBatchDeleteRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(appId, flagName, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            appId,
+            flagName,
+            portalFlagStateBatchDeleteRequest,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "PortalBatchDeleteParams{appId=$appId, flagName=$flagName, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PortalBatchDeleteParams{appId=$appId, flagName=$flagName, portalFlagStateBatchDeleteRequest=$portalFlagStateBatchDeleteRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

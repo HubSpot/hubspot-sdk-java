@@ -18,19 +18,17 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.events.eventdefinitions.CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeleteParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeletePropertyParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListPage
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListPageResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateResponse
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinition
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -49,14 +47,14 @@ class EventDefinitionServiceImpl internal constructor(private val clientOptions:
     override fun create(
         params: EventDefinitionCreateParams,
         requestOptions: RequestOptions,
-    ): EventDefinitionCreateResponse =
+    ): ExternalBehavioralEventTypeDefinition =
         // post /events/v3/event-definitions
         withRawResponse().create(params, requestOptions).parse()
 
     override fun update(
         params: EventDefinitionUpdateParams,
         requestOptions: RequestOptions,
-    ): EventDefinitionUpdateResponse =
+    ): ExternalBehavioralEventTypeDefinition =
         // patch /events/v3/event-definitions/{eventName}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -90,7 +88,7 @@ class EventDefinitionServiceImpl internal constructor(private val clientOptions:
     override fun get(
         params: EventDefinitionGetParams,
         requestOptions: RequestOptions,
-    ): EventDefinitionGetResponse =
+    ): ExternalBehavioralEventTypeDefinition =
         // get /events/v3/event-definitions/{eventName}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -114,13 +112,13 @@ class EventDefinitionServiceImpl internal constructor(private val clientOptions:
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<EventDefinitionCreateResponse> =
-            jsonHandler<EventDefinitionCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<ExternalBehavioralEventTypeDefinition> =
+            jsonHandler<ExternalBehavioralEventTypeDefinition>(clientOptions.jsonMapper)
 
         override fun create(
             params: EventDefinitionCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventDefinitionCreateResponse> {
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -142,13 +140,13 @@ class EventDefinitionServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val updateHandler: Handler<EventDefinitionUpdateResponse> =
-            jsonHandler<EventDefinitionUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ExternalBehavioralEventTypeDefinition> =
+            jsonHandler<ExternalBehavioralEventTypeDefinition>(clientOptions.jsonMapper)
 
         override fun update(
             params: EventDefinitionUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventDefinitionUpdateResponse> {
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventName", params.eventName().getOrNull())
@@ -173,8 +171,13 @@ class EventDefinitionServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<EventDefinitionListPageResponse> =
-            jsonHandler<EventDefinitionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler:
+            Handler<CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging> =
+            jsonHandler<
+                CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionForwardPaging
+            >(
+                clientOptions.jsonMapper
+            )
 
         override fun list(
             params: EventDefinitionListParams,
@@ -299,13 +302,13 @@ class EventDefinitionServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val getHandler: Handler<EventDefinitionGetResponse> =
-            jsonHandler<EventDefinitionGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<ExternalBehavioralEventTypeDefinition> =
+            jsonHandler<ExternalBehavioralEventTypeDefinition>(clientOptions.jsonMapper)
 
         override fun get(
             params: EventDefinitionGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventDefinitionGetResponse> {
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("eventName", params.eventName().getOrNull())

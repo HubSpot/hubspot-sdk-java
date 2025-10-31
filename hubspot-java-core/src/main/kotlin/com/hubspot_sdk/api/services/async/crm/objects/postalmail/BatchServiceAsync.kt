@@ -35,7 +35,7 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
-    /** Create a batch of postal mail */
+    /** Create a batch of postal mail objects. */
     fun create(params: BatchCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         create(params, RequestOptions.none())
 
@@ -67,7 +67,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
-    /** Update a batch of postal mail by internal ID, or unique property values */
+    /** Update multiple postal mail objects in a single request. */
     fun update(params: BatchUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         update(params, RequestOptions.none())
 
@@ -95,7 +95,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /** Archive a batch of postal mail by ID */
+    /** Archive a batch of postal mail objects using their IDs. */
     fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
@@ -122,10 +122,7 @@ interface BatchServiceAsync {
         batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
     ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
-     */
+    /** Retrieve multiple postal mail objects using their internal IDs or unique property values. */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
         get(params, RequestOptions.none())
 
@@ -154,7 +151,7 @@ interface BatchServiceAsync {
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Create or update records identified by a unique property value as specified by the
+     * Create or update postal mails identified by a unique property value as specified by the
      * `idProperty` query param. `idProperty` query param refers to a property whose values are
      * unique for the object.
      */

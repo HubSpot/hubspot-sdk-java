@@ -5,9 +5,10 @@ package com.hubspot_sdk.api.services.blocking.cms.mediabridge
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateAttentionSpanEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedPercentEventParams
+import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanCalculatedValues
+import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEventRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEventRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEventRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -25,13 +26,13 @@ internal class EventServiceTest {
                 .build()
         val eventService = client.cms().mediaBridge().events()
 
-        val response =
+        val attentionSpanEvent =
             eventService.createAttentionSpanEvent(
-                EventCreateAttentionSpanEventParams.builder()
-                    .mediaType(EventCreateAttentionSpanEventParams.MediaType.VIDEO)
+                AttentionSpanEventRequest.builder()
+                    .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
                     .occurredTimestamp(0L)
                     .rawDataMap(
-                        EventCreateAttentionSpanEventParams.RawDataMap.builder()
+                        AttentionSpanEventRequest.RawDataMap.builder()
                             .putAdditionalProperty("foo", JsonValue.from(0))
                             .build()
                     )
@@ -40,7 +41,7 @@ internal class EventServiceTest {
                     .contactId(0L)
                     .contactUtk("contactUtk")
                     .derivedValues(
-                        EventCreateAttentionSpanEventParams.DerivedValues.builder()
+                        AttentionSpanCalculatedValues.builder()
                             .totalPercentPlayed(0.0)
                             .totalSecondsPlayed(0)
                             .build()
@@ -56,7 +57,7 @@ internal class EventServiceTest {
                     .build()
             )
 
-        response.validate()
+        attentionSpanEvent.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -69,13 +70,13 @@ internal class EventServiceTest {
                 .build()
         val eventService = client.cms().mediaBridge().events()
 
-        val response =
+        val mediaPlayedEvent =
             eventService.createMediaPlayedEvent(
-                EventCreateMediaPlayedEventParams.builder()
-                    .mediaType(EventCreateMediaPlayedEventParams.MediaType.VIDEO)
+                MediaPlayedEventRequest.builder()
+                    .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
                     .occurredTimestamp(0L)
                     .sessionId("sessionId")
-                    .state(EventCreateMediaPlayedEventParams.State.STARTED)
+                    .state(MediaPlayedEventRequest.State.STARTED)
                     ._hsenc("_hsenc")
                     .contactId(0L)
                     .contactUtk("contactUtk")
@@ -90,7 +91,7 @@ internal class EventServiceTest {
                     .build()
             )
 
-        response.validate()
+        mediaPlayedEvent.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -103,10 +104,10 @@ internal class EventServiceTest {
                 .build()
         val eventService = client.cms().mediaBridge().events()
 
-        val response =
+        val mediaPlayedPercentageEvent =
             eventService.createMediaPlayedPercentEvent(
-                EventCreateMediaPlayedPercentEventParams.builder()
-                    .mediaType(EventCreateMediaPlayedPercentEventParams.MediaType.VIDEO)
+                MediaPlayedPercentageEventRequest.builder()
+                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
                     .occurredTimestamp(0L)
                     .playedPercent(0)
                     .sessionId("sessionId")
@@ -123,6 +124,6 @@ internal class EventServiceTest {
                     .build()
             )
 
-        response.validate()
+        mediaPlayedPercentageEvent.validate()
     }
 }

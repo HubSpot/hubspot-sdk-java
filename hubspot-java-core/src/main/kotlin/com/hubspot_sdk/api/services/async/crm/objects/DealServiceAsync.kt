@@ -188,7 +188,7 @@ interface DealServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(dealId, DealGetParams.none(), requestOptions)
 
-    /** Merge two deals with same type */
+    /** Combine two deals of the same type into a single deal. */
     fun merge(params: DealMergeParams): CompletableFuture<SimplePublicObject> =
         merge(params, RequestOptions.none())
 
@@ -209,6 +209,7 @@ interface DealServiceAsync {
     fun merge(publicMergeInput: PublicMergeInput): CompletableFuture<SimplePublicObject> =
         merge(publicMergeInput, RequestOptions.none())
 
+    /** Search for deals using specified criteria and filters. */
     fun search(
         params: DealSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

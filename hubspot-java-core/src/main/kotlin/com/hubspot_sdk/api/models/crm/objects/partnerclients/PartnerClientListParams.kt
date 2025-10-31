@@ -10,7 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Read a page of objects. Control what is returned via the `properties` query param. */
 class PartnerClientListParams
 private constructor(
     private val after: String?,
@@ -23,36 +22,16 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The paging cursor token of the last successfully read resource will be returned as the
-     * `paging.next.after` JSON property of a paged response containing more results.
-     */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    /**
-     * A comma separated list of object types to retrieve associated IDs for. If any of the
-     * specified associations do not exist, they will be ignored.
-     */
     fun associations(): Optional<List<String>> = Optional.ofNullable(associations)
 
-    /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /**
-     * A comma separated list of the properties to be returned in the response. If any of the
-     * specified properties are not present on the requested object(s), they will be ignored.
-     */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
-    /**
-     * A comma separated list of the properties to be returned along with their history of previous
-     * values. If any of the specified properties are not present on the requested object(s), they
-     * will be ignored. Usage of this parameter will reduce the maximum number of partner clients
-     * that can be read by a single request.
-     */
     fun propertiesWithHistory(): Optional<List<String>> = Optional.ofNullable(propertiesWithHistory)
 
     /** Additional headers to send with the request. */
@@ -95,16 +74,11 @@ private constructor(
             additionalQueryParams = partnerClientListParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The paging cursor token of the last successfully read resource will be returned as the
-         * `paging.next.after` JSON property of a paged response containing more results.
-         */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**
@@ -117,10 +91,6 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        /**
-         * A comma separated list of object types to retrieve associated IDs for. If any of the
-         * specified associations do not exist, they will be ignored.
-         */
         fun associations(associations: List<String>?) = apply {
             this.associations = associations?.toMutableList()
         }
@@ -138,7 +108,6 @@ private constructor(
             associations = (associations ?: mutableListOf()).apply { add(association) }
         }
 
-        /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**
@@ -151,10 +120,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /**
-         * A comma separated list of the properties to be returned in the response. If any of the
-         * specified properties are not present on the requested object(s), they will be ignored.
-         */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -171,12 +136,6 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
-        /**
-         * A comma separated list of the properties to be returned along with their history of
-         * previous values. If any of the specified properties are not present on the requested
-         * object(s), they will be ignored. Usage of this parameter will reduce the maximum number
-         * of partner clients that can be read by a single request.
-         */
         fun propertiesWithHistory(propertiesWithHistory: List<String>?) = apply {
             this.propertiesWithHistory = propertiesWithHistory?.toMutableList()
         }

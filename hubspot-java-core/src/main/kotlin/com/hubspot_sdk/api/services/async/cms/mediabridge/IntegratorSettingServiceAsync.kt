@@ -6,27 +6,24 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
+import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainModel
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderRegistrationResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.OEmbedDomainsCollectionResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.ObjectDefinitionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateObjectDefinitionParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateObjectDefinitionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateOembedDomainResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingDeleteOembedDomainParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetEventVisibilitySettingsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetEventVisibilitySettingsResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetObjectDefinitionsByMediaTypeParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetObjectDefinitionsByMediaTypeResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetOembedDomainResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingListOembedDomainsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingListOembedDomainsResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingRegisterAppNameParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingRegisterAppNameResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateAppNameParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateAppNameResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateEventVisibilitySettingsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateEventVisibilitySettingsResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateOembedDomainResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -48,7 +45,7 @@ interface IntegratorSettingServiceAsync {
     fun createObjectDefinition(
         appId: String,
         params: IntegratorSettingCreateObjectDefinitionParams,
-    ): CompletableFuture<IntegratorSettingCreateObjectDefinitionResponse> =
+    ): CompletableFuture<BulkIntegratorObjectCreationResponse> =
         createObjectDefinition(appId, params, RequestOptions.none())
 
     /** @see createObjectDefinition */
@@ -56,26 +53,26 @@ interface IntegratorSettingServiceAsync {
         appId: String,
         params: IntegratorSettingCreateObjectDefinitionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingCreateObjectDefinitionResponse> =
+    ): CompletableFuture<BulkIntegratorObjectCreationResponse> =
         createObjectDefinition(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see createObjectDefinition */
     fun createObjectDefinition(
         params: IntegratorSettingCreateObjectDefinitionParams
-    ): CompletableFuture<IntegratorSettingCreateObjectDefinitionResponse> =
+    ): CompletableFuture<BulkIntegratorObjectCreationResponse> =
         createObjectDefinition(params, RequestOptions.none())
 
     /** @see createObjectDefinition */
     fun createObjectDefinition(
         params: IntegratorSettingCreateObjectDefinitionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingCreateObjectDefinitionResponse>
+    ): CompletableFuture<BulkIntegratorObjectCreationResponse>
 
     /** Set up a new oEmbed domain for your media bridge app. */
     fun createOembedDomain(
         appId: String,
         params: IntegratorSettingCreateOembedDomainParams,
-    ): CompletableFuture<IntegratorSettingCreateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         createOembedDomain(appId, params, RequestOptions.none())
 
     /** @see createOembedDomain */
@@ -83,20 +80,20 @@ interface IntegratorSettingServiceAsync {
         appId: String,
         params: IntegratorSettingCreateOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingCreateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         createOembedDomain(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see createOembedDomain */
     fun createOembedDomain(
         params: IntegratorSettingCreateOembedDomainParams
-    ): CompletableFuture<IntegratorSettingCreateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         createOembedDomain(params, RequestOptions.none())
 
     /** @see createOembedDomain */
     fun createOembedDomain(
         params: IntegratorSettingCreateOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingCreateOembedDomainResponse>
+    ): CompletableFuture<IntegratorOEmbedDomainModel>
 
     /** Delete an existing oEmbed domain. */
     fun deleteOembedDomain(appId: String): CompletableFuture<Void?> =
@@ -137,9 +134,7 @@ interface IntegratorSettingServiceAsync {
         deleteOembedDomain(appId, IntegratorSettingDeleteOembedDomainParams.none(), requestOptions)
 
     /** Get the visibility settings for media bridge events for your apps. */
-    fun getEventVisibilitySettings(
-        appId: String
-    ): CompletableFuture<IntegratorSettingGetEventVisibilitySettingsResponse> =
+    fun getEventVisibilitySettings(appId: String): CompletableFuture<EventVisibilityResponse> =
         getEventVisibilitySettings(appId, IntegratorSettingGetEventVisibilitySettingsParams.none())
 
     /** @see getEventVisibilitySettings */
@@ -148,7 +143,7 @@ interface IntegratorSettingServiceAsync {
         params: IntegratorSettingGetEventVisibilitySettingsParams =
             IntegratorSettingGetEventVisibilitySettingsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingGetEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityResponse> =
         getEventVisibilitySettings(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see getEventVisibilitySettings */
@@ -156,26 +151,26 @@ interface IntegratorSettingServiceAsync {
         appId: String,
         params: IntegratorSettingGetEventVisibilitySettingsParams =
             IntegratorSettingGetEventVisibilitySettingsParams.none(),
-    ): CompletableFuture<IntegratorSettingGetEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityResponse> =
         getEventVisibilitySettings(appId, params, RequestOptions.none())
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
         params: IntegratorSettingGetEventVisibilitySettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingGetEventVisibilitySettingsResponse>
+    ): CompletableFuture<EventVisibilityResponse>
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
         params: IntegratorSettingGetEventVisibilitySettingsParams
-    ): CompletableFuture<IntegratorSettingGetEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityResponse> =
         getEventVisibilitySettings(params, RequestOptions.none())
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
         appId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingGetEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityResponse> =
         getEventVisibilitySettings(
             appId,
             IntegratorSettingGetEventVisibilitySettingsParams.none(),
@@ -186,7 +181,7 @@ interface IntegratorSettingServiceAsync {
     fun getObjectDefinitionsByMediaType(
         mediaType: String,
         params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
-    ): CompletableFuture<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse> =
+    ): CompletableFuture<ObjectDefinitionResponse> =
         getObjectDefinitionsByMediaType(mediaType, params, RequestOptions.none())
 
     /** @see getObjectDefinitionsByMediaType */
@@ -194,7 +189,7 @@ interface IntegratorSettingServiceAsync {
         mediaType: String,
         params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse> =
+    ): CompletableFuture<ObjectDefinitionResponse> =
         getObjectDefinitionsByMediaType(
             params.toBuilder().mediaType(mediaType).build(),
             requestOptions,
@@ -203,20 +198,20 @@ interface IntegratorSettingServiceAsync {
     /** @see getObjectDefinitionsByMediaType */
     fun getObjectDefinitionsByMediaType(
         params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams
-    ): CompletableFuture<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse> =
+    ): CompletableFuture<ObjectDefinitionResponse> =
         getObjectDefinitionsByMediaType(params, RequestOptions.none())
 
     /** @see getObjectDefinitionsByMediaType */
     fun getObjectDefinitionsByMediaType(
         params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse>
+    ): CompletableFuture<ObjectDefinitionResponse>
 
     /** Get the details for an existing oEmbed domain. */
     fun getOembedDomain(
         oEmbedDomainId: String,
         params: IntegratorSettingGetOembedDomainParams,
-    ): CompletableFuture<IntegratorSettingGetOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         getOembedDomain(oEmbedDomainId, params, RequestOptions.none())
 
     /** @see getOembedDomain */
@@ -224,25 +219,23 @@ interface IntegratorSettingServiceAsync {
         oEmbedDomainId: String,
         params: IntegratorSettingGetOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingGetOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         getOembedDomain(params.toBuilder().oEmbedDomainId(oEmbedDomainId).build(), requestOptions)
 
     /** @see getOembedDomain */
     fun getOembedDomain(
         params: IntegratorSettingGetOembedDomainParams
-    ): CompletableFuture<IntegratorSettingGetOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         getOembedDomain(params, RequestOptions.none())
 
     /** @see getOembedDomain */
     fun getOembedDomain(
         params: IntegratorSettingGetOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingGetOembedDomainResponse>
+    ): CompletableFuture<IntegratorOEmbedDomainModel>
 
     /** Get the details for existing oEmbed domains for your app */
-    fun listOembedDomains(
-        appId: String
-    ): CompletableFuture<IntegratorSettingListOembedDomainsResponse> =
+    fun listOembedDomains(appId: String): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(appId, IntegratorSettingListOembedDomainsParams.none())
 
     /** @see listOembedDomains */
@@ -251,7 +244,7 @@ interface IntegratorSettingServiceAsync {
         params: IntegratorSettingListOembedDomainsParams =
             IntegratorSettingListOembedDomainsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingListOembedDomainsResponse> =
+    ): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see listOembedDomains */
@@ -259,26 +252,26 @@ interface IntegratorSettingServiceAsync {
         appId: String,
         params: IntegratorSettingListOembedDomainsParams =
             IntegratorSettingListOembedDomainsParams.none(),
-    ): CompletableFuture<IntegratorSettingListOembedDomainsResponse> =
+    ): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(appId, params, RequestOptions.none())
 
     /** @see listOembedDomains */
     fun listOembedDomains(
         params: IntegratorSettingListOembedDomainsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingListOembedDomainsResponse>
+    ): CompletableFuture<OEmbedDomainsCollectionResponse>
 
     /** @see listOembedDomains */
     fun listOembedDomains(
         params: IntegratorSettingListOembedDomainsParams
-    ): CompletableFuture<IntegratorSettingListOembedDomainsResponse> =
+    ): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(params, RequestOptions.none())
 
     /** @see listOembedDomains */
     fun listOembedDomains(
         appId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingListOembedDomainsResponse> =
+    ): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(appId, IntegratorSettingListOembedDomainsParams.none(), requestOptions)
 
     /** Register the name that your app will display when a user is selecting media bridge items. */
@@ -286,7 +279,7 @@ interface IntegratorSettingServiceAsync {
     fun registerAppName(
         appId: String,
         params: IntegratorSettingRegisterAppNameParams,
-    ): CompletableFuture<IntegratorSettingRegisterAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         registerAppName(appId, params, RequestOptions.none())
 
     /** @see registerAppName */
@@ -295,14 +288,14 @@ interface IntegratorSettingServiceAsync {
         appId: String,
         params: IntegratorSettingRegisterAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingRegisterAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         registerAppName(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see registerAppName */
     @Deprecated("deprecated")
     fun registerAppName(
         params: IntegratorSettingRegisterAppNameParams
-    ): CompletableFuture<IntegratorSettingRegisterAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         registerAppName(params, RequestOptions.none())
 
     /** @see registerAppName */
@@ -310,13 +303,13 @@ interface IntegratorSettingServiceAsync {
     fun registerAppName(
         params: IntegratorSettingRegisterAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingRegisterAppNameResponse>
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse>
 
     /** Update the name that your app will display when a user is selecting media bridge items. */
     fun updateAppName(
         appId: String,
         params: IntegratorSettingUpdateAppNameParams,
-    ): CompletableFuture<IntegratorSettingUpdateAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         updateAppName(appId, params, RequestOptions.none())
 
     /** @see updateAppName */
@@ -324,26 +317,26 @@ interface IntegratorSettingServiceAsync {
         appId: String,
         params: IntegratorSettingUpdateAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingUpdateAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         updateAppName(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see updateAppName */
     fun updateAppName(
         params: IntegratorSettingUpdateAppNameParams
-    ): CompletableFuture<IntegratorSettingUpdateAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         updateAppName(params, RequestOptions.none())
 
     /** @see updateAppName */
     fun updateAppName(
         params: IntegratorSettingUpdateAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingUpdateAppNameResponse>
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse>
 
     /** Set the visibility settings for media bridge events created by your app. */
     fun updateEventVisibilitySettings(
         appId: String,
         params: IntegratorSettingUpdateEventVisibilitySettingsParams,
-    ): CompletableFuture<IntegratorSettingUpdateEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityChange> =
         updateEventVisibilitySettings(appId, params, RequestOptions.none())
 
     /** @see updateEventVisibilitySettings */
@@ -351,26 +344,26 @@ interface IntegratorSettingServiceAsync {
         appId: String,
         params: IntegratorSettingUpdateEventVisibilitySettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingUpdateEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityChange> =
         updateEventVisibilitySettings(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see updateEventVisibilitySettings */
     fun updateEventVisibilitySettings(
         params: IntegratorSettingUpdateEventVisibilitySettingsParams
-    ): CompletableFuture<IntegratorSettingUpdateEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityChange> =
         updateEventVisibilitySettings(params, RequestOptions.none())
 
     /** @see updateEventVisibilitySettings */
     fun updateEventVisibilitySettings(
         params: IntegratorSettingUpdateEventVisibilitySettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingUpdateEventVisibilitySettingsResponse>
+    ): CompletableFuture<EventVisibilityChange>
 
     /** Update an existing oEmbed domain. */
     fun updateOembedDomain(
         oEmbedDomainId: String,
         params: IntegratorSettingUpdateOembedDomainParams,
-    ): CompletableFuture<IntegratorSettingUpdateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         updateOembedDomain(oEmbedDomainId, params, RequestOptions.none())
 
     /** @see updateOembedDomain */
@@ -378,7 +371,7 @@ interface IntegratorSettingServiceAsync {
         oEmbedDomainId: String,
         params: IntegratorSettingUpdateOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingUpdateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         updateOembedDomain(
             params.toBuilder().oEmbedDomainId(oEmbedDomainId).build(),
             requestOptions,
@@ -387,14 +380,14 @@ interface IntegratorSettingServiceAsync {
     /** @see updateOembedDomain */
     fun updateOembedDomain(
         params: IntegratorSettingUpdateOembedDomainParams
-    ): CompletableFuture<IntegratorSettingUpdateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         updateOembedDomain(params, RequestOptions.none())
 
     /** @see updateOembedDomain */
     fun updateOembedDomain(
         params: IntegratorSettingUpdateOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntegratorSettingUpdateOembedDomainResponse>
+    ): CompletableFuture<IntegratorOEmbedDomainModel>
 
     /**
      * A view of [IntegratorSettingServiceAsync] that provides access to raw HTTP responses for each
@@ -419,7 +412,7 @@ interface IntegratorSettingServiceAsync {
         fun createObjectDefinition(
             appId: String,
             params: IntegratorSettingCreateObjectDefinitionParams,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateObjectDefinitionResponse>> =
+        ): CompletableFuture<HttpResponseFor<BulkIntegratorObjectCreationResponse>> =
             createObjectDefinition(appId, params, RequestOptions.none())
 
         /** @see createObjectDefinition */
@@ -427,20 +420,20 @@ interface IntegratorSettingServiceAsync {
             appId: String,
             params: IntegratorSettingCreateObjectDefinitionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateObjectDefinitionResponse>> =
+        ): CompletableFuture<HttpResponseFor<BulkIntegratorObjectCreationResponse>> =
             createObjectDefinition(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see createObjectDefinition */
         fun createObjectDefinition(
             params: IntegratorSettingCreateObjectDefinitionParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateObjectDefinitionResponse>> =
+        ): CompletableFuture<HttpResponseFor<BulkIntegratorObjectCreationResponse>> =
             createObjectDefinition(params, RequestOptions.none())
 
         /** @see createObjectDefinition */
         fun createObjectDefinition(
             params: IntegratorSettingCreateObjectDefinitionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateObjectDefinitionResponse>>
+        ): CompletableFuture<HttpResponseFor<BulkIntegratorObjectCreationResponse>>
 
         /**
          * Returns a raw HTTP response for `post /media-bridge/v1/{appId}/settings/oembed-domains`,
@@ -449,7 +442,7 @@ interface IntegratorSettingServiceAsync {
         fun createOembedDomain(
             appId: String,
             params: IntegratorSettingCreateOembedDomainParams,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             createOembedDomain(appId, params, RequestOptions.none())
 
         /** @see createOembedDomain */
@@ -457,20 +450,20 @@ interface IntegratorSettingServiceAsync {
             appId: String,
             params: IntegratorSettingCreateOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             createOembedDomain(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see createOembedDomain */
         fun createOembedDomain(
             params: IntegratorSettingCreateOembedDomainParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             createOembedDomain(params, RequestOptions.none())
 
         /** @see createOembedDomain */
         fun createOembedDomain(
             params: IntegratorSettingCreateOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateOembedDomainResponse>>
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>>
 
         /**
          * Returns a raw HTTP response for `delete
@@ -525,7 +518,7 @@ interface IntegratorSettingServiceAsync {
          */
         fun getEventVisibilitySettings(
             appId: String
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetEventVisibilitySettingsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
             getEventVisibilitySettings(
                 appId,
                 IntegratorSettingGetEventVisibilitySettingsParams.none(),
@@ -537,7 +530,7 @@ interface IntegratorSettingServiceAsync {
             params: IntegratorSettingGetEventVisibilitySettingsParams =
                 IntegratorSettingGetEventVisibilitySettingsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetEventVisibilitySettingsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
             getEventVisibilitySettings(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see getEventVisibilitySettings */
@@ -545,26 +538,26 @@ interface IntegratorSettingServiceAsync {
             appId: String,
             params: IntegratorSettingGetEventVisibilitySettingsParams =
                 IntegratorSettingGetEventVisibilitySettingsParams.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetEventVisibilitySettingsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
             getEventVisibilitySettings(appId, params, RequestOptions.none())
 
         /** @see getEventVisibilitySettings */
         fun getEventVisibilitySettings(
             params: IntegratorSettingGetEventVisibilitySettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetEventVisibilitySettingsResponse>>
+        ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>>
 
         /** @see getEventVisibilitySettings */
         fun getEventVisibilitySettings(
             params: IntegratorSettingGetEventVisibilitySettingsParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetEventVisibilitySettingsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
             getEventVisibilitySettings(params, RequestOptions.none())
 
         /** @see getEventVisibilitySettings */
         fun getEventVisibilitySettings(
             appId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetEventVisibilitySettingsResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
             getEventVisibilitySettings(
                 appId,
                 IntegratorSettingGetEventVisibilitySettingsParams.none(),
@@ -579,18 +572,15 @@ interface IntegratorSettingServiceAsync {
         fun getObjectDefinitionsByMediaType(
             mediaType: String,
             params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse>
-        > = getObjectDefinitionsByMediaType(mediaType, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ObjectDefinitionResponse>> =
+            getObjectDefinitionsByMediaType(mediaType, params, RequestOptions.none())
 
         /** @see getObjectDefinitionsByMediaType */
         fun getObjectDefinitionsByMediaType(
             mediaType: String,
             params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse>
-        > =
+        ): CompletableFuture<HttpResponseFor<ObjectDefinitionResponse>> =
             getObjectDefinitionsByMediaType(
                 params.toBuilder().mediaType(mediaType).build(),
                 requestOptions,
@@ -599,17 +589,14 @@ interface IntegratorSettingServiceAsync {
         /** @see getObjectDefinitionsByMediaType */
         fun getObjectDefinitionsByMediaType(
             params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse>
-        > = getObjectDefinitionsByMediaType(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ObjectDefinitionResponse>> =
+            getObjectDefinitionsByMediaType(params, RequestOptions.none())
 
         /** @see getObjectDefinitionsByMediaType */
         fun getObjectDefinitionsByMediaType(
             params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse>
-        >
+        ): CompletableFuture<HttpResponseFor<ObjectDefinitionResponse>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -619,7 +606,7 @@ interface IntegratorSettingServiceAsync {
         fun getOembedDomain(
             oEmbedDomainId: String,
             params: IntegratorSettingGetOembedDomainParams,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             getOembedDomain(oEmbedDomainId, params, RequestOptions.none())
 
         /** @see getOembedDomain */
@@ -627,7 +614,7 @@ interface IntegratorSettingServiceAsync {
             oEmbedDomainId: String,
             params: IntegratorSettingGetOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             getOembedDomain(
                 params.toBuilder().oEmbedDomainId(oEmbedDomainId).build(),
                 requestOptions,
@@ -636,14 +623,14 @@ interface IntegratorSettingServiceAsync {
         /** @see getOembedDomain */
         fun getOembedDomain(
             params: IntegratorSettingGetOembedDomainParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             getOembedDomain(params, RequestOptions.none())
 
         /** @see getOembedDomain */
         fun getOembedDomain(
             params: IntegratorSettingGetOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetOembedDomainResponse>>
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>>
 
         /**
          * Returns a raw HTTP response for `get /media-bridge/v1/{appId}/settings/oembed-domains`,
@@ -651,7 +638,7 @@ interface IntegratorSettingServiceAsync {
          */
         fun listOembedDomains(
             appId: String
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingListOembedDomainsResponse>> =
+        ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(appId, IntegratorSettingListOembedDomainsParams.none())
 
         /** @see listOembedDomains */
@@ -660,7 +647,7 @@ interface IntegratorSettingServiceAsync {
             params: IntegratorSettingListOembedDomainsParams =
                 IntegratorSettingListOembedDomainsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingListOembedDomainsResponse>> =
+        ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see listOembedDomains */
@@ -668,26 +655,26 @@ interface IntegratorSettingServiceAsync {
             appId: String,
             params: IntegratorSettingListOembedDomainsParams =
                 IntegratorSettingListOembedDomainsParams.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingListOembedDomainsResponse>> =
+        ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(appId, params, RequestOptions.none())
 
         /** @see listOembedDomains */
         fun listOembedDomains(
             params: IntegratorSettingListOembedDomainsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingListOembedDomainsResponse>>
+        ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>>
 
         /** @see listOembedDomains */
         fun listOembedDomains(
             params: IntegratorSettingListOembedDomainsParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingListOembedDomainsResponse>> =
+        ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(params, RequestOptions.none())
 
         /** @see listOembedDomains */
         fun listOembedDomains(
             appId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingListOembedDomainsResponse>> =
+        ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(
                 appId,
                 IntegratorSettingListOembedDomainsParams.none(),
@@ -702,7 +689,7 @@ interface IntegratorSettingServiceAsync {
         fun registerAppName(
             appId: String,
             params: IntegratorSettingRegisterAppNameParams,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingRegisterAppNameResponse>> =
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             registerAppName(appId, params, RequestOptions.none())
 
         /** @see registerAppName */
@@ -711,14 +698,14 @@ interface IntegratorSettingServiceAsync {
             appId: String,
             params: IntegratorSettingRegisterAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingRegisterAppNameResponse>> =
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             registerAppName(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see registerAppName */
         @Deprecated("deprecated")
         fun registerAppName(
             params: IntegratorSettingRegisterAppNameParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingRegisterAppNameResponse>> =
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             registerAppName(params, RequestOptions.none())
 
         /** @see registerAppName */
@@ -726,7 +713,7 @@ interface IntegratorSettingServiceAsync {
         fun registerAppName(
             params: IntegratorSettingRegisterAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingRegisterAppNameResponse>>
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>>
 
         /**
          * Returns a raw HTTP response for `put /media-bridge/v1/{appId}/settings`, but is otherwise
@@ -735,7 +722,7 @@ interface IntegratorSettingServiceAsync {
         fun updateAppName(
             appId: String,
             params: IntegratorSettingUpdateAppNameParams,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateAppNameResponse>> =
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             updateAppName(appId, params, RequestOptions.none())
 
         /** @see updateAppName */
@@ -743,20 +730,20 @@ interface IntegratorSettingServiceAsync {
             appId: String,
             params: IntegratorSettingUpdateAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateAppNameResponse>> =
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             updateAppName(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see updateAppName */
         fun updateAppName(
             params: IntegratorSettingUpdateAppNameParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateAppNameResponse>> =
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             updateAppName(params, RequestOptions.none())
 
         /** @see updateAppName */
         fun updateAppName(
             params: IntegratorSettingUpdateAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateAppNameResponse>>
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -766,33 +753,28 @@ interface IntegratorSettingServiceAsync {
         fun updateEventVisibilitySettings(
             appId: String,
             params: IntegratorSettingUpdateEventVisibilitySettingsParams,
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingUpdateEventVisibilitySettingsResponse>
-        > = updateEventVisibilitySettings(appId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<EventVisibilityChange>> =
+            updateEventVisibilitySettings(appId, params, RequestOptions.none())
 
         /** @see updateEventVisibilitySettings */
         fun updateEventVisibilitySettings(
             appId: String,
             params: IntegratorSettingUpdateEventVisibilitySettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingUpdateEventVisibilitySettingsResponse>
-        > = updateEventVisibilitySettings(params.toBuilder().appId(appId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<EventVisibilityChange>> =
+            updateEventVisibilitySettings(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see updateEventVisibilitySettings */
         fun updateEventVisibilitySettings(
             params: IntegratorSettingUpdateEventVisibilitySettingsParams
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingUpdateEventVisibilitySettingsResponse>
-        > = updateEventVisibilitySettings(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<EventVisibilityChange>> =
+            updateEventVisibilitySettings(params, RequestOptions.none())
 
         /** @see updateEventVisibilitySettings */
         fun updateEventVisibilitySettings(
             params: IntegratorSettingUpdateEventVisibilitySettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingUpdateEventVisibilitySettingsResponse>
-        >
+        ): CompletableFuture<HttpResponseFor<EventVisibilityChange>>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -802,7 +784,7 @@ interface IntegratorSettingServiceAsync {
         fun updateOembedDomain(
             oEmbedDomainId: String,
             params: IntegratorSettingUpdateOembedDomainParams,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             updateOembedDomain(oEmbedDomainId, params, RequestOptions.none())
 
         /** @see updateOembedDomain */
@@ -810,7 +792,7 @@ interface IntegratorSettingServiceAsync {
             oEmbedDomainId: String,
             params: IntegratorSettingUpdateOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             updateOembedDomain(
                 params.toBuilder().oEmbedDomainId(oEmbedDomainId).build(),
                 requestOptions,
@@ -819,13 +801,13 @@ interface IntegratorSettingServiceAsync {
         /** @see updateOembedDomain */
         fun updateOembedDomain(
             params: IntegratorSettingUpdateOembedDomainParams
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateOembedDomainResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             updateOembedDomain(params, RequestOptions.none())
 
         /** @see updateOembedDomain */
         fun updateOembedDomain(
             params: IntegratorSettingUpdateOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateOembedDomainResponse>>
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>>
     }
 }

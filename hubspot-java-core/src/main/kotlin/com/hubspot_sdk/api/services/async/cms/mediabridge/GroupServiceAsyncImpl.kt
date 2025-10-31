@@ -17,11 +17,11 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyGroupNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupDeleteByNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupGetByNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupListParams
-import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupUpdateByNameParams
 import com.hubspot_sdk.api.models.crm.properties.PropertyGroup
 import java.util.concurrent.CompletableFuture
@@ -50,7 +50,7 @@ class GroupServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: GroupListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<GroupListResponse> =
+    ): CompletableFuture<CollectionResponsePropertyGroupNoPaging> =
         // get /media-bridge/v1/{appId}/properties/{objectType}/groups
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -129,13 +129,13 @@ class GroupServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val listHandler: Handler<GroupListResponse> =
-            jsonHandler<GroupListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CollectionResponsePropertyGroupNoPaging> =
+            jsonHandler<CollectionResponsePropertyGroupNoPaging>(clientOptions.jsonMapper)
 
         override fun list(
             params: GroupListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<GroupListResponse>> {
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyGroupNoPaging>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

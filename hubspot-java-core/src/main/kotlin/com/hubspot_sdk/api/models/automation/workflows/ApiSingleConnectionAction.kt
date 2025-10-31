@@ -48,41 +48,30 @@ private constructor(
     ) : this(actionId, actionTypeId, actionTypeVersion, fields, type, connection, mutableMapOf())
 
     /**
-     * The ID for this action.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionId(): String = actionId.getRequired("actionId")
 
     /**
-     * The ID of the actionType to use.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionTypeId(): String = actionTypeId.getRequired("actionTypeId")
 
     /**
-     * The version of this actionType to use.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionTypeVersion(): Int = actionTypeVersion.getRequired("actionTypeVersion")
 
     /**
-     * The fields to pass into this action. Different action types accept different fields.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fields(): Fields = fields.getRequired("fields")
 
     /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -194,7 +183,6 @@ private constructor(
             additionalProperties = apiSingleConnectionAction.additionalProperties.toMutableMap()
         }
 
-        /** The ID for this action. */
         fun actionId(actionId: String) = actionId(JsonField.of(actionId))
 
         /**
@@ -205,7 +193,6 @@ private constructor(
          */
         fun actionId(actionId: JsonField<String>) = apply { this.actionId = actionId }
 
-        /** The ID of the actionType to use. */
         fun actionTypeId(actionTypeId: String) = actionTypeId(JsonField.of(actionTypeId))
 
         /**
@@ -219,7 +206,6 @@ private constructor(
             this.actionTypeId = actionTypeId
         }
 
-        /** The version of this actionType to use. */
         fun actionTypeVersion(actionTypeVersion: Int) =
             actionTypeVersion(JsonField.of(actionTypeVersion))
 
@@ -234,7 +220,6 @@ private constructor(
             this.actionTypeVersion = actionTypeVersion
         }
 
-        /** The fields to pass into this action. Different action types accept different fields. */
         fun fields(fields: Fields) = fields(JsonField.of(fields))
 
         /**
@@ -245,10 +230,6 @@ private constructor(
          */
         fun fields(fields: JsonField<Fields>) = apply { this.fields = fields }
 
-        /**
-         * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-         * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -357,7 +338,6 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (connection.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The fields to pass into this action. Different action types accept different fields. */
     class Fields
     @JsonCreator
     private constructor(
@@ -457,10 +437,6 @@ private constructor(
         override fun toString() = "Fields{additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

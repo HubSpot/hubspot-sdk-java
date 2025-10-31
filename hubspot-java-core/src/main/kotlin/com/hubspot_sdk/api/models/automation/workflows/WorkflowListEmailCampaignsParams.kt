@@ -10,7 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve emails sent by a workflow by ID. */
 class WorkflowListEmailCampaignsParams
 private constructor(
     private val after: String?,
@@ -21,18 +20,12 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The paging cursor token of the last successfully read resource will be returned as the
-     * `paging.next.after` JSON property of a paged response containing more results.
-     */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
     fun before(): Optional<String> = Optional.ofNullable(before)
 
-    /** The ID of the workflow. */
     fun flowId(): Optional<List<String>> = Optional.ofNullable(flowId)
 
-    /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
     /** Additional headers to send with the request. */
@@ -76,10 +69,6 @@ private constructor(
                     workflowListEmailCampaignsParams.additionalQueryParams.toBuilder()
             }
 
-        /**
-         * The paging cursor token of the last successfully read resource will be returned as the
-         * `paging.next.after` JSON property of a paged response containing more results.
-         */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
@@ -90,7 +79,6 @@ private constructor(
         /** Alias for calling [Builder.before] with `before.orElse(null)`. */
         fun before(before: Optional<String>) = before(before.getOrNull())
 
-        /** The ID of the workflow. */
         fun flowId(flowId: List<String>?) = apply { this.flowId = flowId?.toMutableList() }
 
         /** Alias for calling [Builder.flowId] with `flowId.orElse(null)`. */
@@ -105,7 +93,6 @@ private constructor(
             this.flowId = (this.flowId ?: mutableListOf()).apply { add(flowId) }
         }
 
-        /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**

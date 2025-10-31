@@ -13,13 +13,13 @@ internal class ApiYearlyEnrollmentScheduleTest {
     fun create() {
         val apiYearlyEnrollmentSchedule =
             ApiYearlyEnrollmentSchedule.builder()
-                .dayOfMonth(1)
+                .dayOfMonth(0)
                 .month(ApiYearlyEnrollmentSchedule.Month.JANUARY)
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .type(ApiYearlyEnrollmentSchedule.Type.YEARLY)
                 .build()
 
-        assertThat(apiYearlyEnrollmentSchedule.dayOfMonth()).isEqualTo(1)
+        assertThat(apiYearlyEnrollmentSchedule.dayOfMonth()).isEqualTo(0)
         assertThat(apiYearlyEnrollmentSchedule.month())
             .isEqualTo(ApiYearlyEnrollmentSchedule.Month.JANUARY)
         assertThat(apiYearlyEnrollmentSchedule.timeOfDay())
@@ -33,7 +33,7 @@ internal class ApiYearlyEnrollmentScheduleTest {
         val jsonMapper = jsonMapper()
         val apiYearlyEnrollmentSchedule =
             ApiYearlyEnrollmentSchedule.builder()
-                .dayOfMonth(1)
+                .dayOfMonth(0)
                 .month(ApiYearlyEnrollmentSchedule.Month.JANUARY)
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .type(ApiYearlyEnrollmentSchedule.Type.YEARLY)

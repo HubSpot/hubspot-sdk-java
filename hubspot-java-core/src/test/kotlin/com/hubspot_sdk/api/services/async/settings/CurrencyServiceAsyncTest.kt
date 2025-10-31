@@ -62,7 +62,7 @@ internal class CurrencyServiceAsyncTest {
         val batchResponseExchangeRateFuture =
             currencyServiceAsync.batchGet(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("37295").build())
+                    .addInput(PublicObjectId.builder().id("id").build())
                     .build()
             )
 

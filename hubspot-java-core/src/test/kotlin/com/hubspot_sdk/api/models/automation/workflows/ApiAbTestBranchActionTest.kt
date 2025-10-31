@@ -13,7 +13,7 @@ internal class ApiAbTestBranchActionTest {
     fun create() {
         val apiAbTestBranchAction =
             ApiAbTestBranchAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .addTestBranch(
                     ApiConnection.builder()
                         .edgeType("edgeType")
@@ -23,7 +23,7 @@ internal class ApiAbTestBranchActionTest {
                 .type(ApiAbTestBranchAction.Type.AB_TEST_BRANCH)
                 .build()
 
-        assertThat(apiAbTestBranchAction.actionId()).isEqualTo("1")
+        assertThat(apiAbTestBranchAction.actionId()).isEqualTo("actionId")
         assertThat(apiAbTestBranchAction.testBranches())
             .containsExactly(
                 ApiConnection.builder().edgeType("edgeType").nextActionId("nextActionId").build()
@@ -37,7 +37,7 @@ internal class ApiAbTestBranchActionTest {
         val jsonMapper = jsonMapper()
         val apiAbTestBranchAction =
             ApiAbTestBranchAction.builder()
-                .actionId("1")
+                .actionId("actionId")
                 .addTestBranch(
                     ApiConnection.builder()
                         .edgeType("edgeType")

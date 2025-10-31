@@ -9,7 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieves all the previous versions of a Blog */
 class SettingListRevisionsParams
 private constructor(
     private val blogId: String?,
@@ -22,15 +21,10 @@ private constructor(
 
     fun blogId(): Optional<String> = Optional.ofNullable(blogId)
 
-    /**
-     * The cursor token value to get the next set of results. You can get this from the
-     * `paging.next.after` JSON property of a paged response containing more results.
-     */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
     fun before(): Optional<String> = Optional.ofNullable(before)
 
-    /** The maximum number of results to return. Default is 100. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
     /** Additional headers to send with the request. */
@@ -76,10 +70,6 @@ private constructor(
         /** Alias for calling [Builder.blogId] with `blogId.orElse(null)`. */
         fun blogId(blogId: Optional<String>) = blogId(blogId.getOrNull())
 
-        /**
-         * The cursor token value to get the next set of results. You can get this from the
-         * `paging.next.after` JSON property of a paged response containing more results.
-         */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
@@ -90,7 +80,6 @@ private constructor(
         /** Alias for calling [Builder.before] with `before.orElse(null)`. */
         fun before(before: Optional<String>) = before(before.getOrNull())
 
-        /** The maximum number of results to return. Default is 100. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**

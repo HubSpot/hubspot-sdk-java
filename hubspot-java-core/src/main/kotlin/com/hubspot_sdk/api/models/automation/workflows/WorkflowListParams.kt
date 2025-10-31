@@ -9,7 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all workflows from an account. */
 class WorkflowListParams
 private constructor(
     private val after: String?,
@@ -18,13 +17,8 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The paging cursor token of the last successfully read resource will be returned as the
-     * `paging.next.after` JSON property of a paged response containing more results.
-     */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
     /** Additional headers to send with the request. */
@@ -59,16 +53,11 @@ private constructor(
             additionalQueryParams = workflowListParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The paging cursor token of the last successfully read resource will be returned as the
-         * `paging.next.after` JSON property of a paged response containing more results.
-         */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**

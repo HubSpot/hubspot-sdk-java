@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
-/** Returns all objects in the object library and their enablement status */
 class EnablementListParams
 private constructor(
     private val additionalHeaders: Headers,

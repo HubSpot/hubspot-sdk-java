@@ -13,11 +13,11 @@ internal class ApiContactPropertyAnchorTest {
     fun create() {
         val apiContactPropertyAnchor =
             ApiContactPropertyAnchor.builder()
-                .contactProperty("example_date_property")
+                .contactProperty("contactProperty")
                 .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                 .build()
 
-        assertThat(apiContactPropertyAnchor.contactProperty()).isEqualTo("example_date_property")
+        assertThat(apiContactPropertyAnchor.contactProperty()).isEqualTo("contactProperty")
         assertThat(apiContactPropertyAnchor.type())
             .isEqualTo(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
     }
@@ -27,7 +27,7 @@ internal class ApiContactPropertyAnchorTest {
         val jsonMapper = jsonMapper()
         val apiContactPropertyAnchor =
             ApiContactPropertyAnchor.builder()
-                .contactProperty("example_date_property")
+                .contactProperty("contactProperty")
                 .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                 .build()
 

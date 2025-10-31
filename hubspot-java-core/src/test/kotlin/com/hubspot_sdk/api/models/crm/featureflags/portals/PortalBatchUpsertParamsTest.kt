@@ -2,6 +2,8 @@
 
 package com.hubspot_sdk.api.models.crm.featureflags.portals
 
+import com.hubspot_sdk.api.models.crm.featureflags.BatchPortalEntry
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchPutRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,10 +14,14 @@ internal class PortalBatchUpsertParamsTest {
         PortalBatchUpsertParams.builder()
             .appId(0)
             .flagName("flagName")
-            .addPortalState(
-                PortalBatchUpsertParams.PortalState.builder()
-                    .flagState(PortalBatchUpsertParams.PortalState.FlagState.OFF)
-                    .portalId(0)
+            .portalFlagStateBatchPutRequest(
+                PortalFlagStateBatchPutRequest.builder()
+                    .addPortalState(
+                        BatchPortalEntry.builder()
+                            .flagState(BatchPortalEntry.FlagState.OFF)
+                            .portalId(0)
+                            .build()
+                    )
                     .build()
             )
             .build()
@@ -27,10 +33,14 @@ internal class PortalBatchUpsertParamsTest {
             PortalBatchUpsertParams.builder()
                 .appId(0)
                 .flagName("flagName")
-                .addPortalState(
-                    PortalBatchUpsertParams.PortalState.builder()
-                        .flagState(PortalBatchUpsertParams.PortalState.FlagState.OFF)
-                        .portalId(0)
+                .portalFlagStateBatchPutRequest(
+                    PortalFlagStateBatchPutRequest.builder()
+                        .addPortalState(
+                            BatchPortalEntry.builder()
+                                .flagState(BatchPortalEntry.FlagState.OFF)
+                                .portalId(0)
+                                .build()
+                        )
                         .build()
                 )
                 .build()
@@ -47,21 +57,29 @@ internal class PortalBatchUpsertParamsTest {
             PortalBatchUpsertParams.builder()
                 .appId(0)
                 .flagName("flagName")
-                .addPortalState(
-                    PortalBatchUpsertParams.PortalState.builder()
-                        .flagState(PortalBatchUpsertParams.PortalState.FlagState.OFF)
-                        .portalId(0)
+                .portalFlagStateBatchPutRequest(
+                    PortalFlagStateBatchPutRequest.builder()
+                        .addPortalState(
+                            BatchPortalEntry.builder()
+                                .flagState(BatchPortalEntry.FlagState.OFF)
+                                .portalId(0)
+                                .build()
+                        )
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.portalStates())
-            .containsExactly(
-                PortalBatchUpsertParams.PortalState.builder()
-                    .flagState(PortalBatchUpsertParams.PortalState.FlagState.OFF)
-                    .portalId(0)
+        assertThat(body)
+            .isEqualTo(
+                PortalFlagStateBatchPutRequest.builder()
+                    .addPortalState(
+                        BatchPortalEntry.builder()
+                            .flagState(BatchPortalEntry.FlagState.OFF)
+                            .portalId(0)
+                            .build()
+                    )
                     .build()
             )
     }

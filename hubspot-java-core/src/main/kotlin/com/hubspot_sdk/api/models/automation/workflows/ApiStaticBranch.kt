@@ -36,9 +36,6 @@ private constructor(
     ) : this(branchValue, connection, mutableMapOf())
 
     /**
-     * If value to check for. If the value of the `inputValue` matches this `branchValue` than this
-     * `connection` will get traversed.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -105,10 +102,6 @@ private constructor(
             additionalProperties = apiStaticBranch.additionalProperties.toMutableMap()
         }
 
-        /**
-         * If value to check for. If the value of the `inputValue` matches this `branchValue` than
-         * this `connection` will get traversed.
-         */
         fun branchValue(branchValue: String) = branchValue(JsonField.of(branchValue))
 
         /**

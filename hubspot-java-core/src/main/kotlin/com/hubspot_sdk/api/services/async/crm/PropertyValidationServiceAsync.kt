@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.services.async.crm
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleMapNoPaging
+import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleNoPaging
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetParams
-import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetResponse
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationListParams
-import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -27,7 +27,9 @@ interface PropertyValidationServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PropertyValidationServiceAsync
 
     /** Read all properties with validation rules for a given object. */
-    fun list(objectTypeId: String): CompletableFuture<PropertyValidationListResponse> =
+    fun list(
+        objectTypeId: String
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
         list(objectTypeId, PropertyValidationListParams.none())
 
     /** @see list */
@@ -35,39 +37,40 @@ interface PropertyValidationServiceAsync {
         objectTypeId: String,
         params: PropertyValidationListParams = PropertyValidationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PropertyValidationListResponse> =
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
         list(params.toBuilder().objectTypeId(objectTypeId).build(), requestOptions)
 
     /** @see list */
     fun list(
         objectTypeId: String,
         params: PropertyValidationListParams = PropertyValidationListParams.none(),
-    ): CompletableFuture<PropertyValidationListResponse> =
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
         list(objectTypeId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PropertyValidationListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PropertyValidationListResponse>
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
 
     /** @see list */
     fun list(
         params: PropertyValidationListParams
-    ): CompletableFuture<PropertyValidationListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
+        list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         objectTypeId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PropertyValidationListResponse> =
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
         list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
 
     /** Read a property's validation rules identified by {propertyName}. */
     fun get(
         propertyName: String,
         params: PropertyValidationGetParams,
-    ): CompletableFuture<PropertyValidationGetResponse> =
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleNoPaging> =
         get(propertyName, params, RequestOptions.none())
 
     /** @see get */
@@ -75,18 +78,20 @@ interface PropertyValidationServiceAsync {
         propertyName: String,
         params: PropertyValidationGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PropertyValidationGetResponse> =
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleNoPaging> =
         get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
     /** @see get */
-    fun get(params: PropertyValidationGetParams): CompletableFuture<PropertyValidationGetResponse> =
+    fun get(
+        params: PropertyValidationGetParams
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleNoPaging> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PropertyValidationGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PropertyValidationGetResponse>
+    ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleNoPaging>
 
     /**
      * A view of [PropertyValidationServiceAsync] that provides access to raw HTTP responses for
@@ -109,42 +114,49 @@ interface PropertyValidationServiceAsync {
          */
         fun list(
             objectTypeId: String
-        ): CompletableFuture<HttpResponseFor<PropertyValidationListResponse>> =
-            list(objectTypeId, PropertyValidationListParams.none())
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
+        > = list(objectTypeId, PropertyValidationListParams.none())
 
         /** @see list */
         fun list(
             objectTypeId: String,
             params: PropertyValidationListParams = PropertyValidationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PropertyValidationListResponse>> =
-            list(params.toBuilder().objectTypeId(objectTypeId).build(), requestOptions)
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
+        > = list(params.toBuilder().objectTypeId(objectTypeId).build(), requestOptions)
 
         /** @see list */
         fun list(
             objectTypeId: String,
             params: PropertyValidationListParams = PropertyValidationListParams.none(),
-        ): CompletableFuture<HttpResponseFor<PropertyValidationListResponse>> =
-            list(objectTypeId, params, RequestOptions.none())
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
+        > = list(objectTypeId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: PropertyValidationListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PropertyValidationListResponse>>
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
+        >
 
         /** @see list */
         fun list(
             params: PropertyValidationListParams
-        ): CompletableFuture<HttpResponseFor<PropertyValidationListResponse>> =
-            list(params, RequestOptions.none())
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
+        > = list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             objectTypeId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PropertyValidationListResponse>> =
-            list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging>
+        > = list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
@@ -154,27 +166,32 @@ interface PropertyValidationServiceAsync {
         fun get(
             propertyName: String,
             params: PropertyValidationGetParams,
-        ): CompletableFuture<HttpResponseFor<PropertyValidationGetResponse>> =
-            get(propertyName, params, RequestOptions.none())
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging>
+        > = get(propertyName, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             propertyName: String,
             params: PropertyValidationGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PropertyValidationGetResponse>> =
-            get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging>
+        > = get(params.toBuilder().propertyName(propertyName).build(), requestOptions)
 
         /** @see get */
         fun get(
             params: PropertyValidationGetParams
-        ): CompletableFuture<HttpResponseFor<PropertyValidationGetResponse>> =
-            get(params, RequestOptions.none())
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging>
+        > = get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: PropertyValidationGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PropertyValidationGetResponse>>
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponsePublicPropertyValidationRuleNoPaging>
+        >
     }
 }

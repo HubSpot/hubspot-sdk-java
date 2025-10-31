@@ -15,10 +15,10 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.objectlibrary.ObjectTypeEnablementPublicResponse
+import com.hubspot_sdk.api.models.crm.objectlibrary.PortalObjectTypeEnablementPublicResponse
 import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementGetParams
-import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementGetResponse
 import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementListParams
-import com.hubspot_sdk.api.models.crm.objectlibrary.enablement.EnablementListResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -37,14 +37,14 @@ class EnablementServiceImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: EnablementListParams,
         requestOptions: RequestOptions,
-    ): EnablementListResponse =
+    ): PortalObjectTypeEnablementPublicResponse =
         // get /crm/v3/object-library/enablement
         withRawResponse().list(params, requestOptions).parse()
 
     override fun get(
         params: EnablementGetParams,
         requestOptions: RequestOptions,
-    ): EnablementGetResponse =
+    ): ObjectTypeEnablementPublicResponse =
         // get /crm/v3/object-library/enablement/{objectTypeId}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -61,13 +61,13 @@ class EnablementServiceImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val listHandler: Handler<EnablementListResponse> =
-            jsonHandler<EnablementListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PortalObjectTypeEnablementPublicResponse> =
+            jsonHandler<PortalObjectTypeEnablementPublicResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EnablementListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnablementListResponse> {
+        ): HttpResponseFor<PortalObjectTypeEnablementPublicResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -88,13 +88,13 @@ class EnablementServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val getHandler: Handler<EnablementGetResponse> =
-            jsonHandler<EnablementGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<ObjectTypeEnablementPublicResponse> =
+            jsonHandler<ObjectTypeEnablementPublicResponse>(clientOptions.jsonMapper)
 
         override fun get(
             params: EnablementGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EnablementGetResponse> {
+        ): HttpResponseFor<ObjectTypeEnablementPublicResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectTypeId", params.objectTypeId().getOrNull())

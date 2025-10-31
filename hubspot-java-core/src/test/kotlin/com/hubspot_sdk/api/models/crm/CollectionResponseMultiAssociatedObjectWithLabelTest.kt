@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.NextPage
 import com.hubspot_sdk.api.models.PreviousPage
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpecWithLabel1
 import com.hubspot_sdk.api.models.marketing.emails.Paging
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -20,8 +19,8 @@ internal class CollectionResponseMultiAssociatedObjectWithLabelTest {
                 .addResult(
                     MultiAssociatedObjectWithLabel.builder()
                         .addAssociationType(
-                            AssociationSpecWithLabel1.builder()
-                                .category(AssociationSpecWithLabel1.Category.HUBSPOT_DEFINED)
+                            AssociationSpecWithLabel.builder()
+                                .category(AssociationSpecWithLabel.Category.HUBSPOT_DEFINED)
                                 .typeId(0)
                                 .label("label")
                                 .build()
@@ -41,8 +40,8 @@ internal class CollectionResponseMultiAssociatedObjectWithLabelTest {
             .containsExactly(
                 MultiAssociatedObjectWithLabel.builder()
                     .addAssociationType(
-                        AssociationSpecWithLabel1.builder()
-                            .category(AssociationSpecWithLabel1.Category.HUBSPOT_DEFINED)
+                        AssociationSpecWithLabel.builder()
+                            .category(AssociationSpecWithLabel.Category.HUBSPOT_DEFINED)
                             .typeId(0)
                             .label("label")
                             .build()
@@ -67,8 +66,8 @@ internal class CollectionResponseMultiAssociatedObjectWithLabelTest {
                 .addResult(
                     MultiAssociatedObjectWithLabel.builder()
                         .addAssociationType(
-                            AssociationSpecWithLabel1.builder()
-                                .category(AssociationSpecWithLabel1.Category.HUBSPOT_DEFINED)
+                            AssociationSpecWithLabel.builder()
+                                .category(AssociationSpecWithLabel.Category.HUBSPOT_DEFINED)
                                 .typeId(0)
                                 .label("label")
                                 .build()

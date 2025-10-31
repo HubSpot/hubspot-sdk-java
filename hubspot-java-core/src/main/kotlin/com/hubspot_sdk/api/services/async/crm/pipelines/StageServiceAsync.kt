@@ -33,10 +33,7 @@ interface StageServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): StageServiceAsync
 
-    /**
-     * Create a new stage associated with the pipeline identified by `{pipelineId}`. The entire
-     * stage object, including its unique ID, will be returned in the response.
-     */
+    /** Create a pipeline stage */
     fun create(pipelineId: String, params: StageCreateParams): CompletableFuture<PipelineStage> =
         create(pipelineId, params, RequestOptions.none())
 
@@ -58,11 +55,6 @@ interface StageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PipelineStage>
 
-    /**
-     * Perform a partial update of the pipeline stage identified by `{stageId}` associated with the
-     * pipeline identified by `{pipelineId}`. Any properties not included in this update will keep
-     * their existing values. The updated stage will be returned in the response.
-     */
     fun update(stageId: String, params: StageUpdateParams): CompletableFuture<PipelineStage> =
         update(stageId, params, RequestOptions.none())
 
@@ -109,10 +101,7 @@ interface StageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePipelineStageNoPaging>
 
-    /**
-     * Delete the pipeline stage identified by `{stageId}` associated with the pipeline identified
-     * by `{pipelineId}`.
-     */
+    /** Delete a pipeline stage */
     fun delete(stageId: String, params: StageDeleteParams): CompletableFuture<Void?> =
         delete(stageId, params, RequestOptions.none())
 
@@ -134,10 +123,7 @@ interface StageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /**
-     * Return the stage identified by `{stageId}` associated with the pipeline identified by
-     * `{pipelineId}`.
-     */
+    /** Return a pipeline stage by ID */
     fun get(stageId: String, params: StageGetParams): CompletableFuture<PipelineStage> =
         get(stageId, params, RequestOptions.none())
 

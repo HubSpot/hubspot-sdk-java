@@ -12,10 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Get the list of Blogs. Supports paging and filtering. This method would be useful for an
- * integration that examined these models and used an external service to suggest edits.
- */
 class SettingListParams
 private constructor(
     private val after: String?,
@@ -32,37 +28,24 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The cursor token value to get the next set of results. You can get this from the
-     * `paging.next.after` JSON property of a paged response containing more results.
-     */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** Specifies whether to return archived Blogs. Defaults to `false`. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    /** Only return Blogs created after the specified time. */
     fun createdAfter(): Optional<OffsetDateTime> = Optional.ofNullable(createdAfter)
 
-    /** Only return Blogs created at exactly the specified time. */
     fun createdAt(): Optional<OffsetDateTime> = Optional.ofNullable(createdAt)
 
-    /** Only return Blogs created before the specified time. */
     fun createdBefore(): Optional<OffsetDateTime> = Optional.ofNullable(createdBefore)
 
-    /** The maximum number of results to return. Default is 100. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** Specifies which fields to use for sorting results. Valid fields are `name` and `id` */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
-    /** Only return Blogs last updated after the specified time. */
     fun updatedAfter(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAfter)
 
-    /** Only return Blogs last updated at exactly the specified time. */
     fun updatedAt(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAt)
 
-    /** Only return Blogs last updated before the specified time. */
     fun updatedBefore(): Optional<OffsetDateTime> = Optional.ofNullable(updatedBefore)
 
     /** Additional headers to send with the request. */
@@ -113,16 +96,11 @@ private constructor(
             additionalQueryParams = settingListParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The cursor token value to get the next set of results. You can get this from the
-         * `paging.next.after` JSON property of a paged response containing more results.
-         */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** Specifies whether to return archived Blogs. Defaults to `false`. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**
@@ -135,20 +113,17 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        /** Only return Blogs created after the specified time. */
         fun createdAfter(createdAfter: OffsetDateTime?) = apply { this.createdAfter = createdAfter }
 
         /** Alias for calling [Builder.createdAfter] with `createdAfter.orElse(null)`. */
         fun createdAfter(createdAfter: Optional<OffsetDateTime>) =
             createdAfter(createdAfter.getOrNull())
 
-        /** Only return Blogs created at exactly the specified time. */
         fun createdAt(createdAt: OffsetDateTime?) = apply { this.createdAt = createdAt }
 
         /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<OffsetDateTime>) = createdAt(createdAt.getOrNull())
 
-        /** Only return Blogs created before the specified time. */
         fun createdBefore(createdBefore: OffsetDateTime?) = apply {
             this.createdBefore = createdBefore
         }
@@ -157,7 +132,6 @@ private constructor(
         fun createdBefore(createdBefore: Optional<OffsetDateTime>) =
             createdBefore(createdBefore.getOrNull())
 
-        /** The maximum number of results to return. Default is 100. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**
@@ -170,7 +144,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** Specifies which fields to use for sorting results. Valid fields are `name` and `id` */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -185,20 +158,17 @@ private constructor(
             this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
         }
 
-        /** Only return Blogs last updated after the specified time. */
         fun updatedAfter(updatedAfter: OffsetDateTime?) = apply { this.updatedAfter = updatedAfter }
 
         /** Alias for calling [Builder.updatedAfter] with `updatedAfter.orElse(null)`. */
         fun updatedAfter(updatedAfter: Optional<OffsetDateTime>) =
             updatedAfter(updatedAfter.getOrNull())
 
-        /** Only return Blogs last updated at exactly the specified time. */
         fun updatedAt(updatedAt: OffsetDateTime?) = apply { this.updatedAt = updatedAt }
 
         /** Alias for calling [Builder.updatedAt] with `updatedAt.orElse(null)`. */
         fun updatedAt(updatedAt: Optional<OffsetDateTime>) = updatedAt(updatedAt.getOrNull())
 
-        /** Only return Blogs last updated before the specified time. */
         fun updatedBefore(updatedBefore: OffsetDateTime?) = apply {
             this.updatedBefore = updatedBefore
         }

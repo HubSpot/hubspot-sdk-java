@@ -34,18 +34,12 @@ private constructor(
     ) : this(staticValue, type, mutableMapOf())
 
     /**
-     * A static value to use as the input
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun staticValue(): String = staticValue.getRequired("staticValue")
 
     /**
-     * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-     * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-     * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -105,7 +99,6 @@ private constructor(
             additionalProperties = apiStaticValue.additionalProperties.toMutableMap()
         }
 
-        /** A static value to use as the input */
         fun staticValue(staticValue: String) = staticValue(JsonField.of(staticValue))
 
         /**
@@ -117,11 +110,6 @@ private constructor(
          */
         fun staticValue(staticValue: JsonField<String>) = apply { this.staticValue = staticValue }
 
-        /**
-         * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-         * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-         * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -202,11 +190,6 @@ private constructor(
         (if (staticValue.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-     * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-     * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

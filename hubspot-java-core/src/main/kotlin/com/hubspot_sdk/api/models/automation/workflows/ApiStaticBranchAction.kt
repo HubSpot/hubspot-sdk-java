@@ -70,16 +70,12 @@ private constructor(
     )
 
     /**
-     * The ID for this action.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionId(): String = actionId.getRequired("actionId")
 
     /**
-     * The input value to branch off of.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -92,9 +88,6 @@ private constructor(
     fun staticBranches(): List<ApiStaticBranch> = staticBranches.getRequired("staticBranches")
 
     /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -107,9 +100,6 @@ private constructor(
     fun defaultBranch(): Optional<ApiConnection> = defaultBranch.getOptional("defaultBranch")
 
     /**
-     * The name of the default branch, the branch that gets executed if `inputValue` does not match
-     * any of the `staticBranches`.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -216,7 +206,6 @@ private constructor(
             additionalProperties = apiStaticBranchAction.additionalProperties.toMutableMap()
         }
 
-        /** The ID for this action. */
         fun actionId(actionId: String) = actionId(JsonField.of(actionId))
 
         /**
@@ -227,7 +216,6 @@ private constructor(
          */
         fun actionId(actionId: JsonField<String>) = apply { this.actionId = actionId }
 
-        /** The input value to branch off of. */
         fun inputValue(inputValue: InputValue) = inputValue(JsonField.of(inputValue))
 
         /**
@@ -318,10 +306,6 @@ private constructor(
                 }
         }
 
-        /**
-         * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-         * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -345,10 +329,6 @@ private constructor(
             this.defaultBranch = defaultBranch
         }
 
-        /**
-         * The name of the default branch, the branch that gets executed if `inputValue` does not
-         * match any of the `staticBranches`.
-         */
         fun defaultBranchName(defaultBranchName: String) =
             defaultBranchName(JsonField.of(defaultBranchName))
 
@@ -447,7 +427,6 @@ private constructor(
             (defaultBranch.asKnown().getOrNull()?.validity() ?: 0) +
             (if (defaultBranchName.asKnown().isPresent) 1 else 0)
 
-    /** The input value to branch off of. */
     @JsonDeserialize(using = InputValue.Deserializer::class)
     @JsonSerialize(using = InputValue.Serializer::class)
     class InputValue
@@ -895,10 +874,6 @@ private constructor(
         }
     }
 
-    /**
-     * The type of action this is, can be: "STATIC_BRANCH", "LIST_BRANCH", "AB_TEST_BRANCH",
-     * "CUSTOM_CODE", "WEBHOOK", or "SINGLE_CONNECTION"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

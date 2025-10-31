@@ -12,10 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
- * custom unique value property.
- */
+/** Retrieve multiple postal mail objects using their internal IDs or unique property values. */
 class BatchGetParams
 private constructor(
     private val archived: Boolean?,
@@ -24,7 +21,6 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /**
@@ -75,7 +71,6 @@ private constructor(
             additionalQueryParams = batchGetParams.additionalQueryParams.toBuilder()
         }
 
-        /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**

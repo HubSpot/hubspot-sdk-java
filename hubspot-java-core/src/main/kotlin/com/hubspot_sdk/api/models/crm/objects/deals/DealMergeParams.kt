@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.PublicMergeInput
 import java.util.Objects
 
-/** Merge two deals with same type */
+/** Combine two deals of the same type into a single deal. */
 class DealMergeParams
 private constructor(
     private val publicMergeInput: PublicMergeInput,

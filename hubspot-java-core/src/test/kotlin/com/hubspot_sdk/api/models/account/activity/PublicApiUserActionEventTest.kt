@@ -14,28 +14,24 @@ internal class PublicApiUserActionEventTest {
     fun create() {
         val publicApiUserActionEvent =
             PublicApiUserActionEvent.builder()
-                .id("5432653")
-                .actingUser(
-                    ActingUser.builder().userId(2931299).userEmail("pgibbons@initech.com").build()
-                )
-                .action("PERFORM")
-                .category("LOGIN")
-                .occurredAt(OffsetDateTime.parse("2025-01-09T16:05:32.387+00:00"))
-                .subCategory("LOGIN_SUCCEEDED")
-                .targetObjectId("1")
+                .id("id")
+                .actingUser(ActingUser.builder().userId(0).userEmail("userEmail").build())
+                .action("action")
+                .category("category")
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .subCategory("subCategory")
+                .targetObjectId("targetObjectId")
                 .build()
 
-        assertThat(publicApiUserActionEvent.id()).isEqualTo("5432653")
+        assertThat(publicApiUserActionEvent.id()).isEqualTo("id")
         assertThat(publicApiUserActionEvent.actingUser())
-            .isEqualTo(
-                ActingUser.builder().userId(2931299).userEmail("pgibbons@initech.com").build()
-            )
-        assertThat(publicApiUserActionEvent.action()).isEqualTo("PERFORM")
-        assertThat(publicApiUserActionEvent.category()).isEqualTo("LOGIN")
+            .isEqualTo(ActingUser.builder().userId(0).userEmail("userEmail").build())
+        assertThat(publicApiUserActionEvent.action()).isEqualTo("action")
+        assertThat(publicApiUserActionEvent.category()).isEqualTo("category")
         assertThat(publicApiUserActionEvent.occurredAt())
-            .isEqualTo(OffsetDateTime.parse("2025-01-09T16:05:32.387+00:00"))
-        assertThat(publicApiUserActionEvent.subCategory()).contains("LOGIN_SUCCEEDED")
-        assertThat(publicApiUserActionEvent.targetObjectId()).contains("1")
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(publicApiUserActionEvent.subCategory()).contains("subCategory")
+        assertThat(publicApiUserActionEvent.targetObjectId()).contains("targetObjectId")
     }
 
     @Test
@@ -43,15 +39,13 @@ internal class PublicApiUserActionEventTest {
         val jsonMapper = jsonMapper()
         val publicApiUserActionEvent =
             PublicApiUserActionEvent.builder()
-                .id("5432653")
-                .actingUser(
-                    ActingUser.builder().userId(2931299).userEmail("pgibbons@initech.com").build()
-                )
-                .action("PERFORM")
-                .category("LOGIN")
-                .occurredAt(OffsetDateTime.parse("2025-01-09T16:05:32.387+00:00"))
-                .subCategory("LOGIN_SUCCEEDED")
-                .targetObjectId("1")
+                .id("id")
+                .actingUser(ActingUser.builder().userId(0).userEmail("userEmail").build())
+                .action("action")
+                .category("category")
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .subCategory("subCategory")
+                .targetObjectId("targetObjectId")
                 .build()
 
         val roundtrippedPublicApiUserActionEvent =

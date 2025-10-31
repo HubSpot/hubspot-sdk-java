@@ -57,13 +57,14 @@ internal class GroupServiceAsyncTest {
                 .build()
         val groupServiceAsync = client.cms().mediaBridge().groups()
 
-        val groupsFuture =
+        val collectionResponsePropertyGroupNoPagingFuture =
             groupServiceAsync.list(
                 GroupListParams.builder().appId("appId").objectType("objectType").build()
             )
 
-        val groups = groupsFuture.get()
-        groups.validate()
+        val collectionResponsePropertyGroupNoPaging =
+            collectionResponsePropertyGroupNoPagingFuture.get()
+        collectionResponsePropertyGroupNoPaging.validate()
     }
 
     @Disabled("Prism tests are disabled")

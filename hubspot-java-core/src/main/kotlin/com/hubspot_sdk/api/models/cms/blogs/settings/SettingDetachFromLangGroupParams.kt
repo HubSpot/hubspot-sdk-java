@@ -10,7 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
 import java.util.Objects
 
-/** Detach a blog from a multi-language group. */
 class SettingDetachFromLangGroupParams
 private constructor(
     private val detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext,

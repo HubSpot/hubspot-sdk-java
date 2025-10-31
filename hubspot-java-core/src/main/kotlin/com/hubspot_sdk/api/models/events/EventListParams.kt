@@ -48,10 +48,6 @@ private constructor(
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /**
-     * Pagination cursor for backward navigation. Retrieves events occurring before the specified
-     * cursor position. Note: Currently only forward pagination with after is supported.
-     */
     fun before(): Optional<String> = Optional.ofNullable(before)
 
     /**
@@ -166,11 +162,6 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /**
-         * Pagination cursor for backward navigation. Retrieves events occurring before the
-         * specified cursor position. Note: Currently only forward pagination with after is
-         * supported.
-         */
         fun before(before: String?) = apply { this.before = before }
 
         /** Alias for calling [Builder.before] with `before.orElse(null)`. */

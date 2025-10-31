@@ -11,10 +11,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Delete a calling extension. This will remove your service as an option for all connected
- * accounts.
- */
 class SettingDeleteParams
 private constructor(
     private val appId: Int?,

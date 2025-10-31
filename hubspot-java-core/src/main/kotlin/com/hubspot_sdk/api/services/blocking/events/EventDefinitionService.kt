@@ -10,16 +10,15 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeleteParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeletePropertyParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionGetResponse
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListPage
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionListParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdatePropertyParams
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateResponse
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinitionEgg
 import java.util.function.Consumer
 
 interface EventDefinitionService {
@@ -37,46 +36,56 @@ interface EventDefinitionService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventDefinitionService
 
     /** Create a custom event definition. */
-    fun create(params: EventDefinitionCreateParams): EventDefinitionCreateResponse =
+    fun create(params: EventDefinitionCreateParams): ExternalBehavioralEventTypeDefinition =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: EventDefinitionCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventDefinitionCreateResponse
+    ): ExternalBehavioralEventTypeDefinition
+
+    /** @see create */
+    fun create(
+        externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalBehavioralEventTypeDefinition =
+        create(
+            EventDefinitionCreateParams.builder()
+                .externalBehavioralEventTypeDefinitionEgg(externalBehavioralEventTypeDefinitionEgg)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg
+    ): ExternalBehavioralEventTypeDefinition =
+        create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
     /** Update a specific custom event definition by name. */
-    fun update(eventName: String): EventDefinitionUpdateResponse =
-        update(eventName, EventDefinitionUpdateParams.none())
+    fun update(
+        eventName: String,
+        params: EventDefinitionUpdateParams,
+    ): ExternalBehavioralEventTypeDefinition = update(eventName, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         eventName: String,
-        params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
+        params: EventDefinitionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventDefinitionUpdateResponse =
+    ): ExternalBehavioralEventTypeDefinition =
         update(params.toBuilder().eventName(eventName).build(), requestOptions)
 
     /** @see update */
-    fun update(
-        eventName: String,
-        params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
-    ): EventDefinitionUpdateResponse = update(eventName, params, RequestOptions.none())
+    fun update(params: EventDefinitionUpdateParams): ExternalBehavioralEventTypeDefinition =
+        update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: EventDefinitionUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventDefinitionUpdateResponse
-
-    /** @see update */
-    fun update(params: EventDefinitionUpdateParams): EventDefinitionUpdateResponse =
-        update(params, RequestOptions.none())
-
-    /** @see update */
-    fun update(eventName: String, requestOptions: RequestOptions): EventDefinitionUpdateResponse =
-        update(eventName, EventDefinitionUpdateParams.none(), requestOptions)
+    ): ExternalBehavioralEventTypeDefinition
 
     /** Retrieve existing custom event definitions. */
     fun list(): EventDefinitionListPage = list(EventDefinitionListParams.none())
@@ -168,7 +177,7 @@ interface EventDefinitionService {
     )
 
     /** Fetch a single custom event definition by name. */
-    fun get(eventName: String): EventDefinitionGetResponse =
+    fun get(eventName: String): ExternalBehavioralEventTypeDefinition =
         get(eventName, EventDefinitionGetParams.none())
 
     /** @see get */
@@ -176,27 +185,30 @@ interface EventDefinitionService {
         eventName: String,
         params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventDefinitionGetResponse =
+    ): ExternalBehavioralEventTypeDefinition =
         get(params.toBuilder().eventName(eventName).build(), requestOptions)
 
     /** @see get */
     fun get(
         eventName: String,
         params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
-    ): EventDefinitionGetResponse = get(eventName, params, RequestOptions.none())
+    ): ExternalBehavioralEventTypeDefinition = get(eventName, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: EventDefinitionGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventDefinitionGetResponse
+    ): ExternalBehavioralEventTypeDefinition
 
     /** @see get */
-    fun get(params: EventDefinitionGetParams): EventDefinitionGetResponse =
+    fun get(params: EventDefinitionGetParams): ExternalBehavioralEventTypeDefinition =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(eventName: String, requestOptions: RequestOptions): EventDefinitionGetResponse =
+    fun get(
+        eventName: String,
+        requestOptions: RequestOptions,
+    ): ExternalBehavioralEventTypeDefinition =
         get(eventName, EventDefinitionGetParams.none(), requestOptions)
 
     /** Update an existing property in a custom event definition. */
@@ -245,60 +257,71 @@ interface EventDefinitionService {
         @MustBeClosed
         fun create(
             params: EventDefinitionCreateParams
-        ): HttpResponseFor<EventDefinitionCreateResponse> = create(params, RequestOptions.none())
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
+            create(params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
             params: EventDefinitionCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventDefinitionCreateResponse>
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
+            create(
+                EventDefinitionCreateParams.builder()
+                    .externalBehavioralEventTypeDefinitionEgg(
+                        externalBehavioralEventTypeDefinitionEgg
+                    )
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
+            create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /events/v3/event-definitions/{eventName}`, but is
          * otherwise the same as [EventDefinitionService.update].
          */
         @MustBeClosed
-        fun update(eventName: String): HttpResponseFor<EventDefinitionUpdateResponse> =
-            update(eventName, EventDefinitionUpdateParams.none())
+        fun update(
+            eventName: String,
+            params: EventDefinitionUpdateParams,
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
+            update(eventName, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             eventName: String,
-            params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
+            params: EventDefinitionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventDefinitionUpdateResponse> =
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
             update(params.toBuilder().eventName(eventName).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
         fun update(
-            eventName: String,
-            params: EventDefinitionUpdateParams = EventDefinitionUpdateParams.none(),
-        ): HttpResponseFor<EventDefinitionUpdateResponse> =
-            update(eventName, params, RequestOptions.none())
+            params: EventDefinitionUpdateParams
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
+            update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: EventDefinitionUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventDefinitionUpdateResponse>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            params: EventDefinitionUpdateParams
-        ): HttpResponseFor<EventDefinitionUpdateResponse> = update(params, RequestOptions.none())
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            eventName: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<EventDefinitionUpdateResponse> =
-            update(eventName, EventDefinitionUpdateParams.none(), requestOptions)
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition>
 
         /**
          * Returns a raw HTTP response for `get /events/v3/event-definitions`, but is otherwise the
@@ -434,7 +457,7 @@ interface EventDefinitionService {
          * otherwise the same as [EventDefinitionService.get].
          */
         @MustBeClosed
-        fun get(eventName: String): HttpResponseFor<EventDefinitionGetResponse> =
+        fun get(eventName: String): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
             get(eventName, EventDefinitionGetParams.none())
 
         /** @see get */
@@ -443,7 +466,7 @@ interface EventDefinitionService {
             eventName: String,
             params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventDefinitionGetResponse> =
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
             get(params.toBuilder().eventName(eventName).build(), requestOptions)
 
         /** @see get */
@@ -451,7 +474,7 @@ interface EventDefinitionService {
         fun get(
             eventName: String,
             params: EventDefinitionGetParams = EventDefinitionGetParams.none(),
-        ): HttpResponseFor<EventDefinitionGetResponse> =
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
             get(eventName, params, RequestOptions.none())
 
         /** @see get */
@@ -459,11 +482,13 @@ interface EventDefinitionService {
         fun get(
             params: EventDefinitionGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventDefinitionGetResponse>
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition>
 
         /** @see get */
         @MustBeClosed
-        fun get(params: EventDefinitionGetParams): HttpResponseFor<EventDefinitionGetResponse> =
+        fun get(
+            params: EventDefinitionGetParams
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -471,7 +496,7 @@ interface EventDefinitionService {
         fun get(
             eventName: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventDefinitionGetResponse> =
+        ): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
             get(eventName, EventDefinitionGetParams.none(), requestOptions)
 
         /**

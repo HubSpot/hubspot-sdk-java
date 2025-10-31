@@ -9,7 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve the Blog object identified by the id in the path. */
 class SettingGetParams
 private constructor(
     private val blogId: String?,

@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.events.eventdefinitions
 
 import com.hubspot_sdk.api.models.OptionInput
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,15 +13,19 @@ internal class EventDefinitionUpdatePropertyParamsTest {
         EventDefinitionUpdatePropertyParams.builder()
             .eventName("eventName")
             .propertyName("propertyName")
-            .description("description")
-            .label("label")
-            .addOption(
-                OptionInput.builder()
-                    .displayOrder(0)
-                    .hidden(true)
-                    .label("label")
-                    .value("value")
+            .externalBehavioralEventPropertyDefinitionPatch(
+                ExternalBehavioralEventPropertyDefinitionPatch.builder()
                     .description("description")
+                    .label("label")
+                    .addOption(
+                        OptionInput.builder()
+                            .displayOrder(0)
+                            .hidden(true)
+                            .label("label")
+                            .value("value")
+                            .description("description")
+                            .build()
+                    )
                     .build()
             )
             .build()
@@ -34,6 +37,9 @@ internal class EventDefinitionUpdatePropertyParamsTest {
             EventDefinitionUpdatePropertyParams.builder()
                 .eventName("eventName")
                 .propertyName("propertyName")
+                .externalBehavioralEventPropertyDefinitionPatch(
+                    ExternalBehavioralEventPropertyDefinitionPatch.builder().build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("eventName")
@@ -48,31 +54,39 @@ internal class EventDefinitionUpdatePropertyParamsTest {
             EventDefinitionUpdatePropertyParams.builder()
                 .eventName("eventName")
                 .propertyName("propertyName")
-                .description("description")
-                .label("label")
-                .addOption(
-                    OptionInput.builder()
-                        .displayOrder(0)
-                        .hidden(true)
-                        .label("label")
-                        .value("value")
+                .externalBehavioralEventPropertyDefinitionPatch(
+                    ExternalBehavioralEventPropertyDefinitionPatch.builder()
                         .description("description")
+                        .label("label")
+                        .addOption(
+                            OptionInput.builder()
+                                .displayOrder(0)
+                                .hidden(true)
+                                .label("label")
+                                .value("value")
+                                .description("description")
+                                .build()
+                        )
                         .build()
                 )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.description()).contains("description")
-        assertThat(body.label()).contains("label")
-        assertThat(body.options().getOrNull())
-            .containsExactly(
-                OptionInput.builder()
-                    .displayOrder(0)
-                    .hidden(true)
-                    .label("label")
-                    .value("value")
+        assertThat(body)
+            .isEqualTo(
+                ExternalBehavioralEventPropertyDefinitionPatch.builder()
                     .description("description")
+                    .label("label")
+                    .addOption(
+                        OptionInput.builder()
+                            .displayOrder(0)
+                            .hidden(true)
+                            .label("label")
+                            .value("value")
+                            .description("description")
+                            .build()
+                    )
                     .build()
             )
     }
@@ -83,8 +97,13 @@ internal class EventDefinitionUpdatePropertyParamsTest {
             EventDefinitionUpdatePropertyParams.builder()
                 .eventName("eventName")
                 .propertyName("propertyName")
+                .externalBehavioralEventPropertyDefinitionPatch(
+                    ExternalBehavioralEventPropertyDefinitionPatch.builder().build()
+                )
                 .build()
 
         val body = params._body()
+
+        assertThat(body).isEqualTo(ExternalBehavioralEventPropertyDefinitionPatch.builder().build())
     }
 }

@@ -16,16 +16,13 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchResponse
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchUpsertParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchUpsertResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalGetParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalGetResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalUpdateParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalUpdateResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -44,32 +41,35 @@ class PortalServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun update(
         params: PortalUpdateParams,
         requestOptions: RequestOptions,
-    ): PortalUpdateResponse =
+    ): PortalFlagStateResponse =
         // put /feature-flags/v3/{appId}/flags/{flagName}/portals/{portalId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun delete(
         params: PortalDeleteParams,
         requestOptions: RequestOptions,
-    ): PortalDeleteResponse =
+    ): PortalFlagStateResponse =
         // delete /feature-flags/v3/{appId}/flags/{flagName}/portals/{portalId}
         withRawResponse().delete(params, requestOptions).parse()
 
     override fun batchDelete(
         params: PortalBatchDeleteParams,
         requestOptions: RequestOptions,
-    ): PortalBatchDeleteResponse =
+    ): PortalFlagStateBatchResponse =
         // post /feature-flags/v3/{appId}/flags/{flagName}/portals/batch/delete
         withRawResponse().batchDelete(params, requestOptions).parse()
 
     override fun batchUpsert(
         params: PortalBatchUpsertParams,
         requestOptions: RequestOptions,
-    ): PortalBatchUpsertResponse =
+    ): PortalFlagStateBatchResponse =
         // post /feature-flags/v3/{appId}/flags/{flagName}/portals/batch/upsert
         withRawResponse().batchUpsert(params, requestOptions).parse()
 
-    override fun get(params: PortalGetParams, requestOptions: RequestOptions): PortalGetResponse =
+    override fun get(
+        params: PortalGetParams,
+        requestOptions: RequestOptions,
+    ): PortalFlagStateResponse =
         // get /feature-flags/v3/{appId}/flags/{flagName}/portals/{portalId}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -86,13 +86,13 @@ class PortalServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<PortalUpdateResponse> =
-            jsonHandler<PortalUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PortalFlagStateResponse> =
+            jsonHandler<PortalFlagStateResponse>(clientOptions.jsonMapper)
 
         override fun update(
             params: PortalUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortalUpdateResponse> {
+        ): HttpResponseFor<PortalFlagStateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portalId", params.portalId().getOrNull())
@@ -125,13 +125,13 @@ class PortalServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val deleteHandler: Handler<PortalDeleteResponse> =
-            jsonHandler<PortalDeleteResponse>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<PortalFlagStateResponse> =
+            jsonHandler<PortalFlagStateResponse>(clientOptions.jsonMapper)
 
         override fun delete(
             params: PortalDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortalDeleteResponse> {
+        ): HttpResponseFor<PortalFlagStateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portalId", params.portalId().getOrNull())
@@ -164,13 +164,13 @@ class PortalServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val batchDeleteHandler: Handler<PortalBatchDeleteResponse> =
-            jsonHandler<PortalBatchDeleteResponse>(clientOptions.jsonMapper)
+        private val batchDeleteHandler: Handler<PortalFlagStateBatchResponse> =
+            jsonHandler<PortalFlagStateBatchResponse>(clientOptions.jsonMapper)
 
         override fun batchDelete(
             params: PortalBatchDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortalBatchDeleteResponse> {
+        ): HttpResponseFor<PortalFlagStateBatchResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())
@@ -204,13 +204,13 @@ class PortalServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val batchUpsertHandler: Handler<PortalBatchUpsertResponse> =
-            jsonHandler<PortalBatchUpsertResponse>(clientOptions.jsonMapper)
+        private val batchUpsertHandler: Handler<PortalFlagStateBatchResponse> =
+            jsonHandler<PortalFlagStateBatchResponse>(clientOptions.jsonMapper)
 
         override fun batchUpsert(
             params: PortalBatchUpsertParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortalBatchUpsertResponse> {
+        ): HttpResponseFor<PortalFlagStateBatchResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("flagName", params.flagName().getOrNull())
@@ -244,13 +244,13 @@ class PortalServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val getHandler: Handler<PortalGetResponse> =
-            jsonHandler<PortalGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PortalFlagStateResponse> =
+            jsonHandler<PortalFlagStateResponse>(clientOptions.jsonMapper)
 
         override fun get(
             params: PortalGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PortalGetResponse> {
+        ): HttpResponseFor<PortalFlagStateResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("portalId", params.portalId().getOrNull())

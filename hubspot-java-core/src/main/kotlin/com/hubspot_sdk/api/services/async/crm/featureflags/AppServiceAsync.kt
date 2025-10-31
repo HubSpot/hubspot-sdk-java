@@ -5,14 +5,12 @@ package com.hubspot_sdk.api.services.async.crm.featureflags
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.featureflags.FlagResponse
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppGetResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppListPortalsResponse
 import com.hubspot_sdk.api.models.crm.featureflags.apps.AppUpdateParams
-import com.hubspot_sdk.api.models.crm.featureflags.apps.AppUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,7 +32,7 @@ interface AppServiceAsync {
      * Set a feature flag for an app. For example, update the `hs-hide-crm-cards` flag's
      * `defaultState` to `ON` to hide classic CRM cards from new installs.
      */
-    fun update(flagName: String, params: AppUpdateParams): CompletableFuture<AppUpdateResponse> =
+    fun update(flagName: String, params: AppUpdateParams): CompletableFuture<FlagResponse> =
         update(flagName, params, RequestOptions.none())
 
     /** @see update */
@@ -42,24 +40,24 @@ interface AppServiceAsync {
         flagName: String,
         params: AppUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppUpdateResponse> =
+    ): CompletableFuture<FlagResponse> =
         update(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see update */
-    fun update(params: AppUpdateParams): CompletableFuture<AppUpdateResponse> =
+    fun update(params: AppUpdateParams): CompletableFuture<FlagResponse> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: AppUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppUpdateResponse>
+    ): CompletableFuture<FlagResponse>
 
     /**
      * Delete a feature flag in an app. For example, delete the `hs-release-app-cards` flag after
      * all accounts have been migrated.
      */
-    fun delete(flagName: String, params: AppDeleteParams): CompletableFuture<AppDeleteResponse> =
+    fun delete(flagName: String, params: AppDeleteParams): CompletableFuture<FlagResponse> =
         delete(flagName, params, RequestOptions.none())
 
     /** @see delete */
@@ -67,21 +65,21 @@ interface AppServiceAsync {
         flagName: String,
         params: AppDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppDeleteResponse> =
+    ): CompletableFuture<FlagResponse> =
         delete(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see delete */
-    fun delete(params: AppDeleteParams): CompletableFuture<AppDeleteResponse> =
+    fun delete(params: AppDeleteParams): CompletableFuture<FlagResponse> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: AppDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppDeleteResponse>
+    ): CompletableFuture<FlagResponse>
 
     /** Retrieve the current status of the app's feature flags. No request body is included. */
-    fun get(flagName: String, params: AppGetParams): CompletableFuture<AppGetResponse> =
+    fun get(flagName: String, params: AppGetParams): CompletableFuture<FlagResponse> =
         get(flagName, params, RequestOptions.none())
 
     /** @see get */
@@ -89,18 +87,18 @@ interface AppServiceAsync {
         flagName: String,
         params: AppGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppGetResponse> =
+    ): CompletableFuture<FlagResponse> =
         get(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see get */
-    fun get(params: AppGetParams): CompletableFuture<AppGetResponse> =
+    fun get(params: AppGetParams): CompletableFuture<FlagResponse> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: AppGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppGetResponse>
+    ): CompletableFuture<FlagResponse>
 
     /**
      * Retrieve a list of HubSpot accounts with an account-level flag setting for the specified app.
@@ -109,7 +107,7 @@ interface AppServiceAsync {
     fun listPortals(
         flagName: String,
         params: AppListPortalsParams,
-    ): CompletableFuture<AppListPortalsResponse> =
+    ): CompletableFuture<PortalFlagStateBatchResponse> =
         listPortals(flagName, params, RequestOptions.none())
 
     /** @see listPortals */
@@ -117,18 +115,18 @@ interface AppServiceAsync {
         flagName: String,
         params: AppListPortalsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppListPortalsResponse> =
+    ): CompletableFuture<PortalFlagStateBatchResponse> =
         listPortals(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see listPortals */
-    fun listPortals(params: AppListPortalsParams): CompletableFuture<AppListPortalsResponse> =
+    fun listPortals(params: AppListPortalsParams): CompletableFuture<PortalFlagStateBatchResponse> =
         listPortals(params, RequestOptions.none())
 
     /** @see listPortals */
     fun listPortals(
         params: AppListPortalsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AppListPortalsResponse>
+    ): CompletableFuture<PortalFlagStateBatchResponse>
 
     /** A view of [AppServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -147,7 +145,7 @@ interface AppServiceAsync {
         fun update(
             flagName: String,
             params: AppUpdateParams,
-        ): CompletableFuture<HttpResponseFor<AppUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<FlagResponse>> =
             update(flagName, params, RequestOptions.none())
 
         /** @see update */
@@ -155,18 +153,18 @@ interface AppServiceAsync {
             flagName: String,
             params: AppUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<FlagResponse>> =
             update(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see update */
-        fun update(params: AppUpdateParams): CompletableFuture<HttpResponseFor<AppUpdateResponse>> =
+        fun update(params: AppUpdateParams): CompletableFuture<HttpResponseFor<FlagResponse>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: AppUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<FlagResponse>>
 
         /**
          * Returns a raw HTTP response for `delete /feature-flags/v3/{appId}/flags/{flagName}`, but
@@ -175,7 +173,7 @@ interface AppServiceAsync {
         fun delete(
             flagName: String,
             params: AppDeleteParams,
-        ): CompletableFuture<HttpResponseFor<AppDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<FlagResponse>> =
             delete(flagName, params, RequestOptions.none())
 
         /** @see delete */
@@ -183,18 +181,18 @@ interface AppServiceAsync {
             flagName: String,
             params: AppDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppDeleteResponse>> =
+        ): CompletableFuture<HttpResponseFor<FlagResponse>> =
             delete(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see delete */
-        fun delete(params: AppDeleteParams): CompletableFuture<HttpResponseFor<AppDeleteResponse>> =
+        fun delete(params: AppDeleteParams): CompletableFuture<HttpResponseFor<FlagResponse>> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: AppDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppDeleteResponse>>
+        ): CompletableFuture<HttpResponseFor<FlagResponse>>
 
         /**
          * Returns a raw HTTP response for `get /feature-flags/v3/{appId}/flags/{flagName}`, but is
@@ -203,7 +201,7 @@ interface AppServiceAsync {
         fun get(
             flagName: String,
             params: AppGetParams,
-        ): CompletableFuture<HttpResponseFor<AppGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<FlagResponse>> =
             get(flagName, params, RequestOptions.none())
 
         /** @see get */
@@ -211,18 +209,18 @@ interface AppServiceAsync {
             flagName: String,
             params: AppGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<FlagResponse>> =
             get(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see get */
-        fun get(params: AppGetParams): CompletableFuture<HttpResponseFor<AppGetResponse>> =
+        fun get(params: AppGetParams): CompletableFuture<HttpResponseFor<FlagResponse>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: AppGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppGetResponse>>
+        ): CompletableFuture<HttpResponseFor<FlagResponse>>
 
         /**
          * Returns a raw HTTP response for `get /feature-flags/v3/{appId}/flags/{flagName}/portals`,
@@ -231,7 +229,7 @@ interface AppServiceAsync {
         fun listPortals(
             flagName: String,
             params: AppListPortalsParams,
-        ): CompletableFuture<HttpResponseFor<AppListPortalsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateBatchResponse>> =
             listPortals(flagName, params, RequestOptions.none())
 
         /** @see listPortals */
@@ -239,19 +237,19 @@ interface AppServiceAsync {
             flagName: String,
             params: AppListPortalsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppListPortalsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateBatchResponse>> =
             listPortals(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see listPortals */
         fun listPortals(
             params: AppListPortalsParams
-        ): CompletableFuture<HttpResponseFor<AppListPortalsResponse>> =
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateBatchResponse>> =
             listPortals(params, RequestOptions.none())
 
         /** @see listPortals */
         fun listPortals(
             params: AppListPortalsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AppListPortalsResponse>>
+        ): CompletableFuture<HttpResponseFor<PortalFlagStateBatchResponse>>
     }
 }

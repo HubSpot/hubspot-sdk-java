@@ -36,20 +36,12 @@ private constructor(
     ) : this(flowIds, type, mutableMapOf())
 
     /**
-     * The IDs of the flows to unenroll an object in if it's enrolled in this flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun flowIds(): List<String> = flowIds.getRequired("flowIds")
 
     /**
-     * The type of unenrollment to perform:
-     *
-     * "ALL" - unenroll the object from all other flows
-     *
-     * "SELECTIVE" - only unenroll the object from the flows specified in `flowIds`
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -109,7 +101,6 @@ private constructor(
             additionalProperties = apiUnEnrollmentSetting.additionalProperties.toMutableMap()
         }
 
-        /** The IDs of the flows to unenroll an object in if it's enrolled in this flow. */
         fun flowIds(flowIds: List<String>) = flowIds(JsonField.of(flowIds))
 
         /**
@@ -135,13 +126,6 @@ private constructor(
                 }
         }
 
-        /**
-         * The type of unenrollment to perform:
-         *
-         * "ALL" - unenroll the object from all other flows
-         *
-         * "SELECTIVE" - only unenroll the object from the flows specified in `flowIds`
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -221,13 +205,6 @@ private constructor(
     internal fun validity(): Int =
         (flowIds.asKnown().getOrNull()?.size ?: 0) + (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * The type of unenrollment to perform:
-     *
-     * "ALL" - unenroll the object from all other flows
-     *
-     * "SELECTIVE" - only unenroll the object from the flows specified in `flowIds`
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

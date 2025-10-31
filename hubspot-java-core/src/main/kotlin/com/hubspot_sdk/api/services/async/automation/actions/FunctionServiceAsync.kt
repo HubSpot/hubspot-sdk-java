@@ -60,7 +60,7 @@ interface FunctionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePublicActionFunctionIdentifierNoPaging>
 
-    /** Archive a function for a definition */
+    /** Archive a function for a specific definition. */
     fun delete(functionId: String, params: FunctionDeleteParams): CompletableFuture<Void?> =
         delete(functionId, params, RequestOptions.none())
 
@@ -187,7 +187,7 @@ interface FunctionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionFunction>
 
-    /** Retrieve functions by a type for a given definition */
+    /** Retrieve functions of a specific type for a given definition. */
     fun getByFunctionType(
         functionType: FunctionGetByFunctionTypeParams.FunctionType,
         params: FunctionGetByFunctionTypeParams,

@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.crm.featureflags.portals
 
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStatePutRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,7 +14,11 @@ internal class PortalUpdateParamsTest {
             .appId(0)
             .flagName("flagName")
             .portalId(0)
-            .flagState(PortalUpdateParams.FlagState.OFF)
+            .portalFlagStatePutRequest(
+                PortalFlagStatePutRequest.builder()
+                    .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                    .build()
+            )
             .build()
     }
 
@@ -24,7 +29,11 @@ internal class PortalUpdateParamsTest {
                 .appId(0)
                 .flagName("flagName")
                 .portalId(0)
-                .flagState(PortalUpdateParams.FlagState.OFF)
+                .portalFlagStatePutRequest(
+                    PortalFlagStatePutRequest.builder()
+                        .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
@@ -41,11 +50,20 @@ internal class PortalUpdateParamsTest {
                 .appId(0)
                 .flagName("flagName")
                 .portalId(0)
-                .flagState(PortalUpdateParams.FlagState.OFF)
+                .portalFlagStatePutRequest(
+                    PortalFlagStatePutRequest.builder()
+                        .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.flagState()).isEqualTo(PortalUpdateParams.FlagState.OFF)
+        assertThat(body)
+            .isEqualTo(
+                PortalFlagStatePutRequest.builder()
+                    .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                    .build()
+            )
     }
 }

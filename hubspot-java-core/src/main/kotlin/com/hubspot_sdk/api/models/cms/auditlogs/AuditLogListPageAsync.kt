@@ -19,25 +19,25 @@ private constructor(
     private val service: AuditLogServiceAsync,
     private val streamHandlerExecutor: Executor,
     private val params: AuditLogListParams,
-    private val response: AuditLogListPageResponse,
-) : PageAsync<AuditLogListResponse> {
+    private val response: CollectionResponsePublicAuditLog,
+) : PageAsync<PublicAuditLog> {
 
     /**
-     * Delegates to [AuditLogListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponsePublicAuditLog], but gracefully handles missing data.
      *
-     * @see AuditLogListPageResponse.results
+     * @see CollectionResponsePublicAuditLog.results
      */
-    fun results(): List<AuditLogListResponse> =
+    fun results(): List<PublicAuditLog> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [AuditLogListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponsePublicAuditLog], but gracefully handles missing data.
      *
-     * @see AuditLogListPageResponse.paging
+     * @see CollectionResponsePublicAuditLog.paging
      */
     fun paging(): Optional<Paging> = response._paging().getOptional("paging")
 
-    override fun items(): List<AuditLogListResponse> = results()
+    override fun items(): List<PublicAuditLog> = results()
 
     override fun hasNextPage(): Boolean =
         items().isNotEmpty() &&
@@ -60,14 +60,14 @@ private constructor(
     override fun nextPage(): CompletableFuture<AuditLogListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<AuditLogListResponse> =
+    fun autoPager(): AutoPagerAsync<PublicAuditLog> =
         AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): AuditLogListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): AuditLogListPageResponse = response
+    fun response(): CollectionResponsePublicAuditLog = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -93,7 +93,7 @@ private constructor(
         private var service: AuditLogServiceAsync? = null
         private var streamHandlerExecutor: Executor? = null
         private var params: AuditLogListParams? = null
-        private var response: AuditLogListPageResponse? = null
+        private var response: CollectionResponsePublicAuditLog? = null
 
         @JvmSynthetic
         internal fun from(auditLogListPageAsync: AuditLogListPageAsync) = apply {
@@ -113,7 +113,9 @@ private constructor(
         fun params(params: AuditLogListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: AuditLogListPageResponse) = apply { this.response = response }
+        fun response(response: CollectionResponsePublicAuditLog) = apply {
+            this.response = response
+        }
 
         /**
          * Returns an immutable instance of [AuditLogListPageAsync].

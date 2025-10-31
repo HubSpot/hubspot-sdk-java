@@ -191,6 +191,7 @@ interface ListingServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(listingId, ListingGetParams.none(), requestOptions)
 
+    /** Execute a search query to find listings based on specified filters and properties. */
     fun search(
         params: ListingSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

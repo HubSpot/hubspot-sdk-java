@@ -4,7 +4,8 @@ package com.hubspot_sdk.api.services.blocking.cms
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMappingCreateRequestBody
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
@@ -24,9 +25,9 @@ internal class UrlRedirectServiceTest {
                 .build()
         val urlRedirectService = client.cms().urlRedirects()
 
-        val urlRedirect =
+        val urlMapping =
             urlRedirectService.create(
-                UrlRedirectCreateParams.builder()
+                UrlMappingCreateRequestBody.builder()
                     .destination("destination")
                     .redirectStyle(0)
                     .routePrefix("routePrefix")
@@ -40,7 +41,7 @@ internal class UrlRedirectServiceTest {
                     .build()
             )
 
-        urlRedirect.validate()
+        urlMapping.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -53,27 +54,31 @@ internal class UrlRedirectServiceTest {
                 .build()
         val urlRedirectService = client.cms().urlRedirects()
 
-        val urlRedirect =
+        val urlMapping =
             urlRedirectService.update(
                 UrlRedirectUpdateParams.builder()
                     .urlRedirectId("urlRedirectId")
-                    .id("id")
-                    .destination("destination")
-                    .isMatchFullUrl(true)
-                    .isMatchQueryString(true)
-                    .isOnlyAfterNotFound(true)
-                    .isPattern(true)
-                    .isProtocolAgnostic(true)
-                    .isTrailingSlashOptional(true)
-                    .precedence(0)
-                    .redirectStyle(0)
-                    .routePrefix("routePrefix")
-                    .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .urlMapping(
+                        UrlMapping.builder()
+                            .id("id")
+                            .destination("destination")
+                            .isMatchFullUrl(true)
+                            .isMatchQueryString(true)
+                            .isOnlyAfterNotFound(true)
+                            .isPattern(true)
+                            .isProtocolAgnostic(true)
+                            .isTrailingSlashOptional(true)
+                            .precedence(0)
+                            .redirectStyle(0)
+                            .routePrefix("routePrefix")
+                            .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
                     .build()
             )
 
-        urlRedirect.validate()
+        urlMapping.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -114,8 +119,8 @@ internal class UrlRedirectServiceTest {
                 .build()
         val urlRedirectService = client.cms().urlRedirects()
 
-        val urlRedirect = urlRedirectService.get("urlRedirectId")
+        val urlMapping = urlRedirectService.get("urlRedirectId")
 
-        urlRedirect.validate()
+        urlMapping.validate()
     }
 }

@@ -6,15 +6,14 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMappingCreateRequestBody
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateResponse
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectDeleteParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetResponse
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListPageAsync
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -33,39 +32,55 @@ interface UrlRedirectServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UrlRedirectServiceAsync
 
     /** Creates and configures a new URL redirect. */
-    fun create(params: UrlRedirectCreateParams): CompletableFuture<UrlRedirectCreateResponse> =
+    fun create(params: UrlRedirectCreateParams): CompletableFuture<UrlMapping> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: UrlRedirectCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UrlRedirectCreateResponse>
+    ): CompletableFuture<UrlMapping>
+
+    /** @see create */
+    fun create(
+        urlMappingCreateRequestBody: UrlMappingCreateRequestBody,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<UrlMapping> =
+        create(
+            UrlRedirectCreateParams.builder()
+                .urlMappingCreateRequestBody(urlMappingCreateRequestBody)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        urlMappingCreateRequestBody: UrlMappingCreateRequestBody
+    ): CompletableFuture<UrlMapping> = create(urlMappingCreateRequestBody, RequestOptions.none())
 
     /** Updates the settings for an existing URL redirect. */
     fun update(
         urlRedirectId: String,
         params: UrlRedirectUpdateParams,
-    ): CompletableFuture<UrlRedirectUpdateResponse> =
-        update(urlRedirectId, params, RequestOptions.none())
+    ): CompletableFuture<UrlMapping> = update(urlRedirectId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         urlRedirectId: String,
         params: UrlRedirectUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UrlRedirectUpdateResponse> =
+    ): CompletableFuture<UrlMapping> =
         update(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: UrlRedirectUpdateParams): CompletableFuture<UrlRedirectUpdateResponse> =
+    fun update(params: UrlRedirectUpdateParams): CompletableFuture<UrlMapping> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: UrlRedirectUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UrlRedirectUpdateResponse>
+    ): CompletableFuture<UrlMapping>
 
     /**
      * Returns all existing URL redirects. Results can be limited and filtered by creation or
@@ -121,7 +136,7 @@ interface UrlRedirectServiceAsync {
         delete(urlRedirectId, UrlRedirectDeleteParams.none(), requestOptions)
 
     /** Returns the details for a single existing URL redirect by ID. */
-    fun get(urlRedirectId: String): CompletableFuture<UrlRedirectGetResponse> =
+    fun get(urlRedirectId: String): CompletableFuture<UrlMapping> =
         get(urlRedirectId, UrlRedirectGetParams.none())
 
     /** @see get */
@@ -129,30 +144,27 @@ interface UrlRedirectServiceAsync {
         urlRedirectId: String,
         params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UrlRedirectGetResponse> =
+    ): CompletableFuture<UrlMapping> =
         get(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
     /** @see get */
     fun get(
         urlRedirectId: String,
         params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
-    ): CompletableFuture<UrlRedirectGetResponse> = get(urlRedirectId, params, RequestOptions.none())
+    ): CompletableFuture<UrlMapping> = get(urlRedirectId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: UrlRedirectGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<UrlRedirectGetResponse>
+    ): CompletableFuture<UrlMapping>
 
     /** @see get */
-    fun get(params: UrlRedirectGetParams): CompletableFuture<UrlRedirectGetResponse> =
+    fun get(params: UrlRedirectGetParams): CompletableFuture<UrlMapping> =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        urlRedirectId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<UrlRedirectGetResponse> =
+    fun get(urlRedirectId: String, requestOptions: RequestOptions): CompletableFuture<UrlMapping> =
         get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
 
     /**
@@ -176,14 +188,31 @@ interface UrlRedirectServiceAsync {
          */
         fun create(
             params: UrlRedirectCreateParams
-        ): CompletableFuture<HttpResponseFor<UrlRedirectCreateResponse>> =
-            create(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> = create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: UrlRedirectCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UrlRedirectCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<UrlMapping>>
+
+        /** @see create */
+        fun create(
+            urlMappingCreateRequestBody: UrlMappingCreateRequestBody,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> =
+            create(
+                UrlRedirectCreateParams.builder()
+                    .urlMappingCreateRequestBody(urlMappingCreateRequestBody)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            urlMappingCreateRequestBody: UrlMappingCreateRequestBody
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> =
+            create(urlMappingCreateRequestBody, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /cms/v3/url-redirects/{urlRedirectId}`, but is
@@ -192,7 +221,7 @@ interface UrlRedirectServiceAsync {
         fun update(
             urlRedirectId: String,
             params: UrlRedirectUpdateParams,
-        ): CompletableFuture<HttpResponseFor<UrlRedirectUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> =
             update(urlRedirectId, params, RequestOptions.none())
 
         /** @see update */
@@ -200,20 +229,19 @@ interface UrlRedirectServiceAsync {
             urlRedirectId: String,
             params: UrlRedirectUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UrlRedirectUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> =
             update(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: UrlRedirectUpdateParams
-        ): CompletableFuture<HttpResponseFor<UrlRedirectUpdateResponse>> =
-            update(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> = update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: UrlRedirectUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UrlRedirectUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<UrlMapping>>
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/url-redirects/`, but is otherwise the same
@@ -282,7 +310,7 @@ interface UrlRedirectServiceAsync {
          * Returns a raw HTTP response for `get /cms/v3/url-redirects/{urlRedirectId}`, but is
          * otherwise the same as [UrlRedirectServiceAsync.get].
          */
-        fun get(urlRedirectId: String): CompletableFuture<HttpResponseFor<UrlRedirectGetResponse>> =
+        fun get(urlRedirectId: String): CompletableFuture<HttpResponseFor<UrlMapping>> =
             get(urlRedirectId, UrlRedirectGetParams.none())
 
         /** @see get */
@@ -290,33 +318,31 @@ interface UrlRedirectServiceAsync {
             urlRedirectId: String,
             params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UrlRedirectGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> =
             get(params.toBuilder().urlRedirectId(urlRedirectId).build(), requestOptions)
 
         /** @see get */
         fun get(
             urlRedirectId: String,
             params: UrlRedirectGetParams = UrlRedirectGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<UrlRedirectGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> =
             get(urlRedirectId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: UrlRedirectGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<UrlRedirectGetResponse>>
+        ): CompletableFuture<HttpResponseFor<UrlMapping>>
 
         /** @see get */
-        fun get(
-            params: UrlRedirectGetParams
-        ): CompletableFuture<HttpResponseFor<UrlRedirectGetResponse>> =
+        fun get(params: UrlRedirectGetParams): CompletableFuture<HttpResponseFor<UrlMapping>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             urlRedirectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UrlRedirectGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> =
             get(urlRedirectId, UrlRedirectGetParams.none(), requestOptions)
     }
 }

@@ -8,6 +8,7 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.BatchResponseProperty
 import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
@@ -15,7 +16,6 @@ import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteParam
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyListParams
-import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -82,25 +82,26 @@ interface PropertyServiceAsync {
     fun list(
         objectType: String,
         params: PropertyListParams,
-    ): CompletableFuture<PropertyListResponse> = list(objectType, params, RequestOptions.none())
+    ): CompletableFuture<CollectionResponsePropertyNoPaging> =
+        list(objectType, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         objectType: String,
         params: PropertyListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PropertyListResponse> =
+    ): CompletableFuture<CollectionResponsePropertyNoPaging> =
         list(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see list */
-    fun list(params: PropertyListParams): CompletableFuture<PropertyListResponse> =
+    fun list(params: PropertyListParams): CompletableFuture<CollectionResponsePropertyNoPaging> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: PropertyListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PropertyListResponse>
+    ): CompletableFuture<CollectionResponsePropertyNoPaging>
 
     /** Delete an existing property for an object type. */
     fun delete(propertyName: String, params: PropertyDeleteParams): CompletableFuture<Void?> =
@@ -298,7 +299,7 @@ interface PropertyServiceAsync {
         fun list(
             objectType: String,
             params: PropertyListParams,
-        ): CompletableFuture<HttpResponseFor<PropertyListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyNoPaging>> =
             list(objectType, params, RequestOptions.none())
 
         /** @see list */
@@ -306,20 +307,20 @@ interface PropertyServiceAsync {
             objectType: String,
             params: PropertyListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PropertyListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyNoPaging>> =
             list(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see list */
         fun list(
             params: PropertyListParams
-        ): CompletableFuture<HttpResponseFor<PropertyListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyNoPaging>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: PropertyListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PropertyListResponse>>
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyNoPaging>>
 
         /**
          * Returns a raw HTTP response for `delete

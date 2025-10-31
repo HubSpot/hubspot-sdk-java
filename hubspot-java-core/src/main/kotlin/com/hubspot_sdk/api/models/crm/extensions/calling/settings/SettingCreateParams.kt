@@ -12,7 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Set the menu label, target iframe URL, and dimensions for your calling extension. */
 class SettingCreateParams
 private constructor(
     private val appId: Int?,

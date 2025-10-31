@@ -26,17 +26,17 @@ internal class WorkflowCreateParamsTest {
                 ApiContactFlowCreateRequest.builder()
                     .addAction(
                         ApiStaticBranchAction.builder()
-                            .actionId("1")
+                            .actionId("actionId")
                             .inputValue(
                                 ApiActionDataValue.builder()
-                                    .actionId("1")
-                                    .dataKey("hs_execution_state")
+                                    .actionId("actionId")
+                                    .dataKey("dataKey")
                                     .type(ApiActionDataValue.Type.FIELD_DATA)
                                     .build()
                             )
                             .addStaticBranch(
                                 ApiStaticBranch.builder()
-                                    .branchValue("some_value")
+                                    .branchValue("branchValue")
                                     .connection(
                                         ApiConnection.builder()
                                             .edgeType("edgeType")
@@ -52,7 +52,7 @@ internal class WorkflowCreateParamsTest {
                                     .nextActionId("nextActionId")
                                     .build()
                             )
-                            .defaultBranchName("Other")
+                            .defaultBranchName("defaultBranchName")
                             .build()
                     )
                     .addBlockedDate(
@@ -515,9 +515,9 @@ internal class WorkflowCreateParamsTest {
                                     )
                                     .build()
                             )
-                            .shouldReEnroll(false)
+                            .shouldReEnroll(true)
                             .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                            .unEnrollObjectsNotMeetingCriteria(false)
+                            .unEnrollObjectsNotMeetingCriteria(true)
                             .build()
                     )
                     .enrollmentSchedule(
@@ -528,7 +528,7 @@ internal class WorkflowCreateParamsTest {
                     )
                     .eventAnchor(
                         ApiContactPropertyAnchor.builder()
-                            .contactProperty("example_date_property")
+                            .contactProperty("contactProperty")
                             .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                             .build()
                     )
@@ -577,17 +577,17 @@ internal class WorkflowCreateParamsTest {
                     ApiContactFlowCreateRequest.builder()
                         .addAction(
                             ApiStaticBranchAction.builder()
-                                .actionId("1")
+                                .actionId("actionId")
                                 .inputValue(
                                     ApiActionDataValue.builder()
-                                        .actionId("1")
-                                        .dataKey("hs_execution_state")
+                                        .actionId("actionId")
+                                        .dataKey("dataKey")
                                         .type(ApiActionDataValue.Type.FIELD_DATA)
                                         .build()
                                 )
                                 .addStaticBranch(
                                     ApiStaticBranch.builder()
-                                        .branchValue("some_value")
+                                        .branchValue("branchValue")
                                         .connection(
                                             ApiConnection.builder()
                                                 .edgeType("edgeType")
@@ -603,7 +603,7 @@ internal class WorkflowCreateParamsTest {
                                         .nextActionId("nextActionId")
                                         .build()
                                 )
-                                .defaultBranchName("Other")
+                                .defaultBranchName("defaultBranchName")
                                 .build()
                         )
                         .addBlockedDate(
@@ -1079,9 +1079,9 @@ internal class WorkflowCreateParamsTest {
                                         )
                                         .build()
                                 )
-                                .shouldReEnroll(false)
+                                .shouldReEnroll(true)
                                 .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                                .unEnrollObjectsNotMeetingCriteria(false)
+                                .unEnrollObjectsNotMeetingCriteria(true)
                                 .build()
                         )
                         .enrollmentSchedule(
@@ -1092,7 +1092,7 @@ internal class WorkflowCreateParamsTest {
                         )
                         .eventAnchor(
                             ApiContactPropertyAnchor.builder()
-                                .contactProperty("example_date_property")
+                                .contactProperty("contactProperty")
                                 .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                                 .build()
                         )
@@ -1140,17 +1140,17 @@ internal class WorkflowCreateParamsTest {
                     ApiContactFlowCreateRequest.builder()
                         .addAction(
                             ApiStaticBranchAction.builder()
-                                .actionId("1")
+                                .actionId("actionId")
                                 .inputValue(
                                     ApiActionDataValue.builder()
-                                        .actionId("1")
-                                        .dataKey("hs_execution_state")
+                                        .actionId("actionId")
+                                        .dataKey("dataKey")
                                         .type(ApiActionDataValue.Type.FIELD_DATA)
                                         .build()
                                 )
                                 .addStaticBranch(
                                     ApiStaticBranch.builder()
-                                        .branchValue("some_value")
+                                        .branchValue("branchValue")
                                         .connection(
                                             ApiConnection.builder()
                                                 .edgeType("edgeType")
@@ -1166,7 +1166,7 @@ internal class WorkflowCreateParamsTest {
                                         .nextActionId("nextActionId")
                                         .build()
                                 )
-                                .defaultBranchName("Other")
+                                .defaultBranchName("defaultBranchName")
                                 .build()
                         )
                         .addBlockedDate(
@@ -1642,9 +1642,9 @@ internal class WorkflowCreateParamsTest {
                                         )
                                         .build()
                                 )
-                                .shouldReEnroll(false)
+                                .shouldReEnroll(true)
                                 .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                                .unEnrollObjectsNotMeetingCriteria(false)
+                                .unEnrollObjectsNotMeetingCriteria(true)
                                 .build()
                         )
                         .enrollmentSchedule(
@@ -1655,7 +1655,7 @@ internal class WorkflowCreateParamsTest {
                         )
                         .eventAnchor(
                             ApiContactPropertyAnchor.builder()
-                                .contactProperty("example_date_property")
+                                .contactProperty("contactProperty")
                                 .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
                                 .build()
                         )
@@ -1704,16 +1704,16 @@ internal class WorkflowCreateParamsTest {
                     ApiContactFlowCreateRequest.builder()
                         .addAction(
                             ApiStaticBranchAction.builder()
-                                .actionId("1")
+                                .actionId("actionId")
                                 .inputValue(
                                     ApiActionDataValue.builder()
-                                        .actionId("1")
-                                        .dataKey("hs_execution_state")
+                                        .actionId("actionId")
+                                        .dataKey("dataKey")
                                         .type(ApiActionDataValue.Type.FIELD_DATA)
                                         .build()
                                 )
                                 .addStaticBranch(
-                                    ApiStaticBranch.builder().branchValue("some_value").build()
+                                    ApiStaticBranch.builder().branchValue("branchValue").build()
                                 )
                                 .type(ApiStaticBranchAction.Type.STATIC_BRANCH)
                                 .build()
@@ -1765,16 +1765,16 @@ internal class WorkflowCreateParamsTest {
                     ApiContactFlowCreateRequest.builder()
                         .addAction(
                             ApiStaticBranchAction.builder()
-                                .actionId("1")
+                                .actionId("actionId")
                                 .inputValue(
                                     ApiActionDataValue.builder()
-                                        .actionId("1")
-                                        .dataKey("hs_execution_state")
+                                        .actionId("actionId")
+                                        .dataKey("dataKey")
                                         .type(ApiActionDataValue.Type.FIELD_DATA)
                                         .build()
                                 )
                                 .addStaticBranch(
-                                    ApiStaticBranch.builder().branchValue("some_value").build()
+                                    ApiStaticBranch.builder().branchValue("branchValue").build()
                                 )
                                 .type(ApiStaticBranchAction.Type.STATIC_BRANCH)
                                 .build()

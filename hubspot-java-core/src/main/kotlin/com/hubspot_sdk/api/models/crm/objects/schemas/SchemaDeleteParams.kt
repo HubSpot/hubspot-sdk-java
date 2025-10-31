@@ -11,10 +11,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Deletes a schema. Any existing records of this schema must be deleted **first**. Otherwise this
- * call will fail.
- */
 class SchemaDeleteParams
 private constructor(
     private val objectType: String?,

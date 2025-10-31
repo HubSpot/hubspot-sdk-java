@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.BatchInputPropertyName
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.PropertyCreate
 import com.hubspot_sdk.api.models.PropertyName
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgePropertyUpdate
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
@@ -90,25 +91,29 @@ internal class PropertyServiceAsyncTest {
                     .appId("appId")
                     .objectType("objectType")
                     .propertyName("propertyName")
-                    .calculationFormula("calculationFormula")
-                    .description("description")
-                    .displayOrder(0)
-                    .fieldType(PropertyUpdateParams.FieldType.BOOLEANCHECKBOX)
-                    .formField(true)
-                    .groupName("groupName")
-                    .hasUniqueValue(true)
-                    .hidden(true)
-                    .label("label")
-                    .addOption(
-                        OptionInput.builder()
+                    .mediaBridgePropertyUpdate(
+                        MediaBridgePropertyUpdate.builder()
+                            .calculationFormula("calculationFormula")
+                            .description("description")
                             .displayOrder(0)
+                            .fieldType(MediaBridgePropertyUpdate.FieldType.BOOLEANCHECKBOX)
+                            .formField(true)
+                            .groupName("groupName")
+                            .hasUniqueValue(true)
                             .hidden(true)
                             .label("label")
-                            .value("value")
-                            .description("description")
+                            .addOption(
+                                OptionInput.builder()
+                                    .displayOrder(0)
+                                    .hidden(true)
+                                    .label("label")
+                                    .value("value")
+                                    .description("description")
+                                    .build()
+                            )
+                            .type(MediaBridgePropertyUpdate.Type.BOOL)
                             .build()
                     )
-                    .type(PropertyUpdateParams.Type.BOOL)
                     .build()
             )
 
@@ -126,13 +131,13 @@ internal class PropertyServiceAsyncTest {
                 .build()
         val propertyServiceAsync = client.cms().mediaBridge().properties()
 
-        val propertiesFuture =
+        val collectionResponsePropertyNoPagingFuture =
             propertyServiceAsync.list(
                 PropertyListParams.builder().appId("appId").objectType("objectType").build()
             )
 
-        val properties = propertiesFuture.get()
-        properties.validate()
+        val collectionResponsePropertyNoPaging = collectionResponsePropertyNoPagingFuture.get()
+        collectionResponsePropertyNoPaging.validate()
     }
 
     @Disabled("Prism tests are disabled")

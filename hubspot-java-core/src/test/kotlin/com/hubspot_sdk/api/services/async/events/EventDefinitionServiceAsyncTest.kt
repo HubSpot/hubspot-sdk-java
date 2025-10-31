@@ -5,11 +5,14 @@ package com.hubspot_sdk.api.services.async.events
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionCreatePropertyParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionDeletePropertyParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.EventDefinitionUpdatePropertyParams
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventPropertyCreate
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventPropertyDefinitionPatch
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinitionEgg
+import com.hubspot_sdk.api.models.events.eventdefinitions.ExternalBehavioralEventTypeDefinitionPatch
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -27,12 +30,12 @@ internal class EventDefinitionServiceAsyncTest {
                 .build()
         val eventDefinitionServiceAsync = client.events().eventDefinitions()
 
-        val eventDefinitionFuture =
+        val externalBehavioralEventTypeDefinitionFuture =
             eventDefinitionServiceAsync.create(
-                EventDefinitionCreateParams.builder()
+                ExternalBehavioralEventTypeDefinitionEgg.builder()
                     .label("label")
                     .addPropertyDefinition(
-                        EventDefinitionCreateParams.PropertyDefinition.builder()
+                        ExternalBehavioralEventPropertyCreate.builder()
                             .label("label")
                             .type("type")
                             .description("description")
@@ -54,8 +57,9 @@ internal class EventDefinitionServiceAsyncTest {
                     .build()
             )
 
-        val eventDefinition = eventDefinitionFuture.get()
-        eventDefinition.validate()
+        val externalBehavioralEventTypeDefinition =
+            externalBehavioralEventTypeDefinitionFuture.get()
+        externalBehavioralEventTypeDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -68,17 +72,22 @@ internal class EventDefinitionServiceAsyncTest {
                 .build()
         val eventDefinitionServiceAsync = client.events().eventDefinitions()
 
-        val eventDefinitionFuture =
+        val externalBehavioralEventTypeDefinitionFuture =
             eventDefinitionServiceAsync.update(
                 EventDefinitionUpdateParams.builder()
                     .eventName("eventName")
-                    .description("description")
-                    .label("label")
+                    .externalBehavioralEventTypeDefinitionPatch(
+                        ExternalBehavioralEventTypeDefinitionPatch.builder()
+                            .description("description")
+                            .label("label")
+                            .build()
+                    )
                     .build()
             )
 
-        val eventDefinition = eventDefinitionFuture.get()
-        eventDefinition.validate()
+        val externalBehavioralEventTypeDefinition =
+            externalBehavioralEventTypeDefinitionFuture.get()
+        externalBehavioralEventTypeDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -126,17 +135,21 @@ internal class EventDefinitionServiceAsyncTest {
             eventDefinitionServiceAsync.createProperty(
                 EventDefinitionCreatePropertyParams.builder()
                     .eventName("eventName")
-                    .label("label")
-                    .type("type")
-                    .description("description")
-                    .name("name")
-                    .addOption(
-                        OptionInput.builder()
-                            .displayOrder(0)
-                            .hidden(true)
+                    .externalBehavioralEventPropertyCreate(
+                        ExternalBehavioralEventPropertyCreate.builder()
                             .label("label")
-                            .value("value")
+                            .type("type")
                             .description("description")
+                            .name("name")
+                            .addOption(
+                                OptionInput.builder()
+                                    .displayOrder(0)
+                                    .hidden(true)
+                                    .label("label")
+                                    .value("value")
+                                    .description("description")
+                                    .build()
+                            )
                             .build()
                     )
                     .build()
@@ -177,10 +190,12 @@ internal class EventDefinitionServiceAsyncTest {
                 .build()
         val eventDefinitionServiceAsync = client.events().eventDefinitions()
 
-        val eventDefinitionFuture = eventDefinitionServiceAsync.get("eventName")
+        val externalBehavioralEventTypeDefinitionFuture =
+            eventDefinitionServiceAsync.get("eventName")
 
-        val eventDefinition = eventDefinitionFuture.get()
-        eventDefinition.validate()
+        val externalBehavioralEventTypeDefinition =
+            externalBehavioralEventTypeDefinitionFuture.get()
+        externalBehavioralEventTypeDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -198,15 +213,19 @@ internal class EventDefinitionServiceAsyncTest {
                 EventDefinitionUpdatePropertyParams.builder()
                     .eventName("eventName")
                     .propertyName("propertyName")
-                    .description("description")
-                    .label("label")
-                    .addOption(
-                        OptionInput.builder()
-                            .displayOrder(0)
-                            .hidden(true)
-                            .label("label")
-                            .value("value")
+                    .externalBehavioralEventPropertyDefinitionPatch(
+                        ExternalBehavioralEventPropertyDefinitionPatch.builder()
                             .description("description")
+                            .label("label")
+                            .addOption(
+                                OptionInput.builder()
+                                    .displayOrder(0)
+                                    .hidden(true)
+                                    .label("label")
+                                    .value("value")
+                                    .description("description")
+                                    .build()
+                            )
                             .build()
                     )
                     .build()

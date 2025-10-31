@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.crm.featureflags.portals
 
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchDeleteRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -9,13 +10,25 @@ internal class PortalBatchDeleteParamsTest {
 
     @Test
     fun create() {
-        PortalBatchDeleteParams.builder().appId(0).flagName("flagName").addPortalId(0).build()
+        PortalBatchDeleteParams.builder()
+            .appId(0)
+            .flagName("flagName")
+            .portalFlagStateBatchDeleteRequest(
+                PortalFlagStateBatchDeleteRequest.builder().addPortalId(0).build()
+            )
+            .build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            PortalBatchDeleteParams.builder().appId(0).flagName("flagName").addPortalId(0).build()
+            PortalBatchDeleteParams.builder()
+                .appId(0)
+                .flagName("flagName")
+                .portalFlagStateBatchDeleteRequest(
+                    PortalFlagStateBatchDeleteRequest.builder().addPortalId(0).build()
+                )
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("flagName")
@@ -26,10 +39,17 @@ internal class PortalBatchDeleteParamsTest {
     @Test
     fun body() {
         val params =
-            PortalBatchDeleteParams.builder().appId(0).flagName("flagName").addPortalId(0).build()
+            PortalBatchDeleteParams.builder()
+                .appId(0)
+                .flagName("flagName")
+                .portalFlagStateBatchDeleteRequest(
+                    PortalFlagStateBatchDeleteRequest.builder().addPortalId(0).build()
+                )
+                .build()
 
         val body = params._body()
 
-        assertThat(body.portalIds()).containsExactly(0)
+        assertThat(body)
+            .isEqualTo(PortalFlagStateBatchDeleteRequest.builder().addPortalId(0).build())
     }
 }

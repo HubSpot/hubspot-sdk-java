@@ -12,10 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Create a new stage associated with the pipeline identified by `{pipelineId}`. The entire stage
- * object, including its unique ID, will be returned in the response.
- */
+/** Create a pipeline stage */
 class StageCreateParams
 private constructor(
     private val objectType: String,

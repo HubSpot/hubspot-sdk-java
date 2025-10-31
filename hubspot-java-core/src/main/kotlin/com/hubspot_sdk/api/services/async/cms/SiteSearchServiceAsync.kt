@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.services.async.cms
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.sitesearch.IndexedData
+import com.hubspot_sdk.api.models.cms.sitesearch.PublicSearchResults
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataParams
-import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataResponse
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchParams
-import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,7 +31,7 @@ interface SiteSearchServiceAsync {
      * indexed data for that document. This is useful when debugging why a particular document is
      * not returned from a custom search.
      */
-    fun getIndexedData(contentId: String): CompletableFuture<SiteSearchGetIndexedDataResponse> =
+    fun getIndexedData(contentId: String): CompletableFuture<IndexedData> =
         getIndexedData(contentId, SiteSearchGetIndexedDataParams.none())
 
     /** @see getIndexedData */
@@ -39,55 +39,51 @@ interface SiteSearchServiceAsync {
         contentId: String,
         params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiteSearchGetIndexedDataResponse> =
+    ): CompletableFuture<IndexedData> =
         getIndexedData(params.toBuilder().contentId(contentId).build(), requestOptions)
 
     /** @see getIndexedData */
     fun getIndexedData(
         contentId: String,
         params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
-    ): CompletableFuture<SiteSearchGetIndexedDataResponse> =
-        getIndexedData(contentId, params, RequestOptions.none())
+    ): CompletableFuture<IndexedData> = getIndexedData(contentId, params, RequestOptions.none())
 
     /** @see getIndexedData */
     fun getIndexedData(
         params: SiteSearchGetIndexedDataParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiteSearchGetIndexedDataResponse>
+    ): CompletableFuture<IndexedData>
 
     /** @see getIndexedData */
-    fun getIndexedData(
-        params: SiteSearchGetIndexedDataParams
-    ): CompletableFuture<SiteSearchGetIndexedDataResponse> =
+    fun getIndexedData(params: SiteSearchGetIndexedDataParams): CompletableFuture<IndexedData> =
         getIndexedData(params, RequestOptions.none())
 
     /** @see getIndexedData */
     fun getIndexedData(
         contentId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SiteSearchGetIndexedDataResponse> =
+    ): CompletableFuture<IndexedData> =
         getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
 
     /**
      * Returns any website content matching the given search criteria for a given HubSpot account.
      * Searches can be filtered by content type, domain, or URL path.
      */
-    fun search(): CompletableFuture<SiteSearchSearchResponse> =
-        search(SiteSearchSearchParams.none())
+    fun search(): CompletableFuture<PublicSearchResults> = search(SiteSearchSearchParams.none())
 
     /** @see search */
     fun search(
         params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SiteSearchSearchResponse>
+    ): CompletableFuture<PublicSearchResults>
 
     /** @see search */
     fun search(
         params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-    ): CompletableFuture<SiteSearchSearchResponse> = search(params, RequestOptions.none())
+    ): CompletableFuture<PublicSearchResults> = search(params, RequestOptions.none())
 
     /** @see search */
-    fun search(requestOptions: RequestOptions): CompletableFuture<SiteSearchSearchResponse> =
+    fun search(requestOptions: RequestOptions): CompletableFuture<PublicSearchResults> =
         search(SiteSearchSearchParams.none(), requestOptions)
 
     /**
@@ -109,9 +105,7 @@ interface SiteSearchServiceAsync {
          * Returns a raw HTTP response for `get /cms/v3/site-search/indexed-data/{contentId}`, but
          * is otherwise the same as [SiteSearchServiceAsync.getIndexedData].
          */
-        fun getIndexedData(
-            contentId: String
-        ): CompletableFuture<HttpResponseFor<SiteSearchGetIndexedDataResponse>> =
+        fun getIndexedData(contentId: String): CompletableFuture<HttpResponseFor<IndexedData>> =
             getIndexedData(contentId, SiteSearchGetIndexedDataParams.none())
 
         /** @see getIndexedData */
@@ -119,58 +113,58 @@ interface SiteSearchServiceAsync {
             contentId: String,
             params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiteSearchGetIndexedDataResponse>> =
+        ): CompletableFuture<HttpResponseFor<IndexedData>> =
             getIndexedData(params.toBuilder().contentId(contentId).build(), requestOptions)
 
         /** @see getIndexedData */
         fun getIndexedData(
             contentId: String,
             params: SiteSearchGetIndexedDataParams = SiteSearchGetIndexedDataParams.none(),
-        ): CompletableFuture<HttpResponseFor<SiteSearchGetIndexedDataResponse>> =
+        ): CompletableFuture<HttpResponseFor<IndexedData>> =
             getIndexedData(contentId, params, RequestOptions.none())
 
         /** @see getIndexedData */
         fun getIndexedData(
             params: SiteSearchGetIndexedDataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiteSearchGetIndexedDataResponse>>
+        ): CompletableFuture<HttpResponseFor<IndexedData>>
 
         /** @see getIndexedData */
         fun getIndexedData(
             params: SiteSearchGetIndexedDataParams
-        ): CompletableFuture<HttpResponseFor<SiteSearchGetIndexedDataResponse>> =
+        ): CompletableFuture<HttpResponseFor<IndexedData>> =
             getIndexedData(params, RequestOptions.none())
 
         /** @see getIndexedData */
         fun getIndexedData(
             contentId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SiteSearchGetIndexedDataResponse>> =
+        ): CompletableFuture<HttpResponseFor<IndexedData>> =
             getIndexedData(contentId, SiteSearchGetIndexedDataParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/site-search/search`, but is otherwise the
          * same as [SiteSearchServiceAsync.search].
          */
-        fun search(): CompletableFuture<HttpResponseFor<SiteSearchSearchResponse>> =
+        fun search(): CompletableFuture<HttpResponseFor<PublicSearchResults>> =
             search(SiteSearchSearchParams.none())
 
         /** @see search */
         fun search(
             params: SiteSearchSearchParams = SiteSearchSearchParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SiteSearchSearchResponse>>
+        ): CompletableFuture<HttpResponseFor<PublicSearchResults>>
 
         /** @see search */
         fun search(
             params: SiteSearchSearchParams = SiteSearchSearchParams.none()
-        ): CompletableFuture<HttpResponseFor<SiteSearchSearchResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicSearchResults>> =
             search(params, RequestOptions.none())
 
         /** @see search */
         fun search(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<SiteSearchSearchResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicSearchResults>> =
             search(SiteSearchSearchParams.none(), requestOptions)
     }
 }

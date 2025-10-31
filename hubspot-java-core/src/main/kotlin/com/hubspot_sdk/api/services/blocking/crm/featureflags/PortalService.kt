@@ -6,16 +6,13 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchResponse
+import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchUpsertParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalBatchUpsertResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalDeleteParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalDeleteResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalGetParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalGetResponse
 import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalUpdateParams
-import com.hubspot_sdk.api.models.crm.featureflags.portals.PortalUpdateResponse
 import java.util.function.Consumer
 
 interface PortalService {
@@ -33,7 +30,7 @@ interface PortalService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PortalService
 
     /** Specify an account-level flag state for a specific HubSpot account. */
-    fun update(portalId: Int, params: PortalUpdateParams): PortalUpdateResponse =
+    fun update(portalId: Int, params: PortalUpdateParams): PortalFlagStateResponse =
         update(portalId, params, RequestOptions.none())
 
     /** @see update */
@@ -41,23 +38,24 @@ interface PortalService {
         portalId: Int,
         params: PortalUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalUpdateResponse = update(params.toBuilder().portalId(portalId).build(), requestOptions)
+    ): PortalFlagStateResponse =
+        update(params.toBuilder().portalId(portalId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: PortalUpdateParams): PortalUpdateResponse =
+    fun update(params: PortalUpdateParams): PortalFlagStateResponse =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PortalUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalUpdateResponse
+    ): PortalFlagStateResponse
 
     /**
      * Delete an account-level flag state for a specific HubSpot account. No request body is
      * included.
      */
-    fun delete(portalId: Int, params: PortalDeleteParams): PortalDeleteResponse =
+    fun delete(portalId: Int, params: PortalDeleteParams): PortalFlagStateResponse =
         delete(portalId, params, RequestOptions.none())
 
     /** @see delete */
@@ -65,70 +63,75 @@ interface PortalService {
         portalId: Int,
         params: PortalDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalDeleteResponse = delete(params.toBuilder().portalId(portalId).build(), requestOptions)
+    ): PortalFlagStateResponse =
+        delete(params.toBuilder().portalId(portalId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(params: PortalDeleteParams): PortalDeleteResponse =
+    fun delete(params: PortalDeleteParams): PortalFlagStateResponse =
         delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: PortalDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalDeleteResponse
+    ): PortalFlagStateResponse
 
     /**
      * Delete an account-level flag state for multiple HubSpot accounts at once. Use this endpoint
      * to manage flag exposure for groups of HubSpot accounts.
      */
-    fun batchDelete(flagName: String, params: PortalBatchDeleteParams): PortalBatchDeleteResponse =
-        batchDelete(flagName, params, RequestOptions.none())
+    fun batchDelete(
+        flagName: String,
+        params: PortalBatchDeleteParams,
+    ): PortalFlagStateBatchResponse = batchDelete(flagName, params, RequestOptions.none())
 
     /** @see batchDelete */
     fun batchDelete(
         flagName: String,
         params: PortalBatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalBatchDeleteResponse =
+    ): PortalFlagStateBatchResponse =
         batchDelete(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see batchDelete */
-    fun batchDelete(params: PortalBatchDeleteParams): PortalBatchDeleteResponse =
+    fun batchDelete(params: PortalBatchDeleteParams): PortalFlagStateBatchResponse =
         batchDelete(params, RequestOptions.none())
 
     /** @see batchDelete */
     fun batchDelete(
         params: PortalBatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalBatchDeleteResponse
+    ): PortalFlagStateBatchResponse
 
     /**
      * Set the portal flag state for multiple HubSpot accounts at once. Use this endpoint to manage
      * flag exposure for groups of HubSpot accounts.
      */
-    fun batchUpsert(flagName: String, params: PortalBatchUpsertParams): PortalBatchUpsertResponse =
-        batchUpsert(flagName, params, RequestOptions.none())
+    fun batchUpsert(
+        flagName: String,
+        params: PortalBatchUpsertParams,
+    ): PortalFlagStateBatchResponse = batchUpsert(flagName, params, RequestOptions.none())
 
     /** @see batchUpsert */
     fun batchUpsert(
         flagName: String,
         params: PortalBatchUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalBatchUpsertResponse =
+    ): PortalFlagStateBatchResponse =
         batchUpsert(params.toBuilder().flagName(flagName).build(), requestOptions)
 
     /** @see batchUpsert */
-    fun batchUpsert(params: PortalBatchUpsertParams): PortalBatchUpsertResponse =
+    fun batchUpsert(params: PortalBatchUpsertParams): PortalFlagStateBatchResponse =
         batchUpsert(params, RequestOptions.none())
 
     /** @see batchUpsert */
     fun batchUpsert(
         params: PortalBatchUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalBatchUpsertResponse
+    ): PortalFlagStateBatchResponse
 
     /** Retrieve the account-level flag state of a specific HubSpot account. */
-    fun get(portalId: Int, params: PortalGetParams): PortalGetResponse =
+    fun get(portalId: Int, params: PortalGetParams): PortalFlagStateResponse =
         get(portalId, params, RequestOptions.none())
 
     /** @see get */
@@ -136,16 +139,16 @@ interface PortalService {
         portalId: Int,
         params: PortalGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalGetResponse = get(params.toBuilder().portalId(portalId).build(), requestOptions)
+    ): PortalFlagStateResponse = get(params.toBuilder().portalId(portalId).build(), requestOptions)
 
     /** @see get */
-    fun get(params: PortalGetParams): PortalGetResponse = get(params, RequestOptions.none())
+    fun get(params: PortalGetParams): PortalFlagStateResponse = get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PortalGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PortalGetResponse
+    ): PortalFlagStateResponse
 
     /** A view of [PortalService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -166,7 +169,8 @@ interface PortalService {
         fun update(
             portalId: Int,
             params: PortalUpdateParams,
-        ): HttpResponseFor<PortalUpdateResponse> = update(portalId, params, RequestOptions.none())
+        ): HttpResponseFor<PortalFlagStateResponse> =
+            update(portalId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -174,12 +178,12 @@ interface PortalService {
             portalId: Int,
             params: PortalUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalUpdateResponse> =
+        ): HttpResponseFor<PortalFlagStateResponse> =
             update(params.toBuilder().portalId(portalId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: PortalUpdateParams): HttpResponseFor<PortalUpdateResponse> =
+        fun update(params: PortalUpdateParams): HttpResponseFor<PortalFlagStateResponse> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -187,7 +191,7 @@ interface PortalService {
         fun update(
             params: PortalUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalUpdateResponse>
+        ): HttpResponseFor<PortalFlagStateResponse>
 
         /**
          * Returns a raw HTTP response for `delete
@@ -198,7 +202,8 @@ interface PortalService {
         fun delete(
             portalId: Int,
             params: PortalDeleteParams,
-        ): HttpResponseFor<PortalDeleteResponse> = delete(portalId, params, RequestOptions.none())
+        ): HttpResponseFor<PortalFlagStateResponse> =
+            delete(portalId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -206,12 +211,12 @@ interface PortalService {
             portalId: Int,
             params: PortalDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalDeleteResponse> =
+        ): HttpResponseFor<PortalFlagStateResponse> =
             delete(params.toBuilder().portalId(portalId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: PortalDeleteParams): HttpResponseFor<PortalDeleteResponse> =
+        fun delete(params: PortalDeleteParams): HttpResponseFor<PortalFlagStateResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
@@ -219,7 +224,7 @@ interface PortalService {
         fun delete(
             params: PortalDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalDeleteResponse>
+        ): HttpResponseFor<PortalFlagStateResponse>
 
         /**
          * Returns a raw HTTP response for `post
@@ -230,7 +235,7 @@ interface PortalService {
         fun batchDelete(
             flagName: String,
             params: PortalBatchDeleteParams,
-        ): HttpResponseFor<PortalBatchDeleteResponse> =
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
             batchDelete(flagName, params, RequestOptions.none())
 
         /** @see batchDelete */
@@ -239,21 +244,22 @@ interface PortalService {
             flagName: String,
             params: PortalBatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalBatchDeleteResponse> =
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
             batchDelete(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see batchDelete */
         @MustBeClosed
         fun batchDelete(
             params: PortalBatchDeleteParams
-        ): HttpResponseFor<PortalBatchDeleteResponse> = batchDelete(params, RequestOptions.none())
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
+            batchDelete(params, RequestOptions.none())
 
         /** @see batchDelete */
         @MustBeClosed
         fun batchDelete(
             params: PortalBatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalBatchDeleteResponse>
+        ): HttpResponseFor<PortalFlagStateBatchResponse>
 
         /**
          * Returns a raw HTTP response for `post
@@ -264,7 +270,7 @@ interface PortalService {
         fun batchUpsert(
             flagName: String,
             params: PortalBatchUpsertParams,
-        ): HttpResponseFor<PortalBatchUpsertResponse> =
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
             batchUpsert(flagName, params, RequestOptions.none())
 
         /** @see batchUpsert */
@@ -273,21 +279,22 @@ interface PortalService {
             flagName: String,
             params: PortalBatchUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalBatchUpsertResponse> =
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
             batchUpsert(params.toBuilder().flagName(flagName).build(), requestOptions)
 
         /** @see batchUpsert */
         @MustBeClosed
         fun batchUpsert(
             params: PortalBatchUpsertParams
-        ): HttpResponseFor<PortalBatchUpsertResponse> = batchUpsert(params, RequestOptions.none())
+        ): HttpResponseFor<PortalFlagStateBatchResponse> =
+            batchUpsert(params, RequestOptions.none())
 
         /** @see batchUpsert */
         @MustBeClosed
         fun batchUpsert(
             params: PortalBatchUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalBatchUpsertResponse>
+        ): HttpResponseFor<PortalFlagStateBatchResponse>
 
         /**
          * Returns a raw HTTP response for `get
@@ -295,7 +302,7 @@ interface PortalService {
          * as [PortalService.get].
          */
         @MustBeClosed
-        fun get(portalId: Int, params: PortalGetParams): HttpResponseFor<PortalGetResponse> =
+        fun get(portalId: Int, params: PortalGetParams): HttpResponseFor<PortalFlagStateResponse> =
             get(portalId, params, RequestOptions.none())
 
         /** @see get */
@@ -304,12 +311,12 @@ interface PortalService {
             portalId: Int,
             params: PortalGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalGetResponse> =
+        ): HttpResponseFor<PortalFlagStateResponse> =
             get(params.toBuilder().portalId(portalId).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
-        fun get(params: PortalGetParams): HttpResponseFor<PortalGetResponse> =
+        fun get(params: PortalGetParams): HttpResponseFor<PortalFlagStateResponse> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -317,6 +324,6 @@ interface PortalService {
         fun get(
             params: PortalGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PortalGetResponse>
+        ): HttpResponseFor<PortalFlagStateResponse>
     }
 }

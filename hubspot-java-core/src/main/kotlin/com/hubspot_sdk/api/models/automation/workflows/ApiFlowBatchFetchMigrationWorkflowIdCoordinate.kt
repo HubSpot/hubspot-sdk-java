@@ -34,8 +34,6 @@ private constructor(
     ) : this(flowMigrationStatusForClassicWorkflows, type, mutableMapOf())
 
     /**
-     * The workflowId from the V3 API
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -43,8 +41,6 @@ private constructor(
         flowMigrationStatusForClassicWorkflows.getRequired("flowMigrationStatusForClassicWorkflows")
 
     /**
-     * The type of input this is, can be FLOW_ID or WORKFLOW_ID
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -115,7 +111,6 @@ private constructor(
                 apiFlowBatchFetchMigrationWorkflowIdCoordinate.additionalProperties.toMutableMap()
         }
 
-        /** The workflowId from the V3 API */
         fun flowMigrationStatusForClassicWorkflows(flowMigrationStatusForClassicWorkflows: String) =
             flowMigrationStatusForClassicWorkflows(
                 JsonField.of(flowMigrationStatusForClassicWorkflows)
@@ -134,7 +129,6 @@ private constructor(
             this.flowMigrationStatusForClassicWorkflows = flowMigrationStatusForClassicWorkflows
         }
 
-        /** The type of input this is, can be FLOW_ID or WORKFLOW_ID */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -218,7 +212,6 @@ private constructor(
         (if (flowMigrationStatusForClassicWorkflows.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The type of input this is, can be FLOW_ID or WORKFLOW_ID */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

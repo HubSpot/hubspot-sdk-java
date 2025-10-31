@@ -21,10 +21,11 @@ internal class EnablementServiceAsyncTest {
                 .build()
         val enablementServiceAsync = client.crm().objectLibrary().enablement()
 
-        val enablementsFuture = enablementServiceAsync.list()
+        val portalObjectTypeEnablementPublicResponseFuture = enablementServiceAsync.list()
 
-        val enablements = enablementsFuture.get()
-        enablements.validate()
+        val portalObjectTypeEnablementPublicResponse =
+            portalObjectTypeEnablementPublicResponseFuture.get()
+        portalObjectTypeEnablementPublicResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -37,9 +38,9 @@ internal class EnablementServiceAsyncTest {
                 .build()
         val enablementServiceAsync = client.crm().objectLibrary().enablement()
 
-        val enablementFuture = enablementServiceAsync.get("objectTypeId")
+        val objectTypeEnablementPublicResponseFuture = enablementServiceAsync.get("objectTypeId")
 
-        val enablement = enablementFuture.get()
-        enablement.validate()
+        val objectTypeEnablementPublicResponse = objectTypeEnablementPublicResponseFuture.get()
+        objectTypeEnablementPublicResponse.validate()
     }
 }

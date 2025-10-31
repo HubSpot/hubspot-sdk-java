@@ -27,17 +27,17 @@ internal class ApiPlatformFlowPutRequestTest {
             ApiPlatformFlowPutRequest.builder()
                 .addAction(
                     ApiStaticBranchAction.builder()
-                        .actionId("1")
+                        .actionId("actionId")
                         .inputValue(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .addStaticBranch(
                             ApiStaticBranch.builder()
-                                .branchValue("some_value")
+                                .branchValue("branchValue")
                                 .connection(
                                     ApiConnection.builder()
                                         .edgeType("edgeType")
@@ -53,7 +53,7 @@ internal class ApiPlatformFlowPutRequestTest {
                                 .nextActionId("nextActionId")
                                 .build()
                         )
-                        .defaultBranchName("Other")
+                        .defaultBranchName("defaultBranchName")
                         .build()
                 )
                 .addBlockedDate(
@@ -478,9 +478,9 @@ internal class ApiPlatformFlowPutRequestTest {
                                 )
                                 .build()
                         )
-                        .shouldReEnroll(false)
+                        .shouldReEnroll(true)
                         .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                        .unEnrollObjectsNotMeetingCriteria(false)
+                        .unEnrollObjectsNotMeetingCriteria(true)
                         .build()
                 )
                 .enrollmentSchedule(
@@ -521,17 +521,17 @@ internal class ApiPlatformFlowPutRequestTest {
             .containsExactly(
                 ApiPlatformFlowPutRequest.Action.ofApiStaticBranch(
                     ApiStaticBranchAction.builder()
-                        .actionId("1")
+                        .actionId("actionId")
                         .inputValue(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .addStaticBranch(
                             ApiStaticBranch.builder()
-                                .branchValue("some_value")
+                                .branchValue("branchValue")
                                 .connection(
                                     ApiConnection.builder()
                                         .edgeType("edgeType")
@@ -547,7 +547,7 @@ internal class ApiPlatformFlowPutRequestTest {
                                 .nextActionId("nextActionId")
                                 .build()
                         )
-                        .defaultBranchName("Other")
+                        .defaultBranchName("defaultBranchName")
                         .build()
                 )
             )
@@ -979,9 +979,9 @@ internal class ApiPlatformFlowPutRequestTest {
                                 )
                                 .build()
                         )
-                        .shouldReEnroll(false)
+                        .shouldReEnroll(true)
                         .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                        .unEnrollObjectsNotMeetingCriteria(false)
+                        .unEnrollObjectsNotMeetingCriteria(true)
                         .build()
                 )
             )
@@ -1032,17 +1032,17 @@ internal class ApiPlatformFlowPutRequestTest {
             ApiPlatformFlowPutRequest.builder()
                 .addAction(
                     ApiStaticBranchAction.builder()
-                        .actionId("1")
+                        .actionId("actionId")
                         .inputValue(
                             ApiActionDataValue.builder()
-                                .actionId("1")
-                                .dataKey("hs_execution_state")
+                                .actionId("actionId")
+                                .dataKey("dataKey")
                                 .type(ApiActionDataValue.Type.FIELD_DATA)
                                 .build()
                         )
                         .addStaticBranch(
                             ApiStaticBranch.builder()
-                                .branchValue("some_value")
+                                .branchValue("branchValue")
                                 .connection(
                                     ApiConnection.builder()
                                         .edgeType("edgeType")
@@ -1058,7 +1058,7 @@ internal class ApiPlatformFlowPutRequestTest {
                                 .nextActionId("nextActionId")
                                 .build()
                         )
-                        .defaultBranchName("Other")
+                        .defaultBranchName("defaultBranchName")
                         .build()
                 )
                 .addBlockedDate(
@@ -1483,9 +1483,9 @@ internal class ApiPlatformFlowPutRequestTest {
                                 )
                                 .build()
                         )
-                        .shouldReEnroll(false)
+                        .shouldReEnroll(true)
                         .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                        .unEnrollObjectsNotMeetingCriteria(false)
+                        .unEnrollObjectsNotMeetingCriteria(true)
                         .build()
                 )
                 .enrollmentSchedule(

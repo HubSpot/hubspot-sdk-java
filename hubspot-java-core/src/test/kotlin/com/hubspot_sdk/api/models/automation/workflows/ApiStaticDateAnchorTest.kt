@@ -13,17 +13,17 @@ internal class ApiStaticDateAnchorTest {
     fun create() {
         val apiStaticDateAnchor =
             ApiStaticDateAnchor.builder()
-                .dayOfMonth(1)
+                .dayOfMonth(0)
                 .month(ApiStaticDateAnchor.Month.JANUARY)
                 .type(ApiStaticDateAnchor.Type.STATIC_DATE_ANCHOR)
-                .year(2024)
+                .year(0)
                 .build()
 
-        assertThat(apiStaticDateAnchor.dayOfMonth()).isEqualTo(1)
+        assertThat(apiStaticDateAnchor.dayOfMonth()).isEqualTo(0)
         assertThat(apiStaticDateAnchor.month()).isEqualTo(ApiStaticDateAnchor.Month.JANUARY)
         assertThat(apiStaticDateAnchor.type())
             .isEqualTo(ApiStaticDateAnchor.Type.STATIC_DATE_ANCHOR)
-        assertThat(apiStaticDateAnchor.year()).contains(2024)
+        assertThat(apiStaticDateAnchor.year()).contains(0)
     }
 
     @Test
@@ -31,10 +31,10 @@ internal class ApiStaticDateAnchorTest {
         val jsonMapper = jsonMapper()
         val apiStaticDateAnchor =
             ApiStaticDateAnchor.builder()
-                .dayOfMonth(1)
+                .dayOfMonth(0)
                 .month(ApiStaticDateAnchor.Month.JANUARY)
                 .type(ApiStaticDateAnchor.Type.STATIC_DATE_ANCHOR)
-                .year(2024)
+                .year(0)
                 .build()
 
         val roundtrippedApiStaticDateAnchor =

@@ -22,10 +22,12 @@ internal class PropertyValidationServiceAsyncTest {
                 .build()
         val propertyValidationServiceAsync = client.crm().propertyValidations()
 
-        val propertyValidationsFuture = propertyValidationServiceAsync.list("objectTypeId")
+        val collectionResponsePublicPropertyValidationRuleMapNoPagingFuture =
+            propertyValidationServiceAsync.list("objectTypeId")
 
-        val propertyValidations = propertyValidationsFuture.get()
-        propertyValidations.validate()
+        val collectionResponsePublicPropertyValidationRuleMapNoPaging =
+            collectionResponsePublicPropertyValidationRuleMapNoPagingFuture.get()
+        collectionResponsePublicPropertyValidationRuleMapNoPaging.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -38,7 +40,7 @@ internal class PropertyValidationServiceAsyncTest {
                 .build()
         val propertyValidationServiceAsync = client.crm().propertyValidations()
 
-        val propertyValidationFuture =
+        val collectionResponsePublicPropertyValidationRuleNoPagingFuture =
             propertyValidationServiceAsync.get(
                 PropertyValidationGetParams.builder()
                     .objectTypeId("objectTypeId")
@@ -46,7 +48,8 @@ internal class PropertyValidationServiceAsyncTest {
                     .build()
             )
 
-        val propertyValidation = propertyValidationFuture.get()
-        propertyValidation.validate()
+        val collectionResponsePublicPropertyValidationRuleNoPaging =
+            collectionResponsePublicPropertyValidationRuleNoPagingFuture.get()
+        collectionResponsePublicPropertyValidationRuleNoPaging.validate()
     }
 }

@@ -5,6 +5,8 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountEgg
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountUpdateRequest
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountUpdateParams
@@ -29,11 +31,18 @@ internal class ChannelAccountServiceAsyncTest {
             channelAccountServiceAsync.create(
                 ChannelAccountCreateParams.builder()
                     .channelId("channelId")
-                    .authorized(true)
-                    .inboxId("inboxId")
-                    .name("name")
-                    .deliveryIdentifier(
-                        PublicDeliveryIdentifier.builder().type("type").value("value").build()
+                    .publicChannelAccountEgg(
+                        PublicChannelAccountEgg.builder()
+                            .authorized(true)
+                            .inboxId("inboxId")
+                            .name("name")
+                            .deliveryIdentifier(
+                                PublicDeliveryIdentifier.builder()
+                                    .type("type")
+                                    .value("value")
+                                    .build()
+                            )
+                            .build()
                     )
                     .build()
             )
@@ -57,8 +66,12 @@ internal class ChannelAccountServiceAsyncTest {
                 ChannelAccountUpdateParams.builder()
                     .channelId("channelId")
                     .channelAccountId("channelAccountId")
-                    .authorized(true)
-                    .name("name")
+                    .publicChannelAccountUpdateRequest(
+                        PublicChannelAccountUpdateRequest.builder()
+                            .authorized(true)
+                            .name("name")
+                            .build()
+                    )
                     .build()
             )
 

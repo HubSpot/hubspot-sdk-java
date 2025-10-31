@@ -10,7 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a workflow by ID. */
 class WorkflowUpdateParams
 private constructor(
     private val flowId: String?,

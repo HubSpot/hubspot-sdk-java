@@ -14,7 +14,7 @@ internal class WorkflowBatchGetIdMappingsParamsTest {
                 ApiFlowBatchMigrationInput.builder()
                     .addInput(
                         ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                            .flowMigrationStatuses("12345")
+                            .flowMigrationStatuses("flowMigrationStatuses")
                             .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                             .build()
                     )
@@ -31,7 +31,7 @@ internal class WorkflowBatchGetIdMappingsParamsTest {
                     ApiFlowBatchMigrationInput.builder()
                         .addInput(
                             ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                                .flowMigrationStatuses("12345")
+                                .flowMigrationStatuses("flowMigrationStatuses")
                                 .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                                 .build()
                         )
@@ -46,7 +46,7 @@ internal class WorkflowBatchGetIdMappingsParamsTest {
                 ApiFlowBatchMigrationInput.builder()
                     .addInput(
                         ApiFlowBatchFetchMigrationFlowIdCoordinate.builder()
-                            .flowMigrationStatuses("12345")
+                            .flowMigrationStatuses("flowMigrationStatuses")
                             .type(ApiFlowBatchFetchMigrationFlowIdCoordinate.Type.FLOW_ID)
                             .build()
                     )

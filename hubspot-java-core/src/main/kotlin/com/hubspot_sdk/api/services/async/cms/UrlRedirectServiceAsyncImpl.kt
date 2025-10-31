@@ -17,16 +17,14 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.cms.urlredirects.CollectionResponseWithTotalUrlMappingForwardPaging
+import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectCreateResponse
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectDeleteParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectGetResponse
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListPageAsync
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListPageResponse
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectListParams
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -46,14 +44,14 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
     override fun create(
         params: UrlRedirectCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UrlRedirectCreateResponse> =
+    ): CompletableFuture<UrlMapping> =
         // post /cms/v3/url-redirects/
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: UrlRedirectUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UrlRedirectUpdateResponse> =
+    ): CompletableFuture<UrlMapping> =
         // patch /cms/v3/url-redirects/{urlRedirectId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -74,7 +72,7 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
     override fun get(
         params: UrlRedirectGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UrlRedirectGetResponse> =
+    ): CompletableFuture<UrlMapping> =
         // get /cms/v3/url-redirects/{urlRedirectId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -91,13 +89,13 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<UrlRedirectCreateResponse> =
-            jsonHandler<UrlRedirectCreateResponse>(clientOptions.jsonMapper)
+        private val createHandler: Handler<UrlMapping> =
+            jsonHandler<UrlMapping>(clientOptions.jsonMapper)
 
         override fun create(
             params: UrlRedirectCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UrlRedirectCreateResponse>> {
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -122,13 +120,13 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val updateHandler: Handler<UrlRedirectUpdateResponse> =
-            jsonHandler<UrlRedirectUpdateResponse>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<UrlMapping> =
+            jsonHandler<UrlMapping>(clientOptions.jsonMapper)
 
         override fun update(
             params: UrlRedirectUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UrlRedirectUpdateResponse>> {
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("urlRedirectId", params.urlRedirectId().getOrNull())
@@ -156,8 +154,10 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<UrlRedirectListPageResponse> =
-            jsonHandler<UrlRedirectListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CollectionResponseWithTotalUrlMappingForwardPaging> =
+            jsonHandler<CollectionResponseWithTotalUrlMappingForwardPaging>(
+                clientOptions.jsonMapper
+            )
 
         override fun list(
             params: UrlRedirectListParams,
@@ -221,13 +221,13 @@ class UrlRedirectServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val getHandler: Handler<UrlRedirectGetResponse> =
-            jsonHandler<UrlRedirectGetResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<UrlMapping> =
+            jsonHandler<UrlMapping>(clientOptions.jsonMapper)
 
         override fun get(
             params: UrlRedirectGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<UrlRedirectGetResponse>> {
+        ): CompletableFuture<HttpResponseFor<UrlMapping>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("urlRedirectId", params.urlRedirectId().getOrNull())

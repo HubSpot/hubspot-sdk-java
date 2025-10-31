@@ -10,13 +10,14 @@ internal class DealSplitBatchUpsertParamsTest {
     @Test
     fun create() {
         DealSplitBatchUpsertParams.builder()
-            .addInput(
-                DealSplitBatchUpsertParams.Input.builder()
-                    .id(0)
-                    .addSplit(
-                        DealSplitBatchUpsertParams.Input.Split.builder()
-                            .ownerId(0)
-                            .percentage(0.0)
+            .publicDealSplitsBatchCreateRequest(
+                PublicDealSplitsBatchCreateRequest.builder()
+                    .addInput(
+                        PublicDealSplitsCreateRequest.builder()
+                            .id(0)
+                            .addSplit(
+                                PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build()
+                            )
                             .build()
                     )
                     .build()
@@ -28,13 +29,17 @@ internal class DealSplitBatchUpsertParamsTest {
     fun body() {
         val params =
             DealSplitBatchUpsertParams.builder()
-                .addInput(
-                    DealSplitBatchUpsertParams.Input.builder()
-                        .id(0)
-                        .addSplit(
-                            DealSplitBatchUpsertParams.Input.Split.builder()
-                                .ownerId(0)
-                                .percentage(0.0)
+                .publicDealSplitsBatchCreateRequest(
+                    PublicDealSplitsBatchCreateRequest.builder()
+                        .addInput(
+                            PublicDealSplitsCreateRequest.builder()
+                                .id(0)
+                                .addSplit(
+                                    PublicDealSplitInput.builder()
+                                        .ownerId(0)
+                                        .percentage(0.0)
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -43,14 +48,15 @@ internal class DealSplitBatchUpsertParamsTest {
 
         val body = params._body()
 
-        assertThat(body.inputs())
-            .containsExactly(
-                DealSplitBatchUpsertParams.Input.builder()
-                    .id(0)
-                    .addSplit(
-                        DealSplitBatchUpsertParams.Input.Split.builder()
-                            .ownerId(0)
-                            .percentage(0.0)
+        assertThat(body)
+            .isEqualTo(
+                PublicDealSplitsBatchCreateRequest.builder()
+                    .addInput(
+                        PublicDealSplitsCreateRequest.builder()
+                            .id(0)
+                            .addSplit(
+                                PublicDealSplitInput.builder().ownerId(0).percentage(0.0).build()
+                            )
                             .build()
                     )
                     .build()

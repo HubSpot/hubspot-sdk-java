@@ -37,33 +37,24 @@ private constructor(
     ) : this(dayOfMonth, month, type, year, mutableMapOf())
 
     /**
-     * The day of the date to anchor on
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dayOfMonth(): Int = dayOfMonth.getRequired("dayOfMonth")
 
     /**
-     * The month of the date to anchor on
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun month(): Month = month.getRequired("month")
 
     /**
-     * The type of event anchor this is, can be: "CONTACT_PROPERTY_ANCHOR" or "STATIC_DATE_ANCHOR"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * The year of the date to anchor on. If this is not provided then this flow will re-run each
-     * year.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -142,7 +133,6 @@ private constructor(
             additionalProperties = apiStaticDateAnchor.additionalProperties.toMutableMap()
         }
 
-        /** The day of the date to anchor on */
         fun dayOfMonth(dayOfMonth: Int) = dayOfMonth(JsonField.of(dayOfMonth))
 
         /**
@@ -153,7 +143,6 @@ private constructor(
          */
         fun dayOfMonth(dayOfMonth: JsonField<Int>) = apply { this.dayOfMonth = dayOfMonth }
 
-        /** The month of the date to anchor on */
         fun month(month: Month) = month(JsonField.of(month))
 
         /**
@@ -164,10 +153,6 @@ private constructor(
          */
         fun month(month: JsonField<Month>) = apply { this.month = month }
 
-        /**
-         * The type of event anchor this is, can be: "CONTACT_PROPERTY_ANCHOR" or
-         * "STATIC_DATE_ANCHOR"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -178,10 +163,6 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /**
-         * The year of the date to anchor on. If this is not provided then this flow will re-run
-         * each year.
-         */
         fun year(year: Int) = year(JsonField.of(year))
 
         /**
@@ -269,7 +250,6 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (year.asKnown().isPresent) 1 else 0)
 
-    /** The month of the date to anchor on */
     class Month @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -455,9 +435,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * The type of event anchor this is, can be: "CONTACT_PROPERTY_ANCHOR" or "STATIC_DATE_ANCHOR"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

@@ -9,7 +9,6 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
-/** Retrieve a batch of workflows by ID. */
 class WorkflowBatchGetParams
 private constructor(
     private val apiFlowBatchInput: ApiFlowBatchInput,

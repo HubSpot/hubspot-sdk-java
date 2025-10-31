@@ -34,18 +34,12 @@ private constructor(
     ) : this(timestampType, type, mutableMapOf())
 
     /**
-     * Currently only EXECUTION_TIME is supported.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun timestampType(): TimestampType = timestampType.getRequired("timestampType")
 
     /**
-     * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-     * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-     * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -107,7 +101,6 @@ private constructor(
             additionalProperties = apiTimestampValue.additionalProperties.toMutableMap()
         }
 
-        /** Currently only EXECUTION_TIME is supported. */
         fun timestampType(timestampType: TimestampType) = timestampType(JsonField.of(timestampType))
 
         /**
@@ -121,11 +114,6 @@ private constructor(
             this.timestampType = timestampType
         }
 
-        /**
-         * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-         * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-         * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -206,7 +194,6 @@ private constructor(
         (timestampType.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** Currently only EXECUTION_TIME is supported. */
     class TimestampType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -330,11 +317,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * This is the type of input value. This can be one of: "FIELD_DATA", "OBJECT_PROPERTY",
-     * "STATIC_VALUE", "RELATIVE_DATETIME", "TIMESTAMP", "INCREMENT", "FETCHED_OBJECT_PROPERTY",
-     * "APPEND_OBJECT_PROPERTY", "STATIC_APPEND_VALUE", "ENROLLMENT_EVENT_PROPERTY"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

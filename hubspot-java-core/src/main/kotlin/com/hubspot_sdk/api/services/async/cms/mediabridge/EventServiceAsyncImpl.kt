@@ -15,12 +15,12 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEvent
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEvent
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateAttentionSpanEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateAttentionSpanEventResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedEventResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedPercentEventParams
-import com.hubspot_sdk.api.models.cms.mediabridge.events.EventCreateMediaPlayedPercentEventResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -39,21 +39,21 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun createAttentionSpanEvent(
         params: EventCreateAttentionSpanEventParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventCreateAttentionSpanEventResponse> =
+    ): CompletableFuture<AttentionSpanEvent> =
         // post /media-bridge/v1/events/attention-span
         withRawResponse().createAttentionSpanEvent(params, requestOptions).thenApply { it.parse() }
 
     override fun createMediaPlayedEvent(
         params: EventCreateMediaPlayedEventParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventCreateMediaPlayedEventResponse> =
+    ): CompletableFuture<MediaPlayedEvent> =
         // post /media-bridge/v1/events/media-played
         withRawResponse().createMediaPlayedEvent(params, requestOptions).thenApply { it.parse() }
 
     override fun createMediaPlayedPercentEvent(
         params: EventCreateMediaPlayedPercentEventParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventCreateMediaPlayedPercentEventResponse> =
+    ): CompletableFuture<MediaPlayedPercentageEvent> =
         // post /media-bridge/v1/events/media-played-percent
         withRawResponse().createMediaPlayedPercentEvent(params, requestOptions).thenApply {
             it.parse()
@@ -72,14 +72,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createAttentionSpanEventHandler:
-            Handler<EventCreateAttentionSpanEventResponse> =
-            jsonHandler<EventCreateAttentionSpanEventResponse>(clientOptions.jsonMapper)
+        private val createAttentionSpanEventHandler: Handler<AttentionSpanEvent> =
+            jsonHandler<AttentionSpanEvent>(clientOptions.jsonMapper)
 
         override fun createAttentionSpanEvent(
             params: EventCreateAttentionSpanEventParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventCreateAttentionSpanEventResponse>> {
+        ): CompletableFuture<HttpResponseFor<AttentionSpanEvent>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -104,13 +103,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val createMediaPlayedEventHandler: Handler<EventCreateMediaPlayedEventResponse> =
-            jsonHandler<EventCreateMediaPlayedEventResponse>(clientOptions.jsonMapper)
+        private val createMediaPlayedEventHandler: Handler<MediaPlayedEvent> =
+            jsonHandler<MediaPlayedEvent>(clientOptions.jsonMapper)
 
         override fun createMediaPlayedEvent(
             params: EventCreateMediaPlayedEventParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventCreateMediaPlayedEventResponse>> {
+        ): CompletableFuture<HttpResponseFor<MediaPlayedEvent>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -135,14 +134,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val createMediaPlayedPercentEventHandler:
-            Handler<EventCreateMediaPlayedPercentEventResponse> =
-            jsonHandler<EventCreateMediaPlayedPercentEventResponse>(clientOptions.jsonMapper)
+        private val createMediaPlayedPercentEventHandler: Handler<MediaPlayedPercentageEvent> =
+            jsonHandler<MediaPlayedPercentageEvent>(clientOptions.jsonMapper)
 
         override fun createMediaPlayedPercentEvent(
             params: EventCreateMediaPlayedPercentEventParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventCreateMediaPlayedPercentEventResponse>> {
+        ): CompletableFuture<HttpResponseFor<MediaPlayedPercentageEvent>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

@@ -7,10 +7,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.BatchInputPublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.BatchResponseDealToDealSplits
 import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchReadParams
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchReadResponse
 import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertParams
-import com.hubspot_sdk.api.models.crm.objects.dealsplits.DealSplitBatchUpsertResponse
+import com.hubspot_sdk.api.models.crm.objects.dealsplits.PublicDealSplitsBatchCreateRequest
 import java.util.function.Consumer
 
 interface DealSplitService {
@@ -28,20 +28,20 @@ interface DealSplitService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DealSplitService
 
     /** Read a batch of deal split objects by their associated deal object internal ID */
-    fun batchRead(params: DealSplitBatchReadParams): DealSplitBatchReadResponse =
+    fun batchRead(params: DealSplitBatchReadParams): BatchResponseDealToDealSplits =
         batchRead(params, RequestOptions.none())
 
     /** @see batchRead */
     fun batchRead(
         params: DealSplitBatchReadParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DealSplitBatchReadResponse
+    ): BatchResponseDealToDealSplits
 
     /** @see batchRead */
     fun batchRead(
         batchInputPublicObjectId: BatchInputPublicObjectId,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DealSplitBatchReadResponse =
+    ): BatchResponseDealToDealSplits =
         batchRead(
             DealSplitBatchReadParams.builder()
                 .batchInputPublicObjectId(batchInputPublicObjectId)
@@ -50,21 +50,40 @@ interface DealSplitService {
         )
 
     /** @see batchRead */
-    fun batchRead(batchInputPublicObjectId: BatchInputPublicObjectId): DealSplitBatchReadResponse =
-        batchRead(batchInputPublicObjectId, RequestOptions.none())
+    fun batchRead(
+        batchInputPublicObjectId: BatchInputPublicObjectId
+    ): BatchResponseDealToDealSplits = batchRead(batchInputPublicObjectId, RequestOptions.none())
 
     /**
      * Create or replace deal splits for deals with the provided IDs. Deal split percentages for
      * each deal must sum up to 1.0 (100%) and may have up to 8 decimal places
      */
-    fun batchUpsert(params: DealSplitBatchUpsertParams): DealSplitBatchUpsertResponse =
+    fun batchUpsert(params: DealSplitBatchUpsertParams): BatchResponseDealToDealSplits =
         batchUpsert(params, RequestOptions.none())
 
     /** @see batchUpsert */
     fun batchUpsert(
         params: DealSplitBatchUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DealSplitBatchUpsertResponse
+    ): BatchResponseDealToDealSplits
+
+    /** @see batchUpsert */
+    fun batchUpsert(
+        publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseDealToDealSplits =
+        batchUpsert(
+            DealSplitBatchUpsertParams.builder()
+                .publicDealSplitsBatchCreateRequest(publicDealSplitsBatchCreateRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see batchUpsert */
+    fun batchUpsert(
+        publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest
+    ): BatchResponseDealToDealSplits =
+        batchUpsert(publicDealSplitsBatchCreateRequest, RequestOptions.none())
 
     /** A view of [DealSplitService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -83,21 +102,21 @@ interface DealSplitService {
         @MustBeClosed
         fun batchRead(
             params: DealSplitBatchReadParams
-        ): HttpResponseFor<DealSplitBatchReadResponse> = batchRead(params, RequestOptions.none())
+        ): HttpResponseFor<BatchResponseDealToDealSplits> = batchRead(params, RequestOptions.none())
 
         /** @see batchRead */
         @MustBeClosed
         fun batchRead(
             params: DealSplitBatchReadParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DealSplitBatchReadResponse>
+        ): HttpResponseFor<BatchResponseDealToDealSplits>
 
         /** @see batchRead */
         @MustBeClosed
         fun batchRead(
             batchInputPublicObjectId: BatchInputPublicObjectId,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DealSplitBatchReadResponse> =
+        ): HttpResponseFor<BatchResponseDealToDealSplits> =
             batchRead(
                 DealSplitBatchReadParams.builder()
                     .batchInputPublicObjectId(batchInputPublicObjectId)
@@ -109,7 +128,7 @@ interface DealSplitService {
         @MustBeClosed
         fun batchRead(
             batchInputPublicObjectId: BatchInputPublicObjectId
-        ): HttpResponseFor<DealSplitBatchReadResponse> =
+        ): HttpResponseFor<BatchResponseDealToDealSplits> =
             batchRead(batchInputPublicObjectId, RequestOptions.none())
 
         /**
@@ -119,7 +138,7 @@ interface DealSplitService {
         @MustBeClosed
         fun batchUpsert(
             params: DealSplitBatchUpsertParams
-        ): HttpResponseFor<DealSplitBatchUpsertResponse> =
+        ): HttpResponseFor<BatchResponseDealToDealSplits> =
             batchUpsert(params, RequestOptions.none())
 
         /** @see batchUpsert */
@@ -127,6 +146,26 @@ interface DealSplitService {
         fun batchUpsert(
             params: DealSplitBatchUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DealSplitBatchUpsertResponse>
+        ): HttpResponseFor<BatchResponseDealToDealSplits>
+
+        /** @see batchUpsert */
+        @MustBeClosed
+        fun batchUpsert(
+            publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseDealToDealSplits> =
+            batchUpsert(
+                DealSplitBatchUpsertParams.builder()
+                    .publicDealSplitsBatchCreateRequest(publicDealSplitsBatchCreateRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see batchUpsert */
+        @MustBeClosed
+        fun batchUpsert(
+            publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest
+        ): HttpResponseFor<BatchResponseDealToDealSplits> =
+            batchUpsert(publicDealSplitsBatchCreateRequest, RequestOptions.none())
     }
 }

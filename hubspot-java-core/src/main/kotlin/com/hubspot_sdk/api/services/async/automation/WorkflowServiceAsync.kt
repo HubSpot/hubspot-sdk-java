@@ -39,7 +39,6 @@ interface WorkflowServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WorkflowServiceAsync
 
-    /** Create a new workflow. */
     fun create(params: WorkflowCreateParams): CompletableFuture<ApiFlow> =
         create(params, RequestOptions.none())
 
@@ -63,7 +62,6 @@ interface WorkflowServiceAsync {
     fun create(apiFlowCreateRequest: ApiFlowCreateRequest): CompletableFuture<ApiFlow> =
         create(apiFlowCreateRequest, RequestOptions.none())
 
-    /** Update a workflow by ID. */
     fun update(flowId: String, params: WorkflowUpdateParams): CompletableFuture<ApiFlow> =
         update(flowId, params, RequestOptions.none())
 
@@ -85,7 +83,6 @@ interface WorkflowServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ApiFlow>
 
-    /** Retrieve all workflows from an account. */
     fun list(): CompletableFuture<WorkflowListPageAsync> = list(WorkflowListParams.none())
 
     /** @see list */
@@ -103,10 +100,6 @@ interface WorkflowServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<WorkflowListPageAsync> =
         list(WorkflowListParams.none(), requestOptions)
 
-    /**
-     * Fully delete a workflow by ID. Deleted workflows cannot be restored via the API. If you need
-     * to restore an accidentally deleted flow, you'll need to contact support.
-     */
     fun delete(flowId: Long): CompletableFuture<Void?> = delete(flowId, WorkflowDeleteParams.none())
 
     /** @see delete */
@@ -136,7 +129,6 @@ interface WorkflowServiceAsync {
     fun delete(flowId: Long, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(flowId, WorkflowDeleteParams.none(), requestOptions)
 
-    /** Retrieve a batch of workflows by ID. */
     fun batchGet(params: WorkflowBatchGetParams): CompletableFuture<BatchResponseApiFlow> =
         batchGet(params, RequestOptions.none())
 
@@ -160,7 +152,6 @@ interface WorkflowServiceAsync {
     fun batchGet(apiFlowBatchInput: ApiFlowBatchInput): CompletableFuture<BatchResponseApiFlow> =
         batchGet(apiFlowBatchInput, RequestOptions.none())
 
-    /** Retrieve the IDs of v3 workflows that have been migrated to the v4 API. */
     fun batchGetIdMappings(
         params: WorkflowBatchGetIdMappingsParams
     ): CompletableFuture<BatchResponseFlowIdWorkflowIdMappingResponse> =
@@ -190,7 +181,6 @@ interface WorkflowServiceAsync {
     ): CompletableFuture<BatchResponseFlowIdWorkflowIdMappingResponse> =
         batchGetIdMappings(apiFlowBatchMigrationInput, RequestOptions.none())
 
-    /** Retrieve all details for a specific workflow by ID. */
     fun get(flowId: String): CompletableFuture<ApiFlow> = get(flowId, WorkflowGetParams.none())
 
     /** @see get */
@@ -220,7 +210,6 @@ interface WorkflowServiceAsync {
     fun get(flowId: String, requestOptions: RequestOptions): CompletableFuture<ApiFlow> =
         get(flowId, WorkflowGetParams.none(), requestOptions)
 
-    /** Retrieve emails sent by a workflow by ID. */
     fun listEmailCampaigns(): CompletableFuture<CollectionResponseApiFlowEmailCampaign> =
         listEmailCampaigns(WorkflowListEmailCampaignsParams.none())
 

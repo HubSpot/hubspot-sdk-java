@@ -11,17 +11,17 @@ internal class PublicTeamTest {
 
     @Test
     fun create() {
-        val publicTeam = PublicTeam.builder().id("7177840").name("TEAM_NAME").primary(false).build()
+        val publicTeam = PublicTeam.builder().id("id").name("name").primary(true).build()
 
-        assertThat(publicTeam.id()).isEqualTo("7177840")
-        assertThat(publicTeam.name()).isEqualTo("TEAM_NAME")
-        assertThat(publicTeam.primary()).isEqualTo(false)
+        assertThat(publicTeam.id()).isEqualTo("id")
+        assertThat(publicTeam.name()).isEqualTo("name")
+        assertThat(publicTeam.primary()).isEqualTo(true)
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val publicTeam = PublicTeam.builder().id("7177840").name("TEAM_NAME").primary(false).build()
+        val publicTeam = PublicTeam.builder().id("id").name("name").primary(true).build()
 
         val roundtrippedPublicTeam =
             jsonMapper.readValue(

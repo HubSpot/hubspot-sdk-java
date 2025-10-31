@@ -6,11 +6,11 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyGroupNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupDeleteByNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupGetByNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupListParams
-import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupUpdateByNameParams
 import com.hubspot_sdk.api.models.crm.properties.PropertyGroup
 import java.util.concurrent.CompletableFuture
@@ -53,7 +53,10 @@ interface GroupServiceAsync {
     ): CompletableFuture<PropertyGroup>
 
     /** Get the property groups for a specified object type. */
-    fun list(objectType: String, params: GroupListParams): CompletableFuture<GroupListResponse> =
+    fun list(
+        objectType: String,
+        params: GroupListParams,
+    ): CompletableFuture<CollectionResponsePropertyGroupNoPaging> =
         list(objectType, params, RequestOptions.none())
 
     /** @see list */
@@ -61,18 +64,18 @@ interface GroupServiceAsync {
         objectType: String,
         params: GroupListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<GroupListResponse> =
+    ): CompletableFuture<CollectionResponsePropertyGroupNoPaging> =
         list(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see list */
-    fun list(params: GroupListParams): CompletableFuture<GroupListResponse> =
+    fun list(params: GroupListParams): CompletableFuture<CollectionResponsePropertyGroupNoPaging> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: GroupListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<GroupListResponse>
+    ): CompletableFuture<CollectionResponsePropertyGroupNoPaging>
 
     /** Delete an existing property group by name */
     fun deleteByName(groupName: String, params: GroupDeleteByNameParams): CompletableFuture<Void?> =
@@ -193,7 +196,7 @@ interface GroupServiceAsync {
         fun list(
             objectType: String,
             params: GroupListParams,
-        ): CompletableFuture<HttpResponseFor<GroupListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyGroupNoPaging>> =
             list(objectType, params, RequestOptions.none())
 
         /** @see list */
@@ -201,18 +204,20 @@ interface GroupServiceAsync {
             objectType: String,
             params: GroupListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<GroupListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyGroupNoPaging>> =
             list(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see list */
-        fun list(params: GroupListParams): CompletableFuture<HttpResponseFor<GroupListResponse>> =
+        fun list(
+            params: GroupListParams
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyGroupNoPaging>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: GroupListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<GroupListResponse>>
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePropertyGroupNoPaging>>
 
         /**
          * Returns a raw HTTP response for `delete

@@ -39,32 +39,24 @@ private constructor(
     ) : this(createdAt, isReady, updatedAt, url, mutableMapOf())
 
     /**
-     * The timestamp this setting was created
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
-     * If true, this app will be considered to support channel connection
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isReady(): Boolean = isReady.getRequired("isReady")
 
     /**
-     * The timestamp this setting was last updated
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
-     * The URL to fetch phone numbers available for channel connection
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -151,7 +143,6 @@ private constructor(
                     channelConnectionSettingsResponse.additionalProperties.toMutableMap()
             }
 
-        /** The timestamp this setting was created */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -163,7 +154,6 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** If true, this app will be considered to support channel connection */
         fun isReady(isReady: Boolean) = isReady(JsonField.of(isReady))
 
         /**
@@ -174,7 +164,6 @@ private constructor(
          */
         fun isReady(isReady: JsonField<Boolean>) = apply { this.isReady = isReady }
 
-        /** The timestamp this setting was last updated */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -186,7 +175,6 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        /** The URL to fetch phone numbers available for channel connection */
         fun url(url: String) = url(JsonField.of(url))
 
         /**

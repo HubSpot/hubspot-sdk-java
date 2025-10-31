@@ -12,7 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update existing calling extension settings. */
 class SettingUpdateParams
 private constructor(
     private val appId: Int?,

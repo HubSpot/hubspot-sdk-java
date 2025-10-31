@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.async.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.AppointmentServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CartServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CommercePaymentServiceAsync
@@ -53,6 +54,8 @@ interface ObjectServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ObjectServiceAsync
+
+    fun appointments(): AppointmentServiceAsync
 
     fun calls(): CallServiceAsync
 
@@ -135,6 +138,8 @@ interface ObjectServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ObjectServiceAsync.WithRawResponse
+
+        fun appointments(): AppointmentServiceAsync.WithRawResponse
 
         fun calls(): CallServiceAsync.WithRawResponse
 

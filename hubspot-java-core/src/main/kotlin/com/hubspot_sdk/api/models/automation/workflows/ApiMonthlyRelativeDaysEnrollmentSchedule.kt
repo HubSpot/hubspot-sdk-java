@@ -38,8 +38,6 @@ private constructor(
     ) : this(monthlyRelativeDays, timeOfDay, type, mutableMapOf())
 
     /**
-     * Can be either "LAST_DAY_OF_MONTH" or "FIRST_MONDAY_OF_MONTH"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -53,9 +51,6 @@ private constructor(
     fun timeOfDay(): ApiTimeOfDay = timeOfDay.getRequired("timeOfDay")
 
     /**
-     * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY", "MONTHLY_SPECIFIC_DAYS",
-     * "MONTHLY_RELATIVE_DAYS", "YEARLY"
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -132,7 +127,6 @@ private constructor(
                 apiMonthlyRelativeDaysEnrollmentSchedule.additionalProperties.toMutableMap()
         }
 
-        /** Can be either "LAST_DAY_OF_MONTH" or "FIRST_MONDAY_OF_MONTH" */
         fun monthlyRelativeDays(monthlyRelativeDays: MonthlyRelativeDays) =
             monthlyRelativeDays(JsonField.of(monthlyRelativeDays))
 
@@ -158,10 +152,6 @@ private constructor(
          */
         fun timeOfDay(timeOfDay: JsonField<ApiTimeOfDay>) = apply { this.timeOfDay = timeOfDay }
 
-        /**
-         * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY",
-         * "MONTHLY_SPECIFIC_DAYS", "MONTHLY_RELATIVE_DAYS", "YEARLY"
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -246,7 +236,6 @@ private constructor(
             (timeOfDay.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** Can be either "LAST_DAY_OF_MONTH" or "FIRST_MONDAY_OF_MONTH" */
     class MonthlyRelativeDays
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -377,10 +366,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * The type of enrollment schedule this is, can be: "DAILY", "WEEKLY", "MONTHLY_SPECIFIC_DAYS",
-     * "MONTHLY_RELATIVE_DAYS", "YEARLY"
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

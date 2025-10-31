@@ -16,8 +16,8 @@ internal class ApiInputVariableTest {
                 .name("name")
                 .value(
                     ApiActionDataValue.builder()
-                        .actionId("1")
-                        .dataKey("hs_execution_state")
+                        .actionId("actionId")
+                        .dataKey("dataKey")
                         .type(ApiActionDataValue.Type.FIELD_DATA)
                         .build()
                 )
@@ -28,8 +28,8 @@ internal class ApiInputVariableTest {
             .isEqualTo(
                 ApiInputVariable.Value.ofApiActionData(
                     ApiActionDataValue.builder()
-                        .actionId("1")
-                        .dataKey("hs_execution_state")
+                        .actionId("actionId")
+                        .dataKey("dataKey")
                         .type(ApiActionDataValue.Type.FIELD_DATA)
                         .build()
                 )
@@ -44,8 +44,8 @@ internal class ApiInputVariableTest {
                 .name("name")
                 .value(
                     ApiActionDataValue.builder()
-                        .actionId("1")
-                        .dataKey("hs_execution_state")
+                        .actionId("actionId")
+                        .dataKey("dataKey")
                         .type(ApiActionDataValue.Type.FIELD_DATA)
                         .build()
                 )

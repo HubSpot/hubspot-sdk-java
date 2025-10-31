@@ -8,13 +8,13 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationParams
-import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -96,7 +96,7 @@ interface SchemaServiceAsync {
     fun createAssociation(
         objectType: String,
         params: SchemaCreateAssociationParams,
-    ): CompletableFuture<SchemaCreateAssociationResponse> =
+    ): CompletableFuture<AssociationDefinition> =
         createAssociation(objectType, params, RequestOptions.none())
 
     /** @see createAssociation */
@@ -104,20 +104,19 @@ interface SchemaServiceAsync {
         objectType: String,
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SchemaCreateAssociationResponse> =
+    ): CompletableFuture<AssociationDefinition> =
         createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see createAssociation */
     fun createAssociation(
         params: SchemaCreateAssociationParams
-    ): CompletableFuture<SchemaCreateAssociationResponse> =
-        createAssociation(params, RequestOptions.none())
+    ): CompletableFuture<AssociationDefinition> = createAssociation(params, RequestOptions.none())
 
     /** @see createAssociation */
     fun createAssociation(
         params: SchemaCreateAssociationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SchemaCreateAssociationResponse>
+    ): CompletableFuture<AssociationDefinition>
 
     /** Delete an existing association definition for an object type. */
     fun deleteAssociation(
@@ -260,7 +259,7 @@ interface SchemaServiceAsync {
         fun createAssociation(
             objectType: String,
             params: SchemaCreateAssociationParams,
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createAssociation(objectType, params, RequestOptions.none())
 
         /** @see createAssociation */
@@ -268,20 +267,20 @@ interface SchemaServiceAsync {
             objectType: String,
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createAssociation(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see createAssociation */
         fun createAssociation(
             params: SchemaCreateAssociationParams
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>> =
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createAssociation(params, RequestOptions.none())
 
         /** @see createAssociation */
         fun createAssociation(
             params: SchemaCreateAssociationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SchemaCreateAssociationResponse>>
+        ): CompletableFuture<HttpResponseFor<AssociationDefinition>>
 
         /**
          * Returns a raw HTTP response for `delete

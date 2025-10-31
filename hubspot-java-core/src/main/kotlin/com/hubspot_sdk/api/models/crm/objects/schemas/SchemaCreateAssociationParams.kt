@@ -12,7 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Defines a new association between the primary schema's object type and other object types. */
 class SchemaCreateAssociationParams
 private constructor(
     private val objectType: String?,

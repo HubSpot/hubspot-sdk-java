@@ -148,6 +148,9 @@ private constructor(
     fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
     /**
+     * Defines the level of write access for the pipeline stage, with possible values being
+     * CRM_PERMISSIONS_ENFORCEMENT, READ_ONLY, or INTERNAL_ONLY.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -405,6 +408,10 @@ private constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
+        /**
+         * Defines the level of write access for the pipeline stage, with possible values being
+         * CRM_PERMISSIONS_ENFORCEMENT, READ_ONLY, or INTERNAL_ONLY.
+         */
         fun writePermissions(writePermissions: WritePermissions) =
             writePermissions(JsonField.of(writePermissions))
 
@@ -624,6 +631,10 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Defines the level of write access for the pipeline stage, with possible values being
+     * CRM_PERMISSIONS_ENFORCEMENT, READ_ONLY, or INTERNAL_ONLY.
+     */
     class WritePermissions @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

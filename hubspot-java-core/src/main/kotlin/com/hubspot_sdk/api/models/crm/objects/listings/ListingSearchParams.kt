@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 
+/** Execute a search query to find listings based on specified filters and properties. */
 class ListingSearchParams
 private constructor(
     private val publicObjectSearchRequest: PublicObjectSearchRequest,

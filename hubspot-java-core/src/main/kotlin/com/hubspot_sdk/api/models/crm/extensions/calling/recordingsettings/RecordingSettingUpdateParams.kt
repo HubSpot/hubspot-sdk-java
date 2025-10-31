@@ -12,10 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Update the URL that HubSpot will use to retrieve
- * [call recordings](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
- */
 class RecordingSettingUpdateParams
 private constructor(
     private val appId: Int?,

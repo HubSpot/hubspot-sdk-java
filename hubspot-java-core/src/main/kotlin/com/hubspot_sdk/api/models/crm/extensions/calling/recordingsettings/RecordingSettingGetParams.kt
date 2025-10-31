@@ -9,10 +9,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve the URL that is registered for
- * [call recording](https://developers.hubspot.com/docs/guides/apps/extensions/calling-extensions/recordings-and-transcriptions#register-your-app-s-endpoint-with-hubspot-using-the-calling-settings-api).
- */
 class RecordingSettingGetParams
 private constructor(
     private val appId: Int?,

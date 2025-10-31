@@ -11,7 +11,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update the details for an existing object schema. */
 class SchemaUpdateParams
 private constructor(
     private val objectType: String?,

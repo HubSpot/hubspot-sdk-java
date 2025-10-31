@@ -77,16 +77,12 @@ private constructor(
     )
 
     /**
-     * The list filter branch that represents the enrollment trigger to this flow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun listFilterBranch(): ListFilterBranch = listFilterBranch.getRequired("listFilterBranch")
 
     /**
-     * A list of filter branches to listen for in order to re-enroll objects into this workflow.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -94,26 +90,18 @@ private constructor(
         reEnrollmentTriggersFilterBranches.getRequired("reEnrollmentTriggersFilterBranches")
 
     /**
-     * Whether or not the same object can enroll in this workflow twice.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun shouldReEnroll(): Boolean = shouldReEnroll.getRequired("shouldReEnroll")
 
     /**
-     * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-     * "MANUAL".
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
-     * Whether or not to remove objects from this workflow if they stop meeting the enrollment
-     * criteria.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -224,7 +212,6 @@ private constructor(
                 apiListBasedEnrollmentCriteria.additionalProperties.toMutableMap()
         }
 
-        /** The list filter branch that represents the enrollment trigger to this flow. */
         fun listFilterBranch(listFilterBranch: ListFilterBranch) =
             listFilterBranch(JsonField.of(listFilterBranch))
 
@@ -291,9 +278,6 @@ private constructor(
         fun listFilterBranch(publicAssociation: PublicAssociationFilterBranch) =
             listFilterBranch(ListFilterBranch.ofPublicAssociation(publicAssociation))
 
-        /**
-         * A list of filter branches to listen for in order to re-enroll objects into this workflow.
-         */
         fun reEnrollmentTriggersFilterBranches(
             reEnrollmentTriggersFilterBranches: List<ReEnrollmentTriggersFilterBranch>
         ) = reEnrollmentTriggersFilterBranches(JsonField.of(reEnrollmentTriggersFilterBranches))
@@ -405,7 +389,6 @@ private constructor(
                 ReEnrollmentTriggersFilterBranch.ofPublicAssociation(publicAssociation)
             )
 
-        /** Whether or not the same object can enroll in this workflow twice. */
         fun shouldReEnroll(shouldReEnroll: Boolean) = shouldReEnroll(JsonField.of(shouldReEnroll))
 
         /**
@@ -419,10 +402,6 @@ private constructor(
             this.shouldReEnroll = shouldReEnroll
         }
 
-        /**
-         * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-         * "MANUAL".
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -433,10 +412,6 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        /**
-         * Whether or not to remove objects from this workflow if they stop meeting the enrollment
-         * criteria.
-         */
         fun unEnrollObjectsNotMeetingCriteria(unEnrollObjectsNotMeetingCriteria: Boolean) =
             unEnrollObjectsNotMeetingCriteria(JsonField.of(unEnrollObjectsNotMeetingCriteria))
 
@@ -542,7 +517,6 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (unEnrollObjectsNotMeetingCriteria.asKnown().isPresent) 1 else 0)
 
-    /** The list filter branch that represents the enrollment trigger to this flow. */
     @JsonDeserialize(using = ListFilterBranch.Deserializer::class)
     @JsonSerialize(using = ListFilterBranch.Serializer::class)
     class ListFilterBranch
@@ -1340,10 +1314,6 @@ private constructor(
         }
     }
 
-    /**
-     * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-     * "MANUAL".
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

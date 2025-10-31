@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.services.async.conversations
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
-import com.hubspot_sdk.api.models.conversations.visitoridentification.VisitorIdentificationGenerateTokenParams
+import com.hubspot_sdk.api.models.conversations.visitoridentification.IdentificationTokenGenerationRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -22,16 +22,16 @@ internal class VisitorIdentificationServiceAsyncTest {
                 .build()
         val visitorIdentificationServiceAsync = client.conversations().visitorIdentification()
 
-        val responseFuture =
+        val identificationTokenResponseFuture =
             visitorIdentificationServiceAsync.generateToken(
-                VisitorIdentificationGenerateTokenParams.builder()
+                IdentificationTokenGenerationRequest.builder()
                     .email("visitor-email@example.com")
                     .firstName("Gob")
                     .lastName("Bluth")
                     .build()
             )
 
-        val response = responseFuture.get()
-        response.validate()
+        val identificationTokenResponse = identificationTokenResponseFuture.get()
+        identificationTokenResponse.validate()
     }
 }

@@ -35,7 +35,7 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
-    /** Create a batch of deals */
+    /** Create multiple deals in a single request. */
     fun create(params: BatchCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         create(params, RequestOptions.none())
 
@@ -67,7 +67,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
-    /** Update a batch of deals by internal ID, or unique property values */
+    /** Update multiple deals using their internal IDs or unique property values. */
     fun update(params: BatchUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         update(params, RequestOptions.none())
 
@@ -95,7 +95,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /** Archive a batch of deals by ID */
+    /** Archive multiple deals using their IDs. */
     fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 

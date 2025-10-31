@@ -41,10 +41,6 @@ interface SettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingService
 
-    /**
-     * Get the list of Blogs. Supports paging and filtering. This method would be useful for an
-     * integration that examined these models and used an external service to suggest edits.
-     */
     fun list(): SettingListPage = list(SettingListParams.none())
 
     /** @see list */
@@ -61,7 +57,6 @@ interface SettingService {
     fun list(requestOptions: RequestOptions): SettingListPage =
         list(SettingListParams.none(), requestOptions)
 
-    /** Attach a blog to a multi-language group. */
     fun attachToLangGroup(params: SettingAttachToLangGroupParams) =
         attachToLangGroup(params, RequestOptions.none())
 
@@ -87,7 +82,6 @@ interface SettingService {
     fun attachToLangGroup(attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext) =
         attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
-    /** Create a new language variation from an existing blog */
     fun createLanguageVariation(params: SettingCreateLanguageVariationParams): Blog =
         createLanguageVariation(params, RequestOptions.none())
 
@@ -114,7 +108,6 @@ interface SettingService {
         blogLanguageCloneRequestVNext: BlogLanguageCloneRequestVNext
     ): Blog = createLanguageVariation(blogLanguageCloneRequestVNext, RequestOptions.none())
 
-    /** Detach a blog from a multi-language group. */
     fun detachFromLangGroup(params: SettingDetachFromLangGroupParams) =
         detachFromLangGroup(params, RequestOptions.none())
 
@@ -140,7 +133,6 @@ interface SettingService {
     fun detachFromLangGroup(detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext) =
         detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
-    /** Retrieve the Blog object identified by the id in the path. */
     fun get(blogId: String): Blog = get(blogId, SettingGetParams.none())
 
     /** @see get */
@@ -164,7 +156,6 @@ interface SettingService {
     fun get(blogId: String, requestOptions: RequestOptions): Blog =
         get(blogId, SettingGetParams.none(), requestOptions)
 
-    /** Retrieves a previous version of a Blog */
     fun getRevision(revisionId: String, params: SettingGetRevisionParams): VersionBlog =
         getRevision(revisionId, params, RequestOptions.none())
 
@@ -185,7 +176,6 @@ interface SettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VersionBlog
 
-    /** Retrieves all the previous versions of a Blog */
     fun listRevisions(blogId: String): CollectionResponseWithTotalVersionBlog =
         listRevisions(blogId, SettingListRevisionsParams.none())
 
@@ -220,7 +210,6 @@ interface SettingService {
     ): CollectionResponseWithTotalVersionBlog =
         listRevisions(blogId, SettingListRevisionsParams.none(), requestOptions)
 
-    /** Set a blog as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: SettingSetNewLangPrimaryParams) =
         setNewLangPrimary(params, RequestOptions.none())
 
@@ -246,7 +235,6 @@ interface SettingService {
     fun setNewLangPrimary(setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext) =
         setNewLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
 
-    /** Explicitly set new languages for each blog in a multi-language group. */
     fun updateLanguages(params: SettingUpdateLanguagesParams) =
         updateLanguages(params, RequestOptions.none())
 

@@ -5,8 +5,8 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingToken
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -34,7 +34,7 @@ interface ChannelAccountStagingTokenServiceAsync {
     fun update(
         accountToken: String,
         params: ChannelAccountStagingTokenUpdateParams,
-    ): CompletableFuture<ChannelAccountStagingTokenUpdateResponse> =
+    ): CompletableFuture<PublicChannelAccountStagingToken> =
         update(accountToken, params, RequestOptions.none())
 
     /** @see update */
@@ -42,20 +42,19 @@ interface ChannelAccountStagingTokenServiceAsync {
         accountToken: String,
         params: ChannelAccountStagingTokenUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ChannelAccountStagingTokenUpdateResponse> =
+    ): CompletableFuture<PublicChannelAccountStagingToken> =
         update(params.toBuilder().accountToken(accountToken).build(), requestOptions)
 
     /** @see update */
     fun update(
         params: ChannelAccountStagingTokenUpdateParams
-    ): CompletableFuture<ChannelAccountStagingTokenUpdateResponse> =
-        update(params, RequestOptions.none())
+    ): CompletableFuture<PublicChannelAccountStagingToken> = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ChannelAccountStagingTokenUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ChannelAccountStagingTokenUpdateResponse>
+    ): CompletableFuture<PublicChannelAccountStagingToken>
 
     /**
      * A view of [ChannelAccountStagingTokenServiceAsync] that provides access to raw HTTP responses
@@ -80,7 +79,7 @@ interface ChannelAccountStagingTokenServiceAsync {
         fun update(
             accountToken: String,
             params: ChannelAccountStagingTokenUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ChannelAccountStagingTokenUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccountStagingToken>> =
             update(accountToken, params, RequestOptions.none())
 
         /** @see update */
@@ -88,19 +87,19 @@ interface ChannelAccountStagingTokenServiceAsync {
             accountToken: String,
             params: ChannelAccountStagingTokenUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ChannelAccountStagingTokenUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccountStagingToken>> =
             update(params.toBuilder().accountToken(accountToken).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: ChannelAccountStagingTokenUpdateParams
-        ): CompletableFuture<HttpResponseFor<ChannelAccountStagingTokenUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccountStagingToken>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ChannelAccountStagingTokenUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ChannelAccountStagingTokenUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccountStagingToken>>
     }
 }

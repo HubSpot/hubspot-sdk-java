@@ -11,9 +11,9 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.cms.sourcecode.FileExtractRequest
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeDeleteParams
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeExtractAsyncParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetMetadataParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeGetParams
 import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeUpsertParams
@@ -39,7 +39,7 @@ internal class SourceCodeServiceTest {
                 .build()
         val sourceCodeService = client.cms().sourceCode()
 
-        val sourceCode =
+        val assetFileMetadata =
             sourceCodeService.create(
                 SourceCodeCreateParams.builder()
                     .environment("environment")
@@ -48,7 +48,7 @@ internal class SourceCodeServiceTest {
                     .build()
             )
 
-        sourceCode.validate()
+        assetFileMetadata.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -77,9 +77,7 @@ internal class SourceCodeServiceTest {
         val sourceCodeService = client.cms().sourceCode()
 
         val taskLocator =
-            sourceCodeService.extractAsync(
-                SourceCodeExtractAsyncParams.builder().path("path").build()
-            )
+            sourceCodeService.extractAsync(FileExtractRequest.builder().path("path").build())
 
         taskLocator.validate()
     }
@@ -127,7 +125,7 @@ internal class SourceCodeServiceTest {
                 .build()
         val sourceCodeService = client.cms().sourceCode()
 
-        val response =
+        val assetFileMetadata =
             sourceCodeService.getMetadata(
                 SourceCodeGetMetadataParams.builder()
                     .environment("environment")
@@ -136,7 +134,7 @@ internal class SourceCodeServiceTest {
                     .build()
             )
 
-        response.validate()
+        assetFileMetadata.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -149,7 +147,7 @@ internal class SourceCodeServiceTest {
                 .build()
         val sourceCodeService = client.cms().sourceCode()
 
-        val response =
+        val assetFileMetadata =
             sourceCodeService.upsert(
                 SourceCodeUpsertParams.builder()
                     .environment("environment")
@@ -158,7 +156,7 @@ internal class SourceCodeServiceTest {
                     .build()
             )
 
-        response.validate()
+        assetFileMetadata.validate()
     }
 
     @Test

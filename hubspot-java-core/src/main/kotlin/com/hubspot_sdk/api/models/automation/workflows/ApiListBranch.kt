@@ -58,8 +58,6 @@ private constructor(
     ) : this(branchName, connection, filterBranch, mutableMapOf())
 
     /**
-     * The name of this branch
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -72,9 +70,6 @@ private constructor(
     fun connection(): Optional<ApiConnection> = connection.getOptional("connection")
 
     /**
-     * The list criteria that determine when to execute this branch. The first matching branch will
-     * execute.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -139,7 +134,6 @@ private constructor(
             additionalProperties = apiListBranch.additionalProperties.toMutableMap()
         }
 
-        /** The name of this branch */
         fun branchName(branchName: String) = branchName(JsonField.of(branchName))
 
         /**
@@ -164,10 +158,6 @@ private constructor(
             this.connection = connection
         }
 
-        /**
-         * The list criteria that determine when to execute this branch. The first matching branch
-         * will execute.
-         */
         fun filterBranch(filterBranch: FilterBranch) = filterBranch(JsonField.of(filterBranch))
 
         /**
@@ -285,10 +275,6 @@ private constructor(
             (connection.asKnown().getOrNull()?.validity() ?: 0) +
             (filterBranch.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * The list criteria that determine when to execute this branch. The first matching branch will
-     * execute.
-     */
     @JsonDeserialize(using = FilterBranch.Deserializer::class)
     @JsonSerialize(using = FilterBranch.Serializer::class)
     class FilterBranch

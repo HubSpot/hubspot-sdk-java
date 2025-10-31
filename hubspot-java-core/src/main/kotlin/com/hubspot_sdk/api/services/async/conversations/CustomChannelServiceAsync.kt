@@ -6,15 +6,14 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.conversations.customchannels.CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelDeleteParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListResponse
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateParams
-import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateResponse
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannel
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannelCreate
 import com.hubspot_sdk.api.services.async.conversations.customchannels.ChannelAccountServiceAsync
 import com.hubspot_sdk.api.services.async.conversations.customchannels.ChannelAccountStagingTokenServiceAsync
 import com.hubspot_sdk.api.services.async.conversations.customchannels.MessageServiceAsync
@@ -45,14 +44,33 @@ interface CustomChannelServiceAsync {
      * Register a new channel along with its capabilities and the webhook url that will be used to
      * receive messages published over the channel
      */
-    fun create(params: CustomChannelCreateParams): CompletableFuture<CustomChannelCreateResponse> =
-        create(params, RequestOptions.none())
+    fun create(
+        params: CustomChannelCreateParams
+    ): CompletableFuture<PublicChannelIntegrationChannel> = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: CustomChannelCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomChannelCreateResponse>
+    ): CompletableFuture<PublicChannelIntegrationChannel>
+
+    /** @see create */
+    fun create(
+        publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
+        create(
+            CustomChannelCreateParams.builder()
+                .publicChannelIntegrationChannelCreate(publicChannelIntegrationChannelCreate)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
+        create(publicChannelIntegrationChannelCreate, RequestOptions.none())
 
     /**
      * Update the capabilities for an existing. You can also use it to update the channel's
@@ -61,7 +79,7 @@ interface CustomChannelServiceAsync {
     fun update(
         channelId: String,
         params: CustomChannelUpdateParams,
-    ): CompletableFuture<CustomChannelUpdateResponse> =
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
         update(channelId, params, RequestOptions.none())
 
     /** @see update */
@@ -69,35 +87,41 @@ interface CustomChannelServiceAsync {
         channelId: String,
         params: CustomChannelUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomChannelUpdateResponse> =
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
         update(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: CustomChannelUpdateParams): CompletableFuture<CustomChannelUpdateResponse> =
-        update(params, RequestOptions.none())
+    fun update(
+        params: CustomChannelUpdateParams
+    ): CompletableFuture<PublicChannelIntegrationChannel> = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: CustomChannelUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomChannelUpdateResponse>
+    ): CompletableFuture<PublicChannelIntegrationChannel>
 
     /** Retrieve all custom channels associated with the app. */
-    fun list(): CompletableFuture<CustomChannelListResponse> = list(CustomChannelListParams.none())
+    fun list():
+        CompletableFuture<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging> =
+        list(CustomChannelListParams.none())
 
     /** @see list */
     fun list(
         params: CustomChannelListParams = CustomChannelListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomChannelListResponse>
+    ): CompletableFuture<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
 
     /** @see list */
     fun list(
         params: CustomChannelListParams = CustomChannelListParams.none()
-    ): CompletableFuture<CustomChannelListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging> =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CustomChannelListResponse> =
+    fun list(
+        requestOptions: RequestOptions
+    ): CompletableFuture<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging> =
         list(CustomChannelListParams.none(), requestOptions)
 
     /** Archive an existing registered custom channel */
@@ -136,7 +160,7 @@ interface CustomChannelServiceAsync {
      * Retrieve the details about a custom channel. This API allows you to see a custom channel's
      * current capabilties and other configuration metadata
      */
-    fun get(channelId: String): CompletableFuture<CustomChannelGetResponse> =
+    fun get(channelId: String): CompletableFuture<PublicChannelIntegrationChannel> =
         get(channelId, CustomChannelGetParams.none())
 
     /** @see get */
@@ -144,30 +168,31 @@ interface CustomChannelServiceAsync {
         channelId: String,
         params: CustomChannelGetParams = CustomChannelGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomChannelGetResponse> =
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
         get(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see get */
     fun get(
         channelId: String,
         params: CustomChannelGetParams = CustomChannelGetParams.none(),
-    ): CompletableFuture<CustomChannelGetResponse> = get(channelId, params, RequestOptions.none())
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
+        get(channelId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: CustomChannelGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CustomChannelGetResponse>
+    ): CompletableFuture<PublicChannelIntegrationChannel>
 
     /** @see get */
-    fun get(params: CustomChannelGetParams): CompletableFuture<CustomChannelGetResponse> =
+    fun get(params: CustomChannelGetParams): CompletableFuture<PublicChannelIntegrationChannel> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         channelId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CustomChannelGetResponse> =
+    ): CompletableFuture<PublicChannelIntegrationChannel> =
         get(channelId, CustomChannelGetParams.none(), requestOptions)
 
     /**
@@ -197,14 +222,32 @@ interface CustomChannelServiceAsync {
          */
         fun create(
             params: CustomChannelCreateParams
-        ): CompletableFuture<HttpResponseFor<CustomChannelCreateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: CustomChannelCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomChannelCreateResponse>>
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>>
+
+        /** @see create */
+        fun create(
+            publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
+            create(
+                CustomChannelCreateParams.builder()
+                    .publicChannelIntegrationChannelCreate(publicChannelIntegrationChannelCreate)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            publicChannelIntegrationChannelCreate: PublicChannelIntegrationChannelCreate
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
+            create(publicChannelIntegrationChannelCreate, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /conversations/v3/custom-channels/{channelId}`,
@@ -213,7 +256,7 @@ interface CustomChannelServiceAsync {
         fun update(
             channelId: String,
             params: CustomChannelUpdateParams,
-        ): CompletableFuture<HttpResponseFor<CustomChannelUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             update(channelId, params, RequestOptions.none())
 
         /** @see update */
@@ -221,45 +264,53 @@ interface CustomChannelServiceAsync {
             channelId: String,
             params: CustomChannelUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomChannelUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             update(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: CustomChannelUpdateParams
-        ): CompletableFuture<HttpResponseFor<CustomChannelUpdateResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: CustomChannelUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomChannelUpdateResponse>>
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>>
 
         /**
          * Returns a raw HTTP response for `get /conversations/v3/custom-channels/`, but is
          * otherwise the same as [CustomChannelServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CustomChannelListResponse>> =
-            list(CustomChannelListParams.none())
+        fun list():
+            CompletableFuture<
+                HttpResponseFor<
+                    CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
+                >
+            > = list(CustomChannelListParams.none())
 
         /** @see list */
         fun list(
             params: CustomChannelListParams = CustomChannelListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomChannelListResponse>>
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
+        >
 
         /** @see list */
         fun list(
             params: CustomChannelListParams = CustomChannelListParams.none()
-        ): CompletableFuture<HttpResponseFor<CustomChannelListResponse>> =
-            list(params, RequestOptions.none())
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
+        > = list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CustomChannelListResponse>> =
-            list(CustomChannelListParams.none(), requestOptions)
+        ): CompletableFuture<
+            HttpResponseFor<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
+        > = list(CustomChannelListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /conversations/v3/custom-channels/{channelId}`,
@@ -303,7 +354,9 @@ interface CustomChannelServiceAsync {
          * Returns a raw HTTP response for `get /conversations/v3/custom-channels/{channelId}`, but
          * is otherwise the same as [CustomChannelServiceAsync.get].
          */
-        fun get(channelId: String): CompletableFuture<HttpResponseFor<CustomChannelGetResponse>> =
+        fun get(
+            channelId: String
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             get(channelId, CustomChannelGetParams.none())
 
         /** @see get */
@@ -311,33 +364,33 @@ interface CustomChannelServiceAsync {
             channelId: String,
             params: CustomChannelGetParams = CustomChannelGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomChannelGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             get(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see get */
         fun get(
             channelId: String,
             params: CustomChannelGetParams = CustomChannelGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<CustomChannelGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             get(channelId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: CustomChannelGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CustomChannelGetResponse>>
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>>
 
         /** @see get */
         fun get(
             params: CustomChannelGetParams
-        ): CompletableFuture<HttpResponseFor<CustomChannelGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             channelId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CustomChannelGetResponse>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelIntegrationChannel>> =
             get(channelId, CustomChannelGetParams.none(), requestOptions)
     }
 }

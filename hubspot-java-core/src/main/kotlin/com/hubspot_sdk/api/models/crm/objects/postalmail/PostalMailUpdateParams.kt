@@ -12,14 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Perform a partial update of an Object identified by `{postalMailId}`or optionally a unique
- * property value as specified by the `idProperty` query param. `{postalMailId}` refers to the
- * internal object ID by default, and the `idProperty` query param refers to a property whose values
- * are unique for the object. Provided property values will be overwritten. Read-only and
- * non-existent properties will result in an error. Properties values can be cleared by passing an
- * empty string.
- */
 class PostalMailUpdateParams
 private constructor(
     private val postalMailId: String?,
@@ -31,7 +23,6 @@ private constructor(
 
     fun postalMailId(): Optional<String> = Optional.ofNullable(postalMailId)
 
-    /** The name of a property whose values are unique for this object */
     fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
     /**
@@ -87,7 +78,6 @@ private constructor(
         /** Alias for calling [Builder.postalMailId] with `postalMailId.orElse(null)`. */
         fun postalMailId(postalMailId: Optional<String>) = postalMailId(postalMailId.getOrNull())
 
-        /** The name of a property whose values are unique for this object */
         fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
 
         /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */

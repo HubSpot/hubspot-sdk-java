@@ -17,27 +17,24 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
+import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainModel
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderRegistrationResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.OEmbedDomainsCollectionResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.ObjectDefinitionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateObjectDefinitionParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateObjectDefinitionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateOembedDomainResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingDeleteOembedDomainParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetEventVisibilitySettingsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetEventVisibilitySettingsResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetObjectDefinitionsByMediaTypeParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetObjectDefinitionsByMediaTypeResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetOembedDomainResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingListOembedDomainsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingListOembedDomainsResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingRegisterAppNameParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingRegisterAppNameResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateAppNameParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateAppNameResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateEventVisibilitySettingsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateEventVisibilitySettingsResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateOembedDomainResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -59,14 +56,14 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
     override fun createObjectDefinition(
         params: IntegratorSettingCreateObjectDefinitionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingCreateObjectDefinitionResponse> =
+    ): CompletableFuture<BulkIntegratorObjectCreationResponse> =
         // post /media-bridge/v1/{appId}/settings/object-definitions
         withRawResponse().createObjectDefinition(params, requestOptions).thenApply { it.parse() }
 
     override fun createOembedDomain(
         params: IntegratorSettingCreateOembedDomainParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingCreateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         // post /media-bridge/v1/{appId}/settings/oembed-domains
         withRawResponse().createOembedDomain(params, requestOptions).thenApply { it.parse() }
 
@@ -80,7 +77,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
     override fun getEventVisibilitySettings(
         params: IntegratorSettingGetEventVisibilitySettingsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingGetEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityResponse> =
         // get /media-bridge/v1/{appId}/settings/event-visibility
         withRawResponse().getEventVisibilitySettings(params, requestOptions).thenApply {
             it.parse()
@@ -89,7 +86,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
     override fun getObjectDefinitionsByMediaType(
         params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse> =
+    ): CompletableFuture<ObjectDefinitionResponse> =
         // get /media-bridge/v1/{appId}/settings/object-definitions/{mediaType}
         withRawResponse().getObjectDefinitionsByMediaType(params, requestOptions).thenApply {
             it.parse()
@@ -98,14 +95,14 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
     override fun getOembedDomain(
         params: IntegratorSettingGetOembedDomainParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingGetOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         // get /media-bridge/v1/{appId}/settings/oembed-domains/{oEmbedDomainId}
         withRawResponse().getOembedDomain(params, requestOptions).thenApply { it.parse() }
 
     override fun listOembedDomains(
         params: IntegratorSettingListOembedDomainsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingListOembedDomainsResponse> =
+    ): CompletableFuture<OEmbedDomainsCollectionResponse> =
         // get /media-bridge/v1/{appId}/settings/oembed-domains
         withRawResponse().listOembedDomains(params, requestOptions).thenApply { it.parse() }
 
@@ -113,21 +110,21 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
     override fun registerAppName(
         params: IntegratorSettingRegisterAppNameParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingRegisterAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         // post /media-bridge/v1/{appId}/settings/register
         withRawResponse().registerAppName(params, requestOptions).thenApply { it.parse() }
 
     override fun updateAppName(
         params: IntegratorSettingUpdateAppNameParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingUpdateAppNameResponse> =
+    ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         // put /media-bridge/v1/{appId}/settings
         withRawResponse().updateAppName(params, requestOptions).thenApply { it.parse() }
 
     override fun updateEventVisibilitySettings(
         params: IntegratorSettingUpdateEventVisibilitySettingsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingUpdateEventVisibilitySettingsResponse> =
+    ): CompletableFuture<EventVisibilityChange> =
         // patch /media-bridge/v1/{appId}/settings/event-visibility
         withRawResponse().updateEventVisibilitySettings(params, requestOptions).thenApply {
             it.parse()
@@ -136,7 +133,7 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
     override fun updateOembedDomain(
         params: IntegratorSettingUpdateOembedDomainParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntegratorSettingUpdateOembedDomainResponse> =
+    ): CompletableFuture<IntegratorOEmbedDomainModel> =
         // patch /media-bridge/v1/{appId}/settings/oembed-domains/{oEmbedDomainId}
         withRawResponse().updateOembedDomain(params, requestOptions).thenApply { it.parse() }
 
@@ -153,14 +150,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createObjectDefinitionHandler:
-            Handler<IntegratorSettingCreateObjectDefinitionResponse> =
-            jsonHandler<IntegratorSettingCreateObjectDefinitionResponse>(clientOptions.jsonMapper)
+        private val createObjectDefinitionHandler: Handler<BulkIntegratorObjectCreationResponse> =
+            jsonHandler<BulkIntegratorObjectCreationResponse>(clientOptions.jsonMapper)
 
         override fun createObjectDefinition(
             params: IntegratorSettingCreateObjectDefinitionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateObjectDefinitionResponse>> {
+        ): CompletableFuture<HttpResponseFor<BulkIntegratorObjectCreationResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -194,14 +190,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val createOembedDomainHandler:
-            Handler<IntegratorSettingCreateOembedDomainResponse> =
-            jsonHandler<IntegratorSettingCreateOembedDomainResponse>(clientOptions.jsonMapper)
+        private val createOembedDomainHandler: Handler<IntegratorOEmbedDomainModel> =
+            jsonHandler<IntegratorOEmbedDomainModel>(clientOptions.jsonMapper)
 
         override fun createOembedDomain(
             params: IntegratorSettingCreateOembedDomainParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingCreateOembedDomainResponse>> {
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -268,16 +263,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val getEventVisibilitySettingsHandler:
-            Handler<IntegratorSettingGetEventVisibilitySettingsResponse> =
-            jsonHandler<IntegratorSettingGetEventVisibilitySettingsResponse>(
-                clientOptions.jsonMapper
-            )
+        private val getEventVisibilitySettingsHandler: Handler<EventVisibilityResponse> =
+            jsonHandler<EventVisibilityResponse>(clientOptions.jsonMapper)
 
         override fun getEventVisibilitySettings(
             params: IntegratorSettingGetEventVisibilitySettingsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetEventVisibilitySettingsResponse>> {
+        ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -310,18 +302,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val getObjectDefinitionsByMediaTypeHandler:
-            Handler<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse> =
-            jsonHandler<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse>(
-                clientOptions.jsonMapper
-            )
+        private val getObjectDefinitionsByMediaTypeHandler: Handler<ObjectDefinitionResponse> =
+            jsonHandler<ObjectDefinitionResponse>(clientOptions.jsonMapper)
 
         override fun getObjectDefinitionsByMediaType(
             params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingGetObjectDefinitionsByMediaTypeResponse>
-        > {
+        ): CompletableFuture<HttpResponseFor<ObjectDefinitionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("mediaType", params.mediaType().getOrNull())
@@ -355,13 +342,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val getOembedDomainHandler: Handler<IntegratorSettingGetOembedDomainResponse> =
-            jsonHandler<IntegratorSettingGetOembedDomainResponse>(clientOptions.jsonMapper)
+        private val getOembedDomainHandler: Handler<IntegratorOEmbedDomainModel> =
+            jsonHandler<IntegratorOEmbedDomainModel>(clientOptions.jsonMapper)
 
         override fun getOembedDomain(
             params: IntegratorSettingGetOembedDomainParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingGetOembedDomainResponse>> {
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("oEmbedDomainId", params.oEmbedDomainId().getOrNull())
@@ -395,13 +382,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val listOembedDomainsHandler: Handler<IntegratorSettingListOembedDomainsResponse> =
-            jsonHandler<IntegratorSettingListOembedDomainsResponse>(clientOptions.jsonMapper)
+        private val listOembedDomainsHandler: Handler<OEmbedDomainsCollectionResponse> =
+            jsonHandler<OEmbedDomainsCollectionResponse>(clientOptions.jsonMapper)
 
         override fun listOembedDomains(
             params: IntegratorSettingListOembedDomainsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingListOembedDomainsResponse>> {
+        ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -434,14 +421,14 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val registerAppNameHandler: Handler<IntegratorSettingRegisterAppNameResponse> =
-            jsonHandler<IntegratorSettingRegisterAppNameResponse>(clientOptions.jsonMapper)
+        private val registerAppNameHandler: Handler<MediaBridgeProviderRegistrationResponse> =
+            jsonHandler<MediaBridgeProviderRegistrationResponse>(clientOptions.jsonMapper)
 
         @Deprecated("deprecated")
         override fun registerAppName(
             params: IntegratorSettingRegisterAppNameParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingRegisterAppNameResponse>> {
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -475,13 +462,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val updateAppNameHandler: Handler<IntegratorSettingUpdateAppNameResponse> =
-            jsonHandler<IntegratorSettingUpdateAppNameResponse>(clientOptions.jsonMapper)
+        private val updateAppNameHandler: Handler<MediaBridgeProviderRegistrationResponse> =
+            jsonHandler<MediaBridgeProviderRegistrationResponse>(clientOptions.jsonMapper)
 
         override fun updateAppName(
             params: IntegratorSettingUpdateAppNameParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateAppNameResponse>> {
+        ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -509,18 +496,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val updateEventVisibilitySettingsHandler:
-            Handler<IntegratorSettingUpdateEventVisibilitySettingsResponse> =
-            jsonHandler<IntegratorSettingUpdateEventVisibilitySettingsResponse>(
-                clientOptions.jsonMapper
-            )
+        private val updateEventVisibilitySettingsHandler: Handler<EventVisibilityChange> =
+            jsonHandler<EventVisibilityChange>(clientOptions.jsonMapper)
 
         override fun updateEventVisibilitySettings(
             params: IntegratorSettingUpdateEventVisibilitySettingsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<IntegratorSettingUpdateEventVisibilitySettingsResponse>
-        > {
+        ): CompletableFuture<HttpResponseFor<EventVisibilityChange>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -554,14 +536,13 @@ internal constructor(private val clientOptions: ClientOptions) : IntegratorSetti
                 }
         }
 
-        private val updateOembedDomainHandler:
-            Handler<IntegratorSettingUpdateOembedDomainResponse> =
-            jsonHandler<IntegratorSettingUpdateOembedDomainResponse>(clientOptions.jsonMapper)
+        private val updateOembedDomainHandler: Handler<IntegratorOEmbedDomainModel> =
+            jsonHandler<IntegratorOEmbedDomainModel>(clientOptions.jsonMapper)
 
         override fun updateOembedDomain(
             params: IntegratorSettingUpdateOembedDomainParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntegratorSettingUpdateOembedDomainResponse>> {
+        ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("oEmbedDomainId", params.oEmbedDomainId().getOrNull())

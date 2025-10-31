@@ -10,7 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
 import java.util.Objects
 
-/** Set a blog as the primary language of a multi-language group. */
 class SettingSetNewLangPrimaryParams
 private constructor(
     private val setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext,

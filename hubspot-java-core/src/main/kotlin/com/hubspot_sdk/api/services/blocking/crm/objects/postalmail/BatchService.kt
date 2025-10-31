@@ -35,7 +35,7 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
-    /** Create a batch of postal mail */
+    /** Create a batch of postal mail objects. */
     fun create(params: BatchCreateParams): BatchResponseSimplePublicObject =
         create(params, RequestOptions.none())
 
@@ -67,7 +67,7 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
-    /** Update a batch of postal mail by internal ID, or unique property values */
+    /** Update multiple postal mail objects in a single request. */
     fun update(params: BatchUpdateParams): BatchResponseSimplePublicObject =
         update(params, RequestOptions.none())
 
@@ -95,7 +95,7 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /** Archive a batch of postal mail by ID */
+    /** Archive a batch of postal mail objects using their IDs. */
     fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
@@ -117,10 +117,7 @@ interface BatchService {
     fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
         delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
-     */
+    /** Retrieve multiple postal mail objects using their internal IDs or unique property values. */
     fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
         get(params, RequestOptions.none())
 
@@ -149,7 +146,7 @@ interface BatchService {
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Create or update records identified by a unique property value as specified by the
+     * Create or update postal mails identified by a unique property value as specified by the
      * `idProperty` query param. `idProperty` query param refers to a property whose values are
      * unique for the object.
      */

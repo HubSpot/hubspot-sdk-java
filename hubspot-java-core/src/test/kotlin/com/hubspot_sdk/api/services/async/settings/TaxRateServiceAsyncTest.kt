@@ -21,10 +21,11 @@ internal class TaxRateServiceAsyncTest {
                 .build()
         val taxRateServiceAsync = client.settings().taxRates()
 
-        val taxRatesFuture = taxRateServiceAsync.list()
+        val collectionResponsePublicTaxRateGroupForwardPagingFuture = taxRateServiceAsync.list()
 
-        val taxRates = taxRatesFuture.get()
-        taxRates.validate()
+        val collectionResponsePublicTaxRateGroupForwardPaging =
+            collectionResponsePublicTaxRateGroupForwardPagingFuture.get()
+        collectionResponsePublicTaxRateGroupForwardPaging.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -37,9 +38,9 @@ internal class TaxRateServiceAsyncTest {
                 .build()
         val taxRateServiceAsync = client.settings().taxRates()
 
-        val taxRateFuture = taxRateServiceAsync.get("taxRateGroupId")
+        val publicTaxRateGroupFuture = taxRateServiceAsync.get("taxRateGroupId")
 
-        val taxRate = taxRateFuture.get()
-        taxRate.validate()
+        val publicTaxRateGroup = publicTaxRateGroupFuture.get()
+        publicTaxRateGroup.validate()
     }
 }

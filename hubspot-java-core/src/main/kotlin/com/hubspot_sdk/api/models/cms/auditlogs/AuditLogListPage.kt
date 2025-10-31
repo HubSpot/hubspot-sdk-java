@@ -16,25 +16,25 @@ class AuditLogListPage
 private constructor(
     private val service: AuditLogService,
     private val params: AuditLogListParams,
-    private val response: AuditLogListPageResponse,
-) : Page<AuditLogListResponse> {
+    private val response: CollectionResponsePublicAuditLog,
+) : Page<PublicAuditLog> {
 
     /**
-     * Delegates to [AuditLogListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponsePublicAuditLog], but gracefully handles missing data.
      *
-     * @see AuditLogListPageResponse.results
+     * @see CollectionResponsePublicAuditLog.results
      */
-    fun results(): List<AuditLogListResponse> =
+    fun results(): List<PublicAuditLog> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [AuditLogListPageResponse], but gracefully handles missing data.
+     * Delegates to [CollectionResponsePublicAuditLog], but gracefully handles missing data.
      *
-     * @see AuditLogListPageResponse.paging
+     * @see CollectionResponsePublicAuditLog.paging
      */
     fun paging(): Optional<Paging> = response._paging().getOptional("paging")
 
-    override fun items(): List<AuditLogListResponse> = results()
+    override fun items(): List<PublicAuditLog> = results()
 
     override fun hasNextPage(): Boolean =
         items().isNotEmpty() &&
@@ -56,13 +56,13 @@ private constructor(
 
     override fun nextPage(): AuditLogListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<AuditLogListResponse> = AutoPager.from(this)
+    fun autoPager(): AutoPager<PublicAuditLog> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): AuditLogListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): AuditLogListPageResponse = response
+    fun response(): CollectionResponsePublicAuditLog = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -86,7 +86,7 @@ private constructor(
 
         private var service: AuditLogService? = null
         private var params: AuditLogListParams? = null
-        private var response: AuditLogListPageResponse? = null
+        private var response: CollectionResponsePublicAuditLog? = null
 
         @JvmSynthetic
         internal fun from(auditLogListPage: AuditLogListPage) = apply {
@@ -101,7 +101,9 @@ private constructor(
         fun params(params: AuditLogListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: AuditLogListPageResponse) = apply { this.response = response }
+        fun response(response: CollectionResponsePublicAuditLog) = apply {
+            this.response = response
+        }
 
         /**
          * Returns an immutable instance of [AuditLogListPage].

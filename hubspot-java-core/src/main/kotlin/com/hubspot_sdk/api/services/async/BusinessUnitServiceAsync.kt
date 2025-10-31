@@ -6,7 +6,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.businessunits.BusinessUnitGetByUserIdParams
-import com.hubspot_sdk.api.models.businessunits.BusinessUnitGetByUserIdResponse
+import com.hubspot_sdk.api.models.businessunits.CollectionResponsePublicBusinessUnitNoPaging
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,7 +25,9 @@ interface BusinessUnitServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BusinessUnitServiceAsync
 
     /** Get Business Units identified by `userId`. The `userId` refers to the user’s ID. */
-    fun getByUserId(userId: String): CompletableFuture<BusinessUnitGetByUserIdResponse> =
+    fun getByUserId(
+        userId: String
+    ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging> =
         getByUserId(userId, BusinessUnitGetByUserIdParams.none())
 
     /** @see getByUserId */
@@ -33,33 +35,33 @@ interface BusinessUnitServiceAsync {
         userId: String,
         params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BusinessUnitGetByUserIdResponse> =
+    ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging> =
         getByUserId(params.toBuilder().userId(userId).build(), requestOptions)
 
     /** @see getByUserId */
     fun getByUserId(
         userId: String,
         params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
-    ): CompletableFuture<BusinessUnitGetByUserIdResponse> =
+    ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging> =
         getByUserId(userId, params, RequestOptions.none())
 
     /** @see getByUserId */
     fun getByUserId(
         params: BusinessUnitGetByUserIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BusinessUnitGetByUserIdResponse>
+    ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging>
 
     /** @see getByUserId */
     fun getByUserId(
         params: BusinessUnitGetByUserIdParams
-    ): CompletableFuture<BusinessUnitGetByUserIdResponse> =
+    ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging> =
         getByUserId(params, RequestOptions.none())
 
     /** @see getByUserId */
     fun getByUserId(
         userId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BusinessUnitGetByUserIdResponse> =
+    ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging> =
         getByUserId(userId, BusinessUnitGetByUserIdParams.none(), requestOptions)
 
     /**
@@ -83,7 +85,7 @@ interface BusinessUnitServiceAsync {
          */
         fun getByUserId(
             userId: String
-        ): CompletableFuture<HttpResponseFor<BusinessUnitGetByUserIdResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>> =
             getByUserId(userId, BusinessUnitGetByUserIdParams.none())
 
         /** @see getByUserId */
@@ -91,33 +93,33 @@ interface BusinessUnitServiceAsync {
             userId: String,
             params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BusinessUnitGetByUserIdResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>> =
             getByUserId(params.toBuilder().userId(userId).build(), requestOptions)
 
         /** @see getByUserId */
         fun getByUserId(
             userId: String,
             params: BusinessUnitGetByUserIdParams = BusinessUnitGetByUserIdParams.none(),
-        ): CompletableFuture<HttpResponseFor<BusinessUnitGetByUserIdResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>> =
             getByUserId(userId, params, RequestOptions.none())
 
         /** @see getByUserId */
         fun getByUserId(
             params: BusinessUnitGetByUserIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BusinessUnitGetByUserIdResponse>>
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>>
 
         /** @see getByUserId */
         fun getByUserId(
             params: BusinessUnitGetByUserIdParams
-        ): CompletableFuture<HttpResponseFor<BusinessUnitGetByUserIdResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>> =
             getByUserId(params, RequestOptions.none())
 
         /** @see getByUserId */
         fun getByUserId(
             userId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BusinessUnitGetByUserIdResponse>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicBusinessUnitNoPaging>> =
             getByUserId(userId, BusinessUnitGetByUserIdParams.none(), requestOptions)
     }
 }

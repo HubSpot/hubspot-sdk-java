@@ -176,7 +176,7 @@ internal class SchemaServiceTest {
                 .build()
         val schemaService = client.crm().objects().schemas()
 
-        val response =
+        val associationDefinition =
             schemaService.createAssociation(
                 SchemaCreateAssociationParams.builder()
                     .objectType("objectType")
@@ -190,7 +190,7 @@ internal class SchemaServiceTest {
                     .build()
             )
 
-        response.validate()
+        associationDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")

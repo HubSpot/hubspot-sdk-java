@@ -34,17 +34,12 @@ private constructor(
     ) : this(shouldReEnroll, type, mutableMapOf())
 
     /**
-     * Whether or not the same object can enroll in this workflow twice.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun shouldReEnroll(): Boolean = shouldReEnroll.getRequired("shouldReEnroll")
 
     /**
-     * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-     * "MANUAL".
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -106,7 +101,6 @@ private constructor(
             additionalProperties = apiManualEnrollmentCriteria.additionalProperties.toMutableMap()
         }
 
-        /** Whether or not the same object can enroll in this workflow twice. */
         fun shouldReEnroll(shouldReEnroll: Boolean) = shouldReEnroll(JsonField.of(shouldReEnroll))
 
         /**
@@ -120,10 +114,6 @@ private constructor(
             this.shouldReEnroll = shouldReEnroll
         }
 
-        /**
-         * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-         * "MANUAL".
-         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -204,10 +194,6 @@ private constructor(
         (if (shouldReEnroll.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * The type of enrollment criteria this is, this can be "LIST_BASED", "EVENT_BASED", or
-     * "MANUAL".
-     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

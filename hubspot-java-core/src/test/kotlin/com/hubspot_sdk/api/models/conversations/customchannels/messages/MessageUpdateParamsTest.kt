@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.conversations.customchannels.messages
 
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationMessageUpdateRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,8 +13,12 @@ internal class MessageUpdateParamsTest {
         MessageUpdateParams.builder()
             .channelId("channelId")
             .messageId("messageId")
-            .statusType(MessageUpdateParams.StatusType.SENT)
-            .errorMessage("errorMessage")
+            .publicChannelIntegrationMessageUpdateRequest(
+                PublicChannelIntegrationMessageUpdateRequest.builder()
+                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                    .errorMessage("errorMessage")
+                    .build()
+            )
             .build()
     }
 
@@ -23,7 +28,11 @@ internal class MessageUpdateParamsTest {
             MessageUpdateParams.builder()
                 .channelId("channelId")
                 .messageId("messageId")
-                .statusType(MessageUpdateParams.StatusType.SENT)
+                .publicChannelIntegrationMessageUpdateRequest(
+                    PublicChannelIntegrationMessageUpdateRequest.builder()
+                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("channelId")
@@ -38,14 +47,23 @@ internal class MessageUpdateParamsTest {
             MessageUpdateParams.builder()
                 .channelId("channelId")
                 .messageId("messageId")
-                .statusType(MessageUpdateParams.StatusType.SENT)
-                .errorMessage("errorMessage")
+                .publicChannelIntegrationMessageUpdateRequest(
+                    PublicChannelIntegrationMessageUpdateRequest.builder()
+                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                        .errorMessage("errorMessage")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.statusType()).isEqualTo(MessageUpdateParams.StatusType.SENT)
-        assertThat(body.errorMessage()).contains("errorMessage")
+        assertThat(body)
+            .isEqualTo(
+                PublicChannelIntegrationMessageUpdateRequest.builder()
+                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                    .errorMessage("errorMessage")
+                    .build()
+            )
     }
 
     @Test
@@ -54,11 +72,20 @@ internal class MessageUpdateParamsTest {
             MessageUpdateParams.builder()
                 .channelId("channelId")
                 .messageId("messageId")
-                .statusType(MessageUpdateParams.StatusType.SENT)
+                .publicChannelIntegrationMessageUpdateRequest(
+                    PublicChannelIntegrationMessageUpdateRequest.builder()
+                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.statusType()).isEqualTo(MessageUpdateParams.StatusType.SENT)
+        assertThat(body)
+            .isEqualTo(
+                PublicChannelIntegrationMessageUpdateRequest.builder()
+                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                    .build()
+            )
     }
 }

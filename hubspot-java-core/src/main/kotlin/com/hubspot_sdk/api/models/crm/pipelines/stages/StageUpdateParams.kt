@@ -12,11 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Perform a partial update of the pipeline stage identified by `{stageId}` associated with the
- * pipeline identified by `{pipelineId}`. Any properties not included in this update will keep their
- * existing values. The updated stage will be returned in the response.
- */
 class StageUpdateParams
 private constructor(
     private val objectType: String,

@@ -27,7 +27,6 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
-    /** Read a batch of objects by internal ID, or unique property values */
     fun batchGet(params: BatchBatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
         batchGet(params, RequestOptions.none())
 
@@ -55,7 +54,6 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         batchGet(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Update a batch of objects */
     fun batchUpdate(
         params: BatchBatchUpdateParams
     ): CompletableFuture<BatchResponseSimplePublicObject> =

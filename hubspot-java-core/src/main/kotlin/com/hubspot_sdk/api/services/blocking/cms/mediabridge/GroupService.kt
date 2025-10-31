@@ -7,11 +7,11 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyGroupNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupDeleteByNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupGetByNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupListParams
-import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.groups.GroupUpdateByNameParams
 import com.hubspot_sdk.api.models.crm.properties.PropertyGroup
 import java.util.function.Consumer
@@ -51,7 +51,7 @@ interface GroupService {
     ): PropertyGroup
 
     /** Get the property groups for a specified object type. */
-    fun list(objectType: String, params: GroupListParams): GroupListResponse =
+    fun list(objectType: String, params: GroupListParams): CollectionResponsePropertyGroupNoPaging =
         list(objectType, params, RequestOptions.none())
 
     /** @see list */
@@ -59,16 +59,18 @@ interface GroupService {
         objectType: String,
         params: GroupListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): GroupListResponse = list(params.toBuilder().objectType(objectType).build(), requestOptions)
+    ): CollectionResponsePropertyGroupNoPaging =
+        list(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see list */
-    fun list(params: GroupListParams): GroupListResponse = list(params, RequestOptions.none())
+    fun list(params: GroupListParams): CollectionResponsePropertyGroupNoPaging =
+        list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: GroupListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): GroupListResponse
+    ): CollectionResponsePropertyGroupNoPaging
 
     /** Delete an existing property group by name */
     fun deleteByName(groupName: String, params: GroupDeleteByNameParams) =
@@ -178,7 +180,10 @@ interface GroupService {
          * [GroupService.list].
          */
         @MustBeClosed
-        fun list(objectType: String, params: GroupListParams): HttpResponseFor<GroupListResponse> =
+        fun list(
+            objectType: String,
+            params: GroupListParams,
+        ): HttpResponseFor<CollectionResponsePropertyGroupNoPaging> =
             list(objectType, params, RequestOptions.none())
 
         /** @see list */
@@ -187,12 +192,14 @@ interface GroupService {
             objectType: String,
             params: GroupListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<GroupListResponse> =
+        ): HttpResponseFor<CollectionResponsePropertyGroupNoPaging> =
             list(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see list */
         @MustBeClosed
-        fun list(params: GroupListParams): HttpResponseFor<GroupListResponse> =
+        fun list(
+            params: GroupListParams
+        ): HttpResponseFor<CollectionResponsePropertyGroupNoPaging> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -200,7 +207,7 @@ interface GroupService {
         fun list(
             params: GroupListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<GroupListResponse>
+        ): HttpResponseFor<CollectionResponsePropertyGroupNoPaging>
 
         /**
          * Returns a raw HTTP response for `delete

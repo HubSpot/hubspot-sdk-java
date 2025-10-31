@@ -10,16 +10,20 @@ internal class UrlRedirectCreateParamsTest {
     @Test
     fun create() {
         UrlRedirectCreateParams.builder()
-            .destination("destination")
-            .redirectStyle(0)
-            .routePrefix("routePrefix")
-            .isMatchFullUrl(true)
-            .isMatchQueryString(true)
-            .isOnlyAfterNotFound(true)
-            .isPattern(true)
-            .isProtocolAgnostic(true)
-            .isTrailingSlashOptional(true)
-            .precedence(0)
+            .urlMappingCreateRequestBody(
+                UrlMappingCreateRequestBody.builder()
+                    .destination("destination")
+                    .redirectStyle(0)
+                    .routePrefix("routePrefix")
+                    .isMatchFullUrl(true)
+                    .isMatchQueryString(true)
+                    .isOnlyAfterNotFound(true)
+                    .isPattern(true)
+                    .isProtocolAgnostic(true)
+                    .isTrailingSlashOptional(true)
+                    .precedence(0)
+                    .build()
+            )
             .build()
     }
 
@@ -27,45 +31,63 @@ internal class UrlRedirectCreateParamsTest {
     fun body() {
         val params =
             UrlRedirectCreateParams.builder()
-                .destination("destination")
-                .redirectStyle(0)
-                .routePrefix("routePrefix")
-                .isMatchFullUrl(true)
-                .isMatchQueryString(true)
-                .isOnlyAfterNotFound(true)
-                .isPattern(true)
-                .isProtocolAgnostic(true)
-                .isTrailingSlashOptional(true)
-                .precedence(0)
+                .urlMappingCreateRequestBody(
+                    UrlMappingCreateRequestBody.builder()
+                        .destination("destination")
+                        .redirectStyle(0)
+                        .routePrefix("routePrefix")
+                        .isMatchFullUrl(true)
+                        .isMatchQueryString(true)
+                        .isOnlyAfterNotFound(true)
+                        .isPattern(true)
+                        .isProtocolAgnostic(true)
+                        .isTrailingSlashOptional(true)
+                        .precedence(0)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.destination()).isEqualTo("destination")
-        assertThat(body.redirectStyle()).isEqualTo(0)
-        assertThat(body.routePrefix()).isEqualTo("routePrefix")
-        assertThat(body.isMatchFullUrl()).contains(true)
-        assertThat(body.isMatchQueryString()).contains(true)
-        assertThat(body.isOnlyAfterNotFound()).contains(true)
-        assertThat(body.isPattern()).contains(true)
-        assertThat(body.isProtocolAgnostic()).contains(true)
-        assertThat(body.isTrailingSlashOptional()).contains(true)
-        assertThat(body.precedence()).contains(0)
+        assertThat(body)
+            .isEqualTo(
+                UrlMappingCreateRequestBody.builder()
+                    .destination("destination")
+                    .redirectStyle(0)
+                    .routePrefix("routePrefix")
+                    .isMatchFullUrl(true)
+                    .isMatchQueryString(true)
+                    .isOnlyAfterNotFound(true)
+                    .isPattern(true)
+                    .isProtocolAgnostic(true)
+                    .isTrailingSlashOptional(true)
+                    .precedence(0)
+                    .build()
+            )
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
             UrlRedirectCreateParams.builder()
-                .destination("destination")
-                .redirectStyle(0)
-                .routePrefix("routePrefix")
+                .urlMappingCreateRequestBody(
+                    UrlMappingCreateRequestBody.builder()
+                        .destination("destination")
+                        .redirectStyle(0)
+                        .routePrefix("routePrefix")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.destination()).isEqualTo("destination")
-        assertThat(body.redirectStyle()).isEqualTo(0)
-        assertThat(body.routePrefix()).isEqualTo("routePrefix")
+        assertThat(body)
+            .isEqualTo(
+                UrlMappingCreateRequestBody.builder()
+                    .destination("destination")
+                    .redirectStyle(0)
+                    .routePrefix("routePrefix")
+                    .build()
+            )
     }
 }

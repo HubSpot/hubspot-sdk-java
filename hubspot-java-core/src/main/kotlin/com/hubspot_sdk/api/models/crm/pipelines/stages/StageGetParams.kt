@@ -10,10 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Return the stage identified by `{stageId}` associated with the pipeline identified by
- * `{pipelineId}`.
- */
+/** Return a pipeline stage by ID */
 class StageGetParams
 private constructor(
     private val objectType: String,

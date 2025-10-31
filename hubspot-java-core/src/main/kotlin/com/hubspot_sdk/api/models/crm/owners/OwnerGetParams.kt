@@ -25,10 +25,8 @@ private constructor(
 
     fun ownerId(): Optional<Int> = Optional.ofNullable(ownerId)
 
-    /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    /** Specifies whether to use 'id' or 'userId' as the identifier for the owner. */
     fun idProperty(): Optional<IdProperty> = Optional.ofNullable(idProperty)
 
     /** Additional headers to send with the request. */
@@ -77,7 +75,6 @@ private constructor(
         /** Alias for calling [Builder.ownerId] with `ownerId.orElse(null)`. */
         fun ownerId(ownerId: Optional<Int>) = ownerId(ownerId.getOrNull())
 
-        /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**
@@ -90,7 +87,6 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        /** Specifies whether to use 'id' or 'userId' as the identifier for the owner. */
         fun idProperty(idProperty: IdProperty?) = apply { this.idProperty = idProperty }
 
         /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
@@ -226,7 +222,6 @@ private constructor(
             }
             .build()
 
-    /** Specifies whether to use 'id' or 'userId' as the identifier for the owner. */
     class IdProperty @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
