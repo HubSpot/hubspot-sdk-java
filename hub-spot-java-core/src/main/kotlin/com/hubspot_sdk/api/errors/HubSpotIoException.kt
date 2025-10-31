@@ -1,5 +1,0 @@
-package com.hubspot_sdk.api.errors
-
-class HubSpotIoException
-@JvmOverloads
-constructor(message: String? = null, cause: Throwable? = null) : HubSpotException(message, cause)
