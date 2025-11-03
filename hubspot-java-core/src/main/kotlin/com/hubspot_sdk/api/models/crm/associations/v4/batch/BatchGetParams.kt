@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicFetchAssociationsBatchRequest
+import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicFetchAssociationsBatchRequest
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull

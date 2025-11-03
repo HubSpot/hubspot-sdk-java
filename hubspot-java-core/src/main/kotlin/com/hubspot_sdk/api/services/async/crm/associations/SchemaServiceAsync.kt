@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.associations.schema.CollectionResponsePublicAssociationDefinitionNoPaging
 import com.hubspot_sdk.api.models.crm.associations.schema.SchemaListParams
-import com.hubspot_sdk.api.services.async.crm.associations.schema.V4ServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -24,8 +23,6 @@ interface SchemaServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SchemaServiceAsync
-
-    fun v4(): V4ServiceAsync
 
     fun list(
         toObjectType: String,
@@ -66,8 +63,6 @@ interface SchemaServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): SchemaServiceAsync.WithRawResponse
-
-        fun v4(): V4ServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `get

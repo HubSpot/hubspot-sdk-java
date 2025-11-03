@@ -13,26 +13,32 @@ internal class PublicExportListRequestTest {
     fun create() {
         val publicExportListRequest =
             PublicExportListRequest.builder()
+                .addAssociatedObjectType("string")
                 .addExportInternalValuesOption(
                     PublicExportListRequest.ExportInternalValuesOption.NAMES
                 )
                 .exportName("exportName")
                 .exportType(PublicExportListRequest.ExportType.LIST)
                 .format(PublicExportListRequest.Format.XLS)
+                .includeLabeledAssociations(true)
+                .includePrimaryDisplayPropertyForAssociatedObjects(true)
                 .language(PublicExportListRequest.Language.EN)
                 .listId("listId")
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                .associatedObjectType("associatedObjectType")
                 .build()
 
+        assertThat(publicExportListRequest.associatedObjectType()).containsExactly("string")
         assertThat(publicExportListRequest.exportInternalValuesOptions())
             .containsExactly(PublicExportListRequest.ExportInternalValuesOption.NAMES)
         assertThat(publicExportListRequest.exportName()).isEqualTo("exportName")
         assertThat(publicExportListRequest.exportType())
             .isEqualTo(PublicExportListRequest.ExportType.LIST)
         assertThat(publicExportListRequest.format()).isEqualTo(PublicExportListRequest.Format.XLS)
+        assertThat(publicExportListRequest.includeLabeledAssociations()).isEqualTo(true)
+        assertThat(publicExportListRequest.includePrimaryDisplayPropertyForAssociatedObjects())
+            .isEqualTo(true)
         assertThat(publicExportListRequest.language())
             .isEqualTo(PublicExportListRequest.Language.EN)
         assertThat(publicExportListRequest.listId()).isEqualTo("listId")
@@ -40,7 +46,6 @@ internal class PublicExportListRequestTest {
         assertThat(publicExportListRequest.objectType()).isEqualTo("objectType")
         assertThat(publicExportListRequest.overrideAssociatedObjectsPerDefinitionPerRowLimit())
             .isEqualTo(true)
-        assertThat(publicExportListRequest.associatedObjectType()).contains("associatedObjectType")
     }
 
     @Test
@@ -48,18 +53,20 @@ internal class PublicExportListRequestTest {
         val jsonMapper = jsonMapper()
         val publicExportListRequest =
             PublicExportListRequest.builder()
+                .addAssociatedObjectType("string")
                 .addExportInternalValuesOption(
                     PublicExportListRequest.ExportInternalValuesOption.NAMES
                 )
                 .exportName("exportName")
                 .exportType(PublicExportListRequest.ExportType.LIST)
                 .format(PublicExportListRequest.Format.XLS)
+                .includeLabeledAssociations(true)
+                .includePrimaryDisplayPropertyForAssociatedObjects(true)
                 .language(PublicExportListRequest.Language.EN)
                 .listId("listId")
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                .associatedObjectType("associatedObjectType")
                 .build()
 
         val roundtrippedPublicExportListRequest =

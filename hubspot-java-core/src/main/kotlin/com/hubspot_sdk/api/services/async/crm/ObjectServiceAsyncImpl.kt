@@ -5,8 +5,6 @@ package com.hubspot_sdk.api.services.async.crm
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.crm.objects.AppointmentServiceAsync
-import com.hubspot_sdk.api.services.async.crm.objects.AppointmentServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.CartServiceAsync
@@ -82,10 +80,6 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     private val withRawResponse: ObjectServiceAsync.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
-    }
-
-    private val appointments: AppointmentServiceAsync by lazy {
-        AppointmentServiceAsyncImpl(clientOptions)
     }
 
     private val calls: CallServiceAsync by lazy { CallServiceAsyncImpl(clientOptions) }
@@ -177,8 +171,6 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ObjectServiceAsync =
         ObjectServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun appointments(): AppointmentServiceAsync = appointments
-
     override fun calls(): CallServiceAsync = calls
 
     override fun carts(): CartServiceAsync = carts
@@ -249,10 +241,6 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ObjectServiceAsync.WithRawResponse {
-
-        private val appointments: AppointmentServiceAsync.WithRawResponse by lazy {
-            AppointmentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
 
         private val calls: CallServiceAsync.WithRawResponse by lazy {
             CallServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -396,8 +384,6 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
             ObjectServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        override fun appointments(): AppointmentServiceAsync.WithRawResponse = appointments
 
         override fun calls(): CallServiceAsync.WithRawResponse = calls
 

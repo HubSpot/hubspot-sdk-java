@@ -32,7 +32,7 @@ internal class MessageServiceTest {
                 .build()
         val messageService = client.conversations().customChannels().messages()
 
-        val publicConversationsMessage =
+        val conversationsPublicConversationsMessage =
             messageService.create(
                 MessageCreateParams.builder()
                     .channelId("channelId")
@@ -92,7 +92,7 @@ internal class MessageServiceTest {
                     .build()
             )
 
-        publicConversationsMessage.validate()
+        conversationsPublicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -105,7 +105,7 @@ internal class MessageServiceTest {
                 .build()
         val messageService = client.conversations().customChannels().messages()
 
-        val publicConversationsMessage =
+        val conversationsPublicConversationsMessage =
             messageService.update(
                 MessageUpdateParams.builder()
                     .channelId("channelId")
@@ -121,7 +121,7 @@ internal class MessageServiceTest {
                     .build()
             )
 
-        publicConversationsMessage.validate()
+        conversationsPublicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -134,11 +134,11 @@ internal class MessageServiceTest {
                 .build()
         val messageService = client.conversations().customChannels().messages()
 
-        val publicConversationsMessage =
+        val conversationsPublicConversationsMessage =
             messageService.get(
                 MessageGetParams.builder().channelId("channelId").messageId("messageId").build()
             )
 
-        publicConversationsMessage.validate()
+        conversationsPublicConversationsMessage.validate()
     }
 }

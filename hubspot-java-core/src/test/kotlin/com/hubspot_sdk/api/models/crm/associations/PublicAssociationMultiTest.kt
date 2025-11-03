@@ -8,7 +8,7 @@ import com.hubspot_sdk.api.models.NextPage
 import com.hubspot_sdk.api.models.PreviousPage
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.AssociatedId
-import com.hubspot_sdk.api.models.marketing.emails.Paging
+import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -22,7 +22,7 @@ internal class PublicAssociationMultiTest {
                 .addTo(AssociatedId.builder().id("12726").type("contact_to_company").build())
                 .addTo(AssociatedId.builder().id("61352").type("contact_to_company").build())
                 .paging(
-                    Paging.builder()
+                    EmailsPaging.builder()
                         .next(NextPage.builder().after("").link("").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()
@@ -38,7 +38,7 @@ internal class PublicAssociationMultiTest {
             )
         assertThat(publicAssociationMulti.paging())
             .contains(
-                Paging.builder()
+                EmailsPaging.builder()
                     .next(NextPage.builder().after("").link("").build())
                     .prev(PreviousPage.builder().before("before").link("link").build())
                     .build()
@@ -54,7 +54,7 @@ internal class PublicAssociationMultiTest {
                 .addTo(AssociatedId.builder().id("12726").type("contact_to_company").build())
                 .addTo(AssociatedId.builder().id("61352").type("contact_to_company").build())
                 .paging(
-                    Paging.builder()
+                    EmailsPaging.builder()
                         .next(NextPage.builder().after("").link("").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()

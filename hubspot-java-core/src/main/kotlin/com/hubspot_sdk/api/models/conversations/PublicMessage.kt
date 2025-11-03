@@ -22,7 +22,7 @@ import java.util.Optional
 @JsonSerialize(using = PublicMessage.Serializer::class)
 class PublicMessage
 private constructor(
-    private val conversations: PublicConversationsMessage? = null,
+    private val conversationsPublicConversations: ConversationsPublicConversationsMessage? = null,
     private val comment: PublicComment? = null,
     private val welcome: PublicWelcomeMessage? = null,
     private val assignment: PublicAssignmentMessage? = null,
@@ -31,7 +31,8 @@ private constructor(
     private val _json: JsonValue? = null,
 ) {
 
-    fun conversations(): Optional<PublicConversationsMessage> = Optional.ofNullable(conversations)
+    fun conversationsPublicConversations(): Optional<ConversationsPublicConversationsMessage> =
+        Optional.ofNullable(conversationsPublicConversations)
 
     fun comment(): Optional<PublicComment> = Optional.ofNullable(comment)
 
@@ -45,7 +46,7 @@ private constructor(
     fun threadInboxChange(): Optional<PublicThreadInboxChange> =
         Optional.ofNullable(threadInboxChange)
 
-    fun isConversations(): Boolean = conversations != null
+    fun isConversationsPublicConversations(): Boolean = conversationsPublicConversations != null
 
     fun isComment(): Boolean = comment != null
 
@@ -57,7 +58,8 @@ private constructor(
 
     fun isThreadInboxChange(): Boolean = threadInboxChange != null
 
-    fun asConversations(): PublicConversationsMessage = conversations.getOrThrow("conversations")
+    fun asConversationsPublicConversations(): ConversationsPublicConversationsMessage =
+        conversationsPublicConversations.getOrThrow("conversationsPublicConversations")
 
     fun asComment(): PublicComment = comment.getOrThrow("comment")
 
@@ -75,7 +77,8 @@ private constructor(
 
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            conversations != null -> visitor.visitConversations(conversations)
+            conversationsPublicConversations != null ->
+                visitor.visitConversationsPublicConversations(conversationsPublicConversations)
             comment != null -> visitor.visitComment(comment)
             welcome != null -> visitor.visitWelcome(welcome)
             assignment != null -> visitor.visitAssignment(assignment)
@@ -93,8 +96,10 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitConversations(conversations: PublicConversationsMessage) {
-                    conversations.validate()
+                override fun visitConversationsPublicConversations(
+                    conversationsPublicConversations: ConversationsPublicConversationsMessage
+                ) {
+                    conversationsPublicConversations.validate()
                 }
 
                 override fun visitComment(comment: PublicComment) {
@@ -138,8 +143,9 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitConversations(conversations: PublicConversationsMessage) =
-                    conversations.validity()
+                override fun visitConversationsPublicConversations(
+                    conversationsPublicConversations: ConversationsPublicConversationsMessage
+                ) = conversationsPublicConversations.validity()
 
                 override fun visitComment(comment: PublicComment) = comment.validity()
 
@@ -164,7 +170,7 @@ private constructor(
         }
 
         return other is PublicMessage &&
-            conversations == other.conversations &&
+            conversationsPublicConversations == other.conversationsPublicConversations &&
             comment == other.comment &&
             welcome == other.welcome &&
             assignment == other.assignment &&
@@ -174,7 +180,7 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
-            conversations,
+            conversationsPublicConversations,
             comment,
             welcome,
             assignment,
@@ -184,7 +190,8 @@ private constructor(
 
     override fun toString(): String =
         when {
-            conversations != null -> "PublicMessage{conversations=$conversations}"
+            conversationsPublicConversations != null ->
+                "PublicMessage{conversationsPublicConversations=$conversationsPublicConversations}"
             comment != null -> "PublicMessage{comment=$comment}"
             welcome != null -> "PublicMessage{welcome=$welcome}"
             assignment != null -> "PublicMessage{assignment=$assignment}"
@@ -197,8 +204,9 @@ private constructor(
     companion object {
 
         @JvmStatic
-        fun ofConversations(conversations: PublicConversationsMessage) =
-            PublicMessage(conversations = conversations)
+        fun ofConversationsPublicConversations(
+            conversationsPublicConversations: ConversationsPublicConversationsMessage
+        ) = PublicMessage(conversationsPublicConversations = conversationsPublicConversations)
 
         @JvmStatic fun ofComment(comment: PublicComment) = PublicMessage(comment = comment)
 
@@ -222,7 +230,9 @@ private constructor(
      */
     interface Visitor<out T> {
 
-        fun visitConversations(conversations: PublicConversationsMessage): T
+        fun visitConversationsPublicConversations(
+            conversationsPublicConversations: ConversationsPublicConversationsMessage
+        ): T
 
         fun visitComment(comment: PublicComment): T
 
@@ -255,9 +265,13 @@ private constructor(
 
             val bestMatches =
                 sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<PublicConversationsMessage>())?.let {
-                            PublicMessage(conversations = it, _json = json)
-                        },
+                        tryDeserialize(
+                                node,
+                                jacksonTypeRef<ConversationsPublicConversationsMessage>(),
+                            )
+                            ?.let {
+                                PublicMessage(conversationsPublicConversations = it, _json = json)
+                            },
                         tryDeserialize(node, jacksonTypeRef<PublicComment>())?.let {
                             PublicMessage(comment = it, _json = json)
                         },
@@ -297,7 +311,8 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.conversations != null -> generator.writeObject(value.conversations)
+                value.conversationsPublicConversations != null ->
+                    generator.writeObject(value.conversationsPublicConversations)
                 value.comment != null -> generator.writeObject(value.comment)
                 value.welcome != null -> generator.writeObject(value.welcome)
                 value.assignment != null -> generator.writeObject(value.assignment)

@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.models.PreviousPage
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.StandardError
 import com.hubspot_sdk.api.models.crm.AssociatedId
-import com.hubspot_sdk.api.models.marketing.emails.Paging
+import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -34,7 +34,7 @@ internal class BatchResponsePublicAssociationMultiTest {
                             AssociatedId.builder().id("61352").type("contact_to_company").build()
                         )
                         .paging(
-                            Paging.builder()
+                            EmailsPaging.builder()
                                 .next(NextPage.builder().after("").link("").build())
                                 .prev(PreviousPage.builder().before("before").link("link").build())
                                 .build()
@@ -96,7 +96,7 @@ internal class BatchResponsePublicAssociationMultiTest {
                     .addTo(AssociatedId.builder().id("12726").type("contact_to_company").build())
                     .addTo(AssociatedId.builder().id("61352").type("contact_to_company").build())
                     .paging(
-                        Paging.builder()
+                        EmailsPaging.builder()
                             .next(NextPage.builder().after("").link("").build())
                             .prev(PreviousPage.builder().before("before").link("link").build())
                             .build()
@@ -170,7 +170,7 @@ internal class BatchResponsePublicAssociationMultiTest {
                             AssociatedId.builder().id("61352").type("contact_to_company").build()
                         )
                         .paging(
-                            Paging.builder()
+                            EmailsPaging.builder()
                                 .next(NextPage.builder().after("").link("").build())
                                 .prev(PreviousPage.builder().before("before").link("link").build())
                                 .build()

@@ -28,7 +28,7 @@ internal class SchemaServiceTest {
                 .build()
         val schemaService = client.cms().mediaBridge().schemas()
 
-        val objectTypeDefinition =
+        val objectsSchemasObjectTypeDefinition =
             schemaService.update(
                 SchemaUpdateParams.builder()
                     .appId("appId")
@@ -53,7 +53,7 @@ internal class SchemaServiceTest {
                     .build()
             )
 
-        objectTypeDefinition.validate()
+        objectsSchemasObjectTypeDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")

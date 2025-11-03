@@ -4,7 +4,6 @@ package com.hubspot_sdk.api.services.blocking.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.crm.ObjectService
-import com.hubspot_sdk.api.services.blocking.crm.objects.AppointmentService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CallService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CartService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CommercePaymentService
@@ -54,8 +53,6 @@ interface ObjectService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ObjectService
-
-    fun appointments(): AppointmentService
 
     fun calls(): CallService
 
@@ -134,8 +131,6 @@ interface ObjectService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ObjectService.WithRawResponse
-
-        fun appointments(): AppointmentService.WithRawResponse
 
         fun calls(): CallService.WithRawResponse
 

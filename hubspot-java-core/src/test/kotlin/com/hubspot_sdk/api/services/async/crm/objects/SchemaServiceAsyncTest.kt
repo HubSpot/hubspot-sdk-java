@@ -109,7 +109,7 @@ internal class SchemaServiceAsyncTest {
                 .build()
         val schemaServiceAsync = client.crm().objects().schemas()
 
-        val objectTypeDefinitionFuture =
+        val objectsSchemasObjectTypeDefinitionFuture =
             schemaServiceAsync.update(
                 SchemaUpdateParams.builder()
                     .objectType("objectType")
@@ -133,8 +133,8 @@ internal class SchemaServiceAsyncTest {
                     .build()
             )
 
-        val objectTypeDefinition = objectTypeDefinitionFuture.get()
-        objectTypeDefinition.validate()
+        val objectsSchemasObjectTypeDefinition = objectsSchemasObjectTypeDefinitionFuture.get()
+        objectsSchemasObjectTypeDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")

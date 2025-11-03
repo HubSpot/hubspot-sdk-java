@@ -24,7 +24,7 @@ internal class SimplePublicObjectBatchInputForCreateTest {
                 )
                 .addAssociation(
                     PublicAssociationsForObject.builder()
-                        .to(PublicObjectId.builder().id("id").build())
+                        .to(PublicObjectId.builder().id("37295").build())
                         .addType(
                             AssociationSpec.builder()
                                 .associationCategory(
@@ -47,7 +47,7 @@ internal class SimplePublicObjectBatchInputForCreateTest {
         assertThat(simplePublicObjectBatchInputForCreate.associations().getOrNull())
             .containsExactly(
                 PublicAssociationsForObject.builder()
-                    .to(PublicObjectId.builder().id("id").build())
+                    .to(PublicObjectId.builder().id("37295").build())
                     .addType(
                         AssociationSpec.builder()
                             .associationCategory(
@@ -74,7 +74,7 @@ internal class SimplePublicObjectBatchInputForCreateTest {
                 )
                 .addAssociation(
                     PublicAssociationsForObject.builder()
-                        .to(PublicObjectId.builder().id("id").build())
+                        .to(PublicObjectId.builder().id("37295").build())
                         .addType(
                             AssociationSpec.builder()
                                 .associationCategory(

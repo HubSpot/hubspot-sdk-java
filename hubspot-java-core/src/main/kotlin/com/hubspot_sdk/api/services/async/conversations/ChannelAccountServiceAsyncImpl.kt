@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountGetParams
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountListParams
 import java.util.concurrent.CompletableFuture
@@ -47,7 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
     override fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PublicChannelAccount> =
+    ): CompletableFuture<ConversationsPublicChannelAccount> =
         // get /conversations/v3/conversations/channel-accounts/{channelAccountId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -99,13 +99,13 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
                 }
         }
 
-        private val getHandler: Handler<PublicChannelAccount> =
-            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
+        private val getHandler: Handler<ConversationsPublicChannelAccount> =
+            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> {
+        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelAccountId", params.channelAccountId().getOrNull())

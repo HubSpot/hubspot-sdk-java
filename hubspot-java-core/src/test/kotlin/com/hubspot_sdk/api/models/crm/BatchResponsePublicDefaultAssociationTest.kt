@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.models.crm
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.ErrorDetail
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.StandardError
+import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
+import com.hubspot_sdk.api.models.crm.associations.v4.StandardError1
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -24,24 +24,24 @@ internal class BatchResponsePublicDefaultAssociationTest {
                 .addResult(
                     PublicDefaultAssociation.builder()
                         .associationSpec(
-                            AssociationSpec.builder()
+                            AssociationSpec1.builder()
                                 .associationCategory(
-                                    AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                    AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
                                 )
                                 .associationTypeId(0)
                                 .build()
                         )
-                        .from(PublicObjectId.builder().id("id").build())
-                        .to(PublicObjectId.builder().id("id").build())
+                        .from(PublicObjectId.builder().id("37295").build())
+                        .to(PublicObjectId.builder().id("37295").build())
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponsePublicDefaultAssociation.Status.PENDING)
                 .addError(
-                    StandardError.builder()
-                        .category("")
+                    StandardError1.builder()
+                        .category("category")
                         .context(
-                            StandardError.Context.builder()
+                            StandardError1.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -62,14 +62,14 @@ internal class BatchResponsePublicDefaultAssociationTest {
                                 .build()
                         )
                         .links(
-                            StandardError.Links.builder()
+                            StandardError1.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(
@@ -87,15 +87,15 @@ internal class BatchResponsePublicDefaultAssociationTest {
             .containsExactly(
                 PublicDefaultAssociation.builder()
                     .associationSpec(
-                        AssociationSpec.builder()
+                        AssociationSpec1.builder()
                             .associationCategory(
-                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
                             )
                             .associationTypeId(0)
                             .build()
                     )
-                    .from(PublicObjectId.builder().id("id").build())
-                    .to(PublicObjectId.builder().id("id").build())
+                    .from(PublicObjectId.builder().id("37295").build())
+                    .to(PublicObjectId.builder().id("37295").build())
                     .build()
             )
         assertThat(batchResponsePublicDefaultAssociation.startedAt())
@@ -104,10 +104,10 @@ internal class BatchResponsePublicDefaultAssociationTest {
             .isEqualTo(BatchResponsePublicDefaultAssociation.Status.PENDING)
         assertThat(batchResponsePublicDefaultAssociation.errors().getOrNull())
             .containsExactly(
-                StandardError.builder()
-                    .category("")
+                StandardError1.builder()
+                    .category("category")
                     .context(
-                        StandardError.Context.builder()
+                        StandardError1.Context.builder()
                             .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                             .build()
                     )
@@ -128,14 +128,14 @@ internal class BatchResponsePublicDefaultAssociationTest {
                             .build()
                     )
                     .links(
-                        StandardError.Links.builder()
+                        StandardError1.Links.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .message("")
-                    .status("")
-                    .id("")
-                    .subCategory(JsonValue.from(""))
+                    .message("message")
+                    .status("status")
+                    .id("id")
+                    .subCategory(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
         assertThat(batchResponsePublicDefaultAssociation.links())
@@ -158,24 +158,24 @@ internal class BatchResponsePublicDefaultAssociationTest {
                 .addResult(
                     PublicDefaultAssociation.builder()
                         .associationSpec(
-                            AssociationSpec.builder()
+                            AssociationSpec1.builder()
                                 .associationCategory(
-                                    AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                    AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
                                 )
                                 .associationTypeId(0)
                                 .build()
                         )
-                        .from(PublicObjectId.builder().id("id").build())
-                        .to(PublicObjectId.builder().id("id").build())
+                        .from(PublicObjectId.builder().id("37295").build())
+                        .to(PublicObjectId.builder().id("37295").build())
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponsePublicDefaultAssociation.Status.PENDING)
                 .addError(
-                    StandardError.builder()
-                        .category("")
+                    StandardError1.builder()
+                        .category("category")
                         .context(
-                            StandardError.Context.builder()
+                            StandardError1.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -196,14 +196,14 @@ internal class BatchResponsePublicDefaultAssociationTest {
                                 .build()
                         )
                         .links(
-                            StandardError.Links.builder()
+                            StandardError1.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(

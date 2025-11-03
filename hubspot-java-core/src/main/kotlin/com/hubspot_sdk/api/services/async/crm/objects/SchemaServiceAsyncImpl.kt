@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
@@ -54,7 +54,7 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun update(
         params: SchemaUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
         // patch /crm-object-schemas/v3/schemas/{objectType}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -137,13 +137,13 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val updateHandler: Handler<ObjectTypeDefinition> =
-            jsonHandler<ObjectTypeDefinition>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ObjectsSchemasObjectTypeDefinition> =
+            jsonHandler<ObjectsSchemasObjectTypeDefinition>(clientOptions.jsonMapper)
 
         override fun update(
             params: SchemaUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> {
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

@@ -15,27 +15,39 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class PublicCrmSearchRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val filterGroups: JsonField<List<FilterGroup>>,
     private val filters: JsonField<List<Filter>>,
-    private val query: JsonField<String>,
     private val sorts: JsonField<List<String>>,
+    private val query: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
+        @JsonProperty("filterGroups")
+        @ExcludeMissing
+        filterGroups: JsonField<List<FilterGroup>> = JsonMissing.of(),
         @JsonProperty("filters")
         @ExcludeMissing
         filters: JsonField<List<Filter>> = JsonMissing.of(),
-        @JsonProperty("query") @ExcludeMissing query: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sorts") @ExcludeMissing sorts: JsonField<List<String>> = JsonMissing.of(),
-    ) : this(filters, query, sorts, mutableMapOf())
+        @JsonProperty("query") @ExcludeMissing query: JsonField<String> = JsonMissing.of(),
+    ) : this(filterGroups, filters, sorts, query, mutableMapOf())
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun filterGroups(): List<FilterGroup> = filterGroups.getRequired("filterGroups")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -47,13 +59,22 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun query(): String = query.getRequired("query")
+    fun sorts(): List<String> = sorts.getRequired("sorts")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun sorts(): List<String> = sorts.getRequired("sorts")
+    fun query(): Optional<String> = query.getOptional("query")
+
+    /**
+     * Returns the raw JSON value of [filterGroups].
+     *
+     * Unlike [filterGroups], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("filterGroups")
+    @ExcludeMissing
+    fun _filterGroups(): JsonField<List<FilterGroup>> = filterGroups
 
     /**
      * Returns the raw JSON value of [filters].
@@ -63,18 +84,18 @@ private constructor(
     @JsonProperty("filters") @ExcludeMissing fun _filters(): JsonField<List<Filter>> = filters
 
     /**
-     * Returns the raw JSON value of [query].
-     *
-     * Unlike [query], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("query") @ExcludeMissing fun _query(): JsonField<String> = query
-
-    /**
      * Returns the raw JSON value of [sorts].
      *
      * Unlike [sorts], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("sorts") @ExcludeMissing fun _sorts(): JsonField<List<String>> = sorts
+
+    /**
+     * Returns the raw JSON value of [query].
+     *
+     * Unlike [query], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("query") @ExcludeMissing fun _query(): JsonField<String> = query
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -95,8 +116,8 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .filterGroups()
          * .filters()
-         * .query()
          * .sorts()
          * ```
          */
@@ -106,17 +127,44 @@ private constructor(
     /** A builder for [PublicCrmSearchRequest]. */
     class Builder internal constructor() {
 
+        private var filterGroups: JsonField<MutableList<FilterGroup>>? = null
         private var filters: JsonField<MutableList<Filter>>? = null
-        private var query: JsonField<String>? = null
         private var sorts: JsonField<MutableList<String>>? = null
+        private var query: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(publicCrmSearchRequest: PublicCrmSearchRequest) = apply {
+            filterGroups = publicCrmSearchRequest.filterGroups.map { it.toMutableList() }
             filters = publicCrmSearchRequest.filters.map { it.toMutableList() }
-            query = publicCrmSearchRequest.query
             sorts = publicCrmSearchRequest.sorts.map { it.toMutableList() }
+            query = publicCrmSearchRequest.query
             additionalProperties = publicCrmSearchRequest.additionalProperties.toMutableMap()
+        }
+
+        fun filterGroups(filterGroups: List<FilterGroup>) = filterGroups(JsonField.of(filterGroups))
+
+        /**
+         * Sets [Builder.filterGroups] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.filterGroups] with a well-typed `List<FilterGroup>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun filterGroups(filterGroups: JsonField<List<FilterGroup>>) = apply {
+            this.filterGroups = filterGroups.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [FilterGroup] to [filterGroups].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addFilterGroup(filterGroup: FilterGroup) = apply {
+            filterGroups =
+                (filterGroups ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("filterGroups", it).add(filterGroup)
+                }
         }
 
         fun filters(filters: List<Filter>) = filters(JsonField.of(filters))
@@ -144,16 +192,6 @@ private constructor(
                 }
         }
 
-        fun query(query: String) = query(JsonField.of(query))
-
-        /**
-         * Sets [Builder.query] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.query] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun query(query: JsonField<String>) = apply { this.query = query }
-
         fun sorts(sorts: List<String>) = sorts(JsonField.of(sorts))
 
         /**
@@ -176,6 +214,16 @@ private constructor(
             sorts =
                 (sorts ?: JsonField.of(mutableListOf())).also { checkKnown("sorts", it).add(sort) }
         }
+
+        fun query(query: String) = query(JsonField.of(query))
+
+        /**
+         * Sets [Builder.query] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.query] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun query(query: JsonField<String>) = apply { this.query = query }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -203,8 +251,8 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .filterGroups()
          * .filters()
-         * .query()
          * .sorts()
          * ```
          *
@@ -212,9 +260,10 @@ private constructor(
          */
         fun build(): PublicCrmSearchRequest =
             PublicCrmSearchRequest(
+                checkRequired("filterGroups", filterGroups).map { it.toImmutable() },
                 checkRequired("filters", filters).map { it.toImmutable() },
-                checkRequired("query", query),
                 checkRequired("sorts", sorts).map { it.toImmutable() },
+                query,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -226,9 +275,10 @@ private constructor(
             return@apply
         }
 
+        filterGroups().forEach { it.validate() }
         filters().forEach { it.validate() }
-        query()
         sorts()
+        query()
         validated = true
     }
 
@@ -247,9 +297,10 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (filters.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-            (if (query.asKnown().isPresent) 1 else 0) +
-            (sorts.asKnown().getOrNull()?.size ?: 0)
+        (filterGroups.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (filters.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (sorts.asKnown().getOrNull()?.size ?: 0) +
+            (if (query.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -257,16 +308,19 @@ private constructor(
         }
 
         return other is PublicCrmSearchRequest &&
+            filterGroups == other.filterGroups &&
             filters == other.filters &&
-            query == other.query &&
             sorts == other.sorts &&
+            query == other.query &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy { Objects.hash(filters, query, sorts, additionalProperties) }
+    private val hashCode: Int by lazy {
+        Objects.hash(filterGroups, filters, sorts, query, additionalProperties)
+    }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicCrmSearchRequest{filters=$filters, query=$query, sorts=$sorts, additionalProperties=$additionalProperties}"
+        "PublicCrmSearchRequest{filterGroups=$filterGroups, filters=$filters, sorts=$sorts, query=$query, additionalProperties=$additionalProperties}"
 }

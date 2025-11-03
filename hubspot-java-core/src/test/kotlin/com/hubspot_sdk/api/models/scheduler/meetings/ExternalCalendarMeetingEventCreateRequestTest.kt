@@ -18,7 +18,7 @@ internal class ExternalCalendarMeetingEventCreateRequestTest {
             ExternalCalendarMeetingEventCreateRequest.builder()
                 .addAssociation(
                     ExternalAssociationCreateRequest.builder()
-                        .to(PublicObjectId.builder().id("id").build())
+                        .to(PublicObjectId.builder().id("37295").build())
                         .addType(
                             AssociationSpec.builder()
                                 .associationCategory(
@@ -63,7 +63,7 @@ internal class ExternalCalendarMeetingEventCreateRequestTest {
         assertThat(externalCalendarMeetingEventCreateRequest.associations())
             .containsExactly(
                 ExternalAssociationCreateRequest.builder()
-                    .to(PublicObjectId.builder().id("id").build())
+                    .to(PublicObjectId.builder().id("37295").build())
                     .addType(
                         AssociationSpec.builder()
                             .associationCategory(
@@ -111,7 +111,7 @@ internal class ExternalCalendarMeetingEventCreateRequestTest {
             ExternalCalendarMeetingEventCreateRequest.builder()
                 .addAssociation(
                     ExternalAssociationCreateRequest.builder()
-                        .to(PublicObjectId.builder().id("id").build())
+                        .to(PublicObjectId.builder().id("37295").build())
                         .addType(
                             AssociationSpec.builder()
                                 .associationCategory(

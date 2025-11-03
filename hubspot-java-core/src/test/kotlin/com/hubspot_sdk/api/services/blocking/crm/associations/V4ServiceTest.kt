@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.services.blocking.crm.associations
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.crm.associations.v4.V4CreateParams
 import com.hubspot_sdk.api.models.crm.associations.v4.V4DeleteParams
 import com.hubspot_sdk.api.models.crm.associations.v4.V4ListParams
@@ -57,9 +57,9 @@ internal class V4ServiceTest {
                     .toObjectType("toObjectType")
                     .toObjectId("toObjectId")
                     .addBody(
-                        AssociationSpec1.builder()
+                        AssociationSpec.builder()
                             .associationCategory(
-                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                             )
                             .associationTypeId(0)
                             .build()

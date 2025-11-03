@@ -108,7 +108,7 @@ internal class SchemaServiceTest {
                 .build()
         val schemaService = client.crm().objects().schemas()
 
-        val objectTypeDefinition =
+        val objectsSchemasObjectTypeDefinition =
             schemaService.update(
                 SchemaUpdateParams.builder()
                     .objectType("objectType")
@@ -132,7 +132,7 @@ internal class SchemaServiceTest {
                     .build()
             )
 
-        objectTypeDefinition.validate()
+        objectsSchemasObjectTypeDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")

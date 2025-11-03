@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
@@ -57,7 +57,7 @@ interface SchemaService {
     fun create(objectSchemaEgg: ObjectSchemaEgg): ObjectSchema =
         create(objectSchemaEgg, RequestOptions.none())
 
-    fun update(objectType: String, params: SchemaUpdateParams): ObjectTypeDefinition =
+    fun update(objectType: String, params: SchemaUpdateParams): ObjectsSchemasObjectTypeDefinition =
         update(objectType, params, RequestOptions.none())
 
     /** @see update */
@@ -65,18 +65,18 @@ interface SchemaService {
         objectType: String,
         params: SchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ObjectTypeDefinition =
+    ): ObjectsSchemasObjectTypeDefinition =
         update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see update */
-    fun update(params: SchemaUpdateParams): ObjectTypeDefinition =
+    fun update(params: SchemaUpdateParams): ObjectsSchemasObjectTypeDefinition =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: SchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ObjectTypeDefinition
+    ): ObjectsSchemasObjectTypeDefinition
 
     fun list(): CollectionResponseObjectSchemaNoPaging = list(SchemaListParams.none())
 
@@ -240,7 +240,8 @@ interface SchemaService {
         fun update(
             objectType: String,
             params: SchemaUpdateParams,
-        ): HttpResponseFor<ObjectTypeDefinition> = update(objectType, params, RequestOptions.none())
+        ): HttpResponseFor<ObjectsSchemasObjectTypeDefinition> =
+            update(objectType, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
@@ -248,12 +249,14 @@ interface SchemaService {
             objectType: String,
             params: SchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ObjectTypeDefinition> =
+        ): HttpResponseFor<ObjectsSchemasObjectTypeDefinition> =
             update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: SchemaUpdateParams): HttpResponseFor<ObjectTypeDefinition> =
+        fun update(
+            params: SchemaUpdateParams
+        ): HttpResponseFor<ObjectsSchemasObjectTypeDefinition> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -261,7 +264,7 @@ interface SchemaService {
         fun update(
             params: SchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ObjectTypeDefinition>
+        ): HttpResponseFor<ObjectsSchemasObjectTypeDefinition>
 
         /**
          * Returns a raw HTTP response for `get /crm-object-schemas/v3/schemas`, but is otherwise

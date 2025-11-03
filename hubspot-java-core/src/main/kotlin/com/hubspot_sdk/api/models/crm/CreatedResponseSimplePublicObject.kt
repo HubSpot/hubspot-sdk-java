@@ -38,8 +38,6 @@ private constructor(
     ) : this(createdResourceId, entity, location, mutableMapOf())
 
     /**
-     * The unique identifier of the newly created resource.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -54,8 +52,6 @@ private constructor(
     fun entity(): SimplePublicObject = entity.getRequired("entity")
 
     /**
-     * The URL location of the newly created resource.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -130,7 +126,6 @@ private constructor(
                     createdResponseSimplePublicObject.additionalProperties.toMutableMap()
             }
 
-        /** The unique identifier of the newly created resource. */
         fun createdResourceId(createdResourceId: String) =
             createdResourceId(JsonField.of(createdResourceId))
 
@@ -157,7 +152,6 @@ private constructor(
          */
         fun entity(entity: JsonField<SimplePublicObject>) = apply { this.entity = entity }
 
-        /** The URL location of the newly created resource. */
         fun location(location: String) = location(JsonField.of(location))
 
         /**

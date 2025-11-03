@@ -17,8 +17,6 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.crm.associations.schema.CollectionResponsePublicAssociationDefinitionNoPaging
 import com.hubspot_sdk.api.models.crm.associations.schema.SchemaListParams
-import com.hubspot_sdk.api.services.async.crm.associations.schema.V4ServiceAsync
-import com.hubspot_sdk.api.services.async.crm.associations.schema.V4ServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -30,14 +28,10 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
         WithRawResponseImpl(clientOptions)
     }
 
-    private val v4: V4ServiceAsync by lazy { V4ServiceAsyncImpl(clientOptions) }
-
     override fun withRawResponse(): SchemaServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SchemaServiceAsync =
         SchemaServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
-
-    override fun v4(): V4ServiceAsync = v4
 
     override fun list(
         params: SchemaListParams,
@@ -52,18 +46,12 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val v4: V4ServiceAsync.WithRawResponse by lazy {
-            V4ServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): SchemaServiceAsync.WithRawResponse =
             SchemaServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        override fun v4(): V4ServiceAsync.WithRawResponse = v4
 
         private val listHandler: Handler<CollectionResponsePublicAssociationDefinitionNoPaging> =
             jsonHandler<CollectionResponsePublicAssociationDefinitionNoPaging>(

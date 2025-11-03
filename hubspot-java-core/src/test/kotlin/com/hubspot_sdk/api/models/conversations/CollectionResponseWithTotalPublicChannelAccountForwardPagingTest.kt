@@ -17,7 +17,7 @@ internal class CollectionResponseWithTotalPublicChannelAccountForwardPagingTest 
         val collectionResponseWithTotalPublicChannelAccountForwardPaging =
             CollectionResponseWithTotalPublicChannelAccountForwardPaging.builder()
                 .addResult(
-                    PublicChannelAccount.builder()
+                    ConversationsPublicChannelAccount.builder()
                         .archived(true)
                         .id("id")
                         .active(true)
@@ -42,7 +42,7 @@ internal class CollectionResponseWithTotalPublicChannelAccountForwardPagingTest 
 
         assertThat(collectionResponseWithTotalPublicChannelAccountForwardPaging.results())
             .containsExactly(
-                PublicChannelAccount.builder()
+                ConversationsPublicChannelAccount.builder()
                     .archived(true)
                     .id("id")
                     .active(true)
@@ -71,7 +71,7 @@ internal class CollectionResponseWithTotalPublicChannelAccountForwardPagingTest 
         val collectionResponseWithTotalPublicChannelAccountForwardPaging =
             CollectionResponseWithTotalPublicChannelAccountForwardPaging.builder()
                 .addResult(
-                    PublicChannelAccount.builder()
+                    ConversationsPublicChannelAccount.builder()
                         .archived(true)
                         .id("id")
                         .active(true)

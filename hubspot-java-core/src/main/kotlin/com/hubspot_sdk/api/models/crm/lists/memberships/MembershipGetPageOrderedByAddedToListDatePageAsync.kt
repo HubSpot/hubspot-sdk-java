@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.PageAsync
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.crm.lists.ApiCollectionResponseJoinTimeAndRecordId
 import com.hubspot_sdk.api.models.crm.lists.JoinTimeAndRecordId
-import com.hubspot_sdk.api.models.marketing.emails.Paging
+import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import com.hubspot_sdk.api.services.async.crm.lists.MembershipServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -37,7 +37,7 @@ private constructor(
      *
      * @see ApiCollectionResponseJoinTimeAndRecordId.paging
      */
-    fun paging(): Optional<Paging> = response._paging().getOptional("paging")
+    fun paging(): Optional<EmailsPaging> = response._paging().getOptional("paging")
 
     override fun items(): List<JoinTimeAndRecordId> = results()
 

@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.crm.exports
 
 import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,19 +14,34 @@ internal class ExportCreateParamsTest {
         ExportCreateParams.builder()
             .publicExportRequest(
                 PublicExportViewRequest.builder()
+                    .addAssociatedObjectType("string")
                     .addExportInternalValuesOption(
                         PublicExportViewRequest.ExportInternalValuesOption.NAMES
                     )
                     .exportName("exportName")
                     .exportType(PublicExportViewRequest.ExportType.VIEW)
                     .format(PublicExportViewRequest.Format.XLS)
+                    .includeLabeledAssociations(true)
+                    .includePrimaryDisplayPropertyForAssociatedObjects(true)
                     .language(PublicExportViewRequest.Language.EN)
                     .addObjectProperty("string")
                     .objectType("objectType")
                     .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                    .associatedObjectType("associatedObjectType")
                     .publicCrmSearchRequest(
                         PublicCrmSearchRequest.builder()
+                            .addFilterGroup(
+                                FilterGroup.builder()
+                                    .addFilter(
+                                        Filter.builder()
+                                            .operator(Filter.Operator.EQ)
+                                            .propertyName("")
+                                            .highValue("")
+                                            .value("")
+                                            .addValue("string")
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .addFilter(
                                 Filter.builder()
                                     .operator(Filter.Operator.EQ)
@@ -35,8 +51,8 @@ internal class ExportCreateParamsTest {
                                     .addValue("string")
                                     .build()
                             )
-                            .query("query")
                             .addSort("string")
+                            .query("query")
                             .build()
                     )
                     .build()
@@ -50,19 +66,34 @@ internal class ExportCreateParamsTest {
             ExportCreateParams.builder()
                 .publicExportRequest(
                     PublicExportViewRequest.builder()
+                        .addAssociatedObjectType("string")
                         .addExportInternalValuesOption(
                             PublicExportViewRequest.ExportInternalValuesOption.NAMES
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
                         .format(PublicExportViewRequest.Format.XLS)
+                        .includeLabeledAssociations(true)
+                        .includePrimaryDisplayPropertyForAssociatedObjects(true)
                         .language(PublicExportViewRequest.Language.EN)
                         .addObjectProperty("string")
                         .objectType("objectType")
                         .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                        .associatedObjectType("associatedObjectType")
                         .publicCrmSearchRequest(
                             PublicCrmSearchRequest.builder()
+                                .addFilterGroup(
+                                    FilterGroup.builder()
+                                        .addFilter(
+                                            Filter.builder()
+                                                .operator(Filter.Operator.EQ)
+                                                .propertyName("")
+                                                .highValue("")
+                                                .value("")
+                                                .addValue("string")
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .addFilter(
                                     Filter.builder()
                                         .operator(Filter.Operator.EQ)
@@ -72,8 +103,8 @@ internal class ExportCreateParamsTest {
                                         .addValue("string")
                                         .build()
                                 )
-                                .query("query")
                                 .addSort("string")
+                                .query("query")
                                 .build()
                         )
                         .build()
@@ -86,19 +117,34 @@ internal class ExportCreateParamsTest {
             .isEqualTo(
                 PublicExportRequest.ofView(
                     PublicExportViewRequest.builder()
+                        .addAssociatedObjectType("string")
                         .addExportInternalValuesOption(
                             PublicExportViewRequest.ExportInternalValuesOption.NAMES
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
                         .format(PublicExportViewRequest.Format.XLS)
+                        .includeLabeledAssociations(true)
+                        .includePrimaryDisplayPropertyForAssociatedObjects(true)
                         .language(PublicExportViewRequest.Language.EN)
                         .addObjectProperty("string")
                         .objectType("objectType")
                         .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                        .associatedObjectType("associatedObjectType")
                         .publicCrmSearchRequest(
                             PublicCrmSearchRequest.builder()
+                                .addFilterGroup(
+                                    FilterGroup.builder()
+                                        .addFilter(
+                                            Filter.builder()
+                                                .operator(Filter.Operator.EQ)
+                                                .propertyName("")
+                                                .highValue("")
+                                                .value("")
+                                                .addValue("string")
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .addFilter(
                                     Filter.builder()
                                         .operator(Filter.Operator.EQ)
@@ -108,8 +154,8 @@ internal class ExportCreateParamsTest {
                                         .addValue("string")
                                         .build()
                                 )
-                                .query("query")
                                 .addSort("string")
+                                .query("query")
                                 .build()
                         )
                         .build()
@@ -123,12 +169,15 @@ internal class ExportCreateParamsTest {
             ExportCreateParams.builder()
                 .publicExportRequest(
                     PublicExportViewRequest.builder()
+                        .addAssociatedObjectType("string")
                         .addExportInternalValuesOption(
                             PublicExportViewRequest.ExportInternalValuesOption.NAMES
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
                         .format(PublicExportViewRequest.Format.XLS)
+                        .includeLabeledAssociations(true)
+                        .includePrimaryDisplayPropertyForAssociatedObjects(true)
                         .language(PublicExportViewRequest.Language.EN)
                         .addObjectProperty("string")
                         .objectType("objectType")
@@ -143,12 +192,15 @@ internal class ExportCreateParamsTest {
             .isEqualTo(
                 PublicExportRequest.ofView(
                     PublicExportViewRequest.builder()
+                        .addAssociatedObjectType("string")
                         .addExportInternalValuesOption(
                             PublicExportViewRequest.ExportInternalValuesOption.NAMES
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
                         .format(PublicExportViewRequest.Format.XLS)
+                        .includeLabeledAssociations(true)
+                        .includePrimaryDisplayPropertyForAssociatedObjects(true)
                         .language(PublicExportViewRequest.Language.EN)
                         .addObjectProperty("string")
                         .objectType("objectType")

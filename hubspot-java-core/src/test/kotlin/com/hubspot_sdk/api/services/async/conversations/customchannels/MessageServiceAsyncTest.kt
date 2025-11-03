@@ -32,7 +32,7 @@ internal class MessageServiceAsyncTest {
                 .build()
         val messageServiceAsync = client.conversations().customChannels().messages()
 
-        val publicConversationsMessageFuture =
+        val conversationsPublicConversationsMessageFuture =
             messageServiceAsync.create(
                 MessageCreateParams.builder()
                     .channelId("channelId")
@@ -92,8 +92,9 @@ internal class MessageServiceAsyncTest {
                     .build()
             )
 
-        val publicConversationsMessage = publicConversationsMessageFuture.get()
-        publicConversationsMessage.validate()
+        val conversationsPublicConversationsMessage =
+            conversationsPublicConversationsMessageFuture.get()
+        conversationsPublicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -106,7 +107,7 @@ internal class MessageServiceAsyncTest {
                 .build()
         val messageServiceAsync = client.conversations().customChannels().messages()
 
-        val publicConversationsMessageFuture =
+        val conversationsPublicConversationsMessageFuture =
             messageServiceAsync.update(
                 MessageUpdateParams.builder()
                     .channelId("channelId")
@@ -122,8 +123,9 @@ internal class MessageServiceAsyncTest {
                     .build()
             )
 
-        val publicConversationsMessage = publicConversationsMessageFuture.get()
-        publicConversationsMessage.validate()
+        val conversationsPublicConversationsMessage =
+            conversationsPublicConversationsMessageFuture.get()
+        conversationsPublicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -136,12 +138,13 @@ internal class MessageServiceAsyncTest {
                 .build()
         val messageServiceAsync = client.conversations().customChannels().messages()
 
-        val publicConversationsMessageFuture =
+        val conversationsPublicConversationsMessageFuture =
             messageServiceAsync.get(
                 MessageGetParams.builder().channelId("channelId").messageId("messageId").build()
             )
 
-        val publicConversationsMessage = publicConversationsMessageFuture.get()
-        publicConversationsMessage.validate()
+        val conversationsPublicConversationsMessage =
+            conversationsPublicConversationsMessageFuture.get()
+        conversationsPublicConversationsMessage.validate()
     }
 }

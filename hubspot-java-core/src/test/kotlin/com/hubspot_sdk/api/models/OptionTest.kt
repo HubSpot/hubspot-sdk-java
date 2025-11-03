@@ -13,22 +13,18 @@ internal class OptionTest {
     fun create() {
         val option =
             Option.builder()
-                .description("")
-                .displayOrder(0)
-                .doubleData(0.0)
                 .hidden(false)
-                .label("")
-                .readOnly(false)
-                .value("")
+                .label("Option A")
+                .value("A")
+                .description("Choice number one")
+                .displayOrder(1)
                 .build()
 
-        assertThat(option.description()).isEqualTo("")
-        assertThat(option.displayOrder()).isEqualTo(0)
-        assertThat(option.doubleData()).isEqualTo(0.0)
         assertThat(option.hidden()).isEqualTo(false)
-        assertThat(option.label()).isEqualTo("")
-        assertThat(option.readOnly()).isEqualTo(false)
-        assertThat(option.value()).isEqualTo("")
+        assertThat(option.label()).isEqualTo("Option A")
+        assertThat(option.value()).isEqualTo("A")
+        assertThat(option.description()).contains("Choice number one")
+        assertThat(option.displayOrder()).contains(1)
     }
 
     @Test
@@ -36,13 +32,11 @@ internal class OptionTest {
         val jsonMapper = jsonMapper()
         val option =
             Option.builder()
-                .description("")
-                .displayOrder(0)
-                .doubleData(0.0)
                 .hidden(false)
-                .label("")
-                .readOnly(false)
-                .value("")
+                .label("Option A")
+                .value("A")
+                .description("Choice number one")
+                .displayOrder(1)
                 .build()
 
         val roundtrippedOption =

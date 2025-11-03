@@ -100,7 +100,7 @@ internal class BatchServiceAsyncTest {
                     .toObjectType("toObjectType")
                     .batchInputPublicObjectId(
                         BatchInputPublicObjectId.builder()
-                            .addInput(PublicObjectId.builder().id("id").build())
+                            .addInput(PublicObjectId.builder().id("37295").build())
                             .build()
                     )
                     .build()

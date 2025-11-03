@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.models.crm.exports
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,19 +15,34 @@ internal class PublicExportViewRequestTest {
     fun create() {
         val publicExportViewRequest =
             PublicExportViewRequest.builder()
+                .addAssociatedObjectType("string")
                 .addExportInternalValuesOption(
                     PublicExportViewRequest.ExportInternalValuesOption.NAMES
                 )
                 .exportName("exportName")
                 .exportType(PublicExportViewRequest.ExportType.VIEW)
                 .format(PublicExportViewRequest.Format.XLS)
+                .includeLabeledAssociations(true)
+                .includePrimaryDisplayPropertyForAssociatedObjects(true)
                 .language(PublicExportViewRequest.Language.EN)
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                .associatedObjectType("associatedObjectType")
                 .publicCrmSearchRequest(
                     PublicCrmSearchRequest.builder()
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.EQ)
+                                        .propertyName("")
+                                        .highValue("")
+                                        .value("")
+                                        .addValue("string")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .addFilter(
                             Filter.builder()
                                 .operator(Filter.Operator.EQ)
@@ -36,28 +52,44 @@ internal class PublicExportViewRequestTest {
                                 .addValue("string")
                                 .build()
                         )
-                        .query("query")
                         .addSort("string")
+                        .query("query")
                         .build()
                 )
                 .build()
 
+        assertThat(publicExportViewRequest.associatedObjectType()).containsExactly("string")
         assertThat(publicExportViewRequest.exportInternalValuesOptions())
             .containsExactly(PublicExportViewRequest.ExportInternalValuesOption.NAMES)
         assertThat(publicExportViewRequest.exportName()).isEqualTo("exportName")
         assertThat(publicExportViewRequest.exportType())
             .isEqualTo(PublicExportViewRequest.ExportType.VIEW)
         assertThat(publicExportViewRequest.format()).isEqualTo(PublicExportViewRequest.Format.XLS)
+        assertThat(publicExportViewRequest.includeLabeledAssociations()).isEqualTo(true)
+        assertThat(publicExportViewRequest.includePrimaryDisplayPropertyForAssociatedObjects())
+            .isEqualTo(true)
         assertThat(publicExportViewRequest.language())
             .isEqualTo(PublicExportViewRequest.Language.EN)
         assertThat(publicExportViewRequest.objectProperties()).containsExactly("string")
         assertThat(publicExportViewRequest.objectType()).isEqualTo("objectType")
         assertThat(publicExportViewRequest.overrideAssociatedObjectsPerDefinitionPerRowLimit())
             .isEqualTo(true)
-        assertThat(publicExportViewRequest.associatedObjectType()).contains("associatedObjectType")
         assertThat(publicExportViewRequest.publicCrmSearchRequest())
             .contains(
                 PublicCrmSearchRequest.builder()
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.EQ)
+                                    .propertyName("")
+                                    .highValue("")
+                                    .value("")
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
+                    )
                     .addFilter(
                         Filter.builder()
                             .operator(Filter.Operator.EQ)
@@ -67,8 +99,8 @@ internal class PublicExportViewRequestTest {
                             .addValue("string")
                             .build()
                     )
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
     }
@@ -78,19 +110,34 @@ internal class PublicExportViewRequestTest {
         val jsonMapper = jsonMapper()
         val publicExportViewRequest =
             PublicExportViewRequest.builder()
+                .addAssociatedObjectType("string")
                 .addExportInternalValuesOption(
                     PublicExportViewRequest.ExportInternalValuesOption.NAMES
                 )
                 .exportName("exportName")
                 .exportType(PublicExportViewRequest.ExportType.VIEW)
                 .format(PublicExportViewRequest.Format.XLS)
+                .includeLabeledAssociations(true)
+                .includePrimaryDisplayPropertyForAssociatedObjects(true)
                 .language(PublicExportViewRequest.Language.EN)
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                .associatedObjectType("associatedObjectType")
                 .publicCrmSearchRequest(
                     PublicCrmSearchRequest.builder()
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.EQ)
+                                        .propertyName("")
+                                        .highValue("")
+                                        .value("")
+                                        .addValue("string")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .addFilter(
                             Filter.builder()
                                 .operator(Filter.Operator.EQ)
@@ -100,8 +147,8 @@ internal class PublicExportViewRequestTest {
                                 .addValue("string")
                                 .build()
                         )
-                        .query("query")
                         .addSort("string")
+                        .query("query")
                         .build()
                 )
                 .build()

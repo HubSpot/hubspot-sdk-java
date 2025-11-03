@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountGetParams
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountListParams
 import java.util.function.Consumer
@@ -49,7 +49,7 @@ interface ChannelAccountService {
         list(ChannelAccountListParams.none(), requestOptions)
 
     /** Retrieve details of a single channel account using the channel account ID. */
-    fun get(channelAccountId: String): PublicChannelAccount =
+    fun get(channelAccountId: String): ConversationsPublicChannelAccount =
         get(channelAccountId, ChannelAccountGetParams.none())
 
     /** @see get */
@@ -57,27 +57,30 @@ interface ChannelAccountService {
         channelAccountId: String,
         params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount =
+    ): ConversationsPublicChannelAccount =
         get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
     /** @see get */
     fun get(
         channelAccountId: String,
         params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
-    ): PublicChannelAccount = get(channelAccountId, params, RequestOptions.none())
+    ): ConversationsPublicChannelAccount = get(channelAccountId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount
+    ): ConversationsPublicChannelAccount
 
     /** @see get */
-    fun get(params: ChannelAccountGetParams): PublicChannelAccount =
+    fun get(params: ChannelAccountGetParams): ConversationsPublicChannelAccount =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(channelAccountId: String, requestOptions: RequestOptions): PublicChannelAccount =
+    fun get(
+        channelAccountId: String,
+        requestOptions: RequestOptions,
+    ): ConversationsPublicChannelAccount =
         get(channelAccountId, ChannelAccountGetParams.none(), requestOptions)
 
     /**
@@ -129,7 +132,7 @@ interface ChannelAccountService {
          * the same as [ChannelAccountService.get].
          */
         @MustBeClosed
-        fun get(channelAccountId: String): HttpResponseFor<PublicChannelAccount> =
+        fun get(channelAccountId: String): HttpResponseFor<ConversationsPublicChannelAccount> =
             get(channelAccountId, ChannelAccountGetParams.none())
 
         /** @see get */
@@ -138,7 +141,7 @@ interface ChannelAccountService {
             channelAccountId: String,
             params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
         /** @see get */
@@ -146,7 +149,7 @@ interface ChannelAccountService {
         fun get(
             channelAccountId: String,
             params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             get(channelAccountId, params, RequestOptions.none())
 
         /** @see get */
@@ -154,19 +157,20 @@ interface ChannelAccountService {
         fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount>
+        ): HttpResponseFor<ConversationsPublicChannelAccount>
 
         /** @see get */
         @MustBeClosed
-        fun get(params: ChannelAccountGetParams): HttpResponseFor<PublicChannelAccount> =
-            get(params, RequestOptions.none())
+        fun get(
+            params: ChannelAccountGetParams
+        ): HttpResponseFor<ConversationsPublicChannelAccount> = get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             channelAccountId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             get(channelAccountId, ChannelAccountGetParams.none(), requestOptions)
     }
 }

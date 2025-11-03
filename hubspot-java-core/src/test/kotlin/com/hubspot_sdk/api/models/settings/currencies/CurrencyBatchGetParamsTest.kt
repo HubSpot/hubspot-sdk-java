@@ -14,7 +14,7 @@ internal class CurrencyBatchGetParamsTest {
         CurrencyBatchGetParams.builder()
             .batchInputPublicObjectId(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("id").build())
+                    .addInput(PublicObjectId.builder().id("37295").build())
                     .build()
             )
             .build()
@@ -26,7 +26,7 @@ internal class CurrencyBatchGetParamsTest {
             CurrencyBatchGetParams.builder()
                 .batchInputPublicObjectId(
                     BatchInputPublicObjectId.builder()
-                        .addInput(PublicObjectId.builder().id("id").build())
+                        .addInput(PublicObjectId.builder().id("37295").build())
                         .build()
                 )
                 .build()
@@ -36,7 +36,7 @@ internal class CurrencyBatchGetParamsTest {
         assertThat(body)
             .isEqualTo(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("id").build())
+                    .addInput(PublicObjectId.builder().id("37295").build())
                     .build()
             )
     }

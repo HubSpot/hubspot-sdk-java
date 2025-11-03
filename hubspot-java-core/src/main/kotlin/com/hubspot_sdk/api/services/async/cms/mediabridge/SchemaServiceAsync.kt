@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -36,25 +36,26 @@ interface SchemaServiceAsync {
     fun update(
         objectType: String,
         params: SchemaUpdateParams,
-    ): CompletableFuture<ObjectTypeDefinition> = update(objectType, params, RequestOptions.none())
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
+        update(objectType, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         objectType: String,
         params: SchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
         update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see update */
-    fun update(params: SchemaUpdateParams): CompletableFuture<ObjectTypeDefinition> =
+    fun update(params: SchemaUpdateParams): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: SchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition>
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition>
 
     /** Get the schemas for all object types. */
     fun list(appId: String): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
@@ -185,7 +186,7 @@ interface SchemaServiceAsync {
         fun update(
             objectType: String,
             params: SchemaUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> =
             update(objectType, params, RequestOptions.none())
 
         /** @see update */
@@ -193,20 +194,20 @@ interface SchemaServiceAsync {
             objectType: String,
             params: SchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> =
             update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: SchemaUpdateParams
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: SchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>>
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>>
 
         /**
          * Returns a raw HTTP response for `get /media-bridge/v1/{appId}/schemas`, but is otherwise
