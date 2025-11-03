@@ -15,7 +15,7 @@ internal class PublicAssociationsForObjectTest {
     fun create() {
         val publicAssociationsForObject =
             PublicAssociationsForObject.builder()
-                .to(PublicObjectId.builder().id("id").build())
+                .to(PublicObjectId.builder().id("37295").build())
                 .addType(
                     AssociationSpec.builder()
                         .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
@@ -25,7 +25,7 @@ internal class PublicAssociationsForObjectTest {
                 .build()
 
         assertThat(publicAssociationsForObject.to())
-            .isEqualTo(PublicObjectId.builder().id("id").build())
+            .isEqualTo(PublicObjectId.builder().id("37295").build())
         assertThat(publicAssociationsForObject.types())
             .containsExactly(
                 AssociationSpec.builder()
@@ -40,7 +40,7 @@ internal class PublicAssociationsForObjectTest {
         val jsonMapper = jsonMapper()
         val publicAssociationsForObject =
             PublicAssociationsForObject.builder()
-                .to(PublicObjectId.builder().id("id").build())
+                .to(PublicObjectId.builder().id("37295").build())
                 .addType(
                     AssociationSpec.builder()
                         .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)

@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.core.toImmutable
+import com.hubspot_sdk.api.models.AssociationSpec
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -18,7 +19,7 @@ private constructor(
     private val objectId: String,
     private val toObjectType: String,
     private val toObjectId: String?,
-    private val body: List<AssociationSpec1>,
+    private val body: List<AssociationSpec>,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -31,7 +32,7 @@ private constructor(
 
     fun toObjectId(): Optional<String> = Optional.ofNullable(toObjectId)
 
-    fun body(): List<AssociationSpec1> = body
+    fun body(): List<AssociationSpec> = body
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -64,7 +65,7 @@ private constructor(
         private var objectId: String? = null
         private var toObjectType: String? = null
         private var toObjectId: String? = null
-        private var body: MutableList<AssociationSpec1>? = null
+        private var body: MutableList<AssociationSpec>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -90,14 +91,14 @@ private constructor(
         /** Alias for calling [Builder.toObjectId] with `toObjectId.orElse(null)`. */
         fun toObjectId(toObjectId: Optional<String>) = toObjectId(toObjectId.getOrNull())
 
-        fun body(body: List<AssociationSpec1>) = apply { this.body = body.toMutableList() }
+        fun body(body: List<AssociationSpec>) = apply { this.body = body.toMutableList() }
 
         /**
-         * Adds a single [AssociationSpec1] to [Builder.body].
+         * Adds a single [AssociationSpec] to [Builder.body].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addBody(body: AssociationSpec1) = apply {
+        fun addBody(body: AssociationSpec) = apply {
             this.body = (this.body ?: mutableListOf()).apply { add(body) }
         }
 
@@ -226,7 +227,7 @@ private constructor(
             )
     }
 
-    fun _body(): List<AssociationSpec1> = body
+    fun _body(): List<AssociationSpec> = body
 
     fun _pathParam(index: Int): String =
         when (index) {

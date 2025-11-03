@@ -27,7 +27,7 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
-        val publicChannelAccountFuture =
+        val conversationsPublicChannelAccountFuture =
             channelAccountServiceAsync.create(
                 ChannelAccountCreateParams.builder()
                     .channelId("channelId")
@@ -47,8 +47,8 @@ internal class ChannelAccountServiceAsyncTest {
                     .build()
             )
 
-        val publicChannelAccount = publicChannelAccountFuture.get()
-        publicChannelAccount.validate()
+        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
+        conversationsPublicChannelAccount.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -61,7 +61,7 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
-        val publicChannelAccountFuture =
+        val conversationsPublicChannelAccountFuture =
             channelAccountServiceAsync.update(
                 ChannelAccountUpdateParams.builder()
                     .channelId("channelId")
@@ -75,8 +75,8 @@ internal class ChannelAccountServiceAsyncTest {
                     .build()
             )
 
-        val publicChannelAccount = publicChannelAccountFuture.get()
-        publicChannelAccount.validate()
+        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
+        conversationsPublicChannelAccount.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -107,7 +107,7 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
-        val publicChannelAccountFuture =
+        val conversationsPublicChannelAccountFuture =
             channelAccountServiceAsync.get(
                 ChannelAccountGetParams.builder()
                     .channelId("channelId")
@@ -115,7 +115,7 @@ internal class ChannelAccountServiceAsyncTest {
                     .build()
             )
 
-        val publicChannelAccount = publicChannelAccountFuture.get()
-        publicChannelAccount.validate()
+        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
+        conversationsPublicChannelAccount.validate()
     }
 }

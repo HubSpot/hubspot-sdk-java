@@ -9,8 +9,6 @@ import com.hubspot_sdk.api.services.async.crm.extensions.CardServiceAsync
 import com.hubspot_sdk.api.services.async.crm.extensions.CardServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.extensions.VideoConferencingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.extensions.VideoConferencingServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.crm.extensions.VideoconferencingServiceAsync
-import com.hubspot_sdk.api.services.async.crm.extensions.VideoconferencingServiceAsyncImpl
 import java.util.function.Consumer
 
 class ExtensionServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -28,10 +26,6 @@ class ExtensionServiceAsyncImpl internal constructor(private val clientOptions: 
         VideoConferencingServiceAsyncImpl(clientOptions)
     }
 
-    private val videoconferencing: VideoconferencingServiceAsync by lazy {
-        VideoconferencingServiceAsyncImpl(clientOptions)
-    }
-
     override fun withRawResponse(): ExtensionServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExtensionServiceAsync =
@@ -42,8 +36,6 @@ class ExtensionServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun cards(): CardServiceAsync = cards
 
     override fun videoConferencing(): VideoConferencingServiceAsync = videoConferencing
-
-    override fun videoconferencing(): VideoconferencingServiceAsync = videoconferencing
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ExtensionServiceAsync.WithRawResponse {
@@ -60,10 +52,6 @@ class ExtensionServiceAsyncImpl internal constructor(private val clientOptions: 
             VideoConferencingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val videoconferencing: VideoconferencingServiceAsync.WithRawResponse by lazy {
-            VideoconferencingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ExtensionServiceAsync.WithRawResponse =
@@ -77,8 +65,5 @@ class ExtensionServiceAsyncImpl internal constructor(private val clientOptions: 
 
         override fun videoConferencing(): VideoConferencingServiceAsync.WithRawResponse =
             videoConferencing
-
-        override fun videoconferencing(): VideoconferencingServiceAsync.WithRawResponse =
-            videoconferencing
     }
 }

@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.crm
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.exports.PublicCrmSearchRequest
 import com.hubspot_sdk.api.models.crm.exports.PublicExportRequest
 import com.hubspot_sdk.api.models.crm.exports.PublicExportViewRequest
@@ -29,19 +30,34 @@ internal class ExportServiceAsyncTest {
             exportServiceAsync.create(
                 PublicExportRequest.ofView(
                     PublicExportViewRequest.builder()
+                        .addAssociatedObjectType("string")
                         .addExportInternalValuesOption(
                             PublicExportViewRequest.ExportInternalValuesOption.NAMES
                         )
                         .exportName("exportName")
                         .exportType(PublicExportViewRequest.ExportType.VIEW)
                         .format(PublicExportViewRequest.Format.XLS)
+                        .includeLabeledAssociations(true)
+                        .includePrimaryDisplayPropertyForAssociatedObjects(true)
                         .language(PublicExportViewRequest.Language.EN)
                         .addObjectProperty("string")
                         .objectType("objectType")
                         .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                        .associatedObjectType("associatedObjectType")
                         .publicCrmSearchRequest(
                             PublicCrmSearchRequest.builder()
+                                .addFilterGroup(
+                                    FilterGroup.builder()
+                                        .addFilter(
+                                            Filter.builder()
+                                                .operator(Filter.Operator.EQ)
+                                                .propertyName("")
+                                                .highValue("")
+                                                .value("")
+                                                .addValue("string")
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .addFilter(
                                     Filter.builder()
                                         .operator(Filter.Operator.EQ)
@@ -51,8 +67,8 @@ internal class ExportServiceAsyncTest {
                                         .addValue("string")
                                         .build()
                                 )
-                                .query("query")
                                 .addSort("string")
+                                .query("query")
                                 .build()
                         )
                         .build()

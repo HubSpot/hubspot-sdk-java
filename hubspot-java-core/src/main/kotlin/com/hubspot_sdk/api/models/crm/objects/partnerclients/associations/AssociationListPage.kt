@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Page
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.crm.AssociatedId
 import com.hubspot_sdk.api.models.crm.CollectionResponseAssociatedId
-import com.hubspot_sdk.api.models.marketing.emails.Paging
+import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import com.hubspot_sdk.api.services.blocking.crm.objects.partnerclients.AssociationService
 import java.util.Objects
 import java.util.Optional
@@ -34,7 +34,7 @@ private constructor(
      *
      * @see CollectionResponseAssociatedId.paging
      */
-    fun paging(): Optional<Paging> = response._paging().getOptional("paging")
+    fun paging(): Optional<EmailsPaging> = response._paging().getOptional("paging")
 
     override fun items(): List<AssociatedId> = results()
 

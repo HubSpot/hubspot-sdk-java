@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.crm.associations.v4
 
+import com.hubspot_sdk.api.models.AssociationSpec
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,8 +16,8 @@ internal class V4UpdateParamsTest {
             .toObjectType("toObjectType")
             .toObjectId("toObjectId")
             .addBody(
-                AssociationSpec1.builder()
-                    .associationCategory(AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED)
+                AssociationSpec.builder()
+                    .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
                     .associationTypeId(0)
                     .build()
             )
@@ -32,8 +33,8 @@ internal class V4UpdateParamsTest {
                 .toObjectType("toObjectType")
                 .toObjectId("toObjectId")
                 .addBody(
-                    AssociationSpec1.builder()
-                        .associationCategory(AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED)
+                    AssociationSpec.builder()
+                        .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
                         .associationTypeId(0)
                         .build()
                 )
@@ -56,8 +57,8 @@ internal class V4UpdateParamsTest {
                 .toObjectType("toObjectType")
                 .toObjectId("toObjectId")
                 .addBody(
-                    AssociationSpec1.builder()
-                        .associationCategory(AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED)
+                    AssociationSpec.builder()
+                        .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
                         .associationTypeId(0)
                         .build()
                 )
@@ -67,8 +68,8 @@ internal class V4UpdateParamsTest {
 
         assertThat(body)
             .containsExactly(
-                AssociationSpec1.builder()
-                    .associationCategory(AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED)
+                AssociationSpec.builder()
+                    .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
                     .associationTypeId(0)
                     .build()
             )

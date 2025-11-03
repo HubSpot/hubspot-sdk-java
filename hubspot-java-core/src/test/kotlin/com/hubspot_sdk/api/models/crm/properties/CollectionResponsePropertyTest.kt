@@ -9,7 +9,7 @@ import com.hubspot_sdk.api.models.Option
 import com.hubspot_sdk.api.models.PreviousPage
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.PropertyModificationMetadata
-import com.hubspot_sdk.api.models.marketing.emails.Paging
+import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -29,24 +29,20 @@ internal class CollectionResponsePropertyTest {
                         .name("my_object_property")
                         .addOption(
                             Option.builder()
-                                .description("Choice number one")
-                                .displayOrder(1)
-                                .doubleData(0.0)
                                 .hidden(false)
                                 .label("Option A")
-                                .readOnly(false)
                                 .value("A")
+                                .description("Choice number one")
+                                .displayOrder(1)
                                 .build()
                         )
                         .addOption(
                             Option.builder()
-                                .description("Choice number two")
-                                .displayOrder(2)
-                                .doubleData(0.0)
                                 .hidden(false)
                                 .label("Option B")
-                                .readOnly(false)
                                 .value("B")
+                                .description("Choice number two")
+                                .displayOrder(2)
                                 .build()
                         )
                         .type("enumeration")
@@ -79,7 +75,7 @@ internal class CollectionResponsePropertyTest {
                         .build()
                 )
                 .paging(
-                    Paging.builder()
+                    EmailsPaging.builder()
                         .next(NextPage.builder().after("").link("").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()
@@ -96,24 +92,20 @@ internal class CollectionResponsePropertyTest {
                     .name("my_object_property")
                     .addOption(
                         Option.builder()
-                            .description("Choice number one")
-                            .displayOrder(1)
-                            .doubleData(0.0)
                             .hidden(false)
                             .label("Option A")
-                            .readOnly(false)
                             .value("A")
+                            .description("Choice number one")
+                            .displayOrder(1)
                             .build()
                     )
                     .addOption(
                         Option.builder()
-                            .description("Choice number two")
-                            .displayOrder(2)
-                            .doubleData(0.0)
                             .hidden(false)
                             .label("Option B")
-                            .readOnly(false)
                             .value("B")
+                            .description("Choice number two")
+                            .displayOrder(2)
                             .build()
                     )
                     .type("enumeration")
@@ -147,7 +139,7 @@ internal class CollectionResponsePropertyTest {
             )
         assertThat(collectionResponseProperty.paging())
             .contains(
-                Paging.builder()
+                EmailsPaging.builder()
                     .next(NextPage.builder().after("").link("").build())
                     .prev(PreviousPage.builder().before("before").link("link").build())
                     .build()
@@ -168,24 +160,20 @@ internal class CollectionResponsePropertyTest {
                         .name("my_object_property")
                         .addOption(
                             Option.builder()
-                                .description("Choice number one")
-                                .displayOrder(1)
-                                .doubleData(0.0)
                                 .hidden(false)
                                 .label("Option A")
-                                .readOnly(false)
                                 .value("A")
+                                .description("Choice number one")
+                                .displayOrder(1)
                                 .build()
                         )
                         .addOption(
                             Option.builder()
-                                .description("Choice number two")
-                                .displayOrder(2)
-                                .doubleData(0.0)
                                 .hidden(false)
                                 .label("Option B")
-                                .readOnly(false)
                                 .value("B")
+                                .description("Choice number two")
+                                .displayOrder(2)
                                 .build()
                         )
                         .type("enumeration")
@@ -218,7 +206,7 @@ internal class CollectionResponsePropertyTest {
                         .build()
                 )
                 .paging(
-                    Paging.builder()
+                    EmailsPaging.builder()
                         .next(NextPage.builder().after("").link("").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()

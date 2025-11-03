@@ -39,9 +39,10 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().channelAccounts()
 
-        val publicChannelAccountFuture = channelAccountServiceAsync.get("channelAccountId")
+        val conversationsPublicChannelAccountFuture =
+            channelAccountServiceAsync.get("channelAccountId")
 
-        val publicChannelAccount = publicChannelAccountFuture.get()
-        publicChannelAccount.validate()
+        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
+        conversationsPublicChannelAccount.validate()
     }
 }

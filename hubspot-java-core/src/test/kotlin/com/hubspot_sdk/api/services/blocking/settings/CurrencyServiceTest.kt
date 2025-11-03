@@ -61,7 +61,7 @@ internal class CurrencyServiceTest {
         val batchResponseExchangeRate =
             currencyService.batchGet(
                 BatchInputPublicObjectId.builder()
-                    .addInput(PublicObjectId.builder().id("id").build())
+                    .addInput(PublicObjectId.builder().id("37295").build())
                     .build()
             )
 

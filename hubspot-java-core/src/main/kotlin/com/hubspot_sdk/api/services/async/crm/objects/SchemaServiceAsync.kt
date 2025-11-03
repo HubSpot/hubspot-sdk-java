@@ -9,7 +9,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
@@ -61,25 +61,26 @@ interface SchemaServiceAsync {
     fun update(
         objectType: String,
         params: SchemaUpdateParams,
-    ): CompletableFuture<ObjectTypeDefinition> = update(objectType, params, RequestOptions.none())
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
+        update(objectType, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         objectType: String,
         params: SchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
         update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see update */
-    fun update(params: SchemaUpdateParams): CompletableFuture<ObjectTypeDefinition> =
+    fun update(params: SchemaUpdateParams): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: SchemaUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ObjectTypeDefinition>
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition>
 
     fun list(): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         list(SchemaListParams.none())
@@ -266,7 +267,7 @@ interface SchemaServiceAsync {
         fun update(
             objectType: String,
             params: SchemaUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> =
             update(objectType, params, RequestOptions.none())
 
         /** @see update */
@@ -274,20 +275,20 @@ interface SchemaServiceAsync {
             objectType: String,
             params: SchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> =
             update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: SchemaUpdateParams
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> =
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: SchemaUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>>
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>>
 
         /**
          * Returns a raw HTTP response for `get /crm-object-schemas/v3/schemas`, but is otherwise

@@ -17,7 +17,7 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountListParams
@@ -40,14 +40,14 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
     override fun create(
         params: ChannelAccountCreateParams,
         requestOptions: RequestOptions,
-    ): PublicChannelAccount =
+    ): ConversationsPublicChannelAccount =
         // post /conversations/v3/custom-channels/{channelId}/channel-accounts
         withRawResponse().create(params, requestOptions).parse()
 
     override fun update(
         params: ChannelAccountUpdateParams,
         requestOptions: RequestOptions,
-    ): PublicChannelAccount =
+    ): ConversationsPublicChannelAccount =
         // patch /conversations/v3/custom-channels/{channelId}/channel-accounts/{channelAccountId}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -61,7 +61,7 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
     override fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions,
-    ): PublicChannelAccount =
+    ): ConversationsPublicChannelAccount =
         // get /conversations/v3/custom-channels/{channelId}/channel-accounts/{channelAccountId}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -78,13 +78,13 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<PublicChannelAccount> =
-            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
+        private val createHandler: Handler<ConversationsPublicChannelAccount> =
+            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun create(
             params: ChannelAccountCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PublicChannelAccount> {
+        ): HttpResponseFor<ConversationsPublicChannelAccount> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelId", params.channelId().getOrNull())
@@ -115,13 +115,13 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val updateHandler: Handler<PublicChannelAccount> =
-            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ConversationsPublicChannelAccount> =
+            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun update(
             params: ChannelAccountUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PublicChannelAccount> {
+        ): HttpResponseFor<ConversationsPublicChannelAccount> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelAccountId", params.channelAccountId().getOrNull())
@@ -192,13 +192,13 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val getHandler: Handler<PublicChannelAccount> =
-            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
+        private val getHandler: Handler<ConversationsPublicChannelAccount> =
+            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PublicChannelAccount> {
+        ): HttpResponseFor<ConversationsPublicChannelAccount> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelAccountId", params.channelAccountId().getOrNull())

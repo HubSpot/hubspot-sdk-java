@@ -360,6 +360,10 @@ private constructor(
 
             @JvmField val NOT_HAS_PROPERTY = of("NOT_HAS_PROPERTY")
 
+            @JvmField val CONTAINS_TOKEN = of("CONTAINS_TOKEN")
+
+            @JvmField val NOT_CONTAINS_TOKEN = of("NOT_CONTAINS_TOKEN")
+
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
@@ -376,6 +380,8 @@ private constructor(
             NOT_IN,
             HAS_PROPERTY,
             NOT_HAS_PROPERTY,
+            CONTAINS_TOKEN,
+            NOT_CONTAINS_TOKEN,
         }
 
         /**
@@ -399,6 +405,8 @@ private constructor(
             NOT_IN,
             HAS_PROPERTY,
             NOT_HAS_PROPERTY,
+            CONTAINS_TOKEN,
+            NOT_CONTAINS_TOKEN,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -423,6 +431,8 @@ private constructor(
                 NOT_IN -> Value.NOT_IN
                 HAS_PROPERTY -> Value.HAS_PROPERTY
                 NOT_HAS_PROPERTY -> Value.NOT_HAS_PROPERTY
+                CONTAINS_TOKEN -> Value.CONTAINS_TOKEN
+                NOT_CONTAINS_TOKEN -> Value.NOT_CONTAINS_TOKEN
                 else -> Value._UNKNOWN
             }
 
@@ -448,6 +458,8 @@ private constructor(
                 NOT_IN -> Known.NOT_IN
                 HAS_PROPERTY -> Known.HAS_PROPERTY
                 NOT_HAS_PROPERTY -> Known.NOT_HAS_PROPERTY
+                CONTAINS_TOKEN -> Known.CONTAINS_TOKEN
+                NOT_CONTAINS_TOKEN -> Known.NOT_CONTAINS_TOKEN
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

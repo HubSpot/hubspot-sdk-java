@@ -16,9 +16,9 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class PublicMessageTest {
 
     @Test
-    fun ofConversations() {
-        val conversations =
-            PublicConversationsMessage.builder()
+    fun ofConversationsPublicConversations() {
+        val conversationsPublicConversations =
+            ConversationsPublicConversationsMessage.builder()
                 .id("id")
                 .archived(true)
                 .addAttachment(
@@ -41,7 +41,7 @@ internal class PublicMessageTest {
                 .conversationsThreadId("conversationsThreadId")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdBy("createdBy")
-                .direction(PublicConversationsMessage.Direction.INCOMING)
+                .direction(ConversationsPublicConversationsMessage.Direction.INCOMING)
                 .addRecipient(
                     PublicRecipient.builder()
                         .deliveryIdentifier(
@@ -63,8 +63,10 @@ internal class PublicMessageTest {
                         .build()
                 )
                 .text("text")
-                .truncationStatus(PublicConversationsMessage.TruncationStatus.NOT_TRUNCATED)
-                .type(PublicConversationsMessage.Type.MESSAGE)
+                .truncationStatus(
+                    ConversationsPublicConversationsMessage.TruncationStatus.NOT_TRUNCATED
+                )
+                .type(ConversationsPublicConversationsMessage.Type.MESSAGE)
                 .inReplyToId("inReplyToId")
                 .richText("richText")
                 .status(
@@ -86,9 +88,11 @@ internal class PublicMessageTest {
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        val publicMessage = PublicMessage.ofConversations(conversations)
+        val publicMessage =
+            PublicMessage.ofConversationsPublicConversations(conversationsPublicConversations)
 
-        assertThat(publicMessage.conversations()).contains(conversations)
+        assertThat(publicMessage.conversationsPublicConversations())
+            .contains(conversationsPublicConversations)
         assertThat(publicMessage.comment()).isEmpty
         assertThat(publicMessage.welcome()).isEmpty
         assertThat(publicMessage.assignment()).isEmpty
@@ -97,11 +101,11 @@ internal class PublicMessageTest {
     }
 
     @Test
-    fun ofConversationsRoundtrip() {
+    fun ofConversationsPublicConversationsRoundtrip() {
         val jsonMapper = jsonMapper()
         val publicMessage =
-            PublicMessage.ofConversations(
-                PublicConversationsMessage.builder()
+            PublicMessage.ofConversationsPublicConversations(
+                ConversationsPublicConversationsMessage.builder()
                     .id("id")
                     .archived(true)
                     .addAttachment(
@@ -124,7 +128,7 @@ internal class PublicMessageTest {
                     .conversationsThreadId("conversationsThreadId")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdBy("createdBy")
-                    .direction(PublicConversationsMessage.Direction.INCOMING)
+                    .direction(ConversationsPublicConversationsMessage.Direction.INCOMING)
                     .addRecipient(
                         PublicRecipient.builder()
                             .deliveryIdentifier(
@@ -152,8 +156,10 @@ internal class PublicMessageTest {
                             .build()
                     )
                     .text("text")
-                    .truncationStatus(PublicConversationsMessage.TruncationStatus.NOT_TRUNCATED)
-                    .type(PublicConversationsMessage.Type.MESSAGE)
+                    .truncationStatus(
+                        ConversationsPublicConversationsMessage.TruncationStatus.NOT_TRUNCATED
+                    )
+                    .type(ConversationsPublicConversationsMessage.Type.MESSAGE)
                     .inReplyToId("inReplyToId")
                     .richText("richText")
                     .status(
@@ -237,7 +243,7 @@ internal class PublicMessageTest {
 
         val publicMessage = PublicMessage.ofComment(comment)
 
-        assertThat(publicMessage.conversations()).isEmpty
+        assertThat(publicMessage.conversationsPublicConversations()).isEmpty
         assertThat(publicMessage.comment()).contains(comment)
         assertThat(publicMessage.welcome()).isEmpty
         assertThat(publicMessage.assignment()).isEmpty
@@ -358,7 +364,7 @@ internal class PublicMessageTest {
 
         val publicMessage = PublicMessage.ofWelcome(welcome)
 
-        assertThat(publicMessage.conversations()).isEmpty
+        assertThat(publicMessage.conversationsPublicConversations()).isEmpty
         assertThat(publicMessage.comment()).isEmpty
         assertThat(publicMessage.welcome()).contains(welcome)
         assertThat(publicMessage.assignment()).isEmpty
@@ -470,7 +476,7 @@ internal class PublicMessageTest {
 
         val publicMessage = PublicMessage.ofAssignment(assignment)
 
-        assertThat(publicMessage.conversations()).isEmpty
+        assertThat(publicMessage.conversationsPublicConversations()).isEmpty
         assertThat(publicMessage.comment()).isEmpty
         assertThat(publicMessage.welcome()).isEmpty
         assertThat(publicMessage.assignment()).contains(assignment)
@@ -579,7 +585,7 @@ internal class PublicMessageTest {
 
         val publicMessage = PublicMessage.ofThreadStatusChange(threadStatusChange)
 
-        assertThat(publicMessage.conversations()).isEmpty
+        assertThat(publicMessage.conversationsPublicConversations()).isEmpty
         assertThat(publicMessage.comment()).isEmpty
         assertThat(publicMessage.welcome()).isEmpty
         assertThat(publicMessage.assignment()).isEmpty
@@ -688,7 +694,7 @@ internal class PublicMessageTest {
 
         val publicMessage = PublicMessage.ofThreadInboxChange(threadInboxChange)
 
-        assertThat(publicMessage.conversations()).isEmpty
+        assertThat(publicMessage.conversationsPublicConversations()).isEmpty
         assertThat(publicMessage.comment()).isEmpty
         assertThat(publicMessage.welcome()).isEmpty
         assertThat(publicMessage.assignment()).isEmpty

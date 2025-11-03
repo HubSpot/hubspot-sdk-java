@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -19,19 +20,34 @@ internal class PublicExportRequestTest {
     fun ofView() {
         val view =
             PublicExportViewRequest.builder()
+                .addAssociatedObjectType("string")
                 .addExportInternalValuesOption(
                     PublicExportViewRequest.ExportInternalValuesOption.NAMES
                 )
                 .exportName("exportName")
                 .exportType(PublicExportViewRequest.ExportType.VIEW)
                 .format(PublicExportViewRequest.Format.XLS)
+                .includeLabeledAssociations(true)
+                .includePrimaryDisplayPropertyForAssociatedObjects(true)
                 .language(PublicExportViewRequest.Language.EN)
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                .associatedObjectType("associatedObjectType")
                 .publicCrmSearchRequest(
                     PublicCrmSearchRequest.builder()
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.EQ)
+                                        .propertyName("")
+                                        .highValue("")
+                                        .value("")
+                                        .addValue("string")
+                                        .build()
+                                )
+                                .build()
+                        )
                         .addFilter(
                             Filter.builder()
                                 .operator(Filter.Operator.EQ)
@@ -41,8 +57,8 @@ internal class PublicExportRequestTest {
                                 .addValue("string")
                                 .build()
                         )
-                        .query("query")
                         .addSort("string")
+                        .query("query")
                         .build()
                 )
                 .build()
@@ -59,19 +75,34 @@ internal class PublicExportRequestTest {
         val publicExportRequest =
             PublicExportRequest.ofView(
                 PublicExportViewRequest.builder()
+                    .addAssociatedObjectType("string")
                     .addExportInternalValuesOption(
                         PublicExportViewRequest.ExportInternalValuesOption.NAMES
                     )
                     .exportName("exportName")
                     .exportType(PublicExportViewRequest.ExportType.VIEW)
                     .format(PublicExportViewRequest.Format.XLS)
+                    .includeLabeledAssociations(true)
+                    .includePrimaryDisplayPropertyForAssociatedObjects(true)
                     .language(PublicExportViewRequest.Language.EN)
                     .addObjectProperty("string")
                     .objectType("objectType")
                     .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                    .associatedObjectType("associatedObjectType")
                     .publicCrmSearchRequest(
                         PublicCrmSearchRequest.builder()
+                            .addFilterGroup(
+                                FilterGroup.builder()
+                                    .addFilter(
+                                        Filter.builder()
+                                            .operator(Filter.Operator.EQ)
+                                            .propertyName("")
+                                            .highValue("")
+                                            .value("")
+                                            .addValue("string")
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .addFilter(
                                 Filter.builder()
                                     .operator(Filter.Operator.EQ)
@@ -81,8 +112,8 @@ internal class PublicExportRequestTest {
                                     .addValue("string")
                                     .build()
                             )
-                            .query("query")
                             .addSort("string")
+                            .query("query")
                             .build()
                     )
                     .build()
@@ -101,18 +132,20 @@ internal class PublicExportRequestTest {
     fun ofList() {
         val list =
             PublicExportListRequest.builder()
+                .addAssociatedObjectType("string")
                 .addExportInternalValuesOption(
                     PublicExportListRequest.ExportInternalValuesOption.NAMES
                 )
                 .exportName("exportName")
                 .exportType(PublicExportListRequest.ExportType.LIST)
                 .format(PublicExportListRequest.Format.XLS)
+                .includeLabeledAssociations(true)
+                .includePrimaryDisplayPropertyForAssociatedObjects(true)
                 .language(PublicExportListRequest.Language.EN)
                 .listId("listId")
                 .addObjectProperty("string")
                 .objectType("objectType")
                 .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                .associatedObjectType("associatedObjectType")
                 .build()
 
         val publicExportRequest = PublicExportRequest.ofList(list)
@@ -127,18 +160,20 @@ internal class PublicExportRequestTest {
         val publicExportRequest =
             PublicExportRequest.ofList(
                 PublicExportListRequest.builder()
+                    .addAssociatedObjectType("string")
                     .addExportInternalValuesOption(
                         PublicExportListRequest.ExportInternalValuesOption.NAMES
                     )
                     .exportName("exportName")
                     .exportType(PublicExportListRequest.ExportType.LIST)
                     .format(PublicExportListRequest.Format.XLS)
+                    .includeLabeledAssociations(true)
+                    .includePrimaryDisplayPropertyForAssociatedObjects(true)
                     .language(PublicExportListRequest.Language.EN)
                     .listId("listId")
                     .addObjectProperty("string")
                     .objectType("objectType")
                     .overrideAssociatedObjectsPerDefinitionPerRowLimit(true)
-                    .associatedObjectType("associatedObjectType")
                     .build()
             )
 

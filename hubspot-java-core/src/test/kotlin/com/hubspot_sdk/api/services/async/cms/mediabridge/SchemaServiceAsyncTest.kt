@@ -28,7 +28,7 @@ internal class SchemaServiceAsyncTest {
                 .build()
         val schemaServiceAsync = client.cms().mediaBridge().schemas()
 
-        val objectTypeDefinitionFuture =
+        val objectsSchemasObjectTypeDefinitionFuture =
             schemaServiceAsync.update(
                 SchemaUpdateParams.builder()
                     .appId("appId")
@@ -53,8 +53,8 @@ internal class SchemaServiceAsyncTest {
                     .build()
             )
 
-        val objectTypeDefinition = objectTypeDefinitionFuture.get()
-        objectTypeDefinition.validate()
+        val objectsSchemasObjectTypeDefinition = objectsSchemasObjectTypeDefinitionFuture.get()
+        objectsSchemasObjectTypeDefinition.validate()
     }
 
     @Disabled("Prism tests are disabled")

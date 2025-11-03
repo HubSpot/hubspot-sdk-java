@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.models.crm.exports
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,6 +15,19 @@ internal class PublicCrmSearchRequestTest {
     fun create() {
         val publicCrmSearchRequest =
             PublicCrmSearchRequest.builder()
+                .addFilterGroup(
+                    FilterGroup.builder()
+                        .addFilter(
+                            Filter.builder()
+                                .operator(Filter.Operator.EQ)
+                                .propertyName("")
+                                .highValue("")
+                                .value("")
+                                .addValue("string")
+                                .build()
+                        )
+                        .build()
+                )
                 .addFilter(
                     Filter.builder()
                         .operator(Filter.Operator.EQ)
@@ -23,10 +37,24 @@ internal class PublicCrmSearchRequestTest {
                         .addValue("string")
                         .build()
                 )
-                .query("query")
                 .addSort("string")
+                .query("query")
                 .build()
 
+        assertThat(publicCrmSearchRequest.filterGroups())
+            .containsExactly(
+                FilterGroup.builder()
+                    .addFilter(
+                        Filter.builder()
+                            .operator(Filter.Operator.EQ)
+                            .propertyName("")
+                            .highValue("")
+                            .value("")
+                            .addValue("string")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(publicCrmSearchRequest.filters())
             .containsExactly(
                 Filter.builder()
@@ -37,8 +65,8 @@ internal class PublicCrmSearchRequestTest {
                     .addValue("string")
                     .build()
             )
-        assertThat(publicCrmSearchRequest.query()).isEqualTo("query")
         assertThat(publicCrmSearchRequest.sorts()).containsExactly("string")
+        assertThat(publicCrmSearchRequest.query()).contains("query")
     }
 
     @Test
@@ -46,6 +74,19 @@ internal class PublicCrmSearchRequestTest {
         val jsonMapper = jsonMapper()
         val publicCrmSearchRequest =
             PublicCrmSearchRequest.builder()
+                .addFilterGroup(
+                    FilterGroup.builder()
+                        .addFilter(
+                            Filter.builder()
+                                .operator(Filter.Operator.EQ)
+                                .propertyName("")
+                                .highValue("")
+                                .value("")
+                                .addValue("string")
+                                .build()
+                        )
+                        .build()
+                )
                 .addFilter(
                     Filter.builder()
                         .operator(Filter.Operator.EQ)
@@ -55,8 +96,8 @@ internal class PublicCrmSearchRequestTest {
                         .addValue("string")
                         .build()
                 )
-                .query("query")
                 .addSort("string")
+                .query("query")
                 .build()
 
         val roundtrippedPublicCrmSearchRequest =

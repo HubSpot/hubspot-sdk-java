@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.events
 import com.hubspot_sdk.api.core.AutoPager
 import com.hubspot_sdk.api.core.Page
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.models.marketing.emails.Paging
+import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import com.hubspot_sdk.api.services.blocking.EventService
 import java.util.Objects
 import java.util.Optional
@@ -32,7 +32,7 @@ private constructor(
      *
      * @see CollectionResponseExternalUnifiedEvent.paging
      */
-    fun paging(): Optional<Paging> = response._paging().getOptional("paging")
+    fun paging(): Optional<EmailsPaging> = response._paging().getOptional("paging")
 
     override fun items(): List<ExternalUnifiedEvent> = results()
 

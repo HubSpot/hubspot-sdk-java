@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationParams
@@ -50,7 +50,7 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun update(
         params: SchemaUpdateParams,
         requestOptions: RequestOptions,
-    ): ObjectTypeDefinition =
+    ): ObjectsSchemasObjectTypeDefinition =
         // patch /crm-object-schemas/v3/schemas/{objectType}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -126,13 +126,13 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val updateHandler: Handler<ObjectTypeDefinition> =
-            jsonHandler<ObjectTypeDefinition>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ObjectsSchemasObjectTypeDefinition> =
+            jsonHandler<ObjectsSchemasObjectTypeDefinition>(clientOptions.jsonMapper)
 
         override fun update(
             params: SchemaUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ObjectTypeDefinition> {
+        ): HttpResponseFor<ObjectsSchemasObjectTypeDefinition> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

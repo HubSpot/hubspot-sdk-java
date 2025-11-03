@@ -89,24 +89,20 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "options" to
                                                             listOf(
                                                                 mapOf(
+                                                                    "hidden" to false,
+                                                                    "label" to "Option A",
+                                                                    "value" to "A",
                                                                     "description" to
                                                                         "Choice number one",
                                                                     "displayOrder" to 1,
-                                                                    "doubleData" to 0,
-                                                                    "hidden" to false,
-                                                                    "label" to "Option A",
-                                                                    "readOnly" to false,
-                                                                    "value" to "A",
                                                                 ),
                                                                 mapOf(
+                                                                    "hidden" to false,
+                                                                    "label" to "Option B",
+                                                                    "value" to "B",
                                                                     "description" to
                                                                         "Choice number two",
                                                                     "displayOrder" to 2,
-                                                                    "doubleData" to 0,
-                                                                    "hidden" to false,
-                                                                    "label" to "Option B",
-                                                                    "readOnly" to false,
-                                                                    "value" to "B",
                                                                 ),
                                                             ),
                                                         "type" to "enumeration",
@@ -1249,24 +1245,20 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                     "options" to
                                                         listOf(
                                                             mapOf(
+                                                                "hidden" to false,
+                                                                "label" to "Option A",
+                                                                "value" to "A",
                                                                 "description" to
                                                                     "Choice number one",
                                                                 "displayOrder" to 1,
-                                                                "doubleData" to 0,
-                                                                "hidden" to false,
-                                                                "label" to "Option A",
-                                                                "readOnly" to false,
-                                                                "value" to "A",
                                                             ),
                                                             mapOf(
+                                                                "hidden" to false,
+                                                                "label" to "Option B",
+                                                                "value" to "B",
                                                                 "description" to
                                                                     "Choice number two",
                                                                 "displayOrder" to 2,
-                                                                "doubleData" to 0,
-                                                                "hidden" to false,
-                                                                "label" to "Option B",
-                                                                "readOnly" to false,
-                                                                "value" to "B",
                                                             ),
                                                         ),
                                                     "type" to "enumeration",
@@ -2407,24 +2399,20 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "options" to
                                                             listOf(
                                                                 mapOf(
+                                                                    "hidden" to false,
+                                                                    "label" to "Option A",
+                                                                    "value" to "A",
                                                                     "description" to
                                                                         "Choice number one",
                                                                     "displayOrder" to 1,
-                                                                    "doubleData" to 0,
-                                                                    "hidden" to false,
-                                                                    "label" to "Option A",
-                                                                    "readOnly" to false,
-                                                                    "value" to "A",
                                                                 ),
                                                                 mapOf(
+                                                                    "hidden" to false,
+                                                                    "label" to "Option B",
+                                                                    "value" to "B",
                                                                     "description" to
                                                                         "Choice number two",
                                                                     "displayOrder" to 2,
-                                                                    "doubleData" to 0,
-                                                                    "hidden" to false,
-                                                                    "label" to "Option B",
-                                                                    "readOnly" to false,
-                                                                    "value" to "B",
                                                                 ),
                                                             ),
                                                         "type" to "enumeration",

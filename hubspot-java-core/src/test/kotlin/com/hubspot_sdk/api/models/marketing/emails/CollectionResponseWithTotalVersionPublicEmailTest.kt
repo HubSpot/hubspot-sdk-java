@@ -345,7 +345,7 @@ internal class CollectionResponseWithTotalVersionPublicEmailTest {
                 )
                 .total(0)
                 .paging(
-                    Paging.builder()
+                    EmailsPaging.builder()
                         .next(NextPage.builder().after("").link("").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()
@@ -676,7 +676,7 @@ internal class CollectionResponseWithTotalVersionPublicEmailTest {
         assertThat(collectionResponseWithTotalVersionPublicEmail.total()).isEqualTo(0)
         assertThat(collectionResponseWithTotalVersionPublicEmail.paging())
             .contains(
-                Paging.builder()
+                EmailsPaging.builder()
                     .next(NextPage.builder().after("").link("").build())
                     .prev(PreviousPage.builder().before("before").link("link").build())
                     .build()
@@ -1015,7 +1015,7 @@ internal class CollectionResponseWithTotalVersionPublicEmailTest {
                 )
                 .total(0)
                 .paging(
-                    Paging.builder()
+                    EmailsPaging.builder()
                         .next(NextPage.builder().after("").link("").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()

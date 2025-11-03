@@ -17,27 +17,31 @@ import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class PublicExportListRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val associatedObjectType: JsonField<List<String>>,
     private val exportInternalValuesOptions: JsonField<List<ExportInternalValuesOption>>,
     private val exportName: JsonField<String>,
     private val exportType: JsonField<ExportType>,
     private val format: JsonField<Format>,
+    private val includeLabeledAssociations: JsonField<Boolean>,
+    private val includePrimaryDisplayPropertyForAssociatedObjects: JsonField<Boolean>,
     private val language: JsonField<Language>,
     private val listId: JsonField<String>,
     private val objectProperties: JsonField<List<String>>,
     private val objectType: JsonField<String>,
     private val overrideAssociatedObjectsPerDefinitionPerRowLimit: JsonField<Boolean>,
-    private val associatedObjectType: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
+        @JsonProperty("associatedObjectType")
+        @ExcludeMissing
+        associatedObjectType: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("exportInternalValuesOptions")
         @ExcludeMissing
         exportInternalValuesOptions: JsonField<List<ExportInternalValuesOption>> = JsonMissing.of(),
@@ -48,6 +52,12 @@ private constructor(
         @ExcludeMissing
         exportType: JsonField<ExportType> = JsonMissing.of(),
         @JsonProperty("format") @ExcludeMissing format: JsonField<Format> = JsonMissing.of(),
+        @JsonProperty("includeLabeledAssociations")
+        @ExcludeMissing
+        includeLabeledAssociations: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("includePrimaryDisplayPropertyForAssociatedObjects")
+        @ExcludeMissing
+        includePrimaryDisplayPropertyForAssociatedObjects: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("language") @ExcludeMissing language: JsonField<Language> = JsonMissing.of(),
         @JsonProperty("listId") @ExcludeMissing listId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("objectProperties")
@@ -59,22 +69,28 @@ private constructor(
         @JsonProperty("overrideAssociatedObjectsPerDefinitionPerRowLimit")
         @ExcludeMissing
         overrideAssociatedObjectsPerDefinitionPerRowLimit: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("associatedObjectType")
-        @ExcludeMissing
-        associatedObjectType: JsonField<String> = JsonMissing.of(),
     ) : this(
+        associatedObjectType,
         exportInternalValuesOptions,
         exportName,
         exportType,
         format,
+        includeLabeledAssociations,
+        includePrimaryDisplayPropertyForAssociatedObjects,
         language,
         listId,
         objectProperties,
         objectType,
         overrideAssociatedObjectsPerDefinitionPerRowLimit,
-        associatedObjectType,
         mutableMapOf(),
     )
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun associatedObjectType(): List<String> =
+        associatedObjectType.getRequired("associatedObjectType")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -100,6 +116,22 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun format(): Format = format.getRequired("format")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun includeLabeledAssociations(): Boolean =
+        includeLabeledAssociations.getRequired("includeLabeledAssociations")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun includePrimaryDisplayPropertyForAssociatedObjects(): Boolean =
+        includePrimaryDisplayPropertyForAssociatedObjects.getRequired(
+            "includePrimaryDisplayPropertyForAssociatedObjects"
+        )
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -135,11 +167,14 @@ private constructor(
         )
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Returns the raw JSON value of [associatedObjectType].
+     *
+     * Unlike [associatedObjectType], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    fun associatedObjectType(): Optional<String> =
-        associatedObjectType.getOptional("associatedObjectType")
+    @JsonProperty("associatedObjectType")
+    @ExcludeMissing
+    fun _associatedObjectType(): JsonField<List<String>> = associatedObjectType
 
     /**
      * Returns the raw JSON value of [exportInternalValuesOptions].
@@ -174,6 +209,27 @@ private constructor(
      * Unlike [format], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("format") @ExcludeMissing fun _format(): JsonField<Format> = format
+
+    /**
+     * Returns the raw JSON value of [includeLabeledAssociations].
+     *
+     * Unlike [includeLabeledAssociations], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("includeLabeledAssociations")
+    @ExcludeMissing
+    fun _includeLabeledAssociations(): JsonField<Boolean> = includeLabeledAssociations
+
+    /**
+     * Returns the raw JSON value of [includePrimaryDisplayPropertyForAssociatedObjects].
+     *
+     * Unlike [includePrimaryDisplayPropertyForAssociatedObjects], this method doesn't throw if the
+     * JSON field has an unexpected type.
+     */
+    @JsonProperty("includePrimaryDisplayPropertyForAssociatedObjects")
+    @ExcludeMissing
+    fun _includePrimaryDisplayPropertyForAssociatedObjects(): JsonField<Boolean> =
+        includePrimaryDisplayPropertyForAssociatedObjects
 
     /**
      * Returns the raw JSON value of [language].
@@ -217,16 +273,6 @@ private constructor(
     fun _overrideAssociatedObjectsPerDefinitionPerRowLimit(): JsonField<Boolean> =
         overrideAssociatedObjectsPerDefinitionPerRowLimit
 
-    /**
-     * Returns the raw JSON value of [associatedObjectType].
-     *
-     * Unlike [associatedObjectType], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("associatedObjectType")
-    @ExcludeMissing
-    fun _associatedObjectType(): JsonField<String> = associatedObjectType
-
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -246,10 +292,13 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .associatedObjectType()
          * .exportInternalValuesOptions()
          * .exportName()
          * .exportType()
          * .format()
+         * .includeLabeledAssociations()
+         * .includePrimaryDisplayPropertyForAssociatedObjects()
          * .language()
          * .listId()
          * .objectProperties()
@@ -263,35 +312,67 @@ private constructor(
     /** A builder for [PublicExportListRequest]. */
     class Builder internal constructor() {
 
+        private var associatedObjectType: JsonField<MutableList<String>>? = null
         private var exportInternalValuesOptions:
             JsonField<MutableList<ExportInternalValuesOption>>? =
             null
         private var exportName: JsonField<String>? = null
         private var exportType: JsonField<ExportType>? = null
         private var format: JsonField<Format>? = null
+        private var includeLabeledAssociations: JsonField<Boolean>? = null
+        private var includePrimaryDisplayPropertyForAssociatedObjects: JsonField<Boolean>? = null
         private var language: JsonField<Language>? = null
         private var listId: JsonField<String>? = null
         private var objectProperties: JsonField<MutableList<String>>? = null
         private var objectType: JsonField<String>? = null
         private var overrideAssociatedObjectsPerDefinitionPerRowLimit: JsonField<Boolean>? = null
-        private var associatedObjectType: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(publicExportListRequest: PublicExportListRequest) = apply {
+            associatedObjectType =
+                publicExportListRequest.associatedObjectType.map { it.toMutableList() }
             exportInternalValuesOptions =
                 publicExportListRequest.exportInternalValuesOptions.map { it.toMutableList() }
             exportName = publicExportListRequest.exportName
             exportType = publicExportListRequest.exportType
             format = publicExportListRequest.format
+            includeLabeledAssociations = publicExportListRequest.includeLabeledAssociations
+            includePrimaryDisplayPropertyForAssociatedObjects =
+                publicExportListRequest.includePrimaryDisplayPropertyForAssociatedObjects
             language = publicExportListRequest.language
             listId = publicExportListRequest.listId
             objectProperties = publicExportListRequest.objectProperties.map { it.toMutableList() }
             objectType = publicExportListRequest.objectType
             overrideAssociatedObjectsPerDefinitionPerRowLimit =
                 publicExportListRequest.overrideAssociatedObjectsPerDefinitionPerRowLimit
-            associatedObjectType = publicExportListRequest.associatedObjectType
             additionalProperties = publicExportListRequest.additionalProperties.toMutableMap()
+        }
+
+        fun associatedObjectType(associatedObjectType: List<String>) =
+            associatedObjectType(JsonField.of(associatedObjectType))
+
+        /**
+         * Sets [Builder.associatedObjectType] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.associatedObjectType] with a well-typed `List<String>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun associatedObjectType(associatedObjectType: JsonField<List<String>>) = apply {
+            this.associatedObjectType = associatedObjectType.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [Builder.associatedObjectType].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addAssociatedObjectType(associatedObjectType: String) = apply {
+            this.associatedObjectType =
+                (this.associatedObjectType ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("associatedObjectType", it).add(associatedObjectType)
+                }
         }
 
         fun exportInternalValuesOptions(
@@ -357,6 +438,42 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun format(format: JsonField<Format>) = apply { this.format = format }
+
+        fun includeLabeledAssociations(includeLabeledAssociations: Boolean) =
+            includeLabeledAssociations(JsonField.of(includeLabeledAssociations))
+
+        /**
+         * Sets [Builder.includeLabeledAssociations] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.includeLabeledAssociations] with a well-typed [Boolean]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun includeLabeledAssociations(includeLabeledAssociations: JsonField<Boolean>) = apply {
+            this.includeLabeledAssociations = includeLabeledAssociations
+        }
+
+        fun includePrimaryDisplayPropertyForAssociatedObjects(
+            includePrimaryDisplayPropertyForAssociatedObjects: Boolean
+        ) =
+            includePrimaryDisplayPropertyForAssociatedObjects(
+                JsonField.of(includePrimaryDisplayPropertyForAssociatedObjects)
+            )
+
+        /**
+         * Sets [Builder.includePrimaryDisplayPropertyForAssociatedObjects] to an arbitrary JSON
+         * value.
+         *
+         * You should usually call [Builder.includePrimaryDisplayPropertyForAssociatedObjects] with
+         * a well-typed [Boolean] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun includePrimaryDisplayPropertyForAssociatedObjects(
+            includePrimaryDisplayPropertyForAssociatedObjects: JsonField<Boolean>
+        ) = apply {
+            this.includePrimaryDisplayPropertyForAssociatedObjects =
+                includePrimaryDisplayPropertyForAssociatedObjects
+        }
 
         fun language(language: Language) = language(JsonField.of(language))
 
@@ -438,20 +555,6 @@ private constructor(
                 overrideAssociatedObjectsPerDefinitionPerRowLimit
         }
 
-        fun associatedObjectType(associatedObjectType: String) =
-            associatedObjectType(JsonField.of(associatedObjectType))
-
-        /**
-         * Sets [Builder.associatedObjectType] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.associatedObjectType] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun associatedObjectType(associatedObjectType: JsonField<String>) = apply {
-            this.associatedObjectType = associatedObjectType
-        }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -478,10 +581,13 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .associatedObjectType()
          * .exportInternalValuesOptions()
          * .exportName()
          * .exportType()
          * .format()
+         * .includeLabeledAssociations()
+         * .includePrimaryDisplayPropertyForAssociatedObjects()
          * .language()
          * .listId()
          * .objectProperties()
@@ -493,12 +599,20 @@ private constructor(
          */
         fun build(): PublicExportListRequest =
             PublicExportListRequest(
+                checkRequired("associatedObjectType", associatedObjectType).map {
+                    it.toImmutable()
+                },
                 checkRequired("exportInternalValuesOptions", exportInternalValuesOptions).map {
                     it.toImmutable()
                 },
                 checkRequired("exportName", exportName),
                 checkRequired("exportType", exportType),
                 checkRequired("format", format),
+                checkRequired("includeLabeledAssociations", includeLabeledAssociations),
+                checkRequired(
+                    "includePrimaryDisplayPropertyForAssociatedObjects",
+                    includePrimaryDisplayPropertyForAssociatedObjects,
+                ),
                 checkRequired("language", language),
                 checkRequired("listId", listId),
                 checkRequired("objectProperties", objectProperties).map { it.toImmutable() },
@@ -507,7 +621,6 @@ private constructor(
                     "overrideAssociatedObjectsPerDefinitionPerRowLimit",
                     overrideAssociatedObjectsPerDefinitionPerRowLimit,
                 ),
-                associatedObjectType,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -519,16 +632,18 @@ private constructor(
             return@apply
         }
 
+        associatedObjectType()
         exportInternalValuesOptions().forEach { it.validate() }
         exportName()
         exportType().validate()
         format().validate()
+        includeLabeledAssociations()
+        includePrimaryDisplayPropertyForAssociatedObjects()
         language().validate()
         listId()
         objectProperties()
         objectType()
         overrideAssociatedObjectsPerDefinitionPerRowLimit()
-        associatedObjectType()
         validated = true
     }
 
@@ -547,16 +662,19 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (exportInternalValuesOptions.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+        (associatedObjectType.asKnown().getOrNull()?.size ?: 0) +
+            (exportInternalValuesOptions.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
+                ?: 0) +
             (if (exportName.asKnown().isPresent) 1 else 0) +
             (exportType.asKnown().getOrNull()?.validity() ?: 0) +
             (format.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (includeLabeledAssociations.asKnown().isPresent) 1 else 0) +
+            (if (includePrimaryDisplayPropertyForAssociatedObjects.asKnown().isPresent) 1 else 0) +
             (language.asKnown().getOrNull()?.validity() ?: 0) +
             (if (listId.asKnown().isPresent) 1 else 0) +
             (objectProperties.asKnown().getOrNull()?.size ?: 0) +
             (if (objectType.asKnown().isPresent) 1 else 0) +
-            (if (overrideAssociatedObjectsPerDefinitionPerRowLimit.asKnown().isPresent) 1 else 0) +
-            (if (associatedObjectType.asKnown().isPresent) 1 else 0)
+            (if (overrideAssociatedObjectsPerDefinitionPerRowLimit.asKnown().isPresent) 1 else 0)
 
     class ExportInternalValuesOption
     @JsonCreator
@@ -1146,32 +1264,37 @@ private constructor(
         }
 
         return other is PublicExportListRequest &&
+            associatedObjectType == other.associatedObjectType &&
             exportInternalValuesOptions == other.exportInternalValuesOptions &&
             exportName == other.exportName &&
             exportType == other.exportType &&
             format == other.format &&
+            includeLabeledAssociations == other.includeLabeledAssociations &&
+            includePrimaryDisplayPropertyForAssociatedObjects ==
+                other.includePrimaryDisplayPropertyForAssociatedObjects &&
             language == other.language &&
             listId == other.listId &&
             objectProperties == other.objectProperties &&
             objectType == other.objectType &&
             overrideAssociatedObjectsPerDefinitionPerRowLimit ==
                 other.overrideAssociatedObjectsPerDefinitionPerRowLimit &&
-            associatedObjectType == other.associatedObjectType &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            associatedObjectType,
             exportInternalValuesOptions,
             exportName,
             exportType,
             format,
+            includeLabeledAssociations,
+            includePrimaryDisplayPropertyForAssociatedObjects,
             language,
             listId,
             objectProperties,
             objectType,
             overrideAssociatedObjectsPerDefinitionPerRowLimit,
-            associatedObjectType,
             additionalProperties,
         )
     }
@@ -1179,5 +1302,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicExportListRequest{exportInternalValuesOptions=$exportInternalValuesOptions, exportName=$exportName, exportType=$exportType, format=$format, language=$language, listId=$listId, objectProperties=$objectProperties, objectType=$objectType, overrideAssociatedObjectsPerDefinitionPerRowLimit=$overrideAssociatedObjectsPerDefinitionPerRowLimit, associatedObjectType=$associatedObjectType, additionalProperties=$additionalProperties}"
+        "PublicExportListRequest{associatedObjectType=$associatedObjectType, exportInternalValuesOptions=$exportInternalValuesOptions, exportName=$exportName, exportType=$exportType, format=$format, includeLabeledAssociations=$includeLabeledAssociations, includePrimaryDisplayPropertyForAssociatedObjects=$includePrimaryDisplayPropertyForAssociatedObjects, language=$language, listId=$listId, objectProperties=$objectProperties, objectType=$objectType, overrideAssociatedObjectsPerDefinitionPerRowLimit=$overrideAssociatedObjectsPerDefinitionPerRowLimit, additionalProperties=$additionalProperties}"
 }

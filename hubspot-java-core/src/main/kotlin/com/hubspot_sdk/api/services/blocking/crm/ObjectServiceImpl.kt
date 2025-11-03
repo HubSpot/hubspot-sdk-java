@@ -5,8 +5,6 @@ package com.hubspot_sdk.api.services.blocking.crm
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.crm.ObjectService
 import com.hubspot_sdk.api.services.blocking.crm.ObjectServiceImpl
-import com.hubspot_sdk.api.services.blocking.crm.objects.AppointmentService
-import com.hubspot_sdk.api.services.blocking.crm.objects.AppointmentServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.CallService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CallServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.CartService
@@ -83,8 +81,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
     private val withRawResponse: ObjectService.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
     }
-
-    private val appointments: AppointmentService by lazy { AppointmentServiceImpl(clientOptions) }
 
     private val calls: CallService by lazy { CallServiceImpl(clientOptions) }
 
@@ -169,8 +165,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ObjectService =
         ObjectServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun appointments(): AppointmentService = appointments
-
     override fun calls(): CallService = calls
 
     override fun carts(): CartService = carts
@@ -241,10 +235,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ObjectService.WithRawResponse {
-
-        private val appointments: AppointmentService.WithRawResponse by lazy {
-            AppointmentServiceImpl.WithRawResponseImpl(clientOptions)
-        }
 
         private val calls: CallService.WithRawResponse by lazy {
             CallServiceImpl.WithRawResponseImpl(clientOptions)
@@ -388,8 +378,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
             ObjectServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
-
-        override fun appointments(): AppointmentService.WithRawResponse = appointments
 
         override fun calls(): CallService.WithRawResponse = calls
 

@@ -18,7 +18,7 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
         val collectionResponsePublicMessageForwardPaging =
             CollectionResponsePublicMessageForwardPaging.builder()
                 .addResult(
-                    PublicConversationsMessage.builder()
+                    ConversationsPublicConversationsMessage.builder()
                         .id("id")
                         .archived(true)
                         .addAttachment(
@@ -41,7 +41,7 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                         .conversationsThreadId("conversationsThreadId")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdBy("createdBy")
-                        .direction(PublicConversationsMessage.Direction.INCOMING)
+                        .direction(ConversationsPublicConversationsMessage.Direction.INCOMING)
                         .addRecipient(
                             PublicRecipient.builder()
                                 .deliveryIdentifier(
@@ -69,8 +69,10 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                                 .build()
                         )
                         .text("text")
-                        .truncationStatus(PublicConversationsMessage.TruncationStatus.NOT_TRUNCATED)
-                        .type(PublicConversationsMessage.Type.MESSAGE)
+                        .truncationStatus(
+                            ConversationsPublicConversationsMessage.TruncationStatus.NOT_TRUNCATED
+                        )
+                        .type(ConversationsPublicConversationsMessage.Type.MESSAGE)
                         .inReplyToId("inReplyToId")
                         .richText("richText")
                         .status(
@@ -104,84 +106,89 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
 
         assertThat(collectionResponsePublicMessageForwardPaging.results())
             .containsExactly(
-                CollectionResponsePublicMessageForwardPaging.Result.ofPublicConversationsMessage(
-                    PublicConversationsMessage.builder()
-                        .id("id")
-                        .archived(true)
-                        .addAttachment(
-                            PublicFile.builder()
-                                .fileId("fileId")
-                                .fileUsageType("fileUsageType")
-                                .type(PublicFile.Type.FILE)
-                                .url("url")
-                                .name("name")
-                                .build()
-                        )
-                        .channelAccountId("channelAccountId")
-                        .channelId("channelId")
-                        .client(
-                            PublicClient.builder()
-                                .clientType(PublicClient.ClientType.HUBSPOT)
-                                .integrationAppId(0)
-                                .build()
-                        )
-                        .conversationsThreadId("conversationsThreadId")
-                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .createdBy("createdBy")
-                        .direction(PublicConversationsMessage.Direction.INCOMING)
-                        .addRecipient(
-                            PublicRecipient.builder()
-                                .deliveryIdentifier(
-                                    PublicDeliveryIdentifier.builder()
-                                        .type("type")
-                                        .value("value")
-                                        .build()
-                                )
-                                .actorId("actorId")
-                                .name("name")
-                                .recipientField("recipientField")
-                                .build()
-                        )
-                        .addSender(
-                            PublicSender.builder()
-                                .actorId("actorId")
-                                .deliveryIdentifier(
-                                    PublicDeliveryIdentifier.builder()
-                                        .type("type")
-                                        .value("value")
-                                        .build()
-                                )
-                                .name("name")
-                                .senderField("senderField")
-                                .build()
-                        )
-                        .text("text")
-                        .truncationStatus(PublicConversationsMessage.TruncationStatus.NOT_TRUNCATED)
-                        .type(PublicConversationsMessage.Type.MESSAGE)
-                        .inReplyToId("inReplyToId")
-                        .richText("richText")
-                        .status(
-                            PublicMessageStatus.builder()
-                                .statusType(PublicMessageStatus.StatusType.SENT)
-                                .failureDetails(
-                                    PublicMessageFailureDetails.builder()
-                                        .errorMessageTokens(
-                                            PublicMessageFailureDetails.ErrorMessageTokens.builder()
-                                                .putAdditionalProperty(
-                                                    "foo",
-                                                    JsonValue.from("string"),
-                                                )
-                                                .build()
-                                        )
-                                        .errorMessage("errorMessage")
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .subject("subject")
-                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .build()
-                )
+                CollectionResponsePublicMessageForwardPaging.Result
+                    .ofConversationsPublicConversationsMessage(
+                        ConversationsPublicConversationsMessage.builder()
+                            .id("id")
+                            .archived(true)
+                            .addAttachment(
+                                PublicFile.builder()
+                                    .fileId("fileId")
+                                    .fileUsageType("fileUsageType")
+                                    .type(PublicFile.Type.FILE)
+                                    .url("url")
+                                    .name("name")
+                                    .build()
+                            )
+                            .channelAccountId("channelAccountId")
+                            .channelId("channelId")
+                            .client(
+                                PublicClient.builder()
+                                    .clientType(PublicClient.ClientType.HUBSPOT)
+                                    .integrationAppId(0)
+                                    .build()
+                            )
+                            .conversationsThreadId("conversationsThreadId")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .createdBy("createdBy")
+                            .direction(ConversationsPublicConversationsMessage.Direction.INCOMING)
+                            .addRecipient(
+                                PublicRecipient.builder()
+                                    .deliveryIdentifier(
+                                        PublicDeliveryIdentifier.builder()
+                                            .type("type")
+                                            .value("value")
+                                            .build()
+                                    )
+                                    .actorId("actorId")
+                                    .name("name")
+                                    .recipientField("recipientField")
+                                    .build()
+                            )
+                            .addSender(
+                                PublicSender.builder()
+                                    .actorId("actorId")
+                                    .deliveryIdentifier(
+                                        PublicDeliveryIdentifier.builder()
+                                            .type("type")
+                                            .value("value")
+                                            .build()
+                                    )
+                                    .name("name")
+                                    .senderField("senderField")
+                                    .build()
+                            )
+                            .text("text")
+                            .truncationStatus(
+                                ConversationsPublicConversationsMessage.TruncationStatus
+                                    .NOT_TRUNCATED
+                            )
+                            .type(ConversationsPublicConversationsMessage.Type.MESSAGE)
+                            .inReplyToId("inReplyToId")
+                            .richText("richText")
+                            .status(
+                                PublicMessageStatus.builder()
+                                    .statusType(PublicMessageStatus.StatusType.SENT)
+                                    .failureDetails(
+                                        PublicMessageFailureDetails.builder()
+                                            .errorMessageTokens(
+                                                PublicMessageFailureDetails.ErrorMessageTokens
+                                                    .builder()
+                                                    .putAdditionalProperty(
+                                                        "foo",
+                                                        JsonValue.from("string"),
+                                                    )
+                                                    .build()
+                                            )
+                                            .errorMessage("errorMessage")
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .subject("subject")
+                            .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
             )
         assertThat(collectionResponsePublicMessageForwardPaging.paging())
             .contains(
@@ -195,7 +202,7 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
         val collectionResponsePublicMessageForwardPaging =
             CollectionResponsePublicMessageForwardPaging.builder()
                 .addResult(
-                    PublicConversationsMessage.builder()
+                    ConversationsPublicConversationsMessage.builder()
                         .id("id")
                         .archived(true)
                         .addAttachment(
@@ -218,7 +225,7 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                         .conversationsThreadId("conversationsThreadId")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdBy("createdBy")
-                        .direction(PublicConversationsMessage.Direction.INCOMING)
+                        .direction(ConversationsPublicConversationsMessage.Direction.INCOMING)
                         .addRecipient(
                             PublicRecipient.builder()
                                 .deliveryIdentifier(
@@ -246,8 +253,10 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                                 .build()
                         )
                         .text("text")
-                        .truncationStatus(PublicConversationsMessage.TruncationStatus.NOT_TRUNCATED)
-                        .type(PublicConversationsMessage.Type.MESSAGE)
+                        .truncationStatus(
+                            ConversationsPublicConversationsMessage.TruncationStatus.NOT_TRUNCATED
+                        )
+                        .type(ConversationsPublicConversationsMessage.Type.MESSAGE)
                         .inReplyToId("inReplyToId")
                         .richText("richText")
                         .status(

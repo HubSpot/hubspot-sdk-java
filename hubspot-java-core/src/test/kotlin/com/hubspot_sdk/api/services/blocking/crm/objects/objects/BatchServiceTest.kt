@@ -54,7 +54,7 @@ internal class BatchServiceTest {
                                     )
                                     .addAssociation(
                                         PublicAssociationsForObject.builder()
-                                            .to(PublicObjectId.builder().id("id").build())
+                                            .to(PublicObjectId.builder().id("37295").build())
                                             .addType(
                                                 AssociationSpec.builder()
                                                     .associationCategory(

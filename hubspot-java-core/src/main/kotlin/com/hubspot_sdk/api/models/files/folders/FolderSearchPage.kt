@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Page
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.files.CollectionResponseFolder
 import com.hubspot_sdk.api.models.files.Folder
-import com.hubspot_sdk.api.models.marketing.emails.Paging
+import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import com.hubspot_sdk.api.services.blocking.files.FolderService
 import java.util.Objects
 import java.util.Optional
@@ -34,7 +34,7 @@ private constructor(
      *
      * @see CollectionResponseFolder.paging
      */
-    fun paging(): Optional<Paging> = response._paging().getOptional("paging")
+    fun paging(): Optional<EmailsPaging> = response._paging().getOptional("paging")
 
     override fun items(): List<Folder> = results()
 

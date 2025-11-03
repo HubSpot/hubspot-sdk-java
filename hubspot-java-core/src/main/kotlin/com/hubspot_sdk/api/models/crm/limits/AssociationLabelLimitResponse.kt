@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -23,10 +23,10 @@ class AssociationLabelLimitResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val allLabels: JsonField<List<String>>,
-    private val fromObjectType: JsonField<ObjectTypeDefinition>,
+    private val fromObjectType: JsonField<ObjectsSchemasObjectTypeDefinition>,
     private val limit: JsonField<Int>,
     private val percentage: JsonField<Double>,
-    private val toObjectType: JsonField<ObjectTypeDefinition>,
+    private val toObjectType: JsonField<ObjectsSchemasObjectTypeDefinition>,
     private val usage: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -38,14 +38,14 @@ private constructor(
         allLabels: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("fromObjectType")
         @ExcludeMissing
-        fromObjectType: JsonField<ObjectTypeDefinition> = JsonMissing.of(),
+        fromObjectType: JsonField<ObjectsSchemasObjectTypeDefinition> = JsonMissing.of(),
         @JsonProperty("limit") @ExcludeMissing limit: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("percentage")
         @ExcludeMissing
         percentage: JsonField<Double> = JsonMissing.of(),
         @JsonProperty("toObjectType")
         @ExcludeMissing
-        toObjectType: JsonField<ObjectTypeDefinition> = JsonMissing.of(),
+        toObjectType: JsonField<ObjectsSchemasObjectTypeDefinition> = JsonMissing.of(),
         @JsonProperty("usage") @ExcludeMissing usage: JsonField<Int> = JsonMissing.of(),
     ) : this(allLabels, fromObjectType, limit, percentage, toObjectType, usage, mutableMapOf())
 
@@ -61,7 +61,8 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun fromObjectType(): ObjectTypeDefinition = fromObjectType.getRequired("fromObjectType")
+    fun fromObjectType(): ObjectsSchemasObjectTypeDefinition =
+        fromObjectType.getRequired("fromObjectType")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -81,7 +82,8 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun toObjectType(): ObjectTypeDefinition = toObjectType.getRequired("toObjectType")
+    fun toObjectType(): ObjectsSchemasObjectTypeDefinition =
+        toObjectType.getRequired("toObjectType")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -103,7 +105,7 @@ private constructor(
      */
     @JsonProperty("fromObjectType")
     @ExcludeMissing
-    fun _fromObjectType(): JsonField<ObjectTypeDefinition> = fromObjectType
+    fun _fromObjectType(): JsonField<ObjectsSchemasObjectTypeDefinition> = fromObjectType
 
     /**
      * Returns the raw JSON value of [limit].
@@ -126,7 +128,7 @@ private constructor(
      */
     @JsonProperty("toObjectType")
     @ExcludeMissing
-    fun _toObjectType(): JsonField<ObjectTypeDefinition> = toObjectType
+    fun _toObjectType(): JsonField<ObjectsSchemasObjectTypeDefinition> = toObjectType
 
     /**
      * Returns the raw JSON value of [usage].
@@ -170,10 +172,10 @@ private constructor(
     class Builder internal constructor() {
 
         private var allLabels: JsonField<MutableList<String>>? = null
-        private var fromObjectType: JsonField<ObjectTypeDefinition>? = null
+        private var fromObjectType: JsonField<ObjectsSchemasObjectTypeDefinition>? = null
         private var limit: JsonField<Int>? = null
         private var percentage: JsonField<Double>? = null
-        private var toObjectType: JsonField<ObjectTypeDefinition>? = null
+        private var toObjectType: JsonField<ObjectsSchemasObjectTypeDefinition>? = null
         private var usage: JsonField<Int>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -214,17 +216,17 @@ private constructor(
         }
 
         /** Defines an object type. */
-        fun fromObjectType(fromObjectType: ObjectTypeDefinition) =
+        fun fromObjectType(fromObjectType: ObjectsSchemasObjectTypeDefinition) =
             fromObjectType(JsonField.of(fromObjectType))
 
         /**
          * Sets [Builder.fromObjectType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.fromObjectType] with a well-typed [ObjectTypeDefinition]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.fromObjectType] with a well-typed
+         * [ObjectsSchemasObjectTypeDefinition] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
-        fun fromObjectType(fromObjectType: JsonField<ObjectTypeDefinition>) = apply {
+        fun fromObjectType(fromObjectType: JsonField<ObjectsSchemasObjectTypeDefinition>) = apply {
             this.fromObjectType = fromObjectType
         }
 
@@ -250,17 +252,17 @@ private constructor(
         fun percentage(percentage: JsonField<Double>) = apply { this.percentage = percentage }
 
         /** Defines an object type. */
-        fun toObjectType(toObjectType: ObjectTypeDefinition) =
+        fun toObjectType(toObjectType: ObjectsSchemasObjectTypeDefinition) =
             toObjectType(JsonField.of(toObjectType))
 
         /**
          * Sets [Builder.toObjectType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.toObjectType] with a well-typed [ObjectTypeDefinition]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.toObjectType] with a well-typed
+         * [ObjectsSchemasObjectTypeDefinition] value instead. This method is primarily for setting
+         * the field to an undocumented or not yet supported value.
          */
-        fun toObjectType(toObjectType: JsonField<ObjectTypeDefinition>) = apply {
+        fun toObjectType(toObjectType: JsonField<ObjectsSchemasObjectTypeDefinition>) = apply {
             this.toObjectType = toObjectType
         }
 

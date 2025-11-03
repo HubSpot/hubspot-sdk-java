@@ -37,8 +37,8 @@ internal class ChannelAccountServiceTest {
                 .build()
         val channelAccountService = client.conversations().channelAccounts()
 
-        val publicChannelAccount = channelAccountService.get("channelAccountId")
+        val conversationsPublicChannelAccount = channelAccountService.get("channelAccountId")
 
-        publicChannelAccount.validate()
+        conversationsPublicChannelAccount.validate()
     }
 }

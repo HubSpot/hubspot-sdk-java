@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountListParams
@@ -32,51 +32,55 @@ interface ChannelAccountService {
      * Create a new account for a channel. Multiple accounts can communicate over a single channel
      * using different delivery identifiers.
      */
-    fun create(channelId: String, params: ChannelAccountCreateParams): PublicChannelAccount =
-        create(channelId, params, RequestOptions.none())
+    fun create(
+        channelId: String,
+        params: ChannelAccountCreateParams,
+    ): ConversationsPublicChannelAccount = create(channelId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         channelId: String,
         params: ChannelAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount =
+    ): ConversationsPublicChannelAccount =
         create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see create */
-    fun create(params: ChannelAccountCreateParams): PublicChannelAccount =
+    fun create(params: ChannelAccountCreateParams): ConversationsPublicChannelAccount =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ChannelAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount
+    ): ConversationsPublicChannelAccount
 
     /**
      * This API is used to update the name of the channel account and it's isAuthorized status.
      * Setting to isAuthorized flag to False disables the channel account.
      */
-    fun update(channelAccountId: String, params: ChannelAccountUpdateParams): PublicChannelAccount =
-        update(channelAccountId, params, RequestOptions.none())
+    fun update(
+        channelAccountId: String,
+        params: ChannelAccountUpdateParams,
+    ): ConversationsPublicChannelAccount = update(channelAccountId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         channelAccountId: String,
         params: ChannelAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount =
+    ): ConversationsPublicChannelAccount =
         update(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: ChannelAccountUpdateParams): PublicChannelAccount =
+    fun update(params: ChannelAccountUpdateParams): ConversationsPublicChannelAccount =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ChannelAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount
+    ): ConversationsPublicChannelAccount
 
     /** Retrieve a list of accounts for a custom channel. */
     fun list(channelId: String): CollectionResponseWithTotalPublicChannelAccountForwardPaging =
@@ -121,26 +125,28 @@ interface ChannelAccountService {
      * your channel account, including its channel, associated inbox id, and delivery identifier
      * information.
      */
-    fun get(channelAccountId: String, params: ChannelAccountGetParams): PublicChannelAccount =
-        get(channelAccountId, params, RequestOptions.none())
+    fun get(
+        channelAccountId: String,
+        params: ChannelAccountGetParams,
+    ): ConversationsPublicChannelAccount = get(channelAccountId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         channelAccountId: String,
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount =
+    ): ConversationsPublicChannelAccount =
         get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
     /** @see get */
-    fun get(params: ChannelAccountGetParams): PublicChannelAccount =
+    fun get(params: ChannelAccountGetParams): ConversationsPublicChannelAccount =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicChannelAccount
+    ): ConversationsPublicChannelAccount
 
     /**
      * A view of [ChannelAccountService] that provides access to raw HTTP responses for each method.
@@ -165,7 +171,8 @@ interface ChannelAccountService {
         fun create(
             channelId: String,
             params: ChannelAccountCreateParams,
-        ): HttpResponseFor<PublicChannelAccount> = create(channelId, params, RequestOptions.none())
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
+            create(channelId, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
@@ -173,12 +180,14 @@ interface ChannelAccountService {
             channelId: String,
             params: ChannelAccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(params: ChannelAccountCreateParams): HttpResponseFor<PublicChannelAccount> =
+        fun create(
+            params: ChannelAccountCreateParams
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -186,7 +195,7 @@ interface ChannelAccountService {
         fun create(
             params: ChannelAccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount>
+        ): HttpResponseFor<ConversationsPublicChannelAccount>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -197,7 +206,7 @@ interface ChannelAccountService {
         fun update(
             channelAccountId: String,
             params: ChannelAccountUpdateParams,
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             update(channelAccountId, params, RequestOptions.none())
 
         /** @see update */
@@ -206,12 +215,14 @@ interface ChannelAccountService {
             channelAccountId: String,
             params: ChannelAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             update(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: ChannelAccountUpdateParams): HttpResponseFor<PublicChannelAccount> =
+        fun update(
+            params: ChannelAccountUpdateParams
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -219,7 +230,7 @@ interface ChannelAccountService {
         fun update(
             params: ChannelAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount>
+        ): HttpResponseFor<ConversationsPublicChannelAccount>
 
         /**
          * Returns a raw HTTP response for `get
@@ -280,7 +291,7 @@ interface ChannelAccountService {
         fun get(
             channelAccountId: String,
             params: ChannelAccountGetParams,
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             get(channelAccountId, params, RequestOptions.none())
 
         /** @see get */
@@ -289,19 +300,20 @@ interface ChannelAccountService {
             channelAccountId: String,
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount> =
+        ): HttpResponseFor<ConversationsPublicChannelAccount> =
             get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
-        fun get(params: ChannelAccountGetParams): HttpResponseFor<PublicChannelAccount> =
-            get(params, RequestOptions.none())
+        fun get(
+            params: ChannelAccountGetParams
+        ): HttpResponseFor<ConversationsPublicChannelAccount> = get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicChannelAccount>
+        ): HttpResponseFor<ConversationsPublicChannelAccount>
     }
 }

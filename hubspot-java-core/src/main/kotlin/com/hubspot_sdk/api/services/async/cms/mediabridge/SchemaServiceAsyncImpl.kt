@@ -24,7 +24,7 @@ import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -45,7 +45,7 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun update(
         params: SchemaUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ObjectTypeDefinition> =
+    ): CompletableFuture<ObjectsSchemasObjectTypeDefinition> =
         // patch /media-bridge/v1/{appId}/schemas/{objectType}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -90,13 +90,13 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<ObjectTypeDefinition> =
-            jsonHandler<ObjectTypeDefinition>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ObjectsSchemasObjectTypeDefinition> =
+            jsonHandler<ObjectsSchemasObjectTypeDefinition>(clientOptions.jsonMapper)
 
         override fun update(
             params: SchemaUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ObjectTypeDefinition>> {
+        ): CompletableFuture<HttpResponseFor<ObjectsSchemasObjectTypeDefinition>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectType", params.objectType().getOrNull())

@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.crm.limits
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.ObjectTypeDefinitionLabels
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -20,7 +20,7 @@ internal class CollectionResponseAssociationLabelLimitResponseNoPagingTest {
                     AssociationLabelLimitResponse.builder()
                         .addAllLabel("string")
                         .fromObjectType(
-                            ObjectTypeDefinition.builder()
+                            ObjectsSchemasObjectTypeDefinition.builder()
                                 .id("123456")
                                 .labels(
                                     ObjectTypeDefinitionLabels.builder()
@@ -45,7 +45,7 @@ internal class CollectionResponseAssociationLabelLimitResponseNoPagingTest {
                         .limit(0)
                         .percentage(0.0)
                         .toObjectType(
-                            ObjectTypeDefinition.builder()
+                            ObjectsSchemasObjectTypeDefinition.builder()
                                 .id("123456")
                                 .labels(
                                     ObjectTypeDefinitionLabels.builder()
@@ -77,7 +77,7 @@ internal class CollectionResponseAssociationLabelLimitResponseNoPagingTest {
                 AssociationLabelLimitResponse.builder()
                     .addAllLabel("string")
                     .fromObjectType(
-                        ObjectTypeDefinition.builder()
+                        ObjectsSchemasObjectTypeDefinition.builder()
                             .id("123456")
                             .labels(
                                 ObjectTypeDefinitionLabels.builder()
@@ -102,7 +102,7 @@ internal class CollectionResponseAssociationLabelLimitResponseNoPagingTest {
                     .limit(0)
                     .percentage(0.0)
                     .toObjectType(
-                        ObjectTypeDefinition.builder()
+                        ObjectsSchemasObjectTypeDefinition.builder()
                             .id("123456")
                             .labels(
                                 ObjectTypeDefinitionLabels.builder()
@@ -138,7 +138,7 @@ internal class CollectionResponseAssociationLabelLimitResponseNoPagingTest {
                     AssociationLabelLimitResponse.builder()
                         .addAllLabel("string")
                         .fromObjectType(
-                            ObjectTypeDefinition.builder()
+                            ObjectsSchemasObjectTypeDefinition.builder()
                                 .id("123456")
                                 .labels(
                                     ObjectTypeDefinitionLabels.builder()
@@ -163,7 +163,7 @@ internal class CollectionResponseAssociationLabelLimitResponseNoPagingTest {
                         .limit(0)
                         .percentage(0.0)
                         .toObjectType(
-                            ObjectTypeDefinition.builder()
+                            ObjectsSchemasObjectTypeDefinition.builder()
                                 .id("123456")
                                 .labels(
                                     ObjectTypeDefinitionLabels.builder()
