@@ -6,11 +6,13 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.marketing.events.AttendanceCounters
-import com.hubspot_sdk.api.models.marketing.events.CollectionResponseWithTotalParticipationBreakdownForwardPaging
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByExternalAccountAndEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactPageAsync
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdPageAsync
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdPageAsync
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -100,7 +102,7 @@ interface ParticipationServiceAsync {
     /** Read Contact's participations by identifier - email or internal id. */
     fun listBreakdownByContact(
         contactIdentifier: String
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByContactPageAsync> =
         listBreakdownByContact(contactIdentifier, ParticipationListBreakdownByContactParams.none())
 
     /** @see listBreakdownByContact */
@@ -109,7 +111,7 @@ interface ParticipationServiceAsync {
         params: ParticipationListBreakdownByContactParams =
             ParticipationListBreakdownByContactParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByContactPageAsync> =
         listBreakdownByContact(
             params.toBuilder().contactIdentifier(contactIdentifier).build(),
             requestOptions,
@@ -120,26 +122,26 @@ interface ParticipationServiceAsync {
         contactIdentifier: String,
         params: ParticipationListBreakdownByContactParams =
             ParticipationListBreakdownByContactParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByContactPageAsync> =
         listBreakdownByContact(contactIdentifier, params, RequestOptions.none())
 
     /** @see listBreakdownByContact */
     fun listBreakdownByContact(
         params: ParticipationListBreakdownByContactParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+    ): CompletableFuture<ParticipationListBreakdownByContactPageAsync>
 
     /** @see listBreakdownByContact */
     fun listBreakdownByContact(
         params: ParticipationListBreakdownByContactParams
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByContactPageAsync> =
         listBreakdownByContact(params, RequestOptions.none())
 
     /** @see listBreakdownByContact */
     fun listBreakdownByContact(
         contactIdentifier: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByContactPageAsync> =
         listBreakdownByContact(
             contactIdentifier,
             ParticipationListBreakdownByContactParams.none(),
@@ -153,7 +155,7 @@ interface ParticipationServiceAsync {
     fun listBreakdownByExternalAccountAndEventId(
         externalEventId: String,
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync> =
         listBreakdownByExternalAccountAndEventId(externalEventId, params, RequestOptions.none())
 
     /** @see listBreakdownByExternalAccountAndEventId */
@@ -161,7 +163,7 @@ interface ParticipationServiceAsync {
         externalEventId: String,
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync> =
         listBreakdownByExternalAccountAndEventId(
             params.toBuilder().externalEventId(externalEventId).build(),
             requestOptions,
@@ -170,14 +172,14 @@ interface ParticipationServiceAsync {
     /** @see listBreakdownByExternalAccountAndEventId */
     fun listBreakdownByExternalAccountAndEventId(
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync> =
         listBreakdownByExternalAccountAndEventId(params, RequestOptions.none())
 
     /** @see listBreakdownByExternalAccountAndEventId */
     fun listBreakdownByExternalAccountAndEventId(
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+    ): CompletableFuture<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync>
 
     /**
      * Read Marketing event's participations breakdown with optional filters by internal identifier
@@ -185,7 +187,7 @@ interface ParticipationServiceAsync {
      */
     fun listBreakdownById(
         marketingEventId: Long
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByIdPageAsync> =
         listBreakdownById(marketingEventId, ParticipationListBreakdownByIdParams.none())
 
     /** @see listBreakdownById */
@@ -193,7 +195,7 @@ interface ParticipationServiceAsync {
         marketingEventId: Long,
         params: ParticipationListBreakdownByIdParams = ParticipationListBreakdownByIdParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByIdPageAsync> =
         listBreakdownById(
             params.toBuilder().marketingEventId(marketingEventId).build(),
             requestOptions,
@@ -203,26 +205,26 @@ interface ParticipationServiceAsync {
     fun listBreakdownById(
         marketingEventId: Long,
         params: ParticipationListBreakdownByIdParams = ParticipationListBreakdownByIdParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByIdPageAsync> =
         listBreakdownById(marketingEventId, params, RequestOptions.none())
 
     /** @see listBreakdownById */
     fun listBreakdownById(
         params: ParticipationListBreakdownByIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+    ): CompletableFuture<ParticipationListBreakdownByIdPageAsync>
 
     /** @see listBreakdownById */
     fun listBreakdownById(
         params: ParticipationListBreakdownByIdParams
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByIdPageAsync> =
         listBreakdownById(params, RequestOptions.none())
 
     /** @see listBreakdownById */
     fun listBreakdownById(
         marketingEventId: Long,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByIdPageAsync> =
         listBreakdownById(
             marketingEventId,
             ParticipationListBreakdownByIdParams.none(),
@@ -329,9 +331,7 @@ interface ParticipationServiceAsync {
          */
         fun listBreakdownByContact(
             contactIdentifier: String
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > =
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByContactPageAsync>> =
             listBreakdownByContact(
                 contactIdentifier,
                 ParticipationListBreakdownByContactParams.none(),
@@ -343,9 +343,7 @@ interface ParticipationServiceAsync {
             params: ParticipationListBreakdownByContactParams =
                 ParticipationListBreakdownByContactParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > =
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByContactPageAsync>> =
             listBreakdownByContact(
                 params.toBuilder().contactIdentifier(contactIdentifier).build(),
                 requestOptions,
@@ -356,32 +354,26 @@ interface ParticipationServiceAsync {
             contactIdentifier: String,
             params: ParticipationListBreakdownByContactParams =
                 ParticipationListBreakdownByContactParams.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > = listBreakdownByContact(contactIdentifier, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByContactPageAsync>> =
+            listBreakdownByContact(contactIdentifier, params, RequestOptions.none())
 
         /** @see listBreakdownByContact */
         fun listBreakdownByContact(
             params: ParticipationListBreakdownByContactParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        >
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByContactPageAsync>>
 
         /** @see listBreakdownByContact */
         fun listBreakdownByContact(
             params: ParticipationListBreakdownByContactParams
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > = listBreakdownByContact(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByContactPageAsync>> =
+            listBreakdownByContact(params, RequestOptions.none())
 
         /** @see listBreakdownByContact */
         fun listBreakdownByContact(
             contactIdentifier: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > =
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByContactPageAsync>> =
             listBreakdownByContact(
                 contactIdentifier,
                 ParticipationListBreakdownByContactParams.none(),
@@ -398,7 +390,7 @@ interface ParticipationServiceAsync {
             externalEventId: String,
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
         ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+            HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync>
         > = listBreakdownByExternalAccountAndEventId(externalEventId, params, RequestOptions.none())
 
         /** @see listBreakdownByExternalAccountAndEventId */
@@ -407,7 +399,7 @@ interface ParticipationServiceAsync {
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+            HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync>
         > =
             listBreakdownByExternalAccountAndEventId(
                 params.toBuilder().externalEventId(externalEventId).build(),
@@ -418,7 +410,7 @@ interface ParticipationServiceAsync {
         fun listBreakdownByExternalAccountAndEventId(
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams
         ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+            HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync>
         > = listBreakdownByExternalAccountAndEventId(params, RequestOptions.none())
 
         /** @see listBreakdownByExternalAccountAndEventId */
@@ -426,7 +418,7 @@ interface ParticipationServiceAsync {
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+            HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync>
         >
 
         /**
@@ -436,9 +428,8 @@ interface ParticipationServiceAsync {
          */
         fun listBreakdownById(
             marketingEventId: Long
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > = listBreakdownById(marketingEventId, ParticipationListBreakdownByIdParams.none())
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByIdPageAsync>> =
+            listBreakdownById(marketingEventId, ParticipationListBreakdownByIdParams.none())
 
         /** @see listBreakdownById */
         fun listBreakdownById(
@@ -446,9 +437,7 @@ interface ParticipationServiceAsync {
             params: ParticipationListBreakdownByIdParams =
                 ParticipationListBreakdownByIdParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > =
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByIdPageAsync>> =
             listBreakdownById(
                 params.toBuilder().marketingEventId(marketingEventId).build(),
                 requestOptions,
@@ -459,32 +448,26 @@ interface ParticipationServiceAsync {
             marketingEventId: Long,
             params: ParticipationListBreakdownByIdParams =
                 ParticipationListBreakdownByIdParams.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > = listBreakdownById(marketingEventId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByIdPageAsync>> =
+            listBreakdownById(marketingEventId, params, RequestOptions.none())
 
         /** @see listBreakdownById */
         fun listBreakdownById(
             params: ParticipationListBreakdownByIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        >
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByIdPageAsync>>
 
         /** @see listBreakdownById */
         fun listBreakdownById(
             params: ParticipationListBreakdownByIdParams
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > = listBreakdownById(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByIdPageAsync>> =
+            listBreakdownById(params, RequestOptions.none())
 
         /** @see listBreakdownById */
         fun listBreakdownById(
             marketingEventId: Long,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > =
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByIdPageAsync>> =
             listBreakdownById(
                 marketingEventId,
                 ParticipationListBreakdownByIdParams.none(),

@@ -30,9 +30,6 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFolderRev
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFoldersBatchParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRestoreFolderRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRestoreRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRestoreRevisionToDraftParams
@@ -1277,17 +1274,9 @@ internal class LandingPageServiceTest {
                 .build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val collectionResponseWithTotalVersionContentFolder =
-            landingPageService.listFolderRevisions(
-                LandingPageListFolderRevisionsParams.builder()
-                    .objectId("objectId")
-                    .after("after")
-                    .before("before")
-                    .limit(0)
-                    .build()
-            )
+        val page = landingPageService.listFolderRevisions("objectId")
 
-        collectionResponseWithTotalVersionContentFolder.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -1300,24 +1289,9 @@ internal class LandingPageServiceTest {
                 .build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val collectionResponseWithTotalContentFolderForwardPaging =
-            landingPageService.listFolders(
-                LandingPageListFoldersParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .limit(0)
-                    .property("property")
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
+        val page = landingPageService.listFolders()
 
-        collectionResponseWithTotalContentFolderForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -1330,17 +1304,9 @@ internal class LandingPageServiceTest {
                 .build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val collectionResponseWithTotalVersionPage =
-            landingPageService.listRevisions(
-                LandingPageListRevisionsParams.builder()
-                    .objectId("objectId")
-                    .after("after")
-                    .before("before")
-                    .limit(0)
-                    .build()
-            )
+        val page = landingPageService.listRevisions("objectId")
 
-        collectionResponseWithTotalVersionPage.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

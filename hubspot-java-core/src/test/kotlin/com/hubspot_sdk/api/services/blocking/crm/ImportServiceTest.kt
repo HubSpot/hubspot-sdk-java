@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.services.blocking.crm
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.crm.imports.ImportCreateParams
-import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -89,17 +88,8 @@ internal class ImportServiceTest {
                 .build()
         val importService = client.crm().imports()
 
-        val collectionResponsePublicImportErrorForwardPaging =
-            importService.listErrors(
-                ImportListErrorsParams.builder()
-                    .importId(0L)
-                    .after("after")
-                    .includeErrorMessage(true)
-                    .includeRowData(true)
-                    .limit(0)
-                    .build()
-            )
+        val page = importService.listErrors(0L)
 
-        collectionResponsePublicImportErrorForwardPaging.validate()
+        page.response().validate()
     }
 }

@@ -30,6 +30,7 @@ import com.hubspot_sdk.api.models.cms.hubdb.tables.TableExportParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListParams
@@ -126,7 +127,7 @@ class TableServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun listDraft(
         params: TableListDraftParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalHubDbTableV3ForwardPaging> =
+    ): CompletableFuture<TableListDraftPageAsync> =
         // get /cms/v3/hubdb/tables/draft
         withRawResponse().listDraft(params, requestOptions).thenApply { it.parse() }
 
@@ -511,9 +512,7 @@ class TableServiceAsyncImpl internal constructor(private val clientOptions: Clie
         override fun listDraft(
             params: TableListDraftParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<TableListDraftPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -532,6 +531,14 @@ class TableServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                TableListDraftPageAsync.builder()
+                                    .service(TableServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

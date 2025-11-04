@@ -22,9 +22,6 @@ import com.hubspot_sdk.api.models.cms.pages.BatchInputContentFolder
 import com.hubspot_sdk.api.models.cms.pages.BatchInputPage
 import com.hubspot_sdk.api.models.cms.pages.BatchResponseContentFolder
 import com.hubspot_sdk.api.models.cms.pages.BatchResponsePage
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalContentFolderForwardPaging
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalVersionContentFolder
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalVersionPage
 import com.hubspot_sdk.api.models.cms.pages.ContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.Page
@@ -51,10 +48,13 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFolderRev
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFoldersBatchParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRerunAbTestParams
@@ -670,7 +670,7 @@ interface LandingPageService {
     ): VersionPage
 
     /** Retrieves all the previous versions of a Folder. */
-    fun listFolderRevisions(objectId: String): CollectionResponseWithTotalVersionContentFolder =
+    fun listFolderRevisions(objectId: String): LandingPageListFolderRevisionsPage =
         listFolderRevisions(objectId, LandingPageListFolderRevisionsParams.none())
 
     /** @see listFolderRevisions */
@@ -678,33 +678,32 @@ interface LandingPageService {
         objectId: String,
         params: LandingPageListFolderRevisionsParams = LandingPageListFolderRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionContentFolder =
+    ): LandingPageListFolderRevisionsPage =
         listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         objectId: String,
         params: LandingPageListFolderRevisionsParams = LandingPageListFolderRevisionsParams.none(),
-    ): CollectionResponseWithTotalVersionContentFolder =
+    ): LandingPageListFolderRevisionsPage =
         listFolderRevisions(objectId, params, RequestOptions.none())
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         params: LandingPageListFolderRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionContentFolder
+    ): LandingPageListFolderRevisionsPage
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         params: LandingPageListFolderRevisionsParams
-    ): CollectionResponseWithTotalVersionContentFolder =
-        listFolderRevisions(params, RequestOptions.none())
+    ): LandingPageListFolderRevisionsPage = listFolderRevisions(params, RequestOptions.none())
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         objectId: String,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionContentFolder =
+    ): LandingPageListFolderRevisionsPage =
         listFolderRevisions(objectId, LandingPageListFolderRevisionsParams.none(), requestOptions)
 
     /**
@@ -712,29 +711,25 @@ interface LandingPageService {
      * useful for an integration that examined these models and used an external service to suggest
      * edits.
      */
-    fun listFolders(): CollectionResponseWithTotalContentFolderForwardPaging =
-        listFolders(LandingPageListFoldersParams.none())
+    fun listFolders(): LandingPageListFoldersPage = listFolders(LandingPageListFoldersParams.none())
 
     /** @see listFolders */
     fun listFolders(
         params: LandingPageListFoldersParams = LandingPageListFoldersParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalContentFolderForwardPaging
+    ): LandingPageListFoldersPage
 
     /** @see listFolders */
     fun listFolders(
         params: LandingPageListFoldersParams = LandingPageListFoldersParams.none()
-    ): CollectionResponseWithTotalContentFolderForwardPaging =
-        listFolders(params, RequestOptions.none())
+    ): LandingPageListFoldersPage = listFolders(params, RequestOptions.none())
 
     /** @see listFolders */
-    fun listFolders(
-        requestOptions: RequestOptions
-    ): CollectionResponseWithTotalContentFolderForwardPaging =
+    fun listFolders(requestOptions: RequestOptions): LandingPageListFoldersPage =
         listFolders(LandingPageListFoldersParams.none(), requestOptions)
 
     /** Retrieves all the previous versions of a Landing Page. */
-    fun listRevisions(objectId: String): CollectionResponseWithTotalVersionPage =
+    fun listRevisions(objectId: String): LandingPageListRevisionsPage =
         listRevisions(objectId, LandingPageListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -742,32 +737,30 @@ interface LandingPageService {
         objectId: String,
         params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionPage =
+    ): LandingPageListRevisionsPage =
         listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         objectId: String,
         params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
-    ): CollectionResponseWithTotalVersionPage =
-        listRevisions(objectId, params, RequestOptions.none())
+    ): LandingPageListRevisionsPage = listRevisions(objectId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: LandingPageListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionPage
+    ): LandingPageListRevisionsPage
 
     /** @see listRevisions */
-    fun listRevisions(
-        params: LandingPageListRevisionsParams
-    ): CollectionResponseWithTotalVersionPage = listRevisions(params, RequestOptions.none())
+    fun listRevisions(params: LandingPageListRevisionsParams): LandingPageListRevisionsPage =
+        listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         objectId: String,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionPage =
+    ): LandingPageListRevisionsPage =
         listRevisions(objectId, LandingPageListRevisionsParams.none(), requestOptions)
 
     /**
@@ -1924,7 +1917,7 @@ interface LandingPageService {
         @MustBeClosed
         fun listFolderRevisions(
             objectId: String
-        ): HttpResponseFor<CollectionResponseWithTotalVersionContentFolder> =
+        ): HttpResponseFor<LandingPageListFolderRevisionsPage> =
             listFolderRevisions(objectId, LandingPageListFolderRevisionsParams.none())
 
         /** @see listFolderRevisions */
@@ -1934,7 +1927,7 @@ interface LandingPageService {
             params: LandingPageListFolderRevisionsParams =
                 LandingPageListFolderRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionContentFolder> =
+        ): HttpResponseFor<LandingPageListFolderRevisionsPage> =
             listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see listFolderRevisions */
@@ -1943,7 +1936,7 @@ interface LandingPageService {
             objectId: String,
             params: LandingPageListFolderRevisionsParams =
                 LandingPageListFolderRevisionsParams.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionContentFolder> =
+        ): HttpResponseFor<LandingPageListFolderRevisionsPage> =
             listFolderRevisions(objectId, params, RequestOptions.none())
 
         /** @see listFolderRevisions */
@@ -1951,13 +1944,13 @@ interface LandingPageService {
         fun listFolderRevisions(
             params: LandingPageListFolderRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>
+        ): HttpResponseFor<LandingPageListFolderRevisionsPage>
 
         /** @see listFolderRevisions */
         @MustBeClosed
         fun listFolderRevisions(
             params: LandingPageListFolderRevisionsParams
-        ): HttpResponseFor<CollectionResponseWithTotalVersionContentFolder> =
+        ): HttpResponseFor<LandingPageListFolderRevisionsPage> =
             listFolderRevisions(params, RequestOptions.none())
 
         /** @see listFolderRevisions */
@@ -1965,7 +1958,7 @@ interface LandingPageService {
         fun listFolderRevisions(
             objectId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionContentFolder> =
+        ): HttpResponseFor<LandingPageListFolderRevisionsPage> =
             listFolderRevisions(
                 objectId,
                 LandingPageListFolderRevisionsParams.none(),
@@ -1977,7 +1970,7 @@ interface LandingPageService {
          * otherwise the same as [LandingPageService.listFolders].
          */
         @MustBeClosed
-        fun listFolders(): HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging> =
+        fun listFolders(): HttpResponseFor<LandingPageListFoldersPage> =
             listFolders(LandingPageListFoldersParams.none())
 
         /** @see listFolders */
@@ -1985,20 +1978,19 @@ interface LandingPageService {
         fun listFolders(
             params: LandingPageListFoldersParams = LandingPageListFoldersParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging>
+        ): HttpResponseFor<LandingPageListFoldersPage>
 
         /** @see listFolders */
         @MustBeClosed
         fun listFolders(
             params: LandingPageListFoldersParams = LandingPageListFoldersParams.none()
-        ): HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging> =
-            listFolders(params, RequestOptions.none())
+        ): HttpResponseFor<LandingPageListFoldersPage> = listFolders(params, RequestOptions.none())
 
         /** @see listFolders */
         @MustBeClosed
         fun listFolders(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging> =
+        ): HttpResponseFor<LandingPageListFoldersPage> =
             listFolders(LandingPageListFoldersParams.none(), requestOptions)
 
         /**
@@ -2006,9 +1998,7 @@ interface LandingPageService {
          * but is otherwise the same as [LandingPageService.listRevisions].
          */
         @MustBeClosed
-        fun listRevisions(
-            objectId: String
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        fun listRevisions(objectId: String): HttpResponseFor<LandingPageListRevisionsPage> =
             listRevisions(objectId, LandingPageListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -2017,7 +2007,7 @@ interface LandingPageService {
             objectId: String,
             params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        ): HttpResponseFor<LandingPageListRevisionsPage> =
             listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see listRevisions */
@@ -2025,7 +2015,7 @@ interface LandingPageService {
         fun listRevisions(
             objectId: String,
             params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        ): HttpResponseFor<LandingPageListRevisionsPage> =
             listRevisions(objectId, params, RequestOptions.none())
 
         /** @see listRevisions */
@@ -2033,13 +2023,13 @@ interface LandingPageService {
         fun listRevisions(
             params: LandingPageListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage>
+        ): HttpResponseFor<LandingPageListRevisionsPage>
 
         /** @see listRevisions */
         @MustBeClosed
         fun listRevisions(
             params: LandingPageListRevisionsParams
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        ): HttpResponseFor<LandingPageListRevisionsPage> =
             listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
@@ -2047,7 +2037,7 @@ interface LandingPageService {
         fun listRevisions(
             objectId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        ): HttpResponseFor<LandingPageListRevisionsPage> =
             listRevisions(objectId, LandingPageListRevisionsParams.none(), requestOptions)
 
         /**

@@ -8,7 +8,6 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
-import com.hubspot_sdk.api.models.marketing.emails.CollectionResponseWithTotalVersionPublicEmail
 import com.hubspot_sdk.api.models.marketing.emails.EmailCloneParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailCloneRequestVNext
 import com.hubspot_sdk.api.models.marketing.emails.EmailCreateAbTestVariationParams
@@ -21,6 +20,7 @@ import com.hubspot_sdk.api.models.marketing.emails.EmailGetParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetRevisionParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailListPage
 import com.hubspot_sdk.api.models.marketing.emails.EmailListParams
+import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsPage
 import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailPublishParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailResetDraftParams
@@ -311,7 +311,7 @@ interface EmailService {
      * Get a list of all versions of a marketing email, with each entry including the full state of
      * that particular version. To view the most recent version, sort by the updatedAt parameter.
      */
-    fun listRevisions(emailId: String): CollectionResponseWithTotalVersionPublicEmail =
+    fun listRevisions(emailId: String): EmailListRevisionsPage =
         listRevisions(emailId, EmailListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -319,32 +319,27 @@ interface EmailService {
         emailId: String,
         params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionPublicEmail =
+    ): EmailListRevisionsPage =
         listRevisions(params.toBuilder().emailId(emailId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         emailId: String,
         params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
-    ): CollectionResponseWithTotalVersionPublicEmail =
-        listRevisions(emailId, params, RequestOptions.none())
+    ): EmailListRevisionsPage = listRevisions(emailId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: EmailListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionPublicEmail
+    ): EmailListRevisionsPage
 
     /** @see listRevisions */
-    fun listRevisions(
-        params: EmailListRevisionsParams
-    ): CollectionResponseWithTotalVersionPublicEmail = listRevisions(params, RequestOptions.none())
+    fun listRevisions(params: EmailListRevisionsParams): EmailListRevisionsPage =
+        listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
-    fun listRevisions(
-        emailId: String,
-        requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionPublicEmail =
+    fun listRevisions(emailId: String, requestOptions: RequestOptions): EmailListRevisionsPage =
         listRevisions(emailId, EmailListRevisionsParams.none(), requestOptions)
 
     /**
@@ -876,9 +871,7 @@ interface EmailService {
          * otherwise the same as [EmailService.listRevisions].
          */
         @MustBeClosed
-        fun listRevisions(
-            emailId: String
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail> =
+        fun listRevisions(emailId: String): HttpResponseFor<EmailListRevisionsPage> =
             listRevisions(emailId, EmailListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -887,7 +880,7 @@ interface EmailService {
             emailId: String,
             params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail> =
+        ): HttpResponseFor<EmailListRevisionsPage> =
             listRevisions(params.toBuilder().emailId(emailId).build(), requestOptions)
 
         /** @see listRevisions */
@@ -895,7 +888,7 @@ interface EmailService {
         fun listRevisions(
             emailId: String,
             params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail> =
+        ): HttpResponseFor<EmailListRevisionsPage> =
             listRevisions(emailId, params, RequestOptions.none())
 
         /** @see listRevisions */
@@ -903,21 +896,20 @@ interface EmailService {
         fun listRevisions(
             params: EmailListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>
+        ): HttpResponseFor<EmailListRevisionsPage>
 
         /** @see listRevisions */
         @MustBeClosed
         fun listRevisions(
             params: EmailListRevisionsParams
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail> =
-            listRevisions(params, RequestOptions.none())
+        ): HttpResponseFor<EmailListRevisionsPage> = listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
         @MustBeClosed
         fun listRevisions(
             emailId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail> =
+        ): HttpResponseFor<EmailListRevisionsPage> =
             listRevisions(emailId, EmailListRevisionsParams.none(), requestOptions)
 
         /**

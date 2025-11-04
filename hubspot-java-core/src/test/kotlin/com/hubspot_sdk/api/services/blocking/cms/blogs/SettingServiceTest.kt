@@ -11,7 +11,6 @@ import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.BlogLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetRevisionParams
-import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -135,17 +134,9 @@ internal class SettingServiceTest {
                 .build()
         val settingService = client.cms().blogs().settings()
 
-        val collectionResponseWithTotalVersionBlog =
-            settingService.listRevisions(
-                SettingListRevisionsParams.builder()
-                    .blogId("blogId")
-                    .after("after")
-                    .before("before")
-                    .limit(0)
-                    .build()
-            )
+        val page = settingService.listRevisions("blogId")
 
-        collectionResponseWithTotalVersionBlog.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -29,6 +29,7 @@ import com.hubspot_sdk.api.models.marketing.emails.EmailGetParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetRevisionParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailListPageAsync
 import com.hubspot_sdk.api.models.marketing.emails.EmailListParams
+import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsPageAsync
 import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailPublishParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailResetDraftParams
@@ -136,7 +137,7 @@ class EmailServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun listRevisions(
         params: EmailListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionPublicEmail> =
+    ): CompletableFuture<EmailListRevisionsPageAsync> =
         // get /marketing/v3/emails/{emailId}/revisions
         withRawResponse().listRevisions(params, requestOptions).thenApply { it.parse() }
 
@@ -547,7 +548,7 @@ class EmailServiceAsyncImpl internal constructor(private val clientOptions: Clie
         override fun listRevisions(
             params: EmailListRevisionsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>> {
+        ): CompletableFuture<HttpResponseFor<EmailListRevisionsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("emailId", params.emailId().getOrNull())
@@ -569,6 +570,14 @@ class EmailServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EmailListRevisionsPageAsync.builder()
+                                    .service(EmailServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -23,6 +23,7 @@ import com.hubspot_sdk.api.models.crm.imports.CollectionResponsePublicImportResp
 import com.hubspot_sdk.api.models.crm.imports.ImportCancelParams
 import com.hubspot_sdk.api.models.crm.imports.ImportCreateParams
 import com.hubspot_sdk.api.models.crm.imports.ImportGetParams
+import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsPage
 import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsParams
 import com.hubspot_sdk.api.models.crm.imports.ImportListPage
 import com.hubspot_sdk.api.models.crm.imports.ImportListParams
@@ -70,7 +71,7 @@ class ImportServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun listErrors(
         params: ImportListErrorsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponsePublicImportErrorForwardPaging =
+    ): ImportListErrorsPage =
         // get /crm/v3/imports/{importId}/errors
         withRawResponse().listErrors(params, requestOptions).parse()
 
@@ -216,7 +217,7 @@ class ImportServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun listErrors(
             params: ImportListErrorsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging> {
+        ): HttpResponseFor<ImportListErrorsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("importId", params.importId().getOrNull())
@@ -236,6 +237,13 @@ class ImportServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ImportListErrorsPage.builder()
+                            .service(ImportServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

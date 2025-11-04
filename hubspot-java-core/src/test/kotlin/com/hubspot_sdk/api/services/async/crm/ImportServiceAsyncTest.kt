@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.services.async.crm
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.imports.ImportCreateParams
-import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -93,19 +92,9 @@ internal class ImportServiceAsyncTest {
                 .build()
         val importServiceAsync = client.crm().imports()
 
-        val collectionResponsePublicImportErrorForwardPagingFuture =
-            importServiceAsync.listErrors(
-                ImportListErrorsParams.builder()
-                    .importId(0L)
-                    .after("after")
-                    .includeErrorMessage(true)
-                    .includeRowData(true)
-                    .limit(0)
-                    .build()
-            )
+        val pageFuture = importServiceAsync.listErrors(0L)
 
-        val collectionResponsePublicImportErrorForwardPaging =
-            collectionResponsePublicImportErrorForwardPagingFuture.get()
-        collectionResponsePublicImportErrorForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

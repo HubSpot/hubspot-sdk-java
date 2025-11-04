@@ -30,6 +30,7 @@ import com.hubspot_sdk.api.models.cms.hubdb.tables.TableExportParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftPage
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListPage
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListParams
@@ -109,7 +110,7 @@ class TableServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun listDraft(
         params: TableListDraftParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalHubDbTableV3ForwardPaging =
+    ): TableListDraftPage =
         // get /cms/v3/hubdb/tables/draft
         withRawResponse().listDraft(params, requestOptions).parse()
 
@@ -467,7 +468,7 @@ class TableServiceImpl internal constructor(private val clientOptions: ClientOpt
         override fun listDraft(
             params: TableListDraftParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging> {
+        ): HttpResponseFor<TableListDraftPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -484,6 +485,13 @@ class TableServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        TableListDraftPage.builder()
+                            .service(TableServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

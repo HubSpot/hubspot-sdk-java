@@ -6,10 +6,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.ActionResponse
-import com.hubspot_sdk.api.models.crm.imports.CollectionResponsePublicImportErrorForwardPaging
 import com.hubspot_sdk.api.models.crm.imports.ImportCancelParams
 import com.hubspot_sdk.api.models.crm.imports.ImportCreateParams
 import com.hubspot_sdk.api.models.crm.imports.ImportGetParams
+import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsPageAsync
 import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsParams
 import com.hubspot_sdk.api.models.crm.imports.ImportListPageAsync
 import com.hubspot_sdk.api.models.crm.imports.ImportListParams
@@ -137,9 +137,7 @@ interface ImportServiceAsync {
     ): CompletableFuture<PublicImportResponse> =
         get(importId, ImportGetParams.none(), requestOptions)
 
-    fun listErrors(
-        importId: Long
-    ): CompletableFuture<CollectionResponsePublicImportErrorForwardPaging> =
+    fun listErrors(importId: Long): CompletableFuture<ImportListErrorsPageAsync> =
         listErrors(importId, ImportListErrorsParams.none())
 
     /** @see listErrors */
@@ -147,33 +145,31 @@ interface ImportServiceAsync {
         importId: Long,
         params: ImportListErrorsParams = ImportListErrorsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePublicImportErrorForwardPaging> =
+    ): CompletableFuture<ImportListErrorsPageAsync> =
         listErrors(params.toBuilder().importId(importId).build(), requestOptions)
 
     /** @see listErrors */
     fun listErrors(
         importId: Long,
         params: ImportListErrorsParams = ImportListErrorsParams.none(),
-    ): CompletableFuture<CollectionResponsePublicImportErrorForwardPaging> =
+    ): CompletableFuture<ImportListErrorsPageAsync> =
         listErrors(importId, params, RequestOptions.none())
 
     /** @see listErrors */
     fun listErrors(
         params: ImportListErrorsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePublicImportErrorForwardPaging>
+    ): CompletableFuture<ImportListErrorsPageAsync>
 
     /** @see listErrors */
-    fun listErrors(
-        params: ImportListErrorsParams
-    ): CompletableFuture<CollectionResponsePublicImportErrorForwardPaging> =
+    fun listErrors(params: ImportListErrorsParams): CompletableFuture<ImportListErrorsPageAsync> =
         listErrors(params, RequestOptions.none())
 
     /** @see listErrors */
     fun listErrors(
         importId: Long,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponsePublicImportErrorForwardPaging> =
+    ): CompletableFuture<ImportListErrorsPageAsync> =
         listErrors(importId, ImportListErrorsParams.none(), requestOptions)
 
     /**
@@ -324,7 +320,7 @@ interface ImportServiceAsync {
          */
         fun listErrors(
             importId: Long
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ImportListErrorsPageAsync>> =
             listErrors(importId, ImportListErrorsParams.none())
 
         /** @see listErrors */
@@ -332,33 +328,33 @@ interface ImportServiceAsync {
             importId: Long,
             params: ImportListErrorsParams = ImportListErrorsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ImportListErrorsPageAsync>> =
             listErrors(params.toBuilder().importId(importId).build(), requestOptions)
 
         /** @see listErrors */
         fun listErrors(
             importId: Long,
             params: ImportListErrorsParams = ImportListErrorsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ImportListErrorsPageAsync>> =
             listErrors(importId, params, RequestOptions.none())
 
         /** @see listErrors */
         fun listErrors(
             params: ImportListErrorsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<ImportListErrorsPageAsync>>
 
         /** @see listErrors */
         fun listErrors(
             params: ImportListErrorsParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ImportListErrorsPageAsync>> =
             listErrors(params, RequestOptions.none())
 
         /** @see listErrors */
         fun listErrors(
             importId: Long,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ImportListErrorsPageAsync>> =
             listErrors(importId, ImportListErrorsParams.none(), requestOptions)
     }
 }

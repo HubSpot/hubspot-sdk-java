@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
-import com.hubspot_sdk.api.models.marketing.emails.CollectionResponseWithTotalVersionPublicEmail
 import com.hubspot_sdk.api.models.marketing.emails.EmailCloneParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailCloneRequestVNext
 import com.hubspot_sdk.api.models.marketing.emails.EmailCreateAbTestVariationParams
@@ -20,6 +19,7 @@ import com.hubspot_sdk.api.models.marketing.emails.EmailGetParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetRevisionParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailListPageAsync
 import com.hubspot_sdk.api.models.marketing.emails.EmailListParams
+import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsPageAsync
 import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailPublishParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailResetDraftParams
@@ -341,9 +341,7 @@ interface EmailServiceAsync {
      * Get a list of all versions of a marketing email, with each entry including the full state of
      * that particular version. To view the most recent version, sort by the updatedAt parameter.
      */
-    fun listRevisions(
-        emailId: String
-    ): CompletableFuture<CollectionResponseWithTotalVersionPublicEmail> =
+    fun listRevisions(emailId: String): CompletableFuture<EmailListRevisionsPageAsync> =
         listRevisions(emailId, EmailListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -351,33 +349,32 @@ interface EmailServiceAsync {
         emailId: String,
         params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPublicEmail> =
+    ): CompletableFuture<EmailListRevisionsPageAsync> =
         listRevisions(params.toBuilder().emailId(emailId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         emailId: String,
         params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPublicEmail> =
+    ): CompletableFuture<EmailListRevisionsPageAsync> =
         listRevisions(emailId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: EmailListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPublicEmail>
+    ): CompletableFuture<EmailListRevisionsPageAsync>
 
     /** @see listRevisions */
     fun listRevisions(
         params: EmailListRevisionsParams
-    ): CompletableFuture<CollectionResponseWithTotalVersionPublicEmail> =
-        listRevisions(params, RequestOptions.none())
+    ): CompletableFuture<EmailListRevisionsPageAsync> = listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         emailId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionPublicEmail> =
+    ): CompletableFuture<EmailListRevisionsPageAsync> =
         listRevisions(emailId, EmailListRevisionsParams.none(), requestOptions)
 
     /**
@@ -920,7 +917,7 @@ interface EmailServiceAsync {
          */
         fun listRevisions(
             emailId: String
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>> =
+        ): CompletableFuture<HttpResponseFor<EmailListRevisionsPageAsync>> =
             listRevisions(emailId, EmailListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -928,33 +925,33 @@ interface EmailServiceAsync {
             emailId: String,
             params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>> =
+        ): CompletableFuture<HttpResponseFor<EmailListRevisionsPageAsync>> =
             listRevisions(params.toBuilder().emailId(emailId).build(), requestOptions)
 
         /** @see listRevisions */
         fun listRevisions(
             emailId: String,
             params: EmailListRevisionsParams = EmailListRevisionsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>> =
+        ): CompletableFuture<HttpResponseFor<EmailListRevisionsPageAsync>> =
             listRevisions(emailId, params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             params: EmailListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>>
+        ): CompletableFuture<HttpResponseFor<EmailListRevisionsPageAsync>>
 
         /** @see listRevisions */
         fun listRevisions(
             params: EmailListRevisionsParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>> =
+        ): CompletableFuture<HttpResponseFor<EmailListRevisionsPageAsync>> =
             listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             emailId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail>> =
+        ): CompletableFuture<HttpResponseFor<EmailListRevisionsPageAsync>> =
             listRevisions(emailId, EmailListRevisionsParams.none(), requestOptions)
 
         /**

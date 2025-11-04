@@ -13,12 +13,12 @@ import com.hubspot_sdk.api.models.automation.workflows.ApiFlowBatchMigrationInpu
 import com.hubspot_sdk.api.models.automation.workflows.ApiFlowCreateRequest
 import com.hubspot_sdk.api.models.automation.workflows.BatchResponseApiFlow
 import com.hubspot_sdk.api.models.automation.workflows.BatchResponseFlowIdWorkflowIdMappingResponse
-import com.hubspot_sdk.api.models.automation.workflows.CollectionResponseApiFlowEmailCampaign
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowBatchGetIdMappingsParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowBatchGetParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowCreateParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowDeleteParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowGetParams
+import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsPage
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListPage
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListParams
@@ -197,22 +197,22 @@ interface WorkflowService {
     fun get(flowId: String, requestOptions: RequestOptions): ApiFlow =
         get(flowId, WorkflowGetParams.none(), requestOptions)
 
-    fun listEmailCampaigns(): CollectionResponseApiFlowEmailCampaign =
+    fun listEmailCampaigns(): WorkflowListEmailCampaignsPage =
         listEmailCampaigns(WorkflowListEmailCampaignsParams.none())
 
     /** @see listEmailCampaigns */
     fun listEmailCampaigns(
         params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseApiFlowEmailCampaign
+    ): WorkflowListEmailCampaignsPage
 
     /** @see listEmailCampaigns */
     fun listEmailCampaigns(
         params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none()
-    ): CollectionResponseApiFlowEmailCampaign = listEmailCampaigns(params, RequestOptions.none())
+    ): WorkflowListEmailCampaignsPage = listEmailCampaigns(params, RequestOptions.none())
 
     /** @see listEmailCampaigns */
-    fun listEmailCampaigns(requestOptions: RequestOptions): CollectionResponseApiFlowEmailCampaign =
+    fun listEmailCampaigns(requestOptions: RequestOptions): WorkflowListEmailCampaignsPage =
         listEmailCampaigns(WorkflowListEmailCampaignsParams.none(), requestOptions)
 
     /** A view of [WorkflowService] that provides access to raw HTTP responses for each method. */
@@ -461,7 +461,7 @@ interface WorkflowService {
          * otherwise the same as [WorkflowService.listEmailCampaigns].
          */
         @MustBeClosed
-        fun listEmailCampaigns(): HttpResponseFor<CollectionResponseApiFlowEmailCampaign> =
+        fun listEmailCampaigns(): HttpResponseFor<WorkflowListEmailCampaignsPage> =
             listEmailCampaigns(WorkflowListEmailCampaignsParams.none())
 
         /** @see listEmailCampaigns */
@@ -469,20 +469,20 @@ interface WorkflowService {
         fun listEmailCampaigns(
             params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseApiFlowEmailCampaign>
+        ): HttpResponseFor<WorkflowListEmailCampaignsPage>
 
         /** @see listEmailCampaigns */
         @MustBeClosed
         fun listEmailCampaigns(
             params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none()
-        ): HttpResponseFor<CollectionResponseApiFlowEmailCampaign> =
+        ): HttpResponseFor<WorkflowListEmailCampaignsPage> =
             listEmailCampaigns(params, RequestOptions.none())
 
         /** @see listEmailCampaigns */
         @MustBeClosed
         fun listEmailCampaigns(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseApiFlowEmailCampaign> =
+        ): HttpResponseFor<WorkflowListEmailCampaignsPage> =
             listEmailCampaigns(WorkflowListEmailCampaignsParams.none(), requestOptions)
     }
 }

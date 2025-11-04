@@ -38,6 +38,7 @@ import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListPage
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListParams
+import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsPage
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageRerunAbTestParams
@@ -162,7 +163,7 @@ class SitePageServiceImpl internal constructor(private val clientOptions: Client
     override fun listRevisions(
         params: SitePageListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionPage =
+    ): SitePageListRevisionsPage =
         // get /cms/v3/pages/site-pages/{objectId}/revisions
         withRawResponse().listRevisions(params, requestOptions).parse()
 
@@ -712,7 +713,7 @@ class SitePageServiceImpl internal constructor(private val clientOptions: Client
         override fun listRevisions(
             params: SitePageListRevisionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> {
+        ): HttpResponseFor<SitePageListRevisionsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -739,6 +740,13 @@ class SitePageServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        SitePageListRevisionsPage.builder()
+                            .service(SitePageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

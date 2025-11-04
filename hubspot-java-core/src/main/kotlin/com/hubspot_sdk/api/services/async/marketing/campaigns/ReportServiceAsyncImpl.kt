@@ -20,6 +20,7 @@ import com.hubspot_sdk.api.models.marketing.campaigns.MetricsCounters
 import com.hubspot_sdk.api.models.marketing.campaigns.RevenueAttributionAggregate
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetAttributionMetricsParams
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetRevenueAttributionParams
+import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypePageAsync
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypeParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -54,7 +55,7 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun listContactIdsByType(
         params: ReportListContactIdsByTypeParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseContactReferenceForwardPaging> =
+    ): CompletableFuture<ReportListContactIdsByTypePageAsync> =
         // get /marketing/v3/campaigns/{campaignGuid}/reports/contacts/{contactType}
         withRawResponse().listContactIdsByType(params, requestOptions).thenApply { it.parse() }
 
@@ -158,7 +159,7 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
         override fun listContactIdsByType(
             params: ReportListContactIdsByTypeParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseContactReferenceForwardPaging>> {
+        ): CompletableFuture<HttpResponseFor<ReportListContactIdsByTypePageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("contactType", params.contactType().getOrNull())
@@ -188,6 +189,14 @@ class ReportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ReportListContactIdsByTypePageAsync.builder()
+                                    .service(ReportServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -23,6 +23,7 @@ import com.hubspot_sdk.api.models.crm.imports.CollectionResponsePublicImportResp
 import com.hubspot_sdk.api.models.crm.imports.ImportCancelParams
 import com.hubspot_sdk.api.models.crm.imports.ImportCreateParams
 import com.hubspot_sdk.api.models.crm.imports.ImportGetParams
+import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsPageAsync
 import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsParams
 import com.hubspot_sdk.api.models.crm.imports.ImportListPageAsync
 import com.hubspot_sdk.api.models.crm.imports.ImportListParams
@@ -74,7 +75,7 @@ class ImportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun listErrors(
         params: ImportListErrorsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponsePublicImportErrorForwardPaging> =
+    ): CompletableFuture<ImportListErrorsPageAsync> =
         // get /crm/v3/imports/{importId}/errors
         withRawResponse().listErrors(params, requestOptions).thenApply { it.parse() }
 
@@ -233,7 +234,7 @@ class ImportServiceAsyncImpl internal constructor(private val clientOptions: Cli
         override fun listErrors(
             params: ImportListErrorsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>> {
+        ): CompletableFuture<HttpResponseFor<ImportListErrorsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("importId", params.importId().getOrNull())
@@ -255,6 +256,14 @@ class ImportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ImportListErrorsPageAsync.builder()
+                                    .service(ImportServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

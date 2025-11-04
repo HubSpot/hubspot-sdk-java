@@ -29,6 +29,7 @@ import com.hubspot_sdk.api.models.marketing.emails.EmailGetParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetRevisionParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailListPage
 import com.hubspot_sdk.api.models.marketing.emails.EmailListParams
+import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsPage
 import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailPublishParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailResetDraftParams
@@ -116,7 +117,7 @@ class EmailServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun listRevisions(
         params: EmailListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionPublicEmail =
+    ): EmailListRevisionsPage =
         // get /marketing/v3/emails/{emailId}/revisions
         withRawResponse().listRevisions(params, requestOptions).parse()
 
@@ -491,7 +492,7 @@ class EmailServiceImpl internal constructor(private val clientOptions: ClientOpt
         override fun listRevisions(
             params: EmailListRevisionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPublicEmail> {
+        ): HttpResponseFor<EmailListRevisionsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("emailId", params.emailId().getOrNull())
@@ -511,6 +512,13 @@ class EmailServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EmailListRevisionsPage.builder()
+                            .service(EmailServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

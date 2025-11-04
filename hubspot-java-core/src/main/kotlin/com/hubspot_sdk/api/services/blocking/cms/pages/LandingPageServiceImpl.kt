@@ -48,10 +48,13 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFolderRev
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFoldersBatchParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRerunAbTestParams
@@ -230,21 +233,21 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
     override fun listFolderRevisions(
         params: LandingPageListFolderRevisionsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionContentFolder =
+    ): LandingPageListFolderRevisionsPage =
         // get /cms/v3/pages/landing-pages/folders/{objectId}/revisions
         withRawResponse().listFolderRevisions(params, requestOptions).parse()
 
     override fun listFolders(
         params: LandingPageListFoldersParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalContentFolderForwardPaging =
+    ): LandingPageListFoldersPage =
         // get /cms/v3/pages/landing-pages/folders
         withRawResponse().listFolders(params, requestOptions).parse()
 
     override fun listRevisions(
         params: LandingPageListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionPage =
+    ): LandingPageListRevisionsPage =
         // get /cms/v3/pages/landing-pages/{objectId}/revisions
         withRawResponse().listRevisions(params, requestOptions).parse()
 
@@ -1055,7 +1058,7 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
         override fun listFolderRevisions(
             params: LandingPageListFolderRevisionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionContentFolder> {
+        ): HttpResponseFor<LandingPageListFolderRevisionsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -1084,6 +1087,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
                             it.validate()
                         }
                     }
+                    .let {
+                        LandingPageListFolderRevisionsPage.builder()
+                            .service(LandingPageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
@@ -1096,7 +1106,7 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
         override fun listFolders(
             params: LandingPageListFoldersParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging> {
+        ): HttpResponseFor<LandingPageListFoldersPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -1114,6 +1124,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
                             it.validate()
                         }
                     }
+                    .let {
+                        LandingPageListFoldersPage.builder()
+                            .service(LandingPageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
@@ -1123,7 +1140,7 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
         override fun listRevisions(
             params: LandingPageListRevisionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> {
+        ): HttpResponseFor<LandingPageListRevisionsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -1150,6 +1167,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        LandingPageListRevisionsPage.builder()
+                            .service(LandingPageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

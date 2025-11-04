@@ -7,11 +7,13 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.marketing.events.AttendanceCounters
-import com.hubspot_sdk.api.models.marketing.events.CollectionResponseWithTotalParticipationBreakdownForwardPaging
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByExternalAccountAndEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactPage
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdPage
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdPage
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdParams
 import java.util.function.Consumer
 
@@ -93,9 +95,7 @@ interface ParticipationService {
         getById(marketingEventId, ParticipationGetByIdParams.none(), requestOptions)
 
     /** Read Contact's participations by identifier - email or internal id. */
-    fun listBreakdownByContact(
-        contactIdentifier: String
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    fun listBreakdownByContact(contactIdentifier: String): ParticipationListBreakdownByContactPage =
         listBreakdownByContact(contactIdentifier, ParticipationListBreakdownByContactParams.none())
 
     /** @see listBreakdownByContact */
@@ -104,7 +104,7 @@ interface ParticipationService {
         params: ParticipationListBreakdownByContactParams =
             ParticipationListBreakdownByContactParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByContactPage =
         listBreakdownByContact(
             params.toBuilder().contactIdentifier(contactIdentifier).build(),
             requestOptions,
@@ -115,26 +115,26 @@ interface ParticipationService {
         contactIdentifier: String,
         params: ParticipationListBreakdownByContactParams =
             ParticipationListBreakdownByContactParams.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByContactPage =
         listBreakdownByContact(contactIdentifier, params, RequestOptions.none())
 
     /** @see listBreakdownByContact */
     fun listBreakdownByContact(
         params: ParticipationListBreakdownByContactParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging
+    ): ParticipationListBreakdownByContactPage
 
     /** @see listBreakdownByContact */
     fun listBreakdownByContact(
         params: ParticipationListBreakdownByContactParams
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByContactPage =
         listBreakdownByContact(params, RequestOptions.none())
 
     /** @see listBreakdownByContact */
     fun listBreakdownByContact(
         contactIdentifier: String,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByContactPage =
         listBreakdownByContact(
             contactIdentifier,
             ParticipationListBreakdownByContactParams.none(),
@@ -148,7 +148,7 @@ interface ParticipationService {
     fun listBreakdownByExternalAccountAndEventId(
         externalEventId: String,
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByExternalAccountAndEventIdPage =
         listBreakdownByExternalAccountAndEventId(externalEventId, params, RequestOptions.none())
 
     /** @see listBreakdownByExternalAccountAndEventId */
@@ -156,7 +156,7 @@ interface ParticipationService {
         externalEventId: String,
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByExternalAccountAndEventIdPage =
         listBreakdownByExternalAccountAndEventId(
             params.toBuilder().externalEventId(externalEventId).build(),
             requestOptions,
@@ -165,22 +165,20 @@ interface ParticipationService {
     /** @see listBreakdownByExternalAccountAndEventId */
     fun listBreakdownByExternalAccountAndEventId(
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByExternalAccountAndEventIdPage =
         listBreakdownByExternalAccountAndEventId(params, RequestOptions.none())
 
     /** @see listBreakdownByExternalAccountAndEventId */
     fun listBreakdownByExternalAccountAndEventId(
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging
+    ): ParticipationListBreakdownByExternalAccountAndEventIdPage
 
     /**
      * Read Marketing event's participations breakdown with optional filters by internal identifier
      * marketingEventId.
      */
-    fun listBreakdownById(
-        marketingEventId: Long
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    fun listBreakdownById(marketingEventId: Long): ParticipationListBreakdownByIdPage =
         listBreakdownById(marketingEventId, ParticipationListBreakdownByIdParams.none())
 
     /** @see listBreakdownById */
@@ -188,7 +186,7 @@ interface ParticipationService {
         marketingEventId: Long,
         params: ParticipationListBreakdownByIdParams = ParticipationListBreakdownByIdParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByIdPage =
         listBreakdownById(
             params.toBuilder().marketingEventId(marketingEventId).build(),
             requestOptions,
@@ -198,26 +196,25 @@ interface ParticipationService {
     fun listBreakdownById(
         marketingEventId: Long,
         params: ParticipationListBreakdownByIdParams = ParticipationListBreakdownByIdParams.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByIdPage =
         listBreakdownById(marketingEventId, params, RequestOptions.none())
 
     /** @see listBreakdownById */
     fun listBreakdownById(
         params: ParticipationListBreakdownByIdParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging
+    ): ParticipationListBreakdownByIdPage
 
     /** @see listBreakdownById */
     fun listBreakdownById(
         params: ParticipationListBreakdownByIdParams
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
-        listBreakdownById(params, RequestOptions.none())
+    ): ParticipationListBreakdownByIdPage = listBreakdownById(params, RequestOptions.none())
 
     /** @see listBreakdownById */
     fun listBreakdownById(
         marketingEventId: Long,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByIdPage =
         listBreakdownById(
             marketingEventId,
             ParticipationListBreakdownByIdParams.none(),
@@ -330,7 +327,7 @@ interface ParticipationService {
         @MustBeClosed
         fun listBreakdownByContact(
             contactIdentifier: String
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByContactPage> =
             listBreakdownByContact(
                 contactIdentifier,
                 ParticipationListBreakdownByContactParams.none(),
@@ -343,7 +340,7 @@ interface ParticipationService {
             params: ParticipationListBreakdownByContactParams =
                 ParticipationListBreakdownByContactParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByContactPage> =
             listBreakdownByContact(
                 params.toBuilder().contactIdentifier(contactIdentifier).build(),
                 requestOptions,
@@ -355,7 +352,7 @@ interface ParticipationService {
             contactIdentifier: String,
             params: ParticipationListBreakdownByContactParams =
                 ParticipationListBreakdownByContactParams.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByContactPage> =
             listBreakdownByContact(contactIdentifier, params, RequestOptions.none())
 
         /** @see listBreakdownByContact */
@@ -363,13 +360,13 @@ interface ParticipationService {
         fun listBreakdownByContact(
             params: ParticipationListBreakdownByContactParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+        ): HttpResponseFor<ParticipationListBreakdownByContactPage>
 
         /** @see listBreakdownByContact */
         @MustBeClosed
         fun listBreakdownByContact(
             params: ParticipationListBreakdownByContactParams
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByContactPage> =
             listBreakdownByContact(params, RequestOptions.none())
 
         /** @see listBreakdownByContact */
@@ -377,7 +374,7 @@ interface ParticipationService {
         fun listBreakdownByContact(
             contactIdentifier: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByContactPage> =
             listBreakdownByContact(
                 contactIdentifier,
                 ParticipationListBreakdownByContactParams.none(),
@@ -394,7 +391,7 @@ interface ParticipationService {
         fun listBreakdownByExternalAccountAndEventId(
             externalEventId: String,
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPage> =
             listBreakdownByExternalAccountAndEventId(externalEventId, params, RequestOptions.none())
 
         /** @see listBreakdownByExternalAccountAndEventId */
@@ -403,7 +400,7 @@ interface ParticipationService {
             externalEventId: String,
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPage> =
             listBreakdownByExternalAccountAndEventId(
                 params.toBuilder().externalEventId(externalEventId).build(),
                 requestOptions,
@@ -413,7 +410,7 @@ interface ParticipationService {
         @MustBeClosed
         fun listBreakdownByExternalAccountAndEventId(
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPage> =
             listBreakdownByExternalAccountAndEventId(params, RequestOptions.none())
 
         /** @see listBreakdownByExternalAccountAndEventId */
@@ -421,7 +418,7 @@ interface ParticipationService {
         fun listBreakdownByExternalAccountAndEventId(
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+        ): HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPage>
 
         /**
          * Returns a raw HTTP response for `get
@@ -431,7 +428,7 @@ interface ParticipationService {
         @MustBeClosed
         fun listBreakdownById(
             marketingEventId: Long
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByIdPage> =
             listBreakdownById(marketingEventId, ParticipationListBreakdownByIdParams.none())
 
         /** @see listBreakdownById */
@@ -441,7 +438,7 @@ interface ParticipationService {
             params: ParticipationListBreakdownByIdParams =
                 ParticipationListBreakdownByIdParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByIdPage> =
             listBreakdownById(
                 params.toBuilder().marketingEventId(marketingEventId).build(),
                 requestOptions,
@@ -453,7 +450,7 @@ interface ParticipationService {
             marketingEventId: Long,
             params: ParticipationListBreakdownByIdParams =
                 ParticipationListBreakdownByIdParams.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByIdPage> =
             listBreakdownById(marketingEventId, params, RequestOptions.none())
 
         /** @see listBreakdownById */
@@ -461,13 +458,13 @@ interface ParticipationService {
         fun listBreakdownById(
             params: ParticipationListBreakdownByIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+        ): HttpResponseFor<ParticipationListBreakdownByIdPage>
 
         /** @see listBreakdownById */
         @MustBeClosed
         fun listBreakdownById(
             params: ParticipationListBreakdownByIdParams
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByIdPage> =
             listBreakdownById(params, RequestOptions.none())
 
         /** @see listBreakdownById */
@@ -475,7 +472,7 @@ interface ParticipationService {
         fun listBreakdownById(
             marketingEventId: Long,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+        ): HttpResponseFor<ParticipationListBreakdownByIdPage> =
             listBreakdownById(
                 marketingEventId,
                 ParticipationListBreakdownByIdParams.none(),

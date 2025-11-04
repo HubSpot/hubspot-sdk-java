@@ -14,8 +14,11 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPageAsync
 import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams
+import com.hubspot_sdk.api.models.account.activity.ActivityListLoginActivitiesPageAsync
 import com.hubspot_sdk.api.models.account.activity.ActivityListLoginActivitiesParams
+import com.hubspot_sdk.api.models.account.activity.ActivityListSecurityActivitiesPageAsync
 import com.hubspot_sdk.api.models.account.activity.ActivityListSecurityActivitiesParams
 import com.hubspot_sdk.api.models.account.activity.CollectionResponseHydratedCriticalActionForwardPaging
 import com.hubspot_sdk.api.models.account.activity.CollectionResponsePublicApiUserActionEventForwardPaging
@@ -38,21 +41,21 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun listAuditLogs(
         params: ActivityListAuditLogsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponsePublicApiUserActionEventForwardPaging> =
+    ): CompletableFuture<ActivityListAuditLogsPageAsync> =
         // get /account-info/v3/activity/audit-logs
         withRawResponse().listAuditLogs(params, requestOptions).thenApply { it.parse() }
 
     override fun listLoginActivities(
         params: ActivityListLoginActivitiesParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponsePublicLoginAuditForwardPaging> =
+    ): CompletableFuture<ActivityListLoginActivitiesPageAsync> =
         // get /account-info/v3/activity/login
         withRawResponse().listLoginActivities(params, requestOptions).thenApply { it.parse() }
 
     override fun listSecurityActivities(
         params: ActivityListSecurityActivitiesParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseHydratedCriticalActionForwardPaging> =
+    ): CompletableFuture<ActivityListSecurityActivitiesPageAsync> =
         // get /account-info/v3/activity/security
         withRawResponse().listSecurityActivities(params, requestOptions).thenApply { it.parse() }
 
@@ -78,9 +81,7 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun listAuditLogs(
             params: ActivityListAuditLogsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponsePublicApiUserActionEventForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<ActivityListAuditLogsPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -100,6 +101,14 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
                                     it.validate()
                                 }
                             }
+                            .let {
+                                ActivityListAuditLogsPageAsync.builder()
+                                    .service(ActivityServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
@@ -111,7 +120,7 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun listLoginActivities(
             params: ActivityListLoginActivitiesParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicLoginAuditForwardPaging>> {
+        ): CompletableFuture<HttpResponseFor<ActivityListLoginActivitiesPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -131,6 +140,14 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
                                     it.validate()
                                 }
                             }
+                            .let {
+                                ActivityListLoginActivitiesPageAsync.builder()
+                                    .service(ActivityServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
@@ -144,9 +161,7 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun listSecurityActivities(
             params: ActivityListSecurityActivitiesParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseHydratedCriticalActionForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<ActivityListSecurityActivitiesPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -165,6 +180,14 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ActivityListSecurityActivitiesPageAsync.builder()
+                                    .service(ActivityServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

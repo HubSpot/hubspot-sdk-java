@@ -20,7 +20,6 @@ import com.hubspot_sdk.api.models.cms.pages.AbTestEndRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestRerunRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.BatchInputPage
 import com.hubspot_sdk.api.models.cms.pages.BatchResponsePage
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalVersionPage
 import com.hubspot_sdk.api.models.cms.pages.ContentLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.Page
 import com.hubspot_sdk.api.models.cms.pages.VersionPage
@@ -40,6 +39,7 @@ import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListPage
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListParams
+import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsPage
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageRerunAbTestParams
@@ -451,7 +451,7 @@ interface SitePageService {
     ): VersionPage
 
     /** Retrieves all the previous versions of a Site Page. */
-    fun listRevisions(objectId: String): CollectionResponseWithTotalVersionPage =
+    fun listRevisions(objectId: String): SitePageListRevisionsPage =
         listRevisions(objectId, SitePageListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -459,31 +459,27 @@ interface SitePageService {
         objectId: String,
         params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionPage =
+    ): SitePageListRevisionsPage =
         listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         objectId: String,
         params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
-    ): CollectionResponseWithTotalVersionPage =
-        listRevisions(objectId, params, RequestOptions.none())
+    ): SitePageListRevisionsPage = listRevisions(objectId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: SitePageListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionPage
+    ): SitePageListRevisionsPage
 
     /** @see listRevisions */
-    fun listRevisions(params: SitePageListRevisionsParams): CollectionResponseWithTotalVersionPage =
+    fun listRevisions(params: SitePageListRevisionsParams): SitePageListRevisionsPage =
         listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
-    fun listRevisions(
-        objectId: String,
-        requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionPage =
+    fun listRevisions(objectId: String, requestOptions: RequestOptions): SitePageListRevisionsPage =
         listRevisions(objectId, SitePageListRevisionsParams.none(), requestOptions)
 
     /**
@@ -1293,9 +1289,7 @@ interface SitePageService {
          * is otherwise the same as [SitePageService.listRevisions].
          */
         @MustBeClosed
-        fun listRevisions(
-            objectId: String
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        fun listRevisions(objectId: String): HttpResponseFor<SitePageListRevisionsPage> =
             listRevisions(objectId, SitePageListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -1304,7 +1298,7 @@ interface SitePageService {
             objectId: String,
             params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        ): HttpResponseFor<SitePageListRevisionsPage> =
             listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see listRevisions */
@@ -1312,7 +1306,7 @@ interface SitePageService {
         fun listRevisions(
             objectId: String,
             params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        ): HttpResponseFor<SitePageListRevisionsPage> =
             listRevisions(objectId, params, RequestOptions.none())
 
         /** @see listRevisions */
@@ -1320,21 +1314,20 @@ interface SitePageService {
         fun listRevisions(
             params: SitePageListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage>
+        ): HttpResponseFor<SitePageListRevisionsPage>
 
         /** @see listRevisions */
         @MustBeClosed
         fun listRevisions(
             params: SitePageListRevisionsParams
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
-            listRevisions(params, RequestOptions.none())
+        ): HttpResponseFor<SitePageListRevisionsPage> = listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
         @MustBeClosed
         fun listRevisions(
             objectId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionPage> =
+        ): HttpResponseFor<SitePageListRevisionsPage> =
             listRevisions(objectId, SitePageListRevisionsParams.none(), requestOptions)
 
         /**

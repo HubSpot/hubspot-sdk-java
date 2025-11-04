@@ -30,9 +30,6 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFolderRev
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFoldersBatchParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRestoreFolderRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRestoreRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRestoreRevisionToDraftParams
@@ -1326,19 +1323,10 @@ internal class LandingPageServiceAsyncTest {
                 .build()
         val landingPageServiceAsync = client.cms().pages().landingPages()
 
-        val collectionResponseWithTotalVersionContentFolderFuture =
-            landingPageServiceAsync.listFolderRevisions(
-                LandingPageListFolderRevisionsParams.builder()
-                    .objectId("objectId")
-                    .after("after")
-                    .before("before")
-                    .limit(0)
-                    .build()
-            )
+        val pageFuture = landingPageServiceAsync.listFolderRevisions("objectId")
 
-        val collectionResponseWithTotalVersionContentFolder =
-            collectionResponseWithTotalVersionContentFolderFuture.get()
-        collectionResponseWithTotalVersionContentFolder.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -1351,26 +1339,10 @@ internal class LandingPageServiceAsyncTest {
                 .build()
         val landingPageServiceAsync = client.cms().pages().landingPages()
 
-        val collectionResponseWithTotalContentFolderForwardPagingFuture =
-            landingPageServiceAsync.listFolders(
-                LandingPageListFoldersParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .limit(0)
-                    .property("property")
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
+        val pageFuture = landingPageServiceAsync.listFolders()
 
-        val collectionResponseWithTotalContentFolderForwardPaging =
-            collectionResponseWithTotalContentFolderForwardPagingFuture.get()
-        collectionResponseWithTotalContentFolderForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -1383,19 +1355,10 @@ internal class LandingPageServiceAsyncTest {
                 .build()
         val landingPageServiceAsync = client.cms().pages().landingPages()
 
-        val collectionResponseWithTotalVersionPageFuture =
-            landingPageServiceAsync.listRevisions(
-                LandingPageListRevisionsParams.builder()
-                    .objectId("objectId")
-                    .after("after")
-                    .before("before")
-                    .limit(0)
-                    .build()
-            )
+        val pageFuture = landingPageServiceAsync.listRevisions("objectId")
 
-        val collectionResponseWithTotalVersionPage =
-            collectionResponseWithTotalVersionPageFuture.get()
-        collectionResponseWithTotalVersionPage.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

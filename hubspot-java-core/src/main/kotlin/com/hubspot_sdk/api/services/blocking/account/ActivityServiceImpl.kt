@@ -14,8 +14,11 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage
 import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams
+import com.hubspot_sdk.api.models.account.activity.ActivityListLoginActivitiesPage
 import com.hubspot_sdk.api.models.account.activity.ActivityListLoginActivitiesParams
+import com.hubspot_sdk.api.models.account.activity.ActivityListSecurityActivitiesPage
 import com.hubspot_sdk.api.models.account.activity.ActivityListSecurityActivitiesParams
 import com.hubspot_sdk.api.models.account.activity.CollectionResponseHydratedCriticalActionForwardPaging
 import com.hubspot_sdk.api.models.account.activity.CollectionResponsePublicApiUserActionEventForwardPaging
@@ -37,21 +40,21 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
     override fun listAuditLogs(
         params: ActivityListAuditLogsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponsePublicApiUserActionEventForwardPaging =
+    ): ActivityListAuditLogsPage =
         // get /account-info/v3/activity/audit-logs
         withRawResponse().listAuditLogs(params, requestOptions).parse()
 
     override fun listLoginActivities(
         params: ActivityListLoginActivitiesParams,
         requestOptions: RequestOptions,
-    ): CollectionResponsePublicLoginAuditForwardPaging =
+    ): ActivityListLoginActivitiesPage =
         // get /account-info/v3/activity/login
         withRawResponse().listLoginActivities(params, requestOptions).parse()
 
     override fun listSecurityActivities(
         params: ActivityListSecurityActivitiesParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseHydratedCriticalActionForwardPaging =
+    ): ActivityListSecurityActivitiesPage =
         // get /account-info/v3/activity/security
         withRawResponse().listSecurityActivities(params, requestOptions).parse()
 
@@ -77,7 +80,7 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
         override fun listAuditLogs(
             params: ActivityListAuditLogsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicApiUserActionEventForwardPaging> {
+        ): HttpResponseFor<ActivityListAuditLogsPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -95,6 +98,13 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
                             it.validate()
                         }
                     }
+                    .let {
+                        ActivityListAuditLogsPage.builder()
+                            .service(ActivityServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
@@ -105,7 +115,7 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
         override fun listLoginActivities(
             params: ActivityListLoginActivitiesParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicLoginAuditForwardPaging> {
+        ): HttpResponseFor<ActivityListLoginActivitiesPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -123,6 +133,13 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
                             it.validate()
                         }
                     }
+                    .let {
+                        ActivityListLoginActivitiesPage.builder()
+                            .service(ActivityServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
@@ -135,7 +152,7 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
         override fun listSecurityActivities(
             params: ActivityListSecurityActivitiesParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseHydratedCriticalActionForwardPaging> {
+        ): HttpResponseFor<ActivityListSecurityActivitiesPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -152,6 +169,13 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ActivityListSecurityActivitiesPage.builder()
+                            .service(ActivityServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

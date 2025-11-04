@@ -5,9 +5,7 @@ package com.hubspot_sdk.api.services.blocking.marketing.events
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByExternalAccountAndEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactParams
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -61,17 +59,9 @@ internal class ParticipationServiceTest {
                 .build()
         val participationService = client.marketing().events().participations()
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPaging =
-            participationService.listBreakdownByContact(
-                ParticipationListBreakdownByContactParams.builder()
-                    .contactIdentifier("contactIdentifier")
-                    .after("after")
-                    .limit(0)
-                    .state("state")
-                    .build()
-            )
+        val page = participationService.listBreakdownByContact("contactIdentifier")
 
-        collectionResponseWithTotalParticipationBreakdownForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -84,19 +74,15 @@ internal class ParticipationServiceTest {
                 .build()
         val participationService = client.marketing().events().participations()
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPaging =
+        val page =
             participationService.listBreakdownByExternalAccountAndEventId(
                 ParticipationListBreakdownByExternalAccountAndEventIdParams.builder()
                     .externalAccountId("externalAccountId")
                     .externalEventId("externalEventId")
-                    .after("after")
-                    .contactIdentifier("contactIdentifier")
-                    .limit(0)
-                    .state("state")
                     .build()
             )
 
-        collectionResponseWithTotalParticipationBreakdownForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -109,17 +95,8 @@ internal class ParticipationServiceTest {
                 .build()
         val participationService = client.marketing().events().participations()
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPaging =
-            participationService.listBreakdownById(
-                ParticipationListBreakdownByIdParams.builder()
-                    .marketingEventId(0L)
-                    .after("after")
-                    .contactIdentifier("contactIdentifier")
-                    .limit(0)
-                    .state("state")
-                    .build()
-            )
+        val page = participationService.listBreakdownById(0L)
 
-        collectionResponseWithTotalParticipationBreakdownForwardPaging.validate()
+        page.response().validate()
     }
 }
