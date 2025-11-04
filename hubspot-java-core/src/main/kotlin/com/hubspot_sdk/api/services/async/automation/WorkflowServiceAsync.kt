@@ -12,12 +12,12 @@ import com.hubspot_sdk.api.models.automation.workflows.ApiFlowBatchMigrationInpu
 import com.hubspot_sdk.api.models.automation.workflows.ApiFlowCreateRequest
 import com.hubspot_sdk.api.models.automation.workflows.BatchResponseApiFlow
 import com.hubspot_sdk.api.models.automation.workflows.BatchResponseFlowIdWorkflowIdMappingResponse
-import com.hubspot_sdk.api.models.automation.workflows.CollectionResponseApiFlowEmailCampaign
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowBatchGetIdMappingsParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowBatchGetParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowCreateParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowDeleteParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowGetParams
+import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsPageAsync
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListPageAsync
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListParams
@@ -210,25 +210,25 @@ interface WorkflowServiceAsync {
     fun get(flowId: String, requestOptions: RequestOptions): CompletableFuture<ApiFlow> =
         get(flowId, WorkflowGetParams.none(), requestOptions)
 
-    fun listEmailCampaigns(): CompletableFuture<CollectionResponseApiFlowEmailCampaign> =
+    fun listEmailCampaigns(): CompletableFuture<WorkflowListEmailCampaignsPageAsync> =
         listEmailCampaigns(WorkflowListEmailCampaignsParams.none())
 
     /** @see listEmailCampaigns */
     fun listEmailCampaigns(
         params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseApiFlowEmailCampaign>
+    ): CompletableFuture<WorkflowListEmailCampaignsPageAsync>
 
     /** @see listEmailCampaigns */
     fun listEmailCampaigns(
         params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none()
-    ): CompletableFuture<CollectionResponseApiFlowEmailCampaign> =
+    ): CompletableFuture<WorkflowListEmailCampaignsPageAsync> =
         listEmailCampaigns(params, RequestOptions.none())
 
     /** @see listEmailCampaigns */
     fun listEmailCampaigns(
         requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseApiFlowEmailCampaign> =
+    ): CompletableFuture<WorkflowListEmailCampaignsPageAsync> =
         listEmailCampaigns(WorkflowListEmailCampaignsParams.none(), requestOptions)
 
     /**
@@ -469,25 +469,25 @@ interface WorkflowServiceAsync {
          * otherwise the same as [WorkflowServiceAsync.listEmailCampaigns].
          */
         fun listEmailCampaigns():
-            CompletableFuture<HttpResponseFor<CollectionResponseApiFlowEmailCampaign>> =
+            CompletableFuture<HttpResponseFor<WorkflowListEmailCampaignsPageAsync>> =
             listEmailCampaigns(WorkflowListEmailCampaignsParams.none())
 
         /** @see listEmailCampaigns */
         fun listEmailCampaigns(
             params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseApiFlowEmailCampaign>>
+        ): CompletableFuture<HttpResponseFor<WorkflowListEmailCampaignsPageAsync>>
 
         /** @see listEmailCampaigns */
         fun listEmailCampaigns(
             params: WorkflowListEmailCampaignsParams = WorkflowListEmailCampaignsParams.none()
-        ): CompletableFuture<HttpResponseFor<CollectionResponseApiFlowEmailCampaign>> =
+        ): CompletableFuture<HttpResponseFor<WorkflowListEmailCampaignsPageAsync>> =
             listEmailCampaigns(params, RequestOptions.none())
 
         /** @see listEmailCampaigns */
         fun listEmailCampaigns(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CollectionResponseApiFlowEmailCampaign>> =
+        ): CompletableFuture<HttpResponseFor<WorkflowListEmailCampaignsPageAsync>> =
             listEmailCampaigns(WorkflowListEmailCampaignsParams.none(), requestOptions)
     }
 }

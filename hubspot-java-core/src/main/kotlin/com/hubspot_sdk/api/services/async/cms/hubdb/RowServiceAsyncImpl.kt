@@ -24,6 +24,7 @@ import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCreateParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowDeleteDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
+import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListDraftPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListParams
@@ -96,7 +97,7 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun listDraft(
         params: RowListDraftParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
+    ): CompletableFuture<RowListDraftPageAsync> =
         // get /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft
         withRawResponse().listDraft(params, requestOptions).thenApply { it.parse() }
 
@@ -382,9 +383,7 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
         override fun listDraft(
             params: RowListDraftParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
-        > {
+        ): CompletableFuture<HttpResponseFor<RowListDraftPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tableIdOrName", params.tableIdOrName().getOrNull())
@@ -414,6 +413,14 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                RowListDraftPageAsync.builder()
+                                    .service(RowServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

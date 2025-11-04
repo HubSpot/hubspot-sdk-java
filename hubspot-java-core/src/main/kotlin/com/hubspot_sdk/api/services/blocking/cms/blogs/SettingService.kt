@@ -13,7 +13,6 @@ import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.Blog
 import com.hubspot_sdk.api.models.cms.blogs.settings.BlogLanguageCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.settings.CollectionResponseWithTotalVersionBlog
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingCreateLanguageVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingDetachFromLangGroupParams
@@ -21,6 +20,7 @@ import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetRevisionParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListPage
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListParams
+import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsPage
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingUpdateLanguagesParams
@@ -176,7 +176,7 @@ interface SettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): VersionBlog
 
-    fun listRevisions(blogId: String): CollectionResponseWithTotalVersionBlog =
+    fun listRevisions(blogId: String): SettingListRevisionsPage =
         listRevisions(blogId, SettingListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -184,30 +184,27 @@ interface SettingService {
         blogId: String,
         params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionBlog =
+    ): SettingListRevisionsPage =
         listRevisions(params.toBuilder().blogId(blogId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         blogId: String,
         params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
-    ): CollectionResponseWithTotalVersionBlog = listRevisions(blogId, params, RequestOptions.none())
+    ): SettingListRevisionsPage = listRevisions(blogId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: SettingListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalVersionBlog
+    ): SettingListRevisionsPage
 
     /** @see listRevisions */
-    fun listRevisions(params: SettingListRevisionsParams): CollectionResponseWithTotalVersionBlog =
+    fun listRevisions(params: SettingListRevisionsParams): SettingListRevisionsPage =
         listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
-    fun listRevisions(
-        blogId: String,
-        requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionBlog =
+    fun listRevisions(blogId: String, requestOptions: RequestOptions): SettingListRevisionsPage =
         listRevisions(blogId, SettingListRevisionsParams.none(), requestOptions)
 
     fun setNewLangPrimary(params: SettingSetNewLangPrimaryParams) =
@@ -478,7 +475,7 @@ interface SettingService {
          * but is otherwise the same as [SettingService.listRevisions].
          */
         @MustBeClosed
-        fun listRevisions(blogId: String): HttpResponseFor<CollectionResponseWithTotalVersionBlog> =
+        fun listRevisions(blogId: String): HttpResponseFor<SettingListRevisionsPage> =
             listRevisions(blogId, SettingListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -487,7 +484,7 @@ interface SettingService {
             blogId: String,
             params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionBlog> =
+        ): HttpResponseFor<SettingListRevisionsPage> =
             listRevisions(params.toBuilder().blogId(blogId).build(), requestOptions)
 
         /** @see listRevisions */
@@ -495,7 +492,7 @@ interface SettingService {
         fun listRevisions(
             blogId: String,
             params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionBlog> =
+        ): HttpResponseFor<SettingListRevisionsPage> =
             listRevisions(blogId, params, RequestOptions.none())
 
         /** @see listRevisions */
@@ -503,21 +500,20 @@ interface SettingService {
         fun listRevisions(
             params: SettingListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalVersionBlog>
+        ): HttpResponseFor<SettingListRevisionsPage>
 
         /** @see listRevisions */
         @MustBeClosed
         fun listRevisions(
             params: SettingListRevisionsParams
-        ): HttpResponseFor<CollectionResponseWithTotalVersionBlog> =
-            listRevisions(params, RequestOptions.none())
+        ): HttpResponseFor<SettingListRevisionsPage> = listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
         @MustBeClosed
         fun listRevisions(
             blogId: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionBlog> =
+        ): HttpResponseFor<SettingListRevisionsPage> =
             listRevisions(blogId, SettingListRevisionsParams.none(), requestOptions)
 
         /**

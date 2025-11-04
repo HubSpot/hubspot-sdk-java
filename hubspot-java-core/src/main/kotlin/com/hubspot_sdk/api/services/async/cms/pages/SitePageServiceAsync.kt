@@ -19,7 +19,6 @@ import com.hubspot_sdk.api.models.cms.pages.AbTestEndRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestRerunRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.BatchInputPage
 import com.hubspot_sdk.api.models.cms.pages.BatchResponsePage
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalVersionPage
 import com.hubspot_sdk.api.models.cms.pages.ContentLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.Page
 import com.hubspot_sdk.api.models.cms.pages.VersionPage
@@ -39,6 +38,7 @@ import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListPageAsync
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListParams
+import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageRerunAbTestParams
@@ -492,7 +492,7 @@ interface SitePageServiceAsync {
     ): CompletableFuture<VersionPage>
 
     /** Retrieves all the previous versions of a Site Page. */
-    fun listRevisions(objectId: String): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    fun listRevisions(objectId: String): CompletableFuture<SitePageListRevisionsPageAsync> =
         listRevisions(objectId, SitePageListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -500,33 +500,33 @@ interface SitePageServiceAsync {
         objectId: String,
         params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<SitePageListRevisionsPageAsync> =
         listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         objectId: String,
         params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<SitePageListRevisionsPageAsync> =
         listRevisions(objectId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: SitePageListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage>
+    ): CompletableFuture<SitePageListRevisionsPageAsync>
 
     /** @see listRevisions */
     fun listRevisions(
         params: SitePageListRevisionsParams
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<SitePageListRevisionsPageAsync> =
         listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         objectId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<SitePageListRevisionsPageAsync> =
         listRevisions(objectId, SitePageListRevisionsParams.none(), requestOptions)
 
     /**
@@ -1330,7 +1330,7 @@ interface SitePageServiceAsync {
          */
         fun listRevisions(
             objectId: String
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<SitePageListRevisionsPageAsync>> =
             listRevisions(objectId, SitePageListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -1338,33 +1338,33 @@ interface SitePageServiceAsync {
             objectId: String,
             params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<SitePageListRevisionsPageAsync>> =
             listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see listRevisions */
         fun listRevisions(
             objectId: String,
             params: SitePageListRevisionsParams = SitePageListRevisionsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<SitePageListRevisionsPageAsync>> =
             listRevisions(objectId, params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             params: SitePageListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>>
+        ): CompletableFuture<HttpResponseFor<SitePageListRevisionsPageAsync>>
 
         /** @see listRevisions */
         fun listRevisions(
             params: SitePageListRevisionsParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<SitePageListRevisionsPageAsync>> =
             listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             objectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<SitePageListRevisionsPageAsync>> =
             listRevisions(objectId, SitePageListRevisionsParams.none(), requestOptions)
 
         /**

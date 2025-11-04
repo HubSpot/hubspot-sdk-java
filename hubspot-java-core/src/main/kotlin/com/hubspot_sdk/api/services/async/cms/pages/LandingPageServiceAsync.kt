@@ -21,9 +21,6 @@ import com.hubspot_sdk.api.models.cms.pages.BatchInputContentFolder
 import com.hubspot_sdk.api.models.cms.pages.BatchInputPage
 import com.hubspot_sdk.api.models.cms.pages.BatchResponseContentFolder
 import com.hubspot_sdk.api.models.cms.pages.BatchResponsePage
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalContentFolderForwardPaging
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalVersionContentFolder
-import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalVersionPage
 import com.hubspot_sdk.api.models.cms.pages.ContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.Page
@@ -50,10 +47,13 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFolderRev
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFoldersBatchParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRerunAbTestParams
@@ -717,7 +717,7 @@ interface LandingPageServiceAsync {
     /** Retrieves all the previous versions of a Folder. */
     fun listFolderRevisions(
         objectId: String
-    ): CompletableFuture<CollectionResponseWithTotalVersionContentFolder> =
+    ): CompletableFuture<LandingPageListFolderRevisionsPageAsync> =
         listFolderRevisions(objectId, LandingPageListFolderRevisionsParams.none())
 
     /** @see listFolderRevisions */
@@ -725,33 +725,33 @@ interface LandingPageServiceAsync {
         objectId: String,
         params: LandingPageListFolderRevisionsParams = LandingPageListFolderRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionContentFolder> =
+    ): CompletableFuture<LandingPageListFolderRevisionsPageAsync> =
         listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         objectId: String,
         params: LandingPageListFolderRevisionsParams = LandingPageListFolderRevisionsParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionContentFolder> =
+    ): CompletableFuture<LandingPageListFolderRevisionsPageAsync> =
         listFolderRevisions(objectId, params, RequestOptions.none())
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         params: LandingPageListFolderRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionContentFolder>
+    ): CompletableFuture<LandingPageListFolderRevisionsPageAsync>
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         params: LandingPageListFolderRevisionsParams
-    ): CompletableFuture<CollectionResponseWithTotalVersionContentFolder> =
+    ): CompletableFuture<LandingPageListFolderRevisionsPageAsync> =
         listFolderRevisions(params, RequestOptions.none())
 
     /** @see listFolderRevisions */
     fun listFolderRevisions(
         objectId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionContentFolder> =
+    ): CompletableFuture<LandingPageListFolderRevisionsPageAsync> =
         listFolderRevisions(objectId, LandingPageListFolderRevisionsParams.none(), requestOptions)
 
     /**
@@ -759,29 +759,29 @@ interface LandingPageServiceAsync {
      * useful for an integration that examined these models and used an external service to suggest
      * edits.
      */
-    fun listFolders(): CompletableFuture<CollectionResponseWithTotalContentFolderForwardPaging> =
+    fun listFolders(): CompletableFuture<LandingPageListFoldersPageAsync> =
         listFolders(LandingPageListFoldersParams.none())
 
     /** @see listFolders */
     fun listFolders(
         params: LandingPageListFoldersParams = LandingPageListFoldersParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalContentFolderForwardPaging>
+    ): CompletableFuture<LandingPageListFoldersPageAsync>
 
     /** @see listFolders */
     fun listFolders(
         params: LandingPageListFoldersParams = LandingPageListFoldersParams.none()
-    ): CompletableFuture<CollectionResponseWithTotalContentFolderForwardPaging> =
+    ): CompletableFuture<LandingPageListFoldersPageAsync> =
         listFolders(params, RequestOptions.none())
 
     /** @see listFolders */
     fun listFolders(
         requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseWithTotalContentFolderForwardPaging> =
+    ): CompletableFuture<LandingPageListFoldersPageAsync> =
         listFolders(LandingPageListFoldersParams.none(), requestOptions)
 
     /** Retrieves all the previous versions of a Landing Page. */
-    fun listRevisions(objectId: String): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    fun listRevisions(objectId: String): CompletableFuture<LandingPageListRevisionsPageAsync> =
         listRevisions(objectId, LandingPageListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -789,33 +789,33 @@ interface LandingPageServiceAsync {
         objectId: String,
         params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<LandingPageListRevisionsPageAsync> =
         listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         objectId: String,
         params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<LandingPageListRevisionsPageAsync> =
         listRevisions(objectId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: LandingPageListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage>
+    ): CompletableFuture<LandingPageListRevisionsPageAsync>
 
     /** @see listRevisions */
     fun listRevisions(
         params: LandingPageListRevisionsParams
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<LandingPageListRevisionsPageAsync> =
         listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         objectId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<LandingPageListRevisionsPageAsync> =
         listRevisions(objectId, LandingPageListRevisionsParams.none(), requestOptions)
 
     /**
@@ -1948,7 +1948,7 @@ interface LandingPageServiceAsync {
          */
         fun listFolderRevisions(
             objectId: String
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListFolderRevisionsPageAsync>> =
             listFolderRevisions(objectId, LandingPageListFolderRevisionsParams.none())
 
         /** @see listFolderRevisions */
@@ -1957,7 +1957,7 @@ interface LandingPageServiceAsync {
             params: LandingPageListFolderRevisionsParams =
                 LandingPageListFolderRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListFolderRevisionsPageAsync>> =
             listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see listFolderRevisions */
@@ -1965,26 +1965,26 @@ interface LandingPageServiceAsync {
             objectId: String,
             params: LandingPageListFolderRevisionsParams =
                 LandingPageListFolderRevisionsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListFolderRevisionsPageAsync>> =
             listFolderRevisions(objectId, params, RequestOptions.none())
 
         /** @see listFolderRevisions */
         fun listFolderRevisions(
             params: LandingPageListFolderRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>>
+        ): CompletableFuture<HttpResponseFor<LandingPageListFolderRevisionsPageAsync>>
 
         /** @see listFolderRevisions */
         fun listFolderRevisions(
             params: LandingPageListFolderRevisionsParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListFolderRevisionsPageAsync>> =
             listFolderRevisions(params, RequestOptions.none())
 
         /** @see listFolderRevisions */
         fun listFolderRevisions(
             objectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListFolderRevisionsPageAsync>> =
             listFolderRevisions(
                 objectId,
                 LandingPageListFolderRevisionsParams.none(),
@@ -1995,30 +1995,26 @@ interface LandingPageServiceAsync {
          * Returns a raw HTTP response for `get /cms/v3/pages/landing-pages/folders`, but is
          * otherwise the same as [LandingPageServiceAsync.listFolders].
          */
-        fun listFolders():
-            CompletableFuture<
-                HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging>
-            > = listFolders(LandingPageListFoldersParams.none())
+        fun listFolders(): CompletableFuture<HttpResponseFor<LandingPageListFoldersPageAsync>> =
+            listFolders(LandingPageListFoldersParams.none())
 
         /** @see listFolders */
         fun listFolders(
             params: LandingPageListFoldersParams = LandingPageListFoldersParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<LandingPageListFoldersPageAsync>>
 
         /** @see listFolders */
         fun listFolders(
             params: LandingPageListFoldersParams = LandingPageListFoldersParams.none()
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging>
-        > = listFolders(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<LandingPageListFoldersPageAsync>> =
+            listFolders(params, RequestOptions.none())
 
         /** @see listFolders */
         fun listFolders(
             requestOptions: RequestOptions
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging>
-        > = listFolders(LandingPageListFoldersParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<LandingPageListFoldersPageAsync>> =
+            listFolders(LandingPageListFoldersParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/v3/pages/landing-pages/{objectId}/revisions`,
@@ -2026,7 +2022,7 @@ interface LandingPageServiceAsync {
          */
         fun listRevisions(
             objectId: String
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListRevisionsPageAsync>> =
             listRevisions(objectId, LandingPageListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -2034,33 +2030,33 @@ interface LandingPageServiceAsync {
             objectId: String,
             params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListRevisionsPageAsync>> =
             listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see listRevisions */
         fun listRevisions(
             objectId: String,
             params: LandingPageListRevisionsParams = LandingPageListRevisionsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListRevisionsPageAsync>> =
             listRevisions(objectId, params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             params: LandingPageListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>>
+        ): CompletableFuture<HttpResponseFor<LandingPageListRevisionsPageAsync>>
 
         /** @see listRevisions */
         fun listRevisions(
             params: LandingPageListRevisionsParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListRevisionsPageAsync>> =
             listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             objectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> =
+        ): CompletableFuture<HttpResponseFor<LandingPageListRevisionsPageAsync>> =
             listRevisions(objectId, LandingPageListRevisionsParams.none(), requestOptions)
 
         /**

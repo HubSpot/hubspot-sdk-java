@@ -19,8 +19,11 @@ import com.hubspot_sdk.api.models.marketing.events.AttendanceCounters
 import com.hubspot_sdk.api.models.marketing.events.CollectionResponseWithTotalParticipationBreakdownForwardPaging
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByExternalAccountAndEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactPageAsync
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdPageAsync
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdPageAsync
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -57,14 +60,14 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
     override fun listBreakdownByContact(
         params: ParticipationListBreakdownByContactParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByContactPageAsync> =
         // get /marketing/v3/marketing-events/participations/contacts/{contactIdentifier}/breakdown
         withRawResponse().listBreakdownByContact(params, requestOptions).thenApply { it.parse() }
 
     override fun listBreakdownByExternalAccountAndEventId(
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync> =
         // get
         // /marketing/v3/marketing-events/participations/{externalAccountId}/{externalEventId}/breakdown
         withRawResponse()
@@ -74,7 +77,7 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
     override fun listBreakdownById(
         params: ParticipationListBreakdownByIdParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalParticipationBreakdownForwardPaging> =
+    ): CompletableFuture<ParticipationListBreakdownByIdPageAsync> =
         // get /marketing/v3/marketing-events/participations/{marketingEventId}/breakdown
         withRawResponse().listBreakdownById(params, requestOptions).thenApply { it.parse() }
 
@@ -179,9 +182,7 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
         override fun listBreakdownByContact(
             params: ParticipationListBreakdownByContactParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByContactPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("contactIdentifier", params.contactIdentifier().getOrNull())
@@ -212,6 +213,14 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
                                     it.validate()
                                 }
                             }
+                            .let {
+                                ParticipationListBreakdownByContactPageAsync.builder()
+                                    .service(ParticipationServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
@@ -226,7 +235,7 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
+            HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync>
         > {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
@@ -258,6 +267,15 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
                                     it.validate()
                                 }
                             }
+                            .let {
+                                ParticipationListBreakdownByExternalAccountAndEventIdPageAsync
+                                    .builder()
+                                    .service(ParticipationServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
@@ -271,9 +289,7 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
         override fun listBreakdownById(
             params: ParticipationListBreakdownByIdParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<ParticipationListBreakdownByIdPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("marketingEventId", params.marketingEventId().getOrNull())
@@ -302,6 +318,14 @@ class ParticipationServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ParticipationListBreakdownByIdPageAsync.builder()
+                                    .service(ParticipationServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

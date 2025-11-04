@@ -24,6 +24,7 @@ import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCreateParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowDeleteDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
+import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListDraftPage
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListPage
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListParams
@@ -83,7 +84,7 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun listDraft(
         params: RowListDraftParams,
         requestOptions: RequestOptions,
-    ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
+    ): RowListDraftPage =
         // get /cms/v3/hubdb/tables/{tableIdOrName}/rows/draft
         withRawResponse().listDraft(params, requestOptions).parse()
 
@@ -350,7 +351,7 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
         override fun listDraft(
             params: RowListDraftParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> {
+        ): HttpResponseFor<RowListDraftPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tableIdOrName", params.tableIdOrName().getOrNull())
@@ -378,6 +379,13 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        RowListDraftPage.builder()
+                            .service(RowServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

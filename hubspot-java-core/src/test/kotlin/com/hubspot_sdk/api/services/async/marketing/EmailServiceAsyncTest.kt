@@ -11,7 +11,6 @@ import com.hubspot_sdk.api.models.marketing.emails.EmailCreateRequest
 import com.hubspot_sdk.api.models.marketing.emails.EmailDeleteParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetRevisionParams
-import com.hubspot_sdk.api.models.marketing.emails.EmailListRevisionsParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailRestoreRevisionParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailRestoreRevisionToDraftParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailUpdateDraftParams
@@ -744,19 +743,10 @@ internal class EmailServiceAsyncTest {
                 .build()
         val emailServiceAsync = client.marketing().emails()
 
-        val collectionResponseWithTotalVersionPublicEmailFuture =
-            emailServiceAsync.listRevisions(
-                EmailListRevisionsParams.builder()
-                    .emailId("emailId")
-                    .after("after")
-                    .before("before")
-                    .limit(0)
-                    .build()
-            )
+        val pageFuture = emailServiceAsync.listRevisions("emailId")
 
-        val collectionResponseWithTotalVersionPublicEmail =
-            collectionResponseWithTotalVersionPublicEmailFuture.get()
-        collectionResponseWithTotalVersionPublicEmail.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -36,7 +36,6 @@ import com.hubspot_sdk.api.models.automation.workflows.ApiStaticBranchAction
 import com.hubspot_sdk.api.models.automation.workflows.ApiTimeOfDay
 import com.hubspot_sdk.api.models.automation.workflows.ApiTimeWindow
 import com.hubspot_sdk.api.models.automation.workflows.ApiUnEnrollmentSetting
-import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -1293,16 +1292,8 @@ internal class WorkflowServiceTest {
                 .build()
         val workflowService = client.automation().workflows()
 
-        val collectionResponseApiFlowEmailCampaign =
-            workflowService.listEmailCampaigns(
-                WorkflowListEmailCampaignsParams.builder()
-                    .after("after")
-                    .before("before")
-                    .addFlowId("string")
-                    .limit(0)
-                    .build()
-            )
+        val page = workflowService.listEmailCampaigns()
 
-        collectionResponseApiFlowEmailCampaign.validate()
+        page.response().validate()
     }
 }

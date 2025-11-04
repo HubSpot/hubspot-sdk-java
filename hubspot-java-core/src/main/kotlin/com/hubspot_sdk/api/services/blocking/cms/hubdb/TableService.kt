@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.cms.hubdb.CollectionResponseWithTotalHubDbTableV3ForwardPaging
 import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableV3
 import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableV3Request
 import com.hubspot_sdk.api.models.cms.hubdb.ImportResult
@@ -20,6 +19,7 @@ import com.hubspot_sdk.api.models.cms.hubdb.tables.TableExportParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftPage
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListPage
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListParams
@@ -351,25 +351,20 @@ interface TableService {
      * Returns the details for each draft table defined in the specified account, including column
      * definitions.
      */
-    fun listDraft(): CollectionResponseWithTotalHubDbTableV3ForwardPaging =
-        listDraft(TableListDraftParams.none())
+    fun listDraft(): TableListDraftPage = listDraft(TableListDraftParams.none())
 
     /** @see listDraft */
     fun listDraft(
         params: TableListDraftParams = TableListDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalHubDbTableV3ForwardPaging
+    ): TableListDraftPage
 
     /** @see listDraft */
-    fun listDraft(
-        params: TableListDraftParams = TableListDraftParams.none()
-    ): CollectionResponseWithTotalHubDbTableV3ForwardPaging =
+    fun listDraft(params: TableListDraftParams = TableListDraftParams.none()): TableListDraftPage =
         listDraft(params, RequestOptions.none())
 
     /** @see listDraft */
-    fun listDraft(
-        requestOptions: RequestOptions
-    ): CollectionResponseWithTotalHubDbTableV3ForwardPaging =
+    fun listDraft(requestOptions: RequestOptions): TableListDraftPage =
         listDraft(TableListDraftParams.none(), requestOptions)
 
     /**
@@ -889,7 +884,7 @@ interface TableService {
          * same as [TableService.listDraft].
          */
         @MustBeClosed
-        fun listDraft(): HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging> =
+        fun listDraft(): HttpResponseFor<TableListDraftPage> =
             listDraft(TableListDraftParams.none())
 
         /** @see listDraft */
@@ -897,20 +892,17 @@ interface TableService {
         fun listDraft(
             params: TableListDraftParams = TableListDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging>
+        ): HttpResponseFor<TableListDraftPage>
 
         /** @see listDraft */
         @MustBeClosed
         fun listDraft(
             params: TableListDraftParams = TableListDraftParams.none()
-        ): HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging> =
-            listDraft(params, RequestOptions.none())
+        ): HttpResponseFor<TableListDraftPage> = listDraft(params, RequestOptions.none())
 
         /** @see listDraft */
         @MustBeClosed
-        fun listDraft(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging> =
+        fun listDraft(requestOptions: RequestOptions): HttpResponseFor<TableListDraftPage> =
             listDraft(TableListDraftParams.none(), requestOptions)
 
         /**

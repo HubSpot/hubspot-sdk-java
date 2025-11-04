@@ -27,6 +27,7 @@ import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetRevisionParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListParams
+import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingUpdateLanguagesParams
@@ -92,7 +93,7 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun listRevisions(
         params: SettingListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
+    ): CompletableFuture<SettingListRevisionsPageAsync> =
         // get /cms/v3/blog-settings/settings/{blogId}/revisions
         withRawResponse().listRevisions(params, requestOptions).thenApply { it.parse() }
 
@@ -340,7 +341,7 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
         override fun listRevisions(
             params: SettingListRevisionsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionBlog>> {
+        ): CompletableFuture<HttpResponseFor<SettingListRevisionsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("blogId", params.blogId().getOrNull())
@@ -369,6 +370,14 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                SettingListRevisionsPageAsync.builder()
+                                    .service(SettingServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

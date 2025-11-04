@@ -69,18 +69,14 @@ internal class ReportServiceTest {
                 .build()
         val reportService = client.marketing().campaigns().reports()
 
-        val collectionResponseContactReferenceForwardPaging =
+        val page =
             reportService.listContactIdsByType(
                 ReportListContactIdsByTypeParams.builder()
                     .campaignGuid("campaignGuid")
                     .contactType("contactType")
-                    .after("after")
-                    .endDate("endDate")
-                    .limit(0)
-                    .startDate("startDate")
                     .build()
             )
 
-        collectionResponseContactReferenceForwardPaging.validate()
+        page.response().validate()
     }
 }

@@ -27,6 +27,7 @@ import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetRevisionParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListPage
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListParams
+import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsPage
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingUpdateLanguagesParams
@@ -87,7 +88,7 @@ class SettingServiceImpl internal constructor(private val clientOptions: ClientO
     override fun listRevisions(
         params: SettingListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalVersionBlog =
+    ): SettingListRevisionsPage =
         // get /cms/v3/blog-settings/settings/{blogId}/revisions
         withRawResponse().listRevisions(params, requestOptions).parse()
 
@@ -318,7 +319,7 @@ class SettingServiceImpl internal constructor(private val clientOptions: ClientO
         override fun listRevisions(
             params: SettingListRevisionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalVersionBlog> {
+        ): HttpResponseFor<SettingListRevisionsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("blogId", params.blogId().getOrNull())
@@ -345,6 +346,13 @@ class SettingServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        SettingListRevisionsPage.builder()
+                            .service(SettingServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

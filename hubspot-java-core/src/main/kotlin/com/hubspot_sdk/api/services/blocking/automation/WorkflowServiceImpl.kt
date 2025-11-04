@@ -27,6 +27,7 @@ import com.hubspot_sdk.api.models.automation.workflows.WorkflowBatchGetParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowCreateParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowDeleteParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowGetParams
+import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsPage
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListPage
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListParams
@@ -87,7 +88,7 @@ class WorkflowServiceImpl internal constructor(private val clientOptions: Client
     override fun listEmailCampaigns(
         params: WorkflowListEmailCampaignsParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseApiFlowEmailCampaign =
+    ): WorkflowListEmailCampaignsPage =
         // get /automation/v4/flows/email-campaigns
         withRawResponse().listEmailCampaigns(params, requestOptions).parse()
 
@@ -311,7 +312,7 @@ class WorkflowServiceImpl internal constructor(private val clientOptions: Client
         override fun listEmailCampaigns(
             params: WorkflowListEmailCampaignsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseApiFlowEmailCampaign> {
+        ): HttpResponseFor<WorkflowListEmailCampaignsPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -328,6 +329,13 @@ class WorkflowServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        WorkflowListEmailCampaignsPage.builder()
+                            .service(WorkflowServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

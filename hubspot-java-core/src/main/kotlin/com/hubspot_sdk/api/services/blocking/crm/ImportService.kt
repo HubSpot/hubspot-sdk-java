@@ -7,10 +7,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.ActionResponse
-import com.hubspot_sdk.api.models.crm.imports.CollectionResponsePublicImportErrorForwardPaging
 import com.hubspot_sdk.api.models.crm.imports.ImportCancelParams
 import com.hubspot_sdk.api.models.crm.imports.ImportCreateParams
 import com.hubspot_sdk.api.models.crm.imports.ImportGetParams
+import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsPage
 import com.hubspot_sdk.api.models.crm.imports.ImportListErrorsParams
 import com.hubspot_sdk.api.models.crm.imports.ImportListPage
 import com.hubspot_sdk.api.models.crm.imports.ImportListParams
@@ -126,7 +126,7 @@ interface ImportService {
     fun get(importId: Long, requestOptions: RequestOptions): PublicImportResponse =
         get(importId, ImportGetParams.none(), requestOptions)
 
-    fun listErrors(importId: Long): CollectionResponsePublicImportErrorForwardPaging =
+    fun listErrors(importId: Long): ImportListErrorsPage =
         listErrors(importId, ImportListErrorsParams.none())
 
     /** @see listErrors */
@@ -134,32 +134,27 @@ interface ImportService {
         importId: Long,
         params: ImportListErrorsParams = ImportListErrorsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponsePublicImportErrorForwardPaging =
+    ): ImportListErrorsPage =
         listErrors(params.toBuilder().importId(importId).build(), requestOptions)
 
     /** @see listErrors */
     fun listErrors(
         importId: Long,
         params: ImportListErrorsParams = ImportListErrorsParams.none(),
-    ): CollectionResponsePublicImportErrorForwardPaging =
-        listErrors(importId, params, RequestOptions.none())
+    ): ImportListErrorsPage = listErrors(importId, params, RequestOptions.none())
 
     /** @see listErrors */
     fun listErrors(
         params: ImportListErrorsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponsePublicImportErrorForwardPaging
+    ): ImportListErrorsPage
 
     /** @see listErrors */
-    fun listErrors(
-        params: ImportListErrorsParams
-    ): CollectionResponsePublicImportErrorForwardPaging = listErrors(params, RequestOptions.none())
+    fun listErrors(params: ImportListErrorsParams): ImportListErrorsPage =
+        listErrors(params, RequestOptions.none())
 
     /** @see listErrors */
-    fun listErrors(
-        importId: Long,
-        requestOptions: RequestOptions,
-    ): CollectionResponsePublicImportErrorForwardPaging =
+    fun listErrors(importId: Long, requestOptions: RequestOptions): ImportListErrorsPage =
         listErrors(importId, ImportListErrorsParams.none(), requestOptions)
 
     /** A view of [ImportService] that provides access to raw HTTP responses for each method. */
@@ -314,9 +309,7 @@ interface ImportService {
          * the same as [ImportService.listErrors].
          */
         @MustBeClosed
-        fun listErrors(
-            importId: Long
-        ): HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging> =
+        fun listErrors(importId: Long): HttpResponseFor<ImportListErrorsPage> =
             listErrors(importId, ImportListErrorsParams.none())
 
         /** @see listErrors */
@@ -325,7 +318,7 @@ interface ImportService {
             importId: Long,
             params: ImportListErrorsParams = ImportListErrorsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging> =
+        ): HttpResponseFor<ImportListErrorsPage> =
             listErrors(params.toBuilder().importId(importId).build(), requestOptions)
 
         /** @see listErrors */
@@ -333,7 +326,7 @@ interface ImportService {
         fun listErrors(
             importId: Long,
             params: ImportListErrorsParams = ImportListErrorsParams.none(),
-        ): HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging> =
+        ): HttpResponseFor<ImportListErrorsPage> =
             listErrors(importId, params, RequestOptions.none())
 
         /** @see listErrors */
@@ -341,13 +334,11 @@ interface ImportService {
         fun listErrors(
             params: ImportListErrorsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging>
+        ): HttpResponseFor<ImportListErrorsPage>
 
         /** @see listErrors */
         @MustBeClosed
-        fun listErrors(
-            params: ImportListErrorsParams
-        ): HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging> =
+        fun listErrors(params: ImportListErrorsParams): HttpResponseFor<ImportListErrorsPage> =
             listErrors(params, RequestOptions.none())
 
         /** @see listErrors */
@@ -355,7 +346,7 @@ interface ImportService {
         fun listErrors(
             importId: Long,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicImportErrorForwardPaging> =
+        ): HttpResponseFor<ImportListErrorsPage> =
             listErrors(importId, ImportListErrorsParams.none(), requestOptions)
     }
 }

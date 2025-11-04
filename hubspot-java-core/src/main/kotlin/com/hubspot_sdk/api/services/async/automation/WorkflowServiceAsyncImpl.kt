@@ -27,6 +27,7 @@ import com.hubspot_sdk.api.models.automation.workflows.WorkflowBatchGetParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowCreateParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowDeleteParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowGetParams
+import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsPageAsync
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListEmailCampaignsParams
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListPageAsync
 import com.hubspot_sdk.api.models.automation.workflows.WorkflowListParams
@@ -99,7 +100,7 @@ class WorkflowServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun listEmailCampaigns(
         params: WorkflowListEmailCampaignsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseApiFlowEmailCampaign> =
+    ): CompletableFuture<WorkflowListEmailCampaignsPageAsync> =
         // get /automation/v4/flows/email-campaigns
         withRawResponse().listEmailCampaigns(params, requestOptions).thenApply { it.parse() }
 
@@ -345,7 +346,7 @@ class WorkflowServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun listEmailCampaigns(
             params: WorkflowListEmailCampaignsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseApiFlowEmailCampaign>> {
+        ): CompletableFuture<HttpResponseFor<WorkflowListEmailCampaignsPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -364,6 +365,14 @@ class WorkflowServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                WorkflowListEmailCampaignsPageAsync.builder()
+                                    .service(WorkflowServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

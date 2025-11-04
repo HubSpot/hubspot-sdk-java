@@ -22,12 +22,10 @@ import com.hubspot_sdk.api.models.cms.hubdb.tables.TableExportParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TablePublishDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableResetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableUnpublishParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableUpdateDraftParams
-import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -278,25 +276,9 @@ internal class TableServiceTest {
                 .build()
         val tableService = client.cms().hubdb().tables()
 
-        val collectionResponseWithTotalHubDbTableV3ForwardPaging =
-            tableService.listDraft(
-                TableListDraftParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .contentType("contentType")
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .isGetLocalizedSchema(true)
-                    .limit(0)
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
+        val page = tableService.listDraft()
 
-        collectionResponseWithTotalHubDbTableV3ForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

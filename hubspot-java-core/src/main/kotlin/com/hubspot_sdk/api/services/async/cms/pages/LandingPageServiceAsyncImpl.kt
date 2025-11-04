@@ -48,10 +48,13 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFolderRev
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetFoldersBatchParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFolderRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListFoldersParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageRerunAbTestParams
@@ -247,21 +250,21 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
     override fun listFolderRevisions(
         params: LandingPageListFolderRevisionsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionContentFolder> =
+    ): CompletableFuture<LandingPageListFolderRevisionsPageAsync> =
         // get /cms/v3/pages/landing-pages/folders/{objectId}/revisions
         withRawResponse().listFolderRevisions(params, requestOptions).thenApply { it.parse() }
 
     override fun listFolders(
         params: LandingPageListFoldersParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalContentFolderForwardPaging> =
+    ): CompletableFuture<LandingPageListFoldersPageAsync> =
         // get /cms/v3/pages/landing-pages/folders
         withRawResponse().listFolders(params, requestOptions).thenApply { it.parse() }
 
     override fun listRevisions(
         params: LandingPageListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<LandingPageListRevisionsPageAsync> =
         // get /cms/v3/pages/landing-pages/{objectId}/revisions
         withRawResponse().listRevisions(params, requestOptions).thenApply { it.parse() }
 
@@ -1145,7 +1148,7 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
         override fun listFolderRevisions(
             params: LandingPageListFolderRevisionsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionContentFolder>> {
+        ): CompletableFuture<HttpResponseFor<LandingPageListFolderRevisionsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -1176,6 +1179,14 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                                     it.validate()
                                 }
                             }
+                            .let {
+                                LandingPageListFolderRevisionsPageAsync.builder()
+                                    .service(LandingPageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
@@ -1189,9 +1200,7 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
         override fun listFolders(
             params: LandingPageListFoldersParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalContentFolderForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<LandingPageListFoldersPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -1211,6 +1220,14 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                                     it.validate()
                                 }
                             }
+                            .let {
+                                LandingPageListFoldersPageAsync.builder()
+                                    .service(LandingPageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
@@ -1221,7 +1238,7 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
         override fun listRevisions(
             params: LandingPageListRevisionsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> {
+        ): CompletableFuture<HttpResponseFor<LandingPageListRevisionsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -1250,6 +1267,14 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                LandingPageListRevisionsPageAsync.builder()
+                                    .service(LandingPageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

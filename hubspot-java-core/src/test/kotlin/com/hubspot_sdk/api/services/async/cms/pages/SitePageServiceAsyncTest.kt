@@ -24,7 +24,6 @@ import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageDeleteParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetBatchParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageRestoreRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageRestoreRevisionToDraftParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageUpdateBatchParams
@@ -1152,19 +1151,10 @@ internal class SitePageServiceAsyncTest {
                 .build()
         val sitePageServiceAsync = client.cms().pages().sitePages()
 
-        val collectionResponseWithTotalVersionPageFuture =
-            sitePageServiceAsync.listRevisions(
-                SitePageListRevisionsParams.builder()
-                    .objectId("objectId")
-                    .after("after")
-                    .before("before")
-                    .limit(0)
-                    .build()
-            )
+        val pageFuture = sitePageServiceAsync.listRevisions("objectId")
 
-        val collectionResponseWithTotalVersionPage =
-            collectionResponseWithTotalVersionPageFuture.get()
-        collectionResponseWithTotalVersionPage.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

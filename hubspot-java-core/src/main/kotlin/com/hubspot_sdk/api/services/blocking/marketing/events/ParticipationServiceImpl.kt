@@ -19,8 +19,11 @@ import com.hubspot_sdk.api.models.marketing.events.AttendanceCounters
 import com.hubspot_sdk.api.models.marketing.events.CollectionResponseWithTotalParticipationBreakdownForwardPaging
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByExternalAccountAndEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactPage
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdPage
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdParams
+import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdPage
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -54,14 +57,14 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
     override fun listBreakdownByContact(
         params: ParticipationListBreakdownByContactParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByContactPage =
         // get /marketing/v3/marketing-events/participations/contacts/{contactIdentifier}/breakdown
         withRawResponse().listBreakdownByContact(params, requestOptions).parse()
 
     override fun listBreakdownByExternalAccountAndEventId(
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByExternalAccountAndEventIdPage =
         // get
         // /marketing/v3/marketing-events/participations/{externalAccountId}/{externalEventId}/breakdown
         withRawResponse().listBreakdownByExternalAccountAndEventId(params, requestOptions).parse()
@@ -69,7 +72,7 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
     override fun listBreakdownById(
         params: ParticipationListBreakdownByIdParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalParticipationBreakdownForwardPaging =
+    ): ParticipationListBreakdownByIdPage =
         // get /marketing/v3/marketing-events/participations/{marketingEventId}/breakdown
         withRawResponse().listBreakdownById(params, requestOptions).parse()
 
@@ -168,7 +171,7 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
         override fun listBreakdownByContact(
             params: ParticipationListBreakdownByContactParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> {
+        ): HttpResponseFor<ParticipationListBreakdownByContactPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("contactIdentifier", params.contactIdentifier().getOrNull())
@@ -197,6 +200,13 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
                             it.validate()
                         }
                     }
+                    .let {
+                        ParticipationListBreakdownByContactPage.builder()
+                            .service(ParticipationServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
@@ -209,7 +219,7 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
         override fun listBreakdownByExternalAccountAndEventId(
             params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> {
+        ): HttpResponseFor<ParticipationListBreakdownByExternalAccountAndEventIdPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("externalEventId", params.externalEventId().getOrNull())
@@ -238,6 +248,13 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
                             it.validate()
                         }
                     }
+                    .let {
+                        ParticipationListBreakdownByExternalAccountAndEventIdPage.builder()
+                            .service(ParticipationServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
@@ -250,7 +267,7 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
         override fun listBreakdownById(
             params: ParticipationListBreakdownByIdParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalParticipationBreakdownForwardPaging> {
+        ): HttpResponseFor<ParticipationListBreakdownByIdPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("marketingEventId", params.marketingEventId().getOrNull())
@@ -277,6 +294,13 @@ class ParticipationServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ParticipationListBreakdownByIdPage.builder()
+                            .service(ParticipationServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

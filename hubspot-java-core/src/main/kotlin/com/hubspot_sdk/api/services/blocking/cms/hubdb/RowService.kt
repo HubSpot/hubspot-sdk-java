@@ -8,12 +8,12 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableRowV3
-import com.hubspot_sdk.api.models.cms.hubdb.UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCloneDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCreateParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowDeleteDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
+import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListDraftPage
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListPage
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListParams
@@ -192,7 +192,7 @@ interface RowService {
      * [overview section](https://developers.hubspot.com/docs/api/cms/hubdb#filtering-and-sorting-table-rows)
      * for detailed filtering and sorting options.
      */
-    fun listDraft(tableIdOrName: String): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
+    fun listDraft(tableIdOrName: String): RowListDraftPage =
         listDraft(tableIdOrName, RowListDraftParams.none())
 
     /** @see listDraft */
@@ -200,33 +200,27 @@ interface RowService {
         tableIdOrName: String,
         params: RowListDraftParams = RowListDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
+    ): RowListDraftPage =
         listDraft(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
     /** @see listDraft */
     fun listDraft(
         tableIdOrName: String,
         params: RowListDraftParams = RowListDraftParams.none(),
-    ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-        listDraft(tableIdOrName, params, RequestOptions.none())
+    ): RowListDraftPage = listDraft(tableIdOrName, params, RequestOptions.none())
 
     /** @see listDraft */
     fun listDraft(
         params: RowListDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
+    ): RowListDraftPage
 
     /** @see listDraft */
-    fun listDraft(
-        params: RowListDraftParams
-    ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
+    fun listDraft(params: RowListDraftParams): RowListDraftPage =
         listDraft(params, RequestOptions.none())
 
     /** @see listDraft */
-    fun listDraft(
-        tableIdOrName: String,
-        requestOptions: RequestOptions,
-    ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
+    fun listDraft(tableIdOrName: String, requestOptions: RequestOptions): RowListDraftPage =
         listDraft(tableIdOrName, RowListDraftParams.none(), requestOptions)
 
     /**
@@ -491,9 +485,7 @@ interface RowService {
          * but is otherwise the same as [RowService.listDraft].
          */
         @MustBeClosed
-        fun listDraft(
-            tableIdOrName: String
-        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
+        fun listDraft(tableIdOrName: String): HttpResponseFor<RowListDraftPage> =
             listDraft(tableIdOrName, RowListDraftParams.none())
 
         /** @see listDraft */
@@ -502,7 +494,7 @@ interface RowService {
             tableIdOrName: String,
             params: RowListDraftParams = RowListDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
+        ): HttpResponseFor<RowListDraftPage> =
             listDraft(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
         /** @see listDraft */
@@ -510,7 +502,7 @@ interface RowService {
         fun listDraft(
             tableIdOrName: String,
             params: RowListDraftParams = RowListDraftParams.none(),
-        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
+        ): HttpResponseFor<RowListDraftPage> =
             listDraft(tableIdOrName, params, RequestOptions.none())
 
         /** @see listDraft */
@@ -518,13 +510,11 @@ interface RowService {
         fun listDraft(
             params: RowListDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
+        ): HttpResponseFor<RowListDraftPage>
 
         /** @see listDraft */
         @MustBeClosed
-        fun listDraft(
-            params: RowListDraftParams
-        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
+        fun listDraft(params: RowListDraftParams): HttpResponseFor<RowListDraftPage> =
             listDraft(params, RequestOptions.none())
 
         /** @see listDraft */
@@ -532,7 +522,7 @@ interface RowService {
         fun listDraft(
             tableIdOrName: String,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
+        ): HttpResponseFor<RowListDraftPage> =
             listDraft(tableIdOrName, RowListDraftParams.none(), requestOptions)
 
         /**

@@ -5,9 +5,7 @@ package com.hubspot_sdk.api.services.async.marketing.events
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationGetByExternalAccountAndEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByContactParams
 import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByExternalAccountAndEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.participations.ParticipationListBreakdownByIdParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -63,19 +61,10 @@ internal class ParticipationServiceAsyncTest {
                 .build()
         val participationServiceAsync = client.marketing().events().participations()
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPagingFuture =
-            participationServiceAsync.listBreakdownByContact(
-                ParticipationListBreakdownByContactParams.builder()
-                    .contactIdentifier("contactIdentifier")
-                    .after("after")
-                    .limit(0)
-                    .state("state")
-                    .build()
-            )
+        val pageFuture = participationServiceAsync.listBreakdownByContact("contactIdentifier")
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPaging =
-            collectionResponseWithTotalParticipationBreakdownForwardPagingFuture.get()
-        collectionResponseWithTotalParticipationBreakdownForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -88,21 +77,16 @@ internal class ParticipationServiceAsyncTest {
                 .build()
         val participationServiceAsync = client.marketing().events().participations()
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPagingFuture =
+        val pageFuture =
             participationServiceAsync.listBreakdownByExternalAccountAndEventId(
                 ParticipationListBreakdownByExternalAccountAndEventIdParams.builder()
                     .externalAccountId("externalAccountId")
                     .externalEventId("externalEventId")
-                    .after("after")
-                    .contactIdentifier("contactIdentifier")
-                    .limit(0)
-                    .state("state")
                     .build()
             )
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPaging =
-            collectionResponseWithTotalParticipationBreakdownForwardPagingFuture.get()
-        collectionResponseWithTotalParticipationBreakdownForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -115,19 +99,9 @@ internal class ParticipationServiceAsyncTest {
                 .build()
         val participationServiceAsync = client.marketing().events().participations()
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPagingFuture =
-            participationServiceAsync.listBreakdownById(
-                ParticipationListBreakdownByIdParams.builder()
-                    .marketingEventId(0L)
-                    .after("after")
-                    .contactIdentifier("contactIdentifier")
-                    .limit(0)
-                    .state("state")
-                    .build()
-            )
+        val pageFuture = participationServiceAsync.listBreakdownById(0L)
 
-        val collectionResponseWithTotalParticipationBreakdownForwardPaging =
-            collectionResponseWithTotalParticipationBreakdownForwardPagingFuture.get()
-        collectionResponseWithTotalParticipationBreakdownForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

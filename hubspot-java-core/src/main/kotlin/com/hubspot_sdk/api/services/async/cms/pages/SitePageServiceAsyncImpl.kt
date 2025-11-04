@@ -38,6 +38,7 @@ import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageGetRevisionParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListPageAsync
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListParams
+import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageListRevisionsParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePagePublishDraftParams
 import com.hubspot_sdk.api.models.cms.pages.sitepages.SitePageRerunAbTestParams
@@ -181,7 +182,7 @@ class SitePageServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun listRevisions(
         params: SitePageListRevisionsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionPage> =
+    ): CompletableFuture<SitePageListRevisionsPageAsync> =
         // get /cms/v3/pages/site-pages/{objectId}/revisions
         withRawResponse().listRevisions(params, requestOptions).thenApply { it.parse() }
 
@@ -786,7 +787,7 @@ class SitePageServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun listRevisions(
             params: SitePageListRevisionsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionPage>> {
+        ): CompletableFuture<HttpResponseFor<SitePageListRevisionsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -815,6 +816,14 @@ class SitePageServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                SitePageListRevisionsPageAsync.builder()
+                                    .service(SitePageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

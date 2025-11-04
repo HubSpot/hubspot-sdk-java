@@ -11,7 +11,6 @@ import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCreateParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowDeleteDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
-import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowReplaceDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowUpdateDraftParams
 import org.junit.jupiter.api.Disabled
@@ -174,22 +173,10 @@ internal class RowServiceAsyncTest {
                 .build()
         val rowServiceAsync = client.cms().hubdb().rows()
 
-        val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3Future =
-            rowServiceAsync.listDraft(
-                RowListDraftParams.builder()
-                    .tableIdOrName("tableIdOrName")
-                    .after("after")
-                    .archived(true)
-                    .limit(0)
-                    .offset(0)
-                    .addProperty("string")
-                    .addSort("string")
-                    .build()
-            )
+        val pageFuture = rowServiceAsync.listDraft("tableIdOrName")
 
-        val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-            unifiedCollectionResponseWithTotalBaseHubDbTableRowV3Future.get()
-        unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

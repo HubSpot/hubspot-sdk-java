@@ -6,11 +6,11 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.marketing.campaigns.CollectionResponseContactReferenceForwardPaging
 import com.hubspot_sdk.api.models.marketing.campaigns.MetricsCounters
 import com.hubspot_sdk.api.models.marketing.campaigns.RevenueAttributionAggregate
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetAttributionMetricsParams
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetRevenueAttributionParams
+import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypePage
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypeParams
 import java.util.function.Consumer
 
@@ -115,7 +115,7 @@ interface ReportService {
     fun listContactIdsByType(
         contactType: String,
         params: ReportListContactIdsByTypeParams,
-    ): CollectionResponseContactReferenceForwardPaging =
+    ): ReportListContactIdsByTypePage =
         listContactIdsByType(contactType, params, RequestOptions.none())
 
     /** @see listContactIdsByType */
@@ -123,20 +123,19 @@ interface ReportService {
         contactType: String,
         params: ReportListContactIdsByTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseContactReferenceForwardPaging =
+    ): ReportListContactIdsByTypePage =
         listContactIdsByType(params.toBuilder().contactType(contactType).build(), requestOptions)
 
     /** @see listContactIdsByType */
     fun listContactIdsByType(
         params: ReportListContactIdsByTypeParams
-    ): CollectionResponseContactReferenceForwardPaging =
-        listContactIdsByType(params, RequestOptions.none())
+    ): ReportListContactIdsByTypePage = listContactIdsByType(params, RequestOptions.none())
 
     /** @see listContactIdsByType */
     fun listContactIdsByType(
         params: ReportListContactIdsByTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseContactReferenceForwardPaging
+    ): ReportListContactIdsByTypePage
 
     /** A view of [ReportService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -268,7 +267,7 @@ interface ReportService {
         fun listContactIdsByType(
             contactType: String,
             params: ReportListContactIdsByTypeParams,
-        ): HttpResponseFor<CollectionResponseContactReferenceForwardPaging> =
+        ): HttpResponseFor<ReportListContactIdsByTypePage> =
             listContactIdsByType(contactType, params, RequestOptions.none())
 
         /** @see listContactIdsByType */
@@ -277,7 +276,7 @@ interface ReportService {
             contactType: String,
             params: ReportListContactIdsByTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseContactReferenceForwardPaging> =
+        ): HttpResponseFor<ReportListContactIdsByTypePage> =
             listContactIdsByType(
                 params.toBuilder().contactType(contactType).build(),
                 requestOptions,
@@ -287,7 +286,7 @@ interface ReportService {
         @MustBeClosed
         fun listContactIdsByType(
             params: ReportListContactIdsByTypeParams
-        ): HttpResponseFor<CollectionResponseContactReferenceForwardPaging> =
+        ): HttpResponseFor<ReportListContactIdsByTypePage> =
             listContactIdsByType(params, RequestOptions.none())
 
         /** @see listContactIdsByType */
@@ -295,6 +294,6 @@ interface ReportService {
         fun listContactIdsByType(
             params: ReportListContactIdsByTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseContactReferenceForwardPaging>
+        ): HttpResponseFor<ReportListContactIdsByTypePage>
     }
 }

@@ -71,20 +71,15 @@ internal class ReportServiceAsyncTest {
                 .build()
         val reportServiceAsync = client.marketing().campaigns().reports()
 
-        val collectionResponseContactReferenceForwardPagingFuture =
+        val pageFuture =
             reportServiceAsync.listContactIdsByType(
                 ReportListContactIdsByTypeParams.builder()
                     .campaignGuid("campaignGuid")
                     .contactType("contactType")
-                    .after("after")
-                    .endDate("endDate")
-                    .limit(0)
-                    .startDate("startDate")
                     .build()
             )
 
-        val collectionResponseContactReferenceForwardPaging =
-            collectionResponseContactReferenceForwardPagingFuture.get()
-        collectionResponseContactReferenceForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

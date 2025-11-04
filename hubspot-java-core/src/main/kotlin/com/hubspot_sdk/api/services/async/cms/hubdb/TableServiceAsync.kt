@@ -6,7 +6,6 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.cms.hubdb.CollectionResponseWithTotalHubDbTableV3ForwardPaging
 import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableV3
 import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableV3Request
 import com.hubspot_sdk.api.models.cms.hubdb.ImportResult
@@ -19,6 +18,7 @@ import com.hubspot_sdk.api.models.cms.hubdb.tables.TableExportParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableGetParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.tables.TableListParams
@@ -372,25 +372,22 @@ interface TableServiceAsync {
      * Returns the details for each draft table defined in the specified account, including column
      * definitions.
      */
-    fun listDraft(): CompletableFuture<CollectionResponseWithTotalHubDbTableV3ForwardPaging> =
+    fun listDraft(): CompletableFuture<TableListDraftPageAsync> =
         listDraft(TableListDraftParams.none())
 
     /** @see listDraft */
     fun listDraft(
         params: TableListDraftParams = TableListDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalHubDbTableV3ForwardPaging>
+    ): CompletableFuture<TableListDraftPageAsync>
 
     /** @see listDraft */
     fun listDraft(
         params: TableListDraftParams = TableListDraftParams.none()
-    ): CompletableFuture<CollectionResponseWithTotalHubDbTableV3ForwardPaging> =
-        listDraft(params, RequestOptions.none())
+    ): CompletableFuture<TableListDraftPageAsync> = listDraft(params, RequestOptions.none())
 
     /** @see listDraft */
-    fun listDraft(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseWithTotalHubDbTableV3ForwardPaging> =
+    fun listDraft(requestOptions: RequestOptions): CompletableFuture<TableListDraftPageAsync> =
         listDraft(TableListDraftParams.none(), requestOptions)
 
     /**
@@ -903,30 +900,26 @@ interface TableServiceAsync {
          * Returns a raw HTTP response for `get /cms/v3/hubdb/tables/draft`, but is otherwise the
          * same as [TableServiceAsync.listDraft].
          */
-        fun listDraft():
-            CompletableFuture<
-                HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging>
-            > = listDraft(TableListDraftParams.none())
+        fun listDraft(): CompletableFuture<HttpResponseFor<TableListDraftPageAsync>> =
+            listDraft(TableListDraftParams.none())
 
         /** @see listDraft */
         fun listDraft(
             params: TableListDraftParams = TableListDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<TableListDraftPageAsync>>
 
         /** @see listDraft */
         fun listDraft(
             params: TableListDraftParams = TableListDraftParams.none()
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging>
-        > = listDraft(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<TableListDraftPageAsync>> =
+            listDraft(params, RequestOptions.none())
 
         /** @see listDraft */
         fun listDraft(
             requestOptions: RequestOptions
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalHubDbTableV3ForwardPaging>
-        > = listDraft(TableListDraftParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<TableListDraftPageAsync>> =
+            listDraft(TableListDraftParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

@@ -12,7 +12,6 @@ import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.Blog
 import com.hubspot_sdk.api.models.cms.blogs.settings.BlogLanguageCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.settings.CollectionResponseWithTotalVersionBlog
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingCreateLanguageVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingDetachFromLangGroupParams
@@ -20,6 +19,7 @@ import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetRevisionParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListParams
+import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsPageAsync
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingListRevisionsParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingUpdateLanguagesParams
@@ -191,7 +191,7 @@ interface SettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<VersionBlog>
 
-    fun listRevisions(blogId: String): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
+    fun listRevisions(blogId: String): CompletableFuture<SettingListRevisionsPageAsync> =
         listRevisions(blogId, SettingListRevisionsParams.none())
 
     /** @see listRevisions */
@@ -199,33 +199,33 @@ interface SettingServiceAsync {
         blogId: String,
         params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
+    ): CompletableFuture<SettingListRevisionsPageAsync> =
         listRevisions(params.toBuilder().blogId(blogId).build(), requestOptions)
 
     /** @see listRevisions */
     fun listRevisions(
         blogId: String,
         params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
+    ): CompletableFuture<SettingListRevisionsPageAsync> =
         listRevisions(blogId, params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         params: SettingListRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalVersionBlog>
+    ): CompletableFuture<SettingListRevisionsPageAsync>
 
     /** @see listRevisions */
     fun listRevisions(
         params: SettingListRevisionsParams
-    ): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
+    ): CompletableFuture<SettingListRevisionsPageAsync> =
         listRevisions(params, RequestOptions.none())
 
     /** @see listRevisions */
     fun listRevisions(
         blogId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalVersionBlog> =
+    ): CompletableFuture<SettingListRevisionsPageAsync> =
         listRevisions(blogId, SettingListRevisionsParams.none(), requestOptions)
 
     fun setNewLangPrimary(params: SettingSetNewLangPrimaryParams): CompletableFuture<Void?> =
@@ -496,7 +496,7 @@ interface SettingServiceAsync {
          */
         fun listRevisions(
             blogId: String
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionBlog>> =
+        ): CompletableFuture<HttpResponseFor<SettingListRevisionsPageAsync>> =
             listRevisions(blogId, SettingListRevisionsParams.none())
 
         /** @see listRevisions */
@@ -504,33 +504,33 @@ interface SettingServiceAsync {
             blogId: String,
             params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionBlog>> =
+        ): CompletableFuture<HttpResponseFor<SettingListRevisionsPageAsync>> =
             listRevisions(params.toBuilder().blogId(blogId).build(), requestOptions)
 
         /** @see listRevisions */
         fun listRevisions(
             blogId: String,
             params: SettingListRevisionsParams = SettingListRevisionsParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionBlog>> =
+        ): CompletableFuture<HttpResponseFor<SettingListRevisionsPageAsync>> =
             listRevisions(blogId, params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             params: SettingListRevisionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionBlog>>
+        ): CompletableFuture<HttpResponseFor<SettingListRevisionsPageAsync>>
 
         /** @see listRevisions */
         fun listRevisions(
             params: SettingListRevisionsParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionBlog>> =
+        ): CompletableFuture<HttpResponseFor<SettingListRevisionsPageAsync>> =
             listRevisions(params, RequestOptions.none())
 
         /** @see listRevisions */
         fun listRevisions(
             blogId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalVersionBlog>> =
+        ): CompletableFuture<HttpResponseFor<SettingListRevisionsPageAsync>> =
             listRevisions(blogId, SettingListRevisionsParams.none(), requestOptions)
 
         /**

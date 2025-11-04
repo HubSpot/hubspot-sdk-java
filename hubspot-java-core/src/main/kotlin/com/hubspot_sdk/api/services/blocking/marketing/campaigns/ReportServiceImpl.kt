@@ -20,6 +20,7 @@ import com.hubspot_sdk.api.models.marketing.campaigns.MetricsCounters
 import com.hubspot_sdk.api.models.marketing.campaigns.RevenueAttributionAggregate
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetAttributionMetricsParams
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetRevenueAttributionParams
+import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypePage
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypeParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -53,7 +54,7 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun listContactIdsByType(
         params: ReportListContactIdsByTypeParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseContactReferenceForwardPaging =
+    ): ReportListContactIdsByTypePage =
         // get /marketing/v3/campaigns/{campaignGuid}/reports/contacts/{contactType}
         withRawResponse().listContactIdsByType(params, requestOptions).parse()
 
@@ -151,7 +152,7 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun listContactIdsByType(
             params: ReportListContactIdsByTypeParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseContactReferenceForwardPaging> {
+        ): HttpResponseFor<ReportListContactIdsByTypePage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("contactType", params.contactType().getOrNull())
@@ -179,6 +180,13 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ReportListContactIdsByTypePage.builder()
+                            .service(ReportServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -5,11 +5,11 @@ package com.hubspot_sdk.api.services.async.marketing.campaigns
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.marketing.campaigns.CollectionResponseContactReferenceForwardPaging
 import com.hubspot_sdk.api.models.marketing.campaigns.MetricsCounters
 import com.hubspot_sdk.api.models.marketing.campaigns.RevenueAttributionAggregate
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetAttributionMetricsParams
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportGetRevenueAttributionParams
+import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypePageAsync
 import com.hubspot_sdk.api.models.marketing.campaigns.reports.ReportListContactIdsByTypeParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -120,7 +120,7 @@ interface ReportServiceAsync {
     fun listContactIdsByType(
         contactType: String,
         params: ReportListContactIdsByTypeParams,
-    ): CompletableFuture<CollectionResponseContactReferenceForwardPaging> =
+    ): CompletableFuture<ReportListContactIdsByTypePageAsync> =
         listContactIdsByType(contactType, params, RequestOptions.none())
 
     /** @see listContactIdsByType */
@@ -128,20 +128,20 @@ interface ReportServiceAsync {
         contactType: String,
         params: ReportListContactIdsByTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseContactReferenceForwardPaging> =
+    ): CompletableFuture<ReportListContactIdsByTypePageAsync> =
         listContactIdsByType(params.toBuilder().contactType(contactType).build(), requestOptions)
 
     /** @see listContactIdsByType */
     fun listContactIdsByType(
         params: ReportListContactIdsByTypeParams
-    ): CompletableFuture<CollectionResponseContactReferenceForwardPaging> =
+    ): CompletableFuture<ReportListContactIdsByTypePageAsync> =
         listContactIdsByType(params, RequestOptions.none())
 
     /** @see listContactIdsByType */
     fun listContactIdsByType(
         params: ReportListContactIdsByTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseContactReferenceForwardPaging>
+    ): CompletableFuture<ReportListContactIdsByTypePageAsync>
 
     /**
      * A view of [ReportServiceAsync] that provides access to raw HTTP responses for each method.
@@ -267,7 +267,7 @@ interface ReportServiceAsync {
         fun listContactIdsByType(
             contactType: String,
             params: ReportListContactIdsByTypeParams,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseContactReferenceForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ReportListContactIdsByTypePageAsync>> =
             listContactIdsByType(contactType, params, RequestOptions.none())
 
         /** @see listContactIdsByType */
@@ -275,7 +275,7 @@ interface ReportServiceAsync {
             contactType: String,
             params: ReportListContactIdsByTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseContactReferenceForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ReportListContactIdsByTypePageAsync>> =
             listContactIdsByType(
                 params.toBuilder().contactType(contactType).build(),
                 requestOptions,
@@ -284,13 +284,13 @@ interface ReportServiceAsync {
         /** @see listContactIdsByType */
         fun listContactIdsByType(
             params: ReportListContactIdsByTypeParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseContactReferenceForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ReportListContactIdsByTypePageAsync>> =
             listContactIdsByType(params, RequestOptions.none())
 
         /** @see listContactIdsByType */
         fun listContactIdsByType(
             params: ReportListContactIdsByTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseContactReferenceForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<ReportListContactIdsByTypePageAsync>>
     }
 }
