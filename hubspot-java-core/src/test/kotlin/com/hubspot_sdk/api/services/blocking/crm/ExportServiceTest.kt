@@ -18,7 +18,7 @@ internal class ExportServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
-    fun create() {
+    fun createAsync() {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -27,7 +27,7 @@ internal class ExportServiceTest {
         val exportService = client.crm().exports()
 
         val taskLocator =
-            exportService.create(
+            exportService.createAsync(
                 PublicExportRequest.ofView(
                     PublicExportViewRequest.builder()
                         .addAssociatedObjectType("string")
@@ -50,9 +50,9 @@ internal class ExportServiceTest {
                                         .addFilter(
                                             Filter.builder()
                                                 .operator(Filter.Operator.EQ)
-                                                .propertyName("")
-                                                .highValue("")
-                                                .value("")
+                                                .propertyName("propertyName")
+                                                .highValue("highValue")
+                                                .value("value")
                                                 .addValue("string")
                                                 .build()
                                         )
@@ -61,9 +61,9 @@ internal class ExportServiceTest {
                                 .addFilter(
                                     Filter.builder()
                                         .operator(Filter.Operator.EQ)
-                                        .propertyName("")
-                                        .highValue("")
-                                        .value("")
+                                        .propertyName("propertyName")
+                                        .highValue("highValue")
+                                        .value("value")
                                         .addValue("string")
                                         .build()
                                 )
@@ -76,6 +76,21 @@ internal class ExportServiceTest {
             )
 
         taskLocator.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun get() {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val exportService = client.crm().exports()
+
+        val publicExportResponse = exportService.get(0L)
+
+        publicExportResponse.validate()
     }
 
     @Disabled("Prism tests are disabled")

@@ -7,11 +7,11 @@ import com.hubspot_sdk.api.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class ExportCreateParamsTest {
+internal class ExportCreateAsyncParamsTest {
 
     @Test
     fun create() {
-        ExportCreateParams.builder()
+        ExportCreateAsyncParams.builder()
             .publicExportRequest(
                 PublicExportViewRequest.builder()
                     .addAssociatedObjectType("string")
@@ -34,9 +34,9 @@ internal class ExportCreateParamsTest {
                                     .addFilter(
                                         Filter.builder()
                                             .operator(Filter.Operator.EQ)
-                                            .propertyName("")
-                                            .highValue("")
-                                            .value("")
+                                            .propertyName("propertyName")
+                                            .highValue("highValue")
+                                            .value("value")
                                             .addValue("string")
                                             .build()
                                     )
@@ -45,9 +45,9 @@ internal class ExportCreateParamsTest {
                             .addFilter(
                                 Filter.builder()
                                     .operator(Filter.Operator.EQ)
-                                    .propertyName("")
-                                    .highValue("")
-                                    .value("")
+                                    .propertyName("propertyName")
+                                    .highValue("highValue")
+                                    .value("value")
                                     .addValue("string")
                                     .build()
                             )
@@ -63,7 +63,7 @@ internal class ExportCreateParamsTest {
     @Test
     fun body() {
         val params =
-            ExportCreateParams.builder()
+            ExportCreateAsyncParams.builder()
                 .publicExportRequest(
                     PublicExportViewRequest.builder()
                         .addAssociatedObjectType("string")
@@ -86,9 +86,9 @@ internal class ExportCreateParamsTest {
                                         .addFilter(
                                             Filter.builder()
                                                 .operator(Filter.Operator.EQ)
-                                                .propertyName("")
-                                                .highValue("")
-                                                .value("")
+                                                .propertyName("propertyName")
+                                                .highValue("highValue")
+                                                .value("value")
                                                 .addValue("string")
                                                 .build()
                                         )
@@ -97,9 +97,9 @@ internal class ExportCreateParamsTest {
                                 .addFilter(
                                     Filter.builder()
                                         .operator(Filter.Operator.EQ)
-                                        .propertyName("")
-                                        .highValue("")
-                                        .value("")
+                                        .propertyName("propertyName")
+                                        .highValue("highValue")
+                                        .value("value")
                                         .addValue("string")
                                         .build()
                                 )
@@ -137,9 +137,9 @@ internal class ExportCreateParamsTest {
                                         .addFilter(
                                             Filter.builder()
                                                 .operator(Filter.Operator.EQ)
-                                                .propertyName("")
-                                                .highValue("")
-                                                .value("")
+                                                .propertyName("propertyName")
+                                                .highValue("highValue")
+                                                .value("value")
                                                 .addValue("string")
                                                 .build()
                                         )
@@ -148,9 +148,9 @@ internal class ExportCreateParamsTest {
                                 .addFilter(
                                     Filter.builder()
                                         .operator(Filter.Operator.EQ)
-                                        .propertyName("")
-                                        .highValue("")
-                                        .value("")
+                                        .propertyName("propertyName")
+                                        .highValue("highValue")
+                                        .value("value")
                                         .addValue("string")
                                         .build()
                                 )
@@ -166,7 +166,7 @@ internal class ExportCreateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            ExportCreateParams.builder()
+            ExportCreateAsyncParams.builder()
                 .publicExportRequest(
                     PublicExportViewRequest.builder()
                         .addAssociatedObjectType("string")

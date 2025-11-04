@@ -6,7 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.ErrorDetail
-import com.hubspot_sdk.api.models.StandardError
+import com.hubspot_sdk.api.models.crm.associations.v4.StandardError1
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -57,10 +57,10 @@ internal class BatchResponseSimplePublicUpsertObjectTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseSimplePublicUpsertObject.Status.PENDING)
                 .addError(
-                    StandardError.builder()
-                        .category("")
+                    StandardError1.builder()
+                        .category("category")
                         .context(
-                            StandardError.Context.builder()
+                            StandardError1.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -81,14 +81,14 @@ internal class BatchResponseSimplePublicUpsertObjectTest {
                                 .build()
                         )
                         .links(
-                            StandardError.Links.builder()
+                            StandardError1.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(
@@ -144,10 +144,10 @@ internal class BatchResponseSimplePublicUpsertObjectTest {
             .isEqualTo(BatchResponseSimplePublicUpsertObject.Status.PENDING)
         assertThat(batchResponseSimplePublicUpsertObject.errors().getOrNull())
             .containsExactly(
-                StandardError.builder()
-                    .category("")
+                StandardError1.builder()
+                    .category("category")
                     .context(
-                        StandardError.Context.builder()
+                        StandardError1.Context.builder()
                             .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                             .build()
                     )
@@ -168,14 +168,14 @@ internal class BatchResponseSimplePublicUpsertObjectTest {
                             .build()
                     )
                     .links(
-                        StandardError.Links.builder()
+                        StandardError1.Links.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .message("")
-                    .status("")
-                    .id("")
-                    .subCategory(JsonValue.from(""))
+                    .message("message")
+                    .status("status")
+                    .id("id")
+                    .subCategory(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
         assertThat(batchResponseSimplePublicUpsertObject.links())
@@ -233,10 +233,10 @@ internal class BatchResponseSimplePublicUpsertObjectTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseSimplePublicUpsertObject.Status.PENDING)
                 .addError(
-                    StandardError.builder()
-                        .category("")
+                    StandardError1.builder()
+                        .category("category")
                         .context(
-                            StandardError.Context.builder()
+                            StandardError1.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -257,14 +257,14 @@ internal class BatchResponseSimplePublicUpsertObjectTest {
                                 .build()
                         )
                         .links(
-                            StandardError.Links.builder()
+                            StandardError1.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(

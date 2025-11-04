@@ -15,16 +15,16 @@ internal class FilterTest {
         val filter =
             Filter.builder()
                 .operator(Filter.Operator.EQ)
-                .propertyName("")
-                .highValue("")
-                .value("")
+                .propertyName("propertyName")
+                .highValue("highValue")
+                .value("value")
                 .addValue("string")
                 .build()
 
         assertThat(filter.operator()).isEqualTo(Filter.Operator.EQ)
-        assertThat(filter.propertyName()).isEqualTo("")
-        assertThat(filter.highValue()).contains("")
-        assertThat(filter.value()).contains("")
+        assertThat(filter.propertyName()).isEqualTo("propertyName")
+        assertThat(filter.highValue()).contains("highValue")
+        assertThat(filter.value()).contains("value")
         assertThat(filter.values().getOrNull()).containsExactly("string")
     }
 
@@ -34,9 +34,9 @@ internal class FilterTest {
         val filter =
             Filter.builder()
                 .operator(Filter.Operator.EQ)
-                .propertyName("")
-                .highValue("")
-                .value("")
+                .propertyName("propertyName")
+                .highValue("highValue")
+                .value("value")
                 .addValue("string")
                 .build()
 

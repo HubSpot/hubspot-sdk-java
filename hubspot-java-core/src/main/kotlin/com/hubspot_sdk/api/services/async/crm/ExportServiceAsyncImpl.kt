@@ -18,8 +18,10 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.TaskLocator
 import com.hubspot_sdk.api.models.crm.exports.ActionResponseWithSingleResultUri
-import com.hubspot_sdk.api.models.crm.exports.ExportCreateParams
+import com.hubspot_sdk.api.models.crm.exports.ExportCreateAsyncParams
+import com.hubspot_sdk.api.models.crm.exports.ExportGetParams
 import com.hubspot_sdk.api.models.crm.exports.ExportGetStatusParams
+import com.hubspot_sdk.api.models.crm.exports.PublicExportResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -36,12 +38,19 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportServiceAsync =
         ExportServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: ExportCreateParams,
+    override fun createAsync(
+        params: ExportCreateAsyncParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<TaskLocator> =
         // post /crm/v3/exports/export/async
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().createAsync(params, requestOptions).thenApply { it.parse() }
+
+    override fun get(
+        params: ExportGetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PublicExportResponse> =
+        // get /crm/v3/exports/export/{exportId}
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun getStatus(
         params: ExportGetStatusParams,
@@ -63,11 +72,11 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<TaskLocator> =
+        private val createAsyncHandler: Handler<TaskLocator> =
             jsonHandler<TaskLocator>(clientOptions.jsonMapper)
 
-        override fun create(
-            params: ExportCreateParams,
+        override fun createAsync(
+            params: ExportCreateAsyncParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<TaskLocator>> {
             val request =
@@ -84,7 +93,40 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { createHandler.handle(it) }
+                            .use { createAsyncHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val getHandler: Handler<PublicExportResponse> =
+            jsonHandler<PublicExportResponse>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: ExportGetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PublicExportResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("exportId", params.exportId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "v3", "exports", "export", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

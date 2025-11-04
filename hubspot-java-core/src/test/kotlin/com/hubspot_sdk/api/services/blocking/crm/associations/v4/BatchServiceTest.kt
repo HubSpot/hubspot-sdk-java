@@ -4,8 +4,8 @@ package com.hubspot_sdk.api.services.blocking.crm.associations.v4
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiArchive
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiPost
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicDefaultAssociationMultiPost
@@ -48,9 +48,9 @@ internal class BatchServiceTest {
                                     .from(PublicObjectId.builder().id("37295").build())
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
@@ -149,9 +149,9 @@ internal class BatchServiceTest {
                                     .from(PublicObjectId.builder().id("37295").build())
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()

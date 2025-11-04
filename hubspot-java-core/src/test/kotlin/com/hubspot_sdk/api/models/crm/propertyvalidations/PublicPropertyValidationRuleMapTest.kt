@@ -17,7 +17,7 @@ internal class PublicPropertyValidationRuleMapTest {
                 .addPropertyValidationRule(
                     PublicPropertyValidationRule.builder()
                         .addRuleArgument("string")
-                        .ruleType("ruleType")
+                        .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                         .build()
                 )
                 .build()
@@ -27,7 +27,7 @@ internal class PublicPropertyValidationRuleMapTest {
             .containsExactly(
                 PublicPropertyValidationRule.builder()
                     .addRuleArgument("string")
-                    .ruleType("ruleType")
+                    .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                     .build()
             )
     }
@@ -41,7 +41,7 @@ internal class PublicPropertyValidationRuleMapTest {
                 .addPropertyValidationRule(
                     PublicPropertyValidationRule.builder()
                         .addRuleArgument("string")
-                        .ruleType("ruleType")
+                        .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                         .build()
                 )
                 .build()

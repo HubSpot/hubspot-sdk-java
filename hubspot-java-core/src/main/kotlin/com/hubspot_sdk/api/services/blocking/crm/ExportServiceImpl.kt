@@ -18,8 +18,10 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.TaskLocator
 import com.hubspot_sdk.api.models.crm.exports.ActionResponseWithSingleResultUri
-import com.hubspot_sdk.api.models.crm.exports.ExportCreateParams
+import com.hubspot_sdk.api.models.crm.exports.ExportCreateAsyncParams
+import com.hubspot_sdk.api.models.crm.exports.ExportGetParams
 import com.hubspot_sdk.api.models.crm.exports.ExportGetStatusParams
+import com.hubspot_sdk.api.models.crm.exports.PublicExportResponse
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -35,9 +37,19 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportService =
         ExportServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(params: ExportCreateParams, requestOptions: RequestOptions): TaskLocator =
+    override fun createAsync(
+        params: ExportCreateAsyncParams,
+        requestOptions: RequestOptions,
+    ): TaskLocator =
         // post /crm/v3/exports/export/async
-        withRawResponse().create(params, requestOptions).parse()
+        withRawResponse().createAsync(params, requestOptions).parse()
+
+    override fun get(
+        params: ExportGetParams,
+        requestOptions: RequestOptions,
+    ): PublicExportResponse =
+        // get /crm/v3/exports/export/{exportId}
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun getStatus(
         params: ExportGetStatusParams,
@@ -59,11 +71,11 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<TaskLocator> =
+        private val createAsyncHandler: Handler<TaskLocator> =
             jsonHandler<TaskLocator>(clientOptions.jsonMapper)
 
-        override fun create(
-            params: ExportCreateParams,
+        override fun createAsync(
+            params: ExportCreateAsyncParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<TaskLocator> {
             val request =
@@ -78,7 +90,37 @@ class ExportServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createHandler.handle(it) }
+                    .use { createAsyncHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getHandler: Handler<PublicExportResponse> =
+            jsonHandler<PublicExportResponse>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: ExportGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PublicExportResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("exportId", params.exportId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "v3", "exports", "export", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

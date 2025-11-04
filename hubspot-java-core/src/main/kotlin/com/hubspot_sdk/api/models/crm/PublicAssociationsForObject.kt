@@ -14,8 +14,8 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
+import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -24,7 +24,7 @@ class PublicAssociationsForObject
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val to: JsonField<PublicObjectId>,
-    private val types: JsonField<List<AssociationSpec>>,
+    private val types: JsonField<List<AssociationSpec1>>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -33,7 +33,7 @@ private constructor(
         @JsonProperty("to") @ExcludeMissing to: JsonField<PublicObjectId> = JsonMissing.of(),
         @JsonProperty("types")
         @ExcludeMissing
-        types: JsonField<List<AssociationSpec>> = JsonMissing.of(),
+        types: JsonField<List<AssociationSpec1>> = JsonMissing.of(),
     ) : this(to, types, mutableMapOf())
 
     /**
@@ -46,7 +46,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun types(): List<AssociationSpec> = types.getRequired("types")
+    fun types(): List<AssociationSpec1> = types.getRequired("types")
 
     /**
      * Returns the raw JSON value of [to].
@@ -60,7 +60,7 @@ private constructor(
      *
      * Unlike [types], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("types") @ExcludeMissing fun _types(): JsonField<List<AssociationSpec>> = types
+    @JsonProperty("types") @ExcludeMissing fun _types(): JsonField<List<AssociationSpec1>> = types
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -92,7 +92,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var to: JsonField<PublicObjectId>? = null
-        private var types: JsonField<MutableList<AssociationSpec>>? = null
+        private var types: JsonField<MutableList<AssociationSpec1>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -113,25 +113,25 @@ private constructor(
          */
         fun to(to: JsonField<PublicObjectId>) = apply { this.to = to }
 
-        fun types(types: List<AssociationSpec>) = types(JsonField.of(types))
+        fun types(types: List<AssociationSpec1>) = types(JsonField.of(types))
 
         /**
          * Sets [Builder.types] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.types] with a well-typed `List<AssociationSpec>` value
+         * You should usually call [Builder.types] with a well-typed `List<AssociationSpec1>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun types(types: JsonField<List<AssociationSpec>>) = apply {
+        fun types(types: JsonField<List<AssociationSpec1>>) = apply {
             this.types = types.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [AssociationSpec] to [types].
+         * Adds a single [AssociationSpec1] to [types].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addType(type: AssociationSpec) = apply {
+        fun addType(type: AssociationSpec1) = apply {
             types =
                 (types ?: JsonField.of(mutableListOf())).also { checkKnown("types", it).add(type) }
         }

@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.ErrorDetail
+import com.hubspot_sdk.api.models.StandardError
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -22,10 +23,10 @@ internal class BatchResponseVoidTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseVoid.Status.PENDING)
                 .addError(
-                    StandardError1.builder()
-                        .category("category")
+                    StandardError.builder()
+                        .category("")
                         .context(
-                            StandardError1.Context.builder()
+                            StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -46,14 +47,14 @@ internal class BatchResponseVoidTest {
                                 .build()
                         )
                         .links(
-                            StandardError1.Links.builder()
+                            StandardError.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("message")
-                        .status("status")
-                        .id("id")
-                        .subCategory(JsonValue.from(mapOf<String, Any>()))
+                        .message("")
+                        .status("")
+                        .id("")
+                        .subCategory(JsonValue.from(""))
                         .build()
                 )
                 .links(
@@ -74,10 +75,10 @@ internal class BatchResponseVoidTest {
         assertThat(batchResponseVoid.status()).isEqualTo(BatchResponseVoid.Status.PENDING)
         assertThat(batchResponseVoid.errors().getOrNull())
             .containsExactly(
-                StandardError1.builder()
-                    .category("category")
+                StandardError.builder()
+                    .category("")
                     .context(
-                        StandardError1.Context.builder()
+                        StandardError.Context.builder()
                             .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                             .build()
                     )
@@ -98,14 +99,14 @@ internal class BatchResponseVoidTest {
                             .build()
                     )
                     .links(
-                        StandardError1.Links.builder()
+                        StandardError.Links.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .message("message")
-                    .status("status")
-                    .id("id")
-                    .subCategory(JsonValue.from(mapOf<String, Any>()))
+                    .message("")
+                    .status("")
+                    .id("")
+                    .subCategory(JsonValue.from(""))
                     .build()
             )
         assertThat(batchResponseVoid.links())
@@ -129,10 +130,10 @@ internal class BatchResponseVoidTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseVoid.Status.PENDING)
                 .addError(
-                    StandardError1.builder()
-                        .category("category")
+                    StandardError.builder()
+                        .category("")
                         .context(
-                            StandardError1.Context.builder()
+                            StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -153,14 +154,14 @@ internal class BatchResponseVoidTest {
                                 .build()
                         )
                         .links(
-                            StandardError1.Links.builder()
+                            StandardError.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("message")
-                        .status("status")
-                        .id("id")
-                        .subCategory(JsonValue.from(mapOf<String, Any>()))
+                        .message("")
+                        .status("")
+                        .id("")
+                        .subCategory(JsonValue.from(""))
                         .build()
                 )
                 .links(

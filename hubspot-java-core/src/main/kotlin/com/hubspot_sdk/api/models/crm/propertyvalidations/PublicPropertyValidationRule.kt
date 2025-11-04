@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.hubspot_sdk.api.core.Enum
 import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
@@ -22,7 +23,7 @@ class PublicPropertyValidationRule
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val ruleArguments: JsonField<List<String>>,
-    private val ruleType: JsonField<String>,
+    private val ruleType: JsonField<RuleType>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -31,7 +32,7 @@ private constructor(
         @JsonProperty("ruleArguments")
         @ExcludeMissing
         ruleArguments: JsonField<List<String>> = JsonMissing.of(),
-        @JsonProperty("ruleType") @ExcludeMissing ruleType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("ruleType") @ExcludeMissing ruleType: JsonField<RuleType> = JsonMissing.of(),
     ) : this(ruleArguments, ruleType, mutableMapOf())
 
     /**
@@ -44,7 +45,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun ruleType(): String = ruleType.getRequired("ruleType")
+    fun ruleType(): RuleType = ruleType.getRequired("ruleType")
 
     /**
      * Returns the raw JSON value of [ruleArguments].
@@ -60,7 +61,7 @@ private constructor(
      *
      * Unlike [ruleType], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("ruleType") @ExcludeMissing fun _ruleType(): JsonField<String> = ruleType
+    @JsonProperty("ruleType") @ExcludeMissing fun _ruleType(): JsonField<RuleType> = ruleType
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -92,7 +93,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var ruleArguments: JsonField<MutableList<String>>? = null
-        private var ruleType: JsonField<String>? = null
+        private var ruleType: JsonField<RuleType>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -127,15 +128,16 @@ private constructor(
                 }
         }
 
-        fun ruleType(ruleType: String) = ruleType(JsonField.of(ruleType))
+        fun ruleType(ruleType: RuleType) = ruleType(JsonField.of(ruleType))
 
         /**
          * Sets [Builder.ruleType] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.ruleType] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.ruleType] with a well-typed [RuleType] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun ruleType(ruleType: JsonField<String>) = apply { this.ruleType = ruleType }
+        fun ruleType(ruleType: JsonField<RuleType>) = apply { this.ruleType = ruleType }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -185,7 +187,7 @@ private constructor(
         }
 
         ruleArguments()
-        ruleType()
+        ruleType().validate()
         validated = true
     }
 
@@ -205,7 +207,286 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (ruleArguments.asKnown().getOrNull()?.size ?: 0) +
-            (if (ruleType.asKnown().isPresent) 1 else 0)
+            (ruleType.asKnown().getOrNull()?.validity() ?: 0)
+
+    class RuleType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val FORMAT = of("FORMAT")
+
+            @JvmField val ALPHANUMERIC = of("ALPHANUMERIC")
+
+            @JvmField val MAX_LENGTH = of("MAX_LENGTH")
+
+            @JvmField val MIN_LENGTH = of("MIN_LENGTH")
+
+            @JvmField val MIN_NUMBER = of("MIN_NUMBER")
+
+            @JvmField val MAX_NUMBER = of("MAX_NUMBER")
+
+            @JvmField val START_DATE = of("START_DATE")
+
+            @JvmField val END_DATE = of("END_DATE")
+
+            @JvmField val SPECIAL_CHARACTERS = of("SPECIAL_CHARACTERS")
+
+            @JvmField val WHITESPACE = of("WHITESPACE")
+
+            @JvmField val DECIMAL = of("DECIMAL")
+
+            @JvmField val BEFORE_DURATION = of("BEFORE_DURATION")
+
+            @JvmField val AFTER_DURATION = of("AFTER_DURATION")
+
+            @JvmField val DAYS_OF_WEEK = of("DAYS_OF_WEEK")
+
+            @JvmField val REGEX = of("REGEX")
+
+            @JvmField val START_DATETIME = of("START_DATETIME")
+
+            @JvmField val END_DATETIME = of("END_DATETIME")
+
+            @JvmField val BEFORE_DATETIME_DURATION = of("BEFORE_DATETIME_DURATION")
+
+            @JvmField val AFTER_DATETIME_DURATION = of("AFTER_DATETIME_DURATION")
+
+            @JvmField
+            val PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE =
+                of("PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE")
+
+            @JvmField val URL = of("URL")
+
+            @JvmField val URL_ALLOWED_DOMAINS = of("URL_ALLOWED_DOMAINS")
+
+            @JvmField val URL_BLOCKED_DOMAINS = of("URL_BLOCKED_DOMAINS")
+
+            @JvmField val EMAIL = of("EMAIL")
+
+            @JvmField val EMAIL_ALLOWED_DOMAINS = of("EMAIL_ALLOWED_DOMAINS")
+
+            @JvmField val EMAIL_BLOCKED_DOMAINS = of("EMAIL_BLOCKED_DOMAINS")
+
+            @JvmField val DOMAIN = of("DOMAIN")
+
+            @JvmStatic fun of(value: String) = RuleType(JsonField.of(value))
+        }
+
+        /** An enum containing [RuleType]'s known values. */
+        enum class Known {
+            FORMAT,
+            ALPHANUMERIC,
+            MAX_LENGTH,
+            MIN_LENGTH,
+            MIN_NUMBER,
+            MAX_NUMBER,
+            START_DATE,
+            END_DATE,
+            SPECIAL_CHARACTERS,
+            WHITESPACE,
+            DECIMAL,
+            BEFORE_DURATION,
+            AFTER_DURATION,
+            DAYS_OF_WEEK,
+            REGEX,
+            START_DATETIME,
+            END_DATETIME,
+            BEFORE_DATETIME_DURATION,
+            AFTER_DATETIME_DURATION,
+            PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE,
+            URL,
+            URL_ALLOWED_DOMAINS,
+            URL_BLOCKED_DOMAINS,
+            EMAIL,
+            EMAIL_ALLOWED_DOMAINS,
+            EMAIL_BLOCKED_DOMAINS,
+            DOMAIN,
+        }
+
+        /**
+         * An enum containing [RuleType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [RuleType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            FORMAT,
+            ALPHANUMERIC,
+            MAX_LENGTH,
+            MIN_LENGTH,
+            MIN_NUMBER,
+            MAX_NUMBER,
+            START_DATE,
+            END_DATE,
+            SPECIAL_CHARACTERS,
+            WHITESPACE,
+            DECIMAL,
+            BEFORE_DURATION,
+            AFTER_DURATION,
+            DAYS_OF_WEEK,
+            REGEX,
+            START_DATETIME,
+            END_DATETIME,
+            BEFORE_DATETIME_DURATION,
+            AFTER_DATETIME_DURATION,
+            PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE,
+            URL,
+            URL_ALLOWED_DOMAINS,
+            URL_BLOCKED_DOMAINS,
+            EMAIL,
+            EMAIL_ALLOWED_DOMAINS,
+            EMAIL_BLOCKED_DOMAINS,
+            DOMAIN,
+            /** An enum member indicating that [RuleType] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                FORMAT -> Value.FORMAT
+                ALPHANUMERIC -> Value.ALPHANUMERIC
+                MAX_LENGTH -> Value.MAX_LENGTH
+                MIN_LENGTH -> Value.MIN_LENGTH
+                MIN_NUMBER -> Value.MIN_NUMBER
+                MAX_NUMBER -> Value.MAX_NUMBER
+                START_DATE -> Value.START_DATE
+                END_DATE -> Value.END_DATE
+                SPECIAL_CHARACTERS -> Value.SPECIAL_CHARACTERS
+                WHITESPACE -> Value.WHITESPACE
+                DECIMAL -> Value.DECIMAL
+                BEFORE_DURATION -> Value.BEFORE_DURATION
+                AFTER_DURATION -> Value.AFTER_DURATION
+                DAYS_OF_WEEK -> Value.DAYS_OF_WEEK
+                REGEX -> Value.REGEX
+                START_DATETIME -> Value.START_DATETIME
+                END_DATETIME -> Value.END_DATETIME
+                BEFORE_DATETIME_DURATION -> Value.BEFORE_DATETIME_DURATION
+                AFTER_DATETIME_DURATION -> Value.AFTER_DATETIME_DURATION
+                PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE ->
+                    Value.PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE
+                URL -> Value.URL
+                URL_ALLOWED_DOMAINS -> Value.URL_ALLOWED_DOMAINS
+                URL_BLOCKED_DOMAINS -> Value.URL_BLOCKED_DOMAINS
+                EMAIL -> Value.EMAIL
+                EMAIL_ALLOWED_DOMAINS -> Value.EMAIL_ALLOWED_DOMAINS
+                EMAIL_BLOCKED_DOMAINS -> Value.EMAIL_BLOCKED_DOMAINS
+                DOMAIN -> Value.DOMAIN
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                FORMAT -> Known.FORMAT
+                ALPHANUMERIC -> Known.ALPHANUMERIC
+                MAX_LENGTH -> Known.MAX_LENGTH
+                MIN_LENGTH -> Known.MIN_LENGTH
+                MIN_NUMBER -> Known.MIN_NUMBER
+                MAX_NUMBER -> Known.MAX_NUMBER
+                START_DATE -> Known.START_DATE
+                END_DATE -> Known.END_DATE
+                SPECIAL_CHARACTERS -> Known.SPECIAL_CHARACTERS
+                WHITESPACE -> Known.WHITESPACE
+                DECIMAL -> Known.DECIMAL
+                BEFORE_DURATION -> Known.BEFORE_DURATION
+                AFTER_DURATION -> Known.AFTER_DURATION
+                DAYS_OF_WEEK -> Known.DAYS_OF_WEEK
+                REGEX -> Known.REGEX
+                START_DATETIME -> Known.START_DATETIME
+                END_DATETIME -> Known.END_DATETIME
+                BEFORE_DATETIME_DURATION -> Known.BEFORE_DATETIME_DURATION
+                AFTER_DATETIME_DURATION -> Known.AFTER_DATETIME_DURATION
+                PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE ->
+                    Known.PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE
+                URL -> Known.URL
+                URL_ALLOWED_DOMAINS -> Known.URL_ALLOWED_DOMAINS
+                URL_BLOCKED_DOMAINS -> Known.URL_BLOCKED_DOMAINS
+                EMAIL -> Known.EMAIL
+                EMAIL_ALLOWED_DOMAINS -> Known.EMAIL_ALLOWED_DOMAINS
+                EMAIL_BLOCKED_DOMAINS -> Known.EMAIL_BLOCKED_DOMAINS
+                DOMAIN -> Known.DOMAIN
+                else -> throw HubspotInvalidDataException("Unknown RuleType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): RuleType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is RuleType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

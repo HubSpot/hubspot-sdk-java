@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.services.async.crm.objects.custom
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
@@ -17,6 +16,7 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.custom.batch.BatchGetParams
@@ -56,9 +56,9 @@ internal class BatchServiceAsyncTest {
                                         PublicAssociationsForObject.builder()
                                             .to(PublicObjectId.builder().id("37295").build())
                                             .addType(
-                                                AssociationSpec.builder()
+                                                AssociationSpec1.builder()
                                                     .associationCategory(
-                                                        AssociationSpec.AssociationCategory
+                                                        AssociationSpec1.AssociationCategory
                                                             .HUBSPOT_DEFINED
                                                     )
                                                     .associationTypeId(0)

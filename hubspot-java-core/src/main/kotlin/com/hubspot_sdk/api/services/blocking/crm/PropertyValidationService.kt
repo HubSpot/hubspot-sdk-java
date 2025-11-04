@@ -5,9 +5,11 @@ package com.hubspot_sdk.api.services.blocking.crm
 import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleMapNoPaging
 import com.hubspot_sdk.api.models.crm.propertyvalidations.CollectionResponsePublicPropertyValidationRuleNoPaging
+import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetParams
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationListParams
 import java.util.function.Consumer
@@ -63,6 +65,48 @@ interface PropertyValidationService {
         requestOptions: RequestOptions,
     ): CollectionResponsePublicPropertyValidationRuleMapNoPaging =
         list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
+
+    fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+        ruleType:
+            PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams.RuleType,
+        params:
+            PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams,
+    ) =
+        crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            ruleType,
+            params,
+            RequestOptions.none(),
+        )
+
+    /** @see crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType */
+    fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+        ruleType:
+            PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams.RuleType,
+        params:
+            PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) =
+        crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            params.toBuilder().ruleType(ruleType).build(),
+            requestOptions,
+        )
+
+    /** @see crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType */
+    fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+        params:
+            PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
+    ) =
+        crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            params,
+            RequestOptions.none(),
+        )
+
+    /** @see crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType */
+    fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+        params:
+            PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
 
     /** Read a property's validation rules identified by {propertyName}. */
     fun get(
@@ -153,6 +197,58 @@ interface PropertyValidationService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
             list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `put
+         * /crm/v3/property-validations/{objectTypeId}/{propertyName}/rule-type/{ruleType}`, but is
+         * otherwise the same as
+         * [PropertyValidationService.crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType].
+         */
+        @MustBeClosed
+        fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            ruleType:
+                PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams.RuleType,
+            params:
+                PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams,
+        ): HttpResponse =
+            crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+                ruleType,
+                params,
+                RequestOptions.none(),
+            )
+
+        /** @see crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType */
+        @MustBeClosed
+        fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            ruleType:
+                PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams.RuleType,
+            params:
+                PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+                params.toBuilder().ruleType(ruleType).build(),
+                requestOptions,
+            )
+
+        /** @see crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType */
+        @MustBeClosed
+        fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            params:
+                PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
+        ): HttpResponse =
+            crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+                params,
+                RequestOptions.none(),
+            )
+
+        /** @see crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType */
+        @MustBeClosed
+        fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            params:
+                PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `get

@@ -8,9 +8,11 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.TaskLocator
 import com.hubspot_sdk.api.models.crm.exports.ActionResponseWithSingleResultUri
-import com.hubspot_sdk.api.models.crm.exports.ExportCreateParams
+import com.hubspot_sdk.api.models.crm.exports.ExportCreateAsyncParams
+import com.hubspot_sdk.api.models.crm.exports.ExportGetParams
 import com.hubspot_sdk.api.models.crm.exports.ExportGetStatusParams
 import com.hubspot_sdk.api.models.crm.exports.PublicExportRequest
+import com.hubspot_sdk.api.models.crm.exports.PublicExportResponse
 import java.util.function.Consumer
 
 interface ExportService {
@@ -28,27 +30,56 @@ interface ExportService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportService
 
     /** Begins exporting CRM data for the portal as specified in the request body */
-    fun create(params: ExportCreateParams): TaskLocator = create(params, RequestOptions.none())
+    fun createAsync(params: ExportCreateAsyncParams): TaskLocator =
+        createAsync(params, RequestOptions.none())
 
-    /** @see create */
-    fun create(
-        params: ExportCreateParams,
+    /** @see createAsync */
+    fun createAsync(
+        params: ExportCreateAsyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TaskLocator
 
-    /** @see create */
-    fun create(
+    /** @see createAsync */
+    fun createAsync(
         publicExportRequest: PublicExportRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): TaskLocator =
-        create(
-            ExportCreateParams.builder().publicExportRequest(publicExportRequest).build(),
+        createAsync(
+            ExportCreateAsyncParams.builder().publicExportRequest(publicExportRequest).build(),
             requestOptions,
         )
 
-    /** @see create */
-    fun create(publicExportRequest: PublicExportRequest): TaskLocator =
-        create(publicExportRequest, RequestOptions.none())
+    /** @see createAsync */
+    fun createAsync(publicExportRequest: PublicExportRequest): TaskLocator =
+        createAsync(publicExportRequest, RequestOptions.none())
+
+    fun get(exportId: Long): PublicExportResponse = get(exportId, ExportGetParams.none())
+
+    /** @see get */
+    fun get(
+        exportId: Long,
+        params: ExportGetParams = ExportGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicExportResponse = get(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        exportId: Long,
+        params: ExportGetParams = ExportGetParams.none(),
+    ): PublicExportResponse = get(exportId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: ExportGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PublicExportResponse
+
+    /** @see get */
+    fun get(params: ExportGetParams): PublicExportResponse = get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(exportId: Long, requestOptions: RequestOptions): PublicExportResponse =
+        get(exportId, ExportGetParams.none(), requestOptions)
 
     /**
      * Returns the status of the export with taskId, including the URL of the resulting file if the
@@ -97,34 +128,78 @@ interface ExportService {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/exports/export/async`, but is otherwise the
-         * same as [ExportService.create].
+         * same as [ExportService.createAsync].
          */
         @MustBeClosed
-        fun create(params: ExportCreateParams): HttpResponseFor<TaskLocator> =
-            create(params, RequestOptions.none())
+        fun createAsync(params: ExportCreateAsyncParams): HttpResponseFor<TaskLocator> =
+            createAsync(params, RequestOptions.none())
 
-        /** @see create */
+        /** @see createAsync */
         @MustBeClosed
-        fun create(
-            params: ExportCreateParams,
+        fun createAsync(
+            params: ExportCreateAsyncParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TaskLocator>
 
-        /** @see create */
+        /** @see createAsync */
         @MustBeClosed
-        fun create(
+        fun createAsync(
             publicExportRequest: PublicExportRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<TaskLocator> =
-            create(
-                ExportCreateParams.builder().publicExportRequest(publicExportRequest).build(),
+            createAsync(
+                ExportCreateAsyncParams.builder().publicExportRequest(publicExportRequest).build(),
                 requestOptions,
             )
 
-        /** @see create */
+        /** @see createAsync */
         @MustBeClosed
-        fun create(publicExportRequest: PublicExportRequest): HttpResponseFor<TaskLocator> =
-            create(publicExportRequest, RequestOptions.none())
+        fun createAsync(publicExportRequest: PublicExportRequest): HttpResponseFor<TaskLocator> =
+            createAsync(publicExportRequest, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `get /crm/v3/exports/export/{exportId}`, but is otherwise
+         * the same as [ExportService.get].
+         */
+        @MustBeClosed
+        fun get(exportId: Long): HttpResponseFor<PublicExportResponse> =
+            get(exportId, ExportGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            exportId: Long,
+            params: ExportGetParams = ExportGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicExportResponse> =
+            get(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            exportId: Long,
+            params: ExportGetParams = ExportGetParams.none(),
+        ): HttpResponseFor<PublicExportResponse> = get(exportId, params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: ExportGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PublicExportResponse>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: ExportGetParams): HttpResponseFor<PublicExportResponse> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            exportId: Long,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PublicExportResponse> =
+            get(exportId, ExportGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/exports/export/async/tasks/{taskId}/status`,
