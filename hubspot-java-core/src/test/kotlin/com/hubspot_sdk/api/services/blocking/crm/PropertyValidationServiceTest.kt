@@ -4,7 +4,9 @@ package com.hubspot_sdk.api.services.blocking.crm
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
 import com.hubspot_sdk.api.models.crm.propertyvalidations.PropertyValidationGetParams
+import com.hubspot_sdk.api.models.crm.propertyvalidations.PublicPropertyValidationRuleUpdate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -26,6 +28,33 @@ internal class PropertyValidationServiceTest {
             propertyValidationService.list("objectTypeId")
 
         collectionResponsePublicPropertyValidationRuleMapNoPaging.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType() {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val propertyValidationService = client.crm().propertyValidations()
+
+        propertyValidationService.crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
+            PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
+                .builder()
+                .objectTypeId("objectTypeId")
+                .propertyName("propertyName")
+                .ruleType(
+                    PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
+                        .RuleType
+                        .FORMAT
+                )
+                .publicPropertyValidationRuleUpdate(
+                    PublicPropertyValidationRuleUpdate.builder().addRuleArgument("string").build()
+                )
+                .build()
+        )
     }
 
     @Disabled("Prism tests are disabled")

@@ -1,38 +1,22 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models.crm.associations.v4
+package com.hubspot_sdk.api.models.crm.exports
 
 import com.hubspot_sdk.api.core.Params
-import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.models.AssociationSpec
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Set association labels between two records. */
-class V4UpdateParams
+class ExportGetParams
 private constructor(
-    private val objectType: String,
-    private val objectId: String,
-    private val toObjectType: String,
-    private val toObjectId: String?,
-    private val body: List<AssociationSpec>,
+    private val exportId: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun objectType(): String = objectType
-
-    fun objectId(): String = objectId
-
-    fun toObjectType(): String = toObjectType
-
-    fun toObjectId(): Optional<String> = Optional.ofNullable(toObjectId)
-
-    fun body(): List<AssociationSpec> = body
+    fun exportId(): Optional<Long> = Optional.ofNullable(exportId)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -44,63 +28,37 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [V4UpdateParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .objectType()
-         * .objectId()
-         * .toObjectType()
-         * .body()
-         * ```
-         */
+        @JvmStatic fun none(): ExportGetParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ExportGetParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [V4UpdateParams]. */
+    /** A builder for [ExportGetParams]. */
     class Builder internal constructor() {
 
-        private var objectType: String? = null
-        private var objectId: String? = null
-        private var toObjectType: String? = null
-        private var toObjectId: String? = null
-        private var body: MutableList<AssociationSpec>? = null
+        private var exportId: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(v4UpdateParams: V4UpdateParams) = apply {
-            objectType = v4UpdateParams.objectType
-            objectId = v4UpdateParams.objectId
-            toObjectType = v4UpdateParams.toObjectType
-            toObjectId = v4UpdateParams.toObjectId
-            body = v4UpdateParams.body.toMutableList()
-            additionalHeaders = v4UpdateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = v4UpdateParams.additionalQueryParams.toBuilder()
+        internal fun from(exportGetParams: ExportGetParams) = apply {
+            exportId = exportGetParams.exportId
+            additionalHeaders = exportGetParams.additionalHeaders.toBuilder()
+            additionalQueryParams = exportGetParams.additionalQueryParams.toBuilder()
         }
 
-        fun objectType(objectType: String) = apply { this.objectType = objectType }
-
-        fun objectId(objectId: String) = apply { this.objectId = objectId }
-
-        fun toObjectType(toObjectType: String) = apply { this.toObjectType = toObjectType }
-
-        fun toObjectId(toObjectId: String?) = apply { this.toObjectId = toObjectId }
-
-        /** Alias for calling [Builder.toObjectId] with `toObjectId.orElse(null)`. */
-        fun toObjectId(toObjectId: Optional<String>) = toObjectId(toObjectId.getOrNull())
-
-        fun body(body: List<AssociationSpec>) = apply { this.body = body.toMutableList() }
+        fun exportId(exportId: Long?) = apply { this.exportId = exportId }
 
         /**
-         * Adds a single [AssociationSpec] to [Builder.body].
+         * Alias for [Builder.exportId].
          *
-         * @throws IllegalStateException if the field was previously set to a non-list.
+         * This unboxed primitive overload exists for backwards compatibility.
          */
-        fun addBody(body: AssociationSpec) = apply {
-            this.body = (this.body ?: mutableListOf()).apply { add(body) }
-        }
+        fun exportId(exportId: Long) = exportId(exportId as Long?)
+
+        /** Alias for calling [Builder.exportId] with `exportId.orElse(null)`. */
+        fun exportId(exportId: Optional<Long>) = exportId(exportId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -201,40 +159,17 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [V4UpdateParams].
+         * Returns an immutable instance of [ExportGetParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .objectType()
-         * .objectId()
-         * .toObjectType()
-         * .body()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): V4UpdateParams =
-            V4UpdateParams(
-                checkRequired("objectType", objectType),
-                checkRequired("objectId", objectId),
-                checkRequired("toObjectType", toObjectType),
-                toObjectId,
-                checkRequired("body", body).toImmutable(),
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+        fun build(): ExportGetParams =
+            ExportGetParams(exportId, additionalHeaders.build(), additionalQueryParams.build())
     }
-
-    fun _body(): List<AssociationSpec> = body
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> objectType
-            1 -> objectId
-            2 -> toObjectType
-            3 -> toObjectId ?: ""
+            0 -> exportId?.toString() ?: ""
             else -> ""
         }
 
@@ -247,27 +182,14 @@ private constructor(
             return true
         }
 
-        return other is V4UpdateParams &&
-            objectType == other.objectType &&
-            objectId == other.objectId &&
-            toObjectType == other.toObjectType &&
-            toObjectId == other.toObjectId &&
-            body == other.body &&
+        return other is ExportGetParams &&
+            exportId == other.exportId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(
-            objectType,
-            objectId,
-            toObjectType,
-            toObjectId,
-            body,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+    override fun hashCode(): Int = Objects.hash(exportId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "V4UpdateParams{objectType=$objectType, objectId=$objectId, toObjectType=$toObjectType, toObjectId=$toObjectId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ExportGetParams{exportId=$exportId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

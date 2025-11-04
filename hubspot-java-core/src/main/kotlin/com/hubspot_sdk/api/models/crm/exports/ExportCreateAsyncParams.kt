@@ -1,39 +1,22 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models.crm.associations.v4
+package com.hubspot_sdk.api.models.crm.exports
 
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
-import java.util.Optional
-import kotlin.jvm.optionals.getOrNull
 
-/** deletes all associations between two records. */
-class V4DeleteParams
+/** Begins exporting CRM data for the portal as specified in the request body */
+class ExportCreateAsyncParams
 private constructor(
-    private val objectType: String,
-    private val objectId: String,
-    private val toObjectType: String,
-    private val toObjectId: String?,
+    private val publicExportRequest: PublicExportRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
-    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun objectType(): String = objectType
-
-    fun objectId(): String = objectId
-
-    fun toObjectType(): String = toObjectType
-
-    fun toObjectId(): Optional<String> = Optional.ofNullable(toObjectId)
-
-    /** Additional body properties to send with the request. */
-    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
+    fun publicExportRequest(): PublicExportRequest = publicExportRequest
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -46,50 +29,41 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [V4DeleteParams].
+         * Returns a mutable builder for constructing an instance of [ExportCreateAsyncParams].
          *
          * The following fields are required:
          * ```java
-         * .objectType()
-         * .objectId()
-         * .toObjectType()
+         * .publicExportRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [V4DeleteParams]. */
+    /** A builder for [ExportCreateAsyncParams]. */
     class Builder internal constructor() {
 
-        private var objectType: String? = null
-        private var objectId: String? = null
-        private var toObjectType: String? = null
-        private var toObjectId: String? = null
+        private var publicExportRequest: PublicExportRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
-        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(v4DeleteParams: V4DeleteParams) = apply {
-            objectType = v4DeleteParams.objectType
-            objectId = v4DeleteParams.objectId
-            toObjectType = v4DeleteParams.toObjectType
-            toObjectId = v4DeleteParams.toObjectId
-            additionalHeaders = v4DeleteParams.additionalHeaders.toBuilder()
-            additionalQueryParams = v4DeleteParams.additionalQueryParams.toBuilder()
-            additionalBodyProperties = v4DeleteParams.additionalBodyProperties.toMutableMap()
+        internal fun from(exportCreateAsyncParams: ExportCreateAsyncParams) = apply {
+            publicExportRequest = exportCreateAsyncParams.publicExportRequest
+            additionalHeaders = exportCreateAsyncParams.additionalHeaders.toBuilder()
+            additionalQueryParams = exportCreateAsyncParams.additionalQueryParams.toBuilder()
         }
 
-        fun objectType(objectType: String) = apply { this.objectType = objectType }
+        fun publicExportRequest(publicExportRequest: PublicExportRequest) = apply {
+            this.publicExportRequest = publicExportRequest
+        }
 
-        fun objectId(objectId: String) = apply { this.objectId = objectId }
+        /** Alias for calling [publicExportRequest] with `PublicExportRequest.ofView(view)`. */
+        fun publicExportRequest(view: PublicExportViewRequest) =
+            publicExportRequest(PublicExportRequest.ofView(view))
 
-        fun toObjectType(toObjectType: String) = apply { this.toObjectType = toObjectType }
-
-        fun toObjectId(toObjectId: String?) = apply { this.toObjectId = toObjectId }
-
-        /** Alias for calling [Builder.toObjectId] with `toObjectId.orElse(null)`. */
-        fun toObjectId(toObjectId: Optional<String>) = toObjectId(toObjectId.getOrNull())
+        /** Alias for calling [publicExportRequest] with `PublicExportRequest.ofList(list)`. */
+        fun publicExportRequest(list: PublicExportListRequest) =
+            publicExportRequest(PublicExportRequest.ofList(list))
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -189,65 +163,27 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
-        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
-            this.additionalBodyProperties.clear()
-            putAllAdditionalBodyProperties(additionalBodyProperties)
-        }
-
-        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
-            additionalBodyProperties.put(key, value)
-        }
-
-        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
-            apply {
-                this.additionalBodyProperties.putAll(additionalBodyProperties)
-            }
-
-        fun removeAdditionalBodyProperty(key: String) = apply {
-            additionalBodyProperties.remove(key)
-        }
-
-        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalBodyProperty)
-        }
-
         /**
-         * Returns an immutable instance of [V4DeleteParams].
+         * Returns an immutable instance of [ExportCreateAsyncParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
          * ```java
-         * .objectType()
-         * .objectId()
-         * .toObjectType()
+         * .publicExportRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): V4DeleteParams =
-            V4DeleteParams(
-                checkRequired("objectType", objectType),
-                checkRequired("objectId", objectId),
-                checkRequired("toObjectType", toObjectType),
-                toObjectId,
+        fun build(): ExportCreateAsyncParams =
+            ExportCreateAsyncParams(
+                checkRequired("publicExportRequest", publicExportRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
-                additionalBodyProperties.toImmutable(),
             )
     }
 
-    fun _body(): Optional<Map<String, JsonValue>> =
-        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> objectType
-            1 -> objectId
-            2 -> toObjectType
-            3 -> toObjectId ?: ""
-            else -> ""
-        }
+    fun _body(): PublicExportRequest = publicExportRequest
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -258,27 +194,15 @@ private constructor(
             return true
         }
 
-        return other is V4DeleteParams &&
-            objectType == other.objectType &&
-            objectId == other.objectId &&
-            toObjectType == other.toObjectType &&
-            toObjectId == other.toObjectId &&
+        return other is ExportCreateAsyncParams &&
+            publicExportRequest == other.publicExportRequest &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams &&
-            additionalBodyProperties == other.additionalBodyProperties
+            additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            objectType,
-            objectId,
-            toObjectType,
-            toObjectId,
-            additionalHeaders,
-            additionalQueryParams,
-            additionalBodyProperties,
-        )
+        Objects.hash(publicExportRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "V4DeleteParams{objectType=$objectType, objectId=$objectId, toObjectType=$toObjectType, toObjectId=$toObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ExportCreateAsyncParams{publicExportRequest=$publicExportRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

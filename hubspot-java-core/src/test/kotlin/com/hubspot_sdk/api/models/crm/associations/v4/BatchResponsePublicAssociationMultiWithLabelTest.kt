@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.ErrorDetail
 import com.hubspot_sdk.api.models.NextPage
 import com.hubspot_sdk.api.models.PreviousPage
 import com.hubspot_sdk.api.models.PublicObjectId
+import com.hubspot_sdk.api.models.StandardError
 import com.hubspot_sdk.api.models.crm.AssociationSpecWithLabel
 import com.hubspot_sdk.api.models.crm.MultiAssociatedObjectWithLabel
 import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
@@ -50,10 +51,10 @@ internal class BatchResponsePublicAssociationMultiWithLabelTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponsePublicAssociationMultiWithLabel.Status.PENDING)
                 .addError(
-                    StandardError1.builder()
-                        .category("category")
+                    StandardError.builder()
+                        .category("")
                         .context(
-                            StandardError1.Context.builder()
+                            StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -74,14 +75,14 @@ internal class BatchResponsePublicAssociationMultiWithLabelTest {
                                 .build()
                         )
                         .links(
-                            StandardError1.Links.builder()
+                            StandardError.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("message")
-                        .status("status")
-                        .id("id")
-                        .subCategory(JsonValue.from(mapOf<String, Any>()))
+                        .message("")
+                        .status("")
+                        .id("")
+                        .subCategory(JsonValue.from(""))
                         .build()
                 )
                 .links(
@@ -125,10 +126,10 @@ internal class BatchResponsePublicAssociationMultiWithLabelTest {
             .isEqualTo(BatchResponsePublicAssociationMultiWithLabel.Status.PENDING)
         assertThat(batchResponsePublicAssociationMultiWithLabel.errors().getOrNull())
             .containsExactly(
-                StandardError1.builder()
-                    .category("category")
+                StandardError.builder()
+                    .category("")
                     .context(
-                        StandardError1.Context.builder()
+                        StandardError.Context.builder()
                             .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                             .build()
                     )
@@ -149,14 +150,14 @@ internal class BatchResponsePublicAssociationMultiWithLabelTest {
                             .build()
                     )
                     .links(
-                        StandardError1.Links.builder()
+                        StandardError.Links.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .message("message")
-                    .status("status")
-                    .id("id")
-                    .subCategory(JsonValue.from(mapOf<String, Any>()))
+                    .message("")
+                    .status("")
+                    .id("")
+                    .subCategory(JsonValue.from(""))
                     .build()
             )
         assertThat(batchResponsePublicAssociationMultiWithLabel.links())
@@ -202,10 +203,10 @@ internal class BatchResponsePublicAssociationMultiWithLabelTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponsePublicAssociationMultiWithLabel.Status.PENDING)
                 .addError(
-                    StandardError1.builder()
-                        .category("category")
+                    StandardError.builder()
+                        .category("")
                         .context(
-                            StandardError1.Context.builder()
+                            StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -226,14 +227,14 @@ internal class BatchResponsePublicAssociationMultiWithLabelTest {
                                 .build()
                         )
                         .links(
-                            StandardError1.Links.builder()
+                            StandardError.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("message")
-                        .status("status")
-                        .id("id")
-                        .subCategory(JsonValue.from(mapOf<String, Any>()))
+                        .message("")
+                        .status("")
+                        .id("")
+                        .subCategory(JsonValue.from(""))
                         .build()
                 )
                 .links(

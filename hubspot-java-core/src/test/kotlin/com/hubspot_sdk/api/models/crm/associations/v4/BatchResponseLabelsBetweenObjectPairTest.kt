@@ -6,6 +6,7 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.ErrorDetail
+import com.hubspot_sdk.api.models.StandardError
 import com.hubspot_sdk.api.models.crm.LabelsBetweenObjectPair
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
@@ -31,10 +32,10 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseLabelsBetweenObjectPair.Status.PENDING)
                 .addError(
-                    StandardError1.builder()
-                        .category("category")
+                    StandardError.builder()
+                        .category("")
                         .context(
-                            StandardError1.Context.builder()
+                            StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -55,14 +56,14 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
                                 .build()
                         )
                         .links(
-                            StandardError1.Links.builder()
+                            StandardError.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("message")
-                        .status("status")
-                        .id("id")
-                        .subCategory(JsonValue.from(mapOf<String, Any>()))
+                        .message("")
+                        .status("")
+                        .id("")
+                        .subCategory(JsonValue.from(""))
                         .build()
                 )
                 .links(
@@ -92,10 +93,10 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
             .isEqualTo(BatchResponseLabelsBetweenObjectPair.Status.PENDING)
         assertThat(batchResponseLabelsBetweenObjectPair.errors().getOrNull())
             .containsExactly(
-                StandardError1.builder()
-                    .category("category")
+                StandardError.builder()
+                    .category("")
                     .context(
-                        StandardError1.Context.builder()
+                        StandardError.Context.builder()
                             .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                             .build()
                     )
@@ -116,14 +117,14 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
                             .build()
                     )
                     .links(
-                        StandardError1.Links.builder()
+                        StandardError.Links.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .message("message")
-                    .status("status")
-                    .id("id")
-                    .subCategory(JsonValue.from(mapOf<String, Any>()))
+                    .message("")
+                    .status("")
+                    .id("")
+                    .subCategory(JsonValue.from(""))
                     .build()
             )
         assertThat(batchResponseLabelsBetweenObjectPair.links())
@@ -155,10 +156,10 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseLabelsBetweenObjectPair.Status.PENDING)
                 .addError(
-                    StandardError1.builder()
-                        .category("category")
+                    StandardError.builder()
+                        .category("")
                         .context(
-                            StandardError1.Context.builder()
+                            StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
                                 .build()
                         )
@@ -179,14 +180,14 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
                                 .build()
                         )
                         .links(
-                            StandardError1.Links.builder()
+                            StandardError.Links.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("message")
-                        .status("status")
-                        .id("id")
-                        .subCategory(JsonValue.from(mapOf<String, Any>()))
+                        .message("")
+                        .status("")
+                        .id("")
+                        .subCategory(JsonValue.from(""))
                         .build()
                 )
                 .links(

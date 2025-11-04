@@ -19,7 +19,7 @@ internal class CollectionResponsePublicPropertyValidationRuleMapNoPagingTest {
                         .addPropertyValidationRule(
                             PublicPropertyValidationRule.builder()
                                 .addRuleArgument("string")
-                                .ruleType("ruleType")
+                                .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                                 .build()
                         )
                         .build()
@@ -33,7 +33,7 @@ internal class CollectionResponsePublicPropertyValidationRuleMapNoPagingTest {
                     .addPropertyValidationRule(
                         PublicPropertyValidationRule.builder()
                             .addRuleArgument("string")
-                            .ruleType("ruleType")
+                            .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                             .build()
                     )
                     .build()
@@ -51,7 +51,7 @@ internal class CollectionResponsePublicPropertyValidationRuleMapNoPagingTest {
                         .addPropertyValidationRule(
                             PublicPropertyValidationRule.builder()
                                 .addRuleArgument("string")
-                                .ruleType("ruleType")
+                                .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                                 .build()
                         )
                         .build()

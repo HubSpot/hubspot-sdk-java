@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * This endpoint allows you to archive multiple associations between specified 'from' and 'to'
+ * object types in a single batch request.
+ */
 class BatchDeleteParams
 private constructor(
     private val fromObjectType: String,

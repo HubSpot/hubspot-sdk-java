@@ -19,16 +19,7 @@ internal class PartnerClientUpdateParamsTest {
                 SimplePublicObjectInput.builder()
                     .properties(
                         SimplePublicObjectInput.Properties.builder()
-                            .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                            .putAdditionalProperty("property_date", JsonValue.from("1572480000000"))
-                            .putAdditionalProperty("property_dropdown", JsonValue.from("choice_b"))
-                            .putAdditionalProperty(
-                                "property_multiple_checkboxes",
-                                JsonValue.from("chocolate;strawberry"),
-                            )
-                            .putAdditionalProperty("property_number", JsonValue.from("17"))
-                            .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                            .putAdditionalProperty("property_string", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -45,22 +36,7 @@ internal class PartnerClientUpdateParamsTest {
                     SimplePublicObjectInput.builder()
                         .properties(
                             SimplePublicObjectInput.Properties.builder()
-                                .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                                .putAdditionalProperty(
-                                    "property_date",
-                                    JsonValue.from("1572480000000"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_dropdown",
-                                    JsonValue.from("choice_b"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_multiple_checkboxes",
-                                    JsonValue.from("chocolate;strawberry"),
-                                )
-                                .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                                .putAdditionalProperty("property_string", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -82,22 +58,7 @@ internal class PartnerClientUpdateParamsTest {
                     SimplePublicObjectInput.builder()
                         .properties(
                             SimplePublicObjectInput.Properties.builder()
-                                .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                                .putAdditionalProperty(
-                                    "property_date",
-                                    JsonValue.from("1572480000000"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_dropdown",
-                                    JsonValue.from("choice_b"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_multiple_checkboxes",
-                                    JsonValue.from("chocolate;strawberry"),
-                                )
-                                .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                                .putAdditionalProperty("property_string", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -119,22 +80,7 @@ internal class PartnerClientUpdateParamsTest {
                     SimplePublicObjectInput.builder()
                         .properties(
                             SimplePublicObjectInput.Properties.builder()
-                                .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                                .putAdditionalProperty(
-                                    "property_date",
-                                    JsonValue.from("1572480000000"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_dropdown",
-                                    JsonValue.from("choice_b"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_multiple_checkboxes",
-                                    JsonValue.from("chocolate;strawberry"),
-                                )
-                                .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                                .putAdditionalProperty("property_string", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -156,22 +102,7 @@ internal class PartnerClientUpdateParamsTest {
                     SimplePublicObjectInput.builder()
                         .properties(
                             SimplePublicObjectInput.Properties.builder()
-                                .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                                .putAdditionalProperty(
-                                    "property_date",
-                                    JsonValue.from("1572480000000"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_dropdown",
-                                    JsonValue.from("choice_b"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_multiple_checkboxes",
-                                    JsonValue.from("chocolate;strawberry"),
-                                )
-                                .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                                .putAdditionalProperty("property_string", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -185,16 +116,7 @@ internal class PartnerClientUpdateParamsTest {
                 SimplePublicObjectInput.builder()
                     .properties(
                         SimplePublicObjectInput.Properties.builder()
-                            .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                            .putAdditionalProperty("property_date", JsonValue.from("1572480000000"))
-                            .putAdditionalProperty("property_dropdown", JsonValue.from("choice_b"))
-                            .putAdditionalProperty(
-                                "property_multiple_checkboxes",
-                                JsonValue.from("chocolate;strawberry"),
-                            )
-                            .putAdditionalProperty("property_number", JsonValue.from("17"))
-                            .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                            .putAdditionalProperty("property_string", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -210,22 +132,7 @@ internal class PartnerClientUpdateParamsTest {
                     SimplePublicObjectInput.builder()
                         .properties(
                             SimplePublicObjectInput.Properties.builder()
-                                .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                                .putAdditionalProperty(
-                                    "property_date",
-                                    JsonValue.from("1572480000000"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_dropdown",
-                                    JsonValue.from("choice_b"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_multiple_checkboxes",
-                                    JsonValue.from("chocolate;strawberry"),
-                                )
-                                .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                                .putAdditionalProperty("property_string", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -239,16 +146,7 @@ internal class PartnerClientUpdateParamsTest {
                 SimplePublicObjectInput.builder()
                     .properties(
                         SimplePublicObjectInput.Properties.builder()
-                            .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                            .putAdditionalProperty("property_date", JsonValue.from("1572480000000"))
-                            .putAdditionalProperty("property_dropdown", JsonValue.from("choice_b"))
-                            .putAdditionalProperty(
-                                "property_multiple_checkboxes",
-                                JsonValue.from("chocolate;strawberry"),
-                            )
-                            .putAdditionalProperty("property_number", JsonValue.from("17"))
-                            .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                            .putAdditionalProperty("property_string", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()

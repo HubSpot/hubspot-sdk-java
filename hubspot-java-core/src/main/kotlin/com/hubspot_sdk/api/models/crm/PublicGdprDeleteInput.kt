@@ -37,8 +37,6 @@ private constructor(
     fun objectId(): String = objectId.getRequired("objectId")
 
     /**
-     * The name of a property whose values are unique for this object
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -107,7 +105,6 @@ private constructor(
          */
         fun objectId(objectId: JsonField<String>) = apply { this.objectId = objectId }
 
-        /** The name of a property whose values are unique for this object */
         fun idProperty(idProperty: String) = idProperty(JsonField.of(idProperty))
 
         /**

@@ -71,9 +71,6 @@ private constructor(
         propertiesWithHistory.getRequired("propertiesWithHistory")
 
     /**
-     * When using a custom unique value property to retrieve records, the name of the property. Do
-     * not include this parameter if retrieving by record ID.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -244,10 +241,6 @@ private constructor(
                 }
         }
 
-        /**
-         * When using a custom unique value property to retrieve records, the name of the property.
-         * Do not include this parameter if retrieving by record ID.
-         */
         fun idProperty(idProperty: String) = idProperty(JsonField.of(idProperty))
 
         /**

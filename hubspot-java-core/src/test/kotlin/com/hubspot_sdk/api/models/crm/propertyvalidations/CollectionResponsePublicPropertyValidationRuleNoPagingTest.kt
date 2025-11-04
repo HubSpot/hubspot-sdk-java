@@ -16,7 +16,7 @@ internal class CollectionResponsePublicPropertyValidationRuleNoPagingTest {
                 .addResult(
                     PublicPropertyValidationRule.builder()
                         .addRuleArgument("string")
-                        .ruleType("ruleType")
+                        .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                         .build()
                 )
                 .build()
@@ -25,7 +25,7 @@ internal class CollectionResponsePublicPropertyValidationRuleNoPagingTest {
             .containsExactly(
                 PublicPropertyValidationRule.builder()
                     .addRuleArgument("string")
-                    .ruleType("ruleType")
+                    .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                     .build()
             )
     }
@@ -38,7 +38,7 @@ internal class CollectionResponsePublicPropertyValidationRuleNoPagingTest {
                 .addResult(
                     PublicPropertyValidationRule.builder()
                         .addRuleArgument("string")
-                        .ruleType("ruleType")
+                        .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                         .build()
                 )
                 .build()

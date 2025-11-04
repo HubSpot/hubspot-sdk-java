@@ -7,9 +7,11 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.TaskLocator
 import com.hubspot_sdk.api.models.crm.exports.ActionResponseWithSingleResultUri
-import com.hubspot_sdk.api.models.crm.exports.ExportCreateParams
+import com.hubspot_sdk.api.models.crm.exports.ExportCreateAsyncParams
+import com.hubspot_sdk.api.models.crm.exports.ExportGetParams
 import com.hubspot_sdk.api.models.crm.exports.ExportGetStatusParams
 import com.hubspot_sdk.api.models.crm.exports.PublicExportRequest
+import com.hubspot_sdk.api.models.crm.exports.PublicExportResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -28,28 +30,62 @@ interface ExportServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportServiceAsync
 
     /** Begins exporting CRM data for the portal as specified in the request body */
-    fun create(params: ExportCreateParams): CompletableFuture<TaskLocator> =
-        create(params, RequestOptions.none())
+    fun createAsync(params: ExportCreateAsyncParams): CompletableFuture<TaskLocator> =
+        createAsync(params, RequestOptions.none())
 
-    /** @see create */
-    fun create(
-        params: ExportCreateParams,
+    /** @see createAsync */
+    fun createAsync(
+        params: ExportCreateAsyncParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TaskLocator>
 
-    /** @see create */
-    fun create(
+    /** @see createAsync */
+    fun createAsync(
         publicExportRequest: PublicExportRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<TaskLocator> =
-        create(
-            ExportCreateParams.builder().publicExportRequest(publicExportRequest).build(),
+        createAsync(
+            ExportCreateAsyncParams.builder().publicExportRequest(publicExportRequest).build(),
             requestOptions,
         )
 
-    /** @see create */
-    fun create(publicExportRequest: PublicExportRequest): CompletableFuture<TaskLocator> =
-        create(publicExportRequest, RequestOptions.none())
+    /** @see createAsync */
+    fun createAsync(publicExportRequest: PublicExportRequest): CompletableFuture<TaskLocator> =
+        createAsync(publicExportRequest, RequestOptions.none())
+
+    fun get(exportId: Long): CompletableFuture<PublicExportResponse> =
+        get(exportId, ExportGetParams.none())
+
+    /** @see get */
+    fun get(
+        exportId: Long,
+        params: ExportGetParams = ExportGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicExportResponse> =
+        get(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        exportId: Long,
+        params: ExportGetParams = ExportGetParams.none(),
+    ): CompletableFuture<PublicExportResponse> = get(exportId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: ExportGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicExportResponse>
+
+    /** @see get */
+    fun get(params: ExportGetParams): CompletableFuture<PublicExportResponse> =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        exportId: Long,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PublicExportResponse> =
+        get(exportId, ExportGetParams.none(), requestOptions)
 
     /**
      * Returns the status of the export with taskId, including the URL of the resulting file if the
@@ -108,32 +144,73 @@ interface ExportServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /crm/v3/exports/export/async`, but is otherwise the
-         * same as [ExportServiceAsync.create].
+         * same as [ExportServiceAsync.createAsync].
          */
-        fun create(params: ExportCreateParams): CompletableFuture<HttpResponseFor<TaskLocator>> =
-            create(params, RequestOptions.none())
+        fun createAsync(
+            params: ExportCreateAsyncParams
+        ): CompletableFuture<HttpResponseFor<TaskLocator>> =
+            createAsync(params, RequestOptions.none())
 
-        /** @see create */
-        fun create(
-            params: ExportCreateParams,
+        /** @see createAsync */
+        fun createAsync(
+            params: ExportCreateAsyncParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<TaskLocator>>
 
-        /** @see create */
-        fun create(
+        /** @see createAsync */
+        fun createAsync(
             publicExportRequest: PublicExportRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<TaskLocator>> =
-            create(
-                ExportCreateParams.builder().publicExportRequest(publicExportRequest).build(),
+            createAsync(
+                ExportCreateAsyncParams.builder().publicExportRequest(publicExportRequest).build(),
                 requestOptions,
             )
 
-        /** @see create */
-        fun create(
+        /** @see createAsync */
+        fun createAsync(
             publicExportRequest: PublicExportRequest
         ): CompletableFuture<HttpResponseFor<TaskLocator>> =
-            create(publicExportRequest, RequestOptions.none())
+            createAsync(publicExportRequest, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `get /crm/v3/exports/export/{exportId}`, but is otherwise
+         * the same as [ExportServiceAsync.get].
+         */
+        fun get(exportId: Long): CompletableFuture<HttpResponseFor<PublicExportResponse>> =
+            get(exportId, ExportGetParams.none())
+
+        /** @see get */
+        fun get(
+            exportId: Long,
+            params: ExportGetParams = ExportGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicExportResponse>> =
+            get(params.toBuilder().exportId(exportId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            exportId: Long,
+            params: ExportGetParams = ExportGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<PublicExportResponse>> =
+            get(exportId, params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            params: ExportGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicExportResponse>>
+
+        /** @see get */
+        fun get(params: ExportGetParams): CompletableFuture<HttpResponseFor<PublicExportResponse>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            exportId: Long,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PublicExportResponse>> =
+            get(exportId, ExportGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /crm/v3/exports/export/async/tasks/{taskId}/status`,

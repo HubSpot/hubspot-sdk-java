@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.services.blocking.crm.objects
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
@@ -14,6 +13,7 @@ import com.hubspot_sdk.api.models.crm.PublicMergeInput
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
@@ -52,9 +52,9 @@ internal class CustomServiceTest {
                                 PublicAssociationsForObject.builder()
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec.builder()
+                                        AssociationSpec1.builder()
                                             .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
@@ -89,31 +89,7 @@ internal class CustomServiceTest {
                         SimplePublicObjectInput.builder()
                             .properties(
                                 SimplePublicObjectInput.Properties.builder()
-                                    .putAdditionalProperty(
-                                        "property_checkbox",
-                                        JsonValue.from("false"),
-                                    )
-                                    .putAdditionalProperty(
-                                        "property_date",
-                                        JsonValue.from("1572480000000"),
-                                    )
-                                    .putAdditionalProperty(
-                                        "property_dropdown",
-                                        JsonValue.from("choice_b"),
-                                    )
-                                    .putAdditionalProperty(
-                                        "property_multiple_checkboxes",
-                                        JsonValue.from("chocolate;strawberry"),
-                                    )
-                                    .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                    .putAdditionalProperty(
-                                        "property_radio",
-                                        JsonValue.from("option_1"),
-                                    )
-                                    .putAdditionalProperty(
-                                        "property_string",
-                                        JsonValue.from("value"),
-                                    )
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
                             .build()
@@ -228,9 +204,9 @@ internal class CustomServiceTest {
                                     .addFilter(
                                         Filter.builder()
                                             .operator(Filter.Operator.EQ)
-                                            .propertyName("")
-                                            .highValue("")
-                                            .value("")
+                                            .propertyName("propertyName")
+                                            .highValue("highValue")
+                                            .value("value")
                                             .addValue("string")
                                             .build()
                                     )

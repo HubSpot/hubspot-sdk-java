@@ -52,6 +52,10 @@ interface BatchServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponsePublicAssociation>
 
+    /**
+     * This endpoint allows you to archive multiple associations between specified 'from' and 'to'
+     * object types in a single batch request.
+     */
     fun delete(toObjectType: String, params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(toObjectType, params, RequestOptions.none())
 

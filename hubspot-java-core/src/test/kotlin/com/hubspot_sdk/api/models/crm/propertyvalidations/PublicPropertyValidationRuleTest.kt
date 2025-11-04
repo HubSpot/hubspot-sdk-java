@@ -14,11 +14,12 @@ internal class PublicPropertyValidationRuleTest {
         val publicPropertyValidationRule =
             PublicPropertyValidationRule.builder()
                 .addRuleArgument("string")
-                .ruleType("ruleType")
+                .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                 .build()
 
         assertThat(publicPropertyValidationRule.ruleArguments()).containsExactly("string")
-        assertThat(publicPropertyValidationRule.ruleType()).isEqualTo("ruleType")
+        assertThat(publicPropertyValidationRule.ruleType())
+            .isEqualTo(PublicPropertyValidationRule.RuleType.FORMAT)
     }
 
     @Test
@@ -27,7 +28,7 @@ internal class PublicPropertyValidationRuleTest {
         val publicPropertyValidationRule =
             PublicPropertyValidationRule.builder()
                 .addRuleArgument("string")
-                .ruleType("ruleType")
+                .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
                 .build()
 
         val roundtrippedPublicPropertyValidationRule =

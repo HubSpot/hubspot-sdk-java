@@ -76,9 +76,9 @@ internal class FeedbackSubmissionServiceAsyncTest {
                             .addFilter(
                                 Filter.builder()
                                     .operator(Filter.Operator.EQ)
-                                    .propertyName("")
-                                    .highValue("")
-                                    .value("")
+                                    .propertyName("propertyName")
+                                    .highValue("highValue")
+                                    .value("value")
                                     .addValue("string")
                                     .build()
                             )

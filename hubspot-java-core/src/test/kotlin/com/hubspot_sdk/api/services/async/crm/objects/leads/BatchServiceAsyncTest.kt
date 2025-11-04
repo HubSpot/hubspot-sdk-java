@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.services.async.crm.objects.leads
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
@@ -15,6 +14,7 @@ import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -47,9 +47,9 @@ internal class BatchServiceAsyncTest {
                                 PublicAssociationsForObject.builder()
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec.builder()
+                                        AssociationSpec1.builder()
                                             .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
