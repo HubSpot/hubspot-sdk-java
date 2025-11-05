@@ -535,7 +535,7 @@ To set a custom timeout, configure the method call using the `timeout` method:
 ```java
 import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
 
-CreatedResponseSimplePublicObject result = client.crm().objects().contacts().create(
+CreatedResponseSimplePublicObject createdResponseSimplePublicObject = client.crm().objects().contacts().create(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
 );
 ```
