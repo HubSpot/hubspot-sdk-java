@@ -6,19 +6,19 @@ import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.BatchInputPropertyCreate
 import com.hubspot_sdk.api.models.BatchInputPropertyName
+import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.PropertyCreate
 import com.hubspot_sdk.api.models.PropertyName
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgePropertyUpdate
-import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
+import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyUpdateParams
-import com.hubspot_sdk.api.models.crm.properties.BatchReadInputPropertyName
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,7 +39,7 @@ internal class PropertyServiceTest {
         val property =
             propertyService.create(
                 PropertyCreateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyCreate(
                         PropertyCreate.builder()
@@ -87,7 +87,7 @@ internal class PropertyServiceTest {
         val property =
             propertyService.update(
                 PropertyUpdateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyName("propertyName")
                     .mediaBridgePropertyUpdate(
@@ -131,7 +131,12 @@ internal class PropertyServiceTest {
 
         val collectionResponsePropertyNoPaging =
             propertyService.list(
-                PropertyListParams.builder().appId("appId").objectType("objectType").build()
+                PropertyListParams.builder()
+                    .appId(0)
+                    .objectType("objectType")
+                    .archived(true)
+                    .properties("properties")
+                    .build()
             )
 
         collectionResponsePropertyNoPaging.validate()
@@ -149,32 +154,9 @@ internal class PropertyServiceTest {
 
         propertyService.delete(
             PropertyDeleteParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
-                .build()
-        )
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun archiveBatch() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val propertyService = client.cms().mediaBridge().properties()
-
-        propertyService.archiveBatch(
-            PropertyArchiveBatchParams.builder()
-                .appId("appId")
-                .objectType("objectType")
-                .batchInputPropertyName(
-                    BatchInputPropertyName.builder()
-                        .addInput(PropertyName.builder().name("name").build())
-                        .build()
-                )
                 .build()
         )
     }
@@ -192,7 +174,7 @@ internal class PropertyServiceTest {
         val batchResponseProperty =
             propertyService.createBatch(
                 PropertyCreateBatchParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchInputPropertyCreate(
                         BatchInputPropertyCreate.builder()
@@ -233,6 +215,29 @@ internal class PropertyServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
+    fun deleteBatch() {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val propertyService = client.cms().mediaBridge().properties()
+
+        propertyService.deleteBatch(
+            PropertyDeleteBatchParams.builder()
+                .appId(0)
+                .objectType("objectType")
+                .batchInputPropertyName(
+                    BatchInputPropertyName.builder()
+                        .addInput(PropertyName.builder().name("name").build())
+                        .build()
+                )
+                .build()
+        )
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
     fun get() {
         val client =
             HubspotOkHttpClient.builder()
@@ -244,9 +249,11 @@ internal class PropertyServiceTest {
         val property =
             propertyService.get(
                 PropertyGetParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyName("propertyName")
+                    .archived(true)
+                    .properties("properties")
                     .build()
             )
 
@@ -266,15 +273,15 @@ internal class PropertyServiceTest {
         val batchResponseProperty =
             propertyService.getBatch(
                 PropertyGetBatchParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchReadInputPropertyName(
                         BatchReadInputPropertyName.builder()
                             .archived(true)
-                            .addInput(PropertyName.builder().name("name").build())
                             .dataSensitivity(
                                 BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE
                             )
+                            .addInput(PropertyName.builder().name("name").build())
                             .build()
                     )
                     .build()

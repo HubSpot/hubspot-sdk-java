@@ -41,10 +41,10 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun metrics(): Metrics = metrics.getRequired("metrics")
+    fun metrics(): Optional<Metrics> = metrics.getOptional("metrics")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -93,7 +93,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .metrics()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -103,7 +102,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var metrics: JsonField<Metrics>? = null
+        private var metrics: JsonField<Metrics> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -172,7 +171,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .metrics()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -180,7 +178,7 @@ private constructor(
         fun build(): PublicCampaignAsset =
             PublicCampaignAsset(
                 checkRequired("id", id),
-                checkRequired("metrics", metrics),
+                metrics,
                 name,
                 additionalProperties.toMutableMap(),
             )
@@ -194,7 +192,7 @@ private constructor(
         }
 
         id()
-        metrics().validate()
+        metrics().ifPresent { it.validate() }
         name()
         validated = true
     }

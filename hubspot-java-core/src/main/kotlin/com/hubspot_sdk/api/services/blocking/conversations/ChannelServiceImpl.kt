@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicChannel
 import com.hubspot_sdk.api.models.conversations.channels.ChannelGetParams
+import com.hubspot_sdk.api.models.conversations.channels.ChannelListPage
 import com.hubspot_sdk.api.models.conversations.channels.ChannelListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -34,10 +35,7 @@ class ChannelServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChannelService =
         ChannelServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun list(
-        params: ChannelListParams,
-        requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalPublicChannelForwardPaging =
+    override fun list(params: ChannelListParams, requestOptions: RequestOptions): ChannelListPage =
         // get /conversations/v3/conversations/channels
         withRawResponse().list(params, requestOptions).parse()
 
@@ -66,7 +64,7 @@ class ChannelServiceImpl internal constructor(private val clientOptions: ClientO
         override fun list(
             params: ChannelListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging> {
+        ): HttpResponseFor<ChannelListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -83,6 +81,13 @@ class ChannelServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ChannelListPage.builder()
+                            .service(ChannelServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

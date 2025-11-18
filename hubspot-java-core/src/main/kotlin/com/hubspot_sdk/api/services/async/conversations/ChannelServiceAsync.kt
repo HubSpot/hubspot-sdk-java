@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.services.async.conversations
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicChannel
 import com.hubspot_sdk.api.models.conversations.channels.ChannelGetParams
+import com.hubspot_sdk.api.models.conversations.channels.ChannelListPageAsync
 import com.hubspot_sdk.api.models.conversations.channels.ChannelListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -27,34 +27,30 @@ interface ChannelServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChannelServiceAsync
 
     /** Retrieve a list of channels, with optional filters and sorting. */
-    fun list(): CompletableFuture<CollectionResponseWithTotalPublicChannelForwardPaging> =
-        list(ChannelListParams.none())
+    fun list(): CompletableFuture<ChannelListPageAsync> = list(ChannelListParams.none())
 
     /** @see list */
     fun list(
         params: ChannelListParams = ChannelListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelForwardPaging>
+    ): CompletableFuture<ChannelListPageAsync>
 
     /** @see list */
     fun list(
         params: ChannelListParams = ChannelListParams.none()
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelForwardPaging> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<ChannelListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelForwardPaging> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ChannelListPageAsync> =
         list(ChannelListParams.none(), requestOptions)
 
     /** Retrieve details of a single channel using the channel ID. */
-    fun get(channelId: String): CompletableFuture<PublicChannel> =
+    fun get(channelId: Int): CompletableFuture<PublicChannel> =
         get(channelId, ChannelGetParams.none())
 
     /** @see get */
     fun get(
-        channelId: String,
+        channelId: Int,
         params: ChannelGetParams = ChannelGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicChannel> =
@@ -62,7 +58,7 @@ interface ChannelServiceAsync {
 
     /** @see get */
     fun get(
-        channelId: String,
+        channelId: Int,
         params: ChannelGetParams = ChannelGetParams.none(),
     ): CompletableFuture<PublicChannel> = get(channelId, params, RequestOptions.none())
 
@@ -77,7 +73,7 @@ interface ChannelServiceAsync {
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(channelId: String, requestOptions: RequestOptions): CompletableFuture<PublicChannel> =
+    fun get(channelId: Int, requestOptions: RequestOptions): CompletableFuture<PublicChannel> =
         get(channelId, ChannelGetParams.none(), requestOptions)
 
     /**
@@ -98,42 +94,38 @@ interface ChannelServiceAsync {
          * Returns a raw HTTP response for `get /conversations/v3/conversations/channels`, but is
          * otherwise the same as [ChannelServiceAsync.list].
          */
-        fun list():
-            CompletableFuture<
-                HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging>
-            > = list(ChannelListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<ChannelListPageAsync>> =
+            list(ChannelListParams.none())
 
         /** @see list */
         fun list(
             params: ChannelListParams = ChannelListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<ChannelListPageAsync>>
 
         /** @see list */
         fun list(
             params: ChannelListParams = ChannelListParams.none()
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging>
-        > = list(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ChannelListPageAsync>> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging>
-        > = list(ChannelListParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ChannelListPageAsync>> =
+            list(ChannelListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
          * /conversations/v3/conversations/channels/{channelId}`, but is otherwise the same as
          * [ChannelServiceAsync.get].
          */
-        fun get(channelId: String): CompletableFuture<HttpResponseFor<PublicChannel>> =
+        fun get(channelId: Int): CompletableFuture<HttpResponseFor<PublicChannel>> =
             get(channelId, ChannelGetParams.none())
 
         /** @see get */
         fun get(
-            channelId: String,
+            channelId: Int,
             params: ChannelGetParams = ChannelGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicChannel>> =
@@ -141,7 +133,7 @@ interface ChannelServiceAsync {
 
         /** @see get */
         fun get(
-            channelId: String,
+            channelId: Int,
             params: ChannelGetParams = ChannelGetParams.none(),
         ): CompletableFuture<HttpResponseFor<PublicChannel>> =
             get(channelId, params, RequestOptions.none())
@@ -158,7 +150,7 @@ interface ChannelServiceAsync {
 
         /** @see get */
         fun get(
-            channelId: String,
+            channelId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<PublicChannel>> =
             get(channelId, ChannelGetParams.none(), requestOptions)

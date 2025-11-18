@@ -20,9 +20,9 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.BatchResponseProperty
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
-import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
+import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetParams
@@ -63,17 +63,17 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun archiveBatch(params: PropertyArchiveBatchParams, requestOptions: RequestOptions) {
-        // post /media-bridge/v1/{appId}/properties/{objectType}/batch/archive
-        withRawResponse().archiveBatch(params, requestOptions)
-    }
-
     override fun createBatch(
         params: PropertyCreateBatchParams,
         requestOptions: RequestOptions,
     ): BatchResponseProperty =
         // post /media-bridge/v1/{appId}/properties/{objectType}/batch/create
         withRawResponse().createBatch(params, requestOptions).parse()
+
+    override fun deleteBatch(params: PropertyDeleteBatchParams, requestOptions: RequestOptions) {
+        // post /media-bridge/v1/{appId}/properties/{objectType}/batch/archive
+        withRawResponse().deleteBatch(params, requestOptions)
+    }
 
     override fun get(params: PropertyGetParams, requestOptions: RequestOptions): Property =
         // get /media-bridge/v1/{appId}/properties/{objectType}/{propertyName}
@@ -241,38 +241,6 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val archiveBatchHandler: Handler<Void?> = emptyHandler()
-
-        override fun archiveBatch(
-            params: PropertyArchiveBatchParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "media-bridge",
-                        "v1",
-                        params._pathParam(0),
-                        "properties",
-                        params._pathParam(1),
-                        "batch",
-                        "archive",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { archiveBatchHandler.handle(it) }
-            }
-        }
-
         private val createBatchHandler: Handler<BatchResponseProperty> =
             jsonHandler<BatchResponseProperty>(clientOptions.jsonMapper)
 
@@ -309,6 +277,38 @@ class PropertyServiceImpl internal constructor(private val clientOptions: Client
                             it.validate()
                         }
                     }
+            }
+        }
+
+        private val deleteBatchHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteBatch(
+            params: PropertyDeleteBatchParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectType", params.objectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "media-bridge",
+                        "v1",
+                        params._pathParam(0),
+                        "properties",
+                        params._pathParam(1),
+                        "batch",
+                        "archive",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteBatchHandler.handle(it) }
             }
         }
 

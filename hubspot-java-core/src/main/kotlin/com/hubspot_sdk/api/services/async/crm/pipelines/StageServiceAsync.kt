@@ -33,7 +33,7 @@ interface StageServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): StageServiceAsync
 
-    /** Create a pipeline stage */
+    /** Create a new stage within the specified pipeline. */
     fun create(pipelineId: String, params: StageCreateParams): CompletableFuture<PipelineStage> =
         create(pipelineId, params, RequestOptions.none())
 
@@ -55,6 +55,7 @@ interface StageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PipelineStage>
 
+    /** Perform a partial update on a specific stage of a pipeline. */
     fun update(stageId: String, params: StageUpdateParams): CompletableFuture<PipelineStage> =
         update(stageId, params, RequestOptions.none())
 
@@ -101,7 +102,7 @@ interface StageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePipelineStageNoPaging>
 
-    /** Delete a pipeline stage */
+    /** Delete a specific stage from a pipeline. */
     fun delete(stageId: String, params: StageDeleteParams): CompletableFuture<Void?> =
         delete(stageId, params, RequestOptions.none())
 
@@ -123,7 +124,7 @@ interface StageServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Return a pipeline stage by ID */
+    /** Retrieve a specific stage from a pipeline using its ID. */
     fun get(stageId: String, params: StageGetParams): CompletableFuture<PipelineStage> =
         get(stageId, params, RequestOptions.none())
 

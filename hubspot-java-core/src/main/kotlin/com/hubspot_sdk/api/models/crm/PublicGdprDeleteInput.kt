@@ -31,12 +31,16 @@ private constructor(
     ) : this(objectId, idProperty, mutableMapOf())
 
     /**
+     * ID of the object
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectId(): String = objectId.getRequired("objectId")
 
     /**
+     * ID property
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -95,6 +99,7 @@ private constructor(
             additionalProperties = publicGdprDeleteInput.additionalProperties.toMutableMap()
         }
 
+        /** ID of the object */
         fun objectId(objectId: String) = objectId(JsonField.of(objectId))
 
         /**
@@ -105,6 +110,7 @@ private constructor(
          */
         fun objectId(objectId: JsonField<String>) = apply { this.objectId = objectId }
 
+        /** ID property */
         fun idProperty(idProperty: String) = idProperty(JsonField.of(idProperty))
 
         /**

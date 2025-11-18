@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.settings.taxrates.CollectionResponsePublicTaxRateGroupForwardPaging
 import com.hubspot_sdk.api.models.settings.taxrates.PublicTaxRateGroup
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetParams
+import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListPage
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -34,10 +35,7 @@ class TaxRateServiceImpl internal constructor(private val clientOptions: ClientO
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TaxRateService =
         TaxRateServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun list(
-        params: TaxRateListParams,
-        requestOptions: RequestOptions,
-    ): CollectionResponsePublicTaxRateGroupForwardPaging =
+    override fun list(params: TaxRateListParams, requestOptions: RequestOptions): TaxRateListPage =
         // get /tax-rates/v1/tax-rates
         withRawResponse().list(params, requestOptions).parse()
 
@@ -64,7 +62,7 @@ class TaxRateServiceImpl internal constructor(private val clientOptions: ClientO
         override fun list(
             params: TaxRateListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging> {
+        ): HttpResponseFor<TaxRateListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -81,6 +79,13 @@ class TaxRateServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        TaxRateListPage.builder()
+                            .service(TaxRateServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

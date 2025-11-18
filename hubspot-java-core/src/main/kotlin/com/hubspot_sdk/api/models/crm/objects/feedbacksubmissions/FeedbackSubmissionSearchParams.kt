@@ -10,6 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 
+/**
+ * Execute a search to retrieve feedback submissions based on defined filters, properties, and
+ * sorting options.
+ */
 class FeedbackSubmissionSearchParams
 private constructor(
     private val publicObjectSearchRequest: PublicObjectSearchRequest,

@@ -61,6 +61,8 @@ private constructor(
         atLimitFromRecordSamples.getRequired("atLimitFromRecordSamples")
 
     /**
+     * The maximum number of associations allowed for records.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -74,12 +76,16 @@ private constructor(
         nearLimitFromRecordSamples.getRequired("nearLimitFromRecordSamples")
 
     /**
+     * The total number of records that have reached their association limit.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun totalRecordsAtLimit(): Int = totalRecordsAtLimit.getRequired("totalRecordsAtLimit")
 
     /**
+     * The total number of records that are approaching their association limit.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -215,6 +221,7 @@ private constructor(
                 }
         }
 
+        /** The maximum number of associations allowed for records. */
         fun limit(limit: Long) = limit(JsonField.of(limit))
 
         /**
@@ -253,6 +260,7 @@ private constructor(
                 }
         }
 
+        /** The total number of records that have reached their association limit. */
         fun totalRecordsAtLimit(totalRecordsAtLimit: Int) =
             totalRecordsAtLimit(JsonField.of(totalRecordsAtLimit))
 
@@ -267,6 +275,7 @@ private constructor(
             this.totalRecordsAtLimit = totalRecordsAtLimit
         }
 
+        /** The total number of records that are approaching their association limit. */
         fun totalRecordsNearLimit(totalRecordsNearLimit: Int) =
             totalRecordsNearLimit(JsonField.of(totalRecordsNearLimit))
 

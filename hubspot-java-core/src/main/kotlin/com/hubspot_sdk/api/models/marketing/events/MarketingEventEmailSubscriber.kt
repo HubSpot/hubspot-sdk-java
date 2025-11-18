@@ -15,32 +15,37 @@ import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class MarketingEventEmailSubscriber
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val contactProperties: JsonField<ContactProperties>,
     private val email: JsonField<String>,
     private val interactionDateTime: JsonField<Long>,
-    private val contactProperties: JsonField<ContactProperties>,
     private val properties: JsonField<Properties>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
+        @JsonProperty("contactProperties")
+        @ExcludeMissing
+        contactProperties: JsonField<ContactProperties> = JsonMissing.of(),
         @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
         @JsonProperty("interactionDateTime")
         @ExcludeMissing
         interactionDateTime: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("contactProperties")
-        @ExcludeMissing
-        contactProperties: JsonField<ContactProperties> = JsonMissing.of(),
         @JsonProperty("properties")
         @ExcludeMissing
         properties: JsonField<Properties> = JsonMissing.of(),
-    ) : this(email, interactionDateTime, contactProperties, properties, mutableMapOf())
+    ) : this(contactProperties, email, interactionDateTime, properties, mutableMapOf())
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun contactProperties(): ContactProperties = contactProperties.getRequired("contactProperties")
 
     /**
      * The email address of the contact in HubSpot to associate with the event.
@@ -59,17 +64,20 @@ private constructor(
     fun interactionDateTime(): Long = interactionDateTime.getRequired("interactionDateTime")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun contactProperties(): Optional<ContactProperties> =
-        contactProperties.getOptional("contactProperties")
+    fun properties(): Properties = properties.getRequired("properties")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Returns the raw JSON value of [contactProperties].
+     *
+     * Unlike [contactProperties], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    fun properties(): Optional<Properties> = properties.getOptional("properties")
+    @JsonProperty("contactProperties")
+    @ExcludeMissing
+    fun _contactProperties(): JsonField<ContactProperties> = contactProperties
 
     /**
      * Returns the raw JSON value of [email].
@@ -87,16 +95,6 @@ private constructor(
     @JsonProperty("interactionDateTime")
     @ExcludeMissing
     fun _interactionDateTime(): JsonField<Long> = interactionDateTime
-
-    /**
-     * Returns the raw JSON value of [contactProperties].
-     *
-     * Unlike [contactProperties], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("contactProperties")
-    @ExcludeMissing
-    fun _contactProperties(): JsonField<ContactProperties> = contactProperties
 
     /**
      * Returns the raw JSON value of [properties].
@@ -127,8 +125,10 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .contactProperties()
          * .email()
          * .interactionDateTime()
+         * .properties()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -137,19 +137,33 @@ private constructor(
     /** A builder for [MarketingEventEmailSubscriber]. */
     class Builder internal constructor() {
 
+        private var contactProperties: JsonField<ContactProperties>? = null
         private var email: JsonField<String>? = null
         private var interactionDateTime: JsonField<Long>? = null
-        private var contactProperties: JsonField<ContactProperties> = JsonMissing.of()
-        private var properties: JsonField<Properties> = JsonMissing.of()
+        private var properties: JsonField<Properties>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(marketingEventEmailSubscriber: MarketingEventEmailSubscriber) = apply {
+            contactProperties = marketingEventEmailSubscriber.contactProperties
             email = marketingEventEmailSubscriber.email
             interactionDateTime = marketingEventEmailSubscriber.interactionDateTime
-            contactProperties = marketingEventEmailSubscriber.contactProperties
             properties = marketingEventEmailSubscriber.properties
             additionalProperties = marketingEventEmailSubscriber.additionalProperties.toMutableMap()
+        }
+
+        fun contactProperties(contactProperties: ContactProperties) =
+            contactProperties(JsonField.of(contactProperties))
+
+        /**
+         * Sets [Builder.contactProperties] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactProperties] with a well-typed [ContactProperties]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun contactProperties(contactProperties: JsonField<ContactProperties>) = apply {
+            this.contactProperties = contactProperties
         }
 
         /** The email address of the contact in HubSpot to associate with the event. */
@@ -176,20 +190,6 @@ private constructor(
          */
         fun interactionDateTime(interactionDateTime: JsonField<Long>) = apply {
             this.interactionDateTime = interactionDateTime
-        }
-
-        fun contactProperties(contactProperties: ContactProperties) =
-            contactProperties(JsonField.of(contactProperties))
-
-        /**
-         * Sets [Builder.contactProperties] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.contactProperties] with a well-typed [ContactProperties]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun contactProperties(contactProperties: JsonField<ContactProperties>) = apply {
-            this.contactProperties = contactProperties
         }
 
         fun properties(properties: Properties) = properties(JsonField.of(properties))
@@ -229,18 +229,20 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .contactProperties()
          * .email()
          * .interactionDateTime()
+         * .properties()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): MarketingEventEmailSubscriber =
             MarketingEventEmailSubscriber(
+                checkRequired("contactProperties", contactProperties),
                 checkRequired("email", email),
                 checkRequired("interactionDateTime", interactionDateTime),
-                contactProperties,
-                properties,
+                checkRequired("properties", properties),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -252,10 +254,10 @@ private constructor(
             return@apply
         }
 
+        contactProperties().validate()
         email()
         interactionDateTime()
-        contactProperties().ifPresent { it.validate() }
-        properties().ifPresent { it.validate() }
+        properties().validate()
         validated = true
     }
 
@@ -274,9 +276,9 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (email.asKnown().isPresent) 1 else 0) +
+        (contactProperties.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (email.asKnown().isPresent) 1 else 0) +
             (if (interactionDateTime.asKnown().isPresent) 1 else 0) +
-            (contactProperties.asKnown().getOrNull()?.validity() ?: 0) +
             (properties.asKnown().getOrNull()?.validity() ?: 0)
 
     class ContactProperties
@@ -483,18 +485,18 @@ private constructor(
         }
 
         return other is MarketingEventEmailSubscriber &&
+            contactProperties == other.contactProperties &&
             email == other.email &&
             interactionDateTime == other.interactionDateTime &&
-            contactProperties == other.contactProperties &&
             properties == other.properties &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            contactProperties,
             email,
             interactionDateTime,
-            contactProperties,
             properties,
             additionalProperties,
         )
@@ -503,5 +505,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MarketingEventEmailSubscriber{email=$email, interactionDateTime=$interactionDateTime, contactProperties=$contactProperties, properties=$properties, additionalProperties=$additionalProperties}"
+        "MarketingEventEmailSubscriber{contactProperties=$contactProperties, email=$email, interactionDateTime=$interactionDateTime, properties=$properties, additionalProperties=$additionalProperties}"
 }

@@ -31,7 +31,7 @@ internal class GroupServiceAsyncTest {
         val propertyGroupFuture =
             groupServiceAsync.create(
                 GroupCreateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyGroupCreate(
                         PropertyGroupCreate.builder()
@@ -59,7 +59,7 @@ internal class GroupServiceAsyncTest {
 
         val collectionResponsePropertyGroupNoPagingFuture =
             groupServiceAsync.list(
-                GroupListParams.builder().appId("appId").objectType("objectType").build()
+                GroupListParams.builder().appId(0).objectType("objectType").build()
             )
 
         val collectionResponsePropertyGroupNoPaging =
@@ -80,7 +80,7 @@ internal class GroupServiceAsyncTest {
         val future =
             groupServiceAsync.deleteByName(
                 GroupDeleteByNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .groupName("groupName")
                     .build()
@@ -102,7 +102,7 @@ internal class GroupServiceAsyncTest {
         val propertyGroupFuture =
             groupServiceAsync.getByName(
                 GroupGetByNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .groupName("groupName")
                     .build()
@@ -125,7 +125,7 @@ internal class GroupServiceAsyncTest {
         val propertyGroupFuture =
             groupServiceAsync.updateByName(
                 GroupUpdateByNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .groupName("groupName")
                     .propertyGroupUpdate(

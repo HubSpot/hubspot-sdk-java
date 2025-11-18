@@ -15,11 +15,6 @@ internal class HubDbTableRowV3Test {
     fun create() {
         val hubDbTableRowV3 =
             HubDbTableRowV3.builder()
-                .values(
-                    HubDbTableRowV3.Values.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
-                        .build()
-                )
                 .id("id")
                 .childTableId("childTableId")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -27,24 +22,29 @@ internal class HubDbTableRowV3Test {
                 .path("path")
                 .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .values(
+                    HubDbTableRowV3.Values.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                        .build()
+                )
                 .build()
 
+        assertThat(hubDbTableRowV3.id()).isEqualTo("id")
+        assertThat(hubDbTableRowV3.childTableId()).isEqualTo("childTableId")
+        assertThat(hubDbTableRowV3.createdAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(hubDbTableRowV3.name()).isEqualTo("name")
+        assertThat(hubDbTableRowV3.path()).isEqualTo("path")
+        assertThat(hubDbTableRowV3.publishedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(hubDbTableRowV3.updatedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(hubDbTableRowV3.values())
             .isEqualTo(
                 HubDbTableRowV3.Values.builder()
                     .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
-        assertThat(hubDbTableRowV3.id()).contains("id")
-        assertThat(hubDbTableRowV3.childTableId()).contains("childTableId")
-        assertThat(hubDbTableRowV3.createdAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(hubDbTableRowV3.name()).contains("name")
-        assertThat(hubDbTableRowV3.path()).contains("path")
-        assertThat(hubDbTableRowV3.publishedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(hubDbTableRowV3.updatedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
     @Test
@@ -52,11 +52,6 @@ internal class HubDbTableRowV3Test {
         val jsonMapper = jsonMapper()
         val hubDbTableRowV3 =
             HubDbTableRowV3.builder()
-                .values(
-                    HubDbTableRowV3.Values.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
-                        .build()
-                )
                 .id("id")
                 .childTableId("childTableId")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -64,6 +59,11 @@ internal class HubDbTableRowV3Test {
                 .path("path")
                 .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .values(
+                    HubDbTableRowV3.Values.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                        .build()
+                )
                 .build()
 
         val roundtrippedHubDbTableRowV3 =

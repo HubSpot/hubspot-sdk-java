@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.async.conversations
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.models.conversations.inboxes.InboxGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,11 +22,10 @@ internal class InboxServiceAsyncTest {
                 .build()
         val inboxServiceAsync = client.conversations().inboxes()
 
-        val collectionResponseWithTotalPublicInboxForwardPagingFuture = inboxServiceAsync.list()
+        val pageFuture = inboxServiceAsync.list()
 
-        val collectionResponseWithTotalPublicInboxForwardPaging =
-            collectionResponseWithTotalPublicInboxForwardPagingFuture.get()
-        collectionResponseWithTotalPublicInboxForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -38,7 +38,8 @@ internal class InboxServiceAsyncTest {
                 .build()
         val inboxServiceAsync = client.conversations().inboxes()
 
-        val publicInboxFuture = inboxServiceAsync.get("inboxId")
+        val publicInboxFuture =
+            inboxServiceAsync.get(InboxGetParams.builder().inboxId(0).archived(true).build())
 
         val publicInbox = publicInboxFuture.get()
         publicInbox.validate()

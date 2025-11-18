@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a pipeline stage */
+/** Delete a specific stage from a pipeline. */
 class StageDeleteParams
 private constructor(
     private val objectType: String,

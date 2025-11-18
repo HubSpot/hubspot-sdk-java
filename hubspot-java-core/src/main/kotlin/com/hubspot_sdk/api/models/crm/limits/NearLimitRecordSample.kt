@@ -36,24 +36,32 @@ private constructor(
     ) : this(label, objectId, percentage, usage, mutableMapOf())
 
     /**
+     * The primary identifier of the record.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
 
     /**
+     * The unique identifier for the object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectId(): Int = objectId.getRequired("objectId")
 
     /**
+     * The percentage of the limit that has been used.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun percentage(): Double = percentage.getRequired("percentage")
 
     /**
+     * The number of records currently in use.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -133,6 +141,7 @@ private constructor(
             additionalProperties = nearLimitRecordSample.additionalProperties.toMutableMap()
         }
 
+        /** The primary identifier of the record. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -143,6 +152,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        /** The unique identifier for the object. */
         fun objectId(objectId: Int) = objectId(JsonField.of(objectId))
 
         /**
@@ -153,6 +163,7 @@ private constructor(
          */
         fun objectId(objectId: JsonField<Int>) = apply { this.objectId = objectId }
 
+        /** The percentage of the limit that has been used. */
         fun percentage(percentage: Double) = percentage(JsonField.of(percentage))
 
         /**
@@ -164,6 +175,7 @@ private constructor(
          */
         fun percentage(percentage: JsonField<Double>) = apply { this.percentage = percentage }
 
+        /** The number of records currently in use. */
         fun usage(usage: Int) = usage(JsonField.of(usage))
 
         /**

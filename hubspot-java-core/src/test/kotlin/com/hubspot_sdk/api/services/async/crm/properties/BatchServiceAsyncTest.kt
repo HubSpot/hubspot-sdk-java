@@ -6,10 +6,10 @@ import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.BatchInputPropertyCreate
 import com.hubspot_sdk.api.models.BatchInputPropertyName
+import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.PropertyCreate
 import com.hubspot_sdk.api.models.PropertyName
-import com.hubspot_sdk.api.models.crm.properties.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchGetParams
@@ -111,13 +111,14 @@ internal class BatchServiceAsyncTest {
             batchServiceAsync.get(
                 BatchGetParams.builder()
                     .objectType("objectType")
+                    .locale("locale")
                     .batchReadInputPropertyName(
                         BatchReadInputPropertyName.builder()
                             .archived(true)
-                            .addInput(PropertyName.builder().name("name").build())
                             .dataSensitivity(
                                 BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE
                             )
+                            .addInput(PropertyName.builder().name("name").build())
                             .build()
                     )
                     .build()

@@ -12,7 +12,6 @@ import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateCrea
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateUpdateRequest
 import com.hubspot_sdk.api.models.settings.currencies.BatchResponseExchangeRate
 import com.hubspot_sdk.api.models.settings.currencies.CollectionResponseCurrencyCodeInfoNoPaging
-import com.hubspot_sdk.api.models.settings.currencies.CollectionResponseExchangeRateForwardPaging
 import com.hubspot_sdk.api.models.settings.currencies.CollectionResponseExchangeRateNoPaging
 import com.hubspot_sdk.api.models.settings.currencies.CompanyCurrency
 import com.hubspot_sdk.api.models.settings.currencies.CompanyCurrencyUpdateRequest
@@ -24,6 +23,7 @@ import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetCompanyCurrency
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetExchangeRateByIdParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCodesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCurrentExchangeRatesParams
+import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesPage
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyPairUpdate
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyUpdateCompanyCurrencyParams
@@ -265,25 +265,22 @@ interface CurrencyService {
         listCurrentExchangeRates(CurrencyListCurrentExchangeRatesParams.none(), requestOptions)
 
     /** Get a list of exchange rates */
-    fun listExchangeRates(): CollectionResponseExchangeRateForwardPaging =
+    fun listExchangeRates(): CurrencyListExchangeRatesPage =
         listExchangeRates(CurrencyListExchangeRatesParams.none())
 
     /** @see listExchangeRates */
     fun listExchangeRates(
         params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseExchangeRateForwardPaging
+    ): CurrencyListExchangeRatesPage
 
     /** @see listExchangeRates */
     fun listExchangeRates(
         params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none()
-    ): CollectionResponseExchangeRateForwardPaging =
-        listExchangeRates(params, RequestOptions.none())
+    ): CurrencyListExchangeRatesPage = listExchangeRates(params, RequestOptions.none())
 
     /** @see listExchangeRates */
-    fun listExchangeRates(
-        requestOptions: RequestOptions
-    ): CollectionResponseExchangeRateForwardPaging =
+    fun listExchangeRates(requestOptions: RequestOptions): CurrencyListExchangeRatesPage =
         listExchangeRates(CurrencyListExchangeRatesParams.none(), requestOptions)
 
     /** Set or update the primary company currency. */
@@ -669,7 +666,7 @@ interface CurrencyService {
          * otherwise the same as [CurrencyService.listExchangeRates].
          */
         @MustBeClosed
-        fun listExchangeRates(): HttpResponseFor<CollectionResponseExchangeRateForwardPaging> =
+        fun listExchangeRates(): HttpResponseFor<CurrencyListExchangeRatesPage> =
             listExchangeRates(CurrencyListExchangeRatesParams.none())
 
         /** @see listExchangeRates */
@@ -677,20 +674,20 @@ interface CurrencyService {
         fun listExchangeRates(
             params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseExchangeRateForwardPaging>
+        ): HttpResponseFor<CurrencyListExchangeRatesPage>
 
         /** @see listExchangeRates */
         @MustBeClosed
         fun listExchangeRates(
             params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none()
-        ): HttpResponseFor<CollectionResponseExchangeRateForwardPaging> =
+        ): HttpResponseFor<CurrencyListExchangeRatesPage> =
             listExchangeRates(params, RequestOptions.none())
 
         /** @see listExchangeRates */
         @MustBeClosed
         fun listExchangeRates(
             requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseExchangeRateForwardPaging> =
+        ): HttpResponseFor<CurrencyListExchangeRatesPage> =
             listExchangeRates(CurrencyListExchangeRatesParams.none(), requestOptions)
 
         /**

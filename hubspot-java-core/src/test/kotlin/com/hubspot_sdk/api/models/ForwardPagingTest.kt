@@ -12,16 +12,21 @@ internal class ForwardPagingTest {
     @Test
     fun create() {
         val forwardPaging =
-            ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+            ForwardPaging.builder()
+                .next(NextPage.builder().after("after").link("link").build())
+                .build()
 
-        assertThat(forwardPaging.next()).contains(NextPage.builder().after("").link("").build())
+        assertThat(forwardPaging.next())
+            .contains(NextPage.builder().after("after").link("link").build())
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val forwardPaging =
-            ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+            ForwardPaging.builder()
+                .next(NextPage.builder().after("after").link("link").build())
+                .build()
 
         val roundtrippedForwardPaging =
             jsonMapper.readValue(

@@ -50,8 +50,6 @@ internal class TableServiceAsyncTest {
         val hubDbTableV3Future =
             tableServiceAsync.create(
                 HubDbTableV3Request.builder()
-                    .label("label")
-                    .name("name")
                     .allowChildTables(true)
                     .allowPublicApiAccess(true)
                     .addColumn(
@@ -81,6 +79,8 @@ internal class TableServiceAsyncTest {
                             .build()
                     )
                     .enableChildTablePages(true)
+                    .label("label")
+                    .name("name")
                     .useForPages(true)
                     .build()
             )
@@ -383,8 +383,6 @@ internal class TableServiceAsyncTest {
                     .isGetLocalizedSchema(true)
                     .hubDbTableV3Request(
                         HubDbTableV3Request.builder()
-                            .label("label")
-                            .name("name")
                             .allowChildTables(true)
                             .allowPublicApiAccess(true)
                             .addColumn(
@@ -414,6 +412,8 @@ internal class TableServiceAsyncTest {
                                     .build()
                             )
                             .enableChildTablePages(true)
+                            .label("label")
+                            .name("name")
                             .useForPages(true)
                             .build()
                     )

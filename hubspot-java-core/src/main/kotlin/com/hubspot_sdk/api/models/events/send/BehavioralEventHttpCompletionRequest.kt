@@ -23,10 +23,10 @@ class BehavioralEventHttpCompletionRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val eventName: JsonField<String>,
+    private val properties: JsonField<Properties>,
     private val email: JsonField<String>,
     private val objectId: JsonField<String>,
     private val occurredAt: JsonField<OffsetDateTime>,
-    private val properties: JsonField<Properties>,
     private val utk: JsonField<String>,
     private val uuid: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -35,17 +35,17 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("eventName") @ExcludeMissing eventName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("properties")
+        @ExcludeMissing
+        properties: JsonField<Properties> = JsonMissing.of(),
         @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
         @JsonProperty("objectId") @ExcludeMissing objectId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("occurredAt")
         @ExcludeMissing
         occurredAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("properties")
-        @ExcludeMissing
-        properties: JsonField<Properties> = JsonMissing.of(),
         @JsonProperty("utk") @ExcludeMissing utk: JsonField<String> = JsonMissing.of(),
         @JsonProperty("uuid") @ExcludeMissing uuid: JsonField<String> = JsonMissing.of(),
-    ) : this(eventName, email, objectId, occurredAt, properties, utk, uuid, mutableMapOf())
+    ) : this(eventName, properties, email, objectId, occurredAt, utk, uuid, mutableMapOf())
 
     /**
      * The internal name of the event (`pe<portalID>_eventName`). Can be retrieved through the
@@ -57,6 +57,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun eventName(): String = eventName.getRequired("eventName")
+
+    /**
+     * The event properties to update. Takes the format of key-value pairs (property internal name
+     * and property value). Learn more about
+     * [HubSpot's default event properties](https://developers.hubspot.com/docs/guides/api/analytics-and-events/custom-events/custom-event-definitions#hubspot-s-default-event-properties).
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun properties(): Properties = properties.getRequired("properties")
 
     /**
      * The visitor's email address. Used for associating the event data with a CRM record.
@@ -83,16 +93,6 @@ private constructor(
     fun occurredAt(): Optional<OffsetDateTime> = occurredAt.getOptional("occurredAt")
 
     /**
-     * The event properties to update. Takes the format of key-value pairs (property internal name
-     * and property value). Learn more about
-     * [HubSpot's default event properties](https://developers.hubspot.com/docs/guides/api/analytics-and-events/custom-events/custom-event-definitions#hubspot-s-default-event-properties).
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun properties(): Optional<Properties> = properties.getOptional("properties")
-
-    /**
      * The visitor's usertoken. Used for associating the event data with a CRM record.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -117,6 +117,15 @@ private constructor(
     @JsonProperty("eventName") @ExcludeMissing fun _eventName(): JsonField<String> = eventName
 
     /**
+     * Returns the raw JSON value of [properties].
+     *
+     * Unlike [properties], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("properties")
+    @ExcludeMissing
+    fun _properties(): JsonField<Properties> = properties
+
+    /**
      * Returns the raw JSON value of [email].
      *
      * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
@@ -138,15 +147,6 @@ private constructor(
     @JsonProperty("occurredAt")
     @ExcludeMissing
     fun _occurredAt(): JsonField<OffsetDateTime> = occurredAt
-
-    /**
-     * Returns the raw JSON value of [properties].
-     *
-     * Unlike [properties], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("properties")
-    @ExcludeMissing
-    fun _properties(): JsonField<Properties> = properties
 
     /**
      * Returns the raw JSON value of [utk].
@@ -183,6 +183,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .eventName()
+         * .properties()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -192,10 +193,10 @@ private constructor(
     class Builder internal constructor() {
 
         private var eventName: JsonField<String>? = null
+        private var properties: JsonField<Properties>? = null
         private var email: JsonField<String> = JsonMissing.of()
         private var objectId: JsonField<String> = JsonMissing.of()
         private var occurredAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var properties: JsonField<Properties> = JsonMissing.of()
         private var utk: JsonField<String> = JsonMissing.of()
         private var uuid: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -205,10 +206,10 @@ private constructor(
             behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest
         ) = apply {
             eventName = behavioralEventHttpCompletionRequest.eventName
+            properties = behavioralEventHttpCompletionRequest.properties
             email = behavioralEventHttpCompletionRequest.email
             objectId = behavioralEventHttpCompletionRequest.objectId
             occurredAt = behavioralEventHttpCompletionRequest.occurredAt
-            properties = behavioralEventHttpCompletionRequest.properties
             utk = behavioralEventHttpCompletionRequest.utk
             uuid = behavioralEventHttpCompletionRequest.uuid
             additionalProperties =
@@ -231,6 +232,22 @@ private constructor(
          * value.
          */
         fun eventName(eventName: JsonField<String>) = apply { this.eventName = eventName }
+
+        /**
+         * The event properties to update. Takes the format of key-value pairs (property internal
+         * name and property value). Learn more about
+         * [HubSpot's default event properties](https://developers.hubspot.com/docs/guides/api/analytics-and-events/custom-events/custom-event-definitions#hubspot-s-default-event-properties).
+         */
+        fun properties(properties: Properties) = properties(JsonField.of(properties))
+
+        /**
+         * Sets [Builder.properties] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.properties] with a well-typed [Properties] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
 
         /** The visitor's email address. Used for associating the event data with a CRM record. */
         fun email(email: String) = email(JsonField.of(email))
@@ -267,22 +284,6 @@ private constructor(
         fun occurredAt(occurredAt: JsonField<OffsetDateTime>) = apply {
             this.occurredAt = occurredAt
         }
-
-        /**
-         * The event properties to update. Takes the format of key-value pairs (property internal
-         * name and property value). Learn more about
-         * [HubSpot's default event properties](https://developers.hubspot.com/docs/guides/api/analytics-and-events/custom-events/custom-event-definitions#hubspot-s-default-event-properties).
-         */
-        fun properties(properties: Properties) = properties(JsonField.of(properties))
-
-        /**
-         * Sets [Builder.properties] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.properties] with a well-typed [Properties] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
 
         /** The visitor's usertoken. Used for associating the event data with a CRM record. */
         fun utk(utk: String) = utk(JsonField.of(utk))
@@ -336,6 +337,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .eventName()
+         * .properties()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -343,10 +345,10 @@ private constructor(
         fun build(): BehavioralEventHttpCompletionRequest =
             BehavioralEventHttpCompletionRequest(
                 checkRequired("eventName", eventName),
+                checkRequired("properties", properties),
                 email,
                 objectId,
                 occurredAt,
-                properties,
                 utk,
                 uuid,
                 additionalProperties.toMutableMap(),
@@ -361,10 +363,10 @@ private constructor(
         }
 
         eventName()
+        properties().validate()
         email()
         objectId()
         occurredAt()
-        properties().ifPresent { it.validate() }
         utk()
         uuid()
         validated = true
@@ -386,10 +388,10 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (eventName.asKnown().isPresent) 1 else 0) +
+            (properties.asKnown().getOrNull()?.validity() ?: 0) +
             (if (email.asKnown().isPresent) 1 else 0) +
             (if (objectId.asKnown().isPresent) 1 else 0) +
             (if (occurredAt.asKnown().isPresent) 1 else 0) +
-            (properties.asKnown().getOrNull()?.validity() ?: 0) +
             (if (utk.asKnown().isPresent) 1 else 0) +
             (if (uuid.asKnown().isPresent) 1 else 0)
 
@@ -504,10 +506,10 @@ private constructor(
 
         return other is BehavioralEventHttpCompletionRequest &&
             eventName == other.eventName &&
+            properties == other.properties &&
             email == other.email &&
             objectId == other.objectId &&
             occurredAt == other.occurredAt &&
-            properties == other.properties &&
             utk == other.utk &&
             uuid == other.uuid &&
             additionalProperties == other.additionalProperties
@@ -516,10 +518,10 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             eventName,
+            properties,
             email,
             objectId,
             occurredAt,
-            properties,
             utk,
             uuid,
             additionalProperties,
@@ -529,5 +531,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BehavioralEventHttpCompletionRequest{eventName=$eventName, email=$email, objectId=$objectId, occurredAt=$occurredAt, properties=$properties, utk=$utk, uuid=$uuid, additionalProperties=$additionalProperties}"
+        "BehavioralEventHttpCompletionRequest{eventName=$eventName, properties=$properties, email=$email, objectId=$objectId, occurredAt=$occurredAt, utk=$utk, uuid=$uuid, additionalProperties=$additionalProperties}"
 }

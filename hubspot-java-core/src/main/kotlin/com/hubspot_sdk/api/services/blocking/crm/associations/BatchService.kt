@@ -28,6 +28,10 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
+    /**
+     * This endpoint allows you to create multiple associations between specified 'from' and 'to'
+     * object types in a single batch request.
+     */
     fun create(toObjectType: String, params: BatchCreateParams): BatchResponsePublicAssociation =
         create(toObjectType, params, RequestOptions.none())
 
@@ -69,6 +73,10 @@ interface BatchService {
     /** @see delete */
     fun delete(params: BatchDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
+    /**
+     * This endpoint allows you to retrieve multiple associations between specified 'from' and 'to'
+     * object types in a single batch request.
+     */
     fun get(toObjectType: String, params: BatchGetParams): BatchResponsePublicAssociationMulti =
         get(toObjectType, params, RequestOptions.none())
 

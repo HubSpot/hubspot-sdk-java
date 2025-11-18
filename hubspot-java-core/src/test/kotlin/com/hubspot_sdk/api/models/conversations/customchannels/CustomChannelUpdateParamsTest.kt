@@ -11,7 +11,7 @@ internal class CustomChannelUpdateParamsTest {
     @Test
     fun create() {
         CustomChannelUpdateParams.builder()
-            .channelId("channelId")
+            .channelId(0)
             .publicChannelIntegrationChannelPatch(
                 PublicChannelIntegrationChannelPatch.builder()
                     .capabilities(
@@ -19,9 +19,9 @@ internal class CustomChannelUpdateParamsTest {
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
+                    .channelAccountConnectionRedirectUrl(JsonValue.from(mapOf<String, Any>()))
                     .channelDescription(JsonValue.from(mapOf<String, Any>()))
                     .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
-                    .channelAccountConnectionRedirectUrl(JsonValue.from(mapOf<String, Any>()))
                     .name(JsonValue.from(mapOf<String, Any>()))
                     .webhookUrl(JsonValue.from(mapOf<String, Any>()))
                     .build()
@@ -33,7 +33,7 @@ internal class CustomChannelUpdateParamsTest {
     fun pathParams() {
         val params =
             CustomChannelUpdateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .publicChannelIntegrationChannelPatch(
                     PublicChannelIntegrationChannelPatch.builder()
                         .capabilities(
@@ -41,13 +41,16 @@ internal class CustomChannelUpdateParamsTest {
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
+                        .channelAccountConnectionRedirectUrl(JsonValue.from(mapOf<String, Any>()))
                         .channelDescription(JsonValue.from(mapOf<String, Any>()))
                         .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
+                        .name(JsonValue.from(mapOf<String, Any>()))
+                        .webhookUrl(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -56,7 +59,7 @@ internal class CustomChannelUpdateParamsTest {
     fun body() {
         val params =
             CustomChannelUpdateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .publicChannelIntegrationChannelPatch(
                     PublicChannelIntegrationChannelPatch.builder()
                         .capabilities(
@@ -64,9 +67,9 @@ internal class CustomChannelUpdateParamsTest {
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
+                        .channelAccountConnectionRedirectUrl(JsonValue.from(mapOf<String, Any>()))
                         .channelDescription(JsonValue.from(mapOf<String, Any>()))
                         .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
-                        .channelAccountConnectionRedirectUrl(JsonValue.from(mapOf<String, Any>()))
                         .name(JsonValue.from(mapOf<String, Any>()))
                         .webhookUrl(JsonValue.from(mapOf<String, Any>()))
                         .build()
@@ -83,45 +86,11 @@ internal class CustomChannelUpdateParamsTest {
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
+                    .channelAccountConnectionRedirectUrl(JsonValue.from(mapOf<String, Any>()))
                     .channelDescription(JsonValue.from(mapOf<String, Any>()))
                     .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
-                    .channelAccountConnectionRedirectUrl(JsonValue.from(mapOf<String, Any>()))
                     .name(JsonValue.from(mapOf<String, Any>()))
                     .webhookUrl(JsonValue.from(mapOf<String, Any>()))
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            CustomChannelUpdateParams.builder()
-                .channelId("channelId")
-                .publicChannelIntegrationChannelPatch(
-                    PublicChannelIntegrationChannelPatch.builder()
-                        .capabilities(
-                            PublicChannelIntegrationChannelPatch.Capabilities.builder()
-                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
-                                .build()
-                        )
-                        .channelDescription(JsonValue.from(mapOf<String, Any>()))
-                        .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                PublicChannelIntegrationChannelPatch.builder()
-                    .capabilities(
-                        PublicChannelIntegrationChannelPatch.Capabilities.builder()
-                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
-                            .build()
-                    )
-                    .channelDescription(JsonValue.from(mapOf<String, Any>()))
-                    .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
     }

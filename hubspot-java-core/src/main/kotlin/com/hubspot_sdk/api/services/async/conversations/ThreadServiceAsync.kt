@@ -6,10 +6,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicThreadForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicThread
 import com.hubspot_sdk.api.models.conversations.threads.ThreadDeleteParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
+import com.hubspot_sdk.api.models.conversations.threads.ThreadListPageAsync
 import com.hubspot_sdk.api.models.conversations.threads.ThreadListParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -33,12 +33,12 @@ interface ThreadServiceAsync {
      * Updates a single thread. Either a thread's status can be updated, or the thread can be
      * restored.
      */
-    fun update(threadId: String, params: ThreadUpdateParams): CompletableFuture<PublicThread> =
+    fun update(threadId: Long, params: ThreadUpdateParams): CompletableFuture<PublicThread> =
         update(threadId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        threadId: String,
+        threadId: Long,
         params: ThreadUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicThread> =
@@ -55,37 +55,33 @@ interface ThreadServiceAsync {
     ): CompletableFuture<PublicThread>
 
     /** Retrieve a list of threads, with optional filters and sorting. */
-    fun list(): CompletableFuture<CollectionResponsePublicThreadForwardPaging> =
-        list(ThreadListParams.none())
+    fun list(): CompletableFuture<ThreadListPageAsync> = list(ThreadListParams.none())
 
     /** @see list */
     fun list(
         params: ThreadListParams = ThreadListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePublicThreadForwardPaging>
+    ): CompletableFuture<ThreadListPageAsync>
 
     /** @see list */
     fun list(
         params: ThreadListParams = ThreadListParams.none()
-    ): CompletableFuture<CollectionResponsePublicThreadForwardPaging> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<ThreadListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponsePublicThreadForwardPaging> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ThreadListPageAsync> =
         list(ThreadListParams.none(), requestOptions)
 
     /**
      * Archives a single thread. The thread will be permanently deleted 30 days after placed in an
      * archived state.
      */
-    fun delete(threadId: String): CompletableFuture<Void?> =
+    fun delete(threadId: Long): CompletableFuture<Void?> =
         delete(threadId, ThreadDeleteParams.none())
 
     /** @see delete */
     fun delete(
-        threadId: String,
+        threadId: Long,
         params: ThreadDeleteParams = ThreadDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
@@ -93,7 +89,7 @@ interface ThreadServiceAsync {
 
     /** @see delete */
     fun delete(
-        threadId: String,
+        threadId: Long,
         params: ThreadDeleteParams = ThreadDeleteParams.none(),
     ): CompletableFuture<Void?> = delete(threadId, params, RequestOptions.none())
 
@@ -108,16 +104,15 @@ interface ThreadServiceAsync {
         delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(threadId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+    fun delete(threadId: Long, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(threadId, ThreadDeleteParams.none(), requestOptions)
 
     /** Retrieve a single thread by its ID */
-    fun get(threadId: String): CompletableFuture<PublicThread> =
-        get(threadId, ThreadGetParams.none())
+    fun get(threadId: Long): CompletableFuture<PublicThread> = get(threadId, ThreadGetParams.none())
 
     /** @see get */
     fun get(
-        threadId: String,
+        threadId: Long,
         params: ThreadGetParams = ThreadGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicThread> =
@@ -125,7 +120,7 @@ interface ThreadServiceAsync {
 
     /** @see get */
     fun get(
-        threadId: String,
+        threadId: Long,
         params: ThreadGetParams = ThreadGetParams.none(),
     ): CompletableFuture<PublicThread> = get(threadId, params, RequestOptions.none())
 
@@ -140,7 +135,7 @@ interface ThreadServiceAsync {
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(threadId: String, requestOptions: RequestOptions): CompletableFuture<PublicThread> =
+    fun get(threadId: Long, requestOptions: RequestOptions): CompletableFuture<PublicThread> =
         get(threadId, ThreadGetParams.none(), requestOptions)
 
     /**
@@ -163,14 +158,14 @@ interface ThreadServiceAsync {
          * [ThreadServiceAsync.update].
          */
         fun update(
-            threadId: String,
+            threadId: Long,
             params: ThreadUpdateParams,
         ): CompletableFuture<HttpResponseFor<PublicThread>> =
             update(threadId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            threadId: String,
+            threadId: Long,
             params: ThreadUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicThread>> =
@@ -190,26 +185,25 @@ interface ThreadServiceAsync {
          * Returns a raw HTTP response for `get /conversations/v3/conversations/threads`, but is
          * otherwise the same as [ThreadServiceAsync.list].
          */
-        fun list():
-            CompletableFuture<HttpResponseFor<CollectionResponsePublicThreadForwardPaging>> =
+        fun list(): CompletableFuture<HttpResponseFor<ThreadListPageAsync>> =
             list(ThreadListParams.none())
 
         /** @see list */
         fun list(
             params: ThreadListParams = ThreadListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicThreadForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<ThreadListPageAsync>>
 
         /** @see list */
         fun list(
             params: ThreadListParams = ThreadListParams.none()
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicThreadForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ThreadListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicThreadForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<ThreadListPageAsync>> =
             list(ThreadListParams.none(), requestOptions)
 
         /**
@@ -217,12 +211,12 @@ interface ThreadServiceAsync {
          * /conversations/v3/conversations/threads/{threadId}`, but is otherwise the same as
          * [ThreadServiceAsync.delete].
          */
-        fun delete(threadId: String): CompletableFuture<HttpResponse> =
+        fun delete(threadId: Long): CompletableFuture<HttpResponse> =
             delete(threadId, ThreadDeleteParams.none())
 
         /** @see delete */
         fun delete(
-            threadId: String,
+            threadId: Long,
             params: ThreadDeleteParams = ThreadDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
@@ -230,7 +224,7 @@ interface ThreadServiceAsync {
 
         /** @see delete */
         fun delete(
-            threadId: String,
+            threadId: Long,
             params: ThreadDeleteParams = ThreadDeleteParams.none(),
         ): CompletableFuture<HttpResponse> = delete(threadId, params, RequestOptions.none())
 
@@ -246,7 +240,7 @@ interface ThreadServiceAsync {
 
         /** @see delete */
         fun delete(
-            threadId: String,
+            threadId: Long,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
             delete(threadId, ThreadDeleteParams.none(), requestOptions)
@@ -255,12 +249,12 @@ interface ThreadServiceAsync {
          * Returns a raw HTTP response for `get /conversations/v3/conversations/threads/{threadId}`,
          * but is otherwise the same as [ThreadServiceAsync.get].
          */
-        fun get(threadId: String): CompletableFuture<HttpResponseFor<PublicThread>> =
+        fun get(threadId: Long): CompletableFuture<HttpResponseFor<PublicThread>> =
             get(threadId, ThreadGetParams.none())
 
         /** @see get */
         fun get(
-            threadId: String,
+            threadId: Long,
             params: ThreadGetParams = ThreadGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicThread>> =
@@ -268,7 +262,7 @@ interface ThreadServiceAsync {
 
         /** @see get */
         fun get(
-            threadId: String,
+            threadId: Long,
             params: ThreadGetParams = ThreadGetParams.none(),
         ): CompletableFuture<HttpResponseFor<PublicThread>> =
             get(threadId, params, RequestOptions.none())
@@ -285,7 +279,7 @@ interface ThreadServiceAsync {
 
         /** @see get */
         fun get(
-            threadId: String,
+            threadId: Long,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<PublicThread>> =
             get(threadId, ThreadGetParams.none(), requestOptions)

@@ -33,7 +33,7 @@ internal class CollectionResponseWithTotalExternalLinkMetadataForwardPagingTest 
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -57,7 +57,9 @@ internal class CollectionResponseWithTotalExternalLinkMetadataForwardPagingTest 
             .isEqualTo(0)
         assertThat(collectionResponseWithTotalExternalLinkMetadataForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -83,7 +85,7 @@ internal class CollectionResponseWithTotalExternalLinkMetadataForwardPagingTest 
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

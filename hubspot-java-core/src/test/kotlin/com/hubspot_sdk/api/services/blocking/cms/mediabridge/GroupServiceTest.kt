@@ -31,7 +31,7 @@ internal class GroupServiceTest {
         val propertyGroup =
             groupService.create(
                 GroupCreateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyGroupCreate(
                         PropertyGroupCreate.builder()
@@ -57,9 +57,7 @@ internal class GroupServiceTest {
         val groupService = client.cms().mediaBridge().groups()
 
         val collectionResponsePropertyGroupNoPaging =
-            groupService.list(
-                GroupListParams.builder().appId("appId").objectType("objectType").build()
-            )
+            groupService.list(GroupListParams.builder().appId(0).objectType("objectType").build())
 
         collectionResponsePropertyGroupNoPaging.validate()
     }
@@ -76,7 +74,7 @@ internal class GroupServiceTest {
 
         groupService.deleteByName(
             GroupDeleteByNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .groupName("groupName")
                 .build()
@@ -96,7 +94,7 @@ internal class GroupServiceTest {
         val propertyGroup =
             groupService.getByName(
                 GroupGetByNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .groupName("groupName")
                     .build()
@@ -118,7 +116,7 @@ internal class GroupServiceTest {
         val propertyGroup =
             groupService.updateByName(
                 GroupUpdateByNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .groupName("groupName")
                     .propertyGroupUpdate(

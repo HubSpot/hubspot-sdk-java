@@ -75,6 +75,8 @@ internal class BatchServiceAsyncTest {
                         BatchInputHubDbTableRowV3Request.builder()
                             .addInput(
                                 HubDbTableRowV3Request.builder()
+                                    .childTableId(0L)
+                                    .displayIndex(0)
                                     .values(
                                         HubDbTableRowV3Request.Values.builder()
                                             .putAdditionalProperty(
@@ -83,8 +85,6 @@ internal class BatchServiceAsyncTest {
                                             )
                                             .build()
                                     )
-                                    .childTableId(0L)
-                                    .displayIndex(0)
                                     .name("name")
                                     .path("path")
                                     .build()
@@ -181,7 +181,8 @@ internal class BatchServiceAsyncTest {
                         BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                             .addInput(
                                 HubDbTableRowV3BatchUpdateRequest.builder()
-                                    .id("id")
+                                    .childTableId(0)
+                                    .displayIndex(0)
                                     .values(
                                         HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                             .putAdditionalProperty(
@@ -190,8 +191,7 @@ internal class BatchServiceAsyncTest {
                                             )
                                             .build()
                                     )
-                                    .childTableId(0)
-                                    .displayIndex(0)
+                                    .id("id")
                                     .name("name")
                                     .path("path")
                                     .build()
@@ -223,7 +223,8 @@ internal class BatchServiceAsyncTest {
                         BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                             .addInput(
                                 HubDbTableRowV3BatchUpdateRequest.builder()
-                                    .id("id")
+                                    .childTableId(0)
+                                    .displayIndex(0)
                                     .values(
                                         HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                             .putAdditionalProperty(
@@ -232,8 +233,7 @@ internal class BatchServiceAsyncTest {
                                             )
                                             .build()
                                     )
-                                    .childTableId(0)
-                                    .displayIndex(0)
+                                    .id("id")
                                     .name("name")
                                     .path("path")
                                     .build()

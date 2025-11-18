@@ -14,25 +14,25 @@ internal class PipelineStagePatchInputTest {
     fun create() {
         val pipelineStagePatchInput =
             PipelineStagePatchInput.builder()
-                .archived(true)
-                .displayOrder(1)
-                .label("Done")
                 .metadata(
                     PipelineStagePatchInput.Metadata.builder()
                         .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                         .build()
                 )
+                .archived(true)
+                .displayOrder(1)
+                .label("Done")
                 .build()
 
-        assertThat(pipelineStagePatchInput.archived()).contains(true)
-        assertThat(pipelineStagePatchInput.displayOrder()).contains(1)
-        assertThat(pipelineStagePatchInput.label()).contains("Done")
         assertThat(pipelineStagePatchInput.metadata())
-            .contains(
+            .isEqualTo(
                 PipelineStagePatchInput.Metadata.builder()
                     .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                     .build()
             )
+        assertThat(pipelineStagePatchInput.archived()).contains(true)
+        assertThat(pipelineStagePatchInput.displayOrder()).contains(1)
+        assertThat(pipelineStagePatchInput.label()).contains("Done")
     }
 
     @Test
@@ -40,14 +40,14 @@ internal class PipelineStagePatchInputTest {
         val jsonMapper = jsonMapper()
         val pipelineStagePatchInput =
             PipelineStagePatchInput.builder()
-                .archived(true)
-                .displayOrder(1)
-                .label("Done")
                 .metadata(
                     PipelineStagePatchInput.Metadata.builder()
                         .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                         .build()
                 )
+                .archived(true)
+                .displayOrder(1)
+                .label("Done")
                 .build()
 
         val roundtrippedPipelineStagePatchInput =

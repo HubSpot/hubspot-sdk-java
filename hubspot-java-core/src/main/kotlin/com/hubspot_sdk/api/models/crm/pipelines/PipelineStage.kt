@@ -29,9 +29,9 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val displayOrder: JsonField<Int>,
     private val label: JsonField<String>,
+    private val metadata: JsonField<Metadata>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val archivedAt: JsonField<OffsetDateTime>,
-    private val metadata: JsonField<Metadata>,
     private val writePermissions: JsonField<WritePermissions>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -47,13 +47,13 @@ private constructor(
         @ExcludeMissing
         displayOrder: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("archivedAt")
         @ExcludeMissing
         archivedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("metadata") @ExcludeMissing metadata: JsonField<Metadata> = JsonMissing.of(),
         @JsonProperty("writePermissions")
         @ExcludeMissing
         writePermissions: JsonField<WritePermissions> = JsonMissing.of(),
@@ -63,9 +63,9 @@ private constructor(
         createdAt,
         displayOrder,
         label,
+        metadata,
         updatedAt,
         archivedAt,
-        metadata,
         writePermissions,
         mutableMapOf(),
     )
@@ -115,6 +115,22 @@ private constructor(
     fun label(): String = label.getRequired("label")
 
     /**
+     * A JSON object containing properties that are not present on all object pipelines.
+     *
+     * For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and
+     * represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in
+     * increments of 0.1.
+     *
+     * For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`),
+     * and represents whether the ticket remains open or has been closed by a member of your Support
+     * team. Possible values are `OPEN` or `CLOSED`.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun metadata(): Metadata = metadata.getRequired("metadata")
+
+    /**
      * The date the pipeline stage was last updated.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -130,22 +146,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
-
-    /**
-     * A JSON object containing properties that are not present on all object pipelines.
-     *
-     * For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and
-     * represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in
-     * increments of 0.1.
-     *
-     * For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`),
-     * and represents whether the ticket remains open or has been closed by a member of your Support
-     * team. Possible values are `OPEN` or `CLOSED`.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
 
     /**
      * Defines the level of write access for the pipeline stage, with possible values being
@@ -195,6 +195,13 @@ private constructor(
     @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
 
     /**
+     * Returns the raw JSON value of [metadata].
+     *
+     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -211,13 +218,6 @@ private constructor(
     @JsonProperty("archivedAt")
     @ExcludeMissing
     fun _archivedAt(): JsonField<OffsetDateTime> = archivedAt
-
-    /**
-     * Returns the raw JSON value of [metadata].
-     *
-     * Unlike [metadata], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("metadata") @ExcludeMissing fun _metadata(): JsonField<Metadata> = metadata
 
     /**
      * Returns the raw JSON value of [writePermissions].
@@ -253,6 +253,7 @@ private constructor(
          * .createdAt()
          * .displayOrder()
          * .label()
+         * .metadata()
          * .updatedAt()
          * ```
          */
@@ -267,9 +268,9 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var displayOrder: JsonField<Int>? = null
         private var label: JsonField<String>? = null
+        private var metadata: JsonField<Metadata>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var archivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
         private var writePermissions: JsonField<WritePermissions> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -280,9 +281,9 @@ private constructor(
             createdAt = pipelineStage.createdAt
             displayOrder = pipelineStage.displayOrder
             label = pipelineStage.label
+            metadata = pipelineStage.metadata
             updatedAt = pipelineStage.updatedAt
             archivedAt = pipelineStage.archivedAt
-            metadata = pipelineStage.metadata
             writePermissions = pipelineStage.writePermissions
             additionalProperties = pipelineStage.additionalProperties.toMutableMap()
         }
@@ -357,6 +358,28 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        /**
+         * A JSON object containing properties that are not present on all object pipelines.
+         *
+         * For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`),
+         * and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0
+         * in increments of 0.1.
+         *
+         * For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN"
+         * }`), and represents whether the ticket remains open or has been closed by a member of
+         * your Support team. Possible values are `OPEN` or `CLOSED`.
+         */
+        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
+
+        /**
+         * Sets [Builder.metadata] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
+
         /** The date the pipeline stage was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
@@ -385,28 +408,6 @@ private constructor(
         fun archivedAt(archivedAt: JsonField<OffsetDateTime>) = apply {
             this.archivedAt = archivedAt
         }
-
-        /**
-         * A JSON object containing properties that are not present on all object pipelines.
-         *
-         * For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`),
-         * and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0
-         * in increments of 0.1.
-         *
-         * For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN"
-         * }`), and represents whether the ticket remains open or has been closed by a member of
-         * your Support team. Possible values are `OPEN` or `CLOSED`.
-         */
-        fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
-
-        /**
-         * Sets [Builder.metadata] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.metadata] with a well-typed [Metadata] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
         /**
          * Defines the level of write access for the pipeline stage, with possible values being
@@ -457,6 +458,7 @@ private constructor(
          * .createdAt()
          * .displayOrder()
          * .label()
+         * .metadata()
          * .updatedAt()
          * ```
          *
@@ -469,9 +471,9 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("displayOrder", displayOrder),
                 checkRequired("label", label),
+                checkRequired("metadata", metadata),
                 checkRequired("updatedAt", updatedAt),
                 archivedAt,
-                metadata,
                 writePermissions,
                 additionalProperties.toMutableMap(),
             )
@@ -489,9 +491,9 @@ private constructor(
         createdAt()
         displayOrder()
         label()
+        metadata().validate()
         updatedAt()
         archivedAt()
-        metadata().ifPresent { it.validate() }
         writePermissions().ifPresent { it.validate() }
         validated = true
     }
@@ -516,9 +518,9 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (displayOrder.asKnown().isPresent) 1 else 0) +
             (if (label.asKnown().isPresent) 1 else 0) +
+            (metadata.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (archivedAt.asKnown().isPresent) 1 else 0) +
-            (metadata.asKnown().getOrNull()?.validity() ?: 0) +
             (writePermissions.asKnown().getOrNull()?.validity() ?: 0)
 
     /**
@@ -781,9 +783,9 @@ private constructor(
             createdAt == other.createdAt &&
             displayOrder == other.displayOrder &&
             label == other.label &&
+            metadata == other.metadata &&
             updatedAt == other.updatedAt &&
             archivedAt == other.archivedAt &&
-            metadata == other.metadata &&
             writePermissions == other.writePermissions &&
             additionalProperties == other.additionalProperties
     }
@@ -795,9 +797,9 @@ private constructor(
             createdAt,
             displayOrder,
             label,
+            metadata,
             updatedAt,
             archivedAt,
-            metadata,
             writePermissions,
             additionalProperties,
         )
@@ -806,5 +808,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PipelineStage{id=$id, archived=$archived, createdAt=$createdAt, displayOrder=$displayOrder, label=$label, updatedAt=$updatedAt, archivedAt=$archivedAt, metadata=$metadata, writePermissions=$writePermissions, additionalProperties=$additionalProperties}"
+        "PipelineStage{id=$id, archived=$archived, createdAt=$createdAt, displayOrder=$displayOrder, label=$label, metadata=$metadata, updatedAt=$updatedAt, archivedAt=$archivedAt, writePermissions=$writePermissions, additionalProperties=$additionalProperties}"
 }

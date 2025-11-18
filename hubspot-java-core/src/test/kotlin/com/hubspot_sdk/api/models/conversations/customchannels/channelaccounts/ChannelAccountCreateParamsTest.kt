@@ -12,7 +12,7 @@ internal class ChannelAccountCreateParamsTest {
     @Test
     fun create() {
         ChannelAccountCreateParams.builder()
-            .channelId("channelId")
+            .channelId(0)
             .publicChannelAccountEgg(
                 PublicChannelAccountEgg.builder()
                     .authorized(true)
@@ -30,7 +30,7 @@ internal class ChannelAccountCreateParamsTest {
     fun pathParams() {
         val params =
             ChannelAccountCreateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .publicChannelAccountEgg(
                     PublicChannelAccountEgg.builder()
                         .authorized(true)
@@ -40,7 +40,7 @@ internal class ChannelAccountCreateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -49,7 +49,7 @@ internal class ChannelAccountCreateParamsTest {
     fun body() {
         val params =
             ChannelAccountCreateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .publicChannelAccountEgg(
                     PublicChannelAccountEgg.builder()
                         .authorized(true)
@@ -81,7 +81,7 @@ internal class ChannelAccountCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ChannelAccountCreateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .publicChannelAccountEgg(
                     PublicChannelAccountEgg.builder()
                         .authorized(true)

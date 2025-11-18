@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.crm.objects.orders
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
@@ -16,7 +17,6 @@ import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import com.hubspot_sdk.api.models.crm.objects.orders.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -40,22 +40,22 @@ internal class BatchServiceAsyncTest {
                 BatchInputSimplePublicObjectBatchInputForCreate.builder()
                     .addInput(
                         SimplePublicObjectBatchInputForCreate.builder()
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
                                     )
+                                    .build()
+                            )
+                            .properties(
+                                SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
                             .objectWriteTraceId("objectWriteTraceId")

@@ -42,7 +42,15 @@ internal class AttendanceCreateByEventIdAndContactIdParamsTest {
                 .batchInputMarketingEventSubscriber(
                     BatchInputMarketingEventSubscriber.builder()
                         .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
+                            MarketingEventSubscriber.builder()
+                                .interactionDateTime(0L)
+                                .properties(
+                                    MarketingEventSubscriber.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .vid(0)
+                                .build()
                         )
                         .build()
                 )
@@ -93,31 +101,6 @@ internal class AttendanceCreateByEventIdAndContactIdParamsTest {
                             .vid(0)
                             .build()
                     )
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            AttendanceCreateByEventIdAndContactIdParams.builder()
-                .objectId("objectId")
-                .subscriberState("subscriberState")
-                .batchInputMarketingEventSubscriber(
-                    BatchInputMarketingEventSubscriber.builder()
-                        .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchInputMarketingEventSubscriber.builder()
-                    .addInput(MarketingEventSubscriber.builder().interactionDateTime(0L).build())
                     .build()
             )
     }

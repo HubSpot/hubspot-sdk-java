@@ -11,6 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
@@ -26,8 +27,8 @@ private constructor(
     private val filterGroups: JsonField<List<FilterGroup>>,
     private val limit: JsonField<Int>,
     private val properties: JsonField<List<String>>,
-    private val query: JsonField<String>,
     private val sorts: JsonField<List<String>>,
+    private val query: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -41,41 +42,49 @@ private constructor(
         @JsonProperty("properties")
         @ExcludeMissing
         properties: JsonField<List<String>> = JsonMissing.of(),
-        @JsonProperty("query") @ExcludeMissing query: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sorts") @ExcludeMissing sorts: JsonField<List<String>> = JsonMissing.of(),
-    ) : this(after, filterGroups, limit, properties, query, sorts, mutableMapOf())
+        @JsonProperty("query") @ExcludeMissing query: JsonField<String> = JsonMissing.of(),
+    ) : this(after, filterGroups, limit, properties, sorts, query, mutableMapOf())
 
     /**
      * A paging cursor token for retrieving subsequent pages.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun after(): Optional<String> = after.getOptional("after")
+    fun after(): String = after.getRequired("after")
 
     /**
      * Up to 6 groups of filters defining additional query criteria.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun filterGroups(): Optional<List<FilterGroup>> = filterGroups.getOptional("filterGroups")
+    fun filterGroups(): List<FilterGroup> = filterGroups.getRequired("filterGroups")
 
     /**
      * The maximum results to return, up to 200 objects.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun limit(): Optional<Int> = limit.getOptional("limit")
+    fun limit(): Int = limit.getRequired("limit")
 
     /**
      * A list of property names to include in the response.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun properties(): Optional<List<String>> = properties.getOptional("properties")
+    fun properties(): List<String> = properties.getRequired("properties")
+
+    /**
+     * Specifies sorting order based on object properties.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun sorts(): List<String> = sorts.getRequired("sorts")
 
     /**
      * The search query string, up to 3000 characters.
@@ -84,14 +93,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun query(): Optional<String> = query.getOptional("query")
-
-    /**
-     * Specifies sorting order based on object properties.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun sorts(): Optional<List<String>> = sorts.getOptional("sorts")
 
     /**
      * Returns the raw JSON value of [after].
@@ -126,18 +127,18 @@ private constructor(
     fun _properties(): JsonField<List<String>> = properties
 
     /**
-     * Returns the raw JSON value of [query].
-     *
-     * Unlike [query], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("query") @ExcludeMissing fun _query(): JsonField<String> = query
-
-    /**
      * Returns the raw JSON value of [sorts].
      *
      * Unlike [sorts], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("sorts") @ExcludeMissing fun _sorts(): JsonField<List<String>> = sorts
+
+    /**
+     * Returns the raw JSON value of [query].
+     *
+     * Unlike [query], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("query") @ExcludeMissing fun _query(): JsonField<String> = query
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -155,6 +156,15 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of [PublicObjectSearchRequest].
+         *
+         * The following fields are required:
+         * ```java
+         * .after()
+         * .filterGroups()
+         * .limit()
+         * .properties()
+         * .sorts()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -162,12 +172,12 @@ private constructor(
     /** A builder for [PublicObjectSearchRequest]. */
     class Builder internal constructor() {
 
-        private var after: JsonField<String> = JsonMissing.of()
+        private var after: JsonField<String>? = null
         private var filterGroups: JsonField<MutableList<FilterGroup>>? = null
-        private var limit: JsonField<Int> = JsonMissing.of()
+        private var limit: JsonField<Int>? = null
         private var properties: JsonField<MutableList<String>>? = null
-        private var query: JsonField<String> = JsonMissing.of()
         private var sorts: JsonField<MutableList<String>>? = null
+        private var query: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -176,8 +186,8 @@ private constructor(
             filterGroups = publicObjectSearchRequest.filterGroups.map { it.toMutableList() }
             limit = publicObjectSearchRequest.limit
             properties = publicObjectSearchRequest.properties.map { it.toMutableList() }
-            query = publicObjectSearchRequest.query
             sorts = publicObjectSearchRequest.sorts.map { it.toMutableList() }
+            query = publicObjectSearchRequest.query
             additionalProperties = publicObjectSearchRequest.additionalProperties.toMutableMap()
         }
 
@@ -255,17 +265,6 @@ private constructor(
                 }
         }
 
-        /** The search query string, up to 3000 characters. */
-        fun query(query: String) = query(JsonField.of(query))
-
-        /**
-         * Sets [Builder.query] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.query] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun query(query: JsonField<String>) = apply { this.query = query }
-
         /** Specifies sorting order based on object properties. */
         fun sorts(sorts: List<String>) = sorts(JsonField.of(sorts))
 
@@ -290,6 +289,17 @@ private constructor(
                 (sorts ?: JsonField.of(mutableListOf())).also { checkKnown("sorts", it).add(sort) }
         }
 
+        /** The search query string, up to 3000 characters. */
+        fun query(query: String) = query(JsonField.of(query))
+
+        /**
+         * Sets [Builder.query] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.query] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun query(query: JsonField<String>) = apply { this.query = query }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -313,15 +323,26 @@ private constructor(
          * Returns an immutable instance of [PublicObjectSearchRequest].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .after()
+         * .filterGroups()
+         * .limit()
+         * .properties()
+         * .sorts()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PublicObjectSearchRequest =
             PublicObjectSearchRequest(
-                after,
-                (filterGroups ?: JsonMissing.of()).map { it.toImmutable() },
-                limit,
-                (properties ?: JsonMissing.of()).map { it.toImmutable() },
+                checkRequired("after", after),
+                checkRequired("filterGroups", filterGroups).map { it.toImmutable() },
+                checkRequired("limit", limit),
+                checkRequired("properties", properties).map { it.toImmutable() },
+                checkRequired("sorts", sorts).map { it.toImmutable() },
                 query,
-                (sorts ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
     }
@@ -334,11 +355,11 @@ private constructor(
         }
 
         after()
-        filterGroups().ifPresent { it.forEach { it.validate() } }
+        filterGroups().forEach { it.validate() }
         limit()
         properties()
-        query()
         sorts()
+        query()
         validated = true
     }
 
@@ -361,8 +382,8 @@ private constructor(
             (filterGroups.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (limit.asKnown().isPresent) 1 else 0) +
             (properties.asKnown().getOrNull()?.size ?: 0) +
-            (if (query.asKnown().isPresent) 1 else 0) +
-            (sorts.asKnown().getOrNull()?.size ?: 0)
+            (sorts.asKnown().getOrNull()?.size ?: 0) +
+            (if (query.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -374,17 +395,17 @@ private constructor(
             filterGroups == other.filterGroups &&
             limit == other.limit &&
             properties == other.properties &&
-            query == other.query &&
             sorts == other.sorts &&
+            query == other.query &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(after, filterGroups, limit, properties, query, sorts, additionalProperties)
+        Objects.hash(after, filterGroups, limit, properties, sorts, query, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicObjectSearchRequest{after=$after, filterGroups=$filterGroups, limit=$limit, properties=$properties, query=$query, sorts=$sorts, additionalProperties=$additionalProperties}"
+        "PublicObjectSearchRequest{after=$after, filterGroups=$filterGroups, limit=$limit, properties=$properties, sorts=$sorts, query=$query, additionalProperties=$additionalProperties}"
 }

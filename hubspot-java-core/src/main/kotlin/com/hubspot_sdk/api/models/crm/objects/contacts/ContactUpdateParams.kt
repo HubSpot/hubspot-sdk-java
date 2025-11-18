@@ -23,12 +23,16 @@ import kotlin.jvm.optionals.getOrNull
 class ContactUpdateParams
 private constructor(
     private val contactId: String?,
+    private val idProperty: String?,
     private val simplePublicObjectInput: SimplePublicObjectInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun contactId(): Optional<String> = Optional.ofNullable(contactId)
+
+    /** The name of a property whose values are unique for this object. */
+    fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
     /**
      * Represents the input required to create or update a CRM object, containing an object with
@@ -64,6 +68,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var contactId: String? = null
+        private var idProperty: String? = null
         private var simplePublicObjectInput: SimplePublicObjectInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -71,6 +76,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(contactUpdateParams: ContactUpdateParams) = apply {
             contactId = contactUpdateParams.contactId
+            idProperty = contactUpdateParams.idProperty
             simplePublicObjectInput = contactUpdateParams.simplePublicObjectInput
             additionalHeaders = contactUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactUpdateParams.additionalQueryParams.toBuilder()
@@ -80,6 +86,12 @@ private constructor(
 
         /** Alias for calling [Builder.contactId] with `contactId.orElse(null)`. */
         fun contactId(contactId: Optional<String>) = contactId(contactId.getOrNull())
+
+        /** The name of a property whose values are unique for this object. */
+        fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
+
+        /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
+        fun idProperty(idProperty: Optional<String>) = idProperty(idProperty.getOrNull())
 
         /**
          * Represents the input required to create or update a CRM object, containing an object with
@@ -202,6 +214,7 @@ private constructor(
         fun build(): ContactUpdateParams =
             ContactUpdateParams(
                 contactId,
+                idProperty,
                 checkRequired("simplePublicObjectInput", simplePublicObjectInput),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -218,7 +231,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                idProperty?.let { put("idProperty", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -227,14 +246,21 @@ private constructor(
 
         return other is ContactUpdateParams &&
             contactId == other.contactId &&
+            idProperty == other.idProperty &&
             simplePublicObjectInput == other.simplePublicObjectInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(contactId, simplePublicObjectInput, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            contactId,
+            idProperty,
+            simplePublicObjectInput,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "ContactUpdateParams{contactId=$contactId, simplePublicObjectInput=$simplePublicObjectInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactUpdateParams{contactId=$contactId, idProperty=$idProperty, simplePublicObjectInput=$simplePublicObjectInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -14,11 +14,12 @@ internal class OptionTest {
     fun create() {
         val option =
             Option.builder()
-                .id("")
+                .id("id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .name("")
+                .label("label")
+                .name("name")
                 .order(0)
-                .type("")
+                .type("type")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdBy(
                     SimpleUser.builder()
@@ -29,7 +30,6 @@ internal class OptionTest {
                         .build()
                 )
                 .createdByUserId(0)
-                .label("")
                 .updatedBy(
                     SimpleUser.builder()
                         .id("id")
@@ -41,11 +41,12 @@ internal class OptionTest {
                 .updatedByUserId(0)
                 .build()
 
-        assertThat(option.id()).isEqualTo("")
+        assertThat(option.id()).isEqualTo("id")
         assertThat(option.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(option.name()).isEqualTo("")
+        assertThat(option.label()).isEqualTo("label")
+        assertThat(option.name()).isEqualTo("name")
         assertThat(option.order()).isEqualTo(0)
-        assertThat(option.type()).isEqualTo("")
+        assertThat(option.type()).isEqualTo("type")
         assertThat(option.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(option.createdBy())
             .contains(
@@ -57,7 +58,6 @@ internal class OptionTest {
                     .build()
             )
         assertThat(option.createdByUserId()).contains(0)
-        assertThat(option.label()).contains("")
         assertThat(option.updatedBy())
             .contains(
                 SimpleUser.builder()
@@ -75,11 +75,12 @@ internal class OptionTest {
         val jsonMapper = jsonMapper()
         val option =
             Option.builder()
-                .id("")
+                .id("id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .name("")
+                .label("label")
+                .name("name")
                 .order(0)
-                .type("")
+                .type("type")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdBy(
                     SimpleUser.builder()
@@ -90,7 +91,6 @@ internal class OptionTest {
                         .build()
                 )
                 .createdByUserId(0)
-                .label("")
                 .updatedBy(
                     SimpleUser.builder()
                         .id("id")

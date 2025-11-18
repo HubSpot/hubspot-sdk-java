@@ -41,12 +41,16 @@ private constructor(
     fun enqueueTime(): DateTime = enqueueTime.getRequired("enqueueTime")
 
     /**
+     * Email of the user
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun userEmail(): String = userEmail.getRequired("userEmail")
 
     /**
+     * ID of the user
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -129,6 +133,7 @@ private constructor(
          */
         fun enqueueTime(enqueueTime: JsonField<DateTime>) = apply { this.enqueueTime = enqueueTime }
 
+        /** Email of the user */
         fun userEmail(userEmail: String) = userEmail(JsonField.of(userEmail))
 
         /**
@@ -140,6 +145,7 @@ private constructor(
          */
         fun userEmail(userEmail: JsonField<String>) = apply { this.userEmail = userEmail }
 
+        /** ID of the user */
         fun userId(userId: Int) = userId(JsonField.of(userId))
 
         /**

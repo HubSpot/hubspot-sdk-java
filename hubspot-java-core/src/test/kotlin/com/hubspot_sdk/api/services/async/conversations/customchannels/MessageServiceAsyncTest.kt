@@ -35,7 +35,7 @@ internal class MessageServiceAsyncTest {
         val conversationsPublicConversationsMessageFuture =
             messageServiceAsync.create(
                 MessageCreateParams.builder()
-                    .channelId("channelId")
+                    .channelId(0)
                     .channelIntegrationMessageEgg(
                         ChannelIntegrationMessageEgg.builder()
                             .addAttachment(
@@ -46,7 +46,6 @@ internal class MessageServiceAsyncTest {
                                     .build()
                             )
                             .channelAccountId("channelAccountId")
-                            .integrationThreadId("integrationThreadId")
                             .messageDirection(
                                 ChannelIntegrationMessageEgg.MessageDirection.INCOMING
                             )
@@ -76,6 +75,7 @@ internal class MessageServiceAsyncTest {
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .inReplyToId("inReplyToId")
                             .integrationIdempotencyId("integrationIdempotencyId")
+                            .integrationThreadId("integrationThreadId")
                             .preResolvedContacts(
                                 PreResolvedContacts.builder()
                                     .addContact(
@@ -110,7 +110,7 @@ internal class MessageServiceAsyncTest {
         val conversationsPublicConversationsMessageFuture =
             messageServiceAsync.update(
                 MessageUpdateParams.builder()
-                    .channelId("channelId")
+                    .channelId(0)
                     .messageId("messageId")
                     .publicChannelIntegrationMessageUpdateRequest(
                         PublicChannelIntegrationMessageUpdateRequest.builder()
@@ -140,7 +140,7 @@ internal class MessageServiceAsyncTest {
 
         val conversationsPublicConversationsMessageFuture =
             messageServiceAsync.get(
-                MessageGetParams.builder().channelId("channelId").messageId("messageId").build()
+                MessageGetParams.builder().channelId(0).messageId("messageId").build()
             )
 
         val conversationsPublicConversationsMessage =

@@ -51,18 +51,24 @@ private constructor(
     fun byObjectType(): List<UsageForObjectType> = byObjectType.getRequired("byObjectType")
 
     /**
+     * The maximum number of custom object records allowed.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun overallLimit(): Int = overallLimit.getRequired("overallLimit")
 
     /**
+     * The percentage of the overall custom object record limit that has been used.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun overallPercentage(): Double = overallPercentage.getRequired("overallPercentage")
 
     /**
+     * The total number of custom object records currently in use.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -177,6 +183,7 @@ private constructor(
                 }
         }
 
+        /** The maximum number of custom object records allowed. */
         fun overallLimit(overallLimit: Int) = overallLimit(JsonField.of(overallLimit))
 
         /**
@@ -188,6 +195,7 @@ private constructor(
          */
         fun overallLimit(overallLimit: JsonField<Int>) = apply { this.overallLimit = overallLimit }
 
+        /** The percentage of the overall custom object record limit that has been used. */
         fun overallPercentage(overallPercentage: Double) =
             overallPercentage(JsonField.of(overallPercentage))
 
@@ -202,6 +210,7 @@ private constructor(
             this.overallPercentage = overallPercentage
         }
 
+        /** The total number of custom object records currently in use. */
         fun overallUsage(overallUsage: Int) = overallUsage(JsonField.of(overallUsage))
 
         /**

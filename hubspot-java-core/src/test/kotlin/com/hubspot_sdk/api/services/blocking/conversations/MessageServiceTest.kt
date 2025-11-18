@@ -31,7 +31,7 @@ internal class MessageServiceTest {
         val publicMessage =
             messageService.create(
                 MessageCreateParams.builder()
-                    .threadId("threadId")
+                    .threadId(0L)
                     .publicMessageEgg(
                         PublicConversationsMessageEgg.builder()
                             .addAttachment(
@@ -84,9 +84,9 @@ internal class MessageServiceTest {
                 .build()
         val messageService = client.conversations().messages()
 
-        val collectionResponsePublicMessageForwardPaging = messageService.list("threadId")
+        val page = messageService.list(0L)
 
-        collectionResponsePublicMessageForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -101,7 +101,11 @@ internal class MessageServiceTest {
 
         val publicMessage =
             messageService.get(
-                MessageGetParams.builder().threadId("threadId").messageId("messageId").build()
+                MessageGetParams.builder()
+                    .threadId(0L)
+                    .messageId("messageId")
+                    .property("property")
+                    .build()
             )
 
         publicMessage.validate()
@@ -120,8 +124,9 @@ internal class MessageServiceTest {
         val publicMessageContent =
             messageService.getOriginalContent(
                 MessageGetOriginalContentParams.builder()
-                    .threadId("threadId")
+                    .threadId(0L)
                     .messageId("messageId")
+                    .property("property")
                     .build()
             )
 

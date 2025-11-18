@@ -19,13 +19,13 @@ internal class EventUpsertSubscriberStateByEmailParamsTest {
                 BatchInputMarketingEventEmailSubscriber.builder()
                     .addInput(
                         MarketingEventEmailSubscriber.builder()
-                            .email("email")
-                            .interactionDateTime(0L)
                             .contactProperties(
                                 MarketingEventEmailSubscriber.ContactProperties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
+                            .email("email")
+                            .interactionDateTime(0L)
                             .properties(
                                 MarketingEventEmailSubscriber.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -49,8 +49,18 @@ internal class EventUpsertSubscriberStateByEmailParamsTest {
                     BatchInputMarketingEventEmailSubscriber.builder()
                         .addInput(
                             MarketingEventEmailSubscriber.builder()
+                                .contactProperties(
+                                    MarketingEventEmailSubscriber.ContactProperties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
                                 .email("email")
                                 .interactionDateTime(0L)
+                                .properties(
+                                    MarketingEventEmailSubscriber.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -74,43 +84,18 @@ internal class EventUpsertSubscriberStateByEmailParamsTest {
                     BatchInputMarketingEventEmailSubscriber.builder()
                         .addInput(
                             MarketingEventEmailSubscriber.builder()
-                                .email("email")
-                                .interactionDateTime(0L)
                                 .contactProperties(
                                     MarketingEventEmailSubscriber.ContactProperties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
                                         .build()
                                 )
+                                .email("email")
+                                .interactionDateTime(0L)
                                 .properties(
                                     MarketingEventEmailSubscriber.Properties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
                                         .build()
                                 )
-                                .build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("externalAccountId", "externalAccountId").build())
-    }
-
-    @Test
-    fun queryParamsWithoutOptionalFields() {
-        val params =
-            EventUpsertSubscriberStateByEmailParams.builder()
-                .externalEventId("externalEventId")
-                .subscriberState("subscriberState")
-                .externalAccountId("externalAccountId")
-                .batchInputMarketingEventEmailSubscriber(
-                    BatchInputMarketingEventEmailSubscriber.builder()
-                        .addInput(
-                            MarketingEventEmailSubscriber.builder()
-                                .email("email")
-                                .interactionDateTime(0L)
                                 .build()
                         )
                         .build()
@@ -134,13 +119,13 @@ internal class EventUpsertSubscriberStateByEmailParamsTest {
                     BatchInputMarketingEventEmailSubscriber.builder()
                         .addInput(
                             MarketingEventEmailSubscriber.builder()
-                                .email("email")
-                                .interactionDateTime(0L)
                                 .contactProperties(
                                     MarketingEventEmailSubscriber.ContactProperties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
                                         .build()
                                 )
+                                .email("email")
+                                .interactionDateTime(0L)
                                 .properties(
                                     MarketingEventEmailSubscriber.Properties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -159,52 +144,18 @@ internal class EventUpsertSubscriberStateByEmailParamsTest {
                 BatchInputMarketingEventEmailSubscriber.builder()
                     .addInput(
                         MarketingEventEmailSubscriber.builder()
-                            .email("email")
-                            .interactionDateTime(0L)
                             .contactProperties(
                                 MarketingEventEmailSubscriber.ContactProperties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
+                            .email("email")
+                            .interactionDateTime(0L)
                             .properties(
                                 MarketingEventEmailSubscriber.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
-                            .build()
-                    )
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            EventUpsertSubscriberStateByEmailParams.builder()
-                .externalEventId("externalEventId")
-                .subscriberState("subscriberState")
-                .externalAccountId("externalAccountId")
-                .batchInputMarketingEventEmailSubscriber(
-                    BatchInputMarketingEventEmailSubscriber.builder()
-                        .addInput(
-                            MarketingEventEmailSubscriber.builder()
-                                .email("email")
-                                .interactionDateTime(0L)
-                                .build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchInputMarketingEventEmailSubscriber.builder()
-                    .addInput(
-                        MarketingEventEmailSubscriber.builder()
-                            .email("email")
-                            .interactionDateTime(0L)
                             .build()
                     )
                     .build()

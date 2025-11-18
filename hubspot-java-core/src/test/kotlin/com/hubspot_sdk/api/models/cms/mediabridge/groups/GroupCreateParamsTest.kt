@@ -11,7 +11,7 @@ internal class GroupCreateParamsTest {
     @Test
     fun create() {
         GroupCreateParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .propertyGroupCreate(
                 PropertyGroupCreate.builder().label("label").name("name").displayOrder(0).build()
@@ -23,14 +23,14 @@ internal class GroupCreateParamsTest {
     fun pathParams() {
         val params =
             GroupCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyGroupCreate(
                     PropertyGroupCreate.builder().label("label").name("name").build()
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -40,7 +40,7 @@ internal class GroupCreateParamsTest {
     fun body() {
         val params =
             GroupCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyGroupCreate(
                     PropertyGroupCreate.builder()
@@ -63,7 +63,7 @@ internal class GroupCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             GroupCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyGroupCreate(
                     PropertyGroupCreate.builder().label("label").name("name").build()

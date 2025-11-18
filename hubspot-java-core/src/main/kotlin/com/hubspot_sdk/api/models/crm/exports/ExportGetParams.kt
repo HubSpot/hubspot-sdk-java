@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve detailed information about a specific CRM export, including its current state and
+ * properties.
+ */
 class ExportGetParams
 private constructor(
     private val exportId: Long?,

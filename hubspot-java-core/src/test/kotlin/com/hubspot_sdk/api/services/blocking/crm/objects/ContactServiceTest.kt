@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.blocking.crm.objects
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
@@ -14,7 +15,6 @@ import com.hubspot_sdk.api.models.crm.PublicMergeInput
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -37,22 +37,22 @@ internal class ContactServiceTest {
         val createdResponseSimplePublicObject =
             contactService.create(
                 SimplePublicObjectInputForCreate.builder()
-                    .properties(
-                        SimplePublicObjectInputForCreate.Properties.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                            .build()
-                    )
                     .addAssociation(
                         PublicAssociationsForObject.builder()
                             .to(PublicObjectId.builder().id("37295").build())
                             .addType(
-                                AssociationSpec1.builder()
+                                AssociationSpec.builder()
                                     .associationCategory(
-                                        AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
                                     .associationTypeId(0)
                                     .build()
                             )
+                            .build()
+                    )
+                    .properties(
+                        SimplePublicObjectInputForCreate.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -75,6 +75,7 @@ internal class ContactServiceTest {
             contactService.update(
                 ContactUpdateParams.builder()
                     .contactId("contactId")
+                    .idProperty("idProperty")
                     .simplePublicObjectInput(
                         SimplePublicObjectInput.builder()
                             .properties(
@@ -149,6 +150,7 @@ internal class ContactServiceTest {
                     .contactId("contactId")
                     .archived(true)
                     .addAssociation("string")
+                    .idProperty("idProperty")
                     .addProperty("string")
                     .addPropertiesWithHistory("string")
                     .build()
@@ -207,8 +209,8 @@ internal class ContactServiceTest {
                     )
                     .limit(0)
                     .addProperty("string")
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
 

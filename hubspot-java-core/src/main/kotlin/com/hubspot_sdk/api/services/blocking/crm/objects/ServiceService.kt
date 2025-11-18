@@ -175,6 +175,7 @@ interface ServiceService {
     fun get(serviceId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
         get(serviceId, ServiceGetParams.none(), requestOptions)
 
+    /** Fetch objects via a search query */
     fun search(params: ServiceSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 

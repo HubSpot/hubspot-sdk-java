@@ -11,6 +11,7 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -36,16 +37,12 @@ private constructor(
     ) : this(clientType, integrationAppId, mutableMapOf())
 
     /**
-     * The type of the client.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun clientType(): Optional<ClientType> = clientType.getOptional("clientType")
+    fun clientType(): ClientType = clientType.getRequired("clientType")
 
     /**
-     * The ID of the client if the client is an integration.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -84,14 +81,21 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [PublicClient]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [PublicClient].
+         *
+         * The following fields are required:
+         * ```java
+         * .clientType()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [PublicClient]. */
     class Builder internal constructor() {
 
-        private var clientType: JsonField<ClientType> = JsonMissing.of()
+        private var clientType: JsonField<ClientType>? = null
         private var integrationAppId: JsonField<Int> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -102,7 +106,6 @@ private constructor(
             additionalProperties = publicClient.additionalProperties.toMutableMap()
         }
 
-        /** The type of the client. */
         fun clientType(clientType: ClientType) = clientType(JsonField.of(clientType))
 
         /**
@@ -114,7 +117,6 @@ private constructor(
          */
         fun clientType(clientType: JsonField<ClientType>) = apply { this.clientType = clientType }
 
-        /** The ID of the client if the client is an integration. */
         fun integrationAppId(integrationAppId: Int) =
             integrationAppId(JsonField.of(integrationAppId))
 
@@ -152,9 +154,20 @@ private constructor(
          * Returns an immutable instance of [PublicClient].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .clientType()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PublicClient =
-            PublicClient(clientType, integrationAppId, additionalProperties.toMutableMap())
+            PublicClient(
+                checkRequired("clientType", clientType),
+                integrationAppId,
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -164,7 +177,7 @@ private constructor(
             return@apply
         }
 
-        clientType().ifPresent { it.validate() }
+        clientType().validate()
         integrationAppId()
         validated = true
     }
@@ -187,7 +200,6 @@ private constructor(
         (clientType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (integrationAppId.asKnown().isPresent) 1 else 0)
 
-    /** The type of the client. */
     class ClientType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

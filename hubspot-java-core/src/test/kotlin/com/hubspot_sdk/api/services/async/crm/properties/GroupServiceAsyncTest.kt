@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.PropertyGroupUpdate
 import com.hubspot_sdk.api.models.crm.properties.groups.GroupCreateParams
 import com.hubspot_sdk.api.models.crm.properties.groups.GroupDeleteParams
 import com.hubspot_sdk.api.models.crm.properties.groups.GroupGetParams
+import com.hubspot_sdk.api.models.crm.properties.groups.GroupListParams
 import com.hubspot_sdk.api.models.crm.properties.groups.GroupUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -80,7 +81,10 @@ internal class GroupServiceAsyncTest {
                 .build()
         val groupServiceAsync = client.crm().properties().groups()
 
-        val collectionResponsePropertyGroupFuture = groupServiceAsync.list("objectType")
+        val collectionResponsePropertyGroupFuture =
+            groupServiceAsync.list(
+                GroupListParams.builder().objectType("objectType").locale("locale").build()
+            )
 
         val collectionResponsePropertyGroup = collectionResponsePropertyGroupFuture.get()
         collectionResponsePropertyGroup.validate()
@@ -116,7 +120,11 @@ internal class GroupServiceAsyncTest {
 
         val propertyGroupFuture =
             groupServiceAsync.get(
-                GroupGetParams.builder().objectType("objectType").groupName("groupName").build()
+                GroupGetParams.builder()
+                    .objectType("objectType")
+                    .groupName("groupName")
+                    .locale("locale")
+                    .build()
             )
 
         val propertyGroup = propertyGroupFuture.get()

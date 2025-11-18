@@ -15,13 +15,13 @@ internal class RowCreateParamsTest {
             .tableIdOrName("tableIdOrName")
             .hubDbTableRowV3Request(
                 HubDbTableRowV3Request.builder()
+                    .childTableId(0L)
+                    .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
-                    .childTableId(0L)
-                    .displayIndex(0)
                     .name("name")
                     .path("path")
                     .build()
@@ -36,6 +36,8 @@ internal class RowCreateParamsTest {
                 .tableIdOrName("tableIdOrName")
                 .hubDbTableRowV3Request(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
@@ -57,13 +59,13 @@ internal class RowCreateParamsTest {
                 .tableIdOrName("tableIdOrName")
                 .hubDbTableRowV3Request(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
-                        .childTableId(0L)
-                        .displayIndex(0)
                         .name("name")
                         .path("path")
                         .build()
@@ -75,13 +77,13 @@ internal class RowCreateParamsTest {
         assertThat(body)
             .isEqualTo(
                 HubDbTableRowV3Request.builder()
+                    .childTableId(0L)
+                    .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
-                    .childTableId(0L)
-                    .displayIndex(0)
                     .name("name")
                     .path("path")
                     .build()
@@ -95,6 +97,8 @@ internal class RowCreateParamsTest {
                 .tableIdOrName("tableIdOrName")
                 .hubDbTableRowV3Request(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
@@ -109,6 +113,8 @@ internal class RowCreateParamsTest {
         assertThat(body)
             .isEqualTo(
                 HubDbTableRowV3Request.builder()
+                    .childTableId(0L)
+                    .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))

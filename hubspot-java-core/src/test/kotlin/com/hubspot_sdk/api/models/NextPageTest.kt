@@ -11,16 +11,16 @@ internal class NextPageTest {
 
     @Test
     fun create() {
-        val nextPage = NextPage.builder().after("").link("").build()
+        val nextPage = NextPage.builder().after("after").link("link").build()
 
-        assertThat(nextPage.after()).isEqualTo("")
-        assertThat(nextPage.link()).contains("")
+        assertThat(nextPage.after()).isEqualTo("after")
+        assertThat(nextPage.link()).contains("link")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val nextPage = NextPage.builder().after("").link("").build()
+        val nextPage = NextPage.builder().after("after").link("link").build()
 
         val roundtrippedNextPage =
             jsonMapper.readValue(

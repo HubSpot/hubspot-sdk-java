@@ -15,7 +15,6 @@ import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class MarketingEventSubscriber
@@ -47,16 +46,16 @@ private constructor(
     fun interactionDateTime(): Long = interactionDateTime.getRequired("interactionDateTime")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun properties(): Optional<Properties> = properties.getOptional("properties")
+    fun properties(): Properties = properties.getRequired("properties")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun vid(): Optional<Int> = vid.getOptional("vid")
+    fun vid(): Int = vid.getRequired("vid")
 
     /**
      * Returns the raw JSON value of [interactionDateTime].
@@ -104,6 +103,8 @@ private constructor(
          * The following fields are required:
          * ```java
          * .interactionDateTime()
+         * .properties()
+         * .vid()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -113,8 +114,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var interactionDateTime: JsonField<Long>? = null
-        private var properties: JsonField<Properties> = JsonMissing.of()
-        private var vid: JsonField<Int> = JsonMissing.of()
+        private var properties: JsonField<Properties>? = null
+        private var vid: JsonField<Int>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -188,6 +189,8 @@ private constructor(
          * The following fields are required:
          * ```java
          * .interactionDateTime()
+         * .properties()
+         * .vid()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -195,8 +198,8 @@ private constructor(
         fun build(): MarketingEventSubscriber =
             MarketingEventSubscriber(
                 checkRequired("interactionDateTime", interactionDateTime),
-                properties,
-                vid,
+                checkRequired("properties", properties),
+                checkRequired("vid", vid),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -209,7 +212,7 @@ private constructor(
         }
 
         interactionDateTime()
-        properties().ifPresent { it.validate() }
+        properties().validate()
         vid()
         validated = true
     }

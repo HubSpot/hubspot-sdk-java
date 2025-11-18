@@ -30,6 +30,8 @@ private constructor(
     ) : this(enablement, mutableMapOf())
 
     /**
+     * Whether the object type is enabled or not
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -82,6 +84,7 @@ private constructor(
                     objectTypeEnablementPublicResponse.additionalProperties.toMutableMap()
             }
 
+        /** Whether the object type is enabled or not */
         fun enablement(enablement: Boolean) = enablement(JsonField.of(enablement))
 
         /**

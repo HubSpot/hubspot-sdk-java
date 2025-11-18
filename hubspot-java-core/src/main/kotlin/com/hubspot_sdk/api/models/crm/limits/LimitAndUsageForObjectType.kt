@@ -46,36 +46,48 @@ private constructor(
     ) : this(limit, objectTypeId, percentage, pluralLabel, singularLabel, usage, mutableMapOf())
 
     /**
+     * The maximum allowed count for the object type.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun limit(): Int = limit.getRequired("limit")
 
     /**
+     * The unique identifier for the object type.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectTypeId(): String = objectTypeId.getRequired("objectTypeId")
 
     /**
+     * The percentage of the limit that has been used.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun percentage(): Double = percentage.getRequired("percentage")
 
     /**
+     * The plural label for the object type.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun pluralLabel(): String = pluralLabel.getRequired("pluralLabel")
 
     /**
+     * The singular label for the object type.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun singularLabel(): String = singularLabel.getRequired("singularLabel")
 
     /**
+     * The current usage count for the object type.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -179,6 +191,7 @@ private constructor(
             additionalProperties = limitAndUsageForObjectType.additionalProperties.toMutableMap()
         }
 
+        /** The maximum allowed count for the object type. */
         fun limit(limit: Int) = limit(JsonField.of(limit))
 
         /**
@@ -189,6 +202,7 @@ private constructor(
          */
         fun limit(limit: JsonField<Int>) = apply { this.limit = limit }
 
+        /** The unique identifier for the object type. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -202,6 +216,7 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
+        /** The percentage of the limit that has been used. */
         fun percentage(percentage: Double) = percentage(JsonField.of(percentage))
 
         /**
@@ -213,6 +228,7 @@ private constructor(
          */
         fun percentage(percentage: JsonField<Double>) = apply { this.percentage = percentage }
 
+        /** The plural label for the object type. */
         fun pluralLabel(pluralLabel: String) = pluralLabel(JsonField.of(pluralLabel))
 
         /**
@@ -224,6 +240,7 @@ private constructor(
          */
         fun pluralLabel(pluralLabel: JsonField<String>) = apply { this.pluralLabel = pluralLabel }
 
+        /** The singular label for the object type. */
         fun singularLabel(singularLabel: String) = singularLabel(JsonField.of(singularLabel))
 
         /**
@@ -237,6 +254,7 @@ private constructor(
             this.singularLabel = singularLabel
         }
 
+        /** The current usage count for the object type. */
         fun usage(usage: Int) = usage(JsonField.of(usage))
 
         /**

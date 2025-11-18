@@ -36,6 +36,8 @@ internal class RowServiceTest {
                     .tableIdOrName("tableIdOrName")
                     .hubDbTableRowV3Request(
                         HubDbTableRowV3Request.builder()
+                            .childTableId(0L)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
@@ -44,8 +46,6 @@ internal class RowServiceTest {
                                     )
                                     .build()
                             )
-                            .childTableId(0L)
-                            .displayIndex(0)
                             .name("name")
                             .path("path")
                             .build()
@@ -187,6 +187,8 @@ internal class RowServiceTest {
                     .rowId("321669910225")
                     .hubDbTableRowV3Request(
                         HubDbTableRowV3Request.builder()
+                            .childTableId(0L)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
@@ -195,8 +197,6 @@ internal class RowServiceTest {
                                     )
                                     .build()
                             )
-                            .childTableId(0L)
-                            .displayIndex(0)
                             .name("name")
                             .path("path")
                             .build()
@@ -224,6 +224,8 @@ internal class RowServiceTest {
                     .rowId("321669910225")
                     .hubDbTableRowV3Request(
                         HubDbTableRowV3Request.builder()
+                            .childTableId(0L)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
@@ -232,8 +234,6 @@ internal class RowServiceTest {
                                     )
                                     .build()
                             )
-                            .childTableId(0L)
-                            .displayIndex(0)
                             .name("name")
                             .path("path")
                             .build()

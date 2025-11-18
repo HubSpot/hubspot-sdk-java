@@ -15,6 +15,7 @@ class GroupGetParams
 private constructor(
     private val objectType: String,
     private val groupName: String?,
+    private val locale: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -22,6 +23,8 @@ private constructor(
     fun objectType(): String = objectType
 
     fun groupName(): Optional<String> = Optional.ofNullable(groupName)
+
+    fun locale(): Optional<String> = Optional.ofNullable(locale)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -49,6 +52,7 @@ private constructor(
 
         private var objectType: String? = null
         private var groupName: String? = null
+        private var locale: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -56,6 +60,7 @@ private constructor(
         internal fun from(groupGetParams: GroupGetParams) = apply {
             objectType = groupGetParams.objectType
             groupName = groupGetParams.groupName
+            locale = groupGetParams.locale
             additionalHeaders = groupGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = groupGetParams.additionalQueryParams.toBuilder()
         }
@@ -66,6 +71,11 @@ private constructor(
 
         /** Alias for calling [Builder.groupName] with `groupName.orElse(null)`. */
         fun groupName(groupName: Optional<String>) = groupName(groupName.getOrNull())
+
+        fun locale(locale: String?) = apply { this.locale = locale }
+
+        /** Alias for calling [Builder.locale] with `locale.orElse(null)`. */
+        fun locale(locale: Optional<String>) = locale(locale.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -181,6 +191,7 @@ private constructor(
             GroupGetParams(
                 checkRequired("objectType", objectType),
                 groupName,
+                locale,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -195,7 +206,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                locale?.let { put("locale", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -205,13 +222,14 @@ private constructor(
         return other is GroupGetParams &&
             objectType == other.objectType &&
             groupName == other.groupName &&
+            locale == other.locale &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectType, groupName, additionalHeaders, additionalQueryParams)
+        Objects.hash(objectType, groupName, locale, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "GroupGetParams{objectType=$objectType, groupName=$groupName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "GroupGetParams{objectType=$objectType, groupName=$groupName, locale=$locale, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

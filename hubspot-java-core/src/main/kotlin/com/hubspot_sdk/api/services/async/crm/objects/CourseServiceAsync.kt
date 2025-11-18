@@ -191,6 +191,7 @@ interface CourseServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(courseId, CourseGetParams.none(), requestOptions)
 
+    /** Fetch objects using a search query */
     fun search(
         params: CourseSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

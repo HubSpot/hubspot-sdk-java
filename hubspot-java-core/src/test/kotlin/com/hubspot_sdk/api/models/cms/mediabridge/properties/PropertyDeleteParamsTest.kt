@@ -10,7 +10,7 @@ internal class PropertyDeleteParamsTest {
     @Test
     fun create() {
         PropertyDeleteParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .propertyName("propertyName")
             .build()
@@ -20,12 +20,12 @@ internal class PropertyDeleteParamsTest {
     fun pathParams() {
         val params =
             PropertyDeleteParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         assertThat(params._pathParam(2)).isEqualTo("propertyName")
         // out-of-bound path param

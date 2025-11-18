@@ -16,13 +16,13 @@ internal class BatchInputHubDbTableRowV3RequestTest {
             BatchInputHubDbTableRowV3Request.builder()
                 .addInput(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
-                        .childTableId(0L)
-                        .displayIndex(0)
                         .name("name")
                         .path("path")
                         .build()
@@ -32,13 +32,13 @@ internal class BatchInputHubDbTableRowV3RequestTest {
         assertThat(batchInputHubDbTableRowV3Request.inputs())
             .containsExactly(
                 HubDbTableRowV3Request.builder()
+                    .childTableId(0L)
+                    .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
-                    .childTableId(0L)
-                    .displayIndex(0)
                     .name("name")
                     .path("path")
                     .build()
@@ -52,13 +52,13 @@ internal class BatchInputHubDbTableRowV3RequestTest {
             BatchInputHubDbTableRowV3Request.builder()
                 .addInput(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
-                        .childTableId(0L)
-                        .displayIndex(0)
                         .name("name")
                         .path("path")
                         .build()

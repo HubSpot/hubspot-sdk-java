@@ -16,15 +16,15 @@ internal class PublicFileTest {
                 .fileId("fileId")
                 .fileUsageType("fileUsageType")
                 .type(PublicFile.Type.FILE)
-                .url("url")
                 .name("name")
+                .url("url")
                 .build()
 
         assertThat(publicFile.fileId()).isEqualTo("fileId")
         assertThat(publicFile.fileUsageType()).isEqualTo("fileUsageType")
         assertThat(publicFile.type()).isEqualTo(PublicFile.Type.FILE)
-        assertThat(publicFile.url()).isEqualTo("url")
         assertThat(publicFile.name()).contains("name")
+        assertThat(publicFile.url()).contains("url")
     }
 
     @Test
@@ -35,8 +35,8 @@ internal class PublicFileTest {
                 .fileId("fileId")
                 .fileUsageType("fileUsageType")
                 .type(PublicFile.Type.FILE)
-                .url("url")
                 .name("name")
+                .url("url")
                 .build()
 
         val roundtrippedPublicFile =

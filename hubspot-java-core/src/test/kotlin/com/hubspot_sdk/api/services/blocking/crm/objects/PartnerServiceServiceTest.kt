@@ -117,8 +117,8 @@ internal class PartnerServiceServiceTest {
                     )
                     .limit(0)
                     .addProperty("string")
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
 

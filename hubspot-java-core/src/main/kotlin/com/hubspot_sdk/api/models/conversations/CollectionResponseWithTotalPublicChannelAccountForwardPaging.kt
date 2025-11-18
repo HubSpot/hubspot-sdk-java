@@ -23,7 +23,7 @@ import kotlin.jvm.optionals.getOrNull
 class CollectionResponseWithTotalPublicChannelAccountForwardPaging
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val results: JsonField<List<ConversationsPublicChannelAccount>>,
+    private val results: JsonField<List<PublicChannelAccount>>,
     private val total: JsonField<Int>,
     private val paging: JsonField<ForwardPaging>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -33,7 +33,7 @@ private constructor(
     private constructor(
         @JsonProperty("results")
         @ExcludeMissing
-        results: JsonField<List<ConversationsPublicChannelAccount>> = JsonMissing.of(),
+        results: JsonField<List<PublicChannelAccount>> = JsonMissing.of(),
         @JsonProperty("total") @ExcludeMissing total: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("paging") @ExcludeMissing paging: JsonField<ForwardPaging> = JsonMissing.of(),
     ) : this(results, total, paging, mutableMapOf())
@@ -42,7 +42,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun results(): List<ConversationsPublicChannelAccount> = results.getRequired("results")
+    fun results(): List<PublicChannelAccount> = results.getRequired("results")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -63,7 +63,7 @@ private constructor(
      */
     @JsonProperty("results")
     @ExcludeMissing
-    fun _results(): JsonField<List<ConversationsPublicChannelAccount>> = results
+    fun _results(): JsonField<List<PublicChannelAccount>> = results
 
     /**
      * Returns the raw JSON value of [total].
@@ -109,7 +109,7 @@ private constructor(
     /** A builder for [CollectionResponseWithTotalPublicChannelAccountForwardPaging]. */
     class Builder internal constructor() {
 
-        private var results: JsonField<MutableList<ConversationsPublicChannelAccount>>? = null
+        private var results: JsonField<MutableList<PublicChannelAccount>>? = null
         private var total: JsonField<Int>? = null
         private var paging: JsonField<ForwardPaging> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -130,26 +130,25 @@ private constructor(
                     .toMutableMap()
         }
 
-        fun results(results: List<ConversationsPublicChannelAccount>) =
-            results(JsonField.of(results))
+        fun results(results: List<PublicChannelAccount>) = results(JsonField.of(results))
 
         /**
          * Sets [Builder.results] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.results] with a well-typed
-         * `List<ConversationsPublicChannelAccount>` value instead. This method is primarily for
-         * setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.results] with a well-typed `List<PublicChannelAccount>`
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun results(results: JsonField<List<ConversationsPublicChannelAccount>>) = apply {
+        fun results(results: JsonField<List<PublicChannelAccount>>) = apply {
             this.results = results.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [ConversationsPublicChannelAccount] to [results].
+         * Adds a single [PublicChannelAccount] to [results].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResult(result: ConversationsPublicChannelAccount) = apply {
+        fun addResult(result: PublicChannelAccount) = apply {
             results =
                 (results ?: JsonField.of(mutableListOf())).also {
                     checkKnown("results", it).add(result)

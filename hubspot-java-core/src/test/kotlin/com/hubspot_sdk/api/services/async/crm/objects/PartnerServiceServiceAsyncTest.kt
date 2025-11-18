@@ -120,8 +120,8 @@ internal class PartnerServiceServiceAsyncTest {
                     )
                     .limit(0)
                     .addProperty("string")
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
 

@@ -5,9 +5,8 @@ package com.hubspot_sdk.api.models.crm
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -17,44 +16,44 @@ internal class SimplePublicObjectInputForCreateTest {
     fun create() {
         val simplePublicObjectInputForCreate =
             SimplePublicObjectInputForCreate.builder()
-                .properties(
-                    SimplePublicObjectInputForCreate.Properties.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                        .build()
-                )
                 .addAssociation(
                     PublicAssociationsForObject.builder()
                         .to(PublicObjectId.builder().id("37295").build())
                         .addType(
-                            AssociationSpec1.builder()
+                            AssociationSpec.builder()
                                 .associationCategory(
-                                    AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                    AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                 )
                                 .associationTypeId(0)
                                 .build()
                         )
                         .build()
                 )
+                .properties(
+                    SimplePublicObjectInputForCreate.Properties.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
                 .build()
 
-        assertThat(simplePublicObjectInputForCreate.properties())
-            .isEqualTo(
-                SimplePublicObjectInputForCreate.Properties.builder()
-                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                    .build()
-            )
-        assertThat(simplePublicObjectInputForCreate.associations().getOrNull())
+        assertThat(simplePublicObjectInputForCreate.associations())
             .containsExactly(
                 PublicAssociationsForObject.builder()
                     .to(PublicObjectId.builder().id("37295").build())
                     .addType(
-                        AssociationSpec1.builder()
+                        AssociationSpec.builder()
                             .associationCategory(
-                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                             )
                             .associationTypeId(0)
                             .build()
                     )
+                    .build()
+            )
+        assertThat(simplePublicObjectInputForCreate.properties())
+            .isEqualTo(
+                SimplePublicObjectInputForCreate.Properties.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
     }
@@ -64,22 +63,22 @@ internal class SimplePublicObjectInputForCreateTest {
         val jsonMapper = jsonMapper()
         val simplePublicObjectInputForCreate =
             SimplePublicObjectInputForCreate.builder()
-                .properties(
-                    SimplePublicObjectInputForCreate.Properties.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                        .build()
-                )
                 .addAssociation(
                     PublicAssociationsForObject.builder()
                         .to(PublicObjectId.builder().id("37295").build())
                         .addType(
-                            AssociationSpec1.builder()
+                            AssociationSpec.builder()
                                 .associationCategory(
-                                    AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                    AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                 )
                                 .associationTypeId(0)
                                 .build()
                         )
+                        .build()
+                )
+                .properties(
+                    SimplePublicObjectInputForCreate.Properties.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
                 .build()

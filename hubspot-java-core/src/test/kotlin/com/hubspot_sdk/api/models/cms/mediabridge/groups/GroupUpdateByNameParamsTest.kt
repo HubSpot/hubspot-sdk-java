@@ -11,7 +11,7 @@ internal class GroupUpdateByNameParamsTest {
     @Test
     fun create() {
         GroupUpdateByNameParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .groupName("groupName")
             .propertyGroupUpdate(
@@ -24,13 +24,13 @@ internal class GroupUpdateByNameParamsTest {
     fun pathParams() {
         val params =
             GroupUpdateByNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .groupName("groupName")
                 .propertyGroupUpdate(PropertyGroupUpdate.builder().build())
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         assertThat(params._pathParam(2)).isEqualTo("groupName")
         // out-of-bound path param
@@ -41,7 +41,7 @@ internal class GroupUpdateByNameParamsTest {
     fun body() {
         val params =
             GroupUpdateByNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .groupName("groupName")
                 .propertyGroupUpdate(
@@ -59,7 +59,7 @@ internal class GroupUpdateByNameParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             GroupUpdateByNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .groupName("groupName")
                 .propertyGroupUpdate(PropertyGroupUpdate.builder().build())

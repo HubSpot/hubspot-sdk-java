@@ -18,6 +18,8 @@ internal class BatchCreateBatchParamsTest {
                 BatchInputHubDbTableRowV3Request.builder()
                     .addInput(
                         HubDbTableRowV3Request.builder()
+                            .childTableId(0L)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
@@ -26,8 +28,6 @@ internal class BatchCreateBatchParamsTest {
                                     )
                                     .build()
                             )
-                            .childTableId(0L)
-                            .displayIndex(0)
                             .name("name")
                             .path("path")
                             .build()
@@ -46,6 +46,8 @@ internal class BatchCreateBatchParamsTest {
                     BatchInputHubDbTableRowV3Request.builder()
                         .addInput(
                             HubDbTableRowV3Request.builder()
+                                .childTableId(0L)
+                                .displayIndex(0)
                                 .values(
                                     HubDbTableRowV3Request.Values.builder()
                                         .putAdditionalProperty(
@@ -74,6 +76,8 @@ internal class BatchCreateBatchParamsTest {
                     BatchInputHubDbTableRowV3Request.builder()
                         .addInput(
                             HubDbTableRowV3Request.builder()
+                                .childTableId(0L)
+                                .displayIndex(0)
                                 .values(
                                     HubDbTableRowV3Request.Values.builder()
                                         .putAdditionalProperty(
@@ -82,8 +86,6 @@ internal class BatchCreateBatchParamsTest {
                                         )
                                         .build()
                                 )
-                                .childTableId(0L)
-                                .displayIndex(0)
                                 .name("name")
                                 .path("path")
                                 .build()
@@ -99,6 +101,8 @@ internal class BatchCreateBatchParamsTest {
                 BatchInputHubDbTableRowV3Request.builder()
                     .addInput(
                         HubDbTableRowV3Request.builder()
+                            .childTableId(0L)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(
@@ -107,8 +111,6 @@ internal class BatchCreateBatchParamsTest {
                                     )
                                     .build()
                             )
-                            .childTableId(0L)
-                            .displayIndex(0)
                             .name("name")
                             .path("path")
                             .build()
@@ -126,6 +128,8 @@ internal class BatchCreateBatchParamsTest {
                     BatchInputHubDbTableRowV3Request.builder()
                         .addInput(
                             HubDbTableRowV3Request.builder()
+                                .childTableId(0L)
+                                .displayIndex(0)
                                 .values(
                                     HubDbTableRowV3Request.Values.builder()
                                         .putAdditionalProperty(
@@ -147,6 +151,8 @@ internal class BatchCreateBatchParamsTest {
                 BatchInputHubDbTableRowV3Request.builder()
                     .addInput(
                         HubDbTableRowV3Request.builder()
+                            .childTableId(0L)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3Request.Values.builder()
                                     .putAdditionalProperty(

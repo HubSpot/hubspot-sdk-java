@@ -33,6 +33,9 @@ private constructor(
     ) : this(results, mutableMapOf())
 
     /**
+     * Collection of properties with their validation rules. Each item maps a property name to its
+     * configured validation rules for the specified object type.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -93,6 +96,10 @@ private constructor(
                     .toMutableMap()
         }
 
+        /**
+         * Collection of properties with their validation rules. Each item maps a property name to
+         * its configured validation rules for the specified object type.
+         */
         fun results(results: List<PublicPropertyValidationRuleMap>) = results(JsonField.of(results))
 
         /**

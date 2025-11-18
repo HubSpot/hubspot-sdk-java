@@ -29,6 +29,10 @@ interface CentralFxRateServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CentralFxRateServiceAsync
 
+    /**
+     * Create a new currency with central exchange rates in the portal. Unsupported currencies
+     * cannot be added here.
+     */
     fun createCurrency(params: CentralFxRateCreateCurrencyParams): CompletableFuture<ExchangeRate> =
         createCurrency(params, RequestOptions.none())
 
@@ -56,6 +60,7 @@ interface CentralFxRateServiceAsync {
     ): CompletableFuture<ExchangeRate> =
         createCurrency(currencyCreateRequest, RequestOptions.none())
 
+    /** Retrieve details on whether the central exchange rates feature is enabled for the portal. */
     fun getInformation(): CompletableFuture<CentralExchangeRatesInformation> =
         getInformation(CentralFxRateGetInformationParams.none())
 
@@ -77,6 +82,10 @@ interface CentralFxRateServiceAsync {
     ): CompletableFuture<CentralExchangeRatesInformation> =
         getInformation(CentralFxRateGetInformationParams.none(), requestOptions)
 
+    /**
+     * Retrieve a list of currency codes that are not supported by the central exchange rates.
+     * Unsupported currencies will need to be manually updated.
+     */
     fun getUnsupportedCurrencies(): CompletableFuture<CollectionResponseCurrencyCodeInfoNoPaging> =
         getUnsupportedCurrencies(CentralFxRateGetUnsupportedCurrenciesParams.none())
 

@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicInboxForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicInbox
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxGetParams
+import com.hubspot_sdk.api.models.conversations.inboxes.InboxListPage
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -34,10 +35,7 @@ class InboxServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboxService =
         InboxServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun list(
-        params: InboxListParams,
-        requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalPublicInboxForwardPaging =
+    override fun list(params: InboxListParams, requestOptions: RequestOptions): InboxListPage =
         // get /conversations/v3/conversations/inboxes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -66,7 +64,7 @@ class InboxServiceImpl internal constructor(private val clientOptions: ClientOpt
         override fun list(
             params: InboxListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging> {
+        ): HttpResponseFor<InboxListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -83,6 +81,13 @@ class InboxServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        InboxListPage.builder()
+                            .service(InboxServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

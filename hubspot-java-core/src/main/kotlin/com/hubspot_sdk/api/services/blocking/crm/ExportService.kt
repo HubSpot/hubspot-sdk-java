@@ -53,6 +53,10 @@ interface ExportService {
     fun createAsync(publicExportRequest: PublicExportRequest): TaskLocator =
         createAsync(publicExportRequest, RequestOptions.none())
 
+    /**
+     * Retrieve detailed information about a specific CRM export, including its current state and
+     * properties.
+     */
     fun get(exportId: Long): PublicExportResponse = get(exportId, ExportGetParams.none())
 
     /** @see get */

@@ -58,7 +58,7 @@ internal class CustomChannelServiceAsyncTest {
         val publicChannelIntegrationChannelFuture =
             customChannelServiceAsync.update(
                 CustomChannelUpdateParams.builder()
-                    .channelId("channelId")
+                    .channelId(0)
                     .publicChannelIntegrationChannelPatch(
                         PublicChannelIntegrationChannelPatch.builder()
                             .capabilities(
@@ -69,11 +69,11 @@ internal class CustomChannelServiceAsyncTest {
                                     )
                                     .build()
                             )
-                            .channelDescription(JsonValue.from(mapOf<String, Any>()))
-                            .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
                             .channelAccountConnectionRedirectUrl(
                                 JsonValue.from(mapOf<String, Any>())
                             )
+                            .channelDescription(JsonValue.from(mapOf<String, Any>()))
+                            .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
                             .name(JsonValue.from(mapOf<String, Any>()))
                             .webhookUrl(JsonValue.from(mapOf<String, Any>()))
                             .build()
@@ -95,12 +95,10 @@ internal class CustomChannelServiceAsyncTest {
                 .build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
-        val collectionResponseWithTotalPublicChannelIntegrationChannelForwardPagingFuture =
-            customChannelServiceAsync.list()
+        val pageFuture = customChannelServiceAsync.list()
 
-        val collectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
-            collectionResponseWithTotalPublicChannelIntegrationChannelForwardPagingFuture.get()
-        collectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -113,7 +111,7 @@ internal class CustomChannelServiceAsyncTest {
                 .build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
-        val future = customChannelServiceAsync.delete("channelId")
+        val future = customChannelServiceAsync.delete(0)
 
         val response = future.get()
     }
@@ -128,7 +126,7 @@ internal class CustomChannelServiceAsyncTest {
                 .build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
-        val publicChannelIntegrationChannelFuture = customChannelServiceAsync.get("channelId")
+        val publicChannelIntegrationChannelFuture = customChannelServiceAsync.get(0)
 
         val publicChannelIntegrationChannel = publicChannelIntegrationChannelFuture.get()
         publicChannelIntegrationChannel.validate()

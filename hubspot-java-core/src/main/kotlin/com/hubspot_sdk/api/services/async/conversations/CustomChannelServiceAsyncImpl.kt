@@ -21,6 +21,7 @@ import com.hubspot_sdk.api.models.conversations.customchannels.CollectionRespons
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelDeleteParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetParams
+import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListPageAsync
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannel
@@ -80,7 +81,7 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: CustomChannelListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging> =
+    ): CompletableFuture<CustomChannelListPageAsync> =
         // get /conversations/v3/custom-channels/
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -205,9 +206,7 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
         override fun list(
             params: CustomChannelListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<CustomChannelListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -226,6 +225,14 @@ class CustomChannelServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                CustomChannelListPageAsync.builder()
+                                    .service(CustomChannelServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

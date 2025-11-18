@@ -6,19 +6,19 @@ import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.BatchInputPropertyCreate
 import com.hubspot_sdk.api.models.BatchInputPropertyName
+import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.PropertyCreate
 import com.hubspot_sdk.api.models.PropertyName
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgePropertyUpdate
-import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
+import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyUpdateParams
-import com.hubspot_sdk.api.models.crm.properties.BatchReadInputPropertyName
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -39,7 +39,7 @@ internal class PropertyServiceAsyncTest {
         val propertyFuture =
             propertyServiceAsync.create(
                 PropertyCreateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyCreate(
                         PropertyCreate.builder()
@@ -88,7 +88,7 @@ internal class PropertyServiceAsyncTest {
         val propertyFuture =
             propertyServiceAsync.update(
                 PropertyUpdateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyName("propertyName")
                     .mediaBridgePropertyUpdate(
@@ -133,7 +133,12 @@ internal class PropertyServiceAsyncTest {
 
         val collectionResponsePropertyNoPagingFuture =
             propertyServiceAsync.list(
-                PropertyListParams.builder().appId("appId").objectType("objectType").build()
+                PropertyListParams.builder()
+                    .appId(0)
+                    .objectType("objectType")
+                    .archived(true)
+                    .properties("properties")
+                    .build()
             )
 
         val collectionResponsePropertyNoPaging = collectionResponsePropertyNoPagingFuture.get()
@@ -153,35 +158,9 @@ internal class PropertyServiceAsyncTest {
         val future =
             propertyServiceAsync.delete(
                 PropertyDeleteParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyName("propertyName")
-                    .build()
-            )
-
-        val response = future.get()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun archiveBatch() {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val propertyServiceAsync = client.cms().mediaBridge().properties()
-
-        val future =
-            propertyServiceAsync.archiveBatch(
-                PropertyArchiveBatchParams.builder()
-                    .appId("appId")
-                    .objectType("objectType")
-                    .batchInputPropertyName(
-                        BatchInputPropertyName.builder()
-                            .addInput(PropertyName.builder().name("name").build())
-                            .build()
-                    )
                     .build()
             )
 
@@ -201,7 +180,7 @@ internal class PropertyServiceAsyncTest {
         val batchResponsePropertyFuture =
             propertyServiceAsync.createBatch(
                 PropertyCreateBatchParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchInputPropertyCreate(
                         BatchInputPropertyCreate.builder()
@@ -243,6 +222,32 @@ internal class PropertyServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
+    fun deleteBatch() {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val propertyServiceAsync = client.cms().mediaBridge().properties()
+
+        val future =
+            propertyServiceAsync.deleteBatch(
+                PropertyDeleteBatchParams.builder()
+                    .appId(0)
+                    .objectType("objectType")
+                    .batchInputPropertyName(
+                        BatchInputPropertyName.builder()
+                            .addInput(PropertyName.builder().name("name").build())
+                            .build()
+                    )
+                    .build()
+            )
+
+        val response = future.get()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
     fun get() {
         val client =
             HubspotOkHttpClientAsync.builder()
@@ -254,9 +259,11 @@ internal class PropertyServiceAsyncTest {
         val propertyFuture =
             propertyServiceAsync.get(
                 PropertyGetParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyName("propertyName")
+                    .archived(true)
+                    .properties("properties")
                     .build()
             )
 
@@ -277,15 +284,15 @@ internal class PropertyServiceAsyncTest {
         val batchResponsePropertyFuture =
             propertyServiceAsync.getBatch(
                 PropertyGetBatchParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchReadInputPropertyName(
                         BatchReadInputPropertyName.builder()
                             .archived(true)
-                            .addInput(PropertyName.builder().name("name").build())
                             .dataSensitivity(
                                 BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE
                             )
+                            .addInput(PropertyName.builder().name("name").build())
                             .build()
                     )
                     .build()

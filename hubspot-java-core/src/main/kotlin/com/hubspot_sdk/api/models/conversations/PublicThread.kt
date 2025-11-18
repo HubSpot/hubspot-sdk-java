@@ -23,6 +23,7 @@ class PublicThread
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val archived: JsonField<Boolean>,
     private val associatedContactId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val inboxId: JsonField<String>,
@@ -30,7 +31,6 @@ private constructor(
     private val originalChannelId: JsonField<String>,
     private val spam: JsonField<Boolean>,
     private val status: JsonField<Status>,
-    private val archived: JsonField<Boolean>,
     private val assignedTo: JsonField<String>,
     private val closedAt: JsonField<OffsetDateTime>,
     private val latestMessageReceivedTimestamp: JsonField<OffsetDateTime>,
@@ -43,6 +43,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("associatedContactId")
         @ExcludeMissing
         associatedContactId: JsonField<String> = JsonMissing.of(),
@@ -58,7 +59,6 @@ private constructor(
         originalChannelId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("spam") @ExcludeMissing spam: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("assignedTo")
         @ExcludeMissing
         assignedTo: JsonField<String> = JsonMissing.of(),
@@ -79,6 +79,7 @@ private constructor(
         threadAssociations: JsonField<PublicThreadAssociations> = JsonMissing.of(),
     ) : this(
         id,
+        archived,
         associatedContactId,
         createdAt,
         inboxId,
@@ -86,7 +87,6 @@ private constructor(
         originalChannelId,
         spam,
         status,
-        archived,
         assignedTo,
         closedAt,
         latestMessageReceivedTimestamp,
@@ -103,6 +103,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * Whether this thread is archived.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun archived(): Boolean = archived.getRequired("archived")
 
     /**
      * The ID of the associated Contact in the CRM. If the Contact for the thread has not yet been
@@ -160,14 +168,6 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * Whether this thread is archived.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun archived(): Optional<Boolean> = archived.getOptional("archived")
-
-    /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -221,6 +221,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [archived].
+     *
+     * Unlike [archived], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("archived") @ExcludeMissing fun _archived(): JsonField<Boolean> = archived
 
     /**
      * Returns the raw JSON value of [associatedContactId].
@@ -281,13 +288,6 @@ private constructor(
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
-
-    /**
-     * Returns the raw JSON value of [archived].
-     *
-     * Unlike [archived], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("archived") @ExcludeMissing fun _archived(): JsonField<Boolean> = archived
 
     /**
      * Returns the raw JSON value of [assignedTo].
@@ -364,6 +364,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .archived()
          * .associatedContactId()
          * .createdAt()
          * .inboxId()
@@ -380,6 +381,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var archived: JsonField<Boolean>? = null
         private var associatedContactId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var inboxId: JsonField<String>? = null
@@ -387,7 +389,6 @@ private constructor(
         private var originalChannelId: JsonField<String>? = null
         private var spam: JsonField<Boolean>? = null
         private var status: JsonField<Status>? = null
-        private var archived: JsonField<Boolean> = JsonMissing.of()
         private var assignedTo: JsonField<String> = JsonMissing.of()
         private var closedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var latestMessageReceivedTimestamp: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -399,6 +400,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(publicThread: PublicThread) = apply {
             id = publicThread.id
+            archived = publicThread.archived
             associatedContactId = publicThread.associatedContactId
             createdAt = publicThread.createdAt
             inboxId = publicThread.inboxId
@@ -406,7 +408,6 @@ private constructor(
             originalChannelId = publicThread.originalChannelId
             spam = publicThread.spam
             status = publicThread.status
-            archived = publicThread.archived
             assignedTo = publicThread.assignedTo
             closedAt = publicThread.closedAt
             latestMessageReceivedTimestamp = publicThread.latestMessageReceivedTimestamp
@@ -426,6 +427,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** Whether this thread is archived. */
+        fun archived(archived: Boolean) = archived(JsonField.of(archived))
+
+        /**
+         * Sets [Builder.archived] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.archived] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
         /**
          * The ID of the associated Contact in the CRM. If the Contact for the thread has not yet
@@ -518,18 +531,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
-
-        /** Whether this thread is archived. */
-        fun archived(archived: Boolean) = archived(JsonField.of(archived))
-
-        /**
-         * Sets [Builder.archived] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.archived] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
         fun assignedTo(assignedTo: String) = assignedTo(JsonField.of(assignedTo))
 
@@ -641,6 +642,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .archived()
          * .associatedContactId()
          * .createdAt()
          * .inboxId()
@@ -655,6 +657,7 @@ private constructor(
         fun build(): PublicThread =
             PublicThread(
                 checkRequired("id", id),
+                checkRequired("archived", archived),
                 checkRequired("associatedContactId", associatedContactId),
                 checkRequired("createdAt", createdAt),
                 checkRequired("inboxId", inboxId),
@@ -662,7 +665,6 @@ private constructor(
                 checkRequired("originalChannelId", originalChannelId),
                 checkRequired("spam", spam),
                 checkRequired("status", status),
-                archived,
                 assignedTo,
                 closedAt,
                 latestMessageReceivedTimestamp,
@@ -681,6 +683,7 @@ private constructor(
         }
 
         id()
+        archived()
         associatedContactId()
         createdAt()
         inboxId()
@@ -688,7 +691,6 @@ private constructor(
         originalChannelId()
         spam()
         status().validate()
-        archived()
         assignedTo()
         closedAt()
         latestMessageReceivedTimestamp()
@@ -714,6 +716,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (archived.asKnown().isPresent) 1 else 0) +
             (if (associatedContactId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (inboxId.asKnown().isPresent) 1 else 0) +
@@ -721,7 +724,6 @@ private constructor(
             (if (originalChannelId.asKnown().isPresent) 1 else 0) +
             (if (spam.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (archived.asKnown().isPresent) 1 else 0) +
             (if (assignedTo.asKnown().isPresent) 1 else 0) +
             (if (closedAt.asKnown().isPresent) 1 else 0) +
             (if (latestMessageReceivedTimestamp.asKnown().isPresent) 1 else 0) +
@@ -862,6 +864,7 @@ private constructor(
 
         return other is PublicThread &&
             id == other.id &&
+            archived == other.archived &&
             associatedContactId == other.associatedContactId &&
             createdAt == other.createdAt &&
             inboxId == other.inboxId &&
@@ -869,7 +872,6 @@ private constructor(
             originalChannelId == other.originalChannelId &&
             spam == other.spam &&
             status == other.status &&
-            archived == other.archived &&
             assignedTo == other.assignedTo &&
             closedAt == other.closedAt &&
             latestMessageReceivedTimestamp == other.latestMessageReceivedTimestamp &&
@@ -882,6 +884,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            archived,
             associatedContactId,
             createdAt,
             inboxId,
@@ -889,7 +892,6 @@ private constructor(
             originalChannelId,
             spam,
             status,
-            archived,
             assignedTo,
             closedAt,
             latestMessageReceivedTimestamp,
@@ -903,5 +905,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicThread{id=$id, associatedContactId=$associatedContactId, createdAt=$createdAt, inboxId=$inboxId, originalChannelAccountId=$originalChannelAccountId, originalChannelId=$originalChannelId, spam=$spam, status=$status, archived=$archived, assignedTo=$assignedTo, closedAt=$closedAt, latestMessageReceivedTimestamp=$latestMessageReceivedTimestamp, latestMessageSentTimestamp=$latestMessageSentTimestamp, latestMessageTimestamp=$latestMessageTimestamp, threadAssociations=$threadAssociations, additionalProperties=$additionalProperties}"
+        "PublicThread{id=$id, archived=$archived, associatedContactId=$associatedContactId, createdAt=$createdAt, inboxId=$inboxId, originalChannelAccountId=$originalChannelAccountId, originalChannelId=$originalChannelId, spam=$spam, status=$status, assignedTo=$assignedTo, closedAt=$closedAt, latestMessageReceivedTimestamp=$latestMessageReceivedTimestamp, latestMessageSentTimestamp=$latestMessageSentTimestamp, latestMessageTimestamp=$latestMessageTimestamp, threadAssociations=$threadAssociations, additionalProperties=$additionalProperties}"
 }

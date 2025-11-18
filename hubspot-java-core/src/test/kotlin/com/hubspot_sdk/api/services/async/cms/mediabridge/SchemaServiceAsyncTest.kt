@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.ObjectTypeDefinitionLabels
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
+import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectTypeDefinitionPatch
 import org.junit.jupiter.api.Disabled
@@ -31,7 +32,7 @@ internal class SchemaServiceAsyncTest {
         val objectsSchemasObjectTypeDefinitionFuture =
             schemaServiceAsync.update(
                 SchemaUpdateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .objectTypeDefinitionPatch(
                         ObjectTypeDefinitionPatch.builder()
@@ -67,7 +68,8 @@ internal class SchemaServiceAsyncTest {
                 .build()
         val schemaServiceAsync = client.cms().mediaBridge().schemas()
 
-        val collectionResponseObjectSchemaNoPagingFuture = schemaServiceAsync.list("appId")
+        val collectionResponseObjectSchemaNoPagingFuture =
+            schemaServiceAsync.list(SchemaListParams.builder().appId(0).archived(true).build())
 
         val collectionResponseObjectSchemaNoPaging =
             collectionResponseObjectSchemaNoPagingFuture.get()
@@ -87,7 +89,7 @@ internal class SchemaServiceAsyncTest {
         val associationDefinitionFuture =
             schemaServiceAsync.createAssociation(
                 SchemaCreateAssociationParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .associationDefinitionEgg(
                         AssociationDefinitionEgg.builder()
@@ -116,7 +118,7 @@ internal class SchemaServiceAsyncTest {
         val future =
             schemaServiceAsync.deleteAssociation(
                 SchemaDeleteAssociationParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .associationId("associationId")
                     .build()
@@ -137,7 +139,7 @@ internal class SchemaServiceAsyncTest {
 
         val objectSchemaFuture =
             schemaServiceAsync.get(
-                SchemaGetParams.builder().appId("appId").objectType("objectType").build()
+                SchemaGetParams.builder().appId(0).objectType("objectType").build()
             )
 
         val objectSchema = objectSchemaFuture.get()

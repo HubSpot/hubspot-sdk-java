@@ -12,12 +12,16 @@ import kotlin.jvm.optionals.getOrNull
 /** Retrieve details of a single conversations inbox using the inbox ID. */
 class InboxGetParams
 private constructor(
-    private val inboxId: String?,
+    private val inboxId: Int?,
+    private val archived: Boolean?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun inboxId(): Optional<String> = Optional.ofNullable(inboxId)
+    fun inboxId(): Optional<Int> = Optional.ofNullable(inboxId)
+
+    /** Whether to include archived inboxes in the response. */
+    fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -38,21 +42,43 @@ private constructor(
     /** A builder for [InboxGetParams]. */
     class Builder internal constructor() {
 
-        private var inboxId: String? = null
+        private var inboxId: Int? = null
+        private var archived: Boolean? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(inboxGetParams: InboxGetParams) = apply {
             inboxId = inboxGetParams.inboxId
+            archived = inboxGetParams.archived
             additionalHeaders = inboxGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = inboxGetParams.additionalQueryParams.toBuilder()
         }
 
-        fun inboxId(inboxId: String?) = apply { this.inboxId = inboxId }
+        fun inboxId(inboxId: Int?) = apply { this.inboxId = inboxId }
+
+        /**
+         * Alias for [Builder.inboxId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun inboxId(inboxId: Int) = inboxId(inboxId as Int?)
 
         /** Alias for calling [Builder.inboxId] with `inboxId.orElse(null)`. */
-        fun inboxId(inboxId: Optional<String>) = inboxId(inboxId.getOrNull())
+        fun inboxId(inboxId: Optional<Int>) = inboxId(inboxId.getOrNull())
+
+        /** Whether to include archived inboxes in the response. */
+        fun archived(archived: Boolean?) = apply { this.archived = archived }
+
+        /**
+         * Alias for [Builder.archived].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun archived(archived: Boolean) = archived(archived as Boolean?)
+
+        /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
+        fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -158,18 +184,29 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): InboxGetParams =
-            InboxGetParams(inboxId, additionalHeaders.build(), additionalQueryParams.build())
+            InboxGetParams(
+                inboxId,
+                archived,
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> inboxId ?: ""
+            0 -> inboxId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                archived?.let { put("archived", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -178,12 +215,14 @@ private constructor(
 
         return other is InboxGetParams &&
             inboxId == other.inboxId &&
+            archived == other.archived &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(inboxId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(inboxId, archived, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "InboxGetParams{inboxId=$inboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "InboxGetParams{inboxId=$inboxId, archived=$archived, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

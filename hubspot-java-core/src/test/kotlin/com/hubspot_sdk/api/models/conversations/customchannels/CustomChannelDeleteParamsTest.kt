@@ -9,14 +9,14 @@ internal class CustomChannelDeleteParamsTest {
 
     @Test
     fun create() {
-        CustomChannelDeleteParams.builder().channelId("channelId").build()
+        CustomChannelDeleteParams.builder().channelId(0).build()
     }
 
     @Test
     fun pathParams() {
-        val params = CustomChannelDeleteParams.builder().channelId("channelId").build()
+        val params = CustomChannelDeleteParams.builder().channelId(0).build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

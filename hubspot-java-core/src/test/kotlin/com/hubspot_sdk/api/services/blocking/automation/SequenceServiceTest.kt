@@ -4,6 +4,8 @@ package com.hubspot_sdk.api.services.blocking.automation
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.automation.sequences.SequenceGetParams
+import com.hubspot_sdk.api.models.automation.sequences.SequenceListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,10 +23,9 @@ internal class SequenceServiceTest {
                 .build()
         val sequenceService = client.automation().sequences()
 
-        val collectionResponseWithTotalPublicSequenceLiteResponseForwardPaging =
-            sequenceService.list()
+        val page = sequenceService.list(SequenceListParams.builder().userId("userId").build())
 
-        collectionResponseWithTotalPublicSequenceLiteResponseForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -37,7 +38,10 @@ internal class SequenceServiceTest {
                 .build()
         val sequenceService = client.automation().sequences()
 
-        val publicSequenceResponse = sequenceService.get("sequenceId")
+        val publicSequenceResponse =
+            sequenceService.get(
+                SequenceGetParams.builder().sequenceId("sequenceId").userId("userId").build()
+            )
 
         publicSequenceResponse.validate()
     }

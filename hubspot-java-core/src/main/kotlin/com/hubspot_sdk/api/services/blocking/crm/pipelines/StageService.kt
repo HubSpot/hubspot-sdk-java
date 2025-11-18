@@ -33,7 +33,7 @@ interface StageService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): StageService
 
-    /** Create a pipeline stage */
+    /** Create a new stage within the specified pipeline. */
     fun create(pipelineId: String, params: StageCreateParams): PipelineStage =
         create(pipelineId, params, RequestOptions.none())
 
@@ -53,6 +53,7 @@ interface StageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PipelineStage
 
+    /** Perform a partial update on a specific stage of a pipeline. */
     fun update(stageId: String, params: StageUpdateParams): PipelineStage =
         update(stageId, params, RequestOptions.none())
 
@@ -94,7 +95,7 @@ interface StageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponsePipelineStageNoPaging
 
-    /** Delete a pipeline stage */
+    /** Delete a specific stage from a pipeline. */
     fun delete(stageId: String, params: StageDeleteParams) =
         delete(stageId, params, RequestOptions.none())
 
@@ -111,7 +112,7 @@ interface StageService {
     /** @see delete */
     fun delete(params: StageDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /** Return a pipeline stage by ID */
+    /** Retrieve a specific stage from a pipeline using its ID. */
     fun get(stageId: String, params: StageGetParams): PipelineStage =
         get(stageId, params, RequestOptions.none())
 

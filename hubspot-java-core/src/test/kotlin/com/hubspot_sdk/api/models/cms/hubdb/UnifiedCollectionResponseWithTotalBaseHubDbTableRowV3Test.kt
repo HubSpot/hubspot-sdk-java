@@ -8,8 +8,8 @@ import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import com.hubspot_sdk.api.models.HubDbTableRowV3Wrapper
 import com.hubspot_sdk.api.models.NextPage
+import com.hubspot_sdk.api.models.Paging
 import com.hubspot_sdk.api.models.PreviousPage
-import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -89,8 +89,8 @@ internal class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3Test {
                 .total(0)
                 .type(StreamingCollectionResponseWithTotalHubDbTableRowV3.Type.STREAMING)
                 .paging(
-                    EmailsPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                    Paging.builder()
+                        .next(NextPage.builder().after("after").link("link").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()
                 )
@@ -123,8 +123,8 @@ internal class UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3Test {
                         .total(0)
                         .type(StreamingCollectionResponseWithTotalHubDbTableRowV3.Type.STREAMING)
                         .paging(
-                            EmailsPaging.builder()
-                                .next(NextPage.builder().after("").link("").build())
+                            Paging.builder()
+                                .next(NextPage.builder().after("after").link("link").build())
                                 .prev(PreviousPage.builder().before("before").link("link").build())
                                 .build()
                         )

@@ -13,13 +13,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the details for a specific message sent over a custom channel */
 class MessageGetParams
 private constructor(
-    private val channelId: String,
+    private val channelId: Int,
     private val messageId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): String = channelId
+    fun channelId(): Int = channelId
 
     fun messageId(): Optional<String> = Optional.ofNullable(messageId)
 
@@ -47,7 +47,7 @@ private constructor(
     /** A builder for [MessageGetParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
+        private var channelId: Int? = null
         private var messageId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -60,7 +60,7 @@ private constructor(
             additionalQueryParams = messageGetParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int) = apply { this.channelId = channelId }
 
         fun messageId(messageId: String?) = apply { this.messageId = messageId }
 
@@ -188,7 +188,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId
+            0 -> channelId.toString()
             1 -> messageId ?: ""
             else -> ""
         }

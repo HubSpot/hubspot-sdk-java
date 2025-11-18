@@ -28,7 +28,7 @@ internal class ChannelAccountStagingTokenServiceAsyncTest {
         val publicChannelAccountStagingTokenFuture =
             channelAccountStagingTokenServiceAsync.update(
                 ChannelAccountStagingTokenUpdateParams.builder()
-                    .channelId("channelId")
+                    .channelId(0)
                     .accountToken("accountToken")
                     .publicChannelAccountStagingTokenUpdateRequest(
                         PublicChannelAccountStagingTokenUpdateRequest.builder()

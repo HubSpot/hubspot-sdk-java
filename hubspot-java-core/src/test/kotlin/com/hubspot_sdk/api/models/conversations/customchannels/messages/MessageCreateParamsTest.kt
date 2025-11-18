@@ -17,7 +17,7 @@ internal class MessageCreateParamsTest {
     @Test
     fun create() {
         MessageCreateParams.builder()
-            .channelId("channelId")
+            .channelId(0)
             .channelIntegrationMessageEgg(
                 ChannelIntegrationMessageEgg.builder()
                     .addAttachment(
@@ -28,7 +28,6 @@ internal class MessageCreateParamsTest {
                             .build()
                     )
                     .channelAccountId("channelAccountId")
-                    .integrationThreadId("integrationThreadId")
                     .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                     .addRecipient(
                         ChannelIntegrationParticipant.builder()
@@ -56,6 +55,7 @@ internal class MessageCreateParamsTest {
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .inReplyToId("inReplyToId")
                     .integrationIdempotencyId("integrationIdempotencyId")
+                    .integrationThreadId("integrationThreadId")
                     .preResolvedContacts(
                         PreResolvedContacts.builder()
                             .addContact(
@@ -76,7 +76,7 @@ internal class MessageCreateParamsTest {
     fun pathParams() {
         val params =
             MessageCreateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .channelIntegrationMessageEgg(
                     ChannelIntegrationMessageEgg.builder()
                         .addAttachment(
@@ -86,7 +86,6 @@ internal class MessageCreateParamsTest {
                                 .build()
                         )
                         .channelAccountId("channelAccountId")
-                        .integrationThreadId("integrationThreadId")
                         .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                         .addRecipient(
                             ChannelIntegrationParticipant.builder()
@@ -114,7 +113,7 @@ internal class MessageCreateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -123,7 +122,7 @@ internal class MessageCreateParamsTest {
     fun body() {
         val params =
             MessageCreateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .channelIntegrationMessageEgg(
                     ChannelIntegrationMessageEgg.builder()
                         .addAttachment(
@@ -134,7 +133,6 @@ internal class MessageCreateParamsTest {
                                 .build()
                         )
                         .channelAccountId("channelAccountId")
-                        .integrationThreadId("integrationThreadId")
                         .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                         .addRecipient(
                             ChannelIntegrationParticipant.builder()
@@ -162,6 +160,7 @@ internal class MessageCreateParamsTest {
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .inReplyToId("inReplyToId")
                         .integrationIdempotencyId("integrationIdempotencyId")
+                        .integrationThreadId("integrationThreadId")
                         .preResolvedContacts(
                             PreResolvedContacts.builder()
                                 .addContact(
@@ -190,7 +189,6 @@ internal class MessageCreateParamsTest {
                             .build()
                     )
                     .channelAccountId("channelAccountId")
-                    .integrationThreadId("integrationThreadId")
                     .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                     .addRecipient(
                         ChannelIntegrationParticipant.builder()
@@ -218,6 +216,7 @@ internal class MessageCreateParamsTest {
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .inReplyToId("inReplyToId")
                     .integrationIdempotencyId("integrationIdempotencyId")
+                    .integrationThreadId("integrationThreadId")
                     .preResolvedContacts(
                         PreResolvedContacts.builder()
                             .addContact(
@@ -237,7 +236,7 @@ internal class MessageCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MessageCreateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .channelIntegrationMessageEgg(
                     ChannelIntegrationMessageEgg.builder()
                         .addAttachment(
@@ -247,7 +246,6 @@ internal class MessageCreateParamsTest {
                                 .build()
                         )
                         .channelAccountId("channelAccountId")
-                        .integrationThreadId("integrationThreadId")
                         .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                         .addRecipient(
                             ChannelIntegrationParticipant.builder()
@@ -287,7 +285,6 @@ internal class MessageCreateParamsTest {
                             .build()
                     )
                     .channelAccountId("channelAccountId")
-                    .integrationThreadId("integrationThreadId")
                     .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                     .addRecipient(
                         ChannelIntegrationParticipant.builder()

@@ -13,8 +13,8 @@ internal class PublicChannelTest {
     fun create() {
         val publicChannel = PublicChannel.builder().id("id").name("name").build()
 
-        assertThat(publicChannel.id()).contains("id")
-        assertThat(publicChannel.name()).contains("name")
+        assertThat(publicChannel.id()).isEqualTo("id")
+        assertThat(publicChannel.name()).isEqualTo("name")
     }
 
     @Test

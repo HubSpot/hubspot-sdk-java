@@ -7,10 +7,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.customchannels.CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelDeleteParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetParams
+import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListPage
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannel
@@ -75,14 +75,12 @@ interface CustomChannelService {
      * Update the capabilities for an existing. You can also use it to update the channel's
      * webhookUri and its channelAccountConnectionRedirectUrl.
      */
-    fun update(
-        channelId: String,
-        params: CustomChannelUpdateParams,
-    ): PublicChannelIntegrationChannel = update(channelId, params, RequestOptions.none())
+    fun update(channelId: Int, params: CustomChannelUpdateParams): PublicChannelIntegrationChannel =
+        update(channelId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        channelId: String,
+        channelId: Int,
         params: CustomChannelUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicChannelIntegrationChannel =
@@ -99,40 +97,36 @@ interface CustomChannelService {
     ): PublicChannelIntegrationChannel
 
     /** Retrieve all custom channels associated with the app. */
-    fun list(): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
-        list(CustomChannelListParams.none())
+    fun list(): CustomChannelListPage = list(CustomChannelListParams.none())
 
     /** @see list */
     fun list(
         params: CustomChannelListParams = CustomChannelListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
+    ): CustomChannelListPage
 
     /** @see list */
     fun list(
         params: CustomChannelListParams = CustomChannelListParams.none()
-    ): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
-        list(params, RequestOptions.none())
+    ): CustomChannelListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
+    fun list(requestOptions: RequestOptions): CustomChannelListPage =
         list(CustomChannelListParams.none(), requestOptions)
 
     /** Archive an existing registered custom channel */
-    fun delete(channelId: String) = delete(channelId, CustomChannelDeleteParams.none())
+    fun delete(channelId: Int) = delete(channelId, CustomChannelDeleteParams.none())
 
     /** @see delete */
     fun delete(
-        channelId: String,
+        channelId: Int,
         params: CustomChannelDeleteParams = CustomChannelDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = delete(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see delete */
     fun delete(
-        channelId: String,
+        channelId: Int,
         params: CustomChannelDeleteParams = CustomChannelDeleteParams.none(),
     ) = delete(channelId, params, RequestOptions.none())
 
@@ -146,19 +140,19 @@ interface CustomChannelService {
     fun delete(params: CustomChannelDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(channelId: String, requestOptions: RequestOptions) =
+    fun delete(channelId: Int, requestOptions: RequestOptions) =
         delete(channelId, CustomChannelDeleteParams.none(), requestOptions)
 
     /**
      * Retrieve the details about a custom channel. This API allows you to see a custom channel's
      * current capabilties and other configuration metadata
      */
-    fun get(channelId: String): PublicChannelIntegrationChannel =
+    fun get(channelId: Int): PublicChannelIntegrationChannel =
         get(channelId, CustomChannelGetParams.none())
 
     /** @see get */
     fun get(
-        channelId: String,
+        channelId: Int,
         params: CustomChannelGetParams = CustomChannelGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicChannelIntegrationChannel =
@@ -166,7 +160,7 @@ interface CustomChannelService {
 
     /** @see get */
     fun get(
-        channelId: String,
+        channelId: Int,
         params: CustomChannelGetParams = CustomChannelGetParams.none(),
     ): PublicChannelIntegrationChannel = get(channelId, params, RequestOptions.none())
 
@@ -181,7 +175,7 @@ interface CustomChannelService {
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(channelId: String, requestOptions: RequestOptions): PublicChannelIntegrationChannel =
+    fun get(channelId: Int, requestOptions: RequestOptions): PublicChannelIntegrationChannel =
         get(channelId, CustomChannelGetParams.none(), requestOptions)
 
     /**
@@ -246,7 +240,7 @@ interface CustomChannelService {
          */
         @MustBeClosed
         fun update(
-            channelId: String,
+            channelId: Int,
             params: CustomChannelUpdateParams,
         ): HttpResponseFor<PublicChannelIntegrationChannel> =
             update(channelId, params, RequestOptions.none())
@@ -254,7 +248,7 @@ interface CustomChannelService {
         /** @see update */
         @MustBeClosed
         fun update(
-            channelId: String,
+            channelId: Int,
             params: CustomChannelUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicChannelIntegrationChannel> =
@@ -278,46 +272,38 @@ interface CustomChannelService {
          * otherwise the same as [CustomChannelService.list].
          */
         @MustBeClosed
-        fun list():
-            HttpResponseFor<
-                CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
-            > = list(CustomChannelListParams.none())
+        fun list(): HttpResponseFor<CustomChannelListPage> = list(CustomChannelListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CustomChannelListParams = CustomChannelListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging>
+        ): HttpResponseFor<CustomChannelListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CustomChannelListParams = CustomChannelListParams.none()
-        ): HttpResponseFor<
-            CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
-        > = list(params, RequestOptions.none())
+        ): HttpResponseFor<CustomChannelListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<
-            CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
-        > = list(CustomChannelListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CustomChannelListPage> =
+            list(CustomChannelListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /conversations/v3/custom-channels/{channelId}`,
          * but is otherwise the same as [CustomChannelService.delete].
          */
         @MustBeClosed
-        fun delete(channelId: String): HttpResponse =
+        fun delete(channelId: Int): HttpResponse =
             delete(channelId, CustomChannelDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
-            channelId: String,
+            channelId: Int,
             params: CustomChannelDeleteParams = CustomChannelDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse = delete(params.toBuilder().channelId(channelId).build(), requestOptions)
@@ -325,7 +311,7 @@ interface CustomChannelService {
         /** @see delete */
         @MustBeClosed
         fun delete(
-            channelId: String,
+            channelId: Int,
             params: CustomChannelDeleteParams = CustomChannelDeleteParams.none(),
         ): HttpResponse = delete(channelId, params, RequestOptions.none())
 
@@ -343,7 +329,7 @@ interface CustomChannelService {
 
         /** @see delete */
         @MustBeClosed
-        fun delete(channelId: String, requestOptions: RequestOptions): HttpResponse =
+        fun delete(channelId: Int, requestOptions: RequestOptions): HttpResponse =
             delete(channelId, CustomChannelDeleteParams.none(), requestOptions)
 
         /**
@@ -351,13 +337,13 @@ interface CustomChannelService {
          * is otherwise the same as [CustomChannelService.get].
          */
         @MustBeClosed
-        fun get(channelId: String): HttpResponseFor<PublicChannelIntegrationChannel> =
+        fun get(channelId: Int): HttpResponseFor<PublicChannelIntegrationChannel> =
             get(channelId, CustomChannelGetParams.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            channelId: String,
+            channelId: Int,
             params: CustomChannelGetParams = CustomChannelGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicChannelIntegrationChannel> =
@@ -366,7 +352,7 @@ interface CustomChannelService {
         /** @see get */
         @MustBeClosed
         fun get(
-            channelId: String,
+            channelId: Int,
             params: CustomChannelGetParams = CustomChannelGetParams.none(),
         ): HttpResponseFor<PublicChannelIntegrationChannel> =
             get(channelId, params, RequestOptions.none())
@@ -386,7 +372,7 @@ interface CustomChannelService {
         /** @see get */
         @MustBeClosed
         fun get(
-            channelId: String,
+            channelId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PublicChannelIntegrationChannel> =
             get(channelId, CustomChannelGetParams.none(), requestOptions)

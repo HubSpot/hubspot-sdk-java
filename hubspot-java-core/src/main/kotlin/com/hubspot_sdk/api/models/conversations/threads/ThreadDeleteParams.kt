@@ -17,13 +17,13 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ThreadDeleteParams
 private constructor(
-    private val threadId: String?,
+    private val threadId: Long?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun threadId(): Optional<String> = Optional.ofNullable(threadId)
+    fun threadId(): Optional<Long> = Optional.ofNullable(threadId)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -47,7 +47,7 @@ private constructor(
     /** A builder for [ThreadDeleteParams]. */
     class Builder internal constructor() {
 
-        private var threadId: String? = null
+        private var threadId: Long? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -60,10 +60,17 @@ private constructor(
             additionalBodyProperties = threadDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun threadId(threadId: String?) = apply { this.threadId = threadId }
+        fun threadId(threadId: Long?) = apply { this.threadId = threadId }
+
+        /**
+         * Alias for [Builder.threadId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun threadId(threadId: Long) = threadId(threadId as Long?)
 
         /** Alias for calling [Builder.threadId] with `threadId.orElse(null)`. */
-        fun threadId(threadId: Optional<String>) = threadId(threadId.getOrNull())
+        fun threadId(threadId: Optional<Long>) = threadId(threadId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -204,7 +211,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> threadId ?: ""
+            0 -> threadId?.toString() ?: ""
             else -> ""
         }
 

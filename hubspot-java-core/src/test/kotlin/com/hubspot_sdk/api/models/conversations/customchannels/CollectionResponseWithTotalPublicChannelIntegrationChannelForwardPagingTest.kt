@@ -36,7 +36,7 @@ internal class CollectionResponseWithTotalPublicChannelIntegrationChannelForward
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -64,7 +64,9 @@ internal class CollectionResponseWithTotalPublicChannelIntegrationChannelForward
             .isEqualTo(0)
         assertThat(collectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -92,7 +94,7 @@ internal class CollectionResponseWithTotalPublicChannelIntegrationChannelForward
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

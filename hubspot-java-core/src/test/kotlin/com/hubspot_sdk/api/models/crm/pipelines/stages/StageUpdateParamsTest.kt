@@ -17,14 +17,14 @@ internal class StageUpdateParamsTest {
             .stageId("stageId")
             .pipelineStagePatchInput(
                 PipelineStagePatchInput.builder()
-                    .archived(true)
-                    .displayOrder(1)
-                    .label("Done")
                     .metadata(
                         PipelineStagePatchInput.Metadata.builder()
                             .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                             .build()
                     )
+                    .archived(true)
+                    .displayOrder(1)
+                    .label("Done")
                     .build()
             )
             .build()
@@ -37,7 +37,15 @@ internal class StageUpdateParamsTest {
                 .objectType("objectType")
                 .pipelineId("pipelineId")
                 .stageId("stageId")
-                .pipelineStagePatchInput(PipelineStagePatchInput.builder().build())
+                .pipelineStagePatchInput(
+                    PipelineStagePatchInput.builder()
+                        .metadata(
+                            PipelineStagePatchInput.Metadata.builder()
+                                .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("objectType")
@@ -56,9 +64,44 @@ internal class StageUpdateParamsTest {
                 .stageId("stageId")
                 .pipelineStagePatchInput(
                     PipelineStagePatchInput.builder()
+                        .metadata(
+                            PipelineStagePatchInput.Metadata.builder()
+                                .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
+                                .build()
+                        )
                         .archived(true)
                         .displayOrder(1)
                         .label("Done")
+                        .build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body)
+            .isEqualTo(
+                PipelineStagePatchInput.builder()
+                    .metadata(
+                        PipelineStagePatchInput.Metadata.builder()
+                            .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
+                            .build()
+                    )
+                    .archived(true)
+                    .displayOrder(1)
+                    .label("Done")
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            StageUpdateParams.builder()
+                .objectType("objectType")
+                .pipelineId("pipelineId")
+                .stageId("stageId")
+                .pipelineStagePatchInput(
+                    PipelineStagePatchInput.builder()
                         .metadata(
                             PipelineStagePatchInput.Metadata.builder()
                                 .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
@@ -73,9 +116,6 @@ internal class StageUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 PipelineStagePatchInput.builder()
-                    .archived(true)
-                    .displayOrder(1)
-                    .label("Done")
                     .metadata(
                         PipelineStagePatchInput.Metadata.builder()
                             .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
@@ -83,20 +123,5 @@ internal class StageUpdateParamsTest {
                     )
                     .build()
             )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            StageUpdateParams.builder()
-                .objectType("objectType")
-                .pipelineId("pipelineId")
-                .stageId("stageId")
-                .pipelineStagePatchInput(PipelineStagePatchInput.builder().build())
-                .build()
-
-        val body = params._body()
-
-        assertThat(body).isEqualTo(PipelineStagePatchInput.builder().build())
     }
 }

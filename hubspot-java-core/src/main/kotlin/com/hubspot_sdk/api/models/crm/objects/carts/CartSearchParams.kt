@@ -10,6 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 
+/**
+ * Execute a search for carts based on the specified search criteria, such as filters and
+ * properties, and retrieve the matching results.
+ */
 class CartSearchParams
 private constructor(
     private val publicObjectSearchRequest: PublicObjectSearchRequest,

@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.automation.sequences.CollectionResponseWithTotalPublicSequenceLiteResponseForwardPaging
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceResponse
 import com.hubspot_sdk.api.models.automation.sequences.SequenceGetParams
+import com.hubspot_sdk.api.models.automation.sequences.SequenceListPage
 import com.hubspot_sdk.api.models.automation.sequences.SequenceListParams
 import com.hubspot_sdk.api.services.blocking.automation.sequences.EnrollmentService
 import com.hubspot_sdk.api.services.blocking.automation.sequences.EnrollmentServiceImpl
@@ -43,7 +44,7 @@ class SequenceServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: SequenceListParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalPublicSequenceLiteResponseForwardPaging =
+    ): SequenceListPage =
         // get /automation/v4/sequences/
         withRawResponse().list(params, requestOptions).parse()
 
@@ -82,7 +83,7 @@ class SequenceServiceImpl internal constructor(private val clientOptions: Client
         override fun list(
             params: SequenceListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalPublicSequenceLiteResponseForwardPaging> {
+        ): HttpResponseFor<SequenceListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -99,6 +100,13 @@ class SequenceServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        SequenceListPage.builder()
+                            .service(SequenceServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

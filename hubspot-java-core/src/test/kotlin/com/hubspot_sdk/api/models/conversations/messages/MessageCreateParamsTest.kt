@@ -15,7 +15,7 @@ internal class MessageCreateParamsTest {
     @Test
     fun create() {
         MessageCreateParams.builder()
-            .threadId("threadId")
+            .threadId(0L)
             .publicMessageEgg(
                 PublicConversationsMessageEgg.builder()
                     .addAttachment(
@@ -59,7 +59,7 @@ internal class MessageCreateParamsTest {
     fun pathParams() {
         val params =
             MessageCreateParams.builder()
-                .threadId("threadId")
+                .threadId(0L)
                 .publicMessageEgg(
                     PublicConversationsMessageEgg.builder()
                         .addAttachment(
@@ -87,7 +87,7 @@ internal class MessageCreateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("threadId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -96,7 +96,7 @@ internal class MessageCreateParamsTest {
     fun body() {
         val params =
             MessageCreateParams.builder()
-                .threadId("threadId")
+                .threadId(0L)
                 .publicMessageEgg(
                     PublicConversationsMessageEgg.builder()
                         .addAttachment(
@@ -182,7 +182,7 @@ internal class MessageCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MessageCreateParams.builder()
-                .threadId("threadId")
+                .threadId(0L)
                 .publicMessageEgg(
                     PublicConversationsMessageEgg.builder()
                         .addAttachment(

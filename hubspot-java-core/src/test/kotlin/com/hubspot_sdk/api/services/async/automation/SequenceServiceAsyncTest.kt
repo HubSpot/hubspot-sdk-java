@@ -4,6 +4,8 @@ package com.hubspot_sdk.api.services.async.automation
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.models.automation.sequences.SequenceGetParams
+import com.hubspot_sdk.api.models.automation.sequences.SequenceListParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,12 +23,11 @@ internal class SequenceServiceAsyncTest {
                 .build()
         val sequenceServiceAsync = client.automation().sequences()
 
-        val collectionResponseWithTotalPublicSequenceLiteResponseForwardPagingFuture =
-            sequenceServiceAsync.list()
+        val pageFuture =
+            sequenceServiceAsync.list(SequenceListParams.builder().userId("userId").build())
 
-        val collectionResponseWithTotalPublicSequenceLiteResponseForwardPaging =
-            collectionResponseWithTotalPublicSequenceLiteResponseForwardPagingFuture.get()
-        collectionResponseWithTotalPublicSequenceLiteResponseForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -39,7 +40,10 @@ internal class SequenceServiceAsyncTest {
                 .build()
         val sequenceServiceAsync = client.automation().sequences()
 
-        val publicSequenceResponseFuture = sequenceServiceAsync.get("sequenceId")
+        val publicSequenceResponseFuture =
+            sequenceServiceAsync.get(
+                SequenceGetParams.builder().sequenceId("sequenceId").userId("userId").build()
+            )
 
         val publicSequenceResponse = publicSequenceResponseFuture.get()
         publicSequenceResponse.validate()

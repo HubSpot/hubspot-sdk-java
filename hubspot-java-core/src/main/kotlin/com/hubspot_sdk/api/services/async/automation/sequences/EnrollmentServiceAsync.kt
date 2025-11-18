@@ -6,7 +6,6 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentLiteResponse
-import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentRequest
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentResponse
 import com.hubspot_sdk.api.models.automation.sequences.enrollments.EnrollmentEnrollParams
 import com.hubspot_sdk.api.models.automation.sequences.enrollments.EnrollmentGetByContactIdParams
@@ -38,24 +37,6 @@ interface EnrollmentServiceAsync {
         params: EnrollmentEnrollParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicSequenceEnrollmentLiteResponse>
-
-    /** @see enroll */
-    fun enroll(
-        publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSequenceEnrollmentLiteResponse> =
-        enroll(
-            EnrollmentEnrollParams.builder()
-                .publicSequenceEnrollmentRequest(publicSequenceEnrollmentRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see enroll */
-    fun enroll(
-        publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest
-    ): CompletableFuture<PublicSequenceEnrollmentLiteResponse> =
-        enroll(publicSequenceEnrollmentRequest, RequestOptions.none())
 
     /** Get the enrollment status of a contact in sequences by their contact ID. */
     fun getByContactId(contactId: String): CompletableFuture<PublicSequenceEnrollmentResponse> =
@@ -124,24 +105,6 @@ interface EnrollmentServiceAsync {
             params: EnrollmentEnrollParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicSequenceEnrollmentLiteResponse>>
-
-        /** @see enroll */
-        fun enroll(
-            publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSequenceEnrollmentLiteResponse>> =
-            enroll(
-                EnrollmentEnrollParams.builder()
-                    .publicSequenceEnrollmentRequest(publicSequenceEnrollmentRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see enroll */
-        fun enroll(
-            publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest
-        ): CompletableFuture<HttpResponseFor<PublicSequenceEnrollmentLiteResponse>> =
-            enroll(publicSequenceEnrollmentRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get

@@ -17,6 +17,8 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.crm.associations.schema.CollectionResponsePublicAssociationDefinitionNoPaging
 import com.hubspot_sdk.api.models.crm.associations.schema.SchemaListParams
+import com.hubspot_sdk.api.services.blocking.crm.associations.schema.V4Service
+import com.hubspot_sdk.api.services.blocking.crm.associations.schema.V4ServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -27,10 +29,14 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
         WithRawResponseImpl(clientOptions)
     }
 
+    private val v4: V4Service by lazy { V4ServiceImpl(clientOptions) }
+
     override fun withRawResponse(): SchemaService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SchemaService =
         SchemaServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun v4(): V4Service = v4
 
     override fun list(
         params: SchemaListParams,
@@ -45,12 +51,18 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val v4: V4Service.WithRawResponse by lazy {
+            V4ServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): SchemaService.WithRawResponse =
             SchemaServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun v4(): V4Service.WithRawResponse = v4
 
         private val listHandler: Handler<CollectionResponsePublicAssociationDefinitionNoPaging> =
             jsonHandler<CollectionResponsePublicAssociationDefinitionNoPaging>(

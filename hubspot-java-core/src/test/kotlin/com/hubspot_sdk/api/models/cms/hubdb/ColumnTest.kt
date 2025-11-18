@@ -17,10 +17,12 @@ internal class ColumnTest {
     fun create() {
         val column =
             Column.builder()
+                .id("id")
+                .deleted(true)
+                .description("description")
                 .label("label")
                 .name("name")
                 .type(Column.Type.NULL)
-                .id("id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdBy(
                     SimpleUser.builder()
@@ -31,8 +33,6 @@ internal class ColumnTest {
                         .build()
                 )
                 .createdByUserId(0)
-                .deleted(true)
-                .description("description")
                 .foreignColumnId(0)
                 .addForeignId(ForeignId.builder().id("id").name("name").type("type").build())
                 .foreignIdsById(
@@ -75,10 +75,12 @@ internal class ColumnTest {
                 .width(0)
                 .build()
 
+        assertThat(column.id()).isEqualTo("id")
+        assertThat(column.deleted()).isEqualTo(true)
+        assertThat(column.description()).isEqualTo("description")
         assertThat(column.label()).isEqualTo("label")
         assertThat(column.name()).isEqualTo("name")
         assertThat(column.type()).isEqualTo(Column.Type.NULL)
-        assertThat(column.id()).contains("id")
         assertThat(column.createdAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(column.createdBy())
             .contains(
@@ -90,8 +92,6 @@ internal class ColumnTest {
                     .build()
             )
         assertThat(column.createdByUserId()).contains(0)
-        assertThat(column.deleted()).contains(true)
-        assertThat(column.description()).contains("description")
         assertThat(column.foreignColumnId()).contains(0)
         assertThat(column.foreignIds().getOrNull())
             .containsExactly(ForeignId.builder().id("id").name("name").type("type").build())
@@ -144,10 +144,12 @@ internal class ColumnTest {
         val jsonMapper = jsonMapper()
         val column =
             Column.builder()
+                .id("id")
+                .deleted(true)
+                .description("description")
                 .label("label")
                 .name("name")
                 .type(Column.Type.NULL)
-                .id("id")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdBy(
                     SimpleUser.builder()
@@ -158,8 +160,6 @@ internal class ColumnTest {
                         .build()
                 )
                 .createdByUserId(0)
-                .deleted(true)
-                .description("description")
                 .foreignColumnId(0)
                 .addForeignId(ForeignId.builder().id("id").name("name").type("type").build())
                 .foreignIdsById(

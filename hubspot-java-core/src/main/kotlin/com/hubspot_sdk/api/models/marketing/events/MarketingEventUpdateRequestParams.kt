@@ -11,6 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.time.OffsetDateTime
@@ -84,11 +85,10 @@ private constructor(
      * create any new default properties on the MarketingEvent object as that will apply to all
      * HubSpot accounts.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun customProperties(): Optional<List<PropertyValue>> =
-        customProperties.getOptional("customProperties")
+    fun customProperties(): List<PropertyValue> = customProperties.getRequired("customProperties")
 
     /**
      * The end date and time of the marketing event.
@@ -263,6 +263,11 @@ private constructor(
         /**
          * Returns a mutable builder for constructing an instance of
          * [MarketingEventUpdateRequestParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .customProperties()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -480,10 +485,17 @@ private constructor(
          * Returns an immutable instance of [MarketingEventUpdateRequestParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .customProperties()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): MarketingEventUpdateRequestParams =
             MarketingEventUpdateRequestParams(
-                (customProperties ?: JsonMissing.of()).map { it.toImmutable() },
+                checkRequired("customProperties", customProperties).map { it.toImmutable() },
                 endDateTime,
                 eventCancelled,
                 eventCompleted,
@@ -504,7 +516,7 @@ private constructor(
             return@apply
         }
 
-        customProperties().ifPresent { it.forEach { it.validate() } }
+        customProperties().forEach { it.validate() }
         endDateTime()
         eventCancelled()
         eventCompleted()

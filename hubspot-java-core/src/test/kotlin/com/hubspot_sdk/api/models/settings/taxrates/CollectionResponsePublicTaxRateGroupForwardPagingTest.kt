@@ -29,7 +29,7 @@ internal class CollectionResponsePublicTaxRateGroupForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -48,7 +48,9 @@ internal class CollectionResponsePublicTaxRateGroupForwardPagingTest {
             )
         assertThat(collectionResponsePublicTaxRateGroupForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -70,7 +72,7 @@ internal class CollectionResponsePublicTaxRateGroupForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

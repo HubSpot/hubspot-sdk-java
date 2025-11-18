@@ -43,7 +43,7 @@ internal class CollectionResponseWithTotalDomainForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -76,7 +76,9 @@ internal class CollectionResponseWithTotalDomainForwardPagingTest {
         assertThat(collectionResponseWithTotalDomainForwardPaging.total()).isEqualTo(0)
         assertThat(collectionResponseWithTotalDomainForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -112,7 +114,7 @@ internal class CollectionResponseWithTotalDomainForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

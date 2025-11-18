@@ -34,7 +34,7 @@ internal class ExternalUnifiedEventTest {
         assertThat(externalUnifiedEvent.occurredAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(externalUnifiedEvent.properties())
-            .contains(
+            .isEqualTo(
                 ExternalUnifiedEvent.Properties.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()

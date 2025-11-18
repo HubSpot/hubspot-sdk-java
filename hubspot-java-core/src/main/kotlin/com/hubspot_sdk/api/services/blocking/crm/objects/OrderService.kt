@@ -175,6 +175,7 @@ interface OrderService {
     fun get(orderId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
         get(orderId, OrderGetParams.none(), requestOptions)
 
+    /** Execute a search for orders using specified criteria and return matching results. */
     fun search(params: OrderSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 

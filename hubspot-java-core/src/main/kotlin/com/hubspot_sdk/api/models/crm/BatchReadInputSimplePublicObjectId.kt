@@ -71,6 +71,8 @@ private constructor(
         propertiesWithHistory.getRequired("propertiesWithHistory")
 
     /**
+     * A unique property used to identify objects instead of the default ID.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -241,6 +243,7 @@ private constructor(
                 }
         }
 
+        /** A unique property used to identify objects instead of the default ID. */
         fun idProperty(idProperty: String) = idProperty(JsonField.of(idProperty))
 
         /**

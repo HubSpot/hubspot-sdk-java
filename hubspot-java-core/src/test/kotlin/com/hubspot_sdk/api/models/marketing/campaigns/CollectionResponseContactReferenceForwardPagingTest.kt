@@ -18,7 +18,7 @@ internal class CollectionResponseContactReferenceForwardPagingTest {
                 .addResult(ContactReference.builder().id("id").build())
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -27,7 +27,9 @@ internal class CollectionResponseContactReferenceForwardPagingTest {
             .containsExactly(ContactReference.builder().id("id").build())
         assertThat(collectionResponseContactReferenceForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -39,7 +41,7 @@ internal class CollectionResponseContactReferenceForwardPagingTest {
                 .addResult(ContactReference.builder().id("id").build())
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

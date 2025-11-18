@@ -30,9 +30,11 @@ private constructor(
 
     fun pipelineId(): Optional<String> = Optional.ofNullable(pipelineId)
 
+    /** Indicates whether to validate deal stage usages before deleting the pipeline. */
     fun validateDealStageUsagesBeforeDelete(): Optional<Boolean> =
         Optional.ofNullable(validateDealStageUsagesBeforeDelete)
 
+    /** Indicates whether to validate references before deleting the pipeline. */
     fun validateReferencesBeforeDelete(): Optional<Boolean> =
         Optional.ofNullable(validateReferencesBeforeDelete)
 
@@ -94,6 +96,7 @@ private constructor(
         /** Alias for calling [Builder.pipelineId] with `pipelineId.orElse(null)`. */
         fun pipelineId(pipelineId: Optional<String>) = pipelineId(pipelineId.getOrNull())
 
+        /** Indicates whether to validate deal stage usages before deleting the pipeline. */
         fun validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete: Boolean?) =
             apply {
                 this.validateDealStageUsagesBeforeDelete = validateDealStageUsagesBeforeDelete
@@ -115,6 +118,7 @@ private constructor(
             validateDealStageUsagesBeforeDelete: Optional<Boolean>
         ) = validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete.getOrNull())
 
+        /** Indicates whether to validate references before deleting the pipeline. */
         fun validateReferencesBeforeDelete(validateReferencesBeforeDelete: Boolean?) = apply {
             this.validateReferencesBeforeDelete = validateReferencesBeforeDelete
         }

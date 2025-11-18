@@ -19,6 +19,7 @@ private constructor(
     private val contactId: String?,
     private val archived: Boolean?,
     private val associations: List<String>?,
+    private val idProperty: String?,
     private val properties: List<String>?,
     private val propertiesWithHistory: List<String>?,
     private val additionalHeaders: Headers,
@@ -35,6 +36,9 @@ private constructor(
      * specified associations do not exist, they will be ignored.
      */
     fun associations(): Optional<List<String>> = Optional.ofNullable(associations)
+
+    /** The name of a property whose values are unique for this object */
+    fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
     /**
      * A comma separated list of the properties to be returned in the response. If any of the
@@ -71,6 +75,7 @@ private constructor(
         private var contactId: String? = null
         private var archived: Boolean? = null
         private var associations: MutableList<String>? = null
+        private var idProperty: String? = null
         private var properties: MutableList<String>? = null
         private var propertiesWithHistory: MutableList<String>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -81,6 +86,7 @@ private constructor(
             contactId = contactGetParams.contactId
             archived = contactGetParams.archived
             associations = contactGetParams.associations?.toMutableList()
+            idProperty = contactGetParams.idProperty
             properties = contactGetParams.properties?.toMutableList()
             propertiesWithHistory = contactGetParams.propertiesWithHistory?.toMutableList()
             additionalHeaders = contactGetParams.additionalHeaders.toBuilder()
@@ -125,6 +131,12 @@ private constructor(
         fun addAssociation(association: String) = apply {
             associations = (associations ?: mutableListOf()).apply { add(association) }
         }
+
+        /** The name of a property whose values are unique for this object */
+        fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
+
+        /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
+        fun idProperty(idProperty: Optional<String>) = idProperty(idProperty.getOrNull())
 
         /**
          * A comma separated list of the properties to be returned in the response. If any of the
@@ -280,6 +292,7 @@ private constructor(
                 contactId,
                 archived,
                 associations?.toImmutable(),
+                idProperty,
                 properties?.toImmutable(),
                 propertiesWithHistory?.toImmutable(),
                 additionalHeaders.build(),
@@ -300,6 +313,7 @@ private constructor(
             .apply {
                 archived?.let { put("archived", it.toString()) }
                 associations?.let { put("associations", it.joinToString(",")) }
+                idProperty?.let { put("idProperty", it) }
                 properties?.let { put("properties", it.joinToString(",")) }
                 propertiesWithHistory?.let { put("propertiesWithHistory", it.joinToString(",")) }
                 putAll(additionalQueryParams)
@@ -315,6 +329,7 @@ private constructor(
             contactId == other.contactId &&
             archived == other.archived &&
             associations == other.associations &&
+            idProperty == other.idProperty &&
             properties == other.properties &&
             propertiesWithHistory == other.propertiesWithHistory &&
             additionalHeaders == other.additionalHeaders &&
@@ -326,6 +341,7 @@ private constructor(
             contactId,
             archived,
             associations,
+            idProperty,
             properties,
             propertiesWithHistory,
             additionalHeaders,
@@ -333,5 +349,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ContactGetParams{contactId=$contactId, archived=$archived, associations=$associations, properties=$properties, propertiesWithHistory=$propertiesWithHistory, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactGetParams{contactId=$contactId, archived=$archived, associations=$associations, idProperty=$idProperty, properties=$properties, propertiesWithHistory=$propertiesWithHistory, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

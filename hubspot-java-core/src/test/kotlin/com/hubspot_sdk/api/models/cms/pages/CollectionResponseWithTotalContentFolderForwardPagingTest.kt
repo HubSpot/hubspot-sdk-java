@@ -30,7 +30,7 @@ internal class CollectionResponseWithTotalContentFolderForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -50,7 +50,9 @@ internal class CollectionResponseWithTotalContentFolderForwardPagingTest {
         assertThat(collectionResponseWithTotalContentFolderForwardPaging.total()).isEqualTo(0)
         assertThat(collectionResponseWithTotalContentFolderForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -73,7 +75,7 @@ internal class CollectionResponseWithTotalContentFolderForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

@@ -26,7 +26,7 @@ internal class PipelineStageInputTest {
         assertThat(pipelineStageInput.displayOrder()).isEqualTo(1)
         assertThat(pipelineStageInput.label()).isEqualTo("Done")
         assertThat(pipelineStageInput.metadata())
-            .contains(
+            .isEqualTo(
                 PipelineStageInput.Metadata.builder()
                     .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                     .build()

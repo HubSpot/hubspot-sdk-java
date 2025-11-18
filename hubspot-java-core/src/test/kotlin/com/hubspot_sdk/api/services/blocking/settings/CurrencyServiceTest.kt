@@ -186,9 +186,9 @@ internal class CurrencyServiceTest {
                 .build()
         val currencyService = client.settings().currencies()
 
-        val collectionResponseExchangeRateForwardPaging = currencyService.listExchangeRates()
+        val page = currencyService.listExchangeRates()
 
-        collectionResponseExchangeRateForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

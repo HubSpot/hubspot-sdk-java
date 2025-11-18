@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicChannel
 import com.hubspot_sdk.api.models.conversations.channels.ChannelGetParams
+import com.hubspot_sdk.api.models.conversations.channels.ChannelListPageAsync
 import com.hubspot_sdk.api.models.conversations.channels.ChannelListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -38,7 +39,7 @@ class ChannelServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: ChannelListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelForwardPaging> =
+    ): CompletableFuture<ChannelListPageAsync> =
         // get /conversations/v3/conversations/channels
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -70,9 +71,7 @@ class ChannelServiceAsyncImpl internal constructor(private val clientOptions: Cl
         override fun list(
             params: ChannelListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<ChannelListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -91,6 +90,14 @@ class ChannelServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ChannelListPageAsync.builder()
+                                    .service(ChannelServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

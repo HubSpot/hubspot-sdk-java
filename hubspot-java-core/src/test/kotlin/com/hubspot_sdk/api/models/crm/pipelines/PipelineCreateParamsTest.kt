@@ -56,10 +56,29 @@ internal class PipelineCreateParamsTest {
                             PipelineStageInput.builder()
                                 .displayOrder(0)
                                 .label("In Progress")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("OPEN"),
+                                        )
+                                        .build()
+                                )
                                 .build()
                         )
                         .addStage(
-                            PipelineStageInput.builder().displayOrder(1).label("Done").build()
+                            PipelineStageInput.builder()
+                                .displayOrder(1)
+                                .label("Done")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("CLOSED"),
+                                        )
+                                        .build()
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -140,43 +159,6 @@ internal class PipelineCreateParamsTest {
                             )
                             .build()
                     )
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            PipelineCreateParams.builder()
-                .objectType("objectType")
-                .pipelineInput(
-                    PipelineInput.builder()
-                        .displayOrder(0)
-                        .label("My replaced pipeline")
-                        .addStage(
-                            PipelineStageInput.builder()
-                                .displayOrder(0)
-                                .label("In Progress")
-                                .build()
-                        )
-                        .addStage(
-                            PipelineStageInput.builder().displayOrder(1).label("Done").build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                PipelineInput.builder()
-                    .displayOrder(0)
-                    .label("My replaced pipeline")
-                    .addStage(
-                        PipelineStageInput.builder().displayOrder(0).label("In Progress").build()
-                    )
-                    .addStage(PipelineStageInput.builder().displayOrder(1).label("Done").build())
                     .build()
             )
     }

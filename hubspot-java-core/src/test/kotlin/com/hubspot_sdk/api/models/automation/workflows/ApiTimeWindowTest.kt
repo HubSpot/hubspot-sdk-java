@@ -20,9 +20,9 @@ internal class ApiTimeWindowTest {
 
         assertThat(apiTimeWindow.day()).isEqualTo(ApiTimeWindow.Day.MONDAY)
         assertThat(apiTimeWindow.endTime())
-            .isEqualTo(ApiTimeOfDay.builder().hour(0).minute(0).build())
+            .contains(ApiTimeOfDay.builder().hour(0).minute(0).build())
         assertThat(apiTimeWindow.startTime())
-            .isEqualTo(ApiTimeOfDay.builder().hour(0).minute(0).build())
+            .contains(ApiTimeOfDay.builder().hour(0).minute(0).build())
     }
 
     @Test

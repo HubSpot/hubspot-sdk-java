@@ -13,15 +13,19 @@ import kotlin.jvm.optionals.getOrNull
 /** Retrieve a single message from a thread using the message ID. */
 class MessageGetParams
 private constructor(
-    private val threadId: String,
+    private val threadId: Long,
     private val messageId: String?,
+    private val property: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun threadId(): String = threadId
+    fun threadId(): Long = threadId
 
     fun messageId(): Optional<String> = Optional.ofNullable(messageId)
+
+    /** A specific property to include in the message response. */
+    fun property(): Optional<String> = Optional.ofNullable(property)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -47,8 +51,9 @@ private constructor(
     /** A builder for [MessageGetParams]. */
     class Builder internal constructor() {
 
-        private var threadId: String? = null
+        private var threadId: Long? = null
         private var messageId: String? = null
+        private var property: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -56,16 +61,23 @@ private constructor(
         internal fun from(messageGetParams: MessageGetParams) = apply {
             threadId = messageGetParams.threadId
             messageId = messageGetParams.messageId
+            property = messageGetParams.property
             additionalHeaders = messageGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = messageGetParams.additionalQueryParams.toBuilder()
         }
 
-        fun threadId(threadId: String) = apply { this.threadId = threadId }
+        fun threadId(threadId: Long) = apply { this.threadId = threadId }
 
         fun messageId(messageId: String?) = apply { this.messageId = messageId }
 
         /** Alias for calling [Builder.messageId] with `messageId.orElse(null)`. */
         fun messageId(messageId: Optional<String>) = messageId(messageId.getOrNull())
+
+        /** A specific property to include in the message response. */
+        fun property(property: String?) = apply { this.property = property }
+
+        /** Alias for calling [Builder.property] with `property.orElse(null)`. */
+        fun property(property: Optional<String>) = property(property.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -181,6 +193,7 @@ private constructor(
             MessageGetParams(
                 checkRequired("threadId", threadId),
                 messageId,
+                property,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -188,14 +201,20 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> threadId
+            0 -> threadId.toString()
             1 -> messageId ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                property?.let { put("property", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -205,13 +224,14 @@ private constructor(
         return other is MessageGetParams &&
             threadId == other.threadId &&
             messageId == other.messageId &&
+            property == other.property &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(threadId, messageId, additionalHeaders, additionalQueryParams)
+        Objects.hash(threadId, messageId, property, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MessageGetParams{threadId=$threadId, messageId=$messageId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessageGetParams{threadId=$threadId, messageId=$messageId, property=$property, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -11,7 +11,6 @@ import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateCrea
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateUpdateRequest
 import com.hubspot_sdk.api.models.settings.currencies.BatchResponseExchangeRate
 import com.hubspot_sdk.api.models.settings.currencies.CollectionResponseCurrencyCodeInfoNoPaging
-import com.hubspot_sdk.api.models.settings.currencies.CollectionResponseExchangeRateForwardPaging
 import com.hubspot_sdk.api.models.settings.currencies.CollectionResponseExchangeRateNoPaging
 import com.hubspot_sdk.api.models.settings.currencies.CompanyCurrency
 import com.hubspot_sdk.api.models.settings.currencies.CompanyCurrencyUpdateRequest
@@ -23,6 +22,7 @@ import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetCompanyCurrency
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetExchangeRateByIdParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCodesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCurrentExchangeRatesParams
+import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesPageAsync
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyPairUpdate
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyUpdateCompanyCurrencyParams
@@ -280,25 +280,25 @@ interface CurrencyServiceAsync {
         listCurrentExchangeRates(CurrencyListCurrentExchangeRatesParams.none(), requestOptions)
 
     /** Get a list of exchange rates */
-    fun listExchangeRates(): CompletableFuture<CollectionResponseExchangeRateForwardPaging> =
+    fun listExchangeRates(): CompletableFuture<CurrencyListExchangeRatesPageAsync> =
         listExchangeRates(CurrencyListExchangeRatesParams.none())
 
     /** @see listExchangeRates */
     fun listExchangeRates(
         params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseExchangeRateForwardPaging>
+    ): CompletableFuture<CurrencyListExchangeRatesPageAsync>
 
     /** @see listExchangeRates */
     fun listExchangeRates(
         params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none()
-    ): CompletableFuture<CollectionResponseExchangeRateForwardPaging> =
+    ): CompletableFuture<CurrencyListExchangeRatesPageAsync> =
         listExchangeRates(params, RequestOptions.none())
 
     /** @see listExchangeRates */
     fun listExchangeRates(
         requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseExchangeRateForwardPaging> =
+    ): CompletableFuture<CurrencyListExchangeRatesPageAsync> =
         listExchangeRates(CurrencyListExchangeRatesParams.none(), requestOptions)
 
     /** Set or update the primary company currency. */
@@ -671,25 +671,25 @@ interface CurrencyServiceAsync {
          * otherwise the same as [CurrencyServiceAsync.listExchangeRates].
          */
         fun listExchangeRates():
-            CompletableFuture<HttpResponseFor<CollectionResponseExchangeRateForwardPaging>> =
+            CompletableFuture<HttpResponseFor<CurrencyListExchangeRatesPageAsync>> =
             listExchangeRates(CurrencyListExchangeRatesParams.none())
 
         /** @see listExchangeRates */
         fun listExchangeRates(
             params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseExchangeRateForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<CurrencyListExchangeRatesPageAsync>>
 
         /** @see listExchangeRates */
         fun listExchangeRates(
             params: CurrencyListExchangeRatesParams = CurrencyListExchangeRatesParams.none()
-        ): CompletableFuture<HttpResponseFor<CollectionResponseExchangeRateForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<CurrencyListExchangeRatesPageAsync>> =
             listExchangeRates(params, RequestOptions.none())
 
         /** @see listExchangeRates */
         fun listExchangeRates(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CollectionResponseExchangeRateForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<CurrencyListExchangeRatesPageAsync>> =
             listExchangeRates(CurrencyListExchangeRatesParams.none(), requestOptions)
 
         /**

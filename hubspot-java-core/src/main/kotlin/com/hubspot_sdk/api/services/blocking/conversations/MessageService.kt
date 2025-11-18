@@ -6,12 +6,12 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicMessageForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicMessage
 import com.hubspot_sdk.api.models.conversations.PublicMessageContent
 import com.hubspot_sdk.api.models.conversations.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetOriginalContentParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetParams
+import com.hubspot_sdk.api.models.conversations.messages.MessageListPage
 import com.hubspot_sdk.api.models.conversations.messages.MessageListParams
 import java.util.function.Consumer
 
@@ -30,12 +30,12 @@ interface MessageService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService
 
     /** Send a new message on a thread at the current timestamp. */
-    fun create(threadId: String, params: MessageCreateParams): PublicMessage =
+    fun create(threadId: Long, params: MessageCreateParams): PublicMessage =
         create(threadId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        threadId: String,
+        threadId: Long,
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicMessage = create(params.toBuilder().threadId(threadId).build(), requestOptions)
@@ -50,38 +50,32 @@ interface MessageService {
     ): PublicMessage
 
     /** Retrieve the message history for a specific thread. */
-    fun list(threadId: String): CollectionResponsePublicMessageForwardPaging =
-        list(threadId, MessageListParams.none())
+    fun list(threadId: Long): MessageListPage = list(threadId, MessageListParams.none())
 
     /** @see list */
     fun list(
-        threadId: String,
+        threadId: Long,
         params: MessageListParams = MessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponsePublicMessageForwardPaging =
-        list(params.toBuilder().threadId(threadId).build(), requestOptions)
+    ): MessageListPage = list(params.toBuilder().threadId(threadId).build(), requestOptions)
 
     /** @see list */
     fun list(
-        threadId: String,
+        threadId: Long,
         params: MessageListParams = MessageListParams.none(),
-    ): CollectionResponsePublicMessageForwardPaging = list(threadId, params, RequestOptions.none())
+    ): MessageListPage = list(threadId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: MessageListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponsePublicMessageForwardPaging
+    ): MessageListPage
 
     /** @see list */
-    fun list(params: MessageListParams): CollectionResponsePublicMessageForwardPaging =
-        list(params, RequestOptions.none())
+    fun list(params: MessageListParams): MessageListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        threadId: String,
-        requestOptions: RequestOptions,
-    ): CollectionResponsePublicMessageForwardPaging =
+    fun list(threadId: Long, requestOptions: RequestOptions): MessageListPage =
         list(threadId, MessageListParams.none(), requestOptions)
 
     /** Retrieve a single message from a thread using the message ID. */
@@ -148,13 +142,13 @@ interface MessageService {
          * as [MessageService.create].
          */
         @MustBeClosed
-        fun create(threadId: String, params: MessageCreateParams): HttpResponseFor<PublicMessage> =
+        fun create(threadId: Long, params: MessageCreateParams): HttpResponseFor<PublicMessage> =
             create(threadId, params, RequestOptions.none())
 
         /** @see create */
         @MustBeClosed
         fun create(
-            threadId: String,
+            threadId: Long,
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicMessage> =
@@ -178,46 +172,40 @@ interface MessageService {
          * as [MessageService.list].
          */
         @MustBeClosed
-        fun list(threadId: String): HttpResponseFor<CollectionResponsePublicMessageForwardPaging> =
+        fun list(threadId: Long): HttpResponseFor<MessageListPage> =
             list(threadId, MessageListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
-            threadId: String,
+            threadId: Long,
             params: MessageListParams = MessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponsePublicMessageForwardPaging> =
+        ): HttpResponseFor<MessageListPage> =
             list(params.toBuilder().threadId(threadId).build(), requestOptions)
 
         /** @see list */
         @MustBeClosed
         fun list(
-            threadId: String,
+            threadId: Long,
             params: MessageListParams = MessageListParams.none(),
-        ): HttpResponseFor<CollectionResponsePublicMessageForwardPaging> =
-            list(threadId, params, RequestOptions.none())
+        ): HttpResponseFor<MessageListPage> = list(threadId, params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MessageListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponsePublicMessageForwardPaging>
+        ): HttpResponseFor<MessageListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: MessageListParams
-        ): HttpResponseFor<CollectionResponsePublicMessageForwardPaging> =
+        fun list(params: MessageListParams): HttpResponseFor<MessageListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            threadId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicMessageForwardPaging> =
+        fun list(threadId: Long, requestOptions: RequestOptions): HttpResponseFor<MessageListPage> =
             list(threadId, MessageListParams.none(), requestOptions)
 
         /**

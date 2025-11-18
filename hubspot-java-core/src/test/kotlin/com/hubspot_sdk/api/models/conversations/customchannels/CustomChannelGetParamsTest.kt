@@ -9,14 +9,14 @@ internal class CustomChannelGetParamsTest {
 
     @Test
     fun create() {
-        CustomChannelGetParams.builder().channelId("channelId").build()
+        CustomChannelGetParams.builder().channelId(0).build()
     }
 
     @Test
     fun pathParams() {
-        val params = CustomChannelGetParams.builder().channelId("channelId").build()
+        val params = CustomChannelGetParams.builder().channelId(0).build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

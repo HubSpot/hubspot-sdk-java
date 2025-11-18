@@ -13,22 +13,22 @@ internal class AutomationActionsOptionTest {
     fun create() {
         val automationActionsOption =
             AutomationActionsOption.builder()
-                .description("")
+                .description("description")
                 .displayOrder(0)
                 .doubleData(0.0)
-                .hidden(false)
-                .label("")
-                .readOnly(false)
-                .value("")
+                .hidden(true)
+                .label("label")
+                .readOnly(true)
+                .value("value")
                 .build()
 
-        assertThat(automationActionsOption.description()).isEqualTo("")
+        assertThat(automationActionsOption.description()).isEqualTo("description")
         assertThat(automationActionsOption.displayOrder()).isEqualTo(0)
         assertThat(automationActionsOption.doubleData()).isEqualTo(0.0)
-        assertThat(automationActionsOption.hidden()).isEqualTo(false)
-        assertThat(automationActionsOption.label()).isEqualTo("")
-        assertThat(automationActionsOption.readOnly()).isEqualTo(false)
-        assertThat(automationActionsOption.value()).isEqualTo("")
+        assertThat(automationActionsOption.hidden()).isEqualTo(true)
+        assertThat(automationActionsOption.label()).isEqualTo("label")
+        assertThat(automationActionsOption.readOnly()).isEqualTo(true)
+        assertThat(automationActionsOption.value()).isEqualTo("value")
     }
 
     @Test
@@ -36,13 +36,13 @@ internal class AutomationActionsOptionTest {
         val jsonMapper = jsonMapper()
         val automationActionsOption =
             AutomationActionsOption.builder()
-                .description("")
+                .description("description")
                 .displayOrder(0)
                 .doubleData(0.0)
-                .hidden(false)
-                .label("")
-                .readOnly(false)
-                .value("")
+                .hidden(true)
+                .label("label")
+                .readOnly(true)
+                .value("value")
                 .build()
 
         val roundtrippedAutomationActionsOption =

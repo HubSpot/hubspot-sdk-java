@@ -14,20 +14,20 @@ internal class RecordListMembershipTest {
     fun create() {
         val recordListMembership =
             RecordListMembership.builder()
-                .firstAddedTimestamp(OffsetDateTime.parse("2023-06-28T22:00:15.001Z"))
-                .lastAddedTimestamp(OffsetDateTime.parse("2023-09-28T22:03:17.998Z"))
                 .listId("listId")
                 .listVersion(2)
+                .firstAddedTimestamp(OffsetDateTime.parse("2023-06-28T22:00:15.001Z"))
                 .isPublicList(true)
+                .lastAddedTimestamp(OffsetDateTime.parse("2023-09-28T22:03:17.998Z"))
                 .build()
 
-        assertThat(recordListMembership.firstAddedTimestamp())
-            .isEqualTo(OffsetDateTime.parse("2023-06-28T22:00:15.001Z"))
-        assertThat(recordListMembership.lastAddedTimestamp())
-            .isEqualTo(OffsetDateTime.parse("2023-09-28T22:03:17.998Z"))
         assertThat(recordListMembership.listId()).isEqualTo("listId")
         assertThat(recordListMembership.listVersion()).isEqualTo(2)
+        assertThat(recordListMembership.firstAddedTimestamp())
+            .contains(OffsetDateTime.parse("2023-06-28T22:00:15.001Z"))
         assertThat(recordListMembership.isPublicList()).contains(true)
+        assertThat(recordListMembership.lastAddedTimestamp())
+            .contains(OffsetDateTime.parse("2023-09-28T22:03:17.998Z"))
     }
 
     @Test
@@ -35,11 +35,11 @@ internal class RecordListMembershipTest {
         val jsonMapper = jsonMapper()
         val recordListMembership =
             RecordListMembership.builder()
-                .firstAddedTimestamp(OffsetDateTime.parse("2023-06-28T22:00:15.001Z"))
-                .lastAddedTimestamp(OffsetDateTime.parse("2023-09-28T22:03:17.998Z"))
                 .listId("listId")
                 .listVersion(2)
+                .firstAddedTimestamp(OffsetDateTime.parse("2023-06-28T22:00:15.001Z"))
                 .isPublicList(true)
+                .lastAddedTimestamp(OffsetDateTime.parse("2023-09-28T22:03:17.998Z"))
                 .build()
 
         val roundtrippedRecordListMembership =

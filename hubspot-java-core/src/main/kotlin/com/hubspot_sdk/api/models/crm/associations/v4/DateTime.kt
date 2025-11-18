@@ -34,18 +34,24 @@ private constructor(
     ) : this(dateOnly, timeZoneShift, value, mutableMapOf())
 
     /**
+     * Indicates whether the DateTime value represents only a date without a time component.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dateOnly(): Boolean = dateOnly.getRequired("dateOnly")
 
     /**
+     * The integer value representing the shift in minutes from UTC for the DateTime value.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun timeZoneShift(): Int = timeZoneShift.getRequired("timeZoneShift")
 
     /**
+     * The integer value representing a specific point in time.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -117,6 +123,7 @@ private constructor(
             additionalProperties = dateTime.additionalProperties.toMutableMap()
         }
 
+        /** Indicates whether the DateTime value represents only a date without a time component. */
         fun dateOnly(dateOnly: Boolean) = dateOnly(JsonField.of(dateOnly))
 
         /**
@@ -128,6 +135,7 @@ private constructor(
          */
         fun dateOnly(dateOnly: JsonField<Boolean>) = apply { this.dateOnly = dateOnly }
 
+        /** The integer value representing the shift in minutes from UTC for the DateTime value. */
         fun timeZoneShift(timeZoneShift: Int) = timeZoneShift(JsonField.of(timeZoneShift))
 
         /**
@@ -141,6 +149,7 @@ private constructor(
             this.timeZoneShift = timeZoneShift
         }
 
+        /** The integer value representing a specific point in time. */
         fun value(value: Int) = value(JsonField.of(value))
 
         /**

@@ -27,13 +27,13 @@ internal class PipelineTest {
                         .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
                         .displayOrder(0)
                         .label("In Progress")
-                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
                             PipelineStage.Metadata.builder()
                                 .putAdditionalProperty("ticketState", JsonValue.from("OPEN"))
                                 .build()
                         )
+                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
+                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .writePermissions(
                             PipelineStage.WritePermissions.CRM_PERMISSIONS_ENFORCEMENT
                         )
@@ -46,13 +46,13 @@ internal class PipelineTest {
                         .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
                         .displayOrder(0)
                         .label("Done")
-                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
                             PipelineStage.Metadata.builder()
                                 .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                                 .build()
                         )
+                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
+                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .writePermissions(
                             PipelineStage.WritePermissions.CRM_PERMISSIONS_ENFORCEMENT
                         )
@@ -75,13 +75,13 @@ internal class PipelineTest {
                     .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
                     .displayOrder(0)
                     .label("In Progress")
-                    .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                    .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(
                         PipelineStage.Metadata.builder()
                             .putAdditionalProperty("ticketState", JsonValue.from("OPEN"))
                             .build()
                     )
+                    .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
+                    .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .writePermissions(PipelineStage.WritePermissions.CRM_PERMISSIONS_ENFORCEMENT)
                     .build(),
                 PipelineStage.builder()
@@ -90,13 +90,13 @@ internal class PipelineTest {
                     .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
                     .displayOrder(0)
                     .label("Done")
-                    .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                    .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .metadata(
                         PipelineStage.Metadata.builder()
                             .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                             .build()
                     )
+                    .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
+                    .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .writePermissions(PipelineStage.WritePermissions.CRM_PERMISSIONS_ENFORCEMENT)
                     .build(),
             )
@@ -121,13 +121,13 @@ internal class PipelineTest {
                         .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
                         .displayOrder(0)
                         .label("In Progress")
-                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
                             PipelineStage.Metadata.builder()
                                 .putAdditionalProperty("ticketState", JsonValue.from("OPEN"))
                                 .build()
                         )
+                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
+                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .writePermissions(
                             PipelineStage.WritePermissions.CRM_PERMISSIONS_ENFORCEMENT
                         )
@@ -140,13 +140,13 @@ internal class PipelineTest {
                         .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
                         .displayOrder(0)
                         .label("Done")
-                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .metadata(
                             PipelineStage.Metadata.builder()
                                 .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                                 .build()
                         )
+                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
+                        .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .writePermissions(
                             PipelineStage.WritePermissions.CRM_PERMISSIONS_ENFORCEMENT
                         )

@@ -19,7 +19,7 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ChannelAccountStagingTokenUpdateParams
 private constructor(
-    private val channelId: String,
+    private val channelId: Int,
     private val accountToken: String?,
     private val publicChannelAccountStagingTokenUpdateRequest:
         PublicChannelAccountStagingTokenUpdateRequest,
@@ -27,7 +27,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): String = channelId
+    fun channelId(): Int = channelId
 
     fun accountToken(): Optional<String> = Optional.ofNullable(accountToken)
 
@@ -64,7 +64,7 @@ private constructor(
     /** A builder for [ChannelAccountStagingTokenUpdateParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
+        private var channelId: Int? = null
         private var accountToken: String? = null
         private var publicChannelAccountStagingTokenUpdateRequest:
             PublicChannelAccountStagingTokenUpdateRequest? =
@@ -85,7 +85,7 @@ private constructor(
                 channelAccountStagingTokenUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int) = apply { this.channelId = channelId }
 
         fun accountToken(accountToken: String?) = apply { this.accountToken = accountToken }
 
@@ -229,7 +229,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId
+            0 -> channelId.toString()
             1 -> accountToken ?: ""
             else -> ""
         }

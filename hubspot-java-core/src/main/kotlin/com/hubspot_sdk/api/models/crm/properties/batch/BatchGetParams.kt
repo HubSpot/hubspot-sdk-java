@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.properties.BatchReadInputPropertyName
+import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -16,12 +16,15 @@ import kotlin.jvm.optionals.getOrNull
 class BatchGetParams
 private constructor(
     private val objectType: String?,
+    private val locale: String?,
     private val batchReadInputPropertyName: BatchReadInputPropertyName,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun objectType(): Optional<String> = Optional.ofNullable(objectType)
+
+    fun locale(): Optional<String> = Optional.ofNullable(locale)
 
     fun batchReadInputPropertyName(): BatchReadInputPropertyName = batchReadInputPropertyName
 
@@ -53,6 +56,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectType: String? = null
+        private var locale: String? = null
         private var batchReadInputPropertyName: BatchReadInputPropertyName? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -60,6 +64,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(batchGetParams: BatchGetParams) = apply {
             objectType = batchGetParams.objectType
+            locale = batchGetParams.locale
             batchReadInputPropertyName = batchGetParams.batchReadInputPropertyName
             additionalHeaders = batchGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = batchGetParams.additionalQueryParams.toBuilder()
@@ -69,6 +74,11 @@ private constructor(
 
         /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
         fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
+
+        fun locale(locale: String?) = apply { this.locale = locale }
+
+        /** Alias for calling [Builder.locale] with `locale.orElse(null)`. */
+        fun locale(locale: Optional<String>) = locale(locale.getOrNull())
 
         fun batchReadInputPropertyName(batchReadInputPropertyName: BatchReadInputPropertyName) =
             apply {
@@ -188,6 +198,7 @@ private constructor(
         fun build(): BatchGetParams =
             BatchGetParams(
                 objectType,
+                locale,
                 checkRequired("batchReadInputPropertyName", batchReadInputPropertyName),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -204,7 +215,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                locale?.let { put("locale", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -213,6 +230,7 @@ private constructor(
 
         return other is BatchGetParams &&
             objectType == other.objectType &&
+            locale == other.locale &&
             batchReadInputPropertyName == other.batchReadInputPropertyName &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -221,11 +239,12 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             objectType,
+            locale,
             batchReadInputPropertyName,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "BatchGetParams{objectType=$objectType, batchReadInputPropertyName=$batchReadInputPropertyName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BatchGetParams{objectType=$objectType, locale=$locale, batchReadInputPropertyName=$batchReadInputPropertyName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

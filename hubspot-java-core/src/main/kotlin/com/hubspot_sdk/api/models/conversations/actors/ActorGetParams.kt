@@ -13,11 +13,15 @@ import kotlin.jvm.optionals.getOrNull
 class ActorGetParams
 private constructor(
     private val actorId: String?,
+    private val property: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun actorId(): Optional<String> = Optional.ofNullable(actorId)
+
+    /** A specific property to include in the actor response. */
+    fun property(): Optional<String> = Optional.ofNullable(property)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -39,12 +43,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var actorId: String? = null
+        private var property: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(actorGetParams: ActorGetParams) = apply {
             actorId = actorGetParams.actorId
+            property = actorGetParams.property
             additionalHeaders = actorGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = actorGetParams.additionalQueryParams.toBuilder()
         }
@@ -53,6 +59,12 @@ private constructor(
 
         /** Alias for calling [Builder.actorId] with `actorId.orElse(null)`. */
         fun actorId(actorId: Optional<String>) = actorId(actorId.getOrNull())
+
+        /** A specific property to include in the actor response. */
+        fun property(property: String?) = apply { this.property = property }
+
+        /** Alias for calling [Builder.property] with `property.orElse(null)`. */
+        fun property(property: Optional<String>) = property(property.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -158,7 +170,12 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): ActorGetParams =
-            ActorGetParams(actorId, additionalHeaders.build(), additionalQueryParams.build())
+            ActorGetParams(
+                actorId,
+                property,
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     fun _pathParam(index: Int): String =
@@ -169,7 +186,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                property?.let { put("property", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -178,12 +201,14 @@ private constructor(
 
         return other is ActorGetParams &&
             actorId == other.actorId &&
+            property == other.property &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(actorId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(actorId, property, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActorGetParams{actorId=$actorId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActorGetParams{actorId=$actorId, property=$property, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

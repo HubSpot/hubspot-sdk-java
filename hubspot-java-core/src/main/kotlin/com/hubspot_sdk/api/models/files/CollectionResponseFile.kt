@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
+import com.hubspot_sdk.api.models.Paging
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -25,14 +25,14 @@ class CollectionResponseFile
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val results: JsonField<List<File>>,
-    private val paging: JsonField<EmailsPaging>,
+    private val paging: JsonField<Paging>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("results") @ExcludeMissing results: JsonField<List<File>> = JsonMissing.of(),
-        @JsonProperty("paging") @ExcludeMissing paging: JsonField<EmailsPaging> = JsonMissing.of(),
+        @JsonProperty("paging") @ExcludeMissing paging: JsonField<Paging> = JsonMissing.of(),
     ) : this(results, paging, mutableMapOf())
 
     /**
@@ -42,12 +42,10 @@ private constructor(
     fun results(): List<File> = results.getRequired("results")
 
     /**
-     * Contains information pagination of results.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun paging(): Optional<EmailsPaging> = paging.getOptional("paging")
+    fun paging(): Optional<Paging> = paging.getOptional("paging")
 
     /**
      * Returns the raw JSON value of [results].
@@ -61,7 +59,7 @@ private constructor(
      *
      * Unlike [paging], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("paging") @ExcludeMissing fun _paging(): JsonField<EmailsPaging> = paging
+    @JsonProperty("paging") @ExcludeMissing fun _paging(): JsonField<Paging> = paging
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -92,7 +90,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var results: JsonField<MutableList<File>>? = null
-        private var paging: JsonField<EmailsPaging> = JsonMissing.of()
+        private var paging: JsonField<Paging> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -127,17 +125,15 @@ private constructor(
                 }
         }
 
-        /** Contains information pagination of results. */
-        fun paging(paging: EmailsPaging) = paging(JsonField.of(paging))
+        fun paging(paging: Paging) = paging(JsonField.of(paging))
 
         /**
          * Sets [Builder.paging] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.paging] with a well-typed [EmailsPaging] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.paging] with a well-typed [Paging] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun paging(paging: JsonField<EmailsPaging>) = apply { this.paging = paging }
+        fun paging(paging: JsonField<Paging>) = apply { this.paging = paging }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()

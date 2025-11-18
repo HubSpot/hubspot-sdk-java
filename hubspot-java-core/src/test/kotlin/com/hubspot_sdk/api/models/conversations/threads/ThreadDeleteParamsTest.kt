@@ -9,14 +9,14 @@ internal class ThreadDeleteParamsTest {
 
     @Test
     fun create() {
-        ThreadDeleteParams.builder().threadId("threadId").build()
+        ThreadDeleteParams.builder().threadId(0L).build()
     }
 
     @Test
     fun pathParams() {
-        val params = ThreadDeleteParams.builder().threadId("threadId").build()
+        val params = ThreadDeleteParams.builder().threadId(0L).build()
 
-        assertThat(params._pathParam(0)).isEqualTo("threadId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

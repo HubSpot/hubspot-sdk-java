@@ -9,14 +9,20 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.BatchInputString
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Resolve a set of `ActorId`s to the underlying actors/participants. */
 class ActorBatchReadParams
 private constructor(
+    private val property: String?,
     private val batchInputString: BatchInputString,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** A specific property to include in the actor response. */
+    fun property(): Optional<String> = Optional.ofNullable(property)
 
     /** Wrapper for providing an array of strings as inputs. */
     fun batchInputString(): BatchInputString = batchInputString
@@ -48,16 +54,24 @@ private constructor(
     /** A builder for [ActorBatchReadParams]. */
     class Builder internal constructor() {
 
+        private var property: String? = null
         private var batchInputString: BatchInputString? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(actorBatchReadParams: ActorBatchReadParams) = apply {
+            property = actorBatchReadParams.property
             batchInputString = actorBatchReadParams.batchInputString
             additionalHeaders = actorBatchReadParams.additionalHeaders.toBuilder()
             additionalQueryParams = actorBatchReadParams.additionalQueryParams.toBuilder()
         }
+
+        /** A specific property to include in the actor response. */
+        fun property(property: String?) = apply { this.property = property }
+
+        /** Alias for calling [Builder.property] with `property.orElse(null)`. */
+        fun property(property: Optional<String>) = property(property.getOrNull())
 
         /** Wrapper for providing an array of strings as inputs. */
         fun batchInputString(batchInputString: BatchInputString) = apply {
@@ -176,6 +190,7 @@ private constructor(
          */
         fun build(): ActorBatchReadParams =
             ActorBatchReadParams(
+                property,
                 checkRequired("batchInputString", batchInputString),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -186,7 +201,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                property?.let { put("property", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -194,14 +215,15 @@ private constructor(
         }
 
         return other is ActorBatchReadParams &&
+            property == other.property &&
             batchInputString == other.batchInputString &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(batchInputString, additionalHeaders, additionalQueryParams)
+        Objects.hash(property, batchInputString, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ActorBatchReadParams{batchInputString=$batchInputString, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActorBatchReadParams{property=$property, batchInputString=$batchInputString, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

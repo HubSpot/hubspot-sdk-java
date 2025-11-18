@@ -17,7 +17,7 @@ internal class PublicClientTest {
                 .integrationAppId(0)
                 .build()
 
-        assertThat(publicClient.clientType()).contains(PublicClient.ClientType.HUBSPOT)
+        assertThat(publicClient.clientType()).isEqualTo(PublicClient.ClientType.HUBSPOT)
         assertThat(publicClient.integrationAppId()).contains(0)
     }
 

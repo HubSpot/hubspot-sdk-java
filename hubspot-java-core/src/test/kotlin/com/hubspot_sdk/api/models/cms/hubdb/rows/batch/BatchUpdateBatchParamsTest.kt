@@ -18,7 +18,8 @@ internal class BatchUpdateBatchParamsTest {
                 BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                     .addInput(
                         HubDbTableRowV3BatchUpdateRequest.builder()
-                            .id("id")
+                            .childTableId(0)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                     .putAdditionalProperty(
@@ -27,8 +28,7 @@ internal class BatchUpdateBatchParamsTest {
                                     )
                                     .build()
                             )
-                            .childTableId(0)
-                            .displayIndex(0)
+                            .id("id")
                             .name("name")
                             .path("path")
                             .build()
@@ -47,7 +47,8 @@ internal class BatchUpdateBatchParamsTest {
                     BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                         .addInput(
                             HubDbTableRowV3BatchUpdateRequest.builder()
-                                .id("id")
+                                .childTableId(0)
+                                .displayIndex(0)
                                 .values(
                                     HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                         .putAdditionalProperty(
@@ -76,7 +77,8 @@ internal class BatchUpdateBatchParamsTest {
                     BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                         .addInput(
                             HubDbTableRowV3BatchUpdateRequest.builder()
-                                .id("id")
+                                .childTableId(0)
+                                .displayIndex(0)
                                 .values(
                                     HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                         .putAdditionalProperty(
@@ -85,8 +87,7 @@ internal class BatchUpdateBatchParamsTest {
                                         )
                                         .build()
                                 )
-                                .childTableId(0)
-                                .displayIndex(0)
+                                .id("id")
                                 .name("name")
                                 .path("path")
                                 .build()
@@ -102,7 +103,8 @@ internal class BatchUpdateBatchParamsTest {
                 BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                     .addInput(
                         HubDbTableRowV3BatchUpdateRequest.builder()
-                            .id("id")
+                            .childTableId(0)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                     .putAdditionalProperty(
@@ -111,8 +113,7 @@ internal class BatchUpdateBatchParamsTest {
                                     )
                                     .build()
                             )
-                            .childTableId(0)
-                            .displayIndex(0)
+                            .id("id")
                             .name("name")
                             .path("path")
                             .build()
@@ -130,7 +131,8 @@ internal class BatchUpdateBatchParamsTest {
                     BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                         .addInput(
                             HubDbTableRowV3BatchUpdateRequest.builder()
-                                .id("id")
+                                .childTableId(0)
+                                .displayIndex(0)
                                 .values(
                                     HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                         .putAdditionalProperty(
@@ -152,7 +154,8 @@ internal class BatchUpdateBatchParamsTest {
                 BatchInputHubDbTableRowV3BatchUpdateRequest.builder()
                     .addInput(
                         HubDbTableRowV3BatchUpdateRequest.builder()
-                            .id("id")
+                            .childTableId(0)
+                            .displayIndex(0)
                             .values(
                                 HubDbTableRowV3BatchUpdateRequest.Values.builder()
                                     .putAdditionalProperty(

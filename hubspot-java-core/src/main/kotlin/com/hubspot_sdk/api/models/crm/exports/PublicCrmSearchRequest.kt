@@ -56,12 +56,16 @@ private constructor(
     fun filters(): List<Filter> = filters.getRequired("filters")
 
     /**
+     * Defines the order in which the CRM records should be returned.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sorts(): List<String> = sorts.getRequired("sorts")
 
     /**
+     * The search query string, to filter CRM records.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -192,6 +196,7 @@ private constructor(
                 }
         }
 
+        /** Defines the order in which the CRM records should be returned. */
         fun sorts(sorts: List<String>) = sorts(JsonField.of(sorts))
 
         /**
@@ -215,6 +220,7 @@ private constructor(
                 (sorts ?: JsonField.of(mutableListOf())).also { checkKnown("sorts", it).add(sort) }
         }
 
+        /** The search query string, to filter CRM records. */
         fun query(query: String) = query(JsonField.of(query))
 
         /**

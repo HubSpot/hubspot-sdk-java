@@ -28,14 +28,14 @@ interface MessageServiceAsync {
 
     /** Publish a message over your custom channel */
     fun create(
-        channelId: String,
+        channelId: Int,
         params: MessageCreateParams,
     ): CompletableFuture<ConversationsPublicConversationsMessage> =
         create(channelId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        channelId: String,
+        channelId: Int,
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ConversationsPublicConversationsMessage> =
@@ -128,14 +128,14 @@ interface MessageServiceAsync {
          * [MessageServiceAsync.create].
          */
         fun create(
-            channelId: String,
+            channelId: Int,
             params: MessageCreateParams,
         ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
             create(channelId, params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            channelId: String,
+            channelId: Int,
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =

@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.automation.sequences
 
 import com.hubspot_sdk.api.core.Params
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
@@ -13,11 +14,14 @@ import kotlin.jvm.optionals.getOrNull
 class SequenceGetParams
 private constructor(
     private val sequenceId: String?,
+    private val userId: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun sequenceId(): Optional<String> = Optional.ofNullable(sequenceId)
+
+    fun userId(): String = userId
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -29,9 +33,14 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): SequenceGetParams = builder().build()
-
-        /** Returns a mutable builder for constructing an instance of [SequenceGetParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [SequenceGetParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .userId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -39,12 +48,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var sequenceId: String? = null
+        private var userId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(sequenceGetParams: SequenceGetParams) = apply {
             sequenceId = sequenceGetParams.sequenceId
+            userId = sequenceGetParams.userId
             additionalHeaders = sequenceGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = sequenceGetParams.additionalQueryParams.toBuilder()
         }
@@ -53,6 +64,8 @@ private constructor(
 
         /** Alias for calling [Builder.sequenceId] with `sequenceId.orElse(null)`. */
         fun sequenceId(sequenceId: Optional<String>) = sequenceId(sequenceId.getOrNull())
+
+        fun userId(userId: String) = apply { this.userId = userId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -156,9 +169,21 @@ private constructor(
          * Returns an immutable instance of [SequenceGetParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .userId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): SequenceGetParams =
-            SequenceGetParams(sequenceId, additionalHeaders.build(), additionalQueryParams.build())
+            SequenceGetParams(
+                sequenceId,
+                checkRequired("userId", userId),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     fun _pathParam(index: Int): String =
@@ -169,7 +194,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("userId", userId)
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -178,13 +209,14 @@ private constructor(
 
         return other is SequenceGetParams &&
             sequenceId == other.sequenceId &&
+            userId == other.userId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(sequenceId, additionalHeaders, additionalQueryParams)
+        Objects.hash(sequenceId, userId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SequenceGetParams{sequenceId=$sequenceId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SequenceGetParams{sequenceId=$sequenceId, userId=$userId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

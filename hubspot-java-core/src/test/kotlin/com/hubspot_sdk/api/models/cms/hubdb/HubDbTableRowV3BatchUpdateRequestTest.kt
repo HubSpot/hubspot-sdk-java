@@ -14,27 +14,27 @@ internal class HubDbTableRowV3BatchUpdateRequestTest {
     fun create() {
         val hubDbTableRowV3BatchUpdateRequest =
             HubDbTableRowV3BatchUpdateRequest.builder()
-                .id("id")
+                .childTableId(0)
+                .displayIndex(0)
                 .values(
                     HubDbTableRowV3BatchUpdateRequest.Values.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
-                .childTableId(0)
-                .displayIndex(0)
+                .id("id")
                 .name("name")
                 .path("path")
                 .build()
 
-        assertThat(hubDbTableRowV3BatchUpdateRequest.id()).isEqualTo("id")
+        assertThat(hubDbTableRowV3BatchUpdateRequest.childTableId()).isEqualTo(0)
+        assertThat(hubDbTableRowV3BatchUpdateRequest.displayIndex()).isEqualTo(0)
         assertThat(hubDbTableRowV3BatchUpdateRequest.values())
             .isEqualTo(
                 HubDbTableRowV3BatchUpdateRequest.Values.builder()
                     .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
-        assertThat(hubDbTableRowV3BatchUpdateRequest.childTableId()).contains(0)
-        assertThat(hubDbTableRowV3BatchUpdateRequest.displayIndex()).contains(0)
+        assertThat(hubDbTableRowV3BatchUpdateRequest.id()).contains("id")
         assertThat(hubDbTableRowV3BatchUpdateRequest.name()).contains("name")
         assertThat(hubDbTableRowV3BatchUpdateRequest.path()).contains("path")
     }
@@ -44,14 +44,14 @@ internal class HubDbTableRowV3BatchUpdateRequestTest {
         val jsonMapper = jsonMapper()
         val hubDbTableRowV3BatchUpdateRequest =
             HubDbTableRowV3BatchUpdateRequest.builder()
-                .id("id")
+                .childTableId(0)
+                .displayIndex(0)
                 .values(
                     HubDbTableRowV3BatchUpdateRequest.Values.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
-                .childTableId(0)
-                .displayIndex(0)
+                .id("id")
                 .name("name")
                 .path("path")
                 .build()

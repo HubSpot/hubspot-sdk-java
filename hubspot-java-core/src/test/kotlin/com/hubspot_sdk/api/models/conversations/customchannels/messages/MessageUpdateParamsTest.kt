@@ -11,7 +11,7 @@ internal class MessageUpdateParamsTest {
     @Test
     fun create() {
         MessageUpdateParams.builder()
-            .channelId("channelId")
+            .channelId(0)
             .messageId("messageId")
             .publicChannelIntegrationMessageUpdateRequest(
                 PublicChannelIntegrationMessageUpdateRequest.builder()
@@ -26,7 +26,7 @@ internal class MessageUpdateParamsTest {
     fun pathParams() {
         val params =
             MessageUpdateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .messageId("messageId")
                 .publicChannelIntegrationMessageUpdateRequest(
                     PublicChannelIntegrationMessageUpdateRequest.builder()
@@ -35,7 +35,7 @@ internal class MessageUpdateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("messageId")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -45,7 +45,7 @@ internal class MessageUpdateParamsTest {
     fun body() {
         val params =
             MessageUpdateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .messageId("messageId")
                 .publicChannelIntegrationMessageUpdateRequest(
                     PublicChannelIntegrationMessageUpdateRequest.builder()
@@ -70,7 +70,7 @@ internal class MessageUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MessageUpdateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .messageId("messageId")
                 .publicChannelIntegrationMessageUpdateRequest(
                     PublicChannelIntegrationMessageUpdateRequest.builder()

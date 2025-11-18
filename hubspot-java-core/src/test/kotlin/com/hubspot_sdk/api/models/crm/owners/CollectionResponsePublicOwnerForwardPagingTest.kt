@@ -49,7 +49,7 @@ internal class CollectionResponsePublicOwnerForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -87,7 +87,9 @@ internal class CollectionResponsePublicOwnerForwardPagingTest {
             )
         assertThat(collectionResponsePublicOwnerForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -128,7 +130,7 @@ internal class CollectionResponsePublicOwnerForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

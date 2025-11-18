@@ -18,8 +18,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** objectTypeId of the object type on the "from" side of the association */
     fun fromObjectTypeId(): Optional<String> = Optional.ofNullable(fromObjectTypeId)
 
+    /** objectTypeId of the object type on the "to" side of the association */
     fun toObjectTypeId(): Optional<String> = Optional.ofNullable(toObjectTypeId)
 
     /** Additional headers to send with the request. */
@@ -60,6 +62,7 @@ private constructor(
                 limitGetAssociationLabelLimitsParams.additionalQueryParams.toBuilder()
         }
 
+        /** objectTypeId of the object type on the "from" side of the association */
         fun fromObjectTypeId(fromObjectTypeId: String?) = apply {
             this.fromObjectTypeId = fromObjectTypeId
         }
@@ -68,6 +71,7 @@ private constructor(
         fun fromObjectTypeId(fromObjectTypeId: Optional<String>) =
             fromObjectTypeId(fromObjectTypeId.getOrNull())
 
+        /** objectTypeId of the object type on the "to" side of the association */
         fun toObjectTypeId(toObjectTypeId: String?) = apply { this.toObjectTypeId = toObjectTypeId }
 
         /** Alias for calling [Builder.toObjectTypeId] with `toObjectTypeId.orElse(null)`. */

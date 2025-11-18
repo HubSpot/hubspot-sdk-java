@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Fetch whether object type is enabled */
 class EnablementGetParams
 private constructor(
     private val objectTypeId: String?,

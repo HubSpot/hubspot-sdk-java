@@ -29,7 +29,7 @@ internal class CollectionResponseWithTotalPublicSequenceLiteResponseForwardPagin
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -49,7 +49,9 @@ internal class CollectionResponseWithTotalPublicSequenceLiteResponseForwardPagin
             .isEqualTo(0)
         assertThat(collectionResponseWithTotalPublicSequenceLiteResponseForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -71,7 +73,7 @@ internal class CollectionResponseWithTotalPublicSequenceLiteResponseForwardPagin
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

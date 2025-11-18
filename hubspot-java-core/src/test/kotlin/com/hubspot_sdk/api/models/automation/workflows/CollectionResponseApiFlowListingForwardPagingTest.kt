@@ -31,7 +31,7 @@ internal class CollectionResponseApiFlowListingForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -52,7 +52,9 @@ internal class CollectionResponseApiFlowListingForwardPagingTest {
             )
         assertThat(collectionResponseApiFlowListingForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -76,7 +78,7 @@ internal class CollectionResponseApiFlowListingForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

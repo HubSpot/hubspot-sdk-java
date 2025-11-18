@@ -6,9 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicChannel
 import com.hubspot_sdk.api.models.conversations.channels.ChannelGetParams
+import com.hubspot_sdk.api.models.conversations.channels.ChannelListPage
 import com.hubspot_sdk.api.models.conversations.channels.ChannelListParams
 import java.util.function.Consumer
 
@@ -27,38 +27,34 @@ interface ChannelService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChannelService
 
     /** Retrieve a list of channels, with optional filters and sorting. */
-    fun list(): CollectionResponseWithTotalPublicChannelForwardPaging =
-        list(ChannelListParams.none())
+    fun list(): ChannelListPage = list(ChannelListParams.none())
 
     /** @see list */
     fun list(
         params: ChannelListParams = ChannelListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalPublicChannelForwardPaging
+    ): ChannelListPage
 
     /** @see list */
-    fun list(
-        params: ChannelListParams = ChannelListParams.none()
-    ): CollectionResponseWithTotalPublicChannelForwardPaging = list(params, RequestOptions.none())
+    fun list(params: ChannelListParams = ChannelListParams.none()): ChannelListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CollectionResponseWithTotalPublicChannelForwardPaging =
+    fun list(requestOptions: RequestOptions): ChannelListPage =
         list(ChannelListParams.none(), requestOptions)
 
     /** Retrieve details of a single channel using the channel ID. */
-    fun get(channelId: String): PublicChannel = get(channelId, ChannelGetParams.none())
+    fun get(channelId: Int): PublicChannel = get(channelId, ChannelGetParams.none())
 
     /** @see get */
     fun get(
-        channelId: String,
+        channelId: Int,
         params: ChannelGetParams = ChannelGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicChannel = get(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see get */
-    fun get(channelId: String, params: ChannelGetParams = ChannelGetParams.none()): PublicChannel =
+    fun get(channelId: Int, params: ChannelGetParams = ChannelGetParams.none()): PublicChannel =
         get(channelId, params, RequestOptions.none())
 
     /** @see get */
@@ -71,7 +67,7 @@ interface ChannelService {
     fun get(params: ChannelGetParams): PublicChannel = get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(channelId: String, requestOptions: RequestOptions): PublicChannel =
+    fun get(channelId: Int, requestOptions: RequestOptions): PublicChannel =
         get(channelId, ChannelGetParams.none(), requestOptions)
 
     /** A view of [ChannelService] that provides access to raw HTTP responses for each method. */
@@ -88,29 +84,24 @@ interface ChannelService {
          * Returns a raw HTTP response for `get /conversations/v3/conversations/channels`, but is
          * otherwise the same as [ChannelService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging> =
-            list(ChannelListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<ChannelListPage> = list(ChannelListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ChannelListParams = ChannelListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging>
+        ): HttpResponseFor<ChannelListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ChannelListParams = ChannelListParams.none()
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<ChannelListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelForwardPaging> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ChannelListPage> =
             list(ChannelListParams.none(), requestOptions)
 
         /**
@@ -119,13 +110,13 @@ interface ChannelService {
          * [ChannelService.get].
          */
         @MustBeClosed
-        fun get(channelId: String): HttpResponseFor<PublicChannel> =
+        fun get(channelId: Int): HttpResponseFor<PublicChannel> =
             get(channelId, ChannelGetParams.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            channelId: String,
+            channelId: Int,
             params: ChannelGetParams = ChannelGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicChannel> =
@@ -134,7 +125,7 @@ interface ChannelService {
         /** @see get */
         @MustBeClosed
         fun get(
-            channelId: String,
+            channelId: Int,
             params: ChannelGetParams = ChannelGetParams.none(),
         ): HttpResponseFor<PublicChannel> = get(channelId, params, RequestOptions.none())
 
@@ -152,7 +143,7 @@ interface ChannelService {
 
         /** @see get */
         @MustBeClosed
-        fun get(channelId: String, requestOptions: RequestOptions): HttpResponseFor<PublicChannel> =
+        fun get(channelId: Int, requestOptions: RequestOptions): HttpResponseFor<PublicChannel> =
             get(channelId, ChannelGetParams.none(), requestOptions)
     }
 }

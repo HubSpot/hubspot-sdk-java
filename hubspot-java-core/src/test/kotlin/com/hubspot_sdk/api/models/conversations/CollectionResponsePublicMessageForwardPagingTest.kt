@@ -26,8 +26,8 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                                 .fileId("fileId")
                                 .fileUsageType("fileUsageType")
                                 .type(PublicFile.Type.FILE)
-                                .url("url")
                                 .name("name")
+                                .url("url")
                                 .build()
                         )
                         .channelAccountId("channelAccountId")
@@ -99,7 +99,7 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -116,8 +116,8 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                                     .fileId("fileId")
                                     .fileUsageType("fileUsageType")
                                     .type(PublicFile.Type.FILE)
-                                    .url("url")
                                     .name("name")
+                                    .url("url")
                                     .build()
                             )
                             .channelAccountId("channelAccountId")
@@ -192,7 +192,9 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
             )
         assertThat(collectionResponsePublicMessageForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -210,8 +212,8 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                                 .fileId("fileId")
                                 .fileUsageType("fileUsageType")
                                 .type(PublicFile.Type.FILE)
-                                .url("url")
                                 .name("name")
+                                .url("url")
                                 .build()
                         )
                         .channelAccountId("channelAccountId")
@@ -283,7 +285,7 @@ internal class CollectionResponsePublicMessageForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

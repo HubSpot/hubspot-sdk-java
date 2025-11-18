@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
 import java.util.Objects
 
-/** Create a batch of courses */
+/** Create a batch of objects */
 class BatchCreateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInputForCreate:

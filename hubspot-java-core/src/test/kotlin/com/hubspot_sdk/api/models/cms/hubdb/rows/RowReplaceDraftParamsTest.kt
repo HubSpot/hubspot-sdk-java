@@ -16,13 +16,13 @@ internal class RowReplaceDraftParamsTest {
             .rowId("321669910225")
             .hubDbTableRowV3Request(
                 HubDbTableRowV3Request.builder()
+                    .childTableId(0L)
+                    .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
-                    .childTableId(0L)
-                    .displayIndex(0)
                     .name("name")
                     .path("path")
                     .build()
@@ -38,6 +38,8 @@ internal class RowReplaceDraftParamsTest {
                 .rowId("321669910225")
                 .hubDbTableRowV3Request(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
@@ -61,13 +63,13 @@ internal class RowReplaceDraftParamsTest {
                 .rowId("321669910225")
                 .hubDbTableRowV3Request(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
-                        .childTableId(0L)
-                        .displayIndex(0)
                         .name("name")
                         .path("path")
                         .build()
@@ -79,13 +81,13 @@ internal class RowReplaceDraftParamsTest {
         assertThat(body)
             .isEqualTo(
                 HubDbTableRowV3Request.builder()
+                    .childTableId(0L)
+                    .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
-                    .childTableId(0L)
-                    .displayIndex(0)
                     .name("name")
                     .path("path")
                     .build()
@@ -100,6 +102,8 @@ internal class RowReplaceDraftParamsTest {
                 .rowId("321669910225")
                 .hubDbTableRowV3Request(
                     HubDbTableRowV3Request.builder()
+                        .childTableId(0L)
+                        .displayIndex(0)
                         .values(
                             HubDbTableRowV3Request.Values.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
@@ -114,6 +118,8 @@ internal class RowReplaceDraftParamsTest {
         assertThat(body)
             .isEqualTo(
                 HubDbTableRowV3Request.builder()
+                    .childTableId(0L)
+                    .displayIndex(0)
                     .values(
                         HubDbTableRowV3Request.Values.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))

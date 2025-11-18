@@ -21,9 +21,9 @@ class PublicChannelIntegrationChannelPatch
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val capabilities: JsonField<Capabilities>,
+    private val channelAccountConnectionRedirectUrl: JsonValue,
     private val channelDescription: JsonValue,
     private val channelLogoUrl: JsonValue,
-    private val channelAccountConnectionRedirectUrl: JsonValue,
     private val name: JsonValue,
     private val webhookUrl: JsonValue,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -34,22 +34,22 @@ private constructor(
         @JsonProperty("capabilities")
         @ExcludeMissing
         capabilities: JsonField<Capabilities> = JsonMissing.of(),
+        @JsonProperty("channelAccountConnectionRedirectUrl")
+        @ExcludeMissing
+        channelAccountConnectionRedirectUrl: JsonValue = JsonMissing.of(),
         @JsonProperty("channelDescription")
         @ExcludeMissing
         channelDescription: JsonValue = JsonMissing.of(),
         @JsonProperty("channelLogoUrl")
         @ExcludeMissing
         channelLogoUrl: JsonValue = JsonMissing.of(),
-        @JsonProperty("channelAccountConnectionRedirectUrl")
-        @ExcludeMissing
-        channelAccountConnectionRedirectUrl: JsonValue = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonValue = JsonMissing.of(),
         @JsonProperty("webhookUrl") @ExcludeMissing webhookUrl: JsonValue = JsonMissing.of(),
     ) : this(
         capabilities,
+        channelAccountConnectionRedirectUrl,
         channelDescription,
         channelLogoUrl,
-        channelAccountConnectionRedirectUrl,
         name,
         webhookUrl,
         mutableMapOf(),
@@ -61,6 +61,10 @@ private constructor(
      */
     fun capabilities(): Capabilities = capabilities.getRequired("capabilities")
 
+    @JsonProperty("channelAccountConnectionRedirectUrl")
+    @ExcludeMissing
+    fun _channelAccountConnectionRedirectUrl(): JsonValue = channelAccountConnectionRedirectUrl
+
     @JsonProperty("channelDescription")
     @ExcludeMissing
     fun _channelDescription(): JsonValue = channelDescription
@@ -68,10 +72,6 @@ private constructor(
     @JsonProperty("channelLogoUrl")
     @ExcludeMissing
     fun _channelLogoUrl(): JsonValue = channelLogoUrl
-
-    @JsonProperty("channelAccountConnectionRedirectUrl")
-    @ExcludeMissing
-    fun _channelAccountConnectionRedirectUrl(): JsonValue = channelAccountConnectionRedirectUrl
 
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonValue = name
 
@@ -107,8 +107,11 @@ private constructor(
          * The following fields are required:
          * ```java
          * .capabilities()
+         * .channelAccountConnectionRedirectUrl()
          * .channelDescription()
          * .channelLogoUrl()
+         * .name()
+         * .webhookUrl()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -118,11 +121,11 @@ private constructor(
     class Builder internal constructor() {
 
         private var capabilities: JsonField<Capabilities>? = null
+        private var channelAccountConnectionRedirectUrl: JsonValue? = null
         private var channelDescription: JsonValue? = null
         private var channelLogoUrl: JsonValue? = null
-        private var channelAccountConnectionRedirectUrl: JsonValue = JsonMissing.of()
-        private var name: JsonValue = JsonMissing.of()
-        private var webhookUrl: JsonValue = JsonMissing.of()
+        private var name: JsonValue? = null
+        private var webhookUrl: JsonValue? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -130,10 +133,10 @@ private constructor(
             publicChannelIntegrationChannelPatch: PublicChannelIntegrationChannelPatch
         ) = apply {
             capabilities = publicChannelIntegrationChannelPatch.capabilities
-            channelDescription = publicChannelIntegrationChannelPatch.channelDescription
-            channelLogoUrl = publicChannelIntegrationChannelPatch.channelLogoUrl
             channelAccountConnectionRedirectUrl =
                 publicChannelIntegrationChannelPatch.channelAccountConnectionRedirectUrl
+            channelDescription = publicChannelIntegrationChannelPatch.channelDescription
+            channelLogoUrl = publicChannelIntegrationChannelPatch.channelLogoUrl
             name = publicChannelIntegrationChannelPatch.name
             webhookUrl = publicChannelIntegrationChannelPatch.webhookUrl
             additionalProperties =
@@ -153,6 +156,11 @@ private constructor(
             this.capabilities = capabilities
         }
 
+        fun channelAccountConnectionRedirectUrl(channelAccountConnectionRedirectUrl: JsonValue) =
+            apply {
+                this.channelAccountConnectionRedirectUrl = channelAccountConnectionRedirectUrl
+            }
+
         fun channelDescription(channelDescription: JsonValue) = apply {
             this.channelDescription = channelDescription
         }
@@ -160,11 +168,6 @@ private constructor(
         fun channelLogoUrl(channelLogoUrl: JsonValue) = apply {
             this.channelLogoUrl = channelLogoUrl
         }
-
-        fun channelAccountConnectionRedirectUrl(channelAccountConnectionRedirectUrl: JsonValue) =
-            apply {
-                this.channelAccountConnectionRedirectUrl = channelAccountConnectionRedirectUrl
-            }
 
         fun name(name: JsonValue) = apply { this.name = name }
 
@@ -197,8 +200,11 @@ private constructor(
          * The following fields are required:
          * ```java
          * .capabilities()
+         * .channelAccountConnectionRedirectUrl()
          * .channelDescription()
          * .channelLogoUrl()
+         * .name()
+         * .webhookUrl()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -206,11 +212,14 @@ private constructor(
         fun build(): PublicChannelIntegrationChannelPatch =
             PublicChannelIntegrationChannelPatch(
                 checkRequired("capabilities", capabilities),
+                checkRequired(
+                    "channelAccountConnectionRedirectUrl",
+                    channelAccountConnectionRedirectUrl,
+                ),
                 checkRequired("channelDescription", channelDescription),
                 checkRequired("channelLogoUrl", channelLogoUrl),
-                channelAccountConnectionRedirectUrl,
-                name,
-                webhookUrl,
+                checkRequired("name", name),
+                checkRequired("webhookUrl", webhookUrl),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -348,9 +357,9 @@ private constructor(
 
         return other is PublicChannelIntegrationChannelPatch &&
             capabilities == other.capabilities &&
+            channelAccountConnectionRedirectUrl == other.channelAccountConnectionRedirectUrl &&
             channelDescription == other.channelDescription &&
             channelLogoUrl == other.channelLogoUrl &&
-            channelAccountConnectionRedirectUrl == other.channelAccountConnectionRedirectUrl &&
             name == other.name &&
             webhookUrl == other.webhookUrl &&
             additionalProperties == other.additionalProperties
@@ -359,9 +368,9 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             capabilities,
+            channelAccountConnectionRedirectUrl,
             channelDescription,
             channelLogoUrl,
-            channelAccountConnectionRedirectUrl,
             name,
             webhookUrl,
             additionalProperties,
@@ -371,5 +380,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicChannelIntegrationChannelPatch{capabilities=$capabilities, channelDescription=$channelDescription, channelLogoUrl=$channelLogoUrl, channelAccountConnectionRedirectUrl=$channelAccountConnectionRedirectUrl, name=$name, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
+        "PublicChannelIntegrationChannelPatch{capabilities=$capabilities, channelAccountConnectionRedirectUrl=$channelAccountConnectionRedirectUrl, channelDescription=$channelDescription, channelLogoUrl=$channelLogoUrl, name=$name, webhookUrl=$webhookUrl, additionalProperties=$additionalProperties}"
 }

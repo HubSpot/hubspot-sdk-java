@@ -601,9 +601,9 @@ internal class ListServiceAsyncTest {
             listServiceAsync.search(
                 ListSearchRequest.builder()
                     .addAdditionalProperty("hs_list_size_week_delta")
+                    .offset(0)
                     .count(100)
                     .addListId("string")
-                    .offset(0)
                     .addProcessingType("string")
                     .query("Test")
                     .sort("sort")

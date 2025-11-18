@@ -35,7 +35,8 @@ internal class BatchResponsePublicCampaignWithAssetsTest {
                                                 ),
                                             "paging" to
                                                 mapOf(
-                                                    "next" to mapOf("after" to "", "link" to ""),
+                                                    "next" to
+                                                        mapOf("after" to "after", "link" to "link"),
                                                     "prev" to
                                                         mapOf(
                                                             "before" to "before",
@@ -89,7 +90,8 @@ internal class BatchResponsePublicCampaignWithAssetsTest {
                                             ),
                                         "paging" to
                                             mapOf(
-                                                "next" to mapOf("after" to "", "link" to ""),
+                                                "next" to
+                                                    mapOf("after" to "after", "link" to "link"),
                                                 "prev" to
                                                     mapOf("before" to "before", "link" to "link"),
                                             ),
@@ -147,7 +149,8 @@ internal class BatchResponsePublicCampaignWithAssetsTest {
                                                 ),
                                             "paging" to
                                                 mapOf(
-                                                    "next" to mapOf("after" to "", "link" to ""),
+                                                    "next" to
+                                                        mapOf("after" to "after", "link" to "link"),
                                                     "prev" to
                                                         mapOf(
                                                             "before" to "before",

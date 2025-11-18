@@ -3,11 +3,11 @@
 package com.hubspot_sdk.api.models.crm.objects.custom.batch
 
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -21,22 +21,22 @@ internal class BatchCreateParamsTest {
                 BatchInputSimplePublicObjectBatchInputForCreate.builder()
                     .addInput(
                         SimplePublicObjectBatchInputForCreate.builder()
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
                                     )
+                                    .build()
+                            )
+                            .properties(
+                                SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
                             .objectWriteTraceId("objectWriteTraceId")
@@ -56,6 +56,20 @@ internal class BatchCreateParamsTest {
                     BatchInputSimplePublicObjectBatchInputForCreate.builder()
                         .addInput(
                             SimplePublicObjectBatchInputForCreate.builder()
+                                .addAssociation(
+                                    PublicAssociationsForObject.builder()
+                                        .to(PublicObjectId.builder().id("37295").build())
+                                        .addType(
+                                            AssociationSpec.builder()
+                                                .associationCategory(
+                                                    AssociationSpec.AssociationCategory
+                                                        .HUBSPOT_DEFINED
+                                                )
+                                                .associationTypeId(0)
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .properties(
                                     SimplePublicObjectBatchInputForCreate.Properties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -81,23 +95,23 @@ internal class BatchCreateParamsTest {
                     BatchInputSimplePublicObjectBatchInputForCreate.builder()
                         .addInput(
                             SimplePublicObjectBatchInputForCreate.builder()
-                                .properties(
-                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
                                 .addAssociation(
                                     PublicAssociationsForObject.builder()
                                         .to(PublicObjectId.builder().id("37295").build())
                                         .addType(
-                                            AssociationSpec1.builder()
+                                            AssociationSpec.builder()
                                                 .associationCategory(
-                                                    AssociationSpec1.AssociationCategory
+                                                    AssociationSpec.AssociationCategory
                                                         .HUBSPOT_DEFINED
                                                 )
                                                 .associationTypeId(0)
                                                 .build()
                                         )
+                                        .build()
+                                )
+                                .properties(
+                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
                                         .build()
                                 )
                                 .objectWriteTraceId("objectWriteTraceId")
@@ -114,22 +128,22 @@ internal class BatchCreateParamsTest {
                 BatchInputSimplePublicObjectBatchInputForCreate.builder()
                     .addInput(
                         SimplePublicObjectBatchInputForCreate.builder()
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
                                     )
+                                    .build()
+                            )
+                            .properties(
+                                SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
                             .objectWriteTraceId("objectWriteTraceId")
@@ -148,6 +162,20 @@ internal class BatchCreateParamsTest {
                     BatchInputSimplePublicObjectBatchInputForCreate.builder()
                         .addInput(
                             SimplePublicObjectBatchInputForCreate.builder()
+                                .addAssociation(
+                                    PublicAssociationsForObject.builder()
+                                        .to(PublicObjectId.builder().id("37295").build())
+                                        .addType(
+                                            AssociationSpec.builder()
+                                                .associationCategory(
+                                                    AssociationSpec.AssociationCategory
+                                                        .HUBSPOT_DEFINED
+                                                )
+                                                .associationTypeId(0)
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .properties(
                                     SimplePublicObjectBatchInputForCreate.Properties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -166,6 +194,19 @@ internal class BatchCreateParamsTest {
                 BatchInputSimplePublicObjectBatchInputForCreate.builder()
                     .addInput(
                         SimplePublicObjectBatchInputForCreate.builder()
+                            .addAssociation(
+                                PublicAssociationsForObject.builder()
+                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .addType(
+                                        AssociationSpec.builder()
+                                            .associationCategory(
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                            )
+                                            .associationTypeId(0)
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .properties(
                                 SimplePublicObjectBatchInputForCreate.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))

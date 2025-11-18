@@ -6,7 +6,6 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.scheduler.meetings.CollectionResponseWithTotalExternalLinkMetadataForwardPaging
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalBookingInfo
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalLinkAvailabilityAndBusyTimes
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalMeetingBooking
@@ -14,6 +13,7 @@ import com.hubspot_sdk.api.models.scheduler.meetings.ExternalMeetingBookingRespo
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkBookParams
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetAvailabilityBySlugParams
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetBookingInfoBySlugParams
+import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkListPage
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkListParams
 import java.util.function.Consumer
 
@@ -32,25 +32,20 @@ interface MeetingsLinkService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MeetingsLinkService
 
     /** Get a paged list meeting scheduling pages */
-    fun list(): CollectionResponseWithTotalExternalLinkMetadataForwardPaging =
-        list(MeetingsLinkListParams.none())
+    fun list(): MeetingsLinkListPage = list(MeetingsLinkListParams.none())
 
     /** @see list */
     fun list(
         params: MeetingsLinkListParams = MeetingsLinkListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalExternalLinkMetadataForwardPaging
+    ): MeetingsLinkListPage
 
     /** @see list */
-    fun list(
-        params: MeetingsLinkListParams = MeetingsLinkListParams.none()
-    ): CollectionResponseWithTotalExternalLinkMetadataForwardPaging =
+    fun list(params: MeetingsLinkListParams = MeetingsLinkListParams.none()): MeetingsLinkListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CollectionResponseWithTotalExternalLinkMetadataForwardPaging =
+    fun list(requestOptions: RequestOptions): MeetingsLinkListPage =
         list(MeetingsLinkListParams.none(), requestOptions)
 
     /** Book a meeting for a specified meeting page. */
@@ -78,31 +73,19 @@ interface MeetingsLinkService {
         book(externalMeetingBooking, RequestOptions.none())
 
     /** Get the next availability times for a meeting page. */
-    fun getAvailabilityBySlug(slug: String): ExternalLinkAvailabilityAndBusyTimes =
-        getAvailabilityBySlug(slug, MeetingsLinkGetAvailabilityBySlugParams.none())
-
-    /** @see getAvailabilityBySlug */
     fun getAvailabilityBySlug(
         slug: String,
-        params: MeetingsLinkGetAvailabilityBySlugParams =
-            MeetingsLinkGetAvailabilityBySlugParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalLinkAvailabilityAndBusyTimes =
-        getAvailabilityBySlug(params.toBuilder().slug(slug).build(), requestOptions)
-
-    /** @see getAvailabilityBySlug */
-    fun getAvailabilityBySlug(
-        slug: String,
-        params: MeetingsLinkGetAvailabilityBySlugParams =
-            MeetingsLinkGetAvailabilityBySlugParams.none(),
+        params: MeetingsLinkGetAvailabilityBySlugParams,
     ): ExternalLinkAvailabilityAndBusyTimes =
         getAvailabilityBySlug(slug, params, RequestOptions.none())
 
     /** @see getAvailabilityBySlug */
     fun getAvailabilityBySlug(
+        slug: String,
         params: MeetingsLinkGetAvailabilityBySlugParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalLinkAvailabilityAndBusyTimes
+    ): ExternalLinkAvailabilityAndBusyTimes =
+        getAvailabilityBySlug(params.toBuilder().slug(slug).build(), requestOptions)
 
     /** @see getAvailabilityBySlug */
     fun getAvailabilityBySlug(
@@ -111,44 +94,33 @@ interface MeetingsLinkService {
 
     /** @see getAvailabilityBySlug */
     fun getAvailabilityBySlug(
-        slug: String,
-        requestOptions: RequestOptions,
-    ): ExternalLinkAvailabilityAndBusyTimes =
-        getAvailabilityBySlug(slug, MeetingsLinkGetAvailabilityBySlugParams.none(), requestOptions)
+        params: MeetingsLinkGetAvailabilityBySlugParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalLinkAvailabilityAndBusyTimes
 
     /** Get details about the initial information necessary for a meeting scheduler. */
-    fun getBookingInfoBySlug(slug: String): ExternalBookingInfo =
-        getBookingInfoBySlug(slug, MeetingsLinkGetBookingInfoBySlugParams.none())
-
-    /** @see getBookingInfoBySlug */
     fun getBookingInfoBySlug(
         slug: String,
-        params: MeetingsLinkGetBookingInfoBySlugParams =
-            MeetingsLinkGetBookingInfoBySlugParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalBookingInfo =
-        getBookingInfoBySlug(params.toBuilder().slug(slug).build(), requestOptions)
-
-    /** @see getBookingInfoBySlug */
-    fun getBookingInfoBySlug(
-        slug: String,
-        params: MeetingsLinkGetBookingInfoBySlugParams =
-            MeetingsLinkGetBookingInfoBySlugParams.none(),
+        params: MeetingsLinkGetBookingInfoBySlugParams,
     ): ExternalBookingInfo = getBookingInfoBySlug(slug, params, RequestOptions.none())
 
     /** @see getBookingInfoBySlug */
     fun getBookingInfoBySlug(
+        slug: String,
         params: MeetingsLinkGetBookingInfoBySlugParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalBookingInfo
+    ): ExternalBookingInfo =
+        getBookingInfoBySlug(params.toBuilder().slug(slug).build(), requestOptions)
 
     /** @see getBookingInfoBySlug */
     fun getBookingInfoBySlug(params: MeetingsLinkGetBookingInfoBySlugParams): ExternalBookingInfo =
         getBookingInfoBySlug(params, RequestOptions.none())
 
     /** @see getBookingInfoBySlug */
-    fun getBookingInfoBySlug(slug: String, requestOptions: RequestOptions): ExternalBookingInfo =
-        getBookingInfoBySlug(slug, MeetingsLinkGetBookingInfoBySlugParams.none(), requestOptions)
+    fun getBookingInfoBySlug(
+        params: MeetingsLinkGetBookingInfoBySlugParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ExternalBookingInfo
 
     /**
      * A view of [MeetingsLinkService] that provides access to raw HTTP responses for each method.
@@ -169,28 +141,24 @@ interface MeetingsLinkService {
          * otherwise the same as [MeetingsLinkService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CollectionResponseWithTotalExternalLinkMetadataForwardPaging> =
-            list(MeetingsLinkListParams.none())
+        fun list(): HttpResponseFor<MeetingsLinkListPage> = list(MeetingsLinkListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MeetingsLinkListParams = MeetingsLinkListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalExternalLinkMetadataForwardPaging>
+        ): HttpResponseFor<MeetingsLinkListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: MeetingsLinkListParams = MeetingsLinkListParams.none()
-        ): HttpResponseFor<CollectionResponseWithTotalExternalLinkMetadataForwardPaging> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<MeetingsLinkListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseWithTotalExternalLinkMetadataForwardPaging> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<MeetingsLinkListPage> =
             list(MeetingsLinkListParams.none(), requestOptions)
 
         /**
@@ -235,35 +203,19 @@ interface MeetingsLinkService {
          */
         @MustBeClosed
         fun getAvailabilityBySlug(
-            slug: String
-        ): HttpResponseFor<ExternalLinkAvailabilityAndBusyTimes> =
-            getAvailabilityBySlug(slug, MeetingsLinkGetAvailabilityBySlugParams.none())
-
-        /** @see getAvailabilityBySlug */
-        @MustBeClosed
-        fun getAvailabilityBySlug(
             slug: String,
-            params: MeetingsLinkGetAvailabilityBySlugParams =
-                MeetingsLinkGetAvailabilityBySlugParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalLinkAvailabilityAndBusyTimes> =
-            getAvailabilityBySlug(params.toBuilder().slug(slug).build(), requestOptions)
-
-        /** @see getAvailabilityBySlug */
-        @MustBeClosed
-        fun getAvailabilityBySlug(
-            slug: String,
-            params: MeetingsLinkGetAvailabilityBySlugParams =
-                MeetingsLinkGetAvailabilityBySlugParams.none(),
+            params: MeetingsLinkGetAvailabilityBySlugParams,
         ): HttpResponseFor<ExternalLinkAvailabilityAndBusyTimes> =
             getAvailabilityBySlug(slug, params, RequestOptions.none())
 
         /** @see getAvailabilityBySlug */
         @MustBeClosed
         fun getAvailabilityBySlug(
+            slug: String,
             params: MeetingsLinkGetAvailabilityBySlugParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalLinkAvailabilityAndBusyTimes>
+        ): HttpResponseFor<ExternalLinkAvailabilityAndBusyTimes> =
+            getAvailabilityBySlug(params.toBuilder().slug(slug).build(), requestOptions)
 
         /** @see getAvailabilityBySlug */
         @MustBeClosed
@@ -275,48 +227,29 @@ interface MeetingsLinkService {
         /** @see getAvailabilityBySlug */
         @MustBeClosed
         fun getAvailabilityBySlug(
-            slug: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ExternalLinkAvailabilityAndBusyTimes> =
-            getAvailabilityBySlug(
-                slug,
-                MeetingsLinkGetAvailabilityBySlugParams.none(),
-                requestOptions,
-            )
+            params: MeetingsLinkGetAvailabilityBySlugParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalLinkAvailabilityAndBusyTimes>
 
         /**
          * Returns a raw HTTP response for `get /scheduler/v3/meetings/meeting-links/book/{slug}`,
          * but is otherwise the same as [MeetingsLinkService.getBookingInfoBySlug].
          */
         @MustBeClosed
-        fun getBookingInfoBySlug(slug: String): HttpResponseFor<ExternalBookingInfo> =
-            getBookingInfoBySlug(slug, MeetingsLinkGetBookingInfoBySlugParams.none())
-
-        /** @see getBookingInfoBySlug */
-        @MustBeClosed
         fun getBookingInfoBySlug(
             slug: String,
-            params: MeetingsLinkGetBookingInfoBySlugParams =
-                MeetingsLinkGetBookingInfoBySlugParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalBookingInfo> =
-            getBookingInfoBySlug(params.toBuilder().slug(slug).build(), requestOptions)
-
-        /** @see getBookingInfoBySlug */
-        @MustBeClosed
-        fun getBookingInfoBySlug(
-            slug: String,
-            params: MeetingsLinkGetBookingInfoBySlugParams =
-                MeetingsLinkGetBookingInfoBySlugParams.none(),
+            params: MeetingsLinkGetBookingInfoBySlugParams,
         ): HttpResponseFor<ExternalBookingInfo> =
             getBookingInfoBySlug(slug, params, RequestOptions.none())
 
         /** @see getBookingInfoBySlug */
         @MustBeClosed
         fun getBookingInfoBySlug(
+            slug: String,
             params: MeetingsLinkGetBookingInfoBySlugParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalBookingInfo>
+        ): HttpResponseFor<ExternalBookingInfo> =
+            getBookingInfoBySlug(params.toBuilder().slug(slug).build(), requestOptions)
 
         /** @see getBookingInfoBySlug */
         @MustBeClosed
@@ -328,13 +261,8 @@ interface MeetingsLinkService {
         /** @see getBookingInfoBySlug */
         @MustBeClosed
         fun getBookingInfoBySlug(
-            slug: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ExternalBookingInfo> =
-            getBookingInfoBySlug(
-                slug,
-                MeetingsLinkGetBookingInfoBySlugParams.none(),
-                requestOptions,
-            )
+            params: MeetingsLinkGetBookingInfoBySlugParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ExternalBookingInfo>
     }
 }

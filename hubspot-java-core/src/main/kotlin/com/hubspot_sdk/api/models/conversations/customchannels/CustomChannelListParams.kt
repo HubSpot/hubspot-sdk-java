@@ -5,14 +5,36 @@ package com.hubspot_sdk.api.models.conversations.customchannels
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve all custom channels associated with the app. */
 class CustomChannelListParams
 private constructor(
+    private val after: String?,
+    private val defaultPageLength: Int?,
+    private val limit: Int?,
+    private val sort: List<String>?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /**
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * `paging.next.after` JSON property of a paged response containing more results.
+     */
+    fun after(): Optional<String> = Optional.ofNullable(after)
+
+    /** Specify the default number of results to return per page. */
+    fun defaultPageLength(): Optional<Int> = Optional.ofNullable(defaultPageLength)
+
+    /** The maximum number of results to display per page. */
+    fun limit(): Optional<Int> = Optional.ofNullable(limit)
+
+    /** Specify the sorting order for the results. */
+    fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -33,13 +55,74 @@ private constructor(
     /** A builder for [CustomChannelListParams]. */
     class Builder internal constructor() {
 
+        private var after: String? = null
+        private var defaultPageLength: Int? = null
+        private var limit: Int? = null
+        private var sort: MutableList<String>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(customChannelListParams: CustomChannelListParams) = apply {
+            after = customChannelListParams.after
+            defaultPageLength = customChannelListParams.defaultPageLength
+            limit = customChannelListParams.limit
+            sort = customChannelListParams.sort?.toMutableList()
             additionalHeaders = customChannelListParams.additionalHeaders.toBuilder()
             additionalQueryParams = customChannelListParams.additionalQueryParams.toBuilder()
+        }
+
+        /**
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * `paging.next.after` JSON property of a paged response containing more results.
+         */
+        fun after(after: String?) = apply { this.after = after }
+
+        /** Alias for calling [Builder.after] with `after.orElse(null)`. */
+        fun after(after: Optional<String>) = after(after.getOrNull())
+
+        /** Specify the default number of results to return per page. */
+        fun defaultPageLength(defaultPageLength: Int?) = apply {
+            this.defaultPageLength = defaultPageLength
+        }
+
+        /**
+         * Alias for [Builder.defaultPageLength].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun defaultPageLength(defaultPageLength: Int) = defaultPageLength(defaultPageLength as Int?)
+
+        /** Alias for calling [Builder.defaultPageLength] with `defaultPageLength.orElse(null)`. */
+        fun defaultPageLength(defaultPageLength: Optional<Int>) =
+            defaultPageLength(defaultPageLength.getOrNull())
+
+        /** The maximum number of results to display per page. */
+        fun limit(limit: Int?) = apply { this.limit = limit }
+
+        /**
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun limit(limit: Int) = limit(limit as Int?)
+
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
+        fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
+
+        /** Specify the sorting order for the results. */
+        fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
+
+        /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
+        fun sort(sort: Optional<List<String>>) = sort(sort.getOrNull())
+
+        /**
+         * Adds a single [String] to [Builder.sort].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addSort(sort: String) = apply {
+            this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -146,12 +229,28 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): CustomChannelListParams =
-            CustomChannelListParams(additionalHeaders.build(), additionalQueryParams.build())
+            CustomChannelListParams(
+                after,
+                defaultPageLength,
+                limit,
+                sort?.toImmutable(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                after?.let { put("after", it) }
+                defaultPageLength?.let { put("defaultPageLength", it.toString()) }
+                limit?.let { put("limit", it.toString()) }
+                sort?.let { put("sort", it.joinToString(",")) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -159,12 +258,24 @@ private constructor(
         }
 
         return other is CustomChannelListParams &&
+            after == other.after &&
+            defaultPageLength == other.defaultPageLength &&
+            limit == other.limit &&
+            sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(
+            after,
+            defaultPageLength,
+            limit,
+            sort,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "CustomChannelListParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CustomChannelListParams{after=$after, defaultPageLength=$defaultPageLength, limit=$limit, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -7,6 +7,8 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalBookingFormField
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalLegalConsentResponse
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalMeetingBooking
+import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetAvailabilityBySlugParams
+import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetBookingInfoBySlugParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -25,12 +27,10 @@ internal class MeetingsLinkServiceAsyncTest {
                 .build()
         val meetingsLinkServiceAsync = client.scheduler().meetings().meetingsLinks()
 
-        val collectionResponseWithTotalExternalLinkMetadataForwardPagingFuture =
-            meetingsLinkServiceAsync.list()
+        val pageFuture = meetingsLinkServiceAsync.list()
 
-        val collectionResponseWithTotalExternalLinkMetadataForwardPaging =
-            collectionResponseWithTotalExternalLinkMetadataForwardPagingFuture.get()
-        collectionResponseWithTotalExternalLinkMetadataForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -82,7 +82,13 @@ internal class MeetingsLinkServiceAsyncTest {
         val meetingsLinkServiceAsync = client.scheduler().meetings().meetingsLinks()
 
         val externalLinkAvailabilityAndBusyTimesFuture =
-            meetingsLinkServiceAsync.getAvailabilityBySlug("slug")
+            meetingsLinkServiceAsync.getAvailabilityBySlug(
+                MeetingsLinkGetAvailabilityBySlugParams.builder()
+                    .slug("slug")
+                    .timezone("timezone")
+                    .monthOffset(0)
+                    .build()
+            )
 
         val externalLinkAvailabilityAndBusyTimes = externalLinkAvailabilityAndBusyTimesFuture.get()
         externalLinkAvailabilityAndBusyTimes.validate()
@@ -98,7 +104,13 @@ internal class MeetingsLinkServiceAsyncTest {
                 .build()
         val meetingsLinkServiceAsync = client.scheduler().meetings().meetingsLinks()
 
-        val externalBookingInfoFuture = meetingsLinkServiceAsync.getBookingInfoBySlug("slug")
+        val externalBookingInfoFuture =
+            meetingsLinkServiceAsync.getBookingInfoBySlug(
+                MeetingsLinkGetBookingInfoBySlugParams.builder()
+                    .slug("slug")
+                    .timezone("timezone")
+                    .build()
+            )
 
         val externalBookingInfo = externalBookingInfoFuture.get()
         externalBookingInfo.validate()

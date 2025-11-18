@@ -14,13 +14,21 @@ import kotlin.jvm.optionals.getOrNull
 /** Delete an existing oEmbed domain. */
 class IntegratorSettingDeleteOembedDomainParams
 private constructor(
-    private val appId: String?,
+    private val appId: Int?,
+    private val id: Long?,
+    private val domainPortalId: Int?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun appId(): Optional<String> = Optional.ofNullable(appId)
+    fun appId(): Optional<Int> = Optional.ofNullable(appId)
+
+    /** The ID of the oEmbed to delete. */
+    fun id(): Optional<Long> = Optional.ofNullable(id)
+
+    /** Filter response by Hub ID. */
+    fun domainPortalId(): Optional<Int> = Optional.ofNullable(domainPortalId)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -47,7 +55,9 @@ private constructor(
     /** A builder for [IntegratorSettingDeleteOembedDomainParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
+        private var id: Long? = null
+        private var domainPortalId: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -57,6 +67,8 @@ private constructor(
             integratorSettingDeleteOembedDomainParams: IntegratorSettingDeleteOembedDomainParams
         ) = apply {
             appId = integratorSettingDeleteOembedDomainParams.appId
+            id = integratorSettingDeleteOembedDomainParams.id
+            domainPortalId = integratorSettingDeleteOembedDomainParams.domainPortalId
             additionalHeaders =
                 integratorSettingDeleteOembedDomainParams.additionalHeaders.toBuilder()
             additionalQueryParams =
@@ -65,10 +77,44 @@ private constructor(
                 integratorSettingDeleteOembedDomainParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun appId(appId: String?) = apply { this.appId = appId }
+        fun appId(appId: Int?) = apply { this.appId = appId }
+
+        /**
+         * Alias for [Builder.appId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun appId(appId: Int) = appId(appId as Int?)
 
         /** Alias for calling [Builder.appId] with `appId.orElse(null)`. */
-        fun appId(appId: Optional<String>) = appId(appId.getOrNull())
+        fun appId(appId: Optional<Int>) = appId(appId.getOrNull())
+
+        /** The ID of the oEmbed to delete. */
+        fun id(id: Long?) = apply { this.id = id }
+
+        /**
+         * Alias for [Builder.id].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun id(id: Long) = id(id as Long?)
+
+        /** Alias for calling [Builder.id] with `id.orElse(null)`. */
+        fun id(id: Optional<Long>) = id(id.getOrNull())
+
+        /** Filter response by Hub ID. */
+        fun domainPortalId(domainPortalId: Int?) = apply { this.domainPortalId = domainPortalId }
+
+        /**
+         * Alias for [Builder.domainPortalId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun domainPortalId(domainPortalId: Int) = domainPortalId(domainPortalId as Int?)
+
+        /** Alias for calling [Builder.domainPortalId] with `domainPortalId.orElse(null)`. */
+        fun domainPortalId(domainPortalId: Optional<Int>) =
+            domainPortalId(domainPortalId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -198,6 +244,8 @@ private constructor(
         fun build(): IntegratorSettingDeleteOembedDomainParams =
             IntegratorSettingDeleteOembedDomainParams(
                 appId,
+                id,
+                domainPortalId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -209,13 +257,20 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId ?: ""
+            0 -> appId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                id?.let { put("id", it.toString()) }
+                domainPortalId?.let { put("domainPortalId", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -224,14 +279,23 @@ private constructor(
 
         return other is IntegratorSettingDeleteOembedDomainParams &&
             appId == other.appId &&
+            id == other.id &&
+            domainPortalId == other.domainPortalId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(appId, additionalHeaders, additionalQueryParams, additionalBodyProperties)
+        Objects.hash(
+            appId,
+            id,
+            domainPortalId,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
-        "IntegratorSettingDeleteOembedDomainParams{appId=$appId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "IntegratorSettingDeleteOembedDomainParams{appId=$appId, id=$id, domainPortalId=$domainPortalId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.async.conversations
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,12 +22,10 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().channelAccounts()
 
-        val collectionResponseWithTotalPublicChannelAccountForwardPagingFuture =
-            channelAccountServiceAsync.list()
+        val pageFuture = channelAccountServiceAsync.list()
 
-        val collectionResponseWithTotalPublicChannelAccountForwardPaging =
-            collectionResponseWithTotalPublicChannelAccountForwardPagingFuture.get()
-        collectionResponseWithTotalPublicChannelAccountForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -39,10 +38,12 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().channelAccounts()
 
-        val conversationsPublicChannelAccountFuture =
-            channelAccountServiceAsync.get("channelAccountId")
+        val publicChannelAccountFuture =
+            channelAccountServiceAsync.get(
+                ChannelAccountGetParams.builder().channelAccountId(0L).archived(true).build()
+            )
 
-        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
-        conversationsPublicChannelAccount.validate()
+        val publicChannelAccount = publicChannelAccountFuture.get()
+        publicChannelAccount.validate()
     }
 }

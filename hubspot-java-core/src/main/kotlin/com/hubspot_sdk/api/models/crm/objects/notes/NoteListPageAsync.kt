@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.models.crm.objects.notes
 import com.hubspot_sdk.api.core.AutoPagerAsync
 import com.hubspot_sdk.api.core.PageAsync
 import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.models.Paging
 import com.hubspot_sdk.api.models.crm.CollectionResponseSimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
-import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import com.hubspot_sdk.api.services.async.crm.objects.NoteServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -39,7 +39,7 @@ private constructor(
      *
      * @see CollectionResponseSimplePublicObjectWithAssociations.paging
      */
-    fun paging(): Optional<EmailsPaging> = response._paging().getOptional("paging")
+    fun paging(): Optional<Paging> = response._paging().getOptional("paging")
 
     override fun items(): List<SimplePublicObjectWithAssociations> = results()
 
@@ -47,16 +47,14 @@ private constructor(
         items().isNotEmpty() &&
             paging()
                 .flatMap { it._next().getOptional("next") }
-                ._after()
-                .getOptional("after")
+                .flatMap { it._after().getOptional("after") }
                 .isPresent
 
     fun nextPageParams(): NoteListParams {
         val nextCursor =
             paging()
                 .flatMap { it._next().getOptional("next") }
-                ._after()
-                .getOptional("after")
+                .flatMap { it._after().getOptional("after") }
                 .getOrNull() ?: throw IllegalStateException("Cannot construct next page params")
         return params.toBuilder().after(nextCursor).build()
     }

@@ -28,6 +28,7 @@ private constructor(
     private val hsMeetingStartTime: JsonField<OffsetDateTime>,
     private val hsMeetingTitle: JsonField<String>,
     private val hsTimestamp: JsonField<OffsetDateTime>,
+    private val hubspotOwnerId: JsonField<String>,
     private val hsActivityType: JsonField<String>,
     private val hsAttachmentIds: JsonField<List<String>>,
     private val hsAttendeeOwnerIds: JsonField<List<String>>,
@@ -35,7 +36,6 @@ private constructor(
     private val hsMeetingBody: JsonField<String>,
     private val hsMeetingLocation: JsonField<String>,
     private val hsMeetingLocationType: JsonField<String>,
-    private val hubspotOwnerId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -56,6 +56,9 @@ private constructor(
         @JsonProperty("hs_timestamp")
         @ExcludeMissing
         hsTimestamp: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("hubspot_owner_id")
+        @ExcludeMissing
+        hubspotOwnerId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("hs_activity_type")
         @ExcludeMissing
         hsActivityType: JsonField<String> = JsonMissing.of(),
@@ -77,15 +80,13 @@ private constructor(
         @JsonProperty("hs_meeting_location_type")
         @ExcludeMissing
         hsMeetingLocationType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("hubspot_owner_id")
-        @ExcludeMissing
-        hubspotOwnerId: JsonField<String> = JsonMissing.of(),
     ) : this(
         hsMeetingEndTime,
         hsMeetingOutcome,
         hsMeetingStartTime,
         hsMeetingTitle,
         hsTimestamp,
+        hubspotOwnerId,
         hsActivityType,
         hsAttachmentIds,
         hsAttendeeOwnerIds,
@@ -93,7 +94,6 @@ private constructor(
         hsMeetingBody,
         hsMeetingLocation,
         hsMeetingLocationType,
-        hubspotOwnerId,
         mutableMapOf(),
     )
 
@@ -127,6 +127,12 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hsTimestamp(): OffsetDateTime = hsTimestamp.getRequired("hs_timestamp")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun hubspotOwnerId(): String = hubspotOwnerId.getRequired("hubspot_owner_id")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -172,12 +178,6 @@ private constructor(
      */
     fun hsMeetingLocationType(): Optional<String> =
         hsMeetingLocationType.getOptional("hs_meeting_location_type")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun hubspotOwnerId(): Optional<String> = hubspotOwnerId.getOptional("hubspot_owner_id")
 
     /**
      * Returns the raw JSON value of [hsMeetingEndTime].
@@ -226,6 +226,15 @@ private constructor(
     @JsonProperty("hs_timestamp")
     @ExcludeMissing
     fun _hsTimestamp(): JsonField<OffsetDateTime> = hsTimestamp
+
+    /**
+     * Returns the raw JSON value of [hubspotOwnerId].
+     *
+     * Unlike [hubspotOwnerId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("hubspot_owner_id")
+    @ExcludeMissing
+    fun _hubspotOwnerId(): JsonField<String> = hubspotOwnerId
 
     /**
      * Returns the raw JSON value of [hsActivityType].
@@ -294,15 +303,6 @@ private constructor(
     @ExcludeMissing
     fun _hsMeetingLocationType(): JsonField<String> = hsMeetingLocationType
 
-    /**
-     * Returns the raw JSON value of [hubspotOwnerId].
-     *
-     * Unlike [hubspotOwnerId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("hubspot_owner_id")
-    @ExcludeMissing
-    fun _hubspotOwnerId(): JsonField<String> = hubspotOwnerId
-
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -328,6 +328,7 @@ private constructor(
          * .hsMeetingStartTime()
          * .hsMeetingTitle()
          * .hsTimestamp()
+         * .hubspotOwnerId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -341,6 +342,7 @@ private constructor(
         private var hsMeetingStartTime: JsonField<OffsetDateTime>? = null
         private var hsMeetingTitle: JsonField<String>? = null
         private var hsTimestamp: JsonField<OffsetDateTime>? = null
+        private var hubspotOwnerId: JsonField<String>? = null
         private var hsActivityType: JsonField<String> = JsonMissing.of()
         private var hsAttachmentIds: JsonField<MutableList<String>>? = null
         private var hsAttendeeOwnerIds: JsonField<MutableList<String>>? = null
@@ -348,7 +350,6 @@ private constructor(
         private var hsMeetingBody: JsonField<String> = JsonMissing.of()
         private var hsMeetingLocation: JsonField<String> = JsonMissing.of()
         private var hsMeetingLocationType: JsonField<String> = JsonMissing.of()
-        private var hubspotOwnerId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -361,6 +362,7 @@ private constructor(
             hsMeetingStartTime = externalCalendarMeetingEventCreateProperties.hsMeetingStartTime
             hsMeetingTitle = externalCalendarMeetingEventCreateProperties.hsMeetingTitle
             hsTimestamp = externalCalendarMeetingEventCreateProperties.hsTimestamp
+            hubspotOwnerId = externalCalendarMeetingEventCreateProperties.hubspotOwnerId
             hsActivityType = externalCalendarMeetingEventCreateProperties.hsActivityType
             hsAttachmentIds =
                 externalCalendarMeetingEventCreateProperties.hsAttachmentIds.map {
@@ -376,7 +378,6 @@ private constructor(
             hsMeetingLocation = externalCalendarMeetingEventCreateProperties.hsMeetingLocation
             hsMeetingLocationType =
                 externalCalendarMeetingEventCreateProperties.hsMeetingLocationType
-            hubspotOwnerId = externalCalendarMeetingEventCreateProperties.hubspotOwnerId
             additionalProperties =
                 externalCalendarMeetingEventCreateProperties.additionalProperties.toMutableMap()
         }
@@ -447,6 +448,19 @@ private constructor(
          */
         fun hsTimestamp(hsTimestamp: JsonField<OffsetDateTime>) = apply {
             this.hsTimestamp = hsTimestamp
+        }
+
+        fun hubspotOwnerId(hubspotOwnerId: String) = hubspotOwnerId(JsonField.of(hubspotOwnerId))
+
+        /**
+         * Sets [Builder.hubspotOwnerId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.hubspotOwnerId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun hubspotOwnerId(hubspotOwnerId: JsonField<String>) = apply {
+            this.hubspotOwnerId = hubspotOwnerId
         }
 
         fun hsActivityType(hsActivityType: String) = hsActivityType(JsonField.of(hsActivityType))
@@ -569,19 +583,6 @@ private constructor(
             this.hsMeetingLocationType = hsMeetingLocationType
         }
 
-        fun hubspotOwnerId(hubspotOwnerId: String) = hubspotOwnerId(JsonField.of(hubspotOwnerId))
-
-        /**
-         * Sets [Builder.hubspotOwnerId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.hubspotOwnerId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun hubspotOwnerId(hubspotOwnerId: JsonField<String>) = apply {
-            this.hubspotOwnerId = hubspotOwnerId
-        }
-
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -613,6 +614,7 @@ private constructor(
          * .hsMeetingStartTime()
          * .hsMeetingTitle()
          * .hsTimestamp()
+         * .hubspotOwnerId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -624,6 +626,7 @@ private constructor(
                 checkRequired("hsMeetingStartTime", hsMeetingStartTime),
                 checkRequired("hsMeetingTitle", hsMeetingTitle),
                 checkRequired("hsTimestamp", hsTimestamp),
+                checkRequired("hubspotOwnerId", hubspotOwnerId),
                 hsActivityType,
                 (hsAttachmentIds ?: JsonMissing.of()).map { it.toImmutable() },
                 (hsAttendeeOwnerIds ?: JsonMissing.of()).map { it.toImmutable() },
@@ -631,7 +634,6 @@ private constructor(
                 hsMeetingBody,
                 hsMeetingLocation,
                 hsMeetingLocationType,
-                hubspotOwnerId,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -648,6 +650,7 @@ private constructor(
         hsMeetingStartTime()
         hsMeetingTitle()
         hsTimestamp()
+        hubspotOwnerId()
         hsActivityType()
         hsAttachmentIds()
         hsAttendeeOwnerIds()
@@ -655,7 +658,6 @@ private constructor(
         hsMeetingBody()
         hsMeetingLocation()
         hsMeetingLocationType()
-        hubspotOwnerId()
         validated = true
     }
 
@@ -679,14 +681,14 @@ private constructor(
             (if (hsMeetingStartTime.asKnown().isPresent) 1 else 0) +
             (if (hsMeetingTitle.asKnown().isPresent) 1 else 0) +
             (if (hsTimestamp.asKnown().isPresent) 1 else 0) +
+            (if (hubspotOwnerId.asKnown().isPresent) 1 else 0) +
             (if (hsActivityType.asKnown().isPresent) 1 else 0) +
             (hsAttachmentIds.asKnown().getOrNull()?.size ?: 0) +
             (hsAttendeeOwnerIds.asKnown().getOrNull()?.size ?: 0) +
             (if (hsInternalMeetingNotes.asKnown().isPresent) 1 else 0) +
             (if (hsMeetingBody.asKnown().isPresent) 1 else 0) +
             (if (hsMeetingLocation.asKnown().isPresent) 1 else 0) +
-            (if (hsMeetingLocationType.asKnown().isPresent) 1 else 0) +
-            (if (hubspotOwnerId.asKnown().isPresent) 1 else 0)
+            (if (hsMeetingLocationType.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -699,6 +701,7 @@ private constructor(
             hsMeetingStartTime == other.hsMeetingStartTime &&
             hsMeetingTitle == other.hsMeetingTitle &&
             hsTimestamp == other.hsTimestamp &&
+            hubspotOwnerId == other.hubspotOwnerId &&
             hsActivityType == other.hsActivityType &&
             hsAttachmentIds == other.hsAttachmentIds &&
             hsAttendeeOwnerIds == other.hsAttendeeOwnerIds &&
@@ -706,7 +709,6 @@ private constructor(
             hsMeetingBody == other.hsMeetingBody &&
             hsMeetingLocation == other.hsMeetingLocation &&
             hsMeetingLocationType == other.hsMeetingLocationType &&
-            hubspotOwnerId == other.hubspotOwnerId &&
             additionalProperties == other.additionalProperties
     }
 
@@ -717,6 +719,7 @@ private constructor(
             hsMeetingStartTime,
             hsMeetingTitle,
             hsTimestamp,
+            hubspotOwnerId,
             hsActivityType,
             hsAttachmentIds,
             hsAttendeeOwnerIds,
@@ -724,7 +727,6 @@ private constructor(
             hsMeetingBody,
             hsMeetingLocation,
             hsMeetingLocationType,
-            hubspotOwnerId,
             additionalProperties,
         )
     }
@@ -732,5 +734,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalCalendarMeetingEventCreateProperties{hsMeetingEndTime=$hsMeetingEndTime, hsMeetingOutcome=$hsMeetingOutcome, hsMeetingStartTime=$hsMeetingStartTime, hsMeetingTitle=$hsMeetingTitle, hsTimestamp=$hsTimestamp, hsActivityType=$hsActivityType, hsAttachmentIds=$hsAttachmentIds, hsAttendeeOwnerIds=$hsAttendeeOwnerIds, hsInternalMeetingNotes=$hsInternalMeetingNotes, hsMeetingBody=$hsMeetingBody, hsMeetingLocation=$hsMeetingLocation, hsMeetingLocationType=$hsMeetingLocationType, hubspotOwnerId=$hubspotOwnerId, additionalProperties=$additionalProperties}"
+        "ExternalCalendarMeetingEventCreateProperties{hsMeetingEndTime=$hsMeetingEndTime, hsMeetingOutcome=$hsMeetingOutcome, hsMeetingStartTime=$hsMeetingStartTime, hsMeetingTitle=$hsMeetingTitle, hsTimestamp=$hsTimestamp, hubspotOwnerId=$hubspotOwnerId, hsActivityType=$hsActivityType, hsAttachmentIds=$hsAttachmentIds, hsAttendeeOwnerIds=$hsAttendeeOwnerIds, hsInternalMeetingNotes=$hsInternalMeetingNotes, hsMeetingBody=$hsMeetingBody, hsMeetingLocation=$hsMeetingLocation, hsMeetingLocationType=$hsMeetingLocationType, additionalProperties=$additionalProperties}"
 }
