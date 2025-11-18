@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicInboxForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicInbox
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxGetParams
+import com.hubspot_sdk.api.models.conversations.inboxes.InboxListPageAsync
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -38,7 +39,7 @@ class InboxServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun list(
         params: InboxListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalPublicInboxForwardPaging> =
+    ): CompletableFuture<InboxListPageAsync> =
         // get /conversations/v3/conversations/inboxes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -70,7 +71,7 @@ class InboxServiceAsyncImpl internal constructor(private val clientOptions: Clie
         override fun list(
             params: InboxListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging>> {
+        ): CompletableFuture<HttpResponseFor<InboxListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -89,6 +90,14 @@ class InboxServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                InboxListPageAsync.builder()
+                                    .service(InboxServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

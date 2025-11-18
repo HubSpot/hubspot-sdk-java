@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Archive an existing registered custom channel */
 class CustomChannelDeleteParams
 private constructor(
-    private val channelId: String?,
+    private val channelId: Int?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun channelId(): Optional<String> = Optional.ofNullable(channelId)
+    fun channelId(): Optional<Int> = Optional.ofNullable(channelId)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -46,7 +46,7 @@ private constructor(
     /** A builder for [CustomChannelDeleteParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
+        private var channelId: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -60,10 +60,17 @@ private constructor(
                 customChannelDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun channelId(channelId: String?) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int?) = apply { this.channelId = channelId }
+
+        /**
+         * Alias for [Builder.channelId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun channelId(channelId: Int) = channelId(channelId as Int?)
 
         /** Alias for calling [Builder.channelId] with `channelId.orElse(null)`. */
-        fun channelId(channelId: Optional<String>) = channelId(channelId.getOrNull())
+        fun channelId(channelId: Optional<Int>) = channelId(channelId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -204,7 +211,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId ?: ""
+            0 -> channelId?.toString() ?: ""
             else -> ""
         }
 

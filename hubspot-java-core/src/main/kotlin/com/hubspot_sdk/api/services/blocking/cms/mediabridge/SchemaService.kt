@@ -55,12 +55,12 @@ interface SchemaService {
     ): ObjectsSchemasObjectTypeDefinition
 
     /** Get the schemas for all object types. */
-    fun list(appId: String): CollectionResponseObjectSchemaNoPaging =
+    fun list(appId: Int): CollectionResponseObjectSchemaNoPaging =
         list(appId, SchemaListParams.none())
 
     /** @see list */
     fun list(
-        appId: String,
+        appId: Int,
         params: SchemaListParams = SchemaListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponseObjectSchemaNoPaging =
@@ -68,7 +68,7 @@ interface SchemaService {
 
     /** @see list */
     fun list(
-        appId: String,
+        appId: Int,
         params: SchemaListParams = SchemaListParams.none(),
     ): CollectionResponseObjectSchemaNoPaging = list(appId, params, RequestOptions.none())
 
@@ -83,10 +83,8 @@ interface SchemaService {
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        appId: String,
-        requestOptions: RequestOptions,
-    ): CollectionResponseObjectSchemaNoPaging = list(appId, SchemaListParams.none(), requestOptions)
+    fun list(appId: Int, requestOptions: RequestOptions): CollectionResponseObjectSchemaNoPaging =
+        list(appId, SchemaListParams.none(), requestOptions)
 
     /** Create a new association definition for the specified object type. */
     fun createAssociation(
@@ -202,13 +200,13 @@ interface SchemaService {
          * the same as [SchemaService.list].
          */
         @MustBeClosed
-        fun list(appId: String): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
+        fun list(appId: Int): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
             list(appId, SchemaListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
-            appId: String,
+            appId: Int,
             params: SchemaListParams = SchemaListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
@@ -217,7 +215,7 @@ interface SchemaService {
         /** @see list */
         @MustBeClosed
         fun list(
-            appId: String,
+            appId: Int,
             params: SchemaListParams = SchemaListParams.none(),
         ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
             list(appId, params, RequestOptions.none())
@@ -239,7 +237,7 @@ interface SchemaService {
         /** @see list */
         @MustBeClosed
         fun list(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
             list(appId, SchemaListParams.none(), requestOptions)

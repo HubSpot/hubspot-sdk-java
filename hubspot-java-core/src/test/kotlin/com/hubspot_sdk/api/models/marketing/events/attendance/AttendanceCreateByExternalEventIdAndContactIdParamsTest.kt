@@ -44,7 +44,15 @@ internal class AttendanceCreateByExternalEventIdAndContactIdParamsTest {
                 .batchInputMarketingEventSubscriber(
                     BatchInputMarketingEventSubscriber.builder()
                         .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
+                            MarketingEventSubscriber.builder()
+                                .interactionDateTime(0L)
+                                .properties(
+                                    MarketingEventSubscriber.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .vid(0)
+                                .build()
                         )
                         .build()
                 )
@@ -95,7 +103,15 @@ internal class AttendanceCreateByExternalEventIdAndContactIdParamsTest {
                 .batchInputMarketingEventSubscriber(
                     BatchInputMarketingEventSubscriber.builder()
                         .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
+                            MarketingEventSubscriber.builder()
+                                .interactionDateTime(0L)
+                                .properties(
+                                    MarketingEventSubscriber.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .vid(0)
+                                .build()
                         )
                         .build()
                 )
@@ -159,7 +175,15 @@ internal class AttendanceCreateByExternalEventIdAndContactIdParamsTest {
                 .batchInputMarketingEventSubscriber(
                     BatchInputMarketingEventSubscriber.builder()
                         .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
+                            MarketingEventSubscriber.builder()
+                                .interactionDateTime(0L)
+                                .properties(
+                                    MarketingEventSubscriber.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .vid(0)
+                                .build()
                         )
                         .build()
                 )
@@ -170,7 +194,17 @@ internal class AttendanceCreateByExternalEventIdAndContactIdParamsTest {
         assertThat(body)
             .isEqualTo(
                 BatchInputMarketingEventSubscriber.builder()
-                    .addInput(MarketingEventSubscriber.builder().interactionDateTime(0L).build())
+                    .addInput(
+                        MarketingEventSubscriber.builder()
+                            .interactionDateTime(0L)
+                            .properties(
+                                MarketingEventSubscriber.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .vid(0)
+                            .build()
+                    )
                     .build()
             )
     }

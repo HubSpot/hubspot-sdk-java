@@ -122,7 +122,7 @@ interface PipelineServiceAsync {
     ): CompletableFuture<CollectionResponsePipelineNoPaging> =
         list(objectType, PipelineListParams.none(), requestOptions)
 
-    /** Delete a pipeline */
+    /** Delete a pipeline identified by its unique pipelineId */
     fun delete(pipelineId: String, params: PipelineDeleteParams): CompletableFuture<Void?> =
         delete(pipelineId, params, RequestOptions.none())
 
@@ -196,7 +196,7 @@ interface PipelineServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging>
 
-    /** Replace a pipeline */
+    /** Replace all properties of an existing pipeline with the provided values. */
     fun replace(pipelineId: String, params: PipelineReplaceParams): CompletableFuture<Pipeline> =
         replace(pipelineId, params, RequestOptions.none())
 

@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.services.async.settings
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.settings.taxrates.CollectionResponsePublicTaxRateGroupForwardPaging
 import com.hubspot_sdk.api.models.settings.taxrates.PublicTaxRateGroup
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetParams
+import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListPageAsync
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -27,25 +27,21 @@ interface TaxRateServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TaxRateServiceAsync
 
     /** Retrieve a paginated list of all tax rates set up in the account tax rate library */
-    fun list(): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
-        list(TaxRateListParams.none())
+    fun list(): CompletableFuture<TaxRateListPageAsync> = list(TaxRateListParams.none())
 
     /** @see list */
     fun list(
         params: TaxRateListParams = TaxRateListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging>
+    ): CompletableFuture<TaxRateListPageAsync>
 
     /** @see list */
     fun list(
         params: TaxRateListParams = TaxRateListParams.none()
-    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<TaxRateListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<TaxRateListPageAsync> =
         list(TaxRateListParams.none(), requestOptions)
 
     /** Retrieve a specific tax rate by its `taxRateGroupId`. */
@@ -101,26 +97,25 @@ interface TaxRateServiceAsync {
          * Returns a raw HTTP response for `get /tax-rates/v1/tax-rates`, but is otherwise the same
          * as [TaxRateServiceAsync.list].
          */
-        fun list():
-            CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> =
+        fun list(): CompletableFuture<HttpResponseFor<TaxRateListPageAsync>> =
             list(TaxRateListParams.none())
 
         /** @see list */
         fun list(
             params: TaxRateListParams = TaxRateListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<TaxRateListPageAsync>>
 
         /** @see list */
         fun list(
             params: TaxRateListParams = TaxRateListParams.none()
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<TaxRateListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<TaxRateListPageAsync>> =
             list(TaxRateListParams.none(), requestOptions)
 
         /**

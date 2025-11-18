@@ -25,12 +25,12 @@ internal class MarketingEventSubscriberTest {
 
         assertThat(marketingEventSubscriber.interactionDateTime()).isEqualTo(0L)
         assertThat(marketingEventSubscriber.properties())
-            .contains(
+            .isEqualTo(
                 MarketingEventSubscriber.Properties.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
-        assertThat(marketingEventSubscriber.vid()).contains(0)
+        assertThat(marketingEventSubscriber.vid()).isEqualTo(0)
     }
 
     @Test

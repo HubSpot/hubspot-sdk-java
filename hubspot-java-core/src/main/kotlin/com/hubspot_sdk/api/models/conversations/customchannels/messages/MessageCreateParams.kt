@@ -15,13 +15,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Publish a message over your custom channel */
 class MessageCreateParams
 private constructor(
-    private val channelId: String?,
+    private val channelId: Int?,
     private val channelIntegrationMessageEgg: ChannelIntegrationMessageEgg,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): Optional<String> = Optional.ofNullable(channelId)
+    fun channelId(): Optional<Int> = Optional.ofNullable(channelId)
 
     fun channelIntegrationMessageEgg(): ChannelIntegrationMessageEgg = channelIntegrationMessageEgg
 
@@ -52,7 +52,7 @@ private constructor(
     /** A builder for [MessageCreateParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
+        private var channelId: Int? = null
         private var channelIntegrationMessageEgg: ChannelIntegrationMessageEgg? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -65,10 +65,17 @@ private constructor(
             additionalQueryParams = messageCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String?) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int?) = apply { this.channelId = channelId }
+
+        /**
+         * Alias for [Builder.channelId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun channelId(channelId: Int) = channelId(channelId as Int?)
 
         /** Alias for calling [Builder.channelId] with `channelId.orElse(null)`. */
-        fun channelId(channelId: Optional<String>) = channelId(channelId.getOrNull())
+        fun channelId(channelId: Optional<Int>) = channelId(channelId.getOrNull())
 
         fun channelIntegrationMessageEgg(
             channelIntegrationMessageEgg: ChannelIntegrationMessageEgg
@@ -197,7 +204,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId ?: ""
+            0 -> channelId?.toString() ?: ""
             else -> ""
         }
 

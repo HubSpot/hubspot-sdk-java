@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.automation.sequences
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentRequest
+import com.hubspot_sdk.api.models.automation.sequences.enrollments.EnrollmentEnrollParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -24,11 +25,16 @@ internal class EnrollmentServiceAsyncTest {
 
         val publicSequenceEnrollmentLiteResponseFuture =
             enrollmentServiceAsync.enroll(
-                PublicSequenceEnrollmentRequest.builder()
-                    .contactId("contactId")
-                    .senderEmail("senderEmail")
-                    .sequenceId("sequenceId")
-                    .senderAliasAddress("senderAliasAddress")
+                EnrollmentEnrollParams.builder()
+                    .userId("userId")
+                    .publicSequenceEnrollmentRequest(
+                        PublicSequenceEnrollmentRequest.builder()
+                            .contactId("contactId")
+                            .senderEmail("senderEmail")
+                            .sequenceId("sequenceId")
+                            .senderAliasAddress("senderAliasAddress")
+                            .build()
+                    )
                     .build()
             )
 

@@ -12,11 +12,14 @@ import java.util.Objects
 
 class CalendarCreateParams
 private constructor(
+    private val organizerUserId: String,
     private val externalCalendarMeetingEventCreateRequest:
         ExternalCalendarMeetingEventCreateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun organizerUserId(): String = organizerUserId
 
     fun externalCalendarMeetingEventCreateRequest(): ExternalCalendarMeetingEventCreateRequest =
         externalCalendarMeetingEventCreateRequest
@@ -39,6 +42,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .organizerUserId()
          * .externalCalendarMeetingEventCreateRequest()
          * ```
          */
@@ -48,6 +52,7 @@ private constructor(
     /** A builder for [CalendarCreateParams]. */
     class Builder internal constructor() {
 
+        private var organizerUserId: String? = null
         private var externalCalendarMeetingEventCreateRequest:
             ExternalCalendarMeetingEventCreateRequest? =
             null
@@ -56,10 +61,15 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(calendarCreateParams: CalendarCreateParams) = apply {
+            organizerUserId = calendarCreateParams.organizerUserId
             externalCalendarMeetingEventCreateRequest =
                 calendarCreateParams.externalCalendarMeetingEventCreateRequest
             additionalHeaders = calendarCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = calendarCreateParams.additionalQueryParams.toBuilder()
+        }
+
+        fun organizerUserId(organizerUserId: String) = apply {
+            this.organizerUserId = organizerUserId
         }
 
         fun externalCalendarMeetingEventCreateRequest(
@@ -174,6 +184,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .organizerUserId()
          * .externalCalendarMeetingEventCreateRequest()
          * ```
          *
@@ -181,6 +192,7 @@ private constructor(
          */
         fun build(): CalendarCreateParams =
             CalendarCreateParams(
+                checkRequired("organizerUserId", organizerUserId),
                 checkRequired(
                     "externalCalendarMeetingEventCreateRequest",
                     externalCalendarMeetingEventCreateRequest,
@@ -195,7 +207,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("organizerUserId", organizerUserId)
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -203,6 +221,7 @@ private constructor(
         }
 
         return other is CalendarCreateParams &&
+            organizerUserId == other.organizerUserId &&
             externalCalendarMeetingEventCreateRequest ==
                 other.externalCalendarMeetingEventCreateRequest &&
             additionalHeaders == other.additionalHeaders &&
@@ -211,11 +230,12 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            organizerUserId,
             externalCalendarMeetingEventCreateRequest,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "CalendarCreateParams{externalCalendarMeetingEventCreateRequest=$externalCalendarMeetingEventCreateRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CalendarCreateParams{organizerUserId=$organizerUserId, externalCalendarMeetingEventCreateRequest=$externalCalendarMeetingEventCreateRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

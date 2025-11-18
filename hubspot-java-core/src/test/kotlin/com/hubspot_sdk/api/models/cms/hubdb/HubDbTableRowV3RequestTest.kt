@@ -14,25 +14,25 @@ internal class HubDbTableRowV3RequestTest {
     fun create() {
         val hubDbTableRowV3Request =
             HubDbTableRowV3Request.builder()
+                .childTableId(0L)
+                .displayIndex(0)
                 .values(
                     HubDbTableRowV3Request.Values.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
-                .childTableId(0L)
-                .displayIndex(0)
                 .name("name")
                 .path("path")
                 .build()
 
+        assertThat(hubDbTableRowV3Request.childTableId()).isEqualTo(0L)
+        assertThat(hubDbTableRowV3Request.displayIndex()).isEqualTo(0)
         assertThat(hubDbTableRowV3Request.values())
             .isEqualTo(
                 HubDbTableRowV3Request.Values.builder()
                     .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
-        assertThat(hubDbTableRowV3Request.childTableId()).contains(0L)
-        assertThat(hubDbTableRowV3Request.displayIndex()).contains(0)
         assertThat(hubDbTableRowV3Request.name()).contains("name")
         assertThat(hubDbTableRowV3Request.path()).contains("path")
     }
@@ -42,13 +42,13 @@ internal class HubDbTableRowV3RequestTest {
         val jsonMapper = jsonMapper()
         val hubDbTableRowV3Request =
             HubDbTableRowV3Request.builder()
+                .childTableId(0L)
+                .displayIndex(0)
                 .values(
                     HubDbTableRowV3Request.Values.builder()
                         .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
-                .childTableId(0L)
-                .displayIndex(0)
                 .name("name")
                 .path("path")
                 .build()

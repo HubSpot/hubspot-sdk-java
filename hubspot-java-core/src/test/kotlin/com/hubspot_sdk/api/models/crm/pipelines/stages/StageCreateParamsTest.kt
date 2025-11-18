@@ -35,7 +35,15 @@ internal class StageCreateParamsTest {
                 .objectType("objectType")
                 .pipelineId("pipelineId")
                 .pipelineStageInput(
-                    PipelineStageInput.builder().displayOrder(1).label("Done").build()
+                    PipelineStageInput.builder()
+                        .displayOrder(1)
+                        .label("Done")
+                        .metadata(
+                            PipelineStageInput.Metadata.builder()
+                                .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
+                                .build()
+                        )
+                        .build()
                 )
                 .build()
 
@@ -78,22 +86,5 @@ internal class StageCreateParamsTest {
                     )
                     .build()
             )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            StageCreateParams.builder()
-                .objectType("objectType")
-                .pipelineId("pipelineId")
-                .pipelineStageInput(
-                    PipelineStageInput.builder().displayOrder(1).label("Done").build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(PipelineStageInput.builder().displayOrder(1).label("Done").build())
     }
 }

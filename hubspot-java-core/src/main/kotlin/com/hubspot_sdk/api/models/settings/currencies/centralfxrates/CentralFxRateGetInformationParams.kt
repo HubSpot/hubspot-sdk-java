@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve details on whether the central exchange rates feature is enabled for the portal. */
 class CentralFxRateGetInformationParams
 private constructor(
     private val additionalHeaders: Headers,

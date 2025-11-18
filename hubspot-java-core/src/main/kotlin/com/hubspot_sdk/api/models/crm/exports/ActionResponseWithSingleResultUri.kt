@@ -67,18 +67,24 @@ private constructor(
     )
 
     /**
+     * The timestamp when the export was completed, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun completedAt(): OffsetDateTime = completedAt.getRequired("completedAt")
 
     /**
+     * The timestamp when the export process started, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun startedAt(): OffsetDateTime = startedAt.getRequired("startedAt")
 
     /**
+     * The current status of the export, which can be PENDING, PROCESSING, COMPLETE or CANCELED.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -91,24 +97,32 @@ private constructor(
     fun errors(): Optional<List<StandardError>> = errors.getOptional("errors")
 
     /**
+     * A collection of related links associated with the export.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun links(): Optional<Links> = links.getOptional("links")
 
     /**
+     * The number of errors encountered during the export process.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun numErrors(): Optional<Int> = numErrors.getOptional("numErrors")
 
     /**
+     * The timestamp when the export request was made, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun requestedAt(): Optional<OffsetDateTime> = requestedAt.getOptional("requestedAt")
 
     /**
+     * The URL of the resulting file if the export status is COMPLETE.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -232,6 +246,7 @@ private constructor(
                     actionResponseWithSingleResultUri.additionalProperties.toMutableMap()
             }
 
+        /** The timestamp when the export was completed, in ISO 8601 format. */
         fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
 
         /**
@@ -245,6 +260,7 @@ private constructor(
             this.completedAt = completedAt
         }
 
+        /** The timestamp when the export process started, in ISO 8601 format. */
         fun startedAt(startedAt: OffsetDateTime) = startedAt(JsonField.of(startedAt))
 
         /**
@@ -256,6 +272,9 @@ private constructor(
          */
         fun startedAt(startedAt: JsonField<OffsetDateTime>) = apply { this.startedAt = startedAt }
 
+        /**
+         * The current status of the export, which can be PENDING, PROCESSING, COMPLETE or CANCELED.
+         */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
@@ -291,6 +310,7 @@ private constructor(
                 }
         }
 
+        /** A collection of related links associated with the export. */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -301,6 +321,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
+        /** The number of errors encountered during the export process. */
         fun numErrors(numErrors: Int) = numErrors(JsonField.of(numErrors))
 
         /**
@@ -311,6 +332,7 @@ private constructor(
          */
         fun numErrors(numErrors: JsonField<Int>) = apply { this.numErrors = numErrors }
 
+        /** The timestamp when the export request was made, in ISO 8601 format. */
         fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
         /**
@@ -324,6 +346,7 @@ private constructor(
             this.requestedAt = requestedAt
         }
 
+        /** The URL of the resulting file if the export status is COMPLETE. */
         fun result(result: String) = result(JsonField.of(result))
 
         /**
@@ -423,6 +446,7 @@ private constructor(
             (if (requestedAt.asKnown().isPresent) 1 else 0) +
             (if (result.asKnown().isPresent) 1 else 0)
 
+    /** The current status of the export, which can be PENDING, PROCESSING, COMPLETE or CANCELED. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -560,6 +584,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A collection of related links associated with the export. */
     class Links
     @JsonCreator
     private constructor(

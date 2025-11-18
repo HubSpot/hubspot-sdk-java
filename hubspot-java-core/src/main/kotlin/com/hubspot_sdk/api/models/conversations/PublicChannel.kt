@@ -10,10 +10,10 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 
 class PublicChannel
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -32,18 +32,18 @@ private constructor(
     /**
      * The ID of the channel.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun id(): Optional<String> = id.getOptional("id")
+    fun id(): String = id.getRequired("id")
 
     /**
      * The name of the channel.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun name(): Optional<String> = name.getOptional("name")
+    fun name(): String = name.getRequired("name")
 
     /**
      * Returns the raw JSON value of [id].
@@ -73,15 +73,23 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [PublicChannel]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [PublicChannel].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .name()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [PublicChannel]. */
     class Builder internal constructor() {
 
-        private var id: JsonField<String> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
+        private var id: JsonField<String>? = null
+        private var name: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -136,8 +144,21 @@ private constructor(
          * Returns an immutable instance of [PublicChannel].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .name()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): PublicChannel = PublicChannel(id, name, additionalProperties.toMutableMap())
+        fun build(): PublicChannel =
+            PublicChannel(
+                checkRequired("id", id),
+                checkRequired("name", name),
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false

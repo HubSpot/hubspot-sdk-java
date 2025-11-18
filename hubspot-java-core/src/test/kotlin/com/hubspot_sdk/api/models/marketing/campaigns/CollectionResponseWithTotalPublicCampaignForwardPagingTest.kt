@@ -33,7 +33,7 @@ internal class CollectionResponseWithTotalPublicCampaignForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -55,7 +55,9 @@ internal class CollectionResponseWithTotalPublicCampaignForwardPagingTest {
         assertThat(collectionResponseWithTotalPublicCampaignForwardPaging.total()).isEqualTo(0)
         assertThat(collectionResponseWithTotalPublicCampaignForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -80,7 +82,7 @@ internal class CollectionResponseWithTotalPublicCampaignForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

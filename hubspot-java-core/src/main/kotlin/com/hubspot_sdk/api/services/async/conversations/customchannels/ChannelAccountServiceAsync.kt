@@ -5,10 +5,10 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountGetParams
+import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountListPageAsync
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountListParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -33,97 +33,90 @@ interface ChannelAccountServiceAsync {
      * using different delivery identifiers.
      */
     fun create(
-        channelId: String,
+        channelId: Int,
         params: ChannelAccountCreateParams,
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
-        create(channelId, params, RequestOptions.none())
+    ): CompletableFuture<PublicChannelAccount> = create(channelId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        channelId: String,
+        channelId: Int,
         params: ChannelAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see create */
-    fun create(
-        params: ChannelAccountCreateParams
-    ): CompletableFuture<ConversationsPublicChannelAccount> = create(params, RequestOptions.none())
+    fun create(params: ChannelAccountCreateParams): CompletableFuture<PublicChannelAccount> =
+        create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ChannelAccountCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicChannelAccount>
+    ): CompletableFuture<PublicChannelAccount>
 
     /**
      * This API is used to update the name of the channel account and it's isAuthorized status.
      * Setting to isAuthorized flag to False disables the channel account.
      */
     fun update(
-        channelAccountId: String,
+        channelAccountId: Long,
         params: ChannelAccountUpdateParams,
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         update(channelAccountId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        channelAccountId: String,
+        channelAccountId: Long,
         params: ChannelAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         update(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
     /** @see update */
-    fun update(
-        params: ChannelAccountUpdateParams
-    ): CompletableFuture<ConversationsPublicChannelAccount> = update(params, RequestOptions.none())
+    fun update(params: ChannelAccountUpdateParams): CompletableFuture<PublicChannelAccount> =
+        update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ChannelAccountUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicChannelAccount>
+    ): CompletableFuture<PublicChannelAccount>
 
     /** Retrieve a list of accounts for a custom channel. */
-    fun list(
-        channelId: String
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
+    fun list(channelId: Int): CompletableFuture<ChannelAccountListPageAsync> =
         list(channelId, ChannelAccountListParams.none())
 
     /** @see list */
     fun list(
-        channelId: String,
+        channelId: Int,
         params: ChannelAccountListParams = ChannelAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
+    ): CompletableFuture<ChannelAccountListPageAsync> =
         list(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see list */
     fun list(
-        channelId: String,
+        channelId: Int,
         params: ChannelAccountListParams = ChannelAccountListParams.none(),
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
+    ): CompletableFuture<ChannelAccountListPageAsync> =
         list(channelId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: ChannelAccountListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
+    ): CompletableFuture<ChannelAccountListPageAsync>
 
     /** @see list */
-    fun list(
-        params: ChannelAccountListParams
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
+    fun list(params: ChannelAccountListParams): CompletableFuture<ChannelAccountListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
-        channelId: String,
+        channelId: Int,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
+    ): CompletableFuture<ChannelAccountListPageAsync> =
         list(channelId, ChannelAccountListParams.none(), requestOptions)
 
     /**
@@ -132,28 +125,28 @@ interface ChannelAccountServiceAsync {
      * information.
      */
     fun get(
-        channelAccountId: String,
+        channelAccountId: Long,
         params: ChannelAccountGetParams,
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         get(channelAccountId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        channelAccountId: String,
+        channelAccountId: Long,
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
     /** @see get */
-    fun get(params: ChannelAccountGetParams): CompletableFuture<ConversationsPublicChannelAccount> =
+    fun get(params: ChannelAccountGetParams): CompletableFuture<PublicChannelAccount> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicChannelAccount>
+    ): CompletableFuture<PublicChannelAccount>
 
     /**
      * A view of [ChannelAccountServiceAsync] that provides access to raw HTTP responses for each
@@ -176,30 +169,30 @@ interface ChannelAccountServiceAsync {
          * same as [ChannelAccountServiceAsync.create].
          */
         fun create(
-            channelId: String,
+            channelId: Int,
             params: ChannelAccountCreateParams,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             create(channelId, params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            channelId: String,
+            channelId: Int,
             params: ChannelAccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see create */
         fun create(
             params: ChannelAccountCreateParams
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: ChannelAccountCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>>
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -207,81 +200,72 @@ interface ChannelAccountServiceAsync {
          * is otherwise the same as [ChannelAccountServiceAsync.update].
          */
         fun update(
-            channelAccountId: String,
+            channelAccountId: Long,
             params: ChannelAccountUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             update(channelAccountId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            channelAccountId: String,
+            channelAccountId: Long,
             params: ChannelAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             update(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: ChannelAccountUpdateParams
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ChannelAccountUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>>
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>>
 
         /**
          * Returns a raw HTTP response for `get
          * /conversations/v3/custom-channels/{channelId}/channel-accounts`, but is otherwise the
          * same as [ChannelAccountServiceAsync.list].
          */
-        fun list(
-            channelId: String
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
-        > = list(channelId, ChannelAccountListParams.none())
+        fun list(channelId: Int): CompletableFuture<HttpResponseFor<ChannelAccountListPageAsync>> =
+            list(channelId, ChannelAccountListParams.none())
 
         /** @see list */
         fun list(
-            channelId: String,
+            channelId: Int,
             params: ChannelAccountListParams = ChannelAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
-        > = list(params.toBuilder().channelId(channelId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ChannelAccountListPageAsync>> =
+            list(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see list */
         fun list(
-            channelId: String,
+            channelId: Int,
             params: ChannelAccountListParams = ChannelAccountListParams.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
-        > = list(channelId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ChannelAccountListPageAsync>> =
+            list(channelId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: ChannelAccountListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
-        >
+        ): CompletableFuture<HttpResponseFor<ChannelAccountListPageAsync>>
 
         /** @see list */
         fun list(
             params: ChannelAccountListParams
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
-        > = list(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<ChannelAccountListPageAsync>> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
-            channelId: String,
+            channelId: Int,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
-        > = list(channelId, ChannelAccountListParams.none(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<ChannelAccountListPageAsync>> =
+            list(channelId, ChannelAccountListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
@@ -289,29 +273,29 @@ interface ChannelAccountServiceAsync {
          * is otherwise the same as [ChannelAccountServiceAsync.get].
          */
         fun get(
-            channelAccountId: String,
+            channelAccountId: Long,
             params: ChannelAccountGetParams,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             get(channelAccountId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            channelAccountId: String,
+            channelAccountId: Long,
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
         /** @see get */
         fun get(
             params: ChannelAccountGetParams
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> =
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>>
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>>
     }
 }

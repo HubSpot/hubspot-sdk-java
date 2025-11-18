@@ -6,9 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.settings.taxrates.CollectionResponsePublicTaxRateGroupForwardPaging
 import com.hubspot_sdk.api.models.settings.taxrates.PublicTaxRateGroup
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetParams
+import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListPage
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListParams
 import java.util.function.Consumer
 
@@ -27,21 +27,20 @@ interface TaxRateService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TaxRateService
 
     /** Retrieve a paginated list of all tax rates set up in the account tax rate library */
-    fun list(): CollectionResponsePublicTaxRateGroupForwardPaging = list(TaxRateListParams.none())
+    fun list(): TaxRateListPage = list(TaxRateListParams.none())
 
     /** @see list */
     fun list(
         params: TaxRateListParams = TaxRateListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponsePublicTaxRateGroupForwardPaging
+    ): TaxRateListPage
 
     /** @see list */
-    fun list(
-        params: TaxRateListParams = TaxRateListParams.none()
-    ): CollectionResponsePublicTaxRateGroupForwardPaging = list(params, RequestOptions.none())
+    fun list(params: TaxRateListParams = TaxRateListParams.none()): TaxRateListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CollectionResponsePublicTaxRateGroupForwardPaging =
+    fun list(requestOptions: RequestOptions): TaxRateListPage =
         list(TaxRateListParams.none(), requestOptions)
 
     /** Retrieve a specific tax rate by its `taxRateGroupId`. */
@@ -89,29 +88,24 @@ interface TaxRateService {
          * Returns a raw HTTP response for `get /tax-rates/v1/tax-rates`, but is otherwise the same
          * as [TaxRateService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging> =
-            list(TaxRateListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<TaxRateListPage> = list(TaxRateListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: TaxRateListParams = TaxRateListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>
+        ): HttpResponseFor<TaxRateListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: TaxRateListParams = TaxRateListParams.none()
-        ): HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<TaxRateListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<TaxRateListPage> =
             list(TaxRateListParams.none(), requestOptions)
 
         /**

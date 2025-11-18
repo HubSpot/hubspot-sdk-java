@@ -10,7 +10,7 @@ internal class SchemaDeleteAssociationParamsTest {
     @Test
     fun create() {
         SchemaDeleteAssociationParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .associationId("associationId")
             .build()
@@ -20,12 +20,12 @@ internal class SchemaDeleteAssociationParamsTest {
     fun pathParams() {
         val params =
             SchemaDeleteAssociationParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .associationId("associationId")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         assertThat(params._pathParam(2)).isEqualTo("associationId")
         // out-of-bound path param

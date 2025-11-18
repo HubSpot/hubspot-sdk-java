@@ -13,11 +13,11 @@ internal class PagingTest {
     fun create() {
         val paging =
             Paging.builder()
-                .next(NextPage.builder().after("").link("").build())
+                .next(NextPage.builder().after("after").link("link").build())
                 .prev(PreviousPage.builder().before("before").link("link").build())
                 .build()
 
-        assertThat(paging.next()).contains(NextPage.builder().after("").link("").build())
+        assertThat(paging.next()).contains(NextPage.builder().after("after").link("link").build())
         assertThat(paging.prev())
             .contains(PreviousPage.builder().before("before").link("link").build())
     }
@@ -27,7 +27,7 @@ internal class PagingTest {
         val jsonMapper = jsonMapper()
         val paging =
             Paging.builder()
-                .next(NextPage.builder().after("").link("").build())
+                .next(NextPage.builder().after("after").link("link").build())
                 .prev(PreviousPage.builder().before("before").link("link").build())
                 .build()
 

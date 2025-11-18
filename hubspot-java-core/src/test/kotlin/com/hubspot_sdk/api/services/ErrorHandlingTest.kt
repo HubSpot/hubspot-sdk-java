@@ -22,10 +22,10 @@ import com.hubspot_sdk.api.errors.RateLimitException
 import com.hubspot_sdk.api.errors.UnauthorizedException
 import com.hubspot_sdk.api.errors.UnexpectedStatusCodeException
 import com.hubspot_sdk.api.errors.UnprocessableEntityException
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
@@ -75,22 +75,22 @@ internal class ErrorHandlingTest {
             assertThrows<BadRequestException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -116,22 +116,22 @@ internal class ErrorHandlingTest {
             assertThrows<BadRequestException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -157,22 +157,22 @@ internal class ErrorHandlingTest {
             assertThrows<UnauthorizedException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -198,22 +198,22 @@ internal class ErrorHandlingTest {
             assertThrows<UnauthorizedException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -239,22 +239,22 @@ internal class ErrorHandlingTest {
             assertThrows<PermissionDeniedException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -280,22 +280,22 @@ internal class ErrorHandlingTest {
             assertThrows<PermissionDeniedException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -321,22 +321,22 @@ internal class ErrorHandlingTest {
             assertThrows<NotFoundException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -362,22 +362,22 @@ internal class ErrorHandlingTest {
             assertThrows<NotFoundException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -403,22 +403,22 @@ internal class ErrorHandlingTest {
             assertThrows<UnprocessableEntityException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -444,22 +444,22 @@ internal class ErrorHandlingTest {
             assertThrows<UnprocessableEntityException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -485,22 +485,22 @@ internal class ErrorHandlingTest {
             assertThrows<RateLimitException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -526,22 +526,22 @@ internal class ErrorHandlingTest {
             assertThrows<RateLimitException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -567,22 +567,22 @@ internal class ErrorHandlingTest {
             assertThrows<InternalServerException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -608,22 +608,22 @@ internal class ErrorHandlingTest {
             assertThrows<InternalServerException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -649,22 +649,22 @@ internal class ErrorHandlingTest {
             assertThrows<UnexpectedStatusCodeException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -690,22 +690,22 @@ internal class ErrorHandlingTest {
             assertThrows<UnexpectedStatusCodeException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -729,22 +729,22 @@ internal class ErrorHandlingTest {
             assertThrows<HubspotException> {
                 contactService.create(
                     SimplePublicObjectInputForCreate.builder()
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
                         .addAssociation(
                             PublicAssociationsForObject.builder()
                                 .to(PublicObjectId.builder().id("37295").build())
                                 .addType(
-                                    AssociationSpec1.builder()
+                                    AssociationSpec.builder()
                                         .associationCategory(
-                                            AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
                                         .associationTypeId(0)
                                         .build()
                                 )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()

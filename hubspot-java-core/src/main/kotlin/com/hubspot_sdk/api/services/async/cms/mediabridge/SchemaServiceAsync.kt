@@ -58,12 +58,12 @@ interface SchemaServiceAsync {
     ): CompletableFuture<ObjectsSchemasObjectTypeDefinition>
 
     /** Get the schemas for all object types. */
-    fun list(appId: String): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    fun list(appId: Int): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         list(appId, SchemaListParams.none())
 
     /** @see list */
     fun list(
-        appId: String,
+        appId: Int,
         params: SchemaListParams = SchemaListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
@@ -71,7 +71,7 @@ interface SchemaServiceAsync {
 
     /** @see list */
     fun list(
-        appId: String,
+        appId: Int,
         params: SchemaListParams = SchemaListParams.none(),
     ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         list(appId, params, RequestOptions.none())
@@ -88,7 +88,7 @@ interface SchemaServiceAsync {
 
     /** @see list */
     fun list(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         list(appId, SchemaListParams.none(), requestOptions)
@@ -214,13 +214,13 @@ interface SchemaServiceAsync {
          * the same as [SchemaServiceAsync.list].
          */
         fun list(
-            appId: String
+            appId: Int
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
             list(appId, SchemaListParams.none())
 
         /** @see list */
         fun list(
-            appId: String,
+            appId: Int,
             params: SchemaListParams = SchemaListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
@@ -228,7 +228,7 @@ interface SchemaServiceAsync {
 
         /** @see list */
         fun list(
-            appId: String,
+            appId: Int,
             params: SchemaListParams = SchemaListParams.none(),
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
             list(appId, params, RequestOptions.none())
@@ -247,7 +247,7 @@ interface SchemaServiceAsync {
 
         /** @see list */
         fun list(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
             list(appId, SchemaListParams.none(), requestOptions)

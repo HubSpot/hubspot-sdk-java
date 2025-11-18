@@ -11,6 +11,7 @@ import com.hubspot_sdk.api.models.scheduler.meetings.ExternalCalendarMeetingEven
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalCalendarMeetingEventCreateRequest
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalEmailReminderSchedule
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalReminder
+import com.hubspot_sdk.api.models.scheduler.meetings.calendar.CalendarCreateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -31,49 +32,58 @@ internal class CalendarServiceTest {
 
         val externalCalenderMeetingEventResponse =
             calendarService.create(
-                ExternalCalendarMeetingEventCreateRequest.builder()
-                    .addAssociation(
-                        ExternalAssociationCreateRequest.builder()
-                            .to(PublicObjectId.builder().id("37295").build())
-                            .addType(
-                                AssociationSpec.builder()
-                                    .associationCategory(
-                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                CalendarCreateParams.builder()
+                    .organizerUserId("organizerUserId")
+                    .externalCalendarMeetingEventCreateRequest(
+                        ExternalCalendarMeetingEventCreateRequest.builder()
+                            .addAssociation(
+                                ExternalAssociationCreateRequest.builder()
+                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .addType(
+                                        AssociationSpec.builder()
+                                            .associationCategory(
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                            )
+                                            .associationTypeId(0)
+                                            .build()
                                     )
-                                    .associationTypeId(0)
                                     .build()
                             )
-                            .build()
-                    )
-                    .emailReminderSchedule(
-                        ExternalEmailReminderSchedule.builder()
-                            .addReminder(
-                                ExternalReminder.builder()
-                                    .numberOfTimeUnits(0)
-                                    .timeUnit("timeUnit")
+                            .emailReminderSchedule(
+                                ExternalEmailReminderSchedule.builder()
+                                    .addReminder(
+                                        ExternalReminder.builder()
+                                            .numberOfTimeUnits(0)
+                                            .timeUnit("timeUnit")
+                                            .build()
+                                    )
+                                    .shouldIncludeInviteDescription(true)
                                     .build()
                             )
-                            .shouldIncludeInviteDescription(true)
+                            .properties(
+                                ExternalCalendarMeetingEventCreateProperties.builder()
+                                    .hsMeetingEndTime(
+                                        OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                    )
+                                    .hsMeetingOutcome("hs_meeting_outcome")
+                                    .hsMeetingStartTime(
+                                        OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                    )
+                                    .hsMeetingTitle("hs_meeting_title")
+                                    .hsTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .hubspotOwnerId("hubspot_owner_id")
+                                    .hsActivityType("hs_activity_type")
+                                    .addHsAttachmentId("string")
+                                    .addHsAttendeeOwnerId("string")
+                                    .hsInternalMeetingNotes("hs_internal_meeting_notes")
+                                    .hsMeetingBody("hs_meeting_body")
+                                    .hsMeetingLocation("hs_meeting_location")
+                                    .hsMeetingLocationType("hs_meeting_location_type")
+                                    .build()
+                            )
+                            .timezone("timezone")
                             .build()
                     )
-                    .properties(
-                        ExternalCalendarMeetingEventCreateProperties.builder()
-                            .hsMeetingEndTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .hsMeetingOutcome("hs_meeting_outcome")
-                            .hsMeetingStartTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .hsMeetingTitle("hs_meeting_title")
-                            .hsTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .hsActivityType("hs_activity_type")
-                            .addHsAttachmentId("string")
-                            .addHsAttendeeOwnerId("string")
-                            .hsInternalMeetingNotes("hs_internal_meeting_notes")
-                            .hsMeetingBody("hs_meeting_body")
-                            .hsMeetingLocation("hs_meeting_location")
-                            .hsMeetingLocationType("hs_meeting_location_type")
-                            .hubspotOwnerId("hubspot_owner_id")
-                            .build()
-                    )
-                    .timezone("timezone")
                     .build()
             )
 

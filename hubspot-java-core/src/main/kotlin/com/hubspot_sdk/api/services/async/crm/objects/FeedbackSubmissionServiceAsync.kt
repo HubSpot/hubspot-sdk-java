@@ -95,6 +95,10 @@ interface FeedbackSubmissionServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(feedbackSubmissionId, FeedbackSubmissionGetParams.none(), requestOptions)
 
+    /**
+     * Execute a search to retrieve feedback submissions based on defined filters, properties, and
+     * sorting options.
+     */
     fun search(
         params: FeedbackSubmissionSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

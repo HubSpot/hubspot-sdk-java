@@ -20,38 +20,62 @@ import java.util.Optional
 class PublicInbox
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val archived: JsonField<Boolean>,
-    private val type: JsonField<String>,
     private val id: JsonField<String>,
-    private val archivedAt: JsonField<OffsetDateTime>,
+    private val archived: JsonField<Boolean>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val name: JsonField<String>,
+    private val type: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
+    private val archivedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("archivedAt")
-        @ExcludeMissing
-        archivedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    ) : this(archived, type, id, archivedAt, createdAt, name, updatedAt, mutableMapOf())
+        @JsonProperty("archivedAt")
+        @ExcludeMissing
+        archivedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(id, archived, createdAt, name, type, updatedAt, archivedAt, mutableMapOf())
+
+    /**
+     * The ID of the inbox.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun id(): String = id.getRequired("id")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun archived(): Boolean = archived.getRequired("archived")
+
+    /**
+     * When the inbox was created.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
+
+    /**
+     * The name of the inbox.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun name(): String = name.getRequired("name")
 
     /**
      * Specifies whether this refers to a Conversations Inbox or to the Help Desk. Valid values are
@@ -63,54 +87,16 @@ private constructor(
     fun type(): String = type.getRequired("type")
 
     /**
-     * The ID of the inbox.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun id(): Optional<String> = id.getOptional("id")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
-
-    /**
-     * When the inbox was created.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("createdAt")
-
-    /**
-     * The name of the inbox.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun name(): Optional<String> = name.getOptional("name")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
-
-    /**
-     * Returns the raw JSON value of [archived].
-     *
-     * Unlike [archived], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("archived") @ExcludeMissing fun _archived(): JsonField<Boolean> = archived
-
-    /**
-     * Returns the raw JSON value of [type].
-     *
-     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
 
     /**
      * Returns the raw JSON value of [id].
@@ -120,13 +106,11 @@ private constructor(
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * Returns the raw JSON value of [archivedAt].
+     * Returns the raw JSON value of [archived].
      *
-     * Unlike [archivedAt], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [archived], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("archivedAt")
-    @ExcludeMissing
-    fun _archivedAt(): JsonField<OffsetDateTime> = archivedAt
+    @JsonProperty("archived") @ExcludeMissing fun _archived(): JsonField<Boolean> = archived
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -145,6 +129,13 @@ private constructor(
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
+     * Returns the raw JSON value of [type].
+     *
+     * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<String> = type
+
+    /**
      * Returns the raw JSON value of [updatedAt].
      *
      * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -152,6 +143,15 @@ private constructor(
     @JsonProperty("updatedAt")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
+
+    /**
+     * Returns the raw JSON value of [archivedAt].
+     *
+     * Unlike [archivedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("archivedAt")
+    @ExcludeMissing
+    fun _archivedAt(): JsonField<OffsetDateTime> = archivedAt
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -172,8 +172,12 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
          * .archived()
+         * .createdAt()
+         * .name()
          * .type()
+         * .updatedAt()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -182,51 +186,26 @@ private constructor(
     /** A builder for [PublicInbox]. */
     class Builder internal constructor() {
 
+        private var id: JsonField<String>? = null
         private var archived: JsonField<Boolean>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var name: JsonField<String>? = null
         private var type: JsonField<String>? = null
-        private var id: JsonField<String> = JsonMissing.of()
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var archivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(publicInbox: PublicInbox) = apply {
-            archived = publicInbox.archived
-            type = publicInbox.type
             id = publicInbox.id
-            archivedAt = publicInbox.archivedAt
+            archived = publicInbox.archived
             createdAt = publicInbox.createdAt
             name = publicInbox.name
+            type = publicInbox.type
             updatedAt = publicInbox.updatedAt
+            archivedAt = publicInbox.archivedAt
             additionalProperties = publicInbox.additionalProperties.toMutableMap()
         }
-
-        fun archived(archived: Boolean) = archived(JsonField.of(archived))
-
-        /**
-         * Sets [Builder.archived] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.archived] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
-
-        /**
-         * Specifies whether this refers to a Conversations Inbox or to the Help Desk. Valid values
-         * are INBOX or HELP_DESK
-         */
-        fun type(type: String) = type(JsonField.of(type))
-
-        /**
-         * Sets [Builder.type] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.type] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun type(type: JsonField<String>) = apply { this.type = type }
 
         /** The ID of the inbox. */
         fun id(id: String) = id(JsonField.of(id))
@@ -239,18 +218,16 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun archivedAt(archivedAt: OffsetDateTime) = archivedAt(JsonField.of(archivedAt))
+        fun archived(archived: Boolean) = archived(JsonField.of(archived))
 
         /**
-         * Sets [Builder.archivedAt] to an arbitrary JSON value.
+         * Sets [Builder.archived] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.archivedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.archived] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun archivedAt(archivedAt: JsonField<OffsetDateTime>) = apply {
-            this.archivedAt = archivedAt
-        }
+        fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
         /** When the inbox was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -275,6 +252,20 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
+        /**
+         * Specifies whether this refers to a Conversations Inbox or to the Help Desk. Valid values
+         * are INBOX or HELP_DESK
+         */
+        fun type(type: String) = type(JsonField.of(type))
+
+        /**
+         * Sets [Builder.type] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.type] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun type(type: JsonField<String>) = apply { this.type = type }
+
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -285,6 +276,19 @@ private constructor(
          * supported value.
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        fun archivedAt(archivedAt: OffsetDateTime) = archivedAt(JsonField.of(archivedAt))
+
+        /**
+         * Sets [Builder.archivedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.archivedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun archivedAt(archivedAt: JsonField<OffsetDateTime>) = apply {
+            this.archivedAt = archivedAt
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -312,21 +316,25 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
          * .archived()
+         * .createdAt()
+         * .name()
          * .type()
+         * .updatedAt()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PublicInbox =
             PublicInbox(
+                checkRequired("id", id),
                 checkRequired("archived", archived),
+                checkRequired("createdAt", createdAt),
+                checkRequired("name", name),
                 checkRequired("type", type),
-                id,
+                checkRequired("updatedAt", updatedAt),
                 archivedAt,
-                createdAt,
-                name,
-                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -338,13 +346,13 @@ private constructor(
             return@apply
         }
 
-        archived()
-        type()
         id()
-        archivedAt()
+        archived()
         createdAt()
         name()
+        type()
         updatedAt()
+        archivedAt()
         validated = true
     }
 
@@ -363,13 +371,13 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (archived.asKnown().isPresent) 1 else 0) +
-            (if (type.asKnown().isPresent) 1 else 0) +
-            (if (id.asKnown().isPresent) 1 else 0) +
-            (if (archivedAt.asKnown().isPresent) 1 else 0) +
+        (if (id.asKnown().isPresent) 1 else 0) +
+            (if (archived.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (if (type.asKnown().isPresent) 1 else 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (if (archivedAt.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -377,25 +385,25 @@ private constructor(
         }
 
         return other is PublicInbox &&
-            archived == other.archived &&
-            type == other.type &&
             id == other.id &&
-            archivedAt == other.archivedAt &&
+            archived == other.archived &&
             createdAt == other.createdAt &&
             name == other.name &&
+            type == other.type &&
             updatedAt == other.updatedAt &&
+            archivedAt == other.archivedAt &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            archived,
-            type,
             id,
-            archivedAt,
+            archived,
             createdAt,
             name,
+            type,
             updatedAt,
+            archivedAt,
             additionalProperties,
         )
     }
@@ -403,5 +411,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicInbox{archived=$archived, type=$type, id=$id, archivedAt=$archivedAt, createdAt=$createdAt, name=$name, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "PublicInbox{id=$id, archived=$archived, createdAt=$createdAt, name=$name, type=$type, updatedAt=$updatedAt, archivedAt=$archivedAt, additionalProperties=$additionalProperties}"
 }

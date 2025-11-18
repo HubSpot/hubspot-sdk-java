@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.settings.taxrates.CollectionResponsePublicTaxRateGroupForwardPaging
 import com.hubspot_sdk.api.models.settings.taxrates.PublicTaxRateGroup
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateGetParams
+import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListPageAsync
 import com.hubspot_sdk.api.models.settings.taxrates.TaxRateListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -38,7 +39,7 @@ class TaxRateServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: TaxRateListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponsePublicTaxRateGroupForwardPaging> =
+    ): CompletableFuture<TaxRateListPageAsync> =
         // get /tax-rates/v1/tax-rates
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -68,7 +69,7 @@ class TaxRateServiceAsyncImpl internal constructor(private val clientOptions: Cl
         override fun list(
             params: TaxRateListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicTaxRateGroupForwardPaging>> {
+        ): CompletableFuture<HttpResponseFor<TaxRateListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -87,6 +88,14 @@ class TaxRateServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                TaxRateListPageAsync.builder()
+                                    .service(TaxRateServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

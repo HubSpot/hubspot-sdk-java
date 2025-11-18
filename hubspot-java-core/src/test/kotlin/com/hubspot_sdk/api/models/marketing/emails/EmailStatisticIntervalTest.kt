@@ -48,7 +48,7 @@ internal class EmailStatisticIntervalTest {
                 .build()
 
         assertThat(emailStatisticInterval.aggregations())
-            .contains(
+            .isEqualTo(
                 EmailStatisticsData.builder()
                     .counters(
                         EmailStatisticsData.Counters.builder()
@@ -73,7 +73,7 @@ internal class EmailStatisticIntervalTest {
                     .build()
             )
         assertThat(emailStatisticInterval.interval())
-            .contains(
+            .isEqualTo(
                 Interval.builder()
                     .end(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .start(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

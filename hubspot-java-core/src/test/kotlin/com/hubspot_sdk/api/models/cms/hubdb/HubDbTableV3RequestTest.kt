@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.Option
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,8 +15,6 @@ internal class HubDbTableV3RequestTest {
     fun create() {
         val hubDbTableV3Request =
             HubDbTableV3Request.builder()
-                .label("label")
-                .name("name")
                 .allowChildTables(true)
                 .allowPublicApiAccess(true)
                 .addColumn(
@@ -47,14 +44,14 @@ internal class HubDbTableV3RequestTest {
                         .build()
                 )
                 .enableChildTablePages(true)
+                .label("label")
+                .name("name")
                 .useForPages(true)
                 .build()
 
-        assertThat(hubDbTableV3Request.label()).isEqualTo("label")
-        assertThat(hubDbTableV3Request.name()).isEqualTo("name")
-        assertThat(hubDbTableV3Request.allowChildTables()).contains(true)
-        assertThat(hubDbTableV3Request.allowPublicApiAccess()).contains(true)
-        assertThat(hubDbTableV3Request.columns().getOrNull())
+        assertThat(hubDbTableV3Request.allowChildTables()).isEqualTo(true)
+        assertThat(hubDbTableV3Request.allowPublicApiAccess()).isEqualTo(true)
+        assertThat(hubDbTableV3Request.columns())
             .containsExactly(
                 ColumnRequest.builder()
                     .id(0)
@@ -77,13 +74,15 @@ internal class HubDbTableV3RequestTest {
                     .build()
             )
         assertThat(hubDbTableV3Request.dynamicMetaTags())
-            .contains(
+            .isEqualTo(
                 HubDbTableV3Request.DynamicMetaTags.builder()
                     .putAdditionalProperty("foo", JsonValue.from(0))
                     .build()
             )
-        assertThat(hubDbTableV3Request.enableChildTablePages()).contains(true)
-        assertThat(hubDbTableV3Request.useForPages()).contains(true)
+        assertThat(hubDbTableV3Request.enableChildTablePages()).isEqualTo(true)
+        assertThat(hubDbTableV3Request.label()).isEqualTo("label")
+        assertThat(hubDbTableV3Request.name()).isEqualTo("name")
+        assertThat(hubDbTableV3Request.useForPages()).isEqualTo(true)
     }
 
     @Test
@@ -91,8 +90,6 @@ internal class HubDbTableV3RequestTest {
         val jsonMapper = jsonMapper()
         val hubDbTableV3Request =
             HubDbTableV3Request.builder()
-                .label("label")
-                .name("name")
                 .allowChildTables(true)
                 .allowPublicApiAccess(true)
                 .addColumn(
@@ -122,6 +119,8 @@ internal class HubDbTableV3RequestTest {
                         .build()
                 )
                 .enableChildTablePages(true)
+                .label("label")
+                .name("name")
                 .useForPages(true)
                 .build()
 

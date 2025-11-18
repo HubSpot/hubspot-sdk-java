@@ -61,10 +61,29 @@ internal class PipelineReplaceParamsTest {
                             PipelineStageInput.builder()
                                 .displayOrder(0)
                                 .label("In Progress")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("OPEN"),
+                                        )
+                                        .build()
+                                )
                                 .build()
                         )
                         .addStage(
-                            PipelineStageInput.builder().displayOrder(1).label("Done").build()
+                            PipelineStageInput.builder()
+                                .displayOrder(1)
+                                .label("Done")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("CLOSED"),
+                                        )
+                                        .build()
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -145,10 +164,29 @@ internal class PipelineReplaceParamsTest {
                             PipelineStageInput.builder()
                                 .displayOrder(0)
                                 .label("In Progress")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("OPEN"),
+                                        )
+                                        .build()
+                                )
                                 .build()
                         )
                         .addStage(
-                            PipelineStageInput.builder().displayOrder(1).label("Done").build()
+                            PipelineStageInput.builder()
+                                .displayOrder(1)
+                                .label("Done")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("CLOSED"),
+                                        )
+                                        .build()
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -250,10 +288,29 @@ internal class PipelineReplaceParamsTest {
                             PipelineStageInput.builder()
                                 .displayOrder(0)
                                 .label("In Progress")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("OPEN"),
+                                        )
+                                        .build()
+                                )
                                 .build()
                         )
                         .addStage(
-                            PipelineStageInput.builder().displayOrder(1).label("Done").build()
+                            PipelineStageInput.builder()
+                                .displayOrder(1)
+                                .label("Done")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty(
+                                            "ticketState",
+                                            JsonValue.from("CLOSED"),
+                                        )
+                                        .build()
+                                )
+                                .build()
                         )
                         .build()
                 )
@@ -267,9 +324,27 @@ internal class PipelineReplaceParamsTest {
                     .displayOrder(0)
                     .label("My replaced pipeline")
                     .addStage(
-                        PipelineStageInput.builder().displayOrder(0).label("In Progress").build()
+                        PipelineStageInput.builder()
+                            .displayOrder(0)
+                            .label("In Progress")
+                            .metadata(
+                                PipelineStageInput.Metadata.builder()
+                                    .putAdditionalProperty("ticketState", JsonValue.from("OPEN"))
+                                    .build()
+                            )
+                            .build()
                     )
-                    .addStage(PipelineStageInput.builder().displayOrder(1).label("Done").build())
+                    .addStage(
+                        PipelineStageInput.builder()
+                            .displayOrder(1)
+                            .label("Done")
+                            .metadata(
+                                PipelineStageInput.Metadata.builder()
+                                    .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
+                                    .build()
+                            )
+                            .build()
+                    )
                     .build()
             )
     }

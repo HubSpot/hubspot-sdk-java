@@ -46,6 +46,8 @@ private constructor(
     fun to(): PublicObjectId = to.getRequired("to")
 
     /**
+     * The type of association between the 'from' and 'to' objects.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -137,6 +139,7 @@ private constructor(
          */
         fun to(to: JsonField<PublicObjectId>) = apply { this.to = to }
 
+        /** The type of association between the 'from' and 'to' objects. */
         fun type(type: String) = type(JsonField.of(type))
 
         /**

@@ -51,18 +51,24 @@ private constructor(
     fun byObjectType(): List<UsageForObjectType> = byObjectType.getRequired("byObjectType")
 
     /**
+     * The maximum number of calculated properties allowed.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun overallLimit(): Long = overallLimit.getRequired("overallLimit")
 
     /**
+     * The percentage of the overall limit that is currently being used for calculated properties.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun overallPercentage(): Double = overallPercentage.getRequired("overallPercentage")
 
     /**
+     * The total number of calculated properties currently in use.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -181,6 +187,7 @@ private constructor(
                 }
         }
 
+        /** The maximum number of calculated properties allowed. */
         fun overallLimit(overallLimit: Long) = overallLimit(JsonField.of(overallLimit))
 
         /**
@@ -192,6 +199,10 @@ private constructor(
          */
         fun overallLimit(overallLimit: JsonField<Long>) = apply { this.overallLimit = overallLimit }
 
+        /**
+         * The percentage of the overall limit that is currently being used for calculated
+         * properties.
+         */
         fun overallPercentage(overallPercentage: Double) =
             overallPercentage(JsonField.of(overallPercentage))
 
@@ -206,6 +217,7 @@ private constructor(
             this.overallPercentage = overallPercentage
         }
 
+        /** The total number of calculated properties currently in use. */
         fun overallUsage(overallUsage: Long) = overallUsage(JsonField.of(overallUsage))
 
         /**

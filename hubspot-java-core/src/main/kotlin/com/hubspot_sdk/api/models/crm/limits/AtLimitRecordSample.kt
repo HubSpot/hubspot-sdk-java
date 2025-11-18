@@ -30,12 +30,16 @@ private constructor(
     ) : this(label, objectId, mutableMapOf())
 
     /**
+     * The label associated with a record that is at its limit.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
 
     /**
+     * The objectId of the object that is at its limit.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -95,6 +99,7 @@ private constructor(
             additionalProperties = atLimitRecordSample.additionalProperties.toMutableMap()
         }
 
+        /** The label associated with a record that is at its limit. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -105,6 +110,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        /** The objectId of the object that is at its limit. */
         fun objectId(objectId: Int) = objectId(JsonField.of(objectId))
 
         /**

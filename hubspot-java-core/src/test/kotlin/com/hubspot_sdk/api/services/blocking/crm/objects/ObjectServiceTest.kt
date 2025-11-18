@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.blocking.crm.objects
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
@@ -12,7 +13,6 @@ import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectCreateParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.objects.ObjectGetParams
@@ -41,22 +41,22 @@ internal class ObjectServiceTest {
                     .objectType("objectType")
                     .simplePublicObjectInputForCreate(
                         SimplePublicObjectInputForCreate.builder()
-                            .properties(
-                                SimplePublicObjectInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
                                     .to(PublicObjectId.builder().id("37295").build())
                                     .addType(
-                                        AssociationSpec1.builder()
+                                        AssociationSpec.builder()
                                             .associationCategory(
-                                                AssociationSpec1.AssociationCategory.HUBSPOT_DEFINED
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                             )
                                             .associationTypeId(0)
                                             .build()
                                     )
+                                    .build()
+                            )
+                            .properties(
+                                SimplePublicObjectInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
                             .build()
@@ -186,8 +186,8 @@ internal class ObjectServiceTest {
                             )
                             .limit(0)
                             .addProperty("string")
-                            .query("query")
                             .addSort("string")
+                            .query("query")
                             .build()
                     )
                     .build()

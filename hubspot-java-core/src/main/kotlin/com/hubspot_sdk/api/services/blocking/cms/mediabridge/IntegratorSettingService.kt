@@ -43,14 +43,14 @@ interface IntegratorSettingService {
 
     /** Create a new media object type */
     fun createObjectDefinition(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingCreateObjectDefinitionParams,
     ): BulkIntegratorObjectCreationResponse =
         createObjectDefinition(appId, params, RequestOptions.none())
 
     /** @see createObjectDefinition */
     fun createObjectDefinition(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingCreateObjectDefinitionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkIntegratorObjectCreationResponse =
@@ -69,13 +69,13 @@ interface IntegratorSettingService {
 
     /** Set up a new oEmbed domain for your media bridge app. */
     fun createOembedDomain(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingCreateOembedDomainParams,
     ): IntegratorOEmbedDomainModel = createOembedDomain(appId, params, RequestOptions.none())
 
     /** @see createOembedDomain */
     fun createOembedDomain(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingCreateOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntegratorOEmbedDomainModel =
@@ -93,12 +93,12 @@ interface IntegratorSettingService {
     ): IntegratorOEmbedDomainModel
 
     /** Delete an existing oEmbed domain. */
-    fun deleteOembedDomain(appId: String) =
+    fun deleteOembedDomain(appId: Int) =
         deleteOembedDomain(appId, IntegratorSettingDeleteOembedDomainParams.none())
 
     /** @see deleteOembedDomain */
     fun deleteOembedDomain(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingDeleteOembedDomainParams =
             IntegratorSettingDeleteOembedDomainParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -106,7 +106,7 @@ interface IntegratorSettingService {
 
     /** @see deleteOembedDomain */
     fun deleteOembedDomain(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingDeleteOembedDomainParams =
             IntegratorSettingDeleteOembedDomainParams.none(),
     ) = deleteOembedDomain(appId, params, RequestOptions.none())
@@ -122,16 +122,16 @@ interface IntegratorSettingService {
         deleteOembedDomain(params, RequestOptions.none())
 
     /** @see deleteOembedDomain */
-    fun deleteOembedDomain(appId: String, requestOptions: RequestOptions) =
+    fun deleteOembedDomain(appId: Int, requestOptions: RequestOptions) =
         deleteOembedDomain(appId, IntegratorSettingDeleteOembedDomainParams.none(), requestOptions)
 
     /** Get the visibility settings for media bridge events for your apps. */
-    fun getEventVisibilitySettings(appId: String): EventVisibilityResponse =
+    fun getEventVisibilitySettings(appId: Int): EventVisibilityResponse =
         getEventVisibilitySettings(appId, IntegratorSettingGetEventVisibilitySettingsParams.none())
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingGetEventVisibilitySettingsParams =
             IntegratorSettingGetEventVisibilitySettingsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -140,7 +140,7 @@ interface IntegratorSettingService {
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingGetEventVisibilitySettingsParams =
             IntegratorSettingGetEventVisibilitySettingsParams.none(),
     ): EventVisibilityResponse = getEventVisibilitySettings(appId, params, RequestOptions.none())
@@ -158,7 +158,7 @@ interface IntegratorSettingService {
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): EventVisibilityResponse =
         getEventVisibilitySettings(
@@ -169,14 +169,14 @@ interface IntegratorSettingService {
 
     /** Get the existing objects types that belong to the specified media type. */
     fun getObjectDefinitionsByMediaType(
-        mediaType: String,
+        mediaType: IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType,
         params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
     ): ObjectDefinitionResponse =
         getObjectDefinitionsByMediaType(mediaType, params, RequestOptions.none())
 
     /** @see getObjectDefinitionsByMediaType */
     fun getObjectDefinitionsByMediaType(
-        mediaType: String,
+        mediaType: IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType,
         params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ObjectDefinitionResponse =
@@ -222,12 +222,12 @@ interface IntegratorSettingService {
     ): IntegratorOEmbedDomainModel
 
     /** Get the details for existing oEmbed domains for your app */
-    fun listOembedDomains(appId: String): OEmbedDomainsCollectionResponse =
+    fun listOembedDomains(appId: Int): OEmbedDomainsCollectionResponse =
         listOembedDomains(appId, IntegratorSettingListOembedDomainsParams.none())
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingListOembedDomainsParams =
             IntegratorSettingListOembedDomainsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -236,7 +236,7 @@ interface IntegratorSettingService {
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingListOembedDomainsParams =
             IntegratorSettingListOembedDomainsParams.none(),
     ): OEmbedDomainsCollectionResponse = listOembedDomains(appId, params, RequestOptions.none())
@@ -254,7 +254,7 @@ interface IntegratorSettingService {
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): OEmbedDomainsCollectionResponse =
         listOembedDomains(appId, IntegratorSettingListOembedDomainsParams.none(), requestOptions)
@@ -262,7 +262,7 @@ interface IntegratorSettingService {
     /** Register the name that your app will display when a user is selecting media bridge items. */
     @Deprecated("deprecated")
     fun registerAppName(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingRegisterAppNameParams,
     ): MediaBridgeProviderRegistrationResponse =
         registerAppName(appId, params, RequestOptions.none())
@@ -270,7 +270,7 @@ interface IntegratorSettingService {
     /** @see registerAppName */
     @Deprecated("deprecated")
     fun registerAppName(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingRegisterAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MediaBridgeProviderRegistrationResponse =
@@ -291,13 +291,13 @@ interface IntegratorSettingService {
 
     /** Update the name that your app will display when a user is selecting media bridge items. */
     fun updateAppName(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingUpdateAppNameParams,
     ): MediaBridgeProviderRegistrationResponse = updateAppName(appId, params, RequestOptions.none())
 
     /** @see updateAppName */
     fun updateAppName(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingUpdateAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MediaBridgeProviderRegistrationResponse =
@@ -316,13 +316,13 @@ interface IntegratorSettingService {
 
     /** Set the visibility settings for media bridge events created by your app. */
     fun updateEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingUpdateEventVisibilitySettingsParams,
     ): EventVisibilityChange = updateEventVisibilitySettings(appId, params, RequestOptions.none())
 
     /** @see updateEventVisibilitySettings */
     fun updateEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: IntegratorSettingUpdateEventVisibilitySettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventVisibilityChange =
@@ -390,7 +390,7 @@ interface IntegratorSettingService {
          */
         @MustBeClosed
         fun createObjectDefinition(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingCreateObjectDefinitionParams,
         ): HttpResponseFor<BulkIntegratorObjectCreationResponse> =
             createObjectDefinition(appId, params, RequestOptions.none())
@@ -398,7 +398,7 @@ interface IntegratorSettingService {
         /** @see createObjectDefinition */
         @MustBeClosed
         fun createObjectDefinition(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingCreateObjectDefinitionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkIntegratorObjectCreationResponse> =
@@ -424,7 +424,7 @@ interface IntegratorSettingService {
          */
         @MustBeClosed
         fun createOembedDomain(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingCreateOembedDomainParams,
         ): HttpResponseFor<IntegratorOEmbedDomainModel> =
             createOembedDomain(appId, params, RequestOptions.none())
@@ -432,7 +432,7 @@ interface IntegratorSettingService {
         /** @see createOembedDomain */
         @MustBeClosed
         fun createOembedDomain(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingCreateOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntegratorOEmbedDomainModel> =
@@ -458,13 +458,13 @@ interface IntegratorSettingService {
          * [IntegratorSettingService.deleteOembedDomain].
          */
         @MustBeClosed
-        fun deleteOembedDomain(appId: String): HttpResponse =
+        fun deleteOembedDomain(appId: Int): HttpResponse =
             deleteOembedDomain(appId, IntegratorSettingDeleteOembedDomainParams.none())
 
         /** @see deleteOembedDomain */
         @MustBeClosed
         fun deleteOembedDomain(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingDeleteOembedDomainParams =
                 IntegratorSettingDeleteOembedDomainParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -474,7 +474,7 @@ interface IntegratorSettingService {
         /** @see deleteOembedDomain */
         @MustBeClosed
         fun deleteOembedDomain(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingDeleteOembedDomainParams =
                 IntegratorSettingDeleteOembedDomainParams.none(),
         ): HttpResponse = deleteOembedDomain(appId, params, RequestOptions.none())
@@ -493,7 +493,7 @@ interface IntegratorSettingService {
 
         /** @see deleteOembedDomain */
         @MustBeClosed
-        fun deleteOembedDomain(appId: String, requestOptions: RequestOptions): HttpResponse =
+        fun deleteOembedDomain(appId: Int, requestOptions: RequestOptions): HttpResponse =
             deleteOembedDomain(
                 appId,
                 IntegratorSettingDeleteOembedDomainParams.none(),
@@ -505,7 +505,7 @@ interface IntegratorSettingService {
          * but is otherwise the same as [IntegratorSettingService.getEventVisibilitySettings].
          */
         @MustBeClosed
-        fun getEventVisibilitySettings(appId: String): HttpResponseFor<EventVisibilityResponse> =
+        fun getEventVisibilitySettings(appId: Int): HttpResponseFor<EventVisibilityResponse> =
             getEventVisibilitySettings(
                 appId,
                 IntegratorSettingGetEventVisibilitySettingsParams.none(),
@@ -514,7 +514,7 @@ interface IntegratorSettingService {
         /** @see getEventVisibilitySettings */
         @MustBeClosed
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingGetEventVisibilitySettingsParams =
                 IntegratorSettingGetEventVisibilitySettingsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -524,7 +524,7 @@ interface IntegratorSettingService {
         /** @see getEventVisibilitySettings */
         @MustBeClosed
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingGetEventVisibilitySettingsParams =
                 IntegratorSettingGetEventVisibilitySettingsParams.none(),
         ): HttpResponseFor<EventVisibilityResponse> =
@@ -547,7 +547,7 @@ interface IntegratorSettingService {
         /** @see getEventVisibilitySettings */
         @MustBeClosed
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<EventVisibilityResponse> =
             getEventVisibilitySettings(
@@ -563,7 +563,7 @@ interface IntegratorSettingService {
          */
         @MustBeClosed
         fun getObjectDefinitionsByMediaType(
-            mediaType: String,
+            mediaType: IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType,
             params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
         ): HttpResponseFor<ObjectDefinitionResponse> =
             getObjectDefinitionsByMediaType(mediaType, params, RequestOptions.none())
@@ -571,7 +571,7 @@ interface IntegratorSettingService {
         /** @see getObjectDefinitionsByMediaType */
         @MustBeClosed
         fun getObjectDefinitionsByMediaType(
-            mediaType: String,
+            mediaType: IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType,
             params: IntegratorSettingGetObjectDefinitionsByMediaTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ObjectDefinitionResponse> =
@@ -637,13 +637,13 @@ interface IntegratorSettingService {
          * but is otherwise the same as [IntegratorSettingService.listOembedDomains].
          */
         @MustBeClosed
-        fun listOembedDomains(appId: String): HttpResponseFor<OEmbedDomainsCollectionResponse> =
+        fun listOembedDomains(appId: Int): HttpResponseFor<OEmbedDomainsCollectionResponse> =
             listOembedDomains(appId, IntegratorSettingListOembedDomainsParams.none())
 
         /** @see listOembedDomains */
         @MustBeClosed
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingListOembedDomainsParams =
                 IntegratorSettingListOembedDomainsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -653,7 +653,7 @@ interface IntegratorSettingService {
         /** @see listOembedDomains */
         @MustBeClosed
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingListOembedDomainsParams =
                 IntegratorSettingListOembedDomainsParams.none(),
         ): HttpResponseFor<OEmbedDomainsCollectionResponse> =
@@ -676,7 +676,7 @@ interface IntegratorSettingService {
         /** @see listOembedDomains */
         @MustBeClosed
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<OEmbedDomainsCollectionResponse> =
             listOembedDomains(
@@ -692,7 +692,7 @@ interface IntegratorSettingService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun registerAppName(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingRegisterAppNameParams,
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =
             registerAppName(appId, params, RequestOptions.none())
@@ -701,7 +701,7 @@ interface IntegratorSettingService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun registerAppName(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingRegisterAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =
@@ -729,7 +729,7 @@ interface IntegratorSettingService {
          */
         @MustBeClosed
         fun updateAppName(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingUpdateAppNameParams,
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =
             updateAppName(appId, params, RequestOptions.none())
@@ -737,7 +737,7 @@ interface IntegratorSettingService {
         /** @see updateAppName */
         @MustBeClosed
         fun updateAppName(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingUpdateAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =
@@ -764,7 +764,7 @@ interface IntegratorSettingService {
          */
         @MustBeClosed
         fun updateEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingUpdateEventVisibilitySettingsParams,
         ): HttpResponseFor<EventVisibilityChange> =
             updateEventVisibilitySettings(appId, params, RequestOptions.none())
@@ -772,7 +772,7 @@ interface IntegratorSettingService {
         /** @see updateEventVisibilitySettings */
         @MustBeClosed
         fun updateEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: IntegratorSettingUpdateEventVisibilitySettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventVisibilityChange> =

@@ -173,6 +173,10 @@ interface CartService {
     fun get(cartId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
         get(cartId, CartGetParams.none(), requestOptions)
 
+    /**
+     * Execute a search for carts based on the specified search criteria, such as filters and
+     * properties, and retrieve the matching results.
+     */
     fun search(params: CartSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 

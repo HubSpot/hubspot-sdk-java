@@ -23,7 +23,6 @@ internal class ChannelIntegrationMessageEggTest {
                         .build()
                 )
                 .channelAccountId("channelAccountId")
-                .integrationThreadId("integrationThreadId")
                 .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                 .addRecipient(
                     ChannelIntegrationParticipant.builder()
@@ -45,6 +44,7 @@ internal class ChannelIntegrationMessageEggTest {
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .inReplyToId("inReplyToId")
                 .integrationIdempotencyId("integrationIdempotencyId")
+                .integrationThreadId("integrationThreadId")
                 .preResolvedContacts(
                     PreResolvedContacts.builder()
                         .addContact(
@@ -69,8 +69,6 @@ internal class ChannelIntegrationMessageEggTest {
                 )
             )
         assertThat(channelIntegrationMessageEgg.channelAccountId()).isEqualTo("channelAccountId")
-        assertThat(channelIntegrationMessageEgg.integrationThreadId())
-            .isEqualTo("integrationThreadId")
         assertThat(channelIntegrationMessageEgg.messageDirection())
             .isEqualTo(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
         assertThat(channelIntegrationMessageEgg.recipients())
@@ -97,6 +95,8 @@ internal class ChannelIntegrationMessageEggTest {
         assertThat(channelIntegrationMessageEgg.inReplyToId()).contains("inReplyToId")
         assertThat(channelIntegrationMessageEgg.integrationIdempotencyId())
             .contains("integrationIdempotencyId")
+        assertThat(channelIntegrationMessageEgg.integrationThreadId())
+            .contains("integrationThreadId")
         assertThat(channelIntegrationMessageEgg.preResolvedContacts())
             .contains(
                 PreResolvedContacts.builder()
@@ -124,7 +124,6 @@ internal class ChannelIntegrationMessageEggTest {
                         .build()
                 )
                 .channelAccountId("channelAccountId")
-                .integrationThreadId("integrationThreadId")
                 .messageDirection(ChannelIntegrationMessageEgg.MessageDirection.INCOMING)
                 .addRecipient(
                     ChannelIntegrationParticipant.builder()
@@ -146,6 +145,7 @@ internal class ChannelIntegrationMessageEggTest {
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .inReplyToId("inReplyToId")
                 .integrationIdempotencyId("integrationIdempotencyId")
+                .integrationThreadId("integrationThreadId")
                 .preResolvedContacts(
                     PreResolvedContacts.builder()
                         .addContact(

@@ -23,36 +23,31 @@ import kotlin.jvm.optionals.getOrNull
 class HubDbTableV3
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val deletedAt: JsonField<OffsetDateTime>,
-    private val label: JsonField<String>,
-    private val name: JsonField<String>,
     private val id: JsonField<String>,
     private val allowChildTables: JsonField<Boolean>,
     private val allowPublicApiAccess: JsonField<Boolean>,
     private val columnCount: JsonField<Int>,
     private val columns: JsonField<List<Column>>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val createdBy: JsonField<SimpleUser>,
     private val deleted: JsonField<Boolean>,
+    private val deletedAt: JsonField<OffsetDateTime>,
     private val dynamicMetaTags: JsonField<DynamicMetaTags>,
     private val enableChildTablePages: JsonField<Boolean>,
-    private val isOrderedManually: JsonField<Boolean>,
+    private val label: JsonField<String>,
+    private val name: JsonField<String>,
     private val published: JsonField<Boolean>,
     private val publishedAt: JsonField<OffsetDateTime>,
     private val rowCount: JsonField<Int>,
     private val updatedAt: JsonField<OffsetDateTime>,
-    private val updatedBy: JsonField<SimpleUser>,
     private val useForPages: JsonField<Boolean>,
+    private val createdBy: JsonField<SimpleUser>,
+    private val isOrderedManually: JsonField<Boolean>,
+    private val updatedBy: JsonField<SimpleUser>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("deletedAt")
-        @ExcludeMissing
-        deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("allowChildTables")
         @ExcludeMissing
@@ -67,19 +62,18 @@ private constructor(
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("createdBy")
-        @ExcludeMissing
-        createdBy: JsonField<SimpleUser> = JsonMissing.of(),
         @JsonProperty("deleted") @ExcludeMissing deleted: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("deletedAt")
+        @ExcludeMissing
+        deletedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("dynamicMetaTags")
         @ExcludeMissing
         dynamicMetaTags: JsonField<DynamicMetaTags> = JsonMissing.of(),
         @JsonProperty("enableChildTablePages")
         @ExcludeMissing
         enableChildTablePages: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("isOrderedManually")
-        @ExcludeMissing
-        isOrderedManually: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("published") @ExcludeMissing published: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("publishedAt")
         @ExcludeMissing
@@ -88,41 +82,120 @@ private constructor(
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("updatedBy")
-        @ExcludeMissing
-        updatedBy: JsonField<SimpleUser> = JsonMissing.of(),
         @JsonProperty("useForPages")
         @ExcludeMissing
         useForPages: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("createdBy")
+        @ExcludeMissing
+        createdBy: JsonField<SimpleUser> = JsonMissing.of(),
+        @JsonProperty("isOrderedManually")
+        @ExcludeMissing
+        isOrderedManually: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("updatedBy")
+        @ExcludeMissing
+        updatedBy: JsonField<SimpleUser> = JsonMissing.of(),
     ) : this(
-        deletedAt,
-        label,
-        name,
         id,
         allowChildTables,
         allowPublicApiAccess,
         columnCount,
         columns,
         createdAt,
-        createdBy,
         deleted,
+        deletedAt,
         dynamicMetaTags,
         enableChildTablePages,
-        isOrderedManually,
+        label,
+        name,
         published,
         publishedAt,
         rowCount,
         updatedAt,
-        updatedBy,
         useForPages,
+        createdBy,
+        isOrderedManually,
+        updatedBy,
         mutableMapOf(),
     )
+
+    /**
+     * Id of the table
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * Specifies whether child tables can be created
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun allowChildTables(): Boolean = allowChildTables.getRequired("allowChildTables")
+
+    /**
+     * Specifies whether the table can be read by public without authorization
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun allowPublicApiAccess(): Boolean = allowPublicApiAccess.getRequired("allowPublicApiAccess")
+
+    /**
+     * Number of columns including deleted
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun columnCount(): Int = columnCount.getRequired("columnCount")
+
+    /**
+     * List of columns in the table
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun columns(): List<Column> = columns.getRequired("columns")
+
+    /**
+     * Timestamp at which the table is created
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun deleted(): Boolean = deleted.getRequired("deleted")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun deletedAt(): OffsetDateTime = deletedAt.getRequired("deletedAt")
+
+    /**
+     * Specifies the key value pairs of the
+     * [metadata fields](https://developers.hubspot.com/docs/cms/guides/dynamic-pages/hubdb#dynamic-pages)
+     * with the associated column IDs.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun dynamicMetaTags(): DynamicMetaTags = dynamicMetaTags.getRequired("dynamicMetaTags")
+
+    /**
+     * Specifies creation of multi-level dynamic pages using child tables
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun enableChildTablePages(): Boolean =
+        enableChildTablePages.getRequired("enableChildTablePages")
 
     /**
      * Label of the table
@@ -141,53 +214,42 @@ private constructor(
     fun name(): String = name.getRequired("name")
 
     /**
-     * Id of the table
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun id(): Optional<String> = id.getOptional("id")
+    fun published(): Boolean = published.getRequired("published")
 
     /**
-     * Specifies whether child tables can be created
+     * Timestamp at which the table is published recently
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun allowChildTables(): Optional<Boolean> = allowChildTables.getOptional("allowChildTables")
+    fun publishedAt(): OffsetDateTime = publishedAt.getRequired("publishedAt")
 
     /**
-     * Specifies whether the table can be read by public without authorization
+     * Number of rows in the table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun allowPublicApiAccess(): Optional<Boolean> =
-        allowPublicApiAccess.getOptional("allowPublicApiAccess")
+    fun rowCount(): Int = rowCount.getRequired("rowCount")
 
     /**
-     * Number of columns including deleted
+     * Timestamp at which the table is updated recently
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun columnCount(): Optional<Int> = columnCount.getOptional("columnCount")
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
-     * List of columns in the table
+     * Specifies whether the table can be used for creation of dynamic pages
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun columns(): Optional<List<Column>> = columns.getOptional("columns")
-
-    /**
-     * Timestamp at which the table is created
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("createdAt")
+    fun useForPages(): Boolean = useForPages.getRequired("useForPages")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -199,100 +261,13 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun deleted(): Optional<Boolean> = deleted.getOptional("deleted")
-
-    /**
-     * Specifies the key value pairs of the
-     * [metadata fields](https://developers.hubspot.com/docs/cms/guides/dynamic-pages/hubdb#dynamic-pages)
-     * with the associated column IDs.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun dynamicMetaTags(): Optional<DynamicMetaTags> =
-        dynamicMetaTags.getOptional("dynamicMetaTags")
-
-    /**
-     * Specifies creation of multi-level dynamic pages using child tables
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun enableChildTablePages(): Optional<Boolean> =
-        enableChildTablePages.getOptional("enableChildTablePages")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
     fun isOrderedManually(): Optional<Boolean> = isOrderedManually.getOptional("isOrderedManually")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun published(): Optional<Boolean> = published.getOptional("published")
-
-    /**
-     * Timestamp at which the table is published recently
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun publishedAt(): Optional<OffsetDateTime> = publishedAt.getOptional("publishedAt")
-
-    /**
-     * Number of rows in the table
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun rowCount(): Optional<Int> = rowCount.getOptional("rowCount")
-
-    /**
-     * Timestamp at which the table is updated recently
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
     fun updatedBy(): Optional<SimpleUser> = updatedBy.getOptional("updatedBy")
-
-    /**
-     * Specifies whether the table can be used for creation of dynamic pages
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun useForPages(): Optional<Boolean> = useForPages.getOptional("useForPages")
-
-    /**
-     * Returns the raw JSON value of [deletedAt].
-     *
-     * Unlike [deletedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("deletedAt")
-    @ExcludeMissing
-    fun _deletedAt(): JsonField<OffsetDateTime> = deletedAt
-
-    /**
-     * Returns the raw JSON value of [label].
-     *
-     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
-
-    /**
-     * Returns the raw JSON value of [name].
-     *
-     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
      * Returns the raw JSON value of [id].
@@ -345,18 +320,20 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * Returns the raw JSON value of [createdBy].
-     *
-     * Unlike [createdBy], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("createdBy") @ExcludeMissing fun _createdBy(): JsonField<SimpleUser> = createdBy
-
-    /**
      * Returns the raw JSON value of [deleted].
      *
      * Unlike [deleted], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("deleted") @ExcludeMissing fun _deleted(): JsonField<Boolean> = deleted
+
+    /**
+     * Returns the raw JSON value of [deletedAt].
+     *
+     * Unlike [deletedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("deletedAt")
+    @ExcludeMissing
+    fun _deletedAt(): JsonField<OffsetDateTime> = deletedAt
 
     /**
      * Returns the raw JSON value of [dynamicMetaTags].
@@ -378,14 +355,18 @@ private constructor(
     fun _enableChildTablePages(): JsonField<Boolean> = enableChildTablePages
 
     /**
-     * Returns the raw JSON value of [isOrderedManually].
+     * Returns the raw JSON value of [label].
      *
-     * Unlike [isOrderedManually], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("isOrderedManually")
-    @ExcludeMissing
-    fun _isOrderedManually(): JsonField<Boolean> = isOrderedManually
+    @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
+
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
      * Returns the raw JSON value of [published].
@@ -420,13 +401,6 @@ private constructor(
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /**
-     * Returns the raw JSON value of [updatedBy].
-     *
-     * Unlike [updatedBy], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("updatedBy") @ExcludeMissing fun _updatedBy(): JsonField<SimpleUser> = updatedBy
-
-    /**
      * Returns the raw JSON value of [useForPages].
      *
      * Unlike [useForPages], this method doesn't throw if the JSON field has an unexpected type.
@@ -434,6 +408,30 @@ private constructor(
     @JsonProperty("useForPages")
     @ExcludeMissing
     fun _useForPages(): JsonField<Boolean> = useForPages
+
+    /**
+     * Returns the raw JSON value of [createdBy].
+     *
+     * Unlike [createdBy], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("createdBy") @ExcludeMissing fun _createdBy(): JsonField<SimpleUser> = createdBy
+
+    /**
+     * Returns the raw JSON value of [isOrderedManually].
+     *
+     * Unlike [isOrderedManually], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("isOrderedManually")
+    @ExcludeMissing
+    fun _isOrderedManually(): JsonField<Boolean> = isOrderedManually
+
+    /**
+     * Returns the raw JSON value of [updatedBy].
+     *
+     * Unlike [updatedBy], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updatedBy") @ExcludeMissing fun _updatedBy(): JsonField<SimpleUser> = updatedBy
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -454,9 +452,23 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
+         * .allowChildTables()
+         * .allowPublicApiAccess()
+         * .columnCount()
+         * .columns()
+         * .createdAt()
+         * .deleted()
          * .deletedAt()
+         * .dynamicMetaTags()
+         * .enableChildTablePages()
          * .label()
          * .name()
+         * .published()
+         * .publishedAt()
+         * .rowCount()
+         * .updatedAt()
+         * .useForPages()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -465,85 +477,52 @@ private constructor(
     /** A builder for [HubDbTableV3]. */
     class Builder internal constructor() {
 
+        private var id: JsonField<String>? = null
+        private var allowChildTables: JsonField<Boolean>? = null
+        private var allowPublicApiAccess: JsonField<Boolean>? = null
+        private var columnCount: JsonField<Int>? = null
+        private var columns: JsonField<MutableList<Column>>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var deleted: JsonField<Boolean>? = null
         private var deletedAt: JsonField<OffsetDateTime>? = null
+        private var dynamicMetaTags: JsonField<DynamicMetaTags>? = null
+        private var enableChildTablePages: JsonField<Boolean>? = null
         private var label: JsonField<String>? = null
         private var name: JsonField<String>? = null
-        private var id: JsonField<String> = JsonMissing.of()
-        private var allowChildTables: JsonField<Boolean> = JsonMissing.of()
-        private var allowPublicApiAccess: JsonField<Boolean> = JsonMissing.of()
-        private var columnCount: JsonField<Int> = JsonMissing.of()
-        private var columns: JsonField<MutableList<Column>>? = null
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var published: JsonField<Boolean>? = null
+        private var publishedAt: JsonField<OffsetDateTime>? = null
+        private var rowCount: JsonField<Int>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var useForPages: JsonField<Boolean>? = null
         private var createdBy: JsonField<SimpleUser> = JsonMissing.of()
-        private var deleted: JsonField<Boolean> = JsonMissing.of()
-        private var dynamicMetaTags: JsonField<DynamicMetaTags> = JsonMissing.of()
-        private var enableChildTablePages: JsonField<Boolean> = JsonMissing.of()
         private var isOrderedManually: JsonField<Boolean> = JsonMissing.of()
-        private var published: JsonField<Boolean> = JsonMissing.of()
-        private var publishedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var rowCount: JsonField<Int> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var updatedBy: JsonField<SimpleUser> = JsonMissing.of()
-        private var useForPages: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(hubDbTableV3: HubDbTableV3) = apply {
-            deletedAt = hubDbTableV3.deletedAt
-            label = hubDbTableV3.label
-            name = hubDbTableV3.name
             id = hubDbTableV3.id
             allowChildTables = hubDbTableV3.allowChildTables
             allowPublicApiAccess = hubDbTableV3.allowPublicApiAccess
             columnCount = hubDbTableV3.columnCount
             columns = hubDbTableV3.columns.map { it.toMutableList() }
             createdAt = hubDbTableV3.createdAt
-            createdBy = hubDbTableV3.createdBy
             deleted = hubDbTableV3.deleted
+            deletedAt = hubDbTableV3.deletedAt
             dynamicMetaTags = hubDbTableV3.dynamicMetaTags
             enableChildTablePages = hubDbTableV3.enableChildTablePages
-            isOrderedManually = hubDbTableV3.isOrderedManually
+            label = hubDbTableV3.label
+            name = hubDbTableV3.name
             published = hubDbTableV3.published
             publishedAt = hubDbTableV3.publishedAt
             rowCount = hubDbTableV3.rowCount
             updatedAt = hubDbTableV3.updatedAt
-            updatedBy = hubDbTableV3.updatedBy
             useForPages = hubDbTableV3.useForPages
+            createdBy = hubDbTableV3.createdBy
+            isOrderedManually = hubDbTableV3.isOrderedManually
+            updatedBy = hubDbTableV3.updatedBy
             additionalProperties = hubDbTableV3.additionalProperties.toMutableMap()
         }
-
-        fun deletedAt(deletedAt: OffsetDateTime) = deletedAt(JsonField.of(deletedAt))
-
-        /**
-         * Sets [Builder.deletedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.deletedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
-
-        /** Label of the table */
-        fun label(label: String) = label(JsonField.of(label))
-
-        /**
-         * Sets [Builder.label] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.label] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun label(label: JsonField<String>) = apply { this.label = label }
-
-        /** Name of the table */
-        fun name(name: String) = name(JsonField.of(name))
-
-        /**
-         * Sets [Builder.name] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** Id of the table */
         fun id(id: String) = id(JsonField.of(id))
@@ -635,17 +614,6 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        fun createdBy(createdBy: SimpleUser) = createdBy(JsonField.of(createdBy))
-
-        /**
-         * Sets [Builder.createdBy] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.createdBy] with a well-typed [SimpleUser] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun createdBy(createdBy: JsonField<SimpleUser>) = apply { this.createdBy = createdBy }
-
         fun deleted(deleted: Boolean) = deleted(JsonField.of(deleted))
 
         /**
@@ -655,6 +623,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun deleted(deleted: JsonField<Boolean>) = apply { this.deleted = deleted }
+
+        fun deletedAt(deletedAt: OffsetDateTime) = deletedAt(JsonField.of(deletedAt))
+
+        /**
+         * Sets [Builder.deletedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.deletedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
 
         /**
          * Specifies the key value pairs of the
@@ -690,19 +669,27 @@ private constructor(
             this.enableChildTablePages = enableChildTablePages
         }
 
-        fun isOrderedManually(isOrderedManually: Boolean) =
-            isOrderedManually(JsonField.of(isOrderedManually))
+        /** Label of the table */
+        fun label(label: String) = label(JsonField.of(label))
 
         /**
-         * Sets [Builder.isOrderedManually] to an arbitrary JSON value.
+         * Sets [Builder.label] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.isOrderedManually] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.label] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun isOrderedManually(isOrderedManually: JsonField<Boolean>) = apply {
-            this.isOrderedManually = isOrderedManually
-        }
+        fun label(label: JsonField<String>) = apply { this.label = label }
+
+        /** Name of the table */
+        fun name(name: String) = name(JsonField.of(name))
+
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun name(name: JsonField<String>) = apply { this.name = name }
 
         fun published(published: Boolean) = published(JsonField.of(published))
 
@@ -752,17 +739,6 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        fun updatedBy(updatedBy: SimpleUser) = updatedBy(JsonField.of(updatedBy))
-
-        /**
-         * Sets [Builder.updatedBy] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.updatedBy] with a well-typed [SimpleUser] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun updatedBy(updatedBy: JsonField<SimpleUser>) = apply { this.updatedBy = updatedBy }
-
         /** Specifies whether the table can be used for creation of dynamic pages */
         fun useForPages(useForPages: Boolean) = useForPages(JsonField.of(useForPages))
 
@@ -774,6 +750,42 @@ private constructor(
          * value.
          */
         fun useForPages(useForPages: JsonField<Boolean>) = apply { this.useForPages = useForPages }
+
+        fun createdBy(createdBy: SimpleUser) = createdBy(JsonField.of(createdBy))
+
+        /**
+         * Sets [Builder.createdBy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdBy] with a well-typed [SimpleUser] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun createdBy(createdBy: JsonField<SimpleUser>) = apply { this.createdBy = createdBy }
+
+        fun isOrderedManually(isOrderedManually: Boolean) =
+            isOrderedManually(JsonField.of(isOrderedManually))
+
+        /**
+         * Sets [Builder.isOrderedManually] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.isOrderedManually] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun isOrderedManually(isOrderedManually: JsonField<Boolean>) = apply {
+            this.isOrderedManually = isOrderedManually
+        }
+
+        fun updatedBy(updatedBy: SimpleUser) = updatedBy(JsonField.of(updatedBy))
+
+        /**
+         * Sets [Builder.updatedBy] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedBy] with a well-typed [SimpleUser] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun updatedBy(updatedBy: JsonField<SimpleUser>) = apply { this.updatedBy = updatedBy }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -801,35 +813,49 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
+         * .allowChildTables()
+         * .allowPublicApiAccess()
+         * .columnCount()
+         * .columns()
+         * .createdAt()
+         * .deleted()
          * .deletedAt()
+         * .dynamicMetaTags()
+         * .enableChildTablePages()
          * .label()
          * .name()
+         * .published()
+         * .publishedAt()
+         * .rowCount()
+         * .updatedAt()
+         * .useForPages()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): HubDbTableV3 =
             HubDbTableV3(
+                checkRequired("id", id),
+                checkRequired("allowChildTables", allowChildTables),
+                checkRequired("allowPublicApiAccess", allowPublicApiAccess),
+                checkRequired("columnCount", columnCount),
+                checkRequired("columns", columns).map { it.toImmutable() },
+                checkRequired("createdAt", createdAt),
+                checkRequired("deleted", deleted),
                 checkRequired("deletedAt", deletedAt),
+                checkRequired("dynamicMetaTags", dynamicMetaTags),
+                checkRequired("enableChildTablePages", enableChildTablePages),
                 checkRequired("label", label),
                 checkRequired("name", name),
-                id,
-                allowChildTables,
-                allowPublicApiAccess,
-                columnCount,
-                (columns ?: JsonMissing.of()).map { it.toImmutable() },
-                createdAt,
+                checkRequired("published", published),
+                checkRequired("publishedAt", publishedAt),
+                checkRequired("rowCount", rowCount),
+                checkRequired("updatedAt", updatedAt),
+                checkRequired("useForPages", useForPages),
                 createdBy,
-                deleted,
-                dynamicMetaTags,
-                enableChildTablePages,
                 isOrderedManually,
-                published,
-                publishedAt,
-                rowCount,
-                updatedAt,
                 updatedBy,
-                useForPages,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -841,26 +867,26 @@ private constructor(
             return@apply
         }
 
-        deletedAt()
-        label()
-        name()
         id()
         allowChildTables()
         allowPublicApiAccess()
         columnCount()
-        columns().ifPresent { it.forEach { it.validate() } }
+        columns().forEach { it.validate() }
         createdAt()
-        createdBy().ifPresent { it.validate() }
         deleted()
-        dynamicMetaTags().ifPresent { it.validate() }
+        deletedAt()
+        dynamicMetaTags().validate()
         enableChildTablePages()
-        isOrderedManually()
+        label()
+        name()
         published()
         publishedAt()
         rowCount()
         updatedAt()
-        updatedBy().ifPresent { it.validate() }
         useForPages()
+        createdBy().ifPresent { it.validate() }
+        isOrderedManually()
+        updatedBy().ifPresent { it.validate() }
         validated = true
     }
 
@@ -879,26 +905,26 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (deletedAt.asKnown().isPresent) 1 else 0) +
-            (if (label.asKnown().isPresent) 1 else 0) +
-            (if (name.asKnown().isPresent) 1 else 0) +
-            (if (id.asKnown().isPresent) 1 else 0) +
+        (if (id.asKnown().isPresent) 1 else 0) +
             (if (allowChildTables.asKnown().isPresent) 1 else 0) +
             (if (allowPublicApiAccess.asKnown().isPresent) 1 else 0) +
             (if (columnCount.asKnown().isPresent) 1 else 0) +
             (columns.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
-            (createdBy.asKnown().getOrNull()?.validity() ?: 0) +
             (if (deleted.asKnown().isPresent) 1 else 0) +
+            (if (deletedAt.asKnown().isPresent) 1 else 0) +
             (dynamicMetaTags.asKnown().getOrNull()?.validity() ?: 0) +
             (if (enableChildTablePages.asKnown().isPresent) 1 else 0) +
-            (if (isOrderedManually.asKnown().isPresent) 1 else 0) +
+            (if (label.asKnown().isPresent) 1 else 0) +
+            (if (name.asKnown().isPresent) 1 else 0) +
             (if (published.asKnown().isPresent) 1 else 0) +
             (if (publishedAt.asKnown().isPresent) 1 else 0) +
             (if (rowCount.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
-            (updatedBy.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (useForPages.asKnown().isPresent) 1 else 0)
+            (if (useForPages.asKnown().isPresent) 1 else 0) +
+            (createdBy.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (isOrderedManually.asKnown().isPresent) 1 else 0) +
+            (updatedBy.asKnown().getOrNull()?.validity() ?: 0)
 
     /**
      * Specifies the key value pairs of the
@@ -1010,51 +1036,51 @@ private constructor(
         }
 
         return other is HubDbTableV3 &&
-            deletedAt == other.deletedAt &&
-            label == other.label &&
-            name == other.name &&
             id == other.id &&
             allowChildTables == other.allowChildTables &&
             allowPublicApiAccess == other.allowPublicApiAccess &&
             columnCount == other.columnCount &&
             columns == other.columns &&
             createdAt == other.createdAt &&
-            createdBy == other.createdBy &&
             deleted == other.deleted &&
+            deletedAt == other.deletedAt &&
             dynamicMetaTags == other.dynamicMetaTags &&
             enableChildTablePages == other.enableChildTablePages &&
-            isOrderedManually == other.isOrderedManually &&
+            label == other.label &&
+            name == other.name &&
             published == other.published &&
             publishedAt == other.publishedAt &&
             rowCount == other.rowCount &&
             updatedAt == other.updatedAt &&
-            updatedBy == other.updatedBy &&
             useForPages == other.useForPages &&
+            createdBy == other.createdBy &&
+            isOrderedManually == other.isOrderedManually &&
+            updatedBy == other.updatedBy &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            deletedAt,
-            label,
-            name,
             id,
             allowChildTables,
             allowPublicApiAccess,
             columnCount,
             columns,
             createdAt,
-            createdBy,
             deleted,
+            deletedAt,
             dynamicMetaTags,
             enableChildTablePages,
-            isOrderedManually,
+            label,
+            name,
             published,
             publishedAt,
             rowCount,
             updatedAt,
-            updatedBy,
             useForPages,
+            createdBy,
+            isOrderedManually,
+            updatedBy,
             additionalProperties,
         )
     }
@@ -1062,5 +1088,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "HubDbTableV3{deletedAt=$deletedAt, label=$label, name=$name, id=$id, allowChildTables=$allowChildTables, allowPublicApiAccess=$allowPublicApiAccess, columnCount=$columnCount, columns=$columns, createdAt=$createdAt, createdBy=$createdBy, deleted=$deleted, dynamicMetaTags=$dynamicMetaTags, enableChildTablePages=$enableChildTablePages, isOrderedManually=$isOrderedManually, published=$published, publishedAt=$publishedAt, rowCount=$rowCount, updatedAt=$updatedAt, updatedBy=$updatedBy, useForPages=$useForPages, additionalProperties=$additionalProperties}"
+        "HubDbTableV3{id=$id, allowChildTables=$allowChildTables, allowPublicApiAccess=$allowPublicApiAccess, columnCount=$columnCount, columns=$columns, createdAt=$createdAt, deleted=$deleted, deletedAt=$deletedAt, dynamicMetaTags=$dynamicMetaTags, enableChildTablePages=$enableChildTablePages, label=$label, name=$name, published=$published, publishedAt=$publishedAt, rowCount=$rowCount, updatedAt=$updatedAt, useForPages=$useForPages, createdBy=$createdBy, isOrderedManually=$isOrderedManually, updatedBy=$updatedBy, additionalProperties=$additionalProperties}"
 }

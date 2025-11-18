@@ -15,7 +15,6 @@ import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /** An input used to create or replace a pipeline stage's definition. */
@@ -66,10 +65,10 @@ private constructor(
      * and represents whether the ticket remains open or has been closed by a member of your Support
      * team. Possible values are `OPEN` or `CLOSED`.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun metadata(): Optional<Metadata> = metadata.getOptional("metadata")
+    fun metadata(): Metadata = metadata.getRequired("metadata")
 
     /**
      * Returns the raw JSON value of [displayOrder].
@@ -113,6 +112,7 @@ private constructor(
          * ```java
          * .displayOrder()
          * .label()
+         * .metadata()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -123,7 +123,7 @@ private constructor(
 
         private var displayOrder: JsonField<Int>? = null
         private var label: JsonField<String>? = null
-        private var metadata: JsonField<Metadata> = JsonMissing.of()
+        private var metadata: JsonField<Metadata>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -213,6 +213,7 @@ private constructor(
          * ```java
          * .displayOrder()
          * .label()
+         * .metadata()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -221,7 +222,7 @@ private constructor(
             PipelineStageInput(
                 checkRequired("displayOrder", displayOrder),
                 checkRequired("label", label),
-                metadata,
+                checkRequired("metadata", metadata),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -235,7 +236,7 @@ private constructor(
 
         displayOrder()
         label()
-        metadata().ifPresent { it.validate() }
+        metadata().validate()
         validated = true
     }
 

@@ -23,6 +23,7 @@ import com.hubspot_sdk.api.models.scheduler.meetings.ExternalMeetingBookingRespo
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkBookParams
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetAvailabilityBySlugParams
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetBookingInfoBySlugParams
+import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkListPageAsync
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -43,7 +44,7 @@ class MeetingsLinkServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: MeetingsLinkListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalExternalLinkMetadataForwardPaging> =
+    ): CompletableFuture<MeetingsLinkListPageAsync> =
         // get /scheduler/v3/meetings/meeting-links
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -90,9 +91,7 @@ class MeetingsLinkServiceAsyncImpl internal constructor(private val clientOption
         override fun list(
             params: MeetingsLinkListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalExternalLinkMetadataForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<MeetingsLinkListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -111,6 +110,14 @@ class MeetingsLinkServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MeetingsLinkListPageAsync.builder()
+                                    .service(MeetingsLinkServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

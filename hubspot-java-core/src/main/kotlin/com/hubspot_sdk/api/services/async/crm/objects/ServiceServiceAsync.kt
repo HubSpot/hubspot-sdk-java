@@ -191,6 +191,7 @@ interface ServiceServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(serviceId, ServiceGetParams.none(), requestOptions)
 
+    /** Fetch objects via a search query */
     fun search(
         params: ServiceSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

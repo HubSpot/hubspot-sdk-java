@@ -13,15 +13,23 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the existing properties defined for a media object type. */
 class PropertyListParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val objectType: String?,
+    private val archived: Boolean?,
+    private val properties: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun objectType(): Optional<String> = Optional.ofNullable(objectType)
+
+    /** Whether to return only results that have been archived. */
+    fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
+
+    /** Filter the response to the specified properties. */
+    fun properties(): Optional<String> = Optional.ofNullable(properties)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -47,8 +55,10 @@ private constructor(
     /** A builder for [PropertyListParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var objectType: String? = null
+        private var archived: Boolean? = null
+        private var properties: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -56,16 +66,37 @@ private constructor(
         internal fun from(propertyListParams: PropertyListParams) = apply {
             appId = propertyListParams.appId
             objectType = propertyListParams.objectType
+            archived = propertyListParams.archived
+            properties = propertyListParams.properties
             additionalHeaders = propertyListParams.additionalHeaders.toBuilder()
             additionalQueryParams = propertyListParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun objectType(objectType: String?) = apply { this.objectType = objectType }
 
         /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
         fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
+
+        /** Whether to return only results that have been archived. */
+        fun archived(archived: Boolean?) = apply { this.archived = archived }
+
+        /**
+         * Alias for [Builder.archived].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun archived(archived: Boolean) = archived(archived as Boolean?)
+
+        /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
+        fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
+
+        /** Filter the response to the specified properties. */
+        fun properties(properties: String?) = apply { this.properties = properties }
+
+        /** Alias for calling [Builder.properties] with `properties.orElse(null)`. */
+        fun properties(properties: Optional<String>) = properties(properties.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -181,6 +212,8 @@ private constructor(
             PropertyListParams(
                 checkRequired("appId", appId),
                 objectType,
+                archived,
+                properties,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -188,14 +221,21 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> objectType ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                archived?.let { put("archived", it.toString()) }
+                properties?.let { put("properties", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -205,13 +245,22 @@ private constructor(
         return other is PropertyListParams &&
             appId == other.appId &&
             objectType == other.objectType &&
+            archived == other.archived &&
+            properties == other.properties &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(appId, objectType, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            appId,
+            objectType,
+            archived,
+            properties,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "PropertyListParams{appId=$appId, objectType=$objectType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PropertyListParams{appId=$appId, objectType=$objectType, archived=$archived, properties=$properties, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

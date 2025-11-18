@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import com.hubspot_sdk.api.models.marketing.emails.EmailCloneRequestVNext
 import com.hubspot_sdk.api.models.marketing.emails.EmailCreateRequest
 import com.hubspot_sdk.api.models.marketing.emails.EmailDeleteParams
+import com.hubspot_sdk.api.models.marketing.emails.EmailGetAbTestVariationParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailGetRevisionParams
 import com.hubspot_sdk.api.models.marketing.emails.EmailRestoreRevisionParams
@@ -692,7 +693,17 @@ internal class EmailServiceAsyncTest {
                 .build()
         val emailServiceAsync = client.marketing().emails()
 
-        val publicEmailFuture = emailServiceAsync.getAbTestVariation("emailId")
+        val publicEmailFuture =
+            emailServiceAsync.getAbTestVariation(
+                EmailGetAbTestVariationParams.builder()
+                    .emailId("emailId")
+                    .archived(true)
+                    .addIncludedProperty("string")
+                    .includeStats(true)
+                    .marketingCampaignNames(true)
+                    .workflowNames(true)
+                    .build()
+            )
 
         val publicEmail = publicEmailFuture.get()
         publicEmail.validate()

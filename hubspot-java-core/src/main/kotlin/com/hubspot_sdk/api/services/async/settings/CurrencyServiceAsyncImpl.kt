@@ -30,6 +30,7 @@ import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetCompanyCurrency
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetExchangeRateByIdParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCodesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCurrentExchangeRatesParams
+import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesPageAsync
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyUpdateCompanyCurrencyParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyUpdateExchangeRateParams
@@ -118,7 +119,7 @@ class CurrencyServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun listExchangeRates(
         params: CurrencyListExchangeRatesParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseExchangeRateForwardPaging> =
+    ): CompletableFuture<CurrencyListExchangeRatesPageAsync> =
         // get /settings/v3/currencies/exchange-rates
         withRawResponse().listExchangeRates(params, requestOptions).thenApply { it.parse() }
 
@@ -443,7 +444,7 @@ class CurrencyServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun listExchangeRates(
             params: CurrencyListExchangeRatesParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseExchangeRateForwardPaging>> {
+        ): CompletableFuture<HttpResponseFor<CurrencyListExchangeRatesPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -462,6 +463,14 @@ class CurrencyServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                CurrencyListExchangeRatesPageAsync.builder()
+                                    .service(CurrencyServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

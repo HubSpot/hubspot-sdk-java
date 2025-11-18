@@ -17,7 +17,6 @@ import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
@@ -27,12 +26,10 @@ import kotlin.jvm.optionals.getOrNull
 class PropertyValue
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val name: JsonField<String>,
-    private val sourceUpstreamDeployable: JsonField<String>,
-    private val value: JsonField<String>,
     private val dataSensitivity: JsonField<DataSensitivity>,
     private val isEncrypted: JsonField<Boolean>,
     private val isLargeValue: JsonField<Boolean>,
+    private val name: JsonField<String>,
     private val persistenceTimestamp: JsonField<Long>,
     private val requestId: JsonField<String>,
     private val selectedByUser: JsonField<Boolean>,
@@ -41,21 +38,18 @@ private constructor(
     private val sourceId: JsonField<String>,
     private val sourceLabel: JsonField<String>,
     private val sourceMetadata: JsonField<String>,
+    private val sourceUpstreamDeployable: JsonField<String>,
     private val sourceVid: JsonField<List<Long>>,
     private val timestamp: JsonField<Long>,
     private val unit: JsonField<String>,
     private val updatedByUserId: JsonField<Int>,
     private val useTimestampAsPersistenceTimestamp: JsonField<Boolean>,
+    private val value: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("sourceUpstreamDeployable")
-        @ExcludeMissing
-        sourceUpstreamDeployable: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
         @JsonProperty("dataSensitivity")
         @ExcludeMissing
         dataSensitivity: JsonField<DataSensitivity> = JsonMissing.of(),
@@ -65,6 +59,7 @@ private constructor(
         @JsonProperty("isLargeValue")
         @ExcludeMissing
         isLargeValue: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("persistenceTimestamp")
         @ExcludeMissing
         persistenceTimestamp: JsonField<Long> = JsonMissing.of(),
@@ -83,6 +78,9 @@ private constructor(
         @JsonProperty("sourceMetadata")
         @ExcludeMissing
         sourceMetadata: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("sourceUpstreamDeployable")
+        @ExcludeMissing
+        sourceUpstreamDeployable: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sourceVid")
         @ExcludeMissing
         sourceVid: JsonField<List<Long>> = JsonMissing.of(),
@@ -94,13 +92,12 @@ private constructor(
         @JsonProperty("useTimestampAsPersistenceTimestamp")
         @ExcludeMissing
         useTimestampAsPersistenceTimestamp: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
     ) : this(
-        name,
-        sourceUpstreamDeployable,
-        value,
         dataSensitivity,
         isEncrypted,
         isLargeValue,
+        name,
         persistenceTimestamp,
         requestId,
         selectedByUser,
@@ -109,13 +106,38 @@ private constructor(
         sourceId,
         sourceLabel,
         sourceMetadata,
+        sourceUpstreamDeployable,
         sourceVid,
         timestamp,
         unit,
         updatedByUserId,
         useTimestampAsPersistenceTimestamp,
+        value,
         mutableMapOf(),
     )
+
+    /**
+     * The sensitivity level of the property, such as "non_sensitive", "sensitive", and
+     * "highly_sensitive".
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun dataSensitivity(): DataSensitivity = dataSensitivity.getRequired("dataSensitivity")
+
+    /**
+     * Whether the property value is encrypted.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun isEncrypted(): Boolean = isEncrypted.getRequired("isEncrypted")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun isLargeValue(): Boolean = isLargeValue.getRequired("isLargeValue")
 
     /**
      * Name of custom property
@@ -129,8 +151,110 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
+    fun persistenceTimestamp(): Long = persistenceTimestamp.getRequired("persistenceTimestamp")
+
+    /**
+     * A unique ID associated with this request.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun requestId(): String = requestId.getRequired("requestId")
+
+    /**
+     * Whether the value was selected by a user.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun selectedByUser(): Boolean = selectedByUser.getRequired("selectedByUser")
+
+    /**
+     * The timestamp when the value was selected by a user, if applicable.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun selectedByUserTimestamp(): Long =
+        selectedByUserTimestamp.getRequired("selectedByUserTimestamp")
+
+    /**
+     * The origin of the property value, such as "IMPORT" or "API".
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun source(): Source = source.getRequired("source")
+
+    /**
+     * The ID of the property source indicating where it was created.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun sourceId(): String = sourceId.getRequired("sourceId")
+
+    /**
+     * A human-readable label.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun sourceLabel(): String = sourceLabel.getRequired("sourceLabel")
+
+    /**
+     * Source metadata encoded as a base64 string. For example: `ZXhhbXBsZSBzdHJpbmc=`
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun sourceMetadata(): String = sourceMetadata.getRequired("sourceMetadata")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun sourceUpstreamDeployable(): String =
         sourceUpstreamDeployable.getRequired("sourceUpstreamDeployable")
+
+    /**
+     * The unique identifier associated with the source.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun sourceVid(): List<Long> = sourceVid.getRequired("sourceVid")
+
+    /**
+     * When the value was set, as a 64-bit integer.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun timestamp(): Long = timestamp.getRequired("timestamp")
+
+    /**
+     * The unit of measurement or context for the value.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun unit(): String = unit.getRequired("unit")
+
+    /**
+     * The ID of the user who updated the property.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun updatedByUserId(): Int = updatedByUserId.getRequired("updatedByUserId")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun useTimestampAsPersistenceTimestamp(): Boolean =
+        useTimestampAsPersistenceTimestamp.getRequired("useTimestampAsPersistenceTimestamp")
 
     /**
      * Custom property value
@@ -139,157 +263,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun value(): String = value.getRequired("value")
-
-    /**
-     * The sensitivity level of the property, such as "non_sensitive", "sensitive", and
-     * "highly_sensitive".
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun dataSensitivity(): Optional<DataSensitivity> =
-        dataSensitivity.getOptional("dataSensitivity")
-
-    /**
-     * Whether the property value is encrypted.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun isEncrypted(): Optional<Boolean> = isEncrypted.getOptional("isEncrypted")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun isLargeValue(): Optional<Boolean> = isLargeValue.getOptional("isLargeValue")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun persistenceTimestamp(): Optional<Long> =
-        persistenceTimestamp.getOptional("persistenceTimestamp")
-
-    /**
-     * A unique ID associated with this request.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun requestId(): Optional<String> = requestId.getOptional("requestId")
-
-    /**
-     * Whether the value was selected by a user.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun selectedByUser(): Optional<Boolean> = selectedByUser.getOptional("selectedByUser")
-
-    /**
-     * The timestamp when the value was selected by a user, if applicable.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun selectedByUserTimestamp(): Optional<Long> =
-        selectedByUserTimestamp.getOptional("selectedByUserTimestamp")
-
-    /**
-     * The origin of the property value, such as "IMPORT" or "API".
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun source(): Optional<Source> = source.getOptional("source")
-
-    /**
-     * The ID of the property source indicating where it was created.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun sourceId(): Optional<String> = sourceId.getOptional("sourceId")
-
-    /**
-     * A human-readable label.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun sourceLabel(): Optional<String> = sourceLabel.getOptional("sourceLabel")
-
-    /**
-     * Source metadata encoded as a base64 string. For example: `ZXhhbXBsZSBzdHJpbmc=`
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun sourceMetadata(): Optional<String> = sourceMetadata.getOptional("sourceMetadata")
-
-    /**
-     * The unique identifier associated with the source.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun sourceVid(): Optional<List<Long>> = sourceVid.getOptional("sourceVid")
-
-    /**
-     * When the value was set, as a 64-bit integer.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun timestamp(): Optional<Long> = timestamp.getOptional("timestamp")
-
-    /**
-     * The unit of measurement or context for the value.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun unit(): Optional<String> = unit.getOptional("unit")
-
-    /**
-     * The ID of the user who updated the property.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedByUserId(): Optional<Int> = updatedByUserId.getOptional("updatedByUserId")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun useTimestampAsPersistenceTimestamp(): Optional<Boolean> =
-        useTimestampAsPersistenceTimestamp.getOptional("useTimestampAsPersistenceTimestamp")
-
-    /**
-     * Returns the raw JSON value of [name].
-     *
-     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-    /**
-     * Returns the raw JSON value of [sourceUpstreamDeployable].
-     *
-     * Unlike [sourceUpstreamDeployable], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("sourceUpstreamDeployable")
-    @ExcludeMissing
-    fun _sourceUpstreamDeployable(): JsonField<String> = sourceUpstreamDeployable
-
-    /**
-     * Returns the raw JSON value of [value].
-     *
-     * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
 
     /**
      * Returns the raw JSON value of [dataSensitivity].
@@ -317,6 +290,13 @@ private constructor(
     @JsonProperty("isLargeValue")
     @ExcludeMissing
     fun _isLargeValue(): JsonField<Boolean> = isLargeValue
+
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
      * Returns the raw JSON value of [persistenceTimestamp].
@@ -385,6 +365,16 @@ private constructor(
     fun _sourceMetadata(): JsonField<String> = sourceMetadata
 
     /**
+     * Returns the raw JSON value of [sourceUpstreamDeployable].
+     *
+     * Unlike [sourceUpstreamDeployable], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("sourceUpstreamDeployable")
+    @ExcludeMissing
+    fun _sourceUpstreamDeployable(): JsonField<String> = sourceUpstreamDeployable
+
+    /**
      * Returns the raw JSON value of [sourceVid].
      *
      * Unlike [sourceVid], this method doesn't throw if the JSON field has an unexpected type.
@@ -425,6 +415,13 @@ private constructor(
     fun _useTimestampAsPersistenceTimestamp(): JsonField<Boolean> =
         useTimestampAsPersistenceTimestamp
 
+    /**
+     * Returns the raw JSON value of [value].
+     *
+     * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -444,8 +441,24 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .dataSensitivity()
+         * .isEncrypted()
+         * .isLargeValue()
          * .name()
+         * .persistenceTimestamp()
+         * .requestId()
+         * .selectedByUser()
+         * .selectedByUserTimestamp()
+         * .source()
+         * .sourceId()
+         * .sourceLabel()
+         * .sourceMetadata()
          * .sourceUpstreamDeployable()
+         * .sourceVid()
+         * .timestamp()
+         * .unit()
+         * .updatedByUserId()
+         * .useTimestampAsPersistenceTimestamp()
          * .value()
          * ```
          */
@@ -455,35 +468,33 @@ private constructor(
     /** A builder for [PropertyValue]. */
     class Builder internal constructor() {
 
+        private var dataSensitivity: JsonField<DataSensitivity>? = null
+        private var isEncrypted: JsonField<Boolean>? = null
+        private var isLargeValue: JsonField<Boolean>? = null
         private var name: JsonField<String>? = null
+        private var persistenceTimestamp: JsonField<Long>? = null
+        private var requestId: JsonField<String>? = null
+        private var selectedByUser: JsonField<Boolean>? = null
+        private var selectedByUserTimestamp: JsonField<Long>? = null
+        private var source: JsonField<Source>? = null
+        private var sourceId: JsonField<String>? = null
+        private var sourceLabel: JsonField<String>? = null
+        private var sourceMetadata: JsonField<String>? = null
         private var sourceUpstreamDeployable: JsonField<String>? = null
-        private var value: JsonField<String>? = null
-        private var dataSensitivity: JsonField<DataSensitivity> = JsonMissing.of()
-        private var isEncrypted: JsonField<Boolean> = JsonMissing.of()
-        private var isLargeValue: JsonField<Boolean> = JsonMissing.of()
-        private var persistenceTimestamp: JsonField<Long> = JsonMissing.of()
-        private var requestId: JsonField<String> = JsonMissing.of()
-        private var selectedByUser: JsonField<Boolean> = JsonMissing.of()
-        private var selectedByUserTimestamp: JsonField<Long> = JsonMissing.of()
-        private var source: JsonField<Source> = JsonMissing.of()
-        private var sourceId: JsonField<String> = JsonMissing.of()
-        private var sourceLabel: JsonField<String> = JsonMissing.of()
-        private var sourceMetadata: JsonField<String> = JsonMissing.of()
         private var sourceVid: JsonField<MutableList<Long>>? = null
-        private var timestamp: JsonField<Long> = JsonMissing.of()
-        private var unit: JsonField<String> = JsonMissing.of()
-        private var updatedByUserId: JsonField<Int> = JsonMissing.of()
-        private var useTimestampAsPersistenceTimestamp: JsonField<Boolean> = JsonMissing.of()
+        private var timestamp: JsonField<Long>? = null
+        private var unit: JsonField<String>? = null
+        private var updatedByUserId: JsonField<Int>? = null
+        private var useTimestampAsPersistenceTimestamp: JsonField<Boolean>? = null
+        private var value: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(propertyValue: PropertyValue) = apply {
-            name = propertyValue.name
-            sourceUpstreamDeployable = propertyValue.sourceUpstreamDeployable
-            value = propertyValue.value
             dataSensitivity = propertyValue.dataSensitivity
             isEncrypted = propertyValue.isEncrypted
             isLargeValue = propertyValue.isLargeValue
+            name = propertyValue.name
             persistenceTimestamp = propertyValue.persistenceTimestamp
             requestId = propertyValue.requestId
             selectedByUser = propertyValue.selectedByUser
@@ -492,49 +503,15 @@ private constructor(
             sourceId = propertyValue.sourceId
             sourceLabel = propertyValue.sourceLabel
             sourceMetadata = propertyValue.sourceMetadata
+            sourceUpstreamDeployable = propertyValue.sourceUpstreamDeployable
             sourceVid = propertyValue.sourceVid.map { it.toMutableList() }
             timestamp = propertyValue.timestamp
             unit = propertyValue.unit
             updatedByUserId = propertyValue.updatedByUserId
             useTimestampAsPersistenceTimestamp = propertyValue.useTimestampAsPersistenceTimestamp
+            value = propertyValue.value
             additionalProperties = propertyValue.additionalProperties.toMutableMap()
         }
-
-        /** Name of custom property */
-        fun name(name: String) = name(JsonField.of(name))
-
-        /**
-         * Sets [Builder.name] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun name(name: JsonField<String>) = apply { this.name = name }
-
-        fun sourceUpstreamDeployable(sourceUpstreamDeployable: String) =
-            sourceUpstreamDeployable(JsonField.of(sourceUpstreamDeployable))
-
-        /**
-         * Sets [Builder.sourceUpstreamDeployable] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.sourceUpstreamDeployable] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun sourceUpstreamDeployable(sourceUpstreamDeployable: JsonField<String>) = apply {
-            this.sourceUpstreamDeployable = sourceUpstreamDeployable
-        }
-
-        /** Custom property value */
-        fun value(value: String) = value(JsonField.of(value))
-
-        /**
-         * Sets [Builder.value] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.value] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun value(value: JsonField<String>) = apply { this.value = value }
 
         /**
          * The sensitivity level of the property, such as "non_sensitive", "sensitive", and
@@ -578,6 +555,17 @@ private constructor(
         fun isLargeValue(isLargeValue: JsonField<Boolean>) = apply {
             this.isLargeValue = isLargeValue
         }
+
+        /** Name of custom property */
+        fun name(name: String) = name(JsonField.of(name))
+
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun name(name: JsonField<String>) = apply { this.name = name }
 
         fun persistenceTimestamp(persistenceTimestamp: Long) =
             persistenceTimestamp(JsonField.of(persistenceTimestamp))
@@ -682,6 +670,20 @@ private constructor(
             this.sourceMetadata = sourceMetadata
         }
 
+        fun sourceUpstreamDeployable(sourceUpstreamDeployable: String) =
+            sourceUpstreamDeployable(JsonField.of(sourceUpstreamDeployable))
+
+        /**
+         * Sets [Builder.sourceUpstreamDeployable] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sourceUpstreamDeployable] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun sourceUpstreamDeployable(sourceUpstreamDeployable: JsonField<String>) = apply {
+            this.sourceUpstreamDeployable = sourceUpstreamDeployable
+        }
+
         /** The unique identifier associated with the source. */
         fun sourceVid(sourceVid: List<Long>) = sourceVid(JsonField.of(sourceVid))
 
@@ -758,6 +760,17 @@ private constructor(
             useTimestampAsPersistenceTimestamp: JsonField<Boolean>
         ) = apply { this.useTimestampAsPersistenceTimestamp = useTimestampAsPersistenceTimestamp }
 
+        /** Custom property value */
+        fun value(value: String) = value(JsonField.of(value))
+
+        /**
+         * Sets [Builder.value] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.value] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun value(value: JsonField<String>) = apply { this.value = value }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -784,8 +797,24 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .dataSensitivity()
+         * .isEncrypted()
+         * .isLargeValue()
          * .name()
+         * .persistenceTimestamp()
+         * .requestId()
+         * .selectedByUser()
+         * .selectedByUserTimestamp()
+         * .source()
+         * .sourceId()
+         * .sourceLabel()
+         * .sourceMetadata()
          * .sourceUpstreamDeployable()
+         * .sourceVid()
+         * .timestamp()
+         * .unit()
+         * .updatedByUserId()
+         * .useTimestampAsPersistenceTimestamp()
          * .value()
          * ```
          *
@@ -793,25 +822,28 @@ private constructor(
          */
         fun build(): PropertyValue =
             PropertyValue(
+                checkRequired("dataSensitivity", dataSensitivity),
+                checkRequired("isEncrypted", isEncrypted),
+                checkRequired("isLargeValue", isLargeValue),
                 checkRequired("name", name),
+                checkRequired("persistenceTimestamp", persistenceTimestamp),
+                checkRequired("requestId", requestId),
+                checkRequired("selectedByUser", selectedByUser),
+                checkRequired("selectedByUserTimestamp", selectedByUserTimestamp),
+                checkRequired("source", source),
+                checkRequired("sourceId", sourceId),
+                checkRequired("sourceLabel", sourceLabel),
+                checkRequired("sourceMetadata", sourceMetadata),
                 checkRequired("sourceUpstreamDeployable", sourceUpstreamDeployable),
+                checkRequired("sourceVid", sourceVid).map { it.toImmutable() },
+                checkRequired("timestamp", timestamp),
+                checkRequired("unit", unit),
+                checkRequired("updatedByUserId", updatedByUserId),
+                checkRequired(
+                    "useTimestampAsPersistenceTimestamp",
+                    useTimestampAsPersistenceTimestamp,
+                ),
                 checkRequired("value", value),
-                dataSensitivity,
-                isEncrypted,
-                isLargeValue,
-                persistenceTimestamp,
-                requestId,
-                selectedByUser,
-                selectedByUserTimestamp,
-                source,
-                sourceId,
-                sourceLabel,
-                sourceMetadata,
-                (sourceVid ?: JsonMissing.of()).map { it.toImmutable() },
-                timestamp,
-                unit,
-                updatedByUserId,
-                useTimestampAsPersistenceTimestamp,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -823,25 +855,25 @@ private constructor(
             return@apply
         }
 
-        name()
-        sourceUpstreamDeployable()
-        value()
-        dataSensitivity().ifPresent { it.validate() }
+        dataSensitivity().validate()
         isEncrypted()
         isLargeValue()
+        name()
         persistenceTimestamp()
         requestId()
         selectedByUser()
         selectedByUserTimestamp()
-        source().ifPresent { it.validate() }
+        source().validate()
         sourceId()
         sourceLabel()
         sourceMetadata()
+        sourceUpstreamDeployable()
         sourceVid()
         timestamp()
         unit()
         updatedByUserId()
         useTimestampAsPersistenceTimestamp()
+        value()
         validated = true
     }
 
@@ -860,12 +892,10 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (name.asKnown().isPresent) 1 else 0) +
-            (if (sourceUpstreamDeployable.asKnown().isPresent) 1 else 0) +
-            (if (value.asKnown().isPresent) 1 else 0) +
-            (dataSensitivity.asKnown().getOrNull()?.validity() ?: 0) +
+        (dataSensitivity.asKnown().getOrNull()?.validity() ?: 0) +
             (if (isEncrypted.asKnown().isPresent) 1 else 0) +
             (if (isLargeValue.asKnown().isPresent) 1 else 0) +
+            (if (name.asKnown().isPresent) 1 else 0) +
             (if (persistenceTimestamp.asKnown().isPresent) 1 else 0) +
             (if (requestId.asKnown().isPresent) 1 else 0) +
             (if (selectedByUser.asKnown().isPresent) 1 else 0) +
@@ -874,11 +904,13 @@ private constructor(
             (if (sourceId.asKnown().isPresent) 1 else 0) +
             (if (sourceLabel.asKnown().isPresent) 1 else 0) +
             (if (sourceMetadata.asKnown().isPresent) 1 else 0) +
+            (if (sourceUpstreamDeployable.asKnown().isPresent) 1 else 0) +
             (sourceVid.asKnown().getOrNull()?.size ?: 0) +
             (if (timestamp.asKnown().isPresent) 1 else 0) +
             (if (unit.asKnown().isPresent) 1 else 0) +
             (if (updatedByUserId.asKnown().isPresent) 1 else 0) +
-            (if (useTimestampAsPersistenceTimestamp.asKnown().isPresent) 1 else 0)
+            (if (useTimestampAsPersistenceTimestamp.asKnown().isPresent) 1 else 0) +
+            (if (value.asKnown().isPresent) 1 else 0)
 
     /**
      * The sensitivity level of the property, such as "non_sensitive", "sensitive", and
@@ -1733,12 +1765,10 @@ private constructor(
         }
 
         return other is PropertyValue &&
-            name == other.name &&
-            sourceUpstreamDeployable == other.sourceUpstreamDeployable &&
-            value == other.value &&
             dataSensitivity == other.dataSensitivity &&
             isEncrypted == other.isEncrypted &&
             isLargeValue == other.isLargeValue &&
+            name == other.name &&
             persistenceTimestamp == other.persistenceTimestamp &&
             requestId == other.requestId &&
             selectedByUser == other.selectedByUser &&
@@ -1747,22 +1777,22 @@ private constructor(
             sourceId == other.sourceId &&
             sourceLabel == other.sourceLabel &&
             sourceMetadata == other.sourceMetadata &&
+            sourceUpstreamDeployable == other.sourceUpstreamDeployable &&
             sourceVid == other.sourceVid &&
             timestamp == other.timestamp &&
             unit == other.unit &&
             updatedByUserId == other.updatedByUserId &&
             useTimestampAsPersistenceTimestamp == other.useTimestampAsPersistenceTimestamp &&
+            value == other.value &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            name,
-            sourceUpstreamDeployable,
-            value,
             dataSensitivity,
             isEncrypted,
             isLargeValue,
+            name,
             persistenceTimestamp,
             requestId,
             selectedByUser,
@@ -1771,11 +1801,13 @@ private constructor(
             sourceId,
             sourceLabel,
             sourceMetadata,
+            sourceUpstreamDeployable,
             sourceVid,
             timestamp,
             unit,
             updatedByUserId,
             useTimestampAsPersistenceTimestamp,
+            value,
             additionalProperties,
         )
     }
@@ -1783,5 +1815,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PropertyValue{name=$name, sourceUpstreamDeployable=$sourceUpstreamDeployable, value=$value, dataSensitivity=$dataSensitivity, isEncrypted=$isEncrypted, isLargeValue=$isLargeValue, persistenceTimestamp=$persistenceTimestamp, requestId=$requestId, selectedByUser=$selectedByUser, selectedByUserTimestamp=$selectedByUserTimestamp, source=$source, sourceId=$sourceId, sourceLabel=$sourceLabel, sourceMetadata=$sourceMetadata, sourceVid=$sourceVid, timestamp=$timestamp, unit=$unit, updatedByUserId=$updatedByUserId, useTimestampAsPersistenceTimestamp=$useTimestampAsPersistenceTimestamp, additionalProperties=$additionalProperties}"
+        "PropertyValue{dataSensitivity=$dataSensitivity, isEncrypted=$isEncrypted, isLargeValue=$isLargeValue, name=$name, persistenceTimestamp=$persistenceTimestamp, requestId=$requestId, selectedByUser=$selectedByUser, selectedByUserTimestamp=$selectedByUserTimestamp, source=$source, sourceId=$sourceId, sourceLabel=$sourceLabel, sourceMetadata=$sourceMetadata, sourceUpstreamDeployable=$sourceUpstreamDeployable, sourceVid=$sourceVid, timestamp=$timestamp, unit=$unit, updatedByUserId=$updatedByUserId, useTimestampAsPersistenceTimestamp=$useTimestampAsPersistenceTimestamp, value=$value, additionalProperties=$additionalProperties}"
 }

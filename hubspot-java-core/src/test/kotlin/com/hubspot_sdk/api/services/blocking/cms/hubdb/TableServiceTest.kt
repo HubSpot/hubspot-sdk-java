@@ -50,8 +50,6 @@ internal class TableServiceTest {
         val hubDbTableV3 =
             tableService.create(
                 HubDbTableV3Request.builder()
-                    .label("label")
-                    .name("name")
                     .allowChildTables(true)
                     .allowPublicApiAccess(true)
                     .addColumn(
@@ -81,6 +79,8 @@ internal class TableServiceTest {
                             .build()
                     )
                     .enableChildTablePages(true)
+                    .label("label")
+                    .name("name")
                     .useForPages(true)
                     .build()
             )
@@ -363,8 +363,6 @@ internal class TableServiceTest {
                     .isGetLocalizedSchema(true)
                     .hubDbTableV3Request(
                         HubDbTableV3Request.builder()
-                            .label("label")
-                            .name("name")
                             .allowChildTables(true)
                             .allowPublicApiAccess(true)
                             .addColumn(
@@ -394,6 +392,8 @@ internal class TableServiceTest {
                                     .build()
                             )
                             .enableChildTablePages(true)
+                            .label("label")
+                            .name("name")
                             .useForPages(true)
                             .build()
                     )

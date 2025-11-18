@@ -50,6 +50,8 @@ private constructor(
     ) : this(allLabels, fromObjectType, limit, percentage, toObjectType, usage, mutableMapOf())
 
     /**
+     * A list of all association labels.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -65,12 +67,16 @@ private constructor(
         fromObjectType.getRequired("fromObjectType")
 
     /**
+     * The maximum number of association labels allowed.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun limit(): Int = limit.getRequired("limit")
 
     /**
+     * The percentage of the association label limit that has been used.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -86,6 +92,8 @@ private constructor(
         toObjectType.getRequired("toObjectType")
 
     /**
+     * The current number of association labels used.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -190,6 +198,7 @@ private constructor(
             additionalProperties = associationLabelLimitResponse.additionalProperties.toMutableMap()
         }
 
+        /** A list of all association labels. */
         fun allLabels(allLabels: List<String>) = allLabels(JsonField.of(allLabels))
 
         /**
@@ -230,6 +239,7 @@ private constructor(
             this.fromObjectType = fromObjectType
         }
 
+        /** The maximum number of association labels allowed. */
         fun limit(limit: Int) = limit(JsonField.of(limit))
 
         /**
@@ -240,6 +250,7 @@ private constructor(
          */
         fun limit(limit: JsonField<Int>) = apply { this.limit = limit }
 
+        /** The percentage of the association label limit that has been used. */
         fun percentage(percentage: Double) = percentage(JsonField.of(percentage))
 
         /**
@@ -266,6 +277,7 @@ private constructor(
             this.toObjectType = toObjectType
         }
 
+        /** The current number of association labels used. */
         fun usage(usage: Int) = usage(JsonField.of(usage))
 
         /**

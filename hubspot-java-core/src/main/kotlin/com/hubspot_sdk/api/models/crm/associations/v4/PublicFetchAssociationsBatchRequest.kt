@@ -31,12 +31,16 @@ private constructor(
     ) : this(id, after, mutableMapOf())
 
     /**
+     * The unique identifier for the object whose associations are being fetched.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * A paging cursor token used to retrieve the next set of results in a paginated response.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -99,6 +103,7 @@ private constructor(
                 publicFetchAssociationsBatchRequest.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the object whose associations are being fetched. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -109,6 +114,9 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /**
+         * A paging cursor token used to retrieve the next set of results in a paginated response.
+         */
         fun after(after: String) = after(JsonField.of(after))
 
         /**

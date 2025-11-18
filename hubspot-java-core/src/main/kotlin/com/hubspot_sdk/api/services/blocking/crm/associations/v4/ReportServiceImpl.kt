@@ -17,7 +17,7 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.crm.associations.v4.ReportCreationResponse
-import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportGetHighUsageReportParams
+import com.hubspot_sdk.api.models.crm.associations.v4.report.ReportRequestHighUsageReportParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -33,12 +33,12 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ReportService =
         ReportServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun getHighUsageReport(
-        params: ReportGetHighUsageReportParams,
+    override fun requestHighUsageReport(
+        params: ReportRequestHighUsageReportParams,
         requestOptions: RequestOptions,
     ): ReportCreationResponse =
         // post /crm/v4/associations/usage/high-usage-report/{userId}
-        withRawResponse().getHighUsageReport(params, requestOptions).parse()
+        withRawResponse().requestHighUsageReport(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ReportService.WithRawResponse {
@@ -53,11 +53,11 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val getHighUsageReportHandler: Handler<ReportCreationResponse> =
+        private val requestHighUsageReportHandler: Handler<ReportCreationResponse> =
             jsonHandler<ReportCreationResponse>(clientOptions.jsonMapper)
 
-        override fun getHighUsageReport(
-            params: ReportGetHighUsageReportParams,
+        override fun requestHighUsageReport(
+            params: ReportRequestHighUsageReportParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ReportCreationResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -82,7 +82,7 @@ class ReportServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getHighUsageReportHandler.handle(it) }
+                    .use { requestHighUsageReportHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

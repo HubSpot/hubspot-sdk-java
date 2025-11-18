@@ -4,7 +4,6 @@ package com.hubspot_sdk.api.models.crm
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -30,12 +29,12 @@ internal class PublicObjectSearchRequestTest {
                 )
                 .limit(0)
                 .addProperty("string")
-                .query("query")
                 .addSort("string")
+                .query("query")
                 .build()
 
-        assertThat(publicObjectSearchRequest.after()).contains("after")
-        assertThat(publicObjectSearchRequest.filterGroups().getOrNull())
+        assertThat(publicObjectSearchRequest.after()).isEqualTo("after")
+        assertThat(publicObjectSearchRequest.filterGroups())
             .containsExactly(
                 FilterGroup.builder()
                     .addFilter(
@@ -49,10 +48,10 @@ internal class PublicObjectSearchRequestTest {
                     )
                     .build()
             )
-        assertThat(publicObjectSearchRequest.limit()).contains(0)
-        assertThat(publicObjectSearchRequest.properties().getOrNull()).containsExactly("string")
+        assertThat(publicObjectSearchRequest.limit()).isEqualTo(0)
+        assertThat(publicObjectSearchRequest.properties()).containsExactly("string")
+        assertThat(publicObjectSearchRequest.sorts()).containsExactly("string")
         assertThat(publicObjectSearchRequest.query()).contains("query")
-        assertThat(publicObjectSearchRequest.sorts().getOrNull()).containsExactly("string")
     }
 
     @Test
@@ -76,8 +75,8 @@ internal class PublicObjectSearchRequestTest {
                 )
                 .limit(0)
                 .addProperty("string")
-                .query("query")
                 .addSort("string")
+                .query("query")
                 .build()
 
         val roundtrippedPublicObjectSearchRequest =

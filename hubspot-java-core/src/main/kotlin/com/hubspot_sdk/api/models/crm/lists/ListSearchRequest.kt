@@ -11,6 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
@@ -23,9 +24,9 @@ class ListSearchRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val additionalProperties: JsonField<List<String>>,
+    private val offset: JsonField<Int>,
     private val count: JsonField<Int>,
     private val listIds: JsonField<List<String>>,
-    private val offset: JsonField<Int>,
     private val processingTypes: JsonField<List<String>>,
     private val query: JsonField<String>,
     private val sort: JsonField<String>,
@@ -37,11 +38,11 @@ private constructor(
         @JsonProperty("additionalProperties")
         @ExcludeMissing
         additionalProperties: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("offset") @ExcludeMissing offset: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("count") @ExcludeMissing count: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("listIds")
         @ExcludeMissing
         listIds: JsonField<List<String>> = JsonMissing.of(),
-        @JsonProperty("offset") @ExcludeMissing offset: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("processingTypes")
         @ExcludeMissing
         processingTypes: JsonField<List<String>> = JsonMissing.of(),
@@ -49,9 +50,9 @@ private constructor(
         @JsonProperty("sort") @ExcludeMissing sort: JsonField<String> = JsonMissing.of(),
     ) : this(
         additionalProperties,
+        offset,
         count,
         listIds,
-        offset,
         processingTypes,
         query,
         sort,
@@ -66,11 +67,20 @@ private constructor(
      * `hs_last_record_added_at`, `hs_last_record_removed_at`, `hs_folder_name`, and
      * `hs_list_reference_count`.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun additionalProperties(): Optional<List<String>> =
-        additionalProperties.getOptional("additionalProperties")
+    fun additionalProperties(): List<String> =
+        additionalProperties.getRequired("additionalProperties")
+
+    /**
+     * Value used to paginate through lists. The `offset` provided in the response can be used in
+     * the next request to fetch the next page of results. Defaults to `0` if no offset is provided.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun offset(): Int = offset.getRequired("offset")
 
     /**
      * The number of lists to include in the response. Defaults to `20` if no value is provided. The
@@ -92,15 +102,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun listIds(): Optional<List<String>> = listIds.getOptional("listIds")
-
-    /**
-     * Value used to paginate through lists. The `offset` provided in the response can be used in
-     * the next request to fetch the next page of results. Defaults to `0` if no offset is provided.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun offset(): Optional<Int> = offset.getOptional("offset")
 
     /**
      * The `processingTypes` that will be used to filter results by `processingType`. If values are
@@ -143,6 +144,13 @@ private constructor(
     fun _additionalProperties(): JsonField<List<String>> = additionalProperties
 
     /**
+     * Returns the raw JSON value of [offset].
+     *
+     * Unlike [offset], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("offset") @ExcludeMissing fun _offset(): JsonField<Int> = offset
+
+    /**
      * Returns the raw JSON value of [count].
      *
      * Unlike [count], this method doesn't throw if the JSON field has an unexpected type.
@@ -155,13 +163,6 @@ private constructor(
      * Unlike [listIds], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("listIds") @ExcludeMissing fun _listIds(): JsonField<List<String>> = listIds
-
-    /**
-     * Returns the raw JSON value of [offset].
-     *
-     * Unlike [offset], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("offset") @ExcludeMissing fun _offset(): JsonField<Int> = offset
 
     /**
      * Returns the raw JSON value of [processingTypes].
@@ -200,7 +201,15 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [ListSearchRequest]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [ListSearchRequest].
+         *
+         * The following fields are required:
+         * ```java
+         * .additionalProperties()
+         * .offset()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -208,9 +217,9 @@ private constructor(
     class Builder internal constructor() {
 
         private var additionalProperties: JsonField<MutableList<String>>? = null
+        private var offset: JsonField<Int>? = null
         private var count: JsonField<Int> = JsonMissing.of()
         private var listIds: JsonField<MutableList<String>>? = null
-        private var offset: JsonField<Int> = JsonMissing.of()
         private var processingTypes: JsonField<MutableList<String>>? = null
         private var query: JsonField<String> = JsonMissing.of()
         private var sort: JsonField<String> = JsonMissing.of()
@@ -219,9 +228,9 @@ private constructor(
         @JvmSynthetic
         internal fun from(listSearchRequest: ListSearchRequest) = apply {
             additionalProperties = listSearchRequest.additionalProperties.map { it.toMutableList() }
+            offset = listSearchRequest.offset
             count = listSearchRequest.count
             listIds = listSearchRequest.listIds.map { it.toMutableList() }
-            offset = listSearchRequest.offset
             processingTypes = listSearchRequest.processingTypes.map { it.toMutableList() }
             query = listSearchRequest.query
             sort = listSearchRequest.sort
@@ -262,6 +271,21 @@ private constructor(
                     checkKnown("additionalProperties", it).add(additionalProperty)
                 }
         }
+
+        /**
+         * Value used to paginate through lists. The `offset` provided in the response can be used
+         * in the next request to fetch the next page of results. Defaults to `0` if no offset is
+         * provided.
+         */
+        fun offset(offset: Int) = offset(JsonField.of(offset))
+
+        /**
+         * Sets [Builder.offset] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.offset] with a well-typed [Int] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun offset(offset: JsonField<Int>) = apply { this.offset = offset }
 
         /**
          * The number of lists to include in the response. Defaults to `20` if no value is provided.
@@ -308,21 +332,6 @@ private constructor(
                     checkKnown("listIds", it).add(listId)
                 }
         }
-
-        /**
-         * Value used to paginate through lists. The `offset` provided in the response can be used
-         * in the next request to fetch the next page of results. Defaults to `0` if no offset is
-         * provided.
-         */
-        fun offset(offset: Int) = offset(JsonField.of(offset))
-
-        /**
-         * Sets [Builder.offset] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.offset] with a well-typed [Int] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun offset(offset: JsonField<Int>) = apply { this.offset = offset }
 
         /**
          * The `processingTypes` that will be used to filter results by `processingType`. If values
@@ -407,13 +416,23 @@ private constructor(
          * Returns an immutable instance of [ListSearchRequest].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .additionalProperties()
+         * .offset()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ListSearchRequest =
             ListSearchRequest(
-                (additionalProperties ?: JsonMissing.of()).map { it.toImmutable() },
+                checkRequired("additionalProperties", additionalProperties).map {
+                    it.toImmutable()
+                },
+                checkRequired("offset", offset),
                 count,
                 (listIds ?: JsonMissing.of()).map { it.toImmutable() },
-                offset,
                 (processingTypes ?: JsonMissing.of()).map { it.toImmutable() },
                 query,
                 sort,
@@ -429,9 +448,9 @@ private constructor(
         }
 
         additionalProperties()
+        offset()
         count()
         listIds()
-        offset()
         processingTypes()
         query()
         sort()
@@ -454,9 +473,9 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (additionalProperties.asKnown().getOrNull()?.size ?: 0) +
+            (if (offset.asKnown().isPresent) 1 else 0) +
             (if (count.asKnown().isPresent) 1 else 0) +
             (listIds.asKnown().getOrNull()?.size ?: 0) +
-            (if (offset.asKnown().isPresent) 1 else 0) +
             (processingTypes.asKnown().getOrNull()?.size ?: 0) +
             (if (query.asKnown().isPresent) 1 else 0) +
             (if (sort.asKnown().isPresent) 1 else 0)
@@ -468,9 +487,9 @@ private constructor(
 
         return other is ListSearchRequest &&
             additionalProperties == other.additionalProperties &&
+            offset == other.offset &&
             count == other.count &&
             listIds == other.listIds &&
-            offset == other.offset &&
             processingTypes == other.processingTypes &&
             query == other.query &&
             sort == other.sort &&
@@ -480,9 +499,9 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             additionalProperties,
+            offset,
             count,
             listIds,
-            offset,
             processingTypes,
             query,
             sort,
@@ -493,5 +512,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ListSearchRequest{additionalProperties=$additionalProperties, count=$count, listIds=$listIds, offset=$offset, processingTypes=$processingTypes, query=$query, sort=$sort, additionalProperties=$additionalProperties}"
+        "ListSearchRequest{additionalProperties=$additionalProperties, offset=$offset, count=$count, listIds=$listIds, processingTypes=$processingTypes, query=$query, sort=$sort, additionalProperties=$additionalProperties}"
 }

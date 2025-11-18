@@ -23,6 +23,7 @@ import com.hubspot_sdk.api.models.scheduler.meetings.ExternalMeetingBookingRespo
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkBookParams
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetAvailabilityBySlugParams
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetBookingInfoBySlugParams
+import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkListPage
 import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -42,7 +43,7 @@ class MeetingsLinkServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: MeetingsLinkListParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalExternalLinkMetadataForwardPaging =
+    ): MeetingsLinkListPage =
         // get /scheduler/v3/meetings/meeting-links
         withRawResponse().list(params, requestOptions).parse()
 
@@ -89,7 +90,7 @@ class MeetingsLinkServiceImpl internal constructor(private val clientOptions: Cl
         override fun list(
             params: MeetingsLinkListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalExternalLinkMetadataForwardPaging> {
+        ): HttpResponseFor<MeetingsLinkListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -106,6 +107,13 @@ class MeetingsLinkServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MeetingsLinkListPage.builder()
+                            .service(MeetingsLinkServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

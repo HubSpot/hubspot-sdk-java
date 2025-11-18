@@ -15,6 +15,7 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class ApiTimeWindow
@@ -44,16 +45,16 @@ private constructor(
     fun day(): Day = day.getRequired("day")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun endTime(): ApiTimeOfDay = endTime.getRequired("endTime")
+    fun endTime(): Optional<ApiTimeOfDay> = endTime.getOptional("endTime")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun startTime(): ApiTimeOfDay = startTime.getRequired("startTime")
+    fun startTime(): Optional<ApiTimeOfDay> = startTime.getOptional("startTime")
 
     /**
      * Returns the raw JSON value of [day].
@@ -96,8 +97,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .day()
-         * .endTime()
-         * .startTime()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -107,8 +106,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var day: JsonField<Day>? = null
-        private var endTime: JsonField<ApiTimeOfDay>? = null
-        private var startTime: JsonField<ApiTimeOfDay>? = null
+        private var endTime: JsonField<ApiTimeOfDay> = JsonMissing.of()
+        private var startTime: JsonField<ApiTimeOfDay> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -178,8 +177,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .day()
-         * .endTime()
-         * .startTime()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -187,8 +184,8 @@ private constructor(
         fun build(): ApiTimeWindow =
             ApiTimeWindow(
                 checkRequired("day", day),
-                checkRequired("endTime", endTime),
-                checkRequired("startTime", startTime),
+                endTime,
+                startTime,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -201,8 +198,8 @@ private constructor(
         }
 
         day().validate()
-        endTime().validate()
-        startTime().validate()
+        endTime().ifPresent { it.validate() }
+        startTime().ifPresent { it.validate() }
         validated = true
     }
 

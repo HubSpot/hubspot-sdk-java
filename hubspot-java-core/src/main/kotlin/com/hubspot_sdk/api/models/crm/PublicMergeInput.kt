@@ -34,12 +34,16 @@ private constructor(
     ) : this(objectIdToMerge, primaryObjectId, mutableMapOf())
 
     /**
+     * The unique identifier of the CRM object that will be merged into the primary object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectIdToMerge(): String = objectIdToMerge.getRequired("objectIdToMerge")
 
     /**
+     * The unique identifier of the CRM object that will remain after the merge.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -103,6 +107,7 @@ private constructor(
             additionalProperties = publicMergeInput.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier of the CRM object that will be merged into the primary object. */
         fun objectIdToMerge(objectIdToMerge: String) =
             objectIdToMerge(JsonField.of(objectIdToMerge))
 
@@ -117,6 +122,7 @@ private constructor(
             this.objectIdToMerge = objectIdToMerge
         }
 
+        /** The unique identifier of the CRM object that will remain after the merge. */
         fun primaryObjectId(primaryObjectId: String) =
             primaryObjectId(JsonField.of(primaryObjectId))
 

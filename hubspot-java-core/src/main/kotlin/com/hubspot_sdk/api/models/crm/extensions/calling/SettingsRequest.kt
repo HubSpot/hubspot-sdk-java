@@ -14,17 +14,16 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 
 class SettingsRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val name: JsonField<String>,
-    private val url: JsonField<String>,
     private val height: JsonField<Int>,
     private val isReady: JsonField<Boolean>,
+    private val name: JsonField<String>,
     private val supportsCustomObjects: JsonField<Boolean>,
     private val supportsInboundCalling: JsonField<Boolean>,
+    private val url: JsonField<String>,
     private val usesCallingWindow: JsonField<Boolean>,
     private val usesRemote: JsonField<Boolean>,
     private val width: JsonField<Int>,
@@ -33,16 +32,16 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
         @JsonProperty("height") @ExcludeMissing height: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("isReady") @ExcludeMissing isReady: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("supportsCustomObjects")
         @ExcludeMissing
         supportsCustomObjects: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("supportsInboundCalling")
         @ExcludeMissing
         supportsInboundCalling: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
         @JsonProperty("usesCallingWindow")
         @ExcludeMissing
         usesCallingWindow: JsonField<Boolean> = JsonMissing.of(),
@@ -51,17 +50,29 @@ private constructor(
         usesRemote: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("width") @ExcludeMissing width: JsonField<Int> = JsonMissing.of(),
     ) : this(
-        name,
-        url,
         height,
         isReady,
+        name,
         supportsCustomObjects,
         supportsInboundCalling,
+        url,
         usesCallingWindow,
         usesRemote,
         width,
         mutableMapOf(),
     )
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun height(): Int = height.getRequired("height")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun isReady(): Boolean = isReady.getRequired("isReady")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -73,65 +84,39 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
+    fun supportsCustomObjects(): Boolean =
+        supportsCustomObjects.getRequired("supportsCustomObjects")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun supportsInboundCalling(): Boolean =
+        supportsInboundCalling.getRequired("supportsInboundCalling")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
     fun url(): String = url.getRequired("url")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun height(): Optional<Int> = height.getOptional("height")
+    fun usesCallingWindow(): Boolean = usesCallingWindow.getRequired("usesCallingWindow")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun isReady(): Optional<Boolean> = isReady.getOptional("isReady")
+    fun usesRemote(): Boolean = usesRemote.getRequired("usesRemote")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun supportsCustomObjects(): Optional<Boolean> =
-        supportsCustomObjects.getOptional("supportsCustomObjects")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun supportsInboundCalling(): Optional<Boolean> =
-        supportsInboundCalling.getOptional("supportsInboundCalling")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun usesCallingWindow(): Optional<Boolean> = usesCallingWindow.getOptional("usesCallingWindow")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun usesRemote(): Optional<Boolean> = usesRemote.getOptional("usesRemote")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun width(): Optional<Int> = width.getOptional("width")
-
-    /**
-     * Returns the raw JSON value of [name].
-     *
-     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-    /**
-     * Returns the raw JSON value of [url].
-     *
-     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
+    fun width(): Int = width.getRequired("width")
 
     /**
      * Returns the raw JSON value of [height].
@@ -146,6 +131,13 @@ private constructor(
      * Unlike [isReady], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("isReady") @ExcludeMissing fun _isReady(): JsonField<Boolean> = isReady
+
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
      * Returns the raw JSON value of [supportsCustomObjects].
@@ -166,6 +158,13 @@ private constructor(
     @JsonProperty("supportsInboundCalling")
     @ExcludeMissing
     fun _supportsInboundCalling(): JsonField<Boolean> = supportsInboundCalling
+
+    /**
+     * Returns the raw JSON value of [url].
+     *
+     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
     /**
      * Returns the raw JSON value of [usesCallingWindow].
@@ -210,8 +209,15 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .height()
+         * .isReady()
          * .name()
+         * .supportsCustomObjects()
+         * .supportsInboundCalling()
          * .url()
+         * .usesCallingWindow()
+         * .usesRemote()
+         * .width()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -220,50 +226,30 @@ private constructor(
     /** A builder for [SettingsRequest]. */
     class Builder internal constructor() {
 
+        private var height: JsonField<Int>? = null
+        private var isReady: JsonField<Boolean>? = null
         private var name: JsonField<String>? = null
+        private var supportsCustomObjects: JsonField<Boolean>? = null
+        private var supportsInboundCalling: JsonField<Boolean>? = null
         private var url: JsonField<String>? = null
-        private var height: JsonField<Int> = JsonMissing.of()
-        private var isReady: JsonField<Boolean> = JsonMissing.of()
-        private var supportsCustomObjects: JsonField<Boolean> = JsonMissing.of()
-        private var supportsInboundCalling: JsonField<Boolean> = JsonMissing.of()
-        private var usesCallingWindow: JsonField<Boolean> = JsonMissing.of()
-        private var usesRemote: JsonField<Boolean> = JsonMissing.of()
-        private var width: JsonField<Int> = JsonMissing.of()
+        private var usesCallingWindow: JsonField<Boolean>? = null
+        private var usesRemote: JsonField<Boolean>? = null
+        private var width: JsonField<Int>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(settingsRequest: SettingsRequest) = apply {
-            name = settingsRequest.name
-            url = settingsRequest.url
             height = settingsRequest.height
             isReady = settingsRequest.isReady
+            name = settingsRequest.name
             supportsCustomObjects = settingsRequest.supportsCustomObjects
             supportsInboundCalling = settingsRequest.supportsInboundCalling
+            url = settingsRequest.url
             usesCallingWindow = settingsRequest.usesCallingWindow
             usesRemote = settingsRequest.usesRemote
             width = settingsRequest.width
             additionalProperties = settingsRequest.additionalProperties.toMutableMap()
         }
-
-        fun name(name: String) = name(JsonField.of(name))
-
-        /**
-         * Sets [Builder.name] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun name(name: JsonField<String>) = apply { this.name = name }
-
-        fun url(url: String) = url(JsonField.of(url))
-
-        /**
-         * Sets [Builder.url] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.url] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun url(url: JsonField<String>) = apply { this.url = url }
 
         fun height(height: Int) = height(JsonField.of(height))
 
@@ -284,6 +270,16 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun isReady(isReady: JsonField<Boolean>) = apply { this.isReady = isReady }
+
+        fun name(name: String) = name(JsonField.of(name))
+
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun name(name: JsonField<String>) = apply { this.name = name }
 
         fun supportsCustomObjects(supportsCustomObjects: Boolean) =
             supportsCustomObjects(JsonField.of(supportsCustomObjects))
@@ -312,6 +308,16 @@ private constructor(
         fun supportsInboundCalling(supportsInboundCalling: JsonField<Boolean>) = apply {
             this.supportsInboundCalling = supportsInboundCalling
         }
+
+        fun url(url: String) = url(JsonField.of(url))
+
+        /**
+         * Sets [Builder.url] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.url] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun url(url: JsonField<String>) = apply { this.url = url }
 
         fun usesCallingWindow(usesCallingWindow: Boolean) =
             usesCallingWindow(JsonField.of(usesCallingWindow))
@@ -374,23 +380,30 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .height()
+         * .isReady()
          * .name()
+         * .supportsCustomObjects()
+         * .supportsInboundCalling()
          * .url()
+         * .usesCallingWindow()
+         * .usesRemote()
+         * .width()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): SettingsRequest =
             SettingsRequest(
+                checkRequired("height", height),
+                checkRequired("isReady", isReady),
                 checkRequired("name", name),
+                checkRequired("supportsCustomObjects", supportsCustomObjects),
+                checkRequired("supportsInboundCalling", supportsInboundCalling),
                 checkRequired("url", url),
-                height,
-                isReady,
-                supportsCustomObjects,
-                supportsInboundCalling,
-                usesCallingWindow,
-                usesRemote,
-                width,
+                checkRequired("usesCallingWindow", usesCallingWindow),
+                checkRequired("usesRemote", usesRemote),
+                checkRequired("width", width),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -402,12 +415,12 @@ private constructor(
             return@apply
         }
 
-        name()
-        url()
         height()
         isReady()
+        name()
         supportsCustomObjects()
         supportsInboundCalling()
+        url()
         usesCallingWindow()
         usesRemote()
         width()
@@ -429,12 +442,12 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (name.asKnown().isPresent) 1 else 0) +
-            (if (url.asKnown().isPresent) 1 else 0) +
-            (if (height.asKnown().isPresent) 1 else 0) +
+        (if (height.asKnown().isPresent) 1 else 0) +
             (if (isReady.asKnown().isPresent) 1 else 0) +
+            (if (name.asKnown().isPresent) 1 else 0) +
             (if (supportsCustomObjects.asKnown().isPresent) 1 else 0) +
             (if (supportsInboundCalling.asKnown().isPresent) 1 else 0) +
+            (if (url.asKnown().isPresent) 1 else 0) +
             (if (usesCallingWindow.asKnown().isPresent) 1 else 0) +
             (if (usesRemote.asKnown().isPresent) 1 else 0) +
             (if (width.asKnown().isPresent) 1 else 0)
@@ -445,12 +458,12 @@ private constructor(
         }
 
         return other is SettingsRequest &&
-            name == other.name &&
-            url == other.url &&
             height == other.height &&
             isReady == other.isReady &&
+            name == other.name &&
             supportsCustomObjects == other.supportsCustomObjects &&
             supportsInboundCalling == other.supportsInboundCalling &&
+            url == other.url &&
             usesCallingWindow == other.usesCallingWindow &&
             usesRemote == other.usesRemote &&
             width == other.width &&
@@ -459,12 +472,12 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            name,
-            url,
             height,
             isReady,
+            name,
             supportsCustomObjects,
             supportsInboundCalling,
+            url,
             usesCallingWindow,
             usesRemote,
             width,
@@ -475,5 +488,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SettingsRequest{name=$name, url=$url, height=$height, isReady=$isReady, supportsCustomObjects=$supportsCustomObjects, supportsInboundCalling=$supportsInboundCalling, usesCallingWindow=$usesCallingWindow, usesRemote=$usesRemote, width=$width, additionalProperties=$additionalProperties}"
+        "SettingsRequest{height=$height, isReady=$isReady, name=$name, supportsCustomObjects=$supportsCustomObjects, supportsInboundCalling=$supportsInboundCalling, url=$url, usesCallingWindow=$usesCallingWindow, usesRemote=$usesRemote, width=$width, additionalProperties=$additionalProperties}"
 }

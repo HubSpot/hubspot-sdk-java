@@ -11,7 +11,7 @@ internal class IntegratorSettingUpdateEventVisibilitySettingsParamsTest {
     @Test
     fun create() {
         IntegratorSettingUpdateEventVisibilitySettingsParams.builder()
-            .appId("appId")
+            .appId(0)
             .eventVisibilityChange(
                 EventVisibilityChange.builder()
                     .eventType(EventVisibilityChange.EventType.ALL)
@@ -28,7 +28,7 @@ internal class IntegratorSettingUpdateEventVisibilitySettingsParamsTest {
     fun pathParams() {
         val params =
             IntegratorSettingUpdateEventVisibilitySettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .eventVisibilityChange(
                     EventVisibilityChange.builder()
                         .eventType(EventVisibilityChange.EventType.ALL)
@@ -37,7 +37,7 @@ internal class IntegratorSettingUpdateEventVisibilitySettingsParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -46,7 +46,7 @@ internal class IntegratorSettingUpdateEventVisibilitySettingsParamsTest {
     fun body() {
         val params =
             IntegratorSettingUpdateEventVisibilitySettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .eventVisibilityChange(
                     EventVisibilityChange.builder()
                         .eventType(EventVisibilityChange.EventType.ALL)
@@ -76,7 +76,7 @@ internal class IntegratorSettingUpdateEventVisibilitySettingsParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             IntegratorSettingUpdateEventVisibilitySettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .eventVisibilityChange(
                     EventVisibilityChange.builder()
                         .eventType(EventVisibilityChange.EventType.ALL)

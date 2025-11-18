@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** For all object types supporting enablement, returns whether they're enabled or disabled */
 class EnablementListParams
 private constructor(
     private val additionalHeaders: Headers,

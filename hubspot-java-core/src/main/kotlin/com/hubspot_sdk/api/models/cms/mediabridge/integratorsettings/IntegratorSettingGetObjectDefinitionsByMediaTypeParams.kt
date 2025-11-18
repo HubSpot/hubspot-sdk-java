@@ -2,10 +2,14 @@
 
 package com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.hubspot_sdk.api.core.Enum
+import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -13,15 +17,19 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the existing objects types that belong to the specified media type. */
 class IntegratorSettingGetObjectDefinitionsByMediaTypeParams
 private constructor(
-    private val appId: String,
-    private val mediaType: String?,
+    private val appId: Int,
+    private val mediaType: MediaType?,
+    private val includeFullDefinition: Boolean?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
-    fun mediaType(): Optional<String> = Optional.ofNullable(mediaType)
+    fun mediaType(): Optional<MediaType> = Optional.ofNullable(mediaType)
+
+    /** Include the full definition in the response. */
+    fun includeFullDefinition(): Optional<Boolean> = Optional.ofNullable(includeFullDefinition)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -48,8 +56,9 @@ private constructor(
     /** A builder for [IntegratorSettingGetObjectDefinitionsByMediaTypeParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
-        private var mediaType: String? = null
+        private var appId: Int? = null
+        private var mediaType: MediaType? = null
+        private var includeFullDefinition: Boolean? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -60,6 +69,8 @@ private constructor(
         ) = apply {
             appId = integratorSettingGetObjectDefinitionsByMediaTypeParams.appId
             mediaType = integratorSettingGetObjectDefinitionsByMediaTypeParams.mediaType
+            includeFullDefinition =
+                integratorSettingGetObjectDefinitionsByMediaTypeParams.includeFullDefinition
             additionalHeaders =
                 integratorSettingGetObjectDefinitionsByMediaTypeParams.additionalHeaders.toBuilder()
             additionalQueryParams =
@@ -67,12 +78,32 @@ private constructor(
                     .toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
-        fun mediaType(mediaType: String?) = apply { this.mediaType = mediaType }
+        fun mediaType(mediaType: MediaType?) = apply { this.mediaType = mediaType }
 
         /** Alias for calling [Builder.mediaType] with `mediaType.orElse(null)`. */
-        fun mediaType(mediaType: Optional<String>) = mediaType(mediaType.getOrNull())
+        fun mediaType(mediaType: Optional<MediaType>) = mediaType(mediaType.getOrNull())
+
+        /** Include the full definition in the response. */
+        fun includeFullDefinition(includeFullDefinition: Boolean?) = apply {
+            this.includeFullDefinition = includeFullDefinition
+        }
+
+        /**
+         * Alias for [Builder.includeFullDefinition].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun includeFullDefinition(includeFullDefinition: Boolean) =
+            includeFullDefinition(includeFullDefinition as Boolean?)
+
+        /**
+         * Alias for calling [Builder.includeFullDefinition] with
+         * `includeFullDefinition.orElse(null)`.
+         */
+        fun includeFullDefinition(includeFullDefinition: Optional<Boolean>) =
+            includeFullDefinition(includeFullDefinition.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -189,6 +220,7 @@ private constructor(
             IntegratorSettingGetObjectDefinitionsByMediaTypeParams(
                 checkRequired("appId", appId),
                 mediaType,
+                includeFullDefinition,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -196,14 +228,165 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
-            1 -> mediaType ?: ""
+            0 -> appId.toString()
+            1 -> mediaType?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                includeFullDefinition?.let { put("includeFullDefinition", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
+
+    class MediaType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val VIDEO = of("VIDEO")
+
+            @JvmField val AUDIO = of("AUDIO")
+
+            @JvmField val DOCUMENT = of("DOCUMENT")
+
+            @JvmField val OTHER = of("OTHER")
+
+            @JvmField val IMAGE = of("IMAGE")
+
+            @JvmStatic fun of(value: String) = MediaType(JsonField.of(value))
+        }
+
+        /** An enum containing [MediaType]'s known values. */
+        enum class Known {
+            VIDEO,
+            AUDIO,
+            DOCUMENT,
+            OTHER,
+            IMAGE,
+        }
+
+        /**
+         * An enum containing [MediaType]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [MediaType] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            VIDEO,
+            AUDIO,
+            DOCUMENT,
+            OTHER,
+            IMAGE,
+            /**
+             * An enum member indicating that [MediaType] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                VIDEO -> Value.VIDEO
+                AUDIO -> Value.AUDIO
+                DOCUMENT -> Value.DOCUMENT
+                OTHER -> Value.OTHER
+                IMAGE -> Value.IMAGE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                VIDEO -> Known.VIDEO
+                AUDIO -> Known.AUDIO
+                DOCUMENT -> Known.DOCUMENT
+                OTHER -> Known.OTHER
+                IMAGE -> Known.IMAGE
+                else -> throw HubspotInvalidDataException("Unknown MediaType: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): MediaType = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is MediaType && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -213,13 +396,20 @@ private constructor(
         return other is IntegratorSettingGetObjectDefinitionsByMediaTypeParams &&
             appId == other.appId &&
             mediaType == other.mediaType &&
+            includeFullDefinition == other.includeFullDefinition &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(appId, mediaType, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            appId,
+            mediaType,
+            includeFullDefinition,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "IntegratorSettingGetObjectDefinitionsByMediaTypeParams{appId=$appId, mediaType=$mediaType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "IntegratorSettingGetObjectDefinitionsByMediaTypeParams{appId=$appId, mediaType=$mediaType, includeFullDefinition=$includeFullDefinition, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

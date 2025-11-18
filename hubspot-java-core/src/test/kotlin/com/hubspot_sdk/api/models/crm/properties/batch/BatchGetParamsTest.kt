@@ -2,8 +2,9 @@
 
 package com.hubspot_sdk.api.models.crm.properties.batch
 
+import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.PropertyName
-import com.hubspot_sdk.api.models.crm.properties.BatchReadInputPropertyName
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,11 +14,12 @@ internal class BatchGetParamsTest {
     fun create() {
         BatchGetParams.builder()
             .objectType("objectType")
+            .locale("locale")
             .batchReadInputPropertyName(
                 BatchReadInputPropertyName.builder()
                     .archived(true)
-                    .addInput(PropertyName.builder().name("name").build())
                     .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                    .addInput(PropertyName.builder().name("name").build())
                     .build()
             )
             .build()
@@ -31,6 +33,7 @@ internal class BatchGetParamsTest {
                 .batchReadInputPropertyName(
                     BatchReadInputPropertyName.builder()
                         .archived(true)
+                        .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
                         .addInput(PropertyName.builder().name("name").build())
                         .build()
                 )
@@ -42,15 +45,55 @@ internal class BatchGetParamsTest {
     }
 
     @Test
-    fun body() {
+    fun queryParams() {
+        val params =
+            BatchGetParams.builder()
+                .objectType("objectType")
+                .locale("locale")
+                .batchReadInputPropertyName(
+                    BatchReadInputPropertyName.builder()
+                        .archived(true)
+                        .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                        .addInput(PropertyName.builder().name("name").build())
+                        .build()
+                )
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().put("locale", "locale").build())
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
         val params =
             BatchGetParams.builder()
                 .objectType("objectType")
                 .batchReadInputPropertyName(
                     BatchReadInputPropertyName.builder()
                         .archived(true)
-                        .addInput(PropertyName.builder().name("name").build())
                         .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                        .addInput(PropertyName.builder().name("name").build())
+                        .build()
+                )
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
+    }
+
+    @Test
+    fun body() {
+        val params =
+            BatchGetParams.builder()
+                .objectType("objectType")
+                .locale("locale")
+                .batchReadInputPropertyName(
+                    BatchReadInputPropertyName.builder()
+                        .archived(true)
+                        .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                        .addInput(PropertyName.builder().name("name").build())
                         .build()
                 )
                 .build()
@@ -61,8 +104,8 @@ internal class BatchGetParamsTest {
             .isEqualTo(
                 BatchReadInputPropertyName.builder()
                     .archived(true)
-                    .addInput(PropertyName.builder().name("name").build())
                     .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                    .addInput(PropertyName.builder().name("name").build())
                     .build()
             )
     }
@@ -75,6 +118,7 @@ internal class BatchGetParamsTest {
                 .batchReadInputPropertyName(
                     BatchReadInputPropertyName.builder()
                         .archived(true)
+                        .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
                         .addInput(PropertyName.builder().name("name").build())
                         .build()
                 )
@@ -86,6 +130,7 @@ internal class BatchGetParamsTest {
             .isEqualTo(
                 BatchReadInputPropertyName.builder()
                     .archived(true)
+                    .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
                     .addInput(PropertyName.builder().name("name").build())
                     .build()
             )

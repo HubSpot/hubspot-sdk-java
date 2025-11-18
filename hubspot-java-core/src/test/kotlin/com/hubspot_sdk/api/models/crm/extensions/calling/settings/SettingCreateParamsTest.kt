@@ -14,12 +14,12 @@ internal class SettingCreateParamsTest {
             .appId(0)
             .settingsRequest(
                 SettingsRequest.builder()
-                    .name("name")
-                    .url("url")
                     .height(0)
                     .isReady(true)
+                    .name("name")
                     .supportsCustomObjects(true)
                     .supportsInboundCalling(true)
+                    .url("url")
                     .usesCallingWindow(true)
                     .usesRemote(true)
                     .width(0)
@@ -33,7 +33,19 @@ internal class SettingCreateParamsTest {
         val params =
             SettingCreateParams.builder()
                 .appId(0)
-                .settingsRequest(SettingsRequest.builder().name("name").url("url").build())
+                .settingsRequest(
+                    SettingsRequest.builder()
+                        .height(0)
+                        .isReady(true)
+                        .name("name")
+                        .supportsCustomObjects(true)
+                        .supportsInboundCalling(true)
+                        .url("url")
+                        .usesCallingWindow(true)
+                        .usesRemote(true)
+                        .width(0)
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
@@ -48,12 +60,12 @@ internal class SettingCreateParamsTest {
                 .appId(0)
                 .settingsRequest(
                     SettingsRequest.builder()
-                        .name("name")
-                        .url("url")
                         .height(0)
                         .isReady(true)
+                        .name("name")
                         .supportsCustomObjects(true)
                         .supportsInboundCalling(true)
+                        .url("url")
                         .usesCallingWindow(true)
                         .usesRemote(true)
                         .width(0)
@@ -66,29 +78,16 @@ internal class SettingCreateParamsTest {
         assertThat(body)
             .isEqualTo(
                 SettingsRequest.builder()
-                    .name("name")
-                    .url("url")
                     .height(0)
                     .isReady(true)
+                    .name("name")
                     .supportsCustomObjects(true)
                     .supportsInboundCalling(true)
+                    .url("url")
                     .usesCallingWindow(true)
                     .usesRemote(true)
                     .width(0)
                     .build()
             )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            SettingCreateParams.builder()
-                .appId(0)
-                .settingsRequest(SettingsRequest.builder().name("name").url("url").build())
-                .build()
-
-        val body = params._body()
-
-        assertThat(body).isEqualTo(SettingsRequest.builder().name("name").url("url").build())
     }
 }

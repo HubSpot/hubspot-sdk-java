@@ -13,10 +13,13 @@ import java.util.Objects
 /** Enroll a contact into a sequence using the specified user ID and sequence details. */
 class EnrollmentEnrollParams
 private constructor(
+    private val userId: String,
     private val publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun userId(): String = userId
 
     fun publicSequenceEnrollmentRequest(): PublicSequenceEnrollmentRequest =
         publicSequenceEnrollmentRequest
@@ -39,6 +42,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .userId()
          * .publicSequenceEnrollmentRequest()
          * ```
          */
@@ -48,16 +52,20 @@ private constructor(
     /** A builder for [EnrollmentEnrollParams]. */
     class Builder internal constructor() {
 
+        private var userId: String? = null
         private var publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(enrollmentEnrollParams: EnrollmentEnrollParams) = apply {
+            userId = enrollmentEnrollParams.userId
             publicSequenceEnrollmentRequest = enrollmentEnrollParams.publicSequenceEnrollmentRequest
             additionalHeaders = enrollmentEnrollParams.additionalHeaders.toBuilder()
             additionalQueryParams = enrollmentEnrollParams.additionalQueryParams.toBuilder()
         }
+
+        fun userId(userId: String) = apply { this.userId = userId }
 
         fun publicSequenceEnrollmentRequest(
             publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest
@@ -168,6 +176,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .userId()
          * .publicSequenceEnrollmentRequest()
          * ```
          *
@@ -175,6 +184,7 @@ private constructor(
          */
         fun build(): EnrollmentEnrollParams =
             EnrollmentEnrollParams(
+                checkRequired("userId", userId),
                 checkRequired("publicSequenceEnrollmentRequest", publicSequenceEnrollmentRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -185,7 +195,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("userId", userId)
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -193,14 +209,20 @@ private constructor(
         }
 
         return other is EnrollmentEnrollParams &&
+            userId == other.userId &&
             publicSequenceEnrollmentRequest == other.publicSequenceEnrollmentRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(publicSequenceEnrollmentRequest, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            userId,
+            publicSequenceEnrollmentRequest,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "EnrollmentEnrollParams{publicSequenceEnrollmentRequest=$publicSequenceEnrollmentRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EnrollmentEnrollParams{userId=$userId, publicSequenceEnrollmentRequest=$publicSequenceEnrollmentRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -22,6 +22,7 @@ import com.hubspot_sdk.api.models.conversations.PublicMessageContent
 import com.hubspot_sdk.api.models.conversations.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetOriginalContentParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetParams
+import com.hubspot_sdk.api.models.conversations.messages.MessageListPageAsync
 import com.hubspot_sdk.api.models.conversations.messages.MessageListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -49,7 +50,7 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: MessageListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponsePublicMessageForwardPaging> =
+    ): CompletableFuture<MessageListPageAsync> =
         // get /conversations/v3/conversations/threads/{threadId}/messages
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -128,7 +129,7 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
         override fun list(
             params: MessageListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicMessageForwardPaging>> {
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("threadId", params.threadId().getOrNull())
@@ -157,6 +158,14 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                MessageListPageAsync.builder()
+                                    .service(MessageServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -16,6 +16,7 @@ internal class SimplePublicUpsertObjectTest {
         val simplePublicUpsertObject =
             SimplePublicUpsertObject.builder()
                 .id("id")
+                .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .new_(true)
                 .properties(
@@ -24,7 +25,6 @@ internal class SimplePublicUpsertObjectTest {
                         .build()
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .archived(true)
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .objectWriteTraceId("objectWriteTraceId")
                 .propertiesWithHistory(
@@ -46,9 +46,11 @@ internal class SimplePublicUpsertObjectTest {
                         )
                         .build()
                 )
+                .url("url")
                 .build()
 
         assertThat(simplePublicUpsertObject.id()).isEqualTo("id")
+        assertThat(simplePublicUpsertObject.archived()).isEqualTo(true)
         assertThat(simplePublicUpsertObject.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simplePublicUpsertObject.new_()).isEqualTo(true)
@@ -60,7 +62,6 @@ internal class SimplePublicUpsertObjectTest {
             )
         assertThat(simplePublicUpsertObject.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(simplePublicUpsertObject.archived()).contains(true)
         assertThat(simplePublicUpsertObject.archivedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simplePublicUpsertObject.objectWriteTraceId()).contains("objectWriteTraceId")
@@ -84,6 +85,7 @@ internal class SimplePublicUpsertObjectTest {
                     )
                     .build()
             )
+        assertThat(simplePublicUpsertObject.url()).contains("url")
     }
 
     @Test
@@ -92,6 +94,7 @@ internal class SimplePublicUpsertObjectTest {
         val simplePublicUpsertObject =
             SimplePublicUpsertObject.builder()
                 .id("id")
+                .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .new_(true)
                 .properties(
@@ -100,7 +103,6 @@ internal class SimplePublicUpsertObjectTest {
                         .build()
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .archived(true)
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .objectWriteTraceId("objectWriteTraceId")
                 .propertiesWithHistory(
@@ -122,6 +124,7 @@ internal class SimplePublicUpsertObjectTest {
                         )
                         .build()
                 )
+                .url("url")
                 .build()
 
         val roundtrippedSimplePublicUpsertObject =

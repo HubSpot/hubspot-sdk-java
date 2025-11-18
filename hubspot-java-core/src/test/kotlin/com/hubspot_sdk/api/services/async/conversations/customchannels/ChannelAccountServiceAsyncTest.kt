@@ -27,10 +27,10 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
-        val conversationsPublicChannelAccountFuture =
+        val publicChannelAccountFuture =
             channelAccountServiceAsync.create(
                 ChannelAccountCreateParams.builder()
-                    .channelId("channelId")
+                    .channelId(0)
                     .publicChannelAccountEgg(
                         PublicChannelAccountEgg.builder()
                             .authorized(true)
@@ -47,8 +47,8 @@ internal class ChannelAccountServiceAsyncTest {
                     .build()
             )
 
-        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
-        conversationsPublicChannelAccount.validate()
+        val publicChannelAccount = publicChannelAccountFuture.get()
+        publicChannelAccount.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -61,11 +61,11 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
-        val conversationsPublicChannelAccountFuture =
+        val publicChannelAccountFuture =
             channelAccountServiceAsync.update(
                 ChannelAccountUpdateParams.builder()
-                    .channelId("channelId")
-                    .channelAccountId("channelAccountId")
+                    .channelId(0)
+                    .channelAccountId(0L)
                     .publicChannelAccountUpdateRequest(
                         PublicChannelAccountUpdateRequest.builder()
                             .authorized(true)
@@ -75,8 +75,8 @@ internal class ChannelAccountServiceAsyncTest {
                     .build()
             )
 
-        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
-        conversationsPublicChannelAccount.validate()
+        val publicChannelAccount = publicChannelAccountFuture.get()
+        publicChannelAccount.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -89,12 +89,10 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
-        val collectionResponseWithTotalPublicChannelAccountForwardPagingFuture =
-            channelAccountServiceAsync.list("channelId")
+        val pageFuture = channelAccountServiceAsync.list(0)
 
-        val collectionResponseWithTotalPublicChannelAccountForwardPaging =
-            collectionResponseWithTotalPublicChannelAccountForwardPagingFuture.get()
-        collectionResponseWithTotalPublicChannelAccountForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -107,15 +105,16 @@ internal class ChannelAccountServiceAsyncTest {
                 .build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
-        val conversationsPublicChannelAccountFuture =
+        val publicChannelAccountFuture =
             channelAccountServiceAsync.get(
                 ChannelAccountGetParams.builder()
-                    .channelId("channelId")
-                    .channelAccountId("channelAccountId")
+                    .channelId(0)
+                    .channelAccountId(0L)
+                    .archived(true)
                     .build()
             )
 
-        val conversationsPublicChannelAccount = conversationsPublicChannelAccountFuture.get()
-        conversationsPublicChannelAccount.validate()
+        val publicChannelAccount = publicChannelAccountFuture.get()
+        publicChannelAccount.validate()
     }
 }

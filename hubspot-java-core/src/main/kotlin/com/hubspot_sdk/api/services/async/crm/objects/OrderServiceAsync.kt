@@ -189,6 +189,7 @@ interface OrderServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(orderId, OrderGetParams.none(), requestOptions)
 
+    /** Execute a search for orders using specified criteria and return matching results. */
     fun search(
         params: OrderSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

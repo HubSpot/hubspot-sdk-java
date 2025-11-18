@@ -14,13 +14,13 @@ internal class MarketingEventEmailSubscriberTest {
     fun create() {
         val marketingEventEmailSubscriber =
             MarketingEventEmailSubscriber.builder()
-                .email("email")
-                .interactionDateTime(0L)
                 .contactProperties(
                     MarketingEventEmailSubscriber.ContactProperties.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
+                .email("email")
+                .interactionDateTime(0L)
                 .properties(
                     MarketingEventEmailSubscriber.Properties.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -28,16 +28,16 @@ internal class MarketingEventEmailSubscriberTest {
                 )
                 .build()
 
-        assertThat(marketingEventEmailSubscriber.email()).isEqualTo("email")
-        assertThat(marketingEventEmailSubscriber.interactionDateTime()).isEqualTo(0L)
         assertThat(marketingEventEmailSubscriber.contactProperties())
-            .contains(
+            .isEqualTo(
                 MarketingEventEmailSubscriber.ContactProperties.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
+        assertThat(marketingEventEmailSubscriber.email()).isEqualTo("email")
+        assertThat(marketingEventEmailSubscriber.interactionDateTime()).isEqualTo(0L)
         assertThat(marketingEventEmailSubscriber.properties())
-            .contains(
+            .isEqualTo(
                 MarketingEventEmailSubscriber.Properties.builder()
                     .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
@@ -49,13 +49,13 @@ internal class MarketingEventEmailSubscriberTest {
         val jsonMapper = jsonMapper()
         val marketingEventEmailSubscriber =
             MarketingEventEmailSubscriber.builder()
-                .email("email")
-                .interactionDateTime(0L)
                 .contactProperties(
                     MarketingEventEmailSubscriber.ContactProperties.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
+                .email("email")
+                .interactionDateTime(0L)
                 .properties(
                     MarketingEventEmailSubscriber.Properties.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

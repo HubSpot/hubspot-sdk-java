@@ -34,18 +34,24 @@ private constructor(
     ) : this(limit, percentage, usage, mutableMapOf())
 
     /**
+     * The maximum number of custom objects allowed.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun limit(): Long = limit.getRequired("limit")
 
     /**
+     * The percentage of the custom object limit that is currently used.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun percentage(): Double = percentage.getRequired("percentage")
 
     /**
+     * The current number of custom objects used.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -115,6 +121,7 @@ private constructor(
             additionalProperties = customObjectLimitResponse.additionalProperties.toMutableMap()
         }
 
+        /** The maximum number of custom objects allowed. */
         fun limit(limit: Long) = limit(JsonField.of(limit))
 
         /**
@@ -125,6 +132,7 @@ private constructor(
          */
         fun limit(limit: JsonField<Long>) = apply { this.limit = limit }
 
+        /** The percentage of the custom object limit that is currently used. */
         fun percentage(percentage: Double) = percentage(JsonField.of(percentage))
 
         /**
@@ -136,6 +144,7 @@ private constructor(
          */
         fun percentage(percentage: JsonField<Double>) = apply { this.percentage = percentage }
 
+        /** The current number of custom objects used. */
         fun usage(usage: Long) = usage(JsonField.of(usage))
 
         /**

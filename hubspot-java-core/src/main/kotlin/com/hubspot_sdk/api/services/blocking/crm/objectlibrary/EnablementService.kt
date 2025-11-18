@@ -26,6 +26,7 @@ interface EnablementService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnablementService
 
+    /** For all object types supporting enablement, returns whether they're enabled or disabled */
     fun list(): PortalObjectTypeEnablementPublicResponse = list(EnablementListParams.none())
 
     /** @see list */
@@ -43,6 +44,7 @@ interface EnablementService {
     fun list(requestOptions: RequestOptions): PortalObjectTypeEnablementPublicResponse =
         list(EnablementListParams.none(), requestOptions)
 
+    /** Fetch whether object type is enabled */
     fun get(objectTypeId: String): ObjectTypeEnablementPublicResponse =
         get(objectTypeId, EnablementGetParams.none())
 

@@ -12,8 +12,8 @@ import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.associations.v4.AssociationSpec1
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -21,7 +21,7 @@ import kotlin.jvm.optionals.getOrNull
 class PublicDefaultAssociation
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val associationSpec: JsonField<AssociationSpec1>,
+    private val associationSpec: JsonField<AssociationSpec>,
     private val from: JsonField<PublicObjectId>,
     private val to: JsonField<PublicObjectId>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -31,7 +31,7 @@ private constructor(
     private constructor(
         @JsonProperty("associationSpec")
         @ExcludeMissing
-        associationSpec: JsonField<AssociationSpec1> = JsonMissing.of(),
+        associationSpec: JsonField<AssociationSpec> = JsonMissing.of(),
         @JsonProperty("from") @ExcludeMissing from: JsonField<PublicObjectId> = JsonMissing.of(),
         @JsonProperty("to") @ExcludeMissing to: JsonField<PublicObjectId> = JsonMissing.of(),
     ) : this(associationSpec, from, to, mutableMapOf())
@@ -42,7 +42,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun associationSpec(): AssociationSpec1 = associationSpec.getRequired("associationSpec")
+    fun associationSpec(): AssociationSpec = associationSpec.getRequired("associationSpec")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -63,7 +63,7 @@ private constructor(
      */
     @JsonProperty("associationSpec")
     @ExcludeMissing
-    fun _associationSpec(): JsonField<AssociationSpec1> = associationSpec
+    fun _associationSpec(): JsonField<AssociationSpec> = associationSpec
 
     /**
      * Returns the raw JSON value of [from].
@@ -109,7 +109,7 @@ private constructor(
     /** A builder for [PublicDefaultAssociation]. */
     class Builder internal constructor() {
 
-        private var associationSpec: JsonField<AssociationSpec1>? = null
+        private var associationSpec: JsonField<AssociationSpec>? = null
         private var from: JsonField<PublicObjectId>? = null
         private var to: JsonField<PublicObjectId>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -123,17 +123,17 @@ private constructor(
         }
 
         /** Defines the type, direction, and details of the relationship between two CRM objects. */
-        fun associationSpec(associationSpec: AssociationSpec1) =
+        fun associationSpec(associationSpec: AssociationSpec) =
             associationSpec(JsonField.of(associationSpec))
 
         /**
          * Sets [Builder.associationSpec] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.associationSpec] with a well-typed [AssociationSpec1]
+         * You should usually call [Builder.associationSpec] with a well-typed [AssociationSpec]
          * value instead. This method is primarily for setting the field to an undocumented or not
          * yet supported value.
          */
-        fun associationSpec(associationSpec: JsonField<AssociationSpec1>) = apply {
+        fun associationSpec(associationSpec: JsonField<AssociationSpec>) = apply {
             this.associationSpec = associationSpec
         }
 

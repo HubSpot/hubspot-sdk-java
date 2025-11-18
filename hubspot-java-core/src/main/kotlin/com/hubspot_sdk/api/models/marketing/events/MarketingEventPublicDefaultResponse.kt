@@ -25,10 +25,10 @@ class MarketingEventPublicDefaultResponse
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val customProperties: JsonField<List<PropertyValue>>,
     private val eventName: JsonField<String>,
     private val eventOrganizer: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
-    private val customProperties: JsonField<List<PropertyValue>>,
     private val endDateTime: JsonField<OffsetDateTime>,
     private val eventCancelled: JsonField<Boolean>,
     private val eventCompleted: JsonField<Boolean>,
@@ -46,6 +46,9 @@ private constructor(
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("customProperties")
+        @ExcludeMissing
+        customProperties: JsonField<List<PropertyValue>> = JsonMissing.of(),
         @JsonProperty("eventName") @ExcludeMissing eventName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("eventOrganizer")
         @ExcludeMissing
@@ -53,9 +56,6 @@ private constructor(
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("customProperties")
-        @ExcludeMissing
-        customProperties: JsonField<List<PropertyValue>> = JsonMissing.of(),
         @JsonProperty("endDateTime")
         @ExcludeMissing
         endDateTime: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -77,10 +77,10 @@ private constructor(
     ) : this(
         id,
         createdAt,
+        customProperties,
         eventName,
         eventOrganizer,
         updatedAt,
-        customProperties,
         endDateTime,
         eventCancelled,
         eventCompleted,
@@ -105,6 +105,20 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
+     * A list of PropertyValues. These can be whatever kind of property names and values you want.
+     * However, they must already exist on the HubSpot account's definition of the MarketingEvent
+     * Object. If they don't they will be filtered out and not set. In order to do this you'll need
+     * to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your
+     * specific app and create the Custom Property you want to track on that HubSpot account. Do not
+     * create any new default properties on the MarketingEvent object as that will apply to all
+     * HubSpot accounts.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun customProperties(): List<PropertyValue> = customProperties.getRequired("customProperties")
+
+    /**
      * The name of the marketing event.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -125,21 +139,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
-
-    /**
-     * A list of PropertyValues. These can be whatever kind of property names and values you want.
-     * However, they must already exist on the HubSpot account's definition of the MarketingEvent
-     * Object. If they don't they will be filtered out and not set. In order to do this you'll need
-     * to create a new PropertyGroup on the HubSpot account's MarketingEvent object for your
-     * specific app and create the Custom Property you want to track on that HubSpot account. Do not
-     * create any new default properties on the MarketingEvent object as that will apply to all
-     * HubSpot accounts.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun customProperties(): Optional<List<PropertyValue>> =
-        customProperties.getOptional("customProperties")
 
     /**
      * The end date and time of the marketing event.
@@ -218,6 +217,16 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [customProperties].
+     *
+     * Unlike [customProperties], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("customProperties")
+    @ExcludeMissing
+    fun _customProperties(): JsonField<List<PropertyValue>> = customProperties
+
+    /**
      * Returns the raw JSON value of [eventName].
      *
      * Unlike [eventName], this method doesn't throw if the JSON field has an unexpected type.
@@ -241,16 +250,6 @@ private constructor(
     @JsonProperty("updatedAt")
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
-
-    /**
-     * Returns the raw JSON value of [customProperties].
-     *
-     * Unlike [customProperties], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("customProperties")
-    @ExcludeMissing
-    fun _customProperties(): JsonField<List<PropertyValue>> = customProperties
 
     /**
      * Returns the raw JSON value of [endDateTime].
@@ -341,6 +340,7 @@ private constructor(
          * ```java
          * .id()
          * .createdAt()
+         * .customProperties()
          * .eventName()
          * .eventOrganizer()
          * .updatedAt()
@@ -354,10 +354,10 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var customProperties: JsonField<MutableList<PropertyValue>>? = null
         private var eventName: JsonField<String>? = null
         private var eventOrganizer: JsonField<String>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
-        private var customProperties: JsonField<MutableList<PropertyValue>>? = null
         private var endDateTime: JsonField<OffsetDateTime> = JsonMissing.of()
         private var eventCancelled: JsonField<Boolean> = JsonMissing.of()
         private var eventCompleted: JsonField<Boolean> = JsonMissing.of()
@@ -374,11 +374,11 @@ private constructor(
         ) = apply {
             id = marketingEventPublicDefaultResponse.id
             createdAt = marketingEventPublicDefaultResponse.createdAt
+            customProperties =
+                marketingEventPublicDefaultResponse.customProperties.map { it.toMutableList() }
             eventName = marketingEventPublicDefaultResponse.eventName
             eventOrganizer = marketingEventPublicDefaultResponse.eventOrganizer
             updatedAt = marketingEventPublicDefaultResponse.updatedAt
-            customProperties =
-                marketingEventPublicDefaultResponse.customProperties.map { it.toMutableList() }
             endDateTime = marketingEventPublicDefaultResponse.endDateTime
             eventCancelled = marketingEventPublicDefaultResponse.eventCancelled
             eventCompleted = marketingEventPublicDefaultResponse.eventCompleted
@@ -411,6 +411,41 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * A list of PropertyValues. These can be whatever kind of property names and values you
+         * want. However, they must already exist on the HubSpot account's definition of the
+         * MarketingEvent Object. If they don't they will be filtered out and not set. In order to
+         * do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent
+         * object for your specific app and create the Custom Property you want to track on that
+         * HubSpot account. Do not create any new default properties on the MarketingEvent object as
+         * that will apply to all HubSpot accounts.
+         */
+        fun customProperties(customProperties: List<PropertyValue>) =
+            customProperties(JsonField.of(customProperties))
+
+        /**
+         * Sets [Builder.customProperties] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.customProperties] with a well-typed
+         * `List<PropertyValue>` value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun customProperties(customProperties: JsonField<List<PropertyValue>>) = apply {
+            this.customProperties = customProperties.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [PropertyValue] to [customProperties].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addCustomProperty(customProperty: PropertyValue) = apply {
+            customProperties =
+                (customProperties ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("customProperties", it).add(customProperty)
+                }
+        }
 
         /** The name of the marketing event. */
         fun eventName(eventName: String) = eventName(JsonField.of(eventName))
@@ -448,41 +483,6 @@ private constructor(
          * supported value.
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
-
-        /**
-         * A list of PropertyValues. These can be whatever kind of property names and values you
-         * want. However, they must already exist on the HubSpot account's definition of the
-         * MarketingEvent Object. If they don't they will be filtered out and not set. In order to
-         * do this you'll need to create a new PropertyGroup on the HubSpot account's MarketingEvent
-         * object for your specific app and create the Custom Property you want to track on that
-         * HubSpot account. Do not create any new default properties on the MarketingEvent object as
-         * that will apply to all HubSpot accounts.
-         */
-        fun customProperties(customProperties: List<PropertyValue>) =
-            customProperties(JsonField.of(customProperties))
-
-        /**
-         * Sets [Builder.customProperties] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.customProperties] with a well-typed
-         * `List<PropertyValue>` value instead. This method is primarily for setting the field to an
-         * undocumented or not yet supported value.
-         */
-        fun customProperties(customProperties: JsonField<List<PropertyValue>>) = apply {
-            this.customProperties = customProperties.map { it.toMutableList() }
-        }
-
-        /**
-         * Adds a single [PropertyValue] to [customProperties].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addCustomProperty(customProperty: PropertyValue) = apply {
-            customProperties =
-                (customProperties ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("customProperties", it).add(customProperty)
-                }
-        }
 
         /** The end date and time of the marketing event. */
         fun endDateTime(endDateTime: OffsetDateTime) = endDateTime(JsonField.of(endDateTime))
@@ -616,6 +616,7 @@ private constructor(
          * ```java
          * .id()
          * .createdAt()
+         * .customProperties()
          * .eventName()
          * .eventOrganizer()
          * .updatedAt()
@@ -627,10 +628,10 @@ private constructor(
             MarketingEventPublicDefaultResponse(
                 checkRequired("id", id),
                 checkRequired("createdAt", createdAt),
+                checkRequired("customProperties", customProperties).map { it.toImmutable() },
                 checkRequired("eventName", eventName),
                 checkRequired("eventOrganizer", eventOrganizer),
                 checkRequired("updatedAt", updatedAt),
-                (customProperties ?: JsonMissing.of()).map { it.toImmutable() },
                 endDateTime,
                 eventCancelled,
                 eventCompleted,
@@ -652,10 +653,10 @@ private constructor(
 
         id()
         createdAt()
+        customProperties().forEach { it.validate() }
         eventName()
         eventOrganizer()
         updatedAt()
-        customProperties().ifPresent { it.forEach { it.validate() } }
         endDateTime()
         eventCancelled()
         eventCompleted()
@@ -684,10 +685,10 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (customProperties.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (eventName.asKnown().isPresent) 1 else 0) +
             (if (eventOrganizer.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
-            (customProperties.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (endDateTime.asKnown().isPresent) 1 else 0) +
             (if (eventCancelled.asKnown().isPresent) 1 else 0) +
             (if (eventCompleted.asKnown().isPresent) 1 else 0) +
@@ -705,10 +706,10 @@ private constructor(
         return other is MarketingEventPublicDefaultResponse &&
             id == other.id &&
             createdAt == other.createdAt &&
+            customProperties == other.customProperties &&
             eventName == other.eventName &&
             eventOrganizer == other.eventOrganizer &&
             updatedAt == other.updatedAt &&
-            customProperties == other.customProperties &&
             endDateTime == other.endDateTime &&
             eventCancelled == other.eventCancelled &&
             eventCompleted == other.eventCompleted &&
@@ -724,10 +725,10 @@ private constructor(
         Objects.hash(
             id,
             createdAt,
+            customProperties,
             eventName,
             eventOrganizer,
             updatedAt,
-            customProperties,
             endDateTime,
             eventCancelled,
             eventCompleted,
@@ -743,5 +744,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "MarketingEventPublicDefaultResponse{id=$id, createdAt=$createdAt, eventName=$eventName, eventOrganizer=$eventOrganizer, updatedAt=$updatedAt, customProperties=$customProperties, endDateTime=$endDateTime, eventCancelled=$eventCancelled, eventCompleted=$eventCompleted, eventDescription=$eventDescription, eventType=$eventType, eventUrl=$eventUrl, objectId=$objectId, startDateTime=$startDateTime, additionalProperties=$additionalProperties}"
+        "MarketingEventPublicDefaultResponse{id=$id, createdAt=$createdAt, customProperties=$customProperties, eventName=$eventName, eventOrganizer=$eventOrganizer, updatedAt=$updatedAt, endDateTime=$endDateTime, eventCancelled=$eventCancelled, eventCompleted=$eventCompleted, eventDescription=$eventDescription, eventType=$eventType, eventUrl=$eventUrl, objectId=$objectId, startDateTime=$startDateTime, additionalProperties=$additionalProperties}"
 }

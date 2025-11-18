@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks
 
 import com.hubspot_sdk.api.core.Params
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
@@ -13,11 +14,19 @@ import kotlin.jvm.optionals.getOrNull
 class MeetingsLinkGetAvailabilityBySlugParams
 private constructor(
     private val slug: String?,
+    private val timezone: String,
+    private val monthOffset: Int?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun slug(): Optional<String> = Optional.ofNullable(slug)
+
+    /** Return times in response based on specified time zone. */
+    fun timezone(): String = timezone
+
+    /** Get times for a different month. */
+    fun monthOffset(): Optional<Int> = Optional.ofNullable(monthOffset)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -29,11 +38,14 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): MeetingsLinkGetAvailabilityBySlugParams = builder().build()
-
         /**
          * Returns a mutable builder for constructing an instance of
          * [MeetingsLinkGetAvailabilityBySlugParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .timezone()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -42,6 +54,8 @@ private constructor(
     class Builder internal constructor() {
 
         private var slug: String? = null
+        private var timezone: String? = null
+        private var monthOffset: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -50,6 +64,8 @@ private constructor(
             meetingsLinkGetAvailabilityBySlugParams: MeetingsLinkGetAvailabilityBySlugParams
         ) = apply {
             slug = meetingsLinkGetAvailabilityBySlugParams.slug
+            timezone = meetingsLinkGetAvailabilityBySlugParams.timezone
+            monthOffset = meetingsLinkGetAvailabilityBySlugParams.monthOffset
             additionalHeaders =
                 meetingsLinkGetAvailabilityBySlugParams.additionalHeaders.toBuilder()
             additionalQueryParams =
@@ -60,6 +76,22 @@ private constructor(
 
         /** Alias for calling [Builder.slug] with `slug.orElse(null)`. */
         fun slug(slug: Optional<String>) = slug(slug.getOrNull())
+
+        /** Return times in response based on specified time zone. */
+        fun timezone(timezone: String) = apply { this.timezone = timezone }
+
+        /** Get times for a different month. */
+        fun monthOffset(monthOffset: Int?) = apply { this.monthOffset = monthOffset }
+
+        /**
+         * Alias for [Builder.monthOffset].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun monthOffset(monthOffset: Int) = monthOffset(monthOffset as Int?)
+
+        /** Alias for calling [Builder.monthOffset] with `monthOffset.orElse(null)`. */
+        fun monthOffset(monthOffset: Optional<Int>) = monthOffset(monthOffset.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -163,10 +195,19 @@ private constructor(
          * Returns an immutable instance of [MeetingsLinkGetAvailabilityBySlugParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .timezone()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): MeetingsLinkGetAvailabilityBySlugParams =
             MeetingsLinkGetAvailabilityBySlugParams(
                 slug,
+                checkRequired("timezone", timezone),
+                monthOffset,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -180,7 +221,14 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("timezone", timezone)
+                monthOffset?.let { put("monthOffset", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -189,12 +237,15 @@ private constructor(
 
         return other is MeetingsLinkGetAvailabilityBySlugParams &&
             slug == other.slug &&
+            timezone == other.timezone &&
+            monthOffset == other.monthOffset &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(slug, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(slug, timezone, monthOffset, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MeetingsLinkGetAvailabilityBySlugParams{slug=$slug, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MeetingsLinkGetAvailabilityBySlugParams{slug=$slug, timezone=$timezone, monthOffset=$monthOffset, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

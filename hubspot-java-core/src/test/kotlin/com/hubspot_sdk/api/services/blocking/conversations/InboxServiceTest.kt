@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.blocking.conversations
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.conversations.inboxes.InboxGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,9 +22,9 @@ internal class InboxServiceTest {
                 .build()
         val inboxService = client.conversations().inboxes()
 
-        val collectionResponseWithTotalPublicInboxForwardPaging = inboxService.list()
+        val page = inboxService.list()
 
-        collectionResponseWithTotalPublicInboxForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -36,7 +37,8 @@ internal class InboxServiceTest {
                 .build()
         val inboxService = client.conversations().inboxes()
 
-        val publicInbox = inboxService.get("inboxId")
+        val publicInbox =
+            inboxService.get(InboxGetParams.builder().inboxId(0).archived(true).build())
 
         publicInbox.validate()
     }

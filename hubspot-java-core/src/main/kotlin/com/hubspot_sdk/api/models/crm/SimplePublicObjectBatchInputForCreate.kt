@@ -22,53 +22,47 @@ import kotlin.jvm.optionals.getOrNull
 class SimplePublicObjectBatchInputForCreate
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val properties: JsonField<Properties>,
     private val associations: JsonField<List<PublicAssociationsForObject>>,
+    private val properties: JsonField<Properties>,
     private val objectWriteTraceId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("properties")
-        @ExcludeMissing
-        properties: JsonField<Properties> = JsonMissing.of(),
         @JsonProperty("associations")
         @ExcludeMissing
         associations: JsonField<List<PublicAssociationsForObject>> = JsonMissing.of(),
+        @JsonProperty("properties")
+        @ExcludeMissing
+        properties: JsonField<Properties> = JsonMissing.of(),
         @JsonProperty("objectWriteTraceId")
         @ExcludeMissing
         objectWriteTraceId: JsonField<String> = JsonMissing.of(),
-    ) : this(properties, associations, objectWriteTraceId, mutableMapOf())
+    ) : this(associations, properties, objectWriteTraceId, mutableMapOf())
 
     /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun associations(): List<PublicAssociationsForObject> = associations.getRequired("associations")
+
+    /**
+     * Key-value pairs representing the properties of the object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun properties(): Properties = properties.getRequired("properties")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun associations(): Optional<List<PublicAssociationsForObject>> =
-        associations.getOptional("associations")
-
-    /**
+     * A unique identifier for tracing the creation request.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectWriteTraceId(): Optional<String> =
         objectWriteTraceId.getOptional("objectWriteTraceId")
-
-    /**
-     * Returns the raw JSON value of [properties].
-     *
-     * Unlike [properties], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("properties")
-    @ExcludeMissing
-    fun _properties(): JsonField<Properties> = properties
 
     /**
      * Returns the raw JSON value of [associations].
@@ -78,6 +72,15 @@ private constructor(
     @JsonProperty("associations")
     @ExcludeMissing
     fun _associations(): JsonField<List<PublicAssociationsForObject>> = associations
+
+    /**
+     * Returns the raw JSON value of [properties].
+     *
+     * Unlike [properties], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("properties")
+    @ExcludeMissing
+    fun _properties(): JsonField<Properties> = properties
 
     /**
      * Returns the raw JSON value of [objectWriteTraceId].
@@ -109,6 +112,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .associations()
          * .properties()
          * ```
          */
@@ -118,8 +122,8 @@ private constructor(
     /** A builder for [SimplePublicObjectBatchInputForCreate]. */
     class Builder internal constructor() {
 
-        private var properties: JsonField<Properties>? = null
         private var associations: JsonField<MutableList<PublicAssociationsForObject>>? = null
+        private var properties: JsonField<Properties>? = null
         private var objectWriteTraceId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -127,24 +131,13 @@ private constructor(
         internal fun from(
             simplePublicObjectBatchInputForCreate: SimplePublicObjectBatchInputForCreate
         ) = apply {
-            properties = simplePublicObjectBatchInputForCreate.properties
             associations =
                 simplePublicObjectBatchInputForCreate.associations.map { it.toMutableList() }
+            properties = simplePublicObjectBatchInputForCreate.properties
             objectWriteTraceId = simplePublicObjectBatchInputForCreate.objectWriteTraceId
             additionalProperties =
                 simplePublicObjectBatchInputForCreate.additionalProperties.toMutableMap()
         }
-
-        fun properties(properties: Properties) = properties(JsonField.of(properties))
-
-        /**
-         * Sets [Builder.properties] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.properties] with a well-typed [Properties] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
 
         fun associations(associations: List<PublicAssociationsForObject>) =
             associations(JsonField.of(associations))
@@ -172,6 +165,19 @@ private constructor(
                 }
         }
 
+        /** Key-value pairs representing the properties of the object. */
+        fun properties(properties: Properties) = properties(JsonField.of(properties))
+
+        /**
+         * Sets [Builder.properties] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.properties] with a well-typed [Properties] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
+
+        /** A unique identifier for tracing the creation request. */
         fun objectWriteTraceId(objectWriteTraceId: String) =
             objectWriteTraceId(JsonField.of(objectWriteTraceId))
 
@@ -212,6 +218,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .associations()
          * .properties()
          * ```
          *
@@ -219,8 +226,8 @@ private constructor(
          */
         fun build(): SimplePublicObjectBatchInputForCreate =
             SimplePublicObjectBatchInputForCreate(
+                checkRequired("associations", associations).map { it.toImmutable() },
                 checkRequired("properties", properties),
-                (associations ?: JsonMissing.of()).map { it.toImmutable() },
                 objectWriteTraceId,
                 additionalProperties.toMutableMap(),
             )
@@ -233,8 +240,8 @@ private constructor(
             return@apply
         }
 
+        associations().forEach { it.validate() }
         properties().validate()
-        associations().ifPresent { it.forEach { it.validate() } }
         objectWriteTraceId()
         validated = true
     }
@@ -254,10 +261,11 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (properties.asKnown().getOrNull()?.validity() ?: 0) +
-            (associations.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+        (associations.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (properties.asKnown().getOrNull()?.validity() ?: 0) +
             (if (objectWriteTraceId.asKnown().isPresent) 1 else 0)
 
+    /** Key-value pairs representing the properties of the object. */
     class Properties
     @JsonCreator
     private constructor(
@@ -363,18 +371,18 @@ private constructor(
         }
 
         return other is SimplePublicObjectBatchInputForCreate &&
-            properties == other.properties &&
             associations == other.associations &&
+            properties == other.properties &&
             objectWriteTraceId == other.objectWriteTraceId &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(properties, associations, objectWriteTraceId, additionalProperties)
+        Objects.hash(associations, properties, objectWriteTraceId, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SimplePublicObjectBatchInputForCreate{properties=$properties, associations=$associations, objectWriteTraceId=$objectWriteTraceId, additionalProperties=$additionalProperties}"
+        "SimplePublicObjectBatchInputForCreate{associations=$associations, properties=$properties, objectWriteTraceId=$objectWriteTraceId, additionalProperties=$additionalProperties}"
 }

@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.conversations
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.conversations.PublicThreadUpdateRequest
+import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -26,7 +27,8 @@ internal class ThreadServiceAsyncTest {
         val publicThreadFuture =
             threadServiceAsync.update(
                 ThreadUpdateParams.builder()
-                    .threadId("threadId")
+                    .threadId(0L)
+                    .queryArchived(true)
                     .publicThreadUpdateRequest(
                         PublicThreadUpdateRequest.builder()
                             .archived(true)
@@ -50,11 +52,10 @@ internal class ThreadServiceAsyncTest {
                 .build()
         val threadServiceAsync = client.conversations().threads()
 
-        val collectionResponsePublicThreadForwardPagingFuture = threadServiceAsync.list()
+        val pageFuture = threadServiceAsync.list()
 
-        val collectionResponsePublicThreadForwardPaging =
-            collectionResponsePublicThreadForwardPagingFuture.get()
-        collectionResponsePublicThreadForwardPaging.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -67,7 +68,7 @@ internal class ThreadServiceAsyncTest {
                 .build()
         val threadServiceAsync = client.conversations().threads()
 
-        val future = threadServiceAsync.delete("threadId")
+        val future = threadServiceAsync.delete(0L)
 
         val response = future.get()
     }
@@ -82,7 +83,15 @@ internal class ThreadServiceAsyncTest {
                 .build()
         val threadServiceAsync = client.conversations().threads()
 
-        val publicThreadFuture = threadServiceAsync.get("threadId")
+        val publicThreadFuture =
+            threadServiceAsync.get(
+                ThreadGetParams.builder()
+                    .threadId(0L)
+                    .archived(true)
+                    .addAssociation(ThreadGetParams.Association.TICKET)
+                    .property("property")
+                    .build()
+            )
 
         val publicThread = publicThreadFuture.get()
         publicThread.validate()

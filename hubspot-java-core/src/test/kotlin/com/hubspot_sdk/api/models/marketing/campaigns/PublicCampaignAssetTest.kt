@@ -25,7 +25,7 @@ internal class PublicCampaignAssetTest {
 
         assertThat(publicCampaignAsset.id()).isEqualTo("id")
         assertThat(publicCampaignAsset.metrics())
-            .isEqualTo(
+            .contains(
                 PublicCampaignAsset.Metrics.builder()
                     .putAdditionalProperty("foo", JsonValue.from(0))
                     .build()

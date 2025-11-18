@@ -21,6 +21,7 @@ import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicThreadFo
 import com.hubspot_sdk.api.models.conversations.PublicThread
 import com.hubspot_sdk.api.models.conversations.threads.ThreadDeleteParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
+import com.hubspot_sdk.api.models.conversations.threads.ThreadListPage
 import com.hubspot_sdk.api.models.conversations.threads.ThreadListParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
 import java.util.function.Consumer
@@ -42,10 +43,7 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
         // patch /conversations/v3/conversations/threads/{threadId}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: ThreadListParams,
-        requestOptions: RequestOptions,
-    ): CollectionResponsePublicThreadForwardPaging =
+    override fun list(params: ThreadListParams, requestOptions: RequestOptions): ThreadListPage =
         // get /conversations/v3/conversations/threads
         withRawResponse().list(params, requestOptions).parse()
 
@@ -114,7 +112,7 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun list(
             params: ThreadListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicThreadForwardPaging> {
+        ): HttpResponseFor<ThreadListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -131,6 +129,13 @@ class ThreadServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        ThreadListPage.builder()
+                            .service(ThreadServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

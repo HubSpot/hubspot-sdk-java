@@ -11,7 +11,7 @@ internal class IntegratorSettingUpdateAppNameParamsTest {
     @Test
     fun create() {
         IntegratorSettingUpdateAppNameParams.builder()
-            .appId("appId")
+            .appId(0)
             .mediaBridgeProviderPartial(
                 MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
             )
@@ -22,13 +22,13 @@ internal class IntegratorSettingUpdateAppNameParamsTest {
     fun pathParams() {
         val params =
             IntegratorSettingUpdateAppNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .mediaBridgeProviderPartial(
                     MediaBridgeProviderPartial.builder().updatedAt(0L).build()
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -37,7 +37,7 @@ internal class IntegratorSettingUpdateAppNameParamsTest {
     fun body() {
         val params =
             IntegratorSettingUpdateAppNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .mediaBridgeProviderPartial(
                     MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
                 )
@@ -53,7 +53,7 @@ internal class IntegratorSettingUpdateAppNameParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             IntegratorSettingUpdateAppNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .mediaBridgeProviderPartial(
                     MediaBridgeProviderPartial.builder().updatedAt(0L).build()
                 )

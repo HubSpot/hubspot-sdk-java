@@ -10,7 +10,7 @@ internal class IntegratorSettingGetOembedDomainParamsTest {
     @Test
     fun create() {
         IntegratorSettingGetOembedDomainParams.builder()
-            .appId("appId")
+            .appId(0)
             .oEmbedDomainId("oEmbedDomainId")
             .build()
     }
@@ -19,11 +19,11 @@ internal class IntegratorSettingGetOembedDomainParamsTest {
     fun pathParams() {
         val params =
             IntegratorSettingGetOembedDomainParams.builder()
-                .appId("appId")
+                .appId(0)
                 .oEmbedDomainId("oEmbedDomainId")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("oEmbedDomainId")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")

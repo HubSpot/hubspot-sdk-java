@@ -14,6 +14,8 @@ internal class PropertyGetParamsTest {
             .objectType("objectType")
             .propertyName("propertyName")
             .archived(true)
+            .dataSensitivity(PropertyGetParams.DataSensitivity.NON_SENSITIVE)
+            .locale("locale")
             .properties("properties")
             .build()
     }
@@ -39,6 +41,8 @@ internal class PropertyGetParamsTest {
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .archived(true)
+                .dataSensitivity(PropertyGetParams.DataSensitivity.NON_SENSITIVE)
+                .locale("locale")
                 .properties("properties")
                 .build()
 
@@ -48,6 +52,8 @@ internal class PropertyGetParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("archived", "true")
+                    .put("dataSensitivity", "non_sensitive")
+                    .put("locale", "locale")
                     .put("properties", "properties")
                     .build()
             )

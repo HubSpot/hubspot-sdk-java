@@ -31,8 +31,8 @@ internal class LineItemSearchParamsTest {
                     )
                     .limit(0)
                     .addProperty("string")
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
             .build()
@@ -60,8 +60,8 @@ internal class LineItemSearchParamsTest {
                         )
                         .limit(0)
                         .addProperty("string")
-                        .query("query")
                         .addSort("string")
+                        .query("query")
                         .build()
                 )
                 .build()
@@ -87,8 +87,8 @@ internal class LineItemSearchParamsTest {
                     )
                     .limit(0)
                     .addProperty("string")
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
     }
@@ -97,11 +97,46 @@ internal class LineItemSearchParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             LineItemSearchParams.builder()
-                .publicObjectSearchRequest(PublicObjectSearchRequest.builder().build())
+                .publicObjectSearchRequest(
+                    PublicObjectSearchRequest.builder()
+                        .after("after")
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.EQ)
+                                        .propertyName("propertyName")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .limit(0)
+                        .addProperty("string")
+                        .addSort("string")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body).isEqualTo(PublicObjectSearchRequest.builder().build())
+        assertThat(body)
+            .isEqualTo(
+                PublicObjectSearchRequest.builder()
+                    .after("after")
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.EQ)
+                                    .propertyName("propertyName")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .limit(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .build()
+            )
     }
 }

@@ -2,10 +2,14 @@
 
 package com.hubspot_sdk.api.models.crm.properties
 
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.hubspot_sdk.api.core.Enum
+import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -16,6 +20,8 @@ private constructor(
     private val objectType: String,
     private val propertyName: String?,
     private val archived: Boolean?,
+    private val dataSensitivity: DataSensitivity?,
+    private val locale: String?,
     private val properties: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -27,6 +33,10 @@ private constructor(
 
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
+
+    fun dataSensitivity(): Optional<DataSensitivity> = Optional.ofNullable(dataSensitivity)
+
+    fun locale(): Optional<String> = Optional.ofNullable(locale)
 
     fun properties(): Optional<String> = Optional.ofNullable(properties)
 
@@ -57,6 +67,8 @@ private constructor(
         private var objectType: String? = null
         private var propertyName: String? = null
         private var archived: Boolean? = null
+        private var dataSensitivity: DataSensitivity? = null
+        private var locale: String? = null
         private var properties: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -66,6 +78,8 @@ private constructor(
             objectType = propertyGetParams.objectType
             propertyName = propertyGetParams.propertyName
             archived = propertyGetParams.archived
+            dataSensitivity = propertyGetParams.dataSensitivity
+            locale = propertyGetParams.locale
             properties = propertyGetParams.properties
             additionalHeaders = propertyGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = propertyGetParams.additionalQueryParams.toBuilder()
@@ -90,6 +104,19 @@ private constructor(
 
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
+
+        fun dataSensitivity(dataSensitivity: DataSensitivity?) = apply {
+            this.dataSensitivity = dataSensitivity
+        }
+
+        /** Alias for calling [Builder.dataSensitivity] with `dataSensitivity.orElse(null)`. */
+        fun dataSensitivity(dataSensitivity: Optional<DataSensitivity>) =
+            dataSensitivity(dataSensitivity.getOrNull())
+
+        fun locale(locale: String?) = apply { this.locale = locale }
+
+        /** Alias for calling [Builder.locale] with `locale.orElse(null)`. */
+        fun locale(locale: Optional<String>) = locale(locale.getOrNull())
 
         fun properties(properties: String?) = apply { this.properties = properties }
 
@@ -211,6 +238,8 @@ private constructor(
                 checkRequired("objectType", objectType),
                 propertyName,
                 archived,
+                dataSensitivity,
+                locale,
                 properties,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -230,10 +259,147 @@ private constructor(
         QueryParams.builder()
             .apply {
                 archived?.let { put("archived", it.toString()) }
+                dataSensitivity?.let { put("dataSensitivity", it.toString()) }
+                locale?.let { put("locale", it) }
                 properties?.let { put("properties", it) }
                 putAll(additionalQueryParams)
             }
             .build()
+
+    class DataSensitivity @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val NON_SENSITIVE = of("non_sensitive")
+
+            @JvmField val SENSITIVE = of("sensitive")
+
+            @JvmField val HIGHLY_SENSITIVE = of("highly_sensitive")
+
+            @JvmStatic fun of(value: String) = DataSensitivity(JsonField.of(value))
+        }
+
+        /** An enum containing [DataSensitivity]'s known values. */
+        enum class Known {
+            NON_SENSITIVE,
+            SENSITIVE,
+            HIGHLY_SENSITIVE,
+        }
+
+        /**
+         * An enum containing [DataSensitivity]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [DataSensitivity] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            NON_SENSITIVE,
+            SENSITIVE,
+            HIGHLY_SENSITIVE,
+            /**
+             * An enum member indicating that [DataSensitivity] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                NON_SENSITIVE -> Value.NON_SENSITIVE
+                SENSITIVE -> Value.SENSITIVE
+                HIGHLY_SENSITIVE -> Value.HIGHLY_SENSITIVE
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                NON_SENSITIVE -> Known.NON_SENSITIVE
+                SENSITIVE -> Known.SENSITIVE
+                HIGHLY_SENSITIVE -> Known.HIGHLY_SENSITIVE
+                else -> throw HubspotInvalidDataException("Unknown DataSensitivity: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): DataSensitivity = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DataSensitivity && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -244,6 +410,8 @@ private constructor(
             objectType == other.objectType &&
             propertyName == other.propertyName &&
             archived == other.archived &&
+            dataSensitivity == other.dataSensitivity &&
+            locale == other.locale &&
             properties == other.properties &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
@@ -254,11 +422,13 @@ private constructor(
             objectType,
             propertyName,
             archived,
+            dataSensitivity,
+            locale,
             properties,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "PropertyGetParams{objectType=$objectType, propertyName=$propertyName, archived=$archived, properties=$properties, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PropertyGetParams{objectType=$objectType, propertyName=$propertyName, archived=$archived, dataSensitivity=$dataSensitivity, locale=$locale, properties=$properties, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.blocking.conversations
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.conversations.PublicThreadUpdateRequest
+import com.hubspot_sdk.api.models.conversations.threads.ThreadGetParams
 import com.hubspot_sdk.api.models.conversations.threads.ThreadUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -26,7 +27,8 @@ internal class ThreadServiceTest {
         val publicThread =
             threadService.update(
                 ThreadUpdateParams.builder()
-                    .threadId("threadId")
+                    .threadId(0L)
+                    .queryArchived(true)
                     .publicThreadUpdateRequest(
                         PublicThreadUpdateRequest.builder()
                             .archived(true)
@@ -49,9 +51,9 @@ internal class ThreadServiceTest {
                 .build()
         val threadService = client.conversations().threads()
 
-        val collectionResponsePublicThreadForwardPaging = threadService.list()
+        val page = threadService.list()
 
-        collectionResponsePublicThreadForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -64,7 +66,7 @@ internal class ThreadServiceTest {
                 .build()
         val threadService = client.conversations().threads()
 
-        threadService.delete("threadId")
+        threadService.delete(0L)
     }
 
     @Disabled("Prism tests are disabled")
@@ -77,7 +79,15 @@ internal class ThreadServiceTest {
                 .build()
         val threadService = client.conversations().threads()
 
-        val publicThread = threadService.get("threadId")
+        val publicThread =
+            threadService.get(
+                ThreadGetParams.builder()
+                    .threadId(0L)
+                    .archived(true)
+                    .addAssociation(ThreadGetParams.Association.TICKET)
+                    .property("property")
+                    .build()
+            )
 
         publicThread.validate()
     }

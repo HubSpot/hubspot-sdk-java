@@ -21,6 +21,7 @@ import com.hubspot_sdk.api.models.conversations.customchannels.CollectionRespons
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelDeleteParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetParams
+import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListPage
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelListParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationChannel
@@ -79,7 +80,7 @@ class CustomChannelServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: CustomChannelListParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
+    ): CustomChannelListPage =
         // get /conversations/v3/custom-channels/
         withRawResponse().list(params, requestOptions).parse()
 
@@ -196,9 +197,7 @@ class CustomChannelServiceImpl internal constructor(private val clientOptions: C
         override fun list(
             params: CustomChannelListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<
-            CollectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging
-        > {
+        ): HttpResponseFor<CustomChannelListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -215,6 +214,13 @@ class CustomChannelServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CustomChannelListPage.builder()
+                            .service(CustomChannelServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

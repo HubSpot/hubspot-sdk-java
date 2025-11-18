@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks
 
 import com.hubspot_sdk.api.core.Params
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
@@ -13,11 +14,15 @@ import kotlin.jvm.optionals.getOrNull
 class MeetingsLinkGetBookingInfoBySlugParams
 private constructor(
     private val slug: String?,
+    private val timezone: String,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun slug(): Optional<String> = Optional.ofNullable(slug)
+
+    /** Return times in response based on specified time zone. */
+    fun timezone(): String = timezone
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -29,11 +34,14 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): MeetingsLinkGetBookingInfoBySlugParams = builder().build()
-
         /**
          * Returns a mutable builder for constructing an instance of
          * [MeetingsLinkGetBookingInfoBySlugParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .timezone()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -42,6 +50,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var slug: String? = null
+        private var timezone: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -50,6 +59,7 @@ private constructor(
             meetingsLinkGetBookingInfoBySlugParams: MeetingsLinkGetBookingInfoBySlugParams
         ) = apply {
             slug = meetingsLinkGetBookingInfoBySlugParams.slug
+            timezone = meetingsLinkGetBookingInfoBySlugParams.timezone
             additionalHeaders = meetingsLinkGetBookingInfoBySlugParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 meetingsLinkGetBookingInfoBySlugParams.additionalQueryParams.toBuilder()
@@ -59,6 +69,9 @@ private constructor(
 
         /** Alias for calling [Builder.slug] with `slug.orElse(null)`. */
         fun slug(slug: Optional<String>) = slug(slug.getOrNull())
+
+        /** Return times in response based on specified time zone. */
+        fun timezone(timezone: String) = apply { this.timezone = timezone }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -162,10 +175,18 @@ private constructor(
          * Returns an immutable instance of [MeetingsLinkGetBookingInfoBySlugParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .timezone()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): MeetingsLinkGetBookingInfoBySlugParams =
             MeetingsLinkGetBookingInfoBySlugParams(
                 slug,
+                checkRequired("timezone", timezone),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -179,7 +200,13 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("timezone", timezone)
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -188,12 +215,14 @@ private constructor(
 
         return other is MeetingsLinkGetBookingInfoBySlugParams &&
             slug == other.slug &&
+            timezone == other.timezone &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(slug, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(slug, timezone, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "MeetingsLinkGetBookingInfoBySlugParams{slug=$slug, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MeetingsLinkGetBookingInfoBySlugParams{slug=$slug, timezone=$timezone, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

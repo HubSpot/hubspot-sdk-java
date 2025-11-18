@@ -14,24 +14,24 @@ internal class PublicInboxTest {
     fun create() {
         val publicInbox =
             PublicInbox.builder()
-                .archived(true)
-                .type("type")
                 .id("id")
-                .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .name("name")
+                .type("type")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
+        assertThat(publicInbox.id()).isEqualTo("id")
         assertThat(publicInbox.archived()).isEqualTo(true)
-        assertThat(publicInbox.type()).isEqualTo("type")
-        assertThat(publicInbox.id()).contains("id")
-        assertThat(publicInbox.archivedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(publicInbox.createdAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(publicInbox.name()).contains("name")
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(publicInbox.name()).isEqualTo("name")
+        assertThat(publicInbox.type()).isEqualTo("type")
         assertThat(publicInbox.updatedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(publicInbox.archivedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
 
@@ -40,13 +40,13 @@ internal class PublicInboxTest {
         val jsonMapper = jsonMapper()
         val publicInbox =
             PublicInbox.builder()
-                .archived(true)
-                .type("type")
                 .id("id")
-                .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .name("name")
+                .type("type")
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         val roundtrippedPublicInbox =

@@ -68,6 +68,7 @@ interface PropertyValidationServiceAsync {
     ): CompletableFuture<CollectionResponsePublicPropertyValidationRuleMapNoPaging> =
         list(objectTypeId, PropertyValidationListParams.none(), requestOptions)
 
+    /** Update a specific validation rule for a property identified by its name and rule type. */
     fun crmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleType(
         ruleType:
             PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams.RuleType,

@@ -16,7 +16,6 @@ import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
@@ -26,20 +25,26 @@ import kotlin.jvm.optionals.getOrNull
 class SimplePublicObjectInputForCreate
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val properties: JsonField<Properties>,
     private val associations: JsonField<List<PublicAssociationsForObject>>,
+    private val properties: JsonField<Properties>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("properties")
-        @ExcludeMissing
-        properties: JsonField<Properties> = JsonMissing.of(),
         @JsonProperty("associations")
         @ExcludeMissing
         associations: JsonField<List<PublicAssociationsForObject>> = JsonMissing.of(),
-    ) : this(properties, associations, mutableMapOf())
+        @JsonProperty("properties")
+        @ExcludeMissing
+        properties: JsonField<Properties> = JsonMissing.of(),
+    ) : this(associations, properties, mutableMapOf())
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun associations(): List<PublicAssociationsForObject> = associations.getRequired("associations")
 
     /**
      * Key-value pairs for setting properties for the new object.
@@ -50,11 +55,13 @@ private constructor(
     fun properties(): Properties = properties.getRequired("properties")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * Returns the raw JSON value of [associations].
+     *
+     * Unlike [associations], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun associations(): Optional<List<PublicAssociationsForObject>> =
-        associations.getOptional("associations")
+    @JsonProperty("associations")
+    @ExcludeMissing
+    fun _associations(): JsonField<List<PublicAssociationsForObject>> = associations
 
     /**
      * Returns the raw JSON value of [properties].
@@ -64,15 +71,6 @@ private constructor(
     @JsonProperty("properties")
     @ExcludeMissing
     fun _properties(): JsonField<Properties> = properties
-
-    /**
-     * Returns the raw JSON value of [associations].
-     *
-     * Unlike [associations], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("associations")
-    @ExcludeMissing
-    fun _associations(): JsonField<List<PublicAssociationsForObject>> = associations
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -94,6 +92,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .associations()
          * .properties()
          * ```
          */
@@ -103,31 +102,19 @@ private constructor(
     /** A builder for [SimplePublicObjectInputForCreate]. */
     class Builder internal constructor() {
 
-        private var properties: JsonField<Properties>? = null
         private var associations: JsonField<MutableList<PublicAssociationsForObject>>? = null
+        private var properties: JsonField<Properties>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate) =
             apply {
-                properties = simplePublicObjectInputForCreate.properties
                 associations =
                     simplePublicObjectInputForCreate.associations.map { it.toMutableList() }
+                properties = simplePublicObjectInputForCreate.properties
                 additionalProperties =
                     simplePublicObjectInputForCreate.additionalProperties.toMutableMap()
             }
-
-        /** Key-value pairs for setting properties for the new object. */
-        fun properties(properties: Properties) = properties(JsonField.of(properties))
-
-        /**
-         * Sets [Builder.properties] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.properties] with a well-typed [Properties] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
 
         fun associations(associations: List<PublicAssociationsForObject>) =
             associations(JsonField.of(associations))
@@ -155,6 +142,18 @@ private constructor(
                 }
         }
 
+        /** Key-value pairs for setting properties for the new object. */
+        fun properties(properties: Properties) = properties(JsonField.of(properties))
+
+        /**
+         * Sets [Builder.properties] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.properties] with a well-typed [Properties] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -181,6 +180,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .associations()
          * .properties()
          * ```
          *
@@ -188,8 +188,8 @@ private constructor(
          */
         fun build(): SimplePublicObjectInputForCreate =
             SimplePublicObjectInputForCreate(
+                checkRequired("associations", associations).map { it.toImmutable() },
                 checkRequired("properties", properties),
-                (associations ?: JsonMissing.of()).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
     }
@@ -201,8 +201,8 @@ private constructor(
             return@apply
         }
 
+        associations().forEach { it.validate() }
         properties().validate()
-        associations().ifPresent { it.forEach { it.validate() } }
         validated = true
     }
 
@@ -221,8 +221,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (properties.asKnown().getOrNull()?.validity() ?: 0) +
-            (associations.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+        (associations.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (properties.asKnown().getOrNull()?.validity() ?: 0)
 
     /** Key-value pairs for setting properties for the new object. */
     class Properties
@@ -330,17 +330,17 @@ private constructor(
         }
 
         return other is SimplePublicObjectInputForCreate &&
-            properties == other.properties &&
             associations == other.associations &&
+            properties == other.properties &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(properties, associations, additionalProperties)
+        Objects.hash(associations, properties, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SimplePublicObjectInputForCreate{properties=$properties, associations=$associations, additionalProperties=$additionalProperties}"
+        "SimplePublicObjectInputForCreate{associations=$associations, properties=$properties, additionalProperties=$additionalProperties}"
 }

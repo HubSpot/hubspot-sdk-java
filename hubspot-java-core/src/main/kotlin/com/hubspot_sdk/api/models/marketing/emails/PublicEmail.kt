@@ -25,15 +25,8 @@ import kotlin.jvm.optionals.getOrNull
 class PublicEmail
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val isAb: JsonField<Boolean>,
     private val id: JsonField<String>,
-    private val content: JsonField<PublicEmailContent>,
-    private val from: JsonField<PublicEmailFromDetails>,
-    private val name: JsonField<String>,
-    private val sendOnPublish: JsonField<Boolean>,
-    private val state: JsonField<State>,
-    private val subcategory: JsonField<String>,
-    private val subject: JsonField<String>,
-    private val to: JsonField<PublicEmailToDetails>,
     private val activeDomain: JsonField<String>,
     private val allEmailCampaignIds: JsonField<List<String>>,
     private val archived: JsonField<Boolean>,
@@ -42,6 +35,7 @@ private constructor(
     private val campaignName: JsonField<String>,
     private val campaignUtm: JsonField<String>,
     private val clonedFrom: JsonField<String>,
+    private val content: JsonField<PublicEmailContent>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdById: JsonField<String>,
     private val deletedAt: JsonField<OffsetDateTime>,
@@ -50,11 +44,12 @@ private constructor(
     private val feedbackSurveyId: JsonField<String>,
     private val folderId: JsonField<Long>,
     private val folderIdV2: JsonField<Long>,
-    private val isAb: JsonField<Boolean>,
+    private val from: JsonField<PublicEmailFromDetails>,
     private val isPublished: JsonField<Boolean>,
     private val isTransactional: JsonField<Boolean>,
     private val jitterSendTime: JsonField<Boolean>,
     private val language: JsonField<Language>,
+    private val name: JsonField<String>,
     private val previewKey: JsonField<String>,
     private val primaryEmailCampaignId: JsonField<String>,
     private val publishDate: JsonField<OffsetDateTime>,
@@ -63,10 +58,15 @@ private constructor(
     private val publishedById: JsonField<String>,
     private val publishedByName: JsonField<String>,
     private val rssData: JsonField<PublicRssEmailDetails>,
+    private val sendOnPublish: JsonField<Boolean>,
+    private val state: JsonField<State>,
     private val stats: JsonField<EmailStatisticsData>,
+    private val subcategory: JsonField<String>,
+    private val subject: JsonField<String>,
     private val subscriptionDetails: JsonField<PublicEmailSubscriptionDetails>,
     private val teamsWithAccess: JsonField<List<String>>,
     private val testing: JsonField<PublicEmailTestingDetails>,
+    private val to: JsonField<PublicEmailToDetails>,
     private val type: JsonField<Type>,
     private val unpublishedAt: JsonField<OffsetDateTime>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -79,23 +79,8 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("isAb") @ExcludeMissing isAb: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("content")
-        @ExcludeMissing
-        content: JsonField<PublicEmailContent> = JsonMissing.of(),
-        @JsonProperty("from")
-        @ExcludeMissing
-        from: JsonField<PublicEmailFromDetails> = JsonMissing.of(),
-        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("sendOnPublish")
-        @ExcludeMissing
-        sendOnPublish: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("state") @ExcludeMissing state: JsonField<State> = JsonMissing.of(),
-        @JsonProperty("subcategory")
-        @ExcludeMissing
-        subcategory: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("to") @ExcludeMissing to: JsonField<PublicEmailToDetails> = JsonMissing.of(),
         @JsonProperty("activeDomain")
         @ExcludeMissing
         activeDomain: JsonField<String> = JsonMissing.of(),
@@ -116,6 +101,9 @@ private constructor(
         @JsonProperty("clonedFrom")
         @ExcludeMissing
         clonedFrom: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("content")
+        @ExcludeMissing
+        content: JsonField<PublicEmailContent> = JsonMissing.of(),
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -136,7 +124,9 @@ private constructor(
         feedbackSurveyId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("folderId") @ExcludeMissing folderId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("folderIdV2") @ExcludeMissing folderIdV2: JsonField<Long> = JsonMissing.of(),
-        @JsonProperty("isAb") @ExcludeMissing isAb: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("from")
+        @ExcludeMissing
+        from: JsonField<PublicEmailFromDetails> = JsonMissing.of(),
         @JsonProperty("isPublished")
         @ExcludeMissing
         isPublished: JsonField<Boolean> = JsonMissing.of(),
@@ -147,6 +137,7 @@ private constructor(
         @ExcludeMissing
         jitterSendTime: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("language") @ExcludeMissing language: JsonField<Language> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("previewKey")
         @ExcludeMissing
         previewKey: JsonField<String> = JsonMissing.of(),
@@ -171,9 +162,17 @@ private constructor(
         @JsonProperty("rssData")
         @ExcludeMissing
         rssData: JsonField<PublicRssEmailDetails> = JsonMissing.of(),
+        @JsonProperty("sendOnPublish")
+        @ExcludeMissing
+        sendOnPublish: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("state") @ExcludeMissing state: JsonField<State> = JsonMissing.of(),
         @JsonProperty("stats")
         @ExcludeMissing
         stats: JsonField<EmailStatisticsData> = JsonMissing.of(),
+        @JsonProperty("subcategory")
+        @ExcludeMissing
+        subcategory: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("subject") @ExcludeMissing subject: JsonField<String> = JsonMissing.of(),
         @JsonProperty("subscriptionDetails")
         @ExcludeMissing
         subscriptionDetails: JsonField<PublicEmailSubscriptionDetails> = JsonMissing.of(),
@@ -183,6 +182,7 @@ private constructor(
         @JsonProperty("testing")
         @ExcludeMissing
         testing: JsonField<PublicEmailTestingDetails> = JsonMissing.of(),
+        @JsonProperty("to") @ExcludeMissing to: JsonField<PublicEmailToDetails> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("unpublishedAt")
         @ExcludeMissing
@@ -203,15 +203,8 @@ private constructor(
         @ExcludeMissing
         workflowNames: JsonField<List<String>> = JsonMissing.of(),
     ) : this(
+        isAb,
         id,
-        content,
-        from,
-        name,
-        sendOnPublish,
-        state,
-        subcategory,
-        subject,
-        to,
         activeDomain,
         allEmailCampaignIds,
         archived,
@@ -220,6 +213,7 @@ private constructor(
         campaignName,
         campaignUtm,
         clonedFrom,
+        content,
         createdAt,
         createdById,
         deletedAt,
@@ -228,11 +222,12 @@ private constructor(
         feedbackSurveyId,
         folderId,
         folderIdV2,
-        isAb,
+        from,
         isPublished,
         isTransactional,
         jitterSendTime,
         language,
+        name,
         previewKey,
         primaryEmailCampaignId,
         publishDate,
@@ -241,10 +236,15 @@ private constructor(
         publishedById,
         publishedByName,
         rssData,
+        sendOnPublish,
+        state,
         stats,
+        subcategory,
+        subject,
         subscriptionDetails,
         teamsWithAccess,
         testing,
+        to,
         type,
         unpublishedAt,
         updatedAt,
@@ -256,76 +256,18 @@ private constructor(
     )
 
     /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun isAb(): Boolean = isAb.getRequired("isAb")
+
+    /**
      * The email ID.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun id(): String = id.getRequired("id")
-
-    /**
-     * Data structure representing the content of the email.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun content(): PublicEmailContent = content.getRequired("content")
-
-    /**
-     * Data structure representing the from fields on the email.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun from(): PublicEmailFromDetails = from.getRequired("from")
-
-    /**
-     * The name of the email, as displayed on the email dashboard.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun name(): String = name.getRequired("name")
-
-    /**
-     * Determines whether the email will be sent immediately on publish.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun sendOnPublish(): Boolean = sendOnPublish.getRequired("sendOnPublish")
-
-    /**
-     * The email state.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun state(): State = state.getRequired("state")
-
-    /**
-     * The email subcategory.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun subcategory(): String = subcategory.getRequired("subcategory")
-
-    /**
-     * The subject of the email.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun subject(): String = subject.getRequired("subject")
-
-    /**
-     * Data structure representing the to fields of the email.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun to(): PublicEmailToDetails = to.getRequired("to")
+    fun id(): Optional<String> = id.getOptional("id")
 
     /**
      * The active domain of the email.
@@ -389,6 +331,14 @@ private constructor(
     fun clonedFrom(): Optional<String> = clonedFrom.getOptional("clonedFrom")
 
     /**
+     * Data structure representing the content of the email.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun content(): Optional<PublicEmailContent> = content.getOptional("content")
+
+    /**
      * The date and time of the email's creation, in ISO8601 representation.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -447,10 +397,12 @@ private constructor(
     fun folderIdV2(): Optional<Long> = folderIdV2.getOptional("folderIdV2")
 
     /**
+     * Data structure representing the from fields on the email.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun isAb(): Optional<Boolean> = isAb.getOptional("isAb")
+    fun from(): Optional<PublicEmailFromDetails> = from.getOptional("from")
 
     /**
      * Returns the published status of the email. This is read only.
@@ -479,6 +431,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun language(): Optional<Language> = language.getOptional("language")
+
+    /**
+     * The name of the email, as displayed on the email dashboard.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun name(): Optional<String> = name.getOptional("name")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -543,10 +503,42 @@ private constructor(
     fun rssData(): Optional<PublicRssEmailDetails> = rssData.getOptional("rssData")
 
     /**
+     * Determines whether the email will be sent immediately on publish.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun sendOnPublish(): Optional<Boolean> = sendOnPublish.getOptional("sendOnPublish")
+
+    /**
+     * The email state.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun state(): Optional<State> = state.getOptional("state")
+
+    /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun stats(): Optional<EmailStatisticsData> = stats.getOptional("stats")
+
+    /**
+     * The email subcategory.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun subcategory(): Optional<String> = subcategory.getOptional("subcategory")
+
+    /**
+     * The subject of the email.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun subject(): Optional<String> = subject.getOptional("subject")
 
     /**
      * Data structure representing the subscription fields of the email.
@@ -570,6 +562,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun testing(): Optional<PublicEmailTestingDetails> = testing.getOptional("testing")
+
+    /**
+     * Data structure representing the to fields of the email.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun to(): Optional<PublicEmailToDetails> = to.getOptional("to")
 
     /**
      * The email type, this is derived from other properties on the email such as subcategory.
@@ -622,69 +622,18 @@ private constructor(
     fun workflowNames(): Optional<List<String>> = workflowNames.getOptional("workflowNames")
 
     /**
+     * Returns the raw JSON value of [isAb].
+     *
+     * Unlike [isAb], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("isAb") @ExcludeMissing fun _isAb(): JsonField<Boolean> = isAb
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-    /**
-     * Returns the raw JSON value of [content].
-     *
-     * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<PublicEmailContent> = content
-
-    /**
-     * Returns the raw JSON value of [from].
-     *
-     * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<PublicEmailFromDetails> = from
-
-    /**
-     * Returns the raw JSON value of [name].
-     *
-     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-    /**
-     * Returns the raw JSON value of [sendOnPublish].
-     *
-     * Unlike [sendOnPublish], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("sendOnPublish")
-    @ExcludeMissing
-    fun _sendOnPublish(): JsonField<Boolean> = sendOnPublish
-
-    /**
-     * Returns the raw JSON value of [state].
-     *
-     * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<State> = state
-
-    /**
-     * Returns the raw JSON value of [subcategory].
-     *
-     * Unlike [subcategory], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("subcategory") @ExcludeMissing fun _subcategory(): JsonField<String> = subcategory
-
-    /**
-     * Returns the raw JSON value of [subject].
-     *
-     * Unlike [subject], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("subject") @ExcludeMissing fun _subject(): JsonField<String> = subject
-
-    /**
-     * Returns the raw JSON value of [to].
-     *
-     * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<PublicEmailToDetails> = to
 
     /**
      * Returns the raw JSON value of [activeDomain].
@@ -750,6 +699,13 @@ private constructor(
      * Unlike [clonedFrom], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("clonedFrom") @ExcludeMissing fun _clonedFrom(): JsonField<String> = clonedFrom
+
+    /**
+     * Returns the raw JSON value of [content].
+     *
+     * Unlike [content], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("content") @ExcludeMissing fun _content(): JsonField<PublicEmailContent> = content
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -821,11 +777,11 @@ private constructor(
     @JsonProperty("folderIdV2") @ExcludeMissing fun _folderIdV2(): JsonField<Long> = folderIdV2
 
     /**
-     * Returns the raw JSON value of [isAb].
+     * Returns the raw JSON value of [from].
      *
-     * Unlike [isAb], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [from], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("isAb") @ExcludeMissing fun _isAb(): JsonField<Boolean> = isAb
+    @JsonProperty("from") @ExcludeMissing fun _from(): JsonField<PublicEmailFromDetails> = from
 
     /**
      * Returns the raw JSON value of [isPublished].
@@ -860,6 +816,13 @@ private constructor(
      * Unlike [language], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("language") @ExcludeMissing fun _language(): JsonField<Language> = language
+
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
     /**
      * Returns the raw JSON value of [previewKey].
@@ -934,11 +897,41 @@ private constructor(
     fun _rssData(): JsonField<PublicRssEmailDetails> = rssData
 
     /**
+     * Returns the raw JSON value of [sendOnPublish].
+     *
+     * Unlike [sendOnPublish], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("sendOnPublish")
+    @ExcludeMissing
+    fun _sendOnPublish(): JsonField<Boolean> = sendOnPublish
+
+    /**
+     * Returns the raw JSON value of [state].
+     *
+     * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<State> = state
+
+    /**
      * Returns the raw JSON value of [stats].
      *
      * Unlike [stats], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("stats") @ExcludeMissing fun _stats(): JsonField<EmailStatisticsData> = stats
+
+    /**
+     * Returns the raw JSON value of [subcategory].
+     *
+     * Unlike [subcategory], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("subcategory") @ExcludeMissing fun _subcategory(): JsonField<String> = subcategory
+
+    /**
+     * Returns the raw JSON value of [subject].
+     *
+     * Unlike [subject], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("subject") @ExcludeMissing fun _subject(): JsonField<String> = subject
 
     /**
      * Returns the raw JSON value of [subscriptionDetails].
@@ -967,6 +960,13 @@ private constructor(
     @JsonProperty("testing")
     @ExcludeMissing
     fun _testing(): JsonField<PublicEmailTestingDetails> = testing
+
+    /**
+     * Returns the raw JSON value of [to].
+     *
+     * Unlike [to], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("to") @ExcludeMissing fun _to(): JsonField<PublicEmailToDetails> = to
 
     /**
      * Returns the raw JSON value of [type].
@@ -1046,15 +1046,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .id()
-         * .content()
-         * .from()
-         * .name()
-         * .sendOnPublish()
-         * .state()
-         * .subcategory()
-         * .subject()
-         * .to()
+         * .isAb()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -1063,15 +1055,8 @@ private constructor(
     /** A builder for [PublicEmail]. */
     class Builder internal constructor() {
 
-        private var id: JsonField<String>? = null
-        private var content: JsonField<PublicEmailContent>? = null
-        private var from: JsonField<PublicEmailFromDetails>? = null
-        private var name: JsonField<String>? = null
-        private var sendOnPublish: JsonField<Boolean>? = null
-        private var state: JsonField<State>? = null
-        private var subcategory: JsonField<String>? = null
-        private var subject: JsonField<String>? = null
-        private var to: JsonField<PublicEmailToDetails>? = null
+        private var isAb: JsonField<Boolean>? = null
+        private var id: JsonField<String> = JsonMissing.of()
         private var activeDomain: JsonField<String> = JsonMissing.of()
         private var allEmailCampaignIds: JsonField<MutableList<String>>? = null
         private var archived: JsonField<Boolean> = JsonMissing.of()
@@ -1080,6 +1065,7 @@ private constructor(
         private var campaignName: JsonField<String> = JsonMissing.of()
         private var campaignUtm: JsonField<String> = JsonMissing.of()
         private var clonedFrom: JsonField<String> = JsonMissing.of()
+        private var content: JsonField<PublicEmailContent> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdById: JsonField<String> = JsonMissing.of()
         private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1088,11 +1074,12 @@ private constructor(
         private var feedbackSurveyId: JsonField<String> = JsonMissing.of()
         private var folderId: JsonField<Long> = JsonMissing.of()
         private var folderIdV2: JsonField<Long> = JsonMissing.of()
-        private var isAb: JsonField<Boolean> = JsonMissing.of()
+        private var from: JsonField<PublicEmailFromDetails> = JsonMissing.of()
         private var isPublished: JsonField<Boolean> = JsonMissing.of()
         private var isTransactional: JsonField<Boolean> = JsonMissing.of()
         private var jitterSendTime: JsonField<Boolean> = JsonMissing.of()
         private var language: JsonField<Language> = JsonMissing.of()
+        private var name: JsonField<String> = JsonMissing.of()
         private var previewKey: JsonField<String> = JsonMissing.of()
         private var primaryEmailCampaignId: JsonField<String> = JsonMissing.of()
         private var publishDate: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1101,11 +1088,16 @@ private constructor(
         private var publishedById: JsonField<String> = JsonMissing.of()
         private var publishedByName: JsonField<String> = JsonMissing.of()
         private var rssData: JsonField<PublicRssEmailDetails> = JsonMissing.of()
+        private var sendOnPublish: JsonField<Boolean> = JsonMissing.of()
+        private var state: JsonField<State> = JsonMissing.of()
         private var stats: JsonField<EmailStatisticsData> = JsonMissing.of()
+        private var subcategory: JsonField<String> = JsonMissing.of()
+        private var subject: JsonField<String> = JsonMissing.of()
         private var subscriptionDetails: JsonField<PublicEmailSubscriptionDetails> =
             JsonMissing.of()
         private var teamsWithAccess: JsonField<MutableList<String>>? = null
         private var testing: JsonField<PublicEmailTestingDetails> = JsonMissing.of()
+        private var to: JsonField<PublicEmailToDetails> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var unpublishedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -1117,15 +1109,8 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(publicEmail: PublicEmail) = apply {
+            isAb = publicEmail.isAb
             id = publicEmail.id
-            content = publicEmail.content
-            from = publicEmail.from
-            name = publicEmail.name
-            sendOnPublish = publicEmail.sendOnPublish
-            state = publicEmail.state
-            subcategory = publicEmail.subcategory
-            subject = publicEmail.subject
-            to = publicEmail.to
             activeDomain = publicEmail.activeDomain
             allEmailCampaignIds = publicEmail.allEmailCampaignIds.map { it.toMutableList() }
             archived = publicEmail.archived
@@ -1134,6 +1119,7 @@ private constructor(
             campaignName = publicEmail.campaignName
             campaignUtm = publicEmail.campaignUtm
             clonedFrom = publicEmail.clonedFrom
+            content = publicEmail.content
             createdAt = publicEmail.createdAt
             createdById = publicEmail.createdById
             deletedAt = publicEmail.deletedAt
@@ -1142,11 +1128,12 @@ private constructor(
             feedbackSurveyId = publicEmail.feedbackSurveyId
             folderId = publicEmail.folderId
             folderIdV2 = publicEmail.folderIdV2
-            isAb = publicEmail.isAb
+            from = publicEmail.from
             isPublished = publicEmail.isPublished
             isTransactional = publicEmail.isTransactional
             jitterSendTime = publicEmail.jitterSendTime
             language = publicEmail.language
+            name = publicEmail.name
             previewKey = publicEmail.previewKey
             primaryEmailCampaignId = publicEmail.primaryEmailCampaignId
             publishDate = publicEmail.publishDate
@@ -1155,10 +1142,15 @@ private constructor(
             publishedById = publicEmail.publishedById
             publishedByName = publicEmail.publishedByName
             rssData = publicEmail.rssData
+            sendOnPublish = publicEmail.sendOnPublish
+            state = publicEmail.state
             stats = publicEmail.stats
+            subcategory = publicEmail.subcategory
+            subject = publicEmail.subject
             subscriptionDetails = publicEmail.subscriptionDetails
             teamsWithAccess = publicEmail.teamsWithAccess.map { it.toMutableList() }
             testing = publicEmail.testing
+            to = publicEmail.to
             type = publicEmail.type
             unpublishedAt = publicEmail.unpublishedAt
             updatedAt = publicEmail.updatedAt
@@ -1168,6 +1160,16 @@ private constructor(
             workflowNames = publicEmail.workflowNames.map { it.toMutableList() }
             additionalProperties = publicEmail.additionalProperties.toMutableMap()
         }
+
+        fun isAb(isAb: Boolean) = isAb(JsonField.of(isAb))
+
+        /**
+         * Sets [Builder.isAb] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.isAb] with a well-typed [Boolean] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun isAb(isAb: JsonField<Boolean>) = apply { this.isAb = isAb }
 
         /** The email ID. */
         fun id(id: String) = id(JsonField.of(id))
@@ -1179,101 +1181,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** Data structure representing the content of the email. */
-        fun content(content: PublicEmailContent) = content(JsonField.of(content))
-
-        /**
-         * Sets [Builder.content] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.content] with a well-typed [PublicEmailContent] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun content(content: JsonField<PublicEmailContent>) = apply { this.content = content }
-
-        /** Data structure representing the from fields on the email. */
-        fun from(from: PublicEmailFromDetails) = from(JsonField.of(from))
-
-        /**
-         * Sets [Builder.from] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.from] with a well-typed [PublicEmailFromDetails] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun from(from: JsonField<PublicEmailFromDetails>) = apply { this.from = from }
-
-        /** The name of the email, as displayed on the email dashboard. */
-        fun name(name: String) = name(JsonField.of(name))
-
-        /**
-         * Sets [Builder.name] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun name(name: JsonField<String>) = apply { this.name = name }
-
-        /** Determines whether the email will be sent immediately on publish. */
-        fun sendOnPublish(sendOnPublish: Boolean) = sendOnPublish(JsonField.of(sendOnPublish))
-
-        /**
-         * Sets [Builder.sendOnPublish] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.sendOnPublish] with a well-typed [Boolean] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun sendOnPublish(sendOnPublish: JsonField<Boolean>) = apply {
-            this.sendOnPublish = sendOnPublish
-        }
-
-        /** The email state. */
-        fun state(state: State) = state(JsonField.of(state))
-
-        /**
-         * Sets [Builder.state] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.state] with a well-typed [State] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun state(state: JsonField<State>) = apply { this.state = state }
-
-        /** The email subcategory. */
-        fun subcategory(subcategory: String) = subcategory(JsonField.of(subcategory))
-
-        /**
-         * Sets [Builder.subcategory] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.subcategory] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun subcategory(subcategory: JsonField<String>) = apply { this.subcategory = subcategory }
-
-        /** The subject of the email. */
-        fun subject(subject: String) = subject(JsonField.of(subject))
-
-        /**
-         * Sets [Builder.subject] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.subject] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun subject(subject: JsonField<String>) = apply { this.subject = subject }
-
-        /** Data structure representing the to fields of the email. */
-        fun to(to: PublicEmailToDetails) = to(JsonField.of(to))
-
-        /**
-         * Sets [Builder.to] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.to] with a well-typed [PublicEmailToDetails] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun to(to: JsonField<PublicEmailToDetails>) = apply { this.to = to }
 
         /** The active domain of the email. */
         fun activeDomain(activeDomain: String) = activeDomain(JsonField.of(activeDomain))
@@ -1389,6 +1296,18 @@ private constructor(
          */
         fun clonedFrom(clonedFrom: JsonField<String>) = apply { this.clonedFrom = clonedFrom }
 
+        /** Data structure representing the content of the email. */
+        fun content(content: PublicEmailContent) = content(JsonField.of(content))
+
+        /**
+         * Sets [Builder.content] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.content] with a well-typed [PublicEmailContent] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun content(content: JsonField<PublicEmailContent>) = apply { this.content = content }
+
         /** The date and time of the email's creation, in ISO8601 representation. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
@@ -1488,15 +1407,17 @@ private constructor(
          */
         fun folderIdV2(folderIdV2: JsonField<Long>) = apply { this.folderIdV2 = folderIdV2 }
 
-        fun isAb(isAb: Boolean) = isAb(JsonField.of(isAb))
+        /** Data structure representing the from fields on the email. */
+        fun from(from: PublicEmailFromDetails) = from(JsonField.of(from))
 
         /**
-         * Sets [Builder.isAb] to an arbitrary JSON value.
+         * Sets [Builder.from] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.isAb] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
+         * You should usually call [Builder.from] with a well-typed [PublicEmailFromDetails] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun isAb(isAb: JsonField<Boolean>) = apply { this.isAb = isAb }
+        fun from(from: JsonField<PublicEmailFromDetails>) = apply { this.from = from }
 
         /** Returns the published status of the email. This is read only. */
         fun isPublished(isPublished: Boolean) = isPublished(JsonField.of(isPublished))
@@ -1548,6 +1469,17 @@ private constructor(
          * value.
          */
         fun language(language: JsonField<Language>) = apply { this.language = language }
+
+        /** The name of the email, as displayed on the email dashboard. */
+        fun name(name: String) = name(JsonField.of(name))
+
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun name(name: JsonField<String>) = apply { this.name = name }
 
         fun previewKey(previewKey: String) = previewKey(JsonField.of(previewKey))
 
@@ -1661,6 +1593,31 @@ private constructor(
          */
         fun rssData(rssData: JsonField<PublicRssEmailDetails>) = apply { this.rssData = rssData }
 
+        /** Determines whether the email will be sent immediately on publish. */
+        fun sendOnPublish(sendOnPublish: Boolean) = sendOnPublish(JsonField.of(sendOnPublish))
+
+        /**
+         * Sets [Builder.sendOnPublish] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.sendOnPublish] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun sendOnPublish(sendOnPublish: JsonField<Boolean>) = apply {
+            this.sendOnPublish = sendOnPublish
+        }
+
+        /** The email state. */
+        fun state(state: State) = state(JsonField.of(state))
+
+        /**
+         * Sets [Builder.state] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.state] with a well-typed [State] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun state(state: JsonField<State>) = apply { this.state = state }
+
         fun stats(stats: EmailStatisticsData) = stats(JsonField.of(stats))
 
         /**
@@ -1671,6 +1628,29 @@ private constructor(
          * supported value.
          */
         fun stats(stats: JsonField<EmailStatisticsData>) = apply { this.stats = stats }
+
+        /** The email subcategory. */
+        fun subcategory(subcategory: String) = subcategory(JsonField.of(subcategory))
+
+        /**
+         * Sets [Builder.subcategory] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.subcategory] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun subcategory(subcategory: JsonField<String>) = apply { this.subcategory = subcategory }
+
+        /** The subject of the email. */
+        fun subject(subject: String) = subject(JsonField.of(subject))
+
+        /**
+         * Sets [Builder.subject] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.subject] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun subject(subject: JsonField<String>) = apply { this.subject = subject }
 
         /** Data structure representing the subscription fields of the email. */
         fun subscriptionDetails(subscriptionDetails: PublicEmailSubscriptionDetails) =
@@ -1727,6 +1707,18 @@ private constructor(
         fun testing(testing: JsonField<PublicEmailTestingDetails>) = apply {
             this.testing = testing
         }
+
+        /** Data structure representing the to fields of the email. */
+        fun to(to: PublicEmailToDetails) = to(JsonField.of(to))
+
+        /**
+         * Sets [Builder.to] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.to] with a well-typed [PublicEmailToDetails] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun to(to: JsonField<PublicEmailToDetails>) = apply { this.to = to }
 
         /**
          * The email type, this is derived from other properties on the email such as subcategory.
@@ -1870,30 +1862,15 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .id()
-         * .content()
-         * .from()
-         * .name()
-         * .sendOnPublish()
-         * .state()
-         * .subcategory()
-         * .subject()
-         * .to()
+         * .isAb()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PublicEmail =
             PublicEmail(
-                checkRequired("id", id),
-                checkRequired("content", content),
-                checkRequired("from", from),
-                checkRequired("name", name),
-                checkRequired("sendOnPublish", sendOnPublish),
-                checkRequired("state", state),
-                checkRequired("subcategory", subcategory),
-                checkRequired("subject", subject),
-                checkRequired("to", to),
+                checkRequired("isAb", isAb),
+                id,
                 activeDomain,
                 (allEmailCampaignIds ?: JsonMissing.of()).map { it.toImmutable() },
                 archived,
@@ -1902,6 +1879,7 @@ private constructor(
                 campaignName,
                 campaignUtm,
                 clonedFrom,
+                content,
                 createdAt,
                 createdById,
                 deletedAt,
@@ -1910,11 +1888,12 @@ private constructor(
                 feedbackSurveyId,
                 folderId,
                 folderIdV2,
-                isAb,
+                from,
                 isPublished,
                 isTransactional,
                 jitterSendTime,
                 language,
+                name,
                 previewKey,
                 primaryEmailCampaignId,
                 publishDate,
@@ -1923,10 +1902,15 @@ private constructor(
                 publishedById,
                 publishedByName,
                 rssData,
+                sendOnPublish,
+                state,
                 stats,
+                subcategory,
+                subject,
                 subscriptionDetails,
                 (teamsWithAccess ?: JsonMissing.of()).map { it.toImmutable() },
                 testing,
+                to,
                 type,
                 unpublishedAt,
                 updatedAt,
@@ -1945,15 +1929,8 @@ private constructor(
             return@apply
         }
 
+        isAb()
         id()
-        content().validate()
-        from().validate()
-        name()
-        sendOnPublish()
-        state().validate()
-        subcategory()
-        subject()
-        to().validate()
         activeDomain()
         allEmailCampaignIds()
         archived()
@@ -1962,6 +1939,7 @@ private constructor(
         campaignName()
         campaignUtm()
         clonedFrom()
+        content().ifPresent { it.validate() }
         createdAt()
         createdById()
         deletedAt()
@@ -1970,11 +1948,12 @@ private constructor(
         feedbackSurveyId()
         folderId()
         folderIdV2()
-        isAb()
+        from().ifPresent { it.validate() }
         isPublished()
         isTransactional()
         jitterSendTime()
         language().ifPresent { it.validate() }
+        name()
         previewKey()
         primaryEmailCampaignId()
         publishDate()
@@ -1983,10 +1962,15 @@ private constructor(
         publishedById()
         publishedByName()
         rssData().ifPresent { it.validate() }
+        sendOnPublish()
+        state().ifPresent { it.validate() }
         stats().ifPresent { it.validate() }
+        subcategory()
+        subject()
         subscriptionDetails().ifPresent { it.validate() }
         teamsWithAccess()
         testing().ifPresent { it.validate() }
+        to().ifPresent { it.validate() }
         type().ifPresent { it.validate() }
         unpublishedAt()
         updatedAt()
@@ -2012,15 +1996,8 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (id.asKnown().isPresent) 1 else 0) +
-            (content.asKnown().getOrNull()?.validity() ?: 0) +
-            (from.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (name.asKnown().isPresent) 1 else 0) +
-            (if (sendOnPublish.asKnown().isPresent) 1 else 0) +
-            (state.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (subcategory.asKnown().isPresent) 1 else 0) +
-            (if (subject.asKnown().isPresent) 1 else 0) +
-            (to.asKnown().getOrNull()?.validity() ?: 0) +
+        (if (isAb.asKnown().isPresent) 1 else 0) +
+            (if (id.asKnown().isPresent) 1 else 0) +
             (if (activeDomain.asKnown().isPresent) 1 else 0) +
             (allEmailCampaignIds.asKnown().getOrNull()?.size ?: 0) +
             (if (archived.asKnown().isPresent) 1 else 0) +
@@ -2029,6 +2006,7 @@ private constructor(
             (if (campaignName.asKnown().isPresent) 1 else 0) +
             (if (campaignUtm.asKnown().isPresent) 1 else 0) +
             (if (clonedFrom.asKnown().isPresent) 1 else 0) +
+            (content.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (createdById.asKnown().isPresent) 1 else 0) +
             (if (deletedAt.asKnown().isPresent) 1 else 0) +
@@ -2037,11 +2015,12 @@ private constructor(
             (if (feedbackSurveyId.asKnown().isPresent) 1 else 0) +
             (if (folderId.asKnown().isPresent) 1 else 0) +
             (if (folderIdV2.asKnown().isPresent) 1 else 0) +
-            (if (isAb.asKnown().isPresent) 1 else 0) +
+            (from.asKnown().getOrNull()?.validity() ?: 0) +
             (if (isPublished.asKnown().isPresent) 1 else 0) +
             (if (isTransactional.asKnown().isPresent) 1 else 0) +
             (if (jitterSendTime.asKnown().isPresent) 1 else 0) +
             (language.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (name.asKnown().isPresent) 1 else 0) +
             (if (previewKey.asKnown().isPresent) 1 else 0) +
             (if (primaryEmailCampaignId.asKnown().isPresent) 1 else 0) +
             (if (publishDate.asKnown().isPresent) 1 else 0) +
@@ -2050,10 +2029,15 @@ private constructor(
             (if (publishedById.asKnown().isPresent) 1 else 0) +
             (if (publishedByName.asKnown().isPresent) 1 else 0) +
             (rssData.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (sendOnPublish.asKnown().isPresent) 1 else 0) +
+            (state.asKnown().getOrNull()?.validity() ?: 0) +
             (stats.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (subcategory.asKnown().isPresent) 1 else 0) +
+            (if (subject.asKnown().isPresent) 1 else 0) +
             (subscriptionDetails.asKnown().getOrNull()?.validity() ?: 0) +
             (teamsWithAccess.asKnown().getOrNull()?.size ?: 0) +
             (testing.asKnown().getOrNull()?.validity() ?: 0) +
+            (to.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (unpublishedAt.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
@@ -2061,312 +2045,6 @@ private constructor(
             (usersWithAccess.asKnown().getOrNull()?.size ?: 0) +
             (webversion.asKnown().getOrNull()?.validity() ?: 0) +
             (workflowNames.asKnown().getOrNull()?.size ?: 0)
-
-    /** The email state. */
-    class State @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            @JvmField val AUTOMATED = of("AUTOMATED")
-
-            @JvmField val AUTOMATED_DRAFT = of("AUTOMATED_DRAFT")
-
-            @JvmField val AUTOMATED_SENDING = of("AUTOMATED_SENDING")
-
-            @JvmField val AUTOMATED_FOR_FORM = of("AUTOMATED_FOR_FORM")
-
-            @JvmField val AUTOMATED_FOR_FORM_BUFFER = of("AUTOMATED_FOR_FORM_BUFFER")
-
-            @JvmField val AUTOMATED_FOR_FORM_DRAFT = of("AUTOMATED_FOR_FORM_DRAFT")
-
-            @JvmField val AUTOMATED_FOR_FORM_LEGACY = of("AUTOMATED_FOR_FORM_LEGACY")
-
-            @JvmField val BLOG_EMAIL_DRAFT = of("BLOG_EMAIL_DRAFT")
-
-            @JvmField val BLOG_EMAIL_PUBLISHED = of("BLOG_EMAIL_PUBLISHED")
-
-            @JvmField val DRAFT = of("DRAFT")
-
-            @JvmField val DRAFT_AB = of("DRAFT_AB")
-
-            @JvmField val DRAFT_AB_VARIANT = of("DRAFT_AB_VARIANT")
-
-            @JvmField val ERROR = of("ERROR")
-
-            @JvmField val LOSER_AB_VARIANT = of("LOSER_AB_VARIANT")
-
-            @JvmField val PAGE_STUB = of("PAGE_STUB")
-
-            @JvmField val PRE_PROCESSING = of("PRE_PROCESSING")
-
-            @JvmField val PROCESSING = of("PROCESSING")
-
-            @JvmField val PUBLISHED = of("PUBLISHED")
-
-            @JvmField val PUBLISHED_AB = of("PUBLISHED_AB")
-
-            @JvmField val PUBLISHED_AB_VARIANT = of("PUBLISHED_AB_VARIANT")
-
-            @JvmField val PUBLISHED_OR_SCHEDULED = of("PUBLISHED_OR_SCHEDULED")
-
-            @JvmField val RSS_TO_EMAIL_DRAFT = of("RSS_TO_EMAIL_DRAFT")
-
-            @JvmField val RSS_TO_EMAIL_PUBLISHED = of("RSS_TO_EMAIL_PUBLISHED")
-
-            @JvmField val SCHEDULED = of("SCHEDULED")
-
-            @JvmField val SCHEDULED_AB = of("SCHEDULED_AB")
-
-            @JvmField val SCHEDULED_OR_PUBLISHED = of("SCHEDULED_OR_PUBLISHED")
-
-            @JvmField val AUTOMATED_AB = of("AUTOMATED_AB")
-
-            @JvmField val AUTOMATED_AB_VARIANT = of("AUTOMATED_AB_VARIANT")
-
-            @JvmField val AUTOMATED_DRAFT_AB = of("AUTOMATED_DRAFT_AB")
-
-            @JvmField val AUTOMATED_DRAFT_ABVARIANT = of("AUTOMATED_DRAFT_ABVARIANT")
-
-            @JvmField val AUTOMATED_LOSER_ABVARIANT = of("AUTOMATED_LOSER_ABVARIANT")
-
-            @JvmField val AGENT_GENERATED = of("AGENT_GENERATED")
-
-            @JvmStatic fun of(value: String) = State(JsonField.of(value))
-        }
-
-        /** An enum containing [State]'s known values. */
-        enum class Known {
-            AUTOMATED,
-            AUTOMATED_DRAFT,
-            AUTOMATED_SENDING,
-            AUTOMATED_FOR_FORM,
-            AUTOMATED_FOR_FORM_BUFFER,
-            AUTOMATED_FOR_FORM_DRAFT,
-            AUTOMATED_FOR_FORM_LEGACY,
-            BLOG_EMAIL_DRAFT,
-            BLOG_EMAIL_PUBLISHED,
-            DRAFT,
-            DRAFT_AB,
-            DRAFT_AB_VARIANT,
-            ERROR,
-            LOSER_AB_VARIANT,
-            PAGE_STUB,
-            PRE_PROCESSING,
-            PROCESSING,
-            PUBLISHED,
-            PUBLISHED_AB,
-            PUBLISHED_AB_VARIANT,
-            PUBLISHED_OR_SCHEDULED,
-            RSS_TO_EMAIL_DRAFT,
-            RSS_TO_EMAIL_PUBLISHED,
-            SCHEDULED,
-            SCHEDULED_AB,
-            SCHEDULED_OR_PUBLISHED,
-            AUTOMATED_AB,
-            AUTOMATED_AB_VARIANT,
-            AUTOMATED_DRAFT_AB,
-            AUTOMATED_DRAFT_ABVARIANT,
-            AUTOMATED_LOSER_ABVARIANT,
-            AGENT_GENERATED,
-        }
-
-        /**
-         * An enum containing [State]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [State] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            AUTOMATED,
-            AUTOMATED_DRAFT,
-            AUTOMATED_SENDING,
-            AUTOMATED_FOR_FORM,
-            AUTOMATED_FOR_FORM_BUFFER,
-            AUTOMATED_FOR_FORM_DRAFT,
-            AUTOMATED_FOR_FORM_LEGACY,
-            BLOG_EMAIL_DRAFT,
-            BLOG_EMAIL_PUBLISHED,
-            DRAFT,
-            DRAFT_AB,
-            DRAFT_AB_VARIANT,
-            ERROR,
-            LOSER_AB_VARIANT,
-            PAGE_STUB,
-            PRE_PROCESSING,
-            PROCESSING,
-            PUBLISHED,
-            PUBLISHED_AB,
-            PUBLISHED_AB_VARIANT,
-            PUBLISHED_OR_SCHEDULED,
-            RSS_TO_EMAIL_DRAFT,
-            RSS_TO_EMAIL_PUBLISHED,
-            SCHEDULED,
-            SCHEDULED_AB,
-            SCHEDULED_OR_PUBLISHED,
-            AUTOMATED_AB,
-            AUTOMATED_AB_VARIANT,
-            AUTOMATED_DRAFT_AB,
-            AUTOMATED_DRAFT_ABVARIANT,
-            AUTOMATED_LOSER_ABVARIANT,
-            AGENT_GENERATED,
-            /** An enum member indicating that [State] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                AUTOMATED -> Value.AUTOMATED
-                AUTOMATED_DRAFT -> Value.AUTOMATED_DRAFT
-                AUTOMATED_SENDING -> Value.AUTOMATED_SENDING
-                AUTOMATED_FOR_FORM -> Value.AUTOMATED_FOR_FORM
-                AUTOMATED_FOR_FORM_BUFFER -> Value.AUTOMATED_FOR_FORM_BUFFER
-                AUTOMATED_FOR_FORM_DRAFT -> Value.AUTOMATED_FOR_FORM_DRAFT
-                AUTOMATED_FOR_FORM_LEGACY -> Value.AUTOMATED_FOR_FORM_LEGACY
-                BLOG_EMAIL_DRAFT -> Value.BLOG_EMAIL_DRAFT
-                BLOG_EMAIL_PUBLISHED -> Value.BLOG_EMAIL_PUBLISHED
-                DRAFT -> Value.DRAFT
-                DRAFT_AB -> Value.DRAFT_AB
-                DRAFT_AB_VARIANT -> Value.DRAFT_AB_VARIANT
-                ERROR -> Value.ERROR
-                LOSER_AB_VARIANT -> Value.LOSER_AB_VARIANT
-                PAGE_STUB -> Value.PAGE_STUB
-                PRE_PROCESSING -> Value.PRE_PROCESSING
-                PROCESSING -> Value.PROCESSING
-                PUBLISHED -> Value.PUBLISHED
-                PUBLISHED_AB -> Value.PUBLISHED_AB
-                PUBLISHED_AB_VARIANT -> Value.PUBLISHED_AB_VARIANT
-                PUBLISHED_OR_SCHEDULED -> Value.PUBLISHED_OR_SCHEDULED
-                RSS_TO_EMAIL_DRAFT -> Value.RSS_TO_EMAIL_DRAFT
-                RSS_TO_EMAIL_PUBLISHED -> Value.RSS_TO_EMAIL_PUBLISHED
-                SCHEDULED -> Value.SCHEDULED
-                SCHEDULED_AB -> Value.SCHEDULED_AB
-                SCHEDULED_OR_PUBLISHED -> Value.SCHEDULED_OR_PUBLISHED
-                AUTOMATED_AB -> Value.AUTOMATED_AB
-                AUTOMATED_AB_VARIANT -> Value.AUTOMATED_AB_VARIANT
-                AUTOMATED_DRAFT_AB -> Value.AUTOMATED_DRAFT_AB
-                AUTOMATED_DRAFT_ABVARIANT -> Value.AUTOMATED_DRAFT_ABVARIANT
-                AUTOMATED_LOSER_ABVARIANT -> Value.AUTOMATED_LOSER_ABVARIANT
-                AGENT_GENERATED -> Value.AGENT_GENERATED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                AUTOMATED -> Known.AUTOMATED
-                AUTOMATED_DRAFT -> Known.AUTOMATED_DRAFT
-                AUTOMATED_SENDING -> Known.AUTOMATED_SENDING
-                AUTOMATED_FOR_FORM -> Known.AUTOMATED_FOR_FORM
-                AUTOMATED_FOR_FORM_BUFFER -> Known.AUTOMATED_FOR_FORM_BUFFER
-                AUTOMATED_FOR_FORM_DRAFT -> Known.AUTOMATED_FOR_FORM_DRAFT
-                AUTOMATED_FOR_FORM_LEGACY -> Known.AUTOMATED_FOR_FORM_LEGACY
-                BLOG_EMAIL_DRAFT -> Known.BLOG_EMAIL_DRAFT
-                BLOG_EMAIL_PUBLISHED -> Known.BLOG_EMAIL_PUBLISHED
-                DRAFT -> Known.DRAFT
-                DRAFT_AB -> Known.DRAFT_AB
-                DRAFT_AB_VARIANT -> Known.DRAFT_AB_VARIANT
-                ERROR -> Known.ERROR
-                LOSER_AB_VARIANT -> Known.LOSER_AB_VARIANT
-                PAGE_STUB -> Known.PAGE_STUB
-                PRE_PROCESSING -> Known.PRE_PROCESSING
-                PROCESSING -> Known.PROCESSING
-                PUBLISHED -> Known.PUBLISHED
-                PUBLISHED_AB -> Known.PUBLISHED_AB
-                PUBLISHED_AB_VARIANT -> Known.PUBLISHED_AB_VARIANT
-                PUBLISHED_OR_SCHEDULED -> Known.PUBLISHED_OR_SCHEDULED
-                RSS_TO_EMAIL_DRAFT -> Known.RSS_TO_EMAIL_DRAFT
-                RSS_TO_EMAIL_PUBLISHED -> Known.RSS_TO_EMAIL_PUBLISHED
-                SCHEDULED -> Known.SCHEDULED
-                SCHEDULED_AB -> Known.SCHEDULED_AB
-                SCHEDULED_OR_PUBLISHED -> Known.SCHEDULED_OR_PUBLISHED
-                AUTOMATED_AB -> Known.AUTOMATED_AB
-                AUTOMATED_AB_VARIANT -> Known.AUTOMATED_AB_VARIANT
-                AUTOMATED_DRAFT_AB -> Known.AUTOMATED_DRAFT_AB
-                AUTOMATED_DRAFT_ABVARIANT -> Known.AUTOMATED_DRAFT_ABVARIANT
-                AUTOMATED_LOSER_ABVARIANT -> Known.AUTOMATED_LOSER_ABVARIANT
-                AGENT_GENERATED -> Known.AGENT_GENERATED
-                else -> throw HubspotInvalidDataException("Unknown State: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
-
-        private var validated: Boolean = false
-
-        fun validate(): State = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: HubspotInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is State && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     class EmailTemplateMode @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
@@ -7356,6 +7034,312 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The email state. */
+    class State @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            @JvmField val AUTOMATED = of("AUTOMATED")
+
+            @JvmField val AUTOMATED_DRAFT = of("AUTOMATED_DRAFT")
+
+            @JvmField val AUTOMATED_SENDING = of("AUTOMATED_SENDING")
+
+            @JvmField val AUTOMATED_FOR_FORM = of("AUTOMATED_FOR_FORM")
+
+            @JvmField val AUTOMATED_FOR_FORM_BUFFER = of("AUTOMATED_FOR_FORM_BUFFER")
+
+            @JvmField val AUTOMATED_FOR_FORM_DRAFT = of("AUTOMATED_FOR_FORM_DRAFT")
+
+            @JvmField val AUTOMATED_FOR_FORM_LEGACY = of("AUTOMATED_FOR_FORM_LEGACY")
+
+            @JvmField val BLOG_EMAIL_DRAFT = of("BLOG_EMAIL_DRAFT")
+
+            @JvmField val BLOG_EMAIL_PUBLISHED = of("BLOG_EMAIL_PUBLISHED")
+
+            @JvmField val DRAFT = of("DRAFT")
+
+            @JvmField val DRAFT_AB = of("DRAFT_AB")
+
+            @JvmField val DRAFT_AB_VARIANT = of("DRAFT_AB_VARIANT")
+
+            @JvmField val ERROR = of("ERROR")
+
+            @JvmField val LOSER_AB_VARIANT = of("LOSER_AB_VARIANT")
+
+            @JvmField val PAGE_STUB = of("PAGE_STUB")
+
+            @JvmField val PRE_PROCESSING = of("PRE_PROCESSING")
+
+            @JvmField val PROCESSING = of("PROCESSING")
+
+            @JvmField val PUBLISHED = of("PUBLISHED")
+
+            @JvmField val PUBLISHED_AB = of("PUBLISHED_AB")
+
+            @JvmField val PUBLISHED_AB_VARIANT = of("PUBLISHED_AB_VARIANT")
+
+            @JvmField val PUBLISHED_OR_SCHEDULED = of("PUBLISHED_OR_SCHEDULED")
+
+            @JvmField val RSS_TO_EMAIL_DRAFT = of("RSS_TO_EMAIL_DRAFT")
+
+            @JvmField val RSS_TO_EMAIL_PUBLISHED = of("RSS_TO_EMAIL_PUBLISHED")
+
+            @JvmField val SCHEDULED = of("SCHEDULED")
+
+            @JvmField val SCHEDULED_AB = of("SCHEDULED_AB")
+
+            @JvmField val SCHEDULED_OR_PUBLISHED = of("SCHEDULED_OR_PUBLISHED")
+
+            @JvmField val AUTOMATED_AB = of("AUTOMATED_AB")
+
+            @JvmField val AUTOMATED_AB_VARIANT = of("AUTOMATED_AB_VARIANT")
+
+            @JvmField val AUTOMATED_DRAFT_AB = of("AUTOMATED_DRAFT_AB")
+
+            @JvmField val AUTOMATED_DRAFT_ABVARIANT = of("AUTOMATED_DRAFT_ABVARIANT")
+
+            @JvmField val AUTOMATED_LOSER_ABVARIANT = of("AUTOMATED_LOSER_ABVARIANT")
+
+            @JvmField val AGENT_GENERATED = of("AGENT_GENERATED")
+
+            @JvmStatic fun of(value: String) = State(JsonField.of(value))
+        }
+
+        /** An enum containing [State]'s known values. */
+        enum class Known {
+            AUTOMATED,
+            AUTOMATED_DRAFT,
+            AUTOMATED_SENDING,
+            AUTOMATED_FOR_FORM,
+            AUTOMATED_FOR_FORM_BUFFER,
+            AUTOMATED_FOR_FORM_DRAFT,
+            AUTOMATED_FOR_FORM_LEGACY,
+            BLOG_EMAIL_DRAFT,
+            BLOG_EMAIL_PUBLISHED,
+            DRAFT,
+            DRAFT_AB,
+            DRAFT_AB_VARIANT,
+            ERROR,
+            LOSER_AB_VARIANT,
+            PAGE_STUB,
+            PRE_PROCESSING,
+            PROCESSING,
+            PUBLISHED,
+            PUBLISHED_AB,
+            PUBLISHED_AB_VARIANT,
+            PUBLISHED_OR_SCHEDULED,
+            RSS_TO_EMAIL_DRAFT,
+            RSS_TO_EMAIL_PUBLISHED,
+            SCHEDULED,
+            SCHEDULED_AB,
+            SCHEDULED_OR_PUBLISHED,
+            AUTOMATED_AB,
+            AUTOMATED_AB_VARIANT,
+            AUTOMATED_DRAFT_AB,
+            AUTOMATED_DRAFT_ABVARIANT,
+            AUTOMATED_LOSER_ABVARIANT,
+            AGENT_GENERATED,
+        }
+
+        /**
+         * An enum containing [State]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [State] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            AUTOMATED,
+            AUTOMATED_DRAFT,
+            AUTOMATED_SENDING,
+            AUTOMATED_FOR_FORM,
+            AUTOMATED_FOR_FORM_BUFFER,
+            AUTOMATED_FOR_FORM_DRAFT,
+            AUTOMATED_FOR_FORM_LEGACY,
+            BLOG_EMAIL_DRAFT,
+            BLOG_EMAIL_PUBLISHED,
+            DRAFT,
+            DRAFT_AB,
+            DRAFT_AB_VARIANT,
+            ERROR,
+            LOSER_AB_VARIANT,
+            PAGE_STUB,
+            PRE_PROCESSING,
+            PROCESSING,
+            PUBLISHED,
+            PUBLISHED_AB,
+            PUBLISHED_AB_VARIANT,
+            PUBLISHED_OR_SCHEDULED,
+            RSS_TO_EMAIL_DRAFT,
+            RSS_TO_EMAIL_PUBLISHED,
+            SCHEDULED,
+            SCHEDULED_AB,
+            SCHEDULED_OR_PUBLISHED,
+            AUTOMATED_AB,
+            AUTOMATED_AB_VARIANT,
+            AUTOMATED_DRAFT_AB,
+            AUTOMATED_DRAFT_ABVARIANT,
+            AUTOMATED_LOSER_ABVARIANT,
+            AGENT_GENERATED,
+            /** An enum member indicating that [State] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                AUTOMATED -> Value.AUTOMATED
+                AUTOMATED_DRAFT -> Value.AUTOMATED_DRAFT
+                AUTOMATED_SENDING -> Value.AUTOMATED_SENDING
+                AUTOMATED_FOR_FORM -> Value.AUTOMATED_FOR_FORM
+                AUTOMATED_FOR_FORM_BUFFER -> Value.AUTOMATED_FOR_FORM_BUFFER
+                AUTOMATED_FOR_FORM_DRAFT -> Value.AUTOMATED_FOR_FORM_DRAFT
+                AUTOMATED_FOR_FORM_LEGACY -> Value.AUTOMATED_FOR_FORM_LEGACY
+                BLOG_EMAIL_DRAFT -> Value.BLOG_EMAIL_DRAFT
+                BLOG_EMAIL_PUBLISHED -> Value.BLOG_EMAIL_PUBLISHED
+                DRAFT -> Value.DRAFT
+                DRAFT_AB -> Value.DRAFT_AB
+                DRAFT_AB_VARIANT -> Value.DRAFT_AB_VARIANT
+                ERROR -> Value.ERROR
+                LOSER_AB_VARIANT -> Value.LOSER_AB_VARIANT
+                PAGE_STUB -> Value.PAGE_STUB
+                PRE_PROCESSING -> Value.PRE_PROCESSING
+                PROCESSING -> Value.PROCESSING
+                PUBLISHED -> Value.PUBLISHED
+                PUBLISHED_AB -> Value.PUBLISHED_AB
+                PUBLISHED_AB_VARIANT -> Value.PUBLISHED_AB_VARIANT
+                PUBLISHED_OR_SCHEDULED -> Value.PUBLISHED_OR_SCHEDULED
+                RSS_TO_EMAIL_DRAFT -> Value.RSS_TO_EMAIL_DRAFT
+                RSS_TO_EMAIL_PUBLISHED -> Value.RSS_TO_EMAIL_PUBLISHED
+                SCHEDULED -> Value.SCHEDULED
+                SCHEDULED_AB -> Value.SCHEDULED_AB
+                SCHEDULED_OR_PUBLISHED -> Value.SCHEDULED_OR_PUBLISHED
+                AUTOMATED_AB -> Value.AUTOMATED_AB
+                AUTOMATED_AB_VARIANT -> Value.AUTOMATED_AB_VARIANT
+                AUTOMATED_DRAFT_AB -> Value.AUTOMATED_DRAFT_AB
+                AUTOMATED_DRAFT_ABVARIANT -> Value.AUTOMATED_DRAFT_ABVARIANT
+                AUTOMATED_LOSER_ABVARIANT -> Value.AUTOMATED_LOSER_ABVARIANT
+                AGENT_GENERATED -> Value.AGENT_GENERATED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                AUTOMATED -> Known.AUTOMATED
+                AUTOMATED_DRAFT -> Known.AUTOMATED_DRAFT
+                AUTOMATED_SENDING -> Known.AUTOMATED_SENDING
+                AUTOMATED_FOR_FORM -> Known.AUTOMATED_FOR_FORM
+                AUTOMATED_FOR_FORM_BUFFER -> Known.AUTOMATED_FOR_FORM_BUFFER
+                AUTOMATED_FOR_FORM_DRAFT -> Known.AUTOMATED_FOR_FORM_DRAFT
+                AUTOMATED_FOR_FORM_LEGACY -> Known.AUTOMATED_FOR_FORM_LEGACY
+                BLOG_EMAIL_DRAFT -> Known.BLOG_EMAIL_DRAFT
+                BLOG_EMAIL_PUBLISHED -> Known.BLOG_EMAIL_PUBLISHED
+                DRAFT -> Known.DRAFT
+                DRAFT_AB -> Known.DRAFT_AB
+                DRAFT_AB_VARIANT -> Known.DRAFT_AB_VARIANT
+                ERROR -> Known.ERROR
+                LOSER_AB_VARIANT -> Known.LOSER_AB_VARIANT
+                PAGE_STUB -> Known.PAGE_STUB
+                PRE_PROCESSING -> Known.PRE_PROCESSING
+                PROCESSING -> Known.PROCESSING
+                PUBLISHED -> Known.PUBLISHED
+                PUBLISHED_AB -> Known.PUBLISHED_AB
+                PUBLISHED_AB_VARIANT -> Known.PUBLISHED_AB_VARIANT
+                PUBLISHED_OR_SCHEDULED -> Known.PUBLISHED_OR_SCHEDULED
+                RSS_TO_EMAIL_DRAFT -> Known.RSS_TO_EMAIL_DRAFT
+                RSS_TO_EMAIL_PUBLISHED -> Known.RSS_TO_EMAIL_PUBLISHED
+                SCHEDULED -> Known.SCHEDULED
+                SCHEDULED_AB -> Known.SCHEDULED_AB
+                SCHEDULED_OR_PUBLISHED -> Known.SCHEDULED_OR_PUBLISHED
+                AUTOMATED_AB -> Known.AUTOMATED_AB
+                AUTOMATED_AB_VARIANT -> Known.AUTOMATED_AB_VARIANT
+                AUTOMATED_DRAFT_AB -> Known.AUTOMATED_DRAFT_AB
+                AUTOMATED_DRAFT_ABVARIANT -> Known.AUTOMATED_DRAFT_ABVARIANT
+                AUTOMATED_LOSER_ABVARIANT -> Known.AUTOMATED_LOSER_ABVARIANT
+                AGENT_GENERATED -> Known.AGENT_GENERATED
+                else -> throw HubspotInvalidDataException("Unknown State: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+
+        private var validated: Boolean = false
+
+        fun validate(): State = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is State && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** The email type, this is derived from other properties on the email such as subcategory. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -7668,15 +7652,8 @@ private constructor(
         }
 
         return other is PublicEmail &&
+            isAb == other.isAb &&
             id == other.id &&
-            content == other.content &&
-            from == other.from &&
-            name == other.name &&
-            sendOnPublish == other.sendOnPublish &&
-            state == other.state &&
-            subcategory == other.subcategory &&
-            subject == other.subject &&
-            to == other.to &&
             activeDomain == other.activeDomain &&
             allEmailCampaignIds == other.allEmailCampaignIds &&
             archived == other.archived &&
@@ -7685,6 +7662,7 @@ private constructor(
             campaignName == other.campaignName &&
             campaignUtm == other.campaignUtm &&
             clonedFrom == other.clonedFrom &&
+            content == other.content &&
             createdAt == other.createdAt &&
             createdById == other.createdById &&
             deletedAt == other.deletedAt &&
@@ -7693,11 +7671,12 @@ private constructor(
             feedbackSurveyId == other.feedbackSurveyId &&
             folderId == other.folderId &&
             folderIdV2 == other.folderIdV2 &&
-            isAb == other.isAb &&
+            from == other.from &&
             isPublished == other.isPublished &&
             isTransactional == other.isTransactional &&
             jitterSendTime == other.jitterSendTime &&
             language == other.language &&
+            name == other.name &&
             previewKey == other.previewKey &&
             primaryEmailCampaignId == other.primaryEmailCampaignId &&
             publishDate == other.publishDate &&
@@ -7706,10 +7685,15 @@ private constructor(
             publishedById == other.publishedById &&
             publishedByName == other.publishedByName &&
             rssData == other.rssData &&
+            sendOnPublish == other.sendOnPublish &&
+            state == other.state &&
             stats == other.stats &&
+            subcategory == other.subcategory &&
+            subject == other.subject &&
             subscriptionDetails == other.subscriptionDetails &&
             teamsWithAccess == other.teamsWithAccess &&
             testing == other.testing &&
+            to == other.to &&
             type == other.type &&
             unpublishedAt == other.unpublishedAt &&
             updatedAt == other.updatedAt &&
@@ -7722,15 +7706,8 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            isAb,
             id,
-            content,
-            from,
-            name,
-            sendOnPublish,
-            state,
-            subcategory,
-            subject,
-            to,
             activeDomain,
             allEmailCampaignIds,
             archived,
@@ -7739,6 +7716,7 @@ private constructor(
             campaignName,
             campaignUtm,
             clonedFrom,
+            content,
             createdAt,
             createdById,
             deletedAt,
@@ -7747,11 +7725,12 @@ private constructor(
             feedbackSurveyId,
             folderId,
             folderIdV2,
-            isAb,
+            from,
             isPublished,
             isTransactional,
             jitterSendTime,
             language,
+            name,
             previewKey,
             primaryEmailCampaignId,
             publishDate,
@@ -7760,10 +7739,15 @@ private constructor(
             publishedById,
             publishedByName,
             rssData,
+            sendOnPublish,
+            state,
             stats,
+            subcategory,
+            subject,
             subscriptionDetails,
             teamsWithAccess,
             testing,
+            to,
             type,
             unpublishedAt,
             updatedAt,
@@ -7778,5 +7762,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicEmail{id=$id, content=$content, from=$from, name=$name, sendOnPublish=$sendOnPublish, state=$state, subcategory=$subcategory, subject=$subject, to=$to, activeDomain=$activeDomain, allEmailCampaignIds=$allEmailCampaignIds, archived=$archived, businessUnitId=$businessUnitId, campaign=$campaign, campaignName=$campaignName, campaignUtm=$campaignUtm, clonedFrom=$clonedFrom, createdAt=$createdAt, createdById=$createdById, deletedAt=$deletedAt, emailCampaignGroupId=$emailCampaignGroupId, emailTemplateMode=$emailTemplateMode, feedbackSurveyId=$feedbackSurveyId, folderId=$folderId, folderIdV2=$folderIdV2, isAb=$isAb, isPublished=$isPublished, isTransactional=$isTransactional, jitterSendTime=$jitterSendTime, language=$language, previewKey=$previewKey, primaryEmailCampaignId=$primaryEmailCampaignId, publishDate=$publishDate, publishedAt=$publishedAt, publishedByEmail=$publishedByEmail, publishedById=$publishedById, publishedByName=$publishedByName, rssData=$rssData, stats=$stats, subscriptionDetails=$subscriptionDetails, teamsWithAccess=$teamsWithAccess, testing=$testing, type=$type, unpublishedAt=$unpublishedAt, updatedAt=$updatedAt, updatedById=$updatedById, usersWithAccess=$usersWithAccess, webversion=$webversion, workflowNames=$workflowNames, additionalProperties=$additionalProperties}"
+        "PublicEmail{isAb=$isAb, id=$id, activeDomain=$activeDomain, allEmailCampaignIds=$allEmailCampaignIds, archived=$archived, businessUnitId=$businessUnitId, campaign=$campaign, campaignName=$campaignName, campaignUtm=$campaignUtm, clonedFrom=$clonedFrom, content=$content, createdAt=$createdAt, createdById=$createdById, deletedAt=$deletedAt, emailCampaignGroupId=$emailCampaignGroupId, emailTemplateMode=$emailTemplateMode, feedbackSurveyId=$feedbackSurveyId, folderId=$folderId, folderIdV2=$folderIdV2, from=$from, isPublished=$isPublished, isTransactional=$isTransactional, jitterSendTime=$jitterSendTime, language=$language, name=$name, previewKey=$previewKey, primaryEmailCampaignId=$primaryEmailCampaignId, publishDate=$publishDate, publishedAt=$publishedAt, publishedByEmail=$publishedByEmail, publishedById=$publishedById, publishedByName=$publishedByName, rssData=$rssData, sendOnPublish=$sendOnPublish, state=$state, stats=$stats, subcategory=$subcategory, subject=$subject, subscriptionDetails=$subscriptionDetails, teamsWithAccess=$teamsWithAccess, testing=$testing, to=$to, type=$type, unpublishedAt=$unpublishedAt, updatedAt=$updatedAt, updatedById=$updatedById, usersWithAccess=$usersWithAccess, webversion=$webversion, workflowNames=$workflowNames, additionalProperties=$additionalProperties}"
 }

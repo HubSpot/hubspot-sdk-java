@@ -11,7 +11,7 @@ internal class IntegratorSettingCreateObjectDefinitionParamsTest {
     @Test
     fun create() {
         IntegratorSettingCreateObjectDefinitionParams.builder()
-            .appId("appId")
+            .appId(0)
             .integratorObjectCreationRequest(
                 IntegratorObjectCreationRequest.builder()
                     .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
@@ -24,7 +24,7 @@ internal class IntegratorSettingCreateObjectDefinitionParamsTest {
     fun pathParams() {
         val params =
             IntegratorSettingCreateObjectDefinitionParams.builder()
-                .appId("appId")
+                .appId(0)
                 .integratorObjectCreationRequest(
                     IntegratorObjectCreationRequest.builder()
                         .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
@@ -32,7 +32,7 @@ internal class IntegratorSettingCreateObjectDefinitionParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -41,7 +41,7 @@ internal class IntegratorSettingCreateObjectDefinitionParamsTest {
     fun body() {
         val params =
             IntegratorSettingCreateObjectDefinitionParams.builder()
-                .appId("appId")
+                .appId(0)
                 .integratorObjectCreationRequest(
                     IntegratorObjectCreationRequest.builder()
                         .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)

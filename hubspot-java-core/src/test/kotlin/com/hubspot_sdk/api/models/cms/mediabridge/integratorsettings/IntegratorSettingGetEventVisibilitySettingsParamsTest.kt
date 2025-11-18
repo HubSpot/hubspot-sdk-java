@@ -9,15 +9,14 @@ internal class IntegratorSettingGetEventVisibilitySettingsParamsTest {
 
     @Test
     fun create() {
-        IntegratorSettingGetEventVisibilitySettingsParams.builder().appId("appId").build()
+        IntegratorSettingGetEventVisibilitySettingsParams.builder().appId(0).build()
     }
 
     @Test
     fun pathParams() {
-        val params =
-            IntegratorSettingGetEventVisibilitySettingsParams.builder().appId("appId").build()
+        val params = IntegratorSettingGetEventVisibilitySettingsParams.builder().appId(0).build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

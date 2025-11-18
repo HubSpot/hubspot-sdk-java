@@ -16,15 +16,19 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ChannelAccountGetParams
 private constructor(
-    private val channelId: String,
-    private val channelAccountId: String?,
+    private val channelId: Int,
+    private val channelAccountId: Long?,
+    private val archived: Boolean?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): String = channelId
+    fun channelId(): Int = channelId
 
-    fun channelAccountId(): Optional<String> = Optional.ofNullable(channelAccountId)
+    fun channelAccountId(): Optional<Long> = Optional.ofNullable(channelAccountId)
+
+    /** Filter results to include only archived or non-archived channel accounts. */
+    fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -50,8 +54,9 @@ private constructor(
     /** A builder for [ChannelAccountGetParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
-        private var channelAccountId: String? = null
+        private var channelId: Int? = null
+        private var channelAccountId: Long? = null
+        private var archived: Boolean? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -59,19 +64,40 @@ private constructor(
         internal fun from(channelAccountGetParams: ChannelAccountGetParams) = apply {
             channelId = channelAccountGetParams.channelId
             channelAccountId = channelAccountGetParams.channelAccountId
+            archived = channelAccountGetParams.archived
             additionalHeaders = channelAccountGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = channelAccountGetParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int) = apply { this.channelId = channelId }
 
-        fun channelAccountId(channelAccountId: String?) = apply {
+        fun channelAccountId(channelAccountId: Long?) = apply {
             this.channelAccountId = channelAccountId
         }
 
+        /**
+         * Alias for [Builder.channelAccountId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun channelAccountId(channelAccountId: Long) = channelAccountId(channelAccountId as Long?)
+
         /** Alias for calling [Builder.channelAccountId] with `channelAccountId.orElse(null)`. */
-        fun channelAccountId(channelAccountId: Optional<String>) =
+        fun channelAccountId(channelAccountId: Optional<Long>) =
             channelAccountId(channelAccountId.getOrNull())
+
+        /** Filter results to include only archived or non-archived channel accounts. */
+        fun archived(archived: Boolean?) = apply { this.archived = archived }
+
+        /**
+         * Alias for [Builder.archived].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun archived(archived: Boolean) = archived(archived as Boolean?)
+
+        /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
+        fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -187,6 +213,7 @@ private constructor(
             ChannelAccountGetParams(
                 checkRequired("channelId", channelId),
                 channelAccountId,
+                archived,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -194,14 +221,20 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId
-            1 -> channelAccountId ?: ""
+            0 -> channelId.toString()
+            1 -> channelAccountId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                archived?.let { put("archived", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -211,13 +244,20 @@ private constructor(
         return other is ChannelAccountGetParams &&
             channelId == other.channelId &&
             channelAccountId == other.channelAccountId &&
+            archived == other.archived &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(channelId, channelAccountId, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            channelId,
+            channelAccountId,
+            archived,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "ChannelAccountGetParams{channelId=$channelId, channelAccountId=$channelAccountId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ChannelAccountGetParams{channelId=$channelId, channelAccountId=$channelAccountId, archived=$archived, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

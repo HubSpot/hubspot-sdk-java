@@ -36,12 +36,18 @@ private constructor(
     ) : this(ruleArguments, ruleType, mutableMapOf())
 
     /**
+     * A list of arguments that define the specific conditions or parameters for the validation
+     * rule.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun ruleArguments(): List<String> = ruleArguments.getRequired("ruleArguments")
 
     /**
+     * The category of validation applied to the property, such as FORMAT, ALPHANUMERIC, or
+     * MAX_LENGTH.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -103,6 +109,10 @@ private constructor(
             additionalProperties = publicPropertyValidationRule.additionalProperties.toMutableMap()
         }
 
+        /**
+         * A list of arguments that define the specific conditions or parameters for the validation
+         * rule.
+         */
         fun ruleArguments(ruleArguments: List<String>) = ruleArguments(JsonField.of(ruleArguments))
 
         /**
@@ -128,6 +138,10 @@ private constructor(
                 }
         }
 
+        /**
+         * The category of validation applied to the property, such as FORMAT, ALPHANUMERIC, or
+         * MAX_LENGTH.
+         */
         fun ruleType(ruleType: RuleType) = ruleType(JsonField.of(ruleType))
 
         /**
@@ -209,6 +223,10 @@ private constructor(
         (ruleArguments.asKnown().getOrNull()?.size ?: 0) +
             (ruleType.asKnown().getOrNull()?.validity() ?: 0)
 
+    /**
+     * The category of validation applied to the property, such as FORMAT, ALPHANUMERIC, or
+     * MAX_LENGTH.
+     */
     class RuleType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

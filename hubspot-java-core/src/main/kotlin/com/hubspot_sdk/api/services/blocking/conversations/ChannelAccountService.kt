@@ -6,9 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountGetParams
+import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountListPage
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountListParams
 import java.util.function.Consumer
 
@@ -27,60 +27,53 @@ interface ChannelAccountService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChannelAccountService
 
     /** Retrieve a list of channel accounts, with optional filters and sorting. */
-    fun list(): CollectionResponseWithTotalPublicChannelAccountForwardPaging =
-        list(ChannelAccountListParams.none())
+    fun list(): ChannelAccountListPage = list(ChannelAccountListParams.none())
 
     /** @see list */
     fun list(
         params: ChannelAccountListParams = ChannelAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalPublicChannelAccountForwardPaging
+    ): ChannelAccountListPage
 
     /** @see list */
     fun list(
         params: ChannelAccountListParams = ChannelAccountListParams.none()
-    ): CollectionResponseWithTotalPublicChannelAccountForwardPaging =
-        list(params, RequestOptions.none())
+    ): ChannelAccountListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CollectionResponseWithTotalPublicChannelAccountForwardPaging =
+    fun list(requestOptions: RequestOptions): ChannelAccountListPage =
         list(ChannelAccountListParams.none(), requestOptions)
 
     /** Retrieve details of a single channel account using the channel account ID. */
-    fun get(channelAccountId: String): ConversationsPublicChannelAccount =
+    fun get(channelAccountId: Long): PublicChannelAccount =
         get(channelAccountId, ChannelAccountGetParams.none())
 
     /** @see get */
     fun get(
-        channelAccountId: String,
+        channelAccountId: Long,
         params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConversationsPublicChannelAccount =
+    ): PublicChannelAccount =
         get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
     /** @see get */
     fun get(
-        channelAccountId: String,
+        channelAccountId: Long,
         params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
-    ): ConversationsPublicChannelAccount = get(channelAccountId, params, RequestOptions.none())
+    ): PublicChannelAccount = get(channelAccountId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ConversationsPublicChannelAccount
+    ): PublicChannelAccount
 
     /** @see get */
-    fun get(params: ChannelAccountGetParams): ConversationsPublicChannelAccount =
+    fun get(params: ChannelAccountGetParams): PublicChannelAccount =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        channelAccountId: String,
-        requestOptions: RequestOptions,
-    ): ConversationsPublicChannelAccount =
+    fun get(channelAccountId: Long, requestOptions: RequestOptions): PublicChannelAccount =
         get(channelAccountId, ChannelAccountGetParams.none(), requestOptions)
 
     /**
@@ -102,28 +95,24 @@ interface ChannelAccountService {
          * but is otherwise the same as [ChannelAccountService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
-            list(ChannelAccountListParams.none())
+        fun list(): HttpResponseFor<ChannelAccountListPage> = list(ChannelAccountListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ChannelAccountListParams = ChannelAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
+        ): HttpResponseFor<ChannelAccountListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ChannelAccountListParams = ChannelAccountListParams.none()
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<ChannelAccountListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ChannelAccountListPage> =
             list(ChannelAccountListParams.none(), requestOptions)
 
         /**
@@ -132,24 +121,24 @@ interface ChannelAccountService {
          * the same as [ChannelAccountService.get].
          */
         @MustBeClosed
-        fun get(channelAccountId: String): HttpResponseFor<ConversationsPublicChannelAccount> =
+        fun get(channelAccountId: Long): HttpResponseFor<PublicChannelAccount> =
             get(channelAccountId, ChannelAccountGetParams.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            channelAccountId: String,
+            channelAccountId: Long,
             params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConversationsPublicChannelAccount> =
+        ): HttpResponseFor<PublicChannelAccount> =
             get(params.toBuilder().channelAccountId(channelAccountId).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
         fun get(
-            channelAccountId: String,
+            channelAccountId: Long,
             params: ChannelAccountGetParams = ChannelAccountGetParams.none(),
-        ): HttpResponseFor<ConversationsPublicChannelAccount> =
+        ): HttpResponseFor<PublicChannelAccount> =
             get(channelAccountId, params, RequestOptions.none())
 
         /** @see get */
@@ -157,20 +146,19 @@ interface ChannelAccountService {
         fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ConversationsPublicChannelAccount>
+        ): HttpResponseFor<PublicChannelAccount>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: ChannelAccountGetParams): HttpResponseFor<PublicChannelAccount> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            params: ChannelAccountGetParams
-        ): HttpResponseFor<ConversationsPublicChannelAccount> = get(params, RequestOptions.none())
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            channelAccountId: String,
+            channelAccountId: Long,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConversationsPublicChannelAccount> =
+        ): HttpResponseFor<PublicChannelAccount> =
             get(channelAccountId, ChannelAccountGetParams.none(), requestOptions)
     }
 }

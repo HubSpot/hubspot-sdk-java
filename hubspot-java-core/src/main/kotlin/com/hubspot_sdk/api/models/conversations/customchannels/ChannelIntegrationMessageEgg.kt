@@ -37,7 +37,6 @@ class ChannelIntegrationMessageEgg
 private constructor(
     private val attachments: JsonField<List<Attachment>>,
     private val channelAccountId: JsonField<String>,
-    private val integrationThreadId: JsonField<String>,
     private val messageDirection: JsonField<MessageDirection>,
     private val recipients: JsonField<List<ChannelIntegrationParticipant>>,
     private val senders: JsonField<List<ChannelIntegrationParticipant>>,
@@ -45,6 +44,7 @@ private constructor(
     private val timestamp: JsonField<OffsetDateTime>,
     private val inReplyToId: JsonField<String>,
     private val integrationIdempotencyId: JsonField<String>,
+    private val integrationThreadId: JsonField<String>,
     private val preResolvedContacts: JsonField<PreResolvedContacts>,
     private val richText: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -58,9 +58,6 @@ private constructor(
         @JsonProperty("channelAccountId")
         @ExcludeMissing
         channelAccountId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("integrationThreadId")
-        @ExcludeMissing
-        integrationThreadId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("messageDirection")
         @ExcludeMissing
         messageDirection: JsonField<MessageDirection> = JsonMissing.of(),
@@ -80,6 +77,9 @@ private constructor(
         @JsonProperty("integrationIdempotencyId")
         @ExcludeMissing
         integrationIdempotencyId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("integrationThreadId")
+        @ExcludeMissing
+        integrationThreadId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("preResolvedContacts")
         @ExcludeMissing
         preResolvedContacts: JsonField<PreResolvedContacts> = JsonMissing.of(),
@@ -87,7 +87,6 @@ private constructor(
     ) : this(
         attachments,
         channelAccountId,
-        integrationThreadId,
         messageDirection,
         recipients,
         senders,
@@ -95,6 +94,7 @@ private constructor(
         timestamp,
         inReplyToId,
         integrationIdempotencyId,
+        integrationThreadId,
         preResolvedContacts,
         richText,
         mutableMapOf(),
@@ -111,12 +111,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun channelAccountId(): String = channelAccountId.getRequired("channelAccountId")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun integrationThreadId(): String = integrationThreadId.getRequired("integrationThreadId")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -165,6 +159,13 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
+    fun integrationThreadId(): Optional<String> =
+        integrationThreadId.getOptional("integrationThreadId")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
     fun preResolvedContacts(): Optional<PreResolvedContacts> =
         preResolvedContacts.getOptional("preResolvedContacts")
 
@@ -192,16 +193,6 @@ private constructor(
     @JsonProperty("channelAccountId")
     @ExcludeMissing
     fun _channelAccountId(): JsonField<String> = channelAccountId
-
-    /**
-     * Returns the raw JSON value of [integrationThreadId].
-     *
-     * Unlike [integrationThreadId], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("integrationThreadId")
-    @ExcludeMissing
-    fun _integrationThreadId(): JsonField<String> = integrationThreadId
 
     /**
      * Returns the raw JSON value of [messageDirection].
@@ -265,6 +256,16 @@ private constructor(
     fun _integrationIdempotencyId(): JsonField<String> = integrationIdempotencyId
 
     /**
+     * Returns the raw JSON value of [integrationThreadId].
+     *
+     * Unlike [integrationThreadId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("integrationThreadId")
+    @ExcludeMissing
+    fun _integrationThreadId(): JsonField<String> = integrationThreadId
+
+    /**
      * Returns the raw JSON value of [preResolvedContacts].
      *
      * Unlike [preResolvedContacts], this method doesn't throw if the JSON field has an unexpected
@@ -302,7 +303,6 @@ private constructor(
          * ```java
          * .attachments()
          * .channelAccountId()
-         * .integrationThreadId()
          * .messageDirection()
          * .recipients()
          * .senders()
@@ -318,7 +318,6 @@ private constructor(
 
         private var attachments: JsonField<MutableList<Attachment>>? = null
         private var channelAccountId: JsonField<String>? = null
-        private var integrationThreadId: JsonField<String>? = null
         private var messageDirection: JsonField<MessageDirection>? = null
         private var recipients: JsonField<MutableList<ChannelIntegrationParticipant>>? = null
         private var senders: JsonField<MutableList<ChannelIntegrationParticipant>>? = null
@@ -326,6 +325,7 @@ private constructor(
         private var timestamp: JsonField<OffsetDateTime>? = null
         private var inReplyToId: JsonField<String> = JsonMissing.of()
         private var integrationIdempotencyId: JsonField<String> = JsonMissing.of()
+        private var integrationThreadId: JsonField<String> = JsonMissing.of()
         private var preResolvedContacts: JsonField<PreResolvedContacts> = JsonMissing.of()
         private var richText: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -334,7 +334,6 @@ private constructor(
         internal fun from(channelIntegrationMessageEgg: ChannelIntegrationMessageEgg) = apply {
             attachments = channelIntegrationMessageEgg.attachments.map { it.toMutableList() }
             channelAccountId = channelIntegrationMessageEgg.channelAccountId
-            integrationThreadId = channelIntegrationMessageEgg.integrationThreadId
             messageDirection = channelIntegrationMessageEgg.messageDirection
             recipients = channelIntegrationMessageEgg.recipients.map { it.toMutableList() }
             senders = channelIntegrationMessageEgg.senders.map { it.toMutableList() }
@@ -342,6 +341,7 @@ private constructor(
             timestamp = channelIntegrationMessageEgg.timestamp
             inReplyToId = channelIntegrationMessageEgg.inReplyToId
             integrationIdempotencyId = channelIntegrationMessageEgg.integrationIdempotencyId
+            integrationThreadId = channelIntegrationMessageEgg.integrationThreadId
             preResolvedContacts = channelIntegrationMessageEgg.preResolvedContacts
             richText = channelIntegrationMessageEgg.richText
             additionalProperties = channelIntegrationMessageEgg.additionalProperties.toMutableMap()
@@ -416,20 +416,6 @@ private constructor(
          */
         fun channelAccountId(channelAccountId: JsonField<String>) = apply {
             this.channelAccountId = channelAccountId
-        }
-
-        fun integrationThreadId(integrationThreadId: String) =
-            integrationThreadId(JsonField.of(integrationThreadId))
-
-        /**
-         * Sets [Builder.integrationThreadId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.integrationThreadId] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun integrationThreadId(integrationThreadId: JsonField<String>) = apply {
-            this.integrationThreadId = integrationThreadId
         }
 
         fun messageDirection(messageDirection: MessageDirection) =
@@ -543,6 +529,20 @@ private constructor(
             this.integrationIdempotencyId = integrationIdempotencyId
         }
 
+        fun integrationThreadId(integrationThreadId: String) =
+            integrationThreadId(JsonField.of(integrationThreadId))
+
+        /**
+         * Sets [Builder.integrationThreadId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.integrationThreadId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun integrationThreadId(integrationThreadId: JsonField<String>) = apply {
+            this.integrationThreadId = integrationThreadId
+        }
+
         fun preResolvedContacts(preResolvedContacts: PreResolvedContacts) =
             preResolvedContacts(JsonField.of(preResolvedContacts))
 
@@ -595,7 +595,6 @@ private constructor(
          * ```java
          * .attachments()
          * .channelAccountId()
-         * .integrationThreadId()
          * .messageDirection()
          * .recipients()
          * .senders()
@@ -609,7 +608,6 @@ private constructor(
             ChannelIntegrationMessageEgg(
                 checkRequired("attachments", attachments).map { it.toImmutable() },
                 checkRequired("channelAccountId", channelAccountId),
-                checkRequired("integrationThreadId", integrationThreadId),
                 checkRequired("messageDirection", messageDirection),
                 checkRequired("recipients", recipients).map { it.toImmutable() },
                 checkRequired("senders", senders).map { it.toImmutable() },
@@ -617,6 +615,7 @@ private constructor(
                 checkRequired("timestamp", timestamp),
                 inReplyToId,
                 integrationIdempotencyId,
+                integrationThreadId,
                 preResolvedContacts,
                 richText,
                 additionalProperties.toMutableMap(),
@@ -632,7 +631,6 @@ private constructor(
 
         attachments().forEach { it.validate() }
         channelAccountId()
-        integrationThreadId()
         messageDirection().validate()
         recipients().forEach { it.validate() }
         senders().forEach { it.validate() }
@@ -640,6 +638,7 @@ private constructor(
         timestamp()
         inReplyToId()
         integrationIdempotencyId()
+        integrationThreadId()
         preResolvedContacts().ifPresent { it.validate() }
         richText()
         validated = true
@@ -662,7 +661,6 @@ private constructor(
     internal fun validity(): Int =
         (attachments.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (channelAccountId.asKnown().isPresent) 1 else 0) +
-            (if (integrationThreadId.asKnown().isPresent) 1 else 0) +
             (messageDirection.asKnown().getOrNull()?.validity() ?: 0) +
             (recipients.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (senders.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -670,6 +668,7 @@ private constructor(
             (if (timestamp.asKnown().isPresent) 1 else 0) +
             (if (inReplyToId.asKnown().isPresent) 1 else 0) +
             (if (integrationIdempotencyId.asKnown().isPresent) 1 else 0) +
+            (if (integrationThreadId.asKnown().isPresent) 1 else 0) +
             (preResolvedContacts.asKnown().getOrNull()?.validity() ?: 0) +
             (if (richText.asKnown().isPresent) 1 else 0)
 
@@ -1145,7 +1144,6 @@ private constructor(
         return other is ChannelIntegrationMessageEgg &&
             attachments == other.attachments &&
             channelAccountId == other.channelAccountId &&
-            integrationThreadId == other.integrationThreadId &&
             messageDirection == other.messageDirection &&
             recipients == other.recipients &&
             senders == other.senders &&
@@ -1153,6 +1151,7 @@ private constructor(
             timestamp == other.timestamp &&
             inReplyToId == other.inReplyToId &&
             integrationIdempotencyId == other.integrationIdempotencyId &&
+            integrationThreadId == other.integrationThreadId &&
             preResolvedContacts == other.preResolvedContacts &&
             richText == other.richText &&
             additionalProperties == other.additionalProperties
@@ -1162,7 +1161,6 @@ private constructor(
         Objects.hash(
             attachments,
             channelAccountId,
-            integrationThreadId,
             messageDirection,
             recipients,
             senders,
@@ -1170,6 +1168,7 @@ private constructor(
             timestamp,
             inReplyToId,
             integrationIdempotencyId,
+            integrationThreadId,
             preResolvedContacts,
             richText,
             additionalProperties,
@@ -1179,5 +1178,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChannelIntegrationMessageEgg{attachments=$attachments, channelAccountId=$channelAccountId, integrationThreadId=$integrationThreadId, messageDirection=$messageDirection, recipients=$recipients, senders=$senders, text=$text, timestamp=$timestamp, inReplyToId=$inReplyToId, integrationIdempotencyId=$integrationIdempotencyId, preResolvedContacts=$preResolvedContacts, richText=$richText, additionalProperties=$additionalProperties}"
+        "ChannelIntegrationMessageEgg{attachments=$attachments, channelAccountId=$channelAccountId, messageDirection=$messageDirection, recipients=$recipients, senders=$senders, text=$text, timestamp=$timestamp, inReplyToId=$inReplyToId, integrationIdempotencyId=$integrationIdempotencyId, integrationThreadId=$integrationThreadId, preResolvedContacts=$preResolvedContacts, richText=$richText, additionalProperties=$additionalProperties}"
 }

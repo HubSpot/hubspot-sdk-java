@@ -71,14 +71,14 @@ internal class StageServiceTest {
                     .stageId("stageId")
                     .pipelineStagePatchInput(
                         PipelineStagePatchInput.builder()
-                            .archived(true)
-                            .displayOrder(1)
-                            .label("Done")
                             .metadata(
                                 PipelineStagePatchInput.Metadata.builder()
                                     .putAdditionalProperty("ticketState", JsonValue.from("CLOSED"))
                                     .build()
                             )
+                            .archived(true)
+                            .displayOrder(1)
+                            .label("Done")
                             .build()
                     )
                     .build()

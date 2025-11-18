@@ -11,8 +11,8 @@ internal class ChannelAccountUpdateParamsTest {
     @Test
     fun create() {
         ChannelAccountUpdateParams.builder()
-            .channelId("channelId")
-            .channelAccountId("channelAccountId")
+            .channelId(0)
+            .channelAccountId(0L)
             .publicChannelAccountUpdateRequest(
                 PublicChannelAccountUpdateRequest.builder().authorized(true).name("name").build()
             )
@@ -23,15 +23,15 @@ internal class ChannelAccountUpdateParamsTest {
     fun pathParams() {
         val params =
             ChannelAccountUpdateParams.builder()
-                .channelId("channelId")
-                .channelAccountId("channelAccountId")
+                .channelId(0)
+                .channelAccountId(0L)
                 .publicChannelAccountUpdateRequest(
                     PublicChannelAccountUpdateRequest.builder().build()
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
-        assertThat(params._pathParam(1)).isEqualTo("channelAccountId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
+        assertThat(params._pathParam(1)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
     }
@@ -40,8 +40,8 @@ internal class ChannelAccountUpdateParamsTest {
     fun body() {
         val params =
             ChannelAccountUpdateParams.builder()
-                .channelId("channelId")
-                .channelAccountId("channelAccountId")
+                .channelId(0)
+                .channelAccountId(0L)
                 .publicChannelAccountUpdateRequest(
                     PublicChannelAccountUpdateRequest.builder()
                         .authorized(true)
@@ -62,8 +62,8 @@ internal class ChannelAccountUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ChannelAccountUpdateParams.builder()
-                .channelId("channelId")
-                .channelAccountId("channelAccountId")
+                .channelId(0)
+                .channelAccountId(0L)
                 .publicChannelAccountUpdateRequest(
                     PublicChannelAccountUpdateRequest.builder().build()
                 )

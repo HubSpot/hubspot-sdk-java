@@ -282,7 +282,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -536,7 +536,9 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
         assertThat(collectionResponseWithTotalBlogPostForwardPaging.total()).isEqualTo(0)
         assertThat(collectionResponseWithTotalBlogPostForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -809,7 +811,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                 .total(0)
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

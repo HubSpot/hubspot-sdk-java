@@ -22,6 +22,7 @@ import com.hubspot_sdk.api.models.conversations.PublicMessageContent
 import com.hubspot_sdk.api.models.conversations.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetOriginalContentParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetParams
+import com.hubspot_sdk.api.models.conversations.messages.MessageListPage
 import com.hubspot_sdk.api.models.conversations.messages.MessageListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,10 +46,7 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
         // post /conversations/v3/conversations/threads/{threadId}/messages
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun list(
-        params: MessageListParams,
-        requestOptions: RequestOptions,
-    ): CollectionResponsePublicMessageForwardPaging =
+    override fun list(params: MessageListParams, requestOptions: RequestOptions): MessageListPage =
         // get /conversations/v3/conversations/threads/{threadId}/messages
         withRawResponse().list(params, requestOptions).parse()
 
@@ -121,7 +119,7 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
         override fun list(
             params: MessageListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePublicMessageForwardPaging> {
+        ): HttpResponseFor<MessageListPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("threadId", params.threadId().getOrNull())
@@ -148,6 +146,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        MessageListPage.builder()
+                            .service(MessageServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

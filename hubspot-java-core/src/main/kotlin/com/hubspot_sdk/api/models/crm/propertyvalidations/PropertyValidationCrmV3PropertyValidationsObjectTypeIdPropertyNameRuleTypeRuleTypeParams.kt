@@ -15,6 +15,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update a specific validation rule for a property identified by its name and rule type. */
 class PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
 private constructor(
     private val objectTypeId: String,

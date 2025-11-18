@@ -21,9 +21,9 @@ internal class ChannelServiceTest {
                 .build()
         val channelService = client.conversations().channels()
 
-        val collectionResponseWithTotalPublicChannelForwardPaging = channelService.list()
+        val page = channelService.list()
 
-        collectionResponseWithTotalPublicChannelForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -36,7 +36,7 @@ internal class ChannelServiceTest {
                 .build()
         val channelService = client.conversations().channels()
 
-        val publicChannel = channelService.get("channelId")
+        val publicChannel = channelService.get(0)
 
         publicChannel.validate()
     }

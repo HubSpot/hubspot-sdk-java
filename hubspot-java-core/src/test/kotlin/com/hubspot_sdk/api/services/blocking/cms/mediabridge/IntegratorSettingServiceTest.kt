@@ -11,8 +11,10 @@ import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorObjectCreationReques
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderPartial
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateObjectDefinitionParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingCreateOembedDomainParams
+import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingDeleteOembedDomainParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetObjectDefinitionsByMediaTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingGetOembedDomainParams
+import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingListOembedDomainsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingRegisterAppNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateAppNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.integratorsettings.IntegratorSettingUpdateEventVisibilitySettingsParams
@@ -37,7 +39,7 @@ internal class IntegratorSettingServiceTest {
         val bulkIntegratorObjectCreationResponse =
             integratorSettingService.createObjectDefinition(
                 IntegratorSettingCreateObjectDefinitionParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .integratorObjectCreationRequest(
                         IntegratorObjectCreationRequest.builder()
                             .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
@@ -62,7 +64,7 @@ internal class IntegratorSettingServiceTest {
         val integratorOEmbedDomainModel =
             integratorSettingService.createOembedDomain(
                 IntegratorSettingCreateOembedDomainParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .integratorOEmbedDomainRequest(
                         IntegratorOEmbedDomainRequest.builder()
                             .endpoints(
@@ -91,7 +93,13 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        integratorSettingService.deleteOembedDomain("appId")
+        integratorSettingService.deleteOembedDomain(
+            IntegratorSettingDeleteOembedDomainParams.builder()
+                .appId(0)
+                .id(0L)
+                .domainPortalId(0)
+                .build()
+        )
     }
 
     @Disabled("Prism tests are disabled")
@@ -104,7 +112,7 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val eventVisibilityResponse = integratorSettingService.getEventVisibilitySettings("appId")
+        val eventVisibilityResponse = integratorSettingService.getEventVisibilitySettings(0)
 
         eventVisibilityResponse.validate()
     }
@@ -122,8 +130,11 @@ internal class IntegratorSettingServiceTest {
         val objectDefinitionResponse =
             integratorSettingService.getObjectDefinitionsByMediaType(
                 IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
-                    .appId("appId")
-                    .mediaType("mediaType")
+                    .appId(0)
+                    .mediaType(
+                        IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.VIDEO
+                    )
+                    .includeFullDefinition(true)
                     .build()
             )
 
@@ -143,7 +154,7 @@ internal class IntegratorSettingServiceTest {
         val integratorOEmbedDomainModel =
             integratorSettingService.getOembedDomain(
                 IntegratorSettingGetOembedDomainParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .oEmbedDomainId("oEmbedDomainId")
                     .build()
             )
@@ -161,7 +172,13 @@ internal class IntegratorSettingServiceTest {
                 .build()
         val integratorSettingService = client.cms().mediaBridge().integratorSettings()
 
-        val oEmbedDomainsCollectionResponse = integratorSettingService.listOembedDomains("appId")
+        val oEmbedDomainsCollectionResponse =
+            integratorSettingService.listOembedDomains(
+                IntegratorSettingListOembedDomainsParams.builder()
+                    .appId(0)
+                    .domainPortalId(0)
+                    .build()
+            )
 
         oEmbedDomainsCollectionResponse.validate()
     }
@@ -179,7 +196,7 @@ internal class IntegratorSettingServiceTest {
         val mediaBridgeProviderRegistrationResponse =
             integratorSettingService.registerAppName(
                 IntegratorSettingRegisterAppNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .mediaBridgeProviderPartial(
                         MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
                     )
@@ -202,7 +219,7 @@ internal class IntegratorSettingServiceTest {
         val mediaBridgeProviderRegistrationResponse =
             integratorSettingService.updateAppName(
                 IntegratorSettingUpdateAppNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .mediaBridgeProviderPartial(
                         MediaBridgeProviderPartial.builder().updatedAt(0L).name("name").build()
                     )
@@ -225,7 +242,7 @@ internal class IntegratorSettingServiceTest {
         val eventVisibilityChange =
             integratorSettingService.updateEventVisibilitySettings(
                 IntegratorSettingUpdateEventVisibilitySettingsParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .eventVisibilityChange(
                         EventVisibilityChange.builder()
                             .eventType(EventVisibilityChange.EventType.ALL)
@@ -254,7 +271,7 @@ internal class IntegratorSettingServiceTest {
         val integratorOEmbedDomainModel =
             integratorSettingService.updateOembedDomain(
                 IntegratorSettingUpdateOembedDomainParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .oEmbedDomainId("oEmbedDomainId")
                     .integratorOEmbedDomainRequest(
                         IntegratorOEmbedDomainRequest.builder()

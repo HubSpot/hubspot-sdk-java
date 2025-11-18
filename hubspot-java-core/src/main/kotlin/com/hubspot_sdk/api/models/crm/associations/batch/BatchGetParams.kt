@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * This endpoint allows you to retrieve multiple associations between specified 'from' and 'to'
+ * object types in a single batch request.
+ */
 class BatchGetParams
 private constructor(
     private val fromObjectType: String,

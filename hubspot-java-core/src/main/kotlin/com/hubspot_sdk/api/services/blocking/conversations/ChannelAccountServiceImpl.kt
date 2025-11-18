@@ -16,8 +16,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountGetParams
+import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountListPage
 import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountListParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -37,14 +38,14 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
     override fun list(
         params: ChannelAccountListParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseWithTotalPublicChannelAccountForwardPaging =
+    ): ChannelAccountListPage =
         // get /conversations/v3/conversations/channel-accounts
         withRawResponse().list(params, requestOptions).parse()
 
     override fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions,
-    ): ConversationsPublicChannelAccount =
+    ): PublicChannelAccount =
         // get /conversations/v3/conversations/channel-accounts/{channelAccountId}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -70,7 +71,7 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
         override fun list(
             params: ChannelAccountListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging> {
+        ): HttpResponseFor<ChannelAccountListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -88,16 +89,23 @@ class ChannelAccountServiceImpl internal constructor(private val clientOptions: 
                             it.validate()
                         }
                     }
+                    .let {
+                        ChannelAccountListPage.builder()
+                            .service(ChannelAccountServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
             }
         }
 
-        private val getHandler: Handler<ConversationsPublicChannelAccount> =
-            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PublicChannelAccount> =
+            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConversationsPublicChannelAccount> {
+        ): HttpResponseFor<PublicChannelAccount> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelAccountId", params.channelAccountId().getOrNull())

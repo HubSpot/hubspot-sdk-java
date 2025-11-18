@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -12,12 +13,35 @@ import kotlin.jvm.optionals.getOrNull
 /** Retrieve a list of accounts for a custom channel. */
 class ChannelAccountListParams
 private constructor(
-    private val channelId: String?,
+    private val channelId: Int?,
+    private val after: String?,
+    private val archived: Boolean?,
+    private val defaultPageLength: Int?,
+    private val deliveryIdentifierType: List<String>?,
+    private val deliveryIdentifierValue: List<String>?,
+    private val limit: Int?,
+    private val sort: List<String>?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): Optional<String> = Optional.ofNullable(channelId)
+    fun channelId(): Optional<Int> = Optional.ofNullable(channelId)
+
+    fun after(): Optional<String> = Optional.ofNullable(after)
+
+    fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
+
+    fun defaultPageLength(): Optional<Int> = Optional.ofNullable(defaultPageLength)
+
+    fun deliveryIdentifierType(): Optional<List<String>> =
+        Optional.ofNullable(deliveryIdentifierType)
+
+    fun deliveryIdentifierValue(): Optional<List<String>> =
+        Optional.ofNullable(deliveryIdentifierValue)
+
+    fun limit(): Optional<Int> = Optional.ofNullable(limit)
+
+    fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -38,21 +62,148 @@ private constructor(
     /** A builder for [ChannelAccountListParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
+        private var channelId: Int? = null
+        private var after: String? = null
+        private var archived: Boolean? = null
+        private var defaultPageLength: Int? = null
+        private var deliveryIdentifierType: MutableList<String>? = null
+        private var deliveryIdentifierValue: MutableList<String>? = null
+        private var limit: Int? = null
+        private var sort: MutableList<String>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(channelAccountListParams: ChannelAccountListParams) = apply {
             channelId = channelAccountListParams.channelId
+            after = channelAccountListParams.after
+            archived = channelAccountListParams.archived
+            defaultPageLength = channelAccountListParams.defaultPageLength
+            deliveryIdentifierType =
+                channelAccountListParams.deliveryIdentifierType?.toMutableList()
+            deliveryIdentifierValue =
+                channelAccountListParams.deliveryIdentifierValue?.toMutableList()
+            limit = channelAccountListParams.limit
+            sort = channelAccountListParams.sort?.toMutableList()
             additionalHeaders = channelAccountListParams.additionalHeaders.toBuilder()
             additionalQueryParams = channelAccountListParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String?) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int?) = apply { this.channelId = channelId }
+
+        /**
+         * Alias for [Builder.channelId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun channelId(channelId: Int) = channelId(channelId as Int?)
 
         /** Alias for calling [Builder.channelId] with `channelId.orElse(null)`. */
-        fun channelId(channelId: Optional<String>) = channelId(channelId.getOrNull())
+        fun channelId(channelId: Optional<Int>) = channelId(channelId.getOrNull())
+
+        fun after(after: String?) = apply { this.after = after }
+
+        /** Alias for calling [Builder.after] with `after.orElse(null)`. */
+        fun after(after: Optional<String>) = after(after.getOrNull())
+
+        fun archived(archived: Boolean?) = apply { this.archived = archived }
+
+        /**
+         * Alias for [Builder.archived].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun archived(archived: Boolean) = archived(archived as Boolean?)
+
+        /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
+        fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
+
+        fun defaultPageLength(defaultPageLength: Int?) = apply {
+            this.defaultPageLength = defaultPageLength
+        }
+
+        /**
+         * Alias for [Builder.defaultPageLength].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun defaultPageLength(defaultPageLength: Int) = defaultPageLength(defaultPageLength as Int?)
+
+        /** Alias for calling [Builder.defaultPageLength] with `defaultPageLength.orElse(null)`. */
+        fun defaultPageLength(defaultPageLength: Optional<Int>) =
+            defaultPageLength(defaultPageLength.getOrNull())
+
+        fun deliveryIdentifierType(deliveryIdentifierType: List<String>?) = apply {
+            this.deliveryIdentifierType = deliveryIdentifierType?.toMutableList()
+        }
+
+        /**
+         * Alias for calling [Builder.deliveryIdentifierType] with
+         * `deliveryIdentifierType.orElse(null)`.
+         */
+        fun deliveryIdentifierType(deliveryIdentifierType: Optional<List<String>>) =
+            deliveryIdentifierType(deliveryIdentifierType.getOrNull())
+
+        /**
+         * Adds a single [String] to [Builder.deliveryIdentifierType].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addDeliveryIdentifierType(deliveryIdentifierType: String) = apply {
+            this.deliveryIdentifierType =
+                (this.deliveryIdentifierType ?: mutableListOf()).apply {
+                    add(deliveryIdentifierType)
+                }
+        }
+
+        fun deliveryIdentifierValue(deliveryIdentifierValue: List<String>?) = apply {
+            this.deliveryIdentifierValue = deliveryIdentifierValue?.toMutableList()
+        }
+
+        /**
+         * Alias for calling [Builder.deliveryIdentifierValue] with
+         * `deliveryIdentifierValue.orElse(null)`.
+         */
+        fun deliveryIdentifierValue(deliveryIdentifierValue: Optional<List<String>>) =
+            deliveryIdentifierValue(deliveryIdentifierValue.getOrNull())
+
+        /**
+         * Adds a single [String] to [Builder.deliveryIdentifierValue].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addDeliveryIdentifierValue(deliveryIdentifierValue: String) = apply {
+            this.deliveryIdentifierValue =
+                (this.deliveryIdentifierValue ?: mutableListOf()).apply {
+                    add(deliveryIdentifierValue)
+                }
+        }
+
+        fun limit(limit: Int?) = apply { this.limit = limit }
+
+        /**
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun limit(limit: Int) = limit(limit as Int?)
+
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
+        fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
+
+        fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
+
+        /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
+        fun sort(sort: Optional<List<String>>) = sort(sort.getOrNull())
+
+        /**
+         * Adds a single [String] to [Builder.sort].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addSort(sort: String) = apply {
+            this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -160,6 +311,13 @@ private constructor(
         fun build(): ChannelAccountListParams =
             ChannelAccountListParams(
                 channelId,
+                after,
+                archived,
+                defaultPageLength,
+                deliveryIdentifierType?.toImmutable(),
+                deliveryIdentifierValue?.toImmutable(),
+                limit,
+                sort?.toImmutable(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -167,13 +325,27 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId ?: ""
+            0 -> channelId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                after?.let { put("after", it) }
+                archived?.let { put("archived", it.toString()) }
+                defaultPageLength?.let { put("defaultPageLength", it.toString()) }
+                deliveryIdentifierType?.let { put("deliveryIdentifierType", it.joinToString(",")) }
+                deliveryIdentifierValue?.let {
+                    put("deliveryIdentifierValue", it.joinToString(","))
+                }
+                limit?.let { put("limit", it.toString()) }
+                sort?.let { put("sort", it.joinToString(",")) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -182,12 +354,31 @@ private constructor(
 
         return other is ChannelAccountListParams &&
             channelId == other.channelId &&
+            after == other.after &&
+            archived == other.archived &&
+            defaultPageLength == other.defaultPageLength &&
+            deliveryIdentifierType == other.deliveryIdentifierType &&
+            deliveryIdentifierValue == other.deliveryIdentifierValue &&
+            limit == other.limit &&
+            sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(channelId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(
+            channelId,
+            after,
+            archived,
+            defaultPageLength,
+            deliveryIdentifierType,
+            deliveryIdentifierValue,
+            limit,
+            sort,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "ChannelAccountListParams{channelId=$channelId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ChannelAccountListParams{channelId=$channelId, after=$after, archived=$archived, defaultPageLength=$defaultPageLength, deliveryIdentifierType=$deliveryIdentifierType, deliveryIdentifierValue=$deliveryIdentifierValue, limit=$limit, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -6,7 +6,6 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import java.time.OffsetDateTime
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -17,19 +16,8 @@ internal class BatchResponseHubDbTableRowV3Test {
         val batchResponseHubDbTableRowV3 =
             BatchResponseHubDbTableRowV3.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .links(
-                    BatchResponseHubDbTableRowV3.Links.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                        .build()
-                )
-                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
                     HubDbTableRowV3.builder()
-                        .values(
-                            HubDbTableRowV3.Values.builder()
-                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
-                                .build()
-                        )
                         .id("id")
                         .childTableId("childTableId")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -37,14 +25,46 @@ internal class BatchResponseHubDbTableRowV3Test {
                         .path("path")
                         .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .values(
+                            HubDbTableRowV3.Values.builder()
+                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                                .build()
+                        )
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseHubDbTableRowV3.Status.PENDING)
+                .links(
+                    BatchResponseHubDbTableRowV3.Links.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         assertThat(batchResponseHubDbTableRowV3.completedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(batchResponseHubDbTableRowV3.results())
+            .containsExactly(
+                HubDbTableRowV3.builder()
+                    .id("id")
+                    .childTableId("childTableId")
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .name("name")
+                    .path("path")
+                    .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .values(
+                        HubDbTableRowV3.Values.builder()
+                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                            .build()
+                    )
+                    .build()
+            )
+        assertThat(batchResponseHubDbTableRowV3.startedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(batchResponseHubDbTableRowV3.status())
+            .isEqualTo(BatchResponseHubDbTableRowV3.Status.PENDING)
         assertThat(batchResponseHubDbTableRowV3.links())
             .contains(
                 BatchResponseHubDbTableRowV3.Links.builder()
@@ -53,27 +73,6 @@ internal class BatchResponseHubDbTableRowV3Test {
             )
         assertThat(batchResponseHubDbTableRowV3.requestedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(batchResponseHubDbTableRowV3.results().getOrNull())
-            .containsExactly(
-                HubDbTableRowV3.builder()
-                    .values(
-                        HubDbTableRowV3.Values.builder()
-                            .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
-                            .build()
-                    )
-                    .id("id")
-                    .childTableId("childTableId")
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .name("name")
-                    .path("path")
-                    .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
-        assertThat(batchResponseHubDbTableRowV3.startedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(batchResponseHubDbTableRowV3.status())
-            .contains(BatchResponseHubDbTableRowV3.Status.PENDING)
     }
 
     @Test
@@ -82,19 +81,8 @@ internal class BatchResponseHubDbTableRowV3Test {
         val batchResponseHubDbTableRowV3 =
             BatchResponseHubDbTableRowV3.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .links(
-                    BatchResponseHubDbTableRowV3.Links.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                        .build()
-                )
-                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
                     HubDbTableRowV3.builder()
-                        .values(
-                            HubDbTableRowV3.Values.builder()
-                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
-                                .build()
-                        )
                         .id("id")
                         .childTableId("childTableId")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -102,10 +90,21 @@ internal class BatchResponseHubDbTableRowV3Test {
                         .path("path")
                         .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .values(
+                            HubDbTableRowV3.Values.builder()
+                                .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
+                                .build()
+                        )
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(BatchResponseHubDbTableRowV3.Status.PENDING)
+                .links(
+                    BatchResponseHubDbTableRowV3.Links.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
         val roundtrippedBatchResponseHubDbTableRowV3 =

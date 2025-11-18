@@ -37,12 +37,16 @@ private constructor(
     ) : this(propertyName, propertyValidationRules, mutableMapOf())
 
     /**
+     * The name of the property for which validation rules are defined.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun propertyName(): String = propertyName.getRequired("propertyName")
 
     /**
+     * A list of validation rules applicable to the property.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -116,6 +120,7 @@ private constructor(
                     publicPropertyValidationRuleMap.additionalProperties.toMutableMap()
             }
 
+        /** The name of the property for which validation rules are defined. */
         fun propertyName(propertyName: String) = propertyName(JsonField.of(propertyName))
 
         /**
@@ -129,6 +134,7 @@ private constructor(
             this.propertyName = propertyName
         }
 
+        /** A list of validation rules applicable to the property. */
         fun propertyValidationRules(propertyValidationRules: List<PublicPropertyValidationRule>) =
             propertyValidationRules(JsonField.of(propertyValidationRules))
 

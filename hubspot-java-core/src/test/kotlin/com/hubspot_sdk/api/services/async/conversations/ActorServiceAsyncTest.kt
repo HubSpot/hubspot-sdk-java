@@ -5,6 +5,8 @@ package com.hubspot_sdk.api.services.async.conversations
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.BatchInputString
+import com.hubspot_sdk.api.models.conversations.actors.ActorBatchReadParams
+import com.hubspot_sdk.api.models.conversations.actors.ActorGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,7 +25,12 @@ internal class ActorServiceAsyncTest {
         val actorServiceAsync = client.conversations().actors()
 
         val batchResponsePublicActorFuture =
-            actorServiceAsync.batchRead(BatchInputString.builder().addInput("string").build())
+            actorServiceAsync.batchRead(
+                ActorBatchReadParams.builder()
+                    .property("property")
+                    .batchInputString(BatchInputString.builder().addInput("string").build())
+                    .build()
+            )
 
         val batchResponsePublicActor = batchResponsePublicActorFuture.get()
         batchResponsePublicActor.validate()
@@ -39,7 +46,10 @@ internal class ActorServiceAsyncTest {
                 .build()
         val actorServiceAsync = client.conversations().actors()
 
-        val publicActorFuture = actorServiceAsync.get("actorId")
+        val publicActorFuture =
+            actorServiceAsync.get(
+                ActorGetParams.builder().actorId("actorId").property("property").build()
+            )
 
         val publicActor = publicActorFuture.get()
         publicActor.validate()

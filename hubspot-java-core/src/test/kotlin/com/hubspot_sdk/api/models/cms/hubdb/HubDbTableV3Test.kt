@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.Option
 import java.time.OffsetDateTime
-import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -17,19 +16,18 @@ internal class HubDbTableV3Test {
     fun create() {
         val hubDbTableV3 =
             HubDbTableV3.builder()
-                .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .label("label")
-                .name("name")
                 .id("id")
                 .allowChildTables(true)
                 .allowPublicApiAccess(true)
                 .columnCount(0)
                 .addColumn(
                     Column.builder()
+                        .id("id")
+                        .deleted(true)
+                        .description("description")
                         .label("label")
                         .name("name")
                         .type(Column.Type.NULL)
-                        .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdBy(
                             SimpleUser.builder()
@@ -40,8 +38,6 @@ internal class HubDbTableV3Test {
                                 .build()
                         )
                         .createdByUserId(0)
-                        .deleted(true)
-                        .description("description")
                         .foreignColumnId(0)
                         .addForeignId(
                             ForeignId.builder().id("id").name("name").type("type").build()
@@ -91,6 +87,21 @@ internal class HubDbTableV3Test {
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .deleted(true)
+                .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .dynamicMetaTags(
+                    HubDbTableV3.DynamicMetaTags.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(0))
+                        .build()
+                )
+                .enableChildTablePages(true)
+                .label("label")
+                .name("name")
+                .published(true)
+                .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .rowCount(0)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .useForPages(true)
                 .createdBy(
                     SimpleUser.builder()
                         .id("id")
@@ -99,18 +110,7 @@ internal class HubDbTableV3Test {
                         .lastName("lastName")
                         .build()
                 )
-                .deleted(true)
-                .dynamicMetaTags(
-                    HubDbTableV3.DynamicMetaTags.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(0))
-                        .build()
-                )
-                .enableChildTablePages(true)
                 .isOrderedManually(true)
-                .published(true)
-                .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .rowCount(0)
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedBy(
                     SimpleUser.builder()
                         .id("id")
@@ -119,24 +119,21 @@ internal class HubDbTableV3Test {
                         .lastName("lastName")
                         .build()
                 )
-                .useForPages(true)
                 .build()
 
-        assertThat(hubDbTableV3.deletedAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(hubDbTableV3.label()).isEqualTo("label")
-        assertThat(hubDbTableV3.name()).isEqualTo("name")
-        assertThat(hubDbTableV3.id()).contains("id")
-        assertThat(hubDbTableV3.allowChildTables()).contains(true)
-        assertThat(hubDbTableV3.allowPublicApiAccess()).contains(true)
-        assertThat(hubDbTableV3.columnCount()).contains(0)
-        assertThat(hubDbTableV3.columns().getOrNull())
+        assertThat(hubDbTableV3.id()).isEqualTo("id")
+        assertThat(hubDbTableV3.allowChildTables()).isEqualTo(true)
+        assertThat(hubDbTableV3.allowPublicApiAccess()).isEqualTo(true)
+        assertThat(hubDbTableV3.columnCount()).isEqualTo(0)
+        assertThat(hubDbTableV3.columns())
             .containsExactly(
                 Column.builder()
+                    .id("id")
+                    .deleted(true)
+                    .description("description")
                     .label("label")
                     .name("name")
                     .type(Column.Type.NULL)
-                    .id("id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdBy(
                         SimpleUser.builder()
@@ -147,8 +144,6 @@ internal class HubDbTableV3Test {
                             .build()
                     )
                     .createdByUserId(0)
-                    .deleted(true)
-                    .description("description")
                     .foreignColumnId(0)
                     .addForeignId(ForeignId.builder().id("id").name("name").type("type").build())
                     .foreignIdsById(
@@ -196,7 +191,26 @@ internal class HubDbTableV3Test {
                     .build()
             )
         assertThat(hubDbTableV3.createdAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(hubDbTableV3.deleted()).isEqualTo(true)
+        assertThat(hubDbTableV3.deletedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(hubDbTableV3.dynamicMetaTags())
+            .isEqualTo(
+                HubDbTableV3.DynamicMetaTags.builder()
+                    .putAdditionalProperty("foo", JsonValue.from(0))
+                    .build()
+            )
+        assertThat(hubDbTableV3.enableChildTablePages()).isEqualTo(true)
+        assertThat(hubDbTableV3.label()).isEqualTo("label")
+        assertThat(hubDbTableV3.name()).isEqualTo("name")
+        assertThat(hubDbTableV3.published()).isEqualTo(true)
+        assertThat(hubDbTableV3.publishedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(hubDbTableV3.rowCount()).isEqualTo(0)
+        assertThat(hubDbTableV3.updatedAt())
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(hubDbTableV3.useForPages()).isEqualTo(true)
         assertThat(hubDbTableV3.createdBy())
             .contains(
                 SimpleUser.builder()
@@ -206,21 +220,7 @@ internal class HubDbTableV3Test {
                     .lastName("lastName")
                     .build()
             )
-        assertThat(hubDbTableV3.deleted()).contains(true)
-        assertThat(hubDbTableV3.dynamicMetaTags())
-            .contains(
-                HubDbTableV3.DynamicMetaTags.builder()
-                    .putAdditionalProperty("foo", JsonValue.from(0))
-                    .build()
-            )
-        assertThat(hubDbTableV3.enableChildTablePages()).contains(true)
         assertThat(hubDbTableV3.isOrderedManually()).contains(true)
-        assertThat(hubDbTableV3.published()).contains(true)
-        assertThat(hubDbTableV3.publishedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(hubDbTableV3.rowCount()).contains(0)
-        assertThat(hubDbTableV3.updatedAt())
-            .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(hubDbTableV3.updatedBy())
             .contains(
                 SimpleUser.builder()
@@ -230,7 +230,6 @@ internal class HubDbTableV3Test {
                     .lastName("lastName")
                     .build()
             )
-        assertThat(hubDbTableV3.useForPages()).contains(true)
     }
 
     @Test
@@ -238,19 +237,18 @@ internal class HubDbTableV3Test {
         val jsonMapper = jsonMapper()
         val hubDbTableV3 =
             HubDbTableV3.builder()
-                .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .label("label")
-                .name("name")
                 .id("id")
                 .allowChildTables(true)
                 .allowPublicApiAccess(true)
                 .columnCount(0)
                 .addColumn(
                     Column.builder()
+                        .id("id")
+                        .deleted(true)
+                        .description("description")
                         .label("label")
                         .name("name")
                         .type(Column.Type.NULL)
-                        .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdBy(
                             SimpleUser.builder()
@@ -261,8 +259,6 @@ internal class HubDbTableV3Test {
                                 .build()
                         )
                         .createdByUserId(0)
-                        .deleted(true)
-                        .description("description")
                         .foreignColumnId(0)
                         .addForeignId(
                             ForeignId.builder().id("id").name("name").type("type").build()
@@ -312,6 +308,21 @@ internal class HubDbTableV3Test {
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .deleted(true)
+                .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .dynamicMetaTags(
+                    HubDbTableV3.DynamicMetaTags.builder()
+                        .putAdditionalProperty("foo", JsonValue.from(0))
+                        .build()
+                )
+                .enableChildTablePages(true)
+                .label("label")
+                .name("name")
+                .published(true)
+                .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .rowCount(0)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .useForPages(true)
                 .createdBy(
                     SimpleUser.builder()
                         .id("id")
@@ -320,18 +331,7 @@ internal class HubDbTableV3Test {
                         .lastName("lastName")
                         .build()
                 )
-                .deleted(true)
-                .dynamicMetaTags(
-                    HubDbTableV3.DynamicMetaTags.builder()
-                        .putAdditionalProperty("foo", JsonValue.from(0))
-                        .build()
-                )
-                .enableChildTablePages(true)
                 .isOrderedManually(true)
-                .published(true)
-                .publishedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .rowCount(0)
-                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedBy(
                     SimpleUser.builder()
                         .id("id")
@@ -340,7 +340,6 @@ internal class HubDbTableV3Test {
                         .lastName("lastName")
                         .build()
                 )
-                .useForPages(true)
                 .build()
 
         val roundtrippedHubDbTableV3 =

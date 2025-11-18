@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.models.conversations.messages
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -12,12 +13,38 @@ import kotlin.jvm.optionals.getOrNull
 /** Retrieve the message history for a specific thread. */
 class MessageListParams
 private constructor(
-    private val threadId: String?,
+    private val threadId: Long?,
+    private val after: String?,
+    private val archived: Boolean?,
+    private val limit: Int?,
+    private val property: String?,
+    private val sort: List<String>?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun threadId(): Optional<String> = Optional.ofNullable(threadId)
+    fun threadId(): Optional<Long> = Optional.ofNullable(threadId)
+
+    /**
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * `paging.next.after` JSON property of a paged response containing more results.
+     */
+    fun after(): Optional<String> = Optional.ofNullable(after)
+
+    /** Whether to return only results that have been archived. */
+    fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
+
+    /** The maximum number of results to display per page. */
+    fun limit(): Optional<Int> = Optional.ofNullable(limit)
+
+    /** A specific property to include in the message response. */
+    fun property(): Optional<String> = Optional.ofNullable(property)
+
+    /**
+     * Sort direction. Valid options are `createdAt` (ascending), and `-createdAt` (descending,
+     * default)
+     */
+    fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -38,21 +65,97 @@ private constructor(
     /** A builder for [MessageListParams]. */
     class Builder internal constructor() {
 
-        private var threadId: String? = null
+        private var threadId: Long? = null
+        private var after: String? = null
+        private var archived: Boolean? = null
+        private var limit: Int? = null
+        private var property: String? = null
+        private var sort: MutableList<String>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(messageListParams: MessageListParams) = apply {
             threadId = messageListParams.threadId
+            after = messageListParams.after
+            archived = messageListParams.archived
+            limit = messageListParams.limit
+            property = messageListParams.property
+            sort = messageListParams.sort?.toMutableList()
             additionalHeaders = messageListParams.additionalHeaders.toBuilder()
             additionalQueryParams = messageListParams.additionalQueryParams.toBuilder()
         }
 
-        fun threadId(threadId: String?) = apply { this.threadId = threadId }
+        fun threadId(threadId: Long?) = apply { this.threadId = threadId }
+
+        /**
+         * Alias for [Builder.threadId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun threadId(threadId: Long) = threadId(threadId as Long?)
 
         /** Alias for calling [Builder.threadId] with `threadId.orElse(null)`. */
-        fun threadId(threadId: Optional<String>) = threadId(threadId.getOrNull())
+        fun threadId(threadId: Optional<Long>) = threadId(threadId.getOrNull())
+
+        /**
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * `paging.next.after` JSON property of a paged response containing more results.
+         */
+        fun after(after: String?) = apply { this.after = after }
+
+        /** Alias for calling [Builder.after] with `after.orElse(null)`. */
+        fun after(after: Optional<String>) = after(after.getOrNull())
+
+        /** Whether to return only results that have been archived. */
+        fun archived(archived: Boolean?) = apply { this.archived = archived }
+
+        /**
+         * Alias for [Builder.archived].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun archived(archived: Boolean) = archived(archived as Boolean?)
+
+        /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
+        fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
+
+        /** The maximum number of results to display per page. */
+        fun limit(limit: Int?) = apply { this.limit = limit }
+
+        /**
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun limit(limit: Int) = limit(limit as Int?)
+
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
+        fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
+
+        /** A specific property to include in the message response. */
+        fun property(property: String?) = apply { this.property = property }
+
+        /** Alias for calling [Builder.property] with `property.orElse(null)`. */
+        fun property(property: Optional<String>) = property(property.getOrNull())
+
+        /**
+         * Sort direction. Valid options are `createdAt` (ascending), and `-createdAt` (descending,
+         * default)
+         */
+        fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
+
+        /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
+        fun sort(sort: Optional<List<String>>) = sort(sort.getOrNull())
+
+        /**
+         * Adds a single [String] to [Builder.sort].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addSort(sort: String) = apply {
+            this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -158,18 +261,37 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): MessageListParams =
-            MessageListParams(threadId, additionalHeaders.build(), additionalQueryParams.build())
+            MessageListParams(
+                threadId,
+                after,
+                archived,
+                limit,
+                property,
+                sort?.toImmutable(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> threadId ?: ""
+            0 -> threadId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                after?.let { put("after", it) }
+                archived?.let { put("archived", it.toString()) }
+                limit?.let { put("limit", it.toString()) }
+                property?.let { put("property", it) }
+                sort?.let { put("sort", it.joinToString(",")) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -178,12 +300,27 @@ private constructor(
 
         return other is MessageListParams &&
             threadId == other.threadId &&
+            after == other.after &&
+            archived == other.archived &&
+            limit == other.limit &&
+            property == other.property &&
+            sort == other.sort &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(threadId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(
+            threadId,
+            after,
+            archived,
+            limit,
+            property,
+            sort,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "MessageListParams{threadId=$threadId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "MessageListParams{threadId=$threadId, after=$after, archived=$archived, limit=$limit, property=$property, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

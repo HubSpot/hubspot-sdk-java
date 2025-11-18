@@ -5,12 +5,12 @@ package com.hubspot_sdk.api.services.async.conversations
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicMessageForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicMessage
 import com.hubspot_sdk.api.models.conversations.PublicMessageContent
 import com.hubspot_sdk.api.models.conversations.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetOriginalContentParams
 import com.hubspot_sdk.api.models.conversations.messages.MessageGetParams
+import com.hubspot_sdk.api.models.conversations.messages.MessageListPageAsync
 import com.hubspot_sdk.api.models.conversations.messages.MessageListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -30,12 +30,12 @@ interface MessageServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageServiceAsync
 
     /** Send a new message on a thread at the current timestamp. */
-    fun create(threadId: String, params: MessageCreateParams): CompletableFuture<PublicMessage> =
+    fun create(threadId: Long, params: MessageCreateParams): CompletableFuture<PublicMessage> =
         create(threadId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        threadId: String,
+        threadId: Long,
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicMessage> =
@@ -52,41 +52,38 @@ interface MessageServiceAsync {
     ): CompletableFuture<PublicMessage>
 
     /** Retrieve the message history for a specific thread. */
-    fun list(threadId: String): CompletableFuture<CollectionResponsePublicMessageForwardPaging> =
+    fun list(threadId: Long): CompletableFuture<MessageListPageAsync> =
         list(threadId, MessageListParams.none())
 
     /** @see list */
     fun list(
-        threadId: String,
+        threadId: Long,
         params: MessageListParams = MessageListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePublicMessageForwardPaging> =
+    ): CompletableFuture<MessageListPageAsync> =
         list(params.toBuilder().threadId(threadId).build(), requestOptions)
 
     /** @see list */
     fun list(
-        threadId: String,
+        threadId: Long,
         params: MessageListParams = MessageListParams.none(),
-    ): CompletableFuture<CollectionResponsePublicMessageForwardPaging> =
-        list(threadId, params, RequestOptions.none())
+    ): CompletableFuture<MessageListPageAsync> = list(threadId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: MessageListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePublicMessageForwardPaging>
+    ): CompletableFuture<MessageListPageAsync>
 
     /** @see list */
-    fun list(
-        params: MessageListParams
-    ): CompletableFuture<CollectionResponsePublicMessageForwardPaging> =
+    fun list(params: MessageListParams): CompletableFuture<MessageListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
-        threadId: String,
+        threadId: Long,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponsePublicMessageForwardPaging> =
+    ): CompletableFuture<MessageListPageAsync> =
         list(threadId, MessageListParams.none(), requestOptions)
 
     /** Retrieve a single message from a thread using the message ID. */
@@ -161,14 +158,14 @@ interface MessageServiceAsync {
          * as [MessageServiceAsync.create].
          */
         fun create(
-            threadId: String,
+            threadId: Long,
             params: MessageCreateParams,
         ): CompletableFuture<HttpResponseFor<PublicMessage>> =
             create(threadId, params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            threadId: String,
+            threadId: Long,
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicMessage>> =
@@ -189,43 +186,41 @@ interface MessageServiceAsync {
          * /conversations/v3/conversations/threads/{threadId}/messages`, but is otherwise the same
          * as [MessageServiceAsync.list].
          */
-        fun list(
-            threadId: String
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicMessageForwardPaging>> =
+        fun list(threadId: Long): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(threadId, MessageListParams.none())
 
         /** @see list */
         fun list(
-            threadId: String,
+            threadId: Long,
             params: MessageListParams = MessageListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicMessageForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(params.toBuilder().threadId(threadId).build(), requestOptions)
 
         /** @see list */
         fun list(
-            threadId: String,
+            threadId: Long,
             params: MessageListParams = MessageListParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicMessageForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(threadId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: MessageListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicMessageForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>>
 
         /** @see list */
         fun list(
             params: MessageListParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicMessageForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
-            threadId: String,
+            threadId: Long,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicMessageForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<MessageListPageAsync>> =
             list(threadId, MessageListParams.none(), requestOptions)
 
         /**

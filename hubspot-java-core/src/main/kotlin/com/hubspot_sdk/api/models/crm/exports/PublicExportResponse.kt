@@ -75,54 +75,72 @@ private constructor(
     )
 
     /**
+     * The unique ID of the export.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * The timestamp when the export was created, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
+     * The current state of the export process.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun exportState(): ExportState = exportState.getRequired("exportState")
 
     /**
+     * The type of export, which can be either VIEW or LIST.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun exportType(): ExportType = exportType.getRequired("exportType")
 
     /**
+     * The list of properties exported for the associated object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectProperties(): List<String> = objectProperties.getRequired("objectProperties")
 
     /**
+     * The associated CRM object being exported.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectType(): String = objectType.getRequired("objectType")
 
     /**
+     * The timestamp when the export was last updated, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
+     * The name assigned to the export.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun exportName(): Optional<String> = exportName.getOptional("exportName")
 
     /**
+     * The total number of records included in the export.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -261,6 +279,7 @@ private constructor(
             additionalProperties = publicExportResponse.additionalProperties.toMutableMap()
         }
 
+        /** The unique ID of the export. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -271,6 +290,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** The timestamp when the export was created, in ISO 8601 format. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -282,6 +302,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        /** The current state of the export process. */
         fun exportState(exportState: ExportState) = exportState(JsonField.of(exportState))
 
         /**
@@ -295,6 +316,7 @@ private constructor(
             this.exportState = exportState
         }
 
+        /** The type of export, which can be either VIEW or LIST. */
         fun exportType(exportType: ExportType) = exportType(JsonField.of(exportType))
 
         /**
@@ -306,6 +328,7 @@ private constructor(
          */
         fun exportType(exportType: JsonField<ExportType>) = apply { this.exportType = exportType }
 
+        /** The list of properties exported for the associated object. */
         fun objectProperties(objectProperties: List<String>) =
             objectProperties(JsonField.of(objectProperties))
 
@@ -332,6 +355,7 @@ private constructor(
                 }
         }
 
+        /** The associated CRM object being exported. */
         fun objectType(objectType: String) = objectType(JsonField.of(objectType))
 
         /**
@@ -343,6 +367,7 @@ private constructor(
          */
         fun objectType(objectType: JsonField<String>) = apply { this.objectType = objectType }
 
+        /** The timestamp when the export was last updated, in ISO 8601 format. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -354,6 +379,7 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
+        /** The name assigned to the export. */
         fun exportName(exportName: String) = exportName(JsonField.of(exportName))
 
         /**
@@ -365,6 +391,7 @@ private constructor(
          */
         fun exportName(exportName: JsonField<String>) = apply { this.exportName = exportName }
 
+        /** The total number of records included in the export. */
         fun recordCount(recordCount: Int) = recordCount(JsonField.of(recordCount))
 
         /**
@@ -471,6 +498,7 @@ private constructor(
             (if (exportName.asKnown().isPresent) 1 else 0) +
             (if (recordCount.asKnown().isPresent) 1 else 0)
 
+    /** The current state of the export process. */
     class ExportState @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -641,6 +669,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of export, which can be either VIEW or LIST. */
     class ExportType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

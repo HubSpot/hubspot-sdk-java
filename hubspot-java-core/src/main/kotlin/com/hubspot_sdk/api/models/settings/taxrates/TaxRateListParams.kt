@@ -6,13 +6,30 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a paginated list of all tax rates set up in the account tax rate library */
 class TaxRateListParams
 private constructor(
+    private val active: Boolean?,
+    private val after: String?,
+    private val limit: Int?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    /** Include inactive rates. */
+    fun active(): Optional<Boolean> = Optional.ofNullable(active)
+
+    /**
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * paging.next.after JSON property of a paged response containing more results.
+     */
+    fun after(): Optional<String> = Optional.ofNullable(after)
+
+    /** The maximum number of results to display per page. */
+    fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -33,14 +50,55 @@ private constructor(
     /** A builder for [TaxRateListParams]. */
     class Builder internal constructor() {
 
+        private var active: Boolean? = null
+        private var after: String? = null
+        private var limit: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(taxRateListParams: TaxRateListParams) = apply {
+            active = taxRateListParams.active
+            after = taxRateListParams.after
+            limit = taxRateListParams.limit
             additionalHeaders = taxRateListParams.additionalHeaders.toBuilder()
             additionalQueryParams = taxRateListParams.additionalQueryParams.toBuilder()
         }
+
+        /** Include inactive rates. */
+        fun active(active: Boolean?) = apply { this.active = active }
+
+        /**
+         * Alias for [Builder.active].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun active(active: Boolean) = active(active as Boolean?)
+
+        /** Alias for calling [Builder.active] with `active.orElse(null)`. */
+        fun active(active: Optional<Boolean>) = active(active.getOrNull())
+
+        /**
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * paging.next.after JSON property of a paged response containing more results.
+         */
+        fun after(after: String?) = apply { this.after = after }
+
+        /** Alias for calling [Builder.after] with `after.orElse(null)`. */
+        fun after(after: Optional<String>) = after(after.getOrNull())
+
+        /** The maximum number of results to display per page. */
+        fun limit(limit: Int?) = apply { this.limit = limit }
+
+        /**
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun limit(limit: Int) = limit(limit as Int?)
+
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
+        fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -146,12 +204,26 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): TaxRateListParams =
-            TaxRateListParams(additionalHeaders.build(), additionalQueryParams.build())
+            TaxRateListParams(
+                active,
+                after,
+                limit,
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                active?.let { put("active", it.toString()) }
+                after?.let { put("after", it) }
+                limit?.let { put("limit", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -159,12 +231,16 @@ private constructor(
         }
 
         return other is TaxRateListParams &&
+            active == other.active &&
+            after == other.after &&
+            limit == other.limit &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(active, after, limit, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "TaxRateListParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "TaxRateListParams{active=$active, after=$after, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

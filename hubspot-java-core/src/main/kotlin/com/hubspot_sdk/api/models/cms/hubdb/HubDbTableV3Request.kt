@@ -16,27 +16,24 @@ import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class HubDbTableV3Request
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val label: JsonField<String>,
-    private val name: JsonField<String>,
     private val allowChildTables: JsonField<Boolean>,
     private val allowPublicApiAccess: JsonField<Boolean>,
     private val columns: JsonField<List<ColumnRequest>>,
     private val dynamicMetaTags: JsonField<DynamicMetaTags>,
     private val enableChildTablePages: JsonField<Boolean>,
+    private val label: JsonField<String>,
+    private val name: JsonField<String>,
     private val useForPages: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("allowChildTables")
         @ExcludeMissing
         allowChildTables: JsonField<Boolean> = JsonMissing.of(),
@@ -52,20 +49,65 @@ private constructor(
         @JsonProperty("enableChildTablePages")
         @ExcludeMissing
         enableChildTablePages: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("useForPages")
         @ExcludeMissing
         useForPages: JsonField<Boolean> = JsonMissing.of(),
     ) : this(
-        label,
-        name,
         allowChildTables,
         allowPublicApiAccess,
         columns,
         dynamicMetaTags,
         enableChildTablePages,
+        label,
+        name,
         useForPages,
         mutableMapOf(),
     )
+
+    /**
+     * Specifies whether child tables can be created
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun allowChildTables(): Boolean = allowChildTables.getRequired("allowChildTables")
+
+    /**
+     * Specifies whether the table can be read by public without authorization
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun allowPublicApiAccess(): Boolean = allowPublicApiAccess.getRequired("allowPublicApiAccess")
+
+    /**
+     * List of columns in the table
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun columns(): List<ColumnRequest> = columns.getRequired("columns")
+
+    /**
+     * Specifies the key value pairs of the
+     * [metadata fields](https://developers.hubspot.com/docs/cms/guides/dynamic-pages/hubdb#dynamic-pages)
+     * with the associated column IDs.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun dynamicMetaTags(): DynamicMetaTags = dynamicMetaTags.getRequired("dynamicMetaTags")
+
+    /**
+     * Specifies creation of multi-level dynamic pages using child tables
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun enableChildTablePages(): Boolean =
+        enableChildTablePages.getRequired("enableChildTablePages")
 
     /**
      * Label of the table
@@ -84,71 +126,12 @@ private constructor(
     fun name(): String = name.getRequired("name")
 
     /**
-     * Specifies whether child tables can be created
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun allowChildTables(): Optional<Boolean> = allowChildTables.getOptional("allowChildTables")
-
-    /**
-     * Specifies whether the table can be read by public without authorization
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun allowPublicApiAccess(): Optional<Boolean> =
-        allowPublicApiAccess.getOptional("allowPublicApiAccess")
-
-    /**
-     * List of columns in the table
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun columns(): Optional<List<ColumnRequest>> = columns.getOptional("columns")
-
-    /**
-     * Specifies the key value pairs of the
-     * [metadata fields](https://developers.hubspot.com/docs/cms/guides/dynamic-pages/hubdb#dynamic-pages)
-     * with the associated column IDs.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun dynamicMetaTags(): Optional<DynamicMetaTags> =
-        dynamicMetaTags.getOptional("dynamicMetaTags")
-
-    /**
-     * Specifies creation of multi-level dynamic pages using child tables
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun enableChildTablePages(): Optional<Boolean> =
-        enableChildTablePages.getOptional("enableChildTablePages")
-
-    /**
      * Specifies whether the table can be used for creation of dynamic pages
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun useForPages(): Optional<Boolean> = useForPages.getOptional("useForPages")
-
-    /**
-     * Returns the raw JSON value of [label].
-     *
-     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
-
-    /**
-     * Returns the raw JSON value of [name].
-     *
-     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+    fun useForPages(): Boolean = useForPages.getRequired("useForPages")
 
     /**
      * Returns the raw JSON value of [allowChildTables].
@@ -199,6 +182,20 @@ private constructor(
     fun _enableChildTablePages(): JsonField<Boolean> = enableChildTablePages
 
     /**
+     * Returns the raw JSON value of [label].
+     *
+     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
+
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+    /**
      * Returns the raw JSON value of [useForPages].
      *
      * Unlike [useForPages], this method doesn't throw if the JSON field has an unexpected type.
@@ -226,8 +223,14 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .allowChildTables()
+         * .allowPublicApiAccess()
+         * .columns()
+         * .dynamicMetaTags()
+         * .enableChildTablePages()
          * .label()
          * .name()
+         * .useForPages()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -236,50 +239,28 @@ private constructor(
     /** A builder for [HubDbTableV3Request]. */
     class Builder internal constructor() {
 
+        private var allowChildTables: JsonField<Boolean>? = null
+        private var allowPublicApiAccess: JsonField<Boolean>? = null
+        private var columns: JsonField<MutableList<ColumnRequest>>? = null
+        private var dynamicMetaTags: JsonField<DynamicMetaTags>? = null
+        private var enableChildTablePages: JsonField<Boolean>? = null
         private var label: JsonField<String>? = null
         private var name: JsonField<String>? = null
-        private var allowChildTables: JsonField<Boolean> = JsonMissing.of()
-        private var allowPublicApiAccess: JsonField<Boolean> = JsonMissing.of()
-        private var columns: JsonField<MutableList<ColumnRequest>>? = null
-        private var dynamicMetaTags: JsonField<DynamicMetaTags> = JsonMissing.of()
-        private var enableChildTablePages: JsonField<Boolean> = JsonMissing.of()
-        private var useForPages: JsonField<Boolean> = JsonMissing.of()
+        private var useForPages: JsonField<Boolean>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(hubDbTableV3Request: HubDbTableV3Request) = apply {
-            label = hubDbTableV3Request.label
-            name = hubDbTableV3Request.name
             allowChildTables = hubDbTableV3Request.allowChildTables
             allowPublicApiAccess = hubDbTableV3Request.allowPublicApiAccess
             columns = hubDbTableV3Request.columns.map { it.toMutableList() }
             dynamicMetaTags = hubDbTableV3Request.dynamicMetaTags
             enableChildTablePages = hubDbTableV3Request.enableChildTablePages
+            label = hubDbTableV3Request.label
+            name = hubDbTableV3Request.name
             useForPages = hubDbTableV3Request.useForPages
             additionalProperties = hubDbTableV3Request.additionalProperties.toMutableMap()
         }
-
-        /** Label of the table */
-        fun label(label: String) = label(JsonField.of(label))
-
-        /**
-         * Sets [Builder.label] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.label] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun label(label: JsonField<String>) = apply { this.label = label }
-
-        /** Name of the table */
-        fun name(name: String) = name(JsonField.of(name))
-
-        /**
-         * Sets [Builder.name] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.name] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun name(name: JsonField<String>) = apply { this.name = name }
 
         /** Specifies whether child tables can be created */
         fun allowChildTables(allowChildTables: Boolean) =
@@ -371,6 +352,28 @@ private constructor(
             this.enableChildTablePages = enableChildTablePages
         }
 
+        /** Label of the table */
+        fun label(label: String) = label(JsonField.of(label))
+
+        /**
+         * Sets [Builder.label] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.label] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun label(label: JsonField<String>) = apply { this.label = label }
+
+        /** Name of the table */
+        fun name(name: String) = name(JsonField.of(name))
+
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun name(name: JsonField<String>) = apply { this.name = name }
+
         /** Specifies whether the table can be used for creation of dynamic pages */
         fun useForPages(useForPages: Boolean) = useForPages(JsonField.of(useForPages))
 
@@ -409,22 +412,28 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .allowChildTables()
+         * .allowPublicApiAccess()
+         * .columns()
+         * .dynamicMetaTags()
+         * .enableChildTablePages()
          * .label()
          * .name()
+         * .useForPages()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): HubDbTableV3Request =
             HubDbTableV3Request(
+                checkRequired("allowChildTables", allowChildTables),
+                checkRequired("allowPublicApiAccess", allowPublicApiAccess),
+                checkRequired("columns", columns).map { it.toImmutable() },
+                checkRequired("dynamicMetaTags", dynamicMetaTags),
+                checkRequired("enableChildTablePages", enableChildTablePages),
                 checkRequired("label", label),
                 checkRequired("name", name),
-                allowChildTables,
-                allowPublicApiAccess,
-                (columns ?: JsonMissing.of()).map { it.toImmutable() },
-                dynamicMetaTags,
-                enableChildTablePages,
-                useForPages,
+                checkRequired("useForPages", useForPages),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -436,13 +445,13 @@ private constructor(
             return@apply
         }
 
-        label()
-        name()
         allowChildTables()
         allowPublicApiAccess()
-        columns().ifPresent { it.forEach { it.validate() } }
-        dynamicMetaTags().ifPresent { it.validate() }
+        columns().forEach { it.validate() }
+        dynamicMetaTags().validate()
         enableChildTablePages()
+        label()
+        name()
         useForPages()
         validated = true
     }
@@ -462,13 +471,13 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (label.asKnown().isPresent) 1 else 0) +
-            (if (name.asKnown().isPresent) 1 else 0) +
-            (if (allowChildTables.asKnown().isPresent) 1 else 0) +
+        (if (allowChildTables.asKnown().isPresent) 1 else 0) +
             (if (allowPublicApiAccess.asKnown().isPresent) 1 else 0) +
             (columns.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (dynamicMetaTags.asKnown().getOrNull()?.validity() ?: 0) +
             (if (enableChildTablePages.asKnown().isPresent) 1 else 0) +
+            (if (label.asKnown().isPresent) 1 else 0) +
+            (if (name.asKnown().isPresent) 1 else 0) +
             (if (useForPages.asKnown().isPresent) 1 else 0)
 
     /**
@@ -581,26 +590,26 @@ private constructor(
         }
 
         return other is HubDbTableV3Request &&
-            label == other.label &&
-            name == other.name &&
             allowChildTables == other.allowChildTables &&
             allowPublicApiAccess == other.allowPublicApiAccess &&
             columns == other.columns &&
             dynamicMetaTags == other.dynamicMetaTags &&
             enableChildTablePages == other.enableChildTablePages &&
+            label == other.label &&
+            name == other.name &&
             useForPages == other.useForPages &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            label,
-            name,
             allowChildTables,
             allowPublicApiAccess,
             columns,
             dynamicMetaTags,
             enableChildTablePages,
+            label,
+            name,
             useForPages,
             additionalProperties,
         )
@@ -609,5 +618,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "HubDbTableV3Request{label=$label, name=$name, allowChildTables=$allowChildTables, allowPublicApiAccess=$allowPublicApiAccess, columns=$columns, dynamicMetaTags=$dynamicMetaTags, enableChildTablePages=$enableChildTablePages, useForPages=$useForPages, additionalProperties=$additionalProperties}"
+        "HubDbTableV3Request{allowChildTables=$allowChildTables, allowPublicApiAccess=$allowPublicApiAccess, columns=$columns, dynamicMetaTags=$dynamicMetaTags, enableChildTablePages=$enableChildTablePages, label=$label, name=$name, useForPages=$useForPages, additionalProperties=$additionalProperties}"
 }

@@ -16,6 +16,7 @@ internal class SimplePublicObjectWithAssociationsTest {
         val simplePublicObjectWithAssociations =
             SimplePublicObjectWithAssociations.builder()
                 .id("id")
+                .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     SimplePublicObjectWithAssociations.Properties.builder()
@@ -23,7 +24,6 @@ internal class SimplePublicObjectWithAssociationsTest {
                         .build()
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .archived(true)
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .associations(
                     SimplePublicObjectWithAssociations.Associations.builder()
@@ -37,7 +37,7 @@ internal class SimplePublicObjectWithAssociationsTest {
                                         ),
                                     "paging" to
                                         mapOf(
-                                            "next" to mapOf("after" to "", "link" to ""),
+                                            "next" to mapOf("after" to "after", "link" to "link"),
                                             "prev" to mapOf("before" to "before", "link" to "link"),
                                         ),
                                 )
@@ -65,9 +65,11 @@ internal class SimplePublicObjectWithAssociationsTest {
                         )
                         .build()
                 )
+                .url("url")
                 .build()
 
         assertThat(simplePublicObjectWithAssociations.id()).isEqualTo("id")
+        assertThat(simplePublicObjectWithAssociations.archived()).isEqualTo(true)
         assertThat(simplePublicObjectWithAssociations.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simplePublicObjectWithAssociations.properties())
@@ -78,7 +80,6 @@ internal class SimplePublicObjectWithAssociationsTest {
             )
         assertThat(simplePublicObjectWithAssociations.updatedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(simplePublicObjectWithAssociations.archived()).contains(true)
         assertThat(simplePublicObjectWithAssociations.archivedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simplePublicObjectWithAssociations.associations())
@@ -92,7 +93,7 @@ internal class SimplePublicObjectWithAssociationsTest {
                                     listOf(mapOf("id" to "172859", "type" to "contact_to_company")),
                                 "paging" to
                                     mapOf(
-                                        "next" to mapOf("after" to "", "link" to ""),
+                                        "next" to mapOf("after" to "after", "link" to "link"),
                                         "prev" to mapOf("before" to "before", "link" to "link"),
                                     ),
                             )
@@ -122,6 +123,7 @@ internal class SimplePublicObjectWithAssociationsTest {
                     )
                     .build()
             )
+        assertThat(simplePublicObjectWithAssociations.url()).contains("url")
     }
 
     @Test
@@ -130,6 +132,7 @@ internal class SimplePublicObjectWithAssociationsTest {
         val simplePublicObjectWithAssociations =
             SimplePublicObjectWithAssociations.builder()
                 .id("id")
+                .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     SimplePublicObjectWithAssociations.Properties.builder()
@@ -137,7 +140,6 @@ internal class SimplePublicObjectWithAssociationsTest {
                         .build()
                 )
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .archived(true)
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .associations(
                     SimplePublicObjectWithAssociations.Associations.builder()
@@ -151,7 +153,7 @@ internal class SimplePublicObjectWithAssociationsTest {
                                         ),
                                     "paging" to
                                         mapOf(
-                                            "next" to mapOf("after" to "", "link" to ""),
+                                            "next" to mapOf("after" to "after", "link" to "link"),
                                             "prev" to mapOf("before" to "before", "link" to "link"),
                                         ),
                                 )
@@ -179,6 +181,7 @@ internal class SimplePublicObjectWithAssociationsTest {
                         )
                         .build()
                 )
+                .url("url")
                 .build()
 
         val roundtrippedSimplePublicObjectWithAssociations =

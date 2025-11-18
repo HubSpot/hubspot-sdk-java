@@ -7,6 +7,8 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalBookingFormField
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalLegalConsentResponse
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalMeetingBooking
+import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetAvailabilityBySlugParams
+import com.hubspot_sdk.api.models.scheduler.meetings.meetingslinks.MeetingsLinkGetBookingInfoBySlugParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -25,10 +27,9 @@ internal class MeetingsLinkServiceTest {
                 .build()
         val meetingsLinkService = client.scheduler().meetings().meetingsLinks()
 
-        val collectionResponseWithTotalExternalLinkMetadataForwardPaging =
-            meetingsLinkService.list()
+        val page = meetingsLinkService.list()
 
-        collectionResponseWithTotalExternalLinkMetadataForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -78,7 +79,14 @@ internal class MeetingsLinkServiceTest {
                 .build()
         val meetingsLinkService = client.scheduler().meetings().meetingsLinks()
 
-        val externalLinkAvailabilityAndBusyTimes = meetingsLinkService.getAvailabilityBySlug("slug")
+        val externalLinkAvailabilityAndBusyTimes =
+            meetingsLinkService.getAvailabilityBySlug(
+                MeetingsLinkGetAvailabilityBySlugParams.builder()
+                    .slug("slug")
+                    .timezone("timezone")
+                    .monthOffset(0)
+                    .build()
+            )
 
         externalLinkAvailabilityAndBusyTimes.validate()
     }
@@ -93,7 +101,13 @@ internal class MeetingsLinkServiceTest {
                 .build()
         val meetingsLinkService = client.scheduler().meetings().meetingsLinks()
 
-        val externalBookingInfo = meetingsLinkService.getBookingInfoBySlug("slug")
+        val externalBookingInfo =
+            meetingsLinkService.getBookingInfoBySlug(
+                MeetingsLinkGetBookingInfoBySlugParams.builder()
+                    .slug("slug")
+                    .timezone("timezone")
+                    .build()
+            )
 
         externalBookingInfo.validate()
     }

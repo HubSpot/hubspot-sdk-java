@@ -15,6 +15,7 @@ internal class PublicThreadTest {
         val publicThread =
             PublicThread.builder()
                 .id("id")
+                .archived(true)
                 .associatedContactId("associatedContactId")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .inboxId("inboxId")
@@ -22,7 +23,6 @@ internal class PublicThreadTest {
                 .originalChannelId("originalChannelId")
                 .spam(true)
                 .status(PublicThread.Status.OPEN)
-                .archived(true)
                 .assignedTo("assignedTo")
                 .closedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .latestMessageReceivedTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -36,6 +36,7 @@ internal class PublicThreadTest {
                 .build()
 
         assertThat(publicThread.id()).isEqualTo("id")
+        assertThat(publicThread.archived()).isEqualTo(true)
         assertThat(publicThread.associatedContactId()).isEqualTo("associatedContactId")
         assertThat(publicThread.createdAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -44,7 +45,6 @@ internal class PublicThreadTest {
         assertThat(publicThread.originalChannelId()).isEqualTo("originalChannelId")
         assertThat(publicThread.spam()).isEqualTo(true)
         assertThat(publicThread.status()).isEqualTo(PublicThread.Status.OPEN)
-        assertThat(publicThread.archived()).contains(true)
         assertThat(publicThread.assignedTo()).contains("assignedTo")
         assertThat(publicThread.closedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -66,6 +66,7 @@ internal class PublicThreadTest {
         val publicThread =
             PublicThread.builder()
                 .id("id")
+                .archived(true)
                 .associatedContactId("associatedContactId")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .inboxId("inboxId")
@@ -73,7 +74,6 @@ internal class PublicThreadTest {
                 .originalChannelId("originalChannelId")
                 .spam(true)
                 .status(PublicThread.Status.OPEN)
-                .archived(true)
                 .assignedTo("assignedTo")
                 .closedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .latestMessageReceivedTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

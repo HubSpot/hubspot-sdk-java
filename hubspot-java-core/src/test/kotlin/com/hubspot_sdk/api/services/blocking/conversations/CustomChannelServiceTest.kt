@@ -57,7 +57,7 @@ internal class CustomChannelServiceTest {
         val publicChannelIntegrationChannel =
             customChannelService.update(
                 CustomChannelUpdateParams.builder()
-                    .channelId("channelId")
+                    .channelId(0)
                     .publicChannelIntegrationChannelPatch(
                         PublicChannelIntegrationChannelPatch.builder()
                             .capabilities(
@@ -68,11 +68,11 @@ internal class CustomChannelServiceTest {
                                     )
                                     .build()
                             )
-                            .channelDescription(JsonValue.from(mapOf<String, Any>()))
-                            .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
                             .channelAccountConnectionRedirectUrl(
                                 JsonValue.from(mapOf<String, Any>())
                             )
+                            .channelDescription(JsonValue.from(mapOf<String, Any>()))
+                            .channelLogoUrl(JsonValue.from(mapOf<String, Any>()))
                             .name(JsonValue.from(mapOf<String, Any>()))
                             .webhookUrl(JsonValue.from(mapOf<String, Any>()))
                             .build()
@@ -93,10 +93,9 @@ internal class CustomChannelServiceTest {
                 .build()
         val customChannelService = client.conversations().customChannels()
 
-        val collectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging =
-            customChannelService.list()
+        val page = customChannelService.list()
 
-        collectionResponseWithTotalPublicChannelIntegrationChannelForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -109,7 +108,7 @@ internal class CustomChannelServiceTest {
                 .build()
         val customChannelService = client.conversations().customChannels()
 
-        customChannelService.delete("channelId")
+        customChannelService.delete(0)
     }
 
     @Disabled("Prism tests are disabled")
@@ -122,7 +121,7 @@ internal class CustomChannelServiceTest {
                 .build()
         val customChannelService = client.conversations().customChannels()
 
-        val publicChannelIntegrationChannel = customChannelService.get("channelId")
+        val publicChannelIntegrationChannel = customChannelService.get(0)
 
         publicChannelIntegrationChannel.validate()
     }

@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Perform a partial update on a specific stage of a pipeline. */
 class StageUpdateParams
 private constructor(
     private val objectType: String,

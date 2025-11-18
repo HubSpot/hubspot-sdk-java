@@ -26,6 +26,7 @@ interface EnablementServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EnablementServiceAsync
 
+    /** For all object types supporting enablement, returns whether they're enabled or disabled */
     fun list(): CompletableFuture<PortalObjectTypeEnablementPublicResponse> =
         list(EnablementListParams.none())
 
@@ -47,6 +48,7 @@ interface EnablementServiceAsync {
     ): CompletableFuture<PortalObjectTypeEnablementPublicResponse> =
         list(EnablementListParams.none(), requestOptions)
 
+    /** Fetch whether object type is enabled */
     fun get(objectTypeId: String): CompletableFuture<ObjectTypeEnablementPublicResponse> =
         get(objectTypeId, EnablementGetParams.none())
 

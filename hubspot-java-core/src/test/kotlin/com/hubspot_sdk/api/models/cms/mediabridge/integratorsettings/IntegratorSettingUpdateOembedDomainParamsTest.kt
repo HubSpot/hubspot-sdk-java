@@ -12,7 +12,7 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
     @Test
     fun create() {
         IntegratorSettingUpdateOembedDomainParams.builder()
-            .appId("appId")
+            .appId(0)
             .oEmbedDomainId("oEmbedDomainId")
             .integratorOEmbedDomainRequest(
                 IntegratorOEmbedDomainRequest.builder()
@@ -29,7 +29,7 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
     fun pathParams() {
         val params =
             IntegratorSettingUpdateOembedDomainParams.builder()
-                .appId("appId")
+                .appId(0)
                 .oEmbedDomainId("oEmbedDomainId")
                 .integratorOEmbedDomainRequest(
                     IntegratorOEmbedDomainRequest.builder()
@@ -44,7 +44,7 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("oEmbedDomainId")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -54,7 +54,7 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
     fun body() {
         val params =
             IntegratorSettingUpdateOembedDomainParams.builder()
-                .appId("appId")
+                .appId(0)
                 .oEmbedDomainId("oEmbedDomainId")
                 .integratorOEmbedDomainRequest(
                     IntegratorOEmbedDomainRequest.builder()
@@ -87,7 +87,7 @@ internal class IntegratorSettingUpdateOembedDomainParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             IntegratorSettingUpdateOembedDomainParams.builder()
-                .appId("appId")
+                .appId(0)
                 .oEmbedDomainId("oEmbedDomainId")
                 .integratorOEmbedDomainRequest(
                     IntegratorOEmbedDomainRequest.builder()

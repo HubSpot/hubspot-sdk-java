@@ -6,7 +6,6 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.scheduler.meetings.ExternalCalendarMeetingEventCreateRequest
 import com.hubspot_sdk.api.models.scheduler.meetings.ExternalCalenderMeetingEventResponse
 import com.hubspot_sdk.api.models.scheduler.meetings.calendar.CalendarCreateParams
 import java.util.function.Consumer
@@ -34,26 +33,6 @@ interface CalendarService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalCalenderMeetingEventResponse
 
-    /** @see create */
-    fun create(
-        externalCalendarMeetingEventCreateRequest: ExternalCalendarMeetingEventCreateRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExternalCalenderMeetingEventResponse =
-        create(
-            CalendarCreateParams.builder()
-                .externalCalendarMeetingEventCreateRequest(
-                    externalCalendarMeetingEventCreateRequest
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see create */
-    fun create(
-        externalCalendarMeetingEventCreateRequest: ExternalCalendarMeetingEventCreateRequest
-    ): ExternalCalenderMeetingEventResponse =
-        create(externalCalendarMeetingEventCreateRequest, RequestOptions.none())
-
     /** A view of [CalendarService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -80,27 +59,5 @@ interface CalendarService {
             params: CalendarCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ExternalCalenderMeetingEventResponse>
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            externalCalendarMeetingEventCreateRequest: ExternalCalendarMeetingEventCreateRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExternalCalenderMeetingEventResponse> =
-            create(
-                CalendarCreateParams.builder()
-                    .externalCalendarMeetingEventCreateRequest(
-                        externalCalendarMeetingEventCreateRequest
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            externalCalendarMeetingEventCreateRequest: ExternalCalendarMeetingEventCreateRequest
-        ): HttpResponseFor<ExternalCalenderMeetingEventResponse> =
-            create(externalCalendarMeetingEventCreateRequest, RequestOptions.none())
     }
 }

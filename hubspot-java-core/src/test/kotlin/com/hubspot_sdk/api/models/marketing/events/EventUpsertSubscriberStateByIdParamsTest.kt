@@ -43,7 +43,15 @@ internal class EventUpsertSubscriberStateByIdParamsTest {
                 .batchInputMarketingEventSubscriber(
                     BatchInputMarketingEventSubscriber.builder()
                         .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
+                            MarketingEventSubscriber.builder()
+                                .interactionDateTime(0L)
+                                .properties(
+                                    MarketingEventSubscriber.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .vid(0)
+                                .build()
                         )
                         .build()
                 )
@@ -74,28 +82,6 @@ internal class EventUpsertSubscriberStateByIdParamsTest {
                                 )
                                 .vid(0)
                                 .build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val queryParams = params._queryParams()
-
-        assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("externalAccountId", "externalAccountId").build())
-    }
-
-    @Test
-    fun queryParamsWithoutOptionalFields() {
-        val params =
-            EventUpsertSubscriberStateByIdParams.builder()
-                .externalEventId("externalEventId")
-                .subscriberState("subscriberState")
-                .externalAccountId("externalAccountId")
-                .batchInputMarketingEventSubscriber(
-                    BatchInputMarketingEventSubscriber.builder()
-                        .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
                         )
                         .build()
                 )
@@ -147,32 +133,6 @@ internal class EventUpsertSubscriberStateByIdParamsTest {
                             .vid(0)
                             .build()
                     )
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            EventUpsertSubscriberStateByIdParams.builder()
-                .externalEventId("externalEventId")
-                .subscriberState("subscriberState")
-                .externalAccountId("externalAccountId")
-                .batchInputMarketingEventSubscriber(
-                    BatchInputMarketingEventSubscriber.builder()
-                        .addInput(
-                            MarketingEventSubscriber.builder().interactionDateTime(0L).build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchInputMarketingEventSubscriber.builder()
-                    .addInput(MarketingEventSubscriber.builder().interactionDateTime(0L).build())
                     .build()
             )
     }

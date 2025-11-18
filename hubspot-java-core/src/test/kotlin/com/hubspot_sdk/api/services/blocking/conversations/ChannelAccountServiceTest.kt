@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.blocking.conversations
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.conversations.channelaccounts.ChannelAccountGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -21,10 +22,9 @@ internal class ChannelAccountServiceTest {
                 .build()
         val channelAccountService = client.conversations().channelAccounts()
 
-        val collectionResponseWithTotalPublicChannelAccountForwardPaging =
-            channelAccountService.list()
+        val page = channelAccountService.list()
 
-        collectionResponseWithTotalPublicChannelAccountForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -37,8 +37,11 @@ internal class ChannelAccountServiceTest {
                 .build()
         val channelAccountService = client.conversations().channelAccounts()
 
-        val conversationsPublicChannelAccount = channelAccountService.get("channelAccountId")
+        val publicChannelAccount =
+            channelAccountService.get(
+                ChannelAccountGetParams.builder().channelAccountId(0L).archived(true).build()
+            )
 
-        conversationsPublicChannelAccount.validate()
+        publicChannelAccount.validate()
     }
 }

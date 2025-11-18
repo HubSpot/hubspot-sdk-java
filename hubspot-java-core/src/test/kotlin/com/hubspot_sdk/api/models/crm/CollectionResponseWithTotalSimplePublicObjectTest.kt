@@ -6,8 +6,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.NextPage
+import com.hubspot_sdk.api.models.Paging
 import com.hubspot_sdk.api.models.PreviousPage
-import com.hubspot_sdk.api.models.marketing.emails.EmailsPaging
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -20,30 +20,15 @@ internal class CollectionResponseWithTotalSimplePublicObjectTest {
             CollectionResponseWithTotalSimplePublicObject.builder()
                 .addResult(
                     SimplePublicObject.builder()
-                        .id("512")
-                        .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
+                        .id("id")
+                        .archived(true)
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .properties(
                             SimplePublicObject.Properties.builder()
-                                .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                                .putAdditionalProperty(
-                                    "property_date",
-                                    JsonValue.from("1572480000000"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_dropdown",
-                                    JsonValue.from("choice_b"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_multiple_checkboxes",
-                                    JsonValue.from("chocolate;strawberry"),
-                                )
-                                .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                                .putAdditionalProperty("property_string", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                        .archived(false)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .objectWriteTraceId("objectWriteTraceId")
                         .propertiesWithHistory(
@@ -65,12 +50,13 @@ internal class CollectionResponseWithTotalSimplePublicObjectTest {
                                 )
                                 .build()
                         )
+                        .url("url")
                         .build()
                 )
                 .total(0)
                 .paging(
-                    EmailsPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                    Paging.builder()
+                        .next(NextPage.builder().after("after").link("link").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()
                 )
@@ -79,24 +65,15 @@ internal class CollectionResponseWithTotalSimplePublicObjectTest {
         assertThat(collectionResponseWithTotalSimplePublicObject.results())
             .containsExactly(
                 SimplePublicObject.builder()
-                    .id("512")
-                    .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
+                    .id("id")
+                    .archived(true)
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .properties(
                         SimplePublicObject.Properties.builder()
-                            .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                            .putAdditionalProperty("property_date", JsonValue.from("1572480000000"))
-                            .putAdditionalProperty("property_dropdown", JsonValue.from("choice_b"))
-                            .putAdditionalProperty(
-                                "property_multiple_checkboxes",
-                                JsonValue.from("chocolate;strawberry"),
-                            )
-                            .putAdditionalProperty("property_number", JsonValue.from("17"))
-                            .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                            .putAdditionalProperty("property_string", JsonValue.from("value"))
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                    .archived(false)
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .objectWriteTraceId("objectWriteTraceId")
                     .propertiesWithHistory(
@@ -118,13 +95,14 @@ internal class CollectionResponseWithTotalSimplePublicObjectTest {
                             )
                             .build()
                     )
+                    .url("url")
                     .build()
             )
         assertThat(collectionResponseWithTotalSimplePublicObject.total()).isEqualTo(0)
         assertThat(collectionResponseWithTotalSimplePublicObject.paging())
             .contains(
-                EmailsPaging.builder()
-                    .next(NextPage.builder().after("").link("").build())
+                Paging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
                     .prev(PreviousPage.builder().before("before").link("link").build())
                     .build()
             )
@@ -137,30 +115,15 @@ internal class CollectionResponseWithTotalSimplePublicObjectTest {
             CollectionResponseWithTotalSimplePublicObject.builder()
                 .addResult(
                     SimplePublicObject.builder()
-                        .id("512")
-                        .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
+                        .id("id")
+                        .archived(true)
+                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .properties(
                             SimplePublicObject.Properties.builder()
-                                .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                                .putAdditionalProperty(
-                                    "property_date",
-                                    JsonValue.from("1572480000000"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_dropdown",
-                                    JsonValue.from("choice_b"),
-                                )
-                                .putAdditionalProperty(
-                                    "property_multiple_checkboxes",
-                                    JsonValue.from("chocolate;strawberry"),
-                                )
-                                .putAdditionalProperty("property_number", JsonValue.from("17"))
-                                .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                                .putAdditionalProperty("property_string", JsonValue.from("value"))
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                        .archived(false)
+                        .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .objectWriteTraceId("objectWriteTraceId")
                         .propertiesWithHistory(
@@ -182,12 +145,13 @@ internal class CollectionResponseWithTotalSimplePublicObjectTest {
                                 )
                                 .build()
                         )
+                        .url("url")
                         .build()
                 )
                 .total(0)
                 .paging(
-                    EmailsPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                    Paging.builder()
+                        .next(NextPage.builder().after("after").link("link").build())
                         .prev(PreviousPage.builder().before("before").link("link").build())
                         .build()
                 )

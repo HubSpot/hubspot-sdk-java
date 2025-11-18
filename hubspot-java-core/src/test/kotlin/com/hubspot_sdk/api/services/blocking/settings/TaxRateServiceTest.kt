@@ -21,9 +21,9 @@ internal class TaxRateServiceTest {
                 .build()
         val taxRateService = client.settings().taxRates()
 
-        val collectionResponsePublicTaxRateGroupForwardPaging = taxRateService.list()
+        val page = taxRateService.list()
 
-        collectionResponsePublicTaxRateGroupForwardPaging.validate()
+        page.response().validate()
     }
 
     @Disabled("Prism tests are disabled")

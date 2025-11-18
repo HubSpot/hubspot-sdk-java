@@ -32,8 +32,8 @@ internal class CustomSearchParamsTest {
                     )
                     .limit(0)
                     .addProperty("string")
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
             .build()
@@ -44,7 +44,24 @@ internal class CustomSearchParamsTest {
         val params =
             CustomSearchParams.builder()
                 .objectType("objectType")
-                .publicObjectSearchRequest(PublicObjectSearchRequest.builder().build())
+                .publicObjectSearchRequest(
+                    PublicObjectSearchRequest.builder()
+                        .after("after")
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.EQ)
+                                        .propertyName("propertyName")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .limit(0)
+                        .addProperty("string")
+                        .addSort("string")
+                        .build()
+                )
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("objectType")
@@ -75,8 +92,8 @@ internal class CustomSearchParamsTest {
                         )
                         .limit(0)
                         .addProperty("string")
-                        .query("query")
                         .addSort("string")
+                        .query("query")
                         .build()
                 )
                 .build()
@@ -102,8 +119,8 @@ internal class CustomSearchParamsTest {
                     )
                     .limit(0)
                     .addProperty("string")
-                    .query("query")
                     .addSort("string")
+                    .query("query")
                     .build()
             )
     }
@@ -113,11 +130,46 @@ internal class CustomSearchParamsTest {
         val params =
             CustomSearchParams.builder()
                 .objectType("objectType")
-                .publicObjectSearchRequest(PublicObjectSearchRequest.builder().build())
+                .publicObjectSearchRequest(
+                    PublicObjectSearchRequest.builder()
+                        .after("after")
+                        .addFilterGroup(
+                            FilterGroup.builder()
+                                .addFilter(
+                                    Filter.builder()
+                                        .operator(Filter.Operator.EQ)
+                                        .propertyName("propertyName")
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .limit(0)
+                        .addProperty("string")
+                        .addSort("string")
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body).isEqualTo(PublicObjectSearchRequest.builder().build())
+        assertThat(body)
+            .isEqualTo(
+                PublicObjectSearchRequest.builder()
+                    .after("after")
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.EQ)
+                                    .propertyName("propertyName")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .limit(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .build()
+            )
     }
 }

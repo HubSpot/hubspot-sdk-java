@@ -19,13 +19,13 @@ internal class AttendanceCreateByEventIdAndEmailParamsTest {
                 BatchInputMarketingEventEmailSubscriber.builder()
                     .addInput(
                         MarketingEventEmailSubscriber.builder()
-                            .email("email")
-                            .interactionDateTime(0L)
                             .contactProperties(
                                 MarketingEventEmailSubscriber.ContactProperties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
+                            .email("email")
+                            .interactionDateTime(0L)
                             .properties(
                                 MarketingEventEmailSubscriber.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -48,8 +48,18 @@ internal class AttendanceCreateByEventIdAndEmailParamsTest {
                     BatchInputMarketingEventEmailSubscriber.builder()
                         .addInput(
                             MarketingEventEmailSubscriber.builder()
+                                .contactProperties(
+                                    MarketingEventEmailSubscriber.ContactProperties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
                                 .email("email")
                                 .interactionDateTime(0L)
+                                .properties(
+                                    MarketingEventEmailSubscriber.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -72,13 +82,13 @@ internal class AttendanceCreateByEventIdAndEmailParamsTest {
                     BatchInputMarketingEventEmailSubscriber.builder()
                         .addInput(
                             MarketingEventEmailSubscriber.builder()
-                                .email("email")
-                                .interactionDateTime(0L)
                                 .contactProperties(
                                     MarketingEventEmailSubscriber.ContactProperties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
                                         .build()
                                 )
+                                .email("email")
+                                .interactionDateTime(0L)
                                 .properties(
                                     MarketingEventEmailSubscriber.Properties.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -97,51 +107,18 @@ internal class AttendanceCreateByEventIdAndEmailParamsTest {
                 BatchInputMarketingEventEmailSubscriber.builder()
                     .addInput(
                         MarketingEventEmailSubscriber.builder()
-                            .email("email")
-                            .interactionDateTime(0L)
                             .contactProperties(
                                 MarketingEventEmailSubscriber.ContactProperties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
+                            .email("email")
+                            .interactionDateTime(0L)
                             .properties(
                                 MarketingEventEmailSubscriber.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
-                            .build()
-                    )
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            AttendanceCreateByEventIdAndEmailParams.builder()
-                .objectId("objectId")
-                .subscriberState("subscriberState")
-                .batchInputMarketingEventEmailSubscriber(
-                    BatchInputMarketingEventEmailSubscriber.builder()
-                        .addInput(
-                            MarketingEventEmailSubscriber.builder()
-                                .email("email")
-                                .interactionDateTime(0L)
-                                .build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchInputMarketingEventEmailSubscriber.builder()
-                    .addInput(
-                        MarketingEventEmailSubscriber.builder()
-                            .email("email")
-                            .interactionDateTime(0L)
                             .build()
                     )
                     .build()

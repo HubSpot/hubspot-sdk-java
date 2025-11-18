@@ -28,13 +28,13 @@ interface MessageService {
 
     /** Publish a message over your custom channel */
     fun create(
-        channelId: String,
+        channelId: Int,
         params: MessageCreateParams,
     ): ConversationsPublicConversationsMessage = create(channelId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        channelId: String,
+        channelId: Int,
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ConversationsPublicConversationsMessage =
@@ -116,7 +116,7 @@ interface MessageService {
          */
         @MustBeClosed
         fun create(
-            channelId: String,
+            channelId: Int,
             params: MessageCreateParams,
         ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             create(channelId, params, RequestOptions.none())
@@ -124,7 +124,7 @@ interface MessageService {
         /** @see create */
         @MustBeClosed
         fun create(
-            channelId: String,
+            channelId: Int,
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ConversationsPublicConversationsMessage> =

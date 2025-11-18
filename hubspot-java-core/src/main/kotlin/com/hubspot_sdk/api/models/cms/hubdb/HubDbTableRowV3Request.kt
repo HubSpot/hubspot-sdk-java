@@ -21,9 +21,9 @@ import kotlin.jvm.optionals.getOrNull
 class HubDbTableRowV3Request
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val values: JsonField<Values>,
     private val childTableId: JsonField<Long>,
     private val displayIndex: JsonField<Int>,
+    private val values: JsonField<Values>,
     private val name: JsonField<String>,
     private val path: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -31,16 +31,30 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("values") @ExcludeMissing values: JsonField<Values> = JsonMissing.of(),
         @JsonProperty("childTableId")
         @ExcludeMissing
         childTableId: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("displayIndex")
         @ExcludeMissing
         displayIndex: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("values") @ExcludeMissing values: JsonField<Values> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("path") @ExcludeMissing path: JsonField<String> = JsonMissing.of(),
-    ) : this(values, childTableId, displayIndex, name, path, mutableMapOf())
+    ) : this(childTableId, displayIndex, values, name, path, mutableMapOf())
+
+    /**
+     * Specifies the value for the column child table id
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun childTableId(): Long = childTableId.getRequired("childTableId")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun displayIndex(): Int = displayIndex.getRequired("displayIndex")
 
     /**
      * List of key value pairs with the column name and column value
@@ -49,20 +63,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun values(): Values = values.getRequired("values")
-
-    /**
-     * Specifies the value for the column child table id
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun childTableId(): Optional<Long> = childTableId.getOptional("childTableId")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun displayIndex(): Optional<Int> = displayIndex.getOptional("displayIndex")
 
     /**
      * Specifies the value for `hs_name` column, which will be used as title in the dynamic pages
@@ -81,13 +81,6 @@ private constructor(
     fun path(): Optional<String> = path.getOptional("path")
 
     /**
-     * Returns the raw JSON value of [values].
-     *
-     * Unlike [values], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("values") @ExcludeMissing fun _values(): JsonField<Values> = values
-
-    /**
      * Returns the raw JSON value of [childTableId].
      *
      * Unlike [childTableId], this method doesn't throw if the JSON field has an unexpected type.
@@ -102,6 +95,13 @@ private constructor(
      * Unlike [displayIndex], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("displayIndex") @ExcludeMissing fun _displayIndex(): JsonField<Int> = displayIndex
+
+    /**
+     * Returns the raw JSON value of [values].
+     *
+     * Unlike [values], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("values") @ExcludeMissing fun _values(): JsonField<Values> = values
 
     /**
      * Returns the raw JSON value of [name].
@@ -136,6 +136,8 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .childTableId()
+         * .displayIndex()
          * .values()
          * ```
          */
@@ -145,33 +147,22 @@ private constructor(
     /** A builder for [HubDbTableRowV3Request]. */
     class Builder internal constructor() {
 
+        private var childTableId: JsonField<Long>? = null
+        private var displayIndex: JsonField<Int>? = null
         private var values: JsonField<Values>? = null
-        private var childTableId: JsonField<Long> = JsonMissing.of()
-        private var displayIndex: JsonField<Int> = JsonMissing.of()
         private var name: JsonField<String> = JsonMissing.of()
         private var path: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(hubDbTableRowV3Request: HubDbTableRowV3Request) = apply {
-            values = hubDbTableRowV3Request.values
             childTableId = hubDbTableRowV3Request.childTableId
             displayIndex = hubDbTableRowV3Request.displayIndex
+            values = hubDbTableRowV3Request.values
             name = hubDbTableRowV3Request.name
             path = hubDbTableRowV3Request.path
             additionalProperties = hubDbTableRowV3Request.additionalProperties.toMutableMap()
         }
-
-        /** List of key value pairs with the column name and column value */
-        fun values(values: Values) = values(JsonField.of(values))
-
-        /**
-         * Sets [Builder.values] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.values] with a well-typed [Values] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun values(values: JsonField<Values>) = apply { this.values = values }
 
         /** Specifies the value for the column child table id */
         fun childTableId(childTableId: Long) = childTableId(JsonField.of(childTableId))
@@ -195,6 +186,17 @@ private constructor(
          * value.
          */
         fun displayIndex(displayIndex: JsonField<Int>) = apply { this.displayIndex = displayIndex }
+
+        /** List of key value pairs with the column name and column value */
+        fun values(values: Values) = values(JsonField.of(values))
+
+        /**
+         * Sets [Builder.values] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.values] with a well-typed [Values] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun values(values: JsonField<Values>) = apply { this.values = values }
 
         /**
          * Specifies the value for `hs_name` column, which will be used as title in the dynamic
@@ -249,6 +251,8 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .childTableId()
+         * .displayIndex()
          * .values()
          * ```
          *
@@ -256,9 +260,9 @@ private constructor(
          */
         fun build(): HubDbTableRowV3Request =
             HubDbTableRowV3Request(
+                checkRequired("childTableId", childTableId),
+                checkRequired("displayIndex", displayIndex),
                 checkRequired("values", values),
-                childTableId,
-                displayIndex,
                 name,
                 path,
                 additionalProperties.toMutableMap(),
@@ -272,9 +276,9 @@ private constructor(
             return@apply
         }
 
-        values().validate()
         childTableId()
         displayIndex()
+        values().validate()
         name()
         path()
         validated = true
@@ -295,9 +299,9 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (values.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (childTableId.asKnown().isPresent) 1 else 0) +
+        (if (childTableId.asKnown().isPresent) 1 else 0) +
             (if (displayIndex.asKnown().isPresent) 1 else 0) +
+            (values.asKnown().getOrNull()?.validity() ?: 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (path.asKnown().isPresent) 1 else 0)
 
@@ -407,20 +411,20 @@ private constructor(
         }
 
         return other is HubDbTableRowV3Request &&
-            values == other.values &&
             childTableId == other.childTableId &&
             displayIndex == other.displayIndex &&
+            values == other.values &&
             name == other.name &&
             path == other.path &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(values, childTableId, displayIndex, name, path, additionalProperties)
+        Objects.hash(childTableId, displayIndex, values, name, path, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "HubDbTableRowV3Request{values=$values, childTableId=$childTableId, displayIndex=$displayIndex, name=$name, path=$path, additionalProperties=$additionalProperties}"
+        "HubDbTableRowV3Request{childTableId=$childTableId, displayIndex=$displayIndex, values=$values, name=$name, path=$path, additionalProperties=$additionalProperties}"
 }

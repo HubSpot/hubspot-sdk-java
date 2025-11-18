@@ -10,7 +10,7 @@ internal class GroupGetByNameParamsTest {
     @Test
     fun create() {
         GroupGetByNameParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .groupName("groupName")
             .build()
@@ -20,12 +20,12 @@ internal class GroupGetByNameParamsTest {
     fun pathParams() {
         val params =
             GroupGetByNameParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .groupName("groupName")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         assertThat(params._pathParam(2)).isEqualTo("groupName")
         // out-of-bound path param

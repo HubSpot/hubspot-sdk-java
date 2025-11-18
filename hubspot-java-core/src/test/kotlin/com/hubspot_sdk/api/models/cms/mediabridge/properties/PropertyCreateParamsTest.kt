@@ -12,7 +12,7 @@ internal class PropertyCreateParamsTest {
     @Test
     fun create() {
         PropertyCreateParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .propertyCreate(
                 PropertyCreate.builder()
@@ -48,7 +48,7 @@ internal class PropertyCreateParamsTest {
     fun pathParams() {
         val params =
             PropertyCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyCreate(
                     PropertyCreate.builder()
@@ -61,7 +61,7 @@ internal class PropertyCreateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -71,7 +71,7 @@ internal class PropertyCreateParamsTest {
     fun body() {
         val params =
             PropertyCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyCreate(
                     PropertyCreate.builder()
@@ -138,7 +138,7 @@ internal class PropertyCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             PropertyCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyCreate(
                     PropertyCreate.builder()

@@ -16,13 +16,11 @@ import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class HubDbTableRowV3
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val values: JsonField<Values>,
     private val id: JsonField<String>,
     private val childTableId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -30,12 +28,12 @@ private constructor(
     private val path: JsonField<String>,
     private val publishedAt: JsonField<OffsetDateTime>,
     private val updatedAt: JsonField<OffsetDateTime>,
+    private val values: JsonField<Values>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("values") @ExcludeMissing values: JsonField<Values> = JsonMissing.of(),
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("childTableId")
         @ExcludeMissing
@@ -51,8 +49,8 @@ private constructor(
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("values") @ExcludeMissing values: JsonField<Values> = JsonMissing.of(),
     ) : this(
-        values,
         id,
         childTableId,
         createdAt,
@@ -60,8 +58,63 @@ private constructor(
         path,
         publishedAt,
         updatedAt,
+        values,
         mutableMapOf(),
     )
+
+    /**
+     * The id of the table row
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * Specifies the value for the column child table id
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun childTableId(): String = childTableId.getRequired("childTableId")
+
+    /**
+     * Timestamp at which the row is created
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
+
+    /**
+     * Specifies the value for `hs_name` column, which will be used as title in the dynamic pages
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun name(): String = name.getRequired("name")
+
+    /**
+     * Specifies the value for `hs_path` column, which will be used as slug in the dynamic pages
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun path(): String = path.getRequired("path")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun publishedAt(): OffsetDateTime = publishedAt.getRequired("publishedAt")
+
+    /**
+     * Timestamp at which the row is updated last time
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
      * List of key value pairs with the column name and column value
@@ -70,67 +123,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun values(): Values = values.getRequired("values")
-
-    /**
-     * The id of the table row
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun id(): Optional<String> = id.getOptional("id")
-
-    /**
-     * Specifies the value for the column child table id
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun childTableId(): Optional<String> = childTableId.getOptional("childTableId")
-
-    /**
-     * Timestamp at which the row is created
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("createdAt")
-
-    /**
-     * Specifies the value for `hs_name` column, which will be used as title in the dynamic pages
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun name(): Optional<String> = name.getOptional("name")
-
-    /**
-     * Specifies the value for `hs_path` column, which will be used as slug in the dynamic pages
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun path(): Optional<String> = path.getOptional("path")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun publishedAt(): Optional<OffsetDateTime> = publishedAt.getOptional("publishedAt")
-
-    /**
-     * Timestamp at which the row is updated last time
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
-
-    /**
-     * Returns the raw JSON value of [values].
-     *
-     * Unlike [values], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("values") @ExcludeMissing fun _values(): JsonField<Values> = values
 
     /**
      * Returns the raw JSON value of [id].
@@ -189,6 +181,13 @@ private constructor(
     @ExcludeMissing
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
+    /**
+     * Returns the raw JSON value of [values].
+     *
+     * Unlike [values], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("values") @ExcludeMissing fun _values(): JsonField<Values> = values
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -208,6 +207,13 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
+         * .childTableId()
+         * .createdAt()
+         * .name()
+         * .path()
+         * .publishedAt()
+         * .updatedAt()
          * .values()
          * ```
          */
@@ -217,19 +223,18 @@ private constructor(
     /** A builder for [HubDbTableRowV3]. */
     class Builder internal constructor() {
 
+        private var id: JsonField<String>? = null
+        private var childTableId: JsonField<String>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var name: JsonField<String>? = null
+        private var path: JsonField<String>? = null
+        private var publishedAt: JsonField<OffsetDateTime>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
         private var values: JsonField<Values>? = null
-        private var id: JsonField<String> = JsonMissing.of()
-        private var childTableId: JsonField<String> = JsonMissing.of()
-        private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var name: JsonField<String> = JsonMissing.of()
-        private var path: JsonField<String> = JsonMissing.of()
-        private var publishedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var updatedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(hubDbTableRowV3: HubDbTableRowV3) = apply {
-            values = hubDbTableRowV3.values
             id = hubDbTableRowV3.id
             childTableId = hubDbTableRowV3.childTableId
             createdAt = hubDbTableRowV3.createdAt
@@ -237,19 +242,9 @@ private constructor(
             path = hubDbTableRowV3.path
             publishedAt = hubDbTableRowV3.publishedAt
             updatedAt = hubDbTableRowV3.updatedAt
+            values = hubDbTableRowV3.values
             additionalProperties = hubDbTableRowV3.additionalProperties.toMutableMap()
         }
-
-        /** List of key value pairs with the column name and column value */
-        fun values(values: Values) = values(JsonField.of(values))
-
-        /**
-         * Sets [Builder.values] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.values] with a well-typed [Values] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun values(values: JsonField<Values>) = apply { this.values = values }
 
         /** The id of the table row */
         fun id(id: String) = id(JsonField.of(id))
@@ -340,6 +335,17 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
+        /** List of key value pairs with the column name and column value */
+        fun values(values: Values) = values(JsonField.of(values))
+
+        /**
+         * Sets [Builder.values] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.values] with a well-typed [Values] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun values(values: JsonField<Values>) = apply { this.values = values }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -366,6 +372,13 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
+         * .childTableId()
+         * .createdAt()
+         * .name()
+         * .path()
+         * .publishedAt()
+         * .updatedAt()
          * .values()
          * ```
          *
@@ -373,14 +386,14 @@ private constructor(
          */
         fun build(): HubDbTableRowV3 =
             HubDbTableRowV3(
+                checkRequired("id", id),
+                checkRequired("childTableId", childTableId),
+                checkRequired("createdAt", createdAt),
+                checkRequired("name", name),
+                checkRequired("path", path),
+                checkRequired("publishedAt", publishedAt),
+                checkRequired("updatedAt", updatedAt),
                 checkRequired("values", values),
-                id,
-                childTableId,
-                createdAt,
-                name,
-                path,
-                publishedAt,
-                updatedAt,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -392,7 +405,6 @@ private constructor(
             return@apply
         }
 
-        values().validate()
         id()
         childTableId()
         createdAt()
@@ -400,6 +412,7 @@ private constructor(
         path()
         publishedAt()
         updatedAt()
+        values().validate()
         validated = true
     }
 
@@ -418,14 +431,14 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (values.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (id.asKnown().isPresent) 1 else 0) +
+        (if (id.asKnown().isPresent) 1 else 0) +
             (if (childTableId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (path.asKnown().isPresent) 1 else 0) +
             (if (publishedAt.asKnown().isPresent) 1 else 0) +
-            (if (updatedAt.asKnown().isPresent) 1 else 0)
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (values.asKnown().getOrNull()?.validity() ?: 0)
 
     /** List of key value pairs with the column name and column value */
     class Values
@@ -533,7 +546,6 @@ private constructor(
         }
 
         return other is HubDbTableRowV3 &&
-            values == other.values &&
             id == other.id &&
             childTableId == other.childTableId &&
             createdAt == other.createdAt &&
@@ -541,12 +553,12 @@ private constructor(
             path == other.path &&
             publishedAt == other.publishedAt &&
             updatedAt == other.updatedAt &&
+            values == other.values &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            values,
             id,
             childTableId,
             createdAt,
@@ -554,6 +566,7 @@ private constructor(
             path,
             publishedAt,
             updatedAt,
+            values,
             additionalProperties,
         )
     }
@@ -561,5 +574,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "HubDbTableRowV3{values=$values, id=$id, childTableId=$childTableId, createdAt=$createdAt, name=$name, path=$path, publishedAt=$publishedAt, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "HubDbTableRowV3{id=$id, childTableId=$childTableId, createdAt=$createdAt, name=$name, path=$path, publishedAt=$publishedAt, updatedAt=$updatedAt, values=$values, additionalProperties=$additionalProperties}"
 }

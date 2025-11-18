@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.services.async.conversations
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicInboxForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicInbox
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxGetParams
+import com.hubspot_sdk.api.models.conversations.inboxes.InboxListPageAsync
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxListParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -27,33 +27,29 @@ interface InboxServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboxServiceAsync
 
     /** Retrieve a list of conversations inboxes, with optional filters and sorting. */
-    fun list(): CompletableFuture<CollectionResponseWithTotalPublicInboxForwardPaging> =
-        list(InboxListParams.none())
+    fun list(): CompletableFuture<InboxListPageAsync> = list(InboxListParams.none())
 
     /** @see list */
     fun list(
         params: InboxListParams = InboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalPublicInboxForwardPaging>
+    ): CompletableFuture<InboxListPageAsync>
 
     /** @see list */
     fun list(
         params: InboxListParams = InboxListParams.none()
-    ): CompletableFuture<CollectionResponseWithTotalPublicInboxForwardPaging> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<InboxListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseWithTotalPublicInboxForwardPaging> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboxListPageAsync> =
         list(InboxListParams.none(), requestOptions)
 
     /** Retrieve details of a single conversations inbox using the inbox ID. */
-    fun get(inboxId: String): CompletableFuture<PublicInbox> = get(inboxId, InboxGetParams.none())
+    fun get(inboxId: Int): CompletableFuture<PublicInbox> = get(inboxId, InboxGetParams.none())
 
     /** @see get */
     fun get(
-        inboxId: String,
+        inboxId: Int,
         params: InboxGetParams = InboxGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicInbox> =
@@ -61,7 +57,7 @@ interface InboxServiceAsync {
 
     /** @see get */
     fun get(
-        inboxId: String,
+        inboxId: Int,
         params: InboxGetParams = InboxGetParams.none(),
     ): CompletableFuture<PublicInbox> = get(inboxId, params, RequestOptions.none())
 
@@ -76,7 +72,7 @@ interface InboxServiceAsync {
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(inboxId: String, requestOptions: RequestOptions): CompletableFuture<PublicInbox> =
+    fun get(inboxId: Int, requestOptions: RequestOptions): CompletableFuture<PublicInbox> =
         get(inboxId, InboxGetParams.none(), requestOptions)
 
     /** A view of [InboxServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -95,39 +91,37 @@ interface InboxServiceAsync {
          * Returns a raw HTTP response for `get /conversations/v3/conversations/inboxes`, but is
          * otherwise the same as [InboxServiceAsync.list].
          */
-        fun list():
-            CompletableFuture<
-                HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging>
-            > = list(InboxListParams.none())
+        fun list(): CompletableFuture<HttpResponseFor<InboxListPageAsync>> =
+            list(InboxListParams.none())
 
         /** @see list */
         fun list(
             params: InboxListParams = InboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging>>
+        ): CompletableFuture<HttpResponseFor<InboxListPageAsync>>
 
         /** @see list */
         fun list(
             params: InboxListParams = InboxListParams.none()
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<InboxListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging>> =
+        ): CompletableFuture<HttpResponseFor<InboxListPageAsync>> =
             list(InboxListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /conversations/v3/conversations/inboxes/{inboxId}`,
          * but is otherwise the same as [InboxServiceAsync.get].
          */
-        fun get(inboxId: String): CompletableFuture<HttpResponseFor<PublicInbox>> =
+        fun get(inboxId: Int): CompletableFuture<HttpResponseFor<PublicInbox>> =
             get(inboxId, InboxGetParams.none())
 
         /** @see get */
         fun get(
-            inboxId: String,
+            inboxId: Int,
             params: InboxGetParams = InboxGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicInbox>> =
@@ -135,7 +129,7 @@ interface InboxServiceAsync {
 
         /** @see get */
         fun get(
-            inboxId: String,
+            inboxId: Int,
             params: InboxGetParams = InboxGetParams.none(),
         ): CompletableFuture<HttpResponseFor<PublicInbox>> =
             get(inboxId, params, RequestOptions.none())
@@ -152,7 +146,7 @@ interface InboxServiceAsync {
 
         /** @see get */
         fun get(
-            inboxId: String,
+            inboxId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<PublicInbox>> =
             get(inboxId, InboxGetParams.none(), requestOptions)

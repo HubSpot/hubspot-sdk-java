@@ -12,7 +12,7 @@ internal class SchemaUpdateParamsTest {
     @Test
     fun create() {
         SchemaUpdateParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .objectTypeDefinitionPatch(
                 ObjectTypeDefinitionPatch.builder()
@@ -38,12 +38,12 @@ internal class SchemaUpdateParamsTest {
     fun pathParams() {
         val params =
             SchemaUpdateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .objectTypeDefinitionPatch(ObjectTypeDefinitionPatch.builder().build())
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -53,7 +53,7 @@ internal class SchemaUpdateParamsTest {
     fun body() {
         val params =
             SchemaUpdateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .objectTypeDefinitionPatch(
                     ObjectTypeDefinitionPatch.builder()
@@ -100,7 +100,7 @@ internal class SchemaUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             SchemaUpdateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .objectTypeDefinitionPatch(ObjectTypeDefinitionPatch.builder().build())
                 .build()

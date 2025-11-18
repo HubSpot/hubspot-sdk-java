@@ -30,6 +30,7 @@ import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetCompanyCurrency
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyGetExchangeRateByIdParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCodesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListCurrentExchangeRatesParams
+import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesPage
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyListExchangeRatesParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyUpdateCompanyCurrencyParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyUpdateExchangeRateParams
@@ -117,7 +118,7 @@ class CurrencyServiceImpl internal constructor(private val clientOptions: Client
     override fun listExchangeRates(
         params: CurrencyListExchangeRatesParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseExchangeRateForwardPaging =
+    ): CurrencyListExchangeRatesPage =
         // get /settings/v3/currencies/exchange-rates
         withRawResponse().listExchangeRates(params, requestOptions).parse()
 
@@ -419,7 +420,7 @@ class CurrencyServiceImpl internal constructor(private val clientOptions: Client
         override fun listExchangeRates(
             params: CurrencyListExchangeRatesParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseExchangeRateForwardPaging> {
+        ): HttpResponseFor<CurrencyListExchangeRatesPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -436,6 +437,13 @@ class CurrencyServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CurrencyListExchangeRatesPage.builder()
+                            .service(CurrencyServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

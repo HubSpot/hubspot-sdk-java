@@ -23,32 +23,32 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                     MarketingEventPublicDefaultResponse.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .addCustomProperty(
+                            PropertyValue.builder()
+                                .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                                .isEncrypted(true)
+                                .isLargeValue(true)
+                                .name("name")
+                                .persistenceTimestamp(0L)
+                                .requestId("requestId")
+                                .selectedByUser(true)
+                                .selectedByUserTimestamp(0L)
+                                .source(PropertyValue.Source.UNKNOWN)
+                                .sourceId("sourceId")
+                                .sourceLabel("sourceLabel")
+                                .sourceMetadata("sourceMetadata")
+                                .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                                .addSourceVid(0L)
+                                .timestamp(0L)
+                                .unit("unit")
+                                .updatedByUserId(0)
+                                .useTimestampAsPersistenceTimestamp(true)
+                                .value("value")
+                                .build()
+                        )
                         .eventName("eventName")
                         .eventOrganizer("eventOrganizer")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .addCustomProperty(
-                            PropertyValue.builder()
-                                .name("")
-                                .sourceUpstreamDeployable("sourceUpstreamDeployable")
-                                .value("")
-                                .dataSensitivity(PropertyValue.DataSensitivity.NONE)
-                                .isEncrypted(false)
-                                .isLargeValue(true)
-                                .persistenceTimestamp(0L)
-                                .requestId("")
-                                .selectedByUser(false)
-                                .selectedByUserTimestamp(0L)
-                                .source(PropertyValue.Source.UNKNOWN)
-                                .sourceId("")
-                                .sourceLabel("")
-                                .sourceMetadata("")
-                                .addSourceVid(0L)
-                                .timestamp(0L)
-                                .unit("")
-                                .updatedByUserId(0)
-                                .useTimestampAsPersistenceTimestamp(true)
-                                .build()
-                        )
                         .endDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .eventCancelled(true)
                         .eventCompleted(true)
@@ -63,7 +63,7 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                 .status(BatchResponseMarketingEventPublicDefaultResponse.Status.PENDING)
                 .addError(
                     StandardError.builder()
-                        .category("")
+                        .category("category")
                         .context(
                             StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
@@ -76,8 +76,132 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                                 .context(
                                     ErrorDetail.Context.builder()
                                         .putAdditionalProperty(
-                                            "missingScopes",
-                                            JsonValue.from(listOf("scope1", "scope2")),
+                                            "0",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "1",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "2",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "3",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "4",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "5",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "6",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "7",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "8",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "9",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "10",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "11",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "12",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "13",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "14",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "15",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "16",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "17",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "18",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "19",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "20",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "21",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "22",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "23",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "24",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "25",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "26",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "27",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "28",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "29",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "30",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "31",
+                                            JsonValue.from(listOf("string")),
                                         )
                                         .build()
                                 )
@@ -90,10 +214,10 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(
@@ -112,32 +236,32 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                 MarketingEventPublicDefaultResponse.builder()
                     .id("id")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .addCustomProperty(
+                        PropertyValue.builder()
+                            .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                            .isEncrypted(true)
+                            .isLargeValue(true)
+                            .name("name")
+                            .persistenceTimestamp(0L)
+                            .requestId("requestId")
+                            .selectedByUser(true)
+                            .selectedByUserTimestamp(0L)
+                            .source(PropertyValue.Source.UNKNOWN)
+                            .sourceId("sourceId")
+                            .sourceLabel("sourceLabel")
+                            .sourceMetadata("sourceMetadata")
+                            .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                            .addSourceVid(0L)
+                            .timestamp(0L)
+                            .unit("unit")
+                            .updatedByUserId(0)
+                            .useTimestampAsPersistenceTimestamp(true)
+                            .value("value")
+                            .build()
+                    )
                     .eventName("eventName")
                     .eventOrganizer("eventOrganizer")
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .addCustomProperty(
-                        PropertyValue.builder()
-                            .name("")
-                            .sourceUpstreamDeployable("sourceUpstreamDeployable")
-                            .value("")
-                            .dataSensitivity(PropertyValue.DataSensitivity.NONE)
-                            .isEncrypted(false)
-                            .isLargeValue(true)
-                            .persistenceTimestamp(0L)
-                            .requestId("")
-                            .selectedByUser(false)
-                            .selectedByUserTimestamp(0L)
-                            .source(PropertyValue.Source.UNKNOWN)
-                            .sourceId("")
-                            .sourceLabel("")
-                            .sourceMetadata("")
-                            .addSourceVid(0L)
-                            .timestamp(0L)
-                            .unit("")
-                            .updatedByUserId(0)
-                            .useTimestampAsPersistenceTimestamp(true)
-                            .build()
-                    )
                     .endDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .eventCancelled(true)
                     .eventCompleted(true)
@@ -155,7 +279,7 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
         assertThat(batchResponseMarketingEventPublicDefaultResponse.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
-                    .category("")
+                    .category("category")
                     .context(
                         StandardError.Context.builder()
                             .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
@@ -167,10 +291,38 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                             .code("code")
                             .context(
                                 ErrorDetail.Context.builder()
-                                    .putAdditionalProperty(
-                                        "missingScopes",
-                                        JsonValue.from(listOf("scope1", "scope2")),
-                                    )
+                                    .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("31", JsonValue.from(listOf("string")))
                                     .build()
                             )
                             .in_("in")
@@ -182,10 +334,10 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .message("")
-                    .status("")
-                    .id("")
-                    .subCategory(JsonValue.from(""))
+                    .message("message")
+                    .status("status")
+                    .id("id")
+                    .subCategory(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
         assertThat(batchResponseMarketingEventPublicDefaultResponse.links())
@@ -209,32 +361,32 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                     MarketingEventPublicDefaultResponse.builder()
                         .id("id")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .addCustomProperty(
+                            PropertyValue.builder()
+                                .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                                .isEncrypted(true)
+                                .isLargeValue(true)
+                                .name("name")
+                                .persistenceTimestamp(0L)
+                                .requestId("requestId")
+                                .selectedByUser(true)
+                                .selectedByUserTimestamp(0L)
+                                .source(PropertyValue.Source.UNKNOWN)
+                                .sourceId("sourceId")
+                                .sourceLabel("sourceLabel")
+                                .sourceMetadata("sourceMetadata")
+                                .sourceUpstreamDeployable("sourceUpstreamDeployable")
+                                .addSourceVid(0L)
+                                .timestamp(0L)
+                                .unit("unit")
+                                .updatedByUserId(0)
+                                .useTimestampAsPersistenceTimestamp(true)
+                                .value("value")
+                                .build()
+                        )
                         .eventName("eventName")
                         .eventOrganizer("eventOrganizer")
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .addCustomProperty(
-                            PropertyValue.builder()
-                                .name("")
-                                .sourceUpstreamDeployable("sourceUpstreamDeployable")
-                                .value("")
-                                .dataSensitivity(PropertyValue.DataSensitivity.NONE)
-                                .isEncrypted(false)
-                                .isLargeValue(true)
-                                .persistenceTimestamp(0L)
-                                .requestId("")
-                                .selectedByUser(false)
-                                .selectedByUserTimestamp(0L)
-                                .source(PropertyValue.Source.UNKNOWN)
-                                .sourceId("")
-                                .sourceLabel("")
-                                .sourceMetadata("")
-                                .addSourceVid(0L)
-                                .timestamp(0L)
-                                .unit("")
-                                .updatedByUserId(0)
-                                .useTimestampAsPersistenceTimestamp(true)
-                                .build()
-                        )
                         .endDateTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .eventCancelled(true)
                         .eventCompleted(true)
@@ -249,7 +401,7 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                 .status(BatchResponseMarketingEventPublicDefaultResponse.Status.PENDING)
                 .addError(
                     StandardError.builder()
-                        .category("")
+                        .category("category")
                         .context(
                             StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
@@ -262,8 +414,132 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                                 .context(
                                     ErrorDetail.Context.builder()
                                         .putAdditionalProperty(
-                                            "missingScopes",
-                                            JsonValue.from(listOf("scope1", "scope2")),
+                                            "0",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "1",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "2",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "3",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "4",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "5",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "6",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "7",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "8",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "9",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "10",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "11",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "12",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "13",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "14",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "15",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "16",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "17",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "18",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "19",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "20",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "21",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "22",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "23",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "24",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "25",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "26",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "27",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "28",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "29",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "30",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "31",
+                                            JsonValue.from(listOf("string")),
                                         )
                                         .build()
                                 )
@@ -276,10 +552,10 @@ internal class BatchResponseMarketingEventPublicDefaultResponseTest {
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(

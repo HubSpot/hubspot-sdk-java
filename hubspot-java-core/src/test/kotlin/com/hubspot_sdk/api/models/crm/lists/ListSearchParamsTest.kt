@@ -13,9 +13,9 @@ internal class ListSearchParamsTest {
             .listSearchRequest(
                 ListSearchRequest.builder()
                     .addAdditionalProperty("hs_list_size_week_delta")
+                    .offset(0)
                     .count(100)
                     .addListId("string")
-                    .offset(0)
                     .addProcessingType("string")
                     .query("Test")
                     .sort("sort")
@@ -31,9 +31,9 @@ internal class ListSearchParamsTest {
                 .listSearchRequest(
                     ListSearchRequest.builder()
                         .addAdditionalProperty("hs_list_size_week_delta")
+                        .offset(0)
                         .count(100)
                         .addListId("string")
-                        .offset(0)
                         .addProcessingType("string")
                         .query("Test")
                         .sort("sort")
@@ -47,9 +47,9 @@ internal class ListSearchParamsTest {
             .isEqualTo(
                 ListSearchRequest.builder()
                     .addAdditionalProperty("hs_list_size_week_delta")
+                    .offset(0)
                     .count(100)
                     .addListId("string")
-                    .offset(0)
                     .addProcessingType("string")
                     .query("Test")
                     .sort("sort")
@@ -61,11 +61,22 @@ internal class ListSearchParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ListSearchParams.builder()
-                .listSearchRequest(ListSearchRequest.builder().build())
+                .listSearchRequest(
+                    ListSearchRequest.builder()
+                        .addAdditionalProperty("hs_list_size_week_delta")
+                        .offset(0)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body).isEqualTo(ListSearchRequest.builder().build())
+        assertThat(body)
+            .isEqualTo(
+                ListSearchRequest.builder()
+                    .addAdditionalProperty("hs_list_size_week_delta")
+                    .offset(0)
+                    .build()
+            )
     }
 }

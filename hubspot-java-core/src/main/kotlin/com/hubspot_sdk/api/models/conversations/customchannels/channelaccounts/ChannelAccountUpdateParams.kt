@@ -18,16 +18,16 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ChannelAccountUpdateParams
 private constructor(
-    private val channelId: String,
-    private val channelAccountId: String?,
+    private val channelId: Int,
+    private val channelAccountId: Long?,
     private val publicChannelAccountUpdateRequest: PublicChannelAccountUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): String = channelId
+    fun channelId(): Int = channelId
 
-    fun channelAccountId(): Optional<String> = Optional.ofNullable(channelAccountId)
+    fun channelAccountId(): Optional<Long> = Optional.ofNullable(channelAccountId)
 
     fun publicChannelAccountUpdateRequest(): PublicChannelAccountUpdateRequest =
         publicChannelAccountUpdateRequest
@@ -60,8 +60,8 @@ private constructor(
     /** A builder for [ChannelAccountUpdateParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
-        private var channelAccountId: String? = null
+        private var channelId: Int? = null
+        private var channelAccountId: Long? = null
         private var publicChannelAccountUpdateRequest: PublicChannelAccountUpdateRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -76,14 +76,21 @@ private constructor(
             additionalQueryParams = channelAccountUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int) = apply { this.channelId = channelId }
 
-        fun channelAccountId(channelAccountId: String?) = apply {
+        fun channelAccountId(channelAccountId: Long?) = apply {
             this.channelAccountId = channelAccountId
         }
 
+        /**
+         * Alias for [Builder.channelAccountId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun channelAccountId(channelAccountId: Long) = channelAccountId(channelAccountId as Long?)
+
         /** Alias for calling [Builder.channelAccountId] with `channelAccountId.orElse(null)`. */
-        fun channelAccountId(channelAccountId: Optional<String>) =
+        fun channelAccountId(channelAccountId: Optional<Long>) =
             channelAccountId(channelAccountId.getOrNull())
 
         fun publicChannelAccountUpdateRequest(
@@ -218,8 +225,8 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId
-            1 -> channelAccountId ?: ""
+            0 -> channelId.toString()
+            1 -> channelAccountId?.toString() ?: ""
             else -> ""
         }
 

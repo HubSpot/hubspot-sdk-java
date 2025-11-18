@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a pipeline stage */
+/** Create a new stage within the specified pipeline. */
 class StageCreateParams
 private constructor(
     private val objectType: String,

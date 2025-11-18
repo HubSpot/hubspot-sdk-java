@@ -12,7 +12,7 @@ internal class ChannelAccountStagingTokenUpdateParamsTest {
     @Test
     fun create() {
         ChannelAccountStagingTokenUpdateParams.builder()
-            .channelId("channelId")
+            .channelId(0)
             .accountToken("accountToken")
             .publicChannelAccountStagingTokenUpdateRequest(
                 PublicChannelAccountStagingTokenUpdateRequest.builder()
@@ -29,7 +29,7 @@ internal class ChannelAccountStagingTokenUpdateParamsTest {
     fun pathParams() {
         val params =
             ChannelAccountStagingTokenUpdateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .accountToken("accountToken")
                 .publicChannelAccountStagingTokenUpdateRequest(
                     PublicChannelAccountStagingTokenUpdateRequest.builder()
@@ -41,7 +41,7 @@ internal class ChannelAccountStagingTokenUpdateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("channelId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("accountToken")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -51,7 +51,7 @@ internal class ChannelAccountStagingTokenUpdateParamsTest {
     fun body() {
         val params =
             ChannelAccountStagingTokenUpdateParams.builder()
-                .channelId("channelId")
+                .channelId(0)
                 .accountToken("accountToken")
                 .publicChannelAccountStagingTokenUpdateRequest(
                     PublicChannelAccountStagingTokenUpdateRequest.builder()

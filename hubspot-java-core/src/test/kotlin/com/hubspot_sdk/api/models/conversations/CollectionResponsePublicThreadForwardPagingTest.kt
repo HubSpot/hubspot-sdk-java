@@ -19,6 +19,7 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
                 .addResult(
                     PublicThread.builder()
                         .id("id")
+                        .archived(true)
                         .associatedContactId("associatedContactId")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .inboxId("inboxId")
@@ -26,7 +27,6 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
                         .originalChannelId("originalChannelId")
                         .spam(true)
                         .status(PublicThread.Status.OPEN)
-                        .archived(true)
                         .assignedTo("assignedTo")
                         .closedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .latestMessageReceivedTimestamp(
@@ -45,7 +45,7 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()
@@ -54,6 +54,7 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
             .containsExactly(
                 PublicThread.builder()
                     .id("id")
+                    .archived(true)
                     .associatedContactId("associatedContactId")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .inboxId("inboxId")
@@ -61,7 +62,6 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
                     .originalChannelId("originalChannelId")
                     .spam(true)
                     .status(PublicThread.Status.OPEN)
-                    .archived(true)
                     .assignedTo("assignedTo")
                     .closedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .latestMessageReceivedTimestamp(
@@ -78,7 +78,9 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
             )
         assertThat(collectionResponsePublicThreadForwardPaging.paging())
             .contains(
-                ForwardPaging.builder().next(NextPage.builder().after("").link("").build()).build()
+                ForwardPaging.builder()
+                    .next(NextPage.builder().after("after").link("link").build())
+                    .build()
             )
     }
 
@@ -90,6 +92,7 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
                 .addResult(
                     PublicThread.builder()
                         .id("id")
+                        .archived(true)
                         .associatedContactId("associatedContactId")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .inboxId("inboxId")
@@ -97,7 +100,6 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
                         .originalChannelId("originalChannelId")
                         .spam(true)
                         .status(PublicThread.Status.OPEN)
-                        .archived(true)
                         .assignedTo("assignedTo")
                         .closedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .latestMessageReceivedTimestamp(
@@ -116,7 +118,7 @@ internal class CollectionResponsePublicThreadForwardPagingTest {
                 )
                 .paging(
                     ForwardPaging.builder()
-                        .next(NextPage.builder().after("").link("").build())
+                        .next(NextPage.builder().after("after").link("link").build())
                         .build()
                 )
                 .build()

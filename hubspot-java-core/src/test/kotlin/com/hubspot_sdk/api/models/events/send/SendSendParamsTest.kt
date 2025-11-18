@@ -15,14 +15,14 @@ internal class SendSendParamsTest {
             .behavioralEventHttpCompletionRequest(
                 BehavioralEventHttpCompletionRequest.builder()
                     .eventName("eventName")
-                    .email("email")
-                    .objectId("objectId")
-                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .properties(
                         BehavioralEventHttpCompletionRequest.Properties.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
+                    .email("email")
+                    .objectId("objectId")
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .utk("utk")
                     .uuid("uuid")
                     .build()
@@ -37,14 +37,14 @@ internal class SendSendParamsTest {
                 .behavioralEventHttpCompletionRequest(
                     BehavioralEventHttpCompletionRequest.builder()
                         .eventName("eventName")
-                        .email("email")
-                        .objectId("objectId")
-                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .properties(
                             BehavioralEventHttpCompletionRequest.Properties.builder()
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
+                        .email("email")
+                        .objectId("objectId")
+                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .utk("utk")
                         .uuid("uuid")
                         .build()
@@ -57,14 +57,14 @@ internal class SendSendParamsTest {
             .isEqualTo(
                 BehavioralEventHttpCompletionRequest.builder()
                     .eventName("eventName")
-                    .email("email")
-                    .objectId("objectId")
-                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .properties(
                         BehavioralEventHttpCompletionRequest.Properties.builder()
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
+                    .email("email")
+                    .objectId("objectId")
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .utk("utk")
                     .uuid("uuid")
                     .build()
@@ -76,7 +76,14 @@ internal class SendSendParamsTest {
         val params =
             SendSendParams.builder()
                 .behavioralEventHttpCompletionRequest(
-                    BehavioralEventHttpCompletionRequest.builder().eventName("eventName").build()
+                    BehavioralEventHttpCompletionRequest.builder()
+                        .eventName("eventName")
+                        .properties(
+                            BehavioralEventHttpCompletionRequest.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
                 )
                 .build()
 
@@ -84,7 +91,14 @@ internal class SendSendParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                BehavioralEventHttpCompletionRequest.builder().eventName("eventName").build()
+                BehavioralEventHttpCompletionRequest.builder()
+                    .eventName("eventName")
+                    .properties(
+                        BehavioralEventHttpCompletionRequest.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .build()
             )
     }
 }

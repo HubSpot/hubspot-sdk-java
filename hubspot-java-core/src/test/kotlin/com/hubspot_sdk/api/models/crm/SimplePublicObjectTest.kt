@@ -15,24 +15,15 @@ internal class SimplePublicObjectTest {
     fun create() {
         val simplePublicObject =
             SimplePublicObject.builder()
-                .id("512")
-                .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
+                .id("id")
+                .archived(true)
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     SimplePublicObject.Properties.builder()
-                        .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                        .putAdditionalProperty("property_date", JsonValue.from("1572480000000"))
-                        .putAdditionalProperty("property_dropdown", JsonValue.from("choice_b"))
-                        .putAdditionalProperty(
-                            "property_multiple_checkboxes",
-                            JsonValue.from("chocolate;strawberry"),
-                        )
-                        .putAdditionalProperty("property_number", JsonValue.from("17"))
-                        .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                        .putAdditionalProperty("property_string", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
-                .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                .archived(false)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .objectWriteTraceId("objectWriteTraceId")
                 .propertiesWithHistory(
@@ -54,29 +45,21 @@ internal class SimplePublicObjectTest {
                         )
                         .build()
                 )
+                .url("url")
                 .build()
 
-        assertThat(simplePublicObject.id()).isEqualTo("512")
+        assertThat(simplePublicObject.id()).isEqualTo("id")
+        assertThat(simplePublicObject.archived()).isEqualTo(true)
         assertThat(simplePublicObject.createdAt())
-            .isEqualTo(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simplePublicObject.properties())
             .isEqualTo(
                 SimplePublicObject.Properties.builder()
-                    .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                    .putAdditionalProperty("property_date", JsonValue.from("1572480000000"))
-                    .putAdditionalProperty("property_dropdown", JsonValue.from("choice_b"))
-                    .putAdditionalProperty(
-                        "property_multiple_checkboxes",
-                        JsonValue.from("chocolate;strawberry"),
-                    )
-                    .putAdditionalProperty("property_number", JsonValue.from("17"))
-                    .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                    .putAdditionalProperty("property_string", JsonValue.from("value"))
+                    .putAdditionalProperty("foo", JsonValue.from("string"))
                     .build()
             )
         assertThat(simplePublicObject.updatedAt())
-            .isEqualTo(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-        assertThat(simplePublicObject.archived()).contains(false)
+            .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simplePublicObject.archivedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(simplePublicObject.objectWriteTraceId()).contains("objectWriteTraceId")
@@ -100,6 +83,7 @@ internal class SimplePublicObjectTest {
                     )
                     .build()
             )
+        assertThat(simplePublicObject.url()).contains("url")
     }
 
     @Test
@@ -107,24 +91,15 @@ internal class SimplePublicObjectTest {
         val jsonMapper = jsonMapper()
         val simplePublicObject =
             SimplePublicObject.builder()
-                .id("512")
-                .createdAt(OffsetDateTime.parse("2019-10-30T03:30:17.883Z"))
+                .id("id")
+                .archived(true)
+                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     SimplePublicObject.Properties.builder()
-                        .putAdditionalProperty("property_checkbox", JsonValue.from("false"))
-                        .putAdditionalProperty("property_date", JsonValue.from("1572480000000"))
-                        .putAdditionalProperty("property_dropdown", JsonValue.from("choice_b"))
-                        .putAdditionalProperty(
-                            "property_multiple_checkboxes",
-                            JsonValue.from("chocolate;strawberry"),
-                        )
-                        .putAdditionalProperty("property_number", JsonValue.from("17"))
-                        .putAdditionalProperty("property_radio", JsonValue.from("option_1"))
-                        .putAdditionalProperty("property_string", JsonValue.from("value"))
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
                         .build()
                 )
-                .updatedAt(OffsetDateTime.parse("2019-12-07T16:50:06.678Z"))
-                .archived(false)
+                .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .objectWriteTraceId("objectWriteTraceId")
                 .propertiesWithHistory(
@@ -146,6 +121,7 @@ internal class SimplePublicObjectTest {
                         )
                         .build()
                 )
+                .url("url")
                 .build()
 
         val roundtrippedSimplePublicObject =

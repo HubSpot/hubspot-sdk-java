@@ -6,9 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicInboxForwardPaging
 import com.hubspot_sdk.api.models.conversations.PublicInbox
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxGetParams
+import com.hubspot_sdk.api.models.conversations.inboxes.InboxListPage
 import com.hubspot_sdk.api.models.conversations.inboxes.InboxListParams
 import java.util.function.Consumer
 
@@ -27,35 +27,34 @@ interface InboxService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboxService
 
     /** Retrieve a list of conversations inboxes, with optional filters and sorting. */
-    fun list(): CollectionResponseWithTotalPublicInboxForwardPaging = list(InboxListParams.none())
+    fun list(): InboxListPage = list(InboxListParams.none())
 
     /** @see list */
     fun list(
         params: InboxListParams = InboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalPublicInboxForwardPaging
+    ): InboxListPage
 
     /** @see list */
-    fun list(
-        params: InboxListParams = InboxListParams.none()
-    ): CollectionResponseWithTotalPublicInboxForwardPaging = list(params, RequestOptions.none())
+    fun list(params: InboxListParams = InboxListParams.none()): InboxListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CollectionResponseWithTotalPublicInboxForwardPaging =
+    fun list(requestOptions: RequestOptions): InboxListPage =
         list(InboxListParams.none(), requestOptions)
 
     /** Retrieve details of a single conversations inbox using the inbox ID. */
-    fun get(inboxId: String): PublicInbox = get(inboxId, InboxGetParams.none())
+    fun get(inboxId: Int): PublicInbox = get(inboxId, InboxGetParams.none())
 
     /** @see get */
     fun get(
-        inboxId: String,
+        inboxId: Int,
         params: InboxGetParams = InboxGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicInbox = get(params.toBuilder().inboxId(inboxId).build(), requestOptions)
 
     /** @see get */
-    fun get(inboxId: String, params: InboxGetParams = InboxGetParams.none()): PublicInbox =
+    fun get(inboxId: Int, params: InboxGetParams = InboxGetParams.none()): PublicInbox =
         get(inboxId, params, RequestOptions.none())
 
     /** @see get */
@@ -68,7 +67,7 @@ interface InboxService {
     fun get(params: InboxGetParams): PublicInbox = get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(inboxId: String, requestOptions: RequestOptions): PublicInbox =
+    fun get(inboxId: Int, requestOptions: RequestOptions): PublicInbox =
         get(inboxId, InboxGetParams.none(), requestOptions)
 
     /** A view of [InboxService] that provides access to raw HTTP responses for each method. */
@@ -85,29 +84,23 @@ interface InboxService {
          * Returns a raw HTTP response for `get /conversations/v3/conversations/inboxes`, but is
          * otherwise the same as [InboxService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging> =
-            list(InboxListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<InboxListPage> = list(InboxListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InboxListParams = InboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging>
+        ): HttpResponseFor<InboxListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: InboxListParams = InboxListParams.none()
-        ): HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging> =
+        fun list(params: InboxListParams = InboxListParams.none()): HttpResponseFor<InboxListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseWithTotalPublicInboxForwardPaging> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboxListPage> =
             list(InboxListParams.none(), requestOptions)
 
         /**
@@ -115,12 +108,12 @@ interface InboxService {
          * but is otherwise the same as [InboxService.get].
          */
         @MustBeClosed
-        fun get(inboxId: String): HttpResponseFor<PublicInbox> = get(inboxId, InboxGetParams.none())
+        fun get(inboxId: Int): HttpResponseFor<PublicInbox> = get(inboxId, InboxGetParams.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            inboxId: String,
+            inboxId: Int,
             params: InboxGetParams = InboxGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicInbox> =
@@ -129,7 +122,7 @@ interface InboxService {
         /** @see get */
         @MustBeClosed
         fun get(
-            inboxId: String,
+            inboxId: Int,
             params: InboxGetParams = InboxGetParams.none(),
         ): HttpResponseFor<PublicInbox> = get(inboxId, params, RequestOptions.none())
 
@@ -147,7 +140,7 @@ interface InboxService {
 
         /** @see get */
         @MustBeClosed
-        fun get(inboxId: String, requestOptions: RequestOptions): HttpResponseFor<PublicInbox> =
+        fun get(inboxId: Int, requestOptions: RequestOptions): HttpResponseFor<PublicInbox> =
             get(inboxId, InboxGetParams.none(), requestOptions)
     }
 }

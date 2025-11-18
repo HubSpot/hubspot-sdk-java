@@ -12,12 +12,16 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the details for existing oEmbed domains for your app */
 class IntegratorSettingListOembedDomainsParams
 private constructor(
-    private val appId: String?,
+    private val appId: Int?,
+    private val domainPortalId: Int?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): Optional<String> = Optional.ofNullable(appId)
+    fun appId(): Optional<Int> = Optional.ofNullable(appId)
+
+    /** Filter response by Hub ID. */
+    fun domainPortalId(): Optional<Int> = Optional.ofNullable(domainPortalId)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -41,7 +45,8 @@ private constructor(
     /** A builder for [IntegratorSettingListOembedDomainsParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
+        private var domainPortalId: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -50,16 +55,38 @@ private constructor(
             integratorSettingListOembedDomainsParams: IntegratorSettingListOembedDomainsParams
         ) = apply {
             appId = integratorSettingListOembedDomainsParams.appId
+            domainPortalId = integratorSettingListOembedDomainsParams.domainPortalId
             additionalHeaders =
                 integratorSettingListOembedDomainsParams.additionalHeaders.toBuilder()
             additionalQueryParams =
                 integratorSettingListOembedDomainsParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String?) = apply { this.appId = appId }
+        fun appId(appId: Int?) = apply { this.appId = appId }
+
+        /**
+         * Alias for [Builder.appId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun appId(appId: Int) = appId(appId as Int?)
 
         /** Alias for calling [Builder.appId] with `appId.orElse(null)`. */
-        fun appId(appId: Optional<String>) = appId(appId.getOrNull())
+        fun appId(appId: Optional<Int>) = appId(appId.getOrNull())
+
+        /** Filter response by Hub ID. */
+        fun domainPortalId(domainPortalId: Int?) = apply { this.domainPortalId = domainPortalId }
+
+        /**
+         * Alias for [Builder.domainPortalId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun domainPortalId(domainPortalId: Int) = domainPortalId(domainPortalId as Int?)
+
+        /** Alias for calling [Builder.domainPortalId] with `domainPortalId.orElse(null)`. */
+        fun domainPortalId(domainPortalId: Optional<Int>) =
+            domainPortalId(domainPortalId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -167,6 +194,7 @@ private constructor(
         fun build(): IntegratorSettingListOembedDomainsParams =
             IntegratorSettingListOembedDomainsParams(
                 appId,
+                domainPortalId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -174,13 +202,19 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId ?: ""
+            0 -> appId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                domainPortalId?.let { put("domainPortalId", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -189,12 +223,14 @@ private constructor(
 
         return other is IntegratorSettingListOembedDomainsParams &&
             appId == other.appId &&
+            domainPortalId == other.domainPortalId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(appId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(appId, domainPortalId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "IntegratorSettingListOembedDomainsParams{appId=$appId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "IntegratorSettingListOembedDomainsParams{appId=$appId, domainPortalId=$domainPortalId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

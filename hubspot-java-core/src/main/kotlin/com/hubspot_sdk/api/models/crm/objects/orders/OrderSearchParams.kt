@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 
+/** Execute a search for orders using specified criteria and return matching results. */
 class OrderSearchParams
 private constructor(
     private val publicObjectSearchRequest: PublicObjectSearchRequest,

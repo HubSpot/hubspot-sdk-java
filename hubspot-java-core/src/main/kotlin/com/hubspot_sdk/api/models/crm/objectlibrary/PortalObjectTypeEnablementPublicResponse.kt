@@ -32,6 +32,8 @@ private constructor(
     ) : this(enablementByObjectTypeId, mutableMapOf())
 
     /**
+     * A map of objectTypeId to whether that object type is enabled or not
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -90,6 +92,7 @@ private constructor(
                 portalObjectTypeEnablementPublicResponse.additionalProperties.toMutableMap()
         }
 
+        /** A map of objectTypeId to whether that object type is enabled or not */
         fun enablementByObjectTypeId(enablementByObjectTypeId: EnablementByObjectTypeId) =
             enablementByObjectTypeId(JsonField.of(enablementByObjectTypeId))
 
@@ -169,6 +172,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int = (enablementByObjectTypeId.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** A map of objectTypeId to whether that object type is enabled or not */
     class EnablementByObjectTypeId
     @JsonCreator
     private constructor(

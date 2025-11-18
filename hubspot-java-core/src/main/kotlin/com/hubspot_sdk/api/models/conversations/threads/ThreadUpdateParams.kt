@@ -17,13 +17,20 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ThreadUpdateParams
 private constructor(
-    private val threadId: String?,
+    private val threadId: Long?,
+    private val queryArchived: Boolean?,
     private val publicThreadUpdateRequest: PublicThreadUpdateRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun threadId(): Optional<String> = Optional.ofNullable(threadId)
+    fun threadId(): Optional<Long> = Optional.ofNullable(threadId)
+
+    /**
+     * Whether the thread to update is archived. Default is false. A thread's status property can
+     * not be updated if the thread is archived.
+     */
+    fun queryArchived(): Optional<Boolean> = Optional.ofNullable(queryArchived)
 
     fun publicThreadUpdateRequest(): PublicThreadUpdateRequest = publicThreadUpdateRequest
 
@@ -54,7 +61,8 @@ private constructor(
     /** A builder for [ThreadUpdateParams]. */
     class Builder internal constructor() {
 
-        private var threadId: String? = null
+        private var threadId: Long? = null
+        private var queryArchived: Boolean? = null
         private var publicThreadUpdateRequest: PublicThreadUpdateRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -62,15 +70,40 @@ private constructor(
         @JvmSynthetic
         internal fun from(threadUpdateParams: ThreadUpdateParams) = apply {
             threadId = threadUpdateParams.threadId
+            queryArchived = threadUpdateParams.queryArchived
             publicThreadUpdateRequest = threadUpdateParams.publicThreadUpdateRequest
             additionalHeaders = threadUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = threadUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun threadId(threadId: String?) = apply { this.threadId = threadId }
+        fun threadId(threadId: Long?) = apply { this.threadId = threadId }
+
+        /**
+         * Alias for [Builder.threadId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun threadId(threadId: Long) = threadId(threadId as Long?)
 
         /** Alias for calling [Builder.threadId] with `threadId.orElse(null)`. */
-        fun threadId(threadId: Optional<String>) = threadId(threadId.getOrNull())
+        fun threadId(threadId: Optional<Long>) = threadId(threadId.getOrNull())
+
+        /**
+         * Whether the thread to update is archived. Default is false. A thread's status property
+         * can not be updated if the thread is archived.
+         */
+        fun queryArchived(queryArchived: Boolean?) = apply { this.queryArchived = queryArchived }
+
+        /**
+         * Alias for [Builder.queryArchived].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun queryArchived(queryArchived: Boolean) = queryArchived(queryArchived as Boolean?)
+
+        /** Alias for calling [Builder.queryArchived] with `queryArchived.orElse(null)`. */
+        fun queryArchived(queryArchived: Optional<Boolean>) =
+            queryArchived(queryArchived.getOrNull())
 
         fun publicThreadUpdateRequest(publicThreadUpdateRequest: PublicThreadUpdateRequest) =
             apply {
@@ -190,6 +223,7 @@ private constructor(
         fun build(): ThreadUpdateParams =
             ThreadUpdateParams(
                 threadId,
+                queryArchived,
                 checkRequired("publicThreadUpdateRequest", publicThreadUpdateRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -200,13 +234,19 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> threadId ?: ""
+            0 -> threadId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                queryArchived?.let { put("archived", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -215,14 +255,21 @@ private constructor(
 
         return other is ThreadUpdateParams &&
             threadId == other.threadId &&
+            queryArchived == other.queryArchived &&
             publicThreadUpdateRequest == other.publicThreadUpdateRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(threadId, publicThreadUpdateRequest, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            threadId,
+            queryArchived,
+            publicThreadUpdateRequest,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "ThreadUpdateParams{threadId=$threadId, publicThreadUpdateRequest=$publicThreadUpdateRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ThreadUpdateParams{threadId=$threadId, queryArchived=$queryArchived, publicThreadUpdateRequest=$publicThreadUpdateRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

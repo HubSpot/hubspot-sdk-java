@@ -20,6 +20,7 @@ internal class ExternalCalendarMeetingEventCreatePropertiesTest {
                 .hsMeetingStartTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .hsMeetingTitle("hs_meeting_title")
                 .hsTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .hubspotOwnerId("hubspot_owner_id")
                 .hsActivityType("hs_activity_type")
                 .addHsAttachmentId("string")
                 .addHsAttendeeOwnerId("string")
@@ -27,7 +28,6 @@ internal class ExternalCalendarMeetingEventCreatePropertiesTest {
                 .hsMeetingBody("hs_meeting_body")
                 .hsMeetingLocation("hs_meeting_location")
                 .hsMeetingLocationType("hs_meeting_location_type")
-                .hubspotOwnerId("hubspot_owner_id")
                 .build()
 
         assertThat(externalCalendarMeetingEventCreateProperties.hsMeetingEndTime())
@@ -40,6 +40,8 @@ internal class ExternalCalendarMeetingEventCreatePropertiesTest {
             .isEqualTo("hs_meeting_title")
         assertThat(externalCalendarMeetingEventCreateProperties.hsTimestamp())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+        assertThat(externalCalendarMeetingEventCreateProperties.hubspotOwnerId())
+            .isEqualTo("hubspot_owner_id")
         assertThat(externalCalendarMeetingEventCreateProperties.hsActivityType())
             .contains("hs_activity_type")
         assertThat(externalCalendarMeetingEventCreateProperties.hsAttachmentIds().getOrNull())
@@ -54,8 +56,6 @@ internal class ExternalCalendarMeetingEventCreatePropertiesTest {
             .contains("hs_meeting_location")
         assertThat(externalCalendarMeetingEventCreateProperties.hsMeetingLocationType())
             .contains("hs_meeting_location_type")
-        assertThat(externalCalendarMeetingEventCreateProperties.hubspotOwnerId())
-            .contains("hubspot_owner_id")
     }
 
     @Test
@@ -68,6 +68,7 @@ internal class ExternalCalendarMeetingEventCreatePropertiesTest {
                 .hsMeetingStartTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .hsMeetingTitle("hs_meeting_title")
                 .hsTimestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .hubspotOwnerId("hubspot_owner_id")
                 .hsActivityType("hs_activity_type")
                 .addHsAttachmentId("string")
                 .addHsAttendeeOwnerId("string")
@@ -75,7 +76,6 @@ internal class ExternalCalendarMeetingEventCreatePropertiesTest {
                 .hsMeetingBody("hs_meeting_body")
                 .hsMeetingLocation("hs_meeting_location")
                 .hsMeetingLocationType("hs_meeting_location_type")
-                .hubspotOwnerId("hubspot_owner_id")
                 .build()
 
         val roundtrippedExternalCalendarMeetingEventCreateProperties =

@@ -28,6 +28,10 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
+    /**
+     * This endpoint allows you to create multiple associations between specified 'from' and 'to'
+     * object types in a single batch request.
+     */
     fun create(
         toObjectType: String,
         params: BatchCreateParams,
@@ -77,6 +81,10 @@ interface BatchServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /**
+     * This endpoint allows you to retrieve multiple associations between specified 'from' and 'to'
+     * object types in a single batch request.
+     */
     fun get(
         toObjectType: String,
         params: BatchGetParams,

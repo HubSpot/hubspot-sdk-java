@@ -15,7 +15,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.crm.associations.v4.StandardError1
+import com.hubspot_sdk.api.models.StandardError
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -29,7 +29,7 @@ private constructor(
     private val results: JsonField<List<PublicDefaultAssociation>>,
     private val startedAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
-    private val errors: JsonField<List<StandardError1>>,
+    private val errors: JsonField<List<StandardError>>,
     private val links: JsonField<Links>,
     private val numErrors: JsonField<Int>,
     private val requestedAt: JsonField<OffsetDateTime>,
@@ -50,7 +50,7 @@ private constructor(
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("errors")
         @ExcludeMissing
-        errors: JsonField<List<StandardError1>> = JsonMissing.of(),
+        errors: JsonField<List<StandardError>> = JsonMissing.of(),
         @JsonProperty("links") @ExcludeMissing links: JsonField<Links> = JsonMissing.of(),
         @JsonProperty("numErrors") @ExcludeMissing numErrors: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("requestedAt")
@@ -69,6 +69,8 @@ private constructor(
     )
 
     /**
+     * The timestamp when the batch process was completed, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -81,12 +83,17 @@ private constructor(
     fun results(): List<PublicDefaultAssociation> = results.getRequired("results")
 
     /**
+     * The timestamp when the batch process began execution, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun startedAt(): OffsetDateTime = startedAt.getRequired("startedAt")
 
     /**
+     * The status of the batch processing request: "PENDING", "PROCESSING", "CANCELLED", or
+     * "COMPLETE".
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -96,21 +103,27 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun errors(): Optional<List<StandardError1>> = errors.getOptional("errors")
+    fun errors(): Optional<List<StandardError>> = errors.getOptional("errors")
 
     /**
+     * An object containing relevant links related to the batch request.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun links(): Optional<Links> = links.getOptional("links")
 
     /**
+     * The number of errors encountered during the batch processing.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun numErrors(): Optional<Int> = numErrors.getOptional("numErrors")
 
     /**
+     * The timestamp when the batch process was initiated, in ISO 8601 format.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -155,7 +168,7 @@ private constructor(
      *
      * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<StandardError1>> = errors
+    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<StandardError>> = errors
 
     /**
      * Returns the raw JSON value of [links].
@@ -216,7 +229,7 @@ private constructor(
         private var results: JsonField<MutableList<PublicDefaultAssociation>>? = null
         private var startedAt: JsonField<OffsetDateTime>? = null
         private var status: JsonField<Status>? = null
-        private var errors: JsonField<MutableList<StandardError1>>? = null
+        private var errors: JsonField<MutableList<StandardError>>? = null
         private var links: JsonField<Links> = JsonMissing.of()
         private var numErrors: JsonField<Int> = JsonMissing.of()
         private var requestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -238,6 +251,7 @@ private constructor(
                 batchResponsePublicDefaultAssociation.additionalProperties.toMutableMap()
         }
 
+        /** The timestamp when the batch process was completed, in ISO 8601 format. */
         fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
 
         /**
@@ -276,6 +290,7 @@ private constructor(
                 }
         }
 
+        /** The timestamp when the batch process began execution, in ISO 8601 format. */
         fun startedAt(startedAt: OffsetDateTime) = startedAt(JsonField.of(startedAt))
 
         /**
@@ -287,6 +302,10 @@ private constructor(
          */
         fun startedAt(startedAt: JsonField<OffsetDateTime>) = apply { this.startedAt = startedAt }
 
+        /**
+         * The status of the batch processing request: "PENDING", "PROCESSING", "CANCELLED", or
+         * "COMPLETE".
+         */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
@@ -297,31 +316,32 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        fun errors(errors: List<StandardError1>) = errors(JsonField.of(errors))
+        fun errors(errors: List<StandardError>) = errors(JsonField.of(errors))
 
         /**
          * Sets [Builder.errors] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.errors] with a well-typed `List<StandardError1>` value
+         * You should usually call [Builder.errors] with a well-typed `List<StandardError>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun errors(errors: JsonField<List<StandardError1>>) = apply {
+        fun errors(errors: JsonField<List<StandardError>>) = apply {
             this.errors = errors.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [StandardError1] to [errors].
+         * Adds a single [StandardError] to [errors].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addError(error: StandardError1) = apply {
+        fun addError(error: StandardError) = apply {
             errors =
                 (errors ?: JsonField.of(mutableListOf())).also {
                     checkKnown("errors", it).add(error)
                 }
         }
 
+        /** An object containing relevant links related to the batch request. */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -332,6 +352,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
+        /** The number of errors encountered during the batch processing. */
         fun numErrors(numErrors: Int) = numErrors(JsonField.of(numErrors))
 
         /**
@@ -342,6 +363,7 @@ private constructor(
          */
         fun numErrors(numErrors: JsonField<Int>) = apply { this.numErrors = numErrors }
 
+        /** The timestamp when the batch process was initiated, in ISO 8601 format. */
         fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
         /**
@@ -445,6 +467,10 @@ private constructor(
             (if (numErrors.asKnown().isPresent) 1 else 0) +
             (if (requestedAt.asKnown().isPresent) 1 else 0)
 
+    /**
+     * The status of the batch processing request: "PENDING", "PROCESSING", "CANCELLED", or
+     * "COMPLETE".
+     */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -582,6 +608,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** An object containing relevant links related to the batch request. */
     class Links
     @JsonCreator
     private constructor(

@@ -12,6 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.time.OffsetDateTime
@@ -24,11 +25,11 @@ class BatchResponseHubDbTableRowV3
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val completedAt: JsonField<OffsetDateTime>,
-    private val links: JsonField<Links>,
-    private val requestedAt: JsonField<OffsetDateTime>,
     private val results: JsonField<List<HubDbTableRowV3>>,
     private val startedAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
+    private val links: JsonField<Links>,
+    private val requestedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -37,10 +38,6 @@ private constructor(
         @JsonProperty("completedAt")
         @ExcludeMissing
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("links") @ExcludeMissing links: JsonField<Links> = JsonMissing.of(),
-        @JsonProperty("requestedAt")
-        @ExcludeMissing
-        requestedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("results")
         @ExcludeMissing
         results: JsonField<List<HubDbTableRowV3>> = JsonMissing.of(),
@@ -48,13 +45,35 @@ private constructor(
         @ExcludeMissing
         startedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-    ) : this(completedAt, links, requestedAt, results, startedAt, status, mutableMapOf())
+        @JsonProperty("links") @ExcludeMissing links: JsonField<Links> = JsonMissing.of(),
+        @JsonProperty("requestedAt")
+        @ExcludeMissing
+        requestedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(completedAt, results, startedAt, status, links, requestedAt, mutableMapOf())
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun completedAt(): Optional<OffsetDateTime> = completedAt.getOptional("completedAt")
+    fun completedAt(): OffsetDateTime = completedAt.getRequired("completedAt")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun results(): List<HubDbTableRowV3> = results.getRequired("results")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun startedAt(): OffsetDateTime = startedAt.getRequired("startedAt")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun status(): Status = status.getRequired("status")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -69,24 +88,6 @@ private constructor(
     fun requestedAt(): Optional<OffsetDateTime> = requestedAt.getOptional("requestedAt")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun results(): Optional<List<HubDbTableRowV3>> = results.getOptional("results")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun startedAt(): Optional<OffsetDateTime> = startedAt.getOptional("startedAt")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun status(): Optional<Status> = status.getOptional("status")
-
-    /**
      * Returns the raw JSON value of [completedAt].
      *
      * Unlike [completedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -94,22 +95,6 @@ private constructor(
     @JsonProperty("completedAt")
     @ExcludeMissing
     fun _completedAt(): JsonField<OffsetDateTime> = completedAt
-
-    /**
-     * Returns the raw JSON value of [links].
-     *
-     * Unlike [links], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("links") @ExcludeMissing fun _links(): JsonField<Links> = links
-
-    /**
-     * Returns the raw JSON value of [requestedAt].
-     *
-     * Unlike [requestedAt], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("requestedAt")
-    @ExcludeMissing
-    fun _requestedAt(): JsonField<OffsetDateTime> = requestedAt
 
     /**
      * Returns the raw JSON value of [results].
@@ -136,6 +121,22 @@ private constructor(
      */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
+    /**
+     * Returns the raw JSON value of [links].
+     *
+     * Unlike [links], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("links") @ExcludeMissing fun _links(): JsonField<Links> = links
+
+    /**
+     * Returns the raw JSON value of [requestedAt].
+     *
+     * Unlike [requestedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("requestedAt")
+    @ExcludeMissing
+    fun _requestedAt(): JsonField<OffsetDateTime> = requestedAt
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -152,6 +153,14 @@ private constructor(
 
         /**
          * Returns a mutable builder for constructing an instance of [BatchResponseHubDbTableRowV3].
+         *
+         * The following fields are required:
+         * ```java
+         * .completedAt()
+         * .results()
+         * .startedAt()
+         * .status()
+         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -159,22 +168,22 @@ private constructor(
     /** A builder for [BatchResponseHubDbTableRowV3]. */
     class Builder internal constructor() {
 
-        private var completedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var completedAt: JsonField<OffsetDateTime>? = null
+        private var results: JsonField<MutableList<HubDbTableRowV3>>? = null
+        private var startedAt: JsonField<OffsetDateTime>? = null
+        private var status: JsonField<Status>? = null
         private var links: JsonField<Links> = JsonMissing.of()
         private var requestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var results: JsonField<MutableList<HubDbTableRowV3>>? = null
-        private var startedAt: JsonField<OffsetDateTime> = JsonMissing.of()
-        private var status: JsonField<Status> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(batchResponseHubDbTableRowV3: BatchResponseHubDbTableRowV3) = apply {
             completedAt = batchResponseHubDbTableRowV3.completedAt
-            links = batchResponseHubDbTableRowV3.links
-            requestedAt = batchResponseHubDbTableRowV3.requestedAt
             results = batchResponseHubDbTableRowV3.results.map { it.toMutableList() }
             startedAt = batchResponseHubDbTableRowV3.startedAt
             status = batchResponseHubDbTableRowV3.status
+            links = batchResponseHubDbTableRowV3.links
+            requestedAt = batchResponseHubDbTableRowV3.requestedAt
             additionalProperties = batchResponseHubDbTableRowV3.additionalProperties.toMutableMap()
         }
 
@@ -189,29 +198,6 @@ private constructor(
          */
         fun completedAt(completedAt: JsonField<OffsetDateTime>) = apply {
             this.completedAt = completedAt
-        }
-
-        fun links(links: Links) = links(JsonField.of(links))
-
-        /**
-         * Sets [Builder.links] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.links] with a well-typed [Links] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun links(links: JsonField<Links>) = apply { this.links = links }
-
-        fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
-
-        /**
-         * Sets [Builder.requestedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.requestedAt] with a well-typed [OffsetDateTime] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun requestedAt(requestedAt: JsonField<OffsetDateTime>) = apply {
-            this.requestedAt = requestedAt
         }
 
         fun results(results: List<HubDbTableRowV3>) = results(JsonField.of(results))
@@ -260,6 +246,29 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        fun links(links: Links) = links(JsonField.of(links))
+
+        /**
+         * Sets [Builder.links] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.links] with a well-typed [Links] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun links(links: JsonField<Links>) = apply { this.links = links }
+
+        fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
+
+        /**
+         * Sets [Builder.requestedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.requestedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun requestedAt(requestedAt: JsonField<OffsetDateTime>) = apply {
+            this.requestedAt = requestedAt
+        }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -283,15 +292,25 @@ private constructor(
          * Returns an immutable instance of [BatchResponseHubDbTableRowV3].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .completedAt()
+         * .results()
+         * .startedAt()
+         * .status()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): BatchResponseHubDbTableRowV3 =
             BatchResponseHubDbTableRowV3(
-                completedAt,
+                checkRequired("completedAt", completedAt),
+                checkRequired("results", results).map { it.toImmutable() },
+                checkRequired("startedAt", startedAt),
+                checkRequired("status", status),
                 links,
                 requestedAt,
-                (results ?: JsonMissing.of()).map { it.toImmutable() },
-                startedAt,
-                status,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -304,11 +323,11 @@ private constructor(
         }
 
         completedAt()
+        results().forEach { it.validate() }
+        startedAt()
+        status().validate()
         links().ifPresent { it.validate() }
         requestedAt()
-        results().ifPresent { it.forEach { it.validate() } }
-        startedAt()
-        status().ifPresent { it.validate() }
         validated = true
     }
 
@@ -328,110 +347,11 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (completedAt.asKnown().isPresent) 1 else 0) +
-            (links.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (requestedAt.asKnown().isPresent) 1 else 0) +
             (results.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (startedAt.asKnown().isPresent) 1 else 0) +
-            (status.asKnown().getOrNull()?.validity() ?: 0)
-
-    class Links
-    @JsonCreator
-    private constructor(
-        @com.fasterxml.jackson.annotation.JsonValue
-        private val additionalProperties: Map<String, JsonValue>
-    ) {
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [Links]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Links]. */
-        class Builder internal constructor() {
-
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(links: Links) = apply {
-                additionalProperties = links.additionalProperties.toMutableMap()
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Links].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): Links = Links(additionalProperties.toImmutable())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): Links = apply {
-            if (validated) {
-                return@apply
-            }
-
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: HubspotInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Links && additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Links{additionalProperties=$additionalProperties}"
-    }
+            (status.asKnown().getOrNull()?.validity() ?: 0) +
+            (links.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (requestedAt.asKnown().isPresent) 1 else 0)
 
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -570,6 +490,105 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class Links
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Links]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Links]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(links: Links) = apply {
+                additionalProperties = links.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Links].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Links = Links(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Links = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Links && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "Links{additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -577,22 +596,22 @@ private constructor(
 
         return other is BatchResponseHubDbTableRowV3 &&
             completedAt == other.completedAt &&
-            links == other.links &&
-            requestedAt == other.requestedAt &&
             results == other.results &&
             startedAt == other.startedAt &&
             status == other.status &&
+            links == other.links &&
+            requestedAt == other.requestedAt &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
             completedAt,
-            links,
-            requestedAt,
             results,
             startedAt,
             status,
+            links,
+            requestedAt,
             additionalProperties,
         )
     }
@@ -600,5 +619,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BatchResponseHubDbTableRowV3{completedAt=$completedAt, links=$links, requestedAt=$requestedAt, results=$results, startedAt=$startedAt, status=$status, additionalProperties=$additionalProperties}"
+        "BatchResponseHubDbTableRowV3{completedAt=$completedAt, results=$results, startedAt=$startedAt, status=$status, links=$links, requestedAt=$requestedAt, additionalProperties=$additionalProperties}"
 }

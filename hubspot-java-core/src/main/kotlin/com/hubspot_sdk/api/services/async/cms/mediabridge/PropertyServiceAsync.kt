@@ -9,9 +9,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.BatchResponseProperty
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
-import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
+import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetParams
@@ -125,30 +125,6 @@ interface PropertyServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Archive a batch of existing properties for the specified types. */
-    fun archiveBatch(
-        objectType: String,
-        params: PropertyArchiveBatchParams,
-    ): CompletableFuture<Void?> = archiveBatch(objectType, params, RequestOptions.none())
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        objectType: String,
-        params: PropertyArchiveBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        archiveBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-    /** @see archiveBatch */
-    fun archiveBatch(params: PropertyArchiveBatchParams): CompletableFuture<Void?> =
-        archiveBatch(params, RequestOptions.none())
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        params: PropertyArchiveBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
     /** Create a batch of properties of the specified object type. */
     fun createBatch(
         objectType: String,
@@ -173,6 +149,30 @@ interface PropertyServiceAsync {
         params: PropertyCreateBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseProperty>
+
+    /** Archive a batch of existing properties for the specified types. */
+    fun deleteBatch(
+        objectType: String,
+        params: PropertyDeleteBatchParams,
+    ): CompletableFuture<Void?> = deleteBatch(objectType, params, RequestOptions.none())
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        objectType: String,
+        params: PropertyDeleteBatchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see deleteBatch */
+    fun deleteBatch(params: PropertyDeleteBatchParams): CompletableFuture<Void?> =
+        deleteBatch(params, RequestOptions.none())
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        params: PropertyDeleteBatchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
 
     /** Get the details for an existing property by name. */
     fun get(propertyName: String, params: PropertyGetParams): CompletableFuture<Property> =
@@ -352,34 +352,6 @@ interface PropertyServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post
-         * /media-bridge/v1/{appId}/properties/{objectType}/batch/archive`, but is otherwise the
-         * same as [PropertyServiceAsync.archiveBatch].
-         */
-        fun archiveBatch(
-            objectType: String,
-            params: PropertyArchiveBatchParams,
-        ): CompletableFuture<HttpResponse> = archiveBatch(objectType, params, RequestOptions.none())
-
-        /** @see archiveBatch */
-        fun archiveBatch(
-            objectType: String,
-            params: PropertyArchiveBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            archiveBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-        /** @see archiveBatch */
-        fun archiveBatch(params: PropertyArchiveBatchParams): CompletableFuture<HttpResponse> =
-            archiveBatch(params, RequestOptions.none())
-
-        /** @see archiveBatch */
-        fun archiveBatch(
-            params: PropertyArchiveBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /**
-         * Returns a raw HTTP response for `post
          * /media-bridge/v1/{appId}/properties/{objectType}/batch/create`, but is otherwise the same
          * as [PropertyServiceAsync.createBatch].
          */
@@ -408,6 +380,34 @@ interface PropertyServiceAsync {
             params: PropertyCreateBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BatchResponseProperty>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /media-bridge/v1/{appId}/properties/{objectType}/batch/archive`, but is otherwise the
+         * same as [PropertyServiceAsync.deleteBatch].
+         */
+        fun deleteBatch(
+            objectType: String,
+            params: PropertyDeleteBatchParams,
+        ): CompletableFuture<HttpResponse> = deleteBatch(objectType, params, RequestOptions.none())
+
+        /** @see deleteBatch */
+        fun deleteBatch(
+            objectType: String,
+            params: PropertyDeleteBatchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see deleteBatch */
+        fun deleteBatch(params: PropertyDeleteBatchParams): CompletableFuture<HttpResponse> =
+            deleteBatch(params, RequestOptions.none())
+
+        /** @see deleteBatch */
+        fun deleteBatch(
+            params: PropertyDeleteBatchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `get

@@ -25,15 +25,15 @@ import kotlin.jvm.optionals.getOrNull
 class Column
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
+    private val id: JsonField<String>,
+    private val deleted: JsonField<Boolean>,
+    private val description: JsonField<String>,
     private val label: JsonField<String>,
     private val name: JsonField<String>,
     private val type: JsonField<Type>,
-    private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdBy: JsonField<SimpleUser>,
     private val createdByUserId: JsonField<Int>,
-    private val deleted: JsonField<Boolean>,
-    private val description: JsonField<String>,
     private val foreignColumnId: JsonField<Int>,
     private val foreignIds: JsonField<List<ForeignId>>,
     private val foreignIdsById: JsonField<ForeignIdsById>,
@@ -50,10 +50,14 @@ private constructor(
 
     @JsonCreator
     private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("deleted") @ExcludeMissing deleted: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("description")
+        @ExcludeMissing
+        description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -63,10 +67,6 @@ private constructor(
         @JsonProperty("createdByUserId")
         @ExcludeMissing
         createdByUserId: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("deleted") @ExcludeMissing deleted: JsonField<Boolean> = JsonMissing.of(),
-        @JsonProperty("description")
-        @ExcludeMissing
-        description: JsonField<String> = JsonMissing.of(),
         @JsonProperty("foreignColumnId")
         @ExcludeMissing
         foreignColumnId: JsonField<Int> = JsonMissing.of(),
@@ -97,15 +97,15 @@ private constructor(
         updatedByUserId: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("width") @ExcludeMissing width: JsonField<Int> = JsonMissing.of(),
     ) : this(
+        id,
+        deleted,
+        description,
         label,
         name,
         type,
-        id,
         createdAt,
         createdBy,
         createdByUserId,
-        deleted,
-        description,
         foreignColumnId,
         foreignIds,
         foreignIdsById,
@@ -119,6 +119,26 @@ private constructor(
         width,
         mutableMapOf(),
     )
+
+    /**
+     * Column Id
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun deleted(): Boolean = deleted.getRequired("deleted")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun description(): String = description.getRequired("description")
 
     /**
      * Label of the column
@@ -145,14 +165,6 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * Column Id
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun id(): Optional<String> = id.getOptional("id")
-
-    /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -169,18 +181,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun createdByUserId(): Optional<Int> = createdByUserId.getOptional("createdByUserId")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun deleted(): Optional<Boolean> = deleted.getOptional("deleted")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun description(): Optional<String> = description.getOptional("description")
 
     /**
      * Foreign Column id
@@ -266,6 +266,27 @@ private constructor(
     fun width(): Optional<Int> = width.getOptional("width")
 
     /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [deleted].
+     *
+     * Unlike [deleted], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("deleted") @ExcludeMissing fun _deleted(): JsonField<Boolean> = deleted
+
+    /**
+     * Returns the raw JSON value of [description].
+     *
+     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
+
+    /**
      * Returns the raw JSON value of [label].
      *
      * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
@@ -285,13 +306,6 @@ private constructor(
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
-
-    /**
-     * Returns the raw JSON value of [id].
-     *
-     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -317,20 +331,6 @@ private constructor(
     @JsonProperty("createdByUserId")
     @ExcludeMissing
     fun _createdByUserId(): JsonField<Int> = createdByUserId
-
-    /**
-     * Returns the raw JSON value of [deleted].
-     *
-     * Unlike [deleted], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("deleted") @ExcludeMissing fun _deleted(): JsonField<Boolean> = deleted
-
-    /**
-     * Returns the raw JSON value of [description].
-     *
-     * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("description") @ExcludeMissing fun _description(): JsonField<String> = description
 
     /**
      * Returns the raw JSON value of [foreignColumnId].
@@ -443,6 +443,9 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
+         * .deleted()
+         * .description()
          * .label()
          * .name()
          * .type()
@@ -454,15 +457,15 @@ private constructor(
     /** A builder for [Column]. */
     class Builder internal constructor() {
 
+        private var id: JsonField<String>? = null
+        private var deleted: JsonField<Boolean>? = null
+        private var description: JsonField<String>? = null
         private var label: JsonField<String>? = null
         private var name: JsonField<String>? = null
         private var type: JsonField<Type>? = null
-        private var id: JsonField<String> = JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdBy: JsonField<SimpleUser> = JsonMissing.of()
         private var createdByUserId: JsonField<Int> = JsonMissing.of()
-        private var deleted: JsonField<Boolean> = JsonMissing.of()
-        private var description: JsonField<String> = JsonMissing.of()
         private var foreignColumnId: JsonField<Int> = JsonMissing.of()
         private var foreignIds: JsonField<MutableList<ForeignId>>? = null
         private var foreignIdsById: JsonField<ForeignIdsById> = JsonMissing.of()
@@ -478,15 +481,15 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(column: Column) = apply {
+            id = column.id
+            deleted = column.deleted
+            description = column.description
             label = column.label
             name = column.name
             type = column.type
-            id = column.id
             createdAt = column.createdAt
             createdBy = column.createdBy
             createdByUserId = column.createdByUserId
-            deleted = column.deleted
-            description = column.description
             foreignColumnId = column.foreignColumnId
             foreignIds = column.foreignIds.map { it.toMutableList() }
             foreignIdsById = column.foreignIdsById
@@ -500,6 +503,38 @@ private constructor(
             width = column.width
             additionalProperties = column.additionalProperties.toMutableMap()
         }
+
+        /** Column Id */
+        fun id(id: String) = id(JsonField.of(id))
+
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun id(id: JsonField<String>) = apply { this.id = id }
+
+        fun deleted(deleted: Boolean) = deleted(JsonField.of(deleted))
+
+        /**
+         * Sets [Builder.deleted] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.deleted] with a well-typed [Boolean] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun deleted(deleted: JsonField<Boolean>) = apply { this.deleted = deleted }
+
+        fun description(description: String) = description(JsonField.of(description))
+
+        /**
+         * Sets [Builder.description] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.description] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** Label of the column */
         fun label(label: String) = label(JsonField.of(label))
@@ -533,17 +568,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
-
-        /** Column Id */
-        fun id(id: String) = id(JsonField.of(id))
-
-        /**
-         * Sets [Builder.id] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.id] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun id(id: JsonField<String>) = apply { this.id = id }
 
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
@@ -579,27 +603,6 @@ private constructor(
         fun createdByUserId(createdByUserId: JsonField<Int>) = apply {
             this.createdByUserId = createdByUserId
         }
-
-        fun deleted(deleted: Boolean) = deleted(JsonField.of(deleted))
-
-        /**
-         * Sets [Builder.deleted] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.deleted] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun deleted(deleted: JsonField<Boolean>) = apply { this.deleted = deleted }
-
-        fun description(description: String) = description(JsonField.of(description))
-
-        /**
-         * Sets [Builder.description] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.description] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun description(description: JsonField<String>) = apply { this.description = description }
 
         /** Foreign Column id */
         fun foreignColumnId(foreignColumnId: Int) = foreignColumnId(JsonField.of(foreignColumnId))
@@ -794,6 +797,9 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .id()
+         * .deleted()
+         * .description()
          * .label()
          * .name()
          * .type()
@@ -803,15 +809,15 @@ private constructor(
          */
         fun build(): Column =
             Column(
+                checkRequired("id", id),
+                checkRequired("deleted", deleted),
+                checkRequired("description", description),
                 checkRequired("label", label),
                 checkRequired("name", name),
                 checkRequired("type", type),
-                id,
                 createdAt,
                 createdBy,
                 createdByUserId,
-                deleted,
-                description,
                 foreignColumnId,
                 (foreignIds ?: JsonMissing.of()).map { it.toImmutable() },
                 foreignIdsById,
@@ -834,15 +840,15 @@ private constructor(
             return@apply
         }
 
+        id()
+        deleted()
+        description()
         label()
         name()
         type().validate()
-        id()
         createdAt()
         createdBy().ifPresent { it.validate() }
         createdByUserId()
-        deleted()
-        description()
         foreignColumnId()
         foreignIds().ifPresent { it.forEach { it.validate() } }
         foreignIdsById().ifPresent { it.validate() }
@@ -872,15 +878,15 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (if (label.asKnown().isPresent) 1 else 0) +
+        (if (id.asKnown().isPresent) 1 else 0) +
+            (if (deleted.asKnown().isPresent) 1 else 0) +
+            (if (description.asKnown().isPresent) 1 else 0) +
+            (if (label.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (createdBy.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdByUserId.asKnown().isPresent) 1 else 0) +
-            (if (deleted.asKnown().isPresent) 1 else 0) +
-            (if (description.asKnown().isPresent) 1 else 0) +
             (if (foreignColumnId.asKnown().isPresent) 1 else 0) +
             (foreignIds.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (foreignIdsById.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1345,15 +1351,15 @@ private constructor(
         }
 
         return other is Column &&
+            id == other.id &&
+            deleted == other.deleted &&
+            description == other.description &&
             label == other.label &&
             name == other.name &&
             type == other.type &&
-            id == other.id &&
             createdAt == other.createdAt &&
             createdBy == other.createdBy &&
             createdByUserId == other.createdByUserId &&
-            deleted == other.deleted &&
-            description == other.description &&
             foreignColumnId == other.foreignColumnId &&
             foreignIds == other.foreignIds &&
             foreignIdsById == other.foreignIdsById &&
@@ -1370,15 +1376,15 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
+            id,
+            deleted,
+            description,
             label,
             name,
             type,
-            id,
             createdAt,
             createdBy,
             createdByUserId,
-            deleted,
-            description,
             foreignColumnId,
             foreignIds,
             foreignIdsById,
@@ -1397,5 +1403,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Column{label=$label, name=$name, type=$type, id=$id, createdAt=$createdAt, createdBy=$createdBy, createdByUserId=$createdByUserId, deleted=$deleted, description=$description, foreignColumnId=$foreignColumnId, foreignIds=$foreignIds, foreignIdsById=$foreignIdsById, foreignIdsByName=$foreignIdsByName, foreignTableId=$foreignTableId, optionCount=$optionCount, options=$options, updatedAt=$updatedAt, updatedBy=$updatedBy, updatedByUserId=$updatedByUserId, width=$width, additionalProperties=$additionalProperties}"
+        "Column{id=$id, deleted=$deleted, description=$description, label=$label, name=$name, type=$type, createdAt=$createdAt, createdBy=$createdBy, createdByUserId=$createdByUserId, foreignColumnId=$foreignColumnId, foreignIds=$foreignIds, foreignIdsById=$foreignIdsById, foreignIdsByName=$foreignIdsByName, foreignTableId=$foreignTableId, optionCount=$optionCount, options=$options, updatedAt=$updatedAt, updatedBy=$updatedBy, updatedByUserId=$updatedByUserId, width=$width, additionalProperties=$additionalProperties}"
 }

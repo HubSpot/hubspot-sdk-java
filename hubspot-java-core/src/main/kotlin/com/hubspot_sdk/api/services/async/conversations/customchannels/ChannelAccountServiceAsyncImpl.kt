@@ -17,9 +17,10 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.ConversationsPublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountGetParams
+import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountListPageAsync
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountListParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -43,28 +44,28 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
     override fun create(
         params: ChannelAccountCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         // post /conversations/v3/custom-channels/{channelId}/channel-accounts
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: ChannelAccountUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         // patch /conversations/v3/custom-channels/{channelId}/channel-accounts/{channelAccountId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: ChannelAccountListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalPublicChannelAccountForwardPaging> =
+    ): CompletableFuture<ChannelAccountListPageAsync> =
         // get /conversations/v3/custom-channels/{channelId}/channel-accounts
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: ChannelAccountGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ConversationsPublicChannelAccount> =
+    ): CompletableFuture<PublicChannelAccount> =
         // get /conversations/v3/custom-channels/{channelId}/channel-accounts/{channelAccountId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -81,13 +82,13 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<ConversationsPublicChannelAccount> =
-            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
+        private val createHandler: Handler<PublicChannelAccount> =
+            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun create(
             params: ChannelAccountCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> {
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelId", params.channelId().getOrNull())
@@ -121,13 +122,13 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
                 }
         }
 
-        private val updateHandler: Handler<ConversationsPublicChannelAccount> =
-            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PublicChannelAccount> =
+            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun update(
             params: ChannelAccountUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> {
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelAccountId", params.channelAccountId().getOrNull())
@@ -171,9 +172,7 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
         override fun list(
             params: ChannelAccountListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicChannelAccountForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<ChannelAccountListPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelId", params.channelId().getOrNull())
@@ -202,17 +201,25 @@ internal constructor(private val clientOptions: ClientOptions) : ChannelAccountS
                                     it.validate()
                                 }
                             }
+                            .let {
+                                ChannelAccountListPageAsync.builder()
+                                    .service(ChannelAccountServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
                     }
                 }
         }
 
-        private val getHandler: Handler<ConversationsPublicChannelAccount> =
-            jsonHandler<ConversationsPublicChannelAccount>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PublicChannelAccount> =
+            jsonHandler<PublicChannelAccount>(clientOptions.jsonMapper)
 
         override fun get(
             params: ChannelAccountGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicChannelAccount>> {
+        ): CompletableFuture<HttpResponseFor<PublicChannelAccount>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelAccountId", params.channelAccountId().getOrNull())

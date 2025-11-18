@@ -33,6 +33,8 @@ private constructor(
     ) : this(ruleArguments, mutableMapOf())
 
     /**
+     * A list of arguments that define the constraints for the validation rule.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -88,6 +90,7 @@ private constructor(
                     publicPropertyValidationRuleUpdate.additionalProperties.toMutableMap()
             }
 
+        /** A list of arguments that define the constraints for the validation rule. */
         fun ruleArguments(ruleArguments: List<String>) = ruleArguments(JsonField.of(ruleArguments))
 
         /**

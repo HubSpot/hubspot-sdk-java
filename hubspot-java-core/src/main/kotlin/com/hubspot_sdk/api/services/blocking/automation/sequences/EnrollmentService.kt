@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentLiteResponse
-import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentRequest
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceEnrollmentResponse
 import com.hubspot_sdk.api.models.automation.sequences.enrollments.EnrollmentEnrollParams
 import com.hubspot_sdk.api.models.automation.sequences.enrollments.EnrollmentGetByContactIdParams
@@ -36,24 +35,6 @@ interface EnrollmentService {
         params: EnrollmentEnrollParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicSequenceEnrollmentLiteResponse
-
-    /** @see enroll */
-    fun enroll(
-        publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSequenceEnrollmentLiteResponse =
-        enroll(
-            EnrollmentEnrollParams.builder()
-                .publicSequenceEnrollmentRequest(publicSequenceEnrollmentRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see enroll */
-    fun enroll(
-        publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest
-    ): PublicSequenceEnrollmentLiteResponse =
-        enroll(publicSequenceEnrollmentRequest, RequestOptions.none())
 
     /** Get the enrollment status of a contact in sequences by their contact ID. */
     fun getByContactId(contactId: String): PublicSequenceEnrollmentResponse =
@@ -118,26 +99,6 @@ interface EnrollmentService {
             params: EnrollmentEnrollParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<PublicSequenceEnrollmentLiteResponse>
-
-        /** @see enroll */
-        @MustBeClosed
-        fun enroll(
-            publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSequenceEnrollmentLiteResponse> =
-            enroll(
-                EnrollmentEnrollParams.builder()
-                    .publicSequenceEnrollmentRequest(publicSequenceEnrollmentRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see enroll */
-        @MustBeClosed
-        fun enroll(
-            publicSequenceEnrollmentRequest: PublicSequenceEnrollmentRequest
-        ): HttpResponseFor<PublicSequenceEnrollmentLiteResponse> =
-            enroll(publicSequenceEnrollmentRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get

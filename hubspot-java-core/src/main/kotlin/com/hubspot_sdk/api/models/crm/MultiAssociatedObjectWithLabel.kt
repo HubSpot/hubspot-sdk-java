@@ -42,6 +42,8 @@ private constructor(
         associationTypes.getRequired("associationTypes")
 
     /**
+     * The unique identifier for the target object in the association.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -133,6 +135,7 @@ private constructor(
                 }
         }
 
+        /** The unique identifier for the target object in the association. */
         fun toObjectId(toObjectId: String) = toObjectId(JsonField.of(toObjectId))
 
         /**

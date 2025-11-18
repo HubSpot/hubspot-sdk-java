@@ -5,6 +5,8 @@ package com.hubspot_sdk.api.services.blocking.conversations
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.BatchInputString
+import com.hubspot_sdk.api.models.conversations.actors.ActorBatchReadParams
+import com.hubspot_sdk.api.models.conversations.actors.ActorGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -23,7 +25,12 @@ internal class ActorServiceTest {
         val actorService = client.conversations().actors()
 
         val batchResponsePublicActor =
-            actorService.batchRead(BatchInputString.builder().addInput("string").build())
+            actorService.batchRead(
+                ActorBatchReadParams.builder()
+                    .property("property")
+                    .batchInputString(BatchInputString.builder().addInput("string").build())
+                    .build()
+            )
 
         batchResponsePublicActor.validate()
     }
@@ -38,7 +45,10 @@ internal class ActorServiceTest {
                 .build()
         val actorService = client.conversations().actors()
 
-        val publicActor = actorService.get("actorId")
+        val publicActor =
+            actorService.get(
+                ActorGetParams.builder().actorId("actorId").property("property").build()
+            )
 
         publicActor.validate()
     }

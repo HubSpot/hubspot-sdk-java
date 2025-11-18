@@ -10,9 +10,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.BatchResponseProperty
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
-import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyArchiveBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyCreateParams
+import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetBatchParams
 import com.hubspot_sdk.api.models.cms.mediabridge.properties.PropertyGetParams
@@ -113,27 +113,6 @@ interface PropertyService {
     /** @see delete */
     fun delete(params: PropertyDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /** Archive a batch of existing properties for the specified types. */
-    fun archiveBatch(objectType: String, params: PropertyArchiveBatchParams) =
-        archiveBatch(objectType, params, RequestOptions.none())
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        objectType: String,
-        params: PropertyArchiveBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = archiveBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-    /** @see archiveBatch */
-    fun archiveBatch(params: PropertyArchiveBatchParams) =
-        archiveBatch(params, RequestOptions.none())
-
-    /** @see archiveBatch */
-    fun archiveBatch(
-        params: PropertyArchiveBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
     /** Create a batch of properties of the specified object type. */
     fun createBatch(objectType: String, params: PropertyCreateBatchParams): BatchResponseProperty =
         createBatch(objectType, params, RequestOptions.none())
@@ -155,6 +134,26 @@ interface PropertyService {
         params: PropertyCreateBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseProperty
+
+    /** Archive a batch of existing properties for the specified types. */
+    fun deleteBatch(objectType: String, params: PropertyDeleteBatchParams) =
+        deleteBatch(objectType, params, RequestOptions.none())
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        objectType: String,
+        params: PropertyDeleteBatchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = deleteBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see deleteBatch */
+    fun deleteBatch(params: PropertyDeleteBatchParams) = deleteBatch(params, RequestOptions.none())
+
+    /** @see deleteBatch */
+    fun deleteBatch(
+        params: PropertyDeleteBatchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
 
     /** Get the details for an existing property by name. */
     fun get(propertyName: String, params: PropertyGetParams): Property =
@@ -331,36 +330,6 @@ interface PropertyService {
 
         /**
          * Returns a raw HTTP response for `post
-         * /media-bridge/v1/{appId}/properties/{objectType}/batch/archive`, but is otherwise the
-         * same as [PropertyService.archiveBatch].
-         */
-        @MustBeClosed
-        fun archiveBatch(objectType: String, params: PropertyArchiveBatchParams): HttpResponse =
-            archiveBatch(objectType, params, RequestOptions.none())
-
-        /** @see archiveBatch */
-        @MustBeClosed
-        fun archiveBatch(
-            objectType: String,
-            params: PropertyArchiveBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            archiveBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-        /** @see archiveBatch */
-        @MustBeClosed
-        fun archiveBatch(params: PropertyArchiveBatchParams): HttpResponse =
-            archiveBatch(params, RequestOptions.none())
-
-        /** @see archiveBatch */
-        @MustBeClosed
-        fun archiveBatch(
-            params: PropertyArchiveBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /**
-         * Returns a raw HTTP response for `post
          * /media-bridge/v1/{appId}/properties/{objectType}/batch/create`, but is otherwise the same
          * as [PropertyService.createBatch].
          */
@@ -391,6 +360,36 @@ interface PropertyService {
             params: PropertyCreateBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BatchResponseProperty>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /media-bridge/v1/{appId}/properties/{objectType}/batch/archive`, but is otherwise the
+         * same as [PropertyService.deleteBatch].
+         */
+        @MustBeClosed
+        fun deleteBatch(objectType: String, params: PropertyDeleteBatchParams): HttpResponse =
+            deleteBatch(objectType, params, RequestOptions.none())
+
+        /** @see deleteBatch */
+        @MustBeClosed
+        fun deleteBatch(
+            objectType: String,
+            params: PropertyDeleteBatchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            deleteBatch(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see deleteBatch */
+        @MustBeClosed
+        fun deleteBatch(params: PropertyDeleteBatchParams): HttpResponse =
+            deleteBatch(params, RequestOptions.none())
+
+        /** @see deleteBatch */
+        @MustBeClosed
+        fun deleteBatch(
+            params: PropertyDeleteBatchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `get

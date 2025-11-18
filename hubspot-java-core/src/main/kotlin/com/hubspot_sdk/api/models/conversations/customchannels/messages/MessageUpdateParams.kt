@@ -18,7 +18,7 @@ import kotlin.jvm.optionals.getOrNull
  */
 class MessageUpdateParams
 private constructor(
-    private val channelId: String,
+    private val channelId: Int,
     private val messageId: String?,
     private val publicChannelIntegrationMessageUpdateRequest:
         PublicChannelIntegrationMessageUpdateRequest,
@@ -26,7 +26,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): String = channelId
+    fun channelId(): Int = channelId
 
     fun messageId(): Optional<String> = Optional.ofNullable(messageId)
 
@@ -61,7 +61,7 @@ private constructor(
     /** A builder for [MessageUpdateParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
+        private var channelId: Int? = null
         private var messageId: String? = null
         private var publicChannelIntegrationMessageUpdateRequest:
             PublicChannelIntegrationMessageUpdateRequest? =
@@ -79,7 +79,7 @@ private constructor(
             additionalQueryParams = messageUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int) = apply { this.channelId = channelId }
 
         fun messageId(messageId: String?) = apply { this.messageId = messageId }
 
@@ -223,7 +223,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId
+            0 -> channelId.toString()
             1 -> messageId ?: ""
             else -> ""
         }

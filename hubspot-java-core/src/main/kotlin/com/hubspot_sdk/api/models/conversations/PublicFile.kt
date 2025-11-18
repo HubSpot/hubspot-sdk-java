@@ -24,8 +24,8 @@ private constructor(
     private val fileId: JsonField<String>,
     private val fileUsageType: JsonField<String>,
     private val type: JsonField<Type>,
-    private val url: JsonField<String>,
     private val name: JsonField<String>,
+    private val url: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -36,9 +36,9 @@ private constructor(
         @ExcludeMissing
         fileUsageType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-        @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-    ) : this(fileId, fileUsageType, type, url, name, mutableMapOf())
+        @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
+    ) : this(fileId, fileUsageType, type, name, url, mutableMapOf())
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -59,16 +59,16 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun url(): String = url.getRequired("url")
+    fun name(): Optional<String> = name.getOptional("name")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun name(): Optional<String> = name.getOptional("name")
+    fun url(): Optional<String> = url.getOptional("url")
 
     /**
      * Returns the raw JSON value of [fileId].
@@ -94,18 +94,18 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /**
-     * Returns the raw JSON value of [url].
-     *
-     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
-
-    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+    /**
+     * Returns the raw JSON value of [url].
+     *
+     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -129,7 +129,6 @@ private constructor(
          * .fileId()
          * .fileUsageType()
          * .type()
-         * .url()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -141,8 +140,8 @@ private constructor(
         private var fileId: JsonField<String>? = null
         private var fileUsageType: JsonField<String>? = null
         private var type: JsonField<Type>? = null
-        private var url: JsonField<String>? = null
         private var name: JsonField<String> = JsonMissing.of()
+        private var url: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -150,8 +149,8 @@ private constructor(
             fileId = publicFile.fileId
             fileUsageType = publicFile.fileUsageType
             type = publicFile.type
-            url = publicFile.url
             name = publicFile.name
+            url = publicFile.url
             additionalProperties = publicFile.additionalProperties.toMutableMap()
         }
 
@@ -188,16 +187,6 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
-        fun url(url: String) = url(JsonField.of(url))
-
-        /**
-         * Sets [Builder.url] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.url] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun url(url: JsonField<String>) = apply { this.url = url }
-
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -207,6 +196,16 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
+
+        fun url(url: String) = url(JsonField.of(url))
+
+        /**
+         * Sets [Builder.url] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.url] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun url(url: JsonField<String>) = apply { this.url = url }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -237,7 +236,6 @@ private constructor(
          * .fileId()
          * .fileUsageType()
          * .type()
-         * .url()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -247,8 +245,8 @@ private constructor(
                 checkRequired("fileId", fileId),
                 checkRequired("fileUsageType", fileUsageType),
                 checkRequired("type", type),
-                checkRequired("url", url),
                 name,
+                url,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -263,8 +261,8 @@ private constructor(
         fileId()
         fileUsageType()
         type().validate()
-        url()
         name()
+        url()
         validated = true
     }
 
@@ -286,8 +284,8 @@ private constructor(
         (if (fileId.asKnown().isPresent) 1 else 0) +
             (if (fileUsageType.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (url.asKnown().isPresent) 1 else 0) +
-            (if (name.asKnown().isPresent) 1 else 0)
+            (if (name.asKnown().isPresent) 1 else 0) +
+            (if (url.asKnown().isPresent) 1 else 0)
 
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -417,17 +415,17 @@ private constructor(
             fileId == other.fileId &&
             fileUsageType == other.fileUsageType &&
             type == other.type &&
-            url == other.url &&
             name == other.name &&
+            url == other.url &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(fileId, fileUsageType, type, url, name, additionalProperties)
+        Objects.hash(fileId, fileUsageType, type, name, url, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicFile{fileId=$fileId, fileUsageType=$fileUsageType, type=$type, url=$url, name=$name, additionalProperties=$additionalProperties}"
+        "PublicFile{fileId=$fileId, fileUsageType=$fileUsageType, type=$type, name=$name, url=$url, additionalProperties=$additionalProperties}"
 }

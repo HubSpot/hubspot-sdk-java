@@ -12,12 +12,16 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the schemas for all object types. */
 class SchemaListParams
 private constructor(
-    private val appId: String?,
+    private val appId: Int?,
+    private val archived: Boolean?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): Optional<String> = Optional.ofNullable(appId)
+    fun appId(): Optional<Int> = Optional.ofNullable(appId)
+
+    /** Whether to return only results that have been archived. */
+    fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -38,21 +42,43 @@ private constructor(
     /** A builder for [SchemaListParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
+        private var archived: Boolean? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(schemaListParams: SchemaListParams) = apply {
             appId = schemaListParams.appId
+            archived = schemaListParams.archived
             additionalHeaders = schemaListParams.additionalHeaders.toBuilder()
             additionalQueryParams = schemaListParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String?) = apply { this.appId = appId }
+        fun appId(appId: Int?) = apply { this.appId = appId }
+
+        /**
+         * Alias for [Builder.appId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun appId(appId: Int) = appId(appId as Int?)
 
         /** Alias for calling [Builder.appId] with `appId.orElse(null)`. */
-        fun appId(appId: Optional<String>) = appId(appId.getOrNull())
+        fun appId(appId: Optional<Int>) = appId(appId.getOrNull())
+
+        /** Whether to return only results that have been archived. */
+        fun archived(archived: Boolean?) = apply { this.archived = archived }
+
+        /**
+         * Alias for [Builder.archived].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun archived(archived: Boolean) = archived(archived as Boolean?)
+
+        /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
+        fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -158,18 +184,29 @@ private constructor(
          * Further updates to this [Builder] will not mutate the returned instance.
          */
         fun build(): SchemaListParams =
-            SchemaListParams(appId, additionalHeaders.build(), additionalQueryParams.build())
+            SchemaListParams(
+                appId,
+                archived,
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId ?: ""
+            0 -> appId?.toString() ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                archived?.let { put("archived", it.toString()) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -178,12 +215,14 @@ private constructor(
 
         return other is SchemaListParams &&
             appId == other.appId &&
+            archived == other.archived &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(appId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(appId, archived, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SchemaListParams{appId=$appId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SchemaListParams{appId=$appId, archived=$archived, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

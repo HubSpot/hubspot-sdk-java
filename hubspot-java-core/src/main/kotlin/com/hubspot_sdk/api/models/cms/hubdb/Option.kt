@@ -24,13 +24,13 @@ class Option
 private constructor(
     private val id: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val label: JsonField<String>,
     private val name: JsonField<String>,
     private val order: JsonField<Int>,
     private val type: JsonField<String>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val createdBy: JsonField<SimpleUser>,
     private val createdByUserId: JsonField<Int>,
-    private val label: JsonField<String>,
     private val updatedBy: JsonField<SimpleUser>,
     private val updatedByUserId: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -42,6 +42,7 @@ private constructor(
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("order") @ExcludeMissing order: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<String> = JsonMissing.of(),
@@ -54,7 +55,6 @@ private constructor(
         @JsonProperty("createdByUserId")
         @ExcludeMissing
         createdByUserId: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
         @JsonProperty("updatedBy")
         @ExcludeMissing
         updatedBy: JsonField<SimpleUser> = JsonMissing.of(),
@@ -64,13 +64,13 @@ private constructor(
     ) : this(
         id,
         createdAt,
+        label,
         name,
         order,
         type,
         updatedAt,
         createdBy,
         createdByUserId,
-        label,
         updatedBy,
         updatedByUserId,
         mutableMapOf(),
@@ -91,6 +91,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
+
+    /**
+     * A user-friendly label that identifies the option.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun label(): String = label.getRequired("label")
 
     /**
      * An internal name assigned to the option, distinct from the label.
@@ -137,14 +145,6 @@ private constructor(
     fun createdByUserId(): Optional<Int> = createdByUserId.getOptional("createdByUserId")
 
     /**
-     * A user-friendly label that identifies the option.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun label(): Optional<String> = label.getOptional("label")
-
-    /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -173,6 +173,13 @@ private constructor(
     @JsonProperty("createdAt")
     @ExcludeMissing
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+    /**
+     * Returns the raw JSON value of [label].
+     *
+     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
 
     /**
      * Returns the raw JSON value of [name].
@@ -221,13 +228,6 @@ private constructor(
     fun _createdByUserId(): JsonField<Int> = createdByUserId
 
     /**
-     * Returns the raw JSON value of [label].
-     *
-     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
-
-    /**
      * Returns the raw JSON value of [updatedBy].
      *
      * Unlike [updatedBy], this method doesn't throw if the JSON field has an unexpected type.
@@ -264,6 +264,7 @@ private constructor(
          * ```java
          * .id()
          * .createdAt()
+         * .label()
          * .name()
          * .order()
          * .type()
@@ -278,13 +279,13 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var label: JsonField<String>? = null
         private var name: JsonField<String>? = null
         private var order: JsonField<Int>? = null
         private var type: JsonField<String>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var createdBy: JsonField<SimpleUser> = JsonMissing.of()
         private var createdByUserId: JsonField<Int> = JsonMissing.of()
-        private var label: JsonField<String> = JsonMissing.of()
         private var updatedBy: JsonField<SimpleUser> = JsonMissing.of()
         private var updatedByUserId: JsonField<Int> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -293,13 +294,13 @@ private constructor(
         internal fun from(option: Option) = apply {
             id = option.id
             createdAt = option.createdAt
+            label = option.label
             name = option.name
             order = option.order
             type = option.type
             updatedAt = option.updatedAt
             createdBy = option.createdBy
             createdByUserId = option.createdByUserId
-            label = option.label
             updatedBy = option.updatedBy
             updatedByUserId = option.updatedByUserId
             additionalProperties = option.additionalProperties.toMutableMap()
@@ -327,6 +328,17 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** A user-friendly label that identifies the option. */
+        fun label(label: String) = label(JsonField.of(label))
+
+        /**
+         * Sets [Builder.label] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.label] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun label(label: JsonField<String>) = apply { this.label = label }
 
         /** An internal name assigned to the option, distinct from the label. */
         fun name(name: String) = name(JsonField.of(name))
@@ -397,17 +409,6 @@ private constructor(
             this.createdByUserId = createdByUserId
         }
 
-        /** A user-friendly label that identifies the option. */
-        fun label(label: String) = label(JsonField.of(label))
-
-        /**
-         * Sets [Builder.label] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.label] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun label(label: JsonField<String>) = apply { this.label = label }
-
         fun updatedBy(updatedBy: SimpleUser) = updatedBy(JsonField.of(updatedBy))
 
         /**
@@ -461,6 +462,7 @@ private constructor(
          * ```java
          * .id()
          * .createdAt()
+         * .label()
          * .name()
          * .order()
          * .type()
@@ -473,13 +475,13 @@ private constructor(
             Option(
                 checkRequired("id", id),
                 checkRequired("createdAt", createdAt),
+                checkRequired("label", label),
                 checkRequired("name", name),
                 checkRequired("order", order),
                 checkRequired("type", type),
                 checkRequired("updatedAt", updatedAt),
                 createdBy,
                 createdByUserId,
-                label,
                 updatedBy,
                 updatedByUserId,
                 additionalProperties.toMutableMap(),
@@ -495,13 +497,13 @@ private constructor(
 
         id()
         createdAt()
+        label()
         name()
         order()
         type()
         updatedAt()
         createdBy().ifPresent { it.validate() }
         createdByUserId()
-        label()
         updatedBy().ifPresent { it.validate() }
         updatedByUserId()
         validated = true
@@ -524,13 +526,13 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (label.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (order.asKnown().isPresent) 1 else 0) +
             (if (type.asKnown().isPresent) 1 else 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (createdBy.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdByUserId.asKnown().isPresent) 1 else 0) +
-            (if (label.asKnown().isPresent) 1 else 0) +
             (updatedBy.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedByUserId.asKnown().isPresent) 1 else 0)
 
@@ -542,13 +544,13 @@ private constructor(
         return other is Option &&
             id == other.id &&
             createdAt == other.createdAt &&
+            label == other.label &&
             name == other.name &&
             order == other.order &&
             type == other.type &&
             updatedAt == other.updatedAt &&
             createdBy == other.createdBy &&
             createdByUserId == other.createdByUserId &&
-            label == other.label &&
             updatedBy == other.updatedBy &&
             updatedByUserId == other.updatedByUserId &&
             additionalProperties == other.additionalProperties
@@ -558,13 +560,13 @@ private constructor(
         Objects.hash(
             id,
             createdAt,
+            label,
             name,
             order,
             type,
             updatedAt,
             createdBy,
             createdByUserId,
-            label,
             updatedBy,
             updatedByUserId,
             additionalProperties,
@@ -574,5 +576,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Option{id=$id, createdAt=$createdAt, name=$name, order=$order, type=$type, updatedAt=$updatedAt, createdBy=$createdBy, createdByUserId=$createdByUserId, label=$label, updatedBy=$updatedBy, updatedByUserId=$updatedByUserId, additionalProperties=$additionalProperties}"
+        "Option{id=$id, createdAt=$createdAt, label=$label, name=$name, order=$order, type=$type, updatedAt=$updatedAt, createdBy=$createdBy, createdByUserId=$createdByUserId, updatedBy=$updatedBy, updatedByUserId=$updatedByUserId, additionalProperties=$additionalProperties}"
 }

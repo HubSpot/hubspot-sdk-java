@@ -17,13 +17,13 @@ import kotlin.jvm.optionals.getOrNull
  */
 class CustomChannelUpdateParams
 private constructor(
-    private val channelId: String?,
+    private val channelId: Int?,
     private val publicChannelIntegrationChannelPatch: PublicChannelIntegrationChannelPatch,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun channelId(): Optional<String> = Optional.ofNullable(channelId)
+    fun channelId(): Optional<Int> = Optional.ofNullable(channelId)
 
     fun publicChannelIntegrationChannelPatch(): PublicChannelIntegrationChannelPatch =
         publicChannelIntegrationChannelPatch
@@ -55,7 +55,7 @@ private constructor(
     /** A builder for [CustomChannelUpdateParams]. */
     class Builder internal constructor() {
 
-        private var channelId: String? = null
+        private var channelId: Int? = null
         private var publicChannelIntegrationChannelPatch: PublicChannelIntegrationChannelPatch? =
             null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -70,10 +70,17 @@ private constructor(
             additionalQueryParams = customChannelUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun channelId(channelId: String?) = apply { this.channelId = channelId }
+        fun channelId(channelId: Int?) = apply { this.channelId = channelId }
+
+        /**
+         * Alias for [Builder.channelId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun channelId(channelId: Int) = channelId(channelId as Int?)
 
         /** Alias for calling [Builder.channelId] with `channelId.orElse(null)`. */
-        fun channelId(channelId: Optional<String>) = channelId(channelId.getOrNull())
+        fun channelId(channelId: Optional<Int>) = channelId(channelId.getOrNull())
 
         fun publicChannelIntegrationChannelPatch(
             publicChannelIntegrationChannelPatch: PublicChannelIntegrationChannelPatch
@@ -207,7 +214,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> channelId ?: ""
+            0 -> channelId?.toString() ?: ""
             else -> ""
         }
 

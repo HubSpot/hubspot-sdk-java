@@ -53,6 +53,10 @@ interface ExportServiceAsync {
     fun createAsync(publicExportRequest: PublicExportRequest): CompletableFuture<TaskLocator> =
         createAsync(publicExportRequest, RequestOptions.none())
 
+    /**
+     * Retrieve detailed information about a specific CRM export, including its current state and
+     * properties.
+     */
     fun get(exportId: Long): CompletableFuture<PublicExportResponse> =
         get(exportId, ExportGetParams.none())
 

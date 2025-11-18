@@ -24,20 +24,22 @@ class SimplePublicUpsertObject
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val archived: JsonField<Boolean>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val new_: JsonField<Boolean>,
     private val properties: JsonField<Properties>,
     private val updatedAt: JsonField<OffsetDateTime>,
-    private val archived: JsonField<Boolean>,
     private val archivedAt: JsonField<OffsetDateTime>,
     private val objectWriteTraceId: JsonField<String>,
     private val propertiesWithHistory: JsonField<PropertiesWithHistory>,
+    private val url: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -48,7 +50,6 @@ private constructor(
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("archivedAt")
         @ExcludeMissing
         archivedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -58,16 +59,18 @@ private constructor(
         @JsonProperty("propertiesWithHistory")
         @ExcludeMissing
         propertiesWithHistory: JsonField<PropertiesWithHistory> = JsonMissing.of(),
+        @JsonProperty("url") @ExcludeMissing url: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        archived,
         createdAt,
         new_,
         properties,
         updatedAt,
-        archived,
         archivedAt,
         objectWriteTraceId,
         propertiesWithHistory,
+        url,
         mutableMapOf(),
     )
 
@@ -78,6 +81,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * Whether the object is archived.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun archived(): Boolean = archived.getRequired("archived")
 
     /**
      * The timestamp when the object was created, in ISO 8601 format.
@@ -112,14 +123,6 @@ private constructor(
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
-     * Whether the object is archived.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun archived(): Optional<Boolean> = archived.getOptional("archived")
-
-    /**
      * The timestamp when the object was archived, in ISO 8601 format.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -128,6 +131,8 @@ private constructor(
     fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
 
     /**
+     * A unique identifier for tracing the creation or update request.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -144,11 +149,24 @@ private constructor(
         propertiesWithHistory.getOptional("propertiesWithHistory")
 
     /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun url(): Optional<String> = url.getOptional("url")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [archived].
+     *
+     * Unlike [archived], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("archived") @ExcludeMissing fun _archived(): JsonField<Boolean> = archived
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -185,13 +203,6 @@ private constructor(
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /**
-     * Returns the raw JSON value of [archived].
-     *
-     * Unlike [archived], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("archived") @ExcludeMissing fun _archived(): JsonField<Boolean> = archived
-
-    /**
      * Returns the raw JSON value of [archivedAt].
      *
      * Unlike [archivedAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -220,6 +231,13 @@ private constructor(
     @ExcludeMissing
     fun _propertiesWithHistory(): JsonField<PropertiesWithHistory> = propertiesWithHistory
 
+    /**
+     * Returns the raw JSON value of [url].
+     *
+     * Unlike [url], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("url") @ExcludeMissing fun _url(): JsonField<String> = url
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -240,6 +258,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .archived()
          * .createdAt()
          * .new_()
          * .properties()
@@ -253,27 +272,29 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var archived: JsonField<Boolean>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var new_: JsonField<Boolean>? = null
         private var properties: JsonField<Properties>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
-        private var archived: JsonField<Boolean> = JsonMissing.of()
         private var archivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var objectWriteTraceId: JsonField<String> = JsonMissing.of()
         private var propertiesWithHistory: JsonField<PropertiesWithHistory> = JsonMissing.of()
+        private var url: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(simplePublicUpsertObject: SimplePublicUpsertObject) = apply {
             id = simplePublicUpsertObject.id
+            archived = simplePublicUpsertObject.archived
             createdAt = simplePublicUpsertObject.createdAt
             new_ = simplePublicUpsertObject.new_
             properties = simplePublicUpsertObject.properties
             updatedAt = simplePublicUpsertObject.updatedAt
-            archived = simplePublicUpsertObject.archived
             archivedAt = simplePublicUpsertObject.archivedAt
             objectWriteTraceId = simplePublicUpsertObject.objectWriteTraceId
             propertiesWithHistory = simplePublicUpsertObject.propertiesWithHistory
+            url = simplePublicUpsertObject.url
             additionalProperties = simplePublicUpsertObject.additionalProperties.toMutableMap()
         }
 
@@ -287,6 +308,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** Whether the object is archived. */
+        fun archived(archived: Boolean) = archived(JsonField.of(archived))
+
+        /**
+         * Sets [Builder.archived] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.archived] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
         /** The timestamp when the object was created, in ISO 8601 format. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -335,18 +368,6 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        /** Whether the object is archived. */
-        fun archived(archived: Boolean) = archived(JsonField.of(archived))
-
-        /**
-         * Sets [Builder.archived] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.archived] with a well-typed [Boolean] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
-
         /** The timestamp when the object was archived, in ISO 8601 format. */
         fun archivedAt(archivedAt: OffsetDateTime) = archivedAt(JsonField.of(archivedAt))
 
@@ -361,6 +382,7 @@ private constructor(
             this.archivedAt = archivedAt
         }
 
+        /** A unique identifier for tracing the creation or update request. */
         fun objectWriteTraceId(objectWriteTraceId: String) =
             objectWriteTraceId(JsonField.of(objectWriteTraceId))
 
@@ -390,6 +412,16 @@ private constructor(
             this.propertiesWithHistory = propertiesWithHistory
         }
 
+        fun url(url: String) = url(JsonField.of(url))
+
+        /**
+         * Sets [Builder.url] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.url] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun url(url: JsonField<String>) = apply { this.url = url }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -417,6 +449,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .archived()
          * .createdAt()
          * .new_()
          * .properties()
@@ -428,14 +461,15 @@ private constructor(
         fun build(): SimplePublicUpsertObject =
             SimplePublicUpsertObject(
                 checkRequired("id", id),
+                checkRequired("archived", archived),
                 checkRequired("createdAt", createdAt),
                 checkRequired("new_", new_),
                 checkRequired("properties", properties),
                 checkRequired("updatedAt", updatedAt),
-                archived,
                 archivedAt,
                 objectWriteTraceId,
                 propertiesWithHistory,
+                url,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -448,14 +482,15 @@ private constructor(
         }
 
         id()
+        archived()
         createdAt()
         new_()
         properties().validate()
         updatedAt()
-        archived()
         archivedAt()
         objectWriteTraceId()
         propertiesWithHistory().ifPresent { it.validate() }
+        url()
         validated = true
     }
 
@@ -475,14 +510,15 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (archived.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (new_.asKnown().isPresent) 1 else 0) +
             (properties.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
-            (if (archived.asKnown().isPresent) 1 else 0) +
             (if (archivedAt.asKnown().isPresent) 1 else 0) +
             (if (objectWriteTraceId.asKnown().isPresent) 1 else 0) +
-            (propertiesWithHistory.asKnown().getOrNull()?.validity() ?: 0)
+            (propertiesWithHistory.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (url.asKnown().isPresent) 1 else 0)
 
     /** Key value pairs representing the properties of the object. */
     class Properties
@@ -696,28 +732,30 @@ private constructor(
 
         return other is SimplePublicUpsertObject &&
             id == other.id &&
+            archived == other.archived &&
             createdAt == other.createdAt &&
             new_ == other.new_ &&
             properties == other.properties &&
             updatedAt == other.updatedAt &&
-            archived == other.archived &&
             archivedAt == other.archivedAt &&
             objectWriteTraceId == other.objectWriteTraceId &&
             propertiesWithHistory == other.propertiesWithHistory &&
+            url == other.url &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            archived,
             createdAt,
             new_,
             properties,
             updatedAt,
-            archived,
             archivedAt,
             objectWriteTraceId,
             propertiesWithHistory,
+            url,
             additionalProperties,
         )
     }
@@ -725,5 +763,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SimplePublicUpsertObject{id=$id, createdAt=$createdAt, new_=$new_, properties=$properties, updatedAt=$updatedAt, archived=$archived, archivedAt=$archivedAt, objectWriteTraceId=$objectWriteTraceId, propertiesWithHistory=$propertiesWithHistory, additionalProperties=$additionalProperties}"
+        "SimplePublicUpsertObject{id=$id, archived=$archived, createdAt=$createdAt, new_=$new_, properties=$properties, updatedAt=$updatedAt, archivedAt=$archivedAt, objectWriteTraceId=$objectWriteTraceId, propertiesWithHistory=$propertiesWithHistory, url=$url, additionalProperties=$additionalProperties}"
 }

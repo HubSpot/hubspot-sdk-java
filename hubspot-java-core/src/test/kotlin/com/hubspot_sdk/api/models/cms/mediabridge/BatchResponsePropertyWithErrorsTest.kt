@@ -24,7 +24,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
                     Property.builder()
-                        .description("")
+                        .description("description")
                         .fieldType("select")
                         .groupName("my_object_information")
                         .label("My object property")
@@ -48,19 +48,19 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .build()
                         )
                         .type("enumeration")
-                        .archived(false)
+                        .archived(true)
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .calculated(false)
-                        .calculationFormula("")
+                        .calculated(true)
+                        .calculationFormula("calculationFormula")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .createdUserId("")
+                        .createdUserId("createdUserId")
                         .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
                         .displayOrder(2)
-                        .externalOptions(false)
-                        .formField(false)
+                        .externalOptions(true)
+                        .formField(true)
                         .hasUniqueValue(false)
-                        .hidden(false)
-                        .hubspotDefined(false)
+                        .hidden(true)
+                        .hubspotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)
@@ -69,9 +69,9 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .readOnlyOptions(false)
                                 .build()
                         )
-                        .referencedObjectType("")
+                        .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
-                        .showCurrencySymbol(false)
+                        .showCurrencySymbol(true)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedUserId("updatedUserId")
                         .build()
@@ -80,7 +80,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                 .status(BatchResponsePropertyWithErrors.Status.PENDING)
                 .addError(
                     StandardError.builder()
-                        .category("")
+                        .category("category")
                         .context(
                             StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
@@ -93,8 +93,132 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .context(
                                     ErrorDetail.Context.builder()
                                         .putAdditionalProperty(
-                                            "missingScopes",
-                                            JsonValue.from(listOf("scope1", "scope2")),
+                                            "0",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "1",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "2",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "3",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "4",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "5",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "6",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "7",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "8",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "9",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "10",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "11",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "12",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "13",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "14",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "15",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "16",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "17",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "18",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "19",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "20",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "21",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "22",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "23",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "24",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "25",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "26",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "27",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "28",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "29",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "30",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "31",
+                                            JsonValue.from(listOf("string")),
                                         )
                                         .build()
                                 )
@@ -107,10 +231,10 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(
@@ -127,7 +251,7 @@ internal class BatchResponsePropertyWithErrorsTest {
         assertThat(batchResponsePropertyWithErrors.results())
             .containsExactly(
                 Property.builder()
-                    .description("")
+                    .description("description")
                     .fieldType("select")
                     .groupName("my_object_information")
                     .label("My object property")
@@ -151,19 +275,19 @@ internal class BatchResponsePropertyWithErrorsTest {
                             .build()
                     )
                     .type("enumeration")
-                    .archived(false)
+                    .archived(true)
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .calculated(false)
-                    .calculationFormula("")
+                    .calculated(true)
+                    .calculationFormula("calculationFormula")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdUserId("")
+                    .createdUserId("createdUserId")
                     .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
                     .displayOrder(2)
-                    .externalOptions(false)
-                    .formField(false)
+                    .externalOptions(true)
+                    .formField(true)
                     .hasUniqueValue(false)
-                    .hidden(false)
-                    .hubspotDefined(false)
+                    .hidden(true)
+                    .hubspotDefined(true)
                     .modificationMetadata(
                         PropertyModificationMetadata.builder()
                             .archivable(true)
@@ -172,9 +296,9 @@ internal class BatchResponsePropertyWithErrorsTest {
                             .readOnlyOptions(false)
                             .build()
                     )
-                    .referencedObjectType("")
+                    .referencedObjectType("referencedObjectType")
                     .addSensitiveDataCategory("string")
-                    .showCurrencySymbol(false)
+                    .showCurrencySymbol(true)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .updatedUserId("updatedUserId")
                     .build()
@@ -186,7 +310,7 @@ internal class BatchResponsePropertyWithErrorsTest {
         assertThat(batchResponsePropertyWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
-                    .category("")
+                    .category("category")
                     .context(
                         StandardError.Context.builder()
                             .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
@@ -198,10 +322,38 @@ internal class BatchResponsePropertyWithErrorsTest {
                             .code("code")
                             .context(
                                 ErrorDetail.Context.builder()
-                                    .putAdditionalProperty(
-                                        "missingScopes",
-                                        JsonValue.from(listOf("scope1", "scope2")),
-                                    )
+                                    .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("31", JsonValue.from(listOf("string")))
                                     .build()
                             )
                             .in_("in")
@@ -213,10 +365,10 @@ internal class BatchResponsePropertyWithErrorsTest {
                             .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
-                    .message("")
-                    .status("")
-                    .id("")
-                    .subCategory(JsonValue.from(""))
+                    .message("message")
+                    .status("status")
+                    .id("id")
+                    .subCategory(JsonValue.from(mapOf<String, Any>()))
                     .build()
             )
         assertThat(batchResponsePropertyWithErrors.links())
@@ -238,7 +390,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
                     Property.builder()
-                        .description("")
+                        .description("description")
                         .fieldType("select")
                         .groupName("my_object_information")
                         .label("My object property")
@@ -262,19 +414,19 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .build()
                         )
                         .type("enumeration")
-                        .archived(false)
+                        .archived(true)
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .calculated(false)
-                        .calculationFormula("")
+                        .calculated(true)
+                        .calculationFormula("calculationFormula")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .createdUserId("")
+                        .createdUserId("createdUserId")
                         .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
                         .displayOrder(2)
-                        .externalOptions(false)
-                        .formField(false)
+                        .externalOptions(true)
+                        .formField(true)
                         .hasUniqueValue(false)
-                        .hidden(false)
-                        .hubspotDefined(false)
+                        .hidden(true)
+                        .hubspotDefined(true)
                         .modificationMetadata(
                             PropertyModificationMetadata.builder()
                                 .archivable(true)
@@ -283,9 +435,9 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .readOnlyOptions(false)
                                 .build()
                         )
-                        .referencedObjectType("")
+                        .referencedObjectType("referencedObjectType")
                         .addSensitiveDataCategory("string")
-                        .showCurrencySymbol(false)
+                        .showCurrencySymbol(true)
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedUserId("updatedUserId")
                         .build()
@@ -294,7 +446,7 @@ internal class BatchResponsePropertyWithErrorsTest {
                 .status(BatchResponsePropertyWithErrors.Status.PENDING)
                 .addError(
                     StandardError.builder()
-                        .category("")
+                        .category("category")
                         .context(
                             StandardError.Context.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(listOf("string")))
@@ -307,8 +459,132 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .context(
                                     ErrorDetail.Context.builder()
                                         .putAdditionalProperty(
-                                            "missingScopes",
-                                            JsonValue.from(listOf("scope1", "scope2")),
+                                            "0",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "1",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "2",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "3",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "4",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "5",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "6",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "7",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "8",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "9",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "10",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "11",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "12",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "13",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "14",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "15",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "16",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "17",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "18",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "19",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "20",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "21",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "22",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "23",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "24",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "25",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "26",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "27",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "28",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "29",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "30",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "31",
+                                            JsonValue.from(listOf("string")),
                                         )
                                         .build()
                                 )
@@ -321,10 +597,10 @@ internal class BatchResponsePropertyWithErrorsTest {
                                 .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
-                        .message("")
-                        .status("")
-                        .id("")
-                        .subCategory(JsonValue.from(""))
+                        .message("message")
+                        .status("status")
+                        .id("id")
+                        .subCategory(JsonValue.from(mapOf<String, Any>()))
                         .build()
                 )
                 .links(

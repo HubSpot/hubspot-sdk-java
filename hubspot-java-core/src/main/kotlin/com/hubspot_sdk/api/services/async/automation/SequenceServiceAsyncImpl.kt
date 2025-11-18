@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.automation.sequences.CollectionResponseWithTotalPublicSequenceLiteResponseForwardPaging
 import com.hubspot_sdk.api.models.automation.sequences.PublicSequenceResponse
 import com.hubspot_sdk.api.models.automation.sequences.SequenceGetParams
+import com.hubspot_sdk.api.models.automation.sequences.SequenceListPageAsync
 import com.hubspot_sdk.api.models.automation.sequences.SequenceListParams
 import com.hubspot_sdk.api.services.async.automation.sequences.EnrollmentServiceAsync
 import com.hubspot_sdk.api.services.async.automation.sequences.EnrollmentServiceAsyncImpl
@@ -46,7 +47,7 @@ class SequenceServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun list(
         params: SequenceListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseWithTotalPublicSequenceLiteResponseForwardPaging> =
+    ): CompletableFuture<SequenceListPageAsync> =
         // get /automation/v4/sequences/
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -85,9 +86,7 @@ class SequenceServiceAsyncImpl internal constructor(private val clientOptions: C
         override fun list(
             params: SequenceListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<
-            HttpResponseFor<CollectionResponseWithTotalPublicSequenceLiteResponseForwardPaging>
-        > {
+        ): CompletableFuture<HttpResponseFor<SequenceListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -106,6 +105,14 @@ class SequenceServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                SequenceListPageAsync.builder()
+                                    .service(SequenceServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

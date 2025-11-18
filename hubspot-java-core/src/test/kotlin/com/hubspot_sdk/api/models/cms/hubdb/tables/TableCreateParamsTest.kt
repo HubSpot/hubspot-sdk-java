@@ -16,8 +16,6 @@ internal class TableCreateParamsTest {
         TableCreateParams.builder()
             .hubDbTableV3Request(
                 HubDbTableV3Request.builder()
-                    .label("label")
-                    .name("name")
                     .allowChildTables(true)
                     .allowPublicApiAccess(true)
                     .addColumn(
@@ -47,6 +45,8 @@ internal class TableCreateParamsTest {
                             .build()
                     )
                     .enableChildTablePages(true)
+                    .label("label")
+                    .name("name")
                     .useForPages(true)
                     .build()
             )
@@ -59,8 +59,6 @@ internal class TableCreateParamsTest {
             TableCreateParams.builder()
                 .hubDbTableV3Request(
                     HubDbTableV3Request.builder()
-                        .label("label")
-                        .name("name")
                         .allowChildTables(true)
                         .allowPublicApiAccess(true)
                         .addColumn(
@@ -90,6 +88,8 @@ internal class TableCreateParamsTest {
                                 .build()
                         )
                         .enableChildTablePages(true)
+                        .label("label")
+                        .name("name")
                         .useForPages(true)
                         .build()
                 )
@@ -100,8 +100,6 @@ internal class TableCreateParamsTest {
         assertThat(body)
             .isEqualTo(
                 HubDbTableV3Request.builder()
-                    .label("label")
-                    .name("name")
                     .allowChildTables(true)
                     .allowPublicApiAccess(true)
                     .addColumn(
@@ -131,6 +129,8 @@ internal class TableCreateParamsTest {
                             .build()
                     )
                     .enableChildTablePages(true)
+                    .label("label")
+                    .name("name")
                     .useForPages(true)
                     .build()
             )
@@ -141,13 +141,65 @@ internal class TableCreateParamsTest {
         val params =
             TableCreateParams.builder()
                 .hubDbTableV3Request(
-                    HubDbTableV3Request.builder().label("label").name("name").build()
+                    HubDbTableV3Request.builder()
+                        .allowChildTables(true)
+                        .allowPublicApiAccess(true)
+                        .addColumn(
+                            ColumnRequest.builder()
+                                .id(0)
+                                .label("label")
+                                .name("name")
+                                .addOption(
+                                    Option.builder()
+                                        .hidden(false)
+                                        .label("Option A")
+                                        .value("A")
+                                        .build()
+                                )
+                                .type(ColumnRequest.Type.NULL)
+                                .build()
+                        )
+                        .dynamicMetaTags(
+                            HubDbTableV3Request.DynamicMetaTags.builder()
+                                .putAdditionalProperty("foo", JsonValue.from(0))
+                                .build()
+                        )
+                        .enableChildTablePages(true)
+                        .label("label")
+                        .name("name")
+                        .useForPages(true)
+                        .build()
                 )
                 .build()
 
         val body = params._body()
 
         assertThat(body)
-            .isEqualTo(HubDbTableV3Request.builder().label("label").name("name").build())
+            .isEqualTo(
+                HubDbTableV3Request.builder()
+                    .allowChildTables(true)
+                    .allowPublicApiAccess(true)
+                    .addColumn(
+                        ColumnRequest.builder()
+                            .id(0)
+                            .label("label")
+                            .name("name")
+                            .addOption(
+                                Option.builder().hidden(false).label("Option A").value("A").build()
+                            )
+                            .type(ColumnRequest.Type.NULL)
+                            .build()
+                    )
+                    .dynamicMetaTags(
+                        HubDbTableV3Request.DynamicMetaTags.builder()
+                            .putAdditionalProperty("foo", JsonValue.from(0))
+                            .build()
+                    )
+                    .enableChildTablePages(true)
+                    .label("label")
+                    .name("name")
+                    .useForPages(true)
+                    .build()
+            )
     }
 }

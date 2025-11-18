@@ -175,6 +175,7 @@ interface CourseService {
     fun get(courseId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
         get(courseId, CourseGetParams.none(), requestOptions)
 
+    /** Fetch objects using a search query */
     fun search(params: CourseSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 

@@ -60,7 +60,7 @@ private constructor(
     )
 
     /**
-     * The created user's email
+     * The user's email.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -68,19 +68,23 @@ private constructor(
     fun email(): String = email.getRequired("email")
 
     /**
+     * The user's first name.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun firstName(): Optional<String> = firstName.getOptional("firstName")
 
     /**
+     * The user's last name.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun lastName(): Optional<String> = lastName.getOptional("lastName")
 
     /**
-     * The user's primary team
+     * The user's primary team.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -88,7 +92,7 @@ private constructor(
     fun primaryTeamId(): Optional<String> = primaryTeamId.getOptional("primaryTeamId")
 
     /**
-     * The user's role
+     * The user's role.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -96,7 +100,7 @@ private constructor(
     fun roleId(): Optional<String> = roleId.getOptional("roleId")
 
     /**
-     * The user's additional teams
+     * The user's additional teams.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -105,7 +109,7 @@ private constructor(
         secondaryTeamIds.getOptional("secondaryTeamIds")
 
     /**
-     * Whether to send a welcome email
+     * Whether to send a welcome email.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -218,7 +222,7 @@ private constructor(
             additionalProperties = userProvisionRequest.additionalProperties.toMutableMap()
         }
 
-        /** The created user's email */
+        /** The user's email. */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -229,6 +233,7 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
+        /** The user's first name. */
         fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
         /**
@@ -240,6 +245,7 @@ private constructor(
          */
         fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
+        /** The user's last name. */
         fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
         /**
@@ -250,7 +256,7 @@ private constructor(
          */
         fun lastName(lastName: JsonField<String>) = apply { this.lastName = lastName }
 
-        /** The user's primary team */
+        /** The user's primary team. */
         fun primaryTeamId(primaryTeamId: String) = primaryTeamId(JsonField.of(primaryTeamId))
 
         /**
@@ -264,7 +270,7 @@ private constructor(
             this.primaryTeamId = primaryTeamId
         }
 
-        /** The user's role */
+        /** The user's role. */
         fun roleId(roleId: String) = roleId(JsonField.of(roleId))
 
         /**
@@ -275,7 +281,7 @@ private constructor(
          */
         fun roleId(roleId: JsonField<String>) = apply { this.roleId = roleId }
 
-        /** The user's additional teams */
+        /** The user's additional teams. */
         fun secondaryTeamIds(secondaryTeamIds: List<String>) =
             secondaryTeamIds(JsonField.of(secondaryTeamIds))
 
@@ -302,7 +308,7 @@ private constructor(
                 }
         }
 
-        /** Whether to send a welcome email */
+        /** Whether to send a welcome email. */
         fun sendWelcomeEmail(sendWelcomeEmail: Boolean) =
             sendWelcomeEmail(JsonField.of(sendWelcomeEmail))
 

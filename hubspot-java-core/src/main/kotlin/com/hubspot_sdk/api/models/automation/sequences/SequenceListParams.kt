@@ -3,16 +3,31 @@
 package com.hubspot_sdk.api.models.automation.sequences
 
 import com.hubspot_sdk.api.core.Params
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Retrieve a list of sequences that belong to a specific user. */
 class SequenceListParams
 private constructor(
+    private val userId: String,
+    private val after: String?,
+    private val limit: Int?,
+    private val name: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun userId(): String = userId
+
+    fun after(): Optional<String> = Optional.ofNullable(after)
+
+    fun limit(): Optional<Int> = Optional.ofNullable(limit)
+
+    fun name(): Optional<String> = Optional.ofNullable(name)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -24,23 +39,60 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): SequenceListParams = builder().build()
-
-        /** Returns a mutable builder for constructing an instance of [SequenceListParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [SequenceListParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .userId()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [SequenceListParams]. */
     class Builder internal constructor() {
 
+        private var userId: String? = null
+        private var after: String? = null
+        private var limit: Int? = null
+        private var name: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(sequenceListParams: SequenceListParams) = apply {
+            userId = sequenceListParams.userId
+            after = sequenceListParams.after
+            limit = sequenceListParams.limit
+            name = sequenceListParams.name
             additionalHeaders = sequenceListParams.additionalHeaders.toBuilder()
             additionalQueryParams = sequenceListParams.additionalQueryParams.toBuilder()
         }
+
+        fun userId(userId: String) = apply { this.userId = userId }
+
+        fun after(after: String?) = apply { this.after = after }
+
+        /** Alias for calling [Builder.after] with `after.orElse(null)`. */
+        fun after(after: Optional<String>) = after(after.getOrNull())
+
+        fun limit(limit: Int?) = apply { this.limit = limit }
+
+        /**
+         * Alias for [Builder.limit].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun limit(limit: Int) = limit(limit as Int?)
+
+        /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
+        fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
+
+        fun name(name: String?) = apply { this.name = name }
+
+        /** Alias for calling [Builder.name] with `name.orElse(null)`. */
+        fun name(name: Optional<String>) = name(name.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -144,14 +196,37 @@ private constructor(
          * Returns an immutable instance of [SequenceListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .userId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): SequenceListParams =
-            SequenceListParams(additionalHeaders.build(), additionalQueryParams.build())
+            SequenceListParams(
+                checkRequired("userId", userId),
+                after,
+                limit,
+                name,
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
     }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                put("userId", userId)
+                after?.let { put("after", it) }
+                limit?.let { put("limit", it.toString()) }
+                name?.let { put("name", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -159,12 +234,17 @@ private constructor(
         }
 
         return other is SequenceListParams &&
+            userId == other.userId &&
+            after == other.after &&
+            limit == other.limit &&
+            name == other.name &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(userId, after, limit, name, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SequenceListParams{additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SequenceListParams{userId=$userId, after=$after, limit=$limit, name=$name, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

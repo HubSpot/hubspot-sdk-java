@@ -10,10 +10,10 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
-import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class EmailStatisticInterval
@@ -33,16 +33,16 @@ private constructor(
     ) : this(aggregations, interval, mutableMapOf())
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun aggregations(): Optional<EmailStatisticsData> = aggregations.getOptional("aggregations")
+    fun aggregations(): EmailStatisticsData = aggregations.getRequired("aggregations")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun interval(): Optional<Interval> = interval.getOptional("interval")
+    fun interval(): Interval = interval.getRequired("interval")
 
     /**
      * Returns the raw JSON value of [aggregations].
@@ -74,15 +74,23 @@ private constructor(
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [EmailStatisticInterval]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [EmailStatisticInterval].
+         *
+         * The following fields are required:
+         * ```java
+         * .aggregations()
+         * .interval()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [EmailStatisticInterval]. */
     class Builder internal constructor() {
 
-        private var aggregations: JsonField<EmailStatisticsData> = JsonMissing.of()
-        private var interval: JsonField<Interval> = JsonMissing.of()
+        private var aggregations: JsonField<EmailStatisticsData>? = null
+        private var interval: JsonField<Interval>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -140,9 +148,21 @@ private constructor(
          * Returns an immutable instance of [EmailStatisticInterval].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .aggregations()
+         * .interval()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): EmailStatisticInterval =
-            EmailStatisticInterval(aggregations, interval, additionalProperties.toMutableMap())
+            EmailStatisticInterval(
+                checkRequired("aggregations", aggregations),
+                checkRequired("interval", interval),
+                additionalProperties.toMutableMap(),
+            )
     }
 
     private var validated: Boolean = false
@@ -152,8 +172,8 @@ private constructor(
             return@apply
         }
 
-        aggregations().ifPresent { it.validate() }
-        interval().ifPresent { it.validate() }
+        aggregations().validate()
+        interval().validate()
         validated = true
     }
 

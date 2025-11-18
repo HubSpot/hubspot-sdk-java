@@ -15,7 +15,7 @@ import kotlin.jvm.optionals.getOrNull
 /** Update an existing property for an object type. */
 class PropertyUpdateParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val objectType: String,
     private val propertyName: String?,
     private val mediaBridgePropertyUpdate: MediaBridgePropertyUpdate,
@@ -23,7 +23,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun objectType(): String = objectType
 
@@ -60,7 +60,7 @@ private constructor(
     /** A builder for [PropertyUpdateParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var objectType: String? = null
         private var propertyName: String? = null
         private var mediaBridgePropertyUpdate: MediaBridgePropertyUpdate? = null
@@ -77,7 +77,7 @@ private constructor(
             additionalQueryParams = propertyUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun objectType(objectType: String) = apply { this.objectType = objectType }
 
@@ -218,7 +218,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> objectType
             2 -> propertyName ?: ""
             else -> ""
