@@ -1,0 +1,35 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.conversations
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.jsonMapper
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class PublicDeliveryIdentifierTest {
+
+    @Test
+    fun create() {
+        val publicDeliveryIdentifier =
+            PublicDeliveryIdentifier.builder().type("type").value("value").build()
+
+        assertThat(publicDeliveryIdentifier.type()).isEqualTo("type")
+        assertThat(publicDeliveryIdentifier.value()).isEqualTo("value")
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val publicDeliveryIdentifier =
+            PublicDeliveryIdentifier.builder().type("type").value("value").build()
+
+        val roundtrippedPublicDeliveryIdentifier =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(publicDeliveryIdentifier),
+                jacksonTypeRef<PublicDeliveryIdentifier>(),
+            )
+
+        assertThat(roundtrippedPublicDeliveryIdentifier).isEqualTo(publicDeliveryIdentifier)
+    }
+}

@@ -61,6 +61,8 @@ import com.hubspot_sdk.api.services.async.crm.objects.PostalMailServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PostalMailServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.ProductServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ProductServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.crm.objects.ProjectServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.ProjectServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.QuoteServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.QuoteServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.SchemaServiceAsync
@@ -154,6 +156,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     private val products: ProductServiceAsync by lazy { ProductServiceAsyncImpl(clientOptions) }
 
+    private val projects: ProjectServiceAsync by lazy { ProjectServiceAsyncImpl(clientOptions) }
+
     private val quotes: QuoteServiceAsync by lazy { QuoteServiceAsyncImpl(clientOptions) }
 
     private val schemas: SchemaServiceAsync by lazy { SchemaServiceAsyncImpl(clientOptions) }
@@ -226,6 +230,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun postalMail(): PostalMailServiceAsync = postalMail
 
     override fun products(): ProductServiceAsync = products
+
+    override fun projects(): ProjectServiceAsync = projects
 
     override fun quotes(): QuoteServiceAsync = quotes
 
@@ -354,6 +360,10 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
             ProductServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val projects: ProjectServiceAsync.WithRawResponse by lazy {
+            ProjectServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val quotes: QuoteServiceAsync.WithRawResponse by lazy {
             QuoteServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -442,6 +452,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
         override fun postalMail(): PostalMailServiceAsync.WithRawResponse = postalMail
 
         override fun products(): ProductServiceAsync.WithRawResponse = products
+
+        override fun projects(): ProjectServiceAsync.WithRawResponse = projects
 
         override fun quotes(): QuoteServiceAsync.WithRawResponse = quotes
 

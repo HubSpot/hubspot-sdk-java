@@ -31,6 +31,8 @@ import com.hubspot_sdk.api.services.blocking.crm.PropertyService
 import com.hubspot_sdk.api.services.blocking.crm.PropertyServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.PropertyValidationService
 import com.hubspot_sdk.api.services.blocking.crm.PropertyValidationServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.SubscriptionService
+import com.hubspot_sdk.api.services.blocking.crm.SubscriptionServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.TimelineService
 import com.hubspot_sdk.api.services.blocking.crm.TimelineServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.UserService
@@ -77,6 +79,10 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
         PropertyValidationServiceImpl(clientOptions)
     }
 
+    private val subscriptions: SubscriptionService by lazy {
+        SubscriptionServiceImpl(clientOptions)
+    }
+
     private val timeline: TimelineService by lazy { TimelineServiceImpl(clientOptions) }
 
     private val users: UserService by lazy { UserServiceImpl(clientOptions) }
@@ -113,6 +119,8 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun properties(): PropertyService = properties
 
     override fun propertyValidations(): PropertyValidationService = propertyValidations
+
+    override fun subscriptions(): SubscriptionService = subscriptions
 
     override fun timeline(): TimelineService = timeline
 
@@ -177,6 +185,10 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
             PropertyValidationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val subscriptions: SubscriptionService.WithRawResponse by lazy {
+            SubscriptionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val timeline: TimelineService.WithRawResponse by lazy {
             TimelineServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -220,6 +232,8 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
 
         override fun propertyValidations(): PropertyValidationService.WithRawResponse =
             propertyValidations
+
+        override fun subscriptions(): SubscriptionService.WithRawResponse = subscriptions
 
         override fun timeline(): TimelineService.WithRawResponse = timeline
 

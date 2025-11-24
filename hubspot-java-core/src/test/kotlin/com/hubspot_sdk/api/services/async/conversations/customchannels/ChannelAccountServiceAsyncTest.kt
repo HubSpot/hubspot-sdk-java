@@ -4,9 +4,9 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountEgg
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountUpdateRequest
-import com.hubspot_sdk.api.models.conversations.customchannels.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountUpdateParams

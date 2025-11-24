@@ -4,8 +4,8 @@ package com.hubspot_sdk.api.services.blocking.conversations.customchannels
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingTokenUpdateRequest
-import com.hubspot_sdk.api.models.conversations.customchannels.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens.ChannelAccountStagingTokenUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test

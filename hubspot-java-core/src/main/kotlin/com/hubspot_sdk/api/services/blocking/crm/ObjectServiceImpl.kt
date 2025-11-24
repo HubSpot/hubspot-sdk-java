@@ -61,6 +61,8 @@ import com.hubspot_sdk.api.services.blocking.crm.objects.PostalMailService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PostalMailServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.ProductService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ProductServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.objects.ProjectService
+import com.hubspot_sdk.api.services.blocking.crm.objects.ProjectServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.QuoteService
 import com.hubspot_sdk.api.services.blocking.crm.objects.QuoteServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.SchemaService
@@ -148,6 +150,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
     private val products: ProductService by lazy { ProductServiceImpl(clientOptions) }
 
+    private val projects: ProjectService by lazy { ProjectServiceImpl(clientOptions) }
+
     private val quotes: QuoteService by lazy { QuoteServiceImpl(clientOptions) }
 
     private val schemas: SchemaService by lazy { SchemaServiceImpl(clientOptions) }
@@ -220,6 +224,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun postalMail(): PostalMailService = postalMail
 
     override fun products(): ProductService = products
+
+    override fun projects(): ProjectService = projects
 
     override fun quotes(): QuoteService = quotes
 
@@ -348,6 +354,10 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
             ProductServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val projects: ProjectService.WithRawResponse by lazy {
+            ProjectServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val quotes: QuoteService.WithRawResponse by lazy {
             QuoteServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -435,6 +445,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun postalMail(): PostalMailService.WithRawResponse = postalMail
 
         override fun products(): ProductService.WithRawResponse = products
+
+        override fun projects(): ProjectService.WithRawResponse = projects
 
         override fun quotes(): QuoteService.WithRawResponse = quotes
 

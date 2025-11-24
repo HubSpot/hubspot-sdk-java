@@ -6,7 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.customchannels.PublicConversationsMessage
+import com.hubspot_sdk.api.models.conversations.ConversationsPublicConversationsMessage
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageUpdateParams
@@ -27,54 +27,58 @@ interface MessageService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService
 
     /** Publish a message over your custom channel */
-    fun create(channelId: Int, params: MessageCreateParams): PublicConversationsMessage =
-        create(channelId, params, RequestOptions.none())
+    fun create(
+        channelId: Int,
+        params: MessageCreateParams,
+    ): ConversationsPublicConversationsMessage = create(channelId, params, RequestOptions.none())
 
     /** @see create */
     fun create(
         channelId: Int,
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicConversationsMessage =
+    ): ConversationsPublicConversationsMessage =
         create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see create */
-    fun create(params: MessageCreateParams): PublicConversationsMessage =
+    fun create(params: MessageCreateParams): ConversationsPublicConversationsMessage =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicConversationsMessage
+    ): ConversationsPublicConversationsMessage
 
     /**
      * Update a message's status to indicate if it was successfully sent, failed to send, or was
      * read. For failed messages, this can also include the error message for the failure.
      */
-    fun update(messageId: String, params: MessageUpdateParams): PublicConversationsMessage =
-        update(messageId, params, RequestOptions.none())
+    fun update(
+        messageId: String,
+        params: MessageUpdateParams,
+    ): ConversationsPublicConversationsMessage = update(messageId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
         messageId: String,
         params: MessageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicConversationsMessage =
+    ): ConversationsPublicConversationsMessage =
         update(params.toBuilder().messageId(messageId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: MessageUpdateParams): PublicConversationsMessage =
+    fun update(params: MessageUpdateParams): ConversationsPublicConversationsMessage =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: MessageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicConversationsMessage
+    ): ConversationsPublicConversationsMessage
 
     /** Get the details for a specific message sent over a custom channel */
-    fun get(messageId: String, params: MessageGetParams): PublicConversationsMessage =
+    fun get(messageId: String, params: MessageGetParams): ConversationsPublicConversationsMessage =
         get(messageId, params, RequestOptions.none())
 
     /** @see get */
@@ -82,18 +86,18 @@ interface MessageService {
         messageId: String,
         params: MessageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicConversationsMessage =
+    ): ConversationsPublicConversationsMessage =
         get(params.toBuilder().messageId(messageId).build(), requestOptions)
 
     /** @see get */
-    fun get(params: MessageGetParams): PublicConversationsMessage =
+    fun get(params: MessageGetParams): ConversationsPublicConversationsMessage =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: MessageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicConversationsMessage
+    ): ConversationsPublicConversationsMessage
 
     /** A view of [MessageService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -114,7 +118,7 @@ interface MessageService {
         fun create(
             channelId: Int,
             params: MessageCreateParams,
-        ): HttpResponseFor<PublicConversationsMessage> =
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             create(channelId, params, RequestOptions.none())
 
         /** @see create */
@@ -123,12 +127,14 @@ interface MessageService {
             channelId: Int,
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicConversationsMessage> =
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(params: MessageCreateParams): HttpResponseFor<PublicConversationsMessage> =
+        fun create(
+            params: MessageCreateParams
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -136,7 +142,7 @@ interface MessageService {
         fun create(
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicConversationsMessage>
+        ): HttpResponseFor<ConversationsPublicConversationsMessage>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -147,7 +153,7 @@ interface MessageService {
         fun update(
             messageId: String,
             params: MessageUpdateParams,
-        ): HttpResponseFor<PublicConversationsMessage> =
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             update(messageId, params, RequestOptions.none())
 
         /** @see update */
@@ -156,12 +162,14 @@ interface MessageService {
             messageId: String,
             params: MessageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicConversationsMessage> =
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             update(params.toBuilder().messageId(messageId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: MessageUpdateParams): HttpResponseFor<PublicConversationsMessage> =
+        fun update(
+            params: MessageUpdateParams
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -169,7 +177,7 @@ interface MessageService {
         fun update(
             params: MessageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicConversationsMessage>
+        ): HttpResponseFor<ConversationsPublicConversationsMessage>
 
         /**
          * Returns a raw HTTP response for `get
@@ -180,7 +188,7 @@ interface MessageService {
         fun get(
             messageId: String,
             params: MessageGetParams,
-        ): HttpResponseFor<PublicConversationsMessage> =
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             get(messageId, params, RequestOptions.none())
 
         /** @see get */
@@ -189,12 +197,14 @@ interface MessageService {
             messageId: String,
             params: MessageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicConversationsMessage> =
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             get(params.toBuilder().messageId(messageId).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
-        fun get(params: MessageGetParams): HttpResponseFor<PublicConversationsMessage> =
+        fun get(
+            params: MessageGetParams
+        ): HttpResponseFor<ConversationsPublicConversationsMessage> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -202,6 +212,6 @@ interface MessageService {
         fun get(
             params: MessageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicConversationsMessage>
+        ): HttpResponseFor<ConversationsPublicConversationsMessage>
     }
 }

@@ -31,6 +31,8 @@ import com.hubspot_sdk.api.services.async.crm.PropertyServiceAsync
 import com.hubspot_sdk.api.services.async.crm.PropertyServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.PropertyValidationServiceAsync
 import com.hubspot_sdk.api.services.async.crm.PropertyValidationServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.crm.SubscriptionServiceAsync
+import com.hubspot_sdk.api.services.async.crm.SubscriptionServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.TimelineServiceAsync
 import com.hubspot_sdk.api.services.async.crm.TimelineServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.UserServiceAsync
@@ -84,6 +86,10 @@ class CrmServiceAsyncImpl internal constructor(private val clientOptions: Client
         PropertyValidationServiceAsyncImpl(clientOptions)
     }
 
+    private val subscriptions: SubscriptionServiceAsync by lazy {
+        SubscriptionServiceAsyncImpl(clientOptions)
+    }
+
     private val timeline: TimelineServiceAsync by lazy { TimelineServiceAsyncImpl(clientOptions) }
 
     private val users: UserServiceAsync by lazy { UserServiceAsyncImpl(clientOptions) }
@@ -120,6 +126,8 @@ class CrmServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun properties(): PropertyServiceAsync = properties
 
     override fun propertyValidations(): PropertyValidationServiceAsync = propertyValidations
+
+    override fun subscriptions(): SubscriptionServiceAsync = subscriptions
 
     override fun timeline(): TimelineServiceAsync = timeline
 
@@ -184,6 +192,10 @@ class CrmServiceAsyncImpl internal constructor(private val clientOptions: Client
             PropertyValidationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val subscriptions: SubscriptionServiceAsync.WithRawResponse by lazy {
+            SubscriptionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val timeline: TimelineServiceAsync.WithRawResponse by lazy {
             TimelineServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -227,6 +239,8 @@ class CrmServiceAsyncImpl internal constructor(private val clientOptions: Client
 
         override fun propertyValidations(): PropertyValidationServiceAsync.WithRawResponse =
             propertyValidations
+
+        override fun subscriptions(): SubscriptionServiceAsync.WithRawResponse = subscriptions
 
         override fun timeline(): TimelineServiceAsync.WithRawResponse = timeline
 

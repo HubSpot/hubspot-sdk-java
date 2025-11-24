@@ -17,6 +17,7 @@ import com.hubspot_sdk.api.services.blocking.crm.OwnerService
 import com.hubspot_sdk.api.services.blocking.crm.PipelineService
 import com.hubspot_sdk.api.services.blocking.crm.PropertyService
 import com.hubspot_sdk.api.services.blocking.crm.PropertyValidationService
+import com.hubspot_sdk.api.services.blocking.crm.SubscriptionService
 import com.hubspot_sdk.api.services.blocking.crm.TimelineService
 import com.hubspot_sdk.api.services.blocking.crm.UserService
 import java.util.function.Consumer
@@ -63,6 +64,8 @@ interface CrmService {
 
     fun propertyValidations(): PropertyValidationService
 
+    fun subscriptions(): SubscriptionService
+
     fun timeline(): TimelineService
 
     fun users(): UserService
@@ -104,6 +107,8 @@ interface CrmService {
         fun properties(): PropertyService.WithRawResponse
 
         fun propertyValidations(): PropertyValidationService.WithRawResponse
+
+        fun subscriptions(): SubscriptionService.WithRawResponse
 
         fun timeline(): TimelineService.WithRawResponse
 

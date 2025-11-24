@@ -32,6 +32,7 @@ import com.hubspot_sdk.api.services.blocking.crm.objects.PartnerClientService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PartnerServiceService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PostalMailService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ProductService
+import com.hubspot_sdk.api.services.blocking.crm.objects.ProjectService
 import com.hubspot_sdk.api.services.blocking.crm.objects.QuoteService
 import com.hubspot_sdk.api.services.blocking.crm.objects.SchemaService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ServiceService
@@ -110,6 +111,8 @@ interface ObjectService {
 
     fun products(): ProductService
 
+    fun projects(): ProjectService
+
     fun quotes(): QuoteService
 
     fun schemas(): SchemaService
@@ -187,6 +190,8 @@ interface ObjectService {
         fun postalMail(): PostalMailService.WithRawResponse
 
         fun products(): ProductService.WithRawResponse
+
+        fun projects(): ProjectService.WithRawResponse
 
         fun quotes(): QuoteService.WithRawResponse
 
