@@ -740,19 +740,19 @@ private constructor(
 
         companion object {
 
-            @JvmField val VISITED_URL = of("VISITED_URL")
-
             @JvmField val CLICKED_ELEMENT = of("CLICKED_ELEMENT")
+
+            @JvmField val COMBO_EVENT = of("COMBO_EVENT")
 
             @JvmField val CUSTOM_SCRIPT = of("CUSTOM_SCRIPT")
 
-            @JvmField val MANUAL = of("MANUAL")
-
             @JvmField val IMPORT = of("IMPORT")
+
+            @JvmField val MANUAL = of("MANUAL")
 
             @JvmField val PROPERTY_CHANGE = of("PROPERTY_CHANGE")
 
-            @JvmField val COMBO_EVENT = of("COMBO_EVENT")
+            @JvmField val VISITED_URL = of("VISITED_URL")
 
             @JvmField val WEBHOOK = of("WEBHOOK")
 
@@ -761,13 +761,13 @@ private constructor(
 
         /** An enum containing [TrackingType]'s known values. */
         enum class Known {
-            VISITED_URL,
             CLICKED_ELEMENT,
-            CUSTOM_SCRIPT,
-            MANUAL,
-            IMPORT,
-            PROPERTY_CHANGE,
             COMBO_EVENT,
+            CUSTOM_SCRIPT,
+            IMPORT,
+            MANUAL,
+            PROPERTY_CHANGE,
+            VISITED_URL,
             WEBHOOK,
         }
 
@@ -781,13 +781,13 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            VISITED_URL,
             CLICKED_ELEMENT,
-            CUSTOM_SCRIPT,
-            MANUAL,
-            IMPORT,
-            PROPERTY_CHANGE,
             COMBO_EVENT,
+            CUSTOM_SCRIPT,
+            IMPORT,
+            MANUAL,
+            PROPERTY_CHANGE,
+            VISITED_URL,
             WEBHOOK,
             /**
              * An enum member indicating that [TrackingType] was instantiated with an unknown value.
@@ -804,13 +804,13 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                VISITED_URL -> Value.VISITED_URL
                 CLICKED_ELEMENT -> Value.CLICKED_ELEMENT
-                CUSTOM_SCRIPT -> Value.CUSTOM_SCRIPT
-                MANUAL -> Value.MANUAL
-                IMPORT -> Value.IMPORT
-                PROPERTY_CHANGE -> Value.PROPERTY_CHANGE
                 COMBO_EVENT -> Value.COMBO_EVENT
+                CUSTOM_SCRIPT -> Value.CUSTOM_SCRIPT
+                IMPORT -> Value.IMPORT
+                MANUAL -> Value.MANUAL
+                PROPERTY_CHANGE -> Value.PROPERTY_CHANGE
+                VISITED_URL -> Value.VISITED_URL
                 WEBHOOK -> Value.WEBHOOK
                 else -> Value._UNKNOWN
             }
@@ -826,13 +826,13 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                VISITED_URL -> Known.VISITED_URL
                 CLICKED_ELEMENT -> Known.CLICKED_ELEMENT
-                CUSTOM_SCRIPT -> Known.CUSTOM_SCRIPT
-                MANUAL -> Known.MANUAL
-                IMPORT -> Known.IMPORT
-                PROPERTY_CHANGE -> Known.PROPERTY_CHANGE
                 COMBO_EVENT -> Known.COMBO_EVENT
+                CUSTOM_SCRIPT -> Known.CUSTOM_SCRIPT
+                IMPORT -> Known.IMPORT
+                MANUAL -> Known.MANUAL
+                PROPERTY_CHANGE -> Known.PROPERTY_CHANGE
+                VISITED_URL -> Known.VISITED_URL
                 WEBHOOK -> Known.WEBHOOK
                 else -> throw HubspotInvalidDataException("Unknown TrackingType: $value")
             }

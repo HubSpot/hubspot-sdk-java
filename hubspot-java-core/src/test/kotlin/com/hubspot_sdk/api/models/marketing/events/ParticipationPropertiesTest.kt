@@ -13,14 +13,14 @@ internal class ParticipationPropertiesTest {
     fun create() {
         val participationProperties =
             ParticipationProperties.builder()
-                .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                 .occurredAt(0L)
                 .attendanceDurationSeconds(0)
                 .attendancePercentage("attendancePercentage")
                 .build()
 
         assertThat(participationProperties.attendanceState())
-            .isEqualTo(ParticipationProperties.AttendanceState.REGISTERED)
+            .isEqualTo(ParticipationProperties.AttendanceState.ATTENDED)
         assertThat(participationProperties.occurredAt()).isEqualTo(0L)
         assertThat(participationProperties.attendanceDurationSeconds()).contains(0)
         assertThat(participationProperties.attendancePercentage()).contains("attendancePercentage")
@@ -31,7 +31,7 @@ internal class ParticipationPropertiesTest {
         val jsonMapper = jsonMapper()
         val participationProperties =
             ParticipationProperties.builder()
-                .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                 .occurredAt(0L)
                 .attendanceDurationSeconds(0)
                 .attendancePercentage("attendancePercentage")

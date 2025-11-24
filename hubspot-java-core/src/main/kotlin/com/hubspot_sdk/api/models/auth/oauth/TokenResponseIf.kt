@@ -10,104 +10,130 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.checkKnown
+import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 class TokenResponseIf
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val accessToken: JsonField<String>,
-    private val expiresIn: JsonField<Int>,
-    private val refreshToken: JsonField<String>,
-    private val tokenType: JsonField<String>,
+    private val expiresIn: JsonField<Long>,
+    private val hubId: JsonField<Int>,
     private val idToken: JsonField<String>,
+    private val scopes: JsonField<List<String>>,
+    private val tokenType: JsonField<String>,
+    private val userId: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
     @JsonCreator
     private constructor(
-        @JsonProperty("access_token")
+        @JsonProperty("accessToken")
         @ExcludeMissing
         accessToken: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("expires_in") @ExcludeMissing expiresIn: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("refresh_token")
-        @ExcludeMissing
-        refreshToken: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("token_type") @ExcludeMissing tokenType: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("id_token") @ExcludeMissing idToken: JsonField<String> = JsonMissing.of(),
-    ) : this(accessToken, expiresIn, refreshToken, tokenType, idToken, mutableMapOf())
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun accessToken(): String = accessToken.getRequired("access_token")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun expiresIn(): Int = expiresIn.getRequired("expires_in")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun refreshToken(): String = refreshToken.getRequired("refresh_token")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun tokenType(): String = tokenType.getRequired("token_type")
+        @JsonProperty("expiresIn") @ExcludeMissing expiresIn: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("hubId") @ExcludeMissing hubId: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("idToken") @ExcludeMissing idToken: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("scopes") @ExcludeMissing scopes: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("tokenType") @ExcludeMissing tokenType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("userId") @ExcludeMissing userId: JsonField<Int> = JsonMissing.of(),
+    ) : this(accessToken, expiresIn, hubId, idToken, scopes, tokenType, userId, mutableMapOf())
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun idToken(): Optional<String> = idToken.getOptional("id_token")
+    fun accessToken(): Optional<String> = accessToken.getOptional("accessToken")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun expiresIn(): Optional<Long> = expiresIn.getOptional("expiresIn")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun hubId(): Optional<Int> = hubId.getOptional("hubId")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun idToken(): Optional<String> = idToken.getOptional("idToken")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun scopes(): Optional<List<String>> = scopes.getOptional("scopes")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun tokenType(): Optional<String> = tokenType.getOptional("tokenType")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun userId(): Optional<Int> = userId.getOptional("userId")
 
     /**
      * Returns the raw JSON value of [accessToken].
      *
      * Unlike [accessToken], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("access_token")
-    @ExcludeMissing
-    fun _accessToken(): JsonField<String> = accessToken
+    @JsonProperty("accessToken") @ExcludeMissing fun _accessToken(): JsonField<String> = accessToken
 
     /**
      * Returns the raw JSON value of [expiresIn].
      *
      * Unlike [expiresIn], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("expires_in") @ExcludeMissing fun _expiresIn(): JsonField<Int> = expiresIn
+    @JsonProperty("expiresIn") @ExcludeMissing fun _expiresIn(): JsonField<Long> = expiresIn
 
     /**
-     * Returns the raw JSON value of [refreshToken].
+     * Returns the raw JSON value of [hubId].
      *
-     * Unlike [refreshToken], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [hubId], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("refresh_token")
-    @ExcludeMissing
-    fun _refreshToken(): JsonField<String> = refreshToken
-
-    /**
-     * Returns the raw JSON value of [tokenType].
-     *
-     * Unlike [tokenType], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("token_type") @ExcludeMissing fun _tokenType(): JsonField<String> = tokenType
+    @JsonProperty("hubId") @ExcludeMissing fun _hubId(): JsonField<Int> = hubId
 
     /**
      * Returns the raw JSON value of [idToken].
      *
      * Unlike [idToken], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("id_token") @ExcludeMissing fun _idToken(): JsonField<String> = idToken
+    @JsonProperty("idToken") @ExcludeMissing fun _idToken(): JsonField<String> = idToken
+
+    /**
+     * Returns the raw JSON value of [scopes].
+     *
+     * Unlike [scopes], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("scopes") @ExcludeMissing fun _scopes(): JsonField<List<String>> = scopes
+
+    /**
+     * Returns the raw JSON value of [tokenType].
+     *
+     * Unlike [tokenType], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("tokenType") @ExcludeMissing fun _tokenType(): JsonField<String> = tokenType
+
+    /**
+     * Returns the raw JSON value of [userId].
+     *
+     * Unlike [userId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("userId") @ExcludeMissing fun _userId(): JsonField<Int> = userId
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -123,37 +149,31 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [TokenResponseIf].
-         *
-         * The following fields are required:
-         * ```java
-         * .accessToken()
-         * .expiresIn()
-         * .refreshToken()
-         * .tokenType()
-         * ```
-         */
+        /** Returns a mutable builder for constructing an instance of [TokenResponseIf]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [TokenResponseIf]. */
     class Builder internal constructor() {
 
-        private var accessToken: JsonField<String>? = null
-        private var expiresIn: JsonField<Int>? = null
-        private var refreshToken: JsonField<String>? = null
-        private var tokenType: JsonField<String>? = null
+        private var accessToken: JsonField<String> = JsonMissing.of()
+        private var expiresIn: JsonField<Long> = JsonMissing.of()
+        private var hubId: JsonField<Int> = JsonMissing.of()
         private var idToken: JsonField<String> = JsonMissing.of()
+        private var scopes: JsonField<MutableList<String>>? = null
+        private var tokenType: JsonField<String> = JsonMissing.of()
+        private var userId: JsonField<Int> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(tokenResponseIf: TokenResponseIf) = apply {
             accessToken = tokenResponseIf.accessToken
             expiresIn = tokenResponseIf.expiresIn
-            refreshToken = tokenResponseIf.refreshToken
-            tokenType = tokenResponseIf.tokenType
+            hubId = tokenResponseIf.hubId
             idToken = tokenResponseIf.idToken
+            scopes = tokenResponseIf.scopes.map { it.toMutableList() }
+            tokenType = tokenResponseIf.tokenType
+            userId = tokenResponseIf.userId
             additionalProperties = tokenResponseIf.additionalProperties.toMutableMap()
         }
 
@@ -168,27 +188,59 @@ private constructor(
          */
         fun accessToken(accessToken: JsonField<String>) = apply { this.accessToken = accessToken }
 
-        fun expiresIn(expiresIn: Int) = expiresIn(JsonField.of(expiresIn))
+        fun expiresIn(expiresIn: Long) = expiresIn(JsonField.of(expiresIn))
 
         /**
          * Sets [Builder.expiresIn] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.expiresIn] with a well-typed [Int] value instead. This
+         * You should usually call [Builder.expiresIn] with a well-typed [Long] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun expiresIn(expiresIn: JsonField<Int>) = apply { this.expiresIn = expiresIn }
+        fun expiresIn(expiresIn: JsonField<Long>) = apply { this.expiresIn = expiresIn }
 
-        fun refreshToken(refreshToken: String) = refreshToken(JsonField.of(refreshToken))
+        fun hubId(hubId: Int) = hubId(JsonField.of(hubId))
 
         /**
-         * Sets [Builder.refreshToken] to an arbitrary JSON value.
+         * Sets [Builder.hubId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.refreshToken] with a well-typed [String] value instead.
+         * You should usually call [Builder.hubId] with a well-typed [Int] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun hubId(hubId: JsonField<Int>) = apply { this.hubId = hubId }
+
+        fun idToken(idToken: String) = idToken(JsonField.of(idToken))
+
+        /**
+         * Sets [Builder.idToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idToken] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun idToken(idToken: JsonField<String>) = apply { this.idToken = idToken }
+
+        fun scopes(scopes: List<String>) = scopes(JsonField.of(scopes))
+
+        /**
+         * Sets [Builder.scopes] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.scopes] with a well-typed `List<String>` value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun refreshToken(refreshToken: JsonField<String>) = apply {
-            this.refreshToken = refreshToken
+        fun scopes(scopes: JsonField<List<String>>) = apply {
+            this.scopes = scopes.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [String] to [scopes].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addScope(scope: String) = apply {
+            scopes =
+                (scopes ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("scopes", it).add(scope)
+                }
         }
 
         fun tokenType(tokenType: String) = tokenType(JsonField.of(tokenType))
@@ -202,15 +254,15 @@ private constructor(
          */
         fun tokenType(tokenType: JsonField<String>) = apply { this.tokenType = tokenType }
 
-        fun idToken(idToken: String) = idToken(JsonField.of(idToken))
+        fun userId(userId: Int) = userId(JsonField.of(userId))
 
         /**
-         * Sets [Builder.idToken] to an arbitrary JSON value.
+         * Sets [Builder.userId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.idToken] with a well-typed [String] value instead. This
+         * You should usually call [Builder.userId] with a well-typed [Int] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun idToken(idToken: JsonField<String>) = apply { this.idToken = idToken }
+        fun userId(userId: JsonField<Int>) = apply { this.userId = userId }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -235,24 +287,16 @@ private constructor(
          * Returns an immutable instance of [TokenResponseIf].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .accessToken()
-         * .expiresIn()
-         * .refreshToken()
-         * .tokenType()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): TokenResponseIf =
             TokenResponseIf(
-                checkRequired("accessToken", accessToken),
-                checkRequired("expiresIn", expiresIn),
-                checkRequired("refreshToken", refreshToken),
-                checkRequired("tokenType", tokenType),
+                accessToken,
+                expiresIn,
+                hubId,
                 idToken,
+                (scopes ?: JsonMissing.of()).map { it.toImmutable() },
+                tokenType,
+                userId,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -266,9 +310,11 @@ private constructor(
 
         accessToken()
         expiresIn()
-        refreshToken()
-        tokenType()
+        hubId()
         idToken()
+        scopes()
+        tokenType()
+        userId()
         validated = true
     }
 
@@ -289,9 +335,11 @@ private constructor(
     internal fun validity(): Int =
         (if (accessToken.asKnown().isPresent) 1 else 0) +
             (if (expiresIn.asKnown().isPresent) 1 else 0) +
-            (if (refreshToken.asKnown().isPresent) 1 else 0) +
+            (if (hubId.asKnown().isPresent) 1 else 0) +
+            (if (idToken.asKnown().isPresent) 1 else 0) +
+            (scopes.asKnown().getOrNull()?.size ?: 0) +
             (if (tokenType.asKnown().isPresent) 1 else 0) +
-            (if (idToken.asKnown().isPresent) 1 else 0)
+            (if (userId.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -301,18 +349,29 @@ private constructor(
         return other is TokenResponseIf &&
             accessToken == other.accessToken &&
             expiresIn == other.expiresIn &&
-            refreshToken == other.refreshToken &&
-            tokenType == other.tokenType &&
+            hubId == other.hubId &&
             idToken == other.idToken &&
+            scopes == other.scopes &&
+            tokenType == other.tokenType &&
+            userId == other.userId &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(accessToken, expiresIn, refreshToken, tokenType, idToken, additionalProperties)
+        Objects.hash(
+            accessToken,
+            expiresIn,
+            hubId,
+            idToken,
+            scopes,
+            tokenType,
+            userId,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "TokenResponseIf{accessToken=$accessToken, expiresIn=$expiresIn, refreshToken=$refreshToken, tokenType=$tokenType, idToken=$idToken, additionalProperties=$additionalProperties}"
+        "TokenResponseIf{accessToken=$accessToken, expiresIn=$expiresIn, hubId=$hubId, idToken=$idToken, scopes=$scopes, tokenType=$tokenType, userId=$userId, additionalProperties=$additionalProperties}"
 }

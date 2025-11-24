@@ -336,17 +336,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val LEAD_BASED = of("LEAD_BASED")
-
             @JvmField val ACCOUNT_BASED = of("ACCOUNT_BASED")
+
+            @JvmField val LEAD_BASED = of("LEAD_BASED")
 
             @JvmStatic fun of(value: String) = SellingStrategy(JsonField.of(value))
         }
 
         /** An enum containing [SellingStrategy]'s known values. */
         enum class Known {
-            LEAD_BASED,
             ACCOUNT_BASED,
+            LEAD_BASED,
         }
 
         /**
@@ -359,8 +359,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            LEAD_BASED,
             ACCOUNT_BASED,
+            LEAD_BASED,
             /**
              * An enum member indicating that [SellingStrategy] was instantiated with an unknown
              * value.
@@ -377,8 +377,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                LEAD_BASED -> Value.LEAD_BASED
                 ACCOUNT_BASED -> Value.ACCOUNT_BASED
+                LEAD_BASED -> Value.LEAD_BASED
                 else -> Value._UNKNOWN
             }
 
@@ -393,8 +393,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                LEAD_BASED -> Known.LEAD_BASED
                 ACCOUNT_BASED -> Known.ACCOUNT_BASED
+                LEAD_BASED -> Known.LEAD_BASED
                 else -> throw HubspotInvalidDataException("Unknown SellingStrategy: $value")
             }
 

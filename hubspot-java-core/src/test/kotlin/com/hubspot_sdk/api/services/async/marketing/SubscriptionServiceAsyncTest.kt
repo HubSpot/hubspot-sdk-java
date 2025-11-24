@@ -61,7 +61,7 @@ internal class SubscriptionServiceAsyncTest {
                     .emailAddress("emailAddress")
                     .subscriptionId("subscriptionId")
                     .legalBasis(
-                        PublicUpdateSubscriptionStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL
+                        PublicUpdateSubscriptionStatusRequest.LegalBasis.CONSENT_WITH_NOTICE
                     )
                     .legalBasisExplanation("legalBasisExplanation")
                     .build()
@@ -87,7 +87,7 @@ internal class SubscriptionServiceAsyncTest {
                     .emailAddress("emailAddress")
                     .subscriptionId("subscriptionId")
                     .legalBasis(
-                        PublicUpdateSubscriptionStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL
+                        PublicUpdateSubscriptionStatusRequest.LegalBasis.CONSENT_WITH_NOTICE
                     )
                     .legalBasisExplanation("legalBasisExplanation")
                     .build()

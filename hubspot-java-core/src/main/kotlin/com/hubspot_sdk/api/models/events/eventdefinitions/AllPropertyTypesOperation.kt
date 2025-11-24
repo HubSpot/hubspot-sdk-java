@@ -716,23 +716,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val IS_KNOWN = of("IS_KNOWN")
-
-            @JvmField val IS_UNKNOWN = of("IS_UNKNOWN")
-
             @JvmField val IS_BLANK = of("IS_BLANK")
 
+            @JvmField val IS_KNOWN = of("IS_KNOWN")
+
             @JvmField val IS_NOT_BLANK = of("IS_NOT_BLANK")
+
+            @JvmField val IS_UNKNOWN = of("IS_UNKNOWN")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            IS_KNOWN,
-            IS_UNKNOWN,
             IS_BLANK,
+            IS_KNOWN,
             IS_NOT_BLANK,
+            IS_UNKNOWN,
         }
 
         /**
@@ -745,10 +745,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            IS_KNOWN,
-            IS_UNKNOWN,
             IS_BLANK,
+            IS_KNOWN,
             IS_NOT_BLANK,
+            IS_UNKNOWN,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -762,10 +762,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                IS_KNOWN -> Value.IS_KNOWN
-                IS_UNKNOWN -> Value.IS_UNKNOWN
                 IS_BLANK -> Value.IS_BLANK
+                IS_KNOWN -> Value.IS_KNOWN
                 IS_NOT_BLANK -> Value.IS_NOT_BLANK
+                IS_UNKNOWN -> Value.IS_UNKNOWN
                 else -> Value._UNKNOWN
             }
 
@@ -780,10 +780,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                IS_KNOWN -> Known.IS_KNOWN
-                IS_UNKNOWN -> Known.IS_UNKNOWN
                 IS_BLANK -> Known.IS_BLANK
+                IS_KNOWN -> Known.IS_KNOWN
                 IS_NOT_BLANK -> Known.IS_NOT_BLANK
+                IS_UNKNOWN -> Known.IS_UNKNOWN
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

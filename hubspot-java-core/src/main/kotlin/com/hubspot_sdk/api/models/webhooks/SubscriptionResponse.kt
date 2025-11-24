@@ -432,43 +432,31 @@ private constructor(
 
         companion object {
 
-            @JvmField val CONTACT_PROPERTY_CHANGE = of("contact.propertyChange")
-
-            @JvmField val COMPANY_PROPERTY_CHANGE = of("company.propertyChange")
-
-            @JvmField val DEAL_PROPERTY_CHANGE = of("deal.propertyChange")
-
-            @JvmField val TICKET_PROPERTY_CHANGE = of("ticket.propertyChange")
-
-            @JvmField val PRODUCT_PROPERTY_CHANGE = of("product.propertyChange")
-
-            @JvmField val LINE_ITEM_PROPERTY_CHANGE = of("line_item.propertyChange")
-
-            @JvmField val CONTACT_CREATION = of("contact.creation")
-
-            @JvmField val CONTACT_DELETION = of("contact.deletion")
-
-            @JvmField val CONTACT_PRIVACY_DELETION = of("contact.privacyDeletion")
+            @JvmField val COMPANY_ASSOCIATION_CHANGE = of("company.associationChange")
 
             @JvmField val COMPANY_CREATION = of("company.creation")
 
             @JvmField val COMPANY_DELETION = of("company.deletion")
 
-            @JvmField val DEAL_CREATION = of("deal.creation")
+            @JvmField val COMPANY_MERGE = of("company.merge")
 
-            @JvmField val DEAL_DELETION = of("deal.deletion")
+            @JvmField val COMPANY_PROPERTY_CHANGE = of("company.propertyChange")
 
-            @JvmField val TICKET_CREATION = of("ticket.creation")
+            @JvmField val COMPANY_RESTORE = of("company.restore")
 
-            @JvmField val TICKET_DELETION = of("ticket.deletion")
+            @JvmField val CONTACT_ASSOCIATION_CHANGE = of("contact.associationChange")
 
-            @JvmField val PRODUCT_CREATION = of("product.creation")
+            @JvmField val CONTACT_CREATION = of("contact.creation")
 
-            @JvmField val PRODUCT_DELETION = of("product.deletion")
+            @JvmField val CONTACT_DELETION = of("contact.deletion")
 
-            @JvmField val LINE_ITEM_CREATION = of("line_item.creation")
+            @JvmField val CONTACT_MERGE = of("contact.merge")
 
-            @JvmField val LINE_ITEM_DELETION = of("line_item.deletion")
+            @JvmField val CONTACT_PRIVACY_DELETION = of("contact.privacyDeletion")
+
+            @JvmField val CONTACT_PROPERTY_CHANGE = of("contact.propertyChange")
+
+            @JvmField val CONTACT_RESTORE = of("contact.restore")
 
             @JvmField val CONVERSATION_CREATION = of("conversation.creation")
 
@@ -480,41 +468,31 @@ private constructor(
 
             @JvmField val CONVERSATION_PROPERTY_CHANGE = of("conversation.propertyChange")
 
-            @JvmField val CONTACT_MERGE = of("contact.merge")
+            @JvmField val DEAL_ASSOCIATION_CHANGE = of("deal.associationChange")
 
-            @JvmField val COMPANY_MERGE = of("company.merge")
+            @JvmField val DEAL_CREATION = of("deal.creation")
+
+            @JvmField val DEAL_DELETION = of("deal.deletion")
 
             @JvmField val DEAL_MERGE = of("deal.merge")
 
-            @JvmField val TICKET_MERGE = of("ticket.merge")
-
-            @JvmField val PRODUCT_MERGE = of("product.merge")
-
-            @JvmField val LINE_ITEM_MERGE = of("line_item.merge")
-
-            @JvmField val CONTACT_RESTORE = of("contact.restore")
-
-            @JvmField val COMPANY_RESTORE = of("company.restore")
+            @JvmField val DEAL_PROPERTY_CHANGE = of("deal.propertyChange")
 
             @JvmField val DEAL_RESTORE = of("deal.restore")
 
-            @JvmField val TICKET_RESTORE = of("ticket.restore")
+            @JvmField val LINE_ITEM_ASSOCIATION_CHANGE = of("line_item.associationChange")
 
-            @JvmField val PRODUCT_RESTORE = of("product.restore")
+            @JvmField val LINE_ITEM_CREATION = of("line_item.creation")
+
+            @JvmField val LINE_ITEM_DELETION = of("line_item.deletion")
+
+            @JvmField val LINE_ITEM_MERGE = of("line_item.merge")
+
+            @JvmField val LINE_ITEM_PROPERTY_CHANGE = of("line_item.propertyChange")
 
             @JvmField val LINE_ITEM_RESTORE = of("line_item.restore")
 
-            @JvmField val CONTACT_ASSOCIATION_CHANGE = of("contact.associationChange")
-
-            @JvmField val COMPANY_ASSOCIATION_CHANGE = of("company.associationChange")
-
-            @JvmField val DEAL_ASSOCIATION_CHANGE = of("deal.associationChange")
-
-            @JvmField val TICKET_ASSOCIATION_CHANGE = of("ticket.associationChange")
-
-            @JvmField val LINE_ITEM_ASSOCIATION_CHANGE = of("line_item.associationChange")
-
-            @JvmField val OBJECT_PROPERTY_CHANGE = of("object.propertyChange")
+            @JvmField val OBJECT_ASSOCIATION_CHANGE = of("object.associationChange")
 
             @JvmField val OBJECT_CREATION = of("object.creation")
 
@@ -522,62 +500,84 @@ private constructor(
 
             @JvmField val OBJECT_MERGE = of("object.merge")
 
+            @JvmField val OBJECT_PROPERTY_CHANGE = of("object.propertyChange")
+
             @JvmField val OBJECT_RESTORE = of("object.restore")
 
-            @JvmField val OBJECT_ASSOCIATION_CHANGE = of("object.associationChange")
+            @JvmField val PRODUCT_CREATION = of("product.creation")
+
+            @JvmField val PRODUCT_DELETION = of("product.deletion")
+
+            @JvmField val PRODUCT_MERGE = of("product.merge")
+
+            @JvmField val PRODUCT_PROPERTY_CHANGE = of("product.propertyChange")
+
+            @JvmField val PRODUCT_RESTORE = of("product.restore")
+
+            @JvmField val TICKET_ASSOCIATION_CHANGE = of("ticket.associationChange")
+
+            @JvmField val TICKET_CREATION = of("ticket.creation")
+
+            @JvmField val TICKET_DELETION = of("ticket.deletion")
+
+            @JvmField val TICKET_MERGE = of("ticket.merge")
+
+            @JvmField val TICKET_PROPERTY_CHANGE = of("ticket.propertyChange")
+
+            @JvmField val TICKET_RESTORE = of("ticket.restore")
 
             @JvmStatic fun of(value: String) = EventType(JsonField.of(value))
         }
 
         /** An enum containing [EventType]'s known values. */
         enum class Known {
-            CONTACT_PROPERTY_CHANGE,
-            COMPANY_PROPERTY_CHANGE,
-            DEAL_PROPERTY_CHANGE,
-            TICKET_PROPERTY_CHANGE,
-            PRODUCT_PROPERTY_CHANGE,
-            LINE_ITEM_PROPERTY_CHANGE,
-            CONTACT_CREATION,
-            CONTACT_DELETION,
-            CONTACT_PRIVACY_DELETION,
+            COMPANY_ASSOCIATION_CHANGE,
             COMPANY_CREATION,
             COMPANY_DELETION,
-            DEAL_CREATION,
-            DEAL_DELETION,
-            TICKET_CREATION,
-            TICKET_DELETION,
-            PRODUCT_CREATION,
-            PRODUCT_DELETION,
-            LINE_ITEM_CREATION,
-            LINE_ITEM_DELETION,
+            COMPANY_MERGE,
+            COMPANY_PROPERTY_CHANGE,
+            COMPANY_RESTORE,
+            CONTACT_ASSOCIATION_CHANGE,
+            CONTACT_CREATION,
+            CONTACT_DELETION,
+            CONTACT_MERGE,
+            CONTACT_PRIVACY_DELETION,
+            CONTACT_PROPERTY_CHANGE,
+            CONTACT_RESTORE,
             CONVERSATION_CREATION,
             CONVERSATION_DELETION,
             CONVERSATION_NEW_MESSAGE,
             CONVERSATION_PRIVACY_DELETION,
             CONVERSATION_PROPERTY_CHANGE,
-            CONTACT_MERGE,
-            COMPANY_MERGE,
-            DEAL_MERGE,
-            TICKET_MERGE,
-            PRODUCT_MERGE,
-            LINE_ITEM_MERGE,
-            CONTACT_RESTORE,
-            COMPANY_RESTORE,
-            DEAL_RESTORE,
-            TICKET_RESTORE,
-            PRODUCT_RESTORE,
-            LINE_ITEM_RESTORE,
-            CONTACT_ASSOCIATION_CHANGE,
-            COMPANY_ASSOCIATION_CHANGE,
             DEAL_ASSOCIATION_CHANGE,
-            TICKET_ASSOCIATION_CHANGE,
+            DEAL_CREATION,
+            DEAL_DELETION,
+            DEAL_MERGE,
+            DEAL_PROPERTY_CHANGE,
+            DEAL_RESTORE,
             LINE_ITEM_ASSOCIATION_CHANGE,
-            OBJECT_PROPERTY_CHANGE,
+            LINE_ITEM_CREATION,
+            LINE_ITEM_DELETION,
+            LINE_ITEM_MERGE,
+            LINE_ITEM_PROPERTY_CHANGE,
+            LINE_ITEM_RESTORE,
+            OBJECT_ASSOCIATION_CHANGE,
             OBJECT_CREATION,
             OBJECT_DELETION,
             OBJECT_MERGE,
+            OBJECT_PROPERTY_CHANGE,
             OBJECT_RESTORE,
-            OBJECT_ASSOCIATION_CHANGE,
+            PRODUCT_CREATION,
+            PRODUCT_DELETION,
+            PRODUCT_MERGE,
+            PRODUCT_PROPERTY_CHANGE,
+            PRODUCT_RESTORE,
+            TICKET_ASSOCIATION_CHANGE,
+            TICKET_CREATION,
+            TICKET_DELETION,
+            TICKET_MERGE,
+            TICKET_PROPERTY_CHANGE,
+            TICKET_RESTORE,
         }
 
         /**
@@ -590,53 +590,53 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            CONTACT_PROPERTY_CHANGE,
-            COMPANY_PROPERTY_CHANGE,
-            DEAL_PROPERTY_CHANGE,
-            TICKET_PROPERTY_CHANGE,
-            PRODUCT_PROPERTY_CHANGE,
-            LINE_ITEM_PROPERTY_CHANGE,
-            CONTACT_CREATION,
-            CONTACT_DELETION,
-            CONTACT_PRIVACY_DELETION,
+            COMPANY_ASSOCIATION_CHANGE,
             COMPANY_CREATION,
             COMPANY_DELETION,
-            DEAL_CREATION,
-            DEAL_DELETION,
-            TICKET_CREATION,
-            TICKET_DELETION,
-            PRODUCT_CREATION,
-            PRODUCT_DELETION,
-            LINE_ITEM_CREATION,
-            LINE_ITEM_DELETION,
+            COMPANY_MERGE,
+            COMPANY_PROPERTY_CHANGE,
+            COMPANY_RESTORE,
+            CONTACT_ASSOCIATION_CHANGE,
+            CONTACT_CREATION,
+            CONTACT_DELETION,
+            CONTACT_MERGE,
+            CONTACT_PRIVACY_DELETION,
+            CONTACT_PROPERTY_CHANGE,
+            CONTACT_RESTORE,
             CONVERSATION_CREATION,
             CONVERSATION_DELETION,
             CONVERSATION_NEW_MESSAGE,
             CONVERSATION_PRIVACY_DELETION,
             CONVERSATION_PROPERTY_CHANGE,
-            CONTACT_MERGE,
-            COMPANY_MERGE,
-            DEAL_MERGE,
-            TICKET_MERGE,
-            PRODUCT_MERGE,
-            LINE_ITEM_MERGE,
-            CONTACT_RESTORE,
-            COMPANY_RESTORE,
-            DEAL_RESTORE,
-            TICKET_RESTORE,
-            PRODUCT_RESTORE,
-            LINE_ITEM_RESTORE,
-            CONTACT_ASSOCIATION_CHANGE,
-            COMPANY_ASSOCIATION_CHANGE,
             DEAL_ASSOCIATION_CHANGE,
-            TICKET_ASSOCIATION_CHANGE,
+            DEAL_CREATION,
+            DEAL_DELETION,
+            DEAL_MERGE,
+            DEAL_PROPERTY_CHANGE,
+            DEAL_RESTORE,
             LINE_ITEM_ASSOCIATION_CHANGE,
-            OBJECT_PROPERTY_CHANGE,
+            LINE_ITEM_CREATION,
+            LINE_ITEM_DELETION,
+            LINE_ITEM_MERGE,
+            LINE_ITEM_PROPERTY_CHANGE,
+            LINE_ITEM_RESTORE,
+            OBJECT_ASSOCIATION_CHANGE,
             OBJECT_CREATION,
             OBJECT_DELETION,
             OBJECT_MERGE,
+            OBJECT_PROPERTY_CHANGE,
             OBJECT_RESTORE,
-            OBJECT_ASSOCIATION_CHANGE,
+            PRODUCT_CREATION,
+            PRODUCT_DELETION,
+            PRODUCT_MERGE,
+            PRODUCT_PROPERTY_CHANGE,
+            PRODUCT_RESTORE,
+            TICKET_ASSOCIATION_CHANGE,
+            TICKET_CREATION,
+            TICKET_DELETION,
+            TICKET_MERGE,
+            TICKET_PROPERTY_CHANGE,
+            TICKET_RESTORE,
             /**
              * An enum member indicating that [EventType] was instantiated with an unknown value.
              */
@@ -652,53 +652,53 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                CONTACT_PROPERTY_CHANGE -> Value.CONTACT_PROPERTY_CHANGE
-                COMPANY_PROPERTY_CHANGE -> Value.COMPANY_PROPERTY_CHANGE
-                DEAL_PROPERTY_CHANGE -> Value.DEAL_PROPERTY_CHANGE
-                TICKET_PROPERTY_CHANGE -> Value.TICKET_PROPERTY_CHANGE
-                PRODUCT_PROPERTY_CHANGE -> Value.PRODUCT_PROPERTY_CHANGE
-                LINE_ITEM_PROPERTY_CHANGE -> Value.LINE_ITEM_PROPERTY_CHANGE
-                CONTACT_CREATION -> Value.CONTACT_CREATION
-                CONTACT_DELETION -> Value.CONTACT_DELETION
-                CONTACT_PRIVACY_DELETION -> Value.CONTACT_PRIVACY_DELETION
+                COMPANY_ASSOCIATION_CHANGE -> Value.COMPANY_ASSOCIATION_CHANGE
                 COMPANY_CREATION -> Value.COMPANY_CREATION
                 COMPANY_DELETION -> Value.COMPANY_DELETION
-                DEAL_CREATION -> Value.DEAL_CREATION
-                DEAL_DELETION -> Value.DEAL_DELETION
-                TICKET_CREATION -> Value.TICKET_CREATION
-                TICKET_DELETION -> Value.TICKET_DELETION
-                PRODUCT_CREATION -> Value.PRODUCT_CREATION
-                PRODUCT_DELETION -> Value.PRODUCT_DELETION
-                LINE_ITEM_CREATION -> Value.LINE_ITEM_CREATION
-                LINE_ITEM_DELETION -> Value.LINE_ITEM_DELETION
+                COMPANY_MERGE -> Value.COMPANY_MERGE
+                COMPANY_PROPERTY_CHANGE -> Value.COMPANY_PROPERTY_CHANGE
+                COMPANY_RESTORE -> Value.COMPANY_RESTORE
+                CONTACT_ASSOCIATION_CHANGE -> Value.CONTACT_ASSOCIATION_CHANGE
+                CONTACT_CREATION -> Value.CONTACT_CREATION
+                CONTACT_DELETION -> Value.CONTACT_DELETION
+                CONTACT_MERGE -> Value.CONTACT_MERGE
+                CONTACT_PRIVACY_DELETION -> Value.CONTACT_PRIVACY_DELETION
+                CONTACT_PROPERTY_CHANGE -> Value.CONTACT_PROPERTY_CHANGE
+                CONTACT_RESTORE -> Value.CONTACT_RESTORE
                 CONVERSATION_CREATION -> Value.CONVERSATION_CREATION
                 CONVERSATION_DELETION -> Value.CONVERSATION_DELETION
                 CONVERSATION_NEW_MESSAGE -> Value.CONVERSATION_NEW_MESSAGE
                 CONVERSATION_PRIVACY_DELETION -> Value.CONVERSATION_PRIVACY_DELETION
                 CONVERSATION_PROPERTY_CHANGE -> Value.CONVERSATION_PROPERTY_CHANGE
-                CONTACT_MERGE -> Value.CONTACT_MERGE
-                COMPANY_MERGE -> Value.COMPANY_MERGE
-                DEAL_MERGE -> Value.DEAL_MERGE
-                TICKET_MERGE -> Value.TICKET_MERGE
-                PRODUCT_MERGE -> Value.PRODUCT_MERGE
-                LINE_ITEM_MERGE -> Value.LINE_ITEM_MERGE
-                CONTACT_RESTORE -> Value.CONTACT_RESTORE
-                COMPANY_RESTORE -> Value.COMPANY_RESTORE
-                DEAL_RESTORE -> Value.DEAL_RESTORE
-                TICKET_RESTORE -> Value.TICKET_RESTORE
-                PRODUCT_RESTORE -> Value.PRODUCT_RESTORE
-                LINE_ITEM_RESTORE -> Value.LINE_ITEM_RESTORE
-                CONTACT_ASSOCIATION_CHANGE -> Value.CONTACT_ASSOCIATION_CHANGE
-                COMPANY_ASSOCIATION_CHANGE -> Value.COMPANY_ASSOCIATION_CHANGE
                 DEAL_ASSOCIATION_CHANGE -> Value.DEAL_ASSOCIATION_CHANGE
-                TICKET_ASSOCIATION_CHANGE -> Value.TICKET_ASSOCIATION_CHANGE
+                DEAL_CREATION -> Value.DEAL_CREATION
+                DEAL_DELETION -> Value.DEAL_DELETION
+                DEAL_MERGE -> Value.DEAL_MERGE
+                DEAL_PROPERTY_CHANGE -> Value.DEAL_PROPERTY_CHANGE
+                DEAL_RESTORE -> Value.DEAL_RESTORE
                 LINE_ITEM_ASSOCIATION_CHANGE -> Value.LINE_ITEM_ASSOCIATION_CHANGE
-                OBJECT_PROPERTY_CHANGE -> Value.OBJECT_PROPERTY_CHANGE
+                LINE_ITEM_CREATION -> Value.LINE_ITEM_CREATION
+                LINE_ITEM_DELETION -> Value.LINE_ITEM_DELETION
+                LINE_ITEM_MERGE -> Value.LINE_ITEM_MERGE
+                LINE_ITEM_PROPERTY_CHANGE -> Value.LINE_ITEM_PROPERTY_CHANGE
+                LINE_ITEM_RESTORE -> Value.LINE_ITEM_RESTORE
+                OBJECT_ASSOCIATION_CHANGE -> Value.OBJECT_ASSOCIATION_CHANGE
                 OBJECT_CREATION -> Value.OBJECT_CREATION
                 OBJECT_DELETION -> Value.OBJECT_DELETION
                 OBJECT_MERGE -> Value.OBJECT_MERGE
+                OBJECT_PROPERTY_CHANGE -> Value.OBJECT_PROPERTY_CHANGE
                 OBJECT_RESTORE -> Value.OBJECT_RESTORE
-                OBJECT_ASSOCIATION_CHANGE -> Value.OBJECT_ASSOCIATION_CHANGE
+                PRODUCT_CREATION -> Value.PRODUCT_CREATION
+                PRODUCT_DELETION -> Value.PRODUCT_DELETION
+                PRODUCT_MERGE -> Value.PRODUCT_MERGE
+                PRODUCT_PROPERTY_CHANGE -> Value.PRODUCT_PROPERTY_CHANGE
+                PRODUCT_RESTORE -> Value.PRODUCT_RESTORE
+                TICKET_ASSOCIATION_CHANGE -> Value.TICKET_ASSOCIATION_CHANGE
+                TICKET_CREATION -> Value.TICKET_CREATION
+                TICKET_DELETION -> Value.TICKET_DELETION
+                TICKET_MERGE -> Value.TICKET_MERGE
+                TICKET_PROPERTY_CHANGE -> Value.TICKET_PROPERTY_CHANGE
+                TICKET_RESTORE -> Value.TICKET_RESTORE
                 else -> Value._UNKNOWN
             }
 
@@ -713,53 +713,53 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                CONTACT_PROPERTY_CHANGE -> Known.CONTACT_PROPERTY_CHANGE
-                COMPANY_PROPERTY_CHANGE -> Known.COMPANY_PROPERTY_CHANGE
-                DEAL_PROPERTY_CHANGE -> Known.DEAL_PROPERTY_CHANGE
-                TICKET_PROPERTY_CHANGE -> Known.TICKET_PROPERTY_CHANGE
-                PRODUCT_PROPERTY_CHANGE -> Known.PRODUCT_PROPERTY_CHANGE
-                LINE_ITEM_PROPERTY_CHANGE -> Known.LINE_ITEM_PROPERTY_CHANGE
-                CONTACT_CREATION -> Known.CONTACT_CREATION
-                CONTACT_DELETION -> Known.CONTACT_DELETION
-                CONTACT_PRIVACY_DELETION -> Known.CONTACT_PRIVACY_DELETION
+                COMPANY_ASSOCIATION_CHANGE -> Known.COMPANY_ASSOCIATION_CHANGE
                 COMPANY_CREATION -> Known.COMPANY_CREATION
                 COMPANY_DELETION -> Known.COMPANY_DELETION
-                DEAL_CREATION -> Known.DEAL_CREATION
-                DEAL_DELETION -> Known.DEAL_DELETION
-                TICKET_CREATION -> Known.TICKET_CREATION
-                TICKET_DELETION -> Known.TICKET_DELETION
-                PRODUCT_CREATION -> Known.PRODUCT_CREATION
-                PRODUCT_DELETION -> Known.PRODUCT_DELETION
-                LINE_ITEM_CREATION -> Known.LINE_ITEM_CREATION
-                LINE_ITEM_DELETION -> Known.LINE_ITEM_DELETION
+                COMPANY_MERGE -> Known.COMPANY_MERGE
+                COMPANY_PROPERTY_CHANGE -> Known.COMPANY_PROPERTY_CHANGE
+                COMPANY_RESTORE -> Known.COMPANY_RESTORE
+                CONTACT_ASSOCIATION_CHANGE -> Known.CONTACT_ASSOCIATION_CHANGE
+                CONTACT_CREATION -> Known.CONTACT_CREATION
+                CONTACT_DELETION -> Known.CONTACT_DELETION
+                CONTACT_MERGE -> Known.CONTACT_MERGE
+                CONTACT_PRIVACY_DELETION -> Known.CONTACT_PRIVACY_DELETION
+                CONTACT_PROPERTY_CHANGE -> Known.CONTACT_PROPERTY_CHANGE
+                CONTACT_RESTORE -> Known.CONTACT_RESTORE
                 CONVERSATION_CREATION -> Known.CONVERSATION_CREATION
                 CONVERSATION_DELETION -> Known.CONVERSATION_DELETION
                 CONVERSATION_NEW_MESSAGE -> Known.CONVERSATION_NEW_MESSAGE
                 CONVERSATION_PRIVACY_DELETION -> Known.CONVERSATION_PRIVACY_DELETION
                 CONVERSATION_PROPERTY_CHANGE -> Known.CONVERSATION_PROPERTY_CHANGE
-                CONTACT_MERGE -> Known.CONTACT_MERGE
-                COMPANY_MERGE -> Known.COMPANY_MERGE
-                DEAL_MERGE -> Known.DEAL_MERGE
-                TICKET_MERGE -> Known.TICKET_MERGE
-                PRODUCT_MERGE -> Known.PRODUCT_MERGE
-                LINE_ITEM_MERGE -> Known.LINE_ITEM_MERGE
-                CONTACT_RESTORE -> Known.CONTACT_RESTORE
-                COMPANY_RESTORE -> Known.COMPANY_RESTORE
-                DEAL_RESTORE -> Known.DEAL_RESTORE
-                TICKET_RESTORE -> Known.TICKET_RESTORE
-                PRODUCT_RESTORE -> Known.PRODUCT_RESTORE
-                LINE_ITEM_RESTORE -> Known.LINE_ITEM_RESTORE
-                CONTACT_ASSOCIATION_CHANGE -> Known.CONTACT_ASSOCIATION_CHANGE
-                COMPANY_ASSOCIATION_CHANGE -> Known.COMPANY_ASSOCIATION_CHANGE
                 DEAL_ASSOCIATION_CHANGE -> Known.DEAL_ASSOCIATION_CHANGE
-                TICKET_ASSOCIATION_CHANGE -> Known.TICKET_ASSOCIATION_CHANGE
+                DEAL_CREATION -> Known.DEAL_CREATION
+                DEAL_DELETION -> Known.DEAL_DELETION
+                DEAL_MERGE -> Known.DEAL_MERGE
+                DEAL_PROPERTY_CHANGE -> Known.DEAL_PROPERTY_CHANGE
+                DEAL_RESTORE -> Known.DEAL_RESTORE
                 LINE_ITEM_ASSOCIATION_CHANGE -> Known.LINE_ITEM_ASSOCIATION_CHANGE
-                OBJECT_PROPERTY_CHANGE -> Known.OBJECT_PROPERTY_CHANGE
+                LINE_ITEM_CREATION -> Known.LINE_ITEM_CREATION
+                LINE_ITEM_DELETION -> Known.LINE_ITEM_DELETION
+                LINE_ITEM_MERGE -> Known.LINE_ITEM_MERGE
+                LINE_ITEM_PROPERTY_CHANGE -> Known.LINE_ITEM_PROPERTY_CHANGE
+                LINE_ITEM_RESTORE -> Known.LINE_ITEM_RESTORE
+                OBJECT_ASSOCIATION_CHANGE -> Known.OBJECT_ASSOCIATION_CHANGE
                 OBJECT_CREATION -> Known.OBJECT_CREATION
                 OBJECT_DELETION -> Known.OBJECT_DELETION
                 OBJECT_MERGE -> Known.OBJECT_MERGE
+                OBJECT_PROPERTY_CHANGE -> Known.OBJECT_PROPERTY_CHANGE
                 OBJECT_RESTORE -> Known.OBJECT_RESTORE
-                OBJECT_ASSOCIATION_CHANGE -> Known.OBJECT_ASSOCIATION_CHANGE
+                PRODUCT_CREATION -> Known.PRODUCT_CREATION
+                PRODUCT_DELETION -> Known.PRODUCT_DELETION
+                PRODUCT_MERGE -> Known.PRODUCT_MERGE
+                PRODUCT_PROPERTY_CHANGE -> Known.PRODUCT_PROPERTY_CHANGE
+                PRODUCT_RESTORE -> Known.PRODUCT_RESTORE
+                TICKET_ASSOCIATION_CHANGE -> Known.TICKET_ASSOCIATION_CHANGE
+                TICKET_CREATION -> Known.TICKET_CREATION
+                TICKET_DELETION -> Known.TICKET_DELETION
+                TICKET_MERGE -> Known.TICKET_MERGE
+                TICKET_PROPERTY_CHANGE -> Known.TICKET_PROPERTY_CHANGE
+                TICKET_RESTORE -> Known.TICKET_RESTORE
                 else -> throw HubspotInvalidDataException("Unknown EventType: $value")
             }
 

@@ -220,26 +220,26 @@ private constructor(
 
         companion object {
 
-            @JvmField val LANDING_PAGE = of("LANDING_PAGE")
-
             @JvmField val BLOG_POST = of("BLOG_POST")
-
-            @JvmField val SITE_PAGE = of("SITE_PAGE")
 
             @JvmField val KNOWLEDGE_ARTICLE = of("KNOWLEDGE_ARTICLE")
 
+            @JvmField val LANDING_PAGE = of("LANDING_PAGE")
+
             @JvmField val LISTING_PAGE = of("LISTING_PAGE")
+
+            @JvmField val SITE_PAGE = of("SITE_PAGE")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            LANDING_PAGE,
             BLOG_POST,
-            SITE_PAGE,
             KNOWLEDGE_ARTICLE,
+            LANDING_PAGE,
             LISTING_PAGE,
+            SITE_PAGE,
         }
 
         /**
@@ -252,11 +252,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            LANDING_PAGE,
             BLOG_POST,
-            SITE_PAGE,
             KNOWLEDGE_ARTICLE,
+            LANDING_PAGE,
             LISTING_PAGE,
+            SITE_PAGE,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -270,11 +270,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                LANDING_PAGE -> Value.LANDING_PAGE
                 BLOG_POST -> Value.BLOG_POST
-                SITE_PAGE -> Value.SITE_PAGE
                 KNOWLEDGE_ARTICLE -> Value.KNOWLEDGE_ARTICLE
+                LANDING_PAGE -> Value.LANDING_PAGE
                 LISTING_PAGE -> Value.LISTING_PAGE
+                SITE_PAGE -> Value.SITE_PAGE
                 else -> Value._UNKNOWN
             }
 
@@ -289,11 +289,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                LANDING_PAGE -> Known.LANDING_PAGE
                 BLOG_POST -> Known.BLOG_POST
-                SITE_PAGE -> Known.SITE_PAGE
                 KNOWLEDGE_ARTICLE -> Known.KNOWLEDGE_ARTICLE
+                LANDING_PAGE -> Known.LANDING_PAGE
                 LISTING_PAGE -> Known.LISTING_PAGE
+                SITE_PAGE -> Known.SITE_PAGE
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }
 

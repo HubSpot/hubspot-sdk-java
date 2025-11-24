@@ -18,6 +18,7 @@ import kotlin.jvm.optionals.getOrNull
  * This will not uninstall the application from HubSpot or inhibit data syncing between an account
  * and the app.
  */
+@Deprecated("deprecated")
 class OAuthDeleteRefreshTokenParams
 private constructor(
     private val token: String?,

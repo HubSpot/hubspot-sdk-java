@@ -13,12 +13,12 @@ internal class RelativeComparativeTimestampRefineByTest {
     fun create() {
         val relativeComparativeTimestampRefineBy =
             RelativeComparativeTimestampRefineBy.builder()
-                .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                 .timeOffset(
                     TimeOffset.builder()
                         .amount(0)
-                        .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                        .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                        .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                        .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()
                 )
                 .type(
@@ -28,13 +28,13 @@ internal class RelativeComparativeTimestampRefineByTest {
                 .build()
 
         assertThat(relativeComparativeTimestampRefineBy.comparison())
-            .isEqualTo(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+            .isEqualTo(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
         assertThat(relativeComparativeTimestampRefineBy.timeOffset())
             .isEqualTo(
                 TimeOffset.builder()
                     .amount(0)
-                    .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                    .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                    .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                    .timeUnit(TimeOffset.TimeUnit.DAYS)
                     .build()
             )
         assertThat(relativeComparativeTimestampRefineBy.type())
@@ -48,12 +48,12 @@ internal class RelativeComparativeTimestampRefineByTest {
         val jsonMapper = jsonMapper()
         val relativeComparativeTimestampRefineBy =
             RelativeComparativeTimestampRefineBy.builder()
-                .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                 .timeOffset(
                     TimeOffset.builder()
                         .amount(0)
-                        .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                        .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                        .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                        .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()
                 )
                 .type(

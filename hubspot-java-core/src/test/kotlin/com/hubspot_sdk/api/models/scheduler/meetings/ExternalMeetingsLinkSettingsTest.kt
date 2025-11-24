@@ -82,7 +82,7 @@ internal class ExternalMeetingsLinkSettingsTest {
                         .processingConsentType("processingConsentType")
                         .legitimateInterestLegalBasis(
                             ExternalLegalConsentOptions.LegitimateInterestLegalBasis
-                                .LEGITIMATE_INTEREST_PQL
+                                .CONSENT_WITH_NOTICE
                         )
                         .build()
                 )
@@ -168,8 +168,7 @@ internal class ExternalMeetingsLinkSettingsTest {
                     .processingConsentText("processingConsentText")
                     .processingConsentType("processingConsentType")
                     .legitimateInterestLegalBasis(
-                        ExternalLegalConsentOptions.LegitimateInterestLegalBasis
-                            .LEGITIMATE_INTEREST_PQL
+                        ExternalLegalConsentOptions.LegitimateInterestLegalBasis.CONSENT_WITH_NOTICE
                     )
                     .build()
             )
@@ -261,7 +260,7 @@ internal class ExternalMeetingsLinkSettingsTest {
                         .processingConsentType("processingConsentType")
                         .legitimateInterestLegalBasis(
                             ExternalLegalConsentOptions.LegitimateInterestLegalBasis
-                                .LEGITIMATE_INTEREST_PQL
+                                .CONSENT_WITH_NOTICE
                         )
                         .build()
                 )

@@ -13,7 +13,7 @@ internal class StatisticGetHistogramParamsTest {
         StatisticGetHistogramParams.builder()
             .addEmailId(0L)
             .endTimestamp("endTimestamp")
-            .interval(StatisticGetHistogramParams.Interval.YEAR)
+            .interval(StatisticGetHistogramParams.Interval.DAY)
             .startTimestamp("startTimestamp")
             .build()
     }
@@ -24,7 +24,7 @@ internal class StatisticGetHistogramParamsTest {
             StatisticGetHistogramParams.builder()
                 .addEmailId(0L)
                 .endTimestamp("endTimestamp")
-                .interval(StatisticGetHistogramParams.Interval.YEAR)
+                .interval(StatisticGetHistogramParams.Interval.DAY)
                 .startTimestamp("startTimestamp")
                 .build()
 
@@ -35,7 +35,7 @@ internal class StatisticGetHistogramParamsTest {
                 QueryParams.builder()
                     .put("emailIds", listOf("0").joinToString(","))
                     .put("endTimestamp", "endTimestamp")
-                    .put("interval", "YEAR")
+                    .put("interval", "DAY")
                     .put("startTimestamp", "startTimestamp")
                     .build()
             )

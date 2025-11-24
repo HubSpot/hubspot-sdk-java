@@ -16,7 +16,7 @@ internal class PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNam
             .ruleType(
                 PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
                     .RuleType
-                    .FORMAT
+                    .AFTER_DATETIME_DURATION
             )
             .publicPropertyValidationRuleUpdate(
                 PublicPropertyValidationRuleUpdate.builder().addRuleArgument("string").build()
@@ -34,7 +34,7 @@ internal class PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNam
                 .ruleType(
                     PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
                         .RuleType
-                        .FORMAT
+                        .AFTER_DATETIME_DURATION
                 )
                 .publicPropertyValidationRuleUpdate(
                     PublicPropertyValidationRuleUpdate.builder().addRuleArgument("string").build()
@@ -43,7 +43,7 @@ internal class PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNam
 
         assertThat(params._pathParam(0)).isEqualTo("objectTypeId")
         assertThat(params._pathParam(1)).isEqualTo("propertyName")
-        assertThat(params._pathParam(2)).isEqualTo("FORMAT")
+        assertThat(params._pathParam(2)).isEqualTo("AFTER_DATETIME_DURATION")
         // out-of-bound path param
         assertThat(params._pathParam(3)).isEqualTo("")
     }
@@ -58,7 +58,7 @@ internal class PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNam
                 .ruleType(
                     PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
                         .RuleType
-                        .FORMAT
+                        .AFTER_DATETIME_DURATION
                 )
                 .publicPropertyValidationRuleUpdate(
                     PublicPropertyValidationRuleUpdate.builder().addRuleArgument("string").build()

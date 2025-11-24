@@ -2,8 +2,8 @@
 
 package com.hubspot_sdk.api.models.conversations.customchannels.channelaccountstagingtokens
 
-import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingTokenUpdateRequest
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicDeliveryIdentifier
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

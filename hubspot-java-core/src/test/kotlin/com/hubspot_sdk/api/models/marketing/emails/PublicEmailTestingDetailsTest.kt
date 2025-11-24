@@ -13,10 +13,14 @@ internal class PublicEmailTestingDetailsTest {
     fun create() {
         val publicEmailTestingDetails =
             PublicEmailTestingDetails.builder()
-                .abSampleSizeDefault(PublicEmailTestingDetails.AbSampleSizeDefault.MASTER)
-                .abSamplingDefault(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
-                .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
-                .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS)
+                .abSampleSizeDefault(
+                    PublicEmailTestingDetails.AbSampleSizeDefault.AUTOMATED_LOSER_VARIANT
+                )
+                .abSamplingDefault(
+                    PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT
+                )
+                .abStatus(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
+                .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED)
                 .abTestPercentage(0)
                 .hoursToWait(0)
                 .isAbVariation(true)
@@ -24,13 +28,13 @@ internal class PublicEmailTestingDetailsTest {
                 .build()
 
         assertThat(publicEmailTestingDetails.abSampleSizeDefault())
-            .contains(PublicEmailTestingDetails.AbSampleSizeDefault.MASTER)
+            .contains(PublicEmailTestingDetails.AbSampleSizeDefault.AUTOMATED_LOSER_VARIANT)
         assertThat(publicEmailTestingDetails.abSamplingDefault())
-            .contains(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
+            .contains(PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT)
         assertThat(publicEmailTestingDetails.abStatus())
-            .contains(PublicEmailTestingDetails.AbStatus.MASTER)
+            .contains(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
         assertThat(publicEmailTestingDetails.abSuccessMetric())
-            .contains(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS)
+            .contains(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED)
         assertThat(publicEmailTestingDetails.abTestPercentage()).contains(0)
         assertThat(publicEmailTestingDetails.hoursToWait()).contains(0)
         assertThat(publicEmailTestingDetails.isAbVariation()).contains(true)
@@ -42,10 +46,14 @@ internal class PublicEmailTestingDetailsTest {
         val jsonMapper = jsonMapper()
         val publicEmailTestingDetails =
             PublicEmailTestingDetails.builder()
-                .abSampleSizeDefault(PublicEmailTestingDetails.AbSampleSizeDefault.MASTER)
-                .abSamplingDefault(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
-                .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
-                .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS)
+                .abSampleSizeDefault(
+                    PublicEmailTestingDetails.AbSampleSizeDefault.AUTOMATED_LOSER_VARIANT
+                )
+                .abSamplingDefault(
+                    PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT
+                )
+                .abStatus(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
+                .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED)
                 .abTestPercentage(0)
                 .hoursToWait(0)
                 .isAbVariation(true)

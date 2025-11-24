@@ -552,32 +552,32 @@ private constructor(
 
         companion object {
 
-            @JvmField val STARTED = of("STARTED")
+            @JvmField val CANCELED = of("CANCELED")
 
-            @JvmField val PROCESSING = of("PROCESSING")
+            @JvmField val DEFERRED = of("DEFERRED")
 
             @JvmField val DONE = of("DONE")
 
             @JvmField val FAILED = of("FAILED")
 
-            @JvmField val CANCELED = of("CANCELED")
-
-            @JvmField val DEFERRED = of("DEFERRED")
+            @JvmField val PROCESSING = of("PROCESSING")
 
             @JvmField val REVERTED = of("REVERTED")
+
+            @JvmField val STARTED = of("STARTED")
 
             @JvmStatic fun of(value: String) = State(JsonField.of(value))
         }
 
         /** An enum containing [State]'s known values. */
         enum class Known {
-            STARTED,
-            PROCESSING,
-            DONE,
-            FAILED,
             CANCELED,
             DEFERRED,
+            DONE,
+            FAILED,
+            PROCESSING,
             REVERTED,
+            STARTED,
         }
 
         /**
@@ -590,13 +590,13 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            STARTED,
-            PROCESSING,
-            DONE,
-            FAILED,
             CANCELED,
             DEFERRED,
+            DONE,
+            FAILED,
+            PROCESSING,
             REVERTED,
+            STARTED,
             /** An enum member indicating that [State] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -610,13 +610,13 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                STARTED -> Value.STARTED
-                PROCESSING -> Value.PROCESSING
-                DONE -> Value.DONE
-                FAILED -> Value.FAILED
                 CANCELED -> Value.CANCELED
                 DEFERRED -> Value.DEFERRED
+                DONE -> Value.DONE
+                FAILED -> Value.FAILED
+                PROCESSING -> Value.PROCESSING
                 REVERTED -> Value.REVERTED
+                STARTED -> Value.STARTED
                 else -> Value._UNKNOWN
             }
 
@@ -631,13 +631,13 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                STARTED -> Known.STARTED
-                PROCESSING -> Known.PROCESSING
-                DONE -> Known.DONE
-                FAILED -> Known.FAILED
                 CANCELED -> Known.CANCELED
                 DEFERRED -> Known.DEFERRED
+                DONE -> Known.DONE
+                FAILED -> Known.FAILED
+                PROCESSING -> Known.PROCESSING
                 REVERTED -> Known.REVERTED
+                STARTED -> Known.STARTED
                 else -> throw HubspotInvalidDataException("Unknown State: $value")
             }
 

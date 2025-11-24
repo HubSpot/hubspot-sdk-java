@@ -12,7 +12,7 @@ internal class UserDeleteParamsTest {
     fun create() {
         UserDeleteParams.builder()
             .userId("userId")
-            .idProperty(UserDeleteParams.IdProperty.USER_ID)
+            .idProperty(UserDeleteParams.IdProperty.EMAIL)
             .build()
     }
 
@@ -30,13 +30,12 @@ internal class UserDeleteParamsTest {
         val params =
             UserDeleteParams.builder()
                 .userId("userId")
-                .idProperty(UserDeleteParams.IdProperty.USER_ID)
+                .idProperty(UserDeleteParams.IdProperty.EMAIL)
                 .build()
 
         val queryParams = params._queryParams()
 
-        assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("idProperty", "USER_ID").build())
+        assertThat(queryParams).isEqualTo(QueryParams.builder().put("idProperty", "EMAIL").build())
     }
 
     @Test

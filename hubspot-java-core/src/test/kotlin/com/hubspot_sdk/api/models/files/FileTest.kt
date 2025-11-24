@@ -15,7 +15,7 @@ internal class FileTest {
         val file =
             File.builder()
                 .id("id")
-                .access(File.Access.PUBLIC_INDEXABLE)
+                .access(File.Access.HIDDEN_INDEXABLE)
                 .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -38,7 +38,7 @@ internal class FileTest {
                 .build()
 
         assertThat(file.id()).isEqualTo("id")
-        assertThat(file.access()).isEqualTo(File.Access.PUBLIC_INDEXABLE)
+        assertThat(file.access()).isEqualTo(File.Access.HIDDEN_INDEXABLE)
         assertThat(file.archived()).isEqualTo(true)
         assertThat(file.createdAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(file.updatedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -66,7 +66,7 @@ internal class FileTest {
         val file =
             File.builder()
                 .id("id")
-                .access(File.Access.PUBLIC_INDEXABLE)
+                .access(File.Access.HIDDEN_INDEXABLE)
                 .archived(true)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

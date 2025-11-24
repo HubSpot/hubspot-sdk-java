@@ -12,7 +12,6 @@ import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects

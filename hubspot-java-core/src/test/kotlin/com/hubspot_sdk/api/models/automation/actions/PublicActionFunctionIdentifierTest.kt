@@ -13,12 +13,12 @@ internal class PublicActionFunctionIdentifierTest {
     fun create() {
         val publicActionFunctionIdentifier =
             PublicActionFunctionIdentifier.builder()
-                .functionType(PublicActionFunctionIdentifier.FunctionType.PRE_ACTION_EXECUTION)
+                .functionType(PublicActionFunctionIdentifier.FunctionType.POST_ACTION_EXECUTION)
                 .id("id")
                 .build()
 
         assertThat(publicActionFunctionIdentifier.functionType())
-            .isEqualTo(PublicActionFunctionIdentifier.FunctionType.PRE_ACTION_EXECUTION)
+            .isEqualTo(PublicActionFunctionIdentifier.FunctionType.POST_ACTION_EXECUTION)
         assertThat(publicActionFunctionIdentifier.id()).contains("id")
     }
 
@@ -27,7 +27,7 @@ internal class PublicActionFunctionIdentifierTest {
         val jsonMapper = jsonMapper()
         val publicActionFunctionIdentifier =
             PublicActionFunctionIdentifier.builder()
-                .functionType(PublicActionFunctionIdentifier.FunctionType.PRE_ACTION_EXECUTION)
+                .functionType(PublicActionFunctionIdentifier.FunctionType.POST_ACTION_EXECUTION)
                 .id("id")
                 .build()
 

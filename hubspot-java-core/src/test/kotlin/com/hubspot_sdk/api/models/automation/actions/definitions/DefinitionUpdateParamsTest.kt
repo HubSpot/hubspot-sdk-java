@@ -60,7 +60,7 @@ internal class DefinitionUpdateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -68,7 +68,7 @@ internal class DefinitionUpdateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )
@@ -118,7 +118,7 @@ internal class DefinitionUpdateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -126,7 +126,7 @@ internal class DefinitionUpdateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )
@@ -200,7 +200,7 @@ internal class DefinitionUpdateParamsTest {
                                                 .displayOrder(1)
                                                 .build()
                                         )
-                                        .type(FieldTypeDefinition.Type.STRING)
+                                        .type(FieldTypeDefinition.Type.BOOL)
                                         .description("description")
                                         .externalOptionsReferenceType(
                                             "externalOptionsReferenceType"
@@ -210,7 +210,7 @@ internal class DefinitionUpdateParamsTest {
                                         .label("label")
                                         .optionsUrl("optionsUrl")
                                         .referencedObjectType(
-                                            FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                            FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                         )
                                         .build()
                                 )
@@ -260,7 +260,7 @@ internal class DefinitionUpdateParamsTest {
                                                 .displayOrder(1)
                                                 .build()
                                         )
-                                        .type(FieldTypeDefinition.Type.STRING)
+                                        .type(FieldTypeDefinition.Type.BOOL)
                                         .description("description")
                                         .externalOptionsReferenceType(
                                             "externalOptionsReferenceType"
@@ -270,7 +270,7 @@ internal class DefinitionUpdateParamsTest {
                                         .label("label")
                                         .optionsUrl("optionsUrl")
                                         .referencedObjectType(
-                                            FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                            FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                         )
                                         .build()
                                 )
@@ -323,7 +323,7 @@ internal class DefinitionUpdateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -331,7 +331,7 @@ internal class DefinitionUpdateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )
@@ -381,7 +381,7 @@ internal class DefinitionUpdateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -389,7 +389,7 @@ internal class DefinitionUpdateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )

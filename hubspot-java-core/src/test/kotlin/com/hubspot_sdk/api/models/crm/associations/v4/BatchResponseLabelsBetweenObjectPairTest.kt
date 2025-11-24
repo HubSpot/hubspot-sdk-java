@@ -30,7 +30,7 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseLabelsBetweenObjectPair.Status.PENDING)
+                .status(BatchResponseLabelsBetweenObjectPair.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -214,7 +214,7 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
         assertThat(batchResponseLabelsBetweenObjectPair.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseLabelsBetweenObjectPair.status())
-            .isEqualTo(BatchResponseLabelsBetweenObjectPair.Status.PENDING)
+            .isEqualTo(BatchResponseLabelsBetweenObjectPair.Status.CANCELED)
         assertThat(batchResponseLabelsBetweenObjectPair.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -306,7 +306,7 @@ internal class BatchResponseLabelsBetweenObjectPairTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseLabelsBetweenObjectPair.Status.PENDING)
+                .status(BatchResponseLabelsBetweenObjectPair.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

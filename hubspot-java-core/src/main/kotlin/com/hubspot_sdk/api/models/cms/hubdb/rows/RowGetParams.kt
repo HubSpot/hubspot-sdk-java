@@ -27,6 +27,7 @@ private constructor(
 
     fun rowId(): Optional<String> = Optional.ofNullable(rowId)
 
+    /** Specifies whether to return an archived row. Defaults to `false`. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /** Additional headers to send with the request. */
@@ -75,6 +76,7 @@ private constructor(
         /** Alias for calling [Builder.rowId] with `rowId.orElse(null)`. */
         fun rowId(rowId: Optional<String>) = rowId(rowId.getOrNull())
 
+        /** Specifies whether to return an archived row. Defaults to `false`. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**

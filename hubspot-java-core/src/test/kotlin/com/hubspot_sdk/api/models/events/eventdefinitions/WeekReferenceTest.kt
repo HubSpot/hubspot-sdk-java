@@ -13,7 +13,7 @@ internal class WeekReferenceTest {
     fun create() {
         val weekReference =
             WeekReference.builder()
-                .dayOfWeek(WeekReference.DayOfWeek.MONDAY)
+                .dayOfWeek(WeekReference.DayOfWeek.FRIDAY)
                 .referenceType(WeekReference.ReferenceType.WEEK)
                 .hour(0)
                 .millisecond(0)
@@ -21,7 +21,7 @@ internal class WeekReferenceTest {
                 .second(0)
                 .build()
 
-        assertThat(weekReference.dayOfWeek()).isEqualTo(WeekReference.DayOfWeek.MONDAY)
+        assertThat(weekReference.dayOfWeek()).isEqualTo(WeekReference.DayOfWeek.FRIDAY)
         assertThat(weekReference.referenceType()).isEqualTo(WeekReference.ReferenceType.WEEK)
         assertThat(weekReference.hour()).contains(0)
         assertThat(weekReference.millisecond()).contains(0)
@@ -34,7 +34,7 @@ internal class WeekReferenceTest {
         val jsonMapper = jsonMapper()
         val weekReference =
             WeekReference.builder()
-                .dayOfWeek(WeekReference.DayOfWeek.MONDAY)
+                .dayOfWeek(WeekReference.DayOfWeek.FRIDAY)
                 .referenceType(WeekReference.ReferenceType.WEEK)
                 .hour(0)
                 .millisecond(0)

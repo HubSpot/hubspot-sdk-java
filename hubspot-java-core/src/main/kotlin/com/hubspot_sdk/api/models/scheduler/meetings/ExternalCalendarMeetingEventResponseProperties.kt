@@ -910,332 +910,332 @@ private constructor(
 
         companion object {
 
-            @JvmField val UNKNOWN = of("UNKNOWN")
-
-            @JvmField val IMPORT = of("IMPORT")
-
-            @JvmField val API = of("API")
-
-            @JvmField val FORM = of("FORM")
-
-            @JvmField val ANALYTICS = of("ANALYTICS")
-
-            @JvmField val MIGRATION = of("MIGRATION")
-
-            @JvmField val SALESFORCE = of("SALESFORCE")
-
-            @JvmField val INTEGRATION = of("INTEGRATION")
-
-            @JvmField val CONTACTS_WEB = of("CONTACTS_WEB")
-
-            @JvmField val WAL_INCREMENTAL = of("WAL_INCREMENTAL")
-
-            @JvmField val TASK = of("TASK")
-
-            @JvmField val EMAIL = of("EMAIL")
-
-            @JvmField val WORKFLOWS = of("WORKFLOWS")
-
-            @JvmField val CALCULATED = of("CALCULATED")
-
-            @JvmField val SOCIAL = of("SOCIAL")
-
-            @JvmField val BATCH_UPDATE = of("BATCH_UPDATE")
-
-            @JvmField val SIGNALS = of("SIGNALS")
-
-            @JvmField val BIDEN = of("BIDEN")
-
-            @JvmField val DEFAULT = of("DEFAULT")
-
-            @JvmField val COMPANIES = of("COMPANIES")
-
-            @JvmField val DEALS = of("DEALS")
-
-            @JvmField val ASSISTS = of("ASSISTS")
-
-            @JvmField val PRESENTATIONS = of("PRESENTATIONS")
-
-            @JvmField val TALLY = of("TALLY")
-
-            @JvmField val SIDEKICK = of("SIDEKICK")
-
-            @JvmField val CRM_UI = of("CRM_UI")
-
-            @JvmField val MERGE_CONTACTS = of("MERGE_CONTACTS")
-
-            @JvmField val PORTAL_USER_ASSOCIATOR = of("PORTAL_USER_ASSOCIATOR")
-
-            @JvmField val INTEGRATIONS_PLATFORM = of("INTEGRATIONS_PLATFORM")
-
-            @JvmField val BCC_TO_CRM = of("BCC_TO_CRM")
-
-            @JvmField val FORWARD_TO_CRM = of("FORWARD_TO_CRM")
-
-            @JvmField val ENGAGEMENTS = of("ENGAGEMENTS")
-
-            @JvmField val SALES = of("SALES")
-
-            @JvmField val HEISENBERG = of("HEISENBERG")
-
-            @JvmField val LEADIN = of("LEADIN")
-
-            @JvmField val GMAIL_INTEGRATION = of("GMAIL_INTEGRATION")
-
             @JvmField val ACADEMY = of("ACADEMY")
 
-            @JvmField val SALES_MESSAGES = of("SALES_MESSAGES")
+            @JvmField val ACCEPTANCE_TEST = of("ACCEPTANCE_TEST")
 
-            @JvmField val AVATARS_SERVICE = of("AVATARS_SERVICE")
-
-            @JvmField val MERGE_COMPANIES = of("MERGE_COMPANIES")
-
-            @JvmField val SEQUENCES = of("SEQUENCES")
-
-            @JvmField val COMPANY_FAMILIES = of("COMPANY_FAMILIES")
-
-            @JvmField val MOBILE_IOS = of("MOBILE_IOS")
-
-            @JvmField val MOBILE_ANDROID = of("MOBILE_ANDROID")
-
-            @JvmField val CONTACTS = of("CONTACTS")
-
-            @JvmField val ASSOCIATIONS = of("ASSOCIATIONS")
-
-            @JvmField val EXTENSION = of("EXTENSION")
-
-            @JvmField val SUCCESS = of("SUCCESS")
-
-            @JvmField val BOT = of("BOT")
-
-            @JvmField val INTEGRATIONS_SYNC = of("INTEGRATIONS_SYNC")
-
-            @JvmField val AUTOMATION_PLATFORM = of("AUTOMATION_PLATFORM")
-
-            @JvmField val CONVERSATIONS = of("CONVERSATIONS")
-
-            @JvmField val EMAIL_INTEGRATION = of("EMAIL_INTEGRATION")
-
-            @JvmField val CONTENT_MEMBERSHIP = of("CONTENT_MEMBERSHIP")
-
-            @JvmField val QUOTES = of("QUOTES")
-
-            @JvmField val BET_ASSIGNMENT = of("BET_ASSIGNMENT")
-
-            @JvmField val QUOTAS = of("QUOTAS")
-
-            @JvmField val BET_CRM_CONNECTOR = of("BET_CRM_CONNECTOR")
-
-            @JvmField val MEETINGS = of("MEETINGS")
-
-            @JvmField val MERGE_OBJECTS = of("MERGE_OBJECTS")
-
-            @JvmField val RECYCLING_BIN = of("RECYCLING_BIN")
+            @JvmField val ACTIVITY_AUTO_ASSOCIATE = of("ACTIVITY_AUTO_ASSOCIATE")
 
             @JvmField val ADS = of("ADS")
 
             @JvmField val AI_GROUP = of("AI_GROUP")
 
-            @JvmField val COMMUNICATOR = of("COMMUNICATOR")
+            @JvmField val ANALYTICS = of("ANALYTICS")
 
-            @JvmField val SETTINGS = of("SETTINGS")
-
-            @JvmField val PROPERTY_SETTINGS = of("PROPERTY_SETTINGS")
-
-            @JvmField val PIPELINE_SETTINGS = of("PIPELINE_SETTINGS")
-
-            @JvmField val COMPANY_INSIGHTS = of("COMPANY_INSIGHTS")
-
-            @JvmField val BEHAVIORAL_EVENTS = of("BEHAVIORAL_EVENTS")
-
-            @JvmField val PAYMENTS = of("PAYMENTS")
-
-            @JvmField val GOALS = of("GOALS")
-
-            @JvmField val PORTAL_OBJECT_SYNC = of("PORTAL_OBJECT_SYNC")
+            @JvmField val API = of("API")
 
             @JvmField val APPROVALS = of("APPROVALS")
 
-            @JvmField val FILE_MANAGER = of("FILE_MANAGER")
+            @JvmField val ASSISTS = of("ASSISTS")
 
-            @JvmField val MARKETPLACE = of("MARKETPLACE")
-
-            @JvmField val INTERNAL_PROCESSING = of("INTERNAL_PROCESSING")
-
-            @JvmField val FORECASTING = of("FORECASTING")
-
-            @JvmField val SLACK_INTEGRATION = of("SLACK_INTEGRATION")
-
-            @JvmField val CRM_UI_BULK_ACTION = of("CRM_UI_BULK_ACTION")
-
-            @JvmField val WORKFLOW_CONTACT_DELETE_ACTION = of("WORKFLOW_CONTACT_DELETE_ACTION")
-
-            @JvmField val ACCEPTANCE_TEST = of("ACCEPTANCE_TEST")
-
-            @JvmField val PLAYBOOKS = of("PLAYBOOKS")
-
-            @JvmField val CHATSPOT = of("CHATSPOT")
-
-            @JvmField val FLYWHEEL_PRODUCT_DATA_SYNC = of("FLYWHEEL_PRODUCT_DATA_SYNC")
-
-            @JvmField val HELP_DESK = of("HELP_DESK")
-
-            @JvmField val BILLING = of("BILLING")
-
-            @JvmField val DATA_ENRICHMENT = of("DATA_ENRICHMENT")
-
-            @JvmField val AUTOMATION_JOURNEY = of("AUTOMATION_JOURNEY")
-
-            @JvmField val MICROAPPS = of("MICROAPPS")
-
-            @JvmField val INTENT = of("INTENT")
-
-            @JvmField val PROSPECTING_AGENT = of("PROSPECTING_AGENT")
-
-            @JvmField val CENTRAL_EXCHANGE_RATES = of("CENTRAL_EXCHANGE_RATES")
-
-            @JvmField val HELP_DESK_AI = of("HELP_DESK_AI")
-
-            @JvmField val CONVERSATIONAL_ENRICHMENT = of("CONVERSATIONAL_ENRICHMENT")
-
-            @JvmField val CRM_PROCESSES_PLATFORM = of("CRM_PROCESSES_PLATFORM")
-
-            @JvmField val CLONE_OBJECTS = of("CLONE_OBJECTS")
-
-            @JvmField val MARKET_SOURCING = of("MARKET_SOURCING")
-
-            @JvmField val DATASET = of("DATASET")
-
-            @JvmField val PROPERTY_RESTORE = of("PROPERTY_RESTORE")
-
-            @JvmField val EMAIL_INBOX_IMPORT = of("EMAIL_INBOX_IMPORT")
-
-            @JvmField val CUSTOMER_AGENT = of("CUSTOMER_AGENT")
-
-            @JvmField val LEGAL_BASIS_REMEDIATION = of("LEGAL_BASIS_REMEDIATION")
+            @JvmField val ASSOCIATIONS = of("ASSOCIATIONS")
 
             @JvmField val AUTO_ASSOCIATE_BY_DOMAIN = of("AUTO_ASSOCIATE_BY_DOMAIN")
 
-            @JvmField val ACTIVITY_AUTO_ASSOCIATE = of("ACTIVITY_AUTO_ASSOCIATE")
+            @JvmField val AUTOMATION_JOURNEY = of("AUTOMATION_JOURNEY")
 
-            @JvmField val PRIMARY_AUTOMATION = of("PRIMARY_AUTOMATION")
+            @JvmField val AUTOMATION_PLATFORM = of("AUTOMATION_PLATFORM")
+
+            @JvmField val AVATARS_SERVICE = of("AVATARS_SERVICE")
+
+            @JvmField val BATCH_UPDATE = of("BATCH_UPDATE")
+
+            @JvmField val BCC_TO_CRM = of("BCC_TO_CRM")
+
+            @JvmField val BEHAVIORAL_EVENTS = of("BEHAVIORAL_EVENTS")
+
+            @JvmField val BET_ASSIGNMENT = of("BET_ASSIGNMENT")
+
+            @JvmField val BET_CRM_CONNECTOR = of("BET_CRM_CONNECTOR")
+
+            @JvmField val BIDEN = of("BIDEN")
+
+            @JvmField val BILLING = of("BILLING")
+
+            @JvmField val BOT = of("BOT")
+
+            @JvmField val CALCULATED = of("CALCULATED")
+
+            @JvmField val CENTRAL_EXCHANGE_RATES = of("CENTRAL_EXCHANGE_RATES")
+
+            @JvmField val CHATSPOT = of("CHATSPOT")
+
+            @JvmField val CLONE_OBJECTS = of("CLONE_OBJECTS")
+
+            @JvmField val COMMUNICATOR = of("COMMUNICATOR")
+
+            @JvmField val COMPANIES = of("COMPANIES")
+
+            @JvmField val COMPANY_FAMILIES = of("COMPANY_FAMILIES")
+
+            @JvmField val COMPANY_INSIGHTS = of("COMPANY_INSIGHTS")
+
+            @JvmField val CONTACTS = of("CONTACTS")
+
+            @JvmField val CONTACTS_WEB = of("CONTACTS_WEB")
+
+            @JvmField val CONTENT_MEMBERSHIP = of("CONTENT_MEMBERSHIP")
+
+            @JvmField val CONVERSATIONAL_ENRICHMENT = of("CONVERSATIONAL_ENRICHMENT")
+
+            @JvmField val CONVERSATIONS = of("CONVERSATIONS")
+
+            @JvmField val CRM_PROCESSES_PLATFORM = of("CRM_PROCESSES_PLATFORM")
+
+            @JvmField val CRM_UI = of("CRM_UI")
+
+            @JvmField val CRM_UI_BULK_ACTION = of("CRM_UI_BULK_ACTION")
+
+            @JvmField val CUSTOMER_AGENT = of("CUSTOMER_AGENT")
+
+            @JvmField val DATA_ENRICHMENT = of("DATA_ENRICHMENT")
+
+            @JvmField val DATASET = of("DATASET")
+
+            @JvmField val DEALS = of("DEALS")
+
+            @JvmField val DEFAULT = of("DEFAULT")
 
             @JvmField val DELETE_OBJECTS = of("DELETE_OBJECTS")
 
+            @JvmField val EMAIL = of("EMAIL")
+
+            @JvmField val EMAIL_INBOX_IMPORT = of("EMAIL_INBOX_IMPORT")
+
+            @JvmField val EMAIL_INTEGRATION = of("EMAIL_INTEGRATION")
+
+            @JvmField val ENGAGEMENTS = of("ENGAGEMENTS")
+
+            @JvmField val EXTENSION = of("EXTENSION")
+
+            @JvmField val FILE_MANAGER = of("FILE_MANAGER")
+
+            @JvmField val FLYWHEEL_PRODUCT_DATA_SYNC = of("FLYWHEEL_PRODUCT_DATA_SYNC")
+
+            @JvmField val FORECASTING = of("FORECASTING")
+
+            @JvmField val FORM = of("FORM")
+
+            @JvmField val FORWARD_TO_CRM = of("FORWARD_TO_CRM")
+
+            @JvmField val GMAIL_INTEGRATION = of("GMAIL_INTEGRATION")
+
+            @JvmField val GOALS = of("GOALS")
+
+            @JvmField val HEISENBERG = of("HEISENBERG")
+
+            @JvmField val HELP_DESK = of("HELP_DESK")
+
+            @JvmField val HELP_DESK_AI = of("HELP_DESK_AI")
+
+            @JvmField val IMPORT = of("IMPORT")
+
+            @JvmField val INTEGRATION = of("INTEGRATION")
+
+            @JvmField val INTEGRATIONS_PLATFORM = of("INTEGRATIONS_PLATFORM")
+
+            @JvmField val INTEGRATIONS_SYNC = of("INTEGRATIONS_SYNC")
+
+            @JvmField val INTENT = of("INTENT")
+
+            @JvmField val INTERNAL_PROCESSING = of("INTERNAL_PROCESSING")
+
+            @JvmField val LEADIN = of("LEADIN")
+
+            @JvmField val LEGAL_BASIS_REMEDIATION = of("LEGAL_BASIS_REMEDIATION")
+
+            @JvmField val MARKET_SOURCING = of("MARKET_SOURCING")
+
+            @JvmField val MARKETPLACE = of("MARKETPLACE")
+
+            @JvmField val MEETINGS = of("MEETINGS")
+
+            @JvmField val MERGE_COMPANIES = of("MERGE_COMPANIES")
+
+            @JvmField val MERGE_CONTACTS = of("MERGE_CONTACTS")
+
+            @JvmField val MERGE_OBJECTS = of("MERGE_OBJECTS")
+
+            @JvmField val MICROAPPS = of("MICROAPPS")
+
+            @JvmField val MIGRATION = of("MIGRATION")
+
+            @JvmField val MOBILE_ANDROID = of("MOBILE_ANDROID")
+
+            @JvmField val MOBILE_IOS = of("MOBILE_IOS")
+
+            @JvmField val PAYMENTS = of("PAYMENTS")
+
+            @JvmField val PIPELINE_SETTINGS = of("PIPELINE_SETTINGS")
+
+            @JvmField val PLAYBOOKS = of("PLAYBOOKS")
+
+            @JvmField val PORTAL_OBJECT_SYNC = of("PORTAL_OBJECT_SYNC")
+
+            @JvmField val PORTAL_USER_ASSOCIATOR = of("PORTAL_USER_ASSOCIATOR")
+
+            @JvmField val PRESENTATIONS = of("PRESENTATIONS")
+
+            @JvmField val PRIMARY_AUTOMATION = of("PRIMARY_AUTOMATION")
+
+            @JvmField val PROPERTY_RESTORE = of("PROPERTY_RESTORE")
+
+            @JvmField val PROPERTY_SETTINGS = of("PROPERTY_SETTINGS")
+
+            @JvmField val PROSPECTING_AGENT = of("PROSPECTING_AGENT")
+
+            @JvmField val QUOTAS = of("QUOTAS")
+
+            @JvmField val QUOTES = of("QUOTES")
+
+            @JvmField val RECYCLING_BIN = of("RECYCLING_BIN")
+
             @JvmField val RESTORE_OBJECTS = of("RESTORE_OBJECTS")
+
+            @JvmField val SALES = of("SALES")
+
+            @JvmField val SALES_MESSAGES = of("SALES_MESSAGES")
+
+            @JvmField val SALESFORCE = of("SALESFORCE")
+
+            @JvmField val SEQUENCES = of("SEQUENCES")
+
+            @JvmField val SETTINGS = of("SETTINGS")
+
+            @JvmField val SIDEKICK = of("SIDEKICK")
+
+            @JvmField val SIGNALS = of("SIGNALS")
+
+            @JvmField val SLACK_INTEGRATION = of("SLACK_INTEGRATION")
+
+            @JvmField val SOCIAL = of("SOCIAL")
+
+            @JvmField val SUCCESS = of("SUCCESS")
+
+            @JvmField val TALLY = of("TALLY")
+
+            @JvmField val TASK = of("TASK")
+
+            @JvmField val UNKNOWN = of("UNKNOWN")
+
+            @JvmField val WAL_INCREMENTAL = of("WAL_INCREMENTAL")
+
+            @JvmField val WORKFLOW_CONTACT_DELETE_ACTION = of("WORKFLOW_CONTACT_DELETE_ACTION")
+
+            @JvmField val WORKFLOWS = of("WORKFLOWS")
 
             @JvmStatic fun of(value: String) = HsEngagementSource(JsonField.of(value))
         }
 
         /** An enum containing [HsEngagementSource]'s known values. */
         enum class Known {
-            UNKNOWN,
-            IMPORT,
-            API,
-            FORM,
-            ANALYTICS,
-            MIGRATION,
-            SALESFORCE,
-            INTEGRATION,
-            CONTACTS_WEB,
-            WAL_INCREMENTAL,
-            TASK,
-            EMAIL,
-            WORKFLOWS,
-            CALCULATED,
-            SOCIAL,
-            BATCH_UPDATE,
-            SIGNALS,
-            BIDEN,
-            DEFAULT,
-            COMPANIES,
-            DEALS,
-            ASSISTS,
-            PRESENTATIONS,
-            TALLY,
-            SIDEKICK,
-            CRM_UI,
-            MERGE_CONTACTS,
-            PORTAL_USER_ASSOCIATOR,
-            INTEGRATIONS_PLATFORM,
-            BCC_TO_CRM,
-            FORWARD_TO_CRM,
-            ENGAGEMENTS,
-            SALES,
-            HEISENBERG,
-            LEADIN,
-            GMAIL_INTEGRATION,
             ACADEMY,
-            SALES_MESSAGES,
-            AVATARS_SERVICE,
-            MERGE_COMPANIES,
-            SEQUENCES,
-            COMPANY_FAMILIES,
-            MOBILE_IOS,
-            MOBILE_ANDROID,
-            CONTACTS,
-            ASSOCIATIONS,
-            EXTENSION,
-            SUCCESS,
-            BOT,
-            INTEGRATIONS_SYNC,
-            AUTOMATION_PLATFORM,
-            CONVERSATIONS,
-            EMAIL_INTEGRATION,
-            CONTENT_MEMBERSHIP,
-            QUOTES,
-            BET_ASSIGNMENT,
-            QUOTAS,
-            BET_CRM_CONNECTOR,
-            MEETINGS,
-            MERGE_OBJECTS,
-            RECYCLING_BIN,
+            ACCEPTANCE_TEST,
+            ACTIVITY_AUTO_ASSOCIATE,
             ADS,
             AI_GROUP,
-            COMMUNICATOR,
-            SETTINGS,
-            PROPERTY_SETTINGS,
-            PIPELINE_SETTINGS,
-            COMPANY_INSIGHTS,
-            BEHAVIORAL_EVENTS,
-            PAYMENTS,
-            GOALS,
-            PORTAL_OBJECT_SYNC,
+            ANALYTICS,
+            API,
             APPROVALS,
-            FILE_MANAGER,
-            MARKETPLACE,
-            INTERNAL_PROCESSING,
-            FORECASTING,
-            SLACK_INTEGRATION,
-            CRM_UI_BULK_ACTION,
-            WORKFLOW_CONTACT_DELETE_ACTION,
-            ACCEPTANCE_TEST,
-            PLAYBOOKS,
-            CHATSPOT,
-            FLYWHEEL_PRODUCT_DATA_SYNC,
-            HELP_DESK,
-            BILLING,
-            DATA_ENRICHMENT,
-            AUTOMATION_JOURNEY,
-            MICROAPPS,
-            INTENT,
-            PROSPECTING_AGENT,
-            CENTRAL_EXCHANGE_RATES,
-            HELP_DESK_AI,
-            CONVERSATIONAL_ENRICHMENT,
-            CRM_PROCESSES_PLATFORM,
-            CLONE_OBJECTS,
-            MARKET_SOURCING,
-            DATASET,
-            PROPERTY_RESTORE,
-            EMAIL_INBOX_IMPORT,
-            CUSTOMER_AGENT,
-            LEGAL_BASIS_REMEDIATION,
+            ASSISTS,
+            ASSOCIATIONS,
             AUTO_ASSOCIATE_BY_DOMAIN,
-            ACTIVITY_AUTO_ASSOCIATE,
-            PRIMARY_AUTOMATION,
+            AUTOMATION_JOURNEY,
+            AUTOMATION_PLATFORM,
+            AVATARS_SERVICE,
+            BATCH_UPDATE,
+            BCC_TO_CRM,
+            BEHAVIORAL_EVENTS,
+            BET_ASSIGNMENT,
+            BET_CRM_CONNECTOR,
+            BIDEN,
+            BILLING,
+            BOT,
+            CALCULATED,
+            CENTRAL_EXCHANGE_RATES,
+            CHATSPOT,
+            CLONE_OBJECTS,
+            COMMUNICATOR,
+            COMPANIES,
+            COMPANY_FAMILIES,
+            COMPANY_INSIGHTS,
+            CONTACTS,
+            CONTACTS_WEB,
+            CONTENT_MEMBERSHIP,
+            CONVERSATIONAL_ENRICHMENT,
+            CONVERSATIONS,
+            CRM_PROCESSES_PLATFORM,
+            CRM_UI,
+            CRM_UI_BULK_ACTION,
+            CUSTOMER_AGENT,
+            DATA_ENRICHMENT,
+            DATASET,
+            DEALS,
+            DEFAULT,
             DELETE_OBJECTS,
+            EMAIL,
+            EMAIL_INBOX_IMPORT,
+            EMAIL_INTEGRATION,
+            ENGAGEMENTS,
+            EXTENSION,
+            FILE_MANAGER,
+            FLYWHEEL_PRODUCT_DATA_SYNC,
+            FORECASTING,
+            FORM,
+            FORWARD_TO_CRM,
+            GMAIL_INTEGRATION,
+            GOALS,
+            HEISENBERG,
+            HELP_DESK,
+            HELP_DESK_AI,
+            IMPORT,
+            INTEGRATION,
+            INTEGRATIONS_PLATFORM,
+            INTEGRATIONS_SYNC,
+            INTENT,
+            INTERNAL_PROCESSING,
+            LEADIN,
+            LEGAL_BASIS_REMEDIATION,
+            MARKET_SOURCING,
+            MARKETPLACE,
+            MEETINGS,
+            MERGE_COMPANIES,
+            MERGE_CONTACTS,
+            MERGE_OBJECTS,
+            MICROAPPS,
+            MIGRATION,
+            MOBILE_ANDROID,
+            MOBILE_IOS,
+            PAYMENTS,
+            PIPELINE_SETTINGS,
+            PLAYBOOKS,
+            PORTAL_OBJECT_SYNC,
+            PORTAL_USER_ASSOCIATOR,
+            PRESENTATIONS,
+            PRIMARY_AUTOMATION,
+            PROPERTY_RESTORE,
+            PROPERTY_SETTINGS,
+            PROSPECTING_AGENT,
+            QUOTAS,
+            QUOTES,
+            RECYCLING_BIN,
             RESTORE_OBJECTS,
+            SALES,
+            SALES_MESSAGES,
+            SALESFORCE,
+            SEQUENCES,
+            SETTINGS,
+            SIDEKICK,
+            SIGNALS,
+            SLACK_INTEGRATION,
+            SOCIAL,
+            SUCCESS,
+            TALLY,
+            TASK,
+            UNKNOWN,
+            WAL_INCREMENTAL,
+            WORKFLOW_CONTACT_DELETE_ACTION,
+            WORKFLOWS,
         }
 
         /**
@@ -1248,113 +1248,113 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            UNKNOWN,
-            IMPORT,
-            API,
-            FORM,
-            ANALYTICS,
-            MIGRATION,
-            SALESFORCE,
-            INTEGRATION,
-            CONTACTS_WEB,
-            WAL_INCREMENTAL,
-            TASK,
-            EMAIL,
-            WORKFLOWS,
-            CALCULATED,
-            SOCIAL,
-            BATCH_UPDATE,
-            SIGNALS,
-            BIDEN,
-            DEFAULT,
-            COMPANIES,
-            DEALS,
-            ASSISTS,
-            PRESENTATIONS,
-            TALLY,
-            SIDEKICK,
-            CRM_UI,
-            MERGE_CONTACTS,
-            PORTAL_USER_ASSOCIATOR,
-            INTEGRATIONS_PLATFORM,
-            BCC_TO_CRM,
-            FORWARD_TO_CRM,
-            ENGAGEMENTS,
-            SALES,
-            HEISENBERG,
-            LEADIN,
-            GMAIL_INTEGRATION,
             ACADEMY,
-            SALES_MESSAGES,
-            AVATARS_SERVICE,
-            MERGE_COMPANIES,
-            SEQUENCES,
-            COMPANY_FAMILIES,
-            MOBILE_IOS,
-            MOBILE_ANDROID,
-            CONTACTS,
-            ASSOCIATIONS,
-            EXTENSION,
-            SUCCESS,
-            BOT,
-            INTEGRATIONS_SYNC,
-            AUTOMATION_PLATFORM,
-            CONVERSATIONS,
-            EMAIL_INTEGRATION,
-            CONTENT_MEMBERSHIP,
-            QUOTES,
-            BET_ASSIGNMENT,
-            QUOTAS,
-            BET_CRM_CONNECTOR,
-            MEETINGS,
-            MERGE_OBJECTS,
-            RECYCLING_BIN,
+            ACCEPTANCE_TEST,
+            ACTIVITY_AUTO_ASSOCIATE,
             ADS,
             AI_GROUP,
-            COMMUNICATOR,
-            SETTINGS,
-            PROPERTY_SETTINGS,
-            PIPELINE_SETTINGS,
-            COMPANY_INSIGHTS,
-            BEHAVIORAL_EVENTS,
-            PAYMENTS,
-            GOALS,
-            PORTAL_OBJECT_SYNC,
+            ANALYTICS,
+            API,
             APPROVALS,
-            FILE_MANAGER,
-            MARKETPLACE,
-            INTERNAL_PROCESSING,
-            FORECASTING,
-            SLACK_INTEGRATION,
-            CRM_UI_BULK_ACTION,
-            WORKFLOW_CONTACT_DELETE_ACTION,
-            ACCEPTANCE_TEST,
-            PLAYBOOKS,
-            CHATSPOT,
-            FLYWHEEL_PRODUCT_DATA_SYNC,
-            HELP_DESK,
-            BILLING,
-            DATA_ENRICHMENT,
-            AUTOMATION_JOURNEY,
-            MICROAPPS,
-            INTENT,
-            PROSPECTING_AGENT,
-            CENTRAL_EXCHANGE_RATES,
-            HELP_DESK_AI,
-            CONVERSATIONAL_ENRICHMENT,
-            CRM_PROCESSES_PLATFORM,
-            CLONE_OBJECTS,
-            MARKET_SOURCING,
-            DATASET,
-            PROPERTY_RESTORE,
-            EMAIL_INBOX_IMPORT,
-            CUSTOMER_AGENT,
-            LEGAL_BASIS_REMEDIATION,
+            ASSISTS,
+            ASSOCIATIONS,
             AUTO_ASSOCIATE_BY_DOMAIN,
-            ACTIVITY_AUTO_ASSOCIATE,
-            PRIMARY_AUTOMATION,
+            AUTOMATION_JOURNEY,
+            AUTOMATION_PLATFORM,
+            AVATARS_SERVICE,
+            BATCH_UPDATE,
+            BCC_TO_CRM,
+            BEHAVIORAL_EVENTS,
+            BET_ASSIGNMENT,
+            BET_CRM_CONNECTOR,
+            BIDEN,
+            BILLING,
+            BOT,
+            CALCULATED,
+            CENTRAL_EXCHANGE_RATES,
+            CHATSPOT,
+            CLONE_OBJECTS,
+            COMMUNICATOR,
+            COMPANIES,
+            COMPANY_FAMILIES,
+            COMPANY_INSIGHTS,
+            CONTACTS,
+            CONTACTS_WEB,
+            CONTENT_MEMBERSHIP,
+            CONVERSATIONAL_ENRICHMENT,
+            CONVERSATIONS,
+            CRM_PROCESSES_PLATFORM,
+            CRM_UI,
+            CRM_UI_BULK_ACTION,
+            CUSTOMER_AGENT,
+            DATA_ENRICHMENT,
+            DATASET,
+            DEALS,
+            DEFAULT,
             DELETE_OBJECTS,
+            EMAIL,
+            EMAIL_INBOX_IMPORT,
+            EMAIL_INTEGRATION,
+            ENGAGEMENTS,
+            EXTENSION,
+            FILE_MANAGER,
+            FLYWHEEL_PRODUCT_DATA_SYNC,
+            FORECASTING,
+            FORM,
+            FORWARD_TO_CRM,
+            GMAIL_INTEGRATION,
+            GOALS,
+            HEISENBERG,
+            HELP_DESK,
+            HELP_DESK_AI,
+            IMPORT,
+            INTEGRATION,
+            INTEGRATIONS_PLATFORM,
+            INTEGRATIONS_SYNC,
+            INTENT,
+            INTERNAL_PROCESSING,
+            LEADIN,
+            LEGAL_BASIS_REMEDIATION,
+            MARKET_SOURCING,
+            MARKETPLACE,
+            MEETINGS,
+            MERGE_COMPANIES,
+            MERGE_CONTACTS,
+            MERGE_OBJECTS,
+            MICROAPPS,
+            MIGRATION,
+            MOBILE_ANDROID,
+            MOBILE_IOS,
+            PAYMENTS,
+            PIPELINE_SETTINGS,
+            PLAYBOOKS,
+            PORTAL_OBJECT_SYNC,
+            PORTAL_USER_ASSOCIATOR,
+            PRESENTATIONS,
+            PRIMARY_AUTOMATION,
+            PROPERTY_RESTORE,
+            PROPERTY_SETTINGS,
+            PROSPECTING_AGENT,
+            QUOTAS,
+            QUOTES,
+            RECYCLING_BIN,
             RESTORE_OBJECTS,
+            SALES,
+            SALES_MESSAGES,
+            SALESFORCE,
+            SEQUENCES,
+            SETTINGS,
+            SIDEKICK,
+            SIGNALS,
+            SLACK_INTEGRATION,
+            SOCIAL,
+            SUCCESS,
+            TALLY,
+            TASK,
+            UNKNOWN,
+            WAL_INCREMENTAL,
+            WORKFLOW_CONTACT_DELETE_ACTION,
+            WORKFLOWS,
             /**
              * An enum member indicating that [HsEngagementSource] was instantiated with an unknown
              * value.
@@ -1371,113 +1371,113 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                UNKNOWN -> Value.UNKNOWN
-                IMPORT -> Value.IMPORT
-                API -> Value.API
-                FORM -> Value.FORM
-                ANALYTICS -> Value.ANALYTICS
-                MIGRATION -> Value.MIGRATION
-                SALESFORCE -> Value.SALESFORCE
-                INTEGRATION -> Value.INTEGRATION
-                CONTACTS_WEB -> Value.CONTACTS_WEB
-                WAL_INCREMENTAL -> Value.WAL_INCREMENTAL
-                TASK -> Value.TASK
-                EMAIL -> Value.EMAIL
-                WORKFLOWS -> Value.WORKFLOWS
-                CALCULATED -> Value.CALCULATED
-                SOCIAL -> Value.SOCIAL
-                BATCH_UPDATE -> Value.BATCH_UPDATE
-                SIGNALS -> Value.SIGNALS
-                BIDEN -> Value.BIDEN
-                DEFAULT -> Value.DEFAULT
-                COMPANIES -> Value.COMPANIES
-                DEALS -> Value.DEALS
-                ASSISTS -> Value.ASSISTS
-                PRESENTATIONS -> Value.PRESENTATIONS
-                TALLY -> Value.TALLY
-                SIDEKICK -> Value.SIDEKICK
-                CRM_UI -> Value.CRM_UI
-                MERGE_CONTACTS -> Value.MERGE_CONTACTS
-                PORTAL_USER_ASSOCIATOR -> Value.PORTAL_USER_ASSOCIATOR
-                INTEGRATIONS_PLATFORM -> Value.INTEGRATIONS_PLATFORM
-                BCC_TO_CRM -> Value.BCC_TO_CRM
-                FORWARD_TO_CRM -> Value.FORWARD_TO_CRM
-                ENGAGEMENTS -> Value.ENGAGEMENTS
-                SALES -> Value.SALES
-                HEISENBERG -> Value.HEISENBERG
-                LEADIN -> Value.LEADIN
-                GMAIL_INTEGRATION -> Value.GMAIL_INTEGRATION
                 ACADEMY -> Value.ACADEMY
-                SALES_MESSAGES -> Value.SALES_MESSAGES
-                AVATARS_SERVICE -> Value.AVATARS_SERVICE
-                MERGE_COMPANIES -> Value.MERGE_COMPANIES
-                SEQUENCES -> Value.SEQUENCES
-                COMPANY_FAMILIES -> Value.COMPANY_FAMILIES
-                MOBILE_IOS -> Value.MOBILE_IOS
-                MOBILE_ANDROID -> Value.MOBILE_ANDROID
-                CONTACTS -> Value.CONTACTS
-                ASSOCIATIONS -> Value.ASSOCIATIONS
-                EXTENSION -> Value.EXTENSION
-                SUCCESS -> Value.SUCCESS
-                BOT -> Value.BOT
-                INTEGRATIONS_SYNC -> Value.INTEGRATIONS_SYNC
-                AUTOMATION_PLATFORM -> Value.AUTOMATION_PLATFORM
-                CONVERSATIONS -> Value.CONVERSATIONS
-                EMAIL_INTEGRATION -> Value.EMAIL_INTEGRATION
-                CONTENT_MEMBERSHIP -> Value.CONTENT_MEMBERSHIP
-                QUOTES -> Value.QUOTES
-                BET_ASSIGNMENT -> Value.BET_ASSIGNMENT
-                QUOTAS -> Value.QUOTAS
-                BET_CRM_CONNECTOR -> Value.BET_CRM_CONNECTOR
-                MEETINGS -> Value.MEETINGS
-                MERGE_OBJECTS -> Value.MERGE_OBJECTS
-                RECYCLING_BIN -> Value.RECYCLING_BIN
+                ACCEPTANCE_TEST -> Value.ACCEPTANCE_TEST
+                ACTIVITY_AUTO_ASSOCIATE -> Value.ACTIVITY_AUTO_ASSOCIATE
                 ADS -> Value.ADS
                 AI_GROUP -> Value.AI_GROUP
-                COMMUNICATOR -> Value.COMMUNICATOR
-                SETTINGS -> Value.SETTINGS
-                PROPERTY_SETTINGS -> Value.PROPERTY_SETTINGS
-                PIPELINE_SETTINGS -> Value.PIPELINE_SETTINGS
-                COMPANY_INSIGHTS -> Value.COMPANY_INSIGHTS
-                BEHAVIORAL_EVENTS -> Value.BEHAVIORAL_EVENTS
-                PAYMENTS -> Value.PAYMENTS
-                GOALS -> Value.GOALS
-                PORTAL_OBJECT_SYNC -> Value.PORTAL_OBJECT_SYNC
+                ANALYTICS -> Value.ANALYTICS
+                API -> Value.API
                 APPROVALS -> Value.APPROVALS
-                FILE_MANAGER -> Value.FILE_MANAGER
-                MARKETPLACE -> Value.MARKETPLACE
-                INTERNAL_PROCESSING -> Value.INTERNAL_PROCESSING
-                FORECASTING -> Value.FORECASTING
-                SLACK_INTEGRATION -> Value.SLACK_INTEGRATION
-                CRM_UI_BULK_ACTION -> Value.CRM_UI_BULK_ACTION
-                WORKFLOW_CONTACT_DELETE_ACTION -> Value.WORKFLOW_CONTACT_DELETE_ACTION
-                ACCEPTANCE_TEST -> Value.ACCEPTANCE_TEST
-                PLAYBOOKS -> Value.PLAYBOOKS
-                CHATSPOT -> Value.CHATSPOT
-                FLYWHEEL_PRODUCT_DATA_SYNC -> Value.FLYWHEEL_PRODUCT_DATA_SYNC
-                HELP_DESK -> Value.HELP_DESK
-                BILLING -> Value.BILLING
-                DATA_ENRICHMENT -> Value.DATA_ENRICHMENT
-                AUTOMATION_JOURNEY -> Value.AUTOMATION_JOURNEY
-                MICROAPPS -> Value.MICROAPPS
-                INTENT -> Value.INTENT
-                PROSPECTING_AGENT -> Value.PROSPECTING_AGENT
-                CENTRAL_EXCHANGE_RATES -> Value.CENTRAL_EXCHANGE_RATES
-                HELP_DESK_AI -> Value.HELP_DESK_AI
-                CONVERSATIONAL_ENRICHMENT -> Value.CONVERSATIONAL_ENRICHMENT
-                CRM_PROCESSES_PLATFORM -> Value.CRM_PROCESSES_PLATFORM
-                CLONE_OBJECTS -> Value.CLONE_OBJECTS
-                MARKET_SOURCING -> Value.MARKET_SOURCING
-                DATASET -> Value.DATASET
-                PROPERTY_RESTORE -> Value.PROPERTY_RESTORE
-                EMAIL_INBOX_IMPORT -> Value.EMAIL_INBOX_IMPORT
-                CUSTOMER_AGENT -> Value.CUSTOMER_AGENT
-                LEGAL_BASIS_REMEDIATION -> Value.LEGAL_BASIS_REMEDIATION
+                ASSISTS -> Value.ASSISTS
+                ASSOCIATIONS -> Value.ASSOCIATIONS
                 AUTO_ASSOCIATE_BY_DOMAIN -> Value.AUTO_ASSOCIATE_BY_DOMAIN
-                ACTIVITY_AUTO_ASSOCIATE -> Value.ACTIVITY_AUTO_ASSOCIATE
-                PRIMARY_AUTOMATION -> Value.PRIMARY_AUTOMATION
+                AUTOMATION_JOURNEY -> Value.AUTOMATION_JOURNEY
+                AUTOMATION_PLATFORM -> Value.AUTOMATION_PLATFORM
+                AVATARS_SERVICE -> Value.AVATARS_SERVICE
+                BATCH_UPDATE -> Value.BATCH_UPDATE
+                BCC_TO_CRM -> Value.BCC_TO_CRM
+                BEHAVIORAL_EVENTS -> Value.BEHAVIORAL_EVENTS
+                BET_ASSIGNMENT -> Value.BET_ASSIGNMENT
+                BET_CRM_CONNECTOR -> Value.BET_CRM_CONNECTOR
+                BIDEN -> Value.BIDEN
+                BILLING -> Value.BILLING
+                BOT -> Value.BOT
+                CALCULATED -> Value.CALCULATED
+                CENTRAL_EXCHANGE_RATES -> Value.CENTRAL_EXCHANGE_RATES
+                CHATSPOT -> Value.CHATSPOT
+                CLONE_OBJECTS -> Value.CLONE_OBJECTS
+                COMMUNICATOR -> Value.COMMUNICATOR
+                COMPANIES -> Value.COMPANIES
+                COMPANY_FAMILIES -> Value.COMPANY_FAMILIES
+                COMPANY_INSIGHTS -> Value.COMPANY_INSIGHTS
+                CONTACTS -> Value.CONTACTS
+                CONTACTS_WEB -> Value.CONTACTS_WEB
+                CONTENT_MEMBERSHIP -> Value.CONTENT_MEMBERSHIP
+                CONVERSATIONAL_ENRICHMENT -> Value.CONVERSATIONAL_ENRICHMENT
+                CONVERSATIONS -> Value.CONVERSATIONS
+                CRM_PROCESSES_PLATFORM -> Value.CRM_PROCESSES_PLATFORM
+                CRM_UI -> Value.CRM_UI
+                CRM_UI_BULK_ACTION -> Value.CRM_UI_BULK_ACTION
+                CUSTOMER_AGENT -> Value.CUSTOMER_AGENT
+                DATA_ENRICHMENT -> Value.DATA_ENRICHMENT
+                DATASET -> Value.DATASET
+                DEALS -> Value.DEALS
+                DEFAULT -> Value.DEFAULT
                 DELETE_OBJECTS -> Value.DELETE_OBJECTS
+                EMAIL -> Value.EMAIL
+                EMAIL_INBOX_IMPORT -> Value.EMAIL_INBOX_IMPORT
+                EMAIL_INTEGRATION -> Value.EMAIL_INTEGRATION
+                ENGAGEMENTS -> Value.ENGAGEMENTS
+                EXTENSION -> Value.EXTENSION
+                FILE_MANAGER -> Value.FILE_MANAGER
+                FLYWHEEL_PRODUCT_DATA_SYNC -> Value.FLYWHEEL_PRODUCT_DATA_SYNC
+                FORECASTING -> Value.FORECASTING
+                FORM -> Value.FORM
+                FORWARD_TO_CRM -> Value.FORWARD_TO_CRM
+                GMAIL_INTEGRATION -> Value.GMAIL_INTEGRATION
+                GOALS -> Value.GOALS
+                HEISENBERG -> Value.HEISENBERG
+                HELP_DESK -> Value.HELP_DESK
+                HELP_DESK_AI -> Value.HELP_DESK_AI
+                IMPORT -> Value.IMPORT
+                INTEGRATION -> Value.INTEGRATION
+                INTEGRATIONS_PLATFORM -> Value.INTEGRATIONS_PLATFORM
+                INTEGRATIONS_SYNC -> Value.INTEGRATIONS_SYNC
+                INTENT -> Value.INTENT
+                INTERNAL_PROCESSING -> Value.INTERNAL_PROCESSING
+                LEADIN -> Value.LEADIN
+                LEGAL_BASIS_REMEDIATION -> Value.LEGAL_BASIS_REMEDIATION
+                MARKET_SOURCING -> Value.MARKET_SOURCING
+                MARKETPLACE -> Value.MARKETPLACE
+                MEETINGS -> Value.MEETINGS
+                MERGE_COMPANIES -> Value.MERGE_COMPANIES
+                MERGE_CONTACTS -> Value.MERGE_CONTACTS
+                MERGE_OBJECTS -> Value.MERGE_OBJECTS
+                MICROAPPS -> Value.MICROAPPS
+                MIGRATION -> Value.MIGRATION
+                MOBILE_ANDROID -> Value.MOBILE_ANDROID
+                MOBILE_IOS -> Value.MOBILE_IOS
+                PAYMENTS -> Value.PAYMENTS
+                PIPELINE_SETTINGS -> Value.PIPELINE_SETTINGS
+                PLAYBOOKS -> Value.PLAYBOOKS
+                PORTAL_OBJECT_SYNC -> Value.PORTAL_OBJECT_SYNC
+                PORTAL_USER_ASSOCIATOR -> Value.PORTAL_USER_ASSOCIATOR
+                PRESENTATIONS -> Value.PRESENTATIONS
+                PRIMARY_AUTOMATION -> Value.PRIMARY_AUTOMATION
+                PROPERTY_RESTORE -> Value.PROPERTY_RESTORE
+                PROPERTY_SETTINGS -> Value.PROPERTY_SETTINGS
+                PROSPECTING_AGENT -> Value.PROSPECTING_AGENT
+                QUOTAS -> Value.QUOTAS
+                QUOTES -> Value.QUOTES
+                RECYCLING_BIN -> Value.RECYCLING_BIN
                 RESTORE_OBJECTS -> Value.RESTORE_OBJECTS
+                SALES -> Value.SALES
+                SALES_MESSAGES -> Value.SALES_MESSAGES
+                SALESFORCE -> Value.SALESFORCE
+                SEQUENCES -> Value.SEQUENCES
+                SETTINGS -> Value.SETTINGS
+                SIDEKICK -> Value.SIDEKICK
+                SIGNALS -> Value.SIGNALS
+                SLACK_INTEGRATION -> Value.SLACK_INTEGRATION
+                SOCIAL -> Value.SOCIAL
+                SUCCESS -> Value.SUCCESS
+                TALLY -> Value.TALLY
+                TASK -> Value.TASK
+                UNKNOWN -> Value.UNKNOWN
+                WAL_INCREMENTAL -> Value.WAL_INCREMENTAL
+                WORKFLOW_CONTACT_DELETE_ACTION -> Value.WORKFLOW_CONTACT_DELETE_ACTION
+                WORKFLOWS -> Value.WORKFLOWS
                 else -> Value._UNKNOWN
             }
 
@@ -1492,113 +1492,113 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                UNKNOWN -> Known.UNKNOWN
-                IMPORT -> Known.IMPORT
-                API -> Known.API
-                FORM -> Known.FORM
-                ANALYTICS -> Known.ANALYTICS
-                MIGRATION -> Known.MIGRATION
-                SALESFORCE -> Known.SALESFORCE
-                INTEGRATION -> Known.INTEGRATION
-                CONTACTS_WEB -> Known.CONTACTS_WEB
-                WAL_INCREMENTAL -> Known.WAL_INCREMENTAL
-                TASK -> Known.TASK
-                EMAIL -> Known.EMAIL
-                WORKFLOWS -> Known.WORKFLOWS
-                CALCULATED -> Known.CALCULATED
-                SOCIAL -> Known.SOCIAL
-                BATCH_UPDATE -> Known.BATCH_UPDATE
-                SIGNALS -> Known.SIGNALS
-                BIDEN -> Known.BIDEN
-                DEFAULT -> Known.DEFAULT
-                COMPANIES -> Known.COMPANIES
-                DEALS -> Known.DEALS
-                ASSISTS -> Known.ASSISTS
-                PRESENTATIONS -> Known.PRESENTATIONS
-                TALLY -> Known.TALLY
-                SIDEKICK -> Known.SIDEKICK
-                CRM_UI -> Known.CRM_UI
-                MERGE_CONTACTS -> Known.MERGE_CONTACTS
-                PORTAL_USER_ASSOCIATOR -> Known.PORTAL_USER_ASSOCIATOR
-                INTEGRATIONS_PLATFORM -> Known.INTEGRATIONS_PLATFORM
-                BCC_TO_CRM -> Known.BCC_TO_CRM
-                FORWARD_TO_CRM -> Known.FORWARD_TO_CRM
-                ENGAGEMENTS -> Known.ENGAGEMENTS
-                SALES -> Known.SALES
-                HEISENBERG -> Known.HEISENBERG
-                LEADIN -> Known.LEADIN
-                GMAIL_INTEGRATION -> Known.GMAIL_INTEGRATION
                 ACADEMY -> Known.ACADEMY
-                SALES_MESSAGES -> Known.SALES_MESSAGES
-                AVATARS_SERVICE -> Known.AVATARS_SERVICE
-                MERGE_COMPANIES -> Known.MERGE_COMPANIES
-                SEQUENCES -> Known.SEQUENCES
-                COMPANY_FAMILIES -> Known.COMPANY_FAMILIES
-                MOBILE_IOS -> Known.MOBILE_IOS
-                MOBILE_ANDROID -> Known.MOBILE_ANDROID
-                CONTACTS -> Known.CONTACTS
-                ASSOCIATIONS -> Known.ASSOCIATIONS
-                EXTENSION -> Known.EXTENSION
-                SUCCESS -> Known.SUCCESS
-                BOT -> Known.BOT
-                INTEGRATIONS_SYNC -> Known.INTEGRATIONS_SYNC
-                AUTOMATION_PLATFORM -> Known.AUTOMATION_PLATFORM
-                CONVERSATIONS -> Known.CONVERSATIONS
-                EMAIL_INTEGRATION -> Known.EMAIL_INTEGRATION
-                CONTENT_MEMBERSHIP -> Known.CONTENT_MEMBERSHIP
-                QUOTES -> Known.QUOTES
-                BET_ASSIGNMENT -> Known.BET_ASSIGNMENT
-                QUOTAS -> Known.QUOTAS
-                BET_CRM_CONNECTOR -> Known.BET_CRM_CONNECTOR
-                MEETINGS -> Known.MEETINGS
-                MERGE_OBJECTS -> Known.MERGE_OBJECTS
-                RECYCLING_BIN -> Known.RECYCLING_BIN
+                ACCEPTANCE_TEST -> Known.ACCEPTANCE_TEST
+                ACTIVITY_AUTO_ASSOCIATE -> Known.ACTIVITY_AUTO_ASSOCIATE
                 ADS -> Known.ADS
                 AI_GROUP -> Known.AI_GROUP
-                COMMUNICATOR -> Known.COMMUNICATOR
-                SETTINGS -> Known.SETTINGS
-                PROPERTY_SETTINGS -> Known.PROPERTY_SETTINGS
-                PIPELINE_SETTINGS -> Known.PIPELINE_SETTINGS
-                COMPANY_INSIGHTS -> Known.COMPANY_INSIGHTS
-                BEHAVIORAL_EVENTS -> Known.BEHAVIORAL_EVENTS
-                PAYMENTS -> Known.PAYMENTS
-                GOALS -> Known.GOALS
-                PORTAL_OBJECT_SYNC -> Known.PORTAL_OBJECT_SYNC
+                ANALYTICS -> Known.ANALYTICS
+                API -> Known.API
                 APPROVALS -> Known.APPROVALS
-                FILE_MANAGER -> Known.FILE_MANAGER
-                MARKETPLACE -> Known.MARKETPLACE
-                INTERNAL_PROCESSING -> Known.INTERNAL_PROCESSING
-                FORECASTING -> Known.FORECASTING
-                SLACK_INTEGRATION -> Known.SLACK_INTEGRATION
-                CRM_UI_BULK_ACTION -> Known.CRM_UI_BULK_ACTION
-                WORKFLOW_CONTACT_DELETE_ACTION -> Known.WORKFLOW_CONTACT_DELETE_ACTION
-                ACCEPTANCE_TEST -> Known.ACCEPTANCE_TEST
-                PLAYBOOKS -> Known.PLAYBOOKS
-                CHATSPOT -> Known.CHATSPOT
-                FLYWHEEL_PRODUCT_DATA_SYNC -> Known.FLYWHEEL_PRODUCT_DATA_SYNC
-                HELP_DESK -> Known.HELP_DESK
-                BILLING -> Known.BILLING
-                DATA_ENRICHMENT -> Known.DATA_ENRICHMENT
-                AUTOMATION_JOURNEY -> Known.AUTOMATION_JOURNEY
-                MICROAPPS -> Known.MICROAPPS
-                INTENT -> Known.INTENT
-                PROSPECTING_AGENT -> Known.PROSPECTING_AGENT
-                CENTRAL_EXCHANGE_RATES -> Known.CENTRAL_EXCHANGE_RATES
-                HELP_DESK_AI -> Known.HELP_DESK_AI
-                CONVERSATIONAL_ENRICHMENT -> Known.CONVERSATIONAL_ENRICHMENT
-                CRM_PROCESSES_PLATFORM -> Known.CRM_PROCESSES_PLATFORM
-                CLONE_OBJECTS -> Known.CLONE_OBJECTS
-                MARKET_SOURCING -> Known.MARKET_SOURCING
-                DATASET -> Known.DATASET
-                PROPERTY_RESTORE -> Known.PROPERTY_RESTORE
-                EMAIL_INBOX_IMPORT -> Known.EMAIL_INBOX_IMPORT
-                CUSTOMER_AGENT -> Known.CUSTOMER_AGENT
-                LEGAL_BASIS_REMEDIATION -> Known.LEGAL_BASIS_REMEDIATION
+                ASSISTS -> Known.ASSISTS
+                ASSOCIATIONS -> Known.ASSOCIATIONS
                 AUTO_ASSOCIATE_BY_DOMAIN -> Known.AUTO_ASSOCIATE_BY_DOMAIN
-                ACTIVITY_AUTO_ASSOCIATE -> Known.ACTIVITY_AUTO_ASSOCIATE
-                PRIMARY_AUTOMATION -> Known.PRIMARY_AUTOMATION
+                AUTOMATION_JOURNEY -> Known.AUTOMATION_JOURNEY
+                AUTOMATION_PLATFORM -> Known.AUTOMATION_PLATFORM
+                AVATARS_SERVICE -> Known.AVATARS_SERVICE
+                BATCH_UPDATE -> Known.BATCH_UPDATE
+                BCC_TO_CRM -> Known.BCC_TO_CRM
+                BEHAVIORAL_EVENTS -> Known.BEHAVIORAL_EVENTS
+                BET_ASSIGNMENT -> Known.BET_ASSIGNMENT
+                BET_CRM_CONNECTOR -> Known.BET_CRM_CONNECTOR
+                BIDEN -> Known.BIDEN
+                BILLING -> Known.BILLING
+                BOT -> Known.BOT
+                CALCULATED -> Known.CALCULATED
+                CENTRAL_EXCHANGE_RATES -> Known.CENTRAL_EXCHANGE_RATES
+                CHATSPOT -> Known.CHATSPOT
+                CLONE_OBJECTS -> Known.CLONE_OBJECTS
+                COMMUNICATOR -> Known.COMMUNICATOR
+                COMPANIES -> Known.COMPANIES
+                COMPANY_FAMILIES -> Known.COMPANY_FAMILIES
+                COMPANY_INSIGHTS -> Known.COMPANY_INSIGHTS
+                CONTACTS -> Known.CONTACTS
+                CONTACTS_WEB -> Known.CONTACTS_WEB
+                CONTENT_MEMBERSHIP -> Known.CONTENT_MEMBERSHIP
+                CONVERSATIONAL_ENRICHMENT -> Known.CONVERSATIONAL_ENRICHMENT
+                CONVERSATIONS -> Known.CONVERSATIONS
+                CRM_PROCESSES_PLATFORM -> Known.CRM_PROCESSES_PLATFORM
+                CRM_UI -> Known.CRM_UI
+                CRM_UI_BULK_ACTION -> Known.CRM_UI_BULK_ACTION
+                CUSTOMER_AGENT -> Known.CUSTOMER_AGENT
+                DATA_ENRICHMENT -> Known.DATA_ENRICHMENT
+                DATASET -> Known.DATASET
+                DEALS -> Known.DEALS
+                DEFAULT -> Known.DEFAULT
                 DELETE_OBJECTS -> Known.DELETE_OBJECTS
+                EMAIL -> Known.EMAIL
+                EMAIL_INBOX_IMPORT -> Known.EMAIL_INBOX_IMPORT
+                EMAIL_INTEGRATION -> Known.EMAIL_INTEGRATION
+                ENGAGEMENTS -> Known.ENGAGEMENTS
+                EXTENSION -> Known.EXTENSION
+                FILE_MANAGER -> Known.FILE_MANAGER
+                FLYWHEEL_PRODUCT_DATA_SYNC -> Known.FLYWHEEL_PRODUCT_DATA_SYNC
+                FORECASTING -> Known.FORECASTING
+                FORM -> Known.FORM
+                FORWARD_TO_CRM -> Known.FORWARD_TO_CRM
+                GMAIL_INTEGRATION -> Known.GMAIL_INTEGRATION
+                GOALS -> Known.GOALS
+                HEISENBERG -> Known.HEISENBERG
+                HELP_DESK -> Known.HELP_DESK
+                HELP_DESK_AI -> Known.HELP_DESK_AI
+                IMPORT -> Known.IMPORT
+                INTEGRATION -> Known.INTEGRATION
+                INTEGRATIONS_PLATFORM -> Known.INTEGRATIONS_PLATFORM
+                INTEGRATIONS_SYNC -> Known.INTEGRATIONS_SYNC
+                INTENT -> Known.INTENT
+                INTERNAL_PROCESSING -> Known.INTERNAL_PROCESSING
+                LEADIN -> Known.LEADIN
+                LEGAL_BASIS_REMEDIATION -> Known.LEGAL_BASIS_REMEDIATION
+                MARKET_SOURCING -> Known.MARKET_SOURCING
+                MARKETPLACE -> Known.MARKETPLACE
+                MEETINGS -> Known.MEETINGS
+                MERGE_COMPANIES -> Known.MERGE_COMPANIES
+                MERGE_CONTACTS -> Known.MERGE_CONTACTS
+                MERGE_OBJECTS -> Known.MERGE_OBJECTS
+                MICROAPPS -> Known.MICROAPPS
+                MIGRATION -> Known.MIGRATION
+                MOBILE_ANDROID -> Known.MOBILE_ANDROID
+                MOBILE_IOS -> Known.MOBILE_IOS
+                PAYMENTS -> Known.PAYMENTS
+                PIPELINE_SETTINGS -> Known.PIPELINE_SETTINGS
+                PLAYBOOKS -> Known.PLAYBOOKS
+                PORTAL_OBJECT_SYNC -> Known.PORTAL_OBJECT_SYNC
+                PORTAL_USER_ASSOCIATOR -> Known.PORTAL_USER_ASSOCIATOR
+                PRESENTATIONS -> Known.PRESENTATIONS
+                PRIMARY_AUTOMATION -> Known.PRIMARY_AUTOMATION
+                PROPERTY_RESTORE -> Known.PROPERTY_RESTORE
+                PROPERTY_SETTINGS -> Known.PROPERTY_SETTINGS
+                PROSPECTING_AGENT -> Known.PROSPECTING_AGENT
+                QUOTAS -> Known.QUOTAS
+                QUOTES -> Known.QUOTES
+                RECYCLING_BIN -> Known.RECYCLING_BIN
                 RESTORE_OBJECTS -> Known.RESTORE_OBJECTS
+                SALES -> Known.SALES
+                SALES_MESSAGES -> Known.SALES_MESSAGES
+                SALESFORCE -> Known.SALESFORCE
+                SEQUENCES -> Known.SEQUENCES
+                SETTINGS -> Known.SETTINGS
+                SIDEKICK -> Known.SIDEKICK
+                SIGNALS -> Known.SIGNALS
+                SLACK_INTEGRATION -> Known.SLACK_INTEGRATION
+                SOCIAL -> Known.SOCIAL
+                SUCCESS -> Known.SUCCESS
+                TALLY -> Known.TALLY
+                TASK -> Known.TASK
+                UNKNOWN -> Known.UNKNOWN
+                WAL_INCREMENTAL -> Known.WAL_INCREMENTAL
+                WORKFLOW_CONTACT_DELETE_ACTION -> Known.WORKFLOW_CONTACT_DELETE_ACTION
+                WORKFLOWS -> Known.WORKFLOWS
                 else -> throw HubspotInvalidDataException("Unknown HsEngagementSource: $value")
             }
 
@@ -1670,20 +1670,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val PHONE = of("PHONE")
-
             @JvmField val ADDRESS = of("ADDRESS")
 
             @JvmField val CUSTOM = of("CUSTOM")
+
+            @JvmField val PHONE = of("PHONE")
 
             @JvmStatic fun of(value: String) = HsMeetingLocationType(JsonField.of(value))
         }
 
         /** An enum containing [HsMeetingLocationType]'s known values. */
         enum class Known {
-            PHONE,
             ADDRESS,
             CUSTOM,
+            PHONE,
         }
 
         /**
@@ -1697,9 +1697,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PHONE,
             ADDRESS,
             CUSTOM,
+            PHONE,
             /**
              * An enum member indicating that [HsMeetingLocationType] was instantiated with an
              * unknown value.
@@ -1716,9 +1716,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PHONE -> Value.PHONE
                 ADDRESS -> Value.ADDRESS
                 CUSTOM -> Value.CUSTOM
+                PHONE -> Value.PHONE
                 else -> Value._UNKNOWN
             }
 
@@ -1733,9 +1733,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PHONE -> Known.PHONE
                 ADDRESS -> Known.ADDRESS
                 CUSTOM -> Known.CUSTOM
+                PHONE -> Known.PHONE
                 else -> throw HubspotInvalidDataException("Unknown HsMeetingLocationType: $value")
             }
 

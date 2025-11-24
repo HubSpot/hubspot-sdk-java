@@ -29,7 +29,7 @@ internal class BatchResponseExchangeRateTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseExchangeRate.Status.PENDING)
+                .status(BatchResponseExchangeRate.Status.CANCELED)
                 .links(
                     BatchResponseExchangeRate.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -56,7 +56,7 @@ internal class BatchResponseExchangeRateTest {
         assertThat(batchResponseExchangeRate.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseExchangeRate.status())
-            .isEqualTo(BatchResponseExchangeRate.Status.PENDING)
+            .isEqualTo(BatchResponseExchangeRate.Status.CANCELED)
         assertThat(batchResponseExchangeRate.links())
             .contains(
                 BatchResponseExchangeRate.Links.builder()
@@ -86,7 +86,7 @@ internal class BatchResponseExchangeRateTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseExchangeRate.Status.PENDING)
+                .status(BatchResponseExchangeRate.Status.CANCELED)
                 .links(
                     BatchResponseExchangeRate.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

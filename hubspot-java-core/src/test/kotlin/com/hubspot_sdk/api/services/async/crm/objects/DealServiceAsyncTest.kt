@@ -189,7 +189,7 @@ internal class DealServiceAsyncTest {
                         FilterGroup.builder()
                             .addFilter(
                                 Filter.builder()
-                                    .operator(Filter.Operator.EQ)
+                                    .operator(Filter.Operator.BETWEEN)
                                     .propertyName("propertyName")
                                     .highValue("highValue")
                                     .value("value")

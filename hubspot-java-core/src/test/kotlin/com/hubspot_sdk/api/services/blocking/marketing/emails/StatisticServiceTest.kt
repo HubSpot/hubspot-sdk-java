@@ -51,7 +51,7 @@ internal class StatisticServiceTest {
                 StatisticGetHistogramParams.builder()
                     .addEmailId(0L)
                     .endTimestamp("endTimestamp")
-                    .interval(StatisticGetHistogramParams.Interval.YEAR)
+                    .interval(StatisticGetHistogramParams.Interval.DAY)
                     .startTimestamp("startTimestamp")
                     .build()
             )

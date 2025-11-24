@@ -14,15 +14,15 @@ internal class FlagResponseTest {
         val flagResponse =
             FlagResponse.builder()
                 .appId(0)
-                .defaultState(FlagResponse.DefaultState.OFF)
+                .defaultState(FlagResponse.DefaultState.ABSENT)
                 .flagName("flagName")
-                .overrideState(FlagResponse.OverrideState.OFF)
+                .overrideState(FlagResponse.OverrideState.ABSENT)
                 .build()
 
         assertThat(flagResponse.appId()).isEqualTo(0)
-        assertThat(flagResponse.defaultState()).isEqualTo(FlagResponse.DefaultState.OFF)
+        assertThat(flagResponse.defaultState()).isEqualTo(FlagResponse.DefaultState.ABSENT)
         assertThat(flagResponse.flagName()).isEqualTo("flagName")
-        assertThat(flagResponse.overrideState()).contains(FlagResponse.OverrideState.OFF)
+        assertThat(flagResponse.overrideState()).contains(FlagResponse.OverrideState.ABSENT)
     }
 
     @Test
@@ -31,9 +31,9 @@ internal class FlagResponseTest {
         val flagResponse =
             FlagResponse.builder()
                 .appId(0)
-                .defaultState(FlagResponse.DefaultState.OFF)
+                .defaultState(FlagResponse.DefaultState.ABSENT)
                 .flagName("flagName")
-                .overrideState(FlagResponse.OverrideState.OFF)
+                .overrideState(FlagResponse.OverrideState.ABSENT)
                 .build()
 
         val roundtrippedFlagResponse =

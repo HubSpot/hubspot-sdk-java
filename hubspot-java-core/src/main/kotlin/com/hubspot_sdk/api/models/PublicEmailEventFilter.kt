@@ -584,6 +584,8 @@ private constructor(
 
         companion object {
 
+            @JvmField val BOUNCED = of("BOUNCED")
+
             @JvmField val LINK_CLICKED = of("LINK_CLICKED")
 
             @JvmField val MARKED_SPAM = of("MARKED_SPAM")
@@ -594,15 +596,11 @@ private constructor(
 
             @JvmField val OPENED_BUT_NOT_REPLIED = of("OPENED_BUT_NOT_REPLIED")
 
-            @JvmField val REPLIED = of("REPLIED")
-
-            @JvmField val UNSUBSCRIBED = of("UNSUBSCRIBED")
-
-            @JvmField val BOUNCED = of("BOUNCED")
-
             @JvmField val RECEIVED = of("RECEIVED")
 
             @JvmField val RECEIVED_BUT_NOT_OPENED = of("RECEIVED_BUT_NOT_OPENED")
+
+            @JvmField val REPLIED = of("REPLIED")
 
             @JvmField val SENT = of("SENT")
 
@@ -610,24 +608,26 @@ private constructor(
 
             @JvmField val SENT_BUT_NOT_RECEIVED = of("SENT_BUT_NOT_RECEIVED")
 
+            @JvmField val UNSUBSCRIBED = of("UNSUBSCRIBED")
+
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
+            BOUNCED,
             LINK_CLICKED,
             MARKED_SPAM,
             OPENED,
             OPENED_BUT_LINK_NOT_CLICKED,
             OPENED_BUT_NOT_REPLIED,
-            REPLIED,
-            UNSUBSCRIBED,
-            BOUNCED,
             RECEIVED,
             RECEIVED_BUT_NOT_OPENED,
+            REPLIED,
             SENT,
             SENT_BUT_LINK_NOT_CLICKED,
             SENT_BUT_NOT_RECEIVED,
+            UNSUBSCRIBED,
         }
 
         /**
@@ -640,19 +640,19 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            BOUNCED,
             LINK_CLICKED,
             MARKED_SPAM,
             OPENED,
             OPENED_BUT_LINK_NOT_CLICKED,
             OPENED_BUT_NOT_REPLIED,
-            REPLIED,
-            UNSUBSCRIBED,
-            BOUNCED,
             RECEIVED,
             RECEIVED_BUT_NOT_OPENED,
+            REPLIED,
             SENT,
             SENT_BUT_LINK_NOT_CLICKED,
             SENT_BUT_NOT_RECEIVED,
+            UNSUBSCRIBED,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -666,19 +666,19 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                BOUNCED -> Value.BOUNCED
                 LINK_CLICKED -> Value.LINK_CLICKED
                 MARKED_SPAM -> Value.MARKED_SPAM
                 OPENED -> Value.OPENED
                 OPENED_BUT_LINK_NOT_CLICKED -> Value.OPENED_BUT_LINK_NOT_CLICKED
                 OPENED_BUT_NOT_REPLIED -> Value.OPENED_BUT_NOT_REPLIED
-                REPLIED -> Value.REPLIED
-                UNSUBSCRIBED -> Value.UNSUBSCRIBED
-                BOUNCED -> Value.BOUNCED
                 RECEIVED -> Value.RECEIVED
                 RECEIVED_BUT_NOT_OPENED -> Value.RECEIVED_BUT_NOT_OPENED
+                REPLIED -> Value.REPLIED
                 SENT -> Value.SENT
                 SENT_BUT_LINK_NOT_CLICKED -> Value.SENT_BUT_LINK_NOT_CLICKED
                 SENT_BUT_NOT_RECEIVED -> Value.SENT_BUT_NOT_RECEIVED
+                UNSUBSCRIBED -> Value.UNSUBSCRIBED
                 else -> Value._UNKNOWN
             }
 
@@ -693,19 +693,19 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                BOUNCED -> Known.BOUNCED
                 LINK_CLICKED -> Known.LINK_CLICKED
                 MARKED_SPAM -> Known.MARKED_SPAM
                 OPENED -> Known.OPENED
                 OPENED_BUT_LINK_NOT_CLICKED -> Known.OPENED_BUT_LINK_NOT_CLICKED
                 OPENED_BUT_NOT_REPLIED -> Known.OPENED_BUT_NOT_REPLIED
-                REPLIED -> Known.REPLIED
-                UNSUBSCRIBED -> Known.UNSUBSCRIBED
-                BOUNCED -> Known.BOUNCED
                 RECEIVED -> Known.RECEIVED
                 RECEIVED_BUT_NOT_OPENED -> Known.RECEIVED_BUT_NOT_OPENED
+                REPLIED -> Known.REPLIED
                 SENT -> Known.SENT
                 SENT_BUT_LINK_NOT_CLICKED -> Known.SENT_BUT_LINK_NOT_CLICKED
                 SENT_BUT_NOT_RECEIVED -> Known.SENT_BUT_NOT_RECEIVED
+                UNSUBSCRIBED -> Known.UNSUBSCRIBED
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

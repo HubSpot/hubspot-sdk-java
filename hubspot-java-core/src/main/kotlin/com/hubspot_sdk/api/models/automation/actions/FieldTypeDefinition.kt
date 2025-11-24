@@ -546,41 +546,41 @@ private constructor(
 
         companion object {
 
-            @JvmField val STRING = of("string")
-
-            @JvmField val NUMBER = of("number")
-
             @JvmField val BOOL = of("bool")
+
+            @JvmField val CURRENCY_NUMBER = of("currency_number")
+
+            @JvmField val DATE = of("date")
 
             @JvmField val DATETIME = of("datetime")
 
             @JvmField val ENUMERATION = of("enumeration")
 
-            @JvmField val DATE = of("date")
+            @JvmField val JSON = of("json")
+
+            @JvmField val NUMBER = of("number")
+
+            @JvmField val OBJECT_COORDINATES = of("object_coordinates")
 
             @JvmField val PHONE_NUMBER = of("phone_number")
 
-            @JvmField val CURRENCY_NUMBER = of("currency_number")
-
-            @JvmField val JSON = of("json")
-
-            @JvmField val OBJECT_COORDINATES = of("object_coordinates")
+            @JvmField val STRING = of("string")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            STRING,
-            NUMBER,
             BOOL,
+            CURRENCY_NUMBER,
+            DATE,
             DATETIME,
             ENUMERATION,
-            DATE,
-            PHONE_NUMBER,
-            CURRENCY_NUMBER,
             JSON,
+            NUMBER,
             OBJECT_COORDINATES,
+            PHONE_NUMBER,
+            STRING,
         }
 
         /**
@@ -593,16 +593,16 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            STRING,
-            NUMBER,
             BOOL,
+            CURRENCY_NUMBER,
+            DATE,
             DATETIME,
             ENUMERATION,
-            DATE,
-            PHONE_NUMBER,
-            CURRENCY_NUMBER,
             JSON,
+            NUMBER,
             OBJECT_COORDINATES,
+            PHONE_NUMBER,
+            STRING,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -616,16 +616,16 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                STRING -> Value.STRING
-                NUMBER -> Value.NUMBER
                 BOOL -> Value.BOOL
+                CURRENCY_NUMBER -> Value.CURRENCY_NUMBER
+                DATE -> Value.DATE
                 DATETIME -> Value.DATETIME
                 ENUMERATION -> Value.ENUMERATION
-                DATE -> Value.DATE
-                PHONE_NUMBER -> Value.PHONE_NUMBER
-                CURRENCY_NUMBER -> Value.CURRENCY_NUMBER
                 JSON -> Value.JSON
+                NUMBER -> Value.NUMBER
                 OBJECT_COORDINATES -> Value.OBJECT_COORDINATES
+                PHONE_NUMBER -> Value.PHONE_NUMBER
+                STRING -> Value.STRING
                 else -> Value._UNKNOWN
             }
 
@@ -640,16 +640,16 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                STRING -> Known.STRING
-                NUMBER -> Known.NUMBER
                 BOOL -> Known.BOOL
+                CURRENCY_NUMBER -> Known.CURRENCY_NUMBER
+                DATE -> Known.DATE
                 DATETIME -> Known.DATETIME
                 ENUMERATION -> Known.ENUMERATION
-                DATE -> Known.DATE
-                PHONE_NUMBER -> Known.PHONE_NUMBER
-                CURRENCY_NUMBER -> Known.CURRENCY_NUMBER
                 JSON -> Known.JSON
+                NUMBER -> Known.NUMBER
                 OBJECT_COORDINATES -> Known.OBJECT_COORDINATES
+                PHONE_NUMBER -> Known.PHONE_NUMBER
+                STRING -> Known.STRING
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }
 
@@ -721,11 +721,21 @@ private constructor(
 
             @JvmField val BOOLEANCHECKBOX = of("booleancheckbox")
 
+            @JvmField val CALCULATION_EQUATION = of("calculation_equation")
+
+            @JvmField val CALCULATION_READ_TIME = of("calculation_read_time")
+
+            @JvmField val CALCULATION_ROLLUP = of("calculation_rollup")
+
+            @JvmField val CALCULATION_SCORE = of("calculation_score")
+
             @JvmField val CHECKBOX = of("checkbox")
 
             @JvmField val DATE = of("date")
 
             @JvmField val FILE = of("file")
+
+            @JvmField val HTML = of("html")
 
             @JvmField val NUMBER = of("number")
 
@@ -739,17 +749,7 @@ private constructor(
 
             @JvmField val TEXTAREA = of("textarea")
 
-            @JvmField val CALCULATION_EQUATION = of("calculation_equation")
-
-            @JvmField val CALCULATION_ROLLUP = of("calculation_rollup")
-
-            @JvmField val CALCULATION_SCORE = of("calculation_score")
-
-            @JvmField val CALCULATION_READ_TIME = of("calculation_read_time")
-
             @JvmField val UNKNOWN = of("unknown")
-
-            @JvmField val HTML = of("html")
 
             @JvmStatic fun of(value: String) = FieldType(JsonField.of(value))
         }
@@ -757,21 +757,21 @@ private constructor(
         /** An enum containing [FieldType]'s known values. */
         enum class Known {
             BOOLEANCHECKBOX,
+            CALCULATION_EQUATION,
+            CALCULATION_READ_TIME,
+            CALCULATION_ROLLUP,
+            CALCULATION_SCORE,
             CHECKBOX,
             DATE,
             FILE,
+            HTML,
             NUMBER,
             PHONENUMBER,
             RADIO,
             SELECT,
             TEXT,
             TEXTAREA,
-            CALCULATION_EQUATION,
-            CALCULATION_ROLLUP,
-            CALCULATION_SCORE,
-            CALCULATION_READ_TIME,
             UNKNOWN,
-            HTML,
         }
 
         /**
@@ -785,21 +785,21 @@ private constructor(
          */
         enum class Value {
             BOOLEANCHECKBOX,
+            CALCULATION_EQUATION,
+            CALCULATION_READ_TIME,
+            CALCULATION_ROLLUP,
+            CALCULATION_SCORE,
             CHECKBOX,
             DATE,
             FILE,
+            HTML,
             NUMBER,
             PHONENUMBER,
             RADIO,
             SELECT,
             TEXT,
             TEXTAREA,
-            CALCULATION_EQUATION,
-            CALCULATION_ROLLUP,
-            CALCULATION_SCORE,
-            CALCULATION_READ_TIME,
             UNKNOWN,
-            HTML,
             /**
              * An enum member indicating that [FieldType] was instantiated with an unknown value.
              */
@@ -816,21 +816,21 @@ private constructor(
         fun value(): Value =
             when (this) {
                 BOOLEANCHECKBOX -> Value.BOOLEANCHECKBOX
+                CALCULATION_EQUATION -> Value.CALCULATION_EQUATION
+                CALCULATION_READ_TIME -> Value.CALCULATION_READ_TIME
+                CALCULATION_ROLLUP -> Value.CALCULATION_ROLLUP
+                CALCULATION_SCORE -> Value.CALCULATION_SCORE
                 CHECKBOX -> Value.CHECKBOX
                 DATE -> Value.DATE
                 FILE -> Value.FILE
+                HTML -> Value.HTML
                 NUMBER -> Value.NUMBER
                 PHONENUMBER -> Value.PHONENUMBER
                 RADIO -> Value.RADIO
                 SELECT -> Value.SELECT
                 TEXT -> Value.TEXT
                 TEXTAREA -> Value.TEXTAREA
-                CALCULATION_EQUATION -> Value.CALCULATION_EQUATION
-                CALCULATION_ROLLUP -> Value.CALCULATION_ROLLUP
-                CALCULATION_SCORE -> Value.CALCULATION_SCORE
-                CALCULATION_READ_TIME -> Value.CALCULATION_READ_TIME
                 UNKNOWN -> Value.UNKNOWN
-                HTML -> Value.HTML
                 else -> Value._UNKNOWN
             }
 
@@ -846,21 +846,21 @@ private constructor(
         fun known(): Known =
             when (this) {
                 BOOLEANCHECKBOX -> Known.BOOLEANCHECKBOX
+                CALCULATION_EQUATION -> Known.CALCULATION_EQUATION
+                CALCULATION_READ_TIME -> Known.CALCULATION_READ_TIME
+                CALCULATION_ROLLUP -> Known.CALCULATION_ROLLUP
+                CALCULATION_SCORE -> Known.CALCULATION_SCORE
                 CHECKBOX -> Known.CHECKBOX
                 DATE -> Known.DATE
                 FILE -> Known.FILE
+                HTML -> Known.HTML
                 NUMBER -> Known.NUMBER
                 PHONENUMBER -> Known.PHONENUMBER
                 RADIO -> Known.RADIO
                 SELECT -> Known.SELECT
                 TEXT -> Known.TEXT
                 TEXTAREA -> Known.TEXTAREA
-                CALCULATION_EQUATION -> Known.CALCULATION_EQUATION
-                CALCULATION_ROLLUP -> Known.CALCULATION_ROLLUP
-                CALCULATION_SCORE -> Known.CALCULATION_SCORE
-                CALCULATION_READ_TIME -> Known.CALCULATION_READ_TIME
                 UNKNOWN -> Known.UNKNOWN
-                HTML -> Known.HTML
                 else -> throw HubspotInvalidDataException("Unknown FieldType: $value")
             }
 
@@ -932,61 +932,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val CONTACT = of("CONTACT")
+            @JvmField val ABANDONED_CART = of("ABANDONED_CART")
 
-            @JvmField val COMPANY = of("COMPANY")
+            @JvmField val ACCEPTANCE_TEST = of("ACCEPTANCE_TEST")
 
-            @JvmField val DEAL = of("DEAL")
-
-            @JvmField val ENGAGEMENT = of("ENGAGEMENT")
-
-            @JvmField val TICKET = of("TICKET")
-
-            @JvmField val OWNER = of("OWNER")
-
-            @JvmField val PRODUCT = of("PRODUCT")
-
-            @JvmField val LINE_ITEM = of("LINE_ITEM")
-
-            @JvmField val BET_DELIVERABLE_SERVICE = of("BET_DELIVERABLE_SERVICE")
-
-            @JvmField val CONTENT = of("CONTENT")
-
-            @JvmField val CONVERSATION = of("CONVERSATION")
-
-            @JvmField val BET_ALERT = of("BET_ALERT")
-
-            @JvmField val PORTAL = of("PORTAL")
-
-            @JvmField val QUOTE = of("QUOTE")
-
-            @JvmField val FORM_SUBMISSION_INBOUNDDB = of("FORM_SUBMISSION_INBOUNDDB")
-
-            @JvmField val QUOTA = of("QUOTA")
-
-            @JvmField val UNSUBSCRIBE = of("UNSUBSCRIBE")
-
-            @JvmField val COMMUNICATION = of("COMMUNICATION")
-
-            @JvmField val FEEDBACK_SUBMISSION = of("FEEDBACK_SUBMISSION")
-
-            @JvmField val ATTRIBUTION = of("ATTRIBUTION")
-
-            @JvmField val SALESFORCE_SYNC_ERROR = of("SALESFORCE_SYNC_ERROR")
-
-            @JvmField val RESTORABLE_CRM_OBJECT = of("RESTORABLE_CRM_OBJECT")
-
-            @JvmField val HUB = of("HUB")
-
-            @JvmField val LANDING_PAGE = of("LANDING_PAGE")
-
-            @JvmField val PRODUCT_OR_FOLDER = of("PRODUCT_OR_FOLDER")
-
-            @JvmField val TASK = of("TASK")
-
-            @JvmField val FORM = of("FORM")
-
-            @JvmField val MARKETING_EMAIL = of("MARKETING_EMAIL")
+            @JvmField val AD = of("AD")
 
             @JvmField val AD_ACCOUNT = of("AD_ACCOUNT")
 
@@ -994,127 +944,191 @@ private constructor(
 
             @JvmField val AD_GROUP = of("AD_GROUP")
 
-            @JvmField val AD = of("AD")
+            @JvmField val AI_FORECAST = of("AI_FORECAST")
 
-            @JvmField val KEYWORD = of("KEYWORD")
-
-            @JvmField val CAMPAIGN = of("CAMPAIGN")
-
-            @JvmField val SOCIAL_CHANNEL = of("SOCIAL_CHANNEL")
-
-            @JvmField val SOCIAL_POST = of("SOCIAL_POST")
-
-            @JvmField val SITE_PAGE = of("SITE_PAGE")
-
-            @JvmField val BLOG_POST = of("BLOG_POST")
-
-            @JvmField val IMPORT = of("IMPORT")
-
-            @JvmField val EXPORT = of("EXPORT")
-
-            @JvmField val CTA = of("CTA")
-
-            @JvmField val TASK_TEMPLATE = of("TASK_TEMPLATE")
-
-            @JvmField val AUTOMATION_PLATFORM_FLOW = of("AUTOMATION_PLATFORM_FLOW")
-
-            @JvmField val OBJECT_LIST = of("OBJECT_LIST")
-
-            @JvmField val NOTE = of("NOTE")
-
-            @JvmField val MEETING_EVENT = of("MEETING_EVENT")
-
-            @JvmField val CALL = of("CALL")
-
-            @JvmField val EMAIL = of("EMAIL")
-
-            @JvmField val PUBLISHING_TASK = of("PUBLISHING_TASK")
-
-            @JvmField val CONVERSATION_SESSION = of("CONVERSATION_SESSION")
-
-            @JvmField val CONTACT_CREATE_ATTRIBUTION = of("CONTACT_CREATE_ATTRIBUTION")
-
-            @JvmField val INVOICE = of("INVOICE")
-
-            @JvmField val MARKETING_EVENT = of("MARKETING_EVENT")
-
-            @JvmField val CONVERSATION_INBOX = of("CONVERSATION_INBOX")
-
-            @JvmField val CHATFLOW = of("CHATFLOW")
-
-            @JvmField val MEDIA_BRIDGE = of("MEDIA_BRIDGE")
-
-            @JvmField val SEQUENCE = of("SEQUENCE")
-
-            @JvmField val SEQUENCE_STEP = of("SEQUENCE_STEP")
-
-            @JvmField val FORECAST = of("FORECAST")
-
-            @JvmField val SNIPPET = of("SNIPPET")
-
-            @JvmField val TEMPLATE = of("TEMPLATE")
-
-            @JvmField val DEAL_CREATE_ATTRIBUTION = of("DEAL_CREATE_ATTRIBUTION")
-
-            @JvmField val QUOTE_TEMPLATE = of("QUOTE_TEMPLATE")
-
-            @JvmField val QUOTE_MODULE = of("QUOTE_MODULE")
-
-            @JvmField val QUOTE_MODULE_FIELD = of("QUOTE_MODULE_FIELD")
-
-            @JvmField val QUOTE_FIELD = of("QUOTE_FIELD")
-
-            @JvmField val SEQUENCE_ENROLLMENT = of("SEQUENCE_ENROLLMENT")
-
-            @JvmField val SUBSCRIPTION = of("SUBSCRIPTION")
-
-            @JvmField val ACCEPTANCE_TEST = of("ACCEPTANCE_TEST")
-
-            @JvmField val SOCIAL_BROADCAST = of("SOCIAL_BROADCAST")
-
-            @JvmField val DEAL_SPLIT = of("DEAL_SPLIT")
-
-            @JvmField val DEAL_REGISTRATION = of("DEAL_REGISTRATION")
-
-            @JvmField val GOAL_TARGET = of("GOAL_TARGET")
-
-            @JvmField val GOAL_TARGET_GROUP = of("GOAL_TARGET_GROUP")
-
-            @JvmField val PORTAL_OBJECT_SYNC_MESSAGE = of("PORTAL_OBJECT_SYNC_MESSAGE")
-
-            @JvmField val FILE_MANAGER_FILE = of("FILE_MANAGER_FILE")
-
-            @JvmField val FILE_MANAGER_FOLDER = of("FILE_MANAGER_FOLDER")
-
-            @JvmField val SEQUENCE_STEP_ENROLLMENT = of("SEQUENCE_STEP_ENROLLMENT")
+            @JvmField val ALL_PAGES = of("ALL_PAGES")
 
             @JvmField val APPROVAL = of("APPROVAL")
 
             @JvmField val APPROVAL_STEP = of("APPROVAL_STEP")
 
+            @JvmField val ATTRIBUTION = of("ATTRIBUTION")
+
+            @JvmField val AUDIENCE = of("AUDIENCE")
+
+            @JvmField val AUTOMATION_JOURNEY = of("AUTOMATION_JOURNEY")
+
+            @JvmField val AUTOMATION_PLATFORM_FLOW = of("AUTOMATION_PLATFORM_FLOW")
+
+            @JvmField val AUTOMATION_PLATFORM_FLOW_ACTION = of("AUTOMATION_PLATFORM_FLOW_ACTION")
+
+            @JvmField val BET_ALERT = of("BET_ALERT")
+
+            @JvmField val BET_DELIVERABLE_SERVICE = of("BET_DELIVERABLE_SERVICE")
+
+            @JvmField val BLOG_LISTING_PAGE = of("BLOG_LISTING_PAGE")
+
+            @JvmField val BLOG_POST = of("BLOG_POST")
+
+            @JvmField val CALL = of("CALL")
+
+            @JvmField val CAMPAIGN = of("CAMPAIGN")
+
+            @JvmField val CAMPAIGN_BUDGET_ITEM = of("CAMPAIGN_BUDGET_ITEM")
+
+            @JvmField val CAMPAIGN_SPEND_ITEM = of("CAMPAIGN_SPEND_ITEM")
+
+            @JvmField val CAMPAIGN_STEP = of("CAMPAIGN_STEP")
+
+            @JvmField val CAMPAIGN_TEMPLATE = of("CAMPAIGN_TEMPLATE")
+
+            @JvmField val CAMPAIGN_TEMPLATE_STEP = of("CAMPAIGN_TEMPLATE_STEP")
+
+            @JvmField val CART = of("CART")
+
+            @JvmField val CHATFLOW = of("CHATFLOW")
+
+            @JvmField val CLIP = of("CLIP")
+
+            @JvmField val CMS_URL = of("CMS_URL")
+
+            @JvmField val COMMERCE_PAYMENT = of("COMMERCE_PAYMENT")
+
+            @JvmField val COMMUNICATION = of("COMMUNICATION")
+
+            @JvmField val COMPANY = of("COMPANY")
+
+            @JvmField val CONTACT = of("CONTACT")
+
+            @JvmField val CONTACT_CREATE_ATTRIBUTION = of("CONTACT_CREATE_ATTRIBUTION")
+
+            @JvmField val CONTENT = of("CONTENT")
+
+            @JvmField val CONTENT_AUDIT = of("CONTENT_AUDIT")
+
+            @JvmField val CONTENT_AUDIT_PAGE = of("CONTENT_AUDIT_PAGE")
+
+            @JvmField val CONVERSATION = of("CONVERSATION")
+
+            @JvmField val CONVERSATION_INBOX = of("CONVERSATION_INBOX")
+
+            @JvmField val CONVERSATION_SESSION = of("CONVERSATION_SESSION")
+
+            @JvmField val CRM_PIPELINES_DUMMY_TYPE = of("CRM_PIPELINES_DUMMY_TYPE")
+
+            @JvmField val CTA = of("CTA")
+
             @JvmField val CTA_VARIANT = of("CTA_VARIANT")
 
-            @JvmField val SALES_DOCUMENT = of("SALES_DOCUMENT")
-
-            @JvmField val DISCOUNT = of("DISCOUNT")
-
-            @JvmField val FEE = of("FEE")
-
-            @JvmField val TAX = of("TAX")
-
-            @JvmField val MARKETING_CALENDAR = of("MARKETING_CALENDAR")
-
-            @JvmField val PERMISSIONS_TESTING = of("PERMISSIONS_TESTING")
-
-            @JvmField val PRIVACY_SCANNER_COOKIE = of("PRIVACY_SCANNER_COOKIE")
+            @JvmField val DATA_PRIVACY_CONSENT = of("DATA_PRIVACY_CONSENT")
 
             @JvmField val DATA_SYNC_STATE = of("DATA_SYNC_STATE")
 
-            @JvmField val WEB_INTERACTIVE = of("WEB_INTERACTIVE")
+            @JvmField val DEAL = of("DEAL")
 
-            @JvmField val PLAYBOOK = of("PLAYBOOK")
+            @JvmField val DEAL_CREATE_ATTRIBUTION = of("DEAL_CREATE_ATTRIBUTION")
+
+            @JvmField val DEAL_REGISTRATION = of("DEAL_REGISTRATION")
+
+            @JvmField val DEAL_SPLIT = of("DEAL_SPLIT")
+
+            @JvmField val DISCOUNT = of("DISCOUNT")
+
+            @JvmField val DISCOUNT_CODE = of("DISCOUNT_CODE")
+
+            @JvmField val DISCOUNT_TEMPLATE = of("DISCOUNT_TEMPLATE")
+
+            @JvmField val EMAIL = of("EMAIL")
+
+            @JvmField val ENGAGEMENT = of("ENGAGEMENT")
+
+            @JvmField val EXPORT = of("EXPORT")
+
+            @JvmField val EXTERNAL_WEB_URL = of("EXTERNAL_WEB_URL")
+
+            @JvmField val FEE = of("FEE")
+
+            @JvmField val FEEDBACK_SUBMISSION = of("FEEDBACK_SUBMISSION")
+
+            @JvmField val FEEDBACK_SURVEY = of("FEEDBACK_SURVEY")
+
+            @JvmField val FILE_MANAGER_FILE = of("FILE_MANAGER_FILE")
+
+            @JvmField val FILE_MANAGER_FOLDER = of("FILE_MANAGER_FOLDER")
 
             @JvmField val FOLDER = of("FOLDER")
+
+            @JvmField val FORECAST = of("FORECAST")
+
+            @JvmField val FORM = of("FORM")
+
+            @JvmField val FORM_SUBMISSION_INBOUNDDB = of("FORM_SUBMISSION_INBOUNDDB")
+
+            @JvmField val GOAL_TARGET = of("GOAL_TARGET")
+
+            @JvmField val GOAL_TARGET_GROUP = of("GOAL_TARGET_GROUP")
+
+            @JvmField val GOAL_TEMPLATE = of("GOAL_TEMPLATE")
+
+            @JvmField val GSC_PROPERTY = of("GSC_PROPERTY")
+
+            @JvmField val HUB = of("HUB")
+
+            @JvmField val IMPORT = of("IMPORT")
+
+            @JvmField val INVOICE = of("INVOICE")
+
+            @JvmField val KEYWORD = of("KEYWORD")
+
+            @JvmField val KNOWLEDGE_ARTICLE = of("KNOWLEDGE_ARTICLE")
+
+            @JvmField val LANDING_PAGE = of("LANDING_PAGE")
+
+            @JvmField val LEAD = of("LEAD")
+
+            @JvmField val LINE_ITEM = of("LINE_ITEM")
+
+            @JvmField val MARKETING_CALENDAR = of("MARKETING_CALENDAR")
+
+            @JvmField val MARKETING_CAMPAIGN_UTM = of("MARKETING_CAMPAIGN_UTM")
+
+            @JvmField val MARKETING_EMAIL = of("MARKETING_EMAIL")
+
+            @JvmField val MARKETING_EVENT = of("MARKETING_EVENT")
+
+            @JvmField val MARKETING_EVENT_ATTENDANCE = of("MARKETING_EVENT_ATTENDANCE")
+
+            @JvmField val MARKETING_SMS = of("MARKETING_SMS")
+
+            @JvmField val MEDIA_BRIDGE = of("MEDIA_BRIDGE")
+
+            @JvmField val MEETING_EVENT = of("MEETING_EVENT")
+
+            @JvmField val MIC = of("MIC")
+
+            @JvmField val NOTE = of("NOTE")
+
+            @JvmField val OBJECT_LIST = of("OBJECT_LIST")
+
+            @JvmField val ORDER = of("ORDER")
+
+            @JvmField val OWNER = of("OWNER")
+
+            @JvmField val PARTNER_ACCOUNT = of("PARTNER_ACCOUNT")
+
+            @JvmField val PARTNER_CLIENT = of("PARTNER_CLIENT")
+
+            @JvmField val PARTNER_CLIENT_REVENUE = of("PARTNER_CLIENT_REVENUE")
+
+            @JvmField val PAYMENT_LINK = of("PAYMENT_LINK")
+
+            @JvmField val PAYMENT_SCHEDULE = of("PAYMENT_SCHEDULE")
+
+            @JvmField val PAYMENT_SCHEDULE_INSTALLMENT = of("PAYMENT_SCHEDULE_INSTALLMENT")
+
+            @JvmField val PERMISSIONS_TESTING = of("PERMISSIONS_TESTING")
+
+            @JvmField val PLAYBOOK = of("PLAYBOOK")
 
             @JvmField val PLAYBOOK_QUESTION = of("PLAYBOOK_QUESTION")
 
@@ -1122,283 +1136,269 @@ private constructor(
 
             @JvmField val PLAYBOOK_SUBMISSION_ANSWER = of("PLAYBOOK_SUBMISSION_ANSWER")
 
-            @JvmField val COMMERCE_PAYMENT = of("COMMERCE_PAYMENT")
+            @JvmField val PLAYLIST = of("PLAYLIST")
 
-            @JvmField val GSC_PROPERTY = of("GSC_PROPERTY")
+            @JvmField val PLAYLIST_FOLDER = of("PLAYLIST_FOLDER")
 
-            @JvmField val SOX_PROTECTED_DUMMY_TYPE = of("SOX_PROTECTED_DUMMY_TYPE")
+            @JvmField val PORTAL = of("PORTAL")
 
-            @JvmField val BLOG_LISTING_PAGE = of("BLOG_LISTING_PAGE")
+            @JvmField val PORTAL_OBJECT_SYNC_MESSAGE = of("PORTAL_OBJECT_SYNC_MESSAGE")
+
+            @JvmField val POSTAL_MAIL = of("POSTAL_MAIL")
+
+            @JvmField val PRIVACY_SCANNER_COOKIE = of("PRIVACY_SCANNER_COOKIE")
+
+            @JvmField val PRODUCT = of("PRODUCT")
+
+            @JvmField val PRODUCT_OR_FOLDER = of("PRODUCT_OR_FOLDER")
+
+            @JvmField val PROPERTY_INFO = of("PROPERTY_INFO")
+
+            @JvmField val PUBLISHING_TASK = of("PUBLISHING_TASK")
 
             @JvmField val QUARANTINED_SUBMISSION = of("QUARANTINED_SUBMISSION")
 
-            @JvmField val PAYMENT_SCHEDULE = of("PAYMENT_SCHEDULE")
+            @JvmField val QUOTA = of("QUOTA")
 
-            @JvmField val PAYMENT_SCHEDULE_INSTALLMENT = of("PAYMENT_SCHEDULE_INSTALLMENT")
+            @JvmField val QUOTE = of("QUOTE")
 
-            @JvmField val MARKETING_CAMPAIGN_UTM = of("MARKETING_CAMPAIGN_UTM")
+            @JvmField val QUOTE_FIELD = of("QUOTE_FIELD")
 
-            @JvmField val DISCOUNT_TEMPLATE = of("DISCOUNT_TEMPLATE")
+            @JvmField val QUOTE_MODULE = of("QUOTE_MODULE")
 
-            @JvmField val DISCOUNT_CODE = of("DISCOUNT_CODE")
+            @JvmField val QUOTE_MODULE_FIELD = of("QUOTE_MODULE_FIELD")
 
-            @JvmField val FEEDBACK_SURVEY = of("FEEDBACK_SURVEY")
+            @JvmField val QUOTE_TEMPLATE = of("QUOTE_TEMPLATE")
 
-            @JvmField val CMS_URL = of("CMS_URL")
+            @JvmField val RESTORABLE_CRM_OBJECT = of("RESTORABLE_CRM_OBJECT")
+
+            @JvmField val ROSTER = of("ROSTER")
+
+            @JvmField val ROSTER_MEMBER = of("ROSTER_MEMBER")
+
+            @JvmField val SALES_DOCUMENT = of("SALES_DOCUMENT")
 
             @JvmField val SALES_TASK = of("SALES_TASK")
 
             @JvmField val SALES_WORKLOAD = of("SALES_WORKLOAD")
 
-            @JvmField val USER = of("USER")
-
-            @JvmField val POSTAL_MAIL = of("POSTAL_MAIL")
-
-            @JvmField val SCHEMAS_BACKEND_TEST = of("SCHEMAS_BACKEND_TEST")
-
-            @JvmField val PAYMENT_LINK = of("PAYMENT_LINK")
-
-            @JvmField val SUBMISSION_TAG = of("SUBMISSION_TAG")
-
-            @JvmField val CAMPAIGN_STEP = of("CAMPAIGN_STEP")
+            @JvmField val SALESFORCE_SYNC_ERROR = of("SALESFORCE_SYNC_ERROR")
 
             @JvmField val SCHEDULING_PAGE = of("SCHEDULING_PAGE")
 
+            @JvmField val SCHEMAS_BACKEND_TEST = of("SCHEMAS_BACKEND_TEST")
+
+            @JvmField val SCORE_CONFIGURATION = of("SCORE_CONFIGURATION")
+
+            @JvmField val SEQUENCE = of("SEQUENCE")
+
+            @JvmField val SEQUENCE_ENROLLMENT = of("SEQUENCE_ENROLLMENT")
+
+            @JvmField val SEQUENCE_STEP = of("SEQUENCE_STEP")
+
+            @JvmField val SEQUENCE_STEP_ENROLLMENT = of("SEQUENCE_STEP_ENROLLMENT")
+
+            @JvmField val SITE_PAGE = of("SITE_PAGE")
+
+            @JvmField val SNIPPET = of("SNIPPET")
+
+            @JvmField val SOCIAL_BROADCAST = of("SOCIAL_BROADCAST")
+
+            @JvmField val SOCIAL_CHANNEL = of("SOCIAL_CHANNEL")
+
+            @JvmField val SOCIAL_POST = of("SOCIAL_POST")
+
+            @JvmField val SOCIAL_PROFILE = of("SOCIAL_PROFILE")
+
+            @JvmField val SOX_PROTECTED_DUMMY_TYPE = of("SOX_PROTECTED_DUMMY_TYPE")
+
             @JvmField val SOX_PROTECTED_TEST_TYPE = of("SOX_PROTECTED_TEST_TYPE")
 
-            @JvmField val ORDER = of("ORDER")
+            @JvmField val SUBMISSION_TAG = of("SUBMISSION_TAG")
 
-            @JvmField val MARKETING_SMS = of("MARKETING_SMS")
+            @JvmField val SUBSCRIPTION = of("SUBSCRIPTION")
 
-            @JvmField val PARTNER_ACCOUNT = of("PARTNER_ACCOUNT")
+            @JvmField val TASK = of("TASK")
 
-            @JvmField val CAMPAIGN_TEMPLATE = of("CAMPAIGN_TEMPLATE")
+            @JvmField val TASK_TEMPLATE = of("TASK_TEMPLATE")
 
-            @JvmField val CAMPAIGN_TEMPLATE_STEP = of("CAMPAIGN_TEMPLATE_STEP")
+            @JvmField val TAX = of("TAX")
 
-            @JvmField val PLAYLIST = of("PLAYLIST")
+            @JvmField val TEMPLATE = of("TEMPLATE")
 
-            @JvmField val CLIP = of("CLIP")
+            @JvmField val TICKET = of("TICKET")
 
-            @JvmField val CAMPAIGN_BUDGET_ITEM = of("CAMPAIGN_BUDGET_ITEM")
+            @JvmField val UNKNOWN = of("UNKNOWN")
 
-            @JvmField val CAMPAIGN_SPEND_ITEM = of("CAMPAIGN_SPEND_ITEM")
+            @JvmField val UNSUBSCRIBE = of("UNSUBSCRIBE")
 
-            @JvmField val MIC = of("MIC")
-
-            @JvmField val CONTENT_AUDIT = of("CONTENT_AUDIT")
-
-            @JvmField val CONTENT_AUDIT_PAGE = of("CONTENT_AUDIT_PAGE")
-
-            @JvmField val PLAYLIST_FOLDER = of("PLAYLIST_FOLDER")
-
-            @JvmField val LEAD = of("LEAD")
-
-            @JvmField val ABANDONED_CART = of("ABANDONED_CART")
-
-            @JvmField val EXTERNAL_WEB_URL = of("EXTERNAL_WEB_URL")
+            @JvmField val USER = of("USER")
 
             @JvmField val VIEW = of("VIEW")
 
             @JvmField val VIEW_BLOCK = of("VIEW_BLOCK")
 
-            @JvmField val ROSTER = of("ROSTER")
-
-            @JvmField val CART = of("CART")
-
-            @JvmField val AUTOMATION_PLATFORM_FLOW_ACTION = of("AUTOMATION_PLATFORM_FLOW_ACTION")
-
-            @JvmField val SOCIAL_PROFILE = of("SOCIAL_PROFILE")
-
-            @JvmField val PARTNER_CLIENT = of("PARTNER_CLIENT")
-
-            @JvmField val ROSTER_MEMBER = of("ROSTER_MEMBER")
-
-            @JvmField val MARKETING_EVENT_ATTENDANCE = of("MARKETING_EVENT_ATTENDANCE")
-
-            @JvmField val ALL_PAGES = of("ALL_PAGES")
-
-            @JvmField val AI_FORECAST = of("AI_FORECAST")
-
-            @JvmField val CRM_PIPELINES_DUMMY_TYPE = of("CRM_PIPELINES_DUMMY_TYPE")
-
-            @JvmField val KNOWLEDGE_ARTICLE = of("KNOWLEDGE_ARTICLE")
-
-            @JvmField val PROPERTY_INFO = of("PROPERTY_INFO")
-
-            @JvmField val DATA_PRIVACY_CONSENT = of("DATA_PRIVACY_CONSENT")
-
-            @JvmField val GOAL_TEMPLATE = of("GOAL_TEMPLATE")
-
-            @JvmField val SCORE_CONFIGURATION = of("SCORE_CONFIGURATION")
-
-            @JvmField val AUDIENCE = of("AUDIENCE")
-
-            @JvmField val PARTNER_CLIENT_REVENUE = of("PARTNER_CLIENT_REVENUE")
-
-            @JvmField val AUTOMATION_JOURNEY = of("AUTOMATION_JOURNEY")
-
-            @JvmField val UNKNOWN = of("UNKNOWN")
+            @JvmField val WEB_INTERACTIVE = of("WEB_INTERACTIVE")
 
             @JvmStatic fun of(value: String) = ReferencedObjectType(JsonField.of(value))
         }
 
         /** An enum containing [ReferencedObjectType]'s known values. */
         enum class Known {
-            CONTACT,
-            COMPANY,
-            DEAL,
-            ENGAGEMENT,
-            TICKET,
-            OWNER,
-            PRODUCT,
-            LINE_ITEM,
-            BET_DELIVERABLE_SERVICE,
-            CONTENT,
-            CONVERSATION,
-            BET_ALERT,
-            PORTAL,
-            QUOTE,
-            FORM_SUBMISSION_INBOUNDDB,
-            QUOTA,
-            UNSUBSCRIBE,
-            COMMUNICATION,
-            FEEDBACK_SUBMISSION,
-            ATTRIBUTION,
-            SALESFORCE_SYNC_ERROR,
-            RESTORABLE_CRM_OBJECT,
-            HUB,
-            LANDING_PAGE,
-            PRODUCT_OR_FOLDER,
-            TASK,
-            FORM,
-            MARKETING_EMAIL,
+            ABANDONED_CART,
+            ACCEPTANCE_TEST,
+            AD,
             AD_ACCOUNT,
             AD_CAMPAIGN,
             AD_GROUP,
-            AD,
-            KEYWORD,
-            CAMPAIGN,
-            SOCIAL_CHANNEL,
-            SOCIAL_POST,
-            SITE_PAGE,
-            BLOG_POST,
-            IMPORT,
-            EXPORT,
-            CTA,
-            TASK_TEMPLATE,
-            AUTOMATION_PLATFORM_FLOW,
-            OBJECT_LIST,
-            NOTE,
-            MEETING_EVENT,
-            CALL,
-            EMAIL,
-            PUBLISHING_TASK,
-            CONVERSATION_SESSION,
-            CONTACT_CREATE_ATTRIBUTION,
-            INVOICE,
-            MARKETING_EVENT,
-            CONVERSATION_INBOX,
-            CHATFLOW,
-            MEDIA_BRIDGE,
-            SEQUENCE,
-            SEQUENCE_STEP,
-            FORECAST,
-            SNIPPET,
-            TEMPLATE,
-            DEAL_CREATE_ATTRIBUTION,
-            QUOTE_TEMPLATE,
-            QUOTE_MODULE,
-            QUOTE_MODULE_FIELD,
-            QUOTE_FIELD,
-            SEQUENCE_ENROLLMENT,
-            SUBSCRIPTION,
-            ACCEPTANCE_TEST,
-            SOCIAL_BROADCAST,
-            DEAL_SPLIT,
-            DEAL_REGISTRATION,
-            GOAL_TARGET,
-            GOAL_TARGET_GROUP,
-            PORTAL_OBJECT_SYNC_MESSAGE,
-            FILE_MANAGER_FILE,
-            FILE_MANAGER_FOLDER,
-            SEQUENCE_STEP_ENROLLMENT,
+            AI_FORECAST,
+            ALL_PAGES,
             APPROVAL,
             APPROVAL_STEP,
+            ATTRIBUTION,
+            AUDIENCE,
+            AUTOMATION_JOURNEY,
+            AUTOMATION_PLATFORM_FLOW,
+            AUTOMATION_PLATFORM_FLOW_ACTION,
+            BET_ALERT,
+            BET_DELIVERABLE_SERVICE,
+            BLOG_LISTING_PAGE,
+            BLOG_POST,
+            CALL,
+            CAMPAIGN,
+            CAMPAIGN_BUDGET_ITEM,
+            CAMPAIGN_SPEND_ITEM,
+            CAMPAIGN_STEP,
+            CAMPAIGN_TEMPLATE,
+            CAMPAIGN_TEMPLATE_STEP,
+            CART,
+            CHATFLOW,
+            CLIP,
+            CMS_URL,
+            COMMERCE_PAYMENT,
+            COMMUNICATION,
+            COMPANY,
+            CONTACT,
+            CONTACT_CREATE_ATTRIBUTION,
+            CONTENT,
+            CONTENT_AUDIT,
+            CONTENT_AUDIT_PAGE,
+            CONVERSATION,
+            CONVERSATION_INBOX,
+            CONVERSATION_SESSION,
+            CRM_PIPELINES_DUMMY_TYPE,
+            CTA,
             CTA_VARIANT,
-            SALES_DOCUMENT,
-            DISCOUNT,
-            FEE,
-            TAX,
-            MARKETING_CALENDAR,
-            PERMISSIONS_TESTING,
-            PRIVACY_SCANNER_COOKIE,
+            DATA_PRIVACY_CONSENT,
             DATA_SYNC_STATE,
-            WEB_INTERACTIVE,
-            PLAYBOOK,
+            DEAL,
+            DEAL_CREATE_ATTRIBUTION,
+            DEAL_REGISTRATION,
+            DEAL_SPLIT,
+            DISCOUNT,
+            DISCOUNT_CODE,
+            DISCOUNT_TEMPLATE,
+            EMAIL,
+            ENGAGEMENT,
+            EXPORT,
+            EXTERNAL_WEB_URL,
+            FEE,
+            FEEDBACK_SUBMISSION,
+            FEEDBACK_SURVEY,
+            FILE_MANAGER_FILE,
+            FILE_MANAGER_FOLDER,
             FOLDER,
+            FORECAST,
+            FORM,
+            FORM_SUBMISSION_INBOUNDDB,
+            GOAL_TARGET,
+            GOAL_TARGET_GROUP,
+            GOAL_TEMPLATE,
+            GSC_PROPERTY,
+            HUB,
+            IMPORT,
+            INVOICE,
+            KEYWORD,
+            KNOWLEDGE_ARTICLE,
+            LANDING_PAGE,
+            LEAD,
+            LINE_ITEM,
+            MARKETING_CALENDAR,
+            MARKETING_CAMPAIGN_UTM,
+            MARKETING_EMAIL,
+            MARKETING_EVENT,
+            MARKETING_EVENT_ATTENDANCE,
+            MARKETING_SMS,
+            MEDIA_BRIDGE,
+            MEETING_EVENT,
+            MIC,
+            NOTE,
+            OBJECT_LIST,
+            ORDER,
+            OWNER,
+            PARTNER_ACCOUNT,
+            PARTNER_CLIENT,
+            PARTNER_CLIENT_REVENUE,
+            PAYMENT_LINK,
+            PAYMENT_SCHEDULE,
+            PAYMENT_SCHEDULE_INSTALLMENT,
+            PERMISSIONS_TESTING,
+            PLAYBOOK,
             PLAYBOOK_QUESTION,
             PLAYBOOK_SUBMISSION,
             PLAYBOOK_SUBMISSION_ANSWER,
-            COMMERCE_PAYMENT,
-            GSC_PROPERTY,
-            SOX_PROTECTED_DUMMY_TYPE,
-            BLOG_LISTING_PAGE,
+            PLAYLIST,
+            PLAYLIST_FOLDER,
+            PORTAL,
+            PORTAL_OBJECT_SYNC_MESSAGE,
+            POSTAL_MAIL,
+            PRIVACY_SCANNER_COOKIE,
+            PRODUCT,
+            PRODUCT_OR_FOLDER,
+            PROPERTY_INFO,
+            PUBLISHING_TASK,
             QUARANTINED_SUBMISSION,
-            PAYMENT_SCHEDULE,
-            PAYMENT_SCHEDULE_INSTALLMENT,
-            MARKETING_CAMPAIGN_UTM,
-            DISCOUNT_TEMPLATE,
-            DISCOUNT_CODE,
-            FEEDBACK_SURVEY,
-            CMS_URL,
+            QUOTA,
+            QUOTE,
+            QUOTE_FIELD,
+            QUOTE_MODULE,
+            QUOTE_MODULE_FIELD,
+            QUOTE_TEMPLATE,
+            RESTORABLE_CRM_OBJECT,
+            ROSTER,
+            ROSTER_MEMBER,
+            SALES_DOCUMENT,
             SALES_TASK,
             SALES_WORKLOAD,
-            USER,
-            POSTAL_MAIL,
-            SCHEMAS_BACKEND_TEST,
-            PAYMENT_LINK,
-            SUBMISSION_TAG,
-            CAMPAIGN_STEP,
+            SALESFORCE_SYNC_ERROR,
             SCHEDULING_PAGE,
+            SCHEMAS_BACKEND_TEST,
+            SCORE_CONFIGURATION,
+            SEQUENCE,
+            SEQUENCE_ENROLLMENT,
+            SEQUENCE_STEP,
+            SEQUENCE_STEP_ENROLLMENT,
+            SITE_PAGE,
+            SNIPPET,
+            SOCIAL_BROADCAST,
+            SOCIAL_CHANNEL,
+            SOCIAL_POST,
+            SOCIAL_PROFILE,
+            SOX_PROTECTED_DUMMY_TYPE,
             SOX_PROTECTED_TEST_TYPE,
-            ORDER,
-            MARKETING_SMS,
-            PARTNER_ACCOUNT,
-            CAMPAIGN_TEMPLATE,
-            CAMPAIGN_TEMPLATE_STEP,
-            PLAYLIST,
-            CLIP,
-            CAMPAIGN_BUDGET_ITEM,
-            CAMPAIGN_SPEND_ITEM,
-            MIC,
-            CONTENT_AUDIT,
-            CONTENT_AUDIT_PAGE,
-            PLAYLIST_FOLDER,
-            LEAD,
-            ABANDONED_CART,
-            EXTERNAL_WEB_URL,
+            SUBMISSION_TAG,
+            SUBSCRIPTION,
+            TASK,
+            TASK_TEMPLATE,
+            TAX,
+            TEMPLATE,
+            TICKET,
+            UNKNOWN,
+            UNSUBSCRIBE,
+            USER,
             VIEW,
             VIEW_BLOCK,
-            ROSTER,
-            CART,
-            AUTOMATION_PLATFORM_FLOW_ACTION,
-            SOCIAL_PROFILE,
-            PARTNER_CLIENT,
-            ROSTER_MEMBER,
-            MARKETING_EVENT_ATTENDANCE,
-            ALL_PAGES,
-            AI_FORECAST,
-            CRM_PIPELINES_DUMMY_TYPE,
-            KNOWLEDGE_ARTICLE,
-            PROPERTY_INFO,
-            DATA_PRIVACY_CONSENT,
-            GOAL_TEMPLATE,
-            SCORE_CONFIGURATION,
-            AUDIENCE,
-            PARTNER_CLIENT_REVENUE,
-            AUTOMATION_JOURNEY,
-            UNKNOWN,
+            WEB_INTERACTIVE,
         }
 
         /**
@@ -1412,160 +1412,160 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            CONTACT,
-            COMPANY,
-            DEAL,
-            ENGAGEMENT,
-            TICKET,
-            OWNER,
-            PRODUCT,
-            LINE_ITEM,
-            BET_DELIVERABLE_SERVICE,
-            CONTENT,
-            CONVERSATION,
-            BET_ALERT,
-            PORTAL,
-            QUOTE,
-            FORM_SUBMISSION_INBOUNDDB,
-            QUOTA,
-            UNSUBSCRIBE,
-            COMMUNICATION,
-            FEEDBACK_SUBMISSION,
-            ATTRIBUTION,
-            SALESFORCE_SYNC_ERROR,
-            RESTORABLE_CRM_OBJECT,
-            HUB,
-            LANDING_PAGE,
-            PRODUCT_OR_FOLDER,
-            TASK,
-            FORM,
-            MARKETING_EMAIL,
+            ABANDONED_CART,
+            ACCEPTANCE_TEST,
+            AD,
             AD_ACCOUNT,
             AD_CAMPAIGN,
             AD_GROUP,
-            AD,
-            KEYWORD,
-            CAMPAIGN,
-            SOCIAL_CHANNEL,
-            SOCIAL_POST,
-            SITE_PAGE,
-            BLOG_POST,
-            IMPORT,
-            EXPORT,
-            CTA,
-            TASK_TEMPLATE,
-            AUTOMATION_PLATFORM_FLOW,
-            OBJECT_LIST,
-            NOTE,
-            MEETING_EVENT,
-            CALL,
-            EMAIL,
-            PUBLISHING_TASK,
-            CONVERSATION_SESSION,
-            CONTACT_CREATE_ATTRIBUTION,
-            INVOICE,
-            MARKETING_EVENT,
-            CONVERSATION_INBOX,
-            CHATFLOW,
-            MEDIA_BRIDGE,
-            SEQUENCE,
-            SEQUENCE_STEP,
-            FORECAST,
-            SNIPPET,
-            TEMPLATE,
-            DEAL_CREATE_ATTRIBUTION,
-            QUOTE_TEMPLATE,
-            QUOTE_MODULE,
-            QUOTE_MODULE_FIELD,
-            QUOTE_FIELD,
-            SEQUENCE_ENROLLMENT,
-            SUBSCRIPTION,
-            ACCEPTANCE_TEST,
-            SOCIAL_BROADCAST,
-            DEAL_SPLIT,
-            DEAL_REGISTRATION,
-            GOAL_TARGET,
-            GOAL_TARGET_GROUP,
-            PORTAL_OBJECT_SYNC_MESSAGE,
-            FILE_MANAGER_FILE,
-            FILE_MANAGER_FOLDER,
-            SEQUENCE_STEP_ENROLLMENT,
+            AI_FORECAST,
+            ALL_PAGES,
             APPROVAL,
             APPROVAL_STEP,
+            ATTRIBUTION,
+            AUDIENCE,
+            AUTOMATION_JOURNEY,
+            AUTOMATION_PLATFORM_FLOW,
+            AUTOMATION_PLATFORM_FLOW_ACTION,
+            BET_ALERT,
+            BET_DELIVERABLE_SERVICE,
+            BLOG_LISTING_PAGE,
+            BLOG_POST,
+            CALL,
+            CAMPAIGN,
+            CAMPAIGN_BUDGET_ITEM,
+            CAMPAIGN_SPEND_ITEM,
+            CAMPAIGN_STEP,
+            CAMPAIGN_TEMPLATE,
+            CAMPAIGN_TEMPLATE_STEP,
+            CART,
+            CHATFLOW,
+            CLIP,
+            CMS_URL,
+            COMMERCE_PAYMENT,
+            COMMUNICATION,
+            COMPANY,
+            CONTACT,
+            CONTACT_CREATE_ATTRIBUTION,
+            CONTENT,
+            CONTENT_AUDIT,
+            CONTENT_AUDIT_PAGE,
+            CONVERSATION,
+            CONVERSATION_INBOX,
+            CONVERSATION_SESSION,
+            CRM_PIPELINES_DUMMY_TYPE,
+            CTA,
             CTA_VARIANT,
-            SALES_DOCUMENT,
-            DISCOUNT,
-            FEE,
-            TAX,
-            MARKETING_CALENDAR,
-            PERMISSIONS_TESTING,
-            PRIVACY_SCANNER_COOKIE,
+            DATA_PRIVACY_CONSENT,
             DATA_SYNC_STATE,
-            WEB_INTERACTIVE,
-            PLAYBOOK,
+            DEAL,
+            DEAL_CREATE_ATTRIBUTION,
+            DEAL_REGISTRATION,
+            DEAL_SPLIT,
+            DISCOUNT,
+            DISCOUNT_CODE,
+            DISCOUNT_TEMPLATE,
+            EMAIL,
+            ENGAGEMENT,
+            EXPORT,
+            EXTERNAL_WEB_URL,
+            FEE,
+            FEEDBACK_SUBMISSION,
+            FEEDBACK_SURVEY,
+            FILE_MANAGER_FILE,
+            FILE_MANAGER_FOLDER,
             FOLDER,
+            FORECAST,
+            FORM,
+            FORM_SUBMISSION_INBOUNDDB,
+            GOAL_TARGET,
+            GOAL_TARGET_GROUP,
+            GOAL_TEMPLATE,
+            GSC_PROPERTY,
+            HUB,
+            IMPORT,
+            INVOICE,
+            KEYWORD,
+            KNOWLEDGE_ARTICLE,
+            LANDING_PAGE,
+            LEAD,
+            LINE_ITEM,
+            MARKETING_CALENDAR,
+            MARKETING_CAMPAIGN_UTM,
+            MARKETING_EMAIL,
+            MARKETING_EVENT,
+            MARKETING_EVENT_ATTENDANCE,
+            MARKETING_SMS,
+            MEDIA_BRIDGE,
+            MEETING_EVENT,
+            MIC,
+            NOTE,
+            OBJECT_LIST,
+            ORDER,
+            OWNER,
+            PARTNER_ACCOUNT,
+            PARTNER_CLIENT,
+            PARTNER_CLIENT_REVENUE,
+            PAYMENT_LINK,
+            PAYMENT_SCHEDULE,
+            PAYMENT_SCHEDULE_INSTALLMENT,
+            PERMISSIONS_TESTING,
+            PLAYBOOK,
             PLAYBOOK_QUESTION,
             PLAYBOOK_SUBMISSION,
             PLAYBOOK_SUBMISSION_ANSWER,
-            COMMERCE_PAYMENT,
-            GSC_PROPERTY,
-            SOX_PROTECTED_DUMMY_TYPE,
-            BLOG_LISTING_PAGE,
+            PLAYLIST,
+            PLAYLIST_FOLDER,
+            PORTAL,
+            PORTAL_OBJECT_SYNC_MESSAGE,
+            POSTAL_MAIL,
+            PRIVACY_SCANNER_COOKIE,
+            PRODUCT,
+            PRODUCT_OR_FOLDER,
+            PROPERTY_INFO,
+            PUBLISHING_TASK,
             QUARANTINED_SUBMISSION,
-            PAYMENT_SCHEDULE,
-            PAYMENT_SCHEDULE_INSTALLMENT,
-            MARKETING_CAMPAIGN_UTM,
-            DISCOUNT_TEMPLATE,
-            DISCOUNT_CODE,
-            FEEDBACK_SURVEY,
-            CMS_URL,
+            QUOTA,
+            QUOTE,
+            QUOTE_FIELD,
+            QUOTE_MODULE,
+            QUOTE_MODULE_FIELD,
+            QUOTE_TEMPLATE,
+            RESTORABLE_CRM_OBJECT,
+            ROSTER,
+            ROSTER_MEMBER,
+            SALES_DOCUMENT,
             SALES_TASK,
             SALES_WORKLOAD,
-            USER,
-            POSTAL_MAIL,
-            SCHEMAS_BACKEND_TEST,
-            PAYMENT_LINK,
-            SUBMISSION_TAG,
-            CAMPAIGN_STEP,
+            SALESFORCE_SYNC_ERROR,
             SCHEDULING_PAGE,
+            SCHEMAS_BACKEND_TEST,
+            SCORE_CONFIGURATION,
+            SEQUENCE,
+            SEQUENCE_ENROLLMENT,
+            SEQUENCE_STEP,
+            SEQUENCE_STEP_ENROLLMENT,
+            SITE_PAGE,
+            SNIPPET,
+            SOCIAL_BROADCAST,
+            SOCIAL_CHANNEL,
+            SOCIAL_POST,
+            SOCIAL_PROFILE,
+            SOX_PROTECTED_DUMMY_TYPE,
             SOX_PROTECTED_TEST_TYPE,
-            ORDER,
-            MARKETING_SMS,
-            PARTNER_ACCOUNT,
-            CAMPAIGN_TEMPLATE,
-            CAMPAIGN_TEMPLATE_STEP,
-            PLAYLIST,
-            CLIP,
-            CAMPAIGN_BUDGET_ITEM,
-            CAMPAIGN_SPEND_ITEM,
-            MIC,
-            CONTENT_AUDIT,
-            CONTENT_AUDIT_PAGE,
-            PLAYLIST_FOLDER,
-            LEAD,
-            ABANDONED_CART,
-            EXTERNAL_WEB_URL,
+            SUBMISSION_TAG,
+            SUBSCRIPTION,
+            TASK,
+            TASK_TEMPLATE,
+            TAX,
+            TEMPLATE,
+            TICKET,
+            UNKNOWN,
+            UNSUBSCRIBE,
+            USER,
             VIEW,
             VIEW_BLOCK,
-            ROSTER,
-            CART,
-            AUTOMATION_PLATFORM_FLOW_ACTION,
-            SOCIAL_PROFILE,
-            PARTNER_CLIENT,
-            ROSTER_MEMBER,
-            MARKETING_EVENT_ATTENDANCE,
-            ALL_PAGES,
-            AI_FORECAST,
-            CRM_PIPELINES_DUMMY_TYPE,
-            KNOWLEDGE_ARTICLE,
-            PROPERTY_INFO,
-            DATA_PRIVACY_CONSENT,
-            GOAL_TEMPLATE,
-            SCORE_CONFIGURATION,
-            AUDIENCE,
-            PARTNER_CLIENT_REVENUE,
-            AUTOMATION_JOURNEY,
-            UNKNOWN,
+            WEB_INTERACTIVE,
             /**
              * An enum member indicating that [ReferencedObjectType] was instantiated with an
              * unknown value.
@@ -1582,160 +1582,160 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                CONTACT -> Value.CONTACT
-                COMPANY -> Value.COMPANY
-                DEAL -> Value.DEAL
-                ENGAGEMENT -> Value.ENGAGEMENT
-                TICKET -> Value.TICKET
-                OWNER -> Value.OWNER
-                PRODUCT -> Value.PRODUCT
-                LINE_ITEM -> Value.LINE_ITEM
-                BET_DELIVERABLE_SERVICE -> Value.BET_DELIVERABLE_SERVICE
-                CONTENT -> Value.CONTENT
-                CONVERSATION -> Value.CONVERSATION
-                BET_ALERT -> Value.BET_ALERT
-                PORTAL -> Value.PORTAL
-                QUOTE -> Value.QUOTE
-                FORM_SUBMISSION_INBOUNDDB -> Value.FORM_SUBMISSION_INBOUNDDB
-                QUOTA -> Value.QUOTA
-                UNSUBSCRIBE -> Value.UNSUBSCRIBE
-                COMMUNICATION -> Value.COMMUNICATION
-                FEEDBACK_SUBMISSION -> Value.FEEDBACK_SUBMISSION
-                ATTRIBUTION -> Value.ATTRIBUTION
-                SALESFORCE_SYNC_ERROR -> Value.SALESFORCE_SYNC_ERROR
-                RESTORABLE_CRM_OBJECT -> Value.RESTORABLE_CRM_OBJECT
-                HUB -> Value.HUB
-                LANDING_PAGE -> Value.LANDING_PAGE
-                PRODUCT_OR_FOLDER -> Value.PRODUCT_OR_FOLDER
-                TASK -> Value.TASK
-                FORM -> Value.FORM
-                MARKETING_EMAIL -> Value.MARKETING_EMAIL
+                ABANDONED_CART -> Value.ABANDONED_CART
+                ACCEPTANCE_TEST -> Value.ACCEPTANCE_TEST
+                AD -> Value.AD
                 AD_ACCOUNT -> Value.AD_ACCOUNT
                 AD_CAMPAIGN -> Value.AD_CAMPAIGN
                 AD_GROUP -> Value.AD_GROUP
-                AD -> Value.AD
-                KEYWORD -> Value.KEYWORD
-                CAMPAIGN -> Value.CAMPAIGN
-                SOCIAL_CHANNEL -> Value.SOCIAL_CHANNEL
-                SOCIAL_POST -> Value.SOCIAL_POST
-                SITE_PAGE -> Value.SITE_PAGE
-                BLOG_POST -> Value.BLOG_POST
-                IMPORT -> Value.IMPORT
-                EXPORT -> Value.EXPORT
-                CTA -> Value.CTA
-                TASK_TEMPLATE -> Value.TASK_TEMPLATE
-                AUTOMATION_PLATFORM_FLOW -> Value.AUTOMATION_PLATFORM_FLOW
-                OBJECT_LIST -> Value.OBJECT_LIST
-                NOTE -> Value.NOTE
-                MEETING_EVENT -> Value.MEETING_EVENT
-                CALL -> Value.CALL
-                EMAIL -> Value.EMAIL
-                PUBLISHING_TASK -> Value.PUBLISHING_TASK
-                CONVERSATION_SESSION -> Value.CONVERSATION_SESSION
-                CONTACT_CREATE_ATTRIBUTION -> Value.CONTACT_CREATE_ATTRIBUTION
-                INVOICE -> Value.INVOICE
-                MARKETING_EVENT -> Value.MARKETING_EVENT
-                CONVERSATION_INBOX -> Value.CONVERSATION_INBOX
-                CHATFLOW -> Value.CHATFLOW
-                MEDIA_BRIDGE -> Value.MEDIA_BRIDGE
-                SEQUENCE -> Value.SEQUENCE
-                SEQUENCE_STEP -> Value.SEQUENCE_STEP
-                FORECAST -> Value.FORECAST
-                SNIPPET -> Value.SNIPPET
-                TEMPLATE -> Value.TEMPLATE
-                DEAL_CREATE_ATTRIBUTION -> Value.DEAL_CREATE_ATTRIBUTION
-                QUOTE_TEMPLATE -> Value.QUOTE_TEMPLATE
-                QUOTE_MODULE -> Value.QUOTE_MODULE
-                QUOTE_MODULE_FIELD -> Value.QUOTE_MODULE_FIELD
-                QUOTE_FIELD -> Value.QUOTE_FIELD
-                SEQUENCE_ENROLLMENT -> Value.SEQUENCE_ENROLLMENT
-                SUBSCRIPTION -> Value.SUBSCRIPTION
-                ACCEPTANCE_TEST -> Value.ACCEPTANCE_TEST
-                SOCIAL_BROADCAST -> Value.SOCIAL_BROADCAST
-                DEAL_SPLIT -> Value.DEAL_SPLIT
-                DEAL_REGISTRATION -> Value.DEAL_REGISTRATION
-                GOAL_TARGET -> Value.GOAL_TARGET
-                GOAL_TARGET_GROUP -> Value.GOAL_TARGET_GROUP
-                PORTAL_OBJECT_SYNC_MESSAGE -> Value.PORTAL_OBJECT_SYNC_MESSAGE
-                FILE_MANAGER_FILE -> Value.FILE_MANAGER_FILE
-                FILE_MANAGER_FOLDER -> Value.FILE_MANAGER_FOLDER
-                SEQUENCE_STEP_ENROLLMENT -> Value.SEQUENCE_STEP_ENROLLMENT
+                AI_FORECAST -> Value.AI_FORECAST
+                ALL_PAGES -> Value.ALL_PAGES
                 APPROVAL -> Value.APPROVAL
                 APPROVAL_STEP -> Value.APPROVAL_STEP
+                ATTRIBUTION -> Value.ATTRIBUTION
+                AUDIENCE -> Value.AUDIENCE
+                AUTOMATION_JOURNEY -> Value.AUTOMATION_JOURNEY
+                AUTOMATION_PLATFORM_FLOW -> Value.AUTOMATION_PLATFORM_FLOW
+                AUTOMATION_PLATFORM_FLOW_ACTION -> Value.AUTOMATION_PLATFORM_FLOW_ACTION
+                BET_ALERT -> Value.BET_ALERT
+                BET_DELIVERABLE_SERVICE -> Value.BET_DELIVERABLE_SERVICE
+                BLOG_LISTING_PAGE -> Value.BLOG_LISTING_PAGE
+                BLOG_POST -> Value.BLOG_POST
+                CALL -> Value.CALL
+                CAMPAIGN -> Value.CAMPAIGN
+                CAMPAIGN_BUDGET_ITEM -> Value.CAMPAIGN_BUDGET_ITEM
+                CAMPAIGN_SPEND_ITEM -> Value.CAMPAIGN_SPEND_ITEM
+                CAMPAIGN_STEP -> Value.CAMPAIGN_STEP
+                CAMPAIGN_TEMPLATE -> Value.CAMPAIGN_TEMPLATE
+                CAMPAIGN_TEMPLATE_STEP -> Value.CAMPAIGN_TEMPLATE_STEP
+                CART -> Value.CART
+                CHATFLOW -> Value.CHATFLOW
+                CLIP -> Value.CLIP
+                CMS_URL -> Value.CMS_URL
+                COMMERCE_PAYMENT -> Value.COMMERCE_PAYMENT
+                COMMUNICATION -> Value.COMMUNICATION
+                COMPANY -> Value.COMPANY
+                CONTACT -> Value.CONTACT
+                CONTACT_CREATE_ATTRIBUTION -> Value.CONTACT_CREATE_ATTRIBUTION
+                CONTENT -> Value.CONTENT
+                CONTENT_AUDIT -> Value.CONTENT_AUDIT
+                CONTENT_AUDIT_PAGE -> Value.CONTENT_AUDIT_PAGE
+                CONVERSATION -> Value.CONVERSATION
+                CONVERSATION_INBOX -> Value.CONVERSATION_INBOX
+                CONVERSATION_SESSION -> Value.CONVERSATION_SESSION
+                CRM_PIPELINES_DUMMY_TYPE -> Value.CRM_PIPELINES_DUMMY_TYPE
+                CTA -> Value.CTA
                 CTA_VARIANT -> Value.CTA_VARIANT
-                SALES_DOCUMENT -> Value.SALES_DOCUMENT
-                DISCOUNT -> Value.DISCOUNT
-                FEE -> Value.FEE
-                TAX -> Value.TAX
-                MARKETING_CALENDAR -> Value.MARKETING_CALENDAR
-                PERMISSIONS_TESTING -> Value.PERMISSIONS_TESTING
-                PRIVACY_SCANNER_COOKIE -> Value.PRIVACY_SCANNER_COOKIE
+                DATA_PRIVACY_CONSENT -> Value.DATA_PRIVACY_CONSENT
                 DATA_SYNC_STATE -> Value.DATA_SYNC_STATE
-                WEB_INTERACTIVE -> Value.WEB_INTERACTIVE
-                PLAYBOOK -> Value.PLAYBOOK
+                DEAL -> Value.DEAL
+                DEAL_CREATE_ATTRIBUTION -> Value.DEAL_CREATE_ATTRIBUTION
+                DEAL_REGISTRATION -> Value.DEAL_REGISTRATION
+                DEAL_SPLIT -> Value.DEAL_SPLIT
+                DISCOUNT -> Value.DISCOUNT
+                DISCOUNT_CODE -> Value.DISCOUNT_CODE
+                DISCOUNT_TEMPLATE -> Value.DISCOUNT_TEMPLATE
+                EMAIL -> Value.EMAIL
+                ENGAGEMENT -> Value.ENGAGEMENT
+                EXPORT -> Value.EXPORT
+                EXTERNAL_WEB_URL -> Value.EXTERNAL_WEB_URL
+                FEE -> Value.FEE
+                FEEDBACK_SUBMISSION -> Value.FEEDBACK_SUBMISSION
+                FEEDBACK_SURVEY -> Value.FEEDBACK_SURVEY
+                FILE_MANAGER_FILE -> Value.FILE_MANAGER_FILE
+                FILE_MANAGER_FOLDER -> Value.FILE_MANAGER_FOLDER
                 FOLDER -> Value.FOLDER
+                FORECAST -> Value.FORECAST
+                FORM -> Value.FORM
+                FORM_SUBMISSION_INBOUNDDB -> Value.FORM_SUBMISSION_INBOUNDDB
+                GOAL_TARGET -> Value.GOAL_TARGET
+                GOAL_TARGET_GROUP -> Value.GOAL_TARGET_GROUP
+                GOAL_TEMPLATE -> Value.GOAL_TEMPLATE
+                GSC_PROPERTY -> Value.GSC_PROPERTY
+                HUB -> Value.HUB
+                IMPORT -> Value.IMPORT
+                INVOICE -> Value.INVOICE
+                KEYWORD -> Value.KEYWORD
+                KNOWLEDGE_ARTICLE -> Value.KNOWLEDGE_ARTICLE
+                LANDING_PAGE -> Value.LANDING_PAGE
+                LEAD -> Value.LEAD
+                LINE_ITEM -> Value.LINE_ITEM
+                MARKETING_CALENDAR -> Value.MARKETING_CALENDAR
+                MARKETING_CAMPAIGN_UTM -> Value.MARKETING_CAMPAIGN_UTM
+                MARKETING_EMAIL -> Value.MARKETING_EMAIL
+                MARKETING_EVENT -> Value.MARKETING_EVENT
+                MARKETING_EVENT_ATTENDANCE -> Value.MARKETING_EVENT_ATTENDANCE
+                MARKETING_SMS -> Value.MARKETING_SMS
+                MEDIA_BRIDGE -> Value.MEDIA_BRIDGE
+                MEETING_EVENT -> Value.MEETING_EVENT
+                MIC -> Value.MIC
+                NOTE -> Value.NOTE
+                OBJECT_LIST -> Value.OBJECT_LIST
+                ORDER -> Value.ORDER
+                OWNER -> Value.OWNER
+                PARTNER_ACCOUNT -> Value.PARTNER_ACCOUNT
+                PARTNER_CLIENT -> Value.PARTNER_CLIENT
+                PARTNER_CLIENT_REVENUE -> Value.PARTNER_CLIENT_REVENUE
+                PAYMENT_LINK -> Value.PAYMENT_LINK
+                PAYMENT_SCHEDULE -> Value.PAYMENT_SCHEDULE
+                PAYMENT_SCHEDULE_INSTALLMENT -> Value.PAYMENT_SCHEDULE_INSTALLMENT
+                PERMISSIONS_TESTING -> Value.PERMISSIONS_TESTING
+                PLAYBOOK -> Value.PLAYBOOK
                 PLAYBOOK_QUESTION -> Value.PLAYBOOK_QUESTION
                 PLAYBOOK_SUBMISSION -> Value.PLAYBOOK_SUBMISSION
                 PLAYBOOK_SUBMISSION_ANSWER -> Value.PLAYBOOK_SUBMISSION_ANSWER
-                COMMERCE_PAYMENT -> Value.COMMERCE_PAYMENT
-                GSC_PROPERTY -> Value.GSC_PROPERTY
-                SOX_PROTECTED_DUMMY_TYPE -> Value.SOX_PROTECTED_DUMMY_TYPE
-                BLOG_LISTING_PAGE -> Value.BLOG_LISTING_PAGE
+                PLAYLIST -> Value.PLAYLIST
+                PLAYLIST_FOLDER -> Value.PLAYLIST_FOLDER
+                PORTAL -> Value.PORTAL
+                PORTAL_OBJECT_SYNC_MESSAGE -> Value.PORTAL_OBJECT_SYNC_MESSAGE
+                POSTAL_MAIL -> Value.POSTAL_MAIL
+                PRIVACY_SCANNER_COOKIE -> Value.PRIVACY_SCANNER_COOKIE
+                PRODUCT -> Value.PRODUCT
+                PRODUCT_OR_FOLDER -> Value.PRODUCT_OR_FOLDER
+                PROPERTY_INFO -> Value.PROPERTY_INFO
+                PUBLISHING_TASK -> Value.PUBLISHING_TASK
                 QUARANTINED_SUBMISSION -> Value.QUARANTINED_SUBMISSION
-                PAYMENT_SCHEDULE -> Value.PAYMENT_SCHEDULE
-                PAYMENT_SCHEDULE_INSTALLMENT -> Value.PAYMENT_SCHEDULE_INSTALLMENT
-                MARKETING_CAMPAIGN_UTM -> Value.MARKETING_CAMPAIGN_UTM
-                DISCOUNT_TEMPLATE -> Value.DISCOUNT_TEMPLATE
-                DISCOUNT_CODE -> Value.DISCOUNT_CODE
-                FEEDBACK_SURVEY -> Value.FEEDBACK_SURVEY
-                CMS_URL -> Value.CMS_URL
+                QUOTA -> Value.QUOTA
+                QUOTE -> Value.QUOTE
+                QUOTE_FIELD -> Value.QUOTE_FIELD
+                QUOTE_MODULE -> Value.QUOTE_MODULE
+                QUOTE_MODULE_FIELD -> Value.QUOTE_MODULE_FIELD
+                QUOTE_TEMPLATE -> Value.QUOTE_TEMPLATE
+                RESTORABLE_CRM_OBJECT -> Value.RESTORABLE_CRM_OBJECT
+                ROSTER -> Value.ROSTER
+                ROSTER_MEMBER -> Value.ROSTER_MEMBER
+                SALES_DOCUMENT -> Value.SALES_DOCUMENT
                 SALES_TASK -> Value.SALES_TASK
                 SALES_WORKLOAD -> Value.SALES_WORKLOAD
-                USER -> Value.USER
-                POSTAL_MAIL -> Value.POSTAL_MAIL
-                SCHEMAS_BACKEND_TEST -> Value.SCHEMAS_BACKEND_TEST
-                PAYMENT_LINK -> Value.PAYMENT_LINK
-                SUBMISSION_TAG -> Value.SUBMISSION_TAG
-                CAMPAIGN_STEP -> Value.CAMPAIGN_STEP
+                SALESFORCE_SYNC_ERROR -> Value.SALESFORCE_SYNC_ERROR
                 SCHEDULING_PAGE -> Value.SCHEDULING_PAGE
+                SCHEMAS_BACKEND_TEST -> Value.SCHEMAS_BACKEND_TEST
+                SCORE_CONFIGURATION -> Value.SCORE_CONFIGURATION
+                SEQUENCE -> Value.SEQUENCE
+                SEQUENCE_ENROLLMENT -> Value.SEQUENCE_ENROLLMENT
+                SEQUENCE_STEP -> Value.SEQUENCE_STEP
+                SEQUENCE_STEP_ENROLLMENT -> Value.SEQUENCE_STEP_ENROLLMENT
+                SITE_PAGE -> Value.SITE_PAGE
+                SNIPPET -> Value.SNIPPET
+                SOCIAL_BROADCAST -> Value.SOCIAL_BROADCAST
+                SOCIAL_CHANNEL -> Value.SOCIAL_CHANNEL
+                SOCIAL_POST -> Value.SOCIAL_POST
+                SOCIAL_PROFILE -> Value.SOCIAL_PROFILE
+                SOX_PROTECTED_DUMMY_TYPE -> Value.SOX_PROTECTED_DUMMY_TYPE
                 SOX_PROTECTED_TEST_TYPE -> Value.SOX_PROTECTED_TEST_TYPE
-                ORDER -> Value.ORDER
-                MARKETING_SMS -> Value.MARKETING_SMS
-                PARTNER_ACCOUNT -> Value.PARTNER_ACCOUNT
-                CAMPAIGN_TEMPLATE -> Value.CAMPAIGN_TEMPLATE
-                CAMPAIGN_TEMPLATE_STEP -> Value.CAMPAIGN_TEMPLATE_STEP
-                PLAYLIST -> Value.PLAYLIST
-                CLIP -> Value.CLIP
-                CAMPAIGN_BUDGET_ITEM -> Value.CAMPAIGN_BUDGET_ITEM
-                CAMPAIGN_SPEND_ITEM -> Value.CAMPAIGN_SPEND_ITEM
-                MIC -> Value.MIC
-                CONTENT_AUDIT -> Value.CONTENT_AUDIT
-                CONTENT_AUDIT_PAGE -> Value.CONTENT_AUDIT_PAGE
-                PLAYLIST_FOLDER -> Value.PLAYLIST_FOLDER
-                LEAD -> Value.LEAD
-                ABANDONED_CART -> Value.ABANDONED_CART
-                EXTERNAL_WEB_URL -> Value.EXTERNAL_WEB_URL
+                SUBMISSION_TAG -> Value.SUBMISSION_TAG
+                SUBSCRIPTION -> Value.SUBSCRIPTION
+                TASK -> Value.TASK
+                TASK_TEMPLATE -> Value.TASK_TEMPLATE
+                TAX -> Value.TAX
+                TEMPLATE -> Value.TEMPLATE
+                TICKET -> Value.TICKET
+                UNKNOWN -> Value.UNKNOWN
+                UNSUBSCRIBE -> Value.UNSUBSCRIBE
+                USER -> Value.USER
                 VIEW -> Value.VIEW
                 VIEW_BLOCK -> Value.VIEW_BLOCK
-                ROSTER -> Value.ROSTER
-                CART -> Value.CART
-                AUTOMATION_PLATFORM_FLOW_ACTION -> Value.AUTOMATION_PLATFORM_FLOW_ACTION
-                SOCIAL_PROFILE -> Value.SOCIAL_PROFILE
-                PARTNER_CLIENT -> Value.PARTNER_CLIENT
-                ROSTER_MEMBER -> Value.ROSTER_MEMBER
-                MARKETING_EVENT_ATTENDANCE -> Value.MARKETING_EVENT_ATTENDANCE
-                ALL_PAGES -> Value.ALL_PAGES
-                AI_FORECAST -> Value.AI_FORECAST
-                CRM_PIPELINES_DUMMY_TYPE -> Value.CRM_PIPELINES_DUMMY_TYPE
-                KNOWLEDGE_ARTICLE -> Value.KNOWLEDGE_ARTICLE
-                PROPERTY_INFO -> Value.PROPERTY_INFO
-                DATA_PRIVACY_CONSENT -> Value.DATA_PRIVACY_CONSENT
-                GOAL_TEMPLATE -> Value.GOAL_TEMPLATE
-                SCORE_CONFIGURATION -> Value.SCORE_CONFIGURATION
-                AUDIENCE -> Value.AUDIENCE
-                PARTNER_CLIENT_REVENUE -> Value.PARTNER_CLIENT_REVENUE
-                AUTOMATION_JOURNEY -> Value.AUTOMATION_JOURNEY
-                UNKNOWN -> Value.UNKNOWN
+                WEB_INTERACTIVE -> Value.WEB_INTERACTIVE
                 else -> Value._UNKNOWN
             }
 
@@ -1750,160 +1750,160 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                CONTACT -> Known.CONTACT
-                COMPANY -> Known.COMPANY
-                DEAL -> Known.DEAL
-                ENGAGEMENT -> Known.ENGAGEMENT
-                TICKET -> Known.TICKET
-                OWNER -> Known.OWNER
-                PRODUCT -> Known.PRODUCT
-                LINE_ITEM -> Known.LINE_ITEM
-                BET_DELIVERABLE_SERVICE -> Known.BET_DELIVERABLE_SERVICE
-                CONTENT -> Known.CONTENT
-                CONVERSATION -> Known.CONVERSATION
-                BET_ALERT -> Known.BET_ALERT
-                PORTAL -> Known.PORTAL
-                QUOTE -> Known.QUOTE
-                FORM_SUBMISSION_INBOUNDDB -> Known.FORM_SUBMISSION_INBOUNDDB
-                QUOTA -> Known.QUOTA
-                UNSUBSCRIBE -> Known.UNSUBSCRIBE
-                COMMUNICATION -> Known.COMMUNICATION
-                FEEDBACK_SUBMISSION -> Known.FEEDBACK_SUBMISSION
-                ATTRIBUTION -> Known.ATTRIBUTION
-                SALESFORCE_SYNC_ERROR -> Known.SALESFORCE_SYNC_ERROR
-                RESTORABLE_CRM_OBJECT -> Known.RESTORABLE_CRM_OBJECT
-                HUB -> Known.HUB
-                LANDING_PAGE -> Known.LANDING_PAGE
-                PRODUCT_OR_FOLDER -> Known.PRODUCT_OR_FOLDER
-                TASK -> Known.TASK
-                FORM -> Known.FORM
-                MARKETING_EMAIL -> Known.MARKETING_EMAIL
+                ABANDONED_CART -> Known.ABANDONED_CART
+                ACCEPTANCE_TEST -> Known.ACCEPTANCE_TEST
+                AD -> Known.AD
                 AD_ACCOUNT -> Known.AD_ACCOUNT
                 AD_CAMPAIGN -> Known.AD_CAMPAIGN
                 AD_GROUP -> Known.AD_GROUP
-                AD -> Known.AD
-                KEYWORD -> Known.KEYWORD
-                CAMPAIGN -> Known.CAMPAIGN
-                SOCIAL_CHANNEL -> Known.SOCIAL_CHANNEL
-                SOCIAL_POST -> Known.SOCIAL_POST
-                SITE_PAGE -> Known.SITE_PAGE
-                BLOG_POST -> Known.BLOG_POST
-                IMPORT -> Known.IMPORT
-                EXPORT -> Known.EXPORT
-                CTA -> Known.CTA
-                TASK_TEMPLATE -> Known.TASK_TEMPLATE
-                AUTOMATION_PLATFORM_FLOW -> Known.AUTOMATION_PLATFORM_FLOW
-                OBJECT_LIST -> Known.OBJECT_LIST
-                NOTE -> Known.NOTE
-                MEETING_EVENT -> Known.MEETING_EVENT
-                CALL -> Known.CALL
-                EMAIL -> Known.EMAIL
-                PUBLISHING_TASK -> Known.PUBLISHING_TASK
-                CONVERSATION_SESSION -> Known.CONVERSATION_SESSION
-                CONTACT_CREATE_ATTRIBUTION -> Known.CONTACT_CREATE_ATTRIBUTION
-                INVOICE -> Known.INVOICE
-                MARKETING_EVENT -> Known.MARKETING_EVENT
-                CONVERSATION_INBOX -> Known.CONVERSATION_INBOX
-                CHATFLOW -> Known.CHATFLOW
-                MEDIA_BRIDGE -> Known.MEDIA_BRIDGE
-                SEQUENCE -> Known.SEQUENCE
-                SEQUENCE_STEP -> Known.SEQUENCE_STEP
-                FORECAST -> Known.FORECAST
-                SNIPPET -> Known.SNIPPET
-                TEMPLATE -> Known.TEMPLATE
-                DEAL_CREATE_ATTRIBUTION -> Known.DEAL_CREATE_ATTRIBUTION
-                QUOTE_TEMPLATE -> Known.QUOTE_TEMPLATE
-                QUOTE_MODULE -> Known.QUOTE_MODULE
-                QUOTE_MODULE_FIELD -> Known.QUOTE_MODULE_FIELD
-                QUOTE_FIELD -> Known.QUOTE_FIELD
-                SEQUENCE_ENROLLMENT -> Known.SEQUENCE_ENROLLMENT
-                SUBSCRIPTION -> Known.SUBSCRIPTION
-                ACCEPTANCE_TEST -> Known.ACCEPTANCE_TEST
-                SOCIAL_BROADCAST -> Known.SOCIAL_BROADCAST
-                DEAL_SPLIT -> Known.DEAL_SPLIT
-                DEAL_REGISTRATION -> Known.DEAL_REGISTRATION
-                GOAL_TARGET -> Known.GOAL_TARGET
-                GOAL_TARGET_GROUP -> Known.GOAL_TARGET_GROUP
-                PORTAL_OBJECT_SYNC_MESSAGE -> Known.PORTAL_OBJECT_SYNC_MESSAGE
-                FILE_MANAGER_FILE -> Known.FILE_MANAGER_FILE
-                FILE_MANAGER_FOLDER -> Known.FILE_MANAGER_FOLDER
-                SEQUENCE_STEP_ENROLLMENT -> Known.SEQUENCE_STEP_ENROLLMENT
+                AI_FORECAST -> Known.AI_FORECAST
+                ALL_PAGES -> Known.ALL_PAGES
                 APPROVAL -> Known.APPROVAL
                 APPROVAL_STEP -> Known.APPROVAL_STEP
+                ATTRIBUTION -> Known.ATTRIBUTION
+                AUDIENCE -> Known.AUDIENCE
+                AUTOMATION_JOURNEY -> Known.AUTOMATION_JOURNEY
+                AUTOMATION_PLATFORM_FLOW -> Known.AUTOMATION_PLATFORM_FLOW
+                AUTOMATION_PLATFORM_FLOW_ACTION -> Known.AUTOMATION_PLATFORM_FLOW_ACTION
+                BET_ALERT -> Known.BET_ALERT
+                BET_DELIVERABLE_SERVICE -> Known.BET_DELIVERABLE_SERVICE
+                BLOG_LISTING_PAGE -> Known.BLOG_LISTING_PAGE
+                BLOG_POST -> Known.BLOG_POST
+                CALL -> Known.CALL
+                CAMPAIGN -> Known.CAMPAIGN
+                CAMPAIGN_BUDGET_ITEM -> Known.CAMPAIGN_BUDGET_ITEM
+                CAMPAIGN_SPEND_ITEM -> Known.CAMPAIGN_SPEND_ITEM
+                CAMPAIGN_STEP -> Known.CAMPAIGN_STEP
+                CAMPAIGN_TEMPLATE -> Known.CAMPAIGN_TEMPLATE
+                CAMPAIGN_TEMPLATE_STEP -> Known.CAMPAIGN_TEMPLATE_STEP
+                CART -> Known.CART
+                CHATFLOW -> Known.CHATFLOW
+                CLIP -> Known.CLIP
+                CMS_URL -> Known.CMS_URL
+                COMMERCE_PAYMENT -> Known.COMMERCE_PAYMENT
+                COMMUNICATION -> Known.COMMUNICATION
+                COMPANY -> Known.COMPANY
+                CONTACT -> Known.CONTACT
+                CONTACT_CREATE_ATTRIBUTION -> Known.CONTACT_CREATE_ATTRIBUTION
+                CONTENT -> Known.CONTENT
+                CONTENT_AUDIT -> Known.CONTENT_AUDIT
+                CONTENT_AUDIT_PAGE -> Known.CONTENT_AUDIT_PAGE
+                CONVERSATION -> Known.CONVERSATION
+                CONVERSATION_INBOX -> Known.CONVERSATION_INBOX
+                CONVERSATION_SESSION -> Known.CONVERSATION_SESSION
+                CRM_PIPELINES_DUMMY_TYPE -> Known.CRM_PIPELINES_DUMMY_TYPE
+                CTA -> Known.CTA
                 CTA_VARIANT -> Known.CTA_VARIANT
-                SALES_DOCUMENT -> Known.SALES_DOCUMENT
-                DISCOUNT -> Known.DISCOUNT
-                FEE -> Known.FEE
-                TAX -> Known.TAX
-                MARKETING_CALENDAR -> Known.MARKETING_CALENDAR
-                PERMISSIONS_TESTING -> Known.PERMISSIONS_TESTING
-                PRIVACY_SCANNER_COOKIE -> Known.PRIVACY_SCANNER_COOKIE
+                DATA_PRIVACY_CONSENT -> Known.DATA_PRIVACY_CONSENT
                 DATA_SYNC_STATE -> Known.DATA_SYNC_STATE
-                WEB_INTERACTIVE -> Known.WEB_INTERACTIVE
-                PLAYBOOK -> Known.PLAYBOOK
+                DEAL -> Known.DEAL
+                DEAL_CREATE_ATTRIBUTION -> Known.DEAL_CREATE_ATTRIBUTION
+                DEAL_REGISTRATION -> Known.DEAL_REGISTRATION
+                DEAL_SPLIT -> Known.DEAL_SPLIT
+                DISCOUNT -> Known.DISCOUNT
+                DISCOUNT_CODE -> Known.DISCOUNT_CODE
+                DISCOUNT_TEMPLATE -> Known.DISCOUNT_TEMPLATE
+                EMAIL -> Known.EMAIL
+                ENGAGEMENT -> Known.ENGAGEMENT
+                EXPORT -> Known.EXPORT
+                EXTERNAL_WEB_URL -> Known.EXTERNAL_WEB_URL
+                FEE -> Known.FEE
+                FEEDBACK_SUBMISSION -> Known.FEEDBACK_SUBMISSION
+                FEEDBACK_SURVEY -> Known.FEEDBACK_SURVEY
+                FILE_MANAGER_FILE -> Known.FILE_MANAGER_FILE
+                FILE_MANAGER_FOLDER -> Known.FILE_MANAGER_FOLDER
                 FOLDER -> Known.FOLDER
+                FORECAST -> Known.FORECAST
+                FORM -> Known.FORM
+                FORM_SUBMISSION_INBOUNDDB -> Known.FORM_SUBMISSION_INBOUNDDB
+                GOAL_TARGET -> Known.GOAL_TARGET
+                GOAL_TARGET_GROUP -> Known.GOAL_TARGET_GROUP
+                GOAL_TEMPLATE -> Known.GOAL_TEMPLATE
+                GSC_PROPERTY -> Known.GSC_PROPERTY
+                HUB -> Known.HUB
+                IMPORT -> Known.IMPORT
+                INVOICE -> Known.INVOICE
+                KEYWORD -> Known.KEYWORD
+                KNOWLEDGE_ARTICLE -> Known.KNOWLEDGE_ARTICLE
+                LANDING_PAGE -> Known.LANDING_PAGE
+                LEAD -> Known.LEAD
+                LINE_ITEM -> Known.LINE_ITEM
+                MARKETING_CALENDAR -> Known.MARKETING_CALENDAR
+                MARKETING_CAMPAIGN_UTM -> Known.MARKETING_CAMPAIGN_UTM
+                MARKETING_EMAIL -> Known.MARKETING_EMAIL
+                MARKETING_EVENT -> Known.MARKETING_EVENT
+                MARKETING_EVENT_ATTENDANCE -> Known.MARKETING_EVENT_ATTENDANCE
+                MARKETING_SMS -> Known.MARKETING_SMS
+                MEDIA_BRIDGE -> Known.MEDIA_BRIDGE
+                MEETING_EVENT -> Known.MEETING_EVENT
+                MIC -> Known.MIC
+                NOTE -> Known.NOTE
+                OBJECT_LIST -> Known.OBJECT_LIST
+                ORDER -> Known.ORDER
+                OWNER -> Known.OWNER
+                PARTNER_ACCOUNT -> Known.PARTNER_ACCOUNT
+                PARTNER_CLIENT -> Known.PARTNER_CLIENT
+                PARTNER_CLIENT_REVENUE -> Known.PARTNER_CLIENT_REVENUE
+                PAYMENT_LINK -> Known.PAYMENT_LINK
+                PAYMENT_SCHEDULE -> Known.PAYMENT_SCHEDULE
+                PAYMENT_SCHEDULE_INSTALLMENT -> Known.PAYMENT_SCHEDULE_INSTALLMENT
+                PERMISSIONS_TESTING -> Known.PERMISSIONS_TESTING
+                PLAYBOOK -> Known.PLAYBOOK
                 PLAYBOOK_QUESTION -> Known.PLAYBOOK_QUESTION
                 PLAYBOOK_SUBMISSION -> Known.PLAYBOOK_SUBMISSION
                 PLAYBOOK_SUBMISSION_ANSWER -> Known.PLAYBOOK_SUBMISSION_ANSWER
-                COMMERCE_PAYMENT -> Known.COMMERCE_PAYMENT
-                GSC_PROPERTY -> Known.GSC_PROPERTY
-                SOX_PROTECTED_DUMMY_TYPE -> Known.SOX_PROTECTED_DUMMY_TYPE
-                BLOG_LISTING_PAGE -> Known.BLOG_LISTING_PAGE
+                PLAYLIST -> Known.PLAYLIST
+                PLAYLIST_FOLDER -> Known.PLAYLIST_FOLDER
+                PORTAL -> Known.PORTAL
+                PORTAL_OBJECT_SYNC_MESSAGE -> Known.PORTAL_OBJECT_SYNC_MESSAGE
+                POSTAL_MAIL -> Known.POSTAL_MAIL
+                PRIVACY_SCANNER_COOKIE -> Known.PRIVACY_SCANNER_COOKIE
+                PRODUCT -> Known.PRODUCT
+                PRODUCT_OR_FOLDER -> Known.PRODUCT_OR_FOLDER
+                PROPERTY_INFO -> Known.PROPERTY_INFO
+                PUBLISHING_TASK -> Known.PUBLISHING_TASK
                 QUARANTINED_SUBMISSION -> Known.QUARANTINED_SUBMISSION
-                PAYMENT_SCHEDULE -> Known.PAYMENT_SCHEDULE
-                PAYMENT_SCHEDULE_INSTALLMENT -> Known.PAYMENT_SCHEDULE_INSTALLMENT
-                MARKETING_CAMPAIGN_UTM -> Known.MARKETING_CAMPAIGN_UTM
-                DISCOUNT_TEMPLATE -> Known.DISCOUNT_TEMPLATE
-                DISCOUNT_CODE -> Known.DISCOUNT_CODE
-                FEEDBACK_SURVEY -> Known.FEEDBACK_SURVEY
-                CMS_URL -> Known.CMS_URL
+                QUOTA -> Known.QUOTA
+                QUOTE -> Known.QUOTE
+                QUOTE_FIELD -> Known.QUOTE_FIELD
+                QUOTE_MODULE -> Known.QUOTE_MODULE
+                QUOTE_MODULE_FIELD -> Known.QUOTE_MODULE_FIELD
+                QUOTE_TEMPLATE -> Known.QUOTE_TEMPLATE
+                RESTORABLE_CRM_OBJECT -> Known.RESTORABLE_CRM_OBJECT
+                ROSTER -> Known.ROSTER
+                ROSTER_MEMBER -> Known.ROSTER_MEMBER
+                SALES_DOCUMENT -> Known.SALES_DOCUMENT
                 SALES_TASK -> Known.SALES_TASK
                 SALES_WORKLOAD -> Known.SALES_WORKLOAD
-                USER -> Known.USER
-                POSTAL_MAIL -> Known.POSTAL_MAIL
-                SCHEMAS_BACKEND_TEST -> Known.SCHEMAS_BACKEND_TEST
-                PAYMENT_LINK -> Known.PAYMENT_LINK
-                SUBMISSION_TAG -> Known.SUBMISSION_TAG
-                CAMPAIGN_STEP -> Known.CAMPAIGN_STEP
+                SALESFORCE_SYNC_ERROR -> Known.SALESFORCE_SYNC_ERROR
                 SCHEDULING_PAGE -> Known.SCHEDULING_PAGE
+                SCHEMAS_BACKEND_TEST -> Known.SCHEMAS_BACKEND_TEST
+                SCORE_CONFIGURATION -> Known.SCORE_CONFIGURATION
+                SEQUENCE -> Known.SEQUENCE
+                SEQUENCE_ENROLLMENT -> Known.SEQUENCE_ENROLLMENT
+                SEQUENCE_STEP -> Known.SEQUENCE_STEP
+                SEQUENCE_STEP_ENROLLMENT -> Known.SEQUENCE_STEP_ENROLLMENT
+                SITE_PAGE -> Known.SITE_PAGE
+                SNIPPET -> Known.SNIPPET
+                SOCIAL_BROADCAST -> Known.SOCIAL_BROADCAST
+                SOCIAL_CHANNEL -> Known.SOCIAL_CHANNEL
+                SOCIAL_POST -> Known.SOCIAL_POST
+                SOCIAL_PROFILE -> Known.SOCIAL_PROFILE
+                SOX_PROTECTED_DUMMY_TYPE -> Known.SOX_PROTECTED_DUMMY_TYPE
                 SOX_PROTECTED_TEST_TYPE -> Known.SOX_PROTECTED_TEST_TYPE
-                ORDER -> Known.ORDER
-                MARKETING_SMS -> Known.MARKETING_SMS
-                PARTNER_ACCOUNT -> Known.PARTNER_ACCOUNT
-                CAMPAIGN_TEMPLATE -> Known.CAMPAIGN_TEMPLATE
-                CAMPAIGN_TEMPLATE_STEP -> Known.CAMPAIGN_TEMPLATE_STEP
-                PLAYLIST -> Known.PLAYLIST
-                CLIP -> Known.CLIP
-                CAMPAIGN_BUDGET_ITEM -> Known.CAMPAIGN_BUDGET_ITEM
-                CAMPAIGN_SPEND_ITEM -> Known.CAMPAIGN_SPEND_ITEM
-                MIC -> Known.MIC
-                CONTENT_AUDIT -> Known.CONTENT_AUDIT
-                CONTENT_AUDIT_PAGE -> Known.CONTENT_AUDIT_PAGE
-                PLAYLIST_FOLDER -> Known.PLAYLIST_FOLDER
-                LEAD -> Known.LEAD
-                ABANDONED_CART -> Known.ABANDONED_CART
-                EXTERNAL_WEB_URL -> Known.EXTERNAL_WEB_URL
+                SUBMISSION_TAG -> Known.SUBMISSION_TAG
+                SUBSCRIPTION -> Known.SUBSCRIPTION
+                TASK -> Known.TASK
+                TASK_TEMPLATE -> Known.TASK_TEMPLATE
+                TAX -> Known.TAX
+                TEMPLATE -> Known.TEMPLATE
+                TICKET -> Known.TICKET
+                UNKNOWN -> Known.UNKNOWN
+                UNSUBSCRIBE -> Known.UNSUBSCRIBE
+                USER -> Known.USER
                 VIEW -> Known.VIEW
                 VIEW_BLOCK -> Known.VIEW_BLOCK
-                ROSTER -> Known.ROSTER
-                CART -> Known.CART
-                AUTOMATION_PLATFORM_FLOW_ACTION -> Known.AUTOMATION_PLATFORM_FLOW_ACTION
-                SOCIAL_PROFILE -> Known.SOCIAL_PROFILE
-                PARTNER_CLIENT -> Known.PARTNER_CLIENT
-                ROSTER_MEMBER -> Known.ROSTER_MEMBER
-                MARKETING_EVENT_ATTENDANCE -> Known.MARKETING_EVENT_ATTENDANCE
-                ALL_PAGES -> Known.ALL_PAGES
-                AI_FORECAST -> Known.AI_FORECAST
-                CRM_PIPELINES_DUMMY_TYPE -> Known.CRM_PIPELINES_DUMMY_TYPE
-                KNOWLEDGE_ARTICLE -> Known.KNOWLEDGE_ARTICLE
-                PROPERTY_INFO -> Known.PROPERTY_INFO
-                DATA_PRIVACY_CONSENT -> Known.DATA_PRIVACY_CONSENT
-                GOAL_TEMPLATE -> Known.GOAL_TEMPLATE
-                SCORE_CONFIGURATION -> Known.SCORE_CONFIGURATION
-                AUDIENCE -> Known.AUDIENCE
-                PARTNER_CLIENT_REVENUE -> Known.PARTNER_CLIENT_REVENUE
-                AUTOMATION_JOURNEY -> Known.AUTOMATION_JOURNEY
-                UNKNOWN -> Known.UNKNOWN
+                WEB_INTERACTIVE -> Known.WEB_INTERACTIVE
                 else -> throw HubspotInvalidDataException("Unknown ReferencedObjectType: $value")
             }
 

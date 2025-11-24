@@ -21,7 +21,7 @@ internal class BatchResponseVoidTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(JsonValue.from(mapOf<String, Any>()))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseVoid.Status.PENDING)
+                .status(BatchResponseVoid.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -196,7 +196,7 @@ internal class BatchResponseVoidTest {
             .containsExactly(JsonValue.from(mapOf<String, Any>()))
         assertThat(batchResponseVoid.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(batchResponseVoid.status()).isEqualTo(BatchResponseVoid.Status.PENDING)
+        assertThat(batchResponseVoid.status()).isEqualTo(BatchResponseVoid.Status.CANCELED)
         assertThat(batchResponseVoid.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -280,7 +280,7 @@ internal class BatchResponseVoidTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(JsonValue.from(mapOf<String, Any>()))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseVoid.Status.PENDING)
+                .status(BatchResponseVoid.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

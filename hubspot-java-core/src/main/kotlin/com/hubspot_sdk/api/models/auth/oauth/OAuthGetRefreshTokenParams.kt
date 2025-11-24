@@ -14,6 +14,7 @@ import kotlin.jvm.optionals.getOrNull
  * created for and the ID of the account it's associated with. Learn more about
  * [refresh tokens](https://developers.hubspot.com/docs/guides/api/app-management/oauth-tokens#generate-initial-access-and-refresh-tokens).
  */
+@Deprecated("deprecated")
 class OAuthGetRefreshTokenParams
 private constructor(
     private val token: String?,

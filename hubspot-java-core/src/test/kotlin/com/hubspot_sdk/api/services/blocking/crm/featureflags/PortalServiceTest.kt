@@ -38,7 +38,7 @@ internal class PortalServiceTest {
                     .portalId(0)
                     .portalFlagStatePutRequest(
                         PortalFlagStatePutRequest.builder()
-                            .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                            .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
                             .build()
                     )
                     .build()
@@ -108,7 +108,7 @@ internal class PortalServiceTest {
                         PortalFlagStateBatchPutRequest.builder()
                             .addPortalState(
                                 BatchPortalEntry.builder()
-                                    .flagState(BatchPortalEntry.FlagState.OFF)
+                                    .flagState(BatchPortalEntry.FlagState.ABSENT)
                                     .portalId(0)
                                     .build()
                             )

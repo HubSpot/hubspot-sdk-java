@@ -531,23 +531,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val IN_THIS_TIME_UNIT = of("IN_THIS_TIME_UNIT")
-
-            @JvmField val IN_THIS_TIME_UNIT_SO_FAR = of("IN_THIS_TIME_UNIT_SO_FAR")
+            @JvmField val IN_LAST_TIME_UNIT = of("IN_LAST_TIME_UNIT")
 
             @JvmField val IN_NEXT_TIME_UNIT = of("IN_NEXT_TIME_UNIT")
 
-            @JvmField val IN_LAST_TIME_UNIT = of("IN_LAST_TIME_UNIT")
+            @JvmField val IN_THIS_TIME_UNIT = of("IN_THIS_TIME_UNIT")
+
+            @JvmField val IN_THIS_TIME_UNIT_SO_FAR = of("IN_THIS_TIME_UNIT_SO_FAR")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
+            IN_LAST_TIME_UNIT,
+            IN_NEXT_TIME_UNIT,
             IN_THIS_TIME_UNIT,
             IN_THIS_TIME_UNIT_SO_FAR,
-            IN_NEXT_TIME_UNIT,
-            IN_LAST_TIME_UNIT,
         }
 
         /**
@@ -560,10 +560,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            IN_LAST_TIME_UNIT,
+            IN_NEXT_TIME_UNIT,
             IN_THIS_TIME_UNIT,
             IN_THIS_TIME_UNIT_SO_FAR,
-            IN_NEXT_TIME_UNIT,
-            IN_LAST_TIME_UNIT,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -577,10 +577,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                IN_LAST_TIME_UNIT -> Value.IN_LAST_TIME_UNIT
+                IN_NEXT_TIME_UNIT -> Value.IN_NEXT_TIME_UNIT
                 IN_THIS_TIME_UNIT -> Value.IN_THIS_TIME_UNIT
                 IN_THIS_TIME_UNIT_SO_FAR -> Value.IN_THIS_TIME_UNIT_SO_FAR
-                IN_NEXT_TIME_UNIT -> Value.IN_NEXT_TIME_UNIT
-                IN_LAST_TIME_UNIT -> Value.IN_LAST_TIME_UNIT
                 else -> Value._UNKNOWN
             }
 
@@ -595,10 +595,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                IN_LAST_TIME_UNIT -> Known.IN_LAST_TIME_UNIT
+                IN_NEXT_TIME_UNIT -> Known.IN_NEXT_TIME_UNIT
                 IN_THIS_TIME_UNIT -> Known.IN_THIS_TIME_UNIT
                 IN_THIS_TIME_UNIT_SO_FAR -> Known.IN_THIS_TIME_UNIT_SO_FAR
-                IN_NEXT_TIME_UNIT -> Known.IN_NEXT_TIME_UNIT
-                IN_LAST_TIME_UNIT -> Known.IN_LAST_TIME_UNIT
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 
@@ -792,11 +792,11 @@ private constructor(
 
             @JvmField val DAY = of("DAY")
 
-            @JvmField val WEEK = of("WEEK")
-
             @JvmField val MONTH = of("MONTH")
 
             @JvmField val QUARTER = of("QUARTER")
+
+            @JvmField val WEEK = of("WEEK")
 
             @JvmField val YEAR = of("YEAR")
 
@@ -806,9 +806,9 @@ private constructor(
         /** An enum containing [TimeUnit]'s known values. */
         enum class Known {
             DAY,
-            WEEK,
             MONTH,
             QUARTER,
+            WEEK,
             YEAR,
         }
 
@@ -823,9 +823,9 @@ private constructor(
          */
         enum class Value {
             DAY,
-            WEEK,
             MONTH,
             QUARTER,
+            WEEK,
             YEAR,
             /** An enum member indicating that [TimeUnit] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -841,9 +841,9 @@ private constructor(
         fun value(): Value =
             when (this) {
                 DAY -> Value.DAY
-                WEEK -> Value.WEEK
                 MONTH -> Value.MONTH
                 QUARTER -> Value.QUARTER
+                WEEK -> Value.WEEK
                 YEAR -> Value.YEAR
                 else -> Value._UNKNOWN
             }
@@ -860,9 +860,9 @@ private constructor(
         fun known(): Known =
             when (this) {
                 DAY -> Known.DAY
-                WEEK -> Known.WEEK
                 MONTH -> Known.MONTH
                 QUARTER -> Known.QUARTER
+                WEEK -> Known.WEEK
                 YEAR -> Known.YEAR
                 else -> throw HubspotInvalidDataException("Unknown TimeUnit: $value")
             }
@@ -934,47 +934,47 @@ private constructor(
 
         companion object {
 
-            @JvmField val JANUARY = of("JANUARY")
-
-            @JvmField val FEBRUARY = of("FEBRUARY")
-
-            @JvmField val MARCH = of("MARCH")
-
             @JvmField val APRIL = of("APRIL")
-
-            @JvmField val MAY = of("MAY")
-
-            @JvmField val JUNE = of("JUNE")
-
-            @JvmField val JULY = of("JULY")
 
             @JvmField val AUGUST = of("AUGUST")
 
-            @JvmField val SEPTEMBER = of("SEPTEMBER")
+            @JvmField val DECEMBER = of("DECEMBER")
 
-            @JvmField val OCTOBER = of("OCTOBER")
+            @JvmField val FEBRUARY = of("FEBRUARY")
+
+            @JvmField val JANUARY = of("JANUARY")
+
+            @JvmField val JULY = of("JULY")
+
+            @JvmField val JUNE = of("JUNE")
+
+            @JvmField val MARCH = of("MARCH")
+
+            @JvmField val MAY = of("MAY")
 
             @JvmField val NOVEMBER = of("NOVEMBER")
 
-            @JvmField val DECEMBER = of("DECEMBER")
+            @JvmField val OCTOBER = of("OCTOBER")
+
+            @JvmField val SEPTEMBER = of("SEPTEMBER")
 
             @JvmStatic fun of(value: String) = FiscalYearStart(JsonField.of(value))
         }
 
         /** An enum containing [FiscalYearStart]'s known values. */
         enum class Known {
-            JANUARY,
-            FEBRUARY,
-            MARCH,
             APRIL,
-            MAY,
-            JUNE,
-            JULY,
             AUGUST,
-            SEPTEMBER,
-            OCTOBER,
-            NOVEMBER,
             DECEMBER,
+            FEBRUARY,
+            JANUARY,
+            JULY,
+            JUNE,
+            MARCH,
+            MAY,
+            NOVEMBER,
+            OCTOBER,
+            SEPTEMBER,
         }
 
         /**
@@ -987,18 +987,18 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            JANUARY,
-            FEBRUARY,
-            MARCH,
             APRIL,
-            MAY,
-            JUNE,
-            JULY,
             AUGUST,
-            SEPTEMBER,
-            OCTOBER,
-            NOVEMBER,
             DECEMBER,
+            FEBRUARY,
+            JANUARY,
+            JULY,
+            JUNE,
+            MARCH,
+            MAY,
+            NOVEMBER,
+            OCTOBER,
+            SEPTEMBER,
             /**
              * An enum member indicating that [FiscalYearStart] was instantiated with an unknown
              * value.
@@ -1015,18 +1015,18 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                JANUARY -> Value.JANUARY
-                FEBRUARY -> Value.FEBRUARY
-                MARCH -> Value.MARCH
                 APRIL -> Value.APRIL
-                MAY -> Value.MAY
-                JUNE -> Value.JUNE
-                JULY -> Value.JULY
                 AUGUST -> Value.AUGUST
-                SEPTEMBER -> Value.SEPTEMBER
-                OCTOBER -> Value.OCTOBER
-                NOVEMBER -> Value.NOVEMBER
                 DECEMBER -> Value.DECEMBER
+                FEBRUARY -> Value.FEBRUARY
+                JANUARY -> Value.JANUARY
+                JULY -> Value.JULY
+                JUNE -> Value.JUNE
+                MARCH -> Value.MARCH
+                MAY -> Value.MAY
+                NOVEMBER -> Value.NOVEMBER
+                OCTOBER -> Value.OCTOBER
+                SEPTEMBER -> Value.SEPTEMBER
                 else -> Value._UNKNOWN
             }
 
@@ -1041,18 +1041,18 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                JANUARY -> Known.JANUARY
-                FEBRUARY -> Known.FEBRUARY
-                MARCH -> Known.MARCH
                 APRIL -> Known.APRIL
-                MAY -> Known.MAY
-                JUNE -> Known.JUNE
-                JULY -> Known.JULY
                 AUGUST -> Known.AUGUST
-                SEPTEMBER -> Known.SEPTEMBER
-                OCTOBER -> Known.OCTOBER
-                NOVEMBER -> Known.NOVEMBER
                 DECEMBER -> Known.DECEMBER
+                FEBRUARY -> Known.FEBRUARY
+                JANUARY -> Known.JANUARY
+                JULY -> Known.JULY
+                JUNE -> Known.JUNE
+                MARCH -> Known.MARCH
+                MAY -> Known.MAY
+                NOVEMBER -> Known.NOVEMBER
+                OCTOBER -> Known.OCTOBER
+                SEPTEMBER -> Known.SEPTEMBER
                 else -> throw HubspotInvalidDataException("Unknown FiscalYearStart: $value")
             }
 

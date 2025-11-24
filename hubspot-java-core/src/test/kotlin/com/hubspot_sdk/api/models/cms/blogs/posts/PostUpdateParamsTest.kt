@@ -19,7 +19,7 @@ internal class PostUpdateParamsTest {
             .blogPost(
                 BlogPost.builder()
                     .id("id")
-                    .abStatus(BlogPost.AbStatus.MASTER)
+                    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(0L)
                     .archivedInDashboard(true)
@@ -272,7 +272,7 @@ internal class PostUpdateParamsTest {
                 .blogPost(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -517,7 +517,7 @@ internal class PostUpdateParamsTest {
                 .blogPost(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -790,7 +790,7 @@ internal class PostUpdateParamsTest {
                 .blogPost(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -1035,7 +1035,7 @@ internal class PostUpdateParamsTest {
                 .blogPost(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -1301,7 +1301,7 @@ internal class PostUpdateParamsTest {
             .isEqualTo(
                 BlogPost.builder()
                     .id("id")
-                    .abStatus(BlogPost.AbStatus.MASTER)
+                    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(0L)
                     .archivedInDashboard(true)
@@ -1553,7 +1553,7 @@ internal class PostUpdateParamsTest {
                 .blogPost(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -1790,7 +1790,7 @@ internal class PostUpdateParamsTest {
             .isEqualTo(
                 BlogPost.builder()
                     .id("id")
-                    .abStatus(BlogPost.AbStatus.MASTER)
+                    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(0L)
                     .archivedInDashboard(true)

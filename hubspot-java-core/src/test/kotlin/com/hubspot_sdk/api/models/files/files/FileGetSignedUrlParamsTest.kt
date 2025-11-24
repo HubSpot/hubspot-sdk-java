@@ -13,7 +13,7 @@ internal class FileGetSignedUrlParamsTest {
         FileGetSignedUrlParams.builder()
             .fileId("321669910225")
             .expirationSeconds(0L)
-            .size(FileGetSignedUrlParams.Size.THUMB)
+            .size(FileGetSignedUrlParams.Size.ICON)
             .upscale(true)
             .build()
     }
@@ -33,7 +33,7 @@ internal class FileGetSignedUrlParamsTest {
             FileGetSignedUrlParams.builder()
                 .fileId("321669910225")
                 .expirationSeconds(0L)
-                .size(FileGetSignedUrlParams.Size.THUMB)
+                .size(FileGetSignedUrlParams.Size.ICON)
                 .upscale(true)
                 .build()
 
@@ -43,7 +43,7 @@ internal class FileGetSignedUrlParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("expirationSeconds", "0")
-                    .put("size", "thumb")
+                    .put("size", "icon")
                     .put("upscale", "true")
                     .build()
             )

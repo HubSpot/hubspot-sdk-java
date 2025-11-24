@@ -32,7 +32,7 @@ internal class BatchResponseExchangeRateWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseExchangeRateWithErrors.Status.PENDING)
+                .status(BatchResponseExchangeRateWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -219,7 +219,7 @@ internal class BatchResponseExchangeRateWithErrorsTest {
         assertThat(batchResponseExchangeRateWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseExchangeRateWithErrors.status())
-            .isEqualTo(BatchResponseExchangeRateWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseExchangeRateWithErrors.Status.CANCELED)
         assertThat(batchResponseExchangeRateWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -314,7 +314,7 @@ internal class BatchResponseExchangeRateWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseExchangeRateWithErrors.Status.PENDING)
+                .status(BatchResponseExchangeRateWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

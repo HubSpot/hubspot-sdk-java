@@ -417,19 +417,19 @@ private constructor(
 
         companion object {
 
-            @JvmField val PUBLIC_INDEXABLE = of("PUBLIC_INDEXABLE")
-
-            @JvmField val PUBLIC_NOT_INDEXABLE = of("PUBLIC_NOT_INDEXABLE")
-
             @JvmField val HIDDEN_INDEXABLE = of("HIDDEN_INDEXABLE")
 
             @JvmField val HIDDEN_NOT_INDEXABLE = of("HIDDEN_NOT_INDEXABLE")
 
             @JvmField val HIDDEN_PRIVATE = of("HIDDEN_PRIVATE")
 
+            @JvmField val HIDDEN_SENSITIVE = of("HIDDEN_SENSITIVE")
+
             @JvmField val PRIVATE = of("PRIVATE")
 
-            @JvmField val HIDDEN_SENSITIVE = of("HIDDEN_SENSITIVE")
+            @JvmField val PUBLIC_INDEXABLE = of("PUBLIC_INDEXABLE")
+
+            @JvmField val PUBLIC_NOT_INDEXABLE = of("PUBLIC_NOT_INDEXABLE")
 
             @JvmField val SENSITIVE = of("SENSITIVE")
 
@@ -438,13 +438,13 @@ private constructor(
 
         /** An enum containing [Access]'s known values. */
         enum class Known {
-            PUBLIC_INDEXABLE,
-            PUBLIC_NOT_INDEXABLE,
             HIDDEN_INDEXABLE,
             HIDDEN_NOT_INDEXABLE,
             HIDDEN_PRIVATE,
-            PRIVATE,
             HIDDEN_SENSITIVE,
+            PRIVATE,
+            PUBLIC_INDEXABLE,
+            PUBLIC_NOT_INDEXABLE,
             SENSITIVE,
         }
 
@@ -458,13 +458,13 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PUBLIC_INDEXABLE,
-            PUBLIC_NOT_INDEXABLE,
             HIDDEN_INDEXABLE,
             HIDDEN_NOT_INDEXABLE,
             HIDDEN_PRIVATE,
-            PRIVATE,
             HIDDEN_SENSITIVE,
+            PRIVATE,
+            PUBLIC_INDEXABLE,
+            PUBLIC_NOT_INDEXABLE,
             SENSITIVE,
             /** An enum member indicating that [Access] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -479,13 +479,13 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PUBLIC_INDEXABLE -> Value.PUBLIC_INDEXABLE
-                PUBLIC_NOT_INDEXABLE -> Value.PUBLIC_NOT_INDEXABLE
                 HIDDEN_INDEXABLE -> Value.HIDDEN_INDEXABLE
                 HIDDEN_NOT_INDEXABLE -> Value.HIDDEN_NOT_INDEXABLE
                 HIDDEN_PRIVATE -> Value.HIDDEN_PRIVATE
-                PRIVATE -> Value.PRIVATE
                 HIDDEN_SENSITIVE -> Value.HIDDEN_SENSITIVE
+                PRIVATE -> Value.PRIVATE
+                PUBLIC_INDEXABLE -> Value.PUBLIC_INDEXABLE
+                PUBLIC_NOT_INDEXABLE -> Value.PUBLIC_NOT_INDEXABLE
                 SENSITIVE -> Value.SENSITIVE
                 else -> Value._UNKNOWN
             }
@@ -501,13 +501,13 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PUBLIC_INDEXABLE -> Known.PUBLIC_INDEXABLE
-                PUBLIC_NOT_INDEXABLE -> Known.PUBLIC_NOT_INDEXABLE
                 HIDDEN_INDEXABLE -> Known.HIDDEN_INDEXABLE
                 HIDDEN_NOT_INDEXABLE -> Known.HIDDEN_NOT_INDEXABLE
                 HIDDEN_PRIVATE -> Known.HIDDEN_PRIVATE
-                PRIVATE -> Known.PRIVATE
                 HIDDEN_SENSITIVE -> Known.HIDDEN_SENSITIVE
+                PRIVATE -> Known.PRIVATE
+                PUBLIC_INDEXABLE -> Known.PUBLIC_INDEXABLE
+                PUBLIC_NOT_INDEXABLE -> Known.PUBLIC_NOT_INDEXABLE
                 SENSITIVE -> Known.SENSITIVE
                 else -> throw HubspotInvalidDataException("Unknown Access: $value")
             }

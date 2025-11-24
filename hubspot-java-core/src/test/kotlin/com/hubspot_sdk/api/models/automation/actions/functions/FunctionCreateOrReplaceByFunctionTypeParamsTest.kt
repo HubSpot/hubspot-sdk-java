@@ -13,7 +13,7 @@ internal class FunctionCreateOrReplaceByFunctionTypeParamsTest {
             .appId(0)
             .definitionId("definitionId")
             .functionType(
-                FunctionCreateOrReplaceByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION
+                FunctionCreateOrReplaceByFunctionTypeParams.FunctionType.POST_ACTION_EXECUTION
             )
             .body("body")
             .build()
@@ -26,14 +26,14 @@ internal class FunctionCreateOrReplaceByFunctionTypeParamsTest {
                 .appId(0)
                 .definitionId("definitionId")
                 .functionType(
-                    FunctionCreateOrReplaceByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION
+                    FunctionCreateOrReplaceByFunctionTypeParams.FunctionType.POST_ACTION_EXECUTION
                 )
                 .body("body")
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("definitionId")
-        assertThat(params._pathParam(2)).isEqualTo("PRE_ACTION_EXECUTION")
+        assertThat(params._pathParam(2)).isEqualTo("POST_ACTION_EXECUTION")
         // out-of-bound path param
         assertThat(params._pathParam(3)).isEqualTo("")
     }
@@ -45,7 +45,7 @@ internal class FunctionCreateOrReplaceByFunctionTypeParamsTest {
                 .appId(0)
                 .definitionId("definitionId")
                 .functionType(
-                    FunctionCreateOrReplaceByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION
+                    FunctionCreateOrReplaceByFunctionTypeParams.FunctionType.POST_ACTION_EXECUTION
                 )
                 .body("body")
                 .build()

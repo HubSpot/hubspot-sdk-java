@@ -21,7 +21,7 @@ internal class BatchResponseSubscriberEmailResponseTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(SubscriberEmailResponse.builder().email("email").vid(0).build())
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseSubscriberEmailResponse.Status.PENDING)
+                .status(BatchResponseSubscriberEmailResponse.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -197,7 +197,7 @@ internal class BatchResponseSubscriberEmailResponseTest {
         assertThat(batchResponseSubscriberEmailResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseSubscriberEmailResponse.status())
-            .isEqualTo(BatchResponseSubscriberEmailResponse.Status.PENDING)
+            .isEqualTo(BatchResponseSubscriberEmailResponse.Status.CANCELED)
         assertThat(batchResponseSubscriberEmailResponse.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -281,7 +281,7 @@ internal class BatchResponseSubscriberEmailResponseTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(SubscriberEmailResponse.builder().email("email").vid(0).build())
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseSubscriberEmailResponse.Status.PENDING)
+                .status(BatchResponseSubscriberEmailResponse.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

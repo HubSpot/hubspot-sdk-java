@@ -21,7 +21,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                     ExternalCalendarMeetingEventResponseProperties.builder()
                         .hsEngagementSource(
                             ExternalCalendarMeetingEventResponseProperties.HsEngagementSource
-                                .UNKNOWN
+                                .ACADEMY
                         )
                         .hsEngagementSourceId("hs_engagement_source_id")
                         .hsMeetingEndTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -39,7 +39,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                         .hsMeetingLocation("hs_meeting_location")
                         .hsMeetingLocationType(
                             ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType
-                                .PHONE
+                                .ADDRESS
                         )
                         .hsUniqueId("hs_unique_id")
                         .hubspotOwnerId("hubspot_owner_id")
@@ -56,7 +56,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
             .isEqualTo(
                 ExternalCalendarMeetingEventResponseProperties.builder()
                     .hsEngagementSource(
-                        ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.UNKNOWN
+                        ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.ACADEMY
                     )
                     .hsEngagementSourceId("hs_engagement_source_id")
                     .hsMeetingEndTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -73,7 +73,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                     .hsMeetingExternalUrl("hs_meeting_external_url")
                     .hsMeetingLocation("hs_meeting_location")
                     .hsMeetingLocationType(
-                        ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.PHONE
+                        ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS
                     )
                     .hsUniqueId("hs_unique_id")
                     .hubspotOwnerId("hubspot_owner_id")
@@ -93,7 +93,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                     ExternalCalendarMeetingEventResponseProperties.builder()
                         .hsEngagementSource(
                             ExternalCalendarMeetingEventResponseProperties.HsEngagementSource
-                                .UNKNOWN
+                                .ACADEMY
                         )
                         .hsEngagementSourceId("hs_engagement_source_id")
                         .hsMeetingEndTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -111,7 +111,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                         .hsMeetingLocation("hs_meeting_location")
                         .hsMeetingLocationType(
                             ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType
-                                .PHONE
+                                .ADDRESS
                         )
                         .hsUniqueId("hs_unique_id")
                         .hubspotOwnerId("hubspot_owner_id")

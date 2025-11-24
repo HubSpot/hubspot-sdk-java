@@ -486,59 +486,59 @@ private constructor(
 
         companion object {
 
-            @JvmField val NANOS = of("NANOS")
-
-            @JvmField val MICROS = of("MICROS")
-
-            @JvmField val MILLIS = of("MILLIS")
-
-            @JvmField val SECONDS = of("SECONDS")
-
-            @JvmField val MINUTES = of("MINUTES")
-
-            @JvmField val HOURS = of("HOURS")
-
-            @JvmField val HALF_DAYS = of("HALF_DAYS")
+            @JvmField val CENTURIES = of("CENTURIES")
 
             @JvmField val DAYS = of("DAYS")
 
-            @JvmField val WEEKS = of("WEEKS")
-
-            @JvmField val MONTHS = of("MONTHS")
-
-            @JvmField val YEARS = of("YEARS")
-
             @JvmField val DECADES = of("DECADES")
-
-            @JvmField val CENTURIES = of("CENTURIES")
-
-            @JvmField val MILLENNIA = of("MILLENNIA")
 
             @JvmField val ERAS = of("ERAS")
 
             @JvmField val FOREVER = of("FOREVER")
+
+            @JvmField val HALF_DAYS = of("HALF_DAYS")
+
+            @JvmField val HOURS = of("HOURS")
+
+            @JvmField val MICROS = of("MICROS")
+
+            @JvmField val MILLENNIA = of("MILLENNIA")
+
+            @JvmField val MILLIS = of("MILLIS")
+
+            @JvmField val MINUTES = of("MINUTES")
+
+            @JvmField val MONTHS = of("MONTHS")
+
+            @JvmField val NANOS = of("NANOS")
+
+            @JvmField val SECONDS = of("SECONDS")
+
+            @JvmField val WEEKS = of("WEEKS")
+
+            @JvmField val YEARS = of("YEARS")
 
             @JvmStatic fun of(value: String) = TimeUnit(JsonField.of(value))
         }
 
         /** An enum containing [TimeUnit]'s known values. */
         enum class Known {
-            NANOS,
-            MICROS,
-            MILLIS,
-            SECONDS,
-            MINUTES,
-            HOURS,
-            HALF_DAYS,
-            DAYS,
-            WEEKS,
-            MONTHS,
-            YEARS,
-            DECADES,
             CENTURIES,
-            MILLENNIA,
+            DAYS,
+            DECADES,
             ERAS,
             FOREVER,
+            HALF_DAYS,
+            HOURS,
+            MICROS,
+            MILLENNIA,
+            MILLIS,
+            MINUTES,
+            MONTHS,
+            NANOS,
+            SECONDS,
+            WEEKS,
+            YEARS,
         }
 
         /**
@@ -551,22 +551,22 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            NANOS,
-            MICROS,
-            MILLIS,
-            SECONDS,
-            MINUTES,
-            HOURS,
-            HALF_DAYS,
-            DAYS,
-            WEEKS,
-            MONTHS,
-            YEARS,
-            DECADES,
             CENTURIES,
-            MILLENNIA,
+            DAYS,
+            DECADES,
             ERAS,
             FOREVER,
+            HALF_DAYS,
+            HOURS,
+            MICROS,
+            MILLENNIA,
+            MILLIS,
+            MINUTES,
+            MONTHS,
+            NANOS,
+            SECONDS,
+            WEEKS,
+            YEARS,
             /** An enum member indicating that [TimeUnit] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -580,22 +580,22 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                NANOS -> Value.NANOS
-                MICROS -> Value.MICROS
-                MILLIS -> Value.MILLIS
-                SECONDS -> Value.SECONDS
-                MINUTES -> Value.MINUTES
-                HOURS -> Value.HOURS
-                HALF_DAYS -> Value.HALF_DAYS
-                DAYS -> Value.DAYS
-                WEEKS -> Value.WEEKS
-                MONTHS -> Value.MONTHS
-                YEARS -> Value.YEARS
-                DECADES -> Value.DECADES
                 CENTURIES -> Value.CENTURIES
-                MILLENNIA -> Value.MILLENNIA
+                DAYS -> Value.DAYS
+                DECADES -> Value.DECADES
                 ERAS -> Value.ERAS
                 FOREVER -> Value.FOREVER
+                HALF_DAYS -> Value.HALF_DAYS
+                HOURS -> Value.HOURS
+                MICROS -> Value.MICROS
+                MILLENNIA -> Value.MILLENNIA
+                MILLIS -> Value.MILLIS
+                MINUTES -> Value.MINUTES
+                MONTHS -> Value.MONTHS
+                NANOS -> Value.NANOS
+                SECONDS -> Value.SECONDS
+                WEEKS -> Value.WEEKS
+                YEARS -> Value.YEARS
                 else -> Value._UNKNOWN
             }
 
@@ -610,22 +610,22 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                NANOS -> Known.NANOS
-                MICROS -> Known.MICROS
-                MILLIS -> Known.MILLIS
-                SECONDS -> Known.SECONDS
-                MINUTES -> Known.MINUTES
-                HOURS -> Known.HOURS
-                HALF_DAYS -> Known.HALF_DAYS
-                DAYS -> Known.DAYS
-                WEEKS -> Known.WEEKS
-                MONTHS -> Known.MONTHS
-                YEARS -> Known.YEARS
-                DECADES -> Known.DECADES
                 CENTURIES -> Known.CENTURIES
-                MILLENNIA -> Known.MILLENNIA
+                DAYS -> Known.DAYS
+                DECADES -> Known.DECADES
                 ERAS -> Known.ERAS
                 FOREVER -> Known.FOREVER
+                HALF_DAYS -> Known.HALF_DAYS
+                HOURS -> Known.HOURS
+                MICROS -> Known.MICROS
+                MILLENNIA -> Known.MILLENNIA
+                MILLIS -> Known.MILLIS
+                MINUTES -> Known.MINUTES
+                MONTHS -> Known.MONTHS
+                NANOS -> Known.NANOS
+                SECONDS -> Known.SECONDS
+                WEEKS -> Known.WEEKS
+                YEARS -> Known.YEARS
                 else -> throw HubspotInvalidDataException("Unknown TimeUnit: $value")
             }
 

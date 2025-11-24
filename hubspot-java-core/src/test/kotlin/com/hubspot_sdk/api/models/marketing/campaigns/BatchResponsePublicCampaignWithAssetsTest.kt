@@ -59,7 +59,7 @@ internal class BatchResponsePublicCampaignWithAssetsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicCampaignWithAssets.Status.PENDING)
+                .status(BatchResponsePublicCampaignWithAssets.Status.CANCELED)
                 .links(
                     BatchResponsePublicCampaignWithAssets.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -113,7 +113,7 @@ internal class BatchResponsePublicCampaignWithAssetsTest {
         assertThat(batchResponsePublicCampaignWithAssets.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePublicCampaignWithAssets.status())
-            .isEqualTo(BatchResponsePublicCampaignWithAssets.Status.PENDING)
+            .isEqualTo(BatchResponsePublicCampaignWithAssets.Status.CANCELED)
         assertThat(batchResponsePublicCampaignWithAssets.links())
             .contains(
                 BatchResponsePublicCampaignWithAssets.Links.builder()
@@ -173,7 +173,7 @@ internal class BatchResponsePublicCampaignWithAssetsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicCampaignWithAssets.Status.PENDING)
+                .status(BatchResponsePublicCampaignWithAssets.Status.CANCELED)
                 .links(
                     BatchResponsePublicCampaignWithAssets.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

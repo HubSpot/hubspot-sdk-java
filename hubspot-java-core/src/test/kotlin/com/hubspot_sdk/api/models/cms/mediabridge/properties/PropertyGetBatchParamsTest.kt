@@ -17,7 +17,7 @@ internal class PropertyGetBatchParamsTest {
             .batchReadInputPropertyName(
                 BatchReadInputPropertyName.builder()
                     .archived(true)
-                    .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                    .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE)
                     .addInput(PropertyName.builder().name("name").build())
                     .build()
             )
@@ -33,7 +33,9 @@ internal class PropertyGetBatchParamsTest {
                 .batchReadInputPropertyName(
                     BatchReadInputPropertyName.builder()
                         .archived(true)
-                        .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                        .dataSensitivity(
+                            BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE
+                        )
                         .addInput(PropertyName.builder().name("name").build())
                         .build()
                 )
@@ -54,7 +56,9 @@ internal class PropertyGetBatchParamsTest {
                 .batchReadInputPropertyName(
                     BatchReadInputPropertyName.builder()
                         .archived(true)
-                        .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                        .dataSensitivity(
+                            BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE
+                        )
                         .addInput(PropertyName.builder().name("name").build())
                         .build()
                 )
@@ -66,7 +70,7 @@ internal class PropertyGetBatchParamsTest {
             .isEqualTo(
                 BatchReadInputPropertyName.builder()
                     .archived(true)
-                    .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                    .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE)
                     .addInput(PropertyName.builder().name("name").build())
                     .build()
             )

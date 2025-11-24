@@ -463,9 +463,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val MASTER = of("master")
+            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
 
-            @JvmField val VARIANT = of("variant")
+            @JvmField val AUTOMATED_MASTER = of("automated_master")
+
+            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
 
             @JvmField val LOSER_VARIANT = of("loser_variant")
 
@@ -473,25 +475,23 @@ private constructor(
 
             @JvmField val MAB_VARIANT = of("mab_variant")
 
-            @JvmField val AUTOMATED_MASTER = of("automated_master")
+            @JvmField val MASTER = of("master")
 
-            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
-
-            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
+            @JvmField val VARIANT = of("variant")
 
             @JvmStatic fun of(value: String) = AbSampleSizeDefault(JsonField.of(value))
         }
 
         /** An enum containing [AbSampleSizeDefault]'s known values. */
         enum class Known {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
         }
 
         /**
@@ -504,14 +504,14 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
             /**
              * An enum member indicating that [AbSampleSizeDefault] was instantiated with an unknown
              * value.
@@ -528,14 +528,14 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                MASTER -> Value.MASTER
-                VARIANT -> Value.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Value.LOSER_VARIANT
                 MAB_MASTER -> Value.MAB_MASTER
                 MAB_VARIANT -> Value.MAB_VARIANT
-                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                MASTER -> Value.MASTER
+                VARIANT -> Value.VARIANT
                 else -> Value._UNKNOWN
             }
 
@@ -550,14 +550,14 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                MASTER -> Known.MASTER
-                VARIANT -> Known.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Known.LOSER_VARIANT
                 MAB_MASTER -> Known.MAB_MASTER
                 MAB_VARIANT -> Known.MAB_VARIANT
-                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                MASTER -> Known.MASTER
+                VARIANT -> Known.VARIANT
                 else -> throw HubspotInvalidDataException("Unknown AbSampleSizeDefault: $value")
             }
 
@@ -632,9 +632,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val MASTER = of("master")
+            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
 
-            @JvmField val VARIANT = of("variant")
+            @JvmField val AUTOMATED_MASTER = of("automated_master")
+
+            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
 
             @JvmField val LOSER_VARIANT = of("loser_variant")
 
@@ -642,25 +644,23 @@ private constructor(
 
             @JvmField val MAB_VARIANT = of("mab_variant")
 
-            @JvmField val AUTOMATED_MASTER = of("automated_master")
+            @JvmField val MASTER = of("master")
 
-            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
-
-            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
+            @JvmField val VARIANT = of("variant")
 
             @JvmStatic fun of(value: String) = AbSamplingDefault(JsonField.of(value))
         }
 
         /** An enum containing [AbSamplingDefault]'s known values. */
         enum class Known {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
         }
 
         /**
@@ -673,14 +673,14 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
             /**
              * An enum member indicating that [AbSamplingDefault] was instantiated with an unknown
              * value.
@@ -697,14 +697,14 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                MASTER -> Value.MASTER
-                VARIANT -> Value.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Value.LOSER_VARIANT
                 MAB_MASTER -> Value.MAB_MASTER
                 MAB_VARIANT -> Value.MAB_VARIANT
-                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                MASTER -> Value.MASTER
+                VARIANT -> Value.VARIANT
                 else -> Value._UNKNOWN
             }
 
@@ -719,14 +719,14 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                MASTER -> Known.MASTER
-                VARIANT -> Known.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Known.LOSER_VARIANT
                 MAB_MASTER -> Known.MAB_MASTER
                 MAB_VARIANT -> Known.MAB_VARIANT
-                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                MASTER -> Known.MASTER
+                VARIANT -> Known.VARIANT
                 else -> throw HubspotInvalidDataException("Unknown AbSamplingDefault: $value")
             }
 
@@ -797,9 +797,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val MASTER = of("master")
+            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
 
-            @JvmField val VARIANT = of("variant")
+            @JvmField val AUTOMATED_MASTER = of("automated_master")
+
+            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
 
             @JvmField val LOSER_VARIANT = of("loser_variant")
 
@@ -807,25 +809,23 @@ private constructor(
 
             @JvmField val MAB_VARIANT = of("mab_variant")
 
-            @JvmField val AUTOMATED_MASTER = of("automated_master")
+            @JvmField val MASTER = of("master")
 
-            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
-
-            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
+            @JvmField val VARIANT = of("variant")
 
             @JvmStatic fun of(value: String) = AbStatus(JsonField.of(value))
         }
 
         /** An enum containing [AbStatus]'s known values. */
         enum class Known {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
         }
 
         /**
@@ -838,14 +838,14 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
             /** An enum member indicating that [AbStatus] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -859,14 +859,14 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                MASTER -> Value.MASTER
-                VARIANT -> Value.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Value.LOSER_VARIANT
                 MAB_MASTER -> Value.MAB_MASTER
                 MAB_VARIANT -> Value.MAB_VARIANT
-                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                MASTER -> Value.MASTER
+                VARIANT -> Value.VARIANT
                 else -> Value._UNKNOWN
             }
 
@@ -881,14 +881,14 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                MASTER -> Known.MASTER
-                VARIANT -> Known.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Known.LOSER_VARIANT
                 MAB_MASTER -> Known.MAB_MASTER
                 MAB_VARIANT -> Known.MAB_VARIANT
-                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                MASTER -> Known.MASTER
+                VARIANT -> Known.VARIANT
                 else -> throw HubspotInvalidDataException("Unknown AbStatus: $value")
             }
 
@@ -960,9 +960,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val CLICKS_BY_OPENS = of("CLICKS_BY_OPENS")
-
             @JvmField val CLICKS_BY_DELIVERED = of("CLICKS_BY_DELIVERED")
+
+            @JvmField val CLICKS_BY_OPENS = of("CLICKS_BY_OPENS")
 
             @JvmField val OPENS_BY_DELIVERED = of("OPENS_BY_DELIVERED")
 
@@ -971,8 +971,8 @@ private constructor(
 
         /** An enum containing [AbSuccessMetric]'s known values. */
         enum class Known {
-            CLICKS_BY_OPENS,
             CLICKS_BY_DELIVERED,
+            CLICKS_BY_OPENS,
             OPENS_BY_DELIVERED,
         }
 
@@ -986,8 +986,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            CLICKS_BY_OPENS,
             CLICKS_BY_DELIVERED,
+            CLICKS_BY_OPENS,
             OPENS_BY_DELIVERED,
             /**
              * An enum member indicating that [AbSuccessMetric] was instantiated with an unknown
@@ -1005,8 +1005,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                CLICKS_BY_OPENS -> Value.CLICKS_BY_OPENS
                 CLICKS_BY_DELIVERED -> Value.CLICKS_BY_DELIVERED
+                CLICKS_BY_OPENS -> Value.CLICKS_BY_OPENS
                 OPENS_BY_DELIVERED -> Value.OPENS_BY_DELIVERED
                 else -> Value._UNKNOWN
             }
@@ -1022,8 +1022,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                CLICKS_BY_OPENS -> Known.CLICKS_BY_OPENS
                 CLICKS_BY_DELIVERED -> Known.CLICKS_BY_DELIVERED
+                CLICKS_BY_OPENS -> Known.CLICKS_BY_OPENS
                 OPENS_BY_DELIVERED -> Known.OPENS_BY_DELIVERED
                 else -> throw HubspotInvalidDataException("Unknown AbSuccessMetric: $value")
             }

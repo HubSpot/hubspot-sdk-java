@@ -12,14 +12,10 @@ internal class ApiBlockedDateTest {
     @Test
     fun create() {
         val apiBlockedDate =
-            ApiBlockedDate.builder()
-                .dayOfMonth(0)
-                .month(ApiBlockedDate.Month.JANUARY)
-                .year(0)
-                .build()
+            ApiBlockedDate.builder().dayOfMonth(0).month(ApiBlockedDate.Month.APRIL).year(0).build()
 
         assertThat(apiBlockedDate.dayOfMonth()).isEqualTo(0)
-        assertThat(apiBlockedDate.month()).isEqualTo(ApiBlockedDate.Month.JANUARY)
+        assertThat(apiBlockedDate.month()).isEqualTo(ApiBlockedDate.Month.APRIL)
         assertThat(apiBlockedDate.year()).contains(0)
     }
 
@@ -27,11 +23,7 @@ internal class ApiBlockedDateTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val apiBlockedDate =
-            ApiBlockedDate.builder()
-                .dayOfMonth(0)
-                .month(ApiBlockedDate.Month.JANUARY)
-                .year(0)
-                .build()
+            ApiBlockedDate.builder().dayOfMonth(0).month(ApiBlockedDate.Month.APRIL).year(0).build()
 
         val roundtrippedApiBlockedDate =
             jsonMapper.readValue(

@@ -35,6 +35,7 @@ private constructor(
     /** Set this to `true` to populate foreign ID values in the result. */
     fun includeForeignIds(): Optional<Boolean> = Optional.ofNullable(includeForeignIds)
 
+    /** Indicates whether to retrieve the localized schema for the tables. */
     fun isGetLocalizedSchema(): Optional<Boolean> = Optional.ofNullable(isGetLocalizedSchema)
 
     /** Additional headers to send with the request. */
@@ -109,6 +110,7 @@ private constructor(
         fun includeForeignIds(includeForeignIds: Optional<Boolean>) =
             includeForeignIds(includeForeignIds.getOrNull())
 
+        /** Indicates whether to retrieve the localized schema for the tables. */
         fun isGetLocalizedSchema(isGetLocalizedSchema: Boolean?) = apply {
             this.isGetLocalizedSchema = isGetLocalizedSchema
         }

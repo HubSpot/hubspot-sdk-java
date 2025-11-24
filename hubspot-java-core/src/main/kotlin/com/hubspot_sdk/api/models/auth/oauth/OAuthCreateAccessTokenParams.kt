@@ -36,10 +36,16 @@ import kotlin.jvm.optionals.getOrNull
  */
 class OAuthCreateAccessTokenParams
 private constructor(
+    private val queryClientSecret: String?,
+    private val queryRefreshToken: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun queryClientSecret(): Optional<String> = Optional.ofNullable(queryClientSecret)
+
+    fun queryRefreshToken(): Optional<String> = Optional.ofNullable(queryRefreshToken)
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -51,13 +57,19 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun clientSecret(): Optional<String> = body.clientSecret()
+    fun bodyClientSecret(): Optional<String> = body.bodyClientSecret()
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun code(): Optional<String> = body.code()
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun codeVerifier(): Optional<String> = body.codeVerifier()
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -75,7 +87,13 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun refreshToken(): Optional<String> = body.refreshToken()
+    fun bodyRefreshToken(): Optional<String> = body.bodyRefreshToken()
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun scope(): Optional<String> = body.scope()
 
     /**
      * Returns the raw JSON value of [clientId].
@@ -85,11 +103,12 @@ private constructor(
     fun _clientId(): JsonField<String> = body._clientId()
 
     /**
-     * Returns the raw JSON value of [clientSecret].
+     * Returns the raw JSON value of [bodyClientSecret].
      *
-     * Unlike [clientSecret], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [bodyClientSecret], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    fun _clientSecret(): JsonField<String> = body._clientSecret()
+    fun _bodyClientSecret(): JsonField<String> = body._bodyClientSecret()
 
     /**
      * Returns the raw JSON value of [code].
@@ -97,6 +116,13 @@ private constructor(
      * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _code(): JsonField<String> = body._code()
+
+    /**
+     * Returns the raw JSON value of [codeVerifier].
+     *
+     * Unlike [codeVerifier], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _codeVerifier(): JsonField<String> = body._codeVerifier()
 
     /**
      * Returns the raw JSON value of [grantType].
@@ -113,11 +139,19 @@ private constructor(
     fun _redirectUri(): JsonField<String> = body._redirectUri()
 
     /**
-     * Returns the raw JSON value of [refreshToken].
+     * Returns the raw JSON value of [bodyRefreshToken].
      *
-     * Unlike [refreshToken], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [bodyRefreshToken], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    fun _refreshToken(): JsonField<String> = body._refreshToken()
+    fun _bodyRefreshToken(): JsonField<String> = body._bodyRefreshToken()
+
+    /**
+     * Returns the raw JSON value of [scope].
+     *
+     * Unlike [scope], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _scope(): JsonField<String> = body._scope()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -142,16 +176,36 @@ private constructor(
     /** A builder for [OAuthCreateAccessTokenParams]. */
     class Builder internal constructor() {
 
+        private var queryClientSecret: String? = null
+        private var queryRefreshToken: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(oauthCreateAccessTokenParams: OAuthCreateAccessTokenParams) = apply {
+            queryClientSecret = oauthCreateAccessTokenParams.queryClientSecret
+            queryRefreshToken = oauthCreateAccessTokenParams.queryRefreshToken
             body = oauthCreateAccessTokenParams.body.toBuilder()
             additionalHeaders = oauthCreateAccessTokenParams.additionalHeaders.toBuilder()
             additionalQueryParams = oauthCreateAccessTokenParams.additionalQueryParams.toBuilder()
         }
+
+        fun queryClientSecret(queryClientSecret: String?) = apply {
+            this.queryClientSecret = queryClientSecret
+        }
+
+        /** Alias for calling [Builder.queryClientSecret] with `queryClientSecret.orElse(null)`. */
+        fun queryClientSecret(queryClientSecret: Optional<String>) =
+            queryClientSecret(queryClientSecret.getOrNull())
+
+        fun queryRefreshToken(queryRefreshToken: String?) = apply {
+            this.queryRefreshToken = queryRefreshToken
+        }
+
+        /** Alias for calling [Builder.queryRefreshToken] with `queryRefreshToken.orElse(null)`. */
+        fun queryRefreshToken(queryRefreshToken: Optional<String>) =
+            queryRefreshToken(queryRefreshToken.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -159,10 +213,10 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [clientId]
-         * - [clientSecret]
+         * - [bodyClientSecret]
          * - [code]
+         * - [codeVerifier]
          * - [grantType]
-         * - [redirectUri]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -177,17 +231,19 @@ private constructor(
          */
         fun clientId(clientId: JsonField<String>) = apply { body.clientId(clientId) }
 
-        fun clientSecret(clientSecret: String) = apply { body.clientSecret(clientSecret) }
+        fun bodyClientSecret(bodyClientSecret: String) = apply {
+            body.bodyClientSecret(bodyClientSecret)
+        }
 
         /**
-         * Sets [Builder.clientSecret] to an arbitrary JSON value.
+         * Sets [Builder.bodyClientSecret] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.clientSecret] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.bodyClientSecret] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun clientSecret(clientSecret: JsonField<String>) = apply {
-            body.clientSecret(clientSecret)
+        fun bodyClientSecret(bodyClientSecret: JsonField<String>) = apply {
+            body.bodyClientSecret(bodyClientSecret)
         }
 
         fun code(code: String) = apply { body.code(code) }
@@ -199,6 +255,19 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun code(code: JsonField<String>) = apply { body.code(code) }
+
+        fun codeVerifier(codeVerifier: String) = apply { body.codeVerifier(codeVerifier) }
+
+        /**
+         * Sets [Builder.codeVerifier] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.codeVerifier] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun codeVerifier(codeVerifier: JsonField<String>) = apply {
+            body.codeVerifier(codeVerifier)
+        }
 
         fun grantType(grantType: GrantType) = apply { body.grantType(grantType) }
 
@@ -222,18 +291,30 @@ private constructor(
          */
         fun redirectUri(redirectUri: JsonField<String>) = apply { body.redirectUri(redirectUri) }
 
-        fun refreshToken(refreshToken: String) = apply { body.refreshToken(refreshToken) }
+        fun bodyRefreshToken(bodyRefreshToken: String) = apply {
+            body.bodyRefreshToken(bodyRefreshToken)
+        }
 
         /**
-         * Sets [Builder.refreshToken] to an arbitrary JSON value.
+         * Sets [Builder.bodyRefreshToken] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.refreshToken] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.bodyRefreshToken] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun refreshToken(refreshToken: JsonField<String>) = apply {
-            body.refreshToken(refreshToken)
+        fun bodyRefreshToken(bodyRefreshToken: JsonField<String>) = apply {
+            body.bodyRefreshToken(bodyRefreshToken)
         }
+
+        fun scope(scope: String) = apply { body.scope(scope) }
+
+        /**
+         * Sets [Builder.scope] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.scope] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun scope(scope: JsonField<String>) = apply { body.scope(scope) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -359,6 +440,8 @@ private constructor(
          */
         fun build(): OAuthCreateAccessTokenParams =
             OAuthCreateAccessTokenParams(
+                queryClientSecret,
+                queryRefreshToken,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -369,17 +452,26 @@ private constructor(
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                queryClientSecret?.let { put("client_secret", it) }
+                queryRefreshToken?.let { put("refresh_token", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val clientId: JsonField<String>,
-        private val clientSecret: JsonField<String>,
+        private val bodyClientSecret: JsonField<String>,
         private val code: JsonField<String>,
+        private val codeVerifier: JsonField<String>,
         private val grantType: JsonField<GrantType>,
         private val redirectUri: JsonField<String>,
-        private val refreshToken: JsonField<String>,
+        private val bodyRefreshToken: JsonField<String>,
+        private val scope: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -390,8 +482,11 @@ private constructor(
             clientId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("client_secret")
             @ExcludeMissing
-            clientSecret: JsonField<String> = JsonMissing.of(),
+            bodyClientSecret: JsonField<String> = JsonMissing.of(),
             @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("code_verifier")
+            @ExcludeMissing
+            codeVerifier: JsonField<String> = JsonMissing.of(),
             @JsonProperty("grant_type")
             @ExcludeMissing
             grantType: JsonField<GrantType> = JsonMissing.of(),
@@ -400,8 +495,19 @@ private constructor(
             redirectUri: JsonField<String> = JsonMissing.of(),
             @JsonProperty("refresh_token")
             @ExcludeMissing
-            refreshToken: JsonField<String> = JsonMissing.of(),
-        ) : this(clientId, clientSecret, code, grantType, redirectUri, refreshToken, mutableMapOf())
+            bodyRefreshToken: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("scope") @ExcludeMissing scope: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            clientId,
+            bodyClientSecret,
+            code,
+            codeVerifier,
+            grantType,
+            redirectUri,
+            bodyRefreshToken,
+            scope,
+            mutableMapOf(),
+        )
 
         /**
          * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -413,13 +519,19 @@ private constructor(
          * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun clientSecret(): Optional<String> = clientSecret.getOptional("client_secret")
+        fun bodyClientSecret(): Optional<String> = bodyClientSecret.getOptional("client_secret")
 
         /**
          * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun code(): Optional<String> = code.getOptional("code")
+
+        /**
+         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun codeVerifier(): Optional<String> = codeVerifier.getOptional("code_verifier")
 
         /**
          * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -437,7 +549,13 @@ private constructor(
          * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
-        fun refreshToken(): Optional<String> = refreshToken.getOptional("refresh_token")
+        fun bodyRefreshToken(): Optional<String> = bodyRefreshToken.getOptional("refresh_token")
+
+        /**
+         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         *   server responded with an unexpected value).
+         */
+        fun scope(): Optional<String> = scope.getOptional("scope")
 
         /**
          * Returns the raw JSON value of [clientId].
@@ -447,14 +565,14 @@ private constructor(
         @JsonProperty("client_id") @ExcludeMissing fun _clientId(): JsonField<String> = clientId
 
         /**
-         * Returns the raw JSON value of [clientSecret].
+         * Returns the raw JSON value of [bodyClientSecret].
          *
-         * Unlike [clientSecret], this method doesn't throw if the JSON field has an unexpected
+         * Unlike [bodyClientSecret], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
         @JsonProperty("client_secret")
         @ExcludeMissing
-        fun _clientSecret(): JsonField<String> = clientSecret
+        fun _bodyClientSecret(): JsonField<String> = bodyClientSecret
 
         /**
          * Returns the raw JSON value of [code].
@@ -462,6 +580,16 @@ private constructor(
          * Unlike [code], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+
+        /**
+         * Returns the raw JSON value of [codeVerifier].
+         *
+         * Unlike [codeVerifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("code_verifier")
+        @ExcludeMissing
+        fun _codeVerifier(): JsonField<String> = codeVerifier
 
         /**
          * Returns the raw JSON value of [grantType].
@@ -482,14 +610,21 @@ private constructor(
         fun _redirectUri(): JsonField<String> = redirectUri
 
         /**
-         * Returns the raw JSON value of [refreshToken].
+         * Returns the raw JSON value of [bodyRefreshToken].
          *
-         * Unlike [refreshToken], this method doesn't throw if the JSON field has an unexpected
+         * Unlike [bodyRefreshToken], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
         @JsonProperty("refresh_token")
         @ExcludeMissing
-        fun _refreshToken(): JsonField<String> = refreshToken
+        fun _bodyRefreshToken(): JsonField<String> = bodyRefreshToken
+
+        /**
+         * Returns the raw JSON value of [scope].
+         *
+         * Unlike [scope], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("scope") @ExcludeMissing fun _scope(): JsonField<String> = scope
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -513,21 +648,25 @@ private constructor(
         class Builder internal constructor() {
 
             private var clientId: JsonField<String> = JsonMissing.of()
-            private var clientSecret: JsonField<String> = JsonMissing.of()
+            private var bodyClientSecret: JsonField<String> = JsonMissing.of()
             private var code: JsonField<String> = JsonMissing.of()
+            private var codeVerifier: JsonField<String> = JsonMissing.of()
             private var grantType: JsonField<GrantType> = JsonMissing.of()
             private var redirectUri: JsonField<String> = JsonMissing.of()
-            private var refreshToken: JsonField<String> = JsonMissing.of()
+            private var bodyRefreshToken: JsonField<String> = JsonMissing.of()
+            private var scope: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 clientId = body.clientId
-                clientSecret = body.clientSecret
+                bodyClientSecret = body.bodyClientSecret
                 code = body.code
+                codeVerifier = body.codeVerifier
                 grantType = body.grantType
                 redirectUri = body.redirectUri
-                refreshToken = body.refreshToken
+                bodyRefreshToken = body.bodyRefreshToken
+                scope = body.scope
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -542,17 +681,18 @@ private constructor(
              */
             fun clientId(clientId: JsonField<String>) = apply { this.clientId = clientId }
 
-            fun clientSecret(clientSecret: String) = clientSecret(JsonField.of(clientSecret))
+            fun bodyClientSecret(bodyClientSecret: String) =
+                bodyClientSecret(JsonField.of(bodyClientSecret))
 
             /**
-             * Sets [Builder.clientSecret] to an arbitrary JSON value.
+             * Sets [Builder.bodyClientSecret] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.clientSecret] with a well-typed [String] value
+             * You should usually call [Builder.bodyClientSecret] with a well-typed [String] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun clientSecret(clientSecret: JsonField<String>) = apply {
-                this.clientSecret = clientSecret
+            fun bodyClientSecret(bodyClientSecret: JsonField<String>) = apply {
+                this.bodyClientSecret = bodyClientSecret
             }
 
             fun code(code: String) = code(JsonField.of(code))
@@ -565,6 +705,19 @@ private constructor(
              * value.
              */
             fun code(code: JsonField<String>) = apply { this.code = code }
+
+            fun codeVerifier(codeVerifier: String) = codeVerifier(JsonField.of(codeVerifier))
+
+            /**
+             * Sets [Builder.codeVerifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.codeVerifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun codeVerifier(codeVerifier: JsonField<String>) = apply {
+                this.codeVerifier = codeVerifier
+            }
 
             fun grantType(grantType: GrantType) = grantType(JsonField.of(grantType))
 
@@ -590,18 +743,30 @@ private constructor(
                 this.redirectUri = redirectUri
             }
 
-            fun refreshToken(refreshToken: String) = refreshToken(JsonField.of(refreshToken))
+            fun bodyRefreshToken(bodyRefreshToken: String) =
+                bodyRefreshToken(JsonField.of(bodyRefreshToken))
 
             /**
-             * Sets [Builder.refreshToken] to an arbitrary JSON value.
+             * Sets [Builder.bodyRefreshToken] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.refreshToken] with a well-typed [String] value
+             * You should usually call [Builder.bodyRefreshToken] with a well-typed [String] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun refreshToken(refreshToken: JsonField<String>) = apply {
-                this.refreshToken = refreshToken
+            fun bodyRefreshToken(bodyRefreshToken: JsonField<String>) = apply {
+                this.bodyRefreshToken = bodyRefreshToken
             }
+
+            fun scope(scope: String) = scope(JsonField.of(scope))
+
+            /**
+             * Sets [Builder.scope] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.scope] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun scope(scope: JsonField<String>) = apply { this.scope = scope }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -630,11 +795,13 @@ private constructor(
             fun build(): Body =
                 Body(
                     clientId,
-                    clientSecret,
+                    bodyClientSecret,
                     code,
+                    codeVerifier,
                     grantType,
                     redirectUri,
-                    refreshToken,
+                    bodyRefreshToken,
+                    scope,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -647,11 +814,13 @@ private constructor(
             }
 
             clientId()
-            clientSecret()
+            bodyClientSecret()
             code()
+            codeVerifier()
             grantType().ifPresent { it.validate() }
             redirectUri()
-            refreshToken()
+            bodyRefreshToken()
+            scope()
             validated = true
         }
 
@@ -672,11 +841,13 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (clientId.asKnown().isPresent) 1 else 0) +
-                (if (clientSecret.asKnown().isPresent) 1 else 0) +
+                (if (bodyClientSecret.asKnown().isPresent) 1 else 0) +
                 (if (code.asKnown().isPresent) 1 else 0) +
+                (if (codeVerifier.asKnown().isPresent) 1 else 0) +
                 (grantType.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (redirectUri.asKnown().isPresent) 1 else 0) +
-                (if (refreshToken.asKnown().isPresent) 1 else 0)
+                (if (bodyRefreshToken.asKnown().isPresent) 1 else 0) +
+                (if (scope.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -685,22 +856,26 @@ private constructor(
 
             return other is Body &&
                 clientId == other.clientId &&
-                clientSecret == other.clientSecret &&
+                bodyClientSecret == other.bodyClientSecret &&
                 code == other.code &&
+                codeVerifier == other.codeVerifier &&
                 grantType == other.grantType &&
                 redirectUri == other.redirectUri &&
-                refreshToken == other.refreshToken &&
+                bodyRefreshToken == other.bodyRefreshToken &&
+                scope == other.scope &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
                 clientId,
-                clientSecret,
+                bodyClientSecret,
                 code,
+                codeVerifier,
                 grantType,
                 redirectUri,
-                refreshToken,
+                bodyRefreshToken,
+                scope,
                 additionalProperties,
             )
         }
@@ -708,7 +883,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{clientId=$clientId, clientSecret=$clientSecret, code=$code, grantType=$grantType, redirectUri=$redirectUri, refreshToken=$refreshToken, additionalProperties=$additionalProperties}"
+            "Body{clientId=$clientId, bodyClientSecret=$bodyClientSecret, code=$code, codeVerifier=$codeVerifier, grantType=$grantType, redirectUri=$redirectUri, bodyRefreshToken=$bodyRefreshToken, scope=$scope, additionalProperties=$additionalProperties}"
     }
 
     class GrantType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -727,6 +902,8 @@ private constructor(
 
             @JvmField val AUTHORIZATION_CODE = of("authorization_code")
 
+            @JvmField val CLIENT_CREDENTIALS = of("client_credentials")
+
             @JvmField val REFRESH_TOKEN = of("refresh_token")
 
             @JvmStatic fun of(value: String) = GrantType(JsonField.of(value))
@@ -735,6 +912,7 @@ private constructor(
         /** An enum containing [GrantType]'s known values. */
         enum class Known {
             AUTHORIZATION_CODE,
+            CLIENT_CREDENTIALS,
             REFRESH_TOKEN,
         }
 
@@ -749,6 +927,7 @@ private constructor(
          */
         enum class Value {
             AUTHORIZATION_CODE,
+            CLIENT_CREDENTIALS,
             REFRESH_TOKEN,
             /**
              * An enum member indicating that [GrantType] was instantiated with an unknown value.
@@ -766,6 +945,7 @@ private constructor(
         fun value(): Value =
             when (this) {
                 AUTHORIZATION_CODE -> Value.AUTHORIZATION_CODE
+                CLIENT_CREDENTIALS -> Value.CLIENT_CREDENTIALS
                 REFRESH_TOKEN -> Value.REFRESH_TOKEN
                 else -> Value._UNKNOWN
             }
@@ -782,6 +962,7 @@ private constructor(
         fun known(): Known =
             when (this) {
                 AUTHORIZATION_CODE -> Known.AUTHORIZATION_CODE
+                CLIENT_CREDENTIALS -> Known.CLIENT_CREDENTIALS
                 REFRESH_TOKEN -> Known.REFRESH_TOKEN
                 else -> throw HubspotInvalidDataException("Unknown GrantType: $value")
             }
@@ -844,13 +1025,22 @@ private constructor(
         }
 
         return other is OAuthCreateAccessTokenParams &&
+            queryClientSecret == other.queryClientSecret &&
+            queryRefreshToken == other.queryRefreshToken &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(
+            queryClientSecret,
+            queryRefreshToken,
+            body,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "OAuthCreateAccessTokenParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "OAuthCreateAccessTokenParams{queryClientSecret=$queryClientSecret, queryRefreshToken=$queryRefreshToken, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -31,7 +31,7 @@ internal class BatchResponseContentFolderWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseContentFolderWithErrors.Status.PENDING)
+                .status(BatchResponseContentFolderWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -217,7 +217,7 @@ internal class BatchResponseContentFolderWithErrorsTest {
         assertThat(batchResponseContentFolderWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseContentFolderWithErrors.status())
-            .isEqualTo(BatchResponseContentFolderWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseContentFolderWithErrors.Status.CANCELED)
         assertThat(batchResponseContentFolderWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -311,7 +311,7 @@ internal class BatchResponseContentFolderWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseContentFolderWithErrors.Status.PENDING)
+                .status(BatchResponseContentFolderWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

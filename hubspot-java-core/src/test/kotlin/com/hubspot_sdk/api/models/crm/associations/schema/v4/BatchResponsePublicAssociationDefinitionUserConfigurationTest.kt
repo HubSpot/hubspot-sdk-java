@@ -30,7 +30,7 @@ internal class BatchResponsePublicAssociationDefinitionUserConfigurationTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicAssociationDefinitionUserConfiguration.Status.PENDING)
+                .status(BatchResponsePublicAssociationDefinitionUserConfiguration.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -213,7 +213,7 @@ internal class BatchResponsePublicAssociationDefinitionUserConfigurationTest {
         assertThat(batchResponsePublicAssociationDefinitionUserConfiguration.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePublicAssociationDefinitionUserConfiguration.status())
-            .isEqualTo(BatchResponsePublicAssociationDefinitionUserConfiguration.Status.PENDING)
+            .isEqualTo(BatchResponsePublicAssociationDefinitionUserConfiguration.Status.CANCELED)
         assertThat(batchResponsePublicAssociationDefinitionUserConfiguration.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -307,7 +307,7 @@ internal class BatchResponsePublicAssociationDefinitionUserConfigurationTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicAssociationDefinitionUserConfiguration.Status.PENDING)
+                .status(BatchResponsePublicAssociationDefinitionUserConfiguration.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

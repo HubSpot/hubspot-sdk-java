@@ -19,7 +19,7 @@ internal class FieldGroupTest {
                             DependentField.builder()
                                 .dependentCondition(
                                     DependentFieldFilter.builder()
-                                        .operator(DependentFieldFilter.Operator.EQ)
+                                        .operator(DependentFieldFilter.Operator.BETWEEN)
                                         .rangeEnd("rangeEnd")
                                         .rangeStart("rangeStart")
                                         .value("value")
@@ -67,7 +67,7 @@ internal class FieldGroupTest {
                         .build()
                 )
                 .groupType(FieldGroup.GroupType.DEFAULT_GROUP)
-                .richTextType(FieldGroup.RichTextType.TEXT)
+                .richTextType(FieldGroup.RichTextType.IMAGE)
                 .richText("richText")
                 .build()
 
@@ -79,7 +79,7 @@ internal class FieldGroupTest {
                             DependentField.builder()
                                 .dependentCondition(
                                     DependentFieldFilter.builder()
-                                        .operator(DependentFieldFilter.Operator.EQ)
+                                        .operator(DependentFieldFilter.Operator.BETWEEN)
                                         .rangeEnd("rangeEnd")
                                         .rangeStart("rangeStart")
                                         .value("value")
@@ -128,7 +128,7 @@ internal class FieldGroupTest {
                 )
             )
         assertThat(fieldGroup.groupType()).isEqualTo(FieldGroup.GroupType.DEFAULT_GROUP)
-        assertThat(fieldGroup.richTextType()).isEqualTo(FieldGroup.RichTextType.TEXT)
+        assertThat(fieldGroup.richTextType()).isEqualTo(FieldGroup.RichTextType.IMAGE)
         assertThat(fieldGroup.richText()).contains("richText")
     }
 
@@ -143,7 +143,7 @@ internal class FieldGroupTest {
                             DependentField.builder()
                                 .dependentCondition(
                                     DependentFieldFilter.builder()
-                                        .operator(DependentFieldFilter.Operator.EQ)
+                                        .operator(DependentFieldFilter.Operator.BETWEEN)
                                         .rangeEnd("rangeEnd")
                                         .rangeStart("rangeStart")
                                         .value("value")
@@ -191,7 +191,7 @@ internal class FieldGroupTest {
                         .build()
                 )
                 .groupType(FieldGroup.GroupType.DEFAULT_GROUP)
-                .richTextType(FieldGroup.RichTextType.TEXT)
+                .richTextType(FieldGroup.RichTextType.IMAGE)
                 .richText("richText")
                 .build()
 

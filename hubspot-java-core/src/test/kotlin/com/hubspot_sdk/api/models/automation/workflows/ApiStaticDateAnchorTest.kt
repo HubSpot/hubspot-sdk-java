@@ -14,13 +14,13 @@ internal class ApiStaticDateAnchorTest {
         val apiStaticDateAnchor =
             ApiStaticDateAnchor.builder()
                 .dayOfMonth(0)
-                .month(ApiStaticDateAnchor.Month.JANUARY)
+                .month(ApiStaticDateAnchor.Month.APRIL)
                 .type(ApiStaticDateAnchor.Type.STATIC_DATE_ANCHOR)
                 .year(0)
                 .build()
 
         assertThat(apiStaticDateAnchor.dayOfMonth()).isEqualTo(0)
-        assertThat(apiStaticDateAnchor.month()).isEqualTo(ApiStaticDateAnchor.Month.JANUARY)
+        assertThat(apiStaticDateAnchor.month()).isEqualTo(ApiStaticDateAnchor.Month.APRIL)
         assertThat(apiStaticDateAnchor.type())
             .isEqualTo(ApiStaticDateAnchor.Type.STATIC_DATE_ANCHOR)
         assertThat(apiStaticDateAnchor.year()).contains(0)
@@ -32,7 +32,7 @@ internal class ApiStaticDateAnchorTest {
         val apiStaticDateAnchor =
             ApiStaticDateAnchor.builder()
                 .dayOfMonth(0)
-                .month(ApiStaticDateAnchor.Month.JANUARY)
+                .month(ApiStaticDateAnchor.Month.APRIL)
                 .type(ApiStaticDateAnchor.Type.STATIC_DATE_ANCHOR)
                 .year(0)
                 .build()

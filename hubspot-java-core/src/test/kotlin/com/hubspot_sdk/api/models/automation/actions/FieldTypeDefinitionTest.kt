@@ -25,14 +25,14 @@ internal class FieldTypeDefinitionTest {
                         .displayOrder(1)
                         .build()
                 )
-                .type(FieldTypeDefinition.Type.STRING)
+                .type(FieldTypeDefinition.Type.BOOL)
                 .description("description")
                 .externalOptionsReferenceType("externalOptionsReferenceType")
                 .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
                 .helpText("helpText")
                 .label("label")
                 .optionsUrl("optionsUrl")
-                .referencedObjectType(FieldTypeDefinition.ReferencedObjectType.CONTACT)
+                .referencedObjectType(FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART)
                 .build()
 
         assertThat(fieldTypeDefinition.externalOptions()).isEqualTo(true)
@@ -47,7 +47,7 @@ internal class FieldTypeDefinitionTest {
                     .displayOrder(1)
                     .build()
             )
-        assertThat(fieldTypeDefinition.type()).isEqualTo(FieldTypeDefinition.Type.STRING)
+        assertThat(fieldTypeDefinition.type()).isEqualTo(FieldTypeDefinition.Type.BOOL)
         assertThat(fieldTypeDefinition.description()).contains("description")
         assertThat(fieldTypeDefinition.externalOptionsReferenceType())
             .contains("externalOptionsReferenceType")
@@ -57,7 +57,7 @@ internal class FieldTypeDefinitionTest {
         assertThat(fieldTypeDefinition.label()).contains("label")
         assertThat(fieldTypeDefinition.optionsUrl()).contains("optionsUrl")
         assertThat(fieldTypeDefinition.referencedObjectType())
-            .contains(FieldTypeDefinition.ReferencedObjectType.CONTACT)
+            .contains(FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART)
     }
 
     @Test
@@ -76,14 +76,14 @@ internal class FieldTypeDefinitionTest {
                         .displayOrder(1)
                         .build()
                 )
-                .type(FieldTypeDefinition.Type.STRING)
+                .type(FieldTypeDefinition.Type.BOOL)
                 .description("description")
                 .externalOptionsReferenceType("externalOptionsReferenceType")
                 .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
                 .helpText("helpText")
                 .label("label")
                 .optionsUrl("optionsUrl")
-                .referencedObjectType(FieldTypeDefinition.ReferencedObjectType.CONTACT)
+                .referencedObjectType(FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART)
                 .build()
 
         val roundtrippedFieldTypeDefinition =

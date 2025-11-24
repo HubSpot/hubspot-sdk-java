@@ -304,9 +304,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val LEAD = of("lead")
-
             @JvmField val CLIENT = of("client")
+
+            @JvmField val LEAD = of("lead")
 
             @JvmField val OTHER = of("other")
 
@@ -315,8 +315,8 @@ private constructor(
 
         /** An enum containing [LawfulBasis]'s known values. */
         enum class Known {
-            LEAD,
             CLIENT,
+            LEAD,
             OTHER,
         }
 
@@ -330,8 +330,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            LEAD,
             CLIENT,
+            LEAD,
             OTHER,
             /**
              * An enum member indicating that [LawfulBasis] was instantiated with an unknown value.
@@ -348,8 +348,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                LEAD -> Value.LEAD
                 CLIENT -> Value.CLIENT
+                LEAD -> Value.LEAD
                 OTHER -> Value.OTHER
                 else -> Value._UNKNOWN
             }
@@ -365,8 +365,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                LEAD -> Known.LEAD
                 CLIENT -> Known.CLIENT
+                LEAD -> Known.LEAD
                 OTHER -> Known.OTHER
                 else -> throw HubspotInvalidDataException("Unknown LawfulBasis: $value")
             }

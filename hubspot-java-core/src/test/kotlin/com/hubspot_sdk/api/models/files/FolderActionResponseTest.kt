@@ -20,7 +20,7 @@ internal class FolderActionResponseTest {
             FolderActionResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(FolderActionResponse.Status.PENDING)
+                .status(FolderActionResponse.Status.CANCELED)
                 .taskId("taskId")
                 .addError(
                     StandardError.builder()
@@ -206,7 +206,7 @@ internal class FolderActionResponseTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(folderActionResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(folderActionResponse.status()).isEqualTo(FolderActionResponse.Status.PENDING)
+        assertThat(folderActionResponse.status()).isEqualTo(FolderActionResponse.Status.CANCELED)
         assertThat(folderActionResponse.taskId()).isEqualTo("taskId")
         assertThat(folderActionResponse.errors().getOrNull())
             .containsExactly(
@@ -303,7 +303,7 @@ internal class FolderActionResponseTest {
             FolderActionResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(FolderActionResponse.Status.PENDING)
+                .status(FolderActionResponse.Status.CANCELED)
                 .taskId("taskId")
                 .addError(
                     StandardError.builder()

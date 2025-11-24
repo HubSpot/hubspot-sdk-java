@@ -27,7 +27,7 @@ internal class SiteSearchServiceAsyncTest {
             siteSearchServiceAsync.getIndexedData(
                 SiteSearchGetIndexedDataParams.builder()
                     .contentId("contentId")
-                    .type(SiteSearchGetIndexedDataParams.Type.LANDING_PAGE)
+                    .type(SiteSearchGetIndexedDataParams.Type.BLOG_POST)
                     .build()
             )
 
@@ -55,7 +55,7 @@ internal class SiteSearchServiceAsyncTest {
                     .addGroupId(0L)
                     .hubdbQuery("hubdbQuery")
                     .language(SiteSearchSearchParams.Language.AF)
-                    .length(SiteSearchSearchParams.Length.SHORT)
+                    .length(SiteSearchSearchParams.Length.LONG)
                     .limit(0)
                     .matchPrefix(true)
                     .offset(0)

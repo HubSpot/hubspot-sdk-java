@@ -408,41 +408,41 @@ private constructor(
 
         companion object {
 
-            @JvmField val IS_EQUAL_TO = of("IS_EQUAL_TO")
-
-            @JvmField val IS_NOT_EQUAL_TO = of("IS_NOT_EQUAL_TO")
-
             @JvmField val CONTAINS = of("CONTAINS")
 
             @JvmField val DOES_NOT_CONTAIN = of("DOES_NOT_CONTAIN")
-
-            @JvmField val STARTS_WITH = of("STARTS_WITH")
 
             @JvmField val ENDS_WITH = of("ENDS_WITH")
 
             @JvmField val HAS_EVER_BEEN_EQUAL_TO = of("HAS_EVER_BEEN_EQUAL_TO")
 
-            @JvmField val HAS_NEVER_BEEN_EQUAL_TO = of("HAS_NEVER_BEEN_EQUAL_TO")
-
             @JvmField val HAS_EVER_CONTAINED = of("HAS_EVER_CONTAINED")
 
+            @JvmField val HAS_NEVER_BEEN_EQUAL_TO = of("HAS_NEVER_BEEN_EQUAL_TO")
+
             @JvmField val HAS_NEVER_CONTAINED = of("HAS_NEVER_CONTAINED")
+
+            @JvmField val IS_EQUAL_TO = of("IS_EQUAL_TO")
+
+            @JvmField val IS_NOT_EQUAL_TO = of("IS_NOT_EQUAL_TO")
+
+            @JvmField val STARTS_WITH = of("STARTS_WITH")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            IS_EQUAL_TO,
-            IS_NOT_EQUAL_TO,
             CONTAINS,
             DOES_NOT_CONTAIN,
-            STARTS_WITH,
             ENDS_WITH,
             HAS_EVER_BEEN_EQUAL_TO,
-            HAS_NEVER_BEEN_EQUAL_TO,
             HAS_EVER_CONTAINED,
+            HAS_NEVER_BEEN_EQUAL_TO,
             HAS_NEVER_CONTAINED,
+            IS_EQUAL_TO,
+            IS_NOT_EQUAL_TO,
+            STARTS_WITH,
         }
 
         /**
@@ -455,16 +455,16 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            IS_EQUAL_TO,
-            IS_NOT_EQUAL_TO,
             CONTAINS,
             DOES_NOT_CONTAIN,
-            STARTS_WITH,
             ENDS_WITH,
             HAS_EVER_BEEN_EQUAL_TO,
-            HAS_NEVER_BEEN_EQUAL_TO,
             HAS_EVER_CONTAINED,
+            HAS_NEVER_BEEN_EQUAL_TO,
             HAS_NEVER_CONTAINED,
+            IS_EQUAL_TO,
+            IS_NOT_EQUAL_TO,
+            STARTS_WITH,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -478,16 +478,16 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                IS_EQUAL_TO -> Value.IS_EQUAL_TO
-                IS_NOT_EQUAL_TO -> Value.IS_NOT_EQUAL_TO
                 CONTAINS -> Value.CONTAINS
                 DOES_NOT_CONTAIN -> Value.DOES_NOT_CONTAIN
-                STARTS_WITH -> Value.STARTS_WITH
                 ENDS_WITH -> Value.ENDS_WITH
                 HAS_EVER_BEEN_EQUAL_TO -> Value.HAS_EVER_BEEN_EQUAL_TO
-                HAS_NEVER_BEEN_EQUAL_TO -> Value.HAS_NEVER_BEEN_EQUAL_TO
                 HAS_EVER_CONTAINED -> Value.HAS_EVER_CONTAINED
+                HAS_NEVER_BEEN_EQUAL_TO -> Value.HAS_NEVER_BEEN_EQUAL_TO
                 HAS_NEVER_CONTAINED -> Value.HAS_NEVER_CONTAINED
+                IS_EQUAL_TO -> Value.IS_EQUAL_TO
+                IS_NOT_EQUAL_TO -> Value.IS_NOT_EQUAL_TO
+                STARTS_WITH -> Value.STARTS_WITH
                 else -> Value._UNKNOWN
             }
 
@@ -502,16 +502,16 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                IS_EQUAL_TO -> Known.IS_EQUAL_TO
-                IS_NOT_EQUAL_TO -> Known.IS_NOT_EQUAL_TO
                 CONTAINS -> Known.CONTAINS
                 DOES_NOT_CONTAIN -> Known.DOES_NOT_CONTAIN
-                STARTS_WITH -> Known.STARTS_WITH
                 ENDS_WITH -> Known.ENDS_WITH
                 HAS_EVER_BEEN_EQUAL_TO -> Known.HAS_EVER_BEEN_EQUAL_TO
-                HAS_NEVER_BEEN_EQUAL_TO -> Known.HAS_NEVER_BEEN_EQUAL_TO
                 HAS_EVER_CONTAINED -> Known.HAS_EVER_CONTAINED
+                HAS_NEVER_BEEN_EQUAL_TO -> Known.HAS_NEVER_BEEN_EQUAL_TO
                 HAS_NEVER_CONTAINED -> Known.HAS_NEVER_CONTAINED
+                IS_EQUAL_TO -> Known.IS_EQUAL_TO
+                IS_NOT_EQUAL_TO -> Known.IS_NOT_EQUAL_TO
+                STARTS_WITH -> Known.STARTS_WITH
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

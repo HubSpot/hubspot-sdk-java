@@ -36,12 +36,16 @@ private constructor(
     ) : this(conversionRate, effectiveAt, mutableMapOf())
 
     /**
+     * The updated conversion rate between the to and from currency code of this exchange rate.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun conversionRate(): Double = conversionRate.getRequired("conversionRate")
 
     /**
+     * The date the exchange rate is in effect.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -104,6 +108,9 @@ private constructor(
             additionalProperties = exchangeRateMultiplier.additionalProperties.toMutableMap()
         }
 
+        /**
+         * The updated conversion rate between the to and from currency code of this exchange rate.
+         */
         fun conversionRate(conversionRate: Double) = conversionRate(JsonField.of(conversionRate))
 
         /**
@@ -117,6 +124,7 @@ private constructor(
             this.conversionRate = conversionRate
         }
 
+        /** The date the exchange rate is in effect. */
         fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
         /**

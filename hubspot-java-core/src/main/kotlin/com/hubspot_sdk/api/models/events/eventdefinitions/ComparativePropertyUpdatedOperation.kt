@@ -464,17 +464,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val IS_BEFORE = of("IS_BEFORE")
-
             @JvmField val IS_AFTER = of("IS_AFTER")
+
+            @JvmField val IS_BEFORE = of("IS_BEFORE")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            IS_BEFORE,
             IS_AFTER,
+            IS_BEFORE,
         }
 
         /**
@@ -487,8 +487,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            IS_BEFORE,
             IS_AFTER,
+            IS_BEFORE,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -502,8 +502,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                IS_BEFORE -> Value.IS_BEFORE
                 IS_AFTER -> Value.IS_AFTER
+                IS_BEFORE -> Value.IS_BEFORE
                 else -> Value._UNKNOWN
             }
 
@@ -518,8 +518,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                IS_BEFORE -> Known.IS_BEFORE
                 IS_AFTER -> Known.IS_AFTER
+                IS_BEFORE -> Known.IS_BEFORE
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

@@ -30,7 +30,7 @@ internal class BatchResponsePublicCampaignTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicCampaign.Status.PENDING)
+                .status(BatchResponsePublicCampaign.Status.CANCELED)
                 .links(
                     BatchResponsePublicCampaign.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -58,7 +58,7 @@ internal class BatchResponsePublicCampaignTest {
         assertThat(batchResponsePublicCampaign.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePublicCampaign.status())
-            .isEqualTo(BatchResponsePublicCampaign.Status.PENDING)
+            .isEqualTo(BatchResponsePublicCampaign.Status.CANCELED)
         assertThat(batchResponsePublicCampaign.links())
             .contains(
                 BatchResponsePublicCampaign.Links.builder()
@@ -89,7 +89,7 @@ internal class BatchResponsePublicCampaignTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicCampaign.Status.PENDING)
+                .status(BatchResponsePublicCampaign.Status.CANCELED)
                 .links(
                     BatchResponsePublicCampaign.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

@@ -12,7 +12,7 @@ internal class FunctionDeleteByFunctionTypeParamsTest {
         FunctionDeleteByFunctionTypeParams.builder()
             .appId(0)
             .definitionId("definitionId")
-            .functionType(FunctionDeleteByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION)
+            .functionType(FunctionDeleteByFunctionTypeParams.FunctionType.POST_ACTION_EXECUTION)
             .build()
     }
 
@@ -22,12 +22,12 @@ internal class FunctionDeleteByFunctionTypeParamsTest {
             FunctionDeleteByFunctionTypeParams.builder()
                 .appId(0)
                 .definitionId("definitionId")
-                .functionType(FunctionDeleteByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION)
+                .functionType(FunctionDeleteByFunctionTypeParams.FunctionType.POST_ACTION_EXECUTION)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("definitionId")
-        assertThat(params._pathParam(2)).isEqualTo("PRE_ACTION_EXECUTION")
+        assertThat(params._pathParam(2)).isEqualTo("POST_ACTION_EXECUTION")
         // out-of-bound path param
         assertThat(params._pathParam(3)).isEqualTo("")
     }

@@ -368,9 +368,9 @@ private constructor(
 
             @JvmField val CREATE = of("CREATE")
 
-            @JvmField val UPDATE = of("UPDATE")
-
             @JvmField val DELETE = of("DELETE")
+
+            @JvmField val UPDATE = of("UPDATE")
 
             @JvmStatic fun of(value: String) = ActionType(JsonField.of(value))
         }
@@ -378,8 +378,8 @@ private constructor(
         /** An enum containing [ActionType]'s known values. */
         enum class Known {
             CREATE,
-            UPDATE,
             DELETE,
+            UPDATE,
         }
 
         /**
@@ -393,8 +393,8 @@ private constructor(
          */
         enum class Value {
             CREATE,
-            UPDATE,
             DELETE,
+            UPDATE,
             /**
              * An enum member indicating that [ActionType] was instantiated with an unknown value.
              */
@@ -411,8 +411,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CREATE -> Value.CREATE
-                UPDATE -> Value.UPDATE
                 DELETE -> Value.DELETE
+                UPDATE -> Value.UPDATE
                 else -> Value._UNKNOWN
             }
 
@@ -428,8 +428,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CREATE -> Known.CREATE
-                UPDATE -> Known.UPDATE
                 DELETE -> Known.DELETE
+                UPDATE -> Known.UPDATE
                 else -> throw HubspotInvalidDataException("Unknown ActionType: $value")
             }
 
@@ -499,20 +499,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val INTERNAL = of("INTERNAL")
-
             @JvmField val APP = of("APP")
 
             @JvmField val EXTERNAL = of("EXTERNAL")
+
+            @JvmField val INTERNAL = of("INTERNAL")
 
             @JvmStatic fun of(value: String) = AuthSource(JsonField.of(value))
         }
 
         /** An enum containing [AuthSource]'s known values. */
         enum class Known {
-            INTERNAL,
             APP,
             EXTERNAL,
+            INTERNAL,
         }
 
         /**
@@ -525,9 +525,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            INTERNAL,
             APP,
             EXTERNAL,
+            INTERNAL,
             /**
              * An enum member indicating that [AuthSource] was instantiated with an unknown value.
              */
@@ -543,9 +543,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                INTERNAL -> Value.INTERNAL
                 APP -> Value.APP
                 EXTERNAL -> Value.EXTERNAL
+                INTERNAL -> Value.INTERNAL
                 else -> Value._UNKNOWN
             }
 
@@ -560,9 +560,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                INTERNAL -> Known.INTERNAL
                 APP -> Known.APP
                 EXTERNAL -> Known.EXTERNAL
+                INTERNAL -> Known.INTERNAL
                 else -> throw HubspotInvalidDataException("Unknown AuthSource: $value")
             }
 

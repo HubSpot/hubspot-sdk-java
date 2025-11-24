@@ -38,7 +38,7 @@ internal class BatchResponseBlogAuthorTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseBlogAuthor.Status.PENDING)
+                .status(BatchResponseBlogAuthor.Status.CANCELED)
                 .links(
                     BatchResponseBlogAuthor.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -74,7 +74,7 @@ internal class BatchResponseBlogAuthorTest {
         assertThat(batchResponseBlogAuthor.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseBlogAuthor.status())
-            .isEqualTo(BatchResponseBlogAuthor.Status.PENDING)
+            .isEqualTo(BatchResponseBlogAuthor.Status.CANCELED)
         assertThat(batchResponseBlogAuthor.links())
             .contains(
                 BatchResponseBlogAuthor.Links.builder()
@@ -113,7 +113,7 @@ internal class BatchResponseBlogAuthorTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseBlogAuthor.Status.PENDING)
+                .status(BatchResponseBlogAuthor.Status.CANCELED)
                 .links(
                     BatchResponseBlogAuthor.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

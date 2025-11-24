@@ -256,17 +256,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val USER_ID = of("USER_ID")
-
             @JvmField val EMAIL = of("EMAIL")
+
+            @JvmField val USER_ID = of("USER_ID")
 
             @JvmStatic fun of(value: String) = IdProperty(JsonField.of(value))
         }
 
         /** An enum containing [IdProperty]'s known values. */
         enum class Known {
-            USER_ID,
             EMAIL,
+            USER_ID,
         }
 
         /**
@@ -279,8 +279,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            USER_ID,
             EMAIL,
+            USER_ID,
             /**
              * An enum member indicating that [IdProperty] was instantiated with an unknown value.
              */
@@ -296,8 +296,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                USER_ID -> Value.USER_ID
                 EMAIL -> Value.EMAIL
+                USER_ID -> Value.USER_ID
                 else -> Value._UNKNOWN
             }
 
@@ -312,8 +312,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                USER_ID -> Known.USER_ID
                 EMAIL -> Known.EMAIL
+                USER_ID -> Known.USER_ID
                 else -> throw HubspotInvalidDataException("Unknown IdProperty: $value")
             }
 

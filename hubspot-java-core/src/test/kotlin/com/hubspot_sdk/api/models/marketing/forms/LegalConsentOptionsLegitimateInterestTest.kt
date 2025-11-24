@@ -13,14 +13,14 @@ internal class LegalConsentOptionsLegitimateInterestTest {
     fun create() {
         val legalConsentOptionsLegitimateInterest =
             LegalConsentOptionsLegitimateInterest.builder()
-                .lawfulBasis(LegalConsentOptionsLegitimateInterest.LawfulBasis.LEAD)
+                .lawfulBasis(LegalConsentOptionsLegitimateInterest.LawfulBasis.CLIENT)
                 .privacyText("privacyText")
                 .addSubscriptionTypeId(0L)
                 .type(LegalConsentOptionsLegitimateInterest.Type.LEGITIMATE_INTEREST)
                 .build()
 
         assertThat(legalConsentOptionsLegitimateInterest.lawfulBasis())
-            .isEqualTo(LegalConsentOptionsLegitimateInterest.LawfulBasis.LEAD)
+            .isEqualTo(LegalConsentOptionsLegitimateInterest.LawfulBasis.CLIENT)
         assertThat(legalConsentOptionsLegitimateInterest.privacyText()).isEqualTo("privacyText")
         assertThat(legalConsentOptionsLegitimateInterest.subscriptionTypeIds()).containsExactly(0L)
         assertThat(legalConsentOptionsLegitimateInterest.type())
@@ -32,7 +32,7 @@ internal class LegalConsentOptionsLegitimateInterestTest {
         val jsonMapper = jsonMapper()
         val legalConsentOptionsLegitimateInterest =
             LegalConsentOptionsLegitimateInterest.builder()
-                .lawfulBasis(LegalConsentOptionsLegitimateInterest.LawfulBasis.LEAD)
+                .lawfulBasis(LegalConsentOptionsLegitimateInterest.LawfulBasis.CLIENT)
                 .privacyText("privacyText")
                 .addSubscriptionTypeId(0L)
                 .type(LegalConsentOptionsLegitimateInterest.Type.LEGITIMATE_INTEREST)

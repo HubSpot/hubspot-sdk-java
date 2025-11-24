@@ -43,6 +43,7 @@ private constructor(
     /** Specifies whether to return archived tables. Defaults to `false`. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
+    /** Specifies the content type for the response. */
     fun contentType(): Optional<String> = Optional.ofNullable(contentType)
 
     /** Only return tables created after the specified time. */
@@ -54,6 +55,7 @@ private constructor(
     /** Only return tables created before the specified time. */
     fun createdBefore(): Optional<OffsetDateTime> = Optional.ofNullable(createdBefore)
 
+    /** Indicates whether to retrieve the localized schema for the tables. */
     fun isGetLocalizedSchema(): Optional<Boolean> = Optional.ofNullable(isGetLocalizedSchema)
 
     /** The maximum number of results to return. Default is 1000. */
@@ -148,6 +150,7 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
+        /** Specifies the content type for the response. */
         fun contentType(contentType: String?) = apply { this.contentType = contentType }
 
         /** Alias for calling [Builder.contentType] with `contentType.orElse(null)`. */
@@ -175,6 +178,7 @@ private constructor(
         fun createdBefore(createdBefore: Optional<OffsetDateTime>) =
             createdBefore(createdBefore.getOrNull())
 
+        /** Indicates whether to retrieve the localized schema for the tables. */
         fun isGetLocalizedSchema(isGetLocalizedSchema: Boolean?) = apply {
             this.isGetLocalizedSchema = isGetLocalizedSchema
         }

@@ -52,6 +52,8 @@ private constructor(
     ) : this(completedAt, results, startedAt, status, links, requestedAt, mutableMapOf())
 
     /**
+     * The timestamp indicating when the batch processing was completed.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -64,24 +66,33 @@ private constructor(
     fun results(): List<HubDbTableRowV3> = results.getRequired("results")
 
     /**
+     * The timestamp indicating when the batch processing began.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun startedAt(): OffsetDateTime = startedAt.getRequired("startedAt")
 
     /**
+     * The current status of the batch operation, with possible values: CANCELED, COMPLETE, PENDING,
+     * PROCESSING.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
 
     /**
+     * A collection of related links associated with the batch response.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun links(): Optional<Links> = links.getOptional("links")
 
     /**
+     * The timestamp indicating when the batch request was made.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -187,6 +198,7 @@ private constructor(
             additionalProperties = batchResponseHubDbTableRowV3.additionalProperties.toMutableMap()
         }
 
+        /** The timestamp indicating when the batch processing was completed. */
         fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
 
         /**
@@ -225,6 +237,7 @@ private constructor(
                 }
         }
 
+        /** The timestamp indicating when the batch processing began. */
         fun startedAt(startedAt: OffsetDateTime) = startedAt(JsonField.of(startedAt))
 
         /**
@@ -236,6 +249,10 @@ private constructor(
          */
         fun startedAt(startedAt: JsonField<OffsetDateTime>) = apply { this.startedAt = startedAt }
 
+        /**
+         * The current status of the batch operation, with possible values: CANCELED, COMPLETE,
+         * PENDING, PROCESSING.
+         */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
@@ -246,6 +263,7 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
+        /** A collection of related links associated with the batch response. */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -256,6 +274,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
+        /** The timestamp indicating when the batch request was made. */
         fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
         /**
@@ -353,6 +372,10 @@ private constructor(
             (links.asKnown().getOrNull()?.validity() ?: 0) +
             (if (requestedAt.asKnown().isPresent) 1 else 0)
 
+    /**
+     * The current status of the batch operation, with possible values: CANCELED, COMPLETE, PENDING,
+     * PROCESSING.
+     */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -367,23 +390,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = of("PENDING")
-
-            @JvmField val PROCESSING = of("PROCESSING")
-
             @JvmField val CANCELED = of("CANCELED")
 
             @JvmField val COMPLETE = of("COMPLETE")
+
+            @JvmField val PENDING = of("PENDING")
+
+            @JvmField val PROCESSING = of("PROCESSING")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            PENDING,
-            PROCESSING,
             CANCELED,
             COMPLETE,
+            PENDING,
+            PROCESSING,
         }
 
         /**
@@ -396,10 +419,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PENDING,
-            PROCESSING,
             CANCELED,
             COMPLETE,
+            PENDING,
+            PROCESSING,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -413,10 +436,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PENDING -> Value.PENDING
-                PROCESSING -> Value.PROCESSING
                 CANCELED -> Value.CANCELED
                 COMPLETE -> Value.COMPLETE
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
                 else -> Value._UNKNOWN
             }
 
@@ -431,10 +454,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PENDING -> Known.PENDING
-                PROCESSING -> Known.PROCESSING
                 CANCELED -> Known.CANCELED
                 COMPLETE -> Known.COMPLETE
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
                 else -> throw HubspotInvalidDataException("Unknown Status: $value")
             }
 
@@ -490,6 +513,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** A collection of related links associated with the batch response. */
     class Links
     @JsonCreator
     private constructor(

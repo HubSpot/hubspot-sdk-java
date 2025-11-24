@@ -13,11 +13,11 @@ internal class PortalFlagStatePutRequestTest {
     fun create() {
         val portalFlagStatePutRequest =
             PortalFlagStatePutRequest.builder()
-                .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
                 .build()
 
         assertThat(portalFlagStatePutRequest.flagState())
-            .isEqualTo(PortalFlagStatePutRequest.FlagState.OFF)
+            .isEqualTo(PortalFlagStatePutRequest.FlagState.ABSENT)
     }
 
     @Test
@@ -25,7 +25,7 @@ internal class PortalFlagStatePutRequestTest {
         val jsonMapper = jsonMapper()
         val portalFlagStatePutRequest =
             PortalFlagStatePutRequest.builder()
-                .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
                 .build()
 
         val roundtrippedPortalFlagStatePutRequest =

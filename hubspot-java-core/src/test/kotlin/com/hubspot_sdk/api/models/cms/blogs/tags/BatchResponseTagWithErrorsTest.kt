@@ -31,7 +31,7 @@ internal class BatchResponseTagWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseTagWithErrors.Status.PENDING)
+                .status(BatchResponseTagWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -217,7 +217,7 @@ internal class BatchResponseTagWithErrorsTest {
         assertThat(batchResponseTagWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseTagWithErrors.status())
-            .isEqualTo(BatchResponseTagWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseTagWithErrors.Status.CANCELED)
         assertThat(batchResponseTagWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -311,7 +311,7 @@ internal class BatchResponseTagWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseTagWithErrors.Status.PENDING)
+                .status(BatchResponseTagWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

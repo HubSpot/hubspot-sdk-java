@@ -210,17 +210,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val THANK_YOU = of("thank_you")
-
             @JvmField val REDIRECT_URL = of("redirect_url")
+
+            @JvmField val THANK_YOU = of("thank_you")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            THANK_YOU,
             REDIRECT_URL,
+            THANK_YOU,
         }
 
         /**
@@ -233,8 +233,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            THANK_YOU,
             REDIRECT_URL,
+            THANK_YOU,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -248,8 +248,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                THANK_YOU -> Value.THANK_YOU
                 REDIRECT_URL -> Value.REDIRECT_URL
+                THANK_YOU -> Value.THANK_YOU
                 else -> Value._UNKNOWN
             }
 
@@ -264,8 +264,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                THANK_YOU -> Known.THANK_YOU
                 REDIRECT_URL -> Known.REDIRECT_URL
+                THANK_YOU -> Known.THANK_YOU
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }
 

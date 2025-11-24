@@ -12,7 +12,7 @@ internal class UserUpdateParamsTest {
     fun create() {
         UserUpdateParams.builder()
             .userId("userId")
-            .idProperty(UserUpdateParams.IdProperty.USER_ID)
+            .idProperty(UserUpdateParams.IdProperty.EMAIL)
             .publicUserUpdate(
                 PublicUserUpdate.builder()
                     .firstName("firstName")
@@ -43,7 +43,7 @@ internal class UserUpdateParamsTest {
         val params =
             UserUpdateParams.builder()
                 .userId("userId")
-                .idProperty(UserUpdateParams.IdProperty.USER_ID)
+                .idProperty(UserUpdateParams.IdProperty.EMAIL)
                 .publicUserUpdate(
                     PublicUserUpdate.builder()
                         .firstName("firstName")
@@ -57,8 +57,7 @@ internal class UserUpdateParamsTest {
 
         val queryParams = params._queryParams()
 
-        assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("idProperty", "USER_ID").build())
+        assertThat(queryParams).isEqualTo(QueryParams.builder().put("idProperty", "EMAIL").build())
     }
 
     @Test
@@ -79,7 +78,7 @@ internal class UserUpdateParamsTest {
         val params =
             UserUpdateParams.builder()
                 .userId("userId")
-                .idProperty(UserUpdateParams.IdProperty.USER_ID)
+                .idProperty(UserUpdateParams.IdProperty.EMAIL)
                 .publicUserUpdate(
                     PublicUserUpdate.builder()
                         .firstName("firstName")

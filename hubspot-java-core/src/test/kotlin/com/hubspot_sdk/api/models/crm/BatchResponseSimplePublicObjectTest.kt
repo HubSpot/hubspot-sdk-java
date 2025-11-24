@@ -55,7 +55,7 @@ internal class BatchResponseSimplePublicObjectTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseSimplePublicObject.Status.PENDING)
+                .status(BatchResponseSimplePublicObject.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -265,7 +265,7 @@ internal class BatchResponseSimplePublicObjectTest {
         assertThat(batchResponseSimplePublicObject.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseSimplePublicObject.status())
-            .isEqualTo(BatchResponseSimplePublicObject.Status.PENDING)
+            .isEqualTo(BatchResponseSimplePublicObject.Status.CANCELED)
         assertThat(batchResponseSimplePublicObject.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -383,7 +383,7 @@ internal class BatchResponseSimplePublicObjectTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseSimplePublicObject.Status.PENDING)
+                .status(BatchResponseSimplePublicObject.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

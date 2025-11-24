@@ -31,7 +31,7 @@ internal class CollectionResponseWithTotalHubDbTableV3ForwardPagingTest {
                                 .description("description")
                                 .label("label")
                                 .name("name")
-                                .type(Column.Type.NULL)
+                                .type(Column.Type.BOOLEAN)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdBy(
                                     SimpleUser.builder()
@@ -155,7 +155,7 @@ internal class CollectionResponseWithTotalHubDbTableV3ForwardPagingTest {
                             .description("description")
                             .label("label")
                             .name("name")
-                            .type(Column.Type.NULL)
+                            .type(Column.Type.BOOLEAN)
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdBy(
                                 SimpleUser.builder()
@@ -276,7 +276,7 @@ internal class CollectionResponseWithTotalHubDbTableV3ForwardPagingTest {
                                 .description("description")
                                 .label("label")
                                 .name("name")
-                                .type(Column.Type.NULL)
+                                .type(Column.Type.BOOLEAN)
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdBy(
                                     SimpleUser.builder()

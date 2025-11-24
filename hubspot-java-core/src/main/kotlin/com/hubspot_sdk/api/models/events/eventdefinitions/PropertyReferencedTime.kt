@@ -314,29 +314,29 @@ private constructor(
 
         companion object {
 
-            @JvmField val VALUE = of("VALUE")
-
-            @JvmField val UPDATED_AT = of("UPDATED_AT")
-
             @JvmField val ANNIVERSARY = of("ANNIVERSARY")
-
-            @JvmField
-            val VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION = of("VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION")
 
             @JvmField
             val ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION =
                 of("ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION")
+
+            @JvmField val UPDATED_AT = of("UPDATED_AT")
+
+            @JvmField val VALUE = of("VALUE")
+
+            @JvmField
+            val VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION = of("VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION")
 
             @JvmStatic fun of(value: String) = ReferenceType(JsonField.of(value))
         }
 
         /** An enum containing [ReferenceType]'s known values. */
         enum class Known {
-            VALUE,
-            UPDATED_AT,
             ANNIVERSARY,
-            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
             ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION,
+            UPDATED_AT,
+            VALUE,
+            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
         }
 
         /**
@@ -349,11 +349,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            VALUE,
-            UPDATED_AT,
             ANNIVERSARY,
-            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
             ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION,
+            UPDATED_AT,
+            VALUE,
+            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
             /**
              * An enum member indicating that [ReferenceType] was instantiated with an unknown
              * value.
@@ -370,12 +370,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                VALUE -> Value.VALUE
-                UPDATED_AT -> Value.UPDATED_AT
                 ANNIVERSARY -> Value.ANNIVERSARY
-                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Value.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION ->
                     Value.ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION
+                UPDATED_AT -> Value.UPDATED_AT
+                VALUE -> Value.VALUE
+                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Value.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 else -> Value._UNKNOWN
             }
 
@@ -390,12 +390,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                VALUE -> Known.VALUE
-                UPDATED_AT -> Known.UPDATED_AT
                 ANNIVERSARY -> Known.ANNIVERSARY
-                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Known.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION ->
                     Known.ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION
+                UPDATED_AT -> Known.UPDATED_AT
+                VALUE -> Known.VALUE
+                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Known.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 else -> throw HubspotInvalidDataException("Unknown ReferenceType: $value")
             }
 
@@ -587,9 +587,9 @@ private constructor(
 
             @JvmField val CUSTOM = of("CUSTOM")
 
-            @JvmField val USER = of("USER")
-
             @JvmField val PORTAL = of("PORTAL")
+
+            @JvmField val USER = of("USER")
 
             @JvmStatic fun of(value: String) = TimezoneSource(JsonField.of(value))
         }
@@ -597,8 +597,8 @@ private constructor(
         /** An enum containing [TimezoneSource]'s known values. */
         enum class Known {
             CUSTOM,
-            USER,
             PORTAL,
+            USER,
         }
 
         /**
@@ -612,8 +612,8 @@ private constructor(
          */
         enum class Value {
             CUSTOM,
-            USER,
             PORTAL,
+            USER,
             /**
              * An enum member indicating that [TimezoneSource] was instantiated with an unknown
              * value.
@@ -631,8 +631,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CUSTOM -> Value.CUSTOM
-                USER -> Value.USER
                 PORTAL -> Value.PORTAL
+                USER -> Value.USER
                 else -> Value._UNKNOWN
             }
 
@@ -648,8 +648,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CUSTOM -> Known.CUSTOM
-                USER -> Known.USER
                 PORTAL -> Known.PORTAL
+                USER -> Known.USER
                 else -> throw HubspotInvalidDataException("Unknown TimezoneSource: $value")
             }
 

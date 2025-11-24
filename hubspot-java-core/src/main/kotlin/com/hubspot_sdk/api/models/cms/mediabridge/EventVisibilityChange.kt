@@ -320,11 +320,11 @@ private constructor(
 
             @JvmField val ALL = of("ALL")
 
+            @JvmField val ATTENTION_SPAN = of("ATTENTION_SPAN")
+
             @JvmField val MEDIA_PLAYS = of("MEDIA_PLAYS")
 
             @JvmField val MEDIA_PLAYS_PERCENT = of("MEDIA_PLAYS_PERCENT")
-
-            @JvmField val ATTENTION_SPAN = of("ATTENTION_SPAN")
 
             @JvmStatic fun of(value: String) = EventType(JsonField.of(value))
         }
@@ -332,9 +332,9 @@ private constructor(
         /** An enum containing [EventType]'s known values. */
         enum class Known {
             ALL,
+            ATTENTION_SPAN,
             MEDIA_PLAYS,
             MEDIA_PLAYS_PERCENT,
-            ATTENTION_SPAN,
         }
 
         /**
@@ -348,9 +348,9 @@ private constructor(
          */
         enum class Value {
             ALL,
+            ATTENTION_SPAN,
             MEDIA_PLAYS,
             MEDIA_PLAYS_PERCENT,
-            ATTENTION_SPAN,
             /**
              * An enum member indicating that [EventType] was instantiated with an unknown value.
              */
@@ -367,9 +367,9 @@ private constructor(
         fun value(): Value =
             when (this) {
                 ALL -> Value.ALL
+                ATTENTION_SPAN -> Value.ATTENTION_SPAN
                 MEDIA_PLAYS -> Value.MEDIA_PLAYS
                 MEDIA_PLAYS_PERCENT -> Value.MEDIA_PLAYS_PERCENT
-                ATTENTION_SPAN -> Value.ATTENTION_SPAN
                 else -> Value._UNKNOWN
             }
 
@@ -385,9 +385,9 @@ private constructor(
         fun known(): Known =
             when (this) {
                 ALL -> Known.ALL
+                ATTENTION_SPAN -> Known.ATTENTION_SPAN
                 MEDIA_PLAYS -> Known.MEDIA_PLAYS
                 MEDIA_PLAYS_PERCENT -> Known.MEDIA_PLAYS_PERCENT
-                ATTENTION_SPAN -> Known.ATTENTION_SPAN
                 else -> throw HubspotInvalidDataException("Unknown EventType: $value")
             }
 

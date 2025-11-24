@@ -514,38 +514,38 @@ private constructor(
 
         companion object {
 
-            @JvmField val ENQUEUED = of("ENQUEUED")
-
-            @JvmField val PROCESSING = of("PROCESSING")
-
-            @JvmField val DONE = of("DONE")
-
-            @JvmField val FAILED = of("FAILED")
-
             @JvmField val CANCELED = of("CANCELED")
 
             @JvmField val CONFLICT = of("CONFLICT")
 
-            @JvmField val DELETED = of("DELETED")
-
             @JvmField val DEFERRED = of("DEFERRED")
 
+            @JvmField val DELETED = of("DELETED")
+
+            @JvmField val DONE = of("DONE")
+
+            @JvmField val ENQUEUED = of("ENQUEUED")
+
+            @JvmField val FAILED = of("FAILED")
+
             @JvmField val PENDING_APPROVAL = of("PENDING_APPROVAL")
+
+            @JvmField val PROCESSING = of("PROCESSING")
 
             @JvmStatic fun of(value: String) = ExportState(JsonField.of(value))
         }
 
         /** An enum containing [ExportState]'s known values. */
         enum class Known {
-            ENQUEUED,
-            PROCESSING,
-            DONE,
-            FAILED,
             CANCELED,
             CONFLICT,
-            DELETED,
             DEFERRED,
+            DELETED,
+            DONE,
+            ENQUEUED,
+            FAILED,
             PENDING_APPROVAL,
+            PROCESSING,
         }
 
         /**
@@ -558,15 +558,15 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            ENQUEUED,
-            PROCESSING,
-            DONE,
-            FAILED,
             CANCELED,
             CONFLICT,
-            DELETED,
             DEFERRED,
+            DELETED,
+            DONE,
+            ENQUEUED,
+            FAILED,
             PENDING_APPROVAL,
+            PROCESSING,
             /**
              * An enum member indicating that [ExportState] was instantiated with an unknown value.
              */
@@ -582,15 +582,15 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                ENQUEUED -> Value.ENQUEUED
-                PROCESSING -> Value.PROCESSING
-                DONE -> Value.DONE
-                FAILED -> Value.FAILED
                 CANCELED -> Value.CANCELED
                 CONFLICT -> Value.CONFLICT
-                DELETED -> Value.DELETED
                 DEFERRED -> Value.DEFERRED
+                DELETED -> Value.DELETED
+                DONE -> Value.DONE
+                ENQUEUED -> Value.ENQUEUED
+                FAILED -> Value.FAILED
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
+                PROCESSING -> Value.PROCESSING
                 else -> Value._UNKNOWN
             }
 
@@ -605,15 +605,15 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                ENQUEUED -> Known.ENQUEUED
-                PROCESSING -> Known.PROCESSING
-                DONE -> Known.DONE
-                FAILED -> Known.FAILED
                 CANCELED -> Known.CANCELED
                 CONFLICT -> Known.CONFLICT
-                DELETED -> Known.DELETED
                 DEFERRED -> Known.DEFERRED
+                DELETED -> Known.DELETED
+                DONE -> Known.DONE
+                ENQUEUED -> Known.ENQUEUED
+                FAILED -> Known.FAILED
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
+                PROCESSING -> Known.PROCESSING
                 else -> throw HubspotInvalidDataException("Unknown ExportState: $value")
             }
 
@@ -684,17 +684,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val VIEW = of("VIEW")
-
             @JvmField val LIST = of("LIST")
+
+            @JvmField val VIEW = of("VIEW")
 
             @JvmStatic fun of(value: String) = ExportType(JsonField.of(value))
         }
 
         /** An enum containing [ExportType]'s known values. */
         enum class Known {
-            VIEW,
             LIST,
+            VIEW,
         }
 
         /**
@@ -707,8 +707,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            VIEW,
             LIST,
+            VIEW,
             /**
              * An enum member indicating that [ExportType] was instantiated with an unknown value.
              */
@@ -724,8 +724,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                VIEW -> Value.VIEW
                 LIST -> Value.LIST
+                VIEW -> Value.VIEW
                 else -> Value._UNKNOWN
             }
 
@@ -740,8 +740,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                VIEW -> Known.VIEW
                 LIST -> Known.LIST
+                VIEW -> Known.VIEW
                 else -> throw HubspotInvalidDataException("Unknown ExportType: $value")
             }
 

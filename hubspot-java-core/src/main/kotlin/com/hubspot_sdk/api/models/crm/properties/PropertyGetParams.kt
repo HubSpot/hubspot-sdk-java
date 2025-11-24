@@ -281,20 +281,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val HIGHLY_SENSITIVE = of("highly_sensitive")
+
             @JvmField val NON_SENSITIVE = of("non_sensitive")
 
             @JvmField val SENSITIVE = of("sensitive")
-
-            @JvmField val HIGHLY_SENSITIVE = of("highly_sensitive")
 
             @JvmStatic fun of(value: String) = DataSensitivity(JsonField.of(value))
         }
 
         /** An enum containing [DataSensitivity]'s known values. */
         enum class Known {
+            HIGHLY_SENSITIVE,
             NON_SENSITIVE,
             SENSITIVE,
-            HIGHLY_SENSITIVE,
         }
 
         /**
@@ -307,9 +307,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            HIGHLY_SENSITIVE,
             NON_SENSITIVE,
             SENSITIVE,
-            HIGHLY_SENSITIVE,
             /**
              * An enum member indicating that [DataSensitivity] was instantiated with an unknown
              * value.
@@ -326,9 +326,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                HIGHLY_SENSITIVE -> Value.HIGHLY_SENSITIVE
                 NON_SENSITIVE -> Value.NON_SENSITIVE
                 SENSITIVE -> Value.SENSITIVE
-                HIGHLY_SENSITIVE -> Value.HIGHLY_SENSITIVE
                 else -> Value._UNKNOWN
             }
 
@@ -343,9 +343,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                HIGHLY_SENSITIVE -> Known.HIGHLY_SENSITIVE
                 NON_SENSITIVE -> Known.NON_SENSITIVE
                 SENSITIVE -> Known.SENSITIVE
-                HIGHLY_SENSITIVE -> Known.HIGHLY_SENSITIVE
                 else -> throw HubspotInvalidDataException("Unknown DataSensitivity: $value")
             }
 

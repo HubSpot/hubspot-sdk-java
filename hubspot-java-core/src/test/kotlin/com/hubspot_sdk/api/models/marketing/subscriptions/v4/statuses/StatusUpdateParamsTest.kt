@@ -15,9 +15,9 @@ internal class StatusUpdateParamsTest {
             .partialPublicStatusRequest(
                 PartialPublicStatusRequest.builder()
                     .channel(PartialPublicStatusRequest.Channel.EMAIL)
-                    .statusState(PartialPublicStatusRequest.StatusState.SUBSCRIBED)
+                    .statusState(PartialPublicStatusRequest.StatusState.NOT_SPECIFIED)
                     .subscriptionId(0L)
-                    .legalBasis(PartialPublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                    .legalBasis(PartialPublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                     .legalBasisExplanation("legalBasisExplanation")
                     .build()
             )
@@ -32,7 +32,7 @@ internal class StatusUpdateParamsTest {
                 .partialPublicStatusRequest(
                     PartialPublicStatusRequest.builder()
                         .channel(PartialPublicStatusRequest.Channel.EMAIL)
-                        .statusState(PartialPublicStatusRequest.StatusState.SUBSCRIBED)
+                        .statusState(PartialPublicStatusRequest.StatusState.NOT_SPECIFIED)
                         .subscriptionId(0L)
                         .build()
                 )
@@ -51,9 +51,9 @@ internal class StatusUpdateParamsTest {
                 .partialPublicStatusRequest(
                     PartialPublicStatusRequest.builder()
                         .channel(PartialPublicStatusRequest.Channel.EMAIL)
-                        .statusState(PartialPublicStatusRequest.StatusState.SUBSCRIBED)
+                        .statusState(PartialPublicStatusRequest.StatusState.NOT_SPECIFIED)
                         .subscriptionId(0L)
-                        .legalBasis(PartialPublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                        .legalBasis(PartialPublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                         .legalBasisExplanation("legalBasisExplanation")
                         .build()
                 )
@@ -65,9 +65,9 @@ internal class StatusUpdateParamsTest {
             .isEqualTo(
                 PartialPublicStatusRequest.builder()
                     .channel(PartialPublicStatusRequest.Channel.EMAIL)
-                    .statusState(PartialPublicStatusRequest.StatusState.SUBSCRIBED)
+                    .statusState(PartialPublicStatusRequest.StatusState.NOT_SPECIFIED)
                     .subscriptionId(0L)
-                    .legalBasis(PartialPublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                    .legalBasis(PartialPublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                     .legalBasisExplanation("legalBasisExplanation")
                     .build()
             )
@@ -81,7 +81,7 @@ internal class StatusUpdateParamsTest {
                 .partialPublicStatusRequest(
                     PartialPublicStatusRequest.builder()
                         .channel(PartialPublicStatusRequest.Channel.EMAIL)
-                        .statusState(PartialPublicStatusRequest.StatusState.SUBSCRIBED)
+                        .statusState(PartialPublicStatusRequest.StatusState.NOT_SPECIFIED)
                         .subscriptionId(0L)
                         .build()
                 )
@@ -93,7 +93,7 @@ internal class StatusUpdateParamsTest {
             .isEqualTo(
                 PartialPublicStatusRequest.builder()
                     .channel(PartialPublicStatusRequest.Channel.EMAIL)
-                    .statusState(PartialPublicStatusRequest.StatusState.SUBSCRIBED)
+                    .statusState(PartialPublicStatusRequest.StatusState.NOT_SPECIFIED)
                     .subscriptionId(0L)
                     .build()
             )

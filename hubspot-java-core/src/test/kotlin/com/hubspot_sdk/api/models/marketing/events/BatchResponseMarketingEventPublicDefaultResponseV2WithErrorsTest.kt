@@ -40,7 +40,9 @@ internal class BatchResponseMarketingEventPublicDefaultResponseV2WithErrorsTest 
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseMarketingEventPublicDefaultResponseV2WithErrors.Status.PENDING)
+                .status(
+                    BatchResponseMarketingEventPublicDefaultResponseV2WithErrors.Status.CANCELED
+                )
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -235,7 +237,7 @@ internal class BatchResponseMarketingEventPublicDefaultResponseV2WithErrorsTest 
         assertThat(batchResponseMarketingEventPublicDefaultResponseV2WithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseMarketingEventPublicDefaultResponseV2WithErrors.status())
-            .isEqualTo(BatchResponseMarketingEventPublicDefaultResponseV2WithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseMarketingEventPublicDefaultResponseV2WithErrors.Status.CANCELED)
         assertThat(
                 batchResponseMarketingEventPublicDefaultResponseV2WithErrors.errors().getOrNull()
             )
@@ -341,7 +343,9 @@ internal class BatchResponseMarketingEventPublicDefaultResponseV2WithErrorsTest 
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseMarketingEventPublicDefaultResponseV2WithErrors.Status.PENDING)
+                .status(
+                    BatchResponseMarketingEventPublicDefaultResponseV2WithErrors.Status.CANCELED
+                )
                 .addError(
                     StandardError.builder()
                         .category("category")

@@ -14,7 +14,7 @@ internal class AttentionSpanEventRequestTest {
     fun create() {
         val attentionSpanEventRequest =
             AttentionSpanEventRequest.builder()
-                .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                 .occurredTimestamp(0L)
                 .rawDataMap(
                     AttentionSpanEventRequest.RawDataMap.builder()
@@ -42,7 +42,7 @@ internal class AttentionSpanEventRequestTest {
                 .build()
 
         assertThat(attentionSpanEventRequest.mediaType())
-            .isEqualTo(AttentionSpanEventRequest.MediaType.VIDEO)
+            .isEqualTo(AttentionSpanEventRequest.MediaType.AUDIO)
         assertThat(attentionSpanEventRequest.occurredTimestamp()).isEqualTo(0L)
         assertThat(attentionSpanEventRequest.rawDataMap())
             .isEqualTo(
@@ -76,7 +76,7 @@ internal class AttentionSpanEventRequestTest {
         val jsonMapper = jsonMapper()
         val attentionSpanEventRequest =
             AttentionSpanEventRequest.builder()
-                .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                 .occurredTimestamp(0L)
                 .rawDataMap(
                     AttentionSpanEventRequest.RawDataMap.builder()

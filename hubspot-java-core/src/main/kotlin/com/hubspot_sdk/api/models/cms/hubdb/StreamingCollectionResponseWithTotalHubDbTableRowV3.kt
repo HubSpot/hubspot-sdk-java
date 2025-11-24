@@ -49,12 +49,16 @@ private constructor(
     fun results(): List<HubDbTableRowV3Wrapper> = results.getRequired("results")
 
     /**
+     * The total number of rows available in the collection.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun total(): Int = total.getRequired("total")
 
     /**
+     * Indicates the type of response, which is 'STREAMING' by default.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -175,6 +179,7 @@ private constructor(
                 }
         }
 
+        /** The total number of rows available in the collection. */
         fun total(total: Int) = total(JsonField.of(total))
 
         /**
@@ -185,6 +190,7 @@ private constructor(
          */
         fun total(total: JsonField<Int>) = apply { this.total = total }
 
+        /** Indicates the type of response, which is 'STREAMING' by default. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -282,6 +288,7 @@ private constructor(
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (paging.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Indicates the type of response, which is 'STREAMING' by default. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

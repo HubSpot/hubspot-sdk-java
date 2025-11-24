@@ -15,7 +15,7 @@ internal class ApiTimeDelayTest {
             ApiTimeDelay.builder()
                 .addDaysOfWeek(ApiTimeDelay.DaysOfWeek.MONDAY)
                 .delta(0)
-                .timeUnit(ApiTimeDelay.TimeUnit.NANOS)
+                .timeUnit(ApiTimeDelay.TimeUnit.CENTURIES)
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .timeZoneStrategy(
                     ApiStaticTimeZoneStrategy.builder()
@@ -27,7 +27,7 @@ internal class ApiTimeDelayTest {
 
         assertThat(apiTimeDelay.daysOfWeek()).containsExactly(ApiTimeDelay.DaysOfWeek.MONDAY)
         assertThat(apiTimeDelay.delta()).isEqualTo(0)
-        assertThat(apiTimeDelay.timeUnit()).isEqualTo(ApiTimeDelay.TimeUnit.NANOS)
+        assertThat(apiTimeDelay.timeUnit()).isEqualTo(ApiTimeDelay.TimeUnit.CENTURIES)
         assertThat(apiTimeDelay.timeOfDay())
             .contains(ApiTimeOfDay.builder().hour(0).minute(0).build())
         assertThat(apiTimeDelay.timeZoneStrategy())
@@ -46,7 +46,7 @@ internal class ApiTimeDelayTest {
             ApiTimeDelay.builder()
                 .addDaysOfWeek(ApiTimeDelay.DaysOfWeek.MONDAY)
                 .delta(0)
-                .timeUnit(ApiTimeDelay.TimeUnit.NANOS)
+                .timeUnit(ApiTimeDelay.TimeUnit.CENTURIES)
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .timeZoneStrategy(
                     ApiStaticTimeZoneStrategy.builder()

@@ -49,7 +49,7 @@ internal class PropertyServiceTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
-                            .dataSensitivity(PropertyCreate.DataSensitivity.NON_SENSITIVE)
+                            .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
                             .externalOptions(true)
@@ -186,7 +186,9 @@ internal class PropertyServiceTest {
                                     .name("name")
                                     .type(PropertyCreate.Type.BOOL)
                                     .calculationFormula("calculationFormula")
-                                    .dataSensitivity(PropertyCreate.DataSensitivity.NON_SENSITIVE)
+                                    .dataSensitivity(
+                                        PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE
+                                    )
                                     .description("description")
                                     .displayOrder(0)
                                     .externalOptions(true)
@@ -279,7 +281,7 @@ internal class PropertyServiceTest {
                         BatchReadInputPropertyName.builder()
                             .archived(true)
                             .dataSensitivity(
-                                BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE
+                                BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE
                             )
                             .addInput(PropertyName.builder().name("name").build())
                             .build()

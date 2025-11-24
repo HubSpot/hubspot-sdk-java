@@ -40,18 +40,27 @@ private constructor(
     ) : this(fromCurrencyCode, toCurrencyCode, visibleInUi, mutableMapOf())
 
     /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you want to convert from.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fromCurrencyCode(): FromCurrencyCode = fromCurrencyCode.getRequired("fromCurrencyCode")
 
     /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you want to convert to.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun toCurrencyCode(): ToCurrencyCode = toCurrencyCode.getRequired("toCurrencyCode")
 
     /**
+     * This indicates if the currency pair is shown in the MultiCurrency settings page. Setting this
+     * to false will remove the currency pair from the settings page.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -128,6 +137,10 @@ private constructor(
             additionalProperties = currencyPairUpdate.additionalProperties.toMutableMap()
         }
 
+        /**
+         * This represents the three-letter currency code (such as USD for US Dollar) of the
+         * currency you want to convert from.
+         */
         fun fromCurrencyCode(fromCurrencyCode: FromCurrencyCode) =
             fromCurrencyCode(JsonField.of(fromCurrencyCode))
 
@@ -142,6 +155,10 @@ private constructor(
             this.fromCurrencyCode = fromCurrencyCode
         }
 
+        /**
+         * This represents the three-letter currency code (such as USD for US Dollar) of the
+         * currency you want to convert to.
+         */
         fun toCurrencyCode(toCurrencyCode: ToCurrencyCode) =
             toCurrencyCode(JsonField.of(toCurrencyCode))
 
@@ -156,6 +173,10 @@ private constructor(
             this.toCurrencyCode = toCurrencyCode
         }
 
+        /**
+         * This indicates if the currency pair is shown in the MultiCurrency settings page. Setting
+         * this to false will remove the currency pair from the settings page.
+         */
         fun visibleInUi(visibleInUi: Boolean) = visibleInUi(JsonField.of(visibleInUi))
 
         /**
@@ -241,6 +262,10 @@ private constructor(
             (toCurrencyCode.asKnown().getOrNull()?.validity() ?: 0) +
             (if (visibleInUi.asKnown().isPresent) 1 else 0)
 
+    /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you want to convert from.
+     */
     class FromCurrencyCode @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -1414,6 +1439,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you want to convert to.
+     */
     class ToCurrencyCode @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

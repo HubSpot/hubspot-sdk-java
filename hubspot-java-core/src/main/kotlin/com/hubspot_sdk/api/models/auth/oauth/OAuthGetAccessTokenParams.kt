@@ -17,6 +17,7 @@ import kotlin.jvm.optionals.getOrNull
  * changes over time. It's recommended to allow for tokens to be up to 300 characters to account for
  * any potential changes.
  */
+@Deprecated("deprecated")
 class OAuthGetAccessTokenParams
 private constructor(
     private val token: String?,

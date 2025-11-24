@@ -17,7 +17,7 @@ internal class ActionResponseTest {
             ActionResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(ActionResponse.Status.PENDING)
+                .status(ActionResponse.Status.CANCELED)
                 .links(
                     ActionResponse.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -30,7 +30,7 @@ internal class ActionResponseTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(actionResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(actionResponse.status()).isEqualTo(ActionResponse.Status.PENDING)
+        assertThat(actionResponse.status()).isEqualTo(ActionResponse.Status.CANCELED)
         assertThat(actionResponse.links())
             .contains(
                 ActionResponse.Links.builder()
@@ -48,7 +48,7 @@ internal class ActionResponseTest {
             ActionResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(ActionResponse.Status.PENDING)
+                .status(ActionResponse.Status.CANCELED)
                 .links(
                     ActionResponse.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

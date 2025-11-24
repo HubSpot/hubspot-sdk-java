@@ -20,7 +20,7 @@ internal class BatchResponsePageTest {
                 .addResult(
                     Page.builder()
                         .id("id")
-                        .abStatus(Page.AbStatus.MASTER)
+                        .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
@@ -275,7 +275,7 @@ internal class BatchResponsePageTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePage.Status.PENDING)
+                .status(BatchResponsePage.Status.CANCELED)
                 .links(
                     BatchResponsePage.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -290,7 +290,7 @@ internal class BatchResponsePageTest {
             .containsExactly(
                 Page.builder()
                     .id("id")
-                    .abStatus(Page.AbStatus.MASTER)
+                    .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
@@ -530,7 +530,7 @@ internal class BatchResponsePageTest {
             )
         assertThat(batchResponsePage.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(batchResponsePage.status()).isEqualTo(BatchResponsePage.Status.PENDING)
+        assertThat(batchResponsePage.status()).isEqualTo(BatchResponsePage.Status.CANCELED)
         assertThat(batchResponsePage.links())
             .contains(
                 BatchResponsePage.Links.builder()
@@ -550,7 +550,7 @@ internal class BatchResponsePageTest {
                 .addResult(
                     Page.builder()
                         .id("id")
-                        .abStatus(Page.AbStatus.MASTER)
+                        .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
@@ -805,7 +805,7 @@ internal class BatchResponsePageTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePage.Status.PENDING)
+                .status(BatchResponsePage.Status.CANCELED)
                 .links(
                     BatchResponsePage.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

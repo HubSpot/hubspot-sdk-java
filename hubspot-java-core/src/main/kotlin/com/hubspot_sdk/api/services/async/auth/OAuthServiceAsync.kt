@@ -69,10 +69,12 @@ interface OAuthServiceAsync {
      * This will not uninstall the application from HubSpot or inhibit data syncing between an
      * account and the app.
      */
+    @Deprecated("deprecated")
     fun deleteRefreshToken(token: String): CompletableFuture<Void?> =
         deleteRefreshToken(token, OAuthDeleteRefreshTokenParams.none())
 
     /** @see deleteRefreshToken */
+    @Deprecated("deprecated")
     fun deleteRefreshToken(
         token: String,
         params: OAuthDeleteRefreshTokenParams = OAuthDeleteRefreshTokenParams.none(),
@@ -81,22 +83,26 @@ interface OAuthServiceAsync {
         deleteRefreshToken(params.toBuilder().token(token).build(), requestOptions)
 
     /** @see deleteRefreshToken */
+    @Deprecated("deprecated")
     fun deleteRefreshToken(
         token: String,
         params: OAuthDeleteRefreshTokenParams = OAuthDeleteRefreshTokenParams.none(),
     ): CompletableFuture<Void?> = deleteRefreshToken(token, params, RequestOptions.none())
 
     /** @see deleteRefreshToken */
+    @Deprecated("deprecated")
     fun deleteRefreshToken(
         params: OAuthDeleteRefreshTokenParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
     /** @see deleteRefreshToken */
+    @Deprecated("deprecated")
     fun deleteRefreshToken(params: OAuthDeleteRefreshTokenParams): CompletableFuture<Void?> =
         deleteRefreshToken(params, RequestOptions.none())
 
     /** @see deleteRefreshToken */
+    @Deprecated("deprecated")
     fun deleteRefreshToken(
         token: String,
         requestOptions: RequestOptions,
@@ -111,10 +117,12 @@ interface OAuthServiceAsync {
      * changes over time. It's recommended to allow for tokens to be up to 300 characters to account
      * for any potential changes.
      */
+    @Deprecated("deprecated")
     fun getAccessToken(token: String): CompletableFuture<AccessTokenInfoResponse> =
         getAccessToken(token, OAuthGetAccessTokenParams.none())
 
     /** @see getAccessToken */
+    @Deprecated("deprecated")
     fun getAccessToken(
         token: String,
         params: OAuthGetAccessTokenParams = OAuthGetAccessTokenParams.none(),
@@ -123,6 +131,7 @@ interface OAuthServiceAsync {
         getAccessToken(params.toBuilder().token(token).build(), requestOptions)
 
     /** @see getAccessToken */
+    @Deprecated("deprecated")
     fun getAccessToken(
         token: String,
         params: OAuthGetAccessTokenParams = OAuthGetAccessTokenParams.none(),
@@ -130,17 +139,20 @@ interface OAuthServiceAsync {
         getAccessToken(token, params, RequestOptions.none())
 
     /** @see getAccessToken */
+    @Deprecated("deprecated")
     fun getAccessToken(
         params: OAuthGetAccessTokenParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AccessTokenInfoResponse>
 
     /** @see getAccessToken */
+    @Deprecated("deprecated")
     fun getAccessToken(
         params: OAuthGetAccessTokenParams
     ): CompletableFuture<AccessTokenInfoResponse> = getAccessToken(params, RequestOptions.none())
 
     /** @see getAccessToken */
+    @Deprecated("deprecated")
     fun getAccessToken(
         token: String,
         requestOptions: RequestOptions,
@@ -152,10 +164,12 @@ interface OAuthServiceAsync {
      * was created for and the ID of the account it's associated with. Learn more about
      * [refresh tokens](https://developers.hubspot.com/docs/guides/api/app-management/oauth-tokens#generate-initial-access-and-refresh-tokens).
      */
+    @Deprecated("deprecated")
     fun getRefreshToken(token: String): CompletableFuture<RefreshTokenInfoResponse> =
         getRefreshToken(token, OAuthGetRefreshTokenParams.none())
 
     /** @see getRefreshToken */
+    @Deprecated("deprecated")
     fun getRefreshToken(
         token: String,
         params: OAuthGetRefreshTokenParams = OAuthGetRefreshTokenParams.none(),
@@ -164,6 +178,7 @@ interface OAuthServiceAsync {
         getRefreshToken(params.toBuilder().token(token).build(), requestOptions)
 
     /** @see getRefreshToken */
+    @Deprecated("deprecated")
     fun getRefreshToken(
         token: String,
         params: OAuthGetRefreshTokenParams = OAuthGetRefreshTokenParams.none(),
@@ -171,17 +186,20 @@ interface OAuthServiceAsync {
         getRefreshToken(token, params, RequestOptions.none())
 
     /** @see getRefreshToken */
+    @Deprecated("deprecated")
     fun getRefreshToken(
         params: OAuthGetRefreshTokenParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<RefreshTokenInfoResponse>
 
     /** @see getRefreshToken */
+    @Deprecated("deprecated")
     fun getRefreshToken(
         params: OAuthGetRefreshTokenParams
     ): CompletableFuture<RefreshTokenInfoResponse> = getRefreshToken(params, RequestOptions.none())
 
     /** @see getRefreshToken */
+    @Deprecated("deprecated")
     fun getRefreshToken(
         token: String,
         requestOptions: RequestOptions,
@@ -229,10 +247,12 @@ interface OAuthServiceAsync {
          * Returns a raw HTTP response for `delete /oauth/v1/refresh-tokens/{token}`, but is
          * otherwise the same as [OAuthServiceAsync.deleteRefreshToken].
          */
+        @Deprecated("deprecated")
         fun deleteRefreshToken(token: String): CompletableFuture<HttpResponse> =
             deleteRefreshToken(token, OAuthDeleteRefreshTokenParams.none())
 
         /** @see deleteRefreshToken */
+        @Deprecated("deprecated")
         fun deleteRefreshToken(
             token: String,
             params: OAuthDeleteRefreshTokenParams = OAuthDeleteRefreshTokenParams.none(),
@@ -241,6 +261,7 @@ interface OAuthServiceAsync {
             deleteRefreshToken(params.toBuilder().token(token).build(), requestOptions)
 
         /** @see deleteRefreshToken */
+        @Deprecated("deprecated")
         fun deleteRefreshToken(
             token: String,
             params: OAuthDeleteRefreshTokenParams = OAuthDeleteRefreshTokenParams.none(),
@@ -248,17 +269,20 @@ interface OAuthServiceAsync {
             deleteRefreshToken(token, params, RequestOptions.none())
 
         /** @see deleteRefreshToken */
+        @Deprecated("deprecated")
         fun deleteRefreshToken(
             params: OAuthDeleteRefreshTokenParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
         /** @see deleteRefreshToken */
+        @Deprecated("deprecated")
         fun deleteRefreshToken(
             params: OAuthDeleteRefreshTokenParams
         ): CompletableFuture<HttpResponse> = deleteRefreshToken(params, RequestOptions.none())
 
         /** @see deleteRefreshToken */
+        @Deprecated("deprecated")
         fun deleteRefreshToken(
             token: String,
             requestOptions: RequestOptions,
@@ -269,12 +293,14 @@ interface OAuthServiceAsync {
          * Returns a raw HTTP response for `get /oauth/v1/access-tokens/{token}`, but is otherwise
          * the same as [OAuthServiceAsync.getAccessToken].
          */
+        @Deprecated("deprecated")
         fun getAccessToken(
             token: String
         ): CompletableFuture<HttpResponseFor<AccessTokenInfoResponse>> =
             getAccessToken(token, OAuthGetAccessTokenParams.none())
 
         /** @see getAccessToken */
+        @Deprecated("deprecated")
         fun getAccessToken(
             token: String,
             params: OAuthGetAccessTokenParams = OAuthGetAccessTokenParams.none(),
@@ -283,6 +309,7 @@ interface OAuthServiceAsync {
             getAccessToken(params.toBuilder().token(token).build(), requestOptions)
 
         /** @see getAccessToken */
+        @Deprecated("deprecated")
         fun getAccessToken(
             token: String,
             params: OAuthGetAccessTokenParams = OAuthGetAccessTokenParams.none(),
@@ -290,18 +317,21 @@ interface OAuthServiceAsync {
             getAccessToken(token, params, RequestOptions.none())
 
         /** @see getAccessToken */
+        @Deprecated("deprecated")
         fun getAccessToken(
             params: OAuthGetAccessTokenParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AccessTokenInfoResponse>>
 
         /** @see getAccessToken */
+        @Deprecated("deprecated")
         fun getAccessToken(
             params: OAuthGetAccessTokenParams
         ): CompletableFuture<HttpResponseFor<AccessTokenInfoResponse>> =
             getAccessToken(params, RequestOptions.none())
 
         /** @see getAccessToken */
+        @Deprecated("deprecated")
         fun getAccessToken(
             token: String,
             requestOptions: RequestOptions,
@@ -312,12 +342,14 @@ interface OAuthServiceAsync {
          * Returns a raw HTTP response for `get /oauth/v1/refresh-tokens/{token}`, but is otherwise
          * the same as [OAuthServiceAsync.getRefreshToken].
          */
+        @Deprecated("deprecated")
         fun getRefreshToken(
             token: String
         ): CompletableFuture<HttpResponseFor<RefreshTokenInfoResponse>> =
             getRefreshToken(token, OAuthGetRefreshTokenParams.none())
 
         /** @see getRefreshToken */
+        @Deprecated("deprecated")
         fun getRefreshToken(
             token: String,
             params: OAuthGetRefreshTokenParams = OAuthGetRefreshTokenParams.none(),
@@ -326,6 +358,7 @@ interface OAuthServiceAsync {
             getRefreshToken(params.toBuilder().token(token).build(), requestOptions)
 
         /** @see getRefreshToken */
+        @Deprecated("deprecated")
         fun getRefreshToken(
             token: String,
             params: OAuthGetRefreshTokenParams = OAuthGetRefreshTokenParams.none(),
@@ -333,18 +366,21 @@ interface OAuthServiceAsync {
             getRefreshToken(token, params, RequestOptions.none())
 
         /** @see getRefreshToken */
+        @Deprecated("deprecated")
         fun getRefreshToken(
             params: OAuthGetRefreshTokenParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<RefreshTokenInfoResponse>>
 
         /** @see getRefreshToken */
+        @Deprecated("deprecated")
         fun getRefreshToken(
             params: OAuthGetRefreshTokenParams
         ): CompletableFuture<HttpResponseFor<RefreshTokenInfoResponse>> =
             getRefreshToken(params, RequestOptions.none())
 
         /** @see getRefreshToken */
+        @Deprecated("deprecated")
         fun getRefreshToken(
             token: String,
             requestOptions: RequestOptions,

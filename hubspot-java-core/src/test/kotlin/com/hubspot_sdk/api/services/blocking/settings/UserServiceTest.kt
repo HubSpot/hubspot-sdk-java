@@ -56,7 +56,7 @@ internal class UserServiceTest {
             userService.update(
                 UserUpdateParams.builder()
                     .userId("userId")
-                    .idProperty(UserUpdateParams.IdProperty.USER_ID)
+                    .idProperty(UserUpdateParams.IdProperty.EMAIL)
                     .publicUserUpdate(
                         PublicUserUpdate.builder()
                             .firstName("firstName")
@@ -100,7 +100,7 @@ internal class UserServiceTest {
         userService.delete(
             UserDeleteParams.builder()
                 .userId("userId")
-                .idProperty(UserDeleteParams.IdProperty.USER_ID)
+                .idProperty(UserDeleteParams.IdProperty.EMAIL)
                 .build()
         )
     }
@@ -119,7 +119,7 @@ internal class UserServiceTest {
             userService.get(
                 UserGetParams.builder()
                     .userId("userId")
-                    .idProperty(UserGetParams.IdProperty.USER_ID)
+                    .idProperty(UserGetParams.IdProperty.EMAIL)
                     .build()
             )
 

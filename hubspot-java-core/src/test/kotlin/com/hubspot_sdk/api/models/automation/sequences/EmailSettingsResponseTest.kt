@@ -14,12 +14,12 @@ internal class EmailSettingsResponseTest {
         val emailSettingsResponse =
             EmailSettingsResponse.builder()
                 .criteria(EmailSettingsResponse.Criteria.ALL)
-                .sellingStrategy(EmailSettingsResponse.SellingStrategy.LEAD_BASED)
+                .sellingStrategy(EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                 .build()
 
         assertThat(emailSettingsResponse.criteria()).isEqualTo(EmailSettingsResponse.Criteria.ALL)
         assertThat(emailSettingsResponse.sellingStrategy())
-            .isEqualTo(EmailSettingsResponse.SellingStrategy.LEAD_BASED)
+            .isEqualTo(EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED)
     }
 
     @Test
@@ -28,7 +28,7 @@ internal class EmailSettingsResponseTest {
         val emailSettingsResponse =
             EmailSettingsResponse.builder()
                 .criteria(EmailSettingsResponse.Criteria.ALL)
-                .sellingStrategy(EmailSettingsResponse.SellingStrategy.LEAD_BASED)
+                .sellingStrategy(EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                 .build()
 
         val roundtrippedEmailSettingsResponse =

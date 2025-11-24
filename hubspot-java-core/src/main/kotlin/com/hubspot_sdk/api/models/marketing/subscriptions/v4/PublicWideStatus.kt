@@ -512,20 +512,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val NOT_SPECIFIED = of("NOT_SPECIFIED")
+
             @JvmField val SUBSCRIBED = of("SUBSCRIBED")
 
             @JvmField val UNSUBSCRIBED = of("UNSUBSCRIBED")
-
-            @JvmField val NOT_SPECIFIED = of("NOT_SPECIFIED")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
+            NOT_SPECIFIED,
             SUBSCRIBED,
             UNSUBSCRIBED,
-            NOT_SPECIFIED,
         }
 
         /**
@@ -538,9 +538,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            NOT_SPECIFIED,
             SUBSCRIBED,
             UNSUBSCRIBED,
-            NOT_SPECIFIED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -554,9 +554,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                NOT_SPECIFIED -> Value.NOT_SPECIFIED
                 SUBSCRIBED -> Value.SUBSCRIBED
                 UNSUBSCRIBED -> Value.UNSUBSCRIBED
-                NOT_SPECIFIED -> Value.NOT_SPECIFIED
                 else -> Value._UNKNOWN
             }
 
@@ -571,9 +571,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                NOT_SPECIFIED -> Known.NOT_SPECIFIED
                 SUBSCRIBED -> Known.SUBSCRIBED
                 UNSUBSCRIBED -> Known.UNSUBSCRIBED
-                NOT_SPECIFIED -> Known.NOT_SPECIFIED
                 else -> throw HubspotInvalidDataException("Unknown Status: $value")
             }
 
@@ -645,17 +645,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val PORTAL_WIDE = of("PORTAL_WIDE")
-
             @JvmField val BUSINESS_UNIT_WIDE = of("BUSINESS_UNIT_WIDE")
+
+            @JvmField val PORTAL_WIDE = of("PORTAL_WIDE")
 
             @JvmStatic fun of(value: String) = WideStatusType(JsonField.of(value))
         }
 
         /** An enum containing [WideStatusType]'s known values. */
         enum class Known {
-            PORTAL_WIDE,
             BUSINESS_UNIT_WIDE,
+            PORTAL_WIDE,
         }
 
         /**
@@ -668,8 +668,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PORTAL_WIDE,
             BUSINESS_UNIT_WIDE,
+            PORTAL_WIDE,
             /**
              * An enum member indicating that [WideStatusType] was instantiated with an unknown
              * value.
@@ -686,8 +686,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PORTAL_WIDE -> Value.PORTAL_WIDE
                 BUSINESS_UNIT_WIDE -> Value.BUSINESS_UNIT_WIDE
+                PORTAL_WIDE -> Value.PORTAL_WIDE
                 else -> Value._UNKNOWN
             }
 
@@ -702,8 +702,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PORTAL_WIDE -> Known.PORTAL_WIDE
                 BUSINESS_UNIT_WIDE -> Known.BUSINESS_UNIT_WIDE
+                PORTAL_WIDE -> Known.PORTAL_WIDE
                 else -> throw HubspotInvalidDataException("Unknown WideStatusType: $value")
             }
 

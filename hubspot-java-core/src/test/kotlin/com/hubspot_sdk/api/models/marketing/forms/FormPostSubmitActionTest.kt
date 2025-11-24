@@ -13,11 +13,11 @@ internal class FormPostSubmitActionTest {
     fun create() {
         val formPostSubmitAction =
             FormPostSubmitAction.builder()
-                .type(FormPostSubmitAction.Type.THANK_YOU)
+                .type(FormPostSubmitAction.Type.REDIRECT_URL)
                 .value("value")
                 .build()
 
-        assertThat(formPostSubmitAction.type()).isEqualTo(FormPostSubmitAction.Type.THANK_YOU)
+        assertThat(formPostSubmitAction.type()).isEqualTo(FormPostSubmitAction.Type.REDIRECT_URL)
         assertThat(formPostSubmitAction.value()).isEqualTo("value")
     }
 
@@ -26,7 +26,7 @@ internal class FormPostSubmitActionTest {
         val jsonMapper = jsonMapper()
         val formPostSubmitAction =
             FormPostSubmitAction.builder()
-                .type(FormPostSubmitAction.Type.THANK_YOU)
+                .type(FormPostSubmitAction.Type.REDIRECT_URL)
                 .value("value")
                 .build()
 

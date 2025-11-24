@@ -20,7 +20,7 @@ internal class FileActionResponseTest {
             FileActionResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(FileActionResponse.Status.PENDING)
+                .status(FileActionResponse.Status.CANCELED)
                 .taskId("taskId")
                 .addError(
                     StandardError.builder()
@@ -191,7 +191,7 @@ internal class FileActionResponseTest {
                 .result(
                     File.builder()
                         .id("id")
-                        .access(File.Access.PUBLIC_INDEXABLE)
+                        .access(File.Access.HIDDEN_INDEXABLE)
                         .archived(true)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -219,7 +219,7 @@ internal class FileActionResponseTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(fileActionResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(fileActionResponse.status()).isEqualTo(FileActionResponse.Status.PENDING)
+        assertThat(fileActionResponse.status()).isEqualTo(FileActionResponse.Status.CANCELED)
         assertThat(fileActionResponse.taskId()).isEqualTo("taskId")
         assertThat(fileActionResponse.errors().getOrNull())
             .containsExactly(
@@ -298,7 +298,7 @@ internal class FileActionResponseTest {
             .contains(
                 File.builder()
                     .id("id")
-                    .access(File.Access.PUBLIC_INDEXABLE)
+                    .access(File.Access.HIDDEN_INDEXABLE)
                     .archived(true)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -329,7 +329,7 @@ internal class FileActionResponseTest {
             FileActionResponse.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(FileActionResponse.Status.PENDING)
+                .status(FileActionResponse.Status.CANCELED)
                 .taskId("taskId")
                 .addError(
                     StandardError.builder()
@@ -500,7 +500,7 @@ internal class FileActionResponseTest {
                 .result(
                     File.builder()
                         .id("id")
-                        .access(File.Access.PUBLIC_INDEXABLE)
+                        .access(File.Access.HIDDEN_INDEXABLE)
                         .archived(true)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

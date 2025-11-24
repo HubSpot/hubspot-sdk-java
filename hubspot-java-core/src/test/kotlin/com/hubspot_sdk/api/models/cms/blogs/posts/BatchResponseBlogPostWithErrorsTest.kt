@@ -23,7 +23,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
                 .addResult(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -282,7 +282,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseBlogPostWithErrors.Status.PENDING)
+                .status(BatchResponseBlogPostWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -457,7 +457,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
             .containsExactly(
                 BlogPost.builder()
                     .id("id")
-                    .abStatus(BlogPost.AbStatus.MASTER)
+                    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(0L)
                     .archivedInDashboard(true)
@@ -702,7 +702,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
         assertThat(batchResponseBlogPostWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseBlogPostWithErrors.status())
-            .isEqualTo(BatchResponseBlogPostWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseBlogPostWithErrors.Status.CANCELED)
         assertThat(batchResponseBlogPostWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -787,7 +787,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
                 .addResult(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -1046,7 +1046,7 @@ internal class BatchResponseBlogPostWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseBlogPostWithErrors.Status.PENDING)
+                .status(BatchResponseBlogPostWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

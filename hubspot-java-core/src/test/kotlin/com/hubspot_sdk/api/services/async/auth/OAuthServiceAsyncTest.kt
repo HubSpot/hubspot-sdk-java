@@ -25,12 +25,16 @@ internal class OAuthServiceAsyncTest {
         val tokenResponseIfFuture =
             oauthServiceAsync.createAccessToken(
                 OAuthCreateAccessTokenParams.builder()
+                    .queryClientSecret("client_secret")
+                    .queryRefreshToken("refresh_token")
                     .clientId("client_id")
-                    .clientSecret("client_secret")
+                    .bodyClientSecret("client_secret")
                     .code("code")
+                    .codeVerifier("code_verifier")
                     .grantType(OAuthCreateAccessTokenParams.GrantType.AUTHORIZATION_CODE)
                     .redirectUri("redirect_uri")
-                    .refreshToken("refresh_token")
+                    .bodyRefreshToken("refresh_token")
+                    .scope("scope")
                     .build()
             )
 

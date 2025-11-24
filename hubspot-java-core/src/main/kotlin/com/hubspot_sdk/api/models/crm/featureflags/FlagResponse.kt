@@ -279,20 +279,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val ABSENT = of("ABSENT")
+
             @JvmField val OFF = of("OFF")
 
             @JvmField val ON = of("ON")
-
-            @JvmField val ABSENT = of("ABSENT")
 
             @JvmStatic fun of(value: String) = DefaultState(JsonField.of(value))
         }
 
         /** An enum containing [DefaultState]'s known values. */
         enum class Known {
+            ABSENT,
             OFF,
             ON,
-            ABSENT,
         }
 
         /**
@@ -305,9 +305,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            ABSENT,
             OFF,
             ON,
-            ABSENT,
             /**
              * An enum member indicating that [DefaultState] was instantiated with an unknown value.
              */
@@ -323,9 +323,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                ABSENT -> Value.ABSENT
                 OFF -> Value.OFF
                 ON -> Value.ON
-                ABSENT -> Value.ABSENT
                 else -> Value._UNKNOWN
             }
 
@@ -340,9 +340,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                ABSENT -> Known.ABSENT
                 OFF -> Known.OFF
                 ON -> Known.ON
-                ABSENT -> Known.ABSENT
                 else -> throw HubspotInvalidDataException("Unknown DefaultState: $value")
             }
 
@@ -413,20 +413,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val ABSENT = of("ABSENT")
+
             @JvmField val OFF = of("OFF")
 
             @JvmField val ON = of("ON")
-
-            @JvmField val ABSENT = of("ABSENT")
 
             @JvmStatic fun of(value: String) = OverrideState(JsonField.of(value))
         }
 
         /** An enum containing [OverrideState]'s known values. */
         enum class Known {
+            ABSENT,
             OFF,
             ON,
-            ABSENT,
         }
 
         /**
@@ -439,9 +439,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            ABSENT,
             OFF,
             ON,
-            ABSENT,
             /**
              * An enum member indicating that [OverrideState] was instantiated with an unknown
              * value.
@@ -458,9 +458,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                ABSENT -> Value.ABSENT
                 OFF -> Value.OFF
                 ON -> Value.ON
-                ABSENT -> Value.ABSENT
                 else -> Value._UNKNOWN
             }
 
@@ -475,9 +475,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                ABSENT -> Known.ABSENT
                 OFF -> Known.OFF
                 ON -> Known.ON
-                ABSENT -> Known.ABSENT
                 else -> throw HubspotInvalidDataException("Unknown OverrideState: $value")
             }
 

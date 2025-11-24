@@ -16,8 +16,8 @@ internal class RelativeRangedTimestampRefineByTest {
                 .lowerBoundOffset(
                     TimeOffset.builder()
                         .amount(0)
-                        .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                        .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                        .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                        .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()
                 )
                 .rangeType(RelativeRangedTimestampRefineBy.RangeType.BETWEEN)
@@ -25,8 +25,8 @@ internal class RelativeRangedTimestampRefineByTest {
                 .upperBoundOffset(
                     TimeOffset.builder()
                         .amount(0)
-                        .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                        .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                        .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                        .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()
                 )
                 .build()
@@ -35,8 +35,8 @@ internal class RelativeRangedTimestampRefineByTest {
             .isEqualTo(
                 TimeOffset.builder()
                     .amount(0)
-                    .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                    .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                    .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                    .timeUnit(TimeOffset.TimeUnit.DAYS)
                     .build()
             )
         assertThat(relativeRangedTimestampRefineBy.rangeType())
@@ -47,8 +47,8 @@ internal class RelativeRangedTimestampRefineByTest {
             .isEqualTo(
                 TimeOffset.builder()
                     .amount(0)
-                    .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                    .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                    .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                    .timeUnit(TimeOffset.TimeUnit.DAYS)
                     .build()
             )
     }
@@ -61,8 +61,8 @@ internal class RelativeRangedTimestampRefineByTest {
                 .lowerBoundOffset(
                     TimeOffset.builder()
                         .amount(0)
-                        .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                        .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                        .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                        .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()
                 )
                 .rangeType(RelativeRangedTimestampRefineBy.RangeType.BETWEEN)
@@ -70,8 +70,8 @@ internal class RelativeRangedTimestampRefineByTest {
                 .upperBoundOffset(
                     TimeOffset.builder()
                         .amount(0)
-                        .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                        .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                        .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                        .timeUnit(TimeOffset.TimeUnit.DAYS)
                         .build()
                 )
                 .build()

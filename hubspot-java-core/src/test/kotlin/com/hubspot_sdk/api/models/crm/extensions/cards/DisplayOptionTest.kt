@@ -15,12 +15,12 @@ internal class DisplayOptionTest {
             DisplayOption.builder()
                 .label("label")
                 .name("name")
-                .type(DisplayOption.Type.DEFAULT)
+                .type(DisplayOption.Type.DANGER)
                 .build()
 
         assertThat(displayOption.label()).isEqualTo("label")
         assertThat(displayOption.name()).isEqualTo("name")
-        assertThat(displayOption.type()).isEqualTo(DisplayOption.Type.DEFAULT)
+        assertThat(displayOption.type()).isEqualTo(DisplayOption.Type.DANGER)
     }
 
     @Test
@@ -30,7 +30,7 @@ internal class DisplayOptionTest {
             DisplayOption.builder()
                 .label("label")
                 .name("name")
-                .type(DisplayOption.Type.DEFAULT)
+                .type(DisplayOption.Type.DANGER)
                 .build()
 
         val roundtrippedDisplayOption =

@@ -17,7 +17,7 @@ internal class PageTest {
         val page =
             Page.builder()
                 .id("id")
-                .abStatus(Page.AbStatus.MASTER)
+                .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                 .abTestId("abTestId")
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .archivedInDashboard(true)
@@ -250,7 +250,7 @@ internal class PageTest {
                 .build()
 
         assertThat(page.id()).isEqualTo("id")
-        assertThat(page.abStatus()).isEqualTo(Page.AbStatus.MASTER)
+        assertThat(page.abStatus()).isEqualTo(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
         assertThat(page.abTestId()).isEqualTo("abTestId")
         assertThat(page.archivedAt()).isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(page.archivedInDashboard()).isEqualTo(true)
@@ -490,7 +490,7 @@ internal class PageTest {
         val page =
             Page.builder()
                 .id("id")
-                .abStatus(Page.AbStatus.MASTER)
+                .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                 .abTestId("abTestId")
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .archivedInDashboard(true)

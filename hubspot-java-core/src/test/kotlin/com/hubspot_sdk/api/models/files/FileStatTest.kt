@@ -17,7 +17,7 @@ internal class FileStatTest {
                 .file(
                     File.builder()
                         .id("id")
-                        .access(File.Access.PUBLIC_INDEXABLE)
+                        .access(File.Access.HIDDEN_INDEXABLE)
                         .archived(true)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -57,7 +57,7 @@ internal class FileStatTest {
             .contains(
                 File.builder()
                     .id("id")
-                    .access(File.Access.PUBLIC_INDEXABLE)
+                    .access(File.Access.HIDDEN_INDEXABLE)
                     .archived(true)
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -102,7 +102,7 @@ internal class FileStatTest {
                 .file(
                     File.builder()
                         .id("id")
-                        .access(File.Access.PUBLIC_INDEXABLE)
+                        .access(File.Access.HIDDEN_INDEXABLE)
                         .archived(true)
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

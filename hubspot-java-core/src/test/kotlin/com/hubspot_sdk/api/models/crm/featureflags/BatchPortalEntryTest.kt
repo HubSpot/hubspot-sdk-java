@@ -12,9 +12,12 @@ internal class BatchPortalEntryTest {
     @Test
     fun create() {
         val batchPortalEntry =
-            BatchPortalEntry.builder().flagState(BatchPortalEntry.FlagState.OFF).portalId(0).build()
+            BatchPortalEntry.builder()
+                .flagState(BatchPortalEntry.FlagState.ABSENT)
+                .portalId(0)
+                .build()
 
-        assertThat(batchPortalEntry.flagState()).isEqualTo(BatchPortalEntry.FlagState.OFF)
+        assertThat(batchPortalEntry.flagState()).isEqualTo(BatchPortalEntry.FlagState.ABSENT)
         assertThat(batchPortalEntry.portalId()).isEqualTo(0)
     }
 
@@ -22,7 +25,10 @@ internal class BatchPortalEntryTest {
     fun roundtrip() {
         val jsonMapper = jsonMapper()
         val batchPortalEntry =
-            BatchPortalEntry.builder().flagState(BatchPortalEntry.FlagState.OFF).portalId(0).build()
+            BatchPortalEntry.builder()
+                .flagState(BatchPortalEntry.FlagState.ABSENT)
+                .portalId(0)
+                .build()
 
         val roundtrippedBatchPortalEntry =
             jsonMapper.readValue(

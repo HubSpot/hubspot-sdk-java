@@ -13,7 +13,7 @@ internal class AbsoluteComparativeTimestampRefineByTest {
     fun create() {
         val absoluteComparativeTimestampRefineBy =
             AbsoluteComparativeTimestampRefineBy.builder()
-                .comparison(AbsoluteComparativeTimestampRefineBy.Comparison.BEFORE)
+                .comparison(AbsoluteComparativeTimestampRefineBy.Comparison.AFTER)
                 .timestamp(0)
                 .type(
                     AbsoluteComparativeTimestampRefineBy.Type
@@ -22,7 +22,7 @@ internal class AbsoluteComparativeTimestampRefineByTest {
                 .build()
 
         assertThat(absoluteComparativeTimestampRefineBy.comparison())
-            .isEqualTo(AbsoluteComparativeTimestampRefineBy.Comparison.BEFORE)
+            .isEqualTo(AbsoluteComparativeTimestampRefineBy.Comparison.AFTER)
         assertThat(absoluteComparativeTimestampRefineBy.timestamp()).isEqualTo(0)
         assertThat(absoluteComparativeTimestampRefineBy.type())
             .isEqualTo(
@@ -35,7 +35,7 @@ internal class AbsoluteComparativeTimestampRefineByTest {
         val jsonMapper = jsonMapper()
         val absoluteComparativeTimestampRefineBy =
             AbsoluteComparativeTimestampRefineBy.builder()
-                .comparison(AbsoluteComparativeTimestampRefineBy.Comparison.BEFORE)
+                .comparison(AbsoluteComparativeTimestampRefineBy.Comparison.AFTER)
                 .timestamp(0)
                 .type(
                     AbsoluteComparativeTimestampRefineBy.Type

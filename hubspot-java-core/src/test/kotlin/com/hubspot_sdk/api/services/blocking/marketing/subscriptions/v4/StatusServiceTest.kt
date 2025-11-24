@@ -39,11 +39,9 @@ internal class StatusServiceTest {
                     .partialPublicStatusRequest(
                         PartialPublicStatusRequest.builder()
                             .channel(PartialPublicStatusRequest.Channel.EMAIL)
-                            .statusState(PartialPublicStatusRequest.StatusState.SUBSCRIBED)
+                            .statusState(PartialPublicStatusRequest.StatusState.NOT_SPECIFIED)
                             .subscriptionId(0L)
-                            .legalBasis(
-                                PartialPublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL
-                            )
+                            .legalBasis(PartialPublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                             .legalBasisExplanation("legalBasisExplanation")
                             .build()
                     )
@@ -136,10 +134,10 @@ internal class StatusServiceTest {
                     .addInput(
                         PublicStatusRequest.builder()
                             .channel(PublicStatusRequest.Channel.EMAIL)
-                            .statusState(PublicStatusRequest.StatusState.SUBSCRIBED)
+                            .statusState(PublicStatusRequest.StatusState.NOT_SPECIFIED)
                             .subscriberIdString("subscriberIdString")
                             .subscriptionId(0)
-                            .legalBasis(PublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                            .legalBasis(PublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                             .legalBasisExplanation("legalBasisExplanation")
                             .build()
                     )

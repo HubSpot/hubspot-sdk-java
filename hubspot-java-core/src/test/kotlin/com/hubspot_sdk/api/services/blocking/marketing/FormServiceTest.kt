@@ -57,7 +57,7 @@ internal class FormServiceTest {
                             .addNotifyRecipient("string")
                             .postSubmitAction(
                                 FormPostSubmitAction.builder()
-                                    .type(FormPostSubmitAction.Type.THANK_YOU)
+                                    .type(FormPostSubmitAction.Type.REDIRECT_URL)
                                     .value("value")
                                     .build()
                             )
@@ -85,14 +85,14 @@ internal class FormServiceTest {
                                     .labelTextSize("labelTextSize")
                                     .legalConsentTextColor("legalConsentTextColor")
                                     .legalConsentTextSize("legalConsentTextSize")
-                                    .submitAlignment(FormStyle.SubmitAlignment.LEFT)
+                                    .submitAlignment(FormStyle.SubmitAlignment.CENTER)
                                     .submitColor("submitColor")
                                     .submitFontColor("submitFontColor")
                                     .submitSize("submitSize")
                                     .build()
                             )
                             .submitButtonText("submitButtonText")
-                            .theme(FormDisplayOptions.Theme.DEFAULT_STYLE)
+                            .theme(FormDisplayOptions.Theme.CANVAS)
                             .cssClass("cssClass")
                             .build()
                     )
@@ -104,7 +104,7 @@ internal class FormServiceTest {
                                         DependentField.builder()
                                             .dependentCondition(
                                                 DependentFieldFilter.builder()
-                                                    .operator(DependentFieldFilter.Operator.EQ)
+                                                    .operator(DependentFieldFilter.Operator.BETWEEN)
                                                     .rangeEnd("rangeEnd")
                                                     .rangeStart("rangeStart")
                                                     .value("value")
@@ -152,7 +152,7 @@ internal class FormServiceTest {
                                     .build()
                             )
                             .groupType(FieldGroup.GroupType.DEFAULT_GROUP)
-                            .richTextType(FieldGroup.RichTextType.TEXT)
+                            .richTextType(FieldGroup.RichTextType.IMAGE)
                             .richText("richText")
                             .build()
                     )
@@ -200,7 +200,7 @@ internal class FormServiceTest {
                                     .addNotifyRecipient("string")
                                     .postSubmitAction(
                                         FormPostSubmitAction.builder()
-                                            .type(FormPostSubmitAction.Type.THANK_YOU)
+                                            .type(FormPostSubmitAction.Type.REDIRECT_URL)
                                             .value("value")
                                             .build()
                                     )
@@ -227,14 +227,14 @@ internal class FormServiceTest {
                                             .labelTextSize("labelTextSize")
                                             .legalConsentTextColor("legalConsentTextColor")
                                             .legalConsentTextSize("legalConsentTextSize")
-                                            .submitAlignment(FormStyle.SubmitAlignment.LEFT)
+                                            .submitAlignment(FormStyle.SubmitAlignment.CENTER)
                                             .submitColor("submitColor")
                                             .submitFontColor("submitFontColor")
                                             .submitSize("submitSize")
                                             .build()
                                     )
                                     .submitButtonText("submitButtonText")
-                                    .theme(FormDisplayOptions.Theme.DEFAULT_STYLE)
+                                    .theme(FormDisplayOptions.Theme.CANVAS)
                                     .cssClass("cssClass")
                                     .build()
                             )
@@ -247,7 +247,8 @@ internal class FormServiceTest {
                                                     .dependentCondition(
                                                         DependentFieldFilter.builder()
                                                             .operator(
-                                                                DependentFieldFilter.Operator.EQ
+                                                                DependentFieldFilter.Operator
+                                                                    .BETWEEN
                                                             )
                                                             .rangeEnd("rangeEnd")
                                                             .rangeStart("rangeStart")
@@ -296,7 +297,7 @@ internal class FormServiceTest {
                                             .build()
                                     )
                                     .groupType(FieldGroup.GroupType.DEFAULT_GROUP)
-                                    .richTextType(FieldGroup.RichTextType.TEXT)
+                                    .richTextType(FieldGroup.RichTextType.IMAGE)
                                     .richText("richText")
                                     .build()
                             )
@@ -388,7 +389,7 @@ internal class FormServiceTest {
                                     .addNotifyRecipient("string")
                                     .postSubmitAction(
                                         FormPostSubmitAction.builder()
-                                            .type(FormPostSubmitAction.Type.THANK_YOU)
+                                            .type(FormPostSubmitAction.Type.REDIRECT_URL)
                                             .value("value")
                                             .build()
                                     )
@@ -416,14 +417,14 @@ internal class FormServiceTest {
                                             .labelTextSize("labelTextSize")
                                             .legalConsentTextColor("legalConsentTextColor")
                                             .legalConsentTextSize("legalConsentTextSize")
-                                            .submitAlignment(FormStyle.SubmitAlignment.LEFT)
+                                            .submitAlignment(FormStyle.SubmitAlignment.CENTER)
                                             .submitColor("submitColor")
                                             .submitFontColor("submitFontColor")
                                             .submitSize("submitSize")
                                             .build()
                                     )
                                     .submitButtonText("submitButtonText")
-                                    .theme(FormDisplayOptions.Theme.DEFAULT_STYLE)
+                                    .theme(FormDisplayOptions.Theme.CANVAS)
                                     .cssClass("cssClass")
                                     .build()
                             )
@@ -436,7 +437,8 @@ internal class FormServiceTest {
                                                     .dependentCondition(
                                                         DependentFieldFilter.builder()
                                                             .operator(
-                                                                DependentFieldFilter.Operator.EQ
+                                                                DependentFieldFilter.Operator
+                                                                    .BETWEEN
                                                             )
                                                             .rangeEnd("rangeEnd")
                                                             .rangeStart("rangeStart")
@@ -485,7 +487,7 @@ internal class FormServiceTest {
                                             .build()
                                     )
                                     .groupType(FieldGroup.GroupType.DEFAULT_GROUP)
-                                    .richTextType(FieldGroup.RichTextType.TEXT)
+                                    .richTextType(FieldGroup.RichTextType.IMAGE)
                                     .richText("richText")
                                     .build()
                             )

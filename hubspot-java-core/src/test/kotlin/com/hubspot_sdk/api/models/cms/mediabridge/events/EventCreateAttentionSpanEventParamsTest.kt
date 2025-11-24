@@ -15,7 +15,7 @@ internal class EventCreateAttentionSpanEventParamsTest {
         EventCreateAttentionSpanEventParams.builder()
             .attentionSpanEventRequest(
                 AttentionSpanEventRequest.builder()
-                    .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                    .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .rawDataMap(
                         AttentionSpanEventRequest.RawDataMap.builder()
@@ -51,7 +51,7 @@ internal class EventCreateAttentionSpanEventParamsTest {
             EventCreateAttentionSpanEventParams.builder()
                 .attentionSpanEventRequest(
                     AttentionSpanEventRequest.builder()
-                        .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                        .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                         .occurredTimestamp(0L)
                         .rawDataMap(
                             AttentionSpanEventRequest.RawDataMap.builder()
@@ -85,7 +85,7 @@ internal class EventCreateAttentionSpanEventParamsTest {
         assertThat(body)
             .isEqualTo(
                 AttentionSpanEventRequest.builder()
-                    .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                    .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .rawDataMap(
                         AttentionSpanEventRequest.RawDataMap.builder()
@@ -120,7 +120,7 @@ internal class EventCreateAttentionSpanEventParamsTest {
             EventCreateAttentionSpanEventParams.builder()
                 .attentionSpanEventRequest(
                     AttentionSpanEventRequest.builder()
-                        .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                        .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                         .occurredTimestamp(0L)
                         .rawDataMap(
                             AttentionSpanEventRequest.RawDataMap.builder()
@@ -137,7 +137,7 @@ internal class EventCreateAttentionSpanEventParamsTest {
         assertThat(body)
             .isEqualTo(
                 AttentionSpanEventRequest.builder()
-                    .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                    .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .rawDataMap(
                         AttentionSpanEventRequest.RawDataMap.builder()

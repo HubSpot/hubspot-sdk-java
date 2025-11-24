@@ -47,6 +47,7 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // post /oauth/v1/token
         withRawResponse().createAccessToken(params, requestOptions).thenApply { it.parse() }
 
+    @Deprecated("deprecated")
     override fun deleteRefreshToken(
         params: OAuthDeleteRefreshTokenParams,
         requestOptions: RequestOptions,
@@ -54,6 +55,7 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // delete /oauth/v1/refresh-tokens/{token}
         withRawResponse().deleteRefreshToken(params, requestOptions).thenAccept {}
 
+    @Deprecated("deprecated")
     override fun getAccessToken(
         params: OAuthGetAccessTokenParams,
         requestOptions: RequestOptions,
@@ -61,6 +63,7 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // get /oauth/v1/access-tokens/{token}
         withRawResponse().getAccessToken(params, requestOptions).thenApply { it.parse() }
 
+    @Deprecated("deprecated")
     override fun getRefreshToken(
         params: OAuthGetRefreshTokenParams,
         requestOptions: RequestOptions,
@@ -114,6 +117,7 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
         private val deleteRefreshTokenHandler: Handler<Void?> = emptyHandler()
 
+        @Deprecated("deprecated")
         override fun deleteRefreshToken(
             params: OAuthDeleteRefreshTokenParams,
             requestOptions: RequestOptions,
@@ -142,6 +146,7 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
         private val getAccessTokenHandler: Handler<AccessTokenInfoResponse> =
             jsonHandler<AccessTokenInfoResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun getAccessToken(
             params: OAuthGetAccessTokenParams,
             requestOptions: RequestOptions,
@@ -175,6 +180,7 @@ class OAuthServiceAsyncImpl internal constructor(private val clientOptions: Clie
         private val getRefreshTokenHandler: Handler<RefreshTokenInfoResponse> =
             jsonHandler<RefreshTokenInfoResponse>(clientOptions.jsonMapper)
 
+        @Deprecated("deprecated")
         override fun getRefreshToken(
             params: OAuthGetRefreshTokenParams,
             requestOptions: RequestOptions,

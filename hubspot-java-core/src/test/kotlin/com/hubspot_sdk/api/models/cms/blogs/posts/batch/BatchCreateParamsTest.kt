@@ -20,7 +20,7 @@ internal class BatchCreateParamsTest {
                     .addInput(
                         BlogPost.builder()
                             .id("id")
-                            .abStatus(BlogPost.AbStatus.MASTER)
+                            .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(0L)
                             .archivedInDashboard(true)
@@ -310,7 +310,7 @@ internal class BatchCreateParamsTest {
                         .addInput(
                             BlogPost.builder()
                                 .id("id")
-                                .abStatus(BlogPost.AbStatus.MASTER)
+                                .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                                 .abTestId("abTestId")
                                 .archivedAt(0L)
                                 .archivedInDashboard(true)
@@ -607,7 +607,7 @@ internal class BatchCreateParamsTest {
                     .addInput(
                         BlogPost.builder()
                             .id("id")
-                            .abStatus(BlogPost.AbStatus.MASTER)
+                            .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(0L)
                             .archivedInDashboard(true)
@@ -896,7 +896,7 @@ internal class BatchCreateParamsTest {
                         .addInput(
                             BlogPost.builder()
                                 .id("id")
-                                .abStatus(BlogPost.AbStatus.MASTER)
+                                .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                                 .abTestId("abTestId")
                                 .archivedAt(0L)
                                 .archivedInDashboard(true)
@@ -1160,7 +1160,7 @@ internal class BatchCreateParamsTest {
                     .addInput(
                         BlogPost.builder()
                             .id("id")
-                            .abStatus(BlogPost.AbStatus.MASTER)
+                            .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(0L)
                             .archivedInDashboard(true)

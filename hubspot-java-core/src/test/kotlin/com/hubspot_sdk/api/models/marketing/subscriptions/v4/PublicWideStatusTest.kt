@@ -15,20 +15,20 @@ internal class PublicWideStatusTest {
         val publicWideStatus =
             PublicWideStatus.builder()
                 .channel(PublicWideStatus.Channel.EMAIL)
-                .status(PublicWideStatus.Status.SUBSCRIBED)
+                .status(PublicWideStatus.Status.NOT_SPECIFIED)
                 .subscriberIdString("subscriberIdString")
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .wideStatusType(PublicWideStatus.WideStatusType.PORTAL_WIDE)
+                .wideStatusType(PublicWideStatus.WideStatusType.BUSINESS_UNIT_WIDE)
                 .businessUnitId(0L)
                 .build()
 
         assertThat(publicWideStatus.channel()).isEqualTo(PublicWideStatus.Channel.EMAIL)
-        assertThat(publicWideStatus.status()).isEqualTo(PublicWideStatus.Status.SUBSCRIBED)
+        assertThat(publicWideStatus.status()).isEqualTo(PublicWideStatus.Status.NOT_SPECIFIED)
         assertThat(publicWideStatus.subscriberIdString()).isEqualTo("subscriberIdString")
         assertThat(publicWideStatus.timestamp())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(publicWideStatus.wideStatusType())
-            .isEqualTo(PublicWideStatus.WideStatusType.PORTAL_WIDE)
+            .isEqualTo(PublicWideStatus.WideStatusType.BUSINESS_UNIT_WIDE)
         assertThat(publicWideStatus.businessUnitId()).contains(0L)
     }
 
@@ -38,10 +38,10 @@ internal class PublicWideStatusTest {
         val publicWideStatus =
             PublicWideStatus.builder()
                 .channel(PublicWideStatus.Channel.EMAIL)
-                .status(PublicWideStatus.Status.SUBSCRIBED)
+                .status(PublicWideStatus.Status.NOT_SPECIFIED)
                 .subscriberIdString("subscriberIdString")
                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .wideStatusType(PublicWideStatus.WideStatusType.PORTAL_WIDE)
+                .wideStatusType(PublicWideStatus.WideStatusType.BUSINESS_UNIT_WIDE)
                 .businessUnitId(0L)
                 .build()
 

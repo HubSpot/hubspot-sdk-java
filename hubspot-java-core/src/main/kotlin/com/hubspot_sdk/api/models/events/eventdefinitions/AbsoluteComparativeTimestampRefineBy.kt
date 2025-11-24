@@ -242,17 +242,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val BEFORE = of("BEFORE")
-
             @JvmField val AFTER = of("AFTER")
+
+            @JvmField val BEFORE = of("BEFORE")
 
             @JvmStatic fun of(value: String) = Comparison(JsonField.of(value))
         }
 
         /** An enum containing [Comparison]'s known values. */
         enum class Known {
-            BEFORE,
             AFTER,
+            BEFORE,
         }
 
         /**
@@ -265,8 +265,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            BEFORE,
             AFTER,
+            BEFORE,
             /**
              * An enum member indicating that [Comparison] was instantiated with an unknown value.
              */
@@ -282,8 +282,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                BEFORE -> Value.BEFORE
                 AFTER -> Value.AFTER
+                BEFORE -> Value.BEFORE
                 else -> Value._UNKNOWN
             }
 
@@ -298,8 +298,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                BEFORE -> Known.BEFORE
                 AFTER -> Known.AFTER
+                BEFORE -> Known.BEFORE
                 else -> throw HubspotInvalidDataException("Unknown Comparison: $value")
             }
 

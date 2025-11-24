@@ -201,9 +201,9 @@ private constructor(
 
             @JvmField val GLOBAL = of("GLOBAL")
 
-            @JvmField val OBJECT_TYPE = of("OBJECT_TYPE")
-
             @JvmField val HAVEN_BRANCH = of("HAVEN_BRANCH")
+
+            @JvmField val OBJECT_TYPE = of("OBJECT_TYPE")
 
             @JvmField val PORTAL = of("PORTAL")
 
@@ -213,8 +213,8 @@ private constructor(
         /** An enum containing [Type]'s known values. */
         enum class Known {
             GLOBAL,
-            OBJECT_TYPE,
             HAVEN_BRANCH,
+            OBJECT_TYPE,
             PORTAL,
         }
 
@@ -229,8 +229,8 @@ private constructor(
          */
         enum class Value {
             GLOBAL,
-            OBJECT_TYPE,
             HAVEN_BRANCH,
+            OBJECT_TYPE,
             PORTAL,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -246,8 +246,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 GLOBAL -> Value.GLOBAL
-                OBJECT_TYPE -> Value.OBJECT_TYPE
                 HAVEN_BRANCH -> Value.HAVEN_BRANCH
+                OBJECT_TYPE -> Value.OBJECT_TYPE
                 PORTAL -> Value.PORTAL
                 else -> Value._UNKNOWN
             }
@@ -264,8 +264,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 GLOBAL -> Known.GLOBAL
-                OBJECT_TYPE -> Known.OBJECT_TYPE
                 HAVEN_BRANCH -> Known.HAVEN_BRANCH
+                OBJECT_TYPE -> Known.OBJECT_TYPE
                 PORTAL -> Known.PORTAL
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }

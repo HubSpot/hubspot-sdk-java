@@ -4,13 +4,13 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
-import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationMessageEgg
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationParticipant
 import com.hubspot_sdk.api.models.conversations.customchannels.FileAttachment
 import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContact
 import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContacts
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationMessageUpdateRequest
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageUpdateParams
@@ -32,7 +32,7 @@ internal class MessageServiceAsyncTest {
                 .build()
         val messageServiceAsync = client.conversations().customChannels().messages()
 
-        val conversationsPublicConversationsMessageFuture =
+        val publicConversationsMessageFuture =
             messageServiceAsync.create(
                 MessageCreateParams.builder()
                     .channelId(0)
@@ -92,9 +92,8 @@ internal class MessageServiceAsyncTest {
                     .build()
             )
 
-        val conversationsPublicConversationsMessage =
-            conversationsPublicConversationsMessageFuture.get()
-        conversationsPublicConversationsMessage.validate()
+        val publicConversationsMessage = publicConversationsMessageFuture.get()
+        publicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -107,7 +106,7 @@ internal class MessageServiceAsyncTest {
                 .build()
         val messageServiceAsync = client.conversations().customChannels().messages()
 
-        val conversationsPublicConversationsMessageFuture =
+        val publicConversationsMessageFuture =
             messageServiceAsync.update(
                 MessageUpdateParams.builder()
                     .channelId(0)
@@ -115,7 +114,7 @@ internal class MessageServiceAsyncTest {
                     .publicChannelIntegrationMessageUpdateRequest(
                         PublicChannelIntegrationMessageUpdateRequest.builder()
                             .statusType(
-                                PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT
+                                PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED
                             )
                             .errorMessage("errorMessage")
                             .build()
@@ -123,9 +122,8 @@ internal class MessageServiceAsyncTest {
                     .build()
             )
 
-        val conversationsPublicConversationsMessage =
-            conversationsPublicConversationsMessageFuture.get()
-        conversationsPublicConversationsMessage.validate()
+        val publicConversationsMessage = publicConversationsMessageFuture.get()
+        publicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -138,13 +136,12 @@ internal class MessageServiceAsyncTest {
                 .build()
         val messageServiceAsync = client.conversations().customChannels().messages()
 
-        val conversationsPublicConversationsMessageFuture =
+        val publicConversationsMessageFuture =
             messageServiceAsync.get(
                 MessageGetParams.builder().channelId(0).messageId("messageId").build()
             )
 
-        val conversationsPublicConversationsMessage =
-            conversationsPublicConversationsMessageFuture.get()
-        conversationsPublicConversationsMessage.validate()
+        val publicConversationsMessage = publicConversationsMessageFuture.get()
+        publicConversationsMessage.validate()
     }
 }

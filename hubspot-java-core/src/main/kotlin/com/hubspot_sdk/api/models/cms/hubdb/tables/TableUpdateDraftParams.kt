@@ -40,6 +40,7 @@ private constructor(
     /** Set this to `true` to populate foreign ID values in the result. */
     fun includeForeignIds(): Optional<Boolean> = Optional.ofNullable(includeForeignIds)
 
+    /** Indicates whether to retrieve the localized schema for the table. */
     fun isGetLocalizedSchema(): Optional<Boolean> = Optional.ofNullable(isGetLocalizedSchema)
 
     fun hubDbTableV3Request(): HubDbTableV3Request = hubDbTableV3Request
@@ -126,6 +127,7 @@ private constructor(
         fun includeForeignIds(includeForeignIds: Optional<Boolean>) =
             includeForeignIds(includeForeignIds.getOrNull())
 
+        /** Indicates whether to retrieve the localized schema for the table. */
         fun isGetLocalizedSchema(isGetLocalizedSchema: Boolean?) = apply {
             this.isGetLocalizedSchema = isGetLocalizedSchema
         }

@@ -15,7 +15,7 @@ internal class RangedTimeOperationTest {
             RangedTimeOperation.builder()
                 .includeObjectsWithNoValueSet(true)
                 .lowerBoundEndpointBehavior(
-                    RangedTimeOperation.LowerBoundEndpointBehavior.INCLUSIVE
+                    RangedTimeOperation.LowerBoundEndpointBehavior.EXCLUSIVE
                 )
                 .lowerBoundTimePoint(
                     DatePoint.builder()
@@ -34,11 +34,11 @@ internal class RangedTimeOperationTest {
                 .operationType("operationType")
                 .operator(RangedTimeOperation.Operator.IS_BETWEEN)
                 .operatorName("operatorName")
-                .propertyParser(RangedTimeOperation.PropertyParser.VALUE)
+                .propertyParser(RangedTimeOperation.PropertyParser.ANNIVERSARY)
                 .propertyType(RangedTimeOperation.PropertyType.RANGEDTIME)
                 .type("type")
                 .upperBoundEndpointBehavior(
-                    RangedTimeOperation.UpperBoundEndpointBehavior.INCLUSIVE
+                    RangedTimeOperation.UpperBoundEndpointBehavior.EXCLUSIVE
                 )
                 .upperBoundTimePoint(
                     DatePoint.builder()
@@ -59,7 +59,7 @@ internal class RangedTimeOperationTest {
 
         assertThat(rangedTimeOperation.includeObjectsWithNoValueSet()).isEqualTo(true)
         assertThat(rangedTimeOperation.lowerBoundEndpointBehavior())
-            .isEqualTo(RangedTimeOperation.LowerBoundEndpointBehavior.INCLUSIVE)
+            .isEqualTo(RangedTimeOperation.LowerBoundEndpointBehavior.EXCLUSIVE)
         assertThat(rangedTimeOperation.lowerBoundTimePoint())
             .isEqualTo(
                 RangedTimeOperation.LowerBoundTimePoint.ofDate(
@@ -82,12 +82,12 @@ internal class RangedTimeOperationTest {
             .isEqualTo(RangedTimeOperation.Operator.IS_BETWEEN)
         assertThat(rangedTimeOperation.operatorName()).isEqualTo("operatorName")
         assertThat(rangedTimeOperation.propertyParser())
-            .isEqualTo(RangedTimeOperation.PropertyParser.VALUE)
+            .isEqualTo(RangedTimeOperation.PropertyParser.ANNIVERSARY)
         assertThat(rangedTimeOperation.propertyType())
             .isEqualTo(RangedTimeOperation.PropertyType.RANGEDTIME)
         assertThat(rangedTimeOperation.type()).isEqualTo("type")
         assertThat(rangedTimeOperation.upperBoundEndpointBehavior())
-            .isEqualTo(RangedTimeOperation.UpperBoundEndpointBehavior.INCLUSIVE)
+            .isEqualTo(RangedTimeOperation.UpperBoundEndpointBehavior.EXCLUSIVE)
         assertThat(rangedTimeOperation.upperBoundTimePoint())
             .isEqualTo(
                 RangedTimeOperation.UpperBoundTimePoint.ofDate(
@@ -115,7 +115,7 @@ internal class RangedTimeOperationTest {
             RangedTimeOperation.builder()
                 .includeObjectsWithNoValueSet(true)
                 .lowerBoundEndpointBehavior(
-                    RangedTimeOperation.LowerBoundEndpointBehavior.INCLUSIVE
+                    RangedTimeOperation.LowerBoundEndpointBehavior.EXCLUSIVE
                 )
                 .lowerBoundTimePoint(
                     DatePoint.builder()
@@ -134,11 +134,11 @@ internal class RangedTimeOperationTest {
                 .operationType("operationType")
                 .operator(RangedTimeOperation.Operator.IS_BETWEEN)
                 .operatorName("operatorName")
-                .propertyParser(RangedTimeOperation.PropertyParser.VALUE)
+                .propertyParser(RangedTimeOperation.PropertyParser.ANNIVERSARY)
                 .propertyType(RangedTimeOperation.PropertyType.RANGEDTIME)
                 .type("type")
                 .upperBoundEndpointBehavior(
-                    RangedTimeOperation.UpperBoundEndpointBehavior.INCLUSIVE
+                    RangedTimeOperation.UpperBoundEndpointBehavior.EXCLUSIVE
                 )
                 .upperBoundTimePoint(
                     DatePoint.builder()

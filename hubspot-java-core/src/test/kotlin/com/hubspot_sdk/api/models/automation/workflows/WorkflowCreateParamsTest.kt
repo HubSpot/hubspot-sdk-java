@@ -58,7 +58,7 @@ internal class WorkflowCreateParamsTest {
                     .addBlockedDate(
                         ApiBlockedDate.builder()
                             .dayOfMonth(0)
-                            .month(ApiBlockedDate.Month.JANUARY)
+                            .month(ApiBlockedDate.Month.APRIL)
                             .year(0)
                             .build()
                     )
@@ -92,7 +92,7 @@ internal class WorkflowCreateParamsTest {
                     .addSuppressionListId(0)
                     .addTimeWindow(
                         ApiTimeWindow.builder()
-                            .day(ApiTimeWindow.Day.MONDAY)
+                            .day(ApiTimeWindow.Day.FRIDAY)
                             .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                             .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                             .build()
@@ -609,7 +609,7 @@ internal class WorkflowCreateParamsTest {
                         .addBlockedDate(
                             ApiBlockedDate.builder()
                                 .dayOfMonth(0)
-                                .month(ApiBlockedDate.Month.JANUARY)
+                                .month(ApiBlockedDate.Month.APRIL)
                                 .year(0)
                                 .build()
                         )
@@ -643,7 +643,7 @@ internal class WorkflowCreateParamsTest {
                         .addSuppressionListId(0)
                         .addTimeWindow(
                             ApiTimeWindow.builder()
-                                .day(ApiTimeWindow.Day.MONDAY)
+                                .day(ApiTimeWindow.Day.FRIDAY)
                                 .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .build()
@@ -1172,7 +1172,7 @@ internal class WorkflowCreateParamsTest {
                         .addBlockedDate(
                             ApiBlockedDate.builder()
                                 .dayOfMonth(0)
-                                .month(ApiBlockedDate.Month.JANUARY)
+                                .month(ApiBlockedDate.Month.APRIL)
                                 .year(0)
                                 .build()
                         )
@@ -1206,7 +1206,7 @@ internal class WorkflowCreateParamsTest {
                         .addSuppressionListId(0)
                         .addTimeWindow(
                             ApiTimeWindow.builder()
-                                .day(ApiTimeWindow.Day.MONDAY)
+                                .day(ApiTimeWindow.Day.FRIDAY)
                                 .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .build()
@@ -1721,7 +1721,7 @@ internal class WorkflowCreateParamsTest {
                         .addBlockedDate(
                             ApiBlockedDate.builder()
                                 .dayOfMonth(0)
-                                .month(ApiBlockedDate.Month.JANUARY)
+                                .month(ApiBlockedDate.Month.APRIL)
                                 .build()
                         )
                         .canEnrollFromSalesforce(true)
@@ -1746,7 +1746,7 @@ internal class WorkflowCreateParamsTest {
                         .objectTypeId("objectTypeId")
                         .addSuppressionListId(0)
                         .addTimeWindow(
-                            ApiTimeWindow.builder().day(ApiTimeWindow.Day.MONDAY).build()
+                            ApiTimeWindow.builder().day(ApiTimeWindow.Day.FRIDAY).build()
                         )
                         .type(ApiContactFlowCreateRequest.Type.CONTACT_FLOW)
                         .build()
@@ -1778,7 +1778,7 @@ internal class WorkflowCreateParamsTest {
                         .addBlockedDate(
                             ApiBlockedDate.builder()
                                 .dayOfMonth(0)
-                                .month(ApiBlockedDate.Month.JANUARY)
+                                .month(ApiBlockedDate.Month.APRIL)
                                 .build()
                         )
                         .canEnrollFromSalesforce(true)
@@ -1803,7 +1803,7 @@ internal class WorkflowCreateParamsTest {
                         .objectTypeId("objectTypeId")
                         .addSuppressionListId(0)
                         .addTimeWindow(
-                            ApiTimeWindow.builder().day(ApiTimeWindow.Day.MONDAY).build()
+                            ApiTimeWindow.builder().day(ApiTimeWindow.Day.FRIDAY).build()
                         )
                         .type(ApiContactFlowCreateRequest.Type.CONTACT_FLOW)
                         .build()

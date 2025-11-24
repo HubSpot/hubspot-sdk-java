@@ -14,14 +14,14 @@ internal class FilterTest {
     fun create() {
         val filter =
             Filter.builder()
-                .operator(Filter.Operator.EQ)
+                .operator(Filter.Operator.BETWEEN)
                 .propertyName("propertyName")
                 .highValue("highValue")
                 .value("value")
                 .addValue("string")
                 .build()
 
-        assertThat(filter.operator()).isEqualTo(Filter.Operator.EQ)
+        assertThat(filter.operator()).isEqualTo(Filter.Operator.BETWEEN)
         assertThat(filter.propertyName()).isEqualTo("propertyName")
         assertThat(filter.highValue()).contains("highValue")
         assertThat(filter.value()).contains("value")
@@ -33,7 +33,7 @@ internal class FilterTest {
         val jsonMapper = jsonMapper()
         val filter =
             Filter.builder()
-                .operator(Filter.Operator.EQ)
+                .operator(Filter.Operator.BETWEEN)
                 .propertyName("propertyName")
                 .highValue("highValue")
                 .value("value")

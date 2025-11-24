@@ -29,7 +29,7 @@ internal class EventServiceTest {
         val attentionSpanEvent =
             eventService.createAttentionSpanEvent(
                 AttentionSpanEventRequest.builder()
-                    .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                    .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .rawDataMap(
                         AttentionSpanEventRequest.RawDataMap.builder()
@@ -73,7 +73,7 @@ internal class EventServiceTest {
         val mediaPlayedEvent =
             eventService.createMediaPlayedEvent(
                 MediaPlayedEventRequest.builder()
-                    .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .sessionId("sessionId")
                     .state(MediaPlayedEventRequest.State.STARTED)
@@ -107,7 +107,7 @@ internal class EventServiceTest {
         val mediaPlayedPercentageEvent =
             eventService.createMediaPlayedPercentEvent(
                 MediaPlayedPercentageEventRequest.builder()
-                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .playedPercent(0)
                     .sessionId("sessionId")

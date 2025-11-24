@@ -319,74 +319,74 @@ private constructor(
 
         companion object {
 
-            @JvmField val EQ = of("eq")
-
-            @JvmField val NEQ = of("neq")
+            @JvmField val BETWEEN = of("between")
 
             @JvmField val CONTAINS = of("contains")
 
             @JvmField val DOESNT_CONTAIN = of("doesnt_contain")
 
-            @JvmField val STR_STARTS_WITH = of("str_starts_with")
-
-            @JvmField val STR_ENDS_WITH = of("str_ends_with")
-
-            @JvmField val LT = of("lt")
-
-            @JvmField val LTE = of("lte")
+            @JvmField val EQ = of("eq")
 
             @JvmField val GT = of("gt")
 
             @JvmField val GTE = of("gte")
 
-            @JvmField val BETWEEN = of("between")
+            @JvmField val IS_NOT_EMPTY = of("is_not_empty")
+
+            @JvmField val LT = of("lt")
+
+            @JvmField val LTE = of("lte")
+
+            @JvmField val NEQ = of("neq")
 
             @JvmField val NOT_BETWEEN = of("not_between")
 
-            @JvmField val WITHIN_TIME_REVERSE = of("within_time_reverse")
-
-            @JvmField val WITHIN_TIME = of("within_time")
-
-            @JvmField val SET_ANY = of("set_any")
-
-            @JvmField val SET_NOT_ANY = of("set_not_any")
-
             @JvmField val SET_ALL = of("set_all")
 
-            @JvmField val SET_NOT_ALL = of("set_not_all")
+            @JvmField val SET_ANY = of("set_any")
 
             @JvmField val SET_EQ = of("set_eq")
 
             @JvmField val SET_NEQ = of("set_neq")
 
-            @JvmField val IS_NOT_EMPTY = of("is_not_empty")
+            @JvmField val SET_NOT_ALL = of("set_not_all")
+
+            @JvmField val SET_NOT_ANY = of("set_not_any")
+
+            @JvmField val STR_ENDS_WITH = of("str_ends_with")
+
+            @JvmField val STR_STARTS_WITH = of("str_starts_with")
+
+            @JvmField val WITHIN_TIME = of("within_time")
+
+            @JvmField val WITHIN_TIME_REVERSE = of("within_time_reverse")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            EQ,
-            NEQ,
+            BETWEEN,
             CONTAINS,
             DOESNT_CONTAIN,
-            STR_STARTS_WITH,
-            STR_ENDS_WITH,
-            LT,
-            LTE,
+            EQ,
             GT,
             GTE,
-            BETWEEN,
+            IS_NOT_EMPTY,
+            LT,
+            LTE,
+            NEQ,
             NOT_BETWEEN,
-            WITHIN_TIME_REVERSE,
-            WITHIN_TIME,
-            SET_ANY,
-            SET_NOT_ANY,
             SET_ALL,
-            SET_NOT_ALL,
+            SET_ANY,
             SET_EQ,
             SET_NEQ,
-            IS_NOT_EMPTY,
+            SET_NOT_ALL,
+            SET_NOT_ANY,
+            STR_ENDS_WITH,
+            STR_STARTS_WITH,
+            WITHIN_TIME,
+            WITHIN_TIME_REVERSE,
         }
 
         /**
@@ -399,27 +399,27 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            EQ,
-            NEQ,
+            BETWEEN,
             CONTAINS,
             DOESNT_CONTAIN,
-            STR_STARTS_WITH,
-            STR_ENDS_WITH,
-            LT,
-            LTE,
+            EQ,
             GT,
             GTE,
-            BETWEEN,
+            IS_NOT_EMPTY,
+            LT,
+            LTE,
+            NEQ,
             NOT_BETWEEN,
-            WITHIN_TIME_REVERSE,
-            WITHIN_TIME,
-            SET_ANY,
-            SET_NOT_ANY,
             SET_ALL,
-            SET_NOT_ALL,
+            SET_ANY,
             SET_EQ,
             SET_NEQ,
-            IS_NOT_EMPTY,
+            SET_NOT_ALL,
+            SET_NOT_ANY,
+            STR_ENDS_WITH,
+            STR_STARTS_WITH,
+            WITHIN_TIME,
+            WITHIN_TIME_REVERSE,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -433,27 +433,27 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                EQ -> Value.EQ
-                NEQ -> Value.NEQ
+                BETWEEN -> Value.BETWEEN
                 CONTAINS -> Value.CONTAINS
                 DOESNT_CONTAIN -> Value.DOESNT_CONTAIN
-                STR_STARTS_WITH -> Value.STR_STARTS_WITH
-                STR_ENDS_WITH -> Value.STR_ENDS_WITH
-                LT -> Value.LT
-                LTE -> Value.LTE
+                EQ -> Value.EQ
                 GT -> Value.GT
                 GTE -> Value.GTE
-                BETWEEN -> Value.BETWEEN
+                IS_NOT_EMPTY -> Value.IS_NOT_EMPTY
+                LT -> Value.LT
+                LTE -> Value.LTE
+                NEQ -> Value.NEQ
                 NOT_BETWEEN -> Value.NOT_BETWEEN
-                WITHIN_TIME_REVERSE -> Value.WITHIN_TIME_REVERSE
-                WITHIN_TIME -> Value.WITHIN_TIME
-                SET_ANY -> Value.SET_ANY
-                SET_NOT_ANY -> Value.SET_NOT_ANY
                 SET_ALL -> Value.SET_ALL
-                SET_NOT_ALL -> Value.SET_NOT_ALL
+                SET_ANY -> Value.SET_ANY
                 SET_EQ -> Value.SET_EQ
                 SET_NEQ -> Value.SET_NEQ
-                IS_NOT_EMPTY -> Value.IS_NOT_EMPTY
+                SET_NOT_ALL -> Value.SET_NOT_ALL
+                SET_NOT_ANY -> Value.SET_NOT_ANY
+                STR_ENDS_WITH -> Value.STR_ENDS_WITH
+                STR_STARTS_WITH -> Value.STR_STARTS_WITH
+                WITHIN_TIME -> Value.WITHIN_TIME
+                WITHIN_TIME_REVERSE -> Value.WITHIN_TIME_REVERSE
                 else -> Value._UNKNOWN
             }
 
@@ -468,27 +468,27 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                EQ -> Known.EQ
-                NEQ -> Known.NEQ
+                BETWEEN -> Known.BETWEEN
                 CONTAINS -> Known.CONTAINS
                 DOESNT_CONTAIN -> Known.DOESNT_CONTAIN
-                STR_STARTS_WITH -> Known.STR_STARTS_WITH
-                STR_ENDS_WITH -> Known.STR_ENDS_WITH
-                LT -> Known.LT
-                LTE -> Known.LTE
+                EQ -> Known.EQ
                 GT -> Known.GT
                 GTE -> Known.GTE
-                BETWEEN -> Known.BETWEEN
+                IS_NOT_EMPTY -> Known.IS_NOT_EMPTY
+                LT -> Known.LT
+                LTE -> Known.LTE
+                NEQ -> Known.NEQ
                 NOT_BETWEEN -> Known.NOT_BETWEEN
-                WITHIN_TIME_REVERSE -> Known.WITHIN_TIME_REVERSE
-                WITHIN_TIME -> Known.WITHIN_TIME
-                SET_ANY -> Known.SET_ANY
-                SET_NOT_ANY -> Known.SET_NOT_ANY
                 SET_ALL -> Known.SET_ALL
-                SET_NOT_ALL -> Known.SET_NOT_ALL
+                SET_ANY -> Known.SET_ANY
                 SET_EQ -> Known.SET_EQ
                 SET_NEQ -> Known.SET_NEQ
-                IS_NOT_EMPTY -> Known.IS_NOT_EMPTY
+                SET_NOT_ALL -> Known.SET_NOT_ALL
+                SET_NOT_ANY -> Known.SET_NOT_ANY
+                STR_ENDS_WITH -> Known.STR_ENDS_WITH
+                STR_STARTS_WITH -> Known.STR_STARTS_WITH
+                WITHIN_TIME -> Known.WITHIN_TIME
+                WITHIN_TIME_REVERSE -> Known.WITHIN_TIME_REVERSE
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

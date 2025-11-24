@@ -59,7 +59,7 @@ internal class ApiContactFlowPutRequestTest {
                 .addBlockedDate(
                     ApiBlockedDate.builder()
                         .dayOfMonth(0)
-                        .month(ApiBlockedDate.Month.JANUARY)
+                        .month(ApiBlockedDate.Month.APRIL)
                         .year(0)
                         .build()
                 )
@@ -74,7 +74,7 @@ internal class ApiContactFlowPutRequestTest {
                 .addSuppressionListId(0)
                 .addTimeWindow(
                     ApiTimeWindow.builder()
-                        .day(ApiTimeWindow.Day.MONDAY)
+                        .day(ApiTimeWindow.Day.FRIDAY)
                         .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .build()
@@ -569,7 +569,7 @@ internal class ApiContactFlowPutRequestTest {
             .containsExactly(
                 ApiBlockedDate.builder()
                     .dayOfMonth(0)
-                    .month(ApiBlockedDate.Month.JANUARY)
+                    .month(ApiBlockedDate.Month.APRIL)
                     .year(0)
                     .build()
             )
@@ -586,7 +586,7 @@ internal class ApiContactFlowPutRequestTest {
         assertThat(apiContactFlowPutRequest.timeWindows())
             .containsExactly(
                 ApiTimeWindow.builder()
-                    .day(ApiTimeWindow.Day.MONDAY)
+                    .day(ApiTimeWindow.Day.FRIDAY)
                     .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                     .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                     .build()
@@ -1096,7 +1096,7 @@ internal class ApiContactFlowPutRequestTest {
                 .addBlockedDate(
                     ApiBlockedDate.builder()
                         .dayOfMonth(0)
-                        .month(ApiBlockedDate.Month.JANUARY)
+                        .month(ApiBlockedDate.Month.APRIL)
                         .year(0)
                         .build()
                 )
@@ -1111,7 +1111,7 @@ internal class ApiContactFlowPutRequestTest {
                 .addSuppressionListId(0)
                 .addTimeWindow(
                     ApiTimeWindow.builder()
-                        .day(ApiTimeWindow.Day.MONDAY)
+                        .day(ApiTimeWindow.Day.FRIDAY)
                         .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .build()

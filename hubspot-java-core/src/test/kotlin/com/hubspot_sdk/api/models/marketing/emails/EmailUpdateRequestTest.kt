@@ -192,10 +192,16 @@ internal class EmailUpdateRequestTest {
                 )
                 .testing(
                     PublicEmailTestingDetails.builder()
-                        .abSampleSizeDefault(PublicEmailTestingDetails.AbSampleSizeDefault.MASTER)
-                        .abSamplingDefault(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
-                        .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
-                        .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS)
+                        .abSampleSizeDefault(
+                            PublicEmailTestingDetails.AbSampleSizeDefault.AUTOMATED_LOSER_VARIANT
+                        )
+                        .abSamplingDefault(
+                            PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT
+                        )
+                        .abStatus(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abSuccessMetric(
+                            PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED
+                        )
                         .abTestPercentage(0)
                         .hoursToWait(0)
                         .isAbVariation(true)
@@ -426,10 +432,14 @@ internal class EmailUpdateRequestTest {
         assertThat(emailUpdateRequest.testing())
             .contains(
                 PublicEmailTestingDetails.builder()
-                    .abSampleSizeDefault(PublicEmailTestingDetails.AbSampleSizeDefault.MASTER)
-                    .abSamplingDefault(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
-                    .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
-                    .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS)
+                    .abSampleSizeDefault(
+                        PublicEmailTestingDetails.AbSampleSizeDefault.AUTOMATED_LOSER_VARIANT
+                    )
+                    .abSamplingDefault(
+                        PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT
+                    )
+                    .abStatus(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED)
                     .abTestPercentage(0)
                     .hoursToWait(0)
                     .isAbVariation(true)
@@ -661,10 +671,16 @@ internal class EmailUpdateRequestTest {
                 )
                 .testing(
                     PublicEmailTestingDetails.builder()
-                        .abSampleSizeDefault(PublicEmailTestingDetails.AbSampleSizeDefault.MASTER)
-                        .abSamplingDefault(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
-                        .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
-                        .abSuccessMetric(PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS)
+                        .abSampleSizeDefault(
+                            PublicEmailTestingDetails.AbSampleSizeDefault.AUTOMATED_LOSER_VARIANT
+                        )
+                        .abSamplingDefault(
+                            PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT
+                        )
+                        .abStatus(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abSuccessMetric(
+                            PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED
+                        )
                         .abTestPercentage(0)
                         .hoursToWait(0)
                         .isAbVariation(true)

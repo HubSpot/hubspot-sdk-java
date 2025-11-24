@@ -17,7 +17,7 @@ internal class BlogPostTest {
         val blogPost =
             BlogPost.builder()
                 .id("id")
-                .abStatus(BlogPost.AbStatus.MASTER)
+                .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                 .abTestId("abTestId")
                 .archivedAt(0L)
                 .archivedInDashboard(true)
@@ -254,7 +254,7 @@ internal class BlogPostTest {
                 .build()
 
         assertThat(blogPost.id()).isEqualTo("id")
-        assertThat(blogPost.abStatus()).isEqualTo(BlogPost.AbStatus.MASTER)
+        assertThat(blogPost.abStatus()).isEqualTo(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
         assertThat(blogPost.abTestId()).isEqualTo("abTestId")
         assertThat(blogPost.archivedAt()).isEqualTo(0L)
         assertThat(blogPost.archivedInDashboard()).isEqualTo(true)
@@ -499,7 +499,7 @@ internal class BlogPostTest {
         val blogPost =
             BlogPost.builder()
                 .id("id")
-                .abStatus(BlogPost.AbStatus.MASTER)
+                .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                 .abTestId("abTestId")
                 .archivedAt(0L)
                 .archivedInDashboard(true)

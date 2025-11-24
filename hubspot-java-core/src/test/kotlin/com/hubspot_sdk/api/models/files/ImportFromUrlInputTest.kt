@@ -14,7 +14,7 @@ internal class ImportFromUrlInputTest {
     fun create() {
         val importFromUrlInput =
             ImportFromUrlInput.builder()
-                .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                 .url("url")
                 .duplicateValidationScope(ImportFromUrlInput.DuplicateValidationScope.ENTIRE_PORTAL)
                 .duplicateValidationStrategy(ImportFromUrlInput.DuplicateValidationStrategy.NONE)
@@ -27,7 +27,7 @@ internal class ImportFromUrlInputTest {
                 .build()
 
         assertThat(importFromUrlInput.access())
-            .isEqualTo(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+            .isEqualTo(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
         assertThat(importFromUrlInput.url()).isEqualTo("url")
         assertThat(importFromUrlInput.duplicateValidationScope())
             .contains(ImportFromUrlInput.DuplicateValidationScope.ENTIRE_PORTAL)
@@ -47,7 +47,7 @@ internal class ImportFromUrlInputTest {
         val jsonMapper = jsonMapper()
         val importFromUrlInput =
             ImportFromUrlInput.builder()
-                .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                 .url("url")
                 .duplicateValidationScope(ImportFromUrlInput.DuplicateValidationScope.ENTIRE_PORTAL)
                 .duplicateValidationStrategy(ImportFromUrlInput.DuplicateValidationStrategy.NONE)

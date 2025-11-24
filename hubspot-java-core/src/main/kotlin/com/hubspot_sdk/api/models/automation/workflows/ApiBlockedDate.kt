@@ -232,47 +232,47 @@ private constructor(
 
         companion object {
 
-            @JvmField val JANUARY = of("JANUARY")
-
-            @JvmField val FEBRUARY = of("FEBRUARY")
-
-            @JvmField val MARCH = of("MARCH")
-
             @JvmField val APRIL = of("APRIL")
-
-            @JvmField val MAY = of("MAY")
-
-            @JvmField val JUNE = of("JUNE")
-
-            @JvmField val JULY = of("JULY")
 
             @JvmField val AUGUST = of("AUGUST")
 
-            @JvmField val SEPTEMBER = of("SEPTEMBER")
+            @JvmField val DECEMBER = of("DECEMBER")
 
-            @JvmField val OCTOBER = of("OCTOBER")
+            @JvmField val FEBRUARY = of("FEBRUARY")
+
+            @JvmField val JANUARY = of("JANUARY")
+
+            @JvmField val JULY = of("JULY")
+
+            @JvmField val JUNE = of("JUNE")
+
+            @JvmField val MARCH = of("MARCH")
+
+            @JvmField val MAY = of("MAY")
 
             @JvmField val NOVEMBER = of("NOVEMBER")
 
-            @JvmField val DECEMBER = of("DECEMBER")
+            @JvmField val OCTOBER = of("OCTOBER")
+
+            @JvmField val SEPTEMBER = of("SEPTEMBER")
 
             @JvmStatic fun of(value: String) = Month(JsonField.of(value))
         }
 
         /** An enum containing [Month]'s known values. */
         enum class Known {
-            JANUARY,
-            FEBRUARY,
-            MARCH,
             APRIL,
-            MAY,
-            JUNE,
-            JULY,
             AUGUST,
-            SEPTEMBER,
-            OCTOBER,
-            NOVEMBER,
             DECEMBER,
+            FEBRUARY,
+            JANUARY,
+            JULY,
+            JUNE,
+            MARCH,
+            MAY,
+            NOVEMBER,
+            OCTOBER,
+            SEPTEMBER,
         }
 
         /**
@@ -285,18 +285,18 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            JANUARY,
-            FEBRUARY,
-            MARCH,
             APRIL,
-            MAY,
-            JUNE,
-            JULY,
             AUGUST,
-            SEPTEMBER,
-            OCTOBER,
-            NOVEMBER,
             DECEMBER,
+            FEBRUARY,
+            JANUARY,
+            JULY,
+            JUNE,
+            MARCH,
+            MAY,
+            NOVEMBER,
+            OCTOBER,
+            SEPTEMBER,
             /** An enum member indicating that [Month] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -310,18 +310,18 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                JANUARY -> Value.JANUARY
-                FEBRUARY -> Value.FEBRUARY
-                MARCH -> Value.MARCH
                 APRIL -> Value.APRIL
-                MAY -> Value.MAY
-                JUNE -> Value.JUNE
-                JULY -> Value.JULY
                 AUGUST -> Value.AUGUST
-                SEPTEMBER -> Value.SEPTEMBER
-                OCTOBER -> Value.OCTOBER
-                NOVEMBER -> Value.NOVEMBER
                 DECEMBER -> Value.DECEMBER
+                FEBRUARY -> Value.FEBRUARY
+                JANUARY -> Value.JANUARY
+                JULY -> Value.JULY
+                JUNE -> Value.JUNE
+                MARCH -> Value.MARCH
+                MAY -> Value.MAY
+                NOVEMBER -> Value.NOVEMBER
+                OCTOBER -> Value.OCTOBER
+                SEPTEMBER -> Value.SEPTEMBER
                 else -> Value._UNKNOWN
             }
 
@@ -336,18 +336,18 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                JANUARY -> Known.JANUARY
-                FEBRUARY -> Known.FEBRUARY
-                MARCH -> Known.MARCH
                 APRIL -> Known.APRIL
-                MAY -> Known.MAY
-                JUNE -> Known.JUNE
-                JULY -> Known.JULY
                 AUGUST -> Known.AUGUST
-                SEPTEMBER -> Known.SEPTEMBER
-                OCTOBER -> Known.OCTOBER
-                NOVEMBER -> Known.NOVEMBER
                 DECEMBER -> Known.DECEMBER
+                FEBRUARY -> Known.FEBRUARY
+                JANUARY -> Known.JANUARY
+                JULY -> Known.JULY
+                JUNE -> Known.JUNE
+                MARCH -> Known.MARCH
+                MAY -> Known.MAY
+                NOVEMBER -> Known.NOVEMBER
+                OCTOBER -> Known.OCTOBER
+                SEPTEMBER -> Known.SEPTEMBER
                 else -> throw HubspotInvalidDataException("Unknown Month: $value")
             }
 

@@ -208,12 +208,15 @@ internal class EmailCreateParamsTest {
                     .testing(
                         PublicEmailTestingDetails.builder()
                             .abSampleSizeDefault(
-                                PublicEmailTestingDetails.AbSampleSizeDefault.MASTER
+                                PublicEmailTestingDetails.AbSampleSizeDefault
+                                    .AUTOMATED_LOSER_VARIANT
                             )
-                            .abSamplingDefault(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
-                            .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
+                            .abSamplingDefault(
+                                PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT
+                            )
+                            .abStatus(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abSuccessMetric(
-                                PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS
+                                PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED
                             )
                             .abTestPercentage(0)
                             .hoursToWait(0)
@@ -467,14 +470,18 @@ internal class EmailCreateParamsTest {
                         .testing(
                             PublicEmailTestingDetails.builder()
                                 .abSampleSizeDefault(
-                                    PublicEmailTestingDetails.AbSampleSizeDefault.MASTER
+                                    PublicEmailTestingDetails.AbSampleSizeDefault
+                                        .AUTOMATED_LOSER_VARIANT
                                 )
                                 .abSamplingDefault(
-                                    PublicEmailTestingDetails.AbSamplingDefault.MASTER
+                                    PublicEmailTestingDetails.AbSamplingDefault
+                                        .AUTOMATED_LOSER_VARIANT
                                 )
-                                .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
+                                .abStatus(
+                                    PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT
+                                )
                                 .abSuccessMetric(
-                                    PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS
+                                    PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED
                                 )
                                 .abTestPercentage(0)
                                 .hoursToWait(0)
@@ -724,12 +731,15 @@ internal class EmailCreateParamsTest {
                     .testing(
                         PublicEmailTestingDetails.builder()
                             .abSampleSizeDefault(
-                                PublicEmailTestingDetails.AbSampleSizeDefault.MASTER
+                                PublicEmailTestingDetails.AbSampleSizeDefault
+                                    .AUTOMATED_LOSER_VARIANT
                             )
-                            .abSamplingDefault(PublicEmailTestingDetails.AbSamplingDefault.MASTER)
-                            .abStatus(PublicEmailTestingDetails.AbStatus.MASTER)
+                            .abSamplingDefault(
+                                PublicEmailTestingDetails.AbSamplingDefault.AUTOMATED_LOSER_VARIANT
+                            )
+                            .abStatus(PublicEmailTestingDetails.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abSuccessMetric(
-                                PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_OPENS
+                                PublicEmailTestingDetails.AbSuccessMetric.CLICKS_BY_DELIVERED
                             )
                             .abTestPercentage(0)
                             .hoursToWait(0)

@@ -15,7 +15,7 @@ internal class FilterGroupTest {
             FilterGroup.builder()
                 .addFilter(
                     Filter.builder()
-                        .operator(Filter.Operator.EQ)
+                        .operator(Filter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")
@@ -27,7 +27,7 @@ internal class FilterGroupTest {
         assertThat(filterGroup.filters())
             .containsExactly(
                 Filter.builder()
-                    .operator(Filter.Operator.EQ)
+                    .operator(Filter.Operator.BETWEEN)
                     .propertyName("propertyName")
                     .highValue("highValue")
                     .value("value")
@@ -43,7 +43,7 @@ internal class FilterGroupTest {
             FilterGroup.builder()
                 .addFilter(
                     Filter.builder()
-                        .operator(Filter.Operator.EQ)
+                        .operator(Filter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")

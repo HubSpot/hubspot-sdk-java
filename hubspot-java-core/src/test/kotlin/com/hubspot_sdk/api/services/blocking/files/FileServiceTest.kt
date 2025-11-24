@@ -36,7 +36,7 @@ internal class FileServiceTest {
                     .fileId("321669910225")
                     .fileUpdateInput(
                         FileUpdateInput.builder()
-                            .access(FileUpdateInput.Access.PUBLIC_INDEXABLE)
+                            .access(FileUpdateInput.Access.HIDDEN_INDEXABLE)
                             .clearExpires(true)
                             .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .isUsableInContent(true)
@@ -143,7 +143,7 @@ internal class FileServiceTest {
                 FileGetSignedUrlParams.builder()
                     .fileId("321669910225")
                     .expirationSeconds(0L)
-                    .size(FileGetSignedUrlParams.Size.THUMB)
+                    .size(FileGetSignedUrlParams.Size.ICON)
                     .upscale(true)
                     .build()
             )
@@ -164,7 +164,7 @@ internal class FileServiceTest {
         val importFromUrlTaskLocator =
             fileService.importFromUrlAsync(
                 ImportFromUrlInput.builder()
-                    .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                    .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                     .url("url")
                     .duplicateValidationScope(
                         ImportFromUrlInput.DuplicateValidationScope.ENTIRE_PORTAL

@@ -13,12 +13,12 @@ internal class FlagPutRequestTest {
     fun create() {
         val flagPutRequest =
             FlagPutRequest.builder()
-                .defaultState(FlagPutRequest.DefaultState.OFF)
-                .overrideState(FlagPutRequest.OverrideState.OFF)
+                .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                .overrideState(FlagPutRequest.OverrideState.ABSENT)
                 .build()
 
-        assertThat(flagPutRequest.defaultState()).isEqualTo(FlagPutRequest.DefaultState.OFF)
-        assertThat(flagPutRequest.overrideState()).contains(FlagPutRequest.OverrideState.OFF)
+        assertThat(flagPutRequest.defaultState()).isEqualTo(FlagPutRequest.DefaultState.ABSENT)
+        assertThat(flagPutRequest.overrideState()).contains(FlagPutRequest.OverrideState.ABSENT)
     }
 
     @Test
@@ -26,8 +26,8 @@ internal class FlagPutRequestTest {
         val jsonMapper = jsonMapper()
         val flagPutRequest =
             FlagPutRequest.builder()
-                .defaultState(FlagPutRequest.DefaultState.OFF)
-                .overrideState(FlagPutRequest.OverrideState.OFF)
+                .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                .overrideState(FlagPutRequest.OverrideState.ABSENT)
                 .build()
 
         val roundtrippedFlagPutRequest =

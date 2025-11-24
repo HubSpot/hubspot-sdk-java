@@ -42,7 +42,7 @@ internal class CollectionResponseWithTotalParticipationBreakdownForwardPagingTes
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .properties(
                             ParticipationProperties.builder()
-                                .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                                .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                                 .occurredAt(0L)
                                 .attendanceDurationSeconds(0)
                                 .attendancePercentage("attendancePercentage")
@@ -85,7 +85,7 @@ internal class CollectionResponseWithTotalParticipationBreakdownForwardPagingTes
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .properties(
                         ParticipationProperties.builder()
-                            .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                            .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                             .occurredAt(0L)
                             .attendanceDurationSeconds(0)
                             .attendancePercentage("attendancePercentage")
@@ -134,7 +134,7 @@ internal class CollectionResponseWithTotalParticipationBreakdownForwardPagingTes
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .properties(
                             ParticipationProperties.builder()
-                                .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                                .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                                 .occurredAt(0L)
                                 .attendanceDurationSeconds(0)
                                 .attendancePercentage("attendancePercentage")

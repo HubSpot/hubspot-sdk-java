@@ -66,7 +66,7 @@ internal class BatchResponseTimelineEventResponseWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseTimelineEventResponseWithErrors.Status.PENDING)
+                .status(BatchResponseTimelineEventResponseWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -287,7 +287,7 @@ internal class BatchResponseTimelineEventResponseWithErrorsTest {
         assertThat(batchResponseTimelineEventResponseWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseTimelineEventResponseWithErrors.status())
-            .isEqualTo(BatchResponseTimelineEventResponseWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseTimelineEventResponseWithErrors.Status.CANCELED)
         assertThat(batchResponseTimelineEventResponseWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -416,7 +416,7 @@ internal class BatchResponseTimelineEventResponseWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseTimelineEventResponseWithErrors.Status.PENDING)
+                .status(BatchResponseTimelineEventResponseWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

@@ -17,7 +17,7 @@ internal class MultiLineTextFieldTest {
                     DependentField.builder()
                         .dependentCondition(
                             DependentFieldFilter.builder()
-                                .operator(DependentFieldFilter.Operator.EQ)
+                                .operator(DependentFieldFilter.Operator.BETWEEN)
                                 .rangeEnd("rangeEnd")
                                 .rangeStart("rangeStart")
                                 .value("value")
@@ -62,7 +62,7 @@ internal class MultiLineTextFieldTest {
                 DependentField.builder()
                     .dependentCondition(
                         DependentFieldFilter.builder()
-                            .operator(DependentFieldFilter.Operator.EQ)
+                            .operator(DependentFieldFilter.Operator.BETWEEN)
                             .rangeEnd("rangeEnd")
                             .rangeStart("rangeStart")
                             .value("value")
@@ -112,7 +112,7 @@ internal class MultiLineTextFieldTest {
                     DependentField.builder()
                         .dependentCondition(
                             DependentFieldFilter.builder()
-                                .operator(DependentFieldFilter.Operator.EQ)
+                                .operator(DependentFieldFilter.Operator.BETWEEN)
                                 .rangeEnd("rangeEnd")
                                 .rangeStart("rangeStart")
                                 .value("value")

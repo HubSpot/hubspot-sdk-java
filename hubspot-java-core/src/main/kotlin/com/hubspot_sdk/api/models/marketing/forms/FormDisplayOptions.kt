@@ -333,9 +333,11 @@ private constructor(
 
         companion object {
 
+            @JvmField val CANVAS = of("canvas")
+
             @JvmField val DEFAULT_STYLE = of("default_style")
 
-            @JvmField val CANVAS = of("canvas")
+            @JvmField val LEGACY = of("legacy")
 
             @JvmField val LINEAR = of("linear")
 
@@ -343,19 +345,17 @@ private constructor(
 
             @JvmField val SHARP = of("sharp")
 
-            @JvmField val LEGACY = of("legacy")
-
             @JvmStatic fun of(value: String) = Theme(JsonField.of(value))
         }
 
         /** An enum containing [Theme]'s known values. */
         enum class Known {
-            DEFAULT_STYLE,
             CANVAS,
+            DEFAULT_STYLE,
+            LEGACY,
             LINEAR,
             ROUND,
             SHARP,
-            LEGACY,
         }
 
         /**
@@ -368,12 +368,12 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            DEFAULT_STYLE,
             CANVAS,
+            DEFAULT_STYLE,
+            LEGACY,
             LINEAR,
             ROUND,
             SHARP,
-            LEGACY,
             /** An enum member indicating that [Theme] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -387,12 +387,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                DEFAULT_STYLE -> Value.DEFAULT_STYLE
                 CANVAS -> Value.CANVAS
+                DEFAULT_STYLE -> Value.DEFAULT_STYLE
+                LEGACY -> Value.LEGACY
                 LINEAR -> Value.LINEAR
                 ROUND -> Value.ROUND
                 SHARP -> Value.SHARP
-                LEGACY -> Value.LEGACY
                 else -> Value._UNKNOWN
             }
 
@@ -407,12 +407,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                DEFAULT_STYLE -> Known.DEFAULT_STYLE
                 CANVAS -> Known.CANVAS
+                DEFAULT_STYLE -> Known.DEFAULT_STYLE
+                LEGACY -> Known.LEGACY
                 LINEAR -> Known.LINEAR
                 ROUND -> Known.ROUND
                 SHARP -> Known.SHARP
-                LEGACY -> Known.LEGACY
                 else -> throw HubspotInvalidDataException("Unknown Theme: $value")
             }
 

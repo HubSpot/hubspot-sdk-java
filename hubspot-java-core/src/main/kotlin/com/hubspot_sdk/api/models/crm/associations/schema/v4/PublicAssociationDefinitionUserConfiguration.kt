@@ -281,9 +281,9 @@ private constructor(
 
             @JvmField val HUBSPOT_DEFINED = of("HUBSPOT_DEFINED")
 
-            @JvmField val USER_DEFINED = of("USER_DEFINED")
-
             @JvmField val INTEGRATOR_DEFINED = of("INTEGRATOR_DEFINED")
+
+            @JvmField val USER_DEFINED = of("USER_DEFINED")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -291,8 +291,8 @@ private constructor(
         /** An enum containing [Category]'s known values. */
         enum class Known {
             HUBSPOT_DEFINED,
-            USER_DEFINED,
             INTEGRATOR_DEFINED,
+            USER_DEFINED,
         }
 
         /**
@@ -306,8 +306,8 @@ private constructor(
          */
         enum class Value {
             HUBSPOT_DEFINED,
-            USER_DEFINED,
             INTEGRATOR_DEFINED,
+            USER_DEFINED,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -322,8 +322,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 HUBSPOT_DEFINED -> Value.HUBSPOT_DEFINED
-                USER_DEFINED -> Value.USER_DEFINED
                 INTEGRATOR_DEFINED -> Value.INTEGRATOR_DEFINED
+                USER_DEFINED -> Value.USER_DEFINED
                 else -> Value._UNKNOWN
             }
 
@@ -339,8 +339,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 HUBSPOT_DEFINED -> Known.HUBSPOT_DEFINED
-                USER_DEFINED -> Known.USER_DEFINED
                 INTEGRATOR_DEFINED -> Known.INTEGRATOR_DEFINED
+                USER_DEFINED -> Known.USER_DEFINED
                 else -> throw HubspotInvalidDataException("Unknown Category: $value")
             }
 

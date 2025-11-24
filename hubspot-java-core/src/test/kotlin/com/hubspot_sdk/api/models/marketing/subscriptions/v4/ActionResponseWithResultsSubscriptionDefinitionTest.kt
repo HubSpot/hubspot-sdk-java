@@ -36,7 +36,7 @@ internal class ActionResponseWithResultsSubscriptionDefinitionTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(ActionResponseWithResultsSubscriptionDefinition.Status.PENDING)
+                .status(ActionResponseWithResultsSubscriptionDefinition.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -226,7 +226,7 @@ internal class ActionResponseWithResultsSubscriptionDefinitionTest {
         assertThat(actionResponseWithResultsSubscriptionDefinition.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(actionResponseWithResultsSubscriptionDefinition.status())
-            .isEqualTo(ActionResponseWithResultsSubscriptionDefinition.Status.PENDING)
+            .isEqualTo(ActionResponseWithResultsSubscriptionDefinition.Status.CANCELED)
         assertThat(actionResponseWithResultsSubscriptionDefinition.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -324,7 +324,7 @@ internal class ActionResponseWithResultsSubscriptionDefinitionTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(ActionResponseWithResultsSubscriptionDefinition.Status.PENDING)
+                .status(ActionResponseWithResultsSubscriptionDefinition.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

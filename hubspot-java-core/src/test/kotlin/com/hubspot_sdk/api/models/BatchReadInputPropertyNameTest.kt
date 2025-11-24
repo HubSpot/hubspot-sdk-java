@@ -14,13 +14,13 @@ internal class BatchReadInputPropertyNameTest {
         val batchReadInputPropertyName =
             BatchReadInputPropertyName.builder()
                 .archived(true)
-                .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE)
                 .addInput(PropertyName.builder().name("name").build())
                 .build()
 
         assertThat(batchReadInputPropertyName.archived()).isEqualTo(true)
         assertThat(batchReadInputPropertyName.dataSensitivity())
-            .isEqualTo(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+            .isEqualTo(BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE)
         assertThat(batchReadInputPropertyName.inputs())
             .containsExactly(PropertyName.builder().name("name").build())
     }
@@ -31,7 +31,7 @@ internal class BatchReadInputPropertyNameTest {
         val batchReadInputPropertyName =
             BatchReadInputPropertyName.builder()
                 .archived(true)
-                .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.NON_SENSITIVE)
+                .dataSensitivity(BatchReadInputPropertyName.DataSensitivity.HIGHLY_SENSITIVE)
                 .addInput(PropertyName.builder().name("name").build())
                 .build()
 

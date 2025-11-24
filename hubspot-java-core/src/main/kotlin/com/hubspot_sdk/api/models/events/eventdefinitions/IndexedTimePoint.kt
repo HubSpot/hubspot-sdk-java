@@ -801,9 +801,9 @@ private constructor(
 
             @JvmField val CUSTOM = of("CUSTOM")
 
-            @JvmField val USER = of("USER")
-
             @JvmField val PORTAL = of("PORTAL")
+
+            @JvmField val USER = of("USER")
 
             @JvmStatic fun of(value: String) = TimezoneSource(JsonField.of(value))
         }
@@ -811,8 +811,8 @@ private constructor(
         /** An enum containing [TimezoneSource]'s known values. */
         enum class Known {
             CUSTOM,
-            USER,
             PORTAL,
+            USER,
         }
 
         /**
@@ -826,8 +826,8 @@ private constructor(
          */
         enum class Value {
             CUSTOM,
-            USER,
             PORTAL,
+            USER,
             /**
              * An enum member indicating that [TimezoneSource] was instantiated with an unknown
              * value.
@@ -845,8 +845,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CUSTOM -> Value.CUSTOM
-                USER -> Value.USER
                 PORTAL -> Value.PORTAL
+                USER -> Value.USER
                 else -> Value._UNKNOWN
             }
 
@@ -862,8 +862,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CUSTOM -> Known.CUSTOM
-                USER -> Known.USER
                 PORTAL -> Known.PORTAL
+                USER -> Known.USER
                 else -> throw HubspotInvalidDataException("Unknown TimezoneSource: $value")
             }
 

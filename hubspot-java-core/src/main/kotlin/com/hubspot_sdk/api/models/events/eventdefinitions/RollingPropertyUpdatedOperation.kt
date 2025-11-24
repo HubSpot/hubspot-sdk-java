@@ -415,17 +415,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val UPDATED_IN_LAST_X_DAYS = of("UPDATED_IN_LAST_X_DAYS")
-
             @JvmField val NOT_UPDATED_IN_LAST_X_DAYS = of("NOT_UPDATED_IN_LAST_X_DAYS")
+
+            @JvmField val UPDATED_IN_LAST_X_DAYS = of("UPDATED_IN_LAST_X_DAYS")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            UPDATED_IN_LAST_X_DAYS,
             NOT_UPDATED_IN_LAST_X_DAYS,
+            UPDATED_IN_LAST_X_DAYS,
         }
 
         /**
@@ -438,8 +438,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            UPDATED_IN_LAST_X_DAYS,
             NOT_UPDATED_IN_LAST_X_DAYS,
+            UPDATED_IN_LAST_X_DAYS,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -453,8 +453,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                UPDATED_IN_LAST_X_DAYS -> Value.UPDATED_IN_LAST_X_DAYS
                 NOT_UPDATED_IN_LAST_X_DAYS -> Value.NOT_UPDATED_IN_LAST_X_DAYS
+                UPDATED_IN_LAST_X_DAYS -> Value.UPDATED_IN_LAST_X_DAYS
                 else -> Value._UNKNOWN
             }
 
@@ -469,8 +469,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                UPDATED_IN_LAST_X_DAYS -> Known.UPDATED_IN_LAST_X_DAYS
                 NOT_UPDATED_IN_LAST_X_DAYS -> Known.NOT_UPDATED_IN_LAST_X_DAYS
+                UPDATED_IN_LAST_X_DAYS -> Known.UPDATED_IN_LAST_X_DAYS
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

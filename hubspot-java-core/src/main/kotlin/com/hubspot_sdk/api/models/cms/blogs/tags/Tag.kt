@@ -1146,6 +1146,8 @@ private constructor(
 
             @JvmField val HE = of("he")
 
+            @JvmField val HE_IL = of("he-il")
+
             @JvmField val HI = of("hi")
 
             @JvmField val HI_IN = of("hi-in")
@@ -1174,6 +1176,8 @@ private constructor(
 
             @JvmField val ID = of("id")
 
+            @JvmField val ID_ID = of("id-id")
+
             @JvmField val IG = of("ig")
 
             @JvmField val IG_NG = of("ig-ng")
@@ -1181,8 +1185,6 @@ private constructor(
             @JvmField val II = of("ii")
 
             @JvmField val II_CN = of("ii-cn")
-
-            @JvmField val ID_ID = of("id-id")
 
             @JvmField val IS = of("is")
 
@@ -1198,8 +1200,6 @@ private constructor(
 
             @JvmField val IT_VA = of("it-va")
 
-            @JvmField val HE_IL = of("he-il")
-
             @JvmField val JA = of("ja")
 
             @JvmField val JA_JP = of("ja-jp")
@@ -1207,10 +1207,6 @@ private constructor(
             @JvmField val JGO = of("jgo")
 
             @JvmField val JGO_CM = of("jgo-cm")
-
-            @JvmField val YI = of("yi")
-
-            @JvmField val YI_001 = of("yi-001")
 
             @JvmField val JMC = of("jmc")
 
@@ -1298,13 +1294,13 @@ private constructor(
 
             @JvmField val KSH_DE = of("ksh-de")
 
-            @JvmField val KW = of("kw")
-
-            @JvmField val KW_GB = of("kw-gb")
-
             @JvmField val KU = of("ku")
 
             @JvmField val KU_TR = of("ku-tr")
+
+            @JvmField val KW = of("kw")
+
+            @JvmField val KW_GB = of("kw-gb")
 
             @JvmField val KY = of("ky")
 
@@ -1478,9 +1474,9 @@ private constructor(
 
             @JvmField val NL_BE = of("nl-be")
 
-            @JvmField val NL_CH = of("nl-ch")
-
             @JvmField val NL_BQ = of("nl-bq")
+
+            @JvmField val NL_CH = of("nl-ch")
 
             @JvmField val NL_CW = of("nl-cw")
 
@@ -1872,6 +1868,10 @@ private constructor(
 
             @JvmField val YAV_CM = of("yav-cm")
 
+            @JvmField val YI = of("yi")
+
+            @JvmField val YI_001 = of("yi-001")
+
             @JvmField val YO = of("yo")
 
             @JvmField val YO_BJ = of("yo-bj")
@@ -1892,6 +1892,10 @@ private constructor(
 
             @JvmField val ZH_CN = of("zh-cn")
 
+            @JvmField val ZH_HANS = of("zh-hans")
+
+            @JvmField val ZH_HANT = of("zh-hant")
+
             @JvmField val ZH_HK = of("zh-hk")
 
             @JvmField val ZH_MO = of("zh-mo")
@@ -1899,10 +1903,6 @@ private constructor(
             @JvmField val ZH_SG = of("zh-sg")
 
             @JvmField val ZH_TW = of("zh-tw")
-
-            @JvmField val ZH_HANS = of("zh-hans")
-
-            @JvmField val ZH_HANT = of("zh-hant")
 
             @JvmField val ZU = of("zu")
 
@@ -2286,6 +2286,7 @@ private constructor(
             HAW,
             HAW_US,
             HE,
+            HE_IL,
             HI,
             HI_IN,
             HR,
@@ -2300,11 +2301,11 @@ private constructor(
             IA,
             IA_001,
             ID,
+            ID_ID,
             IG,
             IG_NG,
             II,
             II_CN,
-            ID_ID,
             IS,
             IS_IS,
             IT,
@@ -2312,13 +2313,10 @@ private constructor(
             IT_IT,
             IT_SM,
             IT_VA,
-            HE_IL,
             JA,
             JA_JP,
             JGO,
             JGO_CM,
-            YI,
-            YI_001,
             JMC,
             JMC_TZ,
             JV,
@@ -2362,10 +2360,10 @@ private constructor(
             KSF_CM,
             KSH,
             KSH_DE,
-            KW,
-            KW_GB,
             KU,
             KU_TR,
+            KW,
+            KW_GB,
             KY,
             KY_KG,
             LAG,
@@ -2452,8 +2450,8 @@ private constructor(
             NL,
             NL_AW,
             NL_BE,
-            NL_CH,
             NL_BQ,
+            NL_CH,
             NL_CW,
             NL_LU,
             NL_NL,
@@ -2649,6 +2647,8 @@ private constructor(
             XOG_UG,
             YAV,
             YAV_CM,
+            YI,
+            YI_001,
             YO,
             YO_BJ,
             YO_NG,
@@ -2659,12 +2659,12 @@ private constructor(
             ZGH_MA,
             ZH,
             ZH_CN,
+            ZH_HANS,
+            ZH_HANT,
             ZH_HK,
             ZH_MO,
             ZH_SG,
             ZH_TW,
-            ZH_HANS,
-            ZH_HANT,
             ZU,
             ZU_ZA,
         }
@@ -3052,6 +3052,7 @@ private constructor(
             HAW,
             HAW_US,
             HE,
+            HE_IL,
             HI,
             HI_IN,
             HR,
@@ -3066,11 +3067,11 @@ private constructor(
             IA,
             IA_001,
             ID,
+            ID_ID,
             IG,
             IG_NG,
             II,
             II_CN,
-            ID_ID,
             IS,
             IS_IS,
             IT,
@@ -3078,13 +3079,10 @@ private constructor(
             IT_IT,
             IT_SM,
             IT_VA,
-            HE_IL,
             JA,
             JA_JP,
             JGO,
             JGO_CM,
-            YI,
-            YI_001,
             JMC,
             JMC_TZ,
             JV,
@@ -3128,10 +3126,10 @@ private constructor(
             KSF_CM,
             KSH,
             KSH_DE,
-            KW,
-            KW_GB,
             KU,
             KU_TR,
+            KW,
+            KW_GB,
             KY,
             KY_KG,
             LAG,
@@ -3218,8 +3216,8 @@ private constructor(
             NL,
             NL_AW,
             NL_BE,
-            NL_CH,
             NL_BQ,
+            NL_CH,
             NL_CW,
             NL_LU,
             NL_NL,
@@ -3415,6 +3413,8 @@ private constructor(
             XOG_UG,
             YAV,
             YAV_CM,
+            YI,
+            YI_001,
             YO,
             YO_BJ,
             YO_NG,
@@ -3425,12 +3425,12 @@ private constructor(
             ZGH_MA,
             ZH,
             ZH_CN,
+            ZH_HANS,
+            ZH_HANT,
             ZH_HK,
             ZH_MO,
             ZH_SG,
             ZH_TW,
-            ZH_HANS,
-            ZH_HANT,
             ZU,
             ZU_ZA,
             /** An enum member indicating that [Language] was instantiated with an unknown value. */
@@ -3819,6 +3819,7 @@ private constructor(
                 HAW -> Value.HAW
                 HAW_US -> Value.HAW_US
                 HE -> Value.HE
+                HE_IL -> Value.HE_IL
                 HI -> Value.HI
                 HI_IN -> Value.HI_IN
                 HR -> Value.HR
@@ -3833,11 +3834,11 @@ private constructor(
                 IA -> Value.IA
                 IA_001 -> Value.IA_001
                 ID -> Value.ID
+                ID_ID -> Value.ID_ID
                 IG -> Value.IG
                 IG_NG -> Value.IG_NG
                 II -> Value.II
                 II_CN -> Value.II_CN
-                ID_ID -> Value.ID_ID
                 IS -> Value.IS
                 IS_IS -> Value.IS_IS
                 IT -> Value.IT
@@ -3845,13 +3846,10 @@ private constructor(
                 IT_IT -> Value.IT_IT
                 IT_SM -> Value.IT_SM
                 IT_VA -> Value.IT_VA
-                HE_IL -> Value.HE_IL
                 JA -> Value.JA
                 JA_JP -> Value.JA_JP
                 JGO -> Value.JGO
                 JGO_CM -> Value.JGO_CM
-                YI -> Value.YI
-                YI_001 -> Value.YI_001
                 JMC -> Value.JMC
                 JMC_TZ -> Value.JMC_TZ
                 JV -> Value.JV
@@ -3895,10 +3893,10 @@ private constructor(
                 KSF_CM -> Value.KSF_CM
                 KSH -> Value.KSH
                 KSH_DE -> Value.KSH_DE
-                KW -> Value.KW
-                KW_GB -> Value.KW_GB
                 KU -> Value.KU
                 KU_TR -> Value.KU_TR
+                KW -> Value.KW
+                KW_GB -> Value.KW_GB
                 KY -> Value.KY
                 KY_KG -> Value.KY_KG
                 LAG -> Value.LAG
@@ -3985,8 +3983,8 @@ private constructor(
                 NL -> Value.NL
                 NL_AW -> Value.NL_AW
                 NL_BE -> Value.NL_BE
-                NL_CH -> Value.NL_CH
                 NL_BQ -> Value.NL_BQ
+                NL_CH -> Value.NL_CH
                 NL_CW -> Value.NL_CW
                 NL_LU -> Value.NL_LU
                 NL_NL -> Value.NL_NL
@@ -4182,6 +4180,8 @@ private constructor(
                 XOG_UG -> Value.XOG_UG
                 YAV -> Value.YAV
                 YAV_CM -> Value.YAV_CM
+                YI -> Value.YI
+                YI_001 -> Value.YI_001
                 YO -> Value.YO
                 YO_BJ -> Value.YO_BJ
                 YO_NG -> Value.YO_NG
@@ -4192,12 +4192,12 @@ private constructor(
                 ZGH_MA -> Value.ZGH_MA
                 ZH -> Value.ZH
                 ZH_CN -> Value.ZH_CN
+                ZH_HANS -> Value.ZH_HANS
+                ZH_HANT -> Value.ZH_HANT
                 ZH_HK -> Value.ZH_HK
                 ZH_MO -> Value.ZH_MO
                 ZH_SG -> Value.ZH_SG
                 ZH_TW -> Value.ZH_TW
-                ZH_HANS -> Value.ZH_HANS
-                ZH_HANT -> Value.ZH_HANT
                 ZU -> Value.ZU
                 ZU_ZA -> Value.ZU_ZA
                 else -> Value._UNKNOWN
@@ -4587,6 +4587,7 @@ private constructor(
                 HAW -> Known.HAW
                 HAW_US -> Known.HAW_US
                 HE -> Known.HE
+                HE_IL -> Known.HE_IL
                 HI -> Known.HI
                 HI_IN -> Known.HI_IN
                 HR -> Known.HR
@@ -4601,11 +4602,11 @@ private constructor(
                 IA -> Known.IA
                 IA_001 -> Known.IA_001
                 ID -> Known.ID
+                ID_ID -> Known.ID_ID
                 IG -> Known.IG
                 IG_NG -> Known.IG_NG
                 II -> Known.II
                 II_CN -> Known.II_CN
-                ID_ID -> Known.ID_ID
                 IS -> Known.IS
                 IS_IS -> Known.IS_IS
                 IT -> Known.IT
@@ -4613,13 +4614,10 @@ private constructor(
                 IT_IT -> Known.IT_IT
                 IT_SM -> Known.IT_SM
                 IT_VA -> Known.IT_VA
-                HE_IL -> Known.HE_IL
                 JA -> Known.JA
                 JA_JP -> Known.JA_JP
                 JGO -> Known.JGO
                 JGO_CM -> Known.JGO_CM
-                YI -> Known.YI
-                YI_001 -> Known.YI_001
                 JMC -> Known.JMC
                 JMC_TZ -> Known.JMC_TZ
                 JV -> Known.JV
@@ -4663,10 +4661,10 @@ private constructor(
                 KSF_CM -> Known.KSF_CM
                 KSH -> Known.KSH
                 KSH_DE -> Known.KSH_DE
-                KW -> Known.KW
-                KW_GB -> Known.KW_GB
                 KU -> Known.KU
                 KU_TR -> Known.KU_TR
+                KW -> Known.KW
+                KW_GB -> Known.KW_GB
                 KY -> Known.KY
                 KY_KG -> Known.KY_KG
                 LAG -> Known.LAG
@@ -4753,8 +4751,8 @@ private constructor(
                 NL -> Known.NL
                 NL_AW -> Known.NL_AW
                 NL_BE -> Known.NL_BE
-                NL_CH -> Known.NL_CH
                 NL_BQ -> Known.NL_BQ
+                NL_CH -> Known.NL_CH
                 NL_CW -> Known.NL_CW
                 NL_LU -> Known.NL_LU
                 NL_NL -> Known.NL_NL
@@ -4950,6 +4948,8 @@ private constructor(
                 XOG_UG -> Known.XOG_UG
                 YAV -> Known.YAV
                 YAV_CM -> Known.YAV_CM
+                YI -> Known.YI
+                YI_001 -> Known.YI_001
                 YO -> Known.YO
                 YO_BJ -> Known.YO_BJ
                 YO_NG -> Known.YO_NG
@@ -4960,12 +4960,12 @@ private constructor(
                 ZGH_MA -> Known.ZGH_MA
                 ZH -> Known.ZH
                 ZH_CN -> Known.ZH_CN
+                ZH_HANS -> Known.ZH_HANS
+                ZH_HANT -> Known.ZH_HANT
                 ZH_HK -> Known.ZH_HK
                 ZH_MO -> Known.ZH_MO
                 ZH_SG -> Known.ZH_SG
                 ZH_TW -> Known.ZH_TW
-                ZH_HANS -> Known.ZH_HANS
-                ZH_HANT -> Known.ZH_HANT
                 ZU -> Known.ZU
                 ZU_ZA -> Known.ZU_ZA
                 else -> throw HubspotInvalidDataException("Unknown Language: $value")
