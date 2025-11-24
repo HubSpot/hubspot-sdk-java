@@ -13,7 +13,7 @@ internal class EventCreateMediaPlayedPercentEventParamsTest {
         EventCreateMediaPlayedPercentEventParams.builder()
             .mediaPlayedPercentageEventRequest(
                 MediaPlayedPercentageEventRequest.builder()
-                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .playedPercent(0)
                     .sessionId("sessionId")
@@ -38,7 +38,7 @@ internal class EventCreateMediaPlayedPercentEventParamsTest {
             EventCreateMediaPlayedPercentEventParams.builder()
                 .mediaPlayedPercentageEventRequest(
                     MediaPlayedPercentageEventRequest.builder()
-                        .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                        .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                         .occurredTimestamp(0L)
                         .playedPercent(0)
                         .sessionId("sessionId")
@@ -61,7 +61,7 @@ internal class EventCreateMediaPlayedPercentEventParamsTest {
         assertThat(body)
             .isEqualTo(
                 MediaPlayedPercentageEventRequest.builder()
-                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .playedPercent(0)
                     .sessionId("sessionId")
@@ -85,7 +85,7 @@ internal class EventCreateMediaPlayedPercentEventParamsTest {
             EventCreateMediaPlayedPercentEventParams.builder()
                 .mediaPlayedPercentageEventRequest(
                     MediaPlayedPercentageEventRequest.builder()
-                        .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                        .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                         .occurredTimestamp(0L)
                         .playedPercent(0)
                         .sessionId("sessionId")
@@ -98,7 +98,7 @@ internal class EventCreateMediaPlayedPercentEventParamsTest {
         assertThat(body)
             .isEqualTo(
                 MediaPlayedPercentageEventRequest.builder()
-                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .playedPercent(0)
                     .sessionId("sessionId")

@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.services.async.conversations.customchannels
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.conversations.ConversationsPublicConversationsMessage
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicConversationsMessage
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageUpdateParams
@@ -30,7 +30,7 @@ interface MessageServiceAsync {
     fun create(
         channelId: Int,
         params: MessageCreateParams,
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
+    ): CompletableFuture<PublicConversationsMessage> =
         create(channelId, params, RequestOptions.none())
 
     /** @see create */
@@ -38,20 +38,18 @@ interface MessageServiceAsync {
         channelId: Int,
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
+    ): CompletableFuture<PublicConversationsMessage> =
         create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
     /** @see create */
-    fun create(
-        params: MessageCreateParams
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
+    fun create(params: MessageCreateParams): CompletableFuture<PublicConversationsMessage> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: MessageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicConversationsMessage>
+    ): CompletableFuture<PublicConversationsMessage>
 
     /**
      * Update a message's status to indicate if it was successfully sent, failed to send, or was
@@ -60,7 +58,7 @@ interface MessageServiceAsync {
     fun update(
         messageId: String,
         params: MessageUpdateParams,
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
+    ): CompletableFuture<PublicConversationsMessage> =
         update(messageId, params, RequestOptions.none())
 
     /** @see update */
@@ -68,45 +66,42 @@ interface MessageServiceAsync {
         messageId: String,
         params: MessageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
+    ): CompletableFuture<PublicConversationsMessage> =
         update(params.toBuilder().messageId(messageId).build(), requestOptions)
 
     /** @see update */
-    fun update(
-        params: MessageUpdateParams
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
+    fun update(params: MessageUpdateParams): CompletableFuture<PublicConversationsMessage> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: MessageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicConversationsMessage>
+    ): CompletableFuture<PublicConversationsMessage>
 
     /** Get the details for a specific message sent over a custom channel */
     fun get(
         messageId: String,
         params: MessageGetParams,
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
-        get(messageId, params, RequestOptions.none())
+    ): CompletableFuture<PublicConversationsMessage> = get(messageId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         messageId: String,
         params: MessageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicConversationsMessage> =
+    ): CompletableFuture<PublicConversationsMessage> =
         get(params.toBuilder().messageId(messageId).build(), requestOptions)
 
     /** @see get */
-    fun get(params: MessageGetParams): CompletableFuture<ConversationsPublicConversationsMessage> =
+    fun get(params: MessageGetParams): CompletableFuture<PublicConversationsMessage> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: MessageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ConversationsPublicConversationsMessage>
+    ): CompletableFuture<PublicConversationsMessage>
 
     /**
      * A view of [MessageServiceAsync] that provides access to raw HTTP responses for each method.
@@ -130,7 +125,7 @@ interface MessageServiceAsync {
         fun create(
             channelId: Int,
             params: MessageCreateParams,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             create(channelId, params, RequestOptions.none())
 
         /** @see create */
@@ -138,20 +133,20 @@ interface MessageServiceAsync {
             channelId: Int,
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             create(params.toBuilder().channelId(channelId).build(), requestOptions)
 
         /** @see create */
         fun create(
             params: MessageCreateParams
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: MessageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>>
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>>
 
         /**
          * Returns a raw HTTP response for `patch
@@ -161,7 +156,7 @@ interface MessageServiceAsync {
         fun update(
             messageId: String,
             params: MessageUpdateParams,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             update(messageId, params, RequestOptions.none())
 
         /** @see update */
@@ -169,20 +164,20 @@ interface MessageServiceAsync {
             messageId: String,
             params: MessageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             update(params.toBuilder().messageId(messageId).build(), requestOptions)
 
         /** @see update */
         fun update(
             params: MessageUpdateParams
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: MessageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>>
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -192,7 +187,7 @@ interface MessageServiceAsync {
         fun get(
             messageId: String,
             params: MessageGetParams,
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             get(messageId, params, RequestOptions.none())
 
         /** @see get */
@@ -200,19 +195,19 @@ interface MessageServiceAsync {
             messageId: String,
             params: MessageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             get(params.toBuilder().messageId(messageId).build(), requestOptions)
 
         /** @see get */
         fun get(
             params: MessageGetParams
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> =
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: MessageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>>
+        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>>
     }
 }

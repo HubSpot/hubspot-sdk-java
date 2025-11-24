@@ -14,7 +14,7 @@ internal class FileImportFromUrlAsyncParamsTest {
         FileImportFromUrlAsyncParams.builder()
             .importFromUrlInput(
                 ImportFromUrlInput.builder()
-                    .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                    .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                     .url("url")
                     .duplicateValidationScope(
                         ImportFromUrlInput.DuplicateValidationScope.ENTIRE_PORTAL
@@ -39,7 +39,7 @@ internal class FileImportFromUrlAsyncParamsTest {
             FileImportFromUrlAsyncParams.builder()
                 .importFromUrlInput(
                     ImportFromUrlInput.builder()
-                        .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                        .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                         .url("url")
                         .duplicateValidationScope(
                             ImportFromUrlInput.DuplicateValidationScope.ENTIRE_PORTAL
@@ -62,7 +62,7 @@ internal class FileImportFromUrlAsyncParamsTest {
         assertThat(body)
             .isEqualTo(
                 ImportFromUrlInput.builder()
-                    .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                    .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                     .url("url")
                     .duplicateValidationScope(
                         ImportFromUrlInput.DuplicateValidationScope.ENTIRE_PORTAL
@@ -86,7 +86,7 @@ internal class FileImportFromUrlAsyncParamsTest {
             FileImportFromUrlAsyncParams.builder()
                 .importFromUrlInput(
                     ImportFromUrlInput.builder()
-                        .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                        .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                         .url("url")
                         .build()
                 )
@@ -97,7 +97,7 @@ internal class FileImportFromUrlAsyncParamsTest {
         assertThat(body)
             .isEqualTo(
                 ImportFromUrlInput.builder()
-                    .access(ImportFromUrlInput.Access.PUBLIC_INDEXABLE)
+                    .access(ImportFromUrlInput.Access.HIDDEN_INDEXABLE)
                     .url("url")
                     .build()
             )

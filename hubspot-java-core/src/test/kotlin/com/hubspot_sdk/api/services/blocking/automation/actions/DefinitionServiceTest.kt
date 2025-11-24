@@ -47,7 +47,7 @@ internal class DefinitionServiceTest {
                                 PublicActionFunction.builder()
                                     .functionSource("functionSource")
                                     .functionType(
-                                        PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION
+                                        PublicActionFunction.FunctionType.POST_ACTION_EXECUTION
                                     )
                                     .id("id")
                                     .build()
@@ -68,7 +68,7 @@ internal class DefinitionServiceTest {
                                                     .displayOrder(1)
                                                     .build()
                                             )
-                                            .type(FieldTypeDefinition.Type.STRING)
+                                            .type(FieldTypeDefinition.Type.BOOL)
                                             .description("description")
                                             .externalOptionsReferenceType(
                                                 "externalOptionsReferenceType"
@@ -80,7 +80,8 @@ internal class DefinitionServiceTest {
                                             .label("label")
                                             .optionsUrl("optionsUrl")
                                             .referencedObjectType(
-                                                FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                FieldTypeDefinition.ReferencedObjectType
+                                                    .ABANDONED_CART
                                             )
                                             .build()
                                     )
@@ -155,7 +156,7 @@ internal class DefinitionServiceTest {
                                                     .displayOrder(1)
                                                     .build()
                                             )
-                                            .type(FieldTypeDefinition.Type.STRING)
+                                            .type(FieldTypeDefinition.Type.BOOL)
                                             .description("description")
                                             .externalOptionsReferenceType(
                                                 "externalOptionsReferenceType"
@@ -167,7 +168,8 @@ internal class DefinitionServiceTest {
                                             .label("label")
                                             .optionsUrl("optionsUrl")
                                             .referencedObjectType(
-                                                FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                FieldTypeDefinition.ReferencedObjectType
+                                                    .ABANDONED_CART
                                             )
                                             .build()
                                     )
@@ -237,7 +239,7 @@ internal class DefinitionServiceTest {
                                                     .displayOrder(1)
                                                     .build()
                                             )
-                                            .type(FieldTypeDefinition.Type.STRING)
+                                            .type(FieldTypeDefinition.Type.BOOL)
                                             .description("description")
                                             .externalOptionsReferenceType(
                                                 "externalOptionsReferenceType"
@@ -249,7 +251,8 @@ internal class DefinitionServiceTest {
                                             .label("label")
                                             .optionsUrl("optionsUrl")
                                             .referencedObjectType(
-                                                FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                FieldTypeDefinition.ReferencedObjectType
+                                                    .ABANDONED_CART
                                             )
                                             .build()
                                     )
@@ -300,7 +303,7 @@ internal class DefinitionServiceTest {
                                                     .displayOrder(1)
                                                     .build()
                                             )
-                                            .type(FieldTypeDefinition.Type.STRING)
+                                            .type(FieldTypeDefinition.Type.BOOL)
                                             .description("description")
                                             .externalOptionsReferenceType(
                                                 "externalOptionsReferenceType"
@@ -312,7 +315,8 @@ internal class DefinitionServiceTest {
                                             .label("label")
                                             .optionsUrl("optionsUrl")
                                             .referencedObjectType(
-                                                FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                FieldTypeDefinition.ReferencedObjectType
+                                                    .ABANDONED_CART
                                             )
                                             .build()
                                     )

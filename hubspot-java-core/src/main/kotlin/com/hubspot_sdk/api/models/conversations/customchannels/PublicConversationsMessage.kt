@@ -26,18 +26,6 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.conversations.PublicClient
-import com.hubspot_sdk.api.models.conversations.PublicContact
-import com.hubspot_sdk.api.models.conversations.PublicFile
-import com.hubspot_sdk.api.models.conversations.PublicLocation
-import com.hubspot_sdk.api.models.conversations.PublicMessageHeader
-import com.hubspot_sdk.api.models.conversations.PublicMessageStatus
-import com.hubspot_sdk.api.models.conversations.PublicQuickReplies
-import com.hubspot_sdk.api.models.conversations.PublicRecipient
-import com.hubspot_sdk.api.models.conversations.PublicSender
-import com.hubspot_sdk.api.models.conversations.PublicSocialMetadataAttachment
-import com.hubspot_sdk.api.models.conversations.PublicUnsupportedContent
-import com.hubspot_sdk.api.models.conversations.PublicWhatsAppTemplateMetadata
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -1488,9 +1476,9 @@ private constructor(
 
             @JvmField val NOT_TRUNCATED = of("NOT_TRUNCATED")
 
-            @JvmField val TRUNCATED_TO_MOST_RECENT_REPLY = of("TRUNCATED_TO_MOST_RECENT_REPLY")
-
             @JvmField val TRUNCATED = of("TRUNCATED")
+
+            @JvmField val TRUNCATED_TO_MOST_RECENT_REPLY = of("TRUNCATED_TO_MOST_RECENT_REPLY")
 
             @JvmStatic fun of(value: String) = TruncationStatus(JsonField.of(value))
         }
@@ -1498,8 +1486,8 @@ private constructor(
         /** An enum containing [TruncationStatus]'s known values. */
         enum class Known {
             NOT_TRUNCATED,
-            TRUNCATED_TO_MOST_RECENT_REPLY,
             TRUNCATED,
+            TRUNCATED_TO_MOST_RECENT_REPLY,
         }
 
         /**
@@ -1513,8 +1501,8 @@ private constructor(
          */
         enum class Value {
             NOT_TRUNCATED,
-            TRUNCATED_TO_MOST_RECENT_REPLY,
             TRUNCATED,
+            TRUNCATED_TO_MOST_RECENT_REPLY,
             /**
              * An enum member indicating that [TruncationStatus] was instantiated with an unknown
              * value.
@@ -1532,8 +1520,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 NOT_TRUNCATED -> Value.NOT_TRUNCATED
-                TRUNCATED_TO_MOST_RECENT_REPLY -> Value.TRUNCATED_TO_MOST_RECENT_REPLY
                 TRUNCATED -> Value.TRUNCATED
+                TRUNCATED_TO_MOST_RECENT_REPLY -> Value.TRUNCATED_TO_MOST_RECENT_REPLY
                 else -> Value._UNKNOWN
             }
 
@@ -1549,8 +1537,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 NOT_TRUNCATED -> Known.NOT_TRUNCATED
-                TRUNCATED_TO_MOST_RECENT_REPLY -> Known.TRUNCATED_TO_MOST_RECENT_REPLY
                 TRUNCATED -> Known.TRUNCATED
+                TRUNCATED_TO_MOST_RECENT_REPLY -> Known.TRUNCATED_TO_MOST_RECENT_REPLY
                 else -> throw HubspotInvalidDataException("Unknown TruncationStatus: $value")
             }
 

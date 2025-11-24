@@ -10,10 +10,7 @@ internal class UserGetParamsTest {
 
     @Test
     fun create() {
-        UserGetParams.builder()
-            .userId("userId")
-            .idProperty(UserGetParams.IdProperty.USER_ID)
-            .build()
+        UserGetParams.builder().userId("userId").idProperty(UserGetParams.IdProperty.EMAIL).build()
     }
 
     @Test
@@ -30,13 +27,12 @@ internal class UserGetParamsTest {
         val params =
             UserGetParams.builder()
                 .userId("userId")
-                .idProperty(UserGetParams.IdProperty.USER_ID)
+                .idProperty(UserGetParams.IdProperty.EMAIL)
                 .build()
 
         val queryParams = params._queryParams()
 
-        assertThat(queryParams)
-            .isEqualTo(QueryParams.builder().put("idProperty", "USER_ID").build())
+        assertThat(queryParams).isEqualTo(QueryParams.builder().put("idProperty", "EMAIL").build())
     }
 
     @Test

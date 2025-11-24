@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.conversations.ConversationsPublicConversationsMessage
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicConversationsMessage
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageUpdateParams
@@ -38,21 +38,21 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
     override fun create(
         params: MessageCreateParams,
         requestOptions: RequestOptions,
-    ): ConversationsPublicConversationsMessage =
+    ): PublicConversationsMessage =
         // post /conversations/v3/custom-channels/{channelId}/messages
         withRawResponse().create(params, requestOptions).parse()
 
     override fun update(
         params: MessageUpdateParams,
         requestOptions: RequestOptions,
-    ): ConversationsPublicConversationsMessage =
+    ): PublicConversationsMessage =
         // patch /conversations/v3/custom-channels/{channelId}/messages/{messageId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun get(
         params: MessageGetParams,
         requestOptions: RequestOptions,
-    ): ConversationsPublicConversationsMessage =
+    ): PublicConversationsMessage =
         // get /conversations/v3/custom-channels/{channelId}/messages/{messageId}
         withRawResponse().get(params, requestOptions).parse()
 
@@ -69,13 +69,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<ConversationsPublicConversationsMessage> =
-            jsonHandler<ConversationsPublicConversationsMessage>(clientOptions.jsonMapper)
+        private val createHandler: Handler<PublicConversationsMessage> =
+            jsonHandler<PublicConversationsMessage>(clientOptions.jsonMapper)
 
         override fun create(
             params: MessageCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConversationsPublicConversationsMessage> {
+        ): HttpResponseFor<PublicConversationsMessage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelId", params.channelId().getOrNull())
@@ -106,13 +106,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val updateHandler: Handler<ConversationsPublicConversationsMessage> =
-            jsonHandler<ConversationsPublicConversationsMessage>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PublicConversationsMessage> =
+            jsonHandler<PublicConversationsMessage>(clientOptions.jsonMapper)
 
         override fun update(
             params: MessageUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConversationsPublicConversationsMessage> {
+        ): HttpResponseFor<PublicConversationsMessage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("messageId", params.messageId().getOrNull())
@@ -144,13 +144,13 @@ class MessageServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getHandler: Handler<ConversationsPublicConversationsMessage> =
-            jsonHandler<ConversationsPublicConversationsMessage>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PublicConversationsMessage> =
+            jsonHandler<PublicConversationsMessage>(clientOptions.jsonMapper)
 
         override fun get(
             params: MessageGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ConversationsPublicConversationsMessage> {
+        ): HttpResponseFor<PublicConversationsMessage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("messageId", params.messageId().getOrNull())

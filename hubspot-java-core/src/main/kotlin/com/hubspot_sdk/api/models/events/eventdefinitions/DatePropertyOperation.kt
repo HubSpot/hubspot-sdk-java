@@ -474,47 +474,47 @@ private constructor(
 
         companion object {
 
-            @JvmField val JAN = of("JAN")
-
-            @JvmField val FEB = of("FEB")
-
-            @JvmField val MAR = of("MAR")
-
             @JvmField val APR = of("APR")
-
-            @JvmField val MAY = of("MAY")
-
-            @JvmField val JUN = of("JUN")
-
-            @JvmField val JUL = of("JUL")
 
             @JvmField val AUG = of("AUG")
 
-            @JvmField val SEP = of("SEP")
+            @JvmField val DEC = of("DEC")
 
-            @JvmField val OCT = of("OCT")
+            @JvmField val FEB = of("FEB")
+
+            @JvmField val JAN = of("JAN")
+
+            @JvmField val JUL = of("JUL")
+
+            @JvmField val JUN = of("JUN")
+
+            @JvmField val MAR = of("MAR")
+
+            @JvmField val MAY = of("MAY")
 
             @JvmField val NOV = of("NOV")
 
-            @JvmField val DEC = of("DEC")
+            @JvmField val OCT = of("OCT")
+
+            @JvmField val SEP = of("SEP")
 
             @JvmStatic fun of(value: String) = Month(JsonField.of(value))
         }
 
         /** An enum containing [Month]'s known values. */
         enum class Known {
-            JAN,
-            FEB,
-            MAR,
             APR,
-            MAY,
-            JUN,
-            JUL,
             AUG,
-            SEP,
-            OCT,
-            NOV,
             DEC,
+            FEB,
+            JAN,
+            JUL,
+            JUN,
+            MAR,
+            MAY,
+            NOV,
+            OCT,
+            SEP,
         }
 
         /**
@@ -527,18 +527,18 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            JAN,
-            FEB,
-            MAR,
             APR,
-            MAY,
-            JUN,
-            JUL,
             AUG,
-            SEP,
-            OCT,
-            NOV,
             DEC,
+            FEB,
+            JAN,
+            JUL,
+            JUN,
+            MAR,
+            MAY,
+            NOV,
+            OCT,
+            SEP,
             /** An enum member indicating that [Month] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -552,18 +552,18 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                JAN -> Value.JAN
-                FEB -> Value.FEB
-                MAR -> Value.MAR
                 APR -> Value.APR
-                MAY -> Value.MAY
-                JUN -> Value.JUN
-                JUL -> Value.JUL
                 AUG -> Value.AUG
-                SEP -> Value.SEP
-                OCT -> Value.OCT
-                NOV -> Value.NOV
                 DEC -> Value.DEC
+                FEB -> Value.FEB
+                JAN -> Value.JAN
+                JUL -> Value.JUL
+                JUN -> Value.JUN
+                MAR -> Value.MAR
+                MAY -> Value.MAY
+                NOV -> Value.NOV
+                OCT -> Value.OCT
+                SEP -> Value.SEP
                 else -> Value._UNKNOWN
             }
 
@@ -578,18 +578,18 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                JAN -> Known.JAN
-                FEB -> Known.FEB
-                MAR -> Known.MAR
                 APR -> Known.APR
-                MAY -> Known.MAY
-                JUN -> Known.JUN
-                JUL -> Known.JUL
                 AUG -> Known.AUG
-                SEP -> Known.SEP
-                OCT -> Known.OCT
-                NOV -> Known.NOV
                 DEC -> Known.DEC
+                FEB -> Known.FEB
+                JAN -> Known.JAN
+                JUL -> Known.JUL
+                JUN -> Known.JUN
+                MAR -> Known.MAR
+                MAY -> Known.MAY
+                NOV -> Known.NOV
+                OCT -> Known.OCT
+                SEP -> Known.SEP
                 else -> throw HubspotInvalidDataException("Unknown Month: $value")
             }
 
@@ -659,20 +659,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val EQUAL = of("EQUAL")
+            @JvmField val AFTER = of("AFTER")
 
             @JvmField val BEFORE = of("BEFORE")
 
-            @JvmField val AFTER = of("AFTER")
+            @JvmField val EQUAL = of("EQUAL")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            EQUAL,
-            BEFORE,
             AFTER,
+            BEFORE,
+            EQUAL,
         }
 
         /**
@@ -685,9 +685,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            EQUAL,
-            BEFORE,
             AFTER,
+            BEFORE,
+            EQUAL,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -701,9 +701,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                EQUAL -> Value.EQUAL
-                BEFORE -> Value.BEFORE
                 AFTER -> Value.AFTER
+                BEFORE -> Value.BEFORE
+                EQUAL -> Value.EQUAL
                 else -> Value._UNKNOWN
             }
 
@@ -718,9 +718,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                EQUAL -> Known.EQUAL
-                BEFORE -> Known.BEFORE
                 AFTER -> Known.AFTER
+                BEFORE -> Known.BEFORE
+                EQUAL -> Known.EQUAL
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

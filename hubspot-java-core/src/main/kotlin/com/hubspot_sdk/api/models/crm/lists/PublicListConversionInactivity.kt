@@ -369,9 +369,9 @@ private constructor(
 
             @JvmField val DAY = of("DAY")
 
-            @JvmField val WEEK = of("WEEK")
-
             @JvmField val MONTH = of("MONTH")
+
+            @JvmField val WEEK = of("WEEK")
 
             @JvmStatic fun of(value: String) = TimeUnit(JsonField.of(value))
         }
@@ -379,8 +379,8 @@ private constructor(
         /** An enum containing [TimeUnit]'s known values. */
         enum class Known {
             DAY,
-            WEEK,
             MONTH,
+            WEEK,
         }
 
         /**
@@ -394,8 +394,8 @@ private constructor(
          */
         enum class Value {
             DAY,
-            WEEK,
             MONTH,
+            WEEK,
             /** An enum member indicating that [TimeUnit] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -410,8 +410,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 DAY -> Value.DAY
-                WEEK -> Value.WEEK
                 MONTH -> Value.MONTH
+                WEEK -> Value.WEEK
                 else -> Value._UNKNOWN
             }
 
@@ -427,8 +427,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 DAY -> Known.DAY
-                WEEK -> Known.WEEK
                 MONTH -> Known.MONTH
+                WEEK -> Known.WEEK
                 else -> throw HubspotInvalidDataException("Unknown TimeUnit: $value")
             }
 

@@ -14,7 +14,7 @@ internal class PropertyReferencedTimeTest {
         val propertyReferencedTime =
             PropertyReferencedTime.builder()
                 .property("property")
-                .referenceType(PropertyReferencedTime.ReferenceType.VALUE)
+                .referenceType(PropertyReferencedTime.ReferenceType.ANNIVERSARY)
                 .timeType(PropertyReferencedTime.TimeType.PROPERTY_REFERENCED)
                 .timezoneSource(PropertyReferencedTime.TimezoneSource.CUSTOM)
                 .zoneId("zoneId")
@@ -22,7 +22,7 @@ internal class PropertyReferencedTimeTest {
 
         assertThat(propertyReferencedTime.property()).isEqualTo("property")
         assertThat(propertyReferencedTime.referenceType())
-            .isEqualTo(PropertyReferencedTime.ReferenceType.VALUE)
+            .isEqualTo(PropertyReferencedTime.ReferenceType.ANNIVERSARY)
         assertThat(propertyReferencedTime.timeType())
             .isEqualTo(PropertyReferencedTime.TimeType.PROPERTY_REFERENCED)
         assertThat(propertyReferencedTime.timezoneSource())
@@ -36,7 +36,7 @@ internal class PropertyReferencedTimeTest {
         val propertyReferencedTime =
             PropertyReferencedTime.builder()
                 .property("property")
-                .referenceType(PropertyReferencedTime.ReferenceType.VALUE)
+                .referenceType(PropertyReferencedTime.ReferenceType.ANNIVERSARY)
                 .timeType(PropertyReferencedTime.TimeType.PROPERTY_REFERENCED)
                 .timezoneSource(PropertyReferencedTime.TimezoneSource.CUSTOM)
                 .zoneId("zoneId")

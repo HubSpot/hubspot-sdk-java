@@ -15,7 +15,7 @@ internal class DependentFieldTest {
             DependentField.builder()
                 .dependentCondition(
                     DependentFieldFilter.builder()
-                        .operator(DependentFieldFilter.Operator.EQ)
+                        .operator(DependentFieldFilter.Operator.BETWEEN)
                         .rangeEnd("rangeEnd")
                         .rangeStart("rangeStart")
                         .value("value")
@@ -47,7 +47,7 @@ internal class DependentFieldTest {
         assertThat(dependentField.dependentCondition())
             .isEqualTo(
                 DependentFieldFilter.builder()
-                    .operator(DependentFieldFilter.Operator.EQ)
+                    .operator(DependentFieldFilter.Operator.BETWEEN)
                     .rangeEnd("rangeEnd")
                     .rangeStart("rangeStart")
                     .value("value")
@@ -86,7 +86,7 @@ internal class DependentFieldTest {
             DependentField.builder()
                 .dependentCondition(
                     DependentFieldFilter.builder()
-                        .operator(DependentFieldFilter.Operator.EQ)
+                        .operator(DependentFieldFilter.Operator.BETWEEN)
                         .rangeEnd("rangeEnd")
                         .rangeStart("rangeStart")
                         .value("value")

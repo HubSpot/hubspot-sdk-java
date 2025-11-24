@@ -23,7 +23,7 @@ internal class BatchResponseFlowIdWorkflowIdMappingResponseWithErrorsTest {
                     FlowIdWorkflowIdMappingResponse.builder().flowId(0).workflowId(0).build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseFlowIdWorkflowIdMappingResponseWithErrors.Status.PENDING)
+                .status(BatchResponseFlowIdWorkflowIdMappingResponseWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -201,7 +201,7 @@ internal class BatchResponseFlowIdWorkflowIdMappingResponseWithErrorsTest {
         assertThat(batchResponseFlowIdWorkflowIdMappingResponseWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseFlowIdWorkflowIdMappingResponseWithErrors.status())
-            .isEqualTo(BatchResponseFlowIdWorkflowIdMappingResponseWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseFlowIdWorkflowIdMappingResponseWithErrors.Status.CANCELED)
         assertThat(batchResponseFlowIdWorkflowIdMappingResponseWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -287,7 +287,7 @@ internal class BatchResponseFlowIdWorkflowIdMappingResponseWithErrorsTest {
                     FlowIdWorkflowIdMappingResponse.builder().flowId(0).workflowId(0).build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseFlowIdWorkflowIdMappingResponseWithErrors.Status.PENDING)
+                .status(BatchResponseFlowIdWorkflowIdMappingResponseWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

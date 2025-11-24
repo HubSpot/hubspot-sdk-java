@@ -53,7 +53,7 @@ internal class FunctionServiceAsyncTest {
                 FunctionDeleteParams.builder()
                     .appId(0)
                     .definitionId("definitionId")
-                    .functionType(FunctionDeleteParams.FunctionType.PRE_ACTION_EXECUTION)
+                    .functionType(FunctionDeleteParams.FunctionType.POST_ACTION_EXECUTION)
                     .functionId("functionId")
                     .build()
             )
@@ -76,7 +76,7 @@ internal class FunctionServiceAsyncTest {
                 FunctionCreateOrReplaceParams.builder()
                     .appId(0)
                     .definitionId("definitionId")
-                    .functionType(FunctionCreateOrReplaceParams.FunctionType.PRE_ACTION_EXECUTION)
+                    .functionType(FunctionCreateOrReplaceParams.FunctionType.POST_ACTION_EXECUTION)
                     .functionId("functionId")
                     .body("body")
                     .build()
@@ -103,7 +103,7 @@ internal class FunctionServiceAsyncTest {
                     .definitionId("definitionId")
                     .functionType(
                         FunctionCreateOrReplaceByFunctionTypeParams.FunctionType
-                            .PRE_ACTION_EXECUTION
+                            .POST_ACTION_EXECUTION
                     )
                     .body("body")
                     .build()
@@ -129,7 +129,7 @@ internal class FunctionServiceAsyncTest {
                     .appId(0)
                     .definitionId("definitionId")
                     .functionType(
-                        FunctionDeleteByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION
+                        FunctionDeleteByFunctionTypeParams.FunctionType.POST_ACTION_EXECUTION
                     )
                     .build()
             )
@@ -152,7 +152,7 @@ internal class FunctionServiceAsyncTest {
                 FunctionGetParams.builder()
                     .appId(0)
                     .definitionId("definitionId")
-                    .functionType(FunctionGetParams.FunctionType.PRE_ACTION_EXECUTION)
+                    .functionType(FunctionGetParams.FunctionType.POST_ACTION_EXECUTION)
                     .functionId("functionId")
                     .build()
             )
@@ -176,7 +176,9 @@ internal class FunctionServiceAsyncTest {
                 FunctionGetByFunctionTypeParams.builder()
                     .appId(0)
                     .definitionId("definitionId")
-                    .functionType(FunctionGetByFunctionTypeParams.FunctionType.PRE_ACTION_EXECUTION)
+                    .functionType(
+                        FunctionGetByFunctionTypeParams.FunctionType.POST_ACTION_EXECUTION
+                    )
                     .build()
             )
 

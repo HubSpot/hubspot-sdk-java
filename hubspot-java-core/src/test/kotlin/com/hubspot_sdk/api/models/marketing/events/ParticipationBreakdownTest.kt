@@ -38,7 +38,7 @@ internal class ParticipationBreakdownTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     ParticipationProperties.builder()
-                        .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                        .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                         .occurredAt(0L)
                         .attendanceDurationSeconds(0)
                         .attendancePercentage("attendancePercentage")
@@ -73,7 +73,7 @@ internal class ParticipationBreakdownTest {
         assertThat(participationBreakdown.properties())
             .isEqualTo(
                 ParticipationProperties.builder()
-                    .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                    .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                     .occurredAt(0L)
                     .attendanceDurationSeconds(0)
                     .attendancePercentage("attendancePercentage")
@@ -110,7 +110,7 @@ internal class ParticipationBreakdownTest {
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .properties(
                     ParticipationProperties.builder()
-                        .attendanceState(ParticipationProperties.AttendanceState.REGISTERED)
+                        .attendanceState(ParticipationProperties.AttendanceState.ATTENDED)
                         .occurredAt(0L)
                         .attendanceDurationSeconds(0)
                         .attendancePercentage("attendancePercentage")

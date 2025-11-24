@@ -22,19 +22,19 @@ internal class MultiStringPropertyOperationTest {
                 )
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(MultiStringPropertyOperation.Operator.IS_EQUAL_TO)
+                .operator(MultiStringPropertyOperation.Operator.CONTAINS)
                 .operatorName("operatorName")
                 .propertyType(MultiStringPropertyOperation.PropertyType.MULTISTRING)
                 .addValue("string")
                 .defaultValue("defaultValue")
                 .pruningRefineBy(
                     RelativeComparativeTimestampRefineBy.builder()
-                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
                                 .amount(0)
-                                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                                .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
                         )
                         .type(
@@ -58,7 +58,7 @@ internal class MultiStringPropertyOperationTest {
         assertThat(multiStringPropertyOperation.includeObjectsWithNoValueSet()).isEqualTo(true)
         assertThat(multiStringPropertyOperation.operationType()).isEqualTo("operationType")
         assertThat(multiStringPropertyOperation.operator())
-            .isEqualTo(MultiStringPropertyOperation.Operator.IS_EQUAL_TO)
+            .isEqualTo(MultiStringPropertyOperation.Operator.CONTAINS)
         assertThat(multiStringPropertyOperation.operatorName()).isEqualTo("operatorName")
         assertThat(multiStringPropertyOperation.propertyType())
             .isEqualTo(MultiStringPropertyOperation.PropertyType.MULTISTRING)
@@ -68,12 +68,12 @@ internal class MultiStringPropertyOperationTest {
             .contains(
                 MultiStringPropertyOperation.PruningRefineBy.ofRelativeComparativeTimestamp(
                     RelativeComparativeTimestampRefineBy.builder()
-                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
                                 .amount(0)
-                                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                                .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
                         )
                         .type(
@@ -99,19 +99,19 @@ internal class MultiStringPropertyOperationTest {
                 )
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(MultiStringPropertyOperation.Operator.IS_EQUAL_TO)
+                .operator(MultiStringPropertyOperation.Operator.CONTAINS)
                 .operatorName("operatorName")
                 .propertyType(MultiStringPropertyOperation.PropertyType.MULTISTRING)
                 .addValue("string")
                 .defaultValue("defaultValue")
                 .pruningRefineBy(
                     RelativeComparativeTimestampRefineBy.builder()
-                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
                                 .amount(0)
-                                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                                .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
                         )
                         .type(

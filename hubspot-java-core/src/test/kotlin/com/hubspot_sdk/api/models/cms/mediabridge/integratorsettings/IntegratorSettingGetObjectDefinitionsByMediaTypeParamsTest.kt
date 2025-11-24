@@ -12,7 +12,7 @@ internal class IntegratorSettingGetObjectDefinitionsByMediaTypeParamsTest {
     fun create() {
         IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
             .appId(0)
-            .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.VIDEO)
+            .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.AUDIO)
             .includeFullDefinition(true)
             .build()
     }
@@ -22,11 +22,11 @@ internal class IntegratorSettingGetObjectDefinitionsByMediaTypeParamsTest {
         val params =
             IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
                 .appId(0)
-                .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.VIDEO)
+                .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.AUDIO)
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("0")
-        assertThat(params._pathParam(1)).isEqualTo("VIDEO")
+        assertThat(params._pathParam(1)).isEqualTo("AUDIO")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
     }
@@ -36,7 +36,7 @@ internal class IntegratorSettingGetObjectDefinitionsByMediaTypeParamsTest {
         val params =
             IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
                 .appId(0)
-                .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.VIDEO)
+                .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.AUDIO)
                 .includeFullDefinition(true)
                 .build()
 
@@ -51,7 +51,7 @@ internal class IntegratorSettingGetObjectDefinitionsByMediaTypeParamsTest {
         val params =
             IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
                 .appId(0)
-                .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.VIDEO)
+                .mediaType(IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.AUDIO)
                 .build()
 
         val queryParams = params._queryParams()

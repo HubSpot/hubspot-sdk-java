@@ -23,7 +23,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                     AssociationDefinition.builder()
                         .id(0)
                         .allowsCustomLabels(true)
-                        .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                        .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
                         .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                         .fromObjectTypeId("fromObjectTypeId")
                         .hasAllAssociatedObjects(true)
@@ -32,7 +32,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .hasUserEnforcedMaxToObjectIds(true)
                         .hidden(true)
                         .inverseAllowsCustomLabels(true)
-                        .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_ONE)
+                        .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_MANY)
                         .inverseHasAllAssociatedObjects(true)
                         .inverseId(0)
                         .inverseName("inverseName")
@@ -43,10 +43,10 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .name("name")
                         .portalUniqueIdentifier("portalUniqueIdentifier")
                         .toObjectTypeId("toObjectTypeId")
-                        .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
+                        .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
                         .inverseLabel("inverseLabel")
                         .label("label")
-                        .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
+                        .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
                         .build()
                 )
                 .fullyQualifiedName("fullyQualifiedName")
@@ -90,7 +90,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .calculationFormula("calculationFormula")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
-                        .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
+                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                         .displayOrder(2)
                         .externalOptions(true)
                         .formField(true)
@@ -126,7 +126,8 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                                                 .includeObjectsWithNoValueSet(true)
                                                 .operationType("operationType")
                                                 .operator(
-                                                    BoolPropertyOperation.Operator.IS_EQUAL_TO
+                                                    BoolPropertyOperation.Operator
+                                                        .HAS_EVER_BEEN_EQUAL_TO
                                                 )
                                                 .operatorName("operatorName")
                                                 .propertyType(
@@ -152,7 +153,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                 .description("description")
                 .primaryObject("primaryObject")
                 .primaryObjectId("primaryObjectId")
-                .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.VISITED_URL)
+                .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.CLICKED_ELEMENT)
                 .build()
 
         assertThat(externalBehavioralEventTypeDefinition.id()).isEqualTo("id")
@@ -162,7 +163,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                 AssociationDefinition.builder()
                     .id(0)
                     .allowsCustomLabels(true)
-                    .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                    .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
                     .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                     .fromObjectTypeId("fromObjectTypeId")
                     .hasAllAssociatedObjects(true)
@@ -171,7 +172,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                     .hasUserEnforcedMaxToObjectIds(true)
                     .hidden(true)
                     .inverseAllowsCustomLabels(true)
-                    .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_ONE)
+                    .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_MANY)
                     .inverseHasAllAssociatedObjects(true)
                     .inverseId(0)
                     .inverseName("inverseName")
@@ -182,10 +183,10 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                     .name("name")
                     .portalUniqueIdentifier("portalUniqueIdentifier")
                     .toObjectTypeId("toObjectTypeId")
-                    .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
+                    .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
                     .inverseLabel("inverseLabel")
                     .label("label")
-                    .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
+                    .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
                     .build()
             )
         assertThat(externalBehavioralEventTypeDefinition.fullyQualifiedName())
@@ -232,7 +233,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                     .calculationFormula("calculationFormula")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdUserId("createdUserId")
-                    .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
+                    .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                     .displayOrder(2)
                     .externalOptions(true)
                     .formField(true)
@@ -268,7 +269,10 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                                         BoolPropertyOperation.builder()
                                             .includeObjectsWithNoValueSet(true)
                                             .operationType("operationType")
-                                            .operator(BoolPropertyOperation.Operator.IS_EQUAL_TO)
+                                            .operator(
+                                                BoolPropertyOperation.Operator
+                                                    .HAS_EVER_BEEN_EQUAL_TO
+                                            )
                                             .operatorName("operatorName")
                                             .propertyType(BoolPropertyOperation.PropertyType.BOOL)
                                             .value(true)
@@ -294,7 +298,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
         assertThat(externalBehavioralEventTypeDefinition.primaryObjectId())
             .contains("primaryObjectId")
         assertThat(externalBehavioralEventTypeDefinition.trackingType())
-            .contains(ExternalBehavioralEventTypeDefinition.TrackingType.VISITED_URL)
+            .contains(ExternalBehavioralEventTypeDefinition.TrackingType.CLICKED_ELEMENT)
     }
 
     @Test
@@ -308,7 +312,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                     AssociationDefinition.builder()
                         .id(0)
                         .allowsCustomLabels(true)
-                        .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                        .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
                         .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                         .fromObjectTypeId("fromObjectTypeId")
                         .hasAllAssociatedObjects(true)
@@ -317,7 +321,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .hasUserEnforcedMaxToObjectIds(true)
                         .hidden(true)
                         .inverseAllowsCustomLabels(true)
-                        .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_ONE)
+                        .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_MANY)
                         .inverseHasAllAssociatedObjects(true)
                         .inverseId(0)
                         .inverseName("inverseName")
@@ -328,10 +332,10 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .name("name")
                         .portalUniqueIdentifier("portalUniqueIdentifier")
                         .toObjectTypeId("toObjectTypeId")
-                        .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
+                        .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
                         .inverseLabel("inverseLabel")
                         .label("label")
-                        .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
+                        .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
                         .build()
                 )
                 .fullyQualifiedName("fullyQualifiedName")
@@ -375,7 +379,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                         .calculationFormula("calculationFormula")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
-                        .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
+                        .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                         .displayOrder(2)
                         .externalOptions(true)
                         .formField(true)
@@ -411,7 +415,8 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                                                 .includeObjectsWithNoValueSet(true)
                                                 .operationType("operationType")
                                                 .operator(
-                                                    BoolPropertyOperation.Operator.IS_EQUAL_TO
+                                                    BoolPropertyOperation.Operator
+                                                        .HAS_EVER_BEEN_EQUAL_TO
                                                 )
                                                 .operatorName("operatorName")
                                                 .propertyType(
@@ -437,7 +442,7 @@ internal class ExternalBehavioralEventTypeDefinitionTest {
                 .description("description")
                 .primaryObject("primaryObject")
                 .primaryObjectId("primaryObjectId")
-                .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.VISITED_URL)
+                .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.CLICKED_ELEMENT)
                 .build()
 
         val roundtrippedExternalBehavioralEventTypeDefinition =

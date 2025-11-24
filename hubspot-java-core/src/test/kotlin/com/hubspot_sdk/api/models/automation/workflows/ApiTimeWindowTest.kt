@@ -13,12 +13,12 @@ internal class ApiTimeWindowTest {
     fun create() {
         val apiTimeWindow =
             ApiTimeWindow.builder()
-                .day(ApiTimeWindow.Day.MONDAY)
+                .day(ApiTimeWindow.Day.FRIDAY)
                 .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .build()
 
-        assertThat(apiTimeWindow.day()).isEqualTo(ApiTimeWindow.Day.MONDAY)
+        assertThat(apiTimeWindow.day()).isEqualTo(ApiTimeWindow.Day.FRIDAY)
         assertThat(apiTimeWindow.endTime())
             .contains(ApiTimeOfDay.builder().hour(0).minute(0).build())
         assertThat(apiTimeWindow.startTime())
@@ -30,7 +30,7 @@ internal class ApiTimeWindowTest {
         val jsonMapper = jsonMapper()
         val apiTimeWindow =
             ApiTimeWindow.builder()
-                .day(ApiTimeWindow.Day.MONDAY)
+                .day(ApiTimeWindow.Day.FRIDAY)
                 .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .build()

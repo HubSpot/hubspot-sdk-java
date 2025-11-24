@@ -109,7 +109,7 @@ internal class ExternalBookingInfoTest {
                                 .processingConsentType("processingConsentType")
                                 .legitimateInterestLegalBasis(
                                     ExternalLegalConsentOptions.LegitimateInterestLegalBasis
-                                        .LEGITIMATE_INTEREST_PQL
+                                        .CONSENT_WITH_NOTICE
                                 )
                                 .build()
                         )
@@ -129,7 +129,7 @@ internal class ExternalBookingInfoTest {
                 )
                 .isOffline(true)
                 .linkId("linkId")
-                .linkType(ExternalBookingInfo.LinkType.PERSONAL_LINK)
+                .linkType(ExternalBookingInfo.LinkType.GROUP_CALENDAR)
                 .brandingMetadata(
                     ExternalBrandingMetadata.builder()
                         .logoAltText("logoAltText")
@@ -273,7 +273,7 @@ internal class ExternalBookingInfoTest {
                             .processingConsentType("processingConsentType")
                             .legitimateInterestLegalBasis(
                                 ExternalLegalConsentOptions.LegitimateInterestLegalBasis
-                                    .LEGITIMATE_INTEREST_PQL
+                                    .CONSENT_WITH_NOTICE
                             )
                             .build()
                     )
@@ -294,7 +294,7 @@ internal class ExternalBookingInfoTest {
         assertThat(externalBookingInfo.isOffline()).isEqualTo(true)
         assertThat(externalBookingInfo.linkId()).isEqualTo("linkId")
         assertThat(externalBookingInfo.linkType())
-            .isEqualTo(ExternalBookingInfo.LinkType.PERSONAL_LINK)
+            .isEqualTo(ExternalBookingInfo.LinkType.GROUP_CALENDAR)
         assertThat(externalBookingInfo.brandingMetadata())
             .contains(
                 ExternalBrandingMetadata.builder()
@@ -443,7 +443,7 @@ internal class ExternalBookingInfoTest {
                                 .processingConsentType("processingConsentType")
                                 .legitimateInterestLegalBasis(
                                     ExternalLegalConsentOptions.LegitimateInterestLegalBasis
-                                        .LEGITIMATE_INTEREST_PQL
+                                        .CONSENT_WITH_NOTICE
                                 )
                                 .build()
                         )
@@ -463,7 +463,7 @@ internal class ExternalBookingInfoTest {
                 )
                 .isOffline(true)
                 .linkId("linkId")
-                .linkType(ExternalBookingInfo.LinkType.PERSONAL_LINK)
+                .linkType(ExternalBookingInfo.LinkType.GROUP_CALENDAR)
                 .brandingMetadata(
                     ExternalBrandingMetadata.builder()
                         .logoAltText("logoAltText")

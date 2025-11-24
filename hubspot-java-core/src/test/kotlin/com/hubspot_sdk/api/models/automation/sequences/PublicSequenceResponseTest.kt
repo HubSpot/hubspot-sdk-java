@@ -82,7 +82,7 @@ internal class PublicSequenceResponseTest {
                                     EmailSettingsResponse.builder()
                                         .criteria(EmailSettingsResponse.Criteria.ALL)
                                         .sellingStrategy(
-                                            EmailSettingsResponse.SellingStrategy.LEAD_BASED
+                                            EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED
                                         )
                                         .build()
                                 )
@@ -90,7 +90,7 @@ internal class PublicSequenceResponseTest {
                                     MeetingSettingsResponse.builder()
                                         .criteria(MeetingSettingsResponse.Criteria.ALL)
                                         .sellingStrategy(
-                                            MeetingSettingsResponse.SellingStrategy.LEAD_BASED
+                                            MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED
                                         )
                                         .build()
                                 )
@@ -173,7 +173,7 @@ internal class PublicSequenceResponseTest {
                                 EmailSettingsResponse.builder()
                                     .criteria(EmailSettingsResponse.Criteria.ALL)
                                     .sellingStrategy(
-                                        EmailSettingsResponse.SellingStrategy.LEAD_BASED
+                                        EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED
                                     )
                                     .build()
                             )
@@ -181,7 +181,7 @@ internal class PublicSequenceResponseTest {
                                 MeetingSettingsResponse.builder()
                                     .criteria(MeetingSettingsResponse.Criteria.ALL)
                                     .sellingStrategy(
-                                        MeetingSettingsResponse.SellingStrategy.LEAD_BASED
+                                        MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED
                                     )
                                     .build()
                             )
@@ -264,7 +264,7 @@ internal class PublicSequenceResponseTest {
                                     EmailSettingsResponse.builder()
                                         .criteria(EmailSettingsResponse.Criteria.ALL)
                                         .sellingStrategy(
-                                            EmailSettingsResponse.SellingStrategy.LEAD_BASED
+                                            EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED
                                         )
                                         .build()
                                 )
@@ -272,7 +272,7 @@ internal class PublicSequenceResponseTest {
                                     MeetingSettingsResponse.builder()
                                         .criteria(MeetingSettingsResponse.Criteria.ALL)
                                         .sellingStrategy(
-                                            MeetingSettingsResponse.SellingStrategy.LEAD_BASED
+                                            MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED
                                         )
                                         .build()
                                 )

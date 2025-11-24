@@ -2,12 +2,12 @@
 
 package com.hubspot_sdk.api.models.conversations.customchannels.messages
 
-import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationMessageEgg
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationParticipant
 import com.hubspot_sdk.api.models.conversations.customchannels.FileAttachment
 import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContact
 import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContacts
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicDeliveryIdentifier
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

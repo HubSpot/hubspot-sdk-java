@@ -19,7 +19,7 @@ internal class PublicCrmSearchRequestTest {
                     FilterGroup.builder()
                         .addFilter(
                             Filter.builder()
-                                .operator(Filter.Operator.EQ)
+                                .operator(Filter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")
@@ -30,7 +30,7 @@ internal class PublicCrmSearchRequestTest {
                 )
                 .addFilter(
                     Filter.builder()
-                        .operator(Filter.Operator.EQ)
+                        .operator(Filter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")
@@ -46,7 +46,7 @@ internal class PublicCrmSearchRequestTest {
                 FilterGroup.builder()
                     .addFilter(
                         Filter.builder()
-                            .operator(Filter.Operator.EQ)
+                            .operator(Filter.Operator.BETWEEN)
                             .propertyName("propertyName")
                             .highValue("highValue")
                             .value("value")
@@ -58,7 +58,7 @@ internal class PublicCrmSearchRequestTest {
         assertThat(publicCrmSearchRequest.filters())
             .containsExactly(
                 Filter.builder()
-                    .operator(Filter.Operator.EQ)
+                    .operator(Filter.Operator.BETWEEN)
                     .propertyName("propertyName")
                     .highValue("highValue")
                     .value("value")
@@ -78,7 +78,7 @@ internal class PublicCrmSearchRequestTest {
                     FilterGroup.builder()
                         .addFilter(
                             Filter.builder()
-                                .operator(Filter.Operator.EQ)
+                                .operator(Filter.Operator.BETWEEN)
                                 .propertyName("propertyName")
                                 .highValue("highValue")
                                 .value("value")
@@ -89,7 +89,7 @@ internal class PublicCrmSearchRequestTest {
                 )
                 .addFilter(
                     Filter.builder()
-                        .operator(Filter.Operator.EQ)
+                        .operator(Filter.Operator.BETWEEN)
                         .propertyName("propertyName")
                         .highValue("highValue")
                         .value("value")

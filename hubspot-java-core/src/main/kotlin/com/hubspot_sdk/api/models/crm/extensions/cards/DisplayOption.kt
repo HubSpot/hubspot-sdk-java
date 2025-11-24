@@ -244,26 +244,26 @@ private constructor(
 
         companion object {
 
+            @JvmField val DANGER = of("DANGER")
+
             @JvmField val DEFAULT = of("DEFAULT")
+
+            @JvmField val INFO = of("INFO")
 
             @JvmField val SUCCESS = of("SUCCESS")
 
             @JvmField val WARNING = of("WARNING")
-
-            @JvmField val DANGER = of("DANGER")
-
-            @JvmField val INFO = of("INFO")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
+            DANGER,
             DEFAULT,
+            INFO,
             SUCCESS,
             WARNING,
-            DANGER,
-            INFO,
         }
 
         /**
@@ -276,11 +276,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            DANGER,
             DEFAULT,
+            INFO,
             SUCCESS,
             WARNING,
-            DANGER,
-            INFO,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -294,11 +294,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                DANGER -> Value.DANGER
                 DEFAULT -> Value.DEFAULT
+                INFO -> Value.INFO
                 SUCCESS -> Value.SUCCESS
                 WARNING -> Value.WARNING
-                DANGER -> Value.DANGER
-                INFO -> Value.INFO
                 else -> Value._UNKNOWN
             }
 
@@ -313,11 +313,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                DANGER -> Known.DANGER
                 DEFAULT -> Known.DEFAULT
+                INFO -> Known.INFO
                 SUCCESS -> Known.SUCCESS
                 WARNING -> Known.WARNING
-                DANGER -> Known.DANGER
-                INFO -> Known.INFO
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }
 

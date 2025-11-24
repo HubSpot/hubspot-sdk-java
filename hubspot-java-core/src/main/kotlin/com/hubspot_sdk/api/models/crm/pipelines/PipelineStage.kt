@@ -654,9 +654,9 @@ private constructor(
 
             @JvmField val CRM_PERMISSIONS_ENFORCEMENT = of("CRM_PERMISSIONS_ENFORCEMENT")
 
-            @JvmField val READ_ONLY = of("READ_ONLY")
-
             @JvmField val INTERNAL_ONLY = of("INTERNAL_ONLY")
+
+            @JvmField val READ_ONLY = of("READ_ONLY")
 
             @JvmStatic fun of(value: String) = WritePermissions(JsonField.of(value))
         }
@@ -664,8 +664,8 @@ private constructor(
         /** An enum containing [WritePermissions]'s known values. */
         enum class Known {
             CRM_PERMISSIONS_ENFORCEMENT,
-            READ_ONLY,
             INTERNAL_ONLY,
+            READ_ONLY,
         }
 
         /**
@@ -679,8 +679,8 @@ private constructor(
          */
         enum class Value {
             CRM_PERMISSIONS_ENFORCEMENT,
-            READ_ONLY,
             INTERNAL_ONLY,
+            READ_ONLY,
             /**
              * An enum member indicating that [WritePermissions] was instantiated with an unknown
              * value.
@@ -698,8 +698,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CRM_PERMISSIONS_ENFORCEMENT -> Value.CRM_PERMISSIONS_ENFORCEMENT
-                READ_ONLY -> Value.READ_ONLY
                 INTERNAL_ONLY -> Value.INTERNAL_ONLY
+                READ_ONLY -> Value.READ_ONLY
                 else -> Value._UNKNOWN
             }
 
@@ -715,8 +715,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CRM_PERMISSIONS_ENFORCEMENT -> Known.CRM_PERMISSIONS_ENFORCEMENT
-                READ_ONLY -> Known.READ_ONLY
                 INTERNAL_ONLY -> Known.INTERNAL_ONLY
+                READ_ONLY -> Known.READ_ONLY
                 else -> throw HubspotInvalidDataException("Unknown WritePermissions: $value")
             }
 

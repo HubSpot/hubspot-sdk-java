@@ -41,7 +41,7 @@ internal class BatchResponseBlogAuthorWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseBlogAuthorWithErrors.Status.PENDING)
+                .status(BatchResponseBlogAuthorWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -237,7 +237,7 @@ internal class BatchResponseBlogAuthorWithErrorsTest {
         assertThat(batchResponseBlogAuthorWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseBlogAuthorWithErrors.status())
-            .isEqualTo(BatchResponseBlogAuthorWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseBlogAuthorWithErrors.Status.CANCELED)
         assertThat(batchResponseBlogAuthorWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -341,7 +341,7 @@ internal class BatchResponseBlogAuthorWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseBlogAuthorWithErrors.Status.PENDING)
+                .status(BatchResponseBlogAuthorWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

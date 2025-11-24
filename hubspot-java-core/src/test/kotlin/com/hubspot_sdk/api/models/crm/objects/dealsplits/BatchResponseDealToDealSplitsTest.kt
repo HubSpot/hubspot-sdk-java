@@ -58,7 +58,7 @@ internal class BatchResponseDealToDealSplitsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseDealToDealSplits.Status.PENDING)
+                .status(BatchResponseDealToDealSplits.Status.CANCELED)
                 .links(
                     BatchResponseDealToDealSplits.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -113,7 +113,7 @@ internal class BatchResponseDealToDealSplitsTest {
         assertThat(batchResponseDealToDealSplits.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseDealToDealSplits.status())
-            .isEqualTo(BatchResponseDealToDealSplits.Status.PENDING)
+            .isEqualTo(BatchResponseDealToDealSplits.Status.CANCELED)
         assertThat(batchResponseDealToDealSplits.links())
             .contains(
                 BatchResponseDealToDealSplits.Links.builder()
@@ -171,7 +171,7 @@ internal class BatchResponseDealToDealSplitsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseDealToDealSplits.Status.PENDING)
+                .status(BatchResponseDealToDealSplits.Status.CANCELED)
                 .links(
                     BatchResponseDealToDealSplits.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

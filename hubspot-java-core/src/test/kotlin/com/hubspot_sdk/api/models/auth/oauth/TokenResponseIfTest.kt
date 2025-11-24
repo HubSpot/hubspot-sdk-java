@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.models.auth.oauth
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,18 +14,22 @@ internal class TokenResponseIfTest {
     fun create() {
         val tokenResponseIf =
             TokenResponseIf.builder()
-                .accessToken("access_token")
-                .expiresIn(0)
-                .refreshToken("refresh_token")
-                .tokenType("token_type")
-                .idToken("id_token")
+                .accessToken("accessToken")
+                .expiresIn(0L)
+                .hubId(0)
+                .idToken("idToken")
+                .addScope("string")
+                .tokenType("tokenType")
+                .userId(0)
                 .build()
 
-        assertThat(tokenResponseIf.accessToken()).isEqualTo("access_token")
-        assertThat(tokenResponseIf.expiresIn()).isEqualTo(0)
-        assertThat(tokenResponseIf.refreshToken()).isEqualTo("refresh_token")
-        assertThat(tokenResponseIf.tokenType()).isEqualTo("token_type")
-        assertThat(tokenResponseIf.idToken()).contains("id_token")
+        assertThat(tokenResponseIf.accessToken()).contains("accessToken")
+        assertThat(tokenResponseIf.expiresIn()).contains(0L)
+        assertThat(tokenResponseIf.hubId()).contains(0)
+        assertThat(tokenResponseIf.idToken()).contains("idToken")
+        assertThat(tokenResponseIf.scopes().getOrNull()).containsExactly("string")
+        assertThat(tokenResponseIf.tokenType()).contains("tokenType")
+        assertThat(tokenResponseIf.userId()).contains(0)
     }
 
     @Test
@@ -32,11 +37,13 @@ internal class TokenResponseIfTest {
         val jsonMapper = jsonMapper()
         val tokenResponseIf =
             TokenResponseIf.builder()
-                .accessToken("access_token")
-                .expiresIn(0)
-                .refreshToken("refresh_token")
-                .tokenType("token_type")
-                .idToken("id_token")
+                .accessToken("accessToken")
+                .expiresIn(0L)
+                .hubId(0)
+                .idToken("idToken")
+                .addScope("string")
+                .tokenType("tokenType")
+                .userId(0)
                 .build()
 
         val roundtrippedTokenResponseIf =

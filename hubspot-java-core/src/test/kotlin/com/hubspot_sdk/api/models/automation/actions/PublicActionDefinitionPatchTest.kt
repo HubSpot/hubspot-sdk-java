@@ -50,7 +50,7 @@ internal class PublicActionDefinitionPatchTest {
                                         .displayOrder(1)
                                         .build()
                                 )
-                                .type(FieldTypeDefinition.Type.STRING)
+                                .type(FieldTypeDefinition.Type.BOOL)
                                 .description("description")
                                 .externalOptionsReferenceType("externalOptionsReferenceType")
                                 .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -58,7 +58,7 @@ internal class PublicActionDefinitionPatchTest {
                                 .label("label")
                                 .optionsUrl("optionsUrl")
                                 .referencedObjectType(
-                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                    FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                 )
                                 .build()
                         )
@@ -106,7 +106,7 @@ internal class PublicActionDefinitionPatchTest {
                                         .displayOrder(1)
                                         .build()
                                 )
-                                .type(FieldTypeDefinition.Type.STRING)
+                                .type(FieldTypeDefinition.Type.BOOL)
                                 .description("description")
                                 .externalOptionsReferenceType("externalOptionsReferenceType")
                                 .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -114,7 +114,7 @@ internal class PublicActionDefinitionPatchTest {
                                 .label("label")
                                 .optionsUrl("optionsUrl")
                                 .referencedObjectType(
-                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                    FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                 )
                                 .build()
                         )
@@ -162,14 +162,16 @@ internal class PublicActionDefinitionPatchTest {
                                     .displayOrder(1)
                                     .build()
                             )
-                            .type(FieldTypeDefinition.Type.STRING)
+                            .type(FieldTypeDefinition.Type.BOOL)
                             .description("description")
                             .externalOptionsReferenceType("externalOptionsReferenceType")
                             .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
                             .helpText("helpText")
                             .label("label")
                             .optionsUrl("optionsUrl")
-                            .referencedObjectType(FieldTypeDefinition.ReferencedObjectType.CONTACT)
+                            .referencedObjectType(
+                                FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
+                            )
                             .build()
                     )
                     .automationFieldType("automationFieldType")
@@ -217,14 +219,16 @@ internal class PublicActionDefinitionPatchTest {
                                     .displayOrder(1)
                                     .build()
                             )
-                            .type(FieldTypeDefinition.Type.STRING)
+                            .type(FieldTypeDefinition.Type.BOOL)
                             .description("description")
                             .externalOptionsReferenceType("externalOptionsReferenceType")
                             .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
                             .helpText("helpText")
                             .label("label")
                             .optionsUrl("optionsUrl")
-                            .referencedObjectType(FieldTypeDefinition.ReferencedObjectType.CONTACT)
+                            .referencedObjectType(
+                                FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
+                            )
                             .build()
                     )
                     .build()
@@ -271,7 +275,7 @@ internal class PublicActionDefinitionPatchTest {
                                         .displayOrder(1)
                                         .build()
                                 )
-                                .type(FieldTypeDefinition.Type.STRING)
+                                .type(FieldTypeDefinition.Type.BOOL)
                                 .description("description")
                                 .externalOptionsReferenceType("externalOptionsReferenceType")
                                 .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -279,7 +283,7 @@ internal class PublicActionDefinitionPatchTest {
                                 .label("label")
                                 .optionsUrl("optionsUrl")
                                 .referencedObjectType(
-                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                    FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                 )
                                 .build()
                         )
@@ -327,7 +331,7 @@ internal class PublicActionDefinitionPatchTest {
                                         .displayOrder(1)
                                         .build()
                                 )
-                                .type(FieldTypeDefinition.Type.STRING)
+                                .type(FieldTypeDefinition.Type.BOOL)
                                 .description("description")
                                 .externalOptionsReferenceType("externalOptionsReferenceType")
                                 .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -335,7 +339,7 @@ internal class PublicActionDefinitionPatchTest {
                                 .label("label")
                                 .optionsUrl("optionsUrl")
                                 .referencedObjectType(
-                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                    FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                 )
                                 .build()
                         )

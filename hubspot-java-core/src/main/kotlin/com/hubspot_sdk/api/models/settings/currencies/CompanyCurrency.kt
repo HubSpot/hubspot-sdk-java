@@ -33,12 +33,16 @@ private constructor(
     ) : this(id, createdAt, mutableMapOf())
 
     /**
+     * The currency code for the company currency
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * The date the company currency was created.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -100,6 +104,7 @@ private constructor(
             additionalProperties = companyCurrency.additionalProperties.toMutableMap()
         }
 
+        /** The currency code for the company currency */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -110,6 +115,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** The date the company currency was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**

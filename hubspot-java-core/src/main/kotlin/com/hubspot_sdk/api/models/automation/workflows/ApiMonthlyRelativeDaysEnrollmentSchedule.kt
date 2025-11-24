@@ -252,17 +252,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val LAST_DAY_OF_MONTH = of("LAST_DAY_OF_MONTH")
-
             @JvmField val FIRST_MONDAY_OF_MONTH = of("FIRST_MONDAY_OF_MONTH")
+
+            @JvmField val LAST_DAY_OF_MONTH = of("LAST_DAY_OF_MONTH")
 
             @JvmStatic fun of(value: String) = MonthlyRelativeDays(JsonField.of(value))
         }
 
         /** An enum containing [MonthlyRelativeDays]'s known values. */
         enum class Known {
-            LAST_DAY_OF_MONTH,
             FIRST_MONDAY_OF_MONTH,
+            LAST_DAY_OF_MONTH,
         }
 
         /**
@@ -275,8 +275,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            LAST_DAY_OF_MONTH,
             FIRST_MONDAY_OF_MONTH,
+            LAST_DAY_OF_MONTH,
             /**
              * An enum member indicating that [MonthlyRelativeDays] was instantiated with an unknown
              * value.
@@ -293,8 +293,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                LAST_DAY_OF_MONTH -> Value.LAST_DAY_OF_MONTH
                 FIRST_MONDAY_OF_MONTH -> Value.FIRST_MONDAY_OF_MONTH
+                LAST_DAY_OF_MONTH -> Value.LAST_DAY_OF_MONTH
                 else -> Value._UNKNOWN
             }
 
@@ -309,8 +309,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                LAST_DAY_OF_MONTH -> Known.LAST_DAY_OF_MONTH
                 FIRST_MONDAY_OF_MONTH -> Known.FIRST_MONDAY_OF_MONTH
+                LAST_DAY_OF_MONTH -> Known.LAST_DAY_OF_MONTH
                 else -> throw HubspotInvalidDataException("Unknown MonthlyRelativeDays: $value")
             }
 

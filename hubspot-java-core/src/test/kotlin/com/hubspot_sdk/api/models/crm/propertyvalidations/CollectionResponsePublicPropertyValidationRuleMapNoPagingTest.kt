@@ -19,7 +19,9 @@ internal class CollectionResponsePublicPropertyValidationRuleMapNoPagingTest {
                         .addPropertyValidationRule(
                             PublicPropertyValidationRule.builder()
                                 .addRuleArgument("string")
-                                .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
+                                .ruleType(
+                                    PublicPropertyValidationRule.RuleType.AFTER_DATETIME_DURATION
+                                )
                                 .build()
                         )
                         .build()
@@ -33,7 +35,7 @@ internal class CollectionResponsePublicPropertyValidationRuleMapNoPagingTest {
                     .addPropertyValidationRule(
                         PublicPropertyValidationRule.builder()
                             .addRuleArgument("string")
-                            .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
+                            .ruleType(PublicPropertyValidationRule.RuleType.AFTER_DATETIME_DURATION)
                             .build()
                     )
                     .build()
@@ -51,7 +53,9 @@ internal class CollectionResponsePublicPropertyValidationRuleMapNoPagingTest {
                         .addPropertyValidationRule(
                             PublicPropertyValidationRule.builder()
                                 .addRuleArgument("string")
-                                .ruleType(PublicPropertyValidationRule.RuleType.FORMAT)
+                                .ruleType(
+                                    PublicPropertyValidationRule.RuleType.AFTER_DATETIME_DURATION
+                                )
                                 .build()
                         )
                         .build()

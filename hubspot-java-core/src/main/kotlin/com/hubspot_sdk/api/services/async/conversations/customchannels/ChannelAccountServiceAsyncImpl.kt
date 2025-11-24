@@ -16,8 +16,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.customchannels.CollectionResponseWithTotalPublicChannelAccountForwardPaging
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccount
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts.ChannelAccountListPageAsync

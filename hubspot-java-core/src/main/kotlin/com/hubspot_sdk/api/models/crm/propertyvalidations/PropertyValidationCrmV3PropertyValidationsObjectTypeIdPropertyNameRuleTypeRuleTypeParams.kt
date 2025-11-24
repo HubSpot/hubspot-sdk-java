@@ -271,53 +271,21 @@ private constructor(
 
         companion object {
 
-            @JvmField val FORMAT = of("FORMAT")
-
-            @JvmField val ALPHANUMERIC = of("ALPHANUMERIC")
-
-            @JvmField val MAX_LENGTH = of("MAX_LENGTH")
-
-            @JvmField val MIN_LENGTH = of("MIN_LENGTH")
-
-            @JvmField val MIN_NUMBER = of("MIN_NUMBER")
-
-            @JvmField val MAX_NUMBER = of("MAX_NUMBER")
-
-            @JvmField val START_DATE = of("START_DATE")
-
-            @JvmField val END_DATE = of("END_DATE")
-
-            @JvmField val SPECIAL_CHARACTERS = of("SPECIAL_CHARACTERS")
-
-            @JvmField val WHITESPACE = of("WHITESPACE")
-
-            @JvmField val DECIMAL = of("DECIMAL")
-
-            @JvmField val BEFORE_DURATION = of("BEFORE_DURATION")
+            @JvmField val AFTER_DATETIME_DURATION = of("AFTER_DATETIME_DURATION")
 
             @JvmField val AFTER_DURATION = of("AFTER_DURATION")
 
-            @JvmField val DAYS_OF_WEEK = of("DAYS_OF_WEEK")
-
-            @JvmField val REGEX = of("REGEX")
-
-            @JvmField val START_DATETIME = of("START_DATETIME")
-
-            @JvmField val END_DATETIME = of("END_DATETIME")
+            @JvmField val ALPHANUMERIC = of("ALPHANUMERIC")
 
             @JvmField val BEFORE_DATETIME_DURATION = of("BEFORE_DATETIME_DURATION")
 
-            @JvmField val AFTER_DATETIME_DURATION = of("AFTER_DATETIME_DURATION")
+            @JvmField val BEFORE_DURATION = of("BEFORE_DURATION")
 
-            @JvmField
-            val PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE =
-                of("PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE")
+            @JvmField val DAYS_OF_WEEK = of("DAYS_OF_WEEK")
 
-            @JvmField val URL = of("URL")
+            @JvmField val DECIMAL = of("DECIMAL")
 
-            @JvmField val URL_ALLOWED_DOMAINS = of("URL_ALLOWED_DOMAINS")
-
-            @JvmField val URL_BLOCKED_DOMAINS = of("URL_BLOCKED_DOMAINS")
+            @JvmField val DOMAIN = of("DOMAIN")
 
             @JvmField val EMAIL = of("EMAIL")
 
@@ -325,40 +293,72 @@ private constructor(
 
             @JvmField val EMAIL_BLOCKED_DOMAINS = of("EMAIL_BLOCKED_DOMAINS")
 
-            @JvmField val DOMAIN = of("DOMAIN")
+            @JvmField val END_DATE = of("END_DATE")
+
+            @JvmField val END_DATETIME = of("END_DATETIME")
+
+            @JvmField val FORMAT = of("FORMAT")
+
+            @JvmField val MAX_LENGTH = of("MAX_LENGTH")
+
+            @JvmField val MAX_NUMBER = of("MAX_NUMBER")
+
+            @JvmField val MIN_LENGTH = of("MIN_LENGTH")
+
+            @JvmField val MIN_NUMBER = of("MIN_NUMBER")
+
+            @JvmField
+            val PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE =
+                of("PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE")
+
+            @JvmField val REGEX = of("REGEX")
+
+            @JvmField val SPECIAL_CHARACTERS = of("SPECIAL_CHARACTERS")
+
+            @JvmField val START_DATE = of("START_DATE")
+
+            @JvmField val START_DATETIME = of("START_DATETIME")
+
+            @JvmField val URL = of("URL")
+
+            @JvmField val URL_ALLOWED_DOMAINS = of("URL_ALLOWED_DOMAINS")
+
+            @JvmField val URL_BLOCKED_DOMAINS = of("URL_BLOCKED_DOMAINS")
+
+            @JvmField val WHITESPACE = of("WHITESPACE")
 
             @JvmStatic fun of(value: String) = RuleType(JsonField.of(value))
         }
 
         /** An enum containing [RuleType]'s known values. */
         enum class Known {
-            FORMAT,
-            ALPHANUMERIC,
-            MAX_LENGTH,
-            MIN_LENGTH,
-            MIN_NUMBER,
-            MAX_NUMBER,
-            START_DATE,
-            END_DATE,
-            SPECIAL_CHARACTERS,
-            WHITESPACE,
-            DECIMAL,
-            BEFORE_DURATION,
-            AFTER_DURATION,
-            DAYS_OF_WEEK,
-            REGEX,
-            START_DATETIME,
-            END_DATETIME,
-            BEFORE_DATETIME_DURATION,
             AFTER_DATETIME_DURATION,
-            PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE,
-            URL,
-            URL_ALLOWED_DOMAINS,
-            URL_BLOCKED_DOMAINS,
+            AFTER_DURATION,
+            ALPHANUMERIC,
+            BEFORE_DATETIME_DURATION,
+            BEFORE_DURATION,
+            DAYS_OF_WEEK,
+            DECIMAL,
+            DOMAIN,
             EMAIL,
             EMAIL_ALLOWED_DOMAINS,
             EMAIL_BLOCKED_DOMAINS,
-            DOMAIN,
+            END_DATE,
+            END_DATETIME,
+            FORMAT,
+            MAX_LENGTH,
+            MAX_NUMBER,
+            MIN_LENGTH,
+            MIN_NUMBER,
+            PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE,
+            REGEX,
+            SPECIAL_CHARACTERS,
+            START_DATE,
+            START_DATETIME,
+            URL,
+            URL_ALLOWED_DOMAINS,
+            URL_BLOCKED_DOMAINS,
+            WHITESPACE,
         }
 
         /**
@@ -371,33 +371,33 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            FORMAT,
-            ALPHANUMERIC,
-            MAX_LENGTH,
-            MIN_LENGTH,
-            MIN_NUMBER,
-            MAX_NUMBER,
-            START_DATE,
-            END_DATE,
-            SPECIAL_CHARACTERS,
-            WHITESPACE,
-            DECIMAL,
-            BEFORE_DURATION,
-            AFTER_DURATION,
-            DAYS_OF_WEEK,
-            REGEX,
-            START_DATETIME,
-            END_DATETIME,
-            BEFORE_DATETIME_DURATION,
             AFTER_DATETIME_DURATION,
-            PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE,
-            URL,
-            URL_ALLOWED_DOMAINS,
-            URL_BLOCKED_DOMAINS,
+            AFTER_DURATION,
+            ALPHANUMERIC,
+            BEFORE_DATETIME_DURATION,
+            BEFORE_DURATION,
+            DAYS_OF_WEEK,
+            DECIMAL,
+            DOMAIN,
             EMAIL,
             EMAIL_ALLOWED_DOMAINS,
             EMAIL_BLOCKED_DOMAINS,
-            DOMAIN,
+            END_DATE,
+            END_DATETIME,
+            FORMAT,
+            MAX_LENGTH,
+            MAX_NUMBER,
+            MIN_LENGTH,
+            MIN_NUMBER,
+            PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE,
+            REGEX,
+            SPECIAL_CHARACTERS,
+            START_DATE,
+            START_DATETIME,
+            URL,
+            URL_ALLOWED_DOMAINS,
+            URL_BLOCKED_DOMAINS,
+            WHITESPACE,
             /** An enum member indicating that [RuleType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -411,34 +411,34 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                FORMAT -> Value.FORMAT
-                ALPHANUMERIC -> Value.ALPHANUMERIC
-                MAX_LENGTH -> Value.MAX_LENGTH
-                MIN_LENGTH -> Value.MIN_LENGTH
-                MIN_NUMBER -> Value.MIN_NUMBER
-                MAX_NUMBER -> Value.MAX_NUMBER
-                START_DATE -> Value.START_DATE
-                END_DATE -> Value.END_DATE
-                SPECIAL_CHARACTERS -> Value.SPECIAL_CHARACTERS
-                WHITESPACE -> Value.WHITESPACE
-                DECIMAL -> Value.DECIMAL
-                BEFORE_DURATION -> Value.BEFORE_DURATION
-                AFTER_DURATION -> Value.AFTER_DURATION
-                DAYS_OF_WEEK -> Value.DAYS_OF_WEEK
-                REGEX -> Value.REGEX
-                START_DATETIME -> Value.START_DATETIME
-                END_DATETIME -> Value.END_DATETIME
-                BEFORE_DATETIME_DURATION -> Value.BEFORE_DATETIME_DURATION
                 AFTER_DATETIME_DURATION -> Value.AFTER_DATETIME_DURATION
-                PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE ->
-                    Value.PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE
-                URL -> Value.URL
-                URL_ALLOWED_DOMAINS -> Value.URL_ALLOWED_DOMAINS
-                URL_BLOCKED_DOMAINS -> Value.URL_BLOCKED_DOMAINS
+                AFTER_DURATION -> Value.AFTER_DURATION
+                ALPHANUMERIC -> Value.ALPHANUMERIC
+                BEFORE_DATETIME_DURATION -> Value.BEFORE_DATETIME_DURATION
+                BEFORE_DURATION -> Value.BEFORE_DURATION
+                DAYS_OF_WEEK -> Value.DAYS_OF_WEEK
+                DECIMAL -> Value.DECIMAL
+                DOMAIN -> Value.DOMAIN
                 EMAIL -> Value.EMAIL
                 EMAIL_ALLOWED_DOMAINS -> Value.EMAIL_ALLOWED_DOMAINS
                 EMAIL_BLOCKED_DOMAINS -> Value.EMAIL_BLOCKED_DOMAINS
-                DOMAIN -> Value.DOMAIN
+                END_DATE -> Value.END_DATE
+                END_DATETIME -> Value.END_DATETIME
+                FORMAT -> Value.FORMAT
+                MAX_LENGTH -> Value.MAX_LENGTH
+                MAX_NUMBER -> Value.MAX_NUMBER
+                MIN_LENGTH -> Value.MIN_LENGTH
+                MIN_NUMBER -> Value.MIN_NUMBER
+                PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE ->
+                    Value.PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE
+                REGEX -> Value.REGEX
+                SPECIAL_CHARACTERS -> Value.SPECIAL_CHARACTERS
+                START_DATE -> Value.START_DATE
+                START_DATETIME -> Value.START_DATETIME
+                URL -> Value.URL
+                URL_ALLOWED_DOMAINS -> Value.URL_ALLOWED_DOMAINS
+                URL_BLOCKED_DOMAINS -> Value.URL_BLOCKED_DOMAINS
+                WHITESPACE -> Value.WHITESPACE
                 else -> Value._UNKNOWN
             }
 
@@ -453,34 +453,34 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                FORMAT -> Known.FORMAT
-                ALPHANUMERIC -> Known.ALPHANUMERIC
-                MAX_LENGTH -> Known.MAX_LENGTH
-                MIN_LENGTH -> Known.MIN_LENGTH
-                MIN_NUMBER -> Known.MIN_NUMBER
-                MAX_NUMBER -> Known.MAX_NUMBER
-                START_DATE -> Known.START_DATE
-                END_DATE -> Known.END_DATE
-                SPECIAL_CHARACTERS -> Known.SPECIAL_CHARACTERS
-                WHITESPACE -> Known.WHITESPACE
-                DECIMAL -> Known.DECIMAL
-                BEFORE_DURATION -> Known.BEFORE_DURATION
-                AFTER_DURATION -> Known.AFTER_DURATION
-                DAYS_OF_WEEK -> Known.DAYS_OF_WEEK
-                REGEX -> Known.REGEX
-                START_DATETIME -> Known.START_DATETIME
-                END_DATETIME -> Known.END_DATETIME
-                BEFORE_DATETIME_DURATION -> Known.BEFORE_DATETIME_DURATION
                 AFTER_DATETIME_DURATION -> Known.AFTER_DATETIME_DURATION
-                PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE ->
-                    Known.PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE
-                URL -> Known.URL
-                URL_ALLOWED_DOMAINS -> Known.URL_ALLOWED_DOMAINS
-                URL_BLOCKED_DOMAINS -> Known.URL_BLOCKED_DOMAINS
+                AFTER_DURATION -> Known.AFTER_DURATION
+                ALPHANUMERIC -> Known.ALPHANUMERIC
+                BEFORE_DATETIME_DURATION -> Known.BEFORE_DATETIME_DURATION
+                BEFORE_DURATION -> Known.BEFORE_DURATION
+                DAYS_OF_WEEK -> Known.DAYS_OF_WEEK
+                DECIMAL -> Known.DECIMAL
+                DOMAIN -> Known.DOMAIN
                 EMAIL -> Known.EMAIL
                 EMAIL_ALLOWED_DOMAINS -> Known.EMAIL_ALLOWED_DOMAINS
                 EMAIL_BLOCKED_DOMAINS -> Known.EMAIL_BLOCKED_DOMAINS
-                DOMAIN -> Known.DOMAIN
+                END_DATE -> Known.END_DATE
+                END_DATETIME -> Known.END_DATETIME
+                FORMAT -> Known.FORMAT
+                MAX_LENGTH -> Known.MAX_LENGTH
+                MAX_NUMBER -> Known.MAX_NUMBER
+                MIN_LENGTH -> Known.MIN_LENGTH
+                MIN_NUMBER -> Known.MIN_NUMBER
+                PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE ->
+                    Known.PHONE_NUMBER_WITH_EXPLICIT_COUNTRY_CODE
+                REGEX -> Known.REGEX
+                SPECIAL_CHARACTERS -> Known.SPECIAL_CHARACTERS
+                START_DATE -> Known.START_DATE
+                START_DATETIME -> Known.START_DATETIME
+                URL -> Known.URL
+                URL_ALLOWED_DOMAINS -> Known.URL_ALLOWED_DOMAINS
+                URL_BLOCKED_DOMAINS -> Known.URL_BLOCKED_DOMAINS
+                WHITESPACE -> Known.WHITESPACE
                 else -> throw HubspotInvalidDataException("Unknown RuleType: $value")
             }
 

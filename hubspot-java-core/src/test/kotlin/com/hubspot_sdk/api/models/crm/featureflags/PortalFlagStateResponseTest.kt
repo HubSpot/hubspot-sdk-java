@@ -15,14 +15,14 @@ internal class PortalFlagStateResponseTest {
             PortalFlagStateResponse.builder()
                 .appId(0)
                 .flagName("flagName")
-                .flagState(PortalFlagStateResponse.FlagState.OFF)
+                .flagState(PortalFlagStateResponse.FlagState.ABSENT)
                 .portalId(0)
                 .build()
 
         assertThat(portalFlagStateResponse.appId()).isEqualTo(0)
         assertThat(portalFlagStateResponse.flagName()).isEqualTo("flagName")
         assertThat(portalFlagStateResponse.flagState())
-            .isEqualTo(PortalFlagStateResponse.FlagState.OFF)
+            .isEqualTo(PortalFlagStateResponse.FlagState.ABSENT)
         assertThat(portalFlagStateResponse.portalId()).isEqualTo(0)
     }
 
@@ -33,7 +33,7 @@ internal class PortalFlagStateResponseTest {
             PortalFlagStateResponse.builder()
                 .appId(0)
                 .flagName("flagName")
-                .flagState(PortalFlagStateResponse.FlagState.OFF)
+                .flagState(PortalFlagStateResponse.FlagState.ABSENT)
                 .portalId(0)
                 .build()
 

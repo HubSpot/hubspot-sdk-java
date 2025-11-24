@@ -16,7 +16,7 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
         val externalCalendarMeetingEventResponseProperties =
             ExternalCalendarMeetingEventResponseProperties.builder()
                 .hsEngagementSource(
-                    ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.UNKNOWN
+                    ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.ACADEMY
                 )
                 .hsEngagementSourceId("hs_engagement_source_id")
                 .hsMeetingEndTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -33,14 +33,14 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
                 .hsMeetingExternalUrl("hs_meeting_external_url")
                 .hsMeetingLocation("hs_meeting_location")
                 .hsMeetingLocationType(
-                    ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.PHONE
+                    ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS
                 )
                 .hsUniqueId("hs_unique_id")
                 .hubspotOwnerId("hubspot_owner_id")
                 .build()
 
         assertThat(externalCalendarMeetingEventResponseProperties.hsEngagementSource())
-            .isEqualTo(ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.UNKNOWN)
+            .isEqualTo(ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.ACADEMY)
         assertThat(externalCalendarMeetingEventResponseProperties.hsEngagementSourceId())
             .isEqualTo("hs_engagement_source_id")
         assertThat(externalCalendarMeetingEventResponseProperties.hsMeetingEndTime())
@@ -70,7 +70,7 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
         assertThat(externalCalendarMeetingEventResponseProperties.hsMeetingLocation())
             .contains("hs_meeting_location")
         assertThat(externalCalendarMeetingEventResponseProperties.hsMeetingLocationType())
-            .contains(ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.PHONE)
+            .contains(ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS)
         assertThat(externalCalendarMeetingEventResponseProperties.hsUniqueId())
             .contains("hs_unique_id")
         assertThat(externalCalendarMeetingEventResponseProperties.hubspotOwnerId())
@@ -83,7 +83,7 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
         val externalCalendarMeetingEventResponseProperties =
             ExternalCalendarMeetingEventResponseProperties.builder()
                 .hsEngagementSource(
-                    ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.UNKNOWN
+                    ExternalCalendarMeetingEventResponseProperties.HsEngagementSource.ACADEMY
                 )
                 .hsEngagementSourceId("hs_engagement_source_id")
                 .hsMeetingEndTime(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -100,7 +100,7 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
                 .hsMeetingExternalUrl("hs_meeting_external_url")
                 .hsMeetingLocation("hs_meeting_location")
                 .hsMeetingLocationType(
-                    ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.PHONE
+                    ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS
                 )
                 .hsUniqueId("hs_unique_id")
                 .hubspotOwnerId("hubspot_owner_id")

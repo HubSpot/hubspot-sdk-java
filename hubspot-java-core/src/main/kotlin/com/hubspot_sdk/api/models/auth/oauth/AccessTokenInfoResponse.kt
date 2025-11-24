@@ -30,6 +30,8 @@ private constructor(
     private val tokenType: JsonField<String>,
     private val userId: JsonField<Int>,
     private val hubDomain: JsonField<String>,
+    private val isPrivateDistribution: JsonField<Boolean>,
+    private val signedAccessToken: JsonField<SignedAccessToken>,
     private val user: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -44,6 +46,12 @@ private constructor(
         @JsonProperty("token_type") @ExcludeMissing tokenType: JsonField<String> = JsonMissing.of(),
         @JsonProperty("user_id") @ExcludeMissing userId: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("hub_domain") @ExcludeMissing hubDomain: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("is_private_distribution")
+        @ExcludeMissing
+        isPrivateDistribution: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("signed_access_token")
+        @ExcludeMissing
+        signedAccessToken: JsonField<SignedAccessToken> = JsonMissing.of(),
         @JsonProperty("user") @ExcludeMissing user: JsonField<String> = JsonMissing.of(),
     ) : this(
         token,
@@ -54,6 +62,8 @@ private constructor(
         tokenType,
         userId,
         hubDomain,
+        isPrivateDistribution,
+        signedAccessToken,
         user,
         mutableMapOf(),
     )
@@ -105,6 +115,20 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun hubDomain(): Optional<String> = hubDomain.getOptional("hub_domain")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun isPrivateDistribution(): Optional<Boolean> =
+        isPrivateDistribution.getOptional("is_private_distribution")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun signedAccessToken(): Optional<SignedAccessToken> =
+        signedAccessToken.getOptional("signed_access_token")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -169,6 +193,26 @@ private constructor(
     @JsonProperty("hub_domain") @ExcludeMissing fun _hubDomain(): JsonField<String> = hubDomain
 
     /**
+     * Returns the raw JSON value of [isPrivateDistribution].
+     *
+     * Unlike [isPrivateDistribution], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("is_private_distribution")
+    @ExcludeMissing
+    fun _isPrivateDistribution(): JsonField<Boolean> = isPrivateDistribution
+
+    /**
+     * Returns the raw JSON value of [signedAccessToken].
+     *
+     * Unlike [signedAccessToken], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("signed_access_token")
+    @ExcludeMissing
+    fun _signedAccessToken(): JsonField<SignedAccessToken> = signedAccessToken
+
+    /**
      * Returns the raw JSON value of [user].
      *
      * Unlike [user], this method doesn't throw if the JSON field has an unexpected type.
@@ -217,6 +261,8 @@ private constructor(
         private var tokenType: JsonField<String>? = null
         private var userId: JsonField<Int>? = null
         private var hubDomain: JsonField<String> = JsonMissing.of()
+        private var isPrivateDistribution: JsonField<Boolean> = JsonMissing.of()
+        private var signedAccessToken: JsonField<SignedAccessToken> = JsonMissing.of()
         private var user: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -230,6 +276,8 @@ private constructor(
             tokenType = accessTokenInfoResponse.tokenType
             userId = accessTokenInfoResponse.userId
             hubDomain = accessTokenInfoResponse.hubDomain
+            isPrivateDistribution = accessTokenInfoResponse.isPrivateDistribution
+            signedAccessToken = accessTokenInfoResponse.signedAccessToken
             user = accessTokenInfoResponse.user
             additionalProperties = accessTokenInfoResponse.additionalProperties.toMutableMap()
         }
@@ -331,6 +379,34 @@ private constructor(
          */
         fun hubDomain(hubDomain: JsonField<String>) = apply { this.hubDomain = hubDomain }
 
+        fun isPrivateDistribution(isPrivateDistribution: Boolean) =
+            isPrivateDistribution(JsonField.of(isPrivateDistribution))
+
+        /**
+         * Sets [Builder.isPrivateDistribution] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.isPrivateDistribution] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun isPrivateDistribution(isPrivateDistribution: JsonField<Boolean>) = apply {
+            this.isPrivateDistribution = isPrivateDistribution
+        }
+
+        fun signedAccessToken(signedAccessToken: SignedAccessToken) =
+            signedAccessToken(JsonField.of(signedAccessToken))
+
+        /**
+         * Sets [Builder.signedAccessToken] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.signedAccessToken] with a well-typed [SignedAccessToken]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun signedAccessToken(signedAccessToken: JsonField<SignedAccessToken>) = apply {
+            this.signedAccessToken = signedAccessToken
+        }
+
         fun user(user: String) = user(JsonField.of(user))
 
         /**
@@ -388,6 +464,8 @@ private constructor(
                 checkRequired("tokenType", tokenType),
                 checkRequired("userId", userId),
                 hubDomain,
+                isPrivateDistribution,
+                signedAccessToken,
                 user,
                 additionalProperties.toMutableMap(),
             )
@@ -408,6 +486,8 @@ private constructor(
         tokenType()
         userId()
         hubDomain()
+        isPrivateDistribution()
+        signedAccessToken().ifPresent { it.validate() }
         user()
         validated = true
     }
@@ -435,6 +515,8 @@ private constructor(
             (if (tokenType.asKnown().isPresent) 1 else 0) +
             (if (userId.asKnown().isPresent) 1 else 0) +
             (if (hubDomain.asKnown().isPresent) 1 else 0) +
+            (if (isPrivateDistribution.asKnown().isPresent) 1 else 0) +
+            (signedAccessToken.asKnown().getOrNull()?.validity() ?: 0) +
             (if (user.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -451,6 +533,8 @@ private constructor(
             tokenType == other.tokenType &&
             userId == other.userId &&
             hubDomain == other.hubDomain &&
+            isPrivateDistribution == other.isPrivateDistribution &&
+            signedAccessToken == other.signedAccessToken &&
             user == other.user &&
             additionalProperties == other.additionalProperties
     }
@@ -465,6 +549,8 @@ private constructor(
             tokenType,
             userId,
             hubDomain,
+            isPrivateDistribution,
+            signedAccessToken,
             user,
             additionalProperties,
         )
@@ -473,5 +559,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccessTokenInfoResponse{token=$token, appId=$appId, expiresIn=$expiresIn, hubId=$hubId, scopes=$scopes, tokenType=$tokenType, userId=$userId, hubDomain=$hubDomain, user=$user, additionalProperties=$additionalProperties}"
+        "AccessTokenInfoResponse{token=$token, appId=$appId, expiresIn=$expiresIn, hubId=$hubId, scopes=$scopes, tokenType=$tokenType, userId=$userId, hubDomain=$hubDomain, isPrivateDistribution=$isPrivateDistribution, signedAccessToken=$signedAccessToken, user=$user, additionalProperties=$additionalProperties}"
 }

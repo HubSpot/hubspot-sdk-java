@@ -204,20 +204,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val ABSENT = of("ABSENT")
+
             @JvmField val OFF = of("OFF")
 
             @JvmField val ON = of("ON")
-
-            @JvmField val ABSENT = of("ABSENT")
 
             @JvmStatic fun of(value: String) = FlagState(JsonField.of(value))
         }
 
         /** An enum containing [FlagState]'s known values. */
         enum class Known {
+            ABSENT,
             OFF,
             ON,
-            ABSENT,
         }
 
         /**
@@ -230,9 +230,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            ABSENT,
             OFF,
             ON,
-            ABSENT,
             /**
              * An enum member indicating that [FlagState] was instantiated with an unknown value.
              */
@@ -248,9 +248,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                ABSENT -> Value.ABSENT
                 OFF -> Value.OFF
                 ON -> Value.ON
-                ABSENT -> Value.ABSENT
                 else -> Value._UNKNOWN
             }
 
@@ -265,9 +265,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                ABSENT -> Known.ABSENT
                 OFF -> Known.OFF
                 ON -> Known.ON
-                ABSENT -> Known.ABSENT
                 else -> throw HubspotInvalidDataException("Unknown FlagState: $value")
             }
 

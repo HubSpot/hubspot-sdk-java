@@ -14,7 +14,8 @@ internal class ApiMonthlyRelativeDaysEnrollmentScheduleTest {
         val apiMonthlyRelativeDaysEnrollmentSchedule =
             ApiMonthlyRelativeDaysEnrollmentSchedule.builder()
                 .monthlyRelativeDays(
-                    ApiMonthlyRelativeDaysEnrollmentSchedule.MonthlyRelativeDays.LAST_DAY_OF_MONTH
+                    ApiMonthlyRelativeDaysEnrollmentSchedule.MonthlyRelativeDays
+                        .FIRST_MONDAY_OF_MONTH
                 )
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .type(ApiMonthlyRelativeDaysEnrollmentSchedule.Type.MONTHLY_RELATIVE_DAYS)
@@ -22,7 +23,7 @@ internal class ApiMonthlyRelativeDaysEnrollmentScheduleTest {
 
         assertThat(apiMonthlyRelativeDaysEnrollmentSchedule.monthlyRelativeDays())
             .isEqualTo(
-                ApiMonthlyRelativeDaysEnrollmentSchedule.MonthlyRelativeDays.LAST_DAY_OF_MONTH
+                ApiMonthlyRelativeDaysEnrollmentSchedule.MonthlyRelativeDays.FIRST_MONDAY_OF_MONTH
             )
         assertThat(apiMonthlyRelativeDaysEnrollmentSchedule.timeOfDay())
             .isEqualTo(ApiTimeOfDay.builder().hour(0).minute(0).build())
@@ -36,7 +37,8 @@ internal class ApiMonthlyRelativeDaysEnrollmentScheduleTest {
         val apiMonthlyRelativeDaysEnrollmentSchedule =
             ApiMonthlyRelativeDaysEnrollmentSchedule.builder()
                 .monthlyRelativeDays(
-                    ApiMonthlyRelativeDaysEnrollmentSchedule.MonthlyRelativeDays.LAST_DAY_OF_MONTH
+                    ApiMonthlyRelativeDaysEnrollmentSchedule.MonthlyRelativeDays
+                        .FIRST_MONDAY_OF_MONTH
                 )
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .type(ApiMonthlyRelativeDaysEnrollmentSchedule.Type.MONTHLY_RELATIVE_DAYS)

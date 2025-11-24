@@ -243,17 +243,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val PAST = of("PAST")
-
             @JvmField val FUTURE = of("FUTURE")
+
+            @JvmField val PAST = of("PAST")
 
             @JvmStatic fun of(value: String) = OffsetDirection(JsonField.of(value))
         }
 
         /** An enum containing [OffsetDirection]'s known values. */
         enum class Known {
-            PAST,
             FUTURE,
+            PAST,
         }
 
         /**
@@ -266,8 +266,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PAST,
             FUTURE,
+            PAST,
             /**
              * An enum member indicating that [OffsetDirection] was instantiated with an unknown
              * value.
@@ -284,8 +284,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PAST -> Value.PAST
                 FUTURE -> Value.FUTURE
+                PAST -> Value.PAST
                 else -> Value._UNKNOWN
             }
 
@@ -300,8 +300,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PAST -> Known.PAST
                 FUTURE -> Known.FUTURE
+                PAST -> Known.PAST
                 else -> throw HubspotInvalidDataException("Unknown OffsetDirection: $value")
             }
 
@@ -371,23 +371,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val WEEKS = of("WEEKS")
-
             @JvmField val DAYS = of("DAYS")
 
             @JvmField val HOURS = of("HOURS")
 
             @JvmField val MINUTES = of("MINUTES")
 
+            @JvmField val WEEKS = of("WEEKS")
+
             @JvmStatic fun of(value: String) = TimeUnit(JsonField.of(value))
         }
 
         /** An enum containing [TimeUnit]'s known values. */
         enum class Known {
-            WEEKS,
             DAYS,
             HOURS,
             MINUTES,
+            WEEKS,
         }
 
         /**
@@ -400,10 +400,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            WEEKS,
             DAYS,
             HOURS,
             MINUTES,
+            WEEKS,
             /** An enum member indicating that [TimeUnit] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -417,10 +417,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                WEEKS -> Value.WEEKS
                 DAYS -> Value.DAYS
                 HOURS -> Value.HOURS
                 MINUTES -> Value.MINUTES
+                WEEKS -> Value.WEEKS
                 else -> Value._UNKNOWN
             }
 
@@ -435,10 +435,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                WEEKS -> Known.WEEKS
                 DAYS -> Known.DAYS
                 HOURS -> Known.HOURS
                 MINUTES -> Known.MINUTES
+                WEEKS -> Known.WEEKS
                 else -> throw HubspotInvalidDataException("Unknown TimeUnit: $value")
             }
 

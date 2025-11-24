@@ -16,7 +16,7 @@ internal class PublicImportErrorTest {
             PublicImportError.builder()
                 .id("id")
                 .createdAt(0)
-                .errorType(PublicImportError.ErrorType.INCORRECT_NUMBER_OF_COLUMNS)
+                .errorType(PublicImportError.ErrorType.AMBIGUOUS_ENUMERATION_OPTION)
                 .sourceData(
                     ImportRowCore.builder()
                         .containsEncryptedProperties(true)
@@ -30,7 +30,7 @@ internal class PublicImportErrorTest {
                 .extraContext("extraContext")
                 .invalidPropertyValue(
                     PropertyValue.builder()
-                        .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                        .dataSensitivity(PropertyValue.DataSensitivity.HIGH)
                         .isEncrypted(true)
                         .isLargeValue(true)
                         .name("name")
@@ -38,7 +38,7 @@ internal class PublicImportErrorTest {
                         .requestId("requestId")
                         .selectedByUser(true)
                         .selectedByUserTimestamp(0L)
-                        .source(PropertyValue.Source.UNKNOWN)
+                        .source(PropertyValue.Source.ACADEMY)
                         .sourceId("sourceId")
                         .sourceLabel("sourceLabel")
                         .sourceMetadata("sourceMetadata")
@@ -54,14 +54,14 @@ internal class PublicImportErrorTest {
                 .invalidValue("invalidValue")
                 .invalidValueToDisplay("invalidValueToDisplay")
                 .knownColumnNumber(0)
-                .objectType(PublicImportError.ObjectType.CONTACT)
+                .objectType(PublicImportError.ObjectType.ABANDONED_CART)
                 .objectTypeId("objectTypeId")
                 .build()
 
         assertThat(publicImportError.id()).isEqualTo("id")
         assertThat(publicImportError.createdAt()).isEqualTo(0)
         assertThat(publicImportError.errorType())
-            .isEqualTo(PublicImportError.ErrorType.INCORRECT_NUMBER_OF_COLUMNS)
+            .isEqualTo(PublicImportError.ErrorType.AMBIGUOUS_ENUMERATION_OPTION)
         assertThat(publicImportError.sourceData())
             .isEqualTo(
                 ImportRowCore.builder()
@@ -77,7 +77,7 @@ internal class PublicImportErrorTest {
         assertThat(publicImportError.invalidPropertyValue())
             .contains(
                 PropertyValue.builder()
-                    .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                    .dataSensitivity(PropertyValue.DataSensitivity.HIGH)
                     .isEncrypted(true)
                     .isLargeValue(true)
                     .name("name")
@@ -85,7 +85,7 @@ internal class PublicImportErrorTest {
                     .requestId("requestId")
                     .selectedByUser(true)
                     .selectedByUserTimestamp(0L)
-                    .source(PropertyValue.Source.UNKNOWN)
+                    .source(PropertyValue.Source.ACADEMY)
                     .sourceId("sourceId")
                     .sourceLabel("sourceLabel")
                     .sourceMetadata("sourceMetadata")
@@ -101,7 +101,8 @@ internal class PublicImportErrorTest {
         assertThat(publicImportError.invalidValue()).contains("invalidValue")
         assertThat(publicImportError.invalidValueToDisplay()).contains("invalidValueToDisplay")
         assertThat(publicImportError.knownColumnNumber()).contains(0)
-        assertThat(publicImportError.objectType()).contains(PublicImportError.ObjectType.CONTACT)
+        assertThat(publicImportError.objectType())
+            .contains(PublicImportError.ObjectType.ABANDONED_CART)
         assertThat(publicImportError.objectTypeId()).contains("objectTypeId")
     }
 
@@ -112,7 +113,7 @@ internal class PublicImportErrorTest {
             PublicImportError.builder()
                 .id("id")
                 .createdAt(0)
-                .errorType(PublicImportError.ErrorType.INCORRECT_NUMBER_OF_COLUMNS)
+                .errorType(PublicImportError.ErrorType.AMBIGUOUS_ENUMERATION_OPTION)
                 .sourceData(
                     ImportRowCore.builder()
                         .containsEncryptedProperties(true)
@@ -126,7 +127,7 @@ internal class PublicImportErrorTest {
                 .extraContext("extraContext")
                 .invalidPropertyValue(
                     PropertyValue.builder()
-                        .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                        .dataSensitivity(PropertyValue.DataSensitivity.HIGH)
                         .isEncrypted(true)
                         .isLargeValue(true)
                         .name("name")
@@ -134,7 +135,7 @@ internal class PublicImportErrorTest {
                         .requestId("requestId")
                         .selectedByUser(true)
                         .selectedByUserTimestamp(0L)
-                        .source(PropertyValue.Source.UNKNOWN)
+                        .source(PropertyValue.Source.ACADEMY)
                         .sourceId("sourceId")
                         .sourceLabel("sourceLabel")
                         .sourceMetadata("sourceMetadata")
@@ -150,7 +151,7 @@ internal class PublicImportErrorTest {
                 .invalidValue("invalidValue")
                 .invalidValueToDisplay("invalidValueToDisplay")
                 .knownColumnNumber(0)
-                .objectType(PublicImportError.ObjectType.CONTACT)
+                .objectType(PublicImportError.ObjectType.ABANDONED_CART)
                 .objectTypeId("objectTypeId")
                 .build()
 

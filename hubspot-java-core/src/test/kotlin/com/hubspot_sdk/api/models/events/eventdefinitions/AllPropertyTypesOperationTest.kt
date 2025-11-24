@@ -22,18 +22,18 @@ internal class AllPropertyTypesOperationTest {
                 )
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(AllPropertyTypesOperation.Operator.IS_KNOWN)
+                .operator(AllPropertyTypesOperation.Operator.IS_BLANK)
                 .operatorName("operatorName")
                 .propertyType(AllPropertyTypesOperation.PropertyType.ALLTYPES)
                 .defaultValue("defaultValue")
                 .pruningRefineBy(
                     RelativeComparativeTimestampRefineBy.builder()
-                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
                                 .amount(0)
-                                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                                .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
                         )
                         .type(
@@ -57,7 +57,7 @@ internal class AllPropertyTypesOperationTest {
         assertThat(allPropertyTypesOperation.includeObjectsWithNoValueSet()).isEqualTo(true)
         assertThat(allPropertyTypesOperation.operationType()).isEqualTo("operationType")
         assertThat(allPropertyTypesOperation.operator())
-            .isEqualTo(AllPropertyTypesOperation.Operator.IS_KNOWN)
+            .isEqualTo(AllPropertyTypesOperation.Operator.IS_BLANK)
         assertThat(allPropertyTypesOperation.operatorName()).isEqualTo("operatorName")
         assertThat(allPropertyTypesOperation.propertyType())
             .isEqualTo(AllPropertyTypesOperation.PropertyType.ALLTYPES)
@@ -66,12 +66,12 @@ internal class AllPropertyTypesOperationTest {
             .contains(
                 AllPropertyTypesOperation.PruningRefineBy.ofRelativeComparativeTimestamp(
                     RelativeComparativeTimestampRefineBy.builder()
-                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
                                 .amount(0)
-                                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                                .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
                         )
                         .type(
@@ -97,18 +97,18 @@ internal class AllPropertyTypesOperationTest {
                 )
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(AllPropertyTypesOperation.Operator.IS_KNOWN)
+                .operator(AllPropertyTypesOperation.Operator.IS_BLANK)
                 .operatorName("operatorName")
                 .propertyType(AllPropertyTypesOperation.PropertyType.ALLTYPES)
                 .defaultValue("defaultValue")
                 .pruningRefineBy(
                     RelativeComparativeTimestampRefineBy.builder()
-                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.BEFORE)
+                        .comparison(RelativeComparativeTimestampRefineBy.Comparison.AFTER)
                         .timeOffset(
                             TimeOffset.builder()
                                 .amount(0)
-                                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                                .timeUnit(TimeOffset.TimeUnit.DAYS)
                                 .build()
                         )
                         .type(

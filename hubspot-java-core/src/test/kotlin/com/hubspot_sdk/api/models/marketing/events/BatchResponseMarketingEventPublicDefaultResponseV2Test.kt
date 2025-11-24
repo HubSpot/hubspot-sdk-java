@@ -37,7 +37,7 @@ internal class BatchResponseMarketingEventPublicDefaultResponseV2Test {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseMarketingEventPublicDefaultResponseV2.Status.PENDING)
+                .status(BatchResponseMarketingEventPublicDefaultResponseV2.Status.CANCELED)
                 .links(
                     BatchResponseMarketingEventPublicDefaultResponseV2.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -72,7 +72,7 @@ internal class BatchResponseMarketingEventPublicDefaultResponseV2Test {
         assertThat(batchResponseMarketingEventPublicDefaultResponseV2.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseMarketingEventPublicDefaultResponseV2.status())
-            .isEqualTo(BatchResponseMarketingEventPublicDefaultResponseV2.Status.PENDING)
+            .isEqualTo(BatchResponseMarketingEventPublicDefaultResponseV2.Status.CANCELED)
         assertThat(batchResponseMarketingEventPublicDefaultResponseV2.links())
             .contains(
                 BatchResponseMarketingEventPublicDefaultResponseV2.Links.builder()
@@ -110,7 +110,7 @@ internal class BatchResponseMarketingEventPublicDefaultResponseV2Test {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseMarketingEventPublicDefaultResponseV2.Status.PENDING)
+                .status(BatchResponseMarketingEventPublicDefaultResponseV2.Status.CANCELED)
                 .links(
                     BatchResponseMarketingEventPublicDefaultResponseV2.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

@@ -53,6 +53,7 @@ private constructor(
     /** Maximum number of results per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
+    /** Specifies the order in which the domains are returned. */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Only return domains updated after this date. */
@@ -169,6 +170,7 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
+        /** Specifies the order in which the domains are returned. */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */

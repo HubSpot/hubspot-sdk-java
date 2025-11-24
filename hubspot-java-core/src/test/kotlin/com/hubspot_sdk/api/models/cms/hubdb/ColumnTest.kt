@@ -22,7 +22,7 @@ internal class ColumnTest {
                 .description("description")
                 .label("label")
                 .name("name")
-                .type(Column.Type.NULL)
+                .type(Column.Type.BOOLEAN)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdBy(
                     SimpleUser.builder()
@@ -80,7 +80,7 @@ internal class ColumnTest {
         assertThat(column.description()).isEqualTo("description")
         assertThat(column.label()).isEqualTo("label")
         assertThat(column.name()).isEqualTo("name")
-        assertThat(column.type()).isEqualTo(Column.Type.NULL)
+        assertThat(column.type()).isEqualTo(Column.Type.BOOLEAN)
         assertThat(column.createdAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(column.createdBy())
             .contains(
@@ -149,7 +149,7 @@ internal class ColumnTest {
                 .description("description")
                 .label("label")
                 .name("name")
-                .type(Column.Type.NULL)
+                .type(Column.Type.BOOLEAN)
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdBy(
                     SimpleUser.builder()

@@ -16,7 +16,7 @@ internal class PortalUpdateParamsTest {
             .portalId(0)
             .portalFlagStatePutRequest(
                 PortalFlagStatePutRequest.builder()
-                    .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                    .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
                     .build()
             )
             .build()
@@ -31,7 +31,7 @@ internal class PortalUpdateParamsTest {
                 .portalId(0)
                 .portalFlagStatePutRequest(
                     PortalFlagStatePutRequest.builder()
-                        .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                        .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
                         .build()
                 )
                 .build()
@@ -52,7 +52,7 @@ internal class PortalUpdateParamsTest {
                 .portalId(0)
                 .portalFlagStatePutRequest(
                     PortalFlagStatePutRequest.builder()
-                        .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                        .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
                         .build()
                 )
                 .build()
@@ -62,7 +62,7 @@ internal class PortalUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 PortalFlagStatePutRequest.builder()
-                    .flagState(PortalFlagStatePutRequest.FlagState.OFF)
+                    .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
                     .build()
             )
     }

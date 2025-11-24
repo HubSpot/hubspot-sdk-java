@@ -451,26 +451,26 @@ private constructor(
 
         companion object {
 
-            @JvmField val IS_BEFORE = of("IS_BEFORE")
-
             @JvmField val IS_AFTER = of("IS_AFTER")
 
-            @JvmField val IS_EQUAL_TO = of("IS_EQUAL_TO")
+            @JvmField val IS_AFTER_DATE = of("IS_AFTER_DATE")
+
+            @JvmField val IS_BEFORE = of("IS_BEFORE")
 
             @JvmField val IS_BEFORE_DATE = of("IS_BEFORE_DATE")
 
-            @JvmField val IS_AFTER_DATE = of("IS_AFTER_DATE")
+            @JvmField val IS_EQUAL_TO = of("IS_EQUAL_TO")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            IS_BEFORE,
             IS_AFTER,
-            IS_EQUAL_TO,
-            IS_BEFORE_DATE,
             IS_AFTER_DATE,
+            IS_BEFORE,
+            IS_BEFORE_DATE,
+            IS_EQUAL_TO,
         }
 
         /**
@@ -483,11 +483,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            IS_BEFORE,
             IS_AFTER,
-            IS_EQUAL_TO,
-            IS_BEFORE_DATE,
             IS_AFTER_DATE,
+            IS_BEFORE,
+            IS_BEFORE_DATE,
+            IS_EQUAL_TO,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -501,11 +501,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                IS_BEFORE -> Value.IS_BEFORE
                 IS_AFTER -> Value.IS_AFTER
-                IS_EQUAL_TO -> Value.IS_EQUAL_TO
-                IS_BEFORE_DATE -> Value.IS_BEFORE_DATE
                 IS_AFTER_DATE -> Value.IS_AFTER_DATE
+                IS_BEFORE -> Value.IS_BEFORE
+                IS_BEFORE_DATE -> Value.IS_BEFORE_DATE
+                IS_EQUAL_TO -> Value.IS_EQUAL_TO
                 else -> Value._UNKNOWN
             }
 
@@ -520,11 +520,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                IS_BEFORE -> Known.IS_BEFORE
                 IS_AFTER -> Known.IS_AFTER
-                IS_EQUAL_TO -> Known.IS_EQUAL_TO
-                IS_BEFORE_DATE -> Known.IS_BEFORE_DATE
                 IS_AFTER_DATE -> Known.IS_AFTER_DATE
+                IS_BEFORE -> Known.IS_BEFORE
+                IS_BEFORE_DATE -> Known.IS_BEFORE_DATE
+                IS_EQUAL_TO -> Known.IS_EQUAL_TO
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

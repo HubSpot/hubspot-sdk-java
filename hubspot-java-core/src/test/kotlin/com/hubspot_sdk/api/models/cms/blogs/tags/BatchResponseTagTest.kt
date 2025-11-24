@@ -28,7 +28,7 @@ internal class BatchResponseTagTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseTag.Status.PENDING)
+                .status(BatchResponseTag.Status.CANCELED)
                 .links(
                     BatchResponseTag.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -53,7 +53,7 @@ internal class BatchResponseTagTest {
             )
         assertThat(batchResponseTag.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(batchResponseTag.status()).isEqualTo(BatchResponseTag.Status.PENDING)
+        assertThat(batchResponseTag.status()).isEqualTo(BatchResponseTag.Status.CANCELED)
         assertThat(batchResponseTag.links())
             .contains(
                 BatchResponseTag.Links.builder()
@@ -82,7 +82,7 @@ internal class BatchResponseTagTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseTag.Status.PENDING)
+                .status(BatchResponseTag.Status.CANCELED)
                 .links(
                     BatchResponseTag.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

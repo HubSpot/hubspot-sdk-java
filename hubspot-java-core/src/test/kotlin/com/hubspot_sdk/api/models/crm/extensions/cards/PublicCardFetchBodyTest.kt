@@ -15,7 +15,7 @@ internal class PublicCardFetchBodyTest {
             PublicCardFetchBody.builder()
                 .addObjectType(
                     CardObjectTypeBody.builder()
-                        .name(CardObjectTypeBody.Name.CONTACTS)
+                        .name(CardObjectTypeBody.Name.COMPANIES)
                         .addPropertiesToSend("string")
                         .build()
                 )
@@ -25,7 +25,7 @@ internal class PublicCardFetchBodyTest {
         assertThat(publicCardFetchBody.objectTypes())
             .containsExactly(
                 CardObjectTypeBody.builder()
-                    .name(CardObjectTypeBody.Name.CONTACTS)
+                    .name(CardObjectTypeBody.Name.COMPANIES)
                     .addPropertiesToSend("string")
                     .build()
             )
@@ -39,7 +39,7 @@ internal class PublicCardFetchBodyTest {
             PublicCardFetchBody.builder()
                 .addObjectType(
                     CardObjectTypeBody.builder()
-                        .name(CardObjectTypeBody.Name.CONTACTS)
+                        .name(CardObjectTypeBody.Name.COMPANIES)
                         .addPropertiesToSend("string")
                         .build()
                 )

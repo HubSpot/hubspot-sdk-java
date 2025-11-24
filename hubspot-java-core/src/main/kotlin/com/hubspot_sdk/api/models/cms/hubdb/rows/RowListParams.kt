@@ -41,11 +41,13 @@ private constructor(
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
+    /** Specifies whether to include archived rows in the response. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /** The maximum number of results to return. Default is `1000`. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
+    /** The number of rows to skip before starting to return results. */
     fun offset(): Optional<Int> = Optional.ofNullable(offset)
 
     /**
@@ -117,6 +119,7 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
+        /** Specifies whether to include archived rows in the response. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
 
         /**
@@ -142,6 +145,7 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
+        /** The number of rows to skip before starting to return results. */
         fun offset(offset: Int?) = apply { this.offset = offset }
 
         /**

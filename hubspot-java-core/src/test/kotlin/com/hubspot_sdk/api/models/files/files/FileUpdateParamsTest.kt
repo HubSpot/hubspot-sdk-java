@@ -15,7 +15,7 @@ internal class FileUpdateParamsTest {
             .fileId("321669910225")
             .fileUpdateInput(
                 FileUpdateInput.builder()
-                    .access(FileUpdateInput.Access.PUBLIC_INDEXABLE)
+                    .access(FileUpdateInput.Access.HIDDEN_INDEXABLE)
                     .clearExpires(true)
                     .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .isUsableInContent(true)
@@ -47,7 +47,7 @@ internal class FileUpdateParamsTest {
                 .fileId("321669910225")
                 .fileUpdateInput(
                     FileUpdateInput.builder()
-                        .access(FileUpdateInput.Access.PUBLIC_INDEXABLE)
+                        .access(FileUpdateInput.Access.HIDDEN_INDEXABLE)
                         .clearExpires(true)
                         .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .isUsableInContent(true)
@@ -63,7 +63,7 @@ internal class FileUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 FileUpdateInput.builder()
-                    .access(FileUpdateInput.Access.PUBLIC_INDEXABLE)
+                    .access(FileUpdateInput.Access.HIDDEN_INDEXABLE)
                     .clearExpires(true)
                     .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .isUsableInContent(true)

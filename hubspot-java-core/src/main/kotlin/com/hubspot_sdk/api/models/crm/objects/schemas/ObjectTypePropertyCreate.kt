@@ -839,9 +839,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val STRING = of("string")
-
-            @JvmField val NUMBER = of("number")
+            @JvmField val BOOL = of("bool")
 
             @JvmField val DATE = of("date")
 
@@ -849,19 +847,21 @@ private constructor(
 
             @JvmField val ENUMERATION = of("enumeration")
 
-            @JvmField val BOOL = of("bool")
+            @JvmField val NUMBER = of("number")
+
+            @JvmField val STRING = of("string")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            STRING,
-            NUMBER,
+            BOOL,
             DATE,
             DATETIME,
             ENUMERATION,
-            BOOL,
+            NUMBER,
+            STRING,
         }
 
         /**
@@ -874,12 +874,12 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            STRING,
-            NUMBER,
+            BOOL,
             DATE,
             DATETIME,
             ENUMERATION,
-            BOOL,
+            NUMBER,
+            STRING,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -893,12 +893,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                STRING -> Value.STRING
-                NUMBER -> Value.NUMBER
+                BOOL -> Value.BOOL
                 DATE -> Value.DATE
                 DATETIME -> Value.DATETIME
                 ENUMERATION -> Value.ENUMERATION
-                BOOL -> Value.BOOL
+                NUMBER -> Value.NUMBER
+                STRING -> Value.STRING
                 else -> Value._UNKNOWN
             }
 
@@ -913,12 +913,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                STRING -> Known.STRING
-                NUMBER -> Known.NUMBER
+                BOOL -> Known.BOOL
                 DATE -> Known.DATE
                 DATETIME -> Known.DATETIME
                 ENUMERATION -> Known.ENUMERATION
-                BOOL -> Known.BOOL
+                NUMBER -> Known.NUMBER
+                STRING -> Known.STRING
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }
 
@@ -990,29 +990,29 @@ private constructor(
 
         companion object {
 
-            @JvmField val UNFORMATTED = of("unformatted")
-
-            @JvmField val FORMATTED = of("formatted")
-
             @JvmField val CURRENCY = of("currency")
-
-            @JvmField val PERCENTAGE = of("percentage")
 
             @JvmField val DURATION = of("duration")
 
+            @JvmField val FORMATTED = of("formatted")
+
+            @JvmField val PERCENTAGE = of("percentage")
+
             @JvmField val PROBABILITY = of("probability")
+
+            @JvmField val UNFORMATTED = of("unformatted")
 
             @JvmStatic fun of(value: String) = NumberDisplayHint(JsonField.of(value))
         }
 
         /** An enum containing [NumberDisplayHint]'s known values. */
         enum class Known {
-            UNFORMATTED,
-            FORMATTED,
             CURRENCY,
-            PERCENTAGE,
             DURATION,
+            FORMATTED,
+            PERCENTAGE,
             PROBABILITY,
+            UNFORMATTED,
         }
 
         /**
@@ -1025,12 +1025,12 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            UNFORMATTED,
-            FORMATTED,
             CURRENCY,
-            PERCENTAGE,
             DURATION,
+            FORMATTED,
+            PERCENTAGE,
             PROBABILITY,
+            UNFORMATTED,
             /**
              * An enum member indicating that [NumberDisplayHint] was instantiated with an unknown
              * value.
@@ -1047,12 +1047,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                UNFORMATTED -> Value.UNFORMATTED
-                FORMATTED -> Value.FORMATTED
                 CURRENCY -> Value.CURRENCY
-                PERCENTAGE -> Value.PERCENTAGE
                 DURATION -> Value.DURATION
+                FORMATTED -> Value.FORMATTED
+                PERCENTAGE -> Value.PERCENTAGE
                 PROBABILITY -> Value.PROBABILITY
+                UNFORMATTED -> Value.UNFORMATTED
                 else -> Value._UNKNOWN
             }
 
@@ -1067,12 +1067,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                UNFORMATTED -> Known.UNFORMATTED
-                FORMATTED -> Known.FORMATTED
                 CURRENCY -> Known.CURRENCY
-                PERCENTAGE -> Known.PERCENTAGE
                 DURATION -> Known.DURATION
+                FORMATTED -> Known.FORMATTED
+                PERCENTAGE -> Known.PERCENTAGE
                 PROBABILITY -> Known.PROBABILITY
+                UNFORMATTED -> Known.UNFORMATTED
                 else -> throw HubspotInvalidDataException("Unknown NumberDisplayHint: $value")
             }
 
@@ -1145,17 +1145,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val DISPLAY_ORDER = of("DISPLAY_ORDER")
-
             @JvmField val ALPHABETICAL = of("ALPHABETICAL")
+
+            @JvmField val DISPLAY_ORDER = of("DISPLAY_ORDER")
 
             @JvmStatic fun of(value: String) = OptionSortStrategy(JsonField.of(value))
         }
 
         /** An enum containing [OptionSortStrategy]'s known values. */
         enum class Known {
-            DISPLAY_ORDER,
             ALPHABETICAL,
+            DISPLAY_ORDER,
         }
 
         /**
@@ -1168,8 +1168,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            DISPLAY_ORDER,
             ALPHABETICAL,
+            DISPLAY_ORDER,
             /**
              * An enum member indicating that [OptionSortStrategy] was instantiated with an unknown
              * value.
@@ -1186,8 +1186,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                DISPLAY_ORDER -> Value.DISPLAY_ORDER
                 ALPHABETICAL -> Value.ALPHABETICAL
+                DISPLAY_ORDER -> Value.DISPLAY_ORDER
                 else -> Value._UNKNOWN
             }
 
@@ -1202,8 +1202,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                DISPLAY_ORDER -> Known.DISPLAY_ORDER
                 ALPHABETICAL -> Known.ALPHABETICAL
+                DISPLAY_ORDER -> Known.DISPLAY_ORDER
                 else -> throw HubspotInvalidDataException("Unknown OptionSortStrategy: $value")
             }
 
@@ -1275,35 +1275,35 @@ private constructor(
 
         companion object {
 
-            @JvmField val UNFORMATTED_SINGLE_LINE = of("unformatted_single_line")
-
-            @JvmField val MULTI_LINE = of("multi_line")
+            @JvmField val DOMAIN_NAME = of("domain_name")
 
             @JvmField val EMAIL = of("email")
 
-            @JvmField val PHONE_NUMBER = of("phone_number")
-
-            @JvmField val DOMAIN_NAME = of("domain_name")
-
             @JvmField val IP_ADDRESS = of("ip_address")
+
+            @JvmField val MULTI_LINE = of("multi_line")
+
+            @JvmField val PHONE_NUMBER = of("phone_number")
 
             @JvmField val PHYSICAL_ADDRESS = of("physical_address")
 
             @JvmField val POSTAL_CODE = of("postal_code")
+
+            @JvmField val UNFORMATTED_SINGLE_LINE = of("unformatted_single_line")
 
             @JvmStatic fun of(value: String) = TextDisplayHint(JsonField.of(value))
         }
 
         /** An enum containing [TextDisplayHint]'s known values. */
         enum class Known {
-            UNFORMATTED_SINGLE_LINE,
-            MULTI_LINE,
-            EMAIL,
-            PHONE_NUMBER,
             DOMAIN_NAME,
+            EMAIL,
             IP_ADDRESS,
+            MULTI_LINE,
+            PHONE_NUMBER,
             PHYSICAL_ADDRESS,
             POSTAL_CODE,
+            UNFORMATTED_SINGLE_LINE,
         }
 
         /**
@@ -1316,14 +1316,14 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            UNFORMATTED_SINGLE_LINE,
-            MULTI_LINE,
-            EMAIL,
-            PHONE_NUMBER,
             DOMAIN_NAME,
+            EMAIL,
             IP_ADDRESS,
+            MULTI_LINE,
+            PHONE_NUMBER,
             PHYSICAL_ADDRESS,
             POSTAL_CODE,
+            UNFORMATTED_SINGLE_LINE,
             /**
              * An enum member indicating that [TextDisplayHint] was instantiated with an unknown
              * value.
@@ -1340,14 +1340,14 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                UNFORMATTED_SINGLE_LINE -> Value.UNFORMATTED_SINGLE_LINE
-                MULTI_LINE -> Value.MULTI_LINE
-                EMAIL -> Value.EMAIL
-                PHONE_NUMBER -> Value.PHONE_NUMBER
                 DOMAIN_NAME -> Value.DOMAIN_NAME
+                EMAIL -> Value.EMAIL
                 IP_ADDRESS -> Value.IP_ADDRESS
+                MULTI_LINE -> Value.MULTI_LINE
+                PHONE_NUMBER -> Value.PHONE_NUMBER
                 PHYSICAL_ADDRESS -> Value.PHYSICAL_ADDRESS
                 POSTAL_CODE -> Value.POSTAL_CODE
+                UNFORMATTED_SINGLE_LINE -> Value.UNFORMATTED_SINGLE_LINE
                 else -> Value._UNKNOWN
             }
 
@@ -1362,14 +1362,14 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                UNFORMATTED_SINGLE_LINE -> Known.UNFORMATTED_SINGLE_LINE
-                MULTI_LINE -> Known.MULTI_LINE
-                EMAIL -> Known.EMAIL
-                PHONE_NUMBER -> Known.PHONE_NUMBER
                 DOMAIN_NAME -> Known.DOMAIN_NAME
+                EMAIL -> Known.EMAIL
                 IP_ADDRESS -> Known.IP_ADDRESS
+                MULTI_LINE -> Known.MULTI_LINE
+                PHONE_NUMBER -> Known.PHONE_NUMBER
                 PHYSICAL_ADDRESS -> Known.PHYSICAL_ADDRESS
                 POSTAL_CODE -> Known.POSTAL_CODE
+                UNFORMATTED_SINGLE_LINE -> Known.UNFORMATTED_SINGLE_LINE
                 else -> throw HubspotInvalidDataException("Unknown TextDisplayHint: $value")
             }
 

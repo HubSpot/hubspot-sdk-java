@@ -235,26 +235,26 @@ private constructor(
 
         companion object {
 
+            @JvmField val COMPANIES = of("companies")
+
             @JvmField val CONTACTS = of("contacts")
 
             @JvmField val DEALS = of("deals")
 
-            @JvmField val COMPANIES = of("companies")
+            @JvmField val MARKETING_EVENTS = of("marketing_events")
 
             @JvmField val TICKETS = of("tickets")
-
-            @JvmField val MARKETING_EVENTS = of("marketing_events")
 
             @JvmStatic fun of(value: String) = Name(JsonField.of(value))
         }
 
         /** An enum containing [Name]'s known values. */
         enum class Known {
+            COMPANIES,
             CONTACTS,
             DEALS,
-            COMPANIES,
-            TICKETS,
             MARKETING_EVENTS,
+            TICKETS,
         }
 
         /**
@@ -267,11 +267,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            COMPANIES,
             CONTACTS,
             DEALS,
-            COMPANIES,
-            TICKETS,
             MARKETING_EVENTS,
+            TICKETS,
             /** An enum member indicating that [Name] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -285,11 +285,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                COMPANIES -> Value.COMPANIES
                 CONTACTS -> Value.CONTACTS
                 DEALS -> Value.DEALS
-                COMPANIES -> Value.COMPANIES
-                TICKETS -> Value.TICKETS
                 MARKETING_EVENTS -> Value.MARKETING_EVENTS
+                TICKETS -> Value.TICKETS
                 else -> Value._UNKNOWN
             }
 
@@ -304,11 +304,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                COMPANIES -> Known.COMPANIES
                 CONTACTS -> Known.CONTACTS
                 DEALS -> Known.DEALS
-                COMPANIES -> Known.COMPANIES
-                TICKETS -> Known.TICKETS
                 MARKETING_EVENTS -> Known.MARKETING_EVENTS
+                TICKETS -> Known.TICKETS
                 else -> throw HubspotInvalidDataException("Unknown Name: $value")
             }
 

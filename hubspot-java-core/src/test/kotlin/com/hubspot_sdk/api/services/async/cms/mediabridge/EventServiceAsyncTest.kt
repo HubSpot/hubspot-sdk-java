@@ -29,7 +29,7 @@ internal class EventServiceAsyncTest {
         val attentionSpanEventFuture =
             eventServiceAsync.createAttentionSpanEvent(
                 AttentionSpanEventRequest.builder()
-                    .mediaType(AttentionSpanEventRequest.MediaType.VIDEO)
+                    .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .rawDataMap(
                         AttentionSpanEventRequest.RawDataMap.builder()
@@ -74,7 +74,7 @@ internal class EventServiceAsyncTest {
         val mediaPlayedEventFuture =
             eventServiceAsync.createMediaPlayedEvent(
                 MediaPlayedEventRequest.builder()
-                    .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .sessionId("sessionId")
                     .state(MediaPlayedEventRequest.State.STARTED)
@@ -109,7 +109,7 @@ internal class EventServiceAsyncTest {
         val mediaPlayedPercentageEventFuture =
             eventServiceAsync.createMediaPlayedPercentEvent(
                 MediaPlayedPercentageEventRequest.builder()
-                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .playedPercent(0)
                     .sessionId("sessionId")

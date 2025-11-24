@@ -34,12 +34,16 @@ private constructor(
     ) : this(currencyCode, currencyName, mutableMapOf())
 
     /**
+     * The three-letter code representing a specific currency (ex. USD).
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currencyCode(): String = currencyCode.getRequired("currencyCode")
 
     /**
+     * The full name of the currency (ex. US Dollar).
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -103,6 +107,7 @@ private constructor(
             additionalProperties = currencyCodeInfo.additionalProperties.toMutableMap()
         }
 
+        /** The three-letter code representing a specific currency (ex. USD). */
         fun currencyCode(currencyCode: String) = currencyCode(JsonField.of(currencyCode))
 
         /**
@@ -116,6 +121,7 @@ private constructor(
             this.currencyCode = currencyCode
         }
 
+        /** The full name of the currency (ex. US Dollar). */
         fun currencyName(currencyName: String) = currencyName(JsonField.of(currencyName))
 
         /**

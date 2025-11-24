@@ -52,7 +52,7 @@ internal class PropertyValidationServiceAsyncTest {
                         .ruleType(
                             PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
                                 .RuleType
-                                .FORMAT
+                                .AFTER_DATETIME_DURATION
                         )
                         .publicPropertyValidationRuleUpdate(
                             PublicPropertyValidationRuleUpdate.builder()

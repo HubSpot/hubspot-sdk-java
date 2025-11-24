@@ -27,7 +27,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                             AssociationDefinition.builder()
                                 .id(0)
                                 .allowsCustomLabels(true)
-                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
                                 .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                                 .fromObjectTypeId("fromObjectTypeId")
                                 .hasAllAssociatedObjects(true)
@@ -37,7 +37,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                 .hidden(true)
                                 .inverseAllowsCustomLabels(true)
                                 .inverseCardinality(
-                                    AssociationDefinition.InverseCardinality.ONE_TO_ONE
+                                    AssociationDefinition.InverseCardinality.ONE_TO_MANY
                                 )
                                 .inverseHasAllAssociatedObjects(true)
                                 .inverseId(0)
@@ -49,10 +49,10 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                 .name("name")
                                 .portalUniqueIdentifier("portalUniqueIdentifier")
                                 .toObjectTypeId("toObjectTypeId")
-                                .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
+                                .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
                                 .inverseLabel("inverseLabel")
                                 .label("label")
-                                .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
+                                .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
                                 .build()
                         )
                         .fullyQualifiedName("fullyQualifiedName")
@@ -96,7 +96,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                 .calculationFormula("calculationFormula")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
-                                .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
+                                .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                                 .displayOrder(2)
                                 .externalOptions(true)
                                 .formField(true)
@@ -133,7 +133,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                                         .operationType("operationType")
                                                         .operator(
                                                             BoolPropertyOperation.Operator
-                                                                .IS_EQUAL_TO
+                                                                .HAS_EVER_BEEN_EQUAL_TO
                                                         )
                                                         .operatorName("operatorName")
                                                         .propertyType(
@@ -160,7 +160,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                         .primaryObject("primaryObject")
                         .primaryObjectId("primaryObjectId")
                         .trackingType(
-                            ExternalBehavioralEventTypeDefinition.TrackingType.VISITED_URL
+                            ExternalBehavioralEventTypeDefinition.TrackingType.CLICKED_ELEMENT
                         )
                         .build()
                 )
@@ -184,7 +184,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                         AssociationDefinition.builder()
                             .id(0)
                             .allowsCustomLabels(true)
-                            .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                            .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
                             .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                             .fromObjectTypeId("fromObjectTypeId")
                             .hasAllAssociatedObjects(true)
@@ -193,7 +193,9 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                             .hasUserEnforcedMaxToObjectIds(true)
                             .hidden(true)
                             .inverseAllowsCustomLabels(true)
-                            .inverseCardinality(AssociationDefinition.InverseCardinality.ONE_TO_ONE)
+                            .inverseCardinality(
+                                AssociationDefinition.InverseCardinality.ONE_TO_MANY
+                            )
                             .inverseHasAllAssociatedObjects(true)
                             .inverseId(0)
                             .inverseName("inverseName")
@@ -204,10 +206,10 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                             .name("name")
                             .portalUniqueIdentifier("portalUniqueIdentifier")
                             .toObjectTypeId("toObjectTypeId")
-                            .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
+                            .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
                             .inverseLabel("inverseLabel")
                             .label("label")
-                            .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
+                            .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
                             .build()
                     )
                     .fullyQualifiedName("fullyQualifiedName")
@@ -251,7 +253,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                             .calculationFormula("calculationFormula")
                             .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdUserId("createdUserId")
-                            .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
+                            .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                             .displayOrder(2)
                             .externalOptions(true)
                             .formField(true)
@@ -287,7 +289,8 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                                     .includeObjectsWithNoValueSet(true)
                                                     .operationType("operationType")
                                                     .operator(
-                                                        BoolPropertyOperation.Operator.IS_EQUAL_TO
+                                                        BoolPropertyOperation.Operator
+                                                            .HAS_EVER_BEEN_EQUAL_TO
                                                     )
                                                     .operatorName("operatorName")
                                                     .propertyType(
@@ -313,7 +316,9 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                     .description("description")
                     .primaryObject("primaryObject")
                     .primaryObjectId("primaryObjectId")
-                    .trackingType(ExternalBehavioralEventTypeDefinition.TrackingType.VISITED_URL)
+                    .trackingType(
+                        ExternalBehavioralEventTypeDefinition.TrackingType.CLICKED_ELEMENT
+                    )
                     .build()
             )
         assertThat(
@@ -345,7 +350,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                             AssociationDefinition.builder()
                                 .id(0)
                                 .allowsCustomLabels(true)
-                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_ONE)
+                                .cardinality(AssociationDefinition.Cardinality.ONE_TO_MANY)
                                 .category(AssociationDefinition.Category.HUBSPOT_DEFINED)
                                 .fromObjectTypeId("fromObjectTypeId")
                                 .hasAllAssociatedObjects(true)
@@ -355,7 +360,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                 .hidden(true)
                                 .inverseAllowsCustomLabels(true)
                                 .inverseCardinality(
-                                    AssociationDefinition.InverseCardinality.ONE_TO_ONE
+                                    AssociationDefinition.InverseCardinality.ONE_TO_MANY
                                 )
                                 .inverseHasAllAssociatedObjects(true)
                                 .inverseId(0)
@@ -367,10 +372,10 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                 .name("name")
                                 .portalUniqueIdentifier("portalUniqueIdentifier")
                                 .toObjectTypeId("toObjectTypeId")
-                                .fromObjectType(AssociationDefinition.FromObjectType.CONTACT)
+                                .fromObjectType(AssociationDefinition.FromObjectType.ABANDONED_CART)
                                 .inverseLabel("inverseLabel")
                                 .label("label")
-                                .toObjectType(AssociationDefinition.ToObjectType.CONTACT)
+                                .toObjectType(AssociationDefinition.ToObjectType.ABANDONED_CART)
                                 .build()
                         )
                         .fullyQualifiedName("fullyQualifiedName")
@@ -414,7 +419,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                 .calculationFormula("calculationFormula")
                                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdUserId("createdUserId")
-                                .dataSensitivity(Property.DataSensitivity.NON_SENSITIVE)
+                                .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                                 .displayOrder(2)
                                 .externalOptions(true)
                                 .formField(true)
@@ -451,7 +456,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                                                         .operationType("operationType")
                                                         .operator(
                                                             BoolPropertyOperation.Operator
-                                                                .IS_EQUAL_TO
+                                                                .HAS_EVER_BEEN_EQUAL_TO
                                                         )
                                                         .operatorName("operatorName")
                                                         .propertyType(
@@ -478,7 +483,7 @@ internal class CollectionResponseWithTotalExternalBehavioralEventTypeDefinitionF
                         .primaryObject("primaryObject")
                         .primaryObjectId("primaryObjectId")
                         .trackingType(
-                            ExternalBehavioralEventTypeDefinition.TrackingType.VISITED_URL
+                            ExternalBehavioralEventTypeDefinition.TrackingType.CLICKED_ELEMENT
                         )
                         .build()
                 )

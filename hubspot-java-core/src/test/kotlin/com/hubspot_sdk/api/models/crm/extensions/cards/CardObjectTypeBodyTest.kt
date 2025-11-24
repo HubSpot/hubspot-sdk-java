@@ -13,11 +13,11 @@ internal class CardObjectTypeBodyTest {
     fun create() {
         val cardObjectTypeBody =
             CardObjectTypeBody.builder()
-                .name(CardObjectTypeBody.Name.CONTACTS)
+                .name(CardObjectTypeBody.Name.COMPANIES)
                 .addPropertiesToSend("string")
                 .build()
 
-        assertThat(cardObjectTypeBody.name()).isEqualTo(CardObjectTypeBody.Name.CONTACTS)
+        assertThat(cardObjectTypeBody.name()).isEqualTo(CardObjectTypeBody.Name.COMPANIES)
         assertThat(cardObjectTypeBody.propertiesToSend()).containsExactly("string")
     }
 
@@ -26,7 +26,7 @@ internal class CardObjectTypeBodyTest {
         val jsonMapper = jsonMapper()
         val cardObjectTypeBody =
             CardObjectTypeBody.builder()
-                .name(CardObjectTypeBody.Name.CONTACTS)
+                .name(CardObjectTypeBody.Name.COMPANIES)
                 .addPropertiesToSend("string")
                 .build()
 

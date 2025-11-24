@@ -12,7 +12,7 @@ internal class SiteSearchGetIndexedDataParamsTest {
     fun create() {
         SiteSearchGetIndexedDataParams.builder()
             .contentId("contentId")
-            .type(SiteSearchGetIndexedDataParams.Type.LANDING_PAGE)
+            .type(SiteSearchGetIndexedDataParams.Type.BLOG_POST)
             .build()
     }
 
@@ -30,12 +30,12 @@ internal class SiteSearchGetIndexedDataParamsTest {
         val params =
             SiteSearchGetIndexedDataParams.builder()
                 .contentId("contentId")
-                .type(SiteSearchGetIndexedDataParams.Type.LANDING_PAGE)
+                .type(SiteSearchGetIndexedDataParams.Type.BLOG_POST)
                 .build()
 
         val queryParams = params._queryParams()
 
-        assertThat(queryParams).isEqualTo(QueryParams.builder().put("type", "LANDING_PAGE").build())
+        assertThat(queryParams).isEqualTo(QueryParams.builder().put("type", "BLOG_POST").build())
     }
 
     @Test

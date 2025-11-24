@@ -14,13 +14,13 @@ internal class TimeOffsetTest {
         val timeOffset =
             TimeOffset.builder()
                 .amount(0)
-                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                .timeUnit(TimeOffset.TimeUnit.DAYS)
                 .build()
 
         assertThat(timeOffset.amount()).isEqualTo(0)
-        assertThat(timeOffset.offsetDirection()).isEqualTo(TimeOffset.OffsetDirection.PAST)
-        assertThat(timeOffset.timeUnit()).isEqualTo(TimeOffset.TimeUnit.WEEKS)
+        assertThat(timeOffset.offsetDirection()).isEqualTo(TimeOffset.OffsetDirection.FUTURE)
+        assertThat(timeOffset.timeUnit()).isEqualTo(TimeOffset.TimeUnit.DAYS)
     }
 
     @Test
@@ -29,8 +29,8 @@ internal class TimeOffsetTest {
         val timeOffset =
             TimeOffset.builder()
                 .amount(0)
-                .offsetDirection(TimeOffset.OffsetDirection.PAST)
-                .timeUnit(TimeOffset.TimeUnit.WEEKS)
+                .offsetDirection(TimeOffset.OffsetDirection.FUTURE)
+                .timeUnit(TimeOffset.TimeUnit.DAYS)
                 .build()
 
         val roundtrippedTimeOffset =

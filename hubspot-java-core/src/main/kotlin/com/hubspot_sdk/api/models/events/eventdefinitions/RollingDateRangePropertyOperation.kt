@@ -461,9 +461,9 @@ private constructor(
 
             @JvmField val IS_LESS_THAN_X_DAYS_AGO = of("IS_LESS_THAN_X_DAYS_AGO")
 
-            @JvmField val IS_MORE_THAN_X_DAYS_AGO = of("IS_MORE_THAN_X_DAYS_AGO")
-
             @JvmField val IS_LESS_THAN_X_DAYS_FROM_NOW = of("IS_LESS_THAN_X_DAYS_FROM_NOW")
+
+            @JvmField val IS_MORE_THAN_X_DAYS_AGO = of("IS_MORE_THAN_X_DAYS_AGO")
 
             @JvmField val IS_MORE_THAN_X_DAYS_FROM_NOW = of("IS_MORE_THAN_X_DAYS_FROM_NOW")
 
@@ -473,8 +473,8 @@ private constructor(
         /** An enum containing [Operator]'s known values. */
         enum class Known {
             IS_LESS_THAN_X_DAYS_AGO,
-            IS_MORE_THAN_X_DAYS_AGO,
             IS_LESS_THAN_X_DAYS_FROM_NOW,
+            IS_MORE_THAN_X_DAYS_AGO,
             IS_MORE_THAN_X_DAYS_FROM_NOW,
         }
 
@@ -489,8 +489,8 @@ private constructor(
          */
         enum class Value {
             IS_LESS_THAN_X_DAYS_AGO,
-            IS_MORE_THAN_X_DAYS_AGO,
             IS_LESS_THAN_X_DAYS_FROM_NOW,
+            IS_MORE_THAN_X_DAYS_AGO,
             IS_MORE_THAN_X_DAYS_FROM_NOW,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -506,8 +506,8 @@ private constructor(
         fun value(): Value =
             when (this) {
                 IS_LESS_THAN_X_DAYS_AGO -> Value.IS_LESS_THAN_X_DAYS_AGO
-                IS_MORE_THAN_X_DAYS_AGO -> Value.IS_MORE_THAN_X_DAYS_AGO
                 IS_LESS_THAN_X_DAYS_FROM_NOW -> Value.IS_LESS_THAN_X_DAYS_FROM_NOW
+                IS_MORE_THAN_X_DAYS_AGO -> Value.IS_MORE_THAN_X_DAYS_AGO
                 IS_MORE_THAN_X_DAYS_FROM_NOW -> Value.IS_MORE_THAN_X_DAYS_FROM_NOW
                 else -> Value._UNKNOWN
             }
@@ -524,8 +524,8 @@ private constructor(
         fun known(): Known =
             when (this) {
                 IS_LESS_THAN_X_DAYS_AGO -> Known.IS_LESS_THAN_X_DAYS_AGO
-                IS_MORE_THAN_X_DAYS_AGO -> Known.IS_MORE_THAN_X_DAYS_AGO
                 IS_LESS_THAN_X_DAYS_FROM_NOW -> Known.IS_LESS_THAN_X_DAYS_FROM_NOW
+                IS_MORE_THAN_X_DAYS_AGO -> Known.IS_MORE_THAN_X_DAYS_AGO
                 IS_MORE_THAN_X_DAYS_FROM_NOW -> Known.IS_MORE_THAN_X_DAYS_FROM_NOW
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }

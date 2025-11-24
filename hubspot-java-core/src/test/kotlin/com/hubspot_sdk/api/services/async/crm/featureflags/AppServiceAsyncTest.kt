@@ -33,8 +33,8 @@ internal class AppServiceAsyncTest {
                     .flagName("flagName")
                     .flagPutRequest(
                         FlagPutRequest.builder()
-                            .defaultState(FlagPutRequest.DefaultState.OFF)
-                            .overrideState(FlagPutRequest.OverrideState.OFF)
+                            .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                            .overrideState(FlagPutRequest.OverrideState.ABSENT)
                             .build()
                     )
                     .build()

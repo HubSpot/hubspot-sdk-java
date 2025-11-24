@@ -15,9 +15,7 @@ internal class PublicUpdateSubscriptionStatusRequestTest {
             PublicUpdateSubscriptionStatusRequest.builder()
                 .emailAddress("emailAddress")
                 .subscriptionId("subscriptionId")
-                .legalBasis(
-                    PublicUpdateSubscriptionStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL
-                )
+                .legalBasis(PublicUpdateSubscriptionStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                 .legalBasisExplanation("legalBasisExplanation")
                 .build()
 
@@ -25,7 +23,7 @@ internal class PublicUpdateSubscriptionStatusRequestTest {
         assertThat(publicUpdateSubscriptionStatusRequest.subscriptionId())
             .isEqualTo("subscriptionId")
         assertThat(publicUpdateSubscriptionStatusRequest.legalBasis())
-            .contains(PublicUpdateSubscriptionStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+            .contains(PublicUpdateSubscriptionStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
         assertThat(publicUpdateSubscriptionStatusRequest.legalBasisExplanation())
             .contains("legalBasisExplanation")
     }
@@ -37,9 +35,7 @@ internal class PublicUpdateSubscriptionStatusRequestTest {
             PublicUpdateSubscriptionStatusRequest.builder()
                 .emailAddress("emailAddress")
                 .subscriptionId("subscriptionId")
-                .legalBasis(
-                    PublicUpdateSubscriptionStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL
-                )
+                .legalBasis(PublicUpdateSubscriptionStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                 .legalBasisExplanation("legalBasisExplanation")
                 .build()
 

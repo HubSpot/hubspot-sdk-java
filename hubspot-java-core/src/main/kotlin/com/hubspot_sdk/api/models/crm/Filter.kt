@@ -338,50 +338,50 @@ private constructor(
 
         companion object {
 
+            @JvmField val BETWEEN = of("BETWEEN")
+
+            @JvmField val CONTAINS_TOKEN = of("CONTAINS_TOKEN")
+
             @JvmField val EQ = of("EQ")
-
-            @JvmField val NEQ = of("NEQ")
-
-            @JvmField val LT = of("LT")
-
-            @JvmField val LTE = of("LTE")
 
             @JvmField val GT = of("GT")
 
             @JvmField val GTE = of("GTE")
 
-            @JvmField val BETWEEN = of("BETWEEN")
+            @JvmField val HAS_PROPERTY = of("HAS_PROPERTY")
 
             @JvmField val IN = of("IN")
 
-            @JvmField val NOT_IN = of("NOT_IN")
+            @JvmField val LT = of("LT")
 
-            @JvmField val HAS_PROPERTY = of("HAS_PROPERTY")
+            @JvmField val LTE = of("LTE")
+
+            @JvmField val NEQ = of("NEQ")
+
+            @JvmField val NOT_CONTAINS_TOKEN = of("NOT_CONTAINS_TOKEN")
 
             @JvmField val NOT_HAS_PROPERTY = of("NOT_HAS_PROPERTY")
 
-            @JvmField val CONTAINS_TOKEN = of("CONTAINS_TOKEN")
-
-            @JvmField val NOT_CONTAINS_TOKEN = of("NOT_CONTAINS_TOKEN")
+            @JvmField val NOT_IN = of("NOT_IN")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
+            BETWEEN,
+            CONTAINS_TOKEN,
             EQ,
-            NEQ,
-            LT,
-            LTE,
             GT,
             GTE,
-            BETWEEN,
-            IN,
-            NOT_IN,
             HAS_PROPERTY,
-            NOT_HAS_PROPERTY,
-            CONTAINS_TOKEN,
+            IN,
+            LT,
+            LTE,
+            NEQ,
             NOT_CONTAINS_TOKEN,
+            NOT_HAS_PROPERTY,
+            NOT_IN,
         }
 
         /**
@@ -394,19 +394,19 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            BETWEEN,
+            CONTAINS_TOKEN,
             EQ,
-            NEQ,
-            LT,
-            LTE,
             GT,
             GTE,
-            BETWEEN,
-            IN,
-            NOT_IN,
             HAS_PROPERTY,
-            NOT_HAS_PROPERTY,
-            CONTAINS_TOKEN,
+            IN,
+            LT,
+            LTE,
+            NEQ,
             NOT_CONTAINS_TOKEN,
+            NOT_HAS_PROPERTY,
+            NOT_IN,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -420,19 +420,19 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                BETWEEN -> Value.BETWEEN
+                CONTAINS_TOKEN -> Value.CONTAINS_TOKEN
                 EQ -> Value.EQ
-                NEQ -> Value.NEQ
-                LT -> Value.LT
-                LTE -> Value.LTE
                 GT -> Value.GT
                 GTE -> Value.GTE
-                BETWEEN -> Value.BETWEEN
-                IN -> Value.IN
-                NOT_IN -> Value.NOT_IN
                 HAS_PROPERTY -> Value.HAS_PROPERTY
-                NOT_HAS_PROPERTY -> Value.NOT_HAS_PROPERTY
-                CONTAINS_TOKEN -> Value.CONTAINS_TOKEN
+                IN -> Value.IN
+                LT -> Value.LT
+                LTE -> Value.LTE
+                NEQ -> Value.NEQ
                 NOT_CONTAINS_TOKEN -> Value.NOT_CONTAINS_TOKEN
+                NOT_HAS_PROPERTY -> Value.NOT_HAS_PROPERTY
+                NOT_IN -> Value.NOT_IN
                 else -> Value._UNKNOWN
             }
 
@@ -447,19 +447,19 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                BETWEEN -> Known.BETWEEN
+                CONTAINS_TOKEN -> Known.CONTAINS_TOKEN
                 EQ -> Known.EQ
-                NEQ -> Known.NEQ
-                LT -> Known.LT
-                LTE -> Known.LTE
                 GT -> Known.GT
                 GTE -> Known.GTE
-                BETWEEN -> Known.BETWEEN
-                IN -> Known.IN
-                NOT_IN -> Known.NOT_IN
                 HAS_PROPERTY -> Known.HAS_PROPERTY
-                NOT_HAS_PROPERTY -> Known.NOT_HAS_PROPERTY
-                CONTAINS_TOKEN -> Known.CONTAINS_TOKEN
+                IN -> Known.IN
+                LT -> Known.LT
+                LTE -> Known.LTE
+                NEQ -> Known.NEQ
                 NOT_CONTAINS_TOKEN -> Known.NOT_CONTAINS_TOKEN
+                NOT_HAS_PROPERTY -> Known.NOT_HAS_PROPERTY
+                NOT_IN -> Known.NOT_IN
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

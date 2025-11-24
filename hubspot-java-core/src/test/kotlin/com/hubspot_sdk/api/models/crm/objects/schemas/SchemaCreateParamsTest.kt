@@ -34,9 +34,7 @@ internal class SchemaCreateParamsTest {
                             .groupName("my_object_information")
                             .hasUniqueValue(false)
                             .hidden(true)
-                            .numberDisplayHint(
-                                ObjectTypePropertyCreate.NumberDisplayHint.UNFORMATTED
-                            )
+                            .numberDisplayHint(ObjectTypePropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(1)
@@ -56,14 +54,12 @@ internal class SchemaCreateParamsTest {
                                     .build()
                             )
                             .optionSortStrategy(
-                                ObjectTypePropertyCreate.OptionSortStrategy.DISPLAY_ORDER
+                                ObjectTypePropertyCreate.OptionSortStrategy.ALPHABETICAL
                             )
                             .referencedObjectType("referencedObjectType")
                             .searchableInGlobalSearch(true)
                             .showCurrencySymbol(true)
-                            .textDisplayHint(
-                                ObjectTypePropertyCreate.TextDisplayHint.UNFORMATTED_SINGLE_LINE
-                            )
+                            .textDisplayHint(ObjectTypePropertyCreate.TextDisplayHint.DOMAIN_NAME)
                             .build()
                     )
                     .addRequiredProperty("my_object_property")
@@ -103,7 +99,7 @@ internal class SchemaCreateParamsTest {
                                 .hasUniqueValue(false)
                                 .hidden(true)
                                 .numberDisplayHint(
-                                    ObjectTypePropertyCreate.NumberDisplayHint.UNFORMATTED
+                                    ObjectTypePropertyCreate.NumberDisplayHint.CURRENCY
                                 )
                                 .addOption(
                                     OptionInput.builder()
@@ -124,13 +120,13 @@ internal class SchemaCreateParamsTest {
                                         .build()
                                 )
                                 .optionSortStrategy(
-                                    ObjectTypePropertyCreate.OptionSortStrategy.DISPLAY_ORDER
+                                    ObjectTypePropertyCreate.OptionSortStrategy.ALPHABETICAL
                                 )
                                 .referencedObjectType("referencedObjectType")
                                 .searchableInGlobalSearch(true)
                                 .showCurrencySymbol(true)
                                 .textDisplayHint(
-                                    ObjectTypePropertyCreate.TextDisplayHint.UNFORMATTED_SINGLE_LINE
+                                    ObjectTypePropertyCreate.TextDisplayHint.DOMAIN_NAME
                                 )
                                 .build()
                         )
@@ -168,9 +164,7 @@ internal class SchemaCreateParamsTest {
                             .groupName("my_object_information")
                             .hasUniqueValue(false)
                             .hidden(true)
-                            .numberDisplayHint(
-                                ObjectTypePropertyCreate.NumberDisplayHint.UNFORMATTED
-                            )
+                            .numberDisplayHint(ObjectTypePropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(1)
@@ -190,14 +184,12 @@ internal class SchemaCreateParamsTest {
                                     .build()
                             )
                             .optionSortStrategy(
-                                ObjectTypePropertyCreate.OptionSortStrategy.DISPLAY_ORDER
+                                ObjectTypePropertyCreate.OptionSortStrategy.ALPHABETICAL
                             )
                             .referencedObjectType("referencedObjectType")
                             .searchableInGlobalSearch(true)
                             .showCurrencySymbol(true)
-                            .textDisplayHint(
-                                ObjectTypePropertyCreate.TextDisplayHint.UNFORMATTED_SINGLE_LINE
-                            )
+                            .textDisplayHint(ObjectTypePropertyCreate.TextDisplayHint.DOMAIN_NAME)
                             .build()
                     )
                     .addRequiredProperty("my_object_property")

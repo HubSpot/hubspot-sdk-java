@@ -139,7 +139,7 @@ internal class IntegratorSettingServiceAsyncTest {
                 IntegratorSettingGetObjectDefinitionsByMediaTypeParams.builder()
                     .appId(0)
                     .mediaType(
-                        IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.VIDEO
+                        IntegratorSettingGetObjectDefinitionsByMediaTypeParams.MediaType.AUDIO
                     )
                     .includeFullDefinition(true)
                     .build()

@@ -30,7 +30,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                     PublicActionFunctionIdentifier.builder()
                                         .functionType(
                                             PublicActionFunctionIdentifier.FunctionType
-                                                .PRE_ACTION_EXECUTION
+                                                .POST_ACTION_EXECUTION
                                         )
                                         .id("id")
                                         .build()
@@ -51,7 +51,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                         .displayOrder(1)
                                                         .build()
                                                 )
-                                                .type(FieldTypeDefinition.Type.STRING)
+                                                .type(FieldTypeDefinition.Type.BOOL)
                                                 .description("description")
                                                 .externalOptionsReferenceType(
                                                     "externalOptionsReferenceType"
@@ -63,7 +63,8 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                 .label("label")
                                                 .optionsUrl("optionsUrl")
                                                 .referencedObjectType(
-                                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                    FieldTypeDefinition.ReferencedObjectType
+                                                        .ABANDONED_CART
                                                 )
                                                 .build()
                                         )
@@ -141,7 +142,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                         .displayOrder(1)
                                                         .build()
                                                 )
-                                                .type(FieldTypeDefinition.Type.STRING)
+                                                .type(FieldTypeDefinition.Type.BOOL)
                                                 .description("description")
                                                 .externalOptionsReferenceType(
                                                     "externalOptionsReferenceType"
@@ -153,7 +154,8 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                 .label("label")
                                                 .optionsUrl("optionsUrl")
                                                 .referencedObjectType(
-                                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                    FieldTypeDefinition.ReferencedObjectType
+                                                        .ABANDONED_CART
                                                 )
                                                 .build()
                                         )
@@ -184,7 +186,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                 PublicActionFunctionIdentifier.builder()
                                     .functionType(
                                         PublicActionFunctionIdentifier.FunctionType
-                                            .PRE_ACTION_EXECUTION
+                                            .POST_ACTION_EXECUTION
                                     )
                                     .id("id")
                                     .build()
@@ -205,7 +207,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                     .displayOrder(1)
                                                     .build()
                                             )
-                                            .type(FieldTypeDefinition.Type.STRING)
+                                            .type(FieldTypeDefinition.Type.BOOL)
                                             .description("description")
                                             .externalOptionsReferenceType(
                                                 "externalOptionsReferenceType"
@@ -217,7 +219,8 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                             .label("label")
                                             .optionsUrl("optionsUrl")
                                             .referencedObjectType(
-                                                FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                FieldTypeDefinition.ReferencedObjectType
+                                                    .ABANDONED_CART
                                             )
                                             .build()
                                     )
@@ -293,7 +296,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                     .displayOrder(1)
                                                     .build()
                                             )
-                                            .type(FieldTypeDefinition.Type.STRING)
+                                            .type(FieldTypeDefinition.Type.BOOL)
                                             .description("description")
                                             .externalOptionsReferenceType(
                                                 "externalOptionsReferenceType"
@@ -305,7 +308,8 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                             .label("label")
                                             .optionsUrl("optionsUrl")
                                             .referencedObjectType(
-                                                FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                FieldTypeDefinition.ReferencedObjectType
+                                                    .ABANDONED_CART
                                             )
                                             .build()
                                     )
@@ -341,7 +345,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                     PublicActionFunctionIdentifier.builder()
                                         .functionType(
                                             PublicActionFunctionIdentifier.FunctionType
-                                                .PRE_ACTION_EXECUTION
+                                                .POST_ACTION_EXECUTION
                                         )
                                         .id("id")
                                         .build()
@@ -362,7 +366,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                         .displayOrder(1)
                                                         .build()
                                                 )
-                                                .type(FieldTypeDefinition.Type.STRING)
+                                                .type(FieldTypeDefinition.Type.BOOL)
                                                 .description("description")
                                                 .externalOptionsReferenceType(
                                                     "externalOptionsReferenceType"
@@ -374,7 +378,8 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                 .label("label")
                                                 .optionsUrl("optionsUrl")
                                                 .referencedObjectType(
-                                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                    FieldTypeDefinition.ReferencedObjectType
+                                                        .ABANDONED_CART
                                                 )
                                                 .build()
                                         )
@@ -452,7 +457,7 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                         .displayOrder(1)
                                                         .build()
                                                 )
-                                                .type(FieldTypeDefinition.Type.STRING)
+                                                .type(FieldTypeDefinition.Type.BOOL)
                                                 .description("description")
                                                 .externalOptionsReferenceType(
                                                     "externalOptionsReferenceType"
@@ -464,7 +469,8 @@ internal class CollectionResponsePublicActionRevisionForwardPagingTest {
                                                 .label("label")
                                                 .optionsUrl("optionsUrl")
                                                 .referencedObjectType(
-                                                    FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                                    FieldTypeDefinition.ReferencedObjectType
+                                                        .ABANDONED_CART
                                                 )
                                                 .build()
                                         )

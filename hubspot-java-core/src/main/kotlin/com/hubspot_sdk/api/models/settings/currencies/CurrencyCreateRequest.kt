@@ -32,6 +32,8 @@ private constructor(
     ) : this(currencyCode, mutableMapOf())
 
     /**
+     * The currency code being added to the HubSpot portal for use with central exchange rates.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -83,6 +85,9 @@ private constructor(
             additionalProperties = currencyCreateRequest.additionalProperties.toMutableMap()
         }
 
+        /**
+         * The currency code being added to the HubSpot portal for use with central exchange rates.
+         */
         fun currencyCode(currencyCode: CurrencyCode) = currencyCode(JsonField.of(currencyCode))
 
         /**
@@ -161,6 +166,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int = (currencyCode.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** The currency code being added to the HubSpot portal for use with central exchange rates. */
     class CurrencyCode @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

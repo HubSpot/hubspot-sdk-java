@@ -27,6 +27,7 @@ private constructor(
 
     fun rowId(): Optional<String> = Optional.ofNullable(rowId)
 
+    /** The name for the cloned row. */
     fun name(): Optional<String> = Optional.ofNullable(name)
 
     /** Additional body properties to send with the request. */
@@ -80,6 +81,7 @@ private constructor(
         /** Alias for calling [Builder.rowId] with `rowId.orElse(null)`. */
         fun rowId(rowId: Optional<String>) = rowId(rowId.getOrNull())
 
+        /** The name for the cloned row. */
         fun name(name: String?) = apply { this.name = name }
 
         /** Alias for calling [Builder.name] with `name.orElse(null)`. */

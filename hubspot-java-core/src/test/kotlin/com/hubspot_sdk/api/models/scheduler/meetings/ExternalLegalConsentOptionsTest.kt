@@ -29,7 +29,7 @@ internal class ExternalLegalConsentOptionsTest {
                 .processingConsentText("processingConsentText")
                 .processingConsentType("processingConsentType")
                 .legitimateInterestLegalBasis(
-                    ExternalLegalConsentOptions.LegitimateInterestLegalBasis.LEGITIMATE_INTEREST_PQL
+                    ExternalLegalConsentOptions.LegitimateInterestLegalBasis.CONSENT_WITH_NOTICE
                 )
                 .build()
 
@@ -56,9 +56,7 @@ internal class ExternalLegalConsentOptionsTest {
         assertThat(externalLegalConsentOptions.processingConsentType())
             .isEqualTo("processingConsentType")
         assertThat(externalLegalConsentOptions.legitimateInterestLegalBasis())
-            .contains(
-                ExternalLegalConsentOptions.LegitimateInterestLegalBasis.LEGITIMATE_INTEREST_PQL
-            )
+            .contains(ExternalLegalConsentOptions.LegitimateInterestLegalBasis.CONSENT_WITH_NOTICE)
     }
 
     @Test
@@ -82,7 +80,7 @@ internal class ExternalLegalConsentOptionsTest {
                 .processingConsentText("processingConsentText")
                 .processingConsentType("processingConsentType")
                 .legitimateInterestLegalBasis(
-                    ExternalLegalConsentOptions.LegitimateInterestLegalBasis.LEGITIMATE_INTEREST_PQL
+                    ExternalLegalConsentOptions.LegitimateInterestLegalBasis.CONSENT_WITH_NOTICE
                 )
                 .build()
 

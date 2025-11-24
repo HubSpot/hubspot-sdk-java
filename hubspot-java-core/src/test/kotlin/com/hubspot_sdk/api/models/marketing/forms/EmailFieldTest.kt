@@ -17,7 +17,7 @@ internal class EmailFieldTest {
                     DependentField.builder()
                         .dependentCondition(
                             DependentFieldFilter.builder()
-                                .operator(DependentFieldFilter.Operator.EQ)
+                                .operator(DependentFieldFilter.Operator.BETWEEN)
                                 .rangeEnd("rangeEnd")
                                 .rangeStart("rangeStart")
                                 .value("value")
@@ -69,7 +69,7 @@ internal class EmailFieldTest {
                 DependentField.builder()
                     .dependentCondition(
                         DependentFieldFilter.builder()
-                            .operator(DependentFieldFilter.Operator.EQ)
+                            .operator(DependentFieldFilter.Operator.BETWEEN)
                             .rangeEnd("rangeEnd")
                             .rangeStart("rangeStart")
                             .value("value")
@@ -126,7 +126,7 @@ internal class EmailFieldTest {
                     DependentField.builder()
                         .dependentCondition(
                             DependentFieldFilter.builder()
-                                .operator(DependentFieldFilter.Operator.EQ)
+                                .operator(DependentFieldFilter.Operator.BETWEEN)
                                 .rangeEnd("rangeEnd")
                                 .rangeStart("rangeStart")
                                 .value("value")

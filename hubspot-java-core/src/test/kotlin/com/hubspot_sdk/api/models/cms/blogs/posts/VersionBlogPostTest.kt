@@ -21,7 +21,7 @@ internal class VersionBlogPostTest {
                 .object_(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -288,7 +288,7 @@ internal class VersionBlogPostTest {
             .isEqualTo(
                 BlogPost.builder()
                     .id("id")
-                    .abStatus(BlogPost.AbStatus.MASTER)
+                    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(0L)
                     .archivedInDashboard(true)
@@ -545,7 +545,7 @@ internal class VersionBlogPostTest {
                 .object_(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)

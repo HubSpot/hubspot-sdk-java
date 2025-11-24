@@ -13,7 +13,7 @@ internal class MediaPlayedPercentageEventRequestTest {
     fun create() {
         val mediaPlayedPercentageEventRequest =
             MediaPlayedPercentageEventRequest.builder()
-                .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                 .occurredTimestamp(0L)
                 .playedPercent(0)
                 .sessionId("sessionId")
@@ -30,7 +30,7 @@ internal class MediaPlayedPercentageEventRequestTest {
                 .build()
 
         assertThat(mediaPlayedPercentageEventRequest.mediaType())
-            .isEqualTo(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+            .isEqualTo(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
         assertThat(mediaPlayedPercentageEventRequest.occurredTimestamp()).isEqualTo(0L)
         assertThat(mediaPlayedPercentageEventRequest.playedPercent()).isEqualTo(0)
         assertThat(mediaPlayedPercentageEventRequest.sessionId()).isEqualTo("sessionId")
@@ -51,7 +51,7 @@ internal class MediaPlayedPercentageEventRequestTest {
         val jsonMapper = jsonMapper()
         val mediaPlayedPercentageEventRequest =
             MediaPlayedPercentageEventRequest.builder()
-                .mediaType(MediaPlayedPercentageEventRequest.MediaType.VIDEO)
+                .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
                 .occurredTimestamp(0L)
                 .playedPercent(0)
                 .sessionId("sessionId")

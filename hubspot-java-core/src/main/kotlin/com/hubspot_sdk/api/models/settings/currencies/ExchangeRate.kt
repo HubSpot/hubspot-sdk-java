@@ -69,48 +69,66 @@ private constructor(
     )
 
     /**
+     * A unique identifier for the exchange rate
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * The conversion rate between the to and from currency code of this exchange rate.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun conversionRate(): Double = conversionRate.getRequired("conversionRate")
 
     /**
+     * The date the exchange rate was created.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
+     * The date the exchange rate is in effect.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun effectiveAt(): OffsetDateTime = effectiveAt.getRequired("effectiveAt")
 
     /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you are converting from.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fromCurrencyCode(): FromCurrencyCode = fromCurrencyCode.getRequired("fromCurrencyCode")
 
     /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you are converting to.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun toCurrencyCode(): ToCurrencyCode = toCurrencyCode.getRequired("toCurrencyCode")
 
     /**
+     * The date the exchange rate was last updated.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
 
     /**
+     * This indicates if the exchange rate is shown in the MultiCurrency settings page.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -245,6 +263,7 @@ private constructor(
             additionalProperties = exchangeRate.additionalProperties.toMutableMap()
         }
 
+        /** A unique identifier for the exchange rate */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -255,6 +274,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** The conversion rate between the to and from currency code of this exchange rate. */
         fun conversionRate(conversionRate: Double) = conversionRate(JsonField.of(conversionRate))
 
         /**
@@ -268,6 +288,7 @@ private constructor(
             this.conversionRate = conversionRate
         }
 
+        /** The date the exchange rate was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -279,6 +300,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
+        /** The date the exchange rate is in effect. */
         fun effectiveAt(effectiveAt: OffsetDateTime) = effectiveAt(JsonField.of(effectiveAt))
 
         /**
@@ -292,6 +314,10 @@ private constructor(
             this.effectiveAt = effectiveAt
         }
 
+        /**
+         * This represents the three-letter currency code (such as USD for US Dollar) of the
+         * currency you are converting from.
+         */
         fun fromCurrencyCode(fromCurrencyCode: FromCurrencyCode) =
             fromCurrencyCode(JsonField.of(fromCurrencyCode))
 
@@ -306,6 +332,10 @@ private constructor(
             this.fromCurrencyCode = fromCurrencyCode
         }
 
+        /**
+         * This represents the three-letter currency code (such as USD for US Dollar) of the
+         * currency you are converting to.
+         */
         fun toCurrencyCode(toCurrencyCode: ToCurrencyCode) =
             toCurrencyCode(JsonField.of(toCurrencyCode))
 
@@ -320,6 +350,7 @@ private constructor(
             this.toCurrencyCode = toCurrencyCode
         }
 
+        /** The date the exchange rate was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -331,6 +362,7 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
+        /** This indicates if the exchange rate is shown in the MultiCurrency settings page. */
         fun visibleInUi(visibleInUi: Boolean) = visibleInUi(JsonField.of(visibleInUi))
 
         /**
@@ -436,6 +468,10 @@ private constructor(
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
             (if (visibleInUi.asKnown().isPresent) 1 else 0)
 
+    /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you are converting from.
+     */
     class FromCurrencyCode @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
@@ -1609,6 +1645,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * This represents the three-letter currency code (such as USD for US Dollar) of the currency
+     * you are converting to.
+     */
     class ToCurrencyCode @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

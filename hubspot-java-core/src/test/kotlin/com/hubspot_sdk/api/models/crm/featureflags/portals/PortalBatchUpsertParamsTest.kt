@@ -18,7 +18,7 @@ internal class PortalBatchUpsertParamsTest {
                 PortalFlagStateBatchPutRequest.builder()
                     .addPortalState(
                         BatchPortalEntry.builder()
-                            .flagState(BatchPortalEntry.FlagState.OFF)
+                            .flagState(BatchPortalEntry.FlagState.ABSENT)
                             .portalId(0)
                             .build()
                     )
@@ -37,7 +37,7 @@ internal class PortalBatchUpsertParamsTest {
                     PortalFlagStateBatchPutRequest.builder()
                         .addPortalState(
                             BatchPortalEntry.builder()
-                                .flagState(BatchPortalEntry.FlagState.OFF)
+                                .flagState(BatchPortalEntry.FlagState.ABSENT)
                                 .portalId(0)
                                 .build()
                         )
@@ -61,7 +61,7 @@ internal class PortalBatchUpsertParamsTest {
                     PortalFlagStateBatchPutRequest.builder()
                         .addPortalState(
                             BatchPortalEntry.builder()
-                                .flagState(BatchPortalEntry.FlagState.OFF)
+                                .flagState(BatchPortalEntry.FlagState.ABSENT)
                                 .portalId(0)
                                 .build()
                         )
@@ -76,7 +76,7 @@ internal class PortalBatchUpsertParamsTest {
                 PortalFlagStateBatchPutRequest.builder()
                     .addPortalState(
                         BatchPortalEntry.builder()
-                            .flagState(BatchPortalEntry.FlagState.OFF)
+                            .flagState(BatchPortalEntry.FlagState.ABSENT)
                             .portalId(0)
                             .build()
                     )

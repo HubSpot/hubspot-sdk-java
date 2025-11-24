@@ -14,20 +14,20 @@ internal class PublicStatusRequestTest {
         val publicStatusRequest =
             PublicStatusRequest.builder()
                 .channel(PublicStatusRequest.Channel.EMAIL)
-                .statusState(PublicStatusRequest.StatusState.SUBSCRIBED)
+                .statusState(PublicStatusRequest.StatusState.NOT_SPECIFIED)
                 .subscriberIdString("subscriberIdString")
                 .subscriptionId(0)
-                .legalBasis(PublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                .legalBasis(PublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                 .legalBasisExplanation("legalBasisExplanation")
                 .build()
 
         assertThat(publicStatusRequest.channel()).isEqualTo(PublicStatusRequest.Channel.EMAIL)
         assertThat(publicStatusRequest.statusState())
-            .isEqualTo(PublicStatusRequest.StatusState.SUBSCRIBED)
+            .isEqualTo(PublicStatusRequest.StatusState.NOT_SPECIFIED)
         assertThat(publicStatusRequest.subscriberIdString()).isEqualTo("subscriberIdString")
         assertThat(publicStatusRequest.subscriptionId()).isEqualTo(0)
         assertThat(publicStatusRequest.legalBasis())
-            .contains(PublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+            .contains(PublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
         assertThat(publicStatusRequest.legalBasisExplanation()).contains("legalBasisExplanation")
     }
 
@@ -37,10 +37,10 @@ internal class PublicStatusRequestTest {
         val publicStatusRequest =
             PublicStatusRequest.builder()
                 .channel(PublicStatusRequest.Channel.EMAIL)
-                .statusState(PublicStatusRequest.StatusState.SUBSCRIBED)
+                .statusState(PublicStatusRequest.StatusState.NOT_SPECIFIED)
                 .subscriberIdString("subscriberIdString")
                 .subscriptionId(0)
-                .legalBasis(PublicStatusRequest.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                .legalBasis(PublicStatusRequest.LegalBasis.CONSENT_WITH_NOTICE)
                 .legalBasisExplanation("legalBasisExplanation")
                 .build()
 

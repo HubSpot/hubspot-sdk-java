@@ -21,7 +21,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                 .addResult(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)
@@ -291,7 +291,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
             .containsExactly(
                 BlogPost.builder()
                     .id("id")
-                    .abStatus(BlogPost.AbStatus.MASTER)
+                    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(0L)
                     .archivedInDashboard(true)
@@ -550,7 +550,7 @@ internal class CollectionResponseWithTotalBlogPostForwardPagingTest {
                 .addResult(
                     BlogPost.builder()
                         .id("id")
-                        .abStatus(BlogPost.AbStatus.MASTER)
+                        .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(0L)
                         .archivedInDashboard(true)

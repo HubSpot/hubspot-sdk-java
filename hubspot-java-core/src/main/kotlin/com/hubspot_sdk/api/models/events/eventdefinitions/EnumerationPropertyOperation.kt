@@ -425,47 +425,47 @@ private constructor(
 
         companion object {
 
-            @JvmField val IS_ANY_OF = of("IS_ANY_OF")
-
-            @JvmField val IS_NONE_OF = of("IS_NONE_OF")
-
-            @JvmField val IS_EXACTLY = of("IS_EXACTLY")
-
-            @JvmField val IS_NOT_EXACTLY = of("IS_NOT_EXACTLY")
-
             @JvmField val CONTAINS_ALL = of("CONTAINS_ALL")
 
             @JvmField val DOES_NOT_CONTAIN_ALL = of("DOES_NOT_CONTAIN_ALL")
 
             @JvmField val HAS_EVER_BEEN_ANY_OF = of("HAS_EVER_BEEN_ANY_OF")
 
-            @JvmField val HAS_NEVER_BEEN_ANY_OF = of("HAS_NEVER_BEEN_ANY_OF")
-
             @JvmField val HAS_EVER_BEEN_EXACTLY = of("HAS_EVER_BEEN_EXACTLY")
-
-            @JvmField val HAS_NEVER_BEEN_EXACTLY = of("HAS_NEVER_BEEN_EXACTLY")
 
             @JvmField val HAS_EVER_CONTAINED_ALL = of("HAS_EVER_CONTAINED_ALL")
 
+            @JvmField val HAS_NEVER_BEEN_ANY_OF = of("HAS_NEVER_BEEN_ANY_OF")
+
+            @JvmField val HAS_NEVER_BEEN_EXACTLY = of("HAS_NEVER_BEEN_EXACTLY")
+
             @JvmField val HAS_NEVER_CONTAINED_ALL = of("HAS_NEVER_CONTAINED_ALL")
+
+            @JvmField val IS_ANY_OF = of("IS_ANY_OF")
+
+            @JvmField val IS_EXACTLY = of("IS_EXACTLY")
+
+            @JvmField val IS_NONE_OF = of("IS_NONE_OF")
+
+            @JvmField val IS_NOT_EXACTLY = of("IS_NOT_EXACTLY")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
-            IS_ANY_OF,
-            IS_NONE_OF,
-            IS_EXACTLY,
-            IS_NOT_EXACTLY,
             CONTAINS_ALL,
             DOES_NOT_CONTAIN_ALL,
             HAS_EVER_BEEN_ANY_OF,
-            HAS_NEVER_BEEN_ANY_OF,
             HAS_EVER_BEEN_EXACTLY,
-            HAS_NEVER_BEEN_EXACTLY,
             HAS_EVER_CONTAINED_ALL,
+            HAS_NEVER_BEEN_ANY_OF,
+            HAS_NEVER_BEEN_EXACTLY,
             HAS_NEVER_CONTAINED_ALL,
+            IS_ANY_OF,
+            IS_EXACTLY,
+            IS_NONE_OF,
+            IS_NOT_EXACTLY,
         }
 
         /**
@@ -478,18 +478,18 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            IS_ANY_OF,
-            IS_NONE_OF,
-            IS_EXACTLY,
-            IS_NOT_EXACTLY,
             CONTAINS_ALL,
             DOES_NOT_CONTAIN_ALL,
             HAS_EVER_BEEN_ANY_OF,
-            HAS_NEVER_BEEN_ANY_OF,
             HAS_EVER_BEEN_EXACTLY,
-            HAS_NEVER_BEEN_EXACTLY,
             HAS_EVER_CONTAINED_ALL,
+            HAS_NEVER_BEEN_ANY_OF,
+            HAS_NEVER_BEEN_EXACTLY,
             HAS_NEVER_CONTAINED_ALL,
+            IS_ANY_OF,
+            IS_EXACTLY,
+            IS_NONE_OF,
+            IS_NOT_EXACTLY,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -503,18 +503,18 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                IS_ANY_OF -> Value.IS_ANY_OF
-                IS_NONE_OF -> Value.IS_NONE_OF
-                IS_EXACTLY -> Value.IS_EXACTLY
-                IS_NOT_EXACTLY -> Value.IS_NOT_EXACTLY
                 CONTAINS_ALL -> Value.CONTAINS_ALL
                 DOES_NOT_CONTAIN_ALL -> Value.DOES_NOT_CONTAIN_ALL
                 HAS_EVER_BEEN_ANY_OF -> Value.HAS_EVER_BEEN_ANY_OF
-                HAS_NEVER_BEEN_ANY_OF -> Value.HAS_NEVER_BEEN_ANY_OF
                 HAS_EVER_BEEN_EXACTLY -> Value.HAS_EVER_BEEN_EXACTLY
-                HAS_NEVER_BEEN_EXACTLY -> Value.HAS_NEVER_BEEN_EXACTLY
                 HAS_EVER_CONTAINED_ALL -> Value.HAS_EVER_CONTAINED_ALL
+                HAS_NEVER_BEEN_ANY_OF -> Value.HAS_NEVER_BEEN_ANY_OF
+                HAS_NEVER_BEEN_EXACTLY -> Value.HAS_NEVER_BEEN_EXACTLY
                 HAS_NEVER_CONTAINED_ALL -> Value.HAS_NEVER_CONTAINED_ALL
+                IS_ANY_OF -> Value.IS_ANY_OF
+                IS_EXACTLY -> Value.IS_EXACTLY
+                IS_NONE_OF -> Value.IS_NONE_OF
+                IS_NOT_EXACTLY -> Value.IS_NOT_EXACTLY
                 else -> Value._UNKNOWN
             }
 
@@ -529,18 +529,18 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                IS_ANY_OF -> Known.IS_ANY_OF
-                IS_NONE_OF -> Known.IS_NONE_OF
-                IS_EXACTLY -> Known.IS_EXACTLY
-                IS_NOT_EXACTLY -> Known.IS_NOT_EXACTLY
                 CONTAINS_ALL -> Known.CONTAINS_ALL
                 DOES_NOT_CONTAIN_ALL -> Known.DOES_NOT_CONTAIN_ALL
                 HAS_EVER_BEEN_ANY_OF -> Known.HAS_EVER_BEEN_ANY_OF
-                HAS_NEVER_BEEN_ANY_OF -> Known.HAS_NEVER_BEEN_ANY_OF
                 HAS_EVER_BEEN_EXACTLY -> Known.HAS_EVER_BEEN_EXACTLY
-                HAS_NEVER_BEEN_EXACTLY -> Known.HAS_NEVER_BEEN_EXACTLY
                 HAS_EVER_CONTAINED_ALL -> Known.HAS_EVER_CONTAINED_ALL
+                HAS_NEVER_BEEN_ANY_OF -> Known.HAS_NEVER_BEEN_ANY_OF
+                HAS_NEVER_BEEN_EXACTLY -> Known.HAS_NEVER_BEEN_EXACTLY
                 HAS_NEVER_CONTAINED_ALL -> Known.HAS_NEVER_CONTAINED_ALL
+                IS_ANY_OF -> Known.IS_ANY_OF
+                IS_EXACTLY -> Known.IS_EXACTLY
+                IS_NONE_OF -> Known.IS_NONE_OF
+                IS_NOT_EXACTLY -> Known.IS_NOT_EXACTLY
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

@@ -14,13 +14,13 @@ internal class MeetingSettingsResponseTest {
         val meetingSettingsResponse =
             MeetingSettingsResponse.builder()
                 .criteria(MeetingSettingsResponse.Criteria.ALL)
-                .sellingStrategy(MeetingSettingsResponse.SellingStrategy.LEAD_BASED)
+                .sellingStrategy(MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                 .build()
 
         assertThat(meetingSettingsResponse.criteria())
             .isEqualTo(MeetingSettingsResponse.Criteria.ALL)
         assertThat(meetingSettingsResponse.sellingStrategy())
-            .isEqualTo(MeetingSettingsResponse.SellingStrategy.LEAD_BASED)
+            .isEqualTo(MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED)
     }
 
     @Test
@@ -29,7 +29,7 @@ internal class MeetingSettingsResponseTest {
         val meetingSettingsResponse =
             MeetingSettingsResponse.builder()
                 .criteria(MeetingSettingsResponse.Criteria.ALL)
-                .sellingStrategy(MeetingSettingsResponse.SellingStrategy.LEAD_BASED)
+                .sellingStrategy(MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                 .build()
 
         val roundtrippedMeetingSettingsResponse =

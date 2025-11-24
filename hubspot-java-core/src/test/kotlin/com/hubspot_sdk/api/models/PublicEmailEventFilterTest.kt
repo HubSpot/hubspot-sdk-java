@@ -17,7 +17,7 @@ internal class PublicEmailEventFilterTest {
                 .emailId("emailId")
                 .filterType(PublicEmailEventFilter.FilterType.EMAIL_EVENT)
                 .level("level")
-                .operator(PublicEmailEventFilter.Operator.LINK_CLICKED)
+                .operator(PublicEmailEventFilter.Operator.BOUNCED)
                 .clickUrl("clickUrl")
                 .pruningRefineBy(
                     PublicNumOccurrencesRefineBy.builder()
@@ -34,7 +34,7 @@ internal class PublicEmailEventFilterTest {
             .isEqualTo(PublicEmailEventFilter.FilterType.EMAIL_EVENT)
         assertThat(publicEmailEventFilter.level()).isEqualTo("level")
         assertThat(publicEmailEventFilter.operator())
-            .isEqualTo(PublicEmailEventFilter.Operator.LINK_CLICKED)
+            .isEqualTo(PublicEmailEventFilter.Operator.BOUNCED)
         assertThat(publicEmailEventFilter.clickUrl()).contains("clickUrl")
         assertThat(publicEmailEventFilter.pruningRefineBy())
             .contains(
@@ -57,7 +57,7 @@ internal class PublicEmailEventFilterTest {
                 .emailId("emailId")
                 .filterType(PublicEmailEventFilter.FilterType.EMAIL_EVENT)
                 .level("level")
-                .operator(PublicEmailEventFilter.Operator.LINK_CLICKED)
+                .operator(PublicEmailEventFilter.Operator.BOUNCED)
                 .clickUrl("clickUrl")
                 .pruningRefineBy(
                     PublicNumOccurrencesRefineBy.builder()

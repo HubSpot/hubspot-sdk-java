@@ -13,14 +13,14 @@ internal class DependentFieldFilterTest {
     fun create() {
         val dependentFieldFilter =
             DependentFieldFilter.builder()
-                .operator(DependentFieldFilter.Operator.EQ)
+                .operator(DependentFieldFilter.Operator.BETWEEN)
                 .rangeEnd("rangeEnd")
                 .rangeStart("rangeStart")
                 .value("value")
                 .addValue("string")
                 .build()
 
-        assertThat(dependentFieldFilter.operator()).isEqualTo(DependentFieldFilter.Operator.EQ)
+        assertThat(dependentFieldFilter.operator()).isEqualTo(DependentFieldFilter.Operator.BETWEEN)
         assertThat(dependentFieldFilter.rangeEnd()).isEqualTo("rangeEnd")
         assertThat(dependentFieldFilter.rangeStart()).isEqualTo("rangeStart")
         assertThat(dependentFieldFilter.value()).isEqualTo("value")
@@ -32,7 +32,7 @@ internal class DependentFieldFilterTest {
         val jsonMapper = jsonMapper()
         val dependentFieldFilter =
             DependentFieldFilter.builder()
-                .operator(DependentFieldFilter.Operator.EQ)
+                .operator(DependentFieldFilter.Operator.BETWEEN)
                 .rangeEnd("rangeEnd")
                 .rangeStart("rangeStart")
                 .value("value")

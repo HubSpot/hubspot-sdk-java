@@ -22,15 +22,15 @@ internal class BatchResponsePublicStatusBulkResponseTest {
                             PublicStatus.builder()
                                 .channel(PublicStatus.Channel.EMAIL)
                                 .source("source")
-                                .status(PublicStatus.Status.SUBSCRIBED)
+                                .status(PublicStatus.Status.NOT_SPECIFIED)
                                 .subscriberIdString("subscriberIdString")
                                 .subscriptionId(0)
                                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .businessUnitId(0L)
-                                .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                                .legalBasis(PublicStatus.LegalBasis.CONSENT_WITH_NOTICE)
                                 .legalBasisExplanation("legalBasisExplanation")
                                 .setStatusSuccessReason(
-                                    PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                                    PublicStatus.SetStatusSuccessReason.NO_STATUS_CHANGE
                                 )
                                 .subscriptionName("subscriptionName")
                                 .build()
@@ -39,7 +39,7 @@ internal class BatchResponsePublicStatusBulkResponseTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicStatusBulkResponse.Status.PENDING)
+                .status(BatchResponsePublicStatusBulkResponse.Status.CANCELED)
                 .links(
                     BatchResponsePublicStatusBulkResponse.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -57,15 +57,15 @@ internal class BatchResponsePublicStatusBulkResponseTest {
                         PublicStatus.builder()
                             .channel(PublicStatus.Channel.EMAIL)
                             .source("source")
-                            .status(PublicStatus.Status.SUBSCRIBED)
+                            .status(PublicStatus.Status.NOT_SPECIFIED)
                             .subscriberIdString("subscriberIdString")
                             .subscriptionId(0)
                             .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .businessUnitId(0L)
-                            .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                            .legalBasis(PublicStatus.LegalBasis.CONSENT_WITH_NOTICE)
                             .legalBasisExplanation("legalBasisExplanation")
                             .setStatusSuccessReason(
-                                PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                                PublicStatus.SetStatusSuccessReason.NO_STATUS_CHANGE
                             )
                             .subscriptionName("subscriptionName")
                             .build()
@@ -76,7 +76,7 @@ internal class BatchResponsePublicStatusBulkResponseTest {
         assertThat(batchResponsePublicStatusBulkResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePublicStatusBulkResponse.status())
-            .isEqualTo(BatchResponsePublicStatusBulkResponse.Status.PENDING)
+            .isEqualTo(BatchResponsePublicStatusBulkResponse.Status.CANCELED)
         assertThat(batchResponsePublicStatusBulkResponse.links())
             .contains(
                 BatchResponsePublicStatusBulkResponse.Links.builder()
@@ -99,15 +99,15 @@ internal class BatchResponsePublicStatusBulkResponseTest {
                             PublicStatus.builder()
                                 .channel(PublicStatus.Channel.EMAIL)
                                 .source("source")
-                                .status(PublicStatus.Status.SUBSCRIBED)
+                                .status(PublicStatus.Status.NOT_SPECIFIED)
                                 .subscriberIdString("subscriberIdString")
                                 .subscriptionId(0)
                                 .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .businessUnitId(0L)
-                                .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                                .legalBasis(PublicStatus.LegalBasis.CONSENT_WITH_NOTICE)
                                 .legalBasisExplanation("legalBasisExplanation")
                                 .setStatusSuccessReason(
-                                    PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                                    PublicStatus.SetStatusSuccessReason.NO_STATUS_CHANGE
                                 )
                                 .subscriptionName("subscriptionName")
                                 .build()
@@ -116,7 +116,7 @@ internal class BatchResponsePublicStatusBulkResponseTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicStatusBulkResponse.Status.PENDING)
+                .status(BatchResponsePublicStatusBulkResponse.Status.CANCELED)
                 .links(
                     BatchResponsePublicStatusBulkResponse.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

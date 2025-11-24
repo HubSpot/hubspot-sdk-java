@@ -377,23 +377,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = of("PENDING")
-
-            @JvmField val PROCESSING = of("PROCESSING")
-
             @JvmField val CANCELED = of("CANCELED")
 
             @JvmField val COMPLETE = of("COMPLETE")
+
+            @JvmField val PENDING = of("PENDING")
+
+            @JvmField val PROCESSING = of("PROCESSING")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            PENDING,
-            PROCESSING,
             CANCELED,
             COMPLETE,
+            PENDING,
+            PROCESSING,
         }
 
         /**
@@ -406,10 +406,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PENDING,
-            PROCESSING,
             CANCELED,
             COMPLETE,
+            PENDING,
+            PROCESSING,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -423,10 +423,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PENDING -> Value.PENDING
-                PROCESSING -> Value.PROCESSING
                 CANCELED -> Value.CANCELED
                 COMPLETE -> Value.COMPLETE
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
                 else -> Value._UNKNOWN
             }
 
@@ -441,10 +441,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PENDING -> Known.PENDING
-                PROCESSING -> Known.PROCESSING
                 CANCELED -> Known.CANCELED
                 COMPLETE -> Known.COMPLETE
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
                 else -> throw HubspotInvalidDataException("Unknown Status: $value")
             }
 

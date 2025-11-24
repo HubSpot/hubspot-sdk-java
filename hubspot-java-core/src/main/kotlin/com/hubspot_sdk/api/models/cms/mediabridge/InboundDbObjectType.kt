@@ -1713,17 +1713,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val HUBSPOT = of("HUBSPOT")
-
-            @JvmField val INTEGRATION = of("INTEGRATION")
-
-            @JvmField val PORTAL_SPECIFIC = of("PORTAL_SPECIFIC")
-
             @JvmField val CMS_HUBDB = of("CMS_HUBDB")
+
+            @JvmField val HUBSPOT = of("HUBSPOT")
 
             @JvmField val HUBSPOT_EVENT = of("HUBSPOT_EVENT")
 
+            @JvmField val INTEGRATION = of("INTEGRATION")
+
             @JvmField val INTEGRATION_EVENT = of("INTEGRATION_EVENT")
+
+            @JvmField val PORTAL_SPECIFIC = of("PORTAL_SPECIFIC")
 
             @JvmField val PORTAL_SPECIFIC_EVENT = of("PORTAL_SPECIFIC_EVENT")
 
@@ -1732,12 +1732,12 @@ private constructor(
 
         /** An enum containing [MetaType]'s known values. */
         enum class Known {
-            HUBSPOT,
-            INTEGRATION,
-            PORTAL_SPECIFIC,
             CMS_HUBDB,
+            HUBSPOT,
             HUBSPOT_EVENT,
+            INTEGRATION,
             INTEGRATION_EVENT,
+            PORTAL_SPECIFIC,
             PORTAL_SPECIFIC_EVENT,
         }
 
@@ -1751,12 +1751,12 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            HUBSPOT,
-            INTEGRATION,
-            PORTAL_SPECIFIC,
             CMS_HUBDB,
+            HUBSPOT,
             HUBSPOT_EVENT,
+            INTEGRATION,
             INTEGRATION_EVENT,
+            PORTAL_SPECIFIC,
             PORTAL_SPECIFIC_EVENT,
             /** An enum member indicating that [MetaType] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -1771,12 +1771,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                HUBSPOT -> Value.HUBSPOT
-                INTEGRATION -> Value.INTEGRATION
-                PORTAL_SPECIFIC -> Value.PORTAL_SPECIFIC
                 CMS_HUBDB -> Value.CMS_HUBDB
+                HUBSPOT -> Value.HUBSPOT
                 HUBSPOT_EVENT -> Value.HUBSPOT_EVENT
+                INTEGRATION -> Value.INTEGRATION
                 INTEGRATION_EVENT -> Value.INTEGRATION_EVENT
+                PORTAL_SPECIFIC -> Value.PORTAL_SPECIFIC
                 PORTAL_SPECIFIC_EVENT -> Value.PORTAL_SPECIFIC_EVENT
                 else -> Value._UNKNOWN
             }
@@ -1792,12 +1792,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                HUBSPOT -> Known.HUBSPOT
-                INTEGRATION -> Known.INTEGRATION
-                PORTAL_SPECIFIC -> Known.PORTAL_SPECIFIC
                 CMS_HUBDB -> Known.CMS_HUBDB
+                HUBSPOT -> Known.HUBSPOT
                 HUBSPOT_EVENT -> Known.HUBSPOT_EVENT
+                INTEGRATION -> Known.INTEGRATION
                 INTEGRATION_EVENT -> Known.INTEGRATION_EVENT
+                PORTAL_SPECIFIC -> Known.PORTAL_SPECIFIC
                 PORTAL_SPECIFIC_EVENT -> Known.PORTAL_SPECIFIC_EVENT
                 else -> throw HubspotInvalidDataException("Unknown MetaType: $value")
             }

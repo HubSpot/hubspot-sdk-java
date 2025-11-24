@@ -48,7 +48,7 @@ internal class PropertyValidationServiceTest {
                 .ruleType(
                     PropertyValidationCrmV3PropertyValidationsObjectTypeIdPropertyNameRuleTypeRuleTypeParams
                         .RuleType
-                        .FORMAT
+                        .AFTER_DATETIME_DURATION
                 )
                 .publicPropertyValidationRuleUpdate(
                     PublicPropertyValidationRuleUpdate.builder().addRuleArgument("string").build()

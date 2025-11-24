@@ -14,13 +14,13 @@ internal class PublicActionFunctionTest {
         val publicActionFunction =
             PublicActionFunction.builder()
                 .functionSource("functionSource")
-                .functionType(PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION)
+                .functionType(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
                 .id("id")
                 .build()
 
         assertThat(publicActionFunction.functionSource()).isEqualTo("functionSource")
         assertThat(publicActionFunction.functionType())
-            .isEqualTo(PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION)
+            .isEqualTo(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
         assertThat(publicActionFunction.id()).contains("id")
     }
 
@@ -30,7 +30,7 @@ internal class PublicActionFunctionTest {
         val publicActionFunction =
             PublicActionFunction.builder()
                 .functionSource("functionSource")
-                .functionType(PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION)
+                .functionType(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
                 .id("id")
                 .build()
 

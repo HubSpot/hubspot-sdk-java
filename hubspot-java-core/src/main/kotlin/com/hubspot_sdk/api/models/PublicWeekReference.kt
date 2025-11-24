@@ -332,32 +332,32 @@ private constructor(
 
         companion object {
 
-            @JvmField val MONDAY = of("MONDAY")
-
-            @JvmField val TUESDAY = of("TUESDAY")
-
-            @JvmField val WEDNESDAY = of("WEDNESDAY")
-
-            @JvmField val THURSDAY = of("THURSDAY")
-
             @JvmField val FRIDAY = of("FRIDAY")
+
+            @JvmField val MONDAY = of("MONDAY")
 
             @JvmField val SATURDAY = of("SATURDAY")
 
             @JvmField val SUNDAY = of("SUNDAY")
+
+            @JvmField val THURSDAY = of("THURSDAY")
+
+            @JvmField val TUESDAY = of("TUESDAY")
+
+            @JvmField val WEDNESDAY = of("WEDNESDAY")
 
             @JvmStatic fun of(value: String) = DayOfWeek(JsonField.of(value))
         }
 
         /** An enum containing [DayOfWeek]'s known values. */
         enum class Known {
-            MONDAY,
-            TUESDAY,
-            WEDNESDAY,
-            THURSDAY,
             FRIDAY,
+            MONDAY,
             SATURDAY,
             SUNDAY,
+            THURSDAY,
+            TUESDAY,
+            WEDNESDAY,
         }
 
         /**
@@ -370,13 +370,13 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            MONDAY,
-            TUESDAY,
-            WEDNESDAY,
-            THURSDAY,
             FRIDAY,
+            MONDAY,
             SATURDAY,
             SUNDAY,
+            THURSDAY,
+            TUESDAY,
+            WEDNESDAY,
             /**
              * An enum member indicating that [DayOfWeek] was instantiated with an unknown value.
              */
@@ -392,13 +392,13 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                MONDAY -> Value.MONDAY
-                TUESDAY -> Value.TUESDAY
-                WEDNESDAY -> Value.WEDNESDAY
-                THURSDAY -> Value.THURSDAY
                 FRIDAY -> Value.FRIDAY
+                MONDAY -> Value.MONDAY
                 SATURDAY -> Value.SATURDAY
                 SUNDAY -> Value.SUNDAY
+                THURSDAY -> Value.THURSDAY
+                TUESDAY -> Value.TUESDAY
+                WEDNESDAY -> Value.WEDNESDAY
                 else -> Value._UNKNOWN
             }
 
@@ -413,13 +413,13 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                MONDAY -> Known.MONDAY
-                TUESDAY -> Known.TUESDAY
-                WEDNESDAY -> Known.WEDNESDAY
-                THURSDAY -> Known.THURSDAY
                 FRIDAY -> Known.FRIDAY
+                MONDAY -> Known.MONDAY
                 SATURDAY -> Known.SATURDAY
                 SUNDAY -> Known.SUNDAY
+                THURSDAY -> Known.THURSDAY
+                TUESDAY -> Known.TUESDAY
+                WEDNESDAY -> Known.WEDNESDAY
                 else -> throw HubspotInvalidDataException("Unknown DayOfWeek: $value")
             }
 

@@ -2693,9 +2693,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val MASTER = of("master")
+            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
 
-            @JvmField val VARIANT = of("variant")
+            @JvmField val AUTOMATED_MASTER = of("automated_master")
+
+            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
 
             @JvmField val LOSER_VARIANT = of("loser_variant")
 
@@ -2703,25 +2705,23 @@ private constructor(
 
             @JvmField val MAB_VARIANT = of("mab_variant")
 
-            @JvmField val AUTOMATED_MASTER = of("automated_master")
+            @JvmField val MASTER = of("master")
 
-            @JvmField val AUTOMATED_VARIANT = of("automated_variant")
-
-            @JvmField val AUTOMATED_LOSER_VARIANT = of("automated_loser_variant")
+            @JvmField val VARIANT = of("variant")
 
             @JvmStatic fun of(value: String) = AbStatus(JsonField.of(value))
         }
 
         /** An enum containing [AbStatus]'s known values. */
         enum class Known {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
         }
 
         /**
@@ -2734,14 +2734,14 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            MASTER,
-            VARIANT,
+            AUTOMATED_LOSER_VARIANT,
+            AUTOMATED_MASTER,
+            AUTOMATED_VARIANT,
             LOSER_VARIANT,
             MAB_MASTER,
             MAB_VARIANT,
-            AUTOMATED_MASTER,
-            AUTOMATED_VARIANT,
-            AUTOMATED_LOSER_VARIANT,
+            MASTER,
+            VARIANT,
             /** An enum member indicating that [AbStatus] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -2755,14 +2755,14 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                MASTER -> Value.MASTER
-                VARIANT -> Value.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Value.LOSER_VARIANT
                 MAB_MASTER -> Value.MAB_MASTER
                 MAB_VARIANT -> Value.MAB_VARIANT
-                AUTOMATED_MASTER -> Value.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Value.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Value.AUTOMATED_LOSER_VARIANT
+                MASTER -> Value.MASTER
+                VARIANT -> Value.VARIANT
                 else -> Value._UNKNOWN
             }
 
@@ -2777,14 +2777,14 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                MASTER -> Known.MASTER
-                VARIANT -> Known.VARIANT
+                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
+                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
                 LOSER_VARIANT -> Known.LOSER_VARIANT
                 MAB_MASTER -> Known.MAB_MASTER
                 MAB_VARIANT -> Known.MAB_VARIANT
-                AUTOMATED_MASTER -> Known.AUTOMATED_MASTER
-                AUTOMATED_VARIANT -> Known.AUTOMATED_VARIANT
-                AUTOMATED_LOSER_VARIANT -> Known.AUTOMATED_LOSER_VARIANT
+                MASTER -> Known.MASTER
+                VARIANT -> Known.VARIANT
                 else -> throw HubspotInvalidDataException("Unknown AbStatus: $value")
             }
 
@@ -2960,6 +2960,18 @@ private constructor(
 
             @JvmField val _1 = of("1")
 
+            @JvmField val _10 = of("10")
+
+            @JvmField val _11 = of("11")
+
+            @JvmField val _12 = of("12")
+
+            @JvmField val _13 = of("13")
+
+            @JvmField val _14 = of("14")
+
+            @JvmField val _15 = of("15")
+
             @JvmField val _2 = of("2")
 
             @JvmField val _3 = of("3")
@@ -2976,18 +2988,6 @@ private constructor(
 
             @JvmField val _9 = of("9")
 
-            @JvmField val _10 = of("10")
-
-            @JvmField val _11 = of("11")
-
-            @JvmField val _12 = of("12")
-
-            @JvmField val _13 = of("13")
-
-            @JvmField val _14 = of("14")
-
-            @JvmField val _15 = of("15")
-
             @JvmStatic fun of(value: String) = ContentTypeCategory(JsonField.of(value))
         }
 
@@ -2995,6 +2995,12 @@ private constructor(
         enum class Known {
             _0,
             _1,
+            _10,
+            _11,
+            _12,
+            _13,
+            _14,
+            _15,
             _2,
             _3,
             _4,
@@ -3003,12 +3009,6 @@ private constructor(
             _7,
             _8,
             _9,
-            _10,
-            _11,
-            _12,
-            _13,
-            _14,
-            _15,
         }
 
         /**
@@ -3023,6 +3023,12 @@ private constructor(
         enum class Value {
             _0,
             _1,
+            _10,
+            _11,
+            _12,
+            _13,
+            _14,
+            _15,
             _2,
             _3,
             _4,
@@ -3031,12 +3037,6 @@ private constructor(
             _7,
             _8,
             _9,
-            _10,
-            _11,
-            _12,
-            _13,
-            _14,
-            _15,
             /**
              * An enum member indicating that [ContentTypeCategory] was instantiated with an unknown
              * value.
@@ -3055,6 +3055,12 @@ private constructor(
             when (this) {
                 _0 -> Value._0
                 _1 -> Value._1
+                _10 -> Value._10
+                _11 -> Value._11
+                _12 -> Value._12
+                _13 -> Value._13
+                _14 -> Value._14
+                _15 -> Value._15
                 _2 -> Value._2
                 _3 -> Value._3
                 _4 -> Value._4
@@ -3063,12 +3069,6 @@ private constructor(
                 _7 -> Value._7
                 _8 -> Value._8
                 _9 -> Value._9
-                _10 -> Value._10
-                _11 -> Value._11
-                _12 -> Value._12
-                _13 -> Value._13
-                _14 -> Value._14
-                _15 -> Value._15
                 else -> Value._UNKNOWN
             }
 
@@ -3085,6 +3085,12 @@ private constructor(
             when (this) {
                 _0 -> Known._0
                 _1 -> Known._1
+                _10 -> Known._10
+                _11 -> Known._11
+                _12 -> Known._12
+                _13 -> Known._13
+                _14 -> Known._14
+                _15 -> Known._15
                 _2 -> Known._2
                 _3 -> Known._3
                 _4 -> Known._4
@@ -3093,12 +3099,6 @@ private constructor(
                 _7 -> Known._7
                 _8 -> Known._8
                 _9 -> Known._9
-                _10 -> Known._10
-                _11 -> Known._11
-                _12 -> Known._12
-                _13 -> Known._13
-                _14 -> Known._14
-                _15 -> Known._15
                 else -> throw HubspotInvalidDataException("Unknown ContentTypeCategory: $value")
             }
 
@@ -3174,9 +3174,15 @@ private constructor(
 
             @JvmField val AUTOMATED = of("AUTOMATED")
 
+            @JvmField val AUTOMATED_AB = of("AUTOMATED_AB")
+
+            @JvmField val AUTOMATED_AB_VARIANT = of("AUTOMATED_AB_VARIANT")
+
             @JvmField val AUTOMATED_DRAFT = of("AUTOMATED_DRAFT")
 
-            @JvmField val AUTOMATED_SENDING = of("AUTOMATED_SENDING")
+            @JvmField val AUTOMATED_DRAFT_AB = of("AUTOMATED_DRAFT_AB")
+
+            @JvmField val AUTOMATED_DRAFT_ABVARIANT = of("AUTOMATED_DRAFT_ABVARIANT")
 
             @JvmField val AUTOMATED_FOR_FORM = of("AUTOMATED_FOR_FORM")
 
@@ -3185,6 +3191,10 @@ private constructor(
             @JvmField val AUTOMATED_FOR_FORM_DRAFT = of("AUTOMATED_FOR_FORM_DRAFT")
 
             @JvmField val AUTOMATED_FOR_FORM_LEGACY = of("AUTOMATED_FOR_FORM_LEGACY")
+
+            @JvmField val AUTOMATED_LOSER_ABVARIANT = of("AUTOMATED_LOSER_ABVARIANT")
+
+            @JvmField val AUTOMATED_SENDING = of("AUTOMATED_SENDING")
 
             @JvmField val BLOG_EMAIL_DRAFT = of("BLOG_EMAIL_DRAFT")
 
@@ -3224,28 +3234,23 @@ private constructor(
 
             @JvmField val SCHEDULED_OR_PUBLISHED = of("SCHEDULED_OR_PUBLISHED")
 
-            @JvmField val AUTOMATED_AB = of("AUTOMATED_AB")
-
-            @JvmField val AUTOMATED_AB_VARIANT = of("AUTOMATED_AB_VARIANT")
-
-            @JvmField val AUTOMATED_DRAFT_AB = of("AUTOMATED_DRAFT_AB")
-
-            @JvmField val AUTOMATED_DRAFT_ABVARIANT = of("AUTOMATED_DRAFT_ABVARIANT")
-
-            @JvmField val AUTOMATED_LOSER_ABVARIANT = of("AUTOMATED_LOSER_ABVARIANT")
-
             @JvmStatic fun of(value: String) = CurrentState(JsonField.of(value))
         }
 
         /** An enum containing [CurrentState]'s known values. */
         enum class Known {
             AUTOMATED,
+            AUTOMATED_AB,
+            AUTOMATED_AB_VARIANT,
             AUTOMATED_DRAFT,
-            AUTOMATED_SENDING,
+            AUTOMATED_DRAFT_AB,
+            AUTOMATED_DRAFT_ABVARIANT,
             AUTOMATED_FOR_FORM,
             AUTOMATED_FOR_FORM_BUFFER,
             AUTOMATED_FOR_FORM_DRAFT,
             AUTOMATED_FOR_FORM_LEGACY,
+            AUTOMATED_LOSER_ABVARIANT,
+            AUTOMATED_SENDING,
             BLOG_EMAIL_DRAFT,
             BLOG_EMAIL_PUBLISHED,
             DRAFT,
@@ -3265,11 +3270,6 @@ private constructor(
             SCHEDULED,
             SCHEDULED_AB,
             SCHEDULED_OR_PUBLISHED,
-            AUTOMATED_AB,
-            AUTOMATED_AB_VARIANT,
-            AUTOMATED_DRAFT_AB,
-            AUTOMATED_DRAFT_ABVARIANT,
-            AUTOMATED_LOSER_ABVARIANT,
         }
 
         /**
@@ -3283,12 +3283,17 @@ private constructor(
          */
         enum class Value {
             AUTOMATED,
+            AUTOMATED_AB,
+            AUTOMATED_AB_VARIANT,
             AUTOMATED_DRAFT,
-            AUTOMATED_SENDING,
+            AUTOMATED_DRAFT_AB,
+            AUTOMATED_DRAFT_ABVARIANT,
             AUTOMATED_FOR_FORM,
             AUTOMATED_FOR_FORM_BUFFER,
             AUTOMATED_FOR_FORM_DRAFT,
             AUTOMATED_FOR_FORM_LEGACY,
+            AUTOMATED_LOSER_ABVARIANT,
+            AUTOMATED_SENDING,
             BLOG_EMAIL_DRAFT,
             BLOG_EMAIL_PUBLISHED,
             DRAFT,
@@ -3308,11 +3313,6 @@ private constructor(
             SCHEDULED,
             SCHEDULED_AB,
             SCHEDULED_OR_PUBLISHED,
-            AUTOMATED_AB,
-            AUTOMATED_AB_VARIANT,
-            AUTOMATED_DRAFT_AB,
-            AUTOMATED_DRAFT_ABVARIANT,
-            AUTOMATED_LOSER_ABVARIANT,
             /**
              * An enum member indicating that [CurrentState] was instantiated with an unknown value.
              */
@@ -3329,12 +3329,17 @@ private constructor(
         fun value(): Value =
             when (this) {
                 AUTOMATED -> Value.AUTOMATED
+                AUTOMATED_AB -> Value.AUTOMATED_AB
+                AUTOMATED_AB_VARIANT -> Value.AUTOMATED_AB_VARIANT
                 AUTOMATED_DRAFT -> Value.AUTOMATED_DRAFT
-                AUTOMATED_SENDING -> Value.AUTOMATED_SENDING
+                AUTOMATED_DRAFT_AB -> Value.AUTOMATED_DRAFT_AB
+                AUTOMATED_DRAFT_ABVARIANT -> Value.AUTOMATED_DRAFT_ABVARIANT
                 AUTOMATED_FOR_FORM -> Value.AUTOMATED_FOR_FORM
                 AUTOMATED_FOR_FORM_BUFFER -> Value.AUTOMATED_FOR_FORM_BUFFER
                 AUTOMATED_FOR_FORM_DRAFT -> Value.AUTOMATED_FOR_FORM_DRAFT
                 AUTOMATED_FOR_FORM_LEGACY -> Value.AUTOMATED_FOR_FORM_LEGACY
+                AUTOMATED_LOSER_ABVARIANT -> Value.AUTOMATED_LOSER_ABVARIANT
+                AUTOMATED_SENDING -> Value.AUTOMATED_SENDING
                 BLOG_EMAIL_DRAFT -> Value.BLOG_EMAIL_DRAFT
                 BLOG_EMAIL_PUBLISHED -> Value.BLOG_EMAIL_PUBLISHED
                 DRAFT -> Value.DRAFT
@@ -3354,11 +3359,6 @@ private constructor(
                 SCHEDULED -> Value.SCHEDULED
                 SCHEDULED_AB -> Value.SCHEDULED_AB
                 SCHEDULED_OR_PUBLISHED -> Value.SCHEDULED_OR_PUBLISHED
-                AUTOMATED_AB -> Value.AUTOMATED_AB
-                AUTOMATED_AB_VARIANT -> Value.AUTOMATED_AB_VARIANT
-                AUTOMATED_DRAFT_AB -> Value.AUTOMATED_DRAFT_AB
-                AUTOMATED_DRAFT_ABVARIANT -> Value.AUTOMATED_DRAFT_ABVARIANT
-                AUTOMATED_LOSER_ABVARIANT -> Value.AUTOMATED_LOSER_ABVARIANT
                 else -> Value._UNKNOWN
             }
 
@@ -3374,12 +3374,17 @@ private constructor(
         fun known(): Known =
             when (this) {
                 AUTOMATED -> Known.AUTOMATED
+                AUTOMATED_AB -> Known.AUTOMATED_AB
+                AUTOMATED_AB_VARIANT -> Known.AUTOMATED_AB_VARIANT
                 AUTOMATED_DRAFT -> Known.AUTOMATED_DRAFT
-                AUTOMATED_SENDING -> Known.AUTOMATED_SENDING
+                AUTOMATED_DRAFT_AB -> Known.AUTOMATED_DRAFT_AB
+                AUTOMATED_DRAFT_ABVARIANT -> Known.AUTOMATED_DRAFT_ABVARIANT
                 AUTOMATED_FOR_FORM -> Known.AUTOMATED_FOR_FORM
                 AUTOMATED_FOR_FORM_BUFFER -> Known.AUTOMATED_FOR_FORM_BUFFER
                 AUTOMATED_FOR_FORM_DRAFT -> Known.AUTOMATED_FOR_FORM_DRAFT
                 AUTOMATED_FOR_FORM_LEGACY -> Known.AUTOMATED_FOR_FORM_LEGACY
+                AUTOMATED_LOSER_ABVARIANT -> Known.AUTOMATED_LOSER_ABVARIANT
+                AUTOMATED_SENDING -> Known.AUTOMATED_SENDING
                 BLOG_EMAIL_DRAFT -> Known.BLOG_EMAIL_DRAFT
                 BLOG_EMAIL_PUBLISHED -> Known.BLOG_EMAIL_PUBLISHED
                 DRAFT -> Known.DRAFT
@@ -3399,11 +3404,6 @@ private constructor(
                 SCHEDULED -> Known.SCHEDULED
                 SCHEDULED_AB -> Known.SCHEDULED_AB
                 SCHEDULED_OR_PUBLISHED -> Known.SCHEDULED_OR_PUBLISHED
-                AUTOMATED_AB -> Known.AUTOMATED_AB
-                AUTOMATED_AB_VARIANT -> Known.AUTOMATED_AB_VARIANT
-                AUTOMATED_DRAFT_AB -> Known.AUTOMATED_DRAFT_AB
-                AUTOMATED_DRAFT_ABVARIANT -> Known.AUTOMATED_DRAFT_ABVARIANT
-                AUTOMATED_LOSER_ABVARIANT -> Known.AUTOMATED_LOSER_ABVARIANT
                 else -> throw HubspotInvalidDataException("Unknown CurrentState: $value")
             }
 
@@ -3795,8 +3795,6 @@ private constructor(
 
             @JvmField val EN_ER = of("en-er")
 
-            @JvmField val EN_FR = of("en-fr")
-
             @JvmField val EN_FI = of("en-fi")
 
             @JvmField val EN_FJ = of("en-fj")
@@ -3804,6 +3802,8 @@ private constructor(
             @JvmField val EN_FK = of("en-fk")
 
             @JvmField val EN_FM = of("en-fm")
+
+            @JvmField val EN_FR = of("en-fr")
 
             @JvmField val EN_GB = of("en-gb")
 
@@ -4227,6 +4227,8 @@ private constructor(
 
             @JvmField val HE = of("he")
 
+            @JvmField val HE_IL = of("he-il")
+
             @JvmField val HI = of("hi")
 
             @JvmField val HI_IN = of("hi-in")
@@ -4255,6 +4257,8 @@ private constructor(
 
             @JvmField val ID = of("id")
 
+            @JvmField val ID_ID = of("id-id")
+
             @JvmField val IG = of("ig")
 
             @JvmField val IG_NG = of("ig-ng")
@@ -4262,8 +4266,6 @@ private constructor(
             @JvmField val II = of("ii")
 
             @JvmField val II_CN = of("ii-cn")
-
-            @JvmField val ID_ID = of("id-id")
 
             @JvmField val IS = of("is")
 
@@ -4279,8 +4281,6 @@ private constructor(
 
             @JvmField val IT_VA = of("it-va")
 
-            @JvmField val HE_IL = of("he-il")
-
             @JvmField val JA = of("ja")
 
             @JvmField val JA_JP = of("ja-jp")
@@ -4288,10 +4288,6 @@ private constructor(
             @JvmField val JGO = of("jgo")
 
             @JvmField val JGO_CM = of("jgo-cm")
-
-            @JvmField val YI = of("yi")
-
-            @JvmField val YI_001 = of("yi-001")
 
             @JvmField val JMC = of("jmc")
 
@@ -4379,13 +4375,13 @@ private constructor(
 
             @JvmField val KSH_DE = of("ksh-de")
 
-            @JvmField val KW = of("kw")
-
-            @JvmField val KW_GB = of("kw-gb")
-
             @JvmField val KU = of("ku")
 
             @JvmField val KU_TR = of("ku-tr")
+
+            @JvmField val KW = of("kw")
+
+            @JvmField val KW_GB = of("kw-gb")
 
             @JvmField val KY = of("ky")
 
@@ -4559,9 +4555,9 @@ private constructor(
 
             @JvmField val NL_BE = of("nl-be")
 
-            @JvmField val NL_CH = of("nl-ch")
-
             @JvmField val NL_BQ = of("nl-bq")
+
+            @JvmField val NL_CH = of("nl-ch")
 
             @JvmField val NL_CW = of("nl-cw")
 
@@ -4953,6 +4949,10 @@ private constructor(
 
             @JvmField val YAV_CM = of("yav-cm")
 
+            @JvmField val YI = of("yi")
+
+            @JvmField val YI_001 = of("yi-001")
+
             @JvmField val YO = of("yo")
 
             @JvmField val YO_BJ = of("yo-bj")
@@ -4973,6 +4973,10 @@ private constructor(
 
             @JvmField val ZH_CN = of("zh-cn")
 
+            @JvmField val ZH_HANS = of("zh-hans")
+
+            @JvmField val ZH_HANT = of("zh-hant")
+
             @JvmField val ZH_HK = of("zh-hk")
 
             @JvmField val ZH_MO = of("zh-mo")
@@ -4980,10 +4984,6 @@ private constructor(
             @JvmField val ZH_SG = of("zh-sg")
 
             @JvmField val ZH_TW = of("zh-tw")
-
-            @JvmField val ZH_HANS = of("zh-hans")
-
-            @JvmField val ZH_HANT = of("zh-hant")
 
             @JvmField val ZU = of("zu")
 
@@ -5153,11 +5153,11 @@ private constructor(
             EN_DM,
             EN_EE,
             EN_ER,
-            EN_FR,
             EN_FI,
             EN_FJ,
             EN_FK,
             EN_FM,
+            EN_FR,
             EN_GB,
             EN_GD,
             EN_GG,
@@ -5369,6 +5369,7 @@ private constructor(
             HAW,
             HAW_US,
             HE,
+            HE_IL,
             HI,
             HI_IN,
             HR,
@@ -5383,11 +5384,11 @@ private constructor(
             IA,
             IA_001,
             ID,
+            ID_ID,
             IG,
             IG_NG,
             II,
             II_CN,
-            ID_ID,
             IS,
             IS_IS,
             IT,
@@ -5395,13 +5396,10 @@ private constructor(
             IT_IT,
             IT_SM,
             IT_VA,
-            HE_IL,
             JA,
             JA_JP,
             JGO,
             JGO_CM,
-            YI,
-            YI_001,
             JMC,
             JMC_TZ,
             JV,
@@ -5445,10 +5443,10 @@ private constructor(
             KSF_CM,
             KSH,
             KSH_DE,
-            KW,
-            KW_GB,
             KU,
             KU_TR,
+            KW,
+            KW_GB,
             KY,
             KY_KG,
             LAG,
@@ -5535,8 +5533,8 @@ private constructor(
             NL,
             NL_AW,
             NL_BE,
-            NL_CH,
             NL_BQ,
+            NL_CH,
             NL_CW,
             NL_LU,
             NL_NL,
@@ -5732,6 +5730,8 @@ private constructor(
             XOG_UG,
             YAV,
             YAV_CM,
+            YI,
+            YI_001,
             YO,
             YO_BJ,
             YO_NG,
@@ -5742,12 +5742,12 @@ private constructor(
             ZGH_MA,
             ZH,
             ZH_CN,
+            ZH_HANS,
+            ZH_HANT,
             ZH_HK,
             ZH_MO,
             ZH_SG,
             ZH_TW,
-            ZH_HANS,
-            ZH_HANT,
             ZU,
             ZU_ZA,
         }
@@ -5921,11 +5921,11 @@ private constructor(
             EN_DM,
             EN_EE,
             EN_ER,
-            EN_FR,
             EN_FI,
             EN_FJ,
             EN_FK,
             EN_FM,
+            EN_FR,
             EN_GB,
             EN_GD,
             EN_GG,
@@ -6137,6 +6137,7 @@ private constructor(
             HAW,
             HAW_US,
             HE,
+            HE_IL,
             HI,
             HI_IN,
             HR,
@@ -6151,11 +6152,11 @@ private constructor(
             IA,
             IA_001,
             ID,
+            ID_ID,
             IG,
             IG_NG,
             II,
             II_CN,
-            ID_ID,
             IS,
             IS_IS,
             IT,
@@ -6163,13 +6164,10 @@ private constructor(
             IT_IT,
             IT_SM,
             IT_VA,
-            HE_IL,
             JA,
             JA_JP,
             JGO,
             JGO_CM,
-            YI,
-            YI_001,
             JMC,
             JMC_TZ,
             JV,
@@ -6213,10 +6211,10 @@ private constructor(
             KSF_CM,
             KSH,
             KSH_DE,
-            KW,
-            KW_GB,
             KU,
             KU_TR,
+            KW,
+            KW_GB,
             KY,
             KY_KG,
             LAG,
@@ -6303,8 +6301,8 @@ private constructor(
             NL,
             NL_AW,
             NL_BE,
-            NL_CH,
             NL_BQ,
+            NL_CH,
             NL_CW,
             NL_LU,
             NL_NL,
@@ -6500,6 +6498,8 @@ private constructor(
             XOG_UG,
             YAV,
             YAV_CM,
+            YI,
+            YI_001,
             YO,
             YO_BJ,
             YO_NG,
@@ -6510,12 +6510,12 @@ private constructor(
             ZGH_MA,
             ZH,
             ZH_CN,
+            ZH_HANS,
+            ZH_HANT,
             ZH_HK,
             ZH_MO,
             ZH_SG,
             ZH_TW,
-            ZH_HANS,
-            ZH_HANT,
             ZU,
             ZU_ZA,
             /** An enum member indicating that [Language] was instantiated with an unknown value. */
@@ -6690,11 +6690,11 @@ private constructor(
                 EN_DM -> Value.EN_DM
                 EN_EE -> Value.EN_EE
                 EN_ER -> Value.EN_ER
-                EN_FR -> Value.EN_FR
                 EN_FI -> Value.EN_FI
                 EN_FJ -> Value.EN_FJ
                 EN_FK -> Value.EN_FK
                 EN_FM -> Value.EN_FM
+                EN_FR -> Value.EN_FR
                 EN_GB -> Value.EN_GB
                 EN_GD -> Value.EN_GD
                 EN_GG -> Value.EN_GG
@@ -6906,6 +6906,7 @@ private constructor(
                 HAW -> Value.HAW
                 HAW_US -> Value.HAW_US
                 HE -> Value.HE
+                HE_IL -> Value.HE_IL
                 HI -> Value.HI
                 HI_IN -> Value.HI_IN
                 HR -> Value.HR
@@ -6920,11 +6921,11 @@ private constructor(
                 IA -> Value.IA
                 IA_001 -> Value.IA_001
                 ID -> Value.ID
+                ID_ID -> Value.ID_ID
                 IG -> Value.IG
                 IG_NG -> Value.IG_NG
                 II -> Value.II
                 II_CN -> Value.II_CN
-                ID_ID -> Value.ID_ID
                 IS -> Value.IS
                 IS_IS -> Value.IS_IS
                 IT -> Value.IT
@@ -6932,13 +6933,10 @@ private constructor(
                 IT_IT -> Value.IT_IT
                 IT_SM -> Value.IT_SM
                 IT_VA -> Value.IT_VA
-                HE_IL -> Value.HE_IL
                 JA -> Value.JA
                 JA_JP -> Value.JA_JP
                 JGO -> Value.JGO
                 JGO_CM -> Value.JGO_CM
-                YI -> Value.YI
-                YI_001 -> Value.YI_001
                 JMC -> Value.JMC
                 JMC_TZ -> Value.JMC_TZ
                 JV -> Value.JV
@@ -6982,10 +6980,10 @@ private constructor(
                 KSF_CM -> Value.KSF_CM
                 KSH -> Value.KSH
                 KSH_DE -> Value.KSH_DE
-                KW -> Value.KW
-                KW_GB -> Value.KW_GB
                 KU -> Value.KU
                 KU_TR -> Value.KU_TR
+                KW -> Value.KW
+                KW_GB -> Value.KW_GB
                 KY -> Value.KY
                 KY_KG -> Value.KY_KG
                 LAG -> Value.LAG
@@ -7072,8 +7070,8 @@ private constructor(
                 NL -> Value.NL
                 NL_AW -> Value.NL_AW
                 NL_BE -> Value.NL_BE
-                NL_CH -> Value.NL_CH
                 NL_BQ -> Value.NL_BQ
+                NL_CH -> Value.NL_CH
                 NL_CW -> Value.NL_CW
                 NL_LU -> Value.NL_LU
                 NL_NL -> Value.NL_NL
@@ -7269,6 +7267,8 @@ private constructor(
                 XOG_UG -> Value.XOG_UG
                 YAV -> Value.YAV
                 YAV_CM -> Value.YAV_CM
+                YI -> Value.YI
+                YI_001 -> Value.YI_001
                 YO -> Value.YO
                 YO_BJ -> Value.YO_BJ
                 YO_NG -> Value.YO_NG
@@ -7279,12 +7279,12 @@ private constructor(
                 ZGH_MA -> Value.ZGH_MA
                 ZH -> Value.ZH
                 ZH_CN -> Value.ZH_CN
+                ZH_HANS -> Value.ZH_HANS
+                ZH_HANT -> Value.ZH_HANT
                 ZH_HK -> Value.ZH_HK
                 ZH_MO -> Value.ZH_MO
                 ZH_SG -> Value.ZH_SG
                 ZH_TW -> Value.ZH_TW
-                ZH_HANS -> Value.ZH_HANS
-                ZH_HANT -> Value.ZH_HANT
                 ZU -> Value.ZU
                 ZU_ZA -> Value.ZU_ZA
                 else -> Value._UNKNOWN
@@ -7460,11 +7460,11 @@ private constructor(
                 EN_DM -> Known.EN_DM
                 EN_EE -> Known.EN_EE
                 EN_ER -> Known.EN_ER
-                EN_FR -> Known.EN_FR
                 EN_FI -> Known.EN_FI
                 EN_FJ -> Known.EN_FJ
                 EN_FK -> Known.EN_FK
                 EN_FM -> Known.EN_FM
+                EN_FR -> Known.EN_FR
                 EN_GB -> Known.EN_GB
                 EN_GD -> Known.EN_GD
                 EN_GG -> Known.EN_GG
@@ -7676,6 +7676,7 @@ private constructor(
                 HAW -> Known.HAW
                 HAW_US -> Known.HAW_US
                 HE -> Known.HE
+                HE_IL -> Known.HE_IL
                 HI -> Known.HI
                 HI_IN -> Known.HI_IN
                 HR -> Known.HR
@@ -7690,11 +7691,11 @@ private constructor(
                 IA -> Known.IA
                 IA_001 -> Known.IA_001
                 ID -> Known.ID
+                ID_ID -> Known.ID_ID
                 IG -> Known.IG
                 IG_NG -> Known.IG_NG
                 II -> Known.II
                 II_CN -> Known.II_CN
-                ID_ID -> Known.ID_ID
                 IS -> Known.IS
                 IS_IS -> Known.IS_IS
                 IT -> Known.IT
@@ -7702,13 +7703,10 @@ private constructor(
                 IT_IT -> Known.IT_IT
                 IT_SM -> Known.IT_SM
                 IT_VA -> Known.IT_VA
-                HE_IL -> Known.HE_IL
                 JA -> Known.JA
                 JA_JP -> Known.JA_JP
                 JGO -> Known.JGO
                 JGO_CM -> Known.JGO_CM
-                YI -> Known.YI
-                YI_001 -> Known.YI_001
                 JMC -> Known.JMC
                 JMC_TZ -> Known.JMC_TZ
                 JV -> Known.JV
@@ -7752,10 +7750,10 @@ private constructor(
                 KSF_CM -> Known.KSF_CM
                 KSH -> Known.KSH
                 KSH_DE -> Known.KSH_DE
-                KW -> Known.KW
-                KW_GB -> Known.KW_GB
                 KU -> Known.KU
                 KU_TR -> Known.KU_TR
+                KW -> Known.KW
+                KW_GB -> Known.KW_GB
                 KY -> Known.KY
                 KY_KG -> Known.KY_KG
                 LAG -> Known.LAG
@@ -7842,8 +7840,8 @@ private constructor(
                 NL -> Known.NL
                 NL_AW -> Known.NL_AW
                 NL_BE -> Known.NL_BE
-                NL_CH -> Known.NL_CH
                 NL_BQ -> Known.NL_BQ
+                NL_CH -> Known.NL_CH
                 NL_CW -> Known.NL_CW
                 NL_LU -> Known.NL_LU
                 NL_NL -> Known.NL_NL
@@ -8039,6 +8037,8 @@ private constructor(
                 XOG_UG -> Known.XOG_UG
                 YAV -> Known.YAV
                 YAV_CM -> Known.YAV_CM
+                YI -> Known.YI
+                YI_001 -> Known.YI_001
                 YO -> Known.YO
                 YO_BJ -> Known.YO_BJ
                 YO_NG -> Known.YO_NG
@@ -8049,12 +8049,12 @@ private constructor(
                 ZGH_MA -> Known.ZGH_MA
                 ZH -> Known.ZH
                 ZH_CN -> Known.ZH_CN
+                ZH_HANS -> Known.ZH_HANS
+                ZH_HANT -> Known.ZH_HANT
                 ZH_HK -> Known.ZH_HK
                 ZH_MO -> Known.ZH_MO
                 ZH_SG -> Known.ZH_SG
                 ZH_TW -> Known.ZH_TW
-                ZH_HANS -> Known.ZH_HANS
-                ZH_HANT -> Known.ZH_HANT
                 ZU -> Known.ZU
                 ZU_ZA -> Known.ZU_ZA
                 else -> throw HubspotInvalidDataException("Unknown Language: $value")

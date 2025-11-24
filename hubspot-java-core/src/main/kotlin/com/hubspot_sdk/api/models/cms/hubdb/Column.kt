@@ -914,77 +914,77 @@ private constructor(
 
         companion object {
 
-            @JvmField val NULL = of("NULL")
-
-            @JvmField val TEXT = of("TEXT")
-
-            @JvmField val NUMBER = of("NUMBER")
-
-            @JvmField val URL = of("URL")
-
-            @JvmField val IMAGE = of("IMAGE")
-
-            @JvmField val SELECT = of("SELECT")
-
-            @JvmField val MULTISELECT = of("MULTISELECT")
-
             @JvmField val BOOLEAN = of("BOOLEAN")
 
-            @JvmField val LOCATION = of("LOCATION")
+            @JvmField val CODE = of("CODE")
+
+            @JvmField val COMPOSITE = of("COMPOSITE")
+
+            @JvmField val CTA = of("CTA")
+
+            @JvmField val CURRENCY = of("CURRENCY")
 
             @JvmField val DATE = of("DATE")
 
             @JvmField val DATETIME = of("DATETIME")
 
-            @JvmField val CURRENCY = of("CURRENCY")
-
-            @JvmField val RICHTEXT = of("RICHTEXT")
-
-            @JvmField val FOREIGN_ID = of("FOREIGN_ID")
-
-            @JvmField val VIDEO = of("VIDEO")
-
-            @JvmField val CTA = of("CTA")
+            @JvmField val EMBED = of("EMBED")
 
             @JvmField val FILE = of("FILE")
 
-            @JvmField val JSON = of("JSON")
-
-            @JvmField val COMPOSITE = of("COMPOSITE")
-
-            @JvmField val CODE = of("CODE")
+            @JvmField val FOREIGN_ID = of("FOREIGN_ID")
 
             @JvmField val HUBSPOT_VIDEO = of("HUBSPOT_VIDEO")
 
-            @JvmField val EMBED = of("EMBED")
+            @JvmField val IMAGE = of("IMAGE")
+
+            @JvmField val JSON = of("JSON")
+
+            @JvmField val LOCATION = of("LOCATION")
+
+            @JvmField val MULTISELECT = of("MULTISELECT")
+
+            @JvmField val NULL = of("NULL")
+
+            @JvmField val NUMBER = of("NUMBER")
+
+            @JvmField val RICHTEXT = of("RICHTEXT")
+
+            @JvmField val SELECT = of("SELECT")
+
+            @JvmField val TEXT = of("TEXT")
+
+            @JvmField val URL = of("URL")
+
+            @JvmField val VIDEO = of("VIDEO")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            NULL,
-            TEXT,
-            NUMBER,
-            URL,
-            IMAGE,
-            SELECT,
-            MULTISELECT,
             BOOLEAN,
-            LOCATION,
+            CODE,
+            COMPOSITE,
+            CTA,
+            CURRENCY,
             DATE,
             DATETIME,
-            CURRENCY,
-            RICHTEXT,
-            FOREIGN_ID,
-            VIDEO,
-            CTA,
-            FILE,
-            JSON,
-            COMPOSITE,
-            CODE,
-            HUBSPOT_VIDEO,
             EMBED,
+            FILE,
+            FOREIGN_ID,
+            HUBSPOT_VIDEO,
+            IMAGE,
+            JSON,
+            LOCATION,
+            MULTISELECT,
+            NULL,
+            NUMBER,
+            RICHTEXT,
+            SELECT,
+            TEXT,
+            URL,
+            VIDEO,
         }
 
         /**
@@ -997,28 +997,28 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            NULL,
-            TEXT,
-            NUMBER,
-            URL,
-            IMAGE,
-            SELECT,
-            MULTISELECT,
             BOOLEAN,
-            LOCATION,
+            CODE,
+            COMPOSITE,
+            CTA,
+            CURRENCY,
             DATE,
             DATETIME,
-            CURRENCY,
-            RICHTEXT,
-            FOREIGN_ID,
-            VIDEO,
-            CTA,
-            FILE,
-            JSON,
-            COMPOSITE,
-            CODE,
-            HUBSPOT_VIDEO,
             EMBED,
+            FILE,
+            FOREIGN_ID,
+            HUBSPOT_VIDEO,
+            IMAGE,
+            JSON,
+            LOCATION,
+            MULTISELECT,
+            NULL,
+            NUMBER,
+            RICHTEXT,
+            SELECT,
+            TEXT,
+            URL,
+            VIDEO,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1032,28 +1032,28 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                NULL -> Value.NULL
-                TEXT -> Value.TEXT
-                NUMBER -> Value.NUMBER
-                URL -> Value.URL
-                IMAGE -> Value.IMAGE
-                SELECT -> Value.SELECT
-                MULTISELECT -> Value.MULTISELECT
                 BOOLEAN -> Value.BOOLEAN
-                LOCATION -> Value.LOCATION
+                CODE -> Value.CODE
+                COMPOSITE -> Value.COMPOSITE
+                CTA -> Value.CTA
+                CURRENCY -> Value.CURRENCY
                 DATE -> Value.DATE
                 DATETIME -> Value.DATETIME
-                CURRENCY -> Value.CURRENCY
-                RICHTEXT -> Value.RICHTEXT
-                FOREIGN_ID -> Value.FOREIGN_ID
-                VIDEO -> Value.VIDEO
-                CTA -> Value.CTA
-                FILE -> Value.FILE
-                JSON -> Value.JSON
-                COMPOSITE -> Value.COMPOSITE
-                CODE -> Value.CODE
-                HUBSPOT_VIDEO -> Value.HUBSPOT_VIDEO
                 EMBED -> Value.EMBED
+                FILE -> Value.FILE
+                FOREIGN_ID -> Value.FOREIGN_ID
+                HUBSPOT_VIDEO -> Value.HUBSPOT_VIDEO
+                IMAGE -> Value.IMAGE
+                JSON -> Value.JSON
+                LOCATION -> Value.LOCATION
+                MULTISELECT -> Value.MULTISELECT
+                NULL -> Value.NULL
+                NUMBER -> Value.NUMBER
+                RICHTEXT -> Value.RICHTEXT
+                SELECT -> Value.SELECT
+                TEXT -> Value.TEXT
+                URL -> Value.URL
+                VIDEO -> Value.VIDEO
                 else -> Value._UNKNOWN
             }
 
@@ -1068,28 +1068,28 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                NULL -> Known.NULL
-                TEXT -> Known.TEXT
-                NUMBER -> Known.NUMBER
-                URL -> Known.URL
-                IMAGE -> Known.IMAGE
-                SELECT -> Known.SELECT
-                MULTISELECT -> Known.MULTISELECT
                 BOOLEAN -> Known.BOOLEAN
-                LOCATION -> Known.LOCATION
+                CODE -> Known.CODE
+                COMPOSITE -> Known.COMPOSITE
+                CTA -> Known.CTA
+                CURRENCY -> Known.CURRENCY
                 DATE -> Known.DATE
                 DATETIME -> Known.DATETIME
-                CURRENCY -> Known.CURRENCY
-                RICHTEXT -> Known.RICHTEXT
-                FOREIGN_ID -> Known.FOREIGN_ID
-                VIDEO -> Known.VIDEO
-                CTA -> Known.CTA
-                FILE -> Known.FILE
-                JSON -> Known.JSON
-                COMPOSITE -> Known.COMPOSITE
-                CODE -> Known.CODE
-                HUBSPOT_VIDEO -> Known.HUBSPOT_VIDEO
                 EMBED -> Known.EMBED
+                FILE -> Known.FILE
+                FOREIGN_ID -> Known.FOREIGN_ID
+                HUBSPOT_VIDEO -> Known.HUBSPOT_VIDEO
+                IMAGE -> Known.IMAGE
+                JSON -> Known.JSON
+                LOCATION -> Known.LOCATION
+                MULTISELECT -> Known.MULTISELECT
+                NULL -> Known.NULL
+                NUMBER -> Known.NUMBER
+                RICHTEXT -> Known.RICHTEXT
+                SELECT -> Known.SELECT
+                TEXT -> Known.TEXT
+                URL -> Known.URL
+                VIDEO -> Known.VIDEO
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }
 

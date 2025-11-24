@@ -5,13 +5,6 @@ package com.hubspot_sdk.api.models.conversations.customchannels
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.conversations.PublicClient
-import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
-import com.hubspot_sdk.api.models.conversations.PublicFile
-import com.hubspot_sdk.api.models.conversations.PublicMessageFailureDetails
-import com.hubspot_sdk.api.models.conversations.PublicMessageStatus
-import com.hubspot_sdk.api.models.conversations.PublicRecipient
-import com.hubspot_sdk.api.models.conversations.PublicSender
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -72,7 +65,7 @@ internal class PublicConversationsMessageTest {
                 .richText("richText")
                 .status(
                     PublicMessageStatus.builder()
-                        .statusType(PublicMessageStatus.StatusType.SENT)
+                        .statusType(PublicMessageStatus.StatusType.FAILED)
                         .failureDetails(
                             PublicMessageFailureDetails.builder()
                                 .errorMessageTokens(
@@ -151,7 +144,7 @@ internal class PublicConversationsMessageTest {
         assertThat(publicConversationsMessage.status())
             .contains(
                 PublicMessageStatus.builder()
-                    .statusType(PublicMessageStatus.StatusType.SENT)
+                    .statusType(PublicMessageStatus.StatusType.FAILED)
                     .failureDetails(
                         PublicMessageFailureDetails.builder()
                             .errorMessageTokens(
@@ -224,7 +217,7 @@ internal class PublicConversationsMessageTest {
                 .richText("richText")
                 .status(
                     PublicMessageStatus.builder()
-                        .statusType(PublicMessageStatus.StatusType.SENT)
+                        .statusType(PublicMessageStatus.StatusType.FAILED)
                         .failureDetails(
                             PublicMessageFailureDetails.builder()
                                 .errorMessageTokens(

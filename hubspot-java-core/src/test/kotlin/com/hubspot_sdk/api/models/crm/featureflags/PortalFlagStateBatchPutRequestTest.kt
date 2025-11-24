@@ -15,7 +15,7 @@ internal class PortalFlagStateBatchPutRequestTest {
             PortalFlagStateBatchPutRequest.builder()
                 .addPortalState(
                     BatchPortalEntry.builder()
-                        .flagState(BatchPortalEntry.FlagState.OFF)
+                        .flagState(BatchPortalEntry.FlagState.ABSENT)
                         .portalId(0)
                         .build()
                 )
@@ -24,7 +24,7 @@ internal class PortalFlagStateBatchPutRequestTest {
         assertThat(portalFlagStateBatchPutRequest.portalStates())
             .containsExactly(
                 BatchPortalEntry.builder()
-                    .flagState(BatchPortalEntry.FlagState.OFF)
+                    .flagState(BatchPortalEntry.FlagState.ABSENT)
                     .portalId(0)
                     .build()
             )
@@ -37,7 +37,7 @@ internal class PortalFlagStateBatchPutRequestTest {
             PortalFlagStateBatchPutRequest.builder()
                 .addPortalState(
                     BatchPortalEntry.builder()
-                        .flagState(BatchPortalEntry.FlagState.OFF)
+                        .flagState(BatchPortalEntry.FlagState.ABSENT)
                         .portalId(0)
                         .build()
                 )

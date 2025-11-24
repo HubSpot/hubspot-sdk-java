@@ -13,12 +13,12 @@ internal class PublicChannelIntegrationMessageUpdateRequestTest {
     fun create() {
         val publicChannelIntegrationMessageUpdateRequest =
             PublicChannelIntegrationMessageUpdateRequest.builder()
-                .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                 .errorMessage("errorMessage")
                 .build()
 
         assertThat(publicChannelIntegrationMessageUpdateRequest.statusType())
-            .isEqualTo(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+            .isEqualTo(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
         assertThat(publicChannelIntegrationMessageUpdateRequest.errorMessage())
             .contains("errorMessage")
     }
@@ -28,7 +28,7 @@ internal class PublicChannelIntegrationMessageUpdateRequestTest {
         val jsonMapper = jsonMapper()
         val publicChannelIntegrationMessageUpdateRequest =
             PublicChannelIntegrationMessageUpdateRequest.builder()
-                .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                 .errorMessage("errorMessage")
                 .build()
 

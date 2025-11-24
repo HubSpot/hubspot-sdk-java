@@ -254,38 +254,38 @@ private constructor(
 
         companion object {
 
-            @JvmField val YEAR = of("YEAR")
-
-            @JvmField val QUARTER = of("QUARTER")
-
-            @JvmField val MONTH = of("MONTH")
-
-            @JvmField val WEEK = of("WEEK")
-
             @JvmField val DAY = of("DAY")
 
             @JvmField val HOUR = of("HOUR")
 
-            @JvmField val QUARTER_HOUR = of("QUARTER_HOUR")
-
             @JvmField val MINUTE = of("MINUTE")
 
+            @JvmField val MONTH = of("MONTH")
+
+            @JvmField val QUARTER = of("QUARTER")
+
+            @JvmField val QUARTER_HOUR = of("QUARTER_HOUR")
+
             @JvmField val SECOND = of("SECOND")
+
+            @JvmField val WEEK = of("WEEK")
+
+            @JvmField val YEAR = of("YEAR")
 
             @JvmStatic fun of(value: String) = Interval(JsonField.of(value))
         }
 
         /** An enum containing [Interval]'s known values. */
         enum class Known {
-            YEAR,
-            QUARTER,
-            MONTH,
-            WEEK,
             DAY,
             HOUR,
-            QUARTER_HOUR,
             MINUTE,
+            MONTH,
+            QUARTER,
+            QUARTER_HOUR,
             SECOND,
+            WEEK,
+            YEAR,
         }
 
         /**
@@ -298,15 +298,15 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            YEAR,
-            QUARTER,
-            MONTH,
-            WEEK,
             DAY,
             HOUR,
-            QUARTER_HOUR,
             MINUTE,
+            MONTH,
+            QUARTER,
+            QUARTER_HOUR,
             SECOND,
+            WEEK,
+            YEAR,
             /** An enum member indicating that [Interval] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -320,15 +320,15 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                YEAR -> Value.YEAR
-                QUARTER -> Value.QUARTER
-                MONTH -> Value.MONTH
-                WEEK -> Value.WEEK
                 DAY -> Value.DAY
                 HOUR -> Value.HOUR
-                QUARTER_HOUR -> Value.QUARTER_HOUR
                 MINUTE -> Value.MINUTE
+                MONTH -> Value.MONTH
+                QUARTER -> Value.QUARTER
+                QUARTER_HOUR -> Value.QUARTER_HOUR
                 SECOND -> Value.SECOND
+                WEEK -> Value.WEEK
+                YEAR -> Value.YEAR
                 else -> Value._UNKNOWN
             }
 
@@ -343,15 +343,15 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                YEAR -> Known.YEAR
-                QUARTER -> Known.QUARTER
-                MONTH -> Known.MONTH
-                WEEK -> Known.WEEK
                 DAY -> Known.DAY
                 HOUR -> Known.HOUR
-                QUARTER_HOUR -> Known.QUARTER_HOUR
                 MINUTE -> Known.MINUTE
+                MONTH -> Known.MONTH
+                QUARTER -> Known.QUARTER
+                QUARTER_HOUR -> Known.QUARTER_HOUR
                 SECOND -> Known.SECOND
+                WEEK -> Known.WEEK
+                YEAR -> Known.YEAR
                 else -> throw HubspotInvalidDataException("Unknown Interval: $value")
             }
 

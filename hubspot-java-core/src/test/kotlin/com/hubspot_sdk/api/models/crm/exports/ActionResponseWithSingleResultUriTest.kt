@@ -20,7 +20,7 @@ internal class ActionResponseWithSingleResultUriTest {
             ActionResponseWithSingleResultUri.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(ActionResponseWithSingleResultUri.Status.PENDING)
+                .status(ActionResponseWithSingleResultUri.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -195,7 +195,7 @@ internal class ActionResponseWithSingleResultUriTest {
         assertThat(actionResponseWithSingleResultUri.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(actionResponseWithSingleResultUri.status())
-            .isEqualTo(ActionResponseWithSingleResultUri.Status.PENDING)
+            .isEqualTo(ActionResponseWithSingleResultUri.Status.CANCELED)
         assertThat(actionResponseWithSingleResultUri.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -279,7 +279,7 @@ internal class ActionResponseWithSingleResultUriTest {
             ActionResponseWithSingleResultUri.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(ActionResponseWithSingleResultUri.Status.PENDING)
+                .status(ActionResponseWithSingleResultUri.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

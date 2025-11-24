@@ -728,20 +728,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val NOT_SPECIFIED = of("NOT_SPECIFIED")
+
             @JvmField val SUBSCRIBED = of("SUBSCRIBED")
 
             @JvmField val UNSUBSCRIBED = of("UNSUBSCRIBED")
-
-            @JvmField val NOT_SPECIFIED = of("NOT_SPECIFIED")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
+            NOT_SPECIFIED,
             SUBSCRIBED,
             UNSUBSCRIBED,
-            NOT_SPECIFIED,
         }
 
         /**
@@ -754,9 +754,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            NOT_SPECIFIED,
             SUBSCRIBED,
             UNSUBSCRIBED,
-            NOT_SPECIFIED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -770,9 +770,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                NOT_SPECIFIED -> Value.NOT_SPECIFIED
                 SUBSCRIBED -> Value.SUBSCRIBED
                 UNSUBSCRIBED -> Value.UNSUBSCRIBED
-                NOT_SPECIFIED -> Value.NOT_SPECIFIED
                 else -> Value._UNKNOWN
             }
 
@@ -787,9 +787,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                NOT_SPECIFIED -> Known.NOT_SPECIFIED
                 SUBSCRIBED -> Known.SUBSCRIBED
                 UNSUBSCRIBED -> Known.UNSUBSCRIBED
-                NOT_SPECIFIED -> Known.NOT_SPECIFIED
                 else -> throw HubspotInvalidDataException("Unknown Status: $value")
             }
 
@@ -864,32 +864,32 @@ private constructor(
 
         companion object {
 
-            @JvmField val LEGITIMATE_INTEREST_PQL = of("LEGITIMATE_INTEREST_PQL")
+            @JvmField val CONSENT_WITH_NOTICE = of("CONSENT_WITH_NOTICE")
 
             @JvmField val LEGITIMATE_INTEREST_CLIENT = of("LEGITIMATE_INTEREST_CLIENT")
 
-            @JvmField val PERFORMANCE_OF_CONTRACT = of("PERFORMANCE_OF_CONTRACT")
+            @JvmField val LEGITIMATE_INTEREST_OTHER = of("LEGITIMATE_INTEREST_OTHER")
 
-            @JvmField val CONSENT_WITH_NOTICE = of("CONSENT_WITH_NOTICE")
+            @JvmField val LEGITIMATE_INTEREST_PQL = of("LEGITIMATE_INTEREST_PQL")
 
             @JvmField val NON_GDPR = of("NON_GDPR")
 
-            @JvmField val PROCESS_AND_STORE = of("PROCESS_AND_STORE")
+            @JvmField val PERFORMANCE_OF_CONTRACT = of("PERFORMANCE_OF_CONTRACT")
 
-            @JvmField val LEGITIMATE_INTEREST_OTHER = of("LEGITIMATE_INTEREST_OTHER")
+            @JvmField val PROCESS_AND_STORE = of("PROCESS_AND_STORE")
 
             @JvmStatic fun of(value: String) = LegalBasis(JsonField.of(value))
         }
 
         /** An enum containing [LegalBasis]'s known values. */
         enum class Known {
-            LEGITIMATE_INTEREST_PQL,
-            LEGITIMATE_INTEREST_CLIENT,
-            PERFORMANCE_OF_CONTRACT,
             CONSENT_WITH_NOTICE,
-            NON_GDPR,
-            PROCESS_AND_STORE,
+            LEGITIMATE_INTEREST_CLIENT,
             LEGITIMATE_INTEREST_OTHER,
+            LEGITIMATE_INTEREST_PQL,
+            NON_GDPR,
+            PERFORMANCE_OF_CONTRACT,
+            PROCESS_AND_STORE,
         }
 
         /**
@@ -902,13 +902,13 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            LEGITIMATE_INTEREST_PQL,
-            LEGITIMATE_INTEREST_CLIENT,
-            PERFORMANCE_OF_CONTRACT,
             CONSENT_WITH_NOTICE,
-            NON_GDPR,
-            PROCESS_AND_STORE,
+            LEGITIMATE_INTEREST_CLIENT,
             LEGITIMATE_INTEREST_OTHER,
+            LEGITIMATE_INTEREST_PQL,
+            NON_GDPR,
+            PERFORMANCE_OF_CONTRACT,
+            PROCESS_AND_STORE,
             /**
              * An enum member indicating that [LegalBasis] was instantiated with an unknown value.
              */
@@ -924,13 +924,13 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                LEGITIMATE_INTEREST_PQL -> Value.LEGITIMATE_INTEREST_PQL
-                LEGITIMATE_INTEREST_CLIENT -> Value.LEGITIMATE_INTEREST_CLIENT
-                PERFORMANCE_OF_CONTRACT -> Value.PERFORMANCE_OF_CONTRACT
                 CONSENT_WITH_NOTICE -> Value.CONSENT_WITH_NOTICE
-                NON_GDPR -> Value.NON_GDPR
-                PROCESS_AND_STORE -> Value.PROCESS_AND_STORE
+                LEGITIMATE_INTEREST_CLIENT -> Value.LEGITIMATE_INTEREST_CLIENT
                 LEGITIMATE_INTEREST_OTHER -> Value.LEGITIMATE_INTEREST_OTHER
+                LEGITIMATE_INTEREST_PQL -> Value.LEGITIMATE_INTEREST_PQL
+                NON_GDPR -> Value.NON_GDPR
+                PERFORMANCE_OF_CONTRACT -> Value.PERFORMANCE_OF_CONTRACT
+                PROCESS_AND_STORE -> Value.PROCESS_AND_STORE
                 else -> Value._UNKNOWN
             }
 
@@ -945,13 +945,13 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                LEGITIMATE_INTEREST_PQL -> Known.LEGITIMATE_INTEREST_PQL
-                LEGITIMATE_INTEREST_CLIENT -> Known.LEGITIMATE_INTEREST_CLIENT
-                PERFORMANCE_OF_CONTRACT -> Known.PERFORMANCE_OF_CONTRACT
                 CONSENT_WITH_NOTICE -> Known.CONSENT_WITH_NOTICE
-                NON_GDPR -> Known.NON_GDPR
-                PROCESS_AND_STORE -> Known.PROCESS_AND_STORE
+                LEGITIMATE_INTEREST_CLIENT -> Known.LEGITIMATE_INTEREST_CLIENT
                 LEGITIMATE_INTEREST_OTHER -> Known.LEGITIMATE_INTEREST_OTHER
+                LEGITIMATE_INTEREST_PQL -> Known.LEGITIMATE_INTEREST_PQL
+                NON_GDPR -> Known.NON_GDPR
+                PERFORMANCE_OF_CONTRACT -> Known.PERFORMANCE_OF_CONTRACT
+                PROCESS_AND_STORE -> Known.PROCESS_AND_STORE
                 else -> throw HubspotInvalidDataException("Unknown LegalBasis: $value")
             }
 
@@ -1027,23 +1027,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val RESUBSCRIBE_OCCURRED = of("RESUBSCRIBE_OCCURRED")
-
             @JvmField val NO_STATUS_CHANGE = of("NO_STATUS_CHANGE")
 
-            @JvmField val UNSUBSCRIBE_FROM_ALL_OCCURRED = of("UNSUBSCRIBE_FROM_ALL_OCCURRED")
-
             @JvmField val REQUESTED_CHANGE_OCCURRED = of("REQUESTED_CHANGE_OCCURRED")
+
+            @JvmField val RESUBSCRIBE_OCCURRED = of("RESUBSCRIBE_OCCURRED")
+
+            @JvmField val UNSUBSCRIBE_FROM_ALL_OCCURRED = of("UNSUBSCRIBE_FROM_ALL_OCCURRED")
 
             @JvmStatic fun of(value: String) = SetStatusSuccessReason(JsonField.of(value))
         }
 
         /** An enum containing [SetStatusSuccessReason]'s known values. */
         enum class Known {
-            RESUBSCRIBE_OCCURRED,
             NO_STATUS_CHANGE,
-            UNSUBSCRIBE_FROM_ALL_OCCURRED,
             REQUESTED_CHANGE_OCCURRED,
+            RESUBSCRIBE_OCCURRED,
+            UNSUBSCRIBE_FROM_ALL_OCCURRED,
         }
 
         /**
@@ -1058,10 +1058,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            RESUBSCRIBE_OCCURRED,
             NO_STATUS_CHANGE,
-            UNSUBSCRIBE_FROM_ALL_OCCURRED,
             REQUESTED_CHANGE_OCCURRED,
+            RESUBSCRIBE_OCCURRED,
+            UNSUBSCRIBE_FROM_ALL_OCCURRED,
             /**
              * An enum member indicating that [SetStatusSuccessReason] was instantiated with an
              * unknown value.
@@ -1078,10 +1078,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                RESUBSCRIBE_OCCURRED -> Value.RESUBSCRIBE_OCCURRED
                 NO_STATUS_CHANGE -> Value.NO_STATUS_CHANGE
-                UNSUBSCRIBE_FROM_ALL_OCCURRED -> Value.UNSUBSCRIBE_FROM_ALL_OCCURRED
                 REQUESTED_CHANGE_OCCURRED -> Value.REQUESTED_CHANGE_OCCURRED
+                RESUBSCRIBE_OCCURRED -> Value.RESUBSCRIBE_OCCURRED
+                UNSUBSCRIBE_FROM_ALL_OCCURRED -> Value.UNSUBSCRIBE_FROM_ALL_OCCURRED
                 else -> Value._UNKNOWN
             }
 
@@ -1096,10 +1096,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                RESUBSCRIBE_OCCURRED -> Known.RESUBSCRIBE_OCCURRED
                 NO_STATUS_CHANGE -> Known.NO_STATUS_CHANGE
-                UNSUBSCRIBE_FROM_ALL_OCCURRED -> Known.UNSUBSCRIBE_FROM_ALL_OCCURRED
                 REQUESTED_CHANGE_OCCURRED -> Known.REQUESTED_CHANGE_OCCURRED
+                RESUBSCRIBE_OCCURRED -> Known.RESUBSCRIBE_OCCURRED
+                UNSUBSCRIBE_FROM_ALL_OCCURRED -> Known.UNSUBSCRIBE_FROM_ALL_OCCURRED
                 else -> throw HubspotInvalidDataException("Unknown SetStatusSuccessReason: $value")
             }
 

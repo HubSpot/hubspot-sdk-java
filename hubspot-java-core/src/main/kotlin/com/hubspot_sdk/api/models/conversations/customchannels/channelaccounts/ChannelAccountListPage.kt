@@ -6,8 +6,8 @@ import com.hubspot_sdk.api.core.AutoPager
 import com.hubspot_sdk.api.core.Page
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.ForwardPaging
-import com.hubspot_sdk.api.models.conversations.CollectionResponseWithTotalPublicChannelAccountForwardPaging
-import com.hubspot_sdk.api.models.conversations.PublicChannelAccount
+import com.hubspot_sdk.api.models.conversations.customchannels.CollectionResponseWithTotalPublicChannelAccountForwardPaging
+import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccount
 import com.hubspot_sdk.api.services.blocking.conversations.customchannels.ChannelAccountService
 import java.util.Objects
 import java.util.Optional

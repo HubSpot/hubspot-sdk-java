@@ -743,26 +743,26 @@ private constructor(
 
         companion object {
 
-            @JvmField val VIDEO = of("VIDEO")
-
             @JvmField val AUDIO = of("AUDIO")
 
             @JvmField val DOCUMENT = of("DOCUMENT")
 
+            @JvmField val IMAGE = of("IMAGE")
+
             @JvmField val OTHER = of("OTHER")
 
-            @JvmField val IMAGE = of("IMAGE")
+            @JvmField val VIDEO = of("VIDEO")
 
             @JvmStatic fun of(value: String) = MediaType(JsonField.of(value))
         }
 
         /** An enum containing [MediaType]'s known values. */
         enum class Known {
-            VIDEO,
             AUDIO,
             DOCUMENT,
-            OTHER,
             IMAGE,
+            OTHER,
+            VIDEO,
         }
 
         /**
@@ -775,11 +775,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            VIDEO,
             AUDIO,
             DOCUMENT,
-            OTHER,
             IMAGE,
+            OTHER,
+            VIDEO,
             /**
              * An enum member indicating that [MediaType] was instantiated with an unknown value.
              */
@@ -795,11 +795,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                VIDEO -> Value.VIDEO
                 AUDIO -> Value.AUDIO
                 DOCUMENT -> Value.DOCUMENT
-                OTHER -> Value.OTHER
                 IMAGE -> Value.IMAGE
+                OTHER -> Value.OTHER
+                VIDEO -> Value.VIDEO
                 else -> Value._UNKNOWN
             }
 
@@ -814,11 +814,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                VIDEO -> Known.VIDEO
                 AUDIO -> Known.AUDIO
                 DOCUMENT -> Known.DOCUMENT
-                OTHER -> Known.OTHER
                 IMAGE -> Known.IMAGE
+                OTHER -> Known.OTHER
+                VIDEO -> Known.VIDEO
                 else -> throw HubspotInvalidDataException("Unknown MediaType: $value")
             }
 

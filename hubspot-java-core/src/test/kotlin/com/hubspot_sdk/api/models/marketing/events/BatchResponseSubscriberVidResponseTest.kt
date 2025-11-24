@@ -21,7 +21,7 @@ internal class BatchResponseSubscriberVidResponseTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(SubscriberVidResponse.builder().vid(0).build())
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseSubscriberVidResponse.Status.PENDING)
+                .status(BatchResponseSubscriberVidResponse.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -197,7 +197,7 @@ internal class BatchResponseSubscriberVidResponseTest {
         assertThat(batchResponseSubscriberVidResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseSubscriberVidResponse.status())
-            .isEqualTo(BatchResponseSubscriberVidResponse.Status.PENDING)
+            .isEqualTo(BatchResponseSubscriberVidResponse.Status.CANCELED)
         assertThat(batchResponseSubscriberVidResponse.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -281,7 +281,7 @@ internal class BatchResponseSubscriberVidResponseTest {
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(SubscriberVidResponse.builder().vid(0).build())
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseSubscriberVidResponse.Status.PENDING)
+                .status(BatchResponseSubscriberVidResponse.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

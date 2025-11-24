@@ -25,7 +25,7 @@ internal class ObjectTypePropertyCreateTest {
                 .groupName("my_object_information")
                 .hasUniqueValue(false)
                 .hidden(true)
-                .numberDisplayHint(ObjectTypePropertyCreate.NumberDisplayHint.UNFORMATTED)
+                .numberDisplayHint(ObjectTypePropertyCreate.NumberDisplayHint.CURRENCY)
                 .addOption(
                     OptionInput.builder()
                         .displayOrder(1)
@@ -44,11 +44,11 @@ internal class ObjectTypePropertyCreateTest {
                         .description("Choice number two")
                         .build()
                 )
-                .optionSortStrategy(ObjectTypePropertyCreate.OptionSortStrategy.DISPLAY_ORDER)
+                .optionSortStrategy(ObjectTypePropertyCreate.OptionSortStrategy.ALPHABETICAL)
                 .referencedObjectType("referencedObjectType")
                 .searchableInGlobalSearch(true)
                 .showCurrencySymbol(true)
-                .textDisplayHint(ObjectTypePropertyCreate.TextDisplayHint.UNFORMATTED_SINGLE_LINE)
+                .textDisplayHint(ObjectTypePropertyCreate.TextDisplayHint.DOMAIN_NAME)
                 .build()
 
         assertThat(objectTypePropertyCreate.fieldType()).isEqualTo("select")
@@ -63,7 +63,7 @@ internal class ObjectTypePropertyCreateTest {
         assertThat(objectTypePropertyCreate.hasUniqueValue()).contains(false)
         assertThat(objectTypePropertyCreate.hidden()).contains(true)
         assertThat(objectTypePropertyCreate.numberDisplayHint())
-            .contains(ObjectTypePropertyCreate.NumberDisplayHint.UNFORMATTED)
+            .contains(ObjectTypePropertyCreate.NumberDisplayHint.CURRENCY)
         assertThat(objectTypePropertyCreate.options().getOrNull())
             .containsExactly(
                 OptionInput.builder()
@@ -82,12 +82,12 @@ internal class ObjectTypePropertyCreateTest {
                     .build(),
             )
         assertThat(objectTypePropertyCreate.optionSortStrategy())
-            .contains(ObjectTypePropertyCreate.OptionSortStrategy.DISPLAY_ORDER)
+            .contains(ObjectTypePropertyCreate.OptionSortStrategy.ALPHABETICAL)
         assertThat(objectTypePropertyCreate.referencedObjectType()).contains("referencedObjectType")
         assertThat(objectTypePropertyCreate.searchableInGlobalSearch()).contains(true)
         assertThat(objectTypePropertyCreate.showCurrencySymbol()).contains(true)
         assertThat(objectTypePropertyCreate.textDisplayHint())
-            .contains(ObjectTypePropertyCreate.TextDisplayHint.UNFORMATTED_SINGLE_LINE)
+            .contains(ObjectTypePropertyCreate.TextDisplayHint.DOMAIN_NAME)
     }
 
     @Test
@@ -105,7 +105,7 @@ internal class ObjectTypePropertyCreateTest {
                 .groupName("my_object_information")
                 .hasUniqueValue(false)
                 .hidden(true)
-                .numberDisplayHint(ObjectTypePropertyCreate.NumberDisplayHint.UNFORMATTED)
+                .numberDisplayHint(ObjectTypePropertyCreate.NumberDisplayHint.CURRENCY)
                 .addOption(
                     OptionInput.builder()
                         .displayOrder(1)
@@ -124,11 +124,11 @@ internal class ObjectTypePropertyCreateTest {
                         .description("Choice number two")
                         .build()
                 )
-                .optionSortStrategy(ObjectTypePropertyCreate.OptionSortStrategy.DISPLAY_ORDER)
+                .optionSortStrategy(ObjectTypePropertyCreate.OptionSortStrategy.ALPHABETICAL)
                 .referencedObjectType("referencedObjectType")
                 .searchableInGlobalSearch(true)
                 .showCurrencySymbol(true)
-                .textDisplayHint(ObjectTypePropertyCreate.TextDisplayHint.UNFORMATTED_SINGLE_LINE)
+                .textDisplayHint(ObjectTypePropertyCreate.TextDisplayHint.DOMAIN_NAME)
                 .build()
 
         val roundtrippedObjectTypePropertyCreate =

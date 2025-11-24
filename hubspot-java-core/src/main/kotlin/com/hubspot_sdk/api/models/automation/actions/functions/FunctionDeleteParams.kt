@@ -272,23 +272,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val PRE_ACTION_EXECUTION = of("PRE_ACTION_EXECUTION")
-
-            @JvmField val PRE_FETCH_OPTIONS = of("PRE_FETCH_OPTIONS")
+            @JvmField val POST_ACTION_EXECUTION = of("POST_ACTION_EXECUTION")
 
             @JvmField val POST_FETCH_OPTIONS = of("POST_FETCH_OPTIONS")
 
-            @JvmField val POST_ACTION_EXECUTION = of("POST_ACTION_EXECUTION")
+            @JvmField val PRE_ACTION_EXECUTION = of("PRE_ACTION_EXECUTION")
+
+            @JvmField val PRE_FETCH_OPTIONS = of("PRE_FETCH_OPTIONS")
 
             @JvmStatic fun of(value: String) = FunctionType(JsonField.of(value))
         }
 
         /** An enum containing [FunctionType]'s known values. */
         enum class Known {
+            POST_ACTION_EXECUTION,
+            POST_FETCH_OPTIONS,
             PRE_ACTION_EXECUTION,
             PRE_FETCH_OPTIONS,
-            POST_FETCH_OPTIONS,
-            POST_ACTION_EXECUTION,
         }
 
         /**
@@ -301,10 +301,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            POST_ACTION_EXECUTION,
+            POST_FETCH_OPTIONS,
             PRE_ACTION_EXECUTION,
             PRE_FETCH_OPTIONS,
-            POST_FETCH_OPTIONS,
-            POST_ACTION_EXECUTION,
             /**
              * An enum member indicating that [FunctionType] was instantiated with an unknown value.
              */
@@ -320,10 +320,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                POST_ACTION_EXECUTION -> Value.POST_ACTION_EXECUTION
+                POST_FETCH_OPTIONS -> Value.POST_FETCH_OPTIONS
                 PRE_ACTION_EXECUTION -> Value.PRE_ACTION_EXECUTION
                 PRE_FETCH_OPTIONS -> Value.PRE_FETCH_OPTIONS
-                POST_FETCH_OPTIONS -> Value.POST_FETCH_OPTIONS
-                POST_ACTION_EXECUTION -> Value.POST_ACTION_EXECUTION
                 else -> Value._UNKNOWN
             }
 
@@ -338,10 +338,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                POST_ACTION_EXECUTION -> Known.POST_ACTION_EXECUTION
+                POST_FETCH_OPTIONS -> Known.POST_FETCH_OPTIONS
                 PRE_ACTION_EXECUTION -> Known.PRE_ACTION_EXECUTION
                 PRE_FETCH_OPTIONS -> Known.PRE_FETCH_OPTIONS
-                POST_FETCH_OPTIONS -> Known.POST_FETCH_OPTIONS
-                POST_ACTION_EXECUTION -> Known.POST_ACTION_EXECUTION
                 else -> throw HubspotInvalidDataException("Unknown FunctionType: $value")
             }
 

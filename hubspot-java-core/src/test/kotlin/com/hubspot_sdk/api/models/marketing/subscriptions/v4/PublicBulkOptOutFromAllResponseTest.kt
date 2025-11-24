@@ -20,15 +20,15 @@ internal class PublicBulkOptOutFromAllResponseTest {
                     PublicStatus.builder()
                         .channel(PublicStatus.Channel.EMAIL)
                         .source("source")
-                        .status(PublicStatus.Status.SUBSCRIBED)
+                        .status(PublicStatus.Status.NOT_SPECIFIED)
                         .subscriberIdString("subscriberIdString")
                         .subscriptionId(0)
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .businessUnitId(0L)
-                        .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                        .legalBasis(PublicStatus.LegalBasis.CONSENT_WITH_NOTICE)
                         .legalBasisExplanation("legalBasisExplanation")
                         .setStatusSuccessReason(
-                            PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                            PublicStatus.SetStatusSuccessReason.NO_STATUS_CHANGE
                         )
                         .subscriptionName("subscriptionName")
                         .build()
@@ -42,16 +42,14 @@ internal class PublicBulkOptOutFromAllResponseTest {
                 PublicStatus.builder()
                     .channel(PublicStatus.Channel.EMAIL)
                     .source("source")
-                    .status(PublicStatus.Status.SUBSCRIBED)
+                    .status(PublicStatus.Status.NOT_SPECIFIED)
                     .subscriberIdString("subscriberIdString")
                     .subscriptionId(0)
                     .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .businessUnitId(0L)
-                    .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                    .legalBasis(PublicStatus.LegalBasis.CONSENT_WITH_NOTICE)
                     .legalBasisExplanation("legalBasisExplanation")
-                    .setStatusSuccessReason(
-                        PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
-                    )
+                    .setStatusSuccessReason(PublicStatus.SetStatusSuccessReason.NO_STATUS_CHANGE)
                     .subscriptionName("subscriptionName")
                     .build()
             )
@@ -67,15 +65,15 @@ internal class PublicBulkOptOutFromAllResponseTest {
                     PublicStatus.builder()
                         .channel(PublicStatus.Channel.EMAIL)
                         .source("source")
-                        .status(PublicStatus.Status.SUBSCRIBED)
+                        .status(PublicStatus.Status.NOT_SPECIFIED)
                         .subscriberIdString("subscriberIdString")
                         .subscriptionId(0)
                         .timestamp(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .businessUnitId(0L)
-                        .legalBasis(PublicStatus.LegalBasis.LEGITIMATE_INTEREST_PQL)
+                        .legalBasis(PublicStatus.LegalBasis.CONSENT_WITH_NOTICE)
                         .legalBasisExplanation("legalBasisExplanation")
                         .setStatusSuccessReason(
-                            PublicStatus.SetStatusSuccessReason.RESUBSCRIBE_OCCURRED
+                            PublicStatus.SetStatusSuccessReason.NO_STATUS_CHANGE
                         )
                         .subscriptionName("subscriptionName")
                         .build()

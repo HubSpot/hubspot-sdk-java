@@ -13,7 +13,7 @@ internal class EventCreateMediaPlayedEventParamsTest {
         EventCreateMediaPlayedEventParams.builder()
             .mediaPlayedEventRequest(
                 MediaPlayedEventRequest.builder()
-                    .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .sessionId("sessionId")
                     .state(MediaPlayedEventRequest.State.STARTED)
@@ -39,7 +39,7 @@ internal class EventCreateMediaPlayedEventParamsTest {
             EventCreateMediaPlayedEventParams.builder()
                 .mediaPlayedEventRequest(
                     MediaPlayedEventRequest.builder()
-                        .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                        .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                         .occurredTimestamp(0L)
                         .sessionId("sessionId")
                         .state(MediaPlayedEventRequest.State.STARTED)
@@ -63,7 +63,7 @@ internal class EventCreateMediaPlayedEventParamsTest {
         assertThat(body)
             .isEqualTo(
                 MediaPlayedEventRequest.builder()
-                    .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .sessionId("sessionId")
                     .state(MediaPlayedEventRequest.State.STARTED)
@@ -88,7 +88,7 @@ internal class EventCreateMediaPlayedEventParamsTest {
             EventCreateMediaPlayedEventParams.builder()
                 .mediaPlayedEventRequest(
                     MediaPlayedEventRequest.builder()
-                        .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                        .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                         .occurredTimestamp(0L)
                         .sessionId("sessionId")
                         .state(MediaPlayedEventRequest.State.STARTED)
@@ -101,7 +101,7 @@ internal class EventCreateMediaPlayedEventParamsTest {
         assertThat(body)
             .isEqualTo(
                 MediaPlayedEventRequest.builder()
-                    .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                    .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                     .occurredTimestamp(0L)
                     .sessionId("sessionId")
                     .state(MediaPlayedEventRequest.State.STARTED)

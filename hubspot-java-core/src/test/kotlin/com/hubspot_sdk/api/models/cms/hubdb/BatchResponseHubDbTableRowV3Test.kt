@@ -33,7 +33,7 @@ internal class BatchResponseHubDbTableRowV3Test {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseHubDbTableRowV3.Status.PENDING)
+                .status(BatchResponseHubDbTableRowV3.Status.CANCELED)
                 .links(
                     BatchResponseHubDbTableRowV3.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -64,7 +64,7 @@ internal class BatchResponseHubDbTableRowV3Test {
         assertThat(batchResponseHubDbTableRowV3.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseHubDbTableRowV3.status())
-            .isEqualTo(BatchResponseHubDbTableRowV3.Status.PENDING)
+            .isEqualTo(BatchResponseHubDbTableRowV3.Status.CANCELED)
         assertThat(batchResponseHubDbTableRowV3.links())
             .contains(
                 BatchResponseHubDbTableRowV3.Links.builder()
@@ -98,7 +98,7 @@ internal class BatchResponseHubDbTableRowV3Test {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseHubDbTableRowV3.Status.PENDING)
+                .status(BatchResponseHubDbTableRowV3.Status.CANCELED)
                 .links(
                     BatchResponseHubDbTableRowV3.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

@@ -14,7 +14,7 @@ internal class FileUpdateInputTest {
     fun create() {
         val fileUpdateInput =
             FileUpdateInput.builder()
-                .access(FileUpdateInput.Access.PUBLIC_INDEXABLE)
+                .access(FileUpdateInput.Access.HIDDEN_INDEXABLE)
                 .clearExpires(true)
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .isUsableInContent(true)
@@ -23,7 +23,7 @@ internal class FileUpdateInputTest {
                 .parentFolderPath("parentFolderPath")
                 .build()
 
-        assertThat(fileUpdateInput.access()).contains(FileUpdateInput.Access.PUBLIC_INDEXABLE)
+        assertThat(fileUpdateInput.access()).contains(FileUpdateInput.Access.HIDDEN_INDEXABLE)
         assertThat(fileUpdateInput.clearExpires()).contains(true)
         assertThat(fileUpdateInput.expiresAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -38,7 +38,7 @@ internal class FileUpdateInputTest {
         val jsonMapper = jsonMapper()
         val fileUpdateInput =
             FileUpdateInput.builder()
-                .access(FileUpdateInput.Access.PUBLIC_INDEXABLE)
+                .access(FileUpdateInput.Access.HIDDEN_INDEXABLE)
                 .clearExpires(true)
                 .expiresAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .isUsableInContent(true)

@@ -674,17 +674,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val INCLUSIVE = of("INCLUSIVE")
-
             @JvmField val EXCLUSIVE = of("EXCLUSIVE")
+
+            @JvmField val INCLUSIVE = of("INCLUSIVE")
 
             @JvmStatic fun of(value: String) = LowerBoundEndpointBehavior(JsonField.of(value))
         }
 
         /** An enum containing [LowerBoundEndpointBehavior]'s known values. */
         enum class Known {
-            INCLUSIVE,
             EXCLUSIVE,
+            INCLUSIVE,
         }
 
         /**
@@ -699,8 +699,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            INCLUSIVE,
             EXCLUSIVE,
+            INCLUSIVE,
             /**
              * An enum member indicating that [LowerBoundEndpointBehavior] was instantiated with an
              * unknown value.
@@ -717,8 +717,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                INCLUSIVE -> Value.INCLUSIVE
                 EXCLUSIVE -> Value.EXCLUSIVE
+                INCLUSIVE -> Value.INCLUSIVE
                 else -> Value._UNKNOWN
             }
 
@@ -733,8 +733,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                INCLUSIVE -> Known.INCLUSIVE
                 EXCLUSIVE -> Known.EXCLUSIVE
+                INCLUSIVE -> Known.INCLUSIVE
                 else ->
                     throw HubspotInvalidDataException("Unknown LowerBoundEndpointBehavior: $value")
             }
@@ -1145,29 +1145,29 @@ private constructor(
 
         companion object {
 
-            @JvmField val VALUE = of("VALUE")
-
-            @JvmField val UPDATED_AT = of("UPDATED_AT")
-
             @JvmField val ANNIVERSARY = of("ANNIVERSARY")
-
-            @JvmField
-            val VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION = of("VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION")
 
             @JvmField
             val ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION =
                 of("ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION")
+
+            @JvmField val UPDATED_AT = of("UPDATED_AT")
+
+            @JvmField val VALUE = of("VALUE")
+
+            @JvmField
+            val VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION = of("VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION")
 
             @JvmStatic fun of(value: String) = PropertyParser(JsonField.of(value))
         }
 
         /** An enum containing [PropertyParser]'s known values. */
         enum class Known {
-            VALUE,
-            UPDATED_AT,
             ANNIVERSARY,
-            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
             ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION,
+            UPDATED_AT,
+            VALUE,
+            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
         }
 
         /**
@@ -1180,11 +1180,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            VALUE,
-            UPDATED_AT,
             ANNIVERSARY,
-            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
             ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION,
+            UPDATED_AT,
+            VALUE,
+            VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION,
             /**
              * An enum member indicating that [PropertyParser] was instantiated with an unknown
              * value.
@@ -1201,12 +1201,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                VALUE -> Value.VALUE
-                UPDATED_AT -> Value.UPDATED_AT
                 ANNIVERSARY -> Value.ANNIVERSARY
-                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Value.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION ->
                     Value.ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION
+                UPDATED_AT -> Value.UPDATED_AT
+                VALUE -> Value.VALUE
+                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Value.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 else -> Value._UNKNOWN
             }
 
@@ -1221,12 +1221,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                VALUE -> Known.VALUE
-                UPDATED_AT -> Known.UPDATED_AT
                 ANNIVERSARY -> Known.ANNIVERSARY
-                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Known.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION ->
                     Known.ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION
+                UPDATED_AT -> Known.UPDATED_AT
+                VALUE -> Known.VALUE
+                VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION -> Known.VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION
                 else -> throw HubspotInvalidDataException("Unknown PropertyParser: $value")
             }
 
@@ -1420,17 +1420,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val INCLUSIVE = of("INCLUSIVE")
-
             @JvmField val EXCLUSIVE = of("EXCLUSIVE")
+
+            @JvmField val INCLUSIVE = of("INCLUSIVE")
 
             @JvmStatic fun of(value: String) = UpperBoundEndpointBehavior(JsonField.of(value))
         }
 
         /** An enum containing [UpperBoundEndpointBehavior]'s known values. */
         enum class Known {
-            INCLUSIVE,
             EXCLUSIVE,
+            INCLUSIVE,
         }
 
         /**
@@ -1445,8 +1445,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            INCLUSIVE,
             EXCLUSIVE,
+            INCLUSIVE,
             /**
              * An enum member indicating that [UpperBoundEndpointBehavior] was instantiated with an
              * unknown value.
@@ -1463,8 +1463,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                INCLUSIVE -> Value.INCLUSIVE
                 EXCLUSIVE -> Value.EXCLUSIVE
+                INCLUSIVE -> Value.INCLUSIVE
                 else -> Value._UNKNOWN
             }
 
@@ -1479,8 +1479,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                INCLUSIVE -> Known.INCLUSIVE
                 EXCLUSIVE -> Known.EXCLUSIVE
+                INCLUSIVE -> Known.INCLUSIVE
                 else ->
                     throw HubspotInvalidDataException("Unknown UpperBoundEndpointBehavior: $value")
             }

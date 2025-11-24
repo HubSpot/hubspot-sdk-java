@@ -16,13 +16,13 @@ internal class UnenrollmentSettingsResponseTest {
                 .emailSettings(
                     EmailSettingsResponse.builder()
                         .criteria(EmailSettingsResponse.Criteria.ALL)
-                        .sellingStrategy(EmailSettingsResponse.SellingStrategy.LEAD_BASED)
+                        .sellingStrategy(EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                         .build()
                 )
                 .meetingSettings(
                     MeetingSettingsResponse.builder()
                         .criteria(MeetingSettingsResponse.Criteria.ALL)
-                        .sellingStrategy(MeetingSettingsResponse.SellingStrategy.LEAD_BASED)
+                        .sellingStrategy(MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                         .build()
                 )
                 .build()
@@ -31,14 +31,14 @@ internal class UnenrollmentSettingsResponseTest {
             .isEqualTo(
                 EmailSettingsResponse.builder()
                     .criteria(EmailSettingsResponse.Criteria.ALL)
-                    .sellingStrategy(EmailSettingsResponse.SellingStrategy.LEAD_BASED)
+                    .sellingStrategy(EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                     .build()
             )
         assertThat(unenrollmentSettingsResponse.meetingSettings())
             .isEqualTo(
                 MeetingSettingsResponse.builder()
                     .criteria(MeetingSettingsResponse.Criteria.ALL)
-                    .sellingStrategy(MeetingSettingsResponse.SellingStrategy.LEAD_BASED)
+                    .sellingStrategy(MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                     .build()
             )
     }
@@ -51,13 +51,13 @@ internal class UnenrollmentSettingsResponseTest {
                 .emailSettings(
                     EmailSettingsResponse.builder()
                         .criteria(EmailSettingsResponse.Criteria.ALL)
-                        .sellingStrategy(EmailSettingsResponse.SellingStrategy.LEAD_BASED)
+                        .sellingStrategy(EmailSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                         .build()
                 )
                 .meetingSettings(
                     MeetingSettingsResponse.builder()
                         .criteria(MeetingSettingsResponse.Criteria.ALL)
-                        .sellingStrategy(MeetingSettingsResponse.SellingStrategy.LEAD_BASED)
+                        .sellingStrategy(MeetingSettingsResponse.SellingStrategy.ACCOUNT_BASED)
                         .build()
                 )
                 .build()

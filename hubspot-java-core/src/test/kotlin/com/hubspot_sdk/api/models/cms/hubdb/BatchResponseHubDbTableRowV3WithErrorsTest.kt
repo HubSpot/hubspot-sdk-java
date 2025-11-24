@@ -36,7 +36,7 @@ internal class BatchResponseHubDbTableRowV3WithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseHubDbTableRowV3WithErrors.Status.PENDING)
+                .status(BatchResponseHubDbTableRowV3WithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -227,7 +227,7 @@ internal class BatchResponseHubDbTableRowV3WithErrorsTest {
         assertThat(batchResponseHubDbTableRowV3WithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseHubDbTableRowV3WithErrors.status())
-            .isEqualTo(BatchResponseHubDbTableRowV3WithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseHubDbTableRowV3WithErrors.Status.CANCELED)
         assertThat(batchResponseHubDbTableRowV3WithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -326,7 +326,7 @@ internal class BatchResponseHubDbTableRowV3WithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseHubDbTableRowV3WithErrors.Status.PENDING)
+                .status(BatchResponseHubDbTableRowV3WithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

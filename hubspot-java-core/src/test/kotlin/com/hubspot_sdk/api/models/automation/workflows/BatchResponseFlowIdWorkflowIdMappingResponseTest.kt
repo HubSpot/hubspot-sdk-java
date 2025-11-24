@@ -20,7 +20,7 @@ internal class BatchResponseFlowIdWorkflowIdMappingResponseTest {
                     FlowIdWorkflowIdMappingResponse.builder().flowId(0).workflowId(0).build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseFlowIdWorkflowIdMappingResponse.Status.PENDING)
+                .status(BatchResponseFlowIdWorkflowIdMappingResponse.Status.CANCELED)
                 .links(
                     BatchResponseFlowIdWorkflowIdMappingResponse.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -38,7 +38,7 @@ internal class BatchResponseFlowIdWorkflowIdMappingResponseTest {
         assertThat(batchResponseFlowIdWorkflowIdMappingResponse.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseFlowIdWorkflowIdMappingResponse.status())
-            .isEqualTo(BatchResponseFlowIdWorkflowIdMappingResponse.Status.PENDING)
+            .isEqualTo(BatchResponseFlowIdWorkflowIdMappingResponse.Status.CANCELED)
         assertThat(batchResponseFlowIdWorkflowIdMappingResponse.links())
             .contains(
                 BatchResponseFlowIdWorkflowIdMappingResponse.Links.builder()
@@ -59,7 +59,7 @@ internal class BatchResponseFlowIdWorkflowIdMappingResponseTest {
                     FlowIdWorkflowIdMappingResponse.builder().flowId(0).workflowId(0).build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseFlowIdWorkflowIdMappingResponse.Status.PENDING)
+                .status(BatchResponseFlowIdWorkflowIdMappingResponse.Status.CANCELED)
                 .links(
                     BatchResponseFlowIdWorkflowIdMappingResponse.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

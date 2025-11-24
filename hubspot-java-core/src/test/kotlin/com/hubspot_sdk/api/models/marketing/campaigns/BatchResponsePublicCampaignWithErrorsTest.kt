@@ -33,7 +33,7 @@ internal class BatchResponsePublicCampaignWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicCampaignWithErrors.Status.PENDING)
+                .status(BatchResponsePublicCampaignWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -221,7 +221,7 @@ internal class BatchResponsePublicCampaignWithErrorsTest {
         assertThat(batchResponsePublicCampaignWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePublicCampaignWithErrors.status())
-            .isEqualTo(BatchResponsePublicCampaignWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponsePublicCampaignWithErrors.Status.CANCELED)
         assertThat(batchResponsePublicCampaignWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -317,7 +317,7 @@ internal class BatchResponsePublicCampaignWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePublicCampaignWithErrors.Status.PENDING)
+                .status(BatchResponsePublicCampaignWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

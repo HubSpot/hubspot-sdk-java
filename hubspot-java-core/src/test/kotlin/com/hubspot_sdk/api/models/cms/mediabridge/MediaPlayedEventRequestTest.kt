@@ -13,7 +13,7 @@ internal class MediaPlayedEventRequestTest {
     fun create() {
         val mediaPlayedEventRequest =
             MediaPlayedEventRequest.builder()
-                .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                 .occurredTimestamp(0L)
                 .sessionId("sessionId")
                 .state(MediaPlayedEventRequest.State.STARTED)
@@ -31,7 +31,7 @@ internal class MediaPlayedEventRequestTest {
                 .build()
 
         assertThat(mediaPlayedEventRequest.mediaType())
-            .isEqualTo(MediaPlayedEventRequest.MediaType.VIDEO)
+            .isEqualTo(MediaPlayedEventRequest.MediaType.AUDIO)
         assertThat(mediaPlayedEventRequest.occurredTimestamp()).isEqualTo(0L)
         assertThat(mediaPlayedEventRequest.sessionId()).isEqualTo("sessionId")
         assertThat(mediaPlayedEventRequest.state()).isEqualTo(MediaPlayedEventRequest.State.STARTED)
@@ -53,7 +53,7 @@ internal class MediaPlayedEventRequestTest {
         val jsonMapper = jsonMapper()
         val mediaPlayedEventRequest =
             MediaPlayedEventRequest.builder()
-                .mediaType(MediaPlayedEventRequest.MediaType.VIDEO)
+                .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
                 .occurredTimestamp(0L)
                 .sessionId("sessionId")
                 .state(MediaPlayedEventRequest.State.STARTED)

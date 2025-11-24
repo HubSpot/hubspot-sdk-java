@@ -4,11 +4,8 @@ package com.hubspot_sdk.api.services.blocking.crm.associations.v4
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiArchive
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicAssociationMultiPost
 import com.hubspot_sdk.api.models.crm.associations.v4.BatchInputPublicDefaultAssociationMultiPost
@@ -22,7 +19,6 @@ import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteLabelsParams
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchGetParams
-import com.hubspot_sdk.api.models.crm.associations.v4.batch.BatchUpsertParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -199,41 +195,5 @@ internal class BatchServiceTest {
             )
 
         batchResponsePublicAssociationMultiWithLabel.validate()
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun upsert() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val batchService = client.crm().associations().v4().batch()
-
-        val batchResponseSimplePublicUpsertObject =
-            batchService.upsert(
-                BatchUpsertParams.builder()
-                    .objectType("objectType")
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        BatchInputSimplePublicObjectBatchInputUpsert.builder()
-                            .addInput(
-                                SimplePublicObjectBatchInputUpsert.builder()
-                                    .id("id")
-                                    .properties(
-                                        SimplePublicObjectBatchInputUpsert.Properties.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                                            .build()
-                                    )
-                                    .idProperty("idProperty")
-                                    .objectWriteTraceId("objectWriteTraceId")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        batchResponseSimplePublicUpsertObject.validate()
     }
 }

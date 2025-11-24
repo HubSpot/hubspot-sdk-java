@@ -14,7 +14,7 @@ internal class EmailSendStatusViewTest {
     fun create() {
         val emailSendStatusView =
             EmailSendStatusView.builder()
-                .status(EmailSendStatusView.Status.PENDING)
+                .status(EmailSendStatusView.Status.CANCELED)
                 .statusId("statusId")
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .eventId(
@@ -25,11 +25,11 @@ internal class EmailSendStatusViewTest {
                 )
                 .message("message")
                 .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .sendResult(EmailSendStatusView.SendResult.SENT)
+                .sendResult(EmailSendStatusView.SendResult.ADDRESS_LIST_BOMBED)
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        assertThat(emailSendStatusView.status()).isEqualTo(EmailSendStatusView.Status.PENDING)
+        assertThat(emailSendStatusView.status()).isEqualTo(EmailSendStatusView.Status.CANCELED)
         assertThat(emailSendStatusView.statusId()).isEqualTo("statusId")
         assertThat(emailSendStatusView.completedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -43,7 +43,8 @@ internal class EmailSendStatusViewTest {
         assertThat(emailSendStatusView.message()).contains("message")
         assertThat(emailSendStatusView.requestedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-        assertThat(emailSendStatusView.sendResult()).contains(EmailSendStatusView.SendResult.SENT)
+        assertThat(emailSendStatusView.sendResult())
+            .contains(EmailSendStatusView.SendResult.ADDRESS_LIST_BOMBED)
         assertThat(emailSendStatusView.startedAt())
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
     }
@@ -53,7 +54,7 @@ internal class EmailSendStatusViewTest {
         val jsonMapper = jsonMapper()
         val emailSendStatusView =
             EmailSendStatusView.builder()
-                .status(EmailSendStatusView.Status.PENDING)
+                .status(EmailSendStatusView.Status.CANCELED)
                 .statusId("statusId")
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .eventId(
@@ -64,7 +65,7 @@ internal class EmailSendStatusViewTest {
                 )
                 .message("message")
                 .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .sendResult(EmailSendStatusView.SendResult.SENT)
+                .sendResult(EmailSendStatusView.SendResult.ADDRESS_LIST_BOMBED)
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 

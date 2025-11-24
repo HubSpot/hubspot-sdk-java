@@ -14,14 +14,14 @@ internal class ApiYearlyEnrollmentScheduleTest {
         val apiYearlyEnrollmentSchedule =
             ApiYearlyEnrollmentSchedule.builder()
                 .dayOfMonth(0)
-                .month(ApiYearlyEnrollmentSchedule.Month.JANUARY)
+                .month(ApiYearlyEnrollmentSchedule.Month.APRIL)
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .type(ApiYearlyEnrollmentSchedule.Type.YEARLY)
                 .build()
 
         assertThat(apiYearlyEnrollmentSchedule.dayOfMonth()).isEqualTo(0)
         assertThat(apiYearlyEnrollmentSchedule.month())
-            .isEqualTo(ApiYearlyEnrollmentSchedule.Month.JANUARY)
+            .isEqualTo(ApiYearlyEnrollmentSchedule.Month.APRIL)
         assertThat(apiYearlyEnrollmentSchedule.timeOfDay())
             .isEqualTo(ApiTimeOfDay.builder().hour(0).minute(0).build())
         assertThat(apiYearlyEnrollmentSchedule.type())
@@ -34,7 +34,7 @@ internal class ApiYearlyEnrollmentScheduleTest {
         val apiYearlyEnrollmentSchedule =
             ApiYearlyEnrollmentSchedule.builder()
                 .dayOfMonth(0)
-                .month(ApiYearlyEnrollmentSchedule.Month.JANUARY)
+                .month(ApiYearlyEnrollmentSchedule.Month.APRIL)
                 .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                 .type(ApiYearlyEnrollmentSchedule.Type.YEARLY)
                 .build()

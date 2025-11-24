@@ -370,26 +370,26 @@ private constructor(
 
         companion object {
 
-            @JvmField val SUCCESS = of("SUCCESS")
-
-            @JvmField val TIMEOUT = of("TIMEOUT")
+            @JvmField val CACHED = of("CACHED")
 
             @JvmField val FAILURE = of("FAILURE")
 
-            @JvmField val CACHED = of("CACHED")
-
             @JvmField val NOTFOUND = of("NOTFOUND")
+
+            @JvmField val SUCCESS = of("SUCCESS")
+
+            @JvmField val TIMEOUT = of("TIMEOUT")
 
             @JvmStatic fun of(value: String) = FetchStatus(JsonField.of(value))
         }
 
         /** An enum containing [FetchStatus]'s known values. */
         enum class Known {
+            CACHED,
+            FAILURE,
+            NOTFOUND,
             SUCCESS,
             TIMEOUT,
-            FAILURE,
-            CACHED,
-            NOTFOUND,
         }
 
         /**
@@ -402,11 +402,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            CACHED,
+            FAILURE,
+            NOTFOUND,
             SUCCESS,
             TIMEOUT,
-            FAILURE,
-            CACHED,
-            NOTFOUND,
             /**
              * An enum member indicating that [FetchStatus] was instantiated with an unknown value.
              */
@@ -422,11 +422,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                CACHED -> Value.CACHED
+                FAILURE -> Value.FAILURE
+                NOTFOUND -> Value.NOTFOUND
                 SUCCESS -> Value.SUCCESS
                 TIMEOUT -> Value.TIMEOUT
-                FAILURE -> Value.FAILURE
-                CACHED -> Value.CACHED
-                NOTFOUND -> Value.NOTFOUND
                 else -> Value._UNKNOWN
             }
 
@@ -441,11 +441,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                CACHED -> Known.CACHED
+                FAILURE -> Known.FAILURE
+                NOTFOUND -> Known.NOTFOUND
                 SUCCESS -> Known.SUCCESS
                 TIMEOUT -> Known.TIMEOUT
-                FAILURE -> Known.FAILURE
-                CACHED -> Known.CACHED
-                NOTFOUND -> Known.NOTFOUND
                 else -> throw HubspotInvalidDataException("Unknown FetchStatus: $value")
             }
 

@@ -116,6 +116,11 @@ private constructor(
      */
     fun userId(): String = userId.getRequired("userId")
 
+    /**
+     * Supplementary metadata associated with the audit log entry. It provides additional context
+     * about the audited event (ex: rows deleted/updated for a HubDB event, the specific fields that
+     * were changed for a Content Settings event).
+     */
     @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonValue = meta
 
     /**
@@ -310,6 +315,11 @@ private constructor(
          */
         fun userId(userId: JsonField<String>) = apply { this.userId = userId }
 
+        /**
+         * Supplementary metadata associated with the audit log entry. It provides additional
+         * context about the audited event (ex: rows deleted/updated for a HubDB event, the specific
+         * fields that were changed for a Content Settings event).
+         */
         fun meta(meta: JsonValue) = apply { this.meta = meta }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -420,15 +430,15 @@ private constructor(
 
             @JvmField val CREATED = of("CREATED")
 
-            @JvmField val UPDATED = of("UPDATED")
+            @JvmField val DELETED = of("DELETED")
 
             @JvmField val PUBLISHED = of("PUBLISHED")
 
-            @JvmField val DELETED = of("DELETED")
+            @JvmField val RESTORE = of("RESTORE")
 
             @JvmField val UNPUBLISHED = of("UNPUBLISHED")
 
-            @JvmField val RESTORE = of("RESTORE")
+            @JvmField val UPDATED = of("UPDATED")
 
             @JvmStatic fun of(value: String) = Event(JsonField.of(value))
         }
@@ -436,11 +446,11 @@ private constructor(
         /** An enum containing [Event]'s known values. */
         enum class Known {
             CREATED,
-            UPDATED,
-            PUBLISHED,
             DELETED,
-            UNPUBLISHED,
+            PUBLISHED,
             RESTORE,
+            UNPUBLISHED,
+            UPDATED,
         }
 
         /**
@@ -454,11 +464,11 @@ private constructor(
          */
         enum class Value {
             CREATED,
-            UPDATED,
-            PUBLISHED,
             DELETED,
-            UNPUBLISHED,
+            PUBLISHED,
             RESTORE,
+            UNPUBLISHED,
+            UPDATED,
             /** An enum member indicating that [Event] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -473,11 +483,11 @@ private constructor(
         fun value(): Value =
             when (this) {
                 CREATED -> Value.CREATED
-                UPDATED -> Value.UPDATED
-                PUBLISHED -> Value.PUBLISHED
                 DELETED -> Value.DELETED
-                UNPUBLISHED -> Value.UNPUBLISHED
+                PUBLISHED -> Value.PUBLISHED
                 RESTORE -> Value.RESTORE
+                UNPUBLISHED -> Value.UNPUBLISHED
+                UPDATED -> Value.UPDATED
                 else -> Value._UNKNOWN
             }
 
@@ -493,11 +503,11 @@ private constructor(
         fun known(): Known =
             when (this) {
                 CREATED -> Known.CREATED
-                UPDATED -> Known.UPDATED
-                PUBLISHED -> Known.PUBLISHED
                 DELETED -> Known.DELETED
-                UNPUBLISHED -> Known.UNPUBLISHED
+                PUBLISHED -> Known.PUBLISHED
                 RESTORE -> Known.RESTORE
+                UNPUBLISHED -> Known.UNPUBLISHED
+                UPDATED -> Known.UPDATED
                 else -> throw HubspotInvalidDataException("Unknown Event: $value")
             }
 
@@ -572,41 +582,41 @@ private constructor(
 
             @JvmField val BLOG_POST = of("BLOG_POST")
 
-            @JvmField val LANDING_PAGE = of("LANDING_PAGE")
-
-            @JvmField val WEBSITE_PAGE = of("WEBSITE_PAGE")
-
-            @JvmField val TEMPLATE = of("TEMPLATE")
-
-            @JvmField val MODULE = of("MODULE")
-
-            @JvmField val GLOBAL_MODULE = of("GLOBAL_MODULE")
-
-            @JvmField val SERVERLESS_FUNCTION = of("SERVERLESS_FUNCTION")
-
-            @JvmField val DOMAIN = of("DOMAIN")
-
-            @JvmField val URL_MAPPING = of("URL_MAPPING")
-
-            @JvmField val EMAIL = of("EMAIL")
-
             @JvmField val CONTENT_SETTINGS = of("CONTENT_SETTINGS")
-
-            @JvmField val HUBDB_TABLE = of("HUBDB_TABLE")
-
-            @JvmField val KNOWLEDGE_BASE_ARTICLE = of("KNOWLEDGE_BASE_ARTICLE")
-
-            @JvmField val KNOWLEDGE_BASE = of("KNOWLEDGE_BASE")
-
-            @JvmField val THEME = of("THEME")
 
             @JvmField val CSS = of("CSS")
 
-            @JvmField val JS = of("JS")
-
             @JvmField val CTA = of("CTA")
 
+            @JvmField val DOMAIN = of("DOMAIN")
+
+            @JvmField val EMAIL = of("EMAIL")
+
             @JvmField val FILE = of("FILE")
+
+            @JvmField val GLOBAL_MODULE = of("GLOBAL_MODULE")
+
+            @JvmField val HUBDB_TABLE = of("HUBDB_TABLE")
+
+            @JvmField val JS = of("JS")
+
+            @JvmField val KNOWLEDGE_BASE = of("KNOWLEDGE_BASE")
+
+            @JvmField val KNOWLEDGE_BASE_ARTICLE = of("KNOWLEDGE_BASE_ARTICLE")
+
+            @JvmField val LANDING_PAGE = of("LANDING_PAGE")
+
+            @JvmField val MODULE = of("MODULE")
+
+            @JvmField val SERVERLESS_FUNCTION = of("SERVERLESS_FUNCTION")
+
+            @JvmField val TEMPLATE = of("TEMPLATE")
+
+            @JvmField val THEME = of("THEME")
+
+            @JvmField val URL_MAPPING = of("URL_MAPPING")
+
+            @JvmField val WEBSITE_PAGE = of("WEBSITE_PAGE")
 
             @JvmStatic fun of(value: String) = ObjectType(JsonField.of(value))
         }
@@ -615,24 +625,24 @@ private constructor(
         enum class Known {
             BLOG,
             BLOG_POST,
-            LANDING_PAGE,
-            WEBSITE_PAGE,
-            TEMPLATE,
-            MODULE,
-            GLOBAL_MODULE,
-            SERVERLESS_FUNCTION,
-            DOMAIN,
-            URL_MAPPING,
-            EMAIL,
             CONTENT_SETTINGS,
-            HUBDB_TABLE,
-            KNOWLEDGE_BASE_ARTICLE,
-            KNOWLEDGE_BASE,
-            THEME,
             CSS,
-            JS,
             CTA,
+            DOMAIN,
+            EMAIL,
             FILE,
+            GLOBAL_MODULE,
+            HUBDB_TABLE,
+            JS,
+            KNOWLEDGE_BASE,
+            KNOWLEDGE_BASE_ARTICLE,
+            LANDING_PAGE,
+            MODULE,
+            SERVERLESS_FUNCTION,
+            TEMPLATE,
+            THEME,
+            URL_MAPPING,
+            WEBSITE_PAGE,
         }
 
         /**
@@ -647,24 +657,24 @@ private constructor(
         enum class Value {
             BLOG,
             BLOG_POST,
-            LANDING_PAGE,
-            WEBSITE_PAGE,
-            TEMPLATE,
-            MODULE,
-            GLOBAL_MODULE,
-            SERVERLESS_FUNCTION,
-            DOMAIN,
-            URL_MAPPING,
-            EMAIL,
             CONTENT_SETTINGS,
-            HUBDB_TABLE,
-            KNOWLEDGE_BASE_ARTICLE,
-            KNOWLEDGE_BASE,
-            THEME,
             CSS,
-            JS,
             CTA,
+            DOMAIN,
+            EMAIL,
             FILE,
+            GLOBAL_MODULE,
+            HUBDB_TABLE,
+            JS,
+            KNOWLEDGE_BASE,
+            KNOWLEDGE_BASE_ARTICLE,
+            LANDING_PAGE,
+            MODULE,
+            SERVERLESS_FUNCTION,
+            TEMPLATE,
+            THEME,
+            URL_MAPPING,
+            WEBSITE_PAGE,
             /**
              * An enum member indicating that [ObjectType] was instantiated with an unknown value.
              */
@@ -682,24 +692,24 @@ private constructor(
             when (this) {
                 BLOG -> Value.BLOG
                 BLOG_POST -> Value.BLOG_POST
-                LANDING_PAGE -> Value.LANDING_PAGE
-                WEBSITE_PAGE -> Value.WEBSITE_PAGE
-                TEMPLATE -> Value.TEMPLATE
-                MODULE -> Value.MODULE
-                GLOBAL_MODULE -> Value.GLOBAL_MODULE
-                SERVERLESS_FUNCTION -> Value.SERVERLESS_FUNCTION
-                DOMAIN -> Value.DOMAIN
-                URL_MAPPING -> Value.URL_MAPPING
-                EMAIL -> Value.EMAIL
                 CONTENT_SETTINGS -> Value.CONTENT_SETTINGS
-                HUBDB_TABLE -> Value.HUBDB_TABLE
-                KNOWLEDGE_BASE_ARTICLE -> Value.KNOWLEDGE_BASE_ARTICLE
-                KNOWLEDGE_BASE -> Value.KNOWLEDGE_BASE
-                THEME -> Value.THEME
                 CSS -> Value.CSS
-                JS -> Value.JS
                 CTA -> Value.CTA
+                DOMAIN -> Value.DOMAIN
+                EMAIL -> Value.EMAIL
                 FILE -> Value.FILE
+                GLOBAL_MODULE -> Value.GLOBAL_MODULE
+                HUBDB_TABLE -> Value.HUBDB_TABLE
+                JS -> Value.JS
+                KNOWLEDGE_BASE -> Value.KNOWLEDGE_BASE
+                KNOWLEDGE_BASE_ARTICLE -> Value.KNOWLEDGE_BASE_ARTICLE
+                LANDING_PAGE -> Value.LANDING_PAGE
+                MODULE -> Value.MODULE
+                SERVERLESS_FUNCTION -> Value.SERVERLESS_FUNCTION
+                TEMPLATE -> Value.TEMPLATE
+                THEME -> Value.THEME
+                URL_MAPPING -> Value.URL_MAPPING
+                WEBSITE_PAGE -> Value.WEBSITE_PAGE
                 else -> Value._UNKNOWN
             }
 
@@ -716,24 +726,24 @@ private constructor(
             when (this) {
                 BLOG -> Known.BLOG
                 BLOG_POST -> Known.BLOG_POST
-                LANDING_PAGE -> Known.LANDING_PAGE
-                WEBSITE_PAGE -> Known.WEBSITE_PAGE
-                TEMPLATE -> Known.TEMPLATE
-                MODULE -> Known.MODULE
-                GLOBAL_MODULE -> Known.GLOBAL_MODULE
-                SERVERLESS_FUNCTION -> Known.SERVERLESS_FUNCTION
-                DOMAIN -> Known.DOMAIN
-                URL_MAPPING -> Known.URL_MAPPING
-                EMAIL -> Known.EMAIL
                 CONTENT_SETTINGS -> Known.CONTENT_SETTINGS
-                HUBDB_TABLE -> Known.HUBDB_TABLE
-                KNOWLEDGE_BASE_ARTICLE -> Known.KNOWLEDGE_BASE_ARTICLE
-                KNOWLEDGE_BASE -> Known.KNOWLEDGE_BASE
-                THEME -> Known.THEME
                 CSS -> Known.CSS
-                JS -> Known.JS
                 CTA -> Known.CTA
+                DOMAIN -> Known.DOMAIN
+                EMAIL -> Known.EMAIL
                 FILE -> Known.FILE
+                GLOBAL_MODULE -> Known.GLOBAL_MODULE
+                HUBDB_TABLE -> Known.HUBDB_TABLE
+                JS -> Known.JS
+                KNOWLEDGE_BASE -> Known.KNOWLEDGE_BASE
+                KNOWLEDGE_BASE_ARTICLE -> Known.KNOWLEDGE_BASE_ARTICLE
+                LANDING_PAGE -> Known.LANDING_PAGE
+                MODULE -> Known.MODULE
+                SERVERLESS_FUNCTION -> Known.SERVERLESS_FUNCTION
+                TEMPLATE -> Known.TEMPLATE
+                THEME -> Known.THEME
+                URL_MAPPING -> Known.URL_MAPPING
+                WEBSITE_PAGE -> Known.WEBSITE_PAGE
                 else -> throw HubspotInvalidDataException("Unknown ObjectType: $value")
             }
 

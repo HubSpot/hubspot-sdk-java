@@ -297,8 +297,6 @@ private constructor(
 
         companion object {
 
-            @JvmField val REGISTERED = of("REGISTERED")
-
             @JvmField val ATTENDED = of("ATTENDED")
 
             @JvmField val CANCELLED = of("CANCELLED")
@@ -307,16 +305,18 @@ private constructor(
 
             @JvmField val NO_SHOW = of("NO_SHOW")
 
+            @JvmField val REGISTERED = of("REGISTERED")
+
             @JvmStatic fun of(value: String) = AttendanceState(JsonField.of(value))
         }
 
         /** An enum containing [AttendanceState]'s known values. */
         enum class Known {
-            REGISTERED,
             ATTENDED,
             CANCELLED,
             EMPTY,
             NO_SHOW,
+            REGISTERED,
         }
 
         /**
@@ -329,11 +329,11 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            REGISTERED,
             ATTENDED,
             CANCELLED,
             EMPTY,
             NO_SHOW,
+            REGISTERED,
             /**
              * An enum member indicating that [AttendanceState] was instantiated with an unknown
              * value.
@@ -350,11 +350,11 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                REGISTERED -> Value.REGISTERED
                 ATTENDED -> Value.ATTENDED
                 CANCELLED -> Value.CANCELLED
                 EMPTY -> Value.EMPTY
                 NO_SHOW -> Value.NO_SHOW
+                REGISTERED -> Value.REGISTERED
                 else -> Value._UNKNOWN
             }
 
@@ -369,11 +369,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                REGISTERED -> Known.REGISTERED
                 ATTENDED -> Known.ATTENDED
                 CANCELLED -> Known.CANCELLED
                 EMPTY -> Known.EMPTY
                 NO_SHOW -> Known.NO_SHOW
+                REGISTERED -> Known.REGISTERED
                 else -> throw HubspotInvalidDataException("Unknown AttendanceState: $value")
             }
 

@@ -24,7 +24,7 @@ internal class HubSpotFormConfigurationTest {
                 .addNotifyRecipient("string")
                 .postSubmitAction(
                     FormPostSubmitAction.builder()
-                        .type(FormPostSubmitAction.Type.THANK_YOU)
+                        .type(FormPostSubmitAction.Type.REDIRECT_URL)
                         .value("value")
                         .build()
                 )
@@ -47,7 +47,7 @@ internal class HubSpotFormConfigurationTest {
         assertThat(hubSpotFormConfiguration.postSubmitAction())
             .isEqualTo(
                 FormPostSubmitAction.builder()
-                    .type(FormPostSubmitAction.Type.THANK_YOU)
+                    .type(FormPostSubmitAction.Type.REDIRECT_URL)
                     .value("value")
                     .build()
             )
@@ -74,7 +74,7 @@ internal class HubSpotFormConfigurationTest {
                 .addNotifyRecipient("string")
                 .postSubmitAction(
                     FormPostSubmitAction.builder()
-                        .type(FormPostSubmitAction.Type.THANK_YOU)
+                        .type(FormPostSubmitAction.Type.REDIRECT_URL)
                         .value("value")
                         .build()
                 )

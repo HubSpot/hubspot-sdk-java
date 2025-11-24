@@ -67,7 +67,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .addBlockedDate(
                             ApiBlockedDate.builder()
                                 .dayOfMonth(0)
-                                .month(ApiBlockedDate.Month.JANUARY)
+                                .month(ApiBlockedDate.Month.APRIL)
                                 .year(0)
                                 .build()
                         )
@@ -105,7 +105,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .addSuppressionListId(0)
                         .addTimeWindow(
                             ApiTimeWindow.builder()
-                                .day(ApiTimeWindow.Day.MONDAY)
+                                .day(ApiTimeWindow.Day.FRIDAY)
                                 .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .build()
@@ -594,7 +594,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseApiFlowWithErrors.Status.PENDING)
+                .status(BatchResponseApiFlowWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -804,7 +804,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .addBlockedDate(
                             ApiBlockedDate.builder()
                                 .dayOfMonth(0)
-                                .month(ApiBlockedDate.Month.JANUARY)
+                                .month(ApiBlockedDate.Month.APRIL)
                                 .year(0)
                                 .build()
                         )
@@ -842,7 +842,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .addSuppressionListId(0)
                         .addTimeWindow(
                             ApiTimeWindow.builder()
-                                .day(ApiTimeWindow.Day.MONDAY)
+                                .day(ApiTimeWindow.Day.FRIDAY)
                                 .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .build()
@@ -1334,7 +1334,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
         assertThat(batchResponseApiFlowWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseApiFlowWithErrors.status())
-            .isEqualTo(BatchResponseApiFlowWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseApiFlowWithErrors.Status.CANCELED)
         assertThat(batchResponseApiFlowWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -1453,7 +1453,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .addBlockedDate(
                             ApiBlockedDate.builder()
                                 .dayOfMonth(0)
-                                .month(ApiBlockedDate.Month.JANUARY)
+                                .month(ApiBlockedDate.Month.APRIL)
                                 .year(0)
                                 .build()
                         )
@@ -1491,7 +1491,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .addSuppressionListId(0)
                         .addTimeWindow(
                             ApiTimeWindow.builder()
-                                .day(ApiTimeWindow.Day.MONDAY)
+                                .day(ApiTimeWindow.Day.FRIDAY)
                                 .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                                 .build()
@@ -1980,7 +1980,7 @@ internal class BatchResponseApiFlowWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseApiFlowWithErrors.Status.PENDING)
+                .status(BatchResponseApiFlowWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

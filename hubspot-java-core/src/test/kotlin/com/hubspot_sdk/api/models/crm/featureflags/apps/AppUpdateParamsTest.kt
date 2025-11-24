@@ -15,8 +15,8 @@ internal class AppUpdateParamsTest {
             .flagName("flagName")
             .flagPutRequest(
                 FlagPutRequest.builder()
-                    .defaultState(FlagPutRequest.DefaultState.OFF)
-                    .overrideState(FlagPutRequest.OverrideState.OFF)
+                    .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                    .overrideState(FlagPutRequest.OverrideState.ABSENT)
                     .build()
             )
             .build()
@@ -29,7 +29,9 @@ internal class AppUpdateParamsTest {
                 .appId(0)
                 .flagName("flagName")
                 .flagPutRequest(
-                    FlagPutRequest.builder().defaultState(FlagPutRequest.DefaultState.OFF).build()
+                    FlagPutRequest.builder()
+                        .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                        .build()
                 )
                 .build()
 
@@ -47,8 +49,8 @@ internal class AppUpdateParamsTest {
                 .flagName("flagName")
                 .flagPutRequest(
                     FlagPutRequest.builder()
-                        .defaultState(FlagPutRequest.DefaultState.OFF)
-                        .overrideState(FlagPutRequest.OverrideState.OFF)
+                        .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                        .overrideState(FlagPutRequest.OverrideState.ABSENT)
                         .build()
                 )
                 .build()
@@ -58,8 +60,8 @@ internal class AppUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 FlagPutRequest.builder()
-                    .defaultState(FlagPutRequest.DefaultState.OFF)
-                    .overrideState(FlagPutRequest.OverrideState.OFF)
+                    .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                    .overrideState(FlagPutRequest.OverrideState.ABSENT)
                     .build()
             )
     }
@@ -71,7 +73,9 @@ internal class AppUpdateParamsTest {
                 .appId(0)
                 .flagName("flagName")
                 .flagPutRequest(
-                    FlagPutRequest.builder().defaultState(FlagPutRequest.DefaultState.OFF).build()
+                    FlagPutRequest.builder()
+                        .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                        .build()
                 )
                 .build()
 
@@ -79,7 +83,7 @@ internal class AppUpdateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                FlagPutRequest.builder().defaultState(FlagPutRequest.DefaultState.OFF).build()
+                FlagPutRequest.builder().defaultState(FlagPutRequest.DefaultState.ABSENT).build()
             )
     }
 }

@@ -65,7 +65,7 @@ internal class ApiFlowTest {
                 .addBlockedDate(
                     ApiBlockedDate.builder()
                         .dayOfMonth(0)
-                        .month(ApiBlockedDate.Month.JANUARY)
+                        .month(ApiBlockedDate.Month.APRIL)
                         .year(0)
                         .build()
                 )
@@ -103,7 +103,7 @@ internal class ApiFlowTest {
                 .addSuppressionListId(0)
                 .addTimeWindow(
                     ApiTimeWindow.builder()
-                        .day(ApiTimeWindow.Day.MONDAY)
+                        .day(ApiTimeWindow.Day.FRIDAY)
                         .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .build()
@@ -608,7 +608,7 @@ internal class ApiFlowTest {
                     .addBlockedDate(
                         ApiBlockedDate.builder()
                             .dayOfMonth(0)
-                            .month(ApiBlockedDate.Month.JANUARY)
+                            .month(ApiBlockedDate.Month.APRIL)
                             .year(0)
                             .build()
                     )
@@ -646,7 +646,7 @@ internal class ApiFlowTest {
                     .addSuppressionListId(0)
                     .addTimeWindow(
                         ApiTimeWindow.builder()
-                            .day(ApiTimeWindow.Day.MONDAY)
+                            .day(ApiTimeWindow.Day.FRIDAY)
                             .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                             .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                             .build()
@@ -1167,7 +1167,7 @@ internal class ApiFlowTest {
                 .addBlockedDate(
                     ApiBlockedDate.builder()
                         .dayOfMonth(0)
-                        .month(ApiBlockedDate.Month.JANUARY)
+                        .month(ApiBlockedDate.Month.APRIL)
                         .year(0)
                         .build()
                 )
@@ -1203,7 +1203,7 @@ internal class ApiFlowTest {
                 .revisionId("revisionId")
                 .addTimeWindow(
                     ApiTimeWindow.builder()
-                        .day(ApiTimeWindow.Day.MONDAY)
+                        .day(ApiTimeWindow.Day.FRIDAY)
                         .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .build()
@@ -1696,7 +1696,7 @@ internal class ApiFlowTest {
                     .addBlockedDate(
                         ApiBlockedDate.builder()
                             .dayOfMonth(0)
-                            .month(ApiBlockedDate.Month.JANUARY)
+                            .month(ApiBlockedDate.Month.APRIL)
                             .year(0)
                             .build()
                     )
@@ -1732,7 +1732,7 @@ internal class ApiFlowTest {
                     .revisionId("revisionId")
                     .addTimeWindow(
                         ApiTimeWindow.builder()
-                            .day(ApiTimeWindow.Day.MONDAY)
+                            .day(ApiTimeWindow.Day.FRIDAY)
                             .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                             .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
                             .build()

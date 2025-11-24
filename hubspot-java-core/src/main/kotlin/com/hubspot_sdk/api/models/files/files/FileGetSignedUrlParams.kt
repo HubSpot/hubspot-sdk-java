@@ -268,23 +268,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val THUMB = of("thumb")
-
             @JvmField val ICON = of("icon")
 
             @JvmField val MEDIUM = of("medium")
 
             @JvmField val PREVIEW = of("preview")
 
+            @JvmField val THUMB = of("thumb")
+
             @JvmStatic fun of(value: String) = Size(JsonField.of(value))
         }
 
         /** An enum containing [Size]'s known values. */
         enum class Known {
-            THUMB,
             ICON,
             MEDIUM,
             PREVIEW,
+            THUMB,
         }
 
         /**
@@ -297,10 +297,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            THUMB,
             ICON,
             MEDIUM,
             PREVIEW,
+            THUMB,
             /** An enum member indicating that [Size] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -314,10 +314,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                THUMB -> Value.THUMB
                 ICON -> Value.ICON
                 MEDIUM -> Value.MEDIUM
                 PREVIEW -> Value.PREVIEW
+                THUMB -> Value.THUMB
                 else -> Value._UNKNOWN
             }
 
@@ -332,10 +332,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                THUMB -> Known.THUMB
                 ICON -> Known.ICON
                 MEDIUM -> Known.MEDIUM
                 PREVIEW -> Known.PREVIEW
+                THUMB -> Known.THUMB
                 else -> throw HubspotInvalidDataException("Unknown Size: $value")
             }
 

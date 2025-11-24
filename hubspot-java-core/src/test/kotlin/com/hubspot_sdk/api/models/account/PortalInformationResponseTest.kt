@@ -13,7 +13,7 @@ internal class PortalInformationResponseTest {
     fun create() {
         val portalInformationResponse =
             PortalInformationResponse.builder()
-                .accountType(PortalInformationResponse.AccountType.STANDARD)
+                .accountType(PortalInformationResponse.AccountType.APP_DEVELOPER)
                 .addAdditionalCurrency("string")
                 .companyCurrency("companyCurrency")
                 .dataHostingLocation("dataHostingLocation")
@@ -25,7 +25,7 @@ internal class PortalInformationResponseTest {
                 .build()
 
         assertThat(portalInformationResponse.accountType())
-            .isEqualTo(PortalInformationResponse.AccountType.STANDARD)
+            .isEqualTo(PortalInformationResponse.AccountType.APP_DEVELOPER)
         assertThat(portalInformationResponse.additionalCurrencies()).containsExactly("string")
         assertThat(portalInformationResponse.companyCurrency()).isEqualTo("companyCurrency")
         assertThat(portalInformationResponse.dataHostingLocation()).isEqualTo("dataHostingLocation")
@@ -41,7 +41,7 @@ internal class PortalInformationResponseTest {
         val jsonMapper = jsonMapper()
         val portalInformationResponse =
             PortalInformationResponse.builder()
-                .accountType(PortalInformationResponse.AccountType.STANDARD)
+                .accountType(PortalInformationResponse.AccountType.APP_DEVELOPER)
                 .addAdditionalCurrency("string")
                 .companyCurrency("companyCurrency")
                 .dataHostingLocation("dataHostingLocation")

@@ -24,7 +24,9 @@ internal class ComboEventRuleBranchTest {
                                     BoolPropertyOperation.builder()
                                         .includeObjectsWithNoValueSet(true)
                                         .operationType("operationType")
-                                        .operator(BoolPropertyOperation.Operator.IS_EQUAL_TO)
+                                        .operator(
+                                            BoolPropertyOperation.Operator.HAS_EVER_BEEN_EQUAL_TO
+                                        )
                                         .operatorName("operatorName")
                                         .propertyType(BoolPropertyOperation.PropertyType.BOOL)
                                         .value(true)
@@ -54,7 +56,7 @@ internal class ComboEventRuleBranchTest {
                                 BoolPropertyOperation.builder()
                                     .includeObjectsWithNoValueSet(true)
                                     .operationType("operationType")
-                                    .operator(BoolPropertyOperation.Operator.IS_EQUAL_TO)
+                                    .operator(BoolPropertyOperation.Operator.HAS_EVER_BEEN_EQUAL_TO)
                                     .operatorName("operatorName")
                                     .propertyType(BoolPropertyOperation.PropertyType.BOOL)
                                     .value(true)
@@ -89,7 +91,9 @@ internal class ComboEventRuleBranchTest {
                                     BoolPropertyOperation.builder()
                                         .includeObjectsWithNoValueSet(true)
                                         .operationType("operationType")
-                                        .operator(BoolPropertyOperation.Operator.IS_EQUAL_TO)
+                                        .operator(
+                                            BoolPropertyOperation.Operator.HAS_EVER_BEEN_EQUAL_TO
+                                        )
                                         .operatorName("operatorName")
                                         .propertyType(BoolPropertyOperation.PropertyType.BOOL)
                                         .value(true)

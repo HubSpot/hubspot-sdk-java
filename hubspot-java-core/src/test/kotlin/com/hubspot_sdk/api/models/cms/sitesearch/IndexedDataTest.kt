@@ -30,7 +30,7 @@ internal class IndexedDataTest {
                         )
                         .build()
                 )
-                .type(IndexedData.Type.LANDING_PAGE)
+                .type(IndexedData.Type.BLOG_POST)
                 .build()
 
         assertThat(indexedData.id()).isEqualTo("id")
@@ -50,7 +50,7 @@ internal class IndexedDataTest {
                     )
                     .build()
             )
-        assertThat(indexedData.type()).isEqualTo(IndexedData.Type.LANDING_PAGE)
+        assertThat(indexedData.type()).isEqualTo(IndexedData.Type.BLOG_POST)
     }
 
     @Test
@@ -74,7 +74,7 @@ internal class IndexedDataTest {
                         )
                         .build()
                 )
-                .type(IndexedData.Type.LANDING_PAGE)
+                .type(IndexedData.Type.BLOG_POST)
                 .build()
 
         val roundtrippedIndexedData =

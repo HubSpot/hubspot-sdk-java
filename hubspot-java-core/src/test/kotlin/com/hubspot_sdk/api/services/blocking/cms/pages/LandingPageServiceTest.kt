@@ -59,7 +59,7 @@ internal class LandingPageServiceTest {
         landingPageService.create(
             Page.builder()
                 .id("id")
-                .abStatus(Page.AbStatus.MASTER)
+                .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                 .abTestId("abTestId")
                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .archivedInDashboard(true)
@@ -311,7 +311,7 @@ internal class LandingPageServiceTest {
                     .page(
                         Page.builder()
                             .id("id")
-                            .abStatus(Page.AbStatus.MASTER)
+                            .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
@@ -694,7 +694,7 @@ internal class LandingPageServiceTest {
                     .addInput(
                         Page.builder()
                             .id("id")
-                            .abStatus(Page.AbStatus.MASTER)
+                            .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
@@ -1491,7 +1491,7 @@ internal class LandingPageServiceTest {
                     .page(
                         Page.builder()
                             .id("id")
-                            .abStatus(Page.AbStatus.MASTER)
+                            .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)

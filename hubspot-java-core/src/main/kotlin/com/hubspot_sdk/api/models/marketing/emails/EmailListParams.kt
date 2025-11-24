@@ -33,6 +33,9 @@ private constructor(
     private val isPublished: Boolean?,
     private val limit: Int?,
     private val marketingCampaignNames: Boolean?,
+    private val publishedAfter: OffsetDateTime?,
+    private val publishedAt: OffsetDateTime?,
+    private val publishedBefore: OffsetDateTime?,
     private val sort: List<String>?,
     private val type: Type?,
     private val updatedAfter: OffsetDateTime?,
@@ -78,6 +81,12 @@ private constructor(
 
     /** Include the names for any associated marketing campaigns. */
     fun marketingCampaignNames(): Optional<Boolean> = Optional.ofNullable(marketingCampaignNames)
+
+    fun publishedAfter(): Optional<OffsetDateTime> = Optional.ofNullable(publishedAfter)
+
+    fun publishedAt(): Optional<OffsetDateTime> = Optional.ofNullable(publishedAt)
+
+    fun publishedBefore(): Optional<OffsetDateTime> = Optional.ofNullable(publishedBefore)
 
     /**
      * Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`,
@@ -133,6 +142,9 @@ private constructor(
         private var isPublished: Boolean? = null
         private var limit: Int? = null
         private var marketingCampaignNames: Boolean? = null
+        private var publishedAfter: OffsetDateTime? = null
+        private var publishedAt: OffsetDateTime? = null
+        private var publishedBefore: OffsetDateTime? = null
         private var sort: MutableList<String>? = null
         private var type: Type? = null
         private var updatedAfter: OffsetDateTime? = null
@@ -155,6 +167,9 @@ private constructor(
             isPublished = emailListParams.isPublished
             limit = emailListParams.limit
             marketingCampaignNames = emailListParams.marketingCampaignNames
+            publishedAfter = emailListParams.publishedAfter
+            publishedAt = emailListParams.publishedAt
+            publishedBefore = emailListParams.publishedBefore
             sort = emailListParams.sort?.toMutableList()
             type = emailListParams.type
             updatedAfter = emailListParams.updatedAfter
@@ -294,6 +309,28 @@ private constructor(
          */
         fun marketingCampaignNames(marketingCampaignNames: Optional<Boolean>) =
             marketingCampaignNames(marketingCampaignNames.getOrNull())
+
+        fun publishedAfter(publishedAfter: OffsetDateTime?) = apply {
+            this.publishedAfter = publishedAfter
+        }
+
+        /** Alias for calling [Builder.publishedAfter] with `publishedAfter.orElse(null)`. */
+        fun publishedAfter(publishedAfter: Optional<OffsetDateTime>) =
+            publishedAfter(publishedAfter.getOrNull())
+
+        fun publishedAt(publishedAt: OffsetDateTime?) = apply { this.publishedAt = publishedAt }
+
+        /** Alias for calling [Builder.publishedAt] with `publishedAt.orElse(null)`. */
+        fun publishedAt(publishedAt: Optional<OffsetDateTime>) =
+            publishedAt(publishedAt.getOrNull())
+
+        fun publishedBefore(publishedBefore: OffsetDateTime?) = apply {
+            this.publishedBefore = publishedBefore
+        }
+
+        /** Alias for calling [Builder.publishedBefore] with `publishedBefore.orElse(null)`. */
+        fun publishedBefore(publishedBefore: Optional<OffsetDateTime>) =
+            publishedBefore(publishedBefore.getOrNull())
 
         /**
          * Specifies which fields to use for sorting results. Valid fields are `name`, `createdAt`,
@@ -474,6 +511,9 @@ private constructor(
                 isPublished,
                 limit,
                 marketingCampaignNames,
+                publishedAfter,
+                publishedAt,
+                publishedBefore,
                 sort?.toImmutable(),
                 type,
                 updatedAfter,
@@ -507,6 +547,15 @@ private constructor(
                 isPublished?.let { put("isPublished", it.toString()) }
                 limit?.let { put("limit", it.toString()) }
                 marketingCampaignNames?.let { put("marketingCampaignNames", it.toString()) }
+                publishedAfter?.let {
+                    put("publishedAfter", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                publishedAt?.let {
+                    put("publishedAt", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
+                publishedBefore?.let {
+                    put("publishedBefore", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
+                }
                 sort?.let { put("sort", it.joinToString(",")) }
                 type?.let { put("type", it.toString()) }
                 updatedAfter?.let {
@@ -543,27 +592,15 @@ private constructor(
 
             @JvmField val AB_EMAIL = of("AB_EMAIL")
 
-            @JvmField val BATCH_EMAIL = of("BATCH_EMAIL")
-
-            @JvmField val LOCALTIME_EMAIL = of("LOCALTIME_EMAIL")
-
             @JvmField val AUTOMATED_AB_EMAIL = of("AUTOMATED_AB_EMAIL")
+
+            @JvmField val AUTOMATED_EMAIL = of("AUTOMATED_EMAIL")
+
+            @JvmField val BATCH_EMAIL = of("BATCH_EMAIL")
 
             @JvmField val BLOG_EMAIL = of("BLOG_EMAIL")
 
             @JvmField val BLOG_EMAIL_CHILD = of("BLOG_EMAIL_CHILD")
-
-            @JvmField val RSS_EMAIL = of("RSS_EMAIL")
-
-            @JvmField val RSS_EMAIL_CHILD = of("RSS_EMAIL_CHILD")
-
-            @JvmField val RESUBSCRIBE_EMAIL = of("RESUBSCRIBE_EMAIL")
-
-            @JvmField val OPTIN_EMAIL = of("OPTIN_EMAIL")
-
-            @JvmField val OPTIN_FOLLOWUP_EMAIL = of("OPTIN_FOLLOWUP_EMAIL")
-
-            @JvmField val AUTOMATED_EMAIL = of("AUTOMATED_EMAIL")
 
             @JvmField val FEEDBACK_CES_EMAIL = of("FEEDBACK_CES_EMAIL")
 
@@ -577,35 +614,47 @@ private constructor(
 
             @JvmField val LEADFLOW_EMAIL = of("LEADFLOW_EMAIL")
 
-            @JvmField val SINGLE_SEND_API = of("SINGLE_SEND_API")
+            @JvmField val LOCALTIME_EMAIL = of("LOCALTIME_EMAIL")
 
             @JvmField val MARKETING_SINGLE_SEND_API = of("MARKETING_SINGLE_SEND_API")
-
-            @JvmField val SMTP_TOKEN = of("SMTP_TOKEN")
-
-            @JvmField val TICKET_EMAIL = of("TICKET_EMAIL")
-
-            @JvmField val MEMBERSHIP_REGISTRATION_EMAIL = of("MEMBERSHIP_REGISTRATION_EMAIL")
-
-            @JvmField val MEMBERSHIP_PASSWORD_SAVED_EMAIL = of("MEMBERSHIP_PASSWORD_SAVED_EMAIL")
-
-            @JvmField val MEMBERSHIP_PASSWORD_RESET_EMAIL = of("MEMBERSHIP_PASSWORD_RESET_EMAIL")
 
             @JvmField
             val MEMBERSHIP_EMAIL_VERIFICATION_EMAIL = of("MEMBERSHIP_EMAIL_VERIFICATION_EMAIL")
 
+            @JvmField val MEMBERSHIP_FOLLOW_UP_EMAIL = of("MEMBERSHIP_FOLLOW_UP_EMAIL")
+
+            @JvmField val MEMBERSHIP_OTP_LOGIN_EMAIL = of("MEMBERSHIP_OTP_LOGIN_EMAIL")
+
+            @JvmField val MEMBERSHIP_PASSWORD_RESET_EMAIL = of("MEMBERSHIP_PASSWORD_RESET_EMAIL")
+
+            @JvmField val MEMBERSHIP_PASSWORD_SAVED_EMAIL = of("MEMBERSHIP_PASSWORD_SAVED_EMAIL")
+
             @JvmField
             val MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL = of("MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL")
+
+            @JvmField val MEMBERSHIP_REGISTRATION_EMAIL = of("MEMBERSHIP_REGISTRATION_EMAIL")
 
             @JvmField
             val MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL =
                 of("MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL")
 
-            @JvmField val MEMBERSHIP_OTP_LOGIN_EMAIL = of("MEMBERSHIP_OTP_LOGIN_EMAIL")
-
-            @JvmField val MEMBERSHIP_FOLLOW_UP_EMAIL = of("MEMBERSHIP_FOLLOW_UP_EMAIL")
-
             @JvmField val MEMBERSHIP_VERIFICATION_EMAIL = of("MEMBERSHIP_VERIFICATION_EMAIL")
+
+            @JvmField val OPTIN_EMAIL = of("OPTIN_EMAIL")
+
+            @JvmField val OPTIN_FOLLOWUP_EMAIL = of("OPTIN_FOLLOWUP_EMAIL")
+
+            @JvmField val RESUBSCRIBE_EMAIL = of("RESUBSCRIBE_EMAIL")
+
+            @JvmField val RSS_EMAIL = of("RSS_EMAIL")
+
+            @JvmField val RSS_EMAIL_CHILD = of("RSS_EMAIL_CHILD")
+
+            @JvmField val SINGLE_SEND_API = of("SINGLE_SEND_API")
+
+            @JvmField val SMTP_TOKEN = of("SMTP_TOKEN")
+
+            @JvmField val TICKET_EMAIL = of("TICKET_EMAIL")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
@@ -613,36 +662,36 @@ private constructor(
         /** An enum containing [Type]'s known values. */
         enum class Known {
             AB_EMAIL,
-            BATCH_EMAIL,
-            LOCALTIME_EMAIL,
             AUTOMATED_AB_EMAIL,
+            AUTOMATED_EMAIL,
+            BATCH_EMAIL,
             BLOG_EMAIL,
             BLOG_EMAIL_CHILD,
-            RSS_EMAIL,
-            RSS_EMAIL_CHILD,
-            RESUBSCRIBE_EMAIL,
-            OPTIN_EMAIL,
-            OPTIN_FOLLOWUP_EMAIL,
-            AUTOMATED_EMAIL,
             FEEDBACK_CES_EMAIL,
             FEEDBACK_CUSTOM_EMAIL,
             FEEDBACK_CUSTOM_SURVEY_EMAIL,
             FEEDBACK_NPS_EMAIL,
             FOLLOWUP_EMAIL,
             LEADFLOW_EMAIL,
-            SINGLE_SEND_API,
+            LOCALTIME_EMAIL,
             MARKETING_SINGLE_SEND_API,
+            MEMBERSHIP_EMAIL_VERIFICATION_EMAIL,
+            MEMBERSHIP_FOLLOW_UP_EMAIL,
+            MEMBERSHIP_OTP_LOGIN_EMAIL,
+            MEMBERSHIP_PASSWORD_RESET_EMAIL,
+            MEMBERSHIP_PASSWORD_SAVED_EMAIL,
+            MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL,
+            MEMBERSHIP_REGISTRATION_EMAIL,
+            MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL,
+            MEMBERSHIP_VERIFICATION_EMAIL,
+            OPTIN_EMAIL,
+            OPTIN_FOLLOWUP_EMAIL,
+            RESUBSCRIBE_EMAIL,
+            RSS_EMAIL,
+            RSS_EMAIL_CHILD,
+            SINGLE_SEND_API,
             SMTP_TOKEN,
             TICKET_EMAIL,
-            MEMBERSHIP_REGISTRATION_EMAIL,
-            MEMBERSHIP_PASSWORD_SAVED_EMAIL,
-            MEMBERSHIP_PASSWORD_RESET_EMAIL,
-            MEMBERSHIP_EMAIL_VERIFICATION_EMAIL,
-            MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL,
-            MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL,
-            MEMBERSHIP_OTP_LOGIN_EMAIL,
-            MEMBERSHIP_FOLLOW_UP_EMAIL,
-            MEMBERSHIP_VERIFICATION_EMAIL,
         }
 
         /**
@@ -656,36 +705,36 @@ private constructor(
          */
         enum class Value {
             AB_EMAIL,
-            BATCH_EMAIL,
-            LOCALTIME_EMAIL,
             AUTOMATED_AB_EMAIL,
+            AUTOMATED_EMAIL,
+            BATCH_EMAIL,
             BLOG_EMAIL,
             BLOG_EMAIL_CHILD,
-            RSS_EMAIL,
-            RSS_EMAIL_CHILD,
-            RESUBSCRIBE_EMAIL,
-            OPTIN_EMAIL,
-            OPTIN_FOLLOWUP_EMAIL,
-            AUTOMATED_EMAIL,
             FEEDBACK_CES_EMAIL,
             FEEDBACK_CUSTOM_EMAIL,
             FEEDBACK_CUSTOM_SURVEY_EMAIL,
             FEEDBACK_NPS_EMAIL,
             FOLLOWUP_EMAIL,
             LEADFLOW_EMAIL,
-            SINGLE_SEND_API,
+            LOCALTIME_EMAIL,
             MARKETING_SINGLE_SEND_API,
+            MEMBERSHIP_EMAIL_VERIFICATION_EMAIL,
+            MEMBERSHIP_FOLLOW_UP_EMAIL,
+            MEMBERSHIP_OTP_LOGIN_EMAIL,
+            MEMBERSHIP_PASSWORD_RESET_EMAIL,
+            MEMBERSHIP_PASSWORD_SAVED_EMAIL,
+            MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL,
+            MEMBERSHIP_REGISTRATION_EMAIL,
+            MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL,
+            MEMBERSHIP_VERIFICATION_EMAIL,
+            OPTIN_EMAIL,
+            OPTIN_FOLLOWUP_EMAIL,
+            RESUBSCRIBE_EMAIL,
+            RSS_EMAIL,
+            RSS_EMAIL_CHILD,
+            SINGLE_SEND_API,
             SMTP_TOKEN,
             TICKET_EMAIL,
-            MEMBERSHIP_REGISTRATION_EMAIL,
-            MEMBERSHIP_PASSWORD_SAVED_EMAIL,
-            MEMBERSHIP_PASSWORD_RESET_EMAIL,
-            MEMBERSHIP_EMAIL_VERIFICATION_EMAIL,
-            MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL,
-            MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL,
-            MEMBERSHIP_OTP_LOGIN_EMAIL,
-            MEMBERSHIP_FOLLOW_UP_EMAIL,
-            MEMBERSHIP_VERIFICATION_EMAIL,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -700,37 +749,37 @@ private constructor(
         fun value(): Value =
             when (this) {
                 AB_EMAIL -> Value.AB_EMAIL
-                BATCH_EMAIL -> Value.BATCH_EMAIL
-                LOCALTIME_EMAIL -> Value.LOCALTIME_EMAIL
                 AUTOMATED_AB_EMAIL -> Value.AUTOMATED_AB_EMAIL
+                AUTOMATED_EMAIL -> Value.AUTOMATED_EMAIL
+                BATCH_EMAIL -> Value.BATCH_EMAIL
                 BLOG_EMAIL -> Value.BLOG_EMAIL
                 BLOG_EMAIL_CHILD -> Value.BLOG_EMAIL_CHILD
-                RSS_EMAIL -> Value.RSS_EMAIL
-                RSS_EMAIL_CHILD -> Value.RSS_EMAIL_CHILD
-                RESUBSCRIBE_EMAIL -> Value.RESUBSCRIBE_EMAIL
-                OPTIN_EMAIL -> Value.OPTIN_EMAIL
-                OPTIN_FOLLOWUP_EMAIL -> Value.OPTIN_FOLLOWUP_EMAIL
-                AUTOMATED_EMAIL -> Value.AUTOMATED_EMAIL
                 FEEDBACK_CES_EMAIL -> Value.FEEDBACK_CES_EMAIL
                 FEEDBACK_CUSTOM_EMAIL -> Value.FEEDBACK_CUSTOM_EMAIL
                 FEEDBACK_CUSTOM_SURVEY_EMAIL -> Value.FEEDBACK_CUSTOM_SURVEY_EMAIL
                 FEEDBACK_NPS_EMAIL -> Value.FEEDBACK_NPS_EMAIL
                 FOLLOWUP_EMAIL -> Value.FOLLOWUP_EMAIL
                 LEADFLOW_EMAIL -> Value.LEADFLOW_EMAIL
-                SINGLE_SEND_API -> Value.SINGLE_SEND_API
+                LOCALTIME_EMAIL -> Value.LOCALTIME_EMAIL
                 MARKETING_SINGLE_SEND_API -> Value.MARKETING_SINGLE_SEND_API
-                SMTP_TOKEN -> Value.SMTP_TOKEN
-                TICKET_EMAIL -> Value.TICKET_EMAIL
-                MEMBERSHIP_REGISTRATION_EMAIL -> Value.MEMBERSHIP_REGISTRATION_EMAIL
-                MEMBERSHIP_PASSWORD_SAVED_EMAIL -> Value.MEMBERSHIP_PASSWORD_SAVED_EMAIL
-                MEMBERSHIP_PASSWORD_RESET_EMAIL -> Value.MEMBERSHIP_PASSWORD_RESET_EMAIL
                 MEMBERSHIP_EMAIL_VERIFICATION_EMAIL -> Value.MEMBERSHIP_EMAIL_VERIFICATION_EMAIL
+                MEMBERSHIP_FOLLOW_UP_EMAIL -> Value.MEMBERSHIP_FOLLOW_UP_EMAIL
+                MEMBERSHIP_OTP_LOGIN_EMAIL -> Value.MEMBERSHIP_OTP_LOGIN_EMAIL
+                MEMBERSHIP_PASSWORD_RESET_EMAIL -> Value.MEMBERSHIP_PASSWORD_RESET_EMAIL
+                MEMBERSHIP_PASSWORD_SAVED_EMAIL -> Value.MEMBERSHIP_PASSWORD_SAVED_EMAIL
                 MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL -> Value.MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL
+                MEMBERSHIP_REGISTRATION_EMAIL -> Value.MEMBERSHIP_REGISTRATION_EMAIL
                 MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL ->
                     Value.MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL
-                MEMBERSHIP_OTP_LOGIN_EMAIL -> Value.MEMBERSHIP_OTP_LOGIN_EMAIL
-                MEMBERSHIP_FOLLOW_UP_EMAIL -> Value.MEMBERSHIP_FOLLOW_UP_EMAIL
                 MEMBERSHIP_VERIFICATION_EMAIL -> Value.MEMBERSHIP_VERIFICATION_EMAIL
+                OPTIN_EMAIL -> Value.OPTIN_EMAIL
+                OPTIN_FOLLOWUP_EMAIL -> Value.OPTIN_FOLLOWUP_EMAIL
+                RESUBSCRIBE_EMAIL -> Value.RESUBSCRIBE_EMAIL
+                RSS_EMAIL -> Value.RSS_EMAIL
+                RSS_EMAIL_CHILD -> Value.RSS_EMAIL_CHILD
+                SINGLE_SEND_API -> Value.SINGLE_SEND_API
+                SMTP_TOKEN -> Value.SMTP_TOKEN
+                TICKET_EMAIL -> Value.TICKET_EMAIL
                 else -> Value._UNKNOWN
             }
 
@@ -746,37 +795,37 @@ private constructor(
         fun known(): Known =
             when (this) {
                 AB_EMAIL -> Known.AB_EMAIL
-                BATCH_EMAIL -> Known.BATCH_EMAIL
-                LOCALTIME_EMAIL -> Known.LOCALTIME_EMAIL
                 AUTOMATED_AB_EMAIL -> Known.AUTOMATED_AB_EMAIL
+                AUTOMATED_EMAIL -> Known.AUTOMATED_EMAIL
+                BATCH_EMAIL -> Known.BATCH_EMAIL
                 BLOG_EMAIL -> Known.BLOG_EMAIL
                 BLOG_EMAIL_CHILD -> Known.BLOG_EMAIL_CHILD
-                RSS_EMAIL -> Known.RSS_EMAIL
-                RSS_EMAIL_CHILD -> Known.RSS_EMAIL_CHILD
-                RESUBSCRIBE_EMAIL -> Known.RESUBSCRIBE_EMAIL
-                OPTIN_EMAIL -> Known.OPTIN_EMAIL
-                OPTIN_FOLLOWUP_EMAIL -> Known.OPTIN_FOLLOWUP_EMAIL
-                AUTOMATED_EMAIL -> Known.AUTOMATED_EMAIL
                 FEEDBACK_CES_EMAIL -> Known.FEEDBACK_CES_EMAIL
                 FEEDBACK_CUSTOM_EMAIL -> Known.FEEDBACK_CUSTOM_EMAIL
                 FEEDBACK_CUSTOM_SURVEY_EMAIL -> Known.FEEDBACK_CUSTOM_SURVEY_EMAIL
                 FEEDBACK_NPS_EMAIL -> Known.FEEDBACK_NPS_EMAIL
                 FOLLOWUP_EMAIL -> Known.FOLLOWUP_EMAIL
                 LEADFLOW_EMAIL -> Known.LEADFLOW_EMAIL
-                SINGLE_SEND_API -> Known.SINGLE_SEND_API
+                LOCALTIME_EMAIL -> Known.LOCALTIME_EMAIL
                 MARKETING_SINGLE_SEND_API -> Known.MARKETING_SINGLE_SEND_API
-                SMTP_TOKEN -> Known.SMTP_TOKEN
-                TICKET_EMAIL -> Known.TICKET_EMAIL
-                MEMBERSHIP_REGISTRATION_EMAIL -> Known.MEMBERSHIP_REGISTRATION_EMAIL
-                MEMBERSHIP_PASSWORD_SAVED_EMAIL -> Known.MEMBERSHIP_PASSWORD_SAVED_EMAIL
-                MEMBERSHIP_PASSWORD_RESET_EMAIL -> Known.MEMBERSHIP_PASSWORD_RESET_EMAIL
                 MEMBERSHIP_EMAIL_VERIFICATION_EMAIL -> Known.MEMBERSHIP_EMAIL_VERIFICATION_EMAIL
+                MEMBERSHIP_FOLLOW_UP_EMAIL -> Known.MEMBERSHIP_FOLLOW_UP_EMAIL
+                MEMBERSHIP_OTP_LOGIN_EMAIL -> Known.MEMBERSHIP_OTP_LOGIN_EMAIL
+                MEMBERSHIP_PASSWORD_RESET_EMAIL -> Known.MEMBERSHIP_PASSWORD_RESET_EMAIL
+                MEMBERSHIP_PASSWORD_SAVED_EMAIL -> Known.MEMBERSHIP_PASSWORD_SAVED_EMAIL
                 MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL -> Known.MEMBERSHIP_PASSWORDLESS_AUTH_EMAIL
+                MEMBERSHIP_REGISTRATION_EMAIL -> Known.MEMBERSHIP_REGISTRATION_EMAIL
                 MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL ->
                     Known.MEMBERSHIP_REGISTRATION_FOLLOW_UP_EMAIL
-                MEMBERSHIP_OTP_LOGIN_EMAIL -> Known.MEMBERSHIP_OTP_LOGIN_EMAIL
-                MEMBERSHIP_FOLLOW_UP_EMAIL -> Known.MEMBERSHIP_FOLLOW_UP_EMAIL
                 MEMBERSHIP_VERIFICATION_EMAIL -> Known.MEMBERSHIP_VERIFICATION_EMAIL
+                OPTIN_EMAIL -> Known.OPTIN_EMAIL
+                OPTIN_FOLLOWUP_EMAIL -> Known.OPTIN_FOLLOWUP_EMAIL
+                RESUBSCRIBE_EMAIL -> Known.RESUBSCRIBE_EMAIL
+                RSS_EMAIL -> Known.RSS_EMAIL
+                RSS_EMAIL_CHILD -> Known.RSS_EMAIL_CHILD
+                SINGLE_SEND_API -> Known.SINGLE_SEND_API
+                SMTP_TOKEN -> Known.SMTP_TOKEN
+                TICKET_EMAIL -> Known.TICKET_EMAIL
                 else -> throw HubspotInvalidDataException("Unknown Type: $value")
             }
 
@@ -849,6 +898,9 @@ private constructor(
             isPublished == other.isPublished &&
             limit == other.limit &&
             marketingCampaignNames == other.marketingCampaignNames &&
+            publishedAfter == other.publishedAfter &&
+            publishedAt == other.publishedAt &&
+            publishedBefore == other.publishedBefore &&
             sort == other.sort &&
             type == other.type &&
             updatedAfter == other.updatedAfter &&
@@ -872,6 +924,9 @@ private constructor(
             isPublished,
             limit,
             marketingCampaignNames,
+            publishedAfter,
+            publishedAt,
+            publishedBefore,
             sort,
             type,
             updatedAfter,
@@ -883,5 +938,5 @@ private constructor(
         )
 
     override fun toString() =
-        "EmailListParams{after=$after, archived=$archived, campaign=$campaign, createdAfter=$createdAfter, createdAt=$createdAt, createdBefore=$createdBefore, includedProperties=$includedProperties, includeStats=$includeStats, isPublished=$isPublished, limit=$limit, marketingCampaignNames=$marketingCampaignNames, sort=$sort, type=$type, updatedAfter=$updatedAfter, updatedAt=$updatedAt, updatedBefore=$updatedBefore, workflowNames=$workflowNames, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EmailListParams{after=$after, archived=$archived, campaign=$campaign, createdAfter=$createdAfter, createdAt=$createdAt, createdBefore=$createdBefore, includedProperties=$includedProperties, includeStats=$includeStats, isPublished=$isPublished, limit=$limit, marketingCampaignNames=$marketingCampaignNames, publishedAfter=$publishedAfter, publishedAt=$publishedAt, publishedBefore=$publishedBefore, sort=$sort, type=$type, updatedAfter=$updatedAfter, updatedAt=$updatedAt, updatedBefore=$updatedBefore, workflowNames=$workflowNames, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

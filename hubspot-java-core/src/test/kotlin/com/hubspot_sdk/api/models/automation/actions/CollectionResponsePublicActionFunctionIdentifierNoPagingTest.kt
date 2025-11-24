@@ -16,7 +16,7 @@ internal class CollectionResponsePublicActionFunctionIdentifierNoPagingTest {
                 .addResult(
                     PublicActionFunctionIdentifier.builder()
                         .functionType(
-                            PublicActionFunctionIdentifier.FunctionType.PRE_ACTION_EXECUTION
+                            PublicActionFunctionIdentifier.FunctionType.POST_ACTION_EXECUTION
                         )
                         .id("id")
                         .build()
@@ -26,7 +26,7 @@ internal class CollectionResponsePublicActionFunctionIdentifierNoPagingTest {
         assertThat(collectionResponsePublicActionFunctionIdentifierNoPaging.results())
             .containsExactly(
                 PublicActionFunctionIdentifier.builder()
-                    .functionType(PublicActionFunctionIdentifier.FunctionType.PRE_ACTION_EXECUTION)
+                    .functionType(PublicActionFunctionIdentifier.FunctionType.POST_ACTION_EXECUTION)
                     .id("id")
                     .build()
             )
@@ -40,7 +40,7 @@ internal class CollectionResponsePublicActionFunctionIdentifierNoPagingTest {
                 .addResult(
                     PublicActionFunctionIdentifier.builder()
                         .functionType(
-                            PublicActionFunctionIdentifier.FunctionType.PRE_ACTION_EXECUTION
+                            PublicActionFunctionIdentifier.FunctionType.POST_ACTION_EXECUTION
                         )
                         .id("id")
                         .build()

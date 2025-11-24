@@ -61,7 +61,7 @@ internal class BatchResponseDealToDealSplitsWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseDealToDealSplitsWithErrors.Status.PENDING)
+                .status(BatchResponseDealToDealSplitsWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -276,7 +276,7 @@ internal class BatchResponseDealToDealSplitsWithErrorsTest {
         assertThat(batchResponseDealToDealSplitsWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseDealToDealSplitsWithErrors.status())
-            .isEqualTo(BatchResponseDealToDealSplitsWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponseDealToDealSplitsWithErrors.Status.CANCELED)
         assertThat(batchResponseDealToDealSplitsWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -399,7 +399,7 @@ internal class BatchResponseDealToDealSplitsWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseDealToDealSplitsWithErrors.Status.PENDING)
+                .status(BatchResponseDealToDealSplitsWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

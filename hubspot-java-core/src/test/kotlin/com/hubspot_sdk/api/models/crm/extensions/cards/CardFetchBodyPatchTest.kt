@@ -15,7 +15,7 @@ internal class CardFetchBodyPatchTest {
             CardFetchBodyPatch.builder()
                 .addObjectType(
                     CardObjectTypeBody.builder()
-                        .name(CardObjectTypeBody.Name.CONTACTS)
+                        .name(CardObjectTypeBody.Name.COMPANIES)
                         .addPropertiesToSend("string")
                         .build()
                 )
@@ -27,7 +27,7 @@ internal class CardFetchBodyPatchTest {
         assertThat(cardFetchBodyPatch.objectTypes())
             .containsExactly(
                 CardObjectTypeBody.builder()
-                    .name(CardObjectTypeBody.Name.CONTACTS)
+                    .name(CardObjectTypeBody.Name.COMPANIES)
                     .addPropertiesToSend("string")
                     .build()
             )
@@ -43,7 +43,7 @@ internal class CardFetchBodyPatchTest {
             CardFetchBodyPatch.builder()
                 .addObjectType(
                     CardObjectTypeBody.builder()
-                        .name(CardObjectTypeBody.Name.CONTACTS)
+                        .name(CardObjectTypeBody.Name.COMPANIES)
                         .addPropertiesToSend("string")
                         .build()
                 )

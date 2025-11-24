@@ -31,7 +31,8 @@ internal class BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(
-                    BatchResponsePublicAssociationDefinitionConfigurationUpdateResult.Status.PENDING
+                    BatchResponsePublicAssociationDefinitionConfigurationUpdateResult.Status
+                        .CANCELED
                 )
                 .addError(
                     StandardError.builder()
@@ -219,7 +220,7 @@ internal class BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePublicAssociationDefinitionConfigurationUpdateResult.status())
             .isEqualTo(
-                BatchResponsePublicAssociationDefinitionConfigurationUpdateResult.Status.PENDING
+                BatchResponsePublicAssociationDefinitionConfigurationUpdateResult.Status.CANCELED
             )
         assertThat(
                 batchResponsePublicAssociationDefinitionConfigurationUpdateResult
@@ -319,7 +320,8 @@ internal class BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .status(
-                    BatchResponsePublicAssociationDefinitionConfigurationUpdateResult.Status.PENDING
+                    BatchResponsePublicAssociationDefinitionConfigurationUpdateResult.Status
+                        .CANCELED
                 )
                 .addError(
                     StandardError.builder()

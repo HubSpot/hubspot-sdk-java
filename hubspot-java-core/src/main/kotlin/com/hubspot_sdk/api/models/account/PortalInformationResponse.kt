@@ -498,23 +498,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val STANDARD = of("STANDARD")
+            @JvmField val APP_DEVELOPER = of("APP_DEVELOPER")
 
             @JvmField val DEVELOPER_TEST = of("DEVELOPER_TEST")
 
             @JvmField val SANDBOX = of("SANDBOX")
 
-            @JvmField val APP_DEVELOPER = of("APP_DEVELOPER")
+            @JvmField val STANDARD = of("STANDARD")
 
             @JvmStatic fun of(value: String) = AccountType(JsonField.of(value))
         }
 
         /** An enum containing [AccountType]'s known values. */
         enum class Known {
-            STANDARD,
+            APP_DEVELOPER,
             DEVELOPER_TEST,
             SANDBOX,
-            APP_DEVELOPER,
+            STANDARD,
         }
 
         /**
@@ -527,10 +527,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            STANDARD,
+            APP_DEVELOPER,
             DEVELOPER_TEST,
             SANDBOX,
-            APP_DEVELOPER,
+            STANDARD,
             /**
              * An enum member indicating that [AccountType] was instantiated with an unknown value.
              */
@@ -546,10 +546,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                STANDARD -> Value.STANDARD
+                APP_DEVELOPER -> Value.APP_DEVELOPER
                 DEVELOPER_TEST -> Value.DEVELOPER_TEST
                 SANDBOX -> Value.SANDBOX
-                APP_DEVELOPER -> Value.APP_DEVELOPER
+                STANDARD -> Value.STANDARD
                 else -> Value._UNKNOWN
             }
 
@@ -564,10 +564,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                STANDARD -> Known.STANDARD
+                APP_DEVELOPER -> Known.APP_DEVELOPER
                 DEVELOPER_TEST -> Known.DEVELOPER_TEST
                 SANDBOX -> Known.SANDBOX
-                APP_DEVELOPER -> Known.APP_DEVELOPER
+                STANDARD -> Known.STANDARD
                 else -> throw HubspotInvalidDataException("Unknown AccountType: $value")
             }
 

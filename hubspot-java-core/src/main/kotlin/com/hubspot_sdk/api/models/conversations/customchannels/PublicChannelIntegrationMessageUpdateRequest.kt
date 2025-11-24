@@ -221,20 +221,20 @@ private constructor(
 
         companion object {
 
-            @JvmField val SENT = of("SENT")
-
             @JvmField val FAILED = of("FAILED")
 
             @JvmField val READ = of("READ")
+
+            @JvmField val SENT = of("SENT")
 
             @JvmStatic fun of(value: String) = StatusType(JsonField.of(value))
         }
 
         /** An enum containing [StatusType]'s known values. */
         enum class Known {
-            SENT,
             FAILED,
             READ,
+            SENT,
         }
 
         /**
@@ -247,9 +247,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            SENT,
             FAILED,
             READ,
+            SENT,
             /**
              * An enum member indicating that [StatusType] was instantiated with an unknown value.
              */
@@ -265,9 +265,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                SENT -> Value.SENT
                 FAILED -> Value.FAILED
                 READ -> Value.READ
+                SENT -> Value.SENT
                 else -> Value._UNKNOWN
             }
 
@@ -282,9 +282,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                SENT -> Known.SENT
                 FAILED -> Known.FAILED
                 READ -> Known.READ
+                SENT -> Known.SENT
                 else -> throw HubspotInvalidDataException("Unknown StatusType: $value")
             }
 

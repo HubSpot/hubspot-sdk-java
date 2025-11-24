@@ -408,9 +408,11 @@ private constructor(
 
         companion object {
 
-            @JvmField val IS_EQUAL_TO = of("IS_EQUAL_TO")
+            @JvmField val HAS_EVER_BEEN_EQUAL_TO = of("HAS_EVER_BEEN_EQUAL_TO")
 
-            @JvmField val IS_NOT_EQUAL_TO = of("IS_NOT_EQUAL_TO")
+            @JvmField val HAS_NEVER_BEEN_EQUAL_TO = of("HAS_NEVER_BEEN_EQUAL_TO")
+
+            @JvmField val IS_EQUAL_TO = of("IS_EQUAL_TO")
 
             @JvmField val IS_GREATER_THAN = of("IS_GREATER_THAN")
 
@@ -420,23 +422,21 @@ private constructor(
 
             @JvmField val IS_LESS_THAN_OR_EQUAL_TO = of("IS_LESS_THAN_OR_EQUAL_TO")
 
-            @JvmField val HAS_EVER_BEEN_EQUAL_TO = of("HAS_EVER_BEEN_EQUAL_TO")
-
-            @JvmField val HAS_NEVER_BEEN_EQUAL_TO = of("HAS_NEVER_BEEN_EQUAL_TO")
+            @JvmField val IS_NOT_EQUAL_TO = of("IS_NOT_EQUAL_TO")
 
             @JvmStatic fun of(value: String) = Operator(JsonField.of(value))
         }
 
         /** An enum containing [Operator]'s known values. */
         enum class Known {
+            HAS_EVER_BEEN_EQUAL_TO,
+            HAS_NEVER_BEEN_EQUAL_TO,
             IS_EQUAL_TO,
-            IS_NOT_EQUAL_TO,
             IS_GREATER_THAN,
             IS_GREATER_THAN_OR_EQUAL_TO,
             IS_LESS_THAN,
             IS_LESS_THAN_OR_EQUAL_TO,
-            HAS_EVER_BEEN_EQUAL_TO,
-            HAS_NEVER_BEEN_EQUAL_TO,
+            IS_NOT_EQUAL_TO,
         }
 
         /**
@@ -449,14 +449,14 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            HAS_EVER_BEEN_EQUAL_TO,
+            HAS_NEVER_BEEN_EQUAL_TO,
             IS_EQUAL_TO,
-            IS_NOT_EQUAL_TO,
             IS_GREATER_THAN,
             IS_GREATER_THAN_OR_EQUAL_TO,
             IS_LESS_THAN,
             IS_LESS_THAN_OR_EQUAL_TO,
-            HAS_EVER_BEEN_EQUAL_TO,
-            HAS_NEVER_BEEN_EQUAL_TO,
+            IS_NOT_EQUAL_TO,
             /** An enum member indicating that [Operator] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -470,14 +470,14 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                HAS_EVER_BEEN_EQUAL_TO -> Value.HAS_EVER_BEEN_EQUAL_TO
+                HAS_NEVER_BEEN_EQUAL_TO -> Value.HAS_NEVER_BEEN_EQUAL_TO
                 IS_EQUAL_TO -> Value.IS_EQUAL_TO
-                IS_NOT_EQUAL_TO -> Value.IS_NOT_EQUAL_TO
                 IS_GREATER_THAN -> Value.IS_GREATER_THAN
                 IS_GREATER_THAN_OR_EQUAL_TO -> Value.IS_GREATER_THAN_OR_EQUAL_TO
                 IS_LESS_THAN -> Value.IS_LESS_THAN
                 IS_LESS_THAN_OR_EQUAL_TO -> Value.IS_LESS_THAN_OR_EQUAL_TO
-                HAS_EVER_BEEN_EQUAL_TO -> Value.HAS_EVER_BEEN_EQUAL_TO
-                HAS_NEVER_BEEN_EQUAL_TO -> Value.HAS_NEVER_BEEN_EQUAL_TO
+                IS_NOT_EQUAL_TO -> Value.IS_NOT_EQUAL_TO
                 else -> Value._UNKNOWN
             }
 
@@ -492,14 +492,14 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                HAS_EVER_BEEN_EQUAL_TO -> Known.HAS_EVER_BEEN_EQUAL_TO
+                HAS_NEVER_BEEN_EQUAL_TO -> Known.HAS_NEVER_BEEN_EQUAL_TO
                 IS_EQUAL_TO -> Known.IS_EQUAL_TO
-                IS_NOT_EQUAL_TO -> Known.IS_NOT_EQUAL_TO
                 IS_GREATER_THAN -> Known.IS_GREATER_THAN
                 IS_GREATER_THAN_OR_EQUAL_TO -> Known.IS_GREATER_THAN_OR_EQUAL_TO
                 IS_LESS_THAN -> Known.IS_LESS_THAN
                 IS_LESS_THAN_OR_EQUAL_TO -> Known.IS_LESS_THAN_OR_EQUAL_TO
-                HAS_EVER_BEEN_EQUAL_TO -> Known.HAS_EVER_BEEN_EQUAL_TO
-                HAS_NEVER_BEEN_EQUAL_TO -> Known.HAS_NEVER_BEEN_EQUAL_TO
+                IS_NOT_EQUAL_TO -> Known.IS_NOT_EQUAL_TO
                 else -> throw HubspotInvalidDataException("Unknown Operator: $value")
             }
 

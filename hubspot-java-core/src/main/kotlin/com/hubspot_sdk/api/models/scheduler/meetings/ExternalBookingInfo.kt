@@ -421,9 +421,9 @@ private constructor(
 
         companion object {
 
-            @JvmField val PERSONAL_LINK = of("PERSONAL_LINK")
-
             @JvmField val GROUP_CALENDAR = of("GROUP_CALENDAR")
+
+            @JvmField val PERSONAL_LINK = of("PERSONAL_LINK")
 
             @JvmField val ROUND_ROBIN_CALENDAR = of("ROUND_ROBIN_CALENDAR")
 
@@ -432,8 +432,8 @@ private constructor(
 
         /** An enum containing [LinkType]'s known values. */
         enum class Known {
-            PERSONAL_LINK,
             GROUP_CALENDAR,
+            PERSONAL_LINK,
             ROUND_ROBIN_CALENDAR,
         }
 
@@ -447,8 +447,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PERSONAL_LINK,
             GROUP_CALENDAR,
+            PERSONAL_LINK,
             ROUND_ROBIN_CALENDAR,
             /** An enum member indicating that [LinkType] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -463,8 +463,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PERSONAL_LINK -> Value.PERSONAL_LINK
                 GROUP_CALENDAR -> Value.GROUP_CALENDAR
+                PERSONAL_LINK -> Value.PERSONAL_LINK
                 ROUND_ROBIN_CALENDAR -> Value.ROUND_ROBIN_CALENDAR
                 else -> Value._UNKNOWN
             }
@@ -480,8 +480,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PERSONAL_LINK -> Known.PERSONAL_LINK
                 GROUP_CALENDAR -> Known.GROUP_CALENDAR
+                PERSONAL_LINK -> Known.PERSONAL_LINK
                 ROUND_ROBIN_CALENDAR -> Known.ROUND_ROBIN_CALENDAR
                 else -> throw HubspotInvalidDataException("Unknown LinkType: $value")
             }

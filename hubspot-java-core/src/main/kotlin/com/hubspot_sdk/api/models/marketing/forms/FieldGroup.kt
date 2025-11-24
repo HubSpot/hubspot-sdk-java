@@ -1049,17 +1049,17 @@ private constructor(
 
         companion object {
 
-            @JvmField val TEXT = of("text")
-
             @JvmField val IMAGE = of("image")
+
+            @JvmField val TEXT = of("text")
 
             @JvmStatic fun of(value: String) = RichTextType(JsonField.of(value))
         }
 
         /** An enum containing [RichTextType]'s known values. */
         enum class Known {
-            TEXT,
             IMAGE,
+            TEXT,
         }
 
         /**
@@ -1072,8 +1072,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            TEXT,
             IMAGE,
+            TEXT,
             /**
              * An enum member indicating that [RichTextType] was instantiated with an unknown value.
              */
@@ -1089,8 +1089,8 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                TEXT -> Value.TEXT
                 IMAGE -> Value.IMAGE
+                TEXT -> Value.TEXT
                 else -> Value._UNKNOWN
             }
 
@@ -1105,8 +1105,8 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                TEXT -> Known.TEXT
                 IMAGE -> Known.IMAGE
+                TEXT -> Known.TEXT
                 else -> throw HubspotInvalidDataException("Unknown RichTextType: $value")
             }
 

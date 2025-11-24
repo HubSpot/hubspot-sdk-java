@@ -23,7 +23,7 @@ internal class BatchResponsePageWithErrorsTest {
                 .addResult(
                     Page.builder()
                         .id("id")
-                        .abStatus(Page.AbStatus.MASTER)
+                        .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
@@ -278,7 +278,7 @@ internal class BatchResponsePageWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePageWithErrors.Status.PENDING)
+                .status(BatchResponsePageWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")
@@ -453,7 +453,7 @@ internal class BatchResponsePageWithErrorsTest {
             .containsExactly(
                 Page.builder()
                     .id("id")
-                    .abStatus(Page.AbStatus.MASTER)
+                    .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
@@ -694,7 +694,7 @@ internal class BatchResponsePageWithErrorsTest {
         assertThat(batchResponsePageWithErrors.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePageWithErrors.status())
-            .isEqualTo(BatchResponsePageWithErrors.Status.PENDING)
+            .isEqualTo(BatchResponsePageWithErrors.Status.CANCELED)
         assertThat(batchResponsePageWithErrors.errors().getOrNull())
             .containsExactly(
                 StandardError.builder()
@@ -779,7 +779,7 @@ internal class BatchResponsePageWithErrorsTest {
                 .addResult(
                     Page.builder()
                         .id("id")
-                        .abStatus(Page.AbStatus.MASTER)
+                        .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
@@ -1034,7 +1034,7 @@ internal class BatchResponsePageWithErrorsTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponsePageWithErrors.Status.PENDING)
+                .status(BatchResponsePageWithErrors.Status.CANCELED)
                 .addError(
                     StandardError.builder()
                         .category("category")

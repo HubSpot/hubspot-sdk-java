@@ -207,11 +207,11 @@ private constructor(
 
             @JvmField val ANY = of("ANY")
 
+            @JvmField val ANY_INCLUDE_EMPTY = of("ANY_INCLUDE_EMPTY")
+
             @JvmField val NONE = of("NONE")
 
             @JvmField val NONE_EXCLUDE_EMPTY = of("NONE_EXCLUDE_EMPTY")
-
-            @JvmField val ANY_INCLUDE_EMPTY = of("ANY_INCLUDE_EMPTY")
 
             @JvmStatic fun of(value: String) = SetType(JsonField.of(value))
         }
@@ -221,9 +221,9 @@ private constructor(
             ALL,
             ALL_INCLUDE_EMPTY,
             ANY,
+            ANY_INCLUDE_EMPTY,
             NONE,
             NONE_EXCLUDE_EMPTY,
-            ANY_INCLUDE_EMPTY,
         }
 
         /**
@@ -239,9 +239,9 @@ private constructor(
             ALL,
             ALL_INCLUDE_EMPTY,
             ANY,
+            ANY_INCLUDE_EMPTY,
             NONE,
             NONE_EXCLUDE_EMPTY,
-            ANY_INCLUDE_EMPTY,
             /** An enum member indicating that [SetType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -258,9 +258,9 @@ private constructor(
                 ALL -> Value.ALL
                 ALL_INCLUDE_EMPTY -> Value.ALL_INCLUDE_EMPTY
                 ANY -> Value.ANY
+                ANY_INCLUDE_EMPTY -> Value.ANY_INCLUDE_EMPTY
                 NONE -> Value.NONE
                 NONE_EXCLUDE_EMPTY -> Value.NONE_EXCLUDE_EMPTY
-                ANY_INCLUDE_EMPTY -> Value.ANY_INCLUDE_EMPTY
                 else -> Value._UNKNOWN
             }
 
@@ -278,9 +278,9 @@ private constructor(
                 ALL -> Known.ALL
                 ALL_INCLUDE_EMPTY -> Known.ALL_INCLUDE_EMPTY
                 ANY -> Known.ANY
+                ANY_INCLUDE_EMPTY -> Known.ANY_INCLUDE_EMPTY
                 NONE -> Known.NONE
                 NONE_EXCLUDE_EMPTY -> Known.NONE_EXCLUDE_EMPTY
-                ANY_INCLUDE_EMPTY -> Known.ANY_INCLUDE_EMPTY
                 else -> throw HubspotInvalidDataException("Unknown SetType: $value")
             }
 

@@ -15,7 +15,7 @@ internal class MessageUpdateParamsTest {
             .messageId("messageId")
             .publicChannelIntegrationMessageUpdateRequest(
                 PublicChannelIntegrationMessageUpdateRequest.builder()
-                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                     .errorMessage("errorMessage")
                     .build()
             )
@@ -30,7 +30,7 @@ internal class MessageUpdateParamsTest {
                 .messageId("messageId")
                 .publicChannelIntegrationMessageUpdateRequest(
                     PublicChannelIntegrationMessageUpdateRequest.builder()
-                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                         .build()
                 )
                 .build()
@@ -49,7 +49,7 @@ internal class MessageUpdateParamsTest {
                 .messageId("messageId")
                 .publicChannelIntegrationMessageUpdateRequest(
                     PublicChannelIntegrationMessageUpdateRequest.builder()
-                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                         .errorMessage("errorMessage")
                         .build()
                 )
@@ -60,7 +60,7 @@ internal class MessageUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 PublicChannelIntegrationMessageUpdateRequest.builder()
-                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                     .errorMessage("errorMessage")
                     .build()
             )
@@ -74,7 +74,7 @@ internal class MessageUpdateParamsTest {
                 .messageId("messageId")
                 .publicChannelIntegrationMessageUpdateRequest(
                     PublicChannelIntegrationMessageUpdateRequest.builder()
-                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                        .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                         .build()
                 )
                 .build()
@@ -84,7 +84,7 @@ internal class MessageUpdateParamsTest {
         assertThat(body)
             .isEqualTo(
                 PublicChannelIntegrationMessageUpdateRequest.builder()
-                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.SENT)
+                    .statusType(PublicChannelIntegrationMessageUpdateRequest.StatusType.FAILED)
                     .build()
             )
     }

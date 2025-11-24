@@ -16,7 +16,7 @@ internal class ComparativePropertyUpdatedOperationTest {
                 .comparisonPropertyName("comparisonPropertyName")
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(ComparativePropertyUpdatedOperation.Operator.IS_BEFORE)
+                .operator(ComparativePropertyUpdatedOperation.Operator.IS_AFTER)
                 .operatorName("operatorName")
                 .propertyType(
                     ComparativePropertyUpdatedOperation.PropertyType.PROPERTY_UPDATED_COMPARATIVE
@@ -31,7 +31,7 @@ internal class ComparativePropertyUpdatedOperationTest {
             .isEqualTo(true)
         assertThat(comparativePropertyUpdatedOperation.operationType()).isEqualTo("operationType")
         assertThat(comparativePropertyUpdatedOperation.operator())
-            .isEqualTo(ComparativePropertyUpdatedOperation.Operator.IS_BEFORE)
+            .isEqualTo(ComparativePropertyUpdatedOperation.Operator.IS_AFTER)
         assertThat(comparativePropertyUpdatedOperation.operatorName()).isEqualTo("operatorName")
         assertThat(comparativePropertyUpdatedOperation.propertyType())
             .isEqualTo(
@@ -50,7 +50,7 @@ internal class ComparativePropertyUpdatedOperationTest {
                 .comparisonPropertyName("comparisonPropertyName")
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(ComparativePropertyUpdatedOperation.Operator.IS_BEFORE)
+                .operator(ComparativePropertyUpdatedOperation.Operator.IS_AFTER)
                 .operatorName("operatorName")
                 .propertyType(
                     ComparativePropertyUpdatedOperation.PropertyType.PROPERTY_UPDATED_COMPARATIVE

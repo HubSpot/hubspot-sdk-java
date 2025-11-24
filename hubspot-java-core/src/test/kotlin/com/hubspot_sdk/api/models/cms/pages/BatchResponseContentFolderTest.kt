@@ -28,7 +28,7 @@ internal class BatchResponseContentFolderTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseContentFolder.Status.PENDING)
+                .status(BatchResponseContentFolder.Status.CANCELED)
                 .links(
                     BatchResponseContentFolder.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))
@@ -54,7 +54,7 @@ internal class BatchResponseContentFolderTest {
         assertThat(batchResponseContentFolder.startedAt())
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponseContentFolder.status())
-            .isEqualTo(BatchResponseContentFolder.Status.PENDING)
+            .isEqualTo(BatchResponseContentFolder.Status.CANCELED)
         assertThat(batchResponseContentFolder.links())
             .contains(
                 BatchResponseContentFolder.Links.builder()
@@ -83,7 +83,7 @@ internal class BatchResponseContentFolderTest {
                         .build()
                 )
                 .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(BatchResponseContentFolder.Status.PENDING)
+                .status(BatchResponseContentFolder.Status.CANCELED)
                 .links(
                     BatchResponseContentFolder.Links.builder()
                         .putAdditionalProperty("foo", JsonValue.from("string"))

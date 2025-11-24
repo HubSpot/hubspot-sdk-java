@@ -614,20 +614,20 @@ private constructor(
 
         companion object {
 
+            @JvmField val CENTER = of("center")
+
             @JvmField val LEFT = of("left")
 
             @JvmField val RIGHT = of("right")
-
-            @JvmField val CENTER = of("center")
 
             @JvmStatic fun of(value: String) = SubmitAlignment(JsonField.of(value))
         }
 
         /** An enum containing [SubmitAlignment]'s known values. */
         enum class Known {
+            CENTER,
             LEFT,
             RIGHT,
-            CENTER,
         }
 
         /**
@@ -640,9 +640,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            CENTER,
             LEFT,
             RIGHT,
-            CENTER,
             /**
              * An enum member indicating that [SubmitAlignment] was instantiated with an unknown
              * value.
@@ -659,9 +659,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                CENTER -> Value.CENTER
                 LEFT -> Value.LEFT
                 RIGHT -> Value.RIGHT
-                CENTER -> Value.CENTER
                 else -> Value._UNKNOWN
             }
 
@@ -676,9 +676,9 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                CENTER -> Known.CENTER
                 LEFT -> Known.LEFT
                 RIGHT -> Known.RIGHT
-                CENTER -> Known.CENTER
                 else -> throw HubspotInvalidDataException("Unknown SubmitAlignment: $value")
             }
 

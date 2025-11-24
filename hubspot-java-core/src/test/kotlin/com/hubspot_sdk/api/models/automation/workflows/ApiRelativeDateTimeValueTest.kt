@@ -17,7 +17,7 @@ internal class ApiRelativeDateTimeValueTest {
                     ApiTimeDelay.builder()
                         .addDaysOfWeek(ApiTimeDelay.DaysOfWeek.MONDAY)
                         .delta(0)
-                        .timeUnit(ApiTimeDelay.TimeUnit.NANOS)
+                        .timeUnit(ApiTimeDelay.TimeUnit.CENTURIES)
                         .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .timeZoneStrategy(
                             ApiStaticTimeZoneStrategy.builder()
@@ -35,7 +35,7 @@ internal class ApiRelativeDateTimeValueTest {
                 ApiTimeDelay.builder()
                     .addDaysOfWeek(ApiTimeDelay.DaysOfWeek.MONDAY)
                     .delta(0)
-                    .timeUnit(ApiTimeDelay.TimeUnit.NANOS)
+                    .timeUnit(ApiTimeDelay.TimeUnit.CENTURIES)
                     .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                     .timeZoneStrategy(
                         ApiStaticTimeZoneStrategy.builder()
@@ -58,7 +58,7 @@ internal class ApiRelativeDateTimeValueTest {
                     ApiTimeDelay.builder()
                         .addDaysOfWeek(ApiTimeDelay.DaysOfWeek.MONDAY)
                         .delta(0)
-                        .timeUnit(ApiTimeDelay.TimeUnit.NANOS)
+                        .timeUnit(ApiTimeDelay.TimeUnit.CENTURIES)
                         .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
                         .timeZoneStrategy(
                             ApiStaticTimeZoneStrategy.builder()

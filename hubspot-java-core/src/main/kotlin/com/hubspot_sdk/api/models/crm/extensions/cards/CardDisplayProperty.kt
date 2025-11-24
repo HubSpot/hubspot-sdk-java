@@ -319,9 +319,9 @@ private constructor(
 
             @JvmField val NUMERIC = of("NUMERIC")
 
-            @JvmField val STRING = of("STRING")
-
             @JvmField val STATUS = of("STATUS")
+
+            @JvmField val STRING = of("STRING")
 
             @JvmStatic fun of(value: String) = DataType(JsonField.of(value))
         }
@@ -335,8 +335,8 @@ private constructor(
             EMAIL,
             LINK,
             NUMERIC,
-            STRING,
             STATUS,
+            STRING,
         }
 
         /**
@@ -356,8 +356,8 @@ private constructor(
             EMAIL,
             LINK,
             NUMERIC,
-            STRING,
             STATUS,
+            STRING,
             /** An enum member indicating that [DataType] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -378,8 +378,8 @@ private constructor(
                 EMAIL -> Value.EMAIL
                 LINK -> Value.LINK
                 NUMERIC -> Value.NUMERIC
-                STRING -> Value.STRING
                 STATUS -> Value.STATUS
+                STRING -> Value.STRING
                 else -> Value._UNKNOWN
             }
 
@@ -401,8 +401,8 @@ private constructor(
                 EMAIL -> Known.EMAIL
                 LINK -> Known.LINK
                 NUMERIC -> Known.NUMERIC
-                STRING -> Known.STRING
                 STATUS -> Known.STATUS
+                STRING -> Known.STRING
                 else -> throw HubspotInvalidDataException("Unknown DataType: $value")
             }
 

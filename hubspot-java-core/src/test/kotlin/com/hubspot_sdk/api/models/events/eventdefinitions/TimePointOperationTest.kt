@@ -13,12 +13,12 @@ internal class TimePointOperationTest {
     fun create() {
         val timePointOperation =
             TimePointOperation.builder()
-                .endpointBehavior(TimePointOperation.EndpointBehavior.INCLUSIVE)
+                .endpointBehavior(TimePointOperation.EndpointBehavior.EXCLUSIVE)
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(TimePointOperation.Operator.IS_BEFORE)
+                .operator(TimePointOperation.Operator.IS_AFTER)
                 .operatorName("operatorName")
-                .propertyParser(TimePointOperation.PropertyParser.VALUE)
+                .propertyParser(TimePointOperation.PropertyParser.ANNIVERSARY)
                 .propertyType(TimePointOperation.PropertyType.TIMEPOINT)
                 .timePoint(
                     DatePoint.builder()
@@ -39,13 +39,13 @@ internal class TimePointOperationTest {
                 .build()
 
         assertThat(timePointOperation.endpointBehavior())
-            .isEqualTo(TimePointOperation.EndpointBehavior.INCLUSIVE)
+            .isEqualTo(TimePointOperation.EndpointBehavior.EXCLUSIVE)
         assertThat(timePointOperation.includeObjectsWithNoValueSet()).isEqualTo(true)
         assertThat(timePointOperation.operationType()).isEqualTo("operationType")
-        assertThat(timePointOperation.operator()).isEqualTo(TimePointOperation.Operator.IS_BEFORE)
+        assertThat(timePointOperation.operator()).isEqualTo(TimePointOperation.Operator.IS_AFTER)
         assertThat(timePointOperation.operatorName()).isEqualTo("operatorName")
         assertThat(timePointOperation.propertyParser())
-            .isEqualTo(TimePointOperation.PropertyParser.VALUE)
+            .isEqualTo(TimePointOperation.PropertyParser.ANNIVERSARY)
         assertThat(timePointOperation.propertyType())
             .isEqualTo(TimePointOperation.PropertyType.TIMEPOINT)
         assertThat(timePointOperation.timePoint())
@@ -74,12 +74,12 @@ internal class TimePointOperationTest {
         val jsonMapper = jsonMapper()
         val timePointOperation =
             TimePointOperation.builder()
-                .endpointBehavior(TimePointOperation.EndpointBehavior.INCLUSIVE)
+                .endpointBehavior(TimePointOperation.EndpointBehavior.EXCLUSIVE)
                 .includeObjectsWithNoValueSet(true)
                 .operationType("operationType")
-                .operator(TimePointOperation.Operator.IS_BEFORE)
+                .operator(TimePointOperation.Operator.IS_AFTER)
                 .operatorName("operatorName")
-                .propertyParser(TimePointOperation.PropertyParser.VALUE)
+                .propertyParser(TimePointOperation.PropertyParser.ANNIVERSARY)
                 .propertyType(TimePointOperation.PropertyType.TIMEPOINT)
                 .timePoint(
                     DatePoint.builder()

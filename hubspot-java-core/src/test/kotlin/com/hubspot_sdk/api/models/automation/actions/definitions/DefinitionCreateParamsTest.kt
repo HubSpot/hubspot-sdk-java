@@ -27,7 +27,7 @@ internal class DefinitionCreateParamsTest {
                     .addFunction(
                         PublicActionFunction.builder()
                             .functionSource("functionSource")
-                            .functionType(PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION)
+                            .functionType(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
                             .id("id")
                             .build()
                     )
@@ -47,7 +47,7 @@ internal class DefinitionCreateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -55,7 +55,7 @@ internal class DefinitionCreateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )
@@ -127,7 +127,7 @@ internal class DefinitionCreateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -135,7 +135,7 @@ internal class DefinitionCreateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )
@@ -158,7 +158,7 @@ internal class DefinitionCreateParamsTest {
                             PublicActionFunction.builder()
                                 .functionSource("functionSource")
                                 .functionType(
-                                    PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION
+                                    PublicActionFunction.FunctionType.POST_ACTION_EXECUTION
                                 )
                                 .build()
                         )
@@ -176,7 +176,7 @@ internal class DefinitionCreateParamsTest {
                                                 .value("A")
                                                 .build()
                                         )
-                                        .type(FieldTypeDefinition.Type.STRING)
+                                        .type(FieldTypeDefinition.Type.BOOL)
                                         .build()
                                 )
                                 .build()
@@ -212,7 +212,7 @@ internal class DefinitionCreateParamsTest {
                             PublicActionFunction.builder()
                                 .functionSource("functionSource")
                                 .functionType(
-                                    PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION
+                                    PublicActionFunction.FunctionType.POST_ACTION_EXECUTION
                                 )
                                 .id("id")
                                 .build()
@@ -233,7 +233,7 @@ internal class DefinitionCreateParamsTest {
                                                 .displayOrder(1)
                                                 .build()
                                         )
-                                        .type(FieldTypeDefinition.Type.STRING)
+                                        .type(FieldTypeDefinition.Type.BOOL)
                                         .description("description")
                                         .externalOptionsReferenceType(
                                             "externalOptionsReferenceType"
@@ -243,7 +243,7 @@ internal class DefinitionCreateParamsTest {
                                         .label("label")
                                         .optionsUrl("optionsUrl")
                                         .referencedObjectType(
-                                            FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                            FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                         )
                                         .build()
                                 )
@@ -317,7 +317,7 @@ internal class DefinitionCreateParamsTest {
                                                 .displayOrder(1)
                                                 .build()
                                         )
-                                        .type(FieldTypeDefinition.Type.STRING)
+                                        .type(FieldTypeDefinition.Type.BOOL)
                                         .description("description")
                                         .externalOptionsReferenceType(
                                             "externalOptionsReferenceType"
@@ -327,7 +327,7 @@ internal class DefinitionCreateParamsTest {
                                         .label("label")
                                         .optionsUrl("optionsUrl")
                                         .referencedObjectType(
-                                            FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                            FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                         )
                                         .build()
                                 )
@@ -346,7 +346,7 @@ internal class DefinitionCreateParamsTest {
                     .addFunction(
                         PublicActionFunction.builder()
                             .functionSource("functionSource")
-                            .functionType(PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION)
+                            .functionType(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
                             .id("id")
                             .build()
                     )
@@ -366,7 +366,7 @@ internal class DefinitionCreateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -374,7 +374,7 @@ internal class DefinitionCreateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )
@@ -446,7 +446,7 @@ internal class DefinitionCreateParamsTest {
                                             .displayOrder(1)
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .description("description")
                                     .externalOptionsReferenceType("externalOptionsReferenceType")
                                     .fieldType(FieldTypeDefinition.FieldType.BOOLEANCHECKBOX)
@@ -454,7 +454,7 @@ internal class DefinitionCreateParamsTest {
                                     .label("label")
                                     .optionsUrl("optionsUrl")
                                     .referencedObjectType(
-                                        FieldTypeDefinition.ReferencedObjectType.CONTACT
+                                        FieldTypeDefinition.ReferencedObjectType.ABANDONED_CART
                                     )
                                     .build()
                             )
@@ -476,7 +476,7 @@ internal class DefinitionCreateParamsTest {
                             PublicActionFunction.builder()
                                 .functionSource("functionSource")
                                 .functionType(
-                                    PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION
+                                    PublicActionFunction.FunctionType.POST_ACTION_EXECUTION
                                 )
                                 .build()
                         )
@@ -494,7 +494,7 @@ internal class DefinitionCreateParamsTest {
                                                 .value("A")
                                                 .build()
                                         )
-                                        .type(FieldTypeDefinition.Type.STRING)
+                                        .type(FieldTypeDefinition.Type.BOOL)
                                         .build()
                                 )
                                 .build()
@@ -522,7 +522,7 @@ internal class DefinitionCreateParamsTest {
                     .addFunction(
                         PublicActionFunction.builder()
                             .functionSource("functionSource")
-                            .functionType(PublicActionFunction.FunctionType.PRE_ACTION_EXECUTION)
+                            .functionType(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
                             .build()
                     )
                     .addInputField(
@@ -539,7 +539,7 @@ internal class DefinitionCreateParamsTest {
                                             .value("A")
                                             .build()
                                     )
-                                    .type(FieldTypeDefinition.Type.STRING)
+                                    .type(FieldTypeDefinition.Type.BOOL)
                                     .build()
                             )
                             .build()

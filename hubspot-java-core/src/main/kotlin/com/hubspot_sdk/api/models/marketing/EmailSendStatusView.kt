@@ -441,23 +441,23 @@ private constructor(
 
         companion object {
 
-            @JvmField val PENDING = of("PENDING")
-
-            @JvmField val PROCESSING = of("PROCESSING")
-
             @JvmField val CANCELED = of("CANCELED")
 
             @JvmField val COMPLETE = of("COMPLETE")
+
+            @JvmField val PENDING = of("PENDING")
+
+            @JvmField val PROCESSING = of("PROCESSING")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
-            PENDING,
-            PROCESSING,
             CANCELED,
             COMPLETE,
+            PENDING,
+            PROCESSING,
         }
 
         /**
@@ -470,10 +470,10 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            PENDING,
-            PROCESSING,
             CANCELED,
             COMPLETE,
+            PENDING,
+            PROCESSING,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -487,10 +487,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                PENDING -> Value.PENDING
-                PROCESSING -> Value.PROCESSING
                 CANCELED -> Value.CANCELED
                 COMPLETE -> Value.COMPLETE
+                PENDING -> Value.PENDING
+                PROCESSING -> Value.PROCESSING
                 else -> Value._UNKNOWN
             }
 
@@ -505,10 +505,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                PENDING -> Known.PENDING
-                PROCESSING -> Known.PROCESSING
                 CANCELED -> Known.CANCELED
                 COMPLETE -> Known.COMPLETE
+                PENDING -> Known.PENDING
+                PROCESSING -> Known.PROCESSING
                 else -> throw HubspotInvalidDataException("Unknown Status: $value")
             }
 
@@ -579,148 +579,148 @@ private constructor(
 
         companion object {
 
-            @JvmField val SENT = of("SENT")
+            @JvmField val ADDRESS_LIST_BOMBED = of("ADDRESS_LIST_BOMBED")
 
-            @JvmField val IDEMPOTENT_IGNORE = of("IDEMPOTENT_IGNORE")
+            @JvmField val ADDRESS_ONLY_ACCEPTED_ON_PROD = of("ADDRESS_ONLY_ACCEPTED_ON_PROD")
 
-            @JvmField val QUEUED = of("QUEUED")
-
-            @JvmField val IDEMPOTENT_FAIL = of("IDEMPOTENT_FAIL")
-
-            @JvmField val THROTTLED = of("THROTTLED")
-
-            @JvmField val EMAIL_DISABLED = of("EMAIL_DISABLED")
-
-            @JvmField val PORTAL_SUSPENDED = of("PORTAL_SUSPENDED")
-
-            @JvmField val INVALID_TO_ADDRESS = of("INVALID_TO_ADDRESS")
-
-            @JvmField val BLOCKED_DOMAIN = of("BLOCKED_DOMAIN")
-
-            @JvmField val PREVIOUSLY_BOUNCED = of("PREVIOUSLY_BOUNCED")
-
-            @JvmField val EMAIL_UNCONFIRMED = of("EMAIL_UNCONFIRMED")
-
-            @JvmField val PREVIOUS_SPAM = of("PREVIOUS_SPAM")
-
-            @JvmField val PREVIOUSLY_UNSUBSCRIBED_MESSAGE = of("PREVIOUSLY_UNSUBSCRIBED_MESSAGE")
-
-            @JvmField val PREVIOUSLY_UNSUBSCRIBED_PORTAL = of("PREVIOUSLY_UNSUBSCRIBED_PORTAL")
-
-            @JvmField val INVALID_FROM_ADDRESS = of("INVALID_FROM_ADDRESS")
-
-            @JvmField val CAMPAIGN_CANCELLED = of("CAMPAIGN_CANCELLED")
-
-            @JvmField val VALIDATION_FAILED = of("VALIDATION_FAILED")
-
-            @JvmField val MTA_IGNORE = of("MTA_IGNORE")
+            @JvmField val ADDRESS_OPTED_OUT = of("ADDRESS_OPTED_OUT")
 
             @JvmField val BLOCKED_ADDRESS = of("BLOCKED_ADDRESS")
 
-            @JvmField val PORTAL_OVER_LIMIT = of("PORTAL_OVER_LIMIT")
+            @JvmField val BLOCKED_DOMAIN = of("BLOCKED_DOMAIN")
+
+            @JvmField val CAMPAIGN_CANCELLED = of("CAMPAIGN_CANCELLED")
+
+            @JvmField val CANCELLED_ABUSE = of("CANCELLED_ABUSE")
+
+            @JvmField val CORRUPT_INPUT = of("CORRUPT_INPUT")
+
+            @JvmField val EMAIL_DISABLED = of("EMAIL_DISABLED")
+
+            @JvmField val EMAIL_UNCONFIRMED = of("EMAIL_UNCONFIRMED")
+
+            @JvmField val GDPR_DOI_ENABLED = of("GDPR_DOI_ENABLED")
+
+            @JvmField val GRAYMAIL_SUPPRESSED = of("GRAYMAIL_SUPPRESSED")
+
+            @JvmField val HUBL_LIMIT_EXCEEDED = of("HUBL_LIMIT_EXCEEDED")
+
+            @JvmField val IDEMPOTENT_FAIL = of("IDEMPOTENT_FAIL")
+
+            @JvmField val IDEMPOTENT_IGNORE = of("IDEMPOTENT_IGNORE")
+
+            @JvmField val INVALID_FROM_ADDRESS = of("INVALID_FROM_ADDRESS")
+
+            @JvmField val INVALID_TO_ADDRESS = of("INVALID_TO_ADDRESS")
+
+            @JvmField val LOW_CONTACT_QUALITY_SCORE = of("LOW_CONTACT_QUALITY_SCORE")
+
+            @JvmField val MISSING_CONTENT = of("MISSING_CONTENT")
+
+            @JvmField val MISSING_REQUIRED_PARAMETER = of("MISSING_REQUIRED_PARAMETER")
+
+            @JvmField val MISSING_TEMPLATE_PROPERTIES = of("MISSING_TEMPLATE_PROPERTIES")
+
+            @JvmField val MTA_IGNORE = of("MTA_IGNORE")
+
+            @JvmField val NON_MARKETABLE_CONTACT = of("NON_MARKETABLE_CONTACT")
+
+            @JvmField val PORTAL_AUTHENTICATION_FAILURE = of("PORTAL_AUTHENTICATION_FAILURE")
 
             @JvmField val PORTAL_EXPIRED = of("PORTAL_EXPIRED")
 
             @JvmField val PORTAL_MISSING_MARKETING_SCOPE = of("PORTAL_MISSING_MARKETING_SCOPE")
 
-            @JvmField val MISSING_TEMPLATE_PROPERTIES = of("MISSING_TEMPLATE_PROPERTIES")
+            @JvmField
+            val PORTAL_NOT_AUTHORIZED_FOR_APPLICATION = of("PORTAL_NOT_AUTHORIZED_FOR_APPLICATION")
 
-            @JvmField val MISSING_REQUIRED_PARAMETER = of("MISSING_REQUIRED_PARAMETER")
+            @JvmField val PORTAL_OVER_LIMIT = of("PORTAL_OVER_LIMIT")
 
-            @JvmField val PORTAL_AUTHENTICATION_FAILURE = of("PORTAL_AUTHENTICATION_FAILURE")
+            @JvmField val PORTAL_SUSPENDED = of("PORTAL_SUSPENDED")
 
-            @JvmField val MISSING_CONTENT = of("MISSING_CONTENT")
+            @JvmField val PREVIOUS_SPAM = of("PREVIOUS_SPAM")
 
-            @JvmField val CORRUPT_INPUT = of("CORRUPT_INPUT")
+            @JvmField val PREVIOUSLY_BOUNCED = of("PREVIOUSLY_BOUNCED")
+
+            @JvmField val PREVIOUSLY_UNSUBSCRIBED_BRAND = of("PREVIOUSLY_UNSUBSCRIBED_BRAND")
+
+            @JvmField
+            val PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT = of("PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT")
+
+            @JvmField val PREVIOUSLY_UNSUBSCRIBED_MESSAGE = of("PREVIOUSLY_UNSUBSCRIBED_MESSAGE")
+
+            @JvmField val PREVIOUSLY_UNSUBSCRIBED_PORTAL = of("PREVIOUSLY_UNSUBSCRIBED_PORTAL")
+
+            @JvmField val QUARANTINED_ADDRESS = of("QUARANTINED_ADDRESS")
+
+            @JvmField val QUEUED = of("QUEUED")
+
+            @JvmField val RECIPIENT_FATIGUE_SUPPRESSED = of("RECIPIENT_FATIGUE_SUPPRESSED")
+
+            @JvmField val SENT = of("SENT")
 
             @JvmField val TEMPLATE_RENDER_EXCEPTION = of("TEMPLATE_RENDER_EXCEPTION")
 
-            @JvmField val GRAYMAIL_SUPPRESSED = of("GRAYMAIL_SUPPRESSED")
+            @JvmField val THROTTLED = of("THROTTLED")
+
+            @JvmField val TOO_MANY_RECIPIENTS = of("TOO_MANY_RECIPIENTS")
 
             @JvmField val UNCONFIGURED_SENDING_DOMAIN = of("UNCONFIGURED_SENDING_DOMAIN")
 
             @JvmField val UNDELIVERABLE = of("UNDELIVERABLE")
 
-            @JvmField val CANCELLED_ABUSE = of("CANCELLED_ABUSE")
-
-            @JvmField val QUARANTINED_ADDRESS = of("QUARANTINED_ADDRESS")
-
-            @JvmField val ADDRESS_ONLY_ACCEPTED_ON_PROD = of("ADDRESS_ONLY_ACCEPTED_ON_PROD")
-
-            @JvmField
-            val PORTAL_NOT_AUTHORIZED_FOR_APPLICATION = of("PORTAL_NOT_AUTHORIZED_FOR_APPLICATION")
-
-            @JvmField val ADDRESS_LIST_BOMBED = of("ADDRESS_LIST_BOMBED")
-
-            @JvmField val ADDRESS_OPTED_OUT = of("ADDRESS_OPTED_OUT")
-
-            @JvmField val RECIPIENT_FATIGUE_SUPPRESSED = of("RECIPIENT_FATIGUE_SUPPRESSED")
-
-            @JvmField val TOO_MANY_RECIPIENTS = of("TOO_MANY_RECIPIENTS")
-
-            @JvmField val PREVIOUSLY_UNSUBSCRIBED_BRAND = of("PREVIOUSLY_UNSUBSCRIBED_BRAND")
-
-            @JvmField val NON_MARKETABLE_CONTACT = of("NON_MARKETABLE_CONTACT")
-
-            @JvmField
-            val PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT = of("PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT")
-
-            @JvmField val GDPR_DOI_ENABLED = of("GDPR_DOI_ENABLED")
-
-            @JvmField val HUBL_LIMIT_EXCEEDED = of("HUBL_LIMIT_EXCEEDED")
-
-            @JvmField val LOW_CONTACT_QUALITY_SCORE = of("LOW_CONTACT_QUALITY_SCORE")
+            @JvmField val VALIDATION_FAILED = of("VALIDATION_FAILED")
 
             @JvmStatic fun of(value: String) = SendResult(JsonField.of(value))
         }
 
         /** An enum containing [SendResult]'s known values. */
         enum class Known {
-            SENT,
-            IDEMPOTENT_IGNORE,
-            QUEUED,
-            IDEMPOTENT_FAIL,
-            THROTTLED,
-            EMAIL_DISABLED,
-            PORTAL_SUSPENDED,
-            INVALID_TO_ADDRESS,
-            BLOCKED_DOMAIN,
-            PREVIOUSLY_BOUNCED,
-            EMAIL_UNCONFIRMED,
-            PREVIOUS_SPAM,
-            PREVIOUSLY_UNSUBSCRIBED_MESSAGE,
-            PREVIOUSLY_UNSUBSCRIBED_PORTAL,
-            INVALID_FROM_ADDRESS,
-            CAMPAIGN_CANCELLED,
-            VALIDATION_FAILED,
-            MTA_IGNORE,
+            ADDRESS_LIST_BOMBED,
+            ADDRESS_ONLY_ACCEPTED_ON_PROD,
+            ADDRESS_OPTED_OUT,
             BLOCKED_ADDRESS,
-            PORTAL_OVER_LIMIT,
+            BLOCKED_DOMAIN,
+            CAMPAIGN_CANCELLED,
+            CANCELLED_ABUSE,
+            CORRUPT_INPUT,
+            EMAIL_DISABLED,
+            EMAIL_UNCONFIRMED,
+            GDPR_DOI_ENABLED,
+            GRAYMAIL_SUPPRESSED,
+            HUBL_LIMIT_EXCEEDED,
+            IDEMPOTENT_FAIL,
+            IDEMPOTENT_IGNORE,
+            INVALID_FROM_ADDRESS,
+            INVALID_TO_ADDRESS,
+            LOW_CONTACT_QUALITY_SCORE,
+            MISSING_CONTENT,
+            MISSING_REQUIRED_PARAMETER,
+            MISSING_TEMPLATE_PROPERTIES,
+            MTA_IGNORE,
+            NON_MARKETABLE_CONTACT,
+            PORTAL_AUTHENTICATION_FAILURE,
             PORTAL_EXPIRED,
             PORTAL_MISSING_MARKETING_SCOPE,
-            MISSING_TEMPLATE_PROPERTIES,
-            MISSING_REQUIRED_PARAMETER,
-            PORTAL_AUTHENTICATION_FAILURE,
-            MISSING_CONTENT,
-            CORRUPT_INPUT,
+            PORTAL_NOT_AUTHORIZED_FOR_APPLICATION,
+            PORTAL_OVER_LIMIT,
+            PORTAL_SUSPENDED,
+            PREVIOUS_SPAM,
+            PREVIOUSLY_BOUNCED,
+            PREVIOUSLY_UNSUBSCRIBED_BRAND,
+            PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT,
+            PREVIOUSLY_UNSUBSCRIBED_MESSAGE,
+            PREVIOUSLY_UNSUBSCRIBED_PORTAL,
+            QUARANTINED_ADDRESS,
+            QUEUED,
+            RECIPIENT_FATIGUE_SUPPRESSED,
+            SENT,
             TEMPLATE_RENDER_EXCEPTION,
-            GRAYMAIL_SUPPRESSED,
+            THROTTLED,
+            TOO_MANY_RECIPIENTS,
             UNCONFIGURED_SENDING_DOMAIN,
             UNDELIVERABLE,
-            CANCELLED_ABUSE,
-            QUARANTINED_ADDRESS,
-            ADDRESS_ONLY_ACCEPTED_ON_PROD,
-            PORTAL_NOT_AUTHORIZED_FOR_APPLICATION,
-            ADDRESS_LIST_BOMBED,
-            ADDRESS_OPTED_OUT,
-            RECIPIENT_FATIGUE_SUPPRESSED,
-            TOO_MANY_RECIPIENTS,
-            PREVIOUSLY_UNSUBSCRIBED_BRAND,
-            NON_MARKETABLE_CONTACT,
-            PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT,
-            GDPR_DOI_ENABLED,
-            HUBL_LIMIT_EXCEEDED,
-            LOW_CONTACT_QUALITY_SCORE,
+            VALIDATION_FAILED,
         }
 
         /**
@@ -733,51 +733,51 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            SENT,
-            IDEMPOTENT_IGNORE,
-            QUEUED,
-            IDEMPOTENT_FAIL,
-            THROTTLED,
-            EMAIL_DISABLED,
-            PORTAL_SUSPENDED,
-            INVALID_TO_ADDRESS,
-            BLOCKED_DOMAIN,
-            PREVIOUSLY_BOUNCED,
-            EMAIL_UNCONFIRMED,
-            PREVIOUS_SPAM,
-            PREVIOUSLY_UNSUBSCRIBED_MESSAGE,
-            PREVIOUSLY_UNSUBSCRIBED_PORTAL,
-            INVALID_FROM_ADDRESS,
-            CAMPAIGN_CANCELLED,
-            VALIDATION_FAILED,
-            MTA_IGNORE,
+            ADDRESS_LIST_BOMBED,
+            ADDRESS_ONLY_ACCEPTED_ON_PROD,
+            ADDRESS_OPTED_OUT,
             BLOCKED_ADDRESS,
-            PORTAL_OVER_LIMIT,
+            BLOCKED_DOMAIN,
+            CAMPAIGN_CANCELLED,
+            CANCELLED_ABUSE,
+            CORRUPT_INPUT,
+            EMAIL_DISABLED,
+            EMAIL_UNCONFIRMED,
+            GDPR_DOI_ENABLED,
+            GRAYMAIL_SUPPRESSED,
+            HUBL_LIMIT_EXCEEDED,
+            IDEMPOTENT_FAIL,
+            IDEMPOTENT_IGNORE,
+            INVALID_FROM_ADDRESS,
+            INVALID_TO_ADDRESS,
+            LOW_CONTACT_QUALITY_SCORE,
+            MISSING_CONTENT,
+            MISSING_REQUIRED_PARAMETER,
+            MISSING_TEMPLATE_PROPERTIES,
+            MTA_IGNORE,
+            NON_MARKETABLE_CONTACT,
+            PORTAL_AUTHENTICATION_FAILURE,
             PORTAL_EXPIRED,
             PORTAL_MISSING_MARKETING_SCOPE,
-            MISSING_TEMPLATE_PROPERTIES,
-            MISSING_REQUIRED_PARAMETER,
-            PORTAL_AUTHENTICATION_FAILURE,
-            MISSING_CONTENT,
-            CORRUPT_INPUT,
+            PORTAL_NOT_AUTHORIZED_FOR_APPLICATION,
+            PORTAL_OVER_LIMIT,
+            PORTAL_SUSPENDED,
+            PREVIOUS_SPAM,
+            PREVIOUSLY_BOUNCED,
+            PREVIOUSLY_UNSUBSCRIBED_BRAND,
+            PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT,
+            PREVIOUSLY_UNSUBSCRIBED_MESSAGE,
+            PREVIOUSLY_UNSUBSCRIBED_PORTAL,
+            QUARANTINED_ADDRESS,
+            QUEUED,
+            RECIPIENT_FATIGUE_SUPPRESSED,
+            SENT,
             TEMPLATE_RENDER_EXCEPTION,
-            GRAYMAIL_SUPPRESSED,
+            THROTTLED,
+            TOO_MANY_RECIPIENTS,
             UNCONFIGURED_SENDING_DOMAIN,
             UNDELIVERABLE,
-            CANCELLED_ABUSE,
-            QUARANTINED_ADDRESS,
-            ADDRESS_ONLY_ACCEPTED_ON_PROD,
-            PORTAL_NOT_AUTHORIZED_FOR_APPLICATION,
-            ADDRESS_LIST_BOMBED,
-            ADDRESS_OPTED_OUT,
-            RECIPIENT_FATIGUE_SUPPRESSED,
-            TOO_MANY_RECIPIENTS,
-            PREVIOUSLY_UNSUBSCRIBED_BRAND,
-            NON_MARKETABLE_CONTACT,
-            PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT,
-            GDPR_DOI_ENABLED,
-            HUBL_LIMIT_EXCEEDED,
-            LOW_CONTACT_QUALITY_SCORE,
+            VALIDATION_FAILED,
             /**
              * An enum member indicating that [SendResult] was instantiated with an unknown value.
              */
@@ -793,51 +793,51 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                SENT -> Value.SENT
-                IDEMPOTENT_IGNORE -> Value.IDEMPOTENT_IGNORE
-                QUEUED -> Value.QUEUED
-                IDEMPOTENT_FAIL -> Value.IDEMPOTENT_FAIL
-                THROTTLED -> Value.THROTTLED
-                EMAIL_DISABLED -> Value.EMAIL_DISABLED
-                PORTAL_SUSPENDED -> Value.PORTAL_SUSPENDED
-                INVALID_TO_ADDRESS -> Value.INVALID_TO_ADDRESS
-                BLOCKED_DOMAIN -> Value.BLOCKED_DOMAIN
-                PREVIOUSLY_BOUNCED -> Value.PREVIOUSLY_BOUNCED
-                EMAIL_UNCONFIRMED -> Value.EMAIL_UNCONFIRMED
-                PREVIOUS_SPAM -> Value.PREVIOUS_SPAM
-                PREVIOUSLY_UNSUBSCRIBED_MESSAGE -> Value.PREVIOUSLY_UNSUBSCRIBED_MESSAGE
-                PREVIOUSLY_UNSUBSCRIBED_PORTAL -> Value.PREVIOUSLY_UNSUBSCRIBED_PORTAL
-                INVALID_FROM_ADDRESS -> Value.INVALID_FROM_ADDRESS
-                CAMPAIGN_CANCELLED -> Value.CAMPAIGN_CANCELLED
-                VALIDATION_FAILED -> Value.VALIDATION_FAILED
-                MTA_IGNORE -> Value.MTA_IGNORE
+                ADDRESS_LIST_BOMBED -> Value.ADDRESS_LIST_BOMBED
+                ADDRESS_ONLY_ACCEPTED_ON_PROD -> Value.ADDRESS_ONLY_ACCEPTED_ON_PROD
+                ADDRESS_OPTED_OUT -> Value.ADDRESS_OPTED_OUT
                 BLOCKED_ADDRESS -> Value.BLOCKED_ADDRESS
-                PORTAL_OVER_LIMIT -> Value.PORTAL_OVER_LIMIT
+                BLOCKED_DOMAIN -> Value.BLOCKED_DOMAIN
+                CAMPAIGN_CANCELLED -> Value.CAMPAIGN_CANCELLED
+                CANCELLED_ABUSE -> Value.CANCELLED_ABUSE
+                CORRUPT_INPUT -> Value.CORRUPT_INPUT
+                EMAIL_DISABLED -> Value.EMAIL_DISABLED
+                EMAIL_UNCONFIRMED -> Value.EMAIL_UNCONFIRMED
+                GDPR_DOI_ENABLED -> Value.GDPR_DOI_ENABLED
+                GRAYMAIL_SUPPRESSED -> Value.GRAYMAIL_SUPPRESSED
+                HUBL_LIMIT_EXCEEDED -> Value.HUBL_LIMIT_EXCEEDED
+                IDEMPOTENT_FAIL -> Value.IDEMPOTENT_FAIL
+                IDEMPOTENT_IGNORE -> Value.IDEMPOTENT_IGNORE
+                INVALID_FROM_ADDRESS -> Value.INVALID_FROM_ADDRESS
+                INVALID_TO_ADDRESS -> Value.INVALID_TO_ADDRESS
+                LOW_CONTACT_QUALITY_SCORE -> Value.LOW_CONTACT_QUALITY_SCORE
+                MISSING_CONTENT -> Value.MISSING_CONTENT
+                MISSING_REQUIRED_PARAMETER -> Value.MISSING_REQUIRED_PARAMETER
+                MISSING_TEMPLATE_PROPERTIES -> Value.MISSING_TEMPLATE_PROPERTIES
+                MTA_IGNORE -> Value.MTA_IGNORE
+                NON_MARKETABLE_CONTACT -> Value.NON_MARKETABLE_CONTACT
+                PORTAL_AUTHENTICATION_FAILURE -> Value.PORTAL_AUTHENTICATION_FAILURE
                 PORTAL_EXPIRED -> Value.PORTAL_EXPIRED
                 PORTAL_MISSING_MARKETING_SCOPE -> Value.PORTAL_MISSING_MARKETING_SCOPE
-                MISSING_TEMPLATE_PROPERTIES -> Value.MISSING_TEMPLATE_PROPERTIES
-                MISSING_REQUIRED_PARAMETER -> Value.MISSING_REQUIRED_PARAMETER
-                PORTAL_AUTHENTICATION_FAILURE -> Value.PORTAL_AUTHENTICATION_FAILURE
-                MISSING_CONTENT -> Value.MISSING_CONTENT
-                CORRUPT_INPUT -> Value.CORRUPT_INPUT
+                PORTAL_NOT_AUTHORIZED_FOR_APPLICATION -> Value.PORTAL_NOT_AUTHORIZED_FOR_APPLICATION
+                PORTAL_OVER_LIMIT -> Value.PORTAL_OVER_LIMIT
+                PORTAL_SUSPENDED -> Value.PORTAL_SUSPENDED
+                PREVIOUS_SPAM -> Value.PREVIOUS_SPAM
+                PREVIOUSLY_BOUNCED -> Value.PREVIOUSLY_BOUNCED
+                PREVIOUSLY_UNSUBSCRIBED_BRAND -> Value.PREVIOUSLY_UNSUBSCRIBED_BRAND
+                PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT -> Value.PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT
+                PREVIOUSLY_UNSUBSCRIBED_MESSAGE -> Value.PREVIOUSLY_UNSUBSCRIBED_MESSAGE
+                PREVIOUSLY_UNSUBSCRIBED_PORTAL -> Value.PREVIOUSLY_UNSUBSCRIBED_PORTAL
+                QUARANTINED_ADDRESS -> Value.QUARANTINED_ADDRESS
+                QUEUED -> Value.QUEUED
+                RECIPIENT_FATIGUE_SUPPRESSED -> Value.RECIPIENT_FATIGUE_SUPPRESSED
+                SENT -> Value.SENT
                 TEMPLATE_RENDER_EXCEPTION -> Value.TEMPLATE_RENDER_EXCEPTION
-                GRAYMAIL_SUPPRESSED -> Value.GRAYMAIL_SUPPRESSED
+                THROTTLED -> Value.THROTTLED
+                TOO_MANY_RECIPIENTS -> Value.TOO_MANY_RECIPIENTS
                 UNCONFIGURED_SENDING_DOMAIN -> Value.UNCONFIGURED_SENDING_DOMAIN
                 UNDELIVERABLE -> Value.UNDELIVERABLE
-                CANCELLED_ABUSE -> Value.CANCELLED_ABUSE
-                QUARANTINED_ADDRESS -> Value.QUARANTINED_ADDRESS
-                ADDRESS_ONLY_ACCEPTED_ON_PROD -> Value.ADDRESS_ONLY_ACCEPTED_ON_PROD
-                PORTAL_NOT_AUTHORIZED_FOR_APPLICATION -> Value.PORTAL_NOT_AUTHORIZED_FOR_APPLICATION
-                ADDRESS_LIST_BOMBED -> Value.ADDRESS_LIST_BOMBED
-                ADDRESS_OPTED_OUT -> Value.ADDRESS_OPTED_OUT
-                RECIPIENT_FATIGUE_SUPPRESSED -> Value.RECIPIENT_FATIGUE_SUPPRESSED
-                TOO_MANY_RECIPIENTS -> Value.TOO_MANY_RECIPIENTS
-                PREVIOUSLY_UNSUBSCRIBED_BRAND -> Value.PREVIOUSLY_UNSUBSCRIBED_BRAND
-                NON_MARKETABLE_CONTACT -> Value.NON_MARKETABLE_CONTACT
-                PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT -> Value.PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT
-                GDPR_DOI_ENABLED -> Value.GDPR_DOI_ENABLED
-                HUBL_LIMIT_EXCEEDED -> Value.HUBL_LIMIT_EXCEEDED
-                LOW_CONTACT_QUALITY_SCORE -> Value.LOW_CONTACT_QUALITY_SCORE
+                VALIDATION_FAILED -> Value.VALIDATION_FAILED
                 else -> Value._UNKNOWN
             }
 
@@ -852,51 +852,51 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                SENT -> Known.SENT
-                IDEMPOTENT_IGNORE -> Known.IDEMPOTENT_IGNORE
-                QUEUED -> Known.QUEUED
-                IDEMPOTENT_FAIL -> Known.IDEMPOTENT_FAIL
-                THROTTLED -> Known.THROTTLED
-                EMAIL_DISABLED -> Known.EMAIL_DISABLED
-                PORTAL_SUSPENDED -> Known.PORTAL_SUSPENDED
-                INVALID_TO_ADDRESS -> Known.INVALID_TO_ADDRESS
-                BLOCKED_DOMAIN -> Known.BLOCKED_DOMAIN
-                PREVIOUSLY_BOUNCED -> Known.PREVIOUSLY_BOUNCED
-                EMAIL_UNCONFIRMED -> Known.EMAIL_UNCONFIRMED
-                PREVIOUS_SPAM -> Known.PREVIOUS_SPAM
-                PREVIOUSLY_UNSUBSCRIBED_MESSAGE -> Known.PREVIOUSLY_UNSUBSCRIBED_MESSAGE
-                PREVIOUSLY_UNSUBSCRIBED_PORTAL -> Known.PREVIOUSLY_UNSUBSCRIBED_PORTAL
-                INVALID_FROM_ADDRESS -> Known.INVALID_FROM_ADDRESS
-                CAMPAIGN_CANCELLED -> Known.CAMPAIGN_CANCELLED
-                VALIDATION_FAILED -> Known.VALIDATION_FAILED
-                MTA_IGNORE -> Known.MTA_IGNORE
+                ADDRESS_LIST_BOMBED -> Known.ADDRESS_LIST_BOMBED
+                ADDRESS_ONLY_ACCEPTED_ON_PROD -> Known.ADDRESS_ONLY_ACCEPTED_ON_PROD
+                ADDRESS_OPTED_OUT -> Known.ADDRESS_OPTED_OUT
                 BLOCKED_ADDRESS -> Known.BLOCKED_ADDRESS
-                PORTAL_OVER_LIMIT -> Known.PORTAL_OVER_LIMIT
+                BLOCKED_DOMAIN -> Known.BLOCKED_DOMAIN
+                CAMPAIGN_CANCELLED -> Known.CAMPAIGN_CANCELLED
+                CANCELLED_ABUSE -> Known.CANCELLED_ABUSE
+                CORRUPT_INPUT -> Known.CORRUPT_INPUT
+                EMAIL_DISABLED -> Known.EMAIL_DISABLED
+                EMAIL_UNCONFIRMED -> Known.EMAIL_UNCONFIRMED
+                GDPR_DOI_ENABLED -> Known.GDPR_DOI_ENABLED
+                GRAYMAIL_SUPPRESSED -> Known.GRAYMAIL_SUPPRESSED
+                HUBL_LIMIT_EXCEEDED -> Known.HUBL_LIMIT_EXCEEDED
+                IDEMPOTENT_FAIL -> Known.IDEMPOTENT_FAIL
+                IDEMPOTENT_IGNORE -> Known.IDEMPOTENT_IGNORE
+                INVALID_FROM_ADDRESS -> Known.INVALID_FROM_ADDRESS
+                INVALID_TO_ADDRESS -> Known.INVALID_TO_ADDRESS
+                LOW_CONTACT_QUALITY_SCORE -> Known.LOW_CONTACT_QUALITY_SCORE
+                MISSING_CONTENT -> Known.MISSING_CONTENT
+                MISSING_REQUIRED_PARAMETER -> Known.MISSING_REQUIRED_PARAMETER
+                MISSING_TEMPLATE_PROPERTIES -> Known.MISSING_TEMPLATE_PROPERTIES
+                MTA_IGNORE -> Known.MTA_IGNORE
+                NON_MARKETABLE_CONTACT -> Known.NON_MARKETABLE_CONTACT
+                PORTAL_AUTHENTICATION_FAILURE -> Known.PORTAL_AUTHENTICATION_FAILURE
                 PORTAL_EXPIRED -> Known.PORTAL_EXPIRED
                 PORTAL_MISSING_MARKETING_SCOPE -> Known.PORTAL_MISSING_MARKETING_SCOPE
-                MISSING_TEMPLATE_PROPERTIES -> Known.MISSING_TEMPLATE_PROPERTIES
-                MISSING_REQUIRED_PARAMETER -> Known.MISSING_REQUIRED_PARAMETER
-                PORTAL_AUTHENTICATION_FAILURE -> Known.PORTAL_AUTHENTICATION_FAILURE
-                MISSING_CONTENT -> Known.MISSING_CONTENT
-                CORRUPT_INPUT -> Known.CORRUPT_INPUT
+                PORTAL_NOT_AUTHORIZED_FOR_APPLICATION -> Known.PORTAL_NOT_AUTHORIZED_FOR_APPLICATION
+                PORTAL_OVER_LIMIT -> Known.PORTAL_OVER_LIMIT
+                PORTAL_SUSPENDED -> Known.PORTAL_SUSPENDED
+                PREVIOUS_SPAM -> Known.PREVIOUS_SPAM
+                PREVIOUSLY_BOUNCED -> Known.PREVIOUSLY_BOUNCED
+                PREVIOUSLY_UNSUBSCRIBED_BRAND -> Known.PREVIOUSLY_UNSUBSCRIBED_BRAND
+                PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT -> Known.PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT
+                PREVIOUSLY_UNSUBSCRIBED_MESSAGE -> Known.PREVIOUSLY_UNSUBSCRIBED_MESSAGE
+                PREVIOUSLY_UNSUBSCRIBED_PORTAL -> Known.PREVIOUSLY_UNSUBSCRIBED_PORTAL
+                QUARANTINED_ADDRESS -> Known.QUARANTINED_ADDRESS
+                QUEUED -> Known.QUEUED
+                RECIPIENT_FATIGUE_SUPPRESSED -> Known.RECIPIENT_FATIGUE_SUPPRESSED
+                SENT -> Known.SENT
                 TEMPLATE_RENDER_EXCEPTION -> Known.TEMPLATE_RENDER_EXCEPTION
-                GRAYMAIL_SUPPRESSED -> Known.GRAYMAIL_SUPPRESSED
+                THROTTLED -> Known.THROTTLED
+                TOO_MANY_RECIPIENTS -> Known.TOO_MANY_RECIPIENTS
                 UNCONFIGURED_SENDING_DOMAIN -> Known.UNCONFIGURED_SENDING_DOMAIN
                 UNDELIVERABLE -> Known.UNDELIVERABLE
-                CANCELLED_ABUSE -> Known.CANCELLED_ABUSE
-                QUARANTINED_ADDRESS -> Known.QUARANTINED_ADDRESS
-                ADDRESS_ONLY_ACCEPTED_ON_PROD -> Known.ADDRESS_ONLY_ACCEPTED_ON_PROD
-                PORTAL_NOT_AUTHORIZED_FOR_APPLICATION -> Known.PORTAL_NOT_AUTHORIZED_FOR_APPLICATION
-                ADDRESS_LIST_BOMBED -> Known.ADDRESS_LIST_BOMBED
-                ADDRESS_OPTED_OUT -> Known.ADDRESS_OPTED_OUT
-                RECIPIENT_FATIGUE_SUPPRESSED -> Known.RECIPIENT_FATIGUE_SUPPRESSED
-                TOO_MANY_RECIPIENTS -> Known.TOO_MANY_RECIPIENTS
-                PREVIOUSLY_UNSUBSCRIBED_BRAND -> Known.PREVIOUSLY_UNSUBSCRIBED_BRAND
-                NON_MARKETABLE_CONTACT -> Known.NON_MARKETABLE_CONTACT
-                PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT -> Known.PREVIOUSLY_UNSUBSCRIBED_BUSINESS_UNIT
-                GDPR_DOI_ENABLED -> Known.GDPR_DOI_ENABLED
-                HUBL_LIMIT_EXCEEDED -> Known.HUBL_LIMIT_EXCEEDED
-                LOW_CONTACT_QUALITY_SCORE -> Known.LOW_CONTACT_QUALITY_SCORE
+                VALIDATION_FAILED -> Known.VALIDATION_FAILED
                 else -> throw HubspotInvalidDataException("Unknown SendResult: $value")
             }
 

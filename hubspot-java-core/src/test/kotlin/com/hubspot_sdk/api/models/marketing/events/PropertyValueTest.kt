@@ -13,7 +13,7 @@ internal class PropertyValueTest {
     fun create() {
         val propertyValue =
             PropertyValue.builder()
-                .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                .dataSensitivity(PropertyValue.DataSensitivity.HIGH)
                 .isEncrypted(true)
                 .isLargeValue(true)
                 .name("name")
@@ -21,7 +21,7 @@ internal class PropertyValueTest {
                 .requestId("requestId")
                 .selectedByUser(true)
                 .selectedByUserTimestamp(0L)
-                .source(PropertyValue.Source.UNKNOWN)
+                .source(PropertyValue.Source.ACADEMY)
                 .sourceId("sourceId")
                 .sourceLabel("sourceLabel")
                 .sourceMetadata("sourceMetadata")
@@ -34,7 +34,7 @@ internal class PropertyValueTest {
                 .value("value")
                 .build()
 
-        assertThat(propertyValue.dataSensitivity()).isEqualTo(PropertyValue.DataSensitivity.NONE)
+        assertThat(propertyValue.dataSensitivity()).isEqualTo(PropertyValue.DataSensitivity.HIGH)
         assertThat(propertyValue.isEncrypted()).isEqualTo(true)
         assertThat(propertyValue.isLargeValue()).isEqualTo(true)
         assertThat(propertyValue.name()).isEqualTo("name")
@@ -42,7 +42,7 @@ internal class PropertyValueTest {
         assertThat(propertyValue.requestId()).isEqualTo("requestId")
         assertThat(propertyValue.selectedByUser()).isEqualTo(true)
         assertThat(propertyValue.selectedByUserTimestamp()).isEqualTo(0L)
-        assertThat(propertyValue.source()).isEqualTo(PropertyValue.Source.UNKNOWN)
+        assertThat(propertyValue.source()).isEqualTo(PropertyValue.Source.ACADEMY)
         assertThat(propertyValue.sourceId()).isEqualTo("sourceId")
         assertThat(propertyValue.sourceLabel()).isEqualTo("sourceLabel")
         assertThat(propertyValue.sourceMetadata()).isEqualTo("sourceMetadata")
@@ -60,7 +60,7 @@ internal class PropertyValueTest {
         val jsonMapper = jsonMapper()
         val propertyValue =
             PropertyValue.builder()
-                .dataSensitivity(PropertyValue.DataSensitivity.NONE)
+                .dataSensitivity(PropertyValue.DataSensitivity.HIGH)
                 .isEncrypted(true)
                 .isLargeValue(true)
                 .name("name")
@@ -68,7 +68,7 @@ internal class PropertyValueTest {
                 .requestId("requestId")
                 .selectedByUser(true)
                 .selectedByUserTimestamp(0L)
-                .source(PropertyValue.Source.UNKNOWN)
+                .source(PropertyValue.Source.ACADEMY)
                 .sourceId("sourceId")
                 .sourceLabel("sourceLabel")
                 .sourceMetadata("sourceMetadata")

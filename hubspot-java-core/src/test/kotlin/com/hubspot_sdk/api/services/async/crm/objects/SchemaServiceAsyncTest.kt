@@ -55,9 +55,7 @@ internal class SchemaServiceAsyncTest {
                             .groupName("my_object_information")
                             .hasUniqueValue(false)
                             .hidden(true)
-                            .numberDisplayHint(
-                                ObjectTypePropertyCreate.NumberDisplayHint.UNFORMATTED
-                            )
+                            .numberDisplayHint(ObjectTypePropertyCreate.NumberDisplayHint.CURRENCY)
                             .addOption(
                                 OptionInput.builder()
                                     .displayOrder(1)
@@ -77,14 +75,12 @@ internal class SchemaServiceAsyncTest {
                                     .build()
                             )
                             .optionSortStrategy(
-                                ObjectTypePropertyCreate.OptionSortStrategy.DISPLAY_ORDER
+                                ObjectTypePropertyCreate.OptionSortStrategy.ALPHABETICAL
                             )
                             .referencedObjectType("referencedObjectType")
                             .searchableInGlobalSearch(true)
                             .showCurrencySymbol(true)
-                            .textDisplayHint(
-                                ObjectTypePropertyCreate.TextDisplayHint.UNFORMATTED_SINGLE_LINE
-                            )
+                            .textDisplayHint(ObjectTypePropertyCreate.TextDisplayHint.DOMAIN_NAME)
                             .build()
                     )
                     .addRequiredProperty("my_object_property")
