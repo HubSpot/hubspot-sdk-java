@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.conversations.customchannels.PublicConversationsMessage
+import com.hubspot_sdk.api.models.conversations.ConversationsPublicConversationsMessage
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageUpdateParams
@@ -39,21 +39,21 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun create(
         params: MessageCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PublicConversationsMessage> =
+    ): CompletableFuture<ConversationsPublicConversationsMessage> =
         // post /conversations/v3/custom-channels/{channelId}/messages
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: MessageUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PublicConversationsMessage> =
+    ): CompletableFuture<ConversationsPublicConversationsMessage> =
         // patch /conversations/v3/custom-channels/{channelId}/messages/{messageId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: MessageGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PublicConversationsMessage> =
+    ): CompletableFuture<ConversationsPublicConversationsMessage> =
         // get /conversations/v3/custom-channels/{channelId}/messages/{messageId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
@@ -70,13 +70,13 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<PublicConversationsMessage> =
-            jsonHandler<PublicConversationsMessage>(clientOptions.jsonMapper)
+        private val createHandler: Handler<ConversationsPublicConversationsMessage> =
+            jsonHandler<ConversationsPublicConversationsMessage>(clientOptions.jsonMapper)
 
         override fun create(
             params: MessageCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> {
+        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("channelId", params.channelId().getOrNull())
@@ -110,13 +110,13 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val updateHandler: Handler<PublicConversationsMessage> =
-            jsonHandler<PublicConversationsMessage>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<ConversationsPublicConversationsMessage> =
+            jsonHandler<ConversationsPublicConversationsMessage>(clientOptions.jsonMapper)
 
         override fun update(
             params: MessageUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> {
+        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("messageId", params.messageId().getOrNull())
@@ -151,13 +151,13 @@ class MessageServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val getHandler: Handler<PublicConversationsMessage> =
-            jsonHandler<PublicConversationsMessage>(clientOptions.jsonMapper)
+        private val getHandler: Handler<ConversationsPublicConversationsMessage> =
+            jsonHandler<ConversationsPublicConversationsMessage>(clientOptions.jsonMapper)
 
         override fun get(
             params: MessageGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicConversationsMessage>> {
+        ): CompletableFuture<HttpResponseFor<ConversationsPublicConversationsMessage>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("messageId", params.messageId().getOrNull())

@@ -32,6 +32,7 @@ import com.hubspot_sdk.api.services.async.crm.objects.PartnerClientServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerServiceServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PostalMailServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ProductServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.ProjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.QuoteServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.SchemaServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ServiceServiceAsync
@@ -109,6 +110,8 @@ interface ObjectServiceAsync {
     fun postalMail(): PostalMailServiceAsync
 
     fun products(): ProductServiceAsync
+
+    fun projects(): ProjectServiceAsync
 
     fun quotes(): QuoteServiceAsync
 
@@ -191,6 +194,8 @@ interface ObjectServiceAsync {
         fun postalMail(): PostalMailServiceAsync.WithRawResponse
 
         fun products(): ProductServiceAsync.WithRawResponse
+
+        fun projects(): ProjectServiceAsync.WithRawResponse
 
         fun quotes(): QuoteServiceAsync.WithRawResponse
 

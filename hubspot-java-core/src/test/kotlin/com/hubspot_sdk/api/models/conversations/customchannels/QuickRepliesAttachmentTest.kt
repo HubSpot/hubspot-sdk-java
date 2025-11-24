@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.models.conversations.customchannels
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
+import com.hubspot_sdk.api.models.conversations.QuickReply
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

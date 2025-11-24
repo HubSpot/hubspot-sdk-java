@@ -4,13 +4,13 @@ package com.hubspot_sdk.api.services.blocking.conversations.customchannels
 
 import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationMessageEgg
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationParticipant
 import com.hubspot_sdk.api.models.conversations.customchannels.FileAttachment
 import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContact
 import com.hubspot_sdk.api.models.conversations.customchannels.PreResolvedContacts
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelIntegrationMessageUpdateRequest
-import com.hubspot_sdk.api.models.conversations.customchannels.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageCreateParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.messages.MessageUpdateParams
@@ -32,7 +32,7 @@ internal class MessageServiceTest {
                 .build()
         val messageService = client.conversations().customChannels().messages()
 
-        val publicConversationsMessage =
+        val conversationsPublicConversationsMessage =
             messageService.create(
                 MessageCreateParams.builder()
                     .channelId(0)
@@ -92,7 +92,7 @@ internal class MessageServiceTest {
                     .build()
             )
 
-        publicConversationsMessage.validate()
+        conversationsPublicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -105,7 +105,7 @@ internal class MessageServiceTest {
                 .build()
         val messageService = client.conversations().customChannels().messages()
 
-        val publicConversationsMessage =
+        val conversationsPublicConversationsMessage =
             messageService.update(
                 MessageUpdateParams.builder()
                     .channelId(0)
@@ -121,7 +121,7 @@ internal class MessageServiceTest {
                     .build()
             )
 
-        publicConversationsMessage.validate()
+        conversationsPublicConversationsMessage.validate()
     }
 
     @Disabled("Prism tests are disabled")
@@ -134,11 +134,11 @@ internal class MessageServiceTest {
                 .build()
         val messageService = client.conversations().customChannels().messages()
 
-        val publicConversationsMessage =
+        val conversationsPublicConversationsMessage =
             messageService.get(
                 MessageGetParams.builder().channelId(0).messageId("messageId").build()
             )
 
-        publicConversationsMessage.validate()
+        conversationsPublicConversationsMessage.validate()
     }
 }

@@ -4,6 +4,13 @@ package com.hubspot_sdk.api.models.conversations.customchannels
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
+import com.hubspot_sdk.api.models.conversations.ContactAddress
+import com.hubspot_sdk.api.models.conversations.ContactEmail
+import com.hubspot_sdk.api.models.conversations.ContactName
+import com.hubspot_sdk.api.models.conversations.ContactOrg
+import com.hubspot_sdk.api.models.conversations.ContactPhone
+import com.hubspot_sdk.api.models.conversations.ContactProfile
+import com.hubspot_sdk.api.models.conversations.ContactUrl
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

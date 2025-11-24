@@ -2,8 +2,8 @@
 
 package com.hubspot_sdk.api.models.conversations.customchannels.channelaccounts
 
+import com.hubspot_sdk.api.models.conversations.PublicDeliveryIdentifier
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountEgg
-import com.hubspot_sdk.api.models.conversations.customchannels.PublicDeliveryIdentifier
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
