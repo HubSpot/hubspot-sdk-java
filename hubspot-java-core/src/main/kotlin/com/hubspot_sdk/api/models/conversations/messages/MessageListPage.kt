@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.Page
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.ForwardPaging
 import com.hubspot_sdk.api.models.conversations.CollectionResponsePublicMessageForwardPaging
+import com.hubspot_sdk.api.models.conversations.PublicMessage
 import com.hubspot_sdk.api.services.blocking.conversations.MessageService
 import java.util.Objects
 import java.util.Optional
@@ -18,7 +19,7 @@ private constructor(
     private val service: MessageService,
     private val params: MessageListParams,
     private val response: CollectionResponsePublicMessageForwardPaging,
-) : Page<CollectionResponsePublicMessageForwardPaging.Result> {
+) : Page<PublicMessage> {
 
     /**
      * Delegates to [CollectionResponsePublicMessageForwardPaging], but gracefully handles missing
@@ -26,7 +27,7 @@ private constructor(
      *
      * @see CollectionResponsePublicMessageForwardPaging.results
      */
-    fun results(): List<CollectionResponsePublicMessageForwardPaging.Result> =
+    fun results(): List<PublicMessage> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
@@ -37,7 +38,7 @@ private constructor(
      */
     fun paging(): Optional<ForwardPaging> = response._paging().getOptional("paging")
 
-    override fun items(): List<CollectionResponsePublicMessageForwardPaging.Result> = results()
+    override fun items(): List<PublicMessage> = results()
 
     override fun hasNextPage(): Boolean =
         items().isNotEmpty() &&
@@ -57,8 +58,7 @@ private constructor(
 
     override fun nextPage(): MessageListPage = service.list(nextPageParams())
 
-    fun autoPager(): AutoPager<CollectionResponsePublicMessageForwardPaging.Result> =
-        AutoPager.from(this)
+    fun autoPager(): AutoPager<PublicMessage> = AutoPager.from(this)
 
     /** The parameters that were used to request this page. */
     fun params(): MessageListParams = params
