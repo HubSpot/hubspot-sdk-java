@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.cms.hubdb
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.Error
+import com.hubspot_sdk.api.models.ApiError
 import com.hubspot_sdk.api.models.ErrorDetail
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -18,12 +18,12 @@ internal class ImportResultTest {
             ImportResult.builder()
                 .duplicateRows(0)
                 .addError(
-                    Error.builder()
+                    ApiError.builder()
                         .category("VALIDATION_ERROR")
                         .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
                         .message("Invalid input (details will vary based on the error)")
                         .context(
-                            Error.Context.builder()
+                            ApiError.Context.builder()
                                 .putAdditionalProperty("0", JsonValue.from(listOf("string")))
                                 .putAdditionalProperty("1", JsonValue.from(listOf("string")))
                                 .putAdditionalProperty("2", JsonValue.from(listOf("string")))
@@ -236,7 +236,7 @@ internal class ImportResultTest {
                                 .build()
                         )
                         .links(
-                            Error.Links.builder()
+                            ApiError.Links.builder()
                                 .putAdditionalProperty(
                                     "knowledge-base",
                                     JsonValue.from(
@@ -255,12 +255,12 @@ internal class ImportResultTest {
         assertThat(importResult.duplicateRows()).isEqualTo(0)
         assertThat(importResult.errors())
             .containsExactly(
-                Error.builder()
+                ApiError.builder()
                     .category("VALIDATION_ERROR")
                     .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
                     .message("Invalid input (details will vary based on the error)")
                     .context(
-                        Error.Context.builder()
+                        ApiError.Context.builder()
                             .putAdditionalProperty("0", JsonValue.from(listOf("string")))
                             .putAdditionalProperty("1", JsonValue.from(listOf("string")))
                             .putAdditionalProperty("2", JsonValue.from(listOf("string")))
@@ -377,7 +377,7 @@ internal class ImportResultTest {
                             .build()
                     )
                     .links(
-                        Error.Links.builder()
+                        ApiError.Links.builder()
                             .putAdditionalProperty(
                                 "knowledge-base",
                                 JsonValue.from(
@@ -400,12 +400,12 @@ internal class ImportResultTest {
             ImportResult.builder()
                 .duplicateRows(0)
                 .addError(
-                    Error.builder()
+                    ApiError.builder()
                         .category("VALIDATION_ERROR")
                         .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
                         .message("Invalid input (details will vary based on the error)")
                         .context(
-                            Error.Context.builder()
+                            ApiError.Context.builder()
                                 .putAdditionalProperty("0", JsonValue.from(listOf("string")))
                                 .putAdditionalProperty("1", JsonValue.from(listOf("string")))
                                 .putAdditionalProperty("2", JsonValue.from(listOf("string")))
@@ -618,7 +618,7 @@ internal class ImportResultTest {
                                 .build()
                         )
                         .links(
-                            Error.Links.builder()
+                            ApiError.Links.builder()
                                 .putAdditionalProperty(
                                     "knowledge-base",
                                     JsonValue.from(

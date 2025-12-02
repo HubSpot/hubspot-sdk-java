@@ -3,8 +3,7 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.FileService
-import com.hubspot_sdk.api.services.blocking.files.FileService
+import com.hubspot_sdk.api.services.blocking.files.FileOperationService
 import com.hubspot_sdk.api.services.blocking.files.FolderService
 import java.util.function.Consumer
 
@@ -22,7 +21,7 @@ interface FileService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileService
 
-    fun files(): FileService
+    fun fileOperations(): FileOperationService
 
     fun folders(): FolderService
 
@@ -36,7 +35,7 @@ interface FileService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileService.WithRawResponse
 
-        fun files(): FileService.WithRawResponse
+        fun fileOperations(): FileOperationService.WithRawResponse
 
         fun folders(): FolderService.WithRawResponse
     }
