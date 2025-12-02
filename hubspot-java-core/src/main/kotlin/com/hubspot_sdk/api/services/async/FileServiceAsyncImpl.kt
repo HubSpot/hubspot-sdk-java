@@ -3,10 +3,8 @@
 package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.FileServiceAsync
-import com.hubspot_sdk.api.services.async.FileServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.files.FileServiceAsync
-import com.hubspot_sdk.api.services.async.files.FileServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.files.FileOperationServiceAsync
+import com.hubspot_sdk.api.services.async.files.FileOperationServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.files.FolderServiceAsync
 import com.hubspot_sdk.api.services.async.files.FolderServiceAsyncImpl
 import java.util.function.Consumer
@@ -18,7 +16,9 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
         WithRawResponseImpl(clientOptions)
     }
 
-    private val files: FileServiceAsync by lazy { FileServiceAsyncImpl(clientOptions) }
+    private val fileOperations: FileOperationServiceAsync by lazy {
+        FileOperationServiceAsyncImpl(clientOptions)
+    }
 
     private val folders: FolderServiceAsync by lazy { FolderServiceAsyncImpl(clientOptions) }
 
@@ -27,15 +27,15 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileServiceAsync =
         FileServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun files(): FileServiceAsync = files
+    override fun fileOperations(): FileOperationServiceAsync = fileOperations
 
     override fun folders(): FolderServiceAsync = folders
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FileServiceAsync.WithRawResponse {
 
-        private val files: FileServiceAsync.WithRawResponse by lazy {
-            FileServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val fileOperations: FileOperationServiceAsync.WithRawResponse by lazy {
+            FileOperationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val folders: FolderServiceAsync.WithRawResponse by lazy {
@@ -49,7 +49,7 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        override fun files(): FileServiceAsync.WithRawResponse = files
+        override fun fileOperations(): FileOperationServiceAsync.WithRawResponse = fileOperations
 
         override fun folders(): FolderServiceAsync.WithRawResponse = folders
     }

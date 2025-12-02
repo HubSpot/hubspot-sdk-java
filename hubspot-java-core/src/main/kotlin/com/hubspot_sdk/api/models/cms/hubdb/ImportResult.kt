@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.Error
+import com.hubspot_sdk.api.models.ApiError
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -23,7 +23,7 @@ class ImportResult
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val duplicateRows: JsonField<Int>,
-    private val errors: JsonField<List<Error>>,
+    private val errors: JsonField<List<ApiError>>,
     private val rowLimitExceeded: JsonField<Boolean>,
     private val rowsImported: JsonField<Int>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -34,7 +34,9 @@ private constructor(
         @JsonProperty("duplicateRows")
         @ExcludeMissing
         duplicateRows: JsonField<Int> = JsonMissing.of(),
-        @JsonProperty("errors") @ExcludeMissing errors: JsonField<List<Error>> = JsonMissing.of(),
+        @JsonProperty("errors")
+        @ExcludeMissing
+        errors: JsonField<List<ApiError>> = JsonMissing.of(),
         @JsonProperty("rowLimitExceeded")
         @ExcludeMissing
         rowLimitExceeded: JsonField<Boolean> = JsonMissing.of(),
@@ -57,7 +59,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun errors(): List<Error> = errors.getRequired("errors")
+    fun errors(): List<ApiError> = errors.getRequired("errors")
 
     /**
      * Specifies whether row limit exceeded during import
@@ -89,7 +91,7 @@ private constructor(
      *
      * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<Error>> = errors
+    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<ApiError>> = errors
 
     /**
      * Returns the raw JSON value of [rowLimitExceeded].
@@ -140,7 +142,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var duplicateRows: JsonField<Int>? = null
-        private var errors: JsonField<MutableList<Error>>? = null
+        private var errors: JsonField<MutableList<ApiError>>? = null
         private var rowLimitExceeded: JsonField<Boolean>? = null
         private var rowsImported: JsonField<Int>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -169,25 +171,25 @@ private constructor(
         }
 
         /** List of errors during import */
-        fun errors(errors: List<Error>) = errors(JsonField.of(errors))
+        fun errors(errors: List<ApiError>) = errors(JsonField.of(errors))
 
         /**
          * Sets [Builder.errors] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.errors] with a well-typed `List<Error>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.errors] with a well-typed `List<ApiError>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun errors(errors: JsonField<List<Error>>) = apply {
+        fun errors(errors: JsonField<List<ApiError>>) = apply {
             this.errors = errors.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Error] to [errors].
+         * Adds a single [ApiError] to [errors].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addError(error: Error) = apply {
+        fun addError(error: ApiError) = apply {
             errors =
                 (errors ?: JsonField.of(mutableListOf())).also {
                     checkKnown("errors", it).add(error)
