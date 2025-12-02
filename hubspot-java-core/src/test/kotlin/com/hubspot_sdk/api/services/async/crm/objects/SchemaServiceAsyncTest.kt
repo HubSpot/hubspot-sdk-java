@@ -143,12 +143,11 @@ internal class SchemaServiceAsyncTest {
                 .build()
         val schemaServiceAsync = client.crm().objects().schemas()
 
-        val collectionResponseObjectSchemaNoPagingFuture =
+        val schemasFuture =
             schemaServiceAsync.list(SchemaListParams.builder().archived(true).build())
 
-        val collectionResponseObjectSchemaNoPaging =
-            collectionResponseObjectSchemaNoPagingFuture.get()
-        collectionResponseObjectSchemaNoPaging.validate()
+        val schemas = schemasFuture.get()
+        schemas.validate()
     }
 
     @Disabled("Prism tests are disabled")

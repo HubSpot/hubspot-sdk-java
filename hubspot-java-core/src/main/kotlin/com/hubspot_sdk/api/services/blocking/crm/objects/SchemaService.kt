@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
@@ -17,6 +16,7 @@ import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationPar
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListResponse
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.function.Consumer
@@ -78,21 +78,20 @@ interface SchemaService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ObjectsSchemasObjectTypeDefinition
 
-    fun list(): CollectionResponseObjectSchemaNoPaging = list(SchemaListParams.none())
+    fun list(): SchemaListResponse = list(SchemaListParams.none())
 
     /** @see list */
     fun list(
         params: SchemaListParams = SchemaListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseObjectSchemaNoPaging
+    ): SchemaListResponse
 
     /** @see list */
-    fun list(
-        params: SchemaListParams = SchemaListParams.none()
-    ): CollectionResponseObjectSchemaNoPaging = list(params, RequestOptions.none())
+    fun list(params: SchemaListParams = SchemaListParams.none()): SchemaListResponse =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CollectionResponseObjectSchemaNoPaging =
+    fun list(requestOptions: RequestOptions): SchemaListResponse =
         list(SchemaListParams.none(), requestOptions)
 
     fun delete(objectType: String) = delete(objectType, SchemaDeleteParams.none())
@@ -271,28 +270,24 @@ interface SchemaService {
          * the same as [SchemaService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
-            list(SchemaListParams.none())
+        fun list(): HttpResponseFor<SchemaListResponse> = list(SchemaListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SchemaListParams = SchemaListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging>
+        ): HttpResponseFor<SchemaListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SchemaListParams = SchemaListParams.none()
-        ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<SchemaListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<SchemaListResponse> =
             list(SchemaListParams.none(), requestOptions)
 
         /**

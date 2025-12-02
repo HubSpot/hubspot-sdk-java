@@ -67,10 +67,9 @@ internal class SchemaServiceTest {
                 .build()
         val schemaService = client.cms().mediaBridge().schemas()
 
-        val collectionResponseObjectSchemaNoPaging =
-            schemaService.list(SchemaListParams.builder().appId(0).archived(true).build())
+        val schemas = schemaService.list(SchemaListParams.builder().appId(0).archived(true).build())
 
-        collectionResponseObjectSchemaNoPaging.validate()
+        schemas.validate()
     }
 
     @Disabled("Prism tests are disabled")

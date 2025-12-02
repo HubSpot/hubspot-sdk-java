@@ -1,21 +1,24 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models
+package com.hubspot_sdk.api.models.crm.objects.schemas
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
+import com.hubspot_sdk.api.models.ObjectTypeDefinitionLabels
+import com.hubspot_sdk.api.models.Option
+import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.PropertyModificationMetadata
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class CollectionResponseObjectSchemaNoPagingTest {
+internal class SchemaListResponseTest {
 
     @Test
     fun create() {
-        val collectionResponseObjectSchemaNoPaging =
-            CollectionResponseObjectSchemaNoPaging.builder()
+        val schemaListResponse =
+            SchemaListResponse.builder()
                 .addResult(
                     ObjectSchema.builder()
                         .id("123456")
@@ -128,7 +131,7 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                 )
                 .build()
 
-        assertThat(collectionResponseObjectSchemaNoPaging.results())
+        assertThat(schemaListResponse.results())
             .containsExactly(
                 ObjectSchema.builder()
                     .id("123456")
@@ -244,8 +247,8 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val collectionResponseObjectSchemaNoPaging =
-            CollectionResponseObjectSchemaNoPaging.builder()
+        val schemaListResponse =
+            SchemaListResponse.builder()
                 .addResult(
                     ObjectSchema.builder()
                         .id("123456")
@@ -358,13 +361,12 @@ internal class CollectionResponseObjectSchemaNoPagingTest {
                 )
                 .build()
 
-        val roundtrippedCollectionResponseObjectSchemaNoPaging =
+        val roundtrippedSchemaListResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(collectionResponseObjectSchemaNoPaging),
-                jacksonTypeRef<CollectionResponseObjectSchemaNoPaging>(),
+                jsonMapper.writeValueAsString(schemaListResponse),
+                jacksonTypeRef<SchemaListResponse>(),
             )
 
-        assertThat(roundtrippedCollectionResponseObjectSchemaNoPaging)
-            .isEqualTo(collectionResponseObjectSchemaNoPaging)
+        assertThat(roundtrippedSchemaListResponse).isEqualTo(schemaListResponse)
     }
 }

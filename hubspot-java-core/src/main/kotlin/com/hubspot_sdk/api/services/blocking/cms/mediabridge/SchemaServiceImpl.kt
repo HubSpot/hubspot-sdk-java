@@ -17,11 +17,11 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
+import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
@@ -51,7 +51,7 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun list(
         params: SchemaListParams,
         requestOptions: RequestOptions,
-    ): CollectionResponseObjectSchemaNoPaging =
+    ): SchemaListResponse =
         // get /media-bridge/v1/{appId}/schemas
         withRawResponse().list(params, requestOptions).parse()
 
@@ -124,13 +124,13 @@ class SchemaServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<CollectionResponseObjectSchemaNoPaging> =
-            jsonHandler<CollectionResponseObjectSchemaNoPaging>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SchemaListResponse> =
+            jsonHandler<SchemaListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SchemaListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> {
+        ): HttpResponseFor<SchemaListResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
