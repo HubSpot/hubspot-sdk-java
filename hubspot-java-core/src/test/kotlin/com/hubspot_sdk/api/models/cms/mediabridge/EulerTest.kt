@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,13 +15,30 @@ internal class EulerTest {
         val euler =
             Euler.builder()
                 .operator(Euler.Operator.EULER)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
 
         assertThat(euler.operator()).isEqualTo(Euler.Operator.EULER)
-        assertThat(euler.inputs().getOrNull()).containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(euler.inputs().getOrNull())
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(euler.propertyName()).contains("propertyName")
         assertThat(euler.value()).contains(0.0)
     }
@@ -33,7 +49,14 @@ internal class EulerTest {
         val euler =
             Euler.builder()
                 .operator(Euler.Operator.EULER)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

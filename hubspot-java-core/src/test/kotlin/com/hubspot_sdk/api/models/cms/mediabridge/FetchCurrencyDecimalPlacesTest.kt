@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +15,14 @@ internal class FetchCurrencyDecimalPlacesTest {
         val fetchCurrencyDecimalPlaces =
             FetchCurrencyDecimalPlaces.builder()
                 .operator(FetchCurrencyDecimalPlaces.Operator.FETCH_CURRENCY_DECIMAL_PLACES)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
@@ -24,7 +30,16 @@ internal class FetchCurrencyDecimalPlacesTest {
         assertThat(fetchCurrencyDecimalPlaces.operator())
             .isEqualTo(FetchCurrencyDecimalPlaces.Operator.FETCH_CURRENCY_DECIMAL_PLACES)
         assertThat(fetchCurrencyDecimalPlaces.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(fetchCurrencyDecimalPlaces.propertyName()).contains("propertyName")
         assertThat(fetchCurrencyDecimalPlaces.value()).contains(0.0)
     }
@@ -35,7 +50,14 @@ internal class FetchCurrencyDecimalPlacesTest {
         val fetchCurrencyDecimalPlaces =
             FetchCurrencyDecimalPlaces.builder()
                 .operator(FetchCurrencyDecimalPlaces.Operator.FETCH_CURRENCY_DECIMAL_PLACES)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

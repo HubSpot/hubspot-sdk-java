@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -17,7 +16,14 @@ internal class MultiplyNumbersTest {
             MultiplyNumbers.builder()
                 .enclosedInParentheses(true)
                 .operator(MultiplyNumbers.Operator.MULTIPLY_NUMBERS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
@@ -25,7 +31,16 @@ internal class MultiplyNumbersTest {
         assertThat(multiplyNumbers.enclosedInParentheses()).isEqualTo(true)
         assertThat(multiplyNumbers.operator()).isEqualTo(MultiplyNumbers.Operator.MULTIPLY_NUMBERS)
         assertThat(multiplyNumbers.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(multiplyNumbers.propertyName()).contains("propertyName")
         assertThat(multiplyNumbers.value()).contains(0.0)
     }
@@ -37,7 +52,14 @@ internal class MultiplyNumbersTest {
             MultiplyNumbers.builder()
                 .enclosedInParentheses(true)
                 .operator(MultiplyNumbers.Operator.MULTIPLY_NUMBERS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

@@ -23,9 +23,9 @@ import kotlin.jvm.optionals.getOrNull
 class IsPresent
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val expressionToEvaluate: JsonValue,
+    private val expressionToEvaluate: JsonField<Expression>,
     private val operator: JsonField<Operator>,
-    private val inputs: JsonField<List<JsonValue>>,
+    private val inputs: JsonField<List<Expression>>,
     private val propertyName: JsonField<String>,
     private val value: JsonField<Boolean>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -35,20 +35,23 @@ private constructor(
     private constructor(
         @JsonProperty("expressionToEvaluate")
         @ExcludeMissing
-        expressionToEvaluate: JsonValue = JsonMissing.of(),
+        expressionToEvaluate: JsonField<Expression> = JsonMissing.of(),
         @JsonProperty("operator") @ExcludeMissing operator: JsonField<Operator> = JsonMissing.of(),
         @JsonProperty("inputs")
         @ExcludeMissing
-        inputs: JsonField<List<JsonValue>> = JsonMissing.of(),
+        inputs: JsonField<List<Expression>> = JsonMissing.of(),
         @JsonProperty("propertyName")
         @ExcludeMissing
         propertyName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("value") @ExcludeMissing value: JsonField<Boolean> = JsonMissing.of(),
     ) : this(expressionToEvaluate, operator, inputs, propertyName, value, mutableMapOf())
 
-    @JsonProperty("expressionToEvaluate")
-    @ExcludeMissing
-    fun _expressionToEvaluate(): JsonValue = expressionToEvaluate
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun expressionToEvaluate(): Expression =
+        expressionToEvaluate.getRequired("expressionToEvaluate")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -60,7 +63,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun inputs(): Optional<List<JsonValue>> = inputs.getOptional("inputs")
+    fun inputs(): Optional<List<Expression>> = inputs.getOptional("inputs")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -75,6 +78,16 @@ private constructor(
     fun value(): Optional<Boolean> = value.getOptional("value")
 
     /**
+     * Returns the raw JSON value of [expressionToEvaluate].
+     *
+     * Unlike [expressionToEvaluate], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("expressionToEvaluate")
+    @ExcludeMissing
+    fun _expressionToEvaluate(): JsonField<Expression> = expressionToEvaluate
+
+    /**
      * Returns the raw JSON value of [operator].
      *
      * Unlike [operator], this method doesn't throw if the JSON field has an unexpected type.
@@ -86,7 +99,7 @@ private constructor(
      *
      * Unlike [inputs], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("inputs") @ExcludeMissing fun _inputs(): JsonField<List<JsonValue>> = inputs
+    @JsonProperty("inputs") @ExcludeMissing fun _inputs(): JsonField<List<Expression>> = inputs
 
     /**
      * Returns the raw JSON value of [propertyName].
@@ -133,9 +146,9 @@ private constructor(
     /** A builder for [IsPresent]. */
     class Builder internal constructor() {
 
-        private var expressionToEvaluate: JsonValue? = null
+        private var expressionToEvaluate: JsonField<Expression>? = null
         private var operator: JsonField<Operator>? = null
-        private var inputs: JsonField<MutableList<JsonValue>>? = null
+        private var inputs: JsonField<MutableList<Expression>>? = null
         private var propertyName: JsonField<String> = JsonMissing.of()
         private var value: JsonField<Boolean> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -150,9 +163,443 @@ private constructor(
             additionalProperties = isPresent.additionalProperties.toMutableMap()
         }
 
-        fun expressionToEvaluate(expressionToEvaluate: JsonValue) = apply {
+        fun expressionToEvaluate(expressionToEvaluate: Expression) =
+            expressionToEvaluate(JsonField.of(expressionToEvaluate))
+
+        /**
+         * Sets [Builder.expressionToEvaluate] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expressionToEvaluate] with a well-typed [Expression]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun expressionToEvaluate(expressionToEvaluate: JsonField<Expression>) = apply {
             this.expressionToEvaluate = expressionToEvaluate
         }
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofConstantBoolean(constantBoolean)`.
+         */
+        fun expressionToEvaluate(constantBoolean: ConstantBoolean) =
+            expressionToEvaluate(Expression.ofConstantBoolean(constantBoolean))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofConstantNumber(constantNumber)`.
+         */
+        fun expressionToEvaluate(constantNumber: ConstantNumber) =
+            expressionToEvaluate(Expression.ofConstantNumber(constantNumber))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofConstantString(constantString)`.
+         */
+        fun expressionToEvaluate(constantString: ConstantString) =
+            expressionToEvaluate(Expression.ofConstantString(constantString))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofBooleanPropertyVariable(booleanPropertyVariable)`.
+         */
+        fun expressionToEvaluate(booleanPropertyVariable: BooleanPropertyVariable) =
+            expressionToEvaluate(Expression.ofBooleanPropertyVariable(booleanPropertyVariable))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofStringPropertyVariable(stringPropertyVariable)`.
+         */
+        fun expressionToEvaluate(stringPropertyVariable: StringPropertyVariable) =
+            expressionToEvaluate(Expression.ofStringPropertyVariable(stringPropertyVariable))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofNumberPropertyVariable(numberPropertyVariable)`.
+         */
+        fun expressionToEvaluate(numberPropertyVariable: NumberPropertyVariable) =
+            expressionToEvaluate(Expression.ofNumberPropertyVariable(numberPropertyVariable))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable)`.
+         */
+        fun expressionToEvaluate(timestampOfPropertyVariable: TimestampOfPropertyVariable) =
+            expressionToEvaluate(
+                Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable)`.
+         */
+        fun expressionToEvaluate(booleanTargetPropertyVariable: BooleanTargetPropertyVariable) =
+            expressionToEvaluate(
+                Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable)`.
+         */
+        fun expressionToEvaluate(stringTargetPropertyVariable: StringTargetPropertyVariable) =
+            expressionToEvaluate(
+                Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable)`.
+         */
+        fun expressionToEvaluate(numberTargetPropertyVariable: NumberTargetPropertyVariable) =
+            expressionToEvaluate(
+                Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)`.
+         */
+        fun expressionToEvaluate(
+            timestampOfTargetPropertyVariable: TimestampOfTargetPropertyVariable
+        ) =
+            expressionToEvaluate(
+                Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)
+            )
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofAddNumbers(addNumbers)`. */
+        fun expressionToEvaluate(addNumbers: AddNumbers) =
+            expressionToEvaluate(Expression.ofAddNumbers(addNumbers))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofSubtractNumbers(subtractNumbers)`.
+         */
+        fun expressionToEvaluate(subtractNumbers: SubtractNumbers) =
+            expressionToEvaluate(Expression.ofSubtractNumbers(subtractNumbers))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofMultiplyNumbers(multiplyNumbers)`.
+         */
+        fun expressionToEvaluate(multiplyNumbers: MultiplyNumbers) =
+            expressionToEvaluate(Expression.ofMultiplyNumbers(multiplyNumbers))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofDivideNumbers(divideNumbers)`.
+         */
+        fun expressionToEvaluate(divideNumbers: DivideNumbers) =
+            expressionToEvaluate(Expression.ofDivideNumbers(divideNumbers))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofRoundDownNumbers(roundDownNumbers)`.
+         */
+        fun expressionToEvaluate(roundDownNumbers: RoundDownNumbers) =
+            expressionToEvaluate(Expression.ofRoundDownNumbers(roundDownNumbers))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofRoundUpNumbers(roundUpNumbers)`.
+         */
+        fun expressionToEvaluate(roundUpNumbers: RoundUpNumbers) =
+            expressionToEvaluate(Expression.ofRoundUpNumbers(roundUpNumbers))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofRoundNearestNumbers(roundNearestNumbers)`.
+         */
+        fun expressionToEvaluate(roundNearestNumbers: RoundNearestNumbers) =
+            expressionToEvaluate(Expression.ofRoundNearestNumbers(roundNearestNumbers))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofUpperCase(upperCase)`. */
+        fun expressionToEvaluate(upperCase: UpperCase) =
+            expressionToEvaluate(Expression.ofUpperCase(upperCase))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofLowerCase(lowerCase)`. */
+        fun expressionToEvaluate(lowerCase: LowerCase) =
+            expressionToEvaluate(Expression.ofLowerCase(lowerCase))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofConcatStrings(concatStrings)`.
+         */
+        fun expressionToEvaluate(concatStrings: ConcatStrings) =
+            expressionToEvaluate(Expression.ofConcatStrings(concatStrings))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofContains(contains)`. */
+        fun expressionToEvaluate(contains: Contains) =
+            expressionToEvaluate(Expression.ofContains(contains))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofBeginsWith(beginsWith)`. */
+        fun expressionToEvaluate(beginsWith: BeginsWith) =
+            expressionToEvaluate(Expression.ofBeginsWith(beginsWith))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofNumberToString(numberToString)`.
+         */
+        fun expressionToEvaluate(numberToString: NumberToString) =
+            expressionToEvaluate(Expression.ofNumberToString(numberToString))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with `Expression.ofParseNumber(parseNumber)`.
+         */
+        fun expressionToEvaluate(parseNumber: ParseNumber) =
+            expressionToEvaluate(Expression.ofParseNumber(parseNumber))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofFetchExchangeRate(fetchExchangeRate)`.
+         */
+        fun expressionToEvaluate(fetchExchangeRate: FetchExchangeRate) =
+            expressionToEvaluate(Expression.ofFetchExchangeRate(fetchExchangeRate))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces)`.
+         */
+        fun expressionToEvaluate(fetchCurrencyDecimalPlaces: FetchCurrencyDecimalPlaces) =
+            expressionToEvaluate(
+                Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)`.
+         */
+        fun expressionToEvaluate(
+            fetchSingleCurrencyPortalCurrency: FetchSingleCurrencyPortalCurrency
+        ) =
+            expressionToEvaluate(
+                Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofDatedExchangeRate(datedExchangeRate)`.
+         */
+        fun expressionToEvaluate(datedExchangeRate: DatedExchangeRate) =
+            expressionToEvaluate(Expression.ofDatedExchangeRate(datedExchangeRate))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofPipelineProbability(pipelineProbability)`.
+         */
+        fun expressionToEvaluate(pipelineProbability: PipelineProbability) =
+            expressionToEvaluate(Expression.ofPipelineProbability(pipelineProbability))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofMaxNumbers(maxNumbers)`. */
+        fun expressionToEvaluate(maxNumbers: MaxNumbers) =
+            expressionToEvaluate(Expression.ofMaxNumbers(maxNumbers))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofMinNumbers(minNumbers)`. */
+        fun expressionToEvaluate(minNumbers: MinNumbers) =
+            expressionToEvaluate(Expression.ofMinNumbers(minNumbers))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofLessThan(lessThan)`. */
+        fun expressionToEvaluate(lessThan: LessThan) =
+            expressionToEvaluate(Expression.ofLessThan(lessThan))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofLessThanOrEqual(lessThanOrEqual)`.
+         */
+        fun expressionToEvaluate(lessThanOrEqual: LessThanOrEqual) =
+            expressionToEvaluate(Expression.ofLessThanOrEqual(lessThanOrEqual))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofMoreThan(moreThan)`. */
+        fun expressionToEvaluate(moreThan: MoreThan) =
+            expressionToEvaluate(Expression.ofMoreThan(moreThan))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofMoreThanOrEqual(moreThanOrEqual)`.
+         */
+        fun expressionToEvaluate(moreThanOrEqual: MoreThanOrEqual) =
+            expressionToEvaluate(Expression.ofMoreThanOrEqual(moreThanOrEqual))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with `Expression.ofNumberEquals(numberEquals)`.
+         */
+        fun expressionToEvaluate(numberEquals: NumberEquals) =
+            expressionToEvaluate(Expression.ofNumberEquals(numberEquals))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with `Expression.ofStringEquals(stringEquals)`.
+         */
+        fun expressionToEvaluate(stringEquals: StringEquals) =
+            expressionToEvaluate(Expression.ofStringEquals(stringEquals))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofIsPipelineStageClosed(isPipelineStageClosed)`.
+         */
+        fun expressionToEvaluate(isPipelineStageClosed: IsPipelineStageClosed) =
+            expressionToEvaluate(Expression.ofIsPipelineStageClosed(isPipelineStageClosed))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofNot(not)`. */
+        fun expressionToEvaluate(not: Not) = expressionToEvaluate(Expression.ofNot(not))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofDate(date)`. */
+        fun expressionToEvaluate(date: Date) = expressionToEvaluate(Expression.ofDate(date))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofMonth(month)`. */
+        fun expressionToEvaluate(month: Month) = expressionToEvaluate(Expression.ofMonth(month))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofYear(year)`. */
+        fun expressionToEvaluate(year: Year) = expressionToEvaluate(Expression.ofYear(year))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofNow(now)`. */
+        fun expressionToEvaluate(now: Now) = expressionToEvaluate(Expression.ofNow(now))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with `Expression.ofTimeBetween(timeBetween)`.
+         */
+        fun expressionToEvaluate(timeBetween: TimeBetween) =
+            expressionToEvaluate(Expression.ofTimeBetween(timeBetween))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofPeriodToMonths(periodToMonths)`.
+         */
+        fun expressionToEvaluate(periodToMonths: PeriodToMonths) =
+            expressionToEvaluate(Expression.ofPeriodToMonths(periodToMonths))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofPeriodToWeeks(periodToWeeks)`.
+         */
+        fun expressionToEvaluate(periodToWeeks: PeriodToWeeks) =
+            expressionToEvaluate(Expression.ofPeriodToWeeks(periodToWeeks))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofAnd(and)`. */
+        fun expressionToEvaluate(and: And) = expressionToEvaluate(Expression.ofAnd(and))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofOr(or)`. */
+        fun expressionToEvaluate(or: Or) = expressionToEvaluate(Expression.ofOr(or))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofXor(xor)`. */
+        fun expressionToEvaluate(xor: Xor) = expressionToEvaluate(Expression.ofXor(xor))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofIfString(ifString)`. */
+        fun expressionToEvaluate(ifString: IfString) =
+            expressionToEvaluate(Expression.ofIfString(ifString))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofIfNumber(ifNumber)`. */
+        fun expressionToEvaluate(ifNumber: IfNumber) =
+            expressionToEvaluate(Expression.ofIfNumber(ifNumber))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofIfBoolean(ifBoolean)`. */
+        fun expressionToEvaluate(ifBoolean: IfBoolean) =
+            expressionToEvaluate(Expression.ofIfBoolean(ifBoolean))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofIsPresent(isPresent)`. */
+        fun expressionToEvaluate(isPresent: IsPresent) =
+            expressionToEvaluate(Expression.ofIsPresent(isPresent))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofHasEmailReply(hasEmailReply)`.
+         */
+        fun expressionToEvaluate(hasEmailReply: HasEmailReply) =
+            expressionToEvaluate(Expression.ofHasEmailReply(hasEmailReply))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply)`.
+         */
+        fun expressionToEvaluate(hasPlainTextEmailReply: HasPlainTextEmailReply) =
+            expressionToEvaluate(Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml)`.
+         */
+        fun expressionToEvaluate(extractMostRecentEmailReplyHtml: ExtractMostRecentEmailReplyHtml) =
+            expressionToEvaluate(
+                Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText)`.
+         */
+        fun expressionToEvaluate(extractMostRecentEmailReplyText: ExtractMostRecentEmailReplyText) =
+            expressionToEvaluate(
+                Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText)
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofExtractMostRecentPlainTextEmailReply(extractMostRecentPlainTextEmailReply)`.
+         */
+        fun expressionToEvaluate(
+            extractMostRecentPlainTextEmailReply: ExtractMostRecentPlainTextEmailReply
+        ) =
+            expressionToEvaluate(
+                Expression.ofExtractMostRecentPlainTextEmailReply(
+                    extractMostRecentPlainTextEmailReply
+                )
+            )
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofSetContainsString(setContainsString)`.
+         */
+        fun expressionToEvaluate(setContainsString: SetContainsString) =
+            expressionToEvaluate(Expression.ofSetContainsString(setContainsString))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofIsEngagementType(isEngagementType)`.
+         */
+        fun expressionToEvaluate(isEngagementType: IsEngagementType) =
+            expressionToEvaluate(Expression.ofIsEngagementType(isEngagementType))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofFormatFullName(formatFullName)`.
+         */
+        fun expressionToEvaluate(formatFullName: FormatFullName) =
+            expressionToEvaluate(Expression.ofFormatFullName(formatFullName))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with
+         * `Expression.ofAbsoluteValue(absoluteValue)`.
+         */
+        fun expressionToEvaluate(absoluteValue: AbsoluteValue) =
+            expressionToEvaluate(Expression.ofAbsoluteValue(absoluteValue))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofSquareRoot(squareRoot)`. */
+        fun expressionToEvaluate(squareRoot: SquareRoot) =
+            expressionToEvaluate(Expression.ofSquareRoot(squareRoot))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofPower(power)`. */
+        fun expressionToEvaluate(power: Power) = expressionToEvaluate(Expression.ofPower(power))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofSubstring(substring)`. */
+        fun expressionToEvaluate(substring: Substring) =
+            expressionToEvaluate(Expression.ofSubstring(substring))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofEuler(euler)`. */
+        fun expressionToEvaluate(euler: Euler) = expressionToEvaluate(Expression.ofEuler(euler))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with `Expression.ofStringLength(stringLength)`.
+         */
+        fun expressionToEvaluate(stringLength: StringLength) =
+            expressionToEvaluate(Expression.ofStringLength(stringLength))
+
+        /** Alias for calling [expressionToEvaluate] with `Expression.ofAddTime(addTime)`. */
+        fun expressionToEvaluate(addTime: AddTime) =
+            expressionToEvaluate(Expression.ofAddTime(addTime))
+
+        /**
+         * Alias for calling [expressionToEvaluate] with `Expression.ofSubtractTime(subtractTime)`.
+         */
+        fun expressionToEvaluate(subtractTime: SubtractTime) =
+            expressionToEvaluate(Expression.ofSubtractTime(subtractTime))
 
         fun operator(operator: Operator) = operator(JsonField.of(operator))
 
@@ -165,30 +612,343 @@ private constructor(
          */
         fun operator(operator: JsonField<Operator>) = apply { this.operator = operator }
 
-        fun inputs(inputs: List<JsonValue>) = inputs(JsonField.of(inputs))
+        fun inputs(inputs: List<Expression>) = inputs(JsonField.of(inputs))
 
         /**
          * Sets [Builder.inputs] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.inputs] with a well-typed `List<JsonValue>` value
+         * You should usually call [Builder.inputs] with a well-typed `List<Expression>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun inputs(inputs: JsonField<List<JsonValue>>) = apply {
+        fun inputs(inputs: JsonField<List<Expression>>) = apply {
             this.inputs = inputs.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [JsonValue] to [inputs].
+         * Adds a single [Expression] to [inputs].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addInput(input: JsonValue) = apply {
+        fun addInput(input: Expression) = apply {
             inputs =
                 (inputs ?: JsonField.of(mutableListOf())).also {
                     checkKnown("inputs", it).add(input)
                 }
         }
+
+        /** Alias for calling [addInput] with `Expression.ofConstantBoolean(constantBoolean)`. */
+        fun addInput(constantBoolean: ConstantBoolean) =
+            addInput(Expression.ofConstantBoolean(constantBoolean))
+
+        /** Alias for calling [addInput] with `Expression.ofConstantNumber(constantNumber)`. */
+        fun addInput(constantNumber: ConstantNumber) =
+            addInput(Expression.ofConstantNumber(constantNumber))
+
+        /** Alias for calling [addInput] with `Expression.ofConstantString(constantString)`. */
+        fun addInput(constantString: ConstantString) =
+            addInput(Expression.ofConstantString(constantString))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofBooleanPropertyVariable(booleanPropertyVariable)`.
+         */
+        fun addInput(booleanPropertyVariable: BooleanPropertyVariable) =
+            addInput(Expression.ofBooleanPropertyVariable(booleanPropertyVariable))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofStringPropertyVariable(stringPropertyVariable)`.
+         */
+        fun addInput(stringPropertyVariable: StringPropertyVariable) =
+            addInput(Expression.ofStringPropertyVariable(stringPropertyVariable))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofNumberPropertyVariable(numberPropertyVariable)`.
+         */
+        fun addInput(numberPropertyVariable: NumberPropertyVariable) =
+            addInput(Expression.ofNumberPropertyVariable(numberPropertyVariable))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable)`.
+         */
+        fun addInput(timestampOfPropertyVariable: TimestampOfPropertyVariable) =
+            addInput(Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable)`.
+         */
+        fun addInput(booleanTargetPropertyVariable: BooleanTargetPropertyVariable) =
+            addInput(Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable)`.
+         */
+        fun addInput(stringTargetPropertyVariable: StringTargetPropertyVariable) =
+            addInput(Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable)`.
+         */
+        fun addInput(numberTargetPropertyVariable: NumberTargetPropertyVariable) =
+            addInput(Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)`.
+         */
+        fun addInput(timestampOfTargetPropertyVariable: TimestampOfTargetPropertyVariable) =
+            addInput(
+                Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)
+            )
+
+        /** Alias for calling [addInput] with `Expression.ofAddNumbers(addNumbers)`. */
+        fun addInput(addNumbers: AddNumbers) = addInput(Expression.ofAddNumbers(addNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofSubtractNumbers(subtractNumbers)`. */
+        fun addInput(subtractNumbers: SubtractNumbers) =
+            addInput(Expression.ofSubtractNumbers(subtractNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofMultiplyNumbers(multiplyNumbers)`. */
+        fun addInput(multiplyNumbers: MultiplyNumbers) =
+            addInput(Expression.ofMultiplyNumbers(multiplyNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofDivideNumbers(divideNumbers)`. */
+        fun addInput(divideNumbers: DivideNumbers) =
+            addInput(Expression.ofDivideNumbers(divideNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofRoundDownNumbers(roundDownNumbers)`. */
+        fun addInput(roundDownNumbers: RoundDownNumbers) =
+            addInput(Expression.ofRoundDownNumbers(roundDownNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofRoundUpNumbers(roundUpNumbers)`. */
+        fun addInput(roundUpNumbers: RoundUpNumbers) =
+            addInput(Expression.ofRoundUpNumbers(roundUpNumbers))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofRoundNearestNumbers(roundNearestNumbers)`.
+         */
+        fun addInput(roundNearestNumbers: RoundNearestNumbers) =
+            addInput(Expression.ofRoundNearestNumbers(roundNearestNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofUpperCase(upperCase)`. */
+        fun addInput(upperCase: UpperCase) = addInput(Expression.ofUpperCase(upperCase))
+
+        /** Alias for calling [addInput] with `Expression.ofLowerCase(lowerCase)`. */
+        fun addInput(lowerCase: LowerCase) = addInput(Expression.ofLowerCase(lowerCase))
+
+        /** Alias for calling [addInput] with `Expression.ofConcatStrings(concatStrings)`. */
+        fun addInput(concatStrings: ConcatStrings) =
+            addInput(Expression.ofConcatStrings(concatStrings))
+
+        /** Alias for calling [addInput] with `Expression.ofContains(contains)`. */
+        fun addInput(contains: Contains) = addInput(Expression.ofContains(contains))
+
+        /** Alias for calling [addInput] with `Expression.ofBeginsWith(beginsWith)`. */
+        fun addInput(beginsWith: BeginsWith) = addInput(Expression.ofBeginsWith(beginsWith))
+
+        /** Alias for calling [addInput] with `Expression.ofNumberToString(numberToString)`. */
+        fun addInput(numberToString: NumberToString) =
+            addInput(Expression.ofNumberToString(numberToString))
+
+        /** Alias for calling [addInput] with `Expression.ofParseNumber(parseNumber)`. */
+        fun addInput(parseNumber: ParseNumber) = addInput(Expression.ofParseNumber(parseNumber))
+
+        /**
+         * Alias for calling [addInput] with `Expression.ofFetchExchangeRate(fetchExchangeRate)`.
+         */
+        fun addInput(fetchExchangeRate: FetchExchangeRate) =
+            addInput(Expression.ofFetchExchangeRate(fetchExchangeRate))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces)`.
+         */
+        fun addInput(fetchCurrencyDecimalPlaces: FetchCurrencyDecimalPlaces) =
+            addInput(Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)`.
+         */
+        fun addInput(fetchSingleCurrencyPortalCurrency: FetchSingleCurrencyPortalCurrency) =
+            addInput(
+                Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)
+            )
+
+        /**
+         * Alias for calling [addInput] with `Expression.ofDatedExchangeRate(datedExchangeRate)`.
+         */
+        fun addInput(datedExchangeRate: DatedExchangeRate) =
+            addInput(Expression.ofDatedExchangeRate(datedExchangeRate))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofPipelineProbability(pipelineProbability)`.
+         */
+        fun addInput(pipelineProbability: PipelineProbability) =
+            addInput(Expression.ofPipelineProbability(pipelineProbability))
+
+        /** Alias for calling [addInput] with `Expression.ofMaxNumbers(maxNumbers)`. */
+        fun addInput(maxNumbers: MaxNumbers) = addInput(Expression.ofMaxNumbers(maxNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofMinNumbers(minNumbers)`. */
+        fun addInput(minNumbers: MinNumbers) = addInput(Expression.ofMinNumbers(minNumbers))
+
+        /** Alias for calling [addInput] with `Expression.ofLessThan(lessThan)`. */
+        fun addInput(lessThan: LessThan) = addInput(Expression.ofLessThan(lessThan))
+
+        /** Alias for calling [addInput] with `Expression.ofLessThanOrEqual(lessThanOrEqual)`. */
+        fun addInput(lessThanOrEqual: LessThanOrEqual) =
+            addInput(Expression.ofLessThanOrEqual(lessThanOrEqual))
+
+        /** Alias for calling [addInput] with `Expression.ofMoreThan(moreThan)`. */
+        fun addInput(moreThan: MoreThan) = addInput(Expression.ofMoreThan(moreThan))
+
+        /** Alias for calling [addInput] with `Expression.ofMoreThanOrEqual(moreThanOrEqual)`. */
+        fun addInput(moreThanOrEqual: MoreThanOrEqual) =
+            addInput(Expression.ofMoreThanOrEqual(moreThanOrEqual))
+
+        /** Alias for calling [addInput] with `Expression.ofNumberEquals(numberEquals)`. */
+        fun addInput(numberEquals: NumberEquals) = addInput(Expression.ofNumberEquals(numberEquals))
+
+        /** Alias for calling [addInput] with `Expression.ofStringEquals(stringEquals)`. */
+        fun addInput(stringEquals: StringEquals) = addInput(Expression.ofStringEquals(stringEquals))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofIsPipelineStageClosed(isPipelineStageClosed)`.
+         */
+        fun addInput(isPipelineStageClosed: IsPipelineStageClosed) =
+            addInput(Expression.ofIsPipelineStageClosed(isPipelineStageClosed))
+
+        /** Alias for calling [addInput] with `Expression.ofNot(not)`. */
+        fun addInput(not: Not) = addInput(Expression.ofNot(not))
+
+        /** Alias for calling [addInput] with `Expression.ofDate(date)`. */
+        fun addInput(date: Date) = addInput(Expression.ofDate(date))
+
+        /** Alias for calling [addInput] with `Expression.ofMonth(month)`. */
+        fun addInput(month: Month) = addInput(Expression.ofMonth(month))
+
+        /** Alias for calling [addInput] with `Expression.ofYear(year)`. */
+        fun addInput(year: Year) = addInput(Expression.ofYear(year))
+
+        /** Alias for calling [addInput] with `Expression.ofNow(now)`. */
+        fun addInput(now: Now) = addInput(Expression.ofNow(now))
+
+        /** Alias for calling [addInput] with `Expression.ofTimeBetween(timeBetween)`. */
+        fun addInput(timeBetween: TimeBetween) = addInput(Expression.ofTimeBetween(timeBetween))
+
+        /** Alias for calling [addInput] with `Expression.ofPeriodToMonths(periodToMonths)`. */
+        fun addInput(periodToMonths: PeriodToMonths) =
+            addInput(Expression.ofPeriodToMonths(periodToMonths))
+
+        /** Alias for calling [addInput] with `Expression.ofPeriodToWeeks(periodToWeeks)`. */
+        fun addInput(periodToWeeks: PeriodToWeeks) =
+            addInput(Expression.ofPeriodToWeeks(periodToWeeks))
+
+        /** Alias for calling [addInput] with `Expression.ofAnd(and)`. */
+        fun addInput(and: And) = addInput(Expression.ofAnd(and))
+
+        /** Alias for calling [addInput] with `Expression.ofOr(or)`. */
+        fun addInput(or: Or) = addInput(Expression.ofOr(or))
+
+        /** Alias for calling [addInput] with `Expression.ofXor(xor)`. */
+        fun addInput(xor: Xor) = addInput(Expression.ofXor(xor))
+
+        /** Alias for calling [addInput] with `Expression.ofIfString(ifString)`. */
+        fun addInput(ifString: IfString) = addInput(Expression.ofIfString(ifString))
+
+        /** Alias for calling [addInput] with `Expression.ofIfNumber(ifNumber)`. */
+        fun addInput(ifNumber: IfNumber) = addInput(Expression.ofIfNumber(ifNumber))
+
+        /** Alias for calling [addInput] with `Expression.ofIfBoolean(ifBoolean)`. */
+        fun addInput(ifBoolean: IfBoolean) = addInput(Expression.ofIfBoolean(ifBoolean))
+
+        /** Alias for calling [addInput] with `Expression.ofIsPresent(isPresent)`. */
+        fun addInput(isPresent: IsPresent) = addInput(Expression.ofIsPresent(isPresent))
+
+        /** Alias for calling [addInput] with `Expression.ofHasEmailReply(hasEmailReply)`. */
+        fun addInput(hasEmailReply: HasEmailReply) =
+            addInput(Expression.ofHasEmailReply(hasEmailReply))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply)`.
+         */
+        fun addInput(hasPlainTextEmailReply: HasPlainTextEmailReply) =
+            addInput(Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml)`.
+         */
+        fun addInput(extractMostRecentEmailReplyHtml: ExtractMostRecentEmailReplyHtml) =
+            addInput(Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText)`.
+         */
+        fun addInput(extractMostRecentEmailReplyText: ExtractMostRecentEmailReplyText) =
+            addInput(Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText))
+
+        /**
+         * Alias for calling [addInput] with
+         * `Expression.ofExtractMostRecentPlainTextEmailReply(extractMostRecentPlainTextEmailReply)`.
+         */
+        fun addInput(extractMostRecentPlainTextEmailReply: ExtractMostRecentPlainTextEmailReply) =
+            addInput(
+                Expression.ofExtractMostRecentPlainTextEmailReply(
+                    extractMostRecentPlainTextEmailReply
+                )
+            )
+
+        /**
+         * Alias for calling [addInput] with `Expression.ofSetContainsString(setContainsString)`.
+         */
+        fun addInput(setContainsString: SetContainsString) =
+            addInput(Expression.ofSetContainsString(setContainsString))
+
+        /** Alias for calling [addInput] with `Expression.ofIsEngagementType(isEngagementType)`. */
+        fun addInput(isEngagementType: IsEngagementType) =
+            addInput(Expression.ofIsEngagementType(isEngagementType))
+
+        /** Alias for calling [addInput] with `Expression.ofFormatFullName(formatFullName)`. */
+        fun addInput(formatFullName: FormatFullName) =
+            addInput(Expression.ofFormatFullName(formatFullName))
+
+        /** Alias for calling [addInput] with `Expression.ofAbsoluteValue(absoluteValue)`. */
+        fun addInput(absoluteValue: AbsoluteValue) =
+            addInput(Expression.ofAbsoluteValue(absoluteValue))
+
+        /** Alias for calling [addInput] with `Expression.ofSquareRoot(squareRoot)`. */
+        fun addInput(squareRoot: SquareRoot) = addInput(Expression.ofSquareRoot(squareRoot))
+
+        /** Alias for calling [addInput] with `Expression.ofPower(power)`. */
+        fun addInput(power: Power) = addInput(Expression.ofPower(power))
+
+        /** Alias for calling [addInput] with `Expression.ofSubstring(substring)`. */
+        fun addInput(substring: Substring) = addInput(Expression.ofSubstring(substring))
+
+        /** Alias for calling [addInput] with `Expression.ofEuler(euler)`. */
+        fun addInput(euler: Euler) = addInput(Expression.ofEuler(euler))
+
+        /** Alias for calling [addInput] with `Expression.ofStringLength(stringLength)`. */
+        fun addInput(stringLength: StringLength) = addInput(Expression.ofStringLength(stringLength))
+
+        /** Alias for calling [addInput] with `Expression.ofAddTime(addTime)`. */
+        fun addInput(addTime: AddTime) = addInput(Expression.ofAddTime(addTime))
+
+        /** Alias for calling [addInput] with `Expression.ofSubtractTime(subtractTime)`. */
+        fun addInput(subtractTime: SubtractTime) = addInput(Expression.ofSubtractTime(subtractTime))
 
         fun propertyName(propertyName: String) = propertyName(JsonField.of(propertyName))
 
@@ -263,8 +1023,9 @@ private constructor(
             return@apply
         }
 
+        expressionToEvaluate().validate()
         operator().validate()
-        inputs()
+        inputs().ifPresent { it.forEach { it.validate() } }
         propertyName()
         value()
         validated = true
@@ -285,8 +1046,9 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (operator.asKnown().getOrNull()?.validity() ?: 0) +
-            (inputs.asKnown().getOrNull()?.size ?: 0) +
+        (expressionToEvaluate.asKnown().getOrNull()?.validity() ?: 0) +
+            (operator.asKnown().getOrNull()?.validity() ?: 0) +
+            (inputs.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (propertyName.asKnown().isPresent) 1 else 0) +
             (if (value.asKnown().isPresent) 1 else 0)
 

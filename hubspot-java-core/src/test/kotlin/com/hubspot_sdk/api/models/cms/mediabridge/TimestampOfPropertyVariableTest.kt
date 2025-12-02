@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +15,14 @@ internal class TimestampOfPropertyVariableTest {
         val timestampOfPropertyVariable =
             TimestampOfPropertyVariable.builder()
                 .operator(TimestampOfPropertyVariable.Operator.TIMESTAMP_OF_PROPERTY_VARIABLE)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value("value")
                 .build()
@@ -24,7 +30,16 @@ internal class TimestampOfPropertyVariableTest {
         assertThat(timestampOfPropertyVariable.operator())
             .isEqualTo(TimestampOfPropertyVariable.Operator.TIMESTAMP_OF_PROPERTY_VARIABLE)
         assertThat(timestampOfPropertyVariable.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(timestampOfPropertyVariable.propertyName()).contains("propertyName")
         assertThat(timestampOfPropertyVariable.value()).contains("value")
     }
@@ -35,7 +50,14 @@ internal class TimestampOfPropertyVariableTest {
         val timestampOfPropertyVariable =
             TimestampOfPropertyVariable.builder()
                 .operator(TimestampOfPropertyVariable.Operator.TIMESTAMP_OF_PROPERTY_VARIABLE)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value("value")
                 .build()

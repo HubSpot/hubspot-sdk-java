@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,14 +15,30 @@ internal class ConcatStringsTest {
         val concatStrings =
             ConcatStrings.builder()
                 .operator(ConcatStrings.Operator.CONCAT_STRINGS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value("value")
                 .build()
 
         assertThat(concatStrings.operator()).isEqualTo(ConcatStrings.Operator.CONCAT_STRINGS)
         assertThat(concatStrings.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(concatStrings.propertyName()).contains("propertyName")
         assertThat(concatStrings.value()).contains("value")
     }
@@ -34,7 +49,14 @@ internal class ConcatStringsTest {
         val concatStrings =
             ConcatStrings.builder()
                 .operator(ConcatStrings.Operator.CONCAT_STRINGS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value("value")
                 .build()

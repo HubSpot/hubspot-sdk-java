@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,20 +15,53 @@ internal class IfStringTest {
         val ifString =
             IfString.builder()
                 .enclosedInParentheses(true)
-                .ifExpression(JsonValue.from(mapOf<String, Any>()))
+                .ifExpression(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .operator(IfString.Operator.IF_STRING)
-                .elseExpression(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .elseExpression(
+                    ConstantNumber.builder()
+                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(0.0)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value("value")
                 .build()
 
         assertThat(ifString.enclosedInParentheses()).isEqualTo(true)
-        assertThat(ifString._ifExpression()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(ifString.ifExpression())
+            .isEqualTo(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(ifString.operator()).isEqualTo(IfString.Operator.IF_STRING)
-        assertThat(ifString._elseExpression()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(ifString.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(ifString.elseExpression())
+            .contains(
+                Expression.ofConstantNumber(
+                    ConstantNumber.builder()
+                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(0.0)
+                        .build()
+                )
+            )
+        assertThat(ifString.inputs().getOrNull()).containsExactly()
         assertThat(ifString.propertyName()).contains("propertyName")
         assertThat(ifString.value()).contains("value")
     }
@@ -40,10 +72,24 @@ internal class IfStringTest {
         val ifString =
             IfString.builder()
                 .enclosedInParentheses(true)
-                .ifExpression(JsonValue.from(mapOf<String, Any>()))
+                .ifExpression(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .operator(IfString.Operator.IF_STRING)
-                .elseExpression(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .elseExpression(
+                    ConstantNumber.builder()
+                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(0.0)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value("value")
                 .build()

@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.AssociationSpec
 import org.assertj.core.api.Assertions.assertThat
@@ -27,7 +26,7 @@ internal class RollupExpressionTest {
                 .conditionalExpression(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .addInput(JsonValue.from(mapOf<String, Any>()))
+                        .inputs(listOf())
                         .propertyName("propertyName")
                         .value(true)
                         .build()
@@ -49,10 +48,10 @@ internal class RollupExpressionTest {
         assertThat(rollupExpression.sourcePropertyName()).isEqualTo("sourcePropertyName")
         assertThat(rollupExpression.conditionalExpression())
             .contains(
-                RollupExpression.ConditionalExpression.ofConstantBoolean(
+                Expression.ofConstantBoolean(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .addInput(JsonValue.from(mapOf<String, Any>()))
+                        .inputs(listOf())
                         .propertyName("propertyName")
                         .value(true)
                         .build()
@@ -81,7 +80,7 @@ internal class RollupExpressionTest {
                 .conditionalExpression(
                     ConstantBoolean.builder()
                         .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .addInput(JsonValue.from(mapOf<String, Any>()))
+                        .inputs(listOf())
                         .propertyName("propertyName")
                         .value(true)
                         .build()

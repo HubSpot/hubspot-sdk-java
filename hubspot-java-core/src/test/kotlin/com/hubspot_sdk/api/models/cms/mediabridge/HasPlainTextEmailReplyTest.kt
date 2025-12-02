@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +15,14 @@ internal class HasPlainTextEmailReplyTest {
         val hasPlainTextEmailReply =
             HasPlainTextEmailReply.builder()
                 .operator(HasPlainTextEmailReply.Operator.HAS_PLAIN_TEXT_EMAIL_REPLY)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()
@@ -24,7 +30,16 @@ internal class HasPlainTextEmailReplyTest {
         assertThat(hasPlainTextEmailReply.operator())
             .isEqualTo(HasPlainTextEmailReply.Operator.HAS_PLAIN_TEXT_EMAIL_REPLY)
         assertThat(hasPlainTextEmailReply.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(hasPlainTextEmailReply.propertyName()).contains("propertyName")
         assertThat(hasPlainTextEmailReply.value()).contains(true)
     }
@@ -35,7 +50,14 @@ internal class HasPlainTextEmailReplyTest {
         val hasPlainTextEmailReply =
             HasPlainTextEmailReply.builder()
                 .operator(HasPlainTextEmailReply.Operator.HAS_PLAIN_TEXT_EMAIL_REPLY)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()

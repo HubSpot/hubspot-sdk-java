@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,16 +15,32 @@ internal class BeginsWithTest {
         val beginsWith =
             BeginsWith.builder()
                 .operator(BeginsWith.Operator.BEGINS_WITH)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(true)
                 .build()
 
         assertThat(beginsWith.operator()).isEqualTo(BeginsWith.Operator.BEGINS_WITH)
-        assertThat(beginsWith._stringToCheck()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(beginsWith.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(beginsWith.stringToCheck())
+            .isEqualTo(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
+        assertThat(beginsWith.inputs().getOrNull()).containsExactly()
         assertThat(beginsWith.propertyName()).contains("propertyName")
         assertThat(beginsWith.value()).contains(true)
     }
@@ -36,8 +51,15 @@ internal class BeginsWithTest {
         val beginsWith =
             BeginsWith.builder()
                 .operator(BeginsWith.Operator.BEGINS_WITH)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(true)
                 .build()

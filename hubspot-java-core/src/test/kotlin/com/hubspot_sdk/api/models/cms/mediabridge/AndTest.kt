@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -17,14 +16,31 @@ internal class AndTest {
             And.builder()
                 .enclosedInParentheses(true)
                 .operator(And.Operator.AND)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()
 
         assertThat(and.enclosedInParentheses()).isEqualTo(true)
         assertThat(and.operator()).isEqualTo(And.Operator.AND)
-        assertThat(and.inputs().getOrNull()).containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(and.inputs().getOrNull())
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(and.propertyName()).contains("propertyName")
         assertThat(and.value()).contains(true)
     }
@@ -36,7 +52,14 @@ internal class AndTest {
             And.builder()
                 .enclosedInParentheses(true)
                 .operator(And.Operator.AND)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()

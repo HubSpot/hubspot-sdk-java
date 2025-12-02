@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,14 +15,30 @@ internal class PeriodToWeeksTest {
         val periodToWeeks =
             PeriodToWeeks.builder()
                 .operator(PeriodToWeeks.Operator.PERIOD_TO_WEEKS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
 
         assertThat(periodToWeeks.operator()).isEqualTo(PeriodToWeeks.Operator.PERIOD_TO_WEEKS)
         assertThat(periodToWeeks.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(periodToWeeks.propertyName()).contains("propertyName")
         assertThat(periodToWeeks.value()).contains(0.0)
     }
@@ -34,7 +49,14 @@ internal class PeriodToWeeksTest {
         val periodToWeeks =
             PeriodToWeeks.builder()
                 .operator(PeriodToWeeks.Operator.PERIOD_TO_WEEKS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
