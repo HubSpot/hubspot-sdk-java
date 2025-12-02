@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models.cms.blogs.posts
+package com.hubspot_sdk.api.models.cms
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -12,6 +12,8 @@ import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.models.cms.blogs.posts.Margin
+import com.hubspot_sdk.api.models.cms.blogs.posts.Padding
 import java.util.Collections
 import java.util.Objects
 
