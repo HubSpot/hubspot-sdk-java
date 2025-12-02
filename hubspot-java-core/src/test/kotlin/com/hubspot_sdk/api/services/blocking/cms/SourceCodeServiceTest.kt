@@ -43,7 +43,7 @@ internal class SourceCodeServiceTest {
             sourceCodeService.create(
                 SourceCodeCreateParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .file("some content".byteInputStream())
                     .build()
             )
@@ -62,7 +62,10 @@ internal class SourceCodeServiceTest {
         val sourceCodeService = client.cms().sourceCode()
 
         sourceCodeService.delete(
-            SourceCodeDeleteParams.builder().environment("environment").path("path").build()
+            SourceCodeDeleteParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
         )
     }
 
@@ -94,7 +97,10 @@ internal class SourceCodeServiceTest {
 
         val sourceCode =
             sourceCodeService.get(
-                SourceCodeGetParams.builder().environment("environment").path("path").build()
+                SourceCodeGetParams.builder()
+                    .environment("environment")
+                    .filePath("file_path")
+                    .build()
             )
 
         assertThat(sourceCode.body()).hasContent("abc")
@@ -129,7 +135,7 @@ internal class SourceCodeServiceTest {
             sourceCodeService.getMetadata(
                 SourceCodeGetMetadataParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .properties("properties")
                     .build()
             )
@@ -151,7 +157,7 @@ internal class SourceCodeServiceTest {
             sourceCodeService.upsert(
                 SourceCodeUpsertParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .file("some content".byteInputStream())
                     .build()
             )
@@ -173,7 +179,7 @@ internal class SourceCodeServiceTest {
             sourceCodeService.validate(
                 SourceCodeValidateParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .file("some content".byteInputStream())
                     .build()
             )

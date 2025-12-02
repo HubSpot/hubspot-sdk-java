@@ -241,7 +241,7 @@ class FileOperationServiceImpl internal constructor(private val clientOptions: C
         ): HttpResponseFor<FileStat> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
+            checkRequired("filePath", params.filePath().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)

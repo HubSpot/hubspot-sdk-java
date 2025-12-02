@@ -13,13 +13,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Retrieve a file by its path. */
 class FileOperationGetByPathParams
 private constructor(
-    private val path: String?,
+    private val filePath: String?,
     private val properties: List<String>?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun path(): Optional<String> = Optional.ofNullable(path)
+    fun filePath(): Optional<String> = Optional.ofNullable(filePath)
 
     /** Properties to return in the response. */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
@@ -45,23 +45,23 @@ private constructor(
     /** A builder for [FileOperationGetByPathParams]. */
     class Builder internal constructor() {
 
-        private var path: String? = null
+        private var filePath: String? = null
         private var properties: MutableList<String>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(fileOperationGetByPathParams: FileOperationGetByPathParams) = apply {
-            path = fileOperationGetByPathParams.path
+            filePath = fileOperationGetByPathParams.filePath
             properties = fileOperationGetByPathParams.properties?.toMutableList()
             additionalHeaders = fileOperationGetByPathParams.additionalHeaders.toBuilder()
             additionalQueryParams = fileOperationGetByPathParams.additionalQueryParams.toBuilder()
         }
 
-        fun path(path: String?) = apply { this.path = path }
+        fun filePath(filePath: String?) = apply { this.filePath = filePath }
 
-        /** Alias for calling [Builder.path] with `path.orElse(null)`. */
-        fun path(path: Optional<String>) = path(path.getOrNull())
+        /** Alias for calling [Builder.filePath] with `filePath.orElse(null)`. */
+        fun filePath(filePath: Optional<String>) = filePath(filePath.getOrNull())
 
         /** Properties to return in the response. */
         fun properties(properties: List<String>?) = apply {
@@ -185,7 +185,7 @@ private constructor(
          */
         fun build(): FileOperationGetByPathParams =
             FileOperationGetByPathParams(
-                path,
+                filePath,
                 properties?.toImmutable(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -194,7 +194,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> path ?: ""
+            0 -> filePath ?: ""
             else -> ""
         }
 
@@ -214,15 +214,15 @@ private constructor(
         }
 
         return other is FileOperationGetByPathParams &&
-            path == other.path &&
+            filePath == other.filePath &&
             properties == other.properties &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(path, properties, additionalHeaders, additionalQueryParams)
+        Objects.hash(filePath, properties, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "FileOperationGetByPathParams{path=$path, properties=$properties, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "FileOperationGetByPathParams{filePath=$filePath, properties=$properties, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

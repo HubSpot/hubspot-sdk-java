@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,12 +17,7 @@ internal class NotTest {
             Not.builder()
                 .operator(Not.Operator.NOT)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
+                    Not.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
                 )
                 .propertyName("propertyName")
                 .value(true)
@@ -30,14 +26,7 @@ internal class NotTest {
         assertThat(not.operator()).isEqualTo(Not.Operator.NOT)
         assertThat(not.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                Not.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
             )
         assertThat(not.propertyName()).contains("propertyName")
         assertThat(not.value()).contains(true)
@@ -50,12 +39,7 @@ internal class NotTest {
             Not.builder()
                 .operator(Not.Operator.NOT)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
+                    Not.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
                 )
                 .propertyName("propertyName")
                 .value(true)

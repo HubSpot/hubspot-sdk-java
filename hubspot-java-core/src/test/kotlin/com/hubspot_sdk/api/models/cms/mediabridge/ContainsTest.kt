@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,14 +17,15 @@ internal class ContainsTest {
             Contains.builder()
                 .operator(Contains.Operator.CONTAINS)
                 .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    Contains.StringToCheck.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    Contains.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()
@@ -31,16 +33,14 @@ internal class ContainsTest {
         assertThat(contains.operator()).isEqualTo(Contains.Operator.CONTAINS)
         assertThat(contains.stringToCheck())
             .isEqualTo(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                Contains.StringToCheck.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
-        assertThat(contains.inputs().getOrNull()).containsExactly()
+        assertThat(contains.inputs().getOrNull())
+            .containsExactly(
+                Contains.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
+            )
         assertThat(contains.propertyName()).contains("propertyName")
         assertThat(contains.value()).contains(true)
     }
@@ -52,14 +52,15 @@ internal class ContainsTest {
             Contains.builder()
                 .operator(Contains.Operator.CONTAINS)
                 .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    Contains.StringToCheck.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    Contains.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()

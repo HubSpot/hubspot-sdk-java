@@ -13,7 +13,7 @@ internal class SourceCodeValidateParamsTest {
     fun create() {
         SourceCodeValidateParams.builder()
             .environment("environment")
-            .path("path")
+            .filePath("file_path")
             .file("some content".byteInputStream())
             .build()
     }
@@ -21,10 +21,13 @@ internal class SourceCodeValidateParamsTest {
     @Test
     fun pathParams() {
         val params =
-            SourceCodeValidateParams.builder().environment("environment").path("path").build()
+            SourceCodeValidateParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("environment")
-        assertThat(params._pathParam(1)).isEqualTo("path")
+        assertThat(params._pathParam(1)).isEqualTo("file_path")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
     }
@@ -34,7 +37,7 @@ internal class SourceCodeValidateParamsTest {
         val params =
             SourceCodeValidateParams.builder()
                 .environment("environment")
-                .path("path")
+                .filePath("file_path")
                 .file("some content".byteInputStream())
                 .build()
 
@@ -59,7 +62,10 @@ internal class SourceCodeValidateParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            SourceCodeValidateParams.builder().environment("environment").path("path").build()
+            SourceCodeValidateParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
 
         val body = params._body()
 

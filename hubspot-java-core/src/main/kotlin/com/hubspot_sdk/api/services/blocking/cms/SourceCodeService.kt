@@ -41,16 +41,16 @@ interface SourceCodeService {
      * path.
      */
     @Deprecated("deprecated")
-    fun create(path: String, params: SourceCodeCreateParams): AssetFileMetadata =
-        create(path, params, RequestOptions.none())
+    fun create(filePath: String, params: SourceCodeCreateParams): AssetFileMetadata =
+        create(filePath, params, RequestOptions.none())
 
     /** @see create */
     @Deprecated("deprecated")
     fun create(
-        path: String,
+        filePath: String,
         params: SourceCodeCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssetFileMetadata = create(params.toBuilder().path(path).build(), requestOptions)
+    ): AssetFileMetadata = create(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see create */
     @Deprecated("deprecated")
@@ -65,15 +65,15 @@ interface SourceCodeService {
     ): AssetFileMetadata
 
     /** Deletes the file at the specified path in the specified environment. */
-    fun delete(path: String, params: SourceCodeDeleteParams) =
-        delete(path, params, RequestOptions.none())
+    fun delete(filePath: String, params: SourceCodeDeleteParams) =
+        delete(filePath, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
-        path: String,
+        filePath: String,
         params: SourceCodeDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = delete(params.toBuilder().path(path).build(), requestOptions)
+    ) = delete(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see delete */
     fun delete(params: SourceCodeDeleteParams) = delete(params, RequestOptions.none())
@@ -115,16 +115,16 @@ interface SourceCodeService {
      * Downloads the byte contents of the file at the specified path in the specified environment.
      */
     @MustBeClosed
-    fun get(path: String, params: SourceCodeGetParams): HttpResponse =
-        get(path, params, RequestOptions.none())
+    fun get(filePath: String, params: SourceCodeGetParams): HttpResponse =
+        get(filePath, params, RequestOptions.none())
 
     /** @see get */
     @MustBeClosed
     fun get(
-        path: String,
+        filePath: String,
         params: SourceCodeGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse = get(params.toBuilder().path(path).build(), requestOptions)
+    ): HttpResponse = get(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see get */
     @MustBeClosed
@@ -173,15 +173,16 @@ interface SourceCodeService {
         getExtractionStatus(taskId, SourceCodeGetExtractionStatusParams.none(), requestOptions)
 
     /** Gets the metadata object for the file at the specified path in the specified environment. */
-    fun getMetadata(path: String, params: SourceCodeGetMetadataParams): AssetFileMetadata =
-        getMetadata(path, params, RequestOptions.none())
+    fun getMetadata(filePath: String, params: SourceCodeGetMetadataParams): AssetFileMetadata =
+        getMetadata(filePath, params, RequestOptions.none())
 
     /** @see getMetadata */
     fun getMetadata(
-        path: String,
+        filePath: String,
         params: SourceCodeGetMetadataParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssetFileMetadata = getMetadata(params.toBuilder().path(path).build(), requestOptions)
+    ): AssetFileMetadata =
+        getMetadata(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see getMetadata */
     fun getMetadata(params: SourceCodeGetMetadataParams): AssetFileMetadata =
@@ -197,15 +198,15 @@ interface SourceCodeService {
      * Upserts a file at the specified path in the specified environment. Accepts
      * multipart/form-data content type.
      */
-    fun upsert(path: String, params: SourceCodeUpsertParams): AssetFileMetadata =
-        upsert(path, params, RequestOptions.none())
+    fun upsert(filePath: String, params: SourceCodeUpsertParams): AssetFileMetadata =
+        upsert(filePath, params, RequestOptions.none())
 
     /** @see upsert */
     fun upsert(
-        path: String,
+        filePath: String,
         params: SourceCodeUpsertParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AssetFileMetadata = upsert(params.toBuilder().path(path).build(), requestOptions)
+    ): AssetFileMetadata = upsert(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see upsert */
     fun upsert(params: SourceCodeUpsertParams): AssetFileMetadata =
@@ -222,16 +223,16 @@ interface SourceCodeService {
      * Accepts multipart/form-data content type.
      */
     @MustBeClosed
-    fun validate(path: String, params: SourceCodeValidateParams): HttpResponse =
-        validate(path, params, RequestOptions.none())
+    fun validate(filePath: String, params: SourceCodeValidateParams): HttpResponse =
+        validate(filePath, params, RequestOptions.none())
 
     /** @see validate */
     @MustBeClosed
     fun validate(
-        path: String,
+        filePath: String,
         params: SourceCodeValidateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse = validate(params.toBuilder().path(path).build(), requestOptions)
+    ): HttpResponse = validate(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see validate */
     @MustBeClosed
@@ -264,19 +265,19 @@ interface SourceCodeService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun create(
-            path: String,
+            filePath: String,
             params: SourceCodeCreateParams,
-        ): HttpResponseFor<AssetFileMetadata> = create(path, params, RequestOptions.none())
+        ): HttpResponseFor<AssetFileMetadata> = create(filePath, params, RequestOptions.none())
 
         /** @see create */
         @Deprecated("deprecated")
         @MustBeClosed
         fun create(
-            path: String,
+            filePath: String,
             params: SourceCodeCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AssetFileMetadata> =
-            create(params.toBuilder().path(path).build(), requestOptions)
+            create(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see create */
         @Deprecated("deprecated")
@@ -298,16 +299,16 @@ interface SourceCodeService {
          * [SourceCodeService.delete].
          */
         @MustBeClosed
-        fun delete(path: String, params: SourceCodeDeleteParams): HttpResponse =
-            delete(path, params, RequestOptions.none())
+        fun delete(filePath: String, params: SourceCodeDeleteParams): HttpResponse =
+            delete(filePath, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
-            path: String,
+            filePath: String,
             params: SourceCodeDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = delete(params.toBuilder().path(path).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
@@ -359,16 +360,16 @@ interface SourceCodeService {
          * but is otherwise the same as [SourceCodeService.get].
          */
         @MustBeClosed
-        fun get(path: String, params: SourceCodeGetParams): HttpResponse =
-            get(path, params, RequestOptions.none())
+        fun get(filePath: String, params: SourceCodeGetParams): HttpResponse =
+            get(filePath, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            path: String,
+            filePath: String,
             params: SourceCodeGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = get(params.toBuilder().path(path).build(), requestOptions)
+        ): HttpResponse = get(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
@@ -435,18 +436,18 @@ interface SourceCodeService {
          */
         @MustBeClosed
         fun getMetadata(
-            path: String,
+            filePath: String,
             params: SourceCodeGetMetadataParams,
-        ): HttpResponseFor<AssetFileMetadata> = getMetadata(path, params, RequestOptions.none())
+        ): HttpResponseFor<AssetFileMetadata> = getMetadata(filePath, params, RequestOptions.none())
 
         /** @see getMetadata */
         @MustBeClosed
         fun getMetadata(
-            path: String,
+            filePath: String,
             params: SourceCodeGetMetadataParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AssetFileMetadata> =
-            getMetadata(params.toBuilder().path(path).build(), requestOptions)
+            getMetadata(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see getMetadata */
         @MustBeClosed
@@ -466,18 +467,18 @@ interface SourceCodeService {
          */
         @MustBeClosed
         fun upsert(
-            path: String,
+            filePath: String,
             params: SourceCodeUpsertParams,
-        ): HttpResponseFor<AssetFileMetadata> = upsert(path, params, RequestOptions.none())
+        ): HttpResponseFor<AssetFileMetadata> = upsert(filePath, params, RequestOptions.none())
 
         /** @see upsert */
         @MustBeClosed
         fun upsert(
-            path: String,
+            filePath: String,
             params: SourceCodeUpsertParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AssetFileMetadata> =
-            upsert(params.toBuilder().path(path).build(), requestOptions)
+            upsert(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see upsert */
         @MustBeClosed
@@ -496,16 +497,16 @@ interface SourceCodeService {
          * but is otherwise the same as [SourceCodeService.validate].
          */
         @MustBeClosed
-        fun validate(path: String, params: SourceCodeValidateParams): HttpResponse =
-            validate(path, params, RequestOptions.none())
+        fun validate(filePath: String, params: SourceCodeValidateParams): HttpResponse =
+            validate(filePath, params, RequestOptions.none())
 
         /** @see validate */
         @MustBeClosed
         fun validate(
-            path: String,
+            filePath: String,
             params: SourceCodeValidateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = validate(params.toBuilder().path(path).build(), requestOptions)
+        ): HttpResponse = validate(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see validate */
         @MustBeClosed

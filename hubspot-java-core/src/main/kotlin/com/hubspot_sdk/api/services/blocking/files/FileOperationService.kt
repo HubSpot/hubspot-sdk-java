@@ -148,20 +148,21 @@ interface FileOperationService {
         get(fileId, FileOperationGetParams.none(), requestOptions)
 
     /** Retrieve a file by its path. */
-    fun getByPath(path: String): FileStat = getByPath(path, FileOperationGetByPathParams.none())
+    fun getByPath(filePath: String): FileStat =
+        getByPath(filePath, FileOperationGetByPathParams.none())
 
     /** @see getByPath */
     fun getByPath(
-        path: String,
+        filePath: String,
         params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FileStat = getByPath(params.toBuilder().path(path).build(), requestOptions)
+    ): FileStat = getByPath(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see getByPath */
     fun getByPath(
-        path: String,
+        filePath: String,
         params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
-    ): FileStat = getByPath(path, params, RequestOptions.none())
+    ): FileStat = getByPath(filePath, params, RequestOptions.none())
 
     /** @see getByPath */
     fun getByPath(
@@ -174,8 +175,8 @@ interface FileOperationService {
         getByPath(params, RequestOptions.none())
 
     /** @see getByPath */
-    fun getByPath(path: String, requestOptions: RequestOptions): FileStat =
-        getByPath(path, FileOperationGetByPathParams.none(), requestOptions)
+    fun getByPath(filePath: String, requestOptions: RequestOptions): FileStat =
+        getByPath(filePath, FileOperationGetByPathParams.none(), requestOptions)
 
     /** Check the status of requested import. */
     fun getImportTaskStatus(taskId: String): FileActionResponse =
@@ -501,24 +502,24 @@ interface FileOperationService {
          * same as [FileOperationService.getByPath].
          */
         @MustBeClosed
-        fun getByPath(path: String): HttpResponseFor<FileStat> =
-            getByPath(path, FileOperationGetByPathParams.none())
+        fun getByPath(filePath: String): HttpResponseFor<FileStat> =
+            getByPath(filePath, FileOperationGetByPathParams.none())
 
         /** @see getByPath */
         @MustBeClosed
         fun getByPath(
-            path: String,
+            filePath: String,
             params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<FileStat> =
-            getByPath(params.toBuilder().path(path).build(), requestOptions)
+            getByPath(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see getByPath */
         @MustBeClosed
         fun getByPath(
-            path: String,
+            filePath: String,
             params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
-        ): HttpResponseFor<FileStat> = getByPath(path, params, RequestOptions.none())
+        ): HttpResponseFor<FileStat> = getByPath(filePath, params, RequestOptions.none())
 
         /** @see getByPath */
         @MustBeClosed
@@ -534,8 +535,8 @@ interface FileOperationService {
 
         /** @see getByPath */
         @MustBeClosed
-        fun getByPath(path: String, requestOptions: RequestOptions): HttpResponseFor<FileStat> =
-            getByPath(path, FileOperationGetByPathParams.none(), requestOptions)
+        fun getByPath(filePath: String, requestOptions: RequestOptions): HttpResponseFor<FileStat> =
+            getByPath(filePath, FileOperationGetByPathParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

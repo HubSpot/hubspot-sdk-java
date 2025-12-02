@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -18,11 +19,8 @@ internal class TimestampOfTargetPropertyVariableTest {
                     TimestampOfTargetPropertyVariable.Operator.TIMESTAMP_OF_TARGET_PROPERTY_VARIABLE
                 )
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    TimestampOfTargetPropertyVariable.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -35,14 +33,9 @@ internal class TimestampOfTargetPropertyVariableTest {
             )
         assertThat(timestampOfTargetPropertyVariable.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                TimestampOfTargetPropertyVariable.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(timestampOfTargetPropertyVariable.propertyName()).contains("propertyName")
         assertThat(timestampOfTargetPropertyVariable.value()).contains("value")
@@ -57,11 +50,8 @@ internal class TimestampOfTargetPropertyVariableTest {
                     TimestampOfTargetPropertyVariable.Operator.TIMESTAMP_OF_TARGET_PROPERTY_VARIABLE
                 )
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    TimestampOfTargetPropertyVariable.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

@@ -116,7 +116,10 @@ internal class FileOperationServiceAsyncTest {
 
         val fileStatFuture =
             fileOperationServiceAsync.getByPath(
-                FileOperationGetByPathParams.builder().path("path").addProperty("string").build()
+                FileOperationGetByPathParams.builder()
+                    .filePath("file_path")
+                    .addProperty("string")
+                    .build()
             )
 
         val fileStat = fileStatFuture.get()

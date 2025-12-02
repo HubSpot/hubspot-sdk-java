@@ -110,7 +110,10 @@ internal class FileOperationServiceTest {
 
         val fileStat =
             fileOperationService.getByPath(
-                FileOperationGetByPathParams.builder().path("path").addProperty("string").build()
+                FileOperationGetByPathParams.builder()
+                    .filePath("file_path")
+                    .addProperty("string")
+                    .build()
             )
 
         fileStat.validate()

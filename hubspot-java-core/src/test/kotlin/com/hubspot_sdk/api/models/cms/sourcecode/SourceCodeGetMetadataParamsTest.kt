@@ -12,7 +12,7 @@ internal class SourceCodeGetMetadataParamsTest {
     fun create() {
         SourceCodeGetMetadataParams.builder()
             .environment("environment")
-            .path("path")
+            .filePath("file_path")
             .properties("properties")
             .build()
     }
@@ -20,10 +20,13 @@ internal class SourceCodeGetMetadataParamsTest {
     @Test
     fun pathParams() {
         val params =
-            SourceCodeGetMetadataParams.builder().environment("environment").path("path").build()
+            SourceCodeGetMetadataParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("environment")
-        assertThat(params._pathParam(1)).isEqualTo("path")
+        assertThat(params._pathParam(1)).isEqualTo("file_path")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
     }
@@ -33,7 +36,7 @@ internal class SourceCodeGetMetadataParamsTest {
         val params =
             SourceCodeGetMetadataParams.builder()
                 .environment("environment")
-                .path("path")
+                .filePath("file_path")
                 .properties("properties")
                 .build()
 
@@ -46,7 +49,10 @@ internal class SourceCodeGetMetadataParamsTest {
     @Test
     fun queryParamsWithoutOptionalFields() {
         val params =
-            SourceCodeGetMetadataParams.builder().environment("environment").path("path").build()
+            SourceCodeGetMetadataParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
 
         val queryParams = params._queryParams()
 

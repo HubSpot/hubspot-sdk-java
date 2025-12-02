@@ -11,6 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import com.hubspot_sdk.api.models.Property
 import java.util.Collections
@@ -23,7 +24,7 @@ class PropertyDefinition
 private constructor(
     private val objectTypeId: JsonField<String>,
     private val property: JsonField<Property>,
-    private val calculationExpression: JsonField<Expression>,
+    private val calculationExpression: JsonField<CalculationExpression>,
     private val calculationFormula: JsonField<String>,
     private val definitionSource: JsonField<PropertyDefinitionSource>,
     private val extensionData: JsonField<ExtensionData>,
@@ -46,7 +47,7 @@ private constructor(
         @JsonProperty("property") @ExcludeMissing property: JsonField<Property> = JsonMissing.of(),
         @JsonProperty("calculationExpression")
         @ExcludeMissing
-        calculationExpression: JsonField<Expression> = JsonMissing.of(),
+        calculationExpression: JsonField<CalculationExpression> = JsonMissing.of(),
         @JsonProperty("calculationFormula")
         @ExcludeMissing
         calculationFormula: JsonField<String> = JsonMissing.of(),
@@ -116,7 +117,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun calculationExpression(): Optional<Expression> =
+    fun calculationExpression(): Optional<CalculationExpression> =
         calculationExpression.getOptional("calculationExpression")
 
     /**
@@ -215,7 +216,7 @@ private constructor(
      */
     @JsonProperty("calculationExpression")
     @ExcludeMissing
-    fun _calculationExpression(): JsonField<Expression> = calculationExpression
+    fun _calculationExpression(): JsonField<CalculationExpression> = calculationExpression
 
     /**
      * Returns the raw JSON value of [calculationFormula].
@@ -352,7 +353,7 @@ private constructor(
 
         private var objectTypeId: JsonField<String>? = null
         private var property: JsonField<Property>? = null
-        private var calculationExpression: JsonField<Expression> = JsonMissing.of()
+        private var calculationExpression: JsonField<CalculationExpression> = JsonMissing.of()
         private var calculationFormula: JsonField<String> = JsonMissing.of()
         private var definitionSource: JsonField<PropertyDefinitionSource> = JsonMissing.of()
         private var extensionData: JsonField<ExtensionData> = JsonMissing.of()
@@ -410,447 +411,19 @@ private constructor(
          */
         fun property(property: JsonField<Property>) = apply { this.property = property }
 
-        fun calculationExpression(calculationExpression: Expression) =
+        fun calculationExpression(calculationExpression: CalculationExpression) =
             calculationExpression(JsonField.of(calculationExpression))
 
         /**
          * Sets [Builder.calculationExpression] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.calculationExpression] with a well-typed [Expression]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.calculationExpression] with a well-typed
+         * [CalculationExpression] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
-        fun calculationExpression(calculationExpression: JsonField<Expression>) = apply {
+        fun calculationExpression(calculationExpression: JsonField<CalculationExpression>) = apply {
             this.calculationExpression = calculationExpression
         }
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofConstantBoolean(constantBoolean)`.
-         */
-        fun calculationExpression(constantBoolean: ConstantBoolean) =
-            calculationExpression(Expression.ofConstantBoolean(constantBoolean))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofConstantNumber(constantNumber)`.
-         */
-        fun calculationExpression(constantNumber: ConstantNumber) =
-            calculationExpression(Expression.ofConstantNumber(constantNumber))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofConstantString(constantString)`.
-         */
-        fun calculationExpression(constantString: ConstantString) =
-            calculationExpression(Expression.ofConstantString(constantString))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofBooleanPropertyVariable(booleanPropertyVariable)`.
-         */
-        fun calculationExpression(booleanPropertyVariable: BooleanPropertyVariable) =
-            calculationExpression(Expression.ofBooleanPropertyVariable(booleanPropertyVariable))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofStringPropertyVariable(stringPropertyVariable)`.
-         */
-        fun calculationExpression(stringPropertyVariable: StringPropertyVariable) =
-            calculationExpression(Expression.ofStringPropertyVariable(stringPropertyVariable))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofNumberPropertyVariable(numberPropertyVariable)`.
-         */
-        fun calculationExpression(numberPropertyVariable: NumberPropertyVariable) =
-            calculationExpression(Expression.ofNumberPropertyVariable(numberPropertyVariable))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable)`.
-         */
-        fun calculationExpression(timestampOfPropertyVariable: TimestampOfPropertyVariable) =
-            calculationExpression(
-                Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable)`.
-         */
-        fun calculationExpression(booleanTargetPropertyVariable: BooleanTargetPropertyVariable) =
-            calculationExpression(
-                Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable)`.
-         */
-        fun calculationExpression(stringTargetPropertyVariable: StringTargetPropertyVariable) =
-            calculationExpression(
-                Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable)`.
-         */
-        fun calculationExpression(numberTargetPropertyVariable: NumberTargetPropertyVariable) =
-            calculationExpression(
-                Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)`.
-         */
-        fun calculationExpression(
-            timestampOfTargetPropertyVariable: TimestampOfTargetPropertyVariable
-        ) =
-            calculationExpression(
-                Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)
-            )
-
-        /** Alias for calling [calculationExpression] with `Expression.ofAddNumbers(addNumbers)`. */
-        fun calculationExpression(addNumbers: AddNumbers) =
-            calculationExpression(Expression.ofAddNumbers(addNumbers))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofSubtractNumbers(subtractNumbers)`.
-         */
-        fun calculationExpression(subtractNumbers: SubtractNumbers) =
-            calculationExpression(Expression.ofSubtractNumbers(subtractNumbers))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofMultiplyNumbers(multiplyNumbers)`.
-         */
-        fun calculationExpression(multiplyNumbers: MultiplyNumbers) =
-            calculationExpression(Expression.ofMultiplyNumbers(multiplyNumbers))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofDivideNumbers(divideNumbers)`.
-         */
-        fun calculationExpression(divideNumbers: DivideNumbers) =
-            calculationExpression(Expression.ofDivideNumbers(divideNumbers))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofRoundDownNumbers(roundDownNumbers)`.
-         */
-        fun calculationExpression(roundDownNumbers: RoundDownNumbers) =
-            calculationExpression(Expression.ofRoundDownNumbers(roundDownNumbers))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofRoundUpNumbers(roundUpNumbers)`.
-         */
-        fun calculationExpression(roundUpNumbers: RoundUpNumbers) =
-            calculationExpression(Expression.ofRoundUpNumbers(roundUpNumbers))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofRoundNearestNumbers(roundNearestNumbers)`.
-         */
-        fun calculationExpression(roundNearestNumbers: RoundNearestNumbers) =
-            calculationExpression(Expression.ofRoundNearestNumbers(roundNearestNumbers))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofUpperCase(upperCase)`. */
-        fun calculationExpression(upperCase: UpperCase) =
-            calculationExpression(Expression.ofUpperCase(upperCase))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofLowerCase(lowerCase)`. */
-        fun calculationExpression(lowerCase: LowerCase) =
-            calculationExpression(Expression.ofLowerCase(lowerCase))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofConcatStrings(concatStrings)`.
-         */
-        fun calculationExpression(concatStrings: ConcatStrings) =
-            calculationExpression(Expression.ofConcatStrings(concatStrings))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofContains(contains)`. */
-        fun calculationExpression(contains: Contains) =
-            calculationExpression(Expression.ofContains(contains))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofBeginsWith(beginsWith)`. */
-        fun calculationExpression(beginsWith: BeginsWith) =
-            calculationExpression(Expression.ofBeginsWith(beginsWith))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofNumberToString(numberToString)`.
-         */
-        fun calculationExpression(numberToString: NumberToString) =
-            calculationExpression(Expression.ofNumberToString(numberToString))
-
-        /**
-         * Alias for calling [calculationExpression] with `Expression.ofParseNumber(parseNumber)`.
-         */
-        fun calculationExpression(parseNumber: ParseNumber) =
-            calculationExpression(Expression.ofParseNumber(parseNumber))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofFetchExchangeRate(fetchExchangeRate)`.
-         */
-        fun calculationExpression(fetchExchangeRate: FetchExchangeRate) =
-            calculationExpression(Expression.ofFetchExchangeRate(fetchExchangeRate))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces)`.
-         */
-        fun calculationExpression(fetchCurrencyDecimalPlaces: FetchCurrencyDecimalPlaces) =
-            calculationExpression(
-                Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)`.
-         */
-        fun calculationExpression(
-            fetchSingleCurrencyPortalCurrency: FetchSingleCurrencyPortalCurrency
-        ) =
-            calculationExpression(
-                Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofDatedExchangeRate(datedExchangeRate)`.
-         */
-        fun calculationExpression(datedExchangeRate: DatedExchangeRate) =
-            calculationExpression(Expression.ofDatedExchangeRate(datedExchangeRate))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofPipelineProbability(pipelineProbability)`.
-         */
-        fun calculationExpression(pipelineProbability: PipelineProbability) =
-            calculationExpression(Expression.ofPipelineProbability(pipelineProbability))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofMaxNumbers(maxNumbers)`. */
-        fun calculationExpression(maxNumbers: MaxNumbers) =
-            calculationExpression(Expression.ofMaxNumbers(maxNumbers))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofMinNumbers(minNumbers)`. */
-        fun calculationExpression(minNumbers: MinNumbers) =
-            calculationExpression(Expression.ofMinNumbers(minNumbers))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofLessThan(lessThan)`. */
-        fun calculationExpression(lessThan: LessThan) =
-            calculationExpression(Expression.ofLessThan(lessThan))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofLessThanOrEqual(lessThanOrEqual)`.
-         */
-        fun calculationExpression(lessThanOrEqual: LessThanOrEqual) =
-            calculationExpression(Expression.ofLessThanOrEqual(lessThanOrEqual))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofMoreThan(moreThan)`. */
-        fun calculationExpression(moreThan: MoreThan) =
-            calculationExpression(Expression.ofMoreThan(moreThan))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofMoreThanOrEqual(moreThanOrEqual)`.
-         */
-        fun calculationExpression(moreThanOrEqual: MoreThanOrEqual) =
-            calculationExpression(Expression.ofMoreThanOrEqual(moreThanOrEqual))
-
-        /**
-         * Alias for calling [calculationExpression] with `Expression.ofNumberEquals(numberEquals)`.
-         */
-        fun calculationExpression(numberEquals: NumberEquals) =
-            calculationExpression(Expression.ofNumberEquals(numberEquals))
-
-        /**
-         * Alias for calling [calculationExpression] with `Expression.ofStringEquals(stringEquals)`.
-         */
-        fun calculationExpression(stringEquals: StringEquals) =
-            calculationExpression(Expression.ofStringEquals(stringEquals))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofIsPipelineStageClosed(isPipelineStageClosed)`.
-         */
-        fun calculationExpression(isPipelineStageClosed: IsPipelineStageClosed) =
-            calculationExpression(Expression.ofIsPipelineStageClosed(isPipelineStageClosed))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofNot(not)`. */
-        fun calculationExpression(not: Not) = calculationExpression(Expression.ofNot(not))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofDate(date)`. */
-        fun calculationExpression(date: Date) = calculationExpression(Expression.ofDate(date))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofMonth(month)`. */
-        fun calculationExpression(month: Month) = calculationExpression(Expression.ofMonth(month))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofYear(year)`. */
-        fun calculationExpression(year: Year) = calculationExpression(Expression.ofYear(year))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofNow(now)`. */
-        fun calculationExpression(now: Now) = calculationExpression(Expression.ofNow(now))
-
-        /**
-         * Alias for calling [calculationExpression] with `Expression.ofTimeBetween(timeBetween)`.
-         */
-        fun calculationExpression(timeBetween: TimeBetween) =
-            calculationExpression(Expression.ofTimeBetween(timeBetween))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofPeriodToMonths(periodToMonths)`.
-         */
-        fun calculationExpression(periodToMonths: PeriodToMonths) =
-            calculationExpression(Expression.ofPeriodToMonths(periodToMonths))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofPeriodToWeeks(periodToWeeks)`.
-         */
-        fun calculationExpression(periodToWeeks: PeriodToWeeks) =
-            calculationExpression(Expression.ofPeriodToWeeks(periodToWeeks))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofAnd(and)`. */
-        fun calculationExpression(and: And) = calculationExpression(Expression.ofAnd(and))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofOr(or)`. */
-        fun calculationExpression(or: Or) = calculationExpression(Expression.ofOr(or))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofXor(xor)`. */
-        fun calculationExpression(xor: Xor) = calculationExpression(Expression.ofXor(xor))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofIfString(ifString)`. */
-        fun calculationExpression(ifString: IfString) =
-            calculationExpression(Expression.ofIfString(ifString))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofIfNumber(ifNumber)`. */
-        fun calculationExpression(ifNumber: IfNumber) =
-            calculationExpression(Expression.ofIfNumber(ifNumber))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofIfBoolean(ifBoolean)`. */
-        fun calculationExpression(ifBoolean: IfBoolean) =
-            calculationExpression(Expression.ofIfBoolean(ifBoolean))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofIsPresent(isPresent)`. */
-        fun calculationExpression(isPresent: IsPresent) =
-            calculationExpression(Expression.ofIsPresent(isPresent))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofHasEmailReply(hasEmailReply)`.
-         */
-        fun calculationExpression(hasEmailReply: HasEmailReply) =
-            calculationExpression(Expression.ofHasEmailReply(hasEmailReply))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply)`.
-         */
-        fun calculationExpression(hasPlainTextEmailReply: HasPlainTextEmailReply) =
-            calculationExpression(Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml)`.
-         */
-        fun calculationExpression(
-            extractMostRecentEmailReplyHtml: ExtractMostRecentEmailReplyHtml
-        ) =
-            calculationExpression(
-                Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText)`.
-         */
-        fun calculationExpression(
-            extractMostRecentEmailReplyText: ExtractMostRecentEmailReplyText
-        ) =
-            calculationExpression(
-                Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText)
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofExtractMostRecentPlainTextEmailReply(extractMostRecentPlainTextEmailReply)`.
-         */
-        fun calculationExpression(
-            extractMostRecentPlainTextEmailReply: ExtractMostRecentPlainTextEmailReply
-        ) =
-            calculationExpression(
-                Expression.ofExtractMostRecentPlainTextEmailReply(
-                    extractMostRecentPlainTextEmailReply
-                )
-            )
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofSetContainsString(setContainsString)`.
-         */
-        fun calculationExpression(setContainsString: SetContainsString) =
-            calculationExpression(Expression.ofSetContainsString(setContainsString))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofIsEngagementType(isEngagementType)`.
-         */
-        fun calculationExpression(isEngagementType: IsEngagementType) =
-            calculationExpression(Expression.ofIsEngagementType(isEngagementType))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofFormatFullName(formatFullName)`.
-         */
-        fun calculationExpression(formatFullName: FormatFullName) =
-            calculationExpression(Expression.ofFormatFullName(formatFullName))
-
-        /**
-         * Alias for calling [calculationExpression] with
-         * `Expression.ofAbsoluteValue(absoluteValue)`.
-         */
-        fun calculationExpression(absoluteValue: AbsoluteValue) =
-            calculationExpression(Expression.ofAbsoluteValue(absoluteValue))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofSquareRoot(squareRoot)`. */
-        fun calculationExpression(squareRoot: SquareRoot) =
-            calculationExpression(Expression.ofSquareRoot(squareRoot))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofPower(power)`. */
-        fun calculationExpression(power: Power) = calculationExpression(Expression.ofPower(power))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofSubstring(substring)`. */
-        fun calculationExpression(substring: Substring) =
-            calculationExpression(Expression.ofSubstring(substring))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofEuler(euler)`. */
-        fun calculationExpression(euler: Euler) = calculationExpression(Expression.ofEuler(euler))
-
-        /**
-         * Alias for calling [calculationExpression] with `Expression.ofStringLength(stringLength)`.
-         */
-        fun calculationExpression(stringLength: StringLength) =
-            calculationExpression(Expression.ofStringLength(stringLength))
-
-        /** Alias for calling [calculationExpression] with `Expression.ofAddTime(addTime)`. */
-        fun calculationExpression(addTime: AddTime) =
-            calculationExpression(Expression.ofAddTime(addTime))
-
-        /**
-         * Alias for calling [calculationExpression] with `Expression.ofSubtractTime(subtractTime)`.
-         */
-        fun calculationExpression(subtractTime: SubtractTime) =
-            calculationExpression(Expression.ofSubtractTime(subtractTime))
 
         fun calculationFormula(calculationFormula: String) =
             calculationFormula(JsonField.of(calculationFormula))
@@ -1107,6 +680,110 @@ private constructor(
             (propertyDefinitionSource.asKnown().getOrNull()?.validity() ?: 0) +
             (propertyRequirements.asKnown().getOrNull()?.validity() ?: 0) +
             (rollupExpression.asKnown().getOrNull()?.validity() ?: 0)
+
+    class CalculationExpression
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [CalculationExpression].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [CalculationExpression]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(calculationExpression: CalculationExpression) = apply {
+                additionalProperties = calculationExpression.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CalculationExpression].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): CalculationExpression =
+                CalculationExpression(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CalculationExpression = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CalculationExpression &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CalculationExpression{additionalProperties=$additionalProperties}"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

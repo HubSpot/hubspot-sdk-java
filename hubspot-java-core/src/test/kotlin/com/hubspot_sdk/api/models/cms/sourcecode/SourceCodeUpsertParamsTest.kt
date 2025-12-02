@@ -13,7 +13,7 @@ internal class SourceCodeUpsertParamsTest {
     fun create() {
         SourceCodeUpsertParams.builder()
             .environment("environment")
-            .path("path")
+            .filePath("file_path")
             .file("some content".byteInputStream())
             .build()
     }
@@ -21,10 +21,13 @@ internal class SourceCodeUpsertParamsTest {
     @Test
     fun pathParams() {
         val params =
-            SourceCodeUpsertParams.builder().environment("environment").path("path").build()
+            SourceCodeUpsertParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("environment")
-        assertThat(params._pathParam(1)).isEqualTo("path")
+        assertThat(params._pathParam(1)).isEqualTo("file_path")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
     }
@@ -34,7 +37,7 @@ internal class SourceCodeUpsertParamsTest {
         val params =
             SourceCodeUpsertParams.builder()
                 .environment("environment")
-                .path("path")
+                .filePath("file_path")
                 .file("some content".byteInputStream())
                 .build()
 
@@ -59,7 +62,10 @@ internal class SourceCodeUpsertParamsTest {
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            SourceCodeUpsertParams.builder().environment("environment").path("path").build()
+            SourceCodeUpsertParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
 
         val body = params._body()
 

@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class ConstantBooleanTest {
             ConstantBoolean.builder()
                 .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
                 .addInput(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
+                    ConstantBoolean.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -30,14 +28,9 @@ internal class ConstantBooleanTest {
         assertThat(constantBoolean.operator()).isEqualTo(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
         assertThat(constantBoolean.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantNumber(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
-                        .build()
-                )
+                ConstantBoolean.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(constantBoolean.propertyName()).contains("propertyName")
         assertThat(constantBoolean.value()).contains(true)
@@ -50,11 +43,8 @@ internal class ConstantBooleanTest {
             ConstantBoolean.builder()
                 .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
                 .addInput(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
+                    ConstantBoolean.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

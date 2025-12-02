@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -18,11 +19,8 @@ internal class FetchSingleCurrencyPortalCurrencyTest {
                     FetchSingleCurrencyPortalCurrency.Operator.FETCH_SINGLE_CURRENCY_PORTAL_CURRENCY
                 )
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    FetchSingleCurrencyPortalCurrency.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -35,14 +33,9 @@ internal class FetchSingleCurrencyPortalCurrencyTest {
             )
         assertThat(fetchSingleCurrencyPortalCurrency.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                FetchSingleCurrencyPortalCurrency.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(fetchSingleCurrencyPortalCurrency.propertyName()).contains("propertyName")
         assertThat(fetchSingleCurrencyPortalCurrency.value()).contains("value")
@@ -57,11 +50,8 @@ internal class FetchSingleCurrencyPortalCurrencyTest {
                     FetchSingleCurrencyPortalCurrency.Operator.FETCH_SINGLE_CURRENCY_PORTAL_CURRENCY
                 )
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    FetchSingleCurrencyPortalCurrency.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

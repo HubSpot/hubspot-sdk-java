@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -18,11 +19,8 @@ internal class ExtractMostRecentEmailReplyTextTest {
                     ExtractMostRecentEmailReplyText.Operator.EXTRACT_MOST_RECENT_EMAIL_REPLY_TEXT
                 )
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    ExtractMostRecentEmailReplyText.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -35,14 +33,9 @@ internal class ExtractMostRecentEmailReplyTextTest {
             )
         assertThat(extractMostRecentEmailReplyText.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                ExtractMostRecentEmailReplyText.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(extractMostRecentEmailReplyText.propertyName()).contains("propertyName")
         assertThat(extractMostRecentEmailReplyText.value()).contains("value")
@@ -57,11 +50,8 @@ internal class ExtractMostRecentEmailReplyTextTest {
                     ExtractMostRecentEmailReplyText.Operator.EXTRACT_MOST_RECENT_EMAIL_REPLY_TEXT
                 )
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    ExtractMostRecentEmailReplyText.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

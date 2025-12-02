@@ -119,7 +119,7 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
         ): HttpResponseFor<AssetFileMetadata> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
+            checkRequired("filePath", params.filePath().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -156,7 +156,7 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
+            checkRequired("filePath", params.filePath().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
@@ -213,7 +213,7 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
+            checkRequired("filePath", params.filePath().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -281,7 +281,7 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
         ): HttpResponseFor<AssetFileMetadata> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
+            checkRequired("filePath", params.filePath().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -318,7 +318,7 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
         ): HttpResponseFor<AssetFileMetadata> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
+            checkRequired("filePath", params.filePath().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PUT)
@@ -353,7 +353,7 @@ class SourceCodeServiceImpl internal constructor(private val clientOptions: Clie
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("path", params.path().getOrNull())
+            checkRequired("filePath", params.filePath().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

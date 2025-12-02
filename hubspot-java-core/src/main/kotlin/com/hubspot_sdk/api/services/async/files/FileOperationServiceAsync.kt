@@ -156,22 +156,22 @@ interface FileOperationServiceAsync {
         get(fileId, FileOperationGetParams.none(), requestOptions)
 
     /** Retrieve a file by its path. */
-    fun getByPath(path: String): CompletableFuture<FileStat> =
-        getByPath(path, FileOperationGetByPathParams.none())
+    fun getByPath(filePath: String): CompletableFuture<FileStat> =
+        getByPath(filePath, FileOperationGetByPathParams.none())
 
     /** @see getByPath */
     fun getByPath(
-        path: String,
+        filePath: String,
         params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<FileStat> =
-        getByPath(params.toBuilder().path(path).build(), requestOptions)
+        getByPath(params.toBuilder().filePath(filePath).build(), requestOptions)
 
     /** @see getByPath */
     fun getByPath(
-        path: String,
+        filePath: String,
         params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
-    ): CompletableFuture<FileStat> = getByPath(path, params, RequestOptions.none())
+    ): CompletableFuture<FileStat> = getByPath(filePath, params, RequestOptions.none())
 
     /** @see getByPath */
     fun getByPath(
@@ -184,8 +184,8 @@ interface FileOperationServiceAsync {
         getByPath(params, RequestOptions.none())
 
     /** @see getByPath */
-    fun getByPath(path: String, requestOptions: RequestOptions): CompletableFuture<FileStat> =
-        getByPath(path, FileOperationGetByPathParams.none(), requestOptions)
+    fun getByPath(filePath: String, requestOptions: RequestOptions): CompletableFuture<FileStat> =
+        getByPath(filePath, FileOperationGetByPathParams.none(), requestOptions)
 
     /** Check the status of requested import. */
     fun getImportTaskStatus(taskId: String): CompletableFuture<FileActionResponse> =
@@ -519,23 +519,23 @@ interface FileOperationServiceAsync {
          * Returns a raw HTTP response for `get /files/v3/files/stat/{path}`, but is otherwise the
          * same as [FileOperationServiceAsync.getByPath].
          */
-        fun getByPath(path: String): CompletableFuture<HttpResponseFor<FileStat>> =
-            getByPath(path, FileOperationGetByPathParams.none())
+        fun getByPath(filePath: String): CompletableFuture<HttpResponseFor<FileStat>> =
+            getByPath(filePath, FileOperationGetByPathParams.none())
 
         /** @see getByPath */
         fun getByPath(
-            path: String,
+            filePath: String,
             params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<FileStat>> =
-            getByPath(params.toBuilder().path(path).build(), requestOptions)
+            getByPath(params.toBuilder().filePath(filePath).build(), requestOptions)
 
         /** @see getByPath */
         fun getByPath(
-            path: String,
+            filePath: String,
             params: FileOperationGetByPathParams = FileOperationGetByPathParams.none(),
         ): CompletableFuture<HttpResponseFor<FileStat>> =
-            getByPath(path, params, RequestOptions.none())
+            getByPath(filePath, params, RequestOptions.none())
 
         /** @see getByPath */
         fun getByPath(
@@ -550,10 +550,10 @@ interface FileOperationServiceAsync {
 
         /** @see getByPath */
         fun getByPath(
-            path: String,
+            filePath: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<FileStat>> =
-            getByPath(path, FileOperationGetByPathParams.none(), requestOptions)
+            getByPath(filePath, FileOperationGetByPathParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

@@ -30,7 +30,7 @@ import kotlin.jvm.optionals.getOrNull
 class SourceCodeUpsertParams
 private constructor(
     private val environment: String,
-    private val path: String?,
+    private val filePath: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
@@ -38,7 +38,7 @@ private constructor(
 
     fun environment(): String = environment
 
-    fun path(): Optional<String> = Optional.ofNullable(path)
+    fun filePath(): Optional<String> = Optional.ofNullable(filePath)
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -80,7 +80,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var environment: String? = null
-        private var path: String? = null
+        private var filePath: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -88,7 +88,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(sourceCodeUpsertParams: SourceCodeUpsertParams) = apply {
             environment = sourceCodeUpsertParams.environment
-            path = sourceCodeUpsertParams.path
+            filePath = sourceCodeUpsertParams.filePath
             body = sourceCodeUpsertParams.body.toBuilder()
             additionalHeaders = sourceCodeUpsertParams.additionalHeaders.toBuilder()
             additionalQueryParams = sourceCodeUpsertParams.additionalQueryParams.toBuilder()
@@ -96,10 +96,10 @@ private constructor(
 
         fun environment(environment: String) = apply { this.environment = environment }
 
-        fun path(path: String?) = apply { this.path = path }
+        fun filePath(filePath: String?) = apply { this.filePath = filePath }
 
-        /** Alias for calling [Builder.path] with `path.orElse(null)`. */
-        fun path(path: Optional<String>) = path(path.getOrNull())
+        /** Alias for calling [Builder.filePath] with `filePath.orElse(null)`. */
+        fun filePath(filePath: Optional<String>) = filePath(filePath.getOrNull())
 
         /**
          * Sets the entire request body.
@@ -257,7 +257,7 @@ private constructor(
         fun build(): SourceCodeUpsertParams =
             SourceCodeUpsertParams(
                 checkRequired("environment", environment),
-                path,
+                filePath,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -272,7 +272,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> environment
-            1 -> path ?: ""
+            1 -> filePath ?: ""
             else -> ""
         }
 
@@ -420,15 +420,15 @@ private constructor(
 
         return other is SourceCodeUpsertParams &&
             environment == other.environment &&
-            path == other.path &&
+            filePath == other.filePath &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(environment, path, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(environment, filePath, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "SourceCodeUpsertParams{environment=$environment, path=$path, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "SourceCodeUpsertParams{environment=$environment, filePath=$filePath, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -17,12 +18,7 @@ internal class XorTest {
                 .enclosedInParentheses(true)
                 .operator(Xor.Operator.XOR)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
+                    Xor.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
                 )
                 .propertyName("propertyName")
                 .value(true)
@@ -32,14 +28,7 @@ internal class XorTest {
         assertThat(xor.operator()).isEqualTo(Xor.Operator.XOR)
         assertThat(xor.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                Xor.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
             )
         assertThat(xor.propertyName()).contains("propertyName")
         assertThat(xor.value()).contains(true)
@@ -53,12 +42,7 @@ internal class XorTest {
                 .enclosedInParentheses(true)
                 .operator(Xor.Operator.XOR)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
+                    Xor.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
                 )
                 .propertyName("propertyName")
                 .value(true)
