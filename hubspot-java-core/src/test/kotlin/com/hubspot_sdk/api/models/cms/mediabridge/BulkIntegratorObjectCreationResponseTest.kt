@@ -138,7 +138,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                 "calculationExpression" to
                                                     mapOf(
                                                         "operator" to "CONSTANT_BOOLEAN",
-                                                        "inputs" to listOf(mapOf<String, Any>()),
+                                                        "inputs" to listOf(),
                                                         "propertyName" to "propertyName",
                                                         "value" to true,
                                                     ),
@@ -208,14 +208,6 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                             "sourceObjectTypeId",
                                                         "sourcePropertyName" to
                                                             "sourcePropertyName",
-                                                        "conditionalExpression" to
-                                                            mapOf(
-                                                                "operator" to "CONSTANT_NUMBER",
-                                                                "inputs" to
-                                                                    listOf(mapOf<String, Any>()),
-                                                                "propertyName" to "propertyName",
-                                                                "value" to 0,
-                                                            ),
                                                         "conditionalFormula" to
                                                             "conditionalFormula",
                                                         "emptyRollupValue" to "emptyRollupValue",
@@ -364,7 +356,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "calculationExpression" to
                                                 mapOf(
                                                     "operator" to "CONSTANT_BOOLEAN",
-                                                    "inputs" to listOf(mapOf<String, Any>()),
+                                                    "inputs" to listOf(),
                                                     "propertyName" to "propertyName",
                                                     "value" to true,
                                                 ),
@@ -428,14 +420,6 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                     "rollupOperator" to "rollupOperator",
                                                     "sourceObjectTypeId" to "sourceObjectTypeId",
                                                     "sourcePropertyName" to "sourcePropertyName",
-                                                    "conditionalExpression" to
-                                                        mapOf(
-                                                            "operator" to "CONSTANT_NUMBER",
-                                                            "inputs" to
-                                                                listOf(mapOf<String, Any>()),
-                                                            "propertyName" to "propertyName",
-                                                            "value" to 0,
-                                                        ),
                                                     "conditionalFormula" to "conditionalFormula",
                                                     "emptyRollupValue" to "emptyRollupValue",
                                                     "sourceCompareByPropertyName" to
@@ -592,7 +576,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                 "calculationExpression" to
                                                     mapOf(
                                                         "operator" to "CONSTANT_BOOLEAN",
-                                                        "inputs" to listOf(mapOf<String, Any>()),
+                                                        "inputs" to listOf(),
                                                         "propertyName" to "propertyName",
                                                         "value" to true,
                                                     ),
@@ -662,14 +646,6 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                             "sourceObjectTypeId",
                                                         "sourcePropertyName" to
                                                             "sourcePropertyName",
-                                                        "conditionalExpression" to
-                                                            mapOf(
-                                                                "operator" to "CONSTANT_NUMBER",
-                                                                "inputs" to
-                                                                    listOf(mapOf<String, Any>()),
-                                                                "propertyName" to "propertyName",
-                                                                "value" to 0,
-                                                            ),
                                                         "conditionalFormula" to
                                                             "conditionalFormula",
                                                         "emptyRollupValue" to "emptyRollupValue",

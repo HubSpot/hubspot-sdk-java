@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,16 +15,32 @@ internal class SubtractTimeTest {
         val subtractTime =
             SubtractTime.builder()
                 .operator(SubtractTime.Operator.SUBTRACT_TIME)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
 
         assertThat(subtractTime.operator()).isEqualTo(SubtractTime.Operator.SUBTRACT_TIME)
-        assertThat(subtractTime._stringToCheck()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(subtractTime.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(subtractTime.stringToCheck())
+            .isEqualTo(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
+        assertThat(subtractTime.inputs().getOrNull()).containsExactly()
         assertThat(subtractTime.propertyName()).contains("propertyName")
         assertThat(subtractTime.value()).contains(0.0)
     }
@@ -36,8 +51,15 @@ internal class SubtractTimeTest {
         val subtractTime =
             SubtractTime.builder()
                 .operator(SubtractTime.Operator.SUBTRACT_TIME)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

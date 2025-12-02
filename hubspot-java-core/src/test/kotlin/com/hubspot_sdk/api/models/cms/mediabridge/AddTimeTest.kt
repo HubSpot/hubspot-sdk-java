@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,16 +15,32 @@ internal class AddTimeTest {
         val addTime =
             AddTime.builder()
                 .operator(AddTime.Operator.ADD_TIME)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
 
         assertThat(addTime.operator()).isEqualTo(AddTime.Operator.ADD_TIME)
-        assertThat(addTime._stringToCheck()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(addTime.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(addTime.stringToCheck())
+            .isEqualTo(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
+        assertThat(addTime.inputs().getOrNull()).containsExactly()
         assertThat(addTime.propertyName()).contains("propertyName")
         assertThat(addTime.value()).contains(0.0)
     }
@@ -36,8 +51,15 @@ internal class AddTimeTest {
         val addTime =
             AddTime.builder()
                 .operator(AddTime.Operator.ADD_TIME)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

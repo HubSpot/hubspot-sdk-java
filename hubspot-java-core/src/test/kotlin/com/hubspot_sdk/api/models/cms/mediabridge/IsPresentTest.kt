@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,18 +14,33 @@ internal class IsPresentTest {
     fun create() {
         val isPresent =
             IsPresent.builder()
-                .expressionToEvaluate(JsonValue.from(mapOf<String, Any>()))
+                .expressionToEvaluate(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .operator(IsPresent.Operator.IS_PRESENT)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(true)
                 .build()
 
-        assertThat(isPresent._expressionToEvaluate())
-            .isEqualTo(JsonValue.from(mapOf<String, Any>()))
+        assertThat(isPresent.expressionToEvaluate())
+            .isEqualTo(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(isPresent.operator()).isEqualTo(IsPresent.Operator.IS_PRESENT)
-        assertThat(isPresent.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(isPresent.inputs().getOrNull()).containsExactly()
         assertThat(isPresent.propertyName()).contains("propertyName")
         assertThat(isPresent.value()).contains(true)
     }
@@ -36,9 +50,16 @@ internal class IsPresentTest {
         val jsonMapper = jsonMapper()
         val isPresent =
             IsPresent.builder()
-                .expressionToEvaluate(JsonValue.from(mapOf<String, Any>()))
+                .expressionToEvaluate(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .operator(IsPresent.Operator.IS_PRESENT)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value(true)
                 .build()

@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +15,14 @@ internal class RoundNearestNumbersTest {
         val roundNearestNumbers =
             RoundNearestNumbers.builder()
                 .operator(RoundNearestNumbers.Operator.ROUND_NEAREST)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
@@ -24,7 +30,16 @@ internal class RoundNearestNumbersTest {
         assertThat(roundNearestNumbers.operator())
             .isEqualTo(RoundNearestNumbers.Operator.ROUND_NEAREST)
         assertThat(roundNearestNumbers.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(roundNearestNumbers.propertyName()).contains("propertyName")
         assertThat(roundNearestNumbers.value()).contains(0.0)
     }
@@ -35,7 +50,14 @@ internal class RoundNearestNumbersTest {
         val roundNearestNumbers =
             RoundNearestNumbers.builder()
                 .operator(RoundNearestNumbers.Operator.ROUND_NEAREST)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

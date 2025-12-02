@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -17,7 +16,14 @@ internal class SubtractNumbersTest {
             SubtractNumbers.builder()
                 .enclosedInParentheses(true)
                 .operator(SubtractNumbers.Operator.SUBTRACT_NUMBERS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
@@ -25,7 +31,16 @@ internal class SubtractNumbersTest {
         assertThat(subtractNumbers.enclosedInParentheses()).isEqualTo(true)
         assertThat(subtractNumbers.operator()).isEqualTo(SubtractNumbers.Operator.SUBTRACT_NUMBERS)
         assertThat(subtractNumbers.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(subtractNumbers.propertyName()).contains("propertyName")
         assertThat(subtractNumbers.value()).contains(0.0)
     }
@@ -37,7 +52,14 @@ internal class SubtractNumbersTest {
             SubtractNumbers.builder()
                 .enclosedInParentheses(true)
                 .operator(SubtractNumbers.Operator.SUBTRACT_NUMBERS)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

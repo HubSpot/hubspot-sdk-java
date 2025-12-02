@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,7 +15,14 @@ internal class LessThanOrEqualTest {
         val lessThanOrEqual =
             LessThanOrEqual.builder()
                 .operator(LessThanOrEqual.Operator.LESS_THAN_OR_EQUAL)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()
@@ -24,7 +30,16 @@ internal class LessThanOrEqualTest {
         assertThat(lessThanOrEqual.operator())
             .isEqualTo(LessThanOrEqual.Operator.LESS_THAN_OR_EQUAL)
         assertThat(lessThanOrEqual.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+            .containsExactly(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
         assertThat(lessThanOrEqual.propertyName()).contains("propertyName")
         assertThat(lessThanOrEqual.value()).contains(true)
     }
@@ -35,7 +50,14 @@ internal class LessThanOrEqualTest {
         val lessThanOrEqual =
             LessThanOrEqual.builder()
                 .operator(LessThanOrEqual.Operator.LESS_THAN_OR_EQUAL)
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .addInput(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()

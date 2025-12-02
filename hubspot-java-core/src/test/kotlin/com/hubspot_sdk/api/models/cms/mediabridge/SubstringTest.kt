@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,16 +15,32 @@ internal class SubstringTest {
         val substring =
             Substring.builder()
                 .operator(Substring.Operator.SUBSTRING)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value("value")
                 .build()
 
         assertThat(substring.operator()).isEqualTo(Substring.Operator.SUBSTRING)
-        assertThat(substring._stringToCheck()).isEqualTo(JsonValue.from(mapOf<String, Any>()))
-        assertThat(substring.inputs().getOrNull())
-            .containsExactly(JsonValue.from(mapOf<String, Any>()))
+        assertThat(substring.stringToCheck())
+            .isEqualTo(
+                Expression.ofConstantBoolean(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+            )
+        assertThat(substring.inputs().getOrNull()).containsExactly()
         assertThat(substring.propertyName()).contains("propertyName")
         assertThat(substring.value()).contains("value")
     }
@@ -36,8 +51,15 @@ internal class SubstringTest {
         val substring =
             Substring.builder()
                 .operator(Substring.Operator.SUBSTRING)
-                .stringToCheck(JsonValue.from(mapOf<String, Any>()))
-                .addInput(JsonValue.from(mapOf<String, Any>()))
+                .stringToCheck(
+                    ConstantBoolean.builder()
+                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
+                        .inputs(listOf())
+                        .propertyName("propertyName")
+                        .value(true)
+                        .build()
+                )
+                .inputs(listOf())
                 .propertyName("propertyName")
                 .value("value")
                 .build()
