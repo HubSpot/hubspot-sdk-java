@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models.cms.blogs.posts
+package com.hubspot_sdk.api.models.cms
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper

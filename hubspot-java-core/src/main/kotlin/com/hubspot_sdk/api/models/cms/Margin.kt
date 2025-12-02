@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models.cms.blogs.posts
+package com.hubspot_sdk.api.models.cms
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-class Padding
+class Margin
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
 
@@ -31,18 +31,18 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
 
     companion object {
 
-        /** Returns a mutable builder for constructing an instance of [Padding]. */
+        /** Returns a mutable builder for constructing an instance of [Margin]. */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [Padding]. */
+    /** A builder for [Margin]. */
     class Builder internal constructor() {
 
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(padding: Padding) = apply {
-            additionalProperties = padding.additionalProperties.toMutableMap()
+        internal fun from(margin: Margin) = apply {
+            additionalProperties = margin.additionalProperties.toMutableMap()
         }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -65,16 +65,16 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
         }
 
         /**
-         * Returns an immutable instance of [Padding].
+         * Returns an immutable instance of [Margin].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): Padding = Padding(additionalProperties.toMutableMap())
+        fun build(): Margin = Margin(additionalProperties.toMutableMap())
     }
 
     private var validated: Boolean = false
 
-    fun validate(): Padding = apply {
+    fun validate(): Margin = apply {
         if (validated) {
             return@apply
         }
@@ -102,12 +102,12 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
             return true
         }
 
-        return other is Padding && additionalProperties == other.additionalProperties
+        return other is Margin && additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
-    override fun toString() = "Padding{additionalProperties=$additionalProperties}"
+    override fun toString() = "Margin{additionalProperties=$additionalProperties}"
 }
