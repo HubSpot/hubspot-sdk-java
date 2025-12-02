@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class RoundDownNumbersTest {
             RoundDownNumbers.builder()
                 .operator(RoundDownNumbers.Operator.ROUND_DOWN)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    RoundDownNumbers.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -30,14 +28,9 @@ internal class RoundDownNumbersTest {
         assertThat(roundDownNumbers.operator()).isEqualTo(RoundDownNumbers.Operator.ROUND_DOWN)
         assertThat(roundDownNumbers.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                RoundDownNumbers.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(roundDownNumbers.propertyName()).contains("propertyName")
         assertThat(roundDownNumbers.value()).contains(0.0)
@@ -50,11 +43,8 @@ internal class RoundDownNumbersTest {
             RoundDownNumbers.builder()
                 .operator(RoundDownNumbers.Operator.ROUND_DOWN)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    RoundDownNumbers.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

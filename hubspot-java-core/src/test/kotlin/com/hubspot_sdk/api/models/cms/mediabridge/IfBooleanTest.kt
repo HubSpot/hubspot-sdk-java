@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,23 +17,21 @@ internal class IfBooleanTest {
             IfBoolean.builder()
                 .enclosedInParentheses(true)
                 .ifExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    IfBoolean.IfExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .operator(IfBoolean.Operator.IF_BOOLEAN)
                 .elseExpression(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
+                    IfBoolean.ElseExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    IfBoolean.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()
@@ -40,28 +39,23 @@ internal class IfBooleanTest {
         assertThat(ifBoolean.enclosedInParentheses()).isEqualTo(true)
         assertThat(ifBoolean.ifExpression())
             .isEqualTo(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                IfBoolean.IfExpression.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(ifBoolean.operator()).isEqualTo(IfBoolean.Operator.IF_BOOLEAN)
         assertThat(ifBoolean.elseExpression())
             .contains(
-                Expression.ofConstantNumber(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
-                        .build()
-                )
+                IfBoolean.ElseExpression.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
-        assertThat(ifBoolean.inputs().getOrNull()).containsExactly()
+        assertThat(ifBoolean.inputs().getOrNull())
+            .containsExactly(
+                IfBoolean.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(ifBoolean.propertyName()).contains("propertyName")
         assertThat(ifBoolean.value()).contains(true)
     }
@@ -73,23 +67,21 @@ internal class IfBooleanTest {
             IfBoolean.builder()
                 .enclosedInParentheses(true)
                 .ifExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    IfBoolean.IfExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .operator(IfBoolean.Operator.IF_BOOLEAN)
                 .elseExpression(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
+                    IfBoolean.ElseExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    IfBoolean.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()

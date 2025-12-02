@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,23 +17,21 @@ internal class IfStringTest {
             IfString.builder()
                 .enclosedInParentheses(true)
                 .ifExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    IfString.IfExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .operator(IfString.Operator.IF_STRING)
                 .elseExpression(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
+                    IfString.ElseExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    IfString.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value("value")
                 .build()
@@ -40,28 +39,21 @@ internal class IfStringTest {
         assertThat(ifString.enclosedInParentheses()).isEqualTo(true)
         assertThat(ifString.ifExpression())
             .isEqualTo(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                IfString.IfExpression.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(ifString.operator()).isEqualTo(IfString.Operator.IF_STRING)
         assertThat(ifString.elseExpression())
             .contains(
-                Expression.ofConstantNumber(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
-                        .build()
-                )
+                IfString.ElseExpression.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
-        assertThat(ifString.inputs().getOrNull()).containsExactly()
+        assertThat(ifString.inputs().getOrNull())
+            .containsExactly(
+                IfString.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
+            )
         assertThat(ifString.propertyName()).contains("propertyName")
         assertThat(ifString.value()).contains("value")
     }
@@ -73,23 +65,21 @@ internal class IfStringTest {
             IfString.builder()
                 .enclosedInParentheses(true)
                 .ifExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    IfString.IfExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .operator(IfString.Operator.IF_STRING)
                 .elseExpression(
-                    ConstantNumber.builder()
-                        .operator(ConstantNumber.Operator.CONSTANT_NUMBER)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(0.0)
+                    IfString.ElseExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    IfString.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value("value")
                 .build()

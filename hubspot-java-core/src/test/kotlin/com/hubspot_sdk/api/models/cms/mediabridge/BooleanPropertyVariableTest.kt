@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class BooleanPropertyVariableTest {
             BooleanPropertyVariable.builder()
                 .operator(BooleanPropertyVariable.Operator.BOOLEAN_PROPERTY_VARIABLE)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    BooleanPropertyVariable.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -31,14 +29,9 @@ internal class BooleanPropertyVariableTest {
             .isEqualTo(BooleanPropertyVariable.Operator.BOOLEAN_PROPERTY_VARIABLE)
         assertThat(booleanPropertyVariable.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                BooleanPropertyVariable.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(booleanPropertyVariable.propertyName()).contains("propertyName")
         assertThat(booleanPropertyVariable.value()).contains(true)
@@ -51,11 +44,8 @@ internal class BooleanPropertyVariableTest {
             BooleanPropertyVariable.builder()
                 .operator(BooleanPropertyVariable.Operator.BOOLEAN_PROPERTY_VARIABLE)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    BooleanPropertyVariable.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

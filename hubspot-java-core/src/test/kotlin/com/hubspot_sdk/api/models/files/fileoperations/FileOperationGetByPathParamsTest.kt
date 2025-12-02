@@ -10,14 +10,14 @@ internal class FileOperationGetByPathParamsTest {
 
     @Test
     fun create() {
-        FileOperationGetByPathParams.builder().path("path").addProperty("string").build()
+        FileOperationGetByPathParams.builder().filePath("file_path").addProperty("string").build()
     }
 
     @Test
     fun pathParams() {
-        val params = FileOperationGetByPathParams.builder().path("path").build()
+        val params = FileOperationGetByPathParams.builder().filePath("file_path").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("path")
+        assertThat(params._pathParam(0)).isEqualTo("file_path")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -25,7 +25,10 @@ internal class FileOperationGetByPathParamsTest {
     @Test
     fun queryParams() {
         val params =
-            FileOperationGetByPathParams.builder().path("path").addProperty("string").build()
+            FileOperationGetByPathParams.builder()
+                .filePath("file_path")
+                .addProperty("string")
+                .build()
 
         val queryParams = params._queryParams()
 
@@ -37,7 +40,7 @@ internal class FileOperationGetByPathParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = FileOperationGetByPathParams.builder().path("path").build()
+        val params = FileOperationGetByPathParams.builder().filePath("file_path").build()
 
         val queryParams = params._queryParams()
 

@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class UpperCaseTest {
             UpperCase.builder()
                 .operator(UpperCase.Operator.UPPER_CASE)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    UpperCase.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -30,14 +28,9 @@ internal class UpperCaseTest {
         assertThat(upperCase.operator()).isEqualTo(UpperCase.Operator.UPPER_CASE)
         assertThat(upperCase.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                UpperCase.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(upperCase.propertyName()).contains("propertyName")
         assertThat(upperCase.value()).contains("value")
@@ -50,11 +43,8 @@ internal class UpperCaseTest {
             UpperCase.builder()
                 .operator(UpperCase.Operator.UPPER_CASE)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    UpperCase.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

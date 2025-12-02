@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -17,12 +18,7 @@ internal class AndTest {
                 .enclosedInParentheses(true)
                 .operator(And.Operator.AND)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
+                    And.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
                 )
                 .propertyName("propertyName")
                 .value(true)
@@ -32,14 +28,7 @@ internal class AndTest {
         assertThat(and.operator()).isEqualTo(And.Operator.AND)
         assertThat(and.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                And.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
             )
         assertThat(and.propertyName()).contains("propertyName")
         assertThat(and.value()).contains(true)
@@ -53,12 +42,7 @@ internal class AndTest {
                 .enclosedInParentheses(true)
                 .operator(And.Operator.AND)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
+                    And.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
                 )
                 .propertyName("propertyName")
                 .value(true)

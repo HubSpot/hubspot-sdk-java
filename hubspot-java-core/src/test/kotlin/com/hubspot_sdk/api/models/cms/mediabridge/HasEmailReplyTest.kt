@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class HasEmailReplyTest {
             HasEmailReply.builder()
                 .operator(HasEmailReply.Operator.HAS_EMAIL_REPLY)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    HasEmailReply.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -30,14 +28,9 @@ internal class HasEmailReplyTest {
         assertThat(hasEmailReply.operator()).isEqualTo(HasEmailReply.Operator.HAS_EMAIL_REPLY)
         assertThat(hasEmailReply.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                HasEmailReply.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(hasEmailReply.propertyName()).contains("propertyName")
         assertThat(hasEmailReply.value()).contains(true)
@@ -50,11 +43,8 @@ internal class HasEmailReplyTest {
             HasEmailReply.builder()
                 .operator(HasEmailReply.Operator.HAS_EMAIL_REPLY)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    HasEmailReply.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

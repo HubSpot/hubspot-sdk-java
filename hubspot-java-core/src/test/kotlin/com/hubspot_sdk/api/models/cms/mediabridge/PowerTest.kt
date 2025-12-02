@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class PowerTest {
             Power.builder()
                 .operator(Power.Operator.POWER)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    Power.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -30,14 +28,7 @@ internal class PowerTest {
         assertThat(power.operator()).isEqualTo(Power.Operator.POWER)
         assertThat(power.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                Power.Input.builder().putAdditionalProperty("foo", JsonValue.from("bar")).build()
             )
         assertThat(power.propertyName()).contains("propertyName")
         assertThat(power.value()).contains(0.0)
@@ -50,11 +41,8 @@ internal class PowerTest {
             Power.builder()
                 .operator(Power.Operator.POWER)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    Power.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

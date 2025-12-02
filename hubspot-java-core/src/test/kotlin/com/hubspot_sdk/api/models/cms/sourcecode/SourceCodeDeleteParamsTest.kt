@@ -9,16 +9,19 @@ internal class SourceCodeDeleteParamsTest {
 
     @Test
     fun create() {
-        SourceCodeDeleteParams.builder().environment("environment").path("path").build()
+        SourceCodeDeleteParams.builder().environment("environment").filePath("file_path").build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            SourceCodeDeleteParams.builder().environment("environment").path("path").build()
+            SourceCodeDeleteParams.builder()
+                .environment("environment")
+                .filePath("file_path")
+                .build()
 
         assertThat(params._pathParam(0)).isEqualTo("environment")
-        assertThat(params._pathParam(1)).isEqualTo("path")
+        assertThat(params._pathParam(1)).isEqualTo("file_path")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
     }

@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class StringPropertyVariableTest {
             StringPropertyVariable.builder()
                 .operator(StringPropertyVariable.Operator.STRING_PROPERTY_VARIABLE)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    StringPropertyVariable.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -31,14 +29,9 @@ internal class StringPropertyVariableTest {
             .isEqualTo(StringPropertyVariable.Operator.STRING_PROPERTY_VARIABLE)
         assertThat(stringPropertyVariable.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                StringPropertyVariable.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(stringPropertyVariable.propertyName()).contains("propertyName")
         assertThat(stringPropertyVariable.value()).contains("value")
@@ -51,11 +44,8 @@ internal class StringPropertyVariableTest {
             StringPropertyVariable.builder()
                 .operator(StringPropertyVariable.Operator.STRING_PROPERTY_VARIABLE)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    StringPropertyVariable.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")

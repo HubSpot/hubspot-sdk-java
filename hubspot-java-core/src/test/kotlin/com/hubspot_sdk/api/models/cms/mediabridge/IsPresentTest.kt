@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -15,32 +16,33 @@ internal class IsPresentTest {
         val isPresent =
             IsPresent.builder()
                 .expressionToEvaluate(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    IsPresent.ExpressionToEvaluate.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .operator(IsPresent.Operator.IS_PRESENT)
-                .inputs(listOf())
+                .addInput(
+                    IsPresent.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()
 
         assertThat(isPresent.expressionToEvaluate())
             .isEqualTo(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                IsPresent.ExpressionToEvaluate.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(isPresent.operator()).isEqualTo(IsPresent.Operator.IS_PRESENT)
-        assertThat(isPresent.inputs().getOrNull()).containsExactly()
+        assertThat(isPresent.inputs().getOrNull())
+            .containsExactly(
+                IsPresent.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(isPresent.propertyName()).contains("propertyName")
         assertThat(isPresent.value()).contains(true)
     }
@@ -51,15 +53,16 @@ internal class IsPresentTest {
         val isPresent =
             IsPresent.builder()
                 .expressionToEvaluate(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    IsPresent.ExpressionToEvaluate.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .operator(IsPresent.Operator.IS_PRESENT)
-                .inputs(listOf())
+                .addInput(
+                    IsPresent.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()

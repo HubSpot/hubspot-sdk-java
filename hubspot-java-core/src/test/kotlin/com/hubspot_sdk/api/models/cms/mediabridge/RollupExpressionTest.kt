@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.AssociationSpec
 import org.assertj.core.api.Assertions.assertThat
@@ -24,11 +25,8 @@ internal class RollupExpressionTest {
                 .sourceObjectTypeId("sourceObjectTypeId")
                 .sourcePropertyName("sourcePropertyName")
                 .conditionalExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    RollupExpression.ConditionalExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .conditionalFormula("conditionalFormula")
@@ -48,14 +46,9 @@ internal class RollupExpressionTest {
         assertThat(rollupExpression.sourcePropertyName()).isEqualTo("sourcePropertyName")
         assertThat(rollupExpression.conditionalExpression())
             .contains(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                RollupExpression.ConditionalExpression.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(rollupExpression.conditionalFormula()).contains("conditionalFormula")
         assertThat(rollupExpression.emptyRollupValue()).contains("emptyRollupValue")
@@ -78,11 +71,8 @@ internal class RollupExpressionTest {
                 .sourceObjectTypeId("sourceObjectTypeId")
                 .sourcePropertyName("sourcePropertyName")
                 .conditionalExpression(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    RollupExpression.ConditionalExpression.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .conditionalFormula("conditionalFormula")

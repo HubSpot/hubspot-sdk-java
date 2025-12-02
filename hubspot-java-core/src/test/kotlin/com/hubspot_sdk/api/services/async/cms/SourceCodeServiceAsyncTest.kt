@@ -43,7 +43,7 @@ internal class SourceCodeServiceAsyncTest {
             sourceCodeServiceAsync.create(
                 SourceCodeCreateParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .file("some content".byteInputStream())
                     .build()
             )
@@ -64,7 +64,10 @@ internal class SourceCodeServiceAsyncTest {
 
         val future =
             sourceCodeServiceAsync.delete(
-                SourceCodeDeleteParams.builder().environment("environment").path("path").build()
+                SourceCodeDeleteParams.builder()
+                    .environment("environment")
+                    .filePath("file_path")
+                    .build()
             )
 
         val response = future.get()
@@ -99,7 +102,10 @@ internal class SourceCodeServiceAsyncTest {
 
         val sourceCodeFuture =
             sourceCodeServiceAsync.get(
-                SourceCodeGetParams.builder().environment("environment").path("path").build()
+                SourceCodeGetParams.builder()
+                    .environment("environment")
+                    .filePath("file_path")
+                    .build()
             )
 
         val sourceCode = sourceCodeFuture.get()
@@ -136,7 +142,7 @@ internal class SourceCodeServiceAsyncTest {
             sourceCodeServiceAsync.getMetadata(
                 SourceCodeGetMetadataParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .properties("properties")
                     .build()
             )
@@ -159,7 +165,7 @@ internal class SourceCodeServiceAsyncTest {
             sourceCodeServiceAsync.upsert(
                 SourceCodeUpsertParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .file("some content".byteInputStream())
                     .build()
             )
@@ -182,7 +188,7 @@ internal class SourceCodeServiceAsyncTest {
             sourceCodeServiceAsync.validate(
                 SourceCodeValidateParams.builder()
                     .environment("environment")
-                    .path("path")
+                    .filePath("file_path")
                     .file("some content".byteInputStream())
                     .build()
             )

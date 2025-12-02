@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,14 +17,15 @@ internal class SubtractTimeTest {
             SubtractTime.builder()
                 .operator(SubtractTime.Operator.SUBTRACT_TIME)
                 .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    SubtractTime.StringToCheck.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    SubtractTime.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()
@@ -31,16 +33,16 @@ internal class SubtractTimeTest {
         assertThat(subtractTime.operator()).isEqualTo(SubtractTime.Operator.SUBTRACT_TIME)
         assertThat(subtractTime.stringToCheck())
             .isEqualTo(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                SubtractTime.StringToCheck.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
-        assertThat(subtractTime.inputs().getOrNull()).containsExactly()
+        assertThat(subtractTime.inputs().getOrNull())
+            .containsExactly(
+                SubtractTime.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(subtractTime.propertyName()).contains("propertyName")
         assertThat(subtractTime.value()).contains(0.0)
     }
@@ -52,14 +54,15 @@ internal class SubtractTimeTest {
             SubtractTime.builder()
                 .operator(SubtractTime.Operator.SUBTRACT_TIME)
                 .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    SubtractTime.StringToCheck.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    SubtractTime.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(0.0)
                 .build()

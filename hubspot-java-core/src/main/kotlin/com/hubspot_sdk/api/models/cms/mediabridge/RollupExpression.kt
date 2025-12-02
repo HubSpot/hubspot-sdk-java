@@ -27,7 +27,7 @@ private constructor(
     private val rollupOperator: JsonField<String>,
     private val sourceObjectTypeId: JsonField<String>,
     private val sourcePropertyName: JsonField<String>,
-    private val conditionalExpression: JsonField<Expression>,
+    private val conditionalExpression: JsonField<ConditionalExpression>,
     private val conditionalFormula: JsonField<String>,
     private val emptyRollupValue: JsonField<String>,
     private val sourceCompareByPropertyName: JsonField<String>,
@@ -50,7 +50,7 @@ private constructor(
         sourcePropertyName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("conditionalExpression")
         @ExcludeMissing
-        conditionalExpression: JsonField<Expression> = JsonMissing.of(),
+        conditionalExpression: JsonField<ConditionalExpression> = JsonMissing.of(),
         @JsonProperty("conditionalFormula")
         @ExcludeMissing
         conditionalFormula: JsonField<String> = JsonMissing.of(),
@@ -100,7 +100,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun conditionalExpression(): Optional<Expression> =
+    fun conditionalExpression(): Optional<ConditionalExpression> =
         conditionalExpression.getOptional("conditionalExpression")
 
     /**
@@ -170,7 +170,7 @@ private constructor(
      */
     @JsonProperty("conditionalExpression")
     @ExcludeMissing
-    fun _conditionalExpression(): JsonField<Expression> = conditionalExpression
+    fun _conditionalExpression(): JsonField<ConditionalExpression> = conditionalExpression
 
     /**
      * Returns the raw JSON value of [conditionalFormula].
@@ -237,7 +237,7 @@ private constructor(
         private var rollupOperator: JsonField<String>? = null
         private var sourceObjectTypeId: JsonField<String>? = null
         private var sourcePropertyName: JsonField<String>? = null
-        private var conditionalExpression: JsonField<Expression> = JsonMissing.of()
+        private var conditionalExpression: JsonField<ConditionalExpression> = JsonMissing.of()
         private var conditionalFormula: JsonField<String> = JsonMissing.of()
         private var emptyRollupValue: JsonField<String> = JsonMissing.of()
         private var sourceCompareByPropertyName: JsonField<String> = JsonMissing.of()
@@ -323,447 +323,19 @@ private constructor(
             this.sourcePropertyName = sourcePropertyName
         }
 
-        fun conditionalExpression(conditionalExpression: Expression) =
+        fun conditionalExpression(conditionalExpression: ConditionalExpression) =
             conditionalExpression(JsonField.of(conditionalExpression))
 
         /**
          * Sets [Builder.conditionalExpression] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.conditionalExpression] with a well-typed [Expression]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
+         * You should usually call [Builder.conditionalExpression] with a well-typed
+         * [ConditionalExpression] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
          */
-        fun conditionalExpression(conditionalExpression: JsonField<Expression>) = apply {
+        fun conditionalExpression(conditionalExpression: JsonField<ConditionalExpression>) = apply {
             this.conditionalExpression = conditionalExpression
         }
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofConstantBoolean(constantBoolean)`.
-         */
-        fun conditionalExpression(constantBoolean: ConstantBoolean) =
-            conditionalExpression(Expression.ofConstantBoolean(constantBoolean))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofConstantNumber(constantNumber)`.
-         */
-        fun conditionalExpression(constantNumber: ConstantNumber) =
-            conditionalExpression(Expression.ofConstantNumber(constantNumber))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofConstantString(constantString)`.
-         */
-        fun conditionalExpression(constantString: ConstantString) =
-            conditionalExpression(Expression.ofConstantString(constantString))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofBooleanPropertyVariable(booleanPropertyVariable)`.
-         */
-        fun conditionalExpression(booleanPropertyVariable: BooleanPropertyVariable) =
-            conditionalExpression(Expression.ofBooleanPropertyVariable(booleanPropertyVariable))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofStringPropertyVariable(stringPropertyVariable)`.
-         */
-        fun conditionalExpression(stringPropertyVariable: StringPropertyVariable) =
-            conditionalExpression(Expression.ofStringPropertyVariable(stringPropertyVariable))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofNumberPropertyVariable(numberPropertyVariable)`.
-         */
-        fun conditionalExpression(numberPropertyVariable: NumberPropertyVariable) =
-            conditionalExpression(Expression.ofNumberPropertyVariable(numberPropertyVariable))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable)`.
-         */
-        fun conditionalExpression(timestampOfPropertyVariable: TimestampOfPropertyVariable) =
-            conditionalExpression(
-                Expression.ofTimestampOfPropertyVariable(timestampOfPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable)`.
-         */
-        fun conditionalExpression(booleanTargetPropertyVariable: BooleanTargetPropertyVariable) =
-            conditionalExpression(
-                Expression.ofBooleanTargetPropertyVariable(booleanTargetPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable)`.
-         */
-        fun conditionalExpression(stringTargetPropertyVariable: StringTargetPropertyVariable) =
-            conditionalExpression(
-                Expression.ofStringTargetPropertyVariable(stringTargetPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable)`.
-         */
-        fun conditionalExpression(numberTargetPropertyVariable: NumberTargetPropertyVariable) =
-            conditionalExpression(
-                Expression.ofNumberTargetPropertyVariable(numberTargetPropertyVariable)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)`.
-         */
-        fun conditionalExpression(
-            timestampOfTargetPropertyVariable: TimestampOfTargetPropertyVariable
-        ) =
-            conditionalExpression(
-                Expression.ofTimestampOfTargetPropertyVariable(timestampOfTargetPropertyVariable)
-            )
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofAddNumbers(addNumbers)`. */
-        fun conditionalExpression(addNumbers: AddNumbers) =
-            conditionalExpression(Expression.ofAddNumbers(addNumbers))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofSubtractNumbers(subtractNumbers)`.
-         */
-        fun conditionalExpression(subtractNumbers: SubtractNumbers) =
-            conditionalExpression(Expression.ofSubtractNumbers(subtractNumbers))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofMultiplyNumbers(multiplyNumbers)`.
-         */
-        fun conditionalExpression(multiplyNumbers: MultiplyNumbers) =
-            conditionalExpression(Expression.ofMultiplyNumbers(multiplyNumbers))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofDivideNumbers(divideNumbers)`.
-         */
-        fun conditionalExpression(divideNumbers: DivideNumbers) =
-            conditionalExpression(Expression.ofDivideNumbers(divideNumbers))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofRoundDownNumbers(roundDownNumbers)`.
-         */
-        fun conditionalExpression(roundDownNumbers: RoundDownNumbers) =
-            conditionalExpression(Expression.ofRoundDownNumbers(roundDownNumbers))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofRoundUpNumbers(roundUpNumbers)`.
-         */
-        fun conditionalExpression(roundUpNumbers: RoundUpNumbers) =
-            conditionalExpression(Expression.ofRoundUpNumbers(roundUpNumbers))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofRoundNearestNumbers(roundNearestNumbers)`.
-         */
-        fun conditionalExpression(roundNearestNumbers: RoundNearestNumbers) =
-            conditionalExpression(Expression.ofRoundNearestNumbers(roundNearestNumbers))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofUpperCase(upperCase)`. */
-        fun conditionalExpression(upperCase: UpperCase) =
-            conditionalExpression(Expression.ofUpperCase(upperCase))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofLowerCase(lowerCase)`. */
-        fun conditionalExpression(lowerCase: LowerCase) =
-            conditionalExpression(Expression.ofLowerCase(lowerCase))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofConcatStrings(concatStrings)`.
-         */
-        fun conditionalExpression(concatStrings: ConcatStrings) =
-            conditionalExpression(Expression.ofConcatStrings(concatStrings))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofContains(contains)`. */
-        fun conditionalExpression(contains: Contains) =
-            conditionalExpression(Expression.ofContains(contains))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofBeginsWith(beginsWith)`. */
-        fun conditionalExpression(beginsWith: BeginsWith) =
-            conditionalExpression(Expression.ofBeginsWith(beginsWith))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofNumberToString(numberToString)`.
-         */
-        fun conditionalExpression(numberToString: NumberToString) =
-            conditionalExpression(Expression.ofNumberToString(numberToString))
-
-        /**
-         * Alias for calling [conditionalExpression] with `Expression.ofParseNumber(parseNumber)`.
-         */
-        fun conditionalExpression(parseNumber: ParseNumber) =
-            conditionalExpression(Expression.ofParseNumber(parseNumber))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofFetchExchangeRate(fetchExchangeRate)`.
-         */
-        fun conditionalExpression(fetchExchangeRate: FetchExchangeRate) =
-            conditionalExpression(Expression.ofFetchExchangeRate(fetchExchangeRate))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces)`.
-         */
-        fun conditionalExpression(fetchCurrencyDecimalPlaces: FetchCurrencyDecimalPlaces) =
-            conditionalExpression(
-                Expression.ofFetchCurrencyDecimalPlaces(fetchCurrencyDecimalPlaces)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)`.
-         */
-        fun conditionalExpression(
-            fetchSingleCurrencyPortalCurrency: FetchSingleCurrencyPortalCurrency
-        ) =
-            conditionalExpression(
-                Expression.ofFetchSingleCurrencyPortalCurrency(fetchSingleCurrencyPortalCurrency)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofDatedExchangeRate(datedExchangeRate)`.
-         */
-        fun conditionalExpression(datedExchangeRate: DatedExchangeRate) =
-            conditionalExpression(Expression.ofDatedExchangeRate(datedExchangeRate))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofPipelineProbability(pipelineProbability)`.
-         */
-        fun conditionalExpression(pipelineProbability: PipelineProbability) =
-            conditionalExpression(Expression.ofPipelineProbability(pipelineProbability))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofMaxNumbers(maxNumbers)`. */
-        fun conditionalExpression(maxNumbers: MaxNumbers) =
-            conditionalExpression(Expression.ofMaxNumbers(maxNumbers))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofMinNumbers(minNumbers)`. */
-        fun conditionalExpression(minNumbers: MinNumbers) =
-            conditionalExpression(Expression.ofMinNumbers(minNumbers))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofLessThan(lessThan)`. */
-        fun conditionalExpression(lessThan: LessThan) =
-            conditionalExpression(Expression.ofLessThan(lessThan))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofLessThanOrEqual(lessThanOrEqual)`.
-         */
-        fun conditionalExpression(lessThanOrEqual: LessThanOrEqual) =
-            conditionalExpression(Expression.ofLessThanOrEqual(lessThanOrEqual))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofMoreThan(moreThan)`. */
-        fun conditionalExpression(moreThan: MoreThan) =
-            conditionalExpression(Expression.ofMoreThan(moreThan))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofMoreThanOrEqual(moreThanOrEqual)`.
-         */
-        fun conditionalExpression(moreThanOrEqual: MoreThanOrEqual) =
-            conditionalExpression(Expression.ofMoreThanOrEqual(moreThanOrEqual))
-
-        /**
-         * Alias for calling [conditionalExpression] with `Expression.ofNumberEquals(numberEquals)`.
-         */
-        fun conditionalExpression(numberEquals: NumberEquals) =
-            conditionalExpression(Expression.ofNumberEquals(numberEquals))
-
-        /**
-         * Alias for calling [conditionalExpression] with `Expression.ofStringEquals(stringEquals)`.
-         */
-        fun conditionalExpression(stringEquals: StringEquals) =
-            conditionalExpression(Expression.ofStringEquals(stringEquals))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofIsPipelineStageClosed(isPipelineStageClosed)`.
-         */
-        fun conditionalExpression(isPipelineStageClosed: IsPipelineStageClosed) =
-            conditionalExpression(Expression.ofIsPipelineStageClosed(isPipelineStageClosed))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofNot(not)`. */
-        fun conditionalExpression(not: Not) = conditionalExpression(Expression.ofNot(not))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofDate(date)`. */
-        fun conditionalExpression(date: Date) = conditionalExpression(Expression.ofDate(date))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofMonth(month)`. */
-        fun conditionalExpression(month: Month) = conditionalExpression(Expression.ofMonth(month))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofYear(year)`. */
-        fun conditionalExpression(year: Year) = conditionalExpression(Expression.ofYear(year))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofNow(now)`. */
-        fun conditionalExpression(now: Now) = conditionalExpression(Expression.ofNow(now))
-
-        /**
-         * Alias for calling [conditionalExpression] with `Expression.ofTimeBetween(timeBetween)`.
-         */
-        fun conditionalExpression(timeBetween: TimeBetween) =
-            conditionalExpression(Expression.ofTimeBetween(timeBetween))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofPeriodToMonths(periodToMonths)`.
-         */
-        fun conditionalExpression(periodToMonths: PeriodToMonths) =
-            conditionalExpression(Expression.ofPeriodToMonths(periodToMonths))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofPeriodToWeeks(periodToWeeks)`.
-         */
-        fun conditionalExpression(periodToWeeks: PeriodToWeeks) =
-            conditionalExpression(Expression.ofPeriodToWeeks(periodToWeeks))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofAnd(and)`. */
-        fun conditionalExpression(and: And) = conditionalExpression(Expression.ofAnd(and))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofOr(or)`. */
-        fun conditionalExpression(or: Or) = conditionalExpression(Expression.ofOr(or))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofXor(xor)`. */
-        fun conditionalExpression(xor: Xor) = conditionalExpression(Expression.ofXor(xor))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofIfString(ifString)`. */
-        fun conditionalExpression(ifString: IfString) =
-            conditionalExpression(Expression.ofIfString(ifString))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofIfNumber(ifNumber)`. */
-        fun conditionalExpression(ifNumber: IfNumber) =
-            conditionalExpression(Expression.ofIfNumber(ifNumber))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofIfBoolean(ifBoolean)`. */
-        fun conditionalExpression(ifBoolean: IfBoolean) =
-            conditionalExpression(Expression.ofIfBoolean(ifBoolean))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofIsPresent(isPresent)`. */
-        fun conditionalExpression(isPresent: IsPresent) =
-            conditionalExpression(Expression.ofIsPresent(isPresent))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofHasEmailReply(hasEmailReply)`.
-         */
-        fun conditionalExpression(hasEmailReply: HasEmailReply) =
-            conditionalExpression(Expression.ofHasEmailReply(hasEmailReply))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply)`.
-         */
-        fun conditionalExpression(hasPlainTextEmailReply: HasPlainTextEmailReply) =
-            conditionalExpression(Expression.ofHasPlainTextEmailReply(hasPlainTextEmailReply))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml)`.
-         */
-        fun conditionalExpression(
-            extractMostRecentEmailReplyHtml: ExtractMostRecentEmailReplyHtml
-        ) =
-            conditionalExpression(
-                Expression.ofExtractMostRecentEmailReplyHtml(extractMostRecentEmailReplyHtml)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText)`.
-         */
-        fun conditionalExpression(
-            extractMostRecentEmailReplyText: ExtractMostRecentEmailReplyText
-        ) =
-            conditionalExpression(
-                Expression.ofExtractMostRecentEmailReplyText(extractMostRecentEmailReplyText)
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofExtractMostRecentPlainTextEmailReply(extractMostRecentPlainTextEmailReply)`.
-         */
-        fun conditionalExpression(
-            extractMostRecentPlainTextEmailReply: ExtractMostRecentPlainTextEmailReply
-        ) =
-            conditionalExpression(
-                Expression.ofExtractMostRecentPlainTextEmailReply(
-                    extractMostRecentPlainTextEmailReply
-                )
-            )
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofSetContainsString(setContainsString)`.
-         */
-        fun conditionalExpression(setContainsString: SetContainsString) =
-            conditionalExpression(Expression.ofSetContainsString(setContainsString))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofIsEngagementType(isEngagementType)`.
-         */
-        fun conditionalExpression(isEngagementType: IsEngagementType) =
-            conditionalExpression(Expression.ofIsEngagementType(isEngagementType))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofFormatFullName(formatFullName)`.
-         */
-        fun conditionalExpression(formatFullName: FormatFullName) =
-            conditionalExpression(Expression.ofFormatFullName(formatFullName))
-
-        /**
-         * Alias for calling [conditionalExpression] with
-         * `Expression.ofAbsoluteValue(absoluteValue)`.
-         */
-        fun conditionalExpression(absoluteValue: AbsoluteValue) =
-            conditionalExpression(Expression.ofAbsoluteValue(absoluteValue))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofSquareRoot(squareRoot)`. */
-        fun conditionalExpression(squareRoot: SquareRoot) =
-            conditionalExpression(Expression.ofSquareRoot(squareRoot))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofPower(power)`. */
-        fun conditionalExpression(power: Power) = conditionalExpression(Expression.ofPower(power))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofSubstring(substring)`. */
-        fun conditionalExpression(substring: Substring) =
-            conditionalExpression(Expression.ofSubstring(substring))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofEuler(euler)`. */
-        fun conditionalExpression(euler: Euler) = conditionalExpression(Expression.ofEuler(euler))
-
-        /**
-         * Alias for calling [conditionalExpression] with `Expression.ofStringLength(stringLength)`.
-         */
-        fun conditionalExpression(stringLength: StringLength) =
-            conditionalExpression(Expression.ofStringLength(stringLength))
-
-        /** Alias for calling [conditionalExpression] with `Expression.ofAddTime(addTime)`. */
-        fun conditionalExpression(addTime: AddTime) =
-            conditionalExpression(Expression.ofAddTime(addTime))
-
-        /**
-         * Alias for calling [conditionalExpression] with `Expression.ofSubtractTime(subtractTime)`.
-         */
-        fun conditionalExpression(subtractTime: SubtractTime) =
-            conditionalExpression(Expression.ofSubtractTime(subtractTime))
 
         fun conditionalFormula(conditionalFormula: String) =
             conditionalFormula(JsonField.of(conditionalFormula))
@@ -896,6 +468,110 @@ private constructor(
             (if (conditionalFormula.asKnown().isPresent) 1 else 0) +
             (if (emptyRollupValue.asKnown().isPresent) 1 else 0) +
             (if (sourceCompareByPropertyName.asKnown().isPresent) 1 else 0)
+
+    class ConditionalExpression
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ConditionalExpression].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ConditionalExpression]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(conditionalExpression: ConditionalExpression) = apply {
+                additionalProperties = conditionalExpression.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ConditionalExpression].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ConditionalExpression =
+                ConditionalExpression(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ConditionalExpression = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ConditionalExpression &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ConditionalExpression{additionalProperties=$additionalProperties}"
+    }
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {

@@ -135,13 +135,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "updatedAt" to "2019-12-27T18:11:19.117Z",
                                                         "updatedUserId" to "updatedUserId",
                                                     ),
-                                                "calculationExpression" to
-                                                    mapOf(
-                                                        "operator" to "CONSTANT_BOOLEAN",
-                                                        "inputs" to listOf(),
-                                                        "propertyName" to "propertyName",
-                                                        "value" to true,
-                                                    ),
+                                                "calculationExpression" to mapOf("foo" to "bar"),
                                                 "calculationFormula" to "calculationFormula",
                                                 "definitionSource" to
                                                     mapOf("type" to "GLOBAL", "name" to "name"),
@@ -208,6 +202,8 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                             "sourceObjectTypeId",
                                                         "sourcePropertyName" to
                                                             "sourcePropertyName",
+                                                        "conditionalExpression" to
+                                                            mapOf("foo" to "bar"),
                                                         "conditionalFormula" to
                                                             "conditionalFormula",
                                                         "emptyRollupValue" to "emptyRollupValue",
@@ -353,13 +349,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                     "updatedAt" to "2019-12-27T18:11:19.117Z",
                                                     "updatedUserId" to "updatedUserId",
                                                 ),
-                                            "calculationExpression" to
-                                                mapOf(
-                                                    "operator" to "CONSTANT_BOOLEAN",
-                                                    "inputs" to listOf(),
-                                                    "propertyName" to "propertyName",
-                                                    "value" to true,
-                                                ),
+                                            "calculationExpression" to mapOf("foo" to "bar"),
                                             "calculationFormula" to "calculationFormula",
                                             "definitionSource" to
                                                 mapOf("type" to "GLOBAL", "name" to "name"),
@@ -420,6 +410,8 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                     "rollupOperator" to "rollupOperator",
                                                     "sourceObjectTypeId" to "sourceObjectTypeId",
                                                     "sourcePropertyName" to "sourcePropertyName",
+                                                    "conditionalExpression" to
+                                                        mapOf("foo" to "bar"),
                                                     "conditionalFormula" to "conditionalFormula",
                                                     "emptyRollupValue" to "emptyRollupValue",
                                                     "sourceCompareByPropertyName" to
@@ -573,13 +565,7 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                         "updatedAt" to "2019-12-27T18:11:19.117Z",
                                                         "updatedUserId" to "updatedUserId",
                                                     ),
-                                                "calculationExpression" to
-                                                    mapOf(
-                                                        "operator" to "CONSTANT_BOOLEAN",
-                                                        "inputs" to listOf(),
-                                                        "propertyName" to "propertyName",
-                                                        "value" to true,
-                                                    ),
+                                                "calculationExpression" to mapOf("foo" to "bar"),
                                                 "calculationFormula" to "calculationFormula",
                                                 "definitionSource" to
                                                     mapOf("type" to "GLOBAL", "name" to "name"),
@@ -646,6 +632,8 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                             "sourceObjectTypeId",
                                                         "sourcePropertyName" to
                                                             "sourcePropertyName",
+                                                        "conditionalExpression" to
+                                                            mapOf("foo" to "bar"),
                                                         "conditionalFormula" to
                                                             "conditionalFormula",
                                                         "emptyRollupValue" to "emptyRollupValue",

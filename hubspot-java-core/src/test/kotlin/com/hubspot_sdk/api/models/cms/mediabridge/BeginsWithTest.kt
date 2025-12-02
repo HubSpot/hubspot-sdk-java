@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,14 +17,15 @@ internal class BeginsWithTest {
             BeginsWith.builder()
                 .operator(BeginsWith.Operator.BEGINS_WITH)
                 .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    BeginsWith.StringToCheck.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    BeginsWith.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()
@@ -31,16 +33,16 @@ internal class BeginsWithTest {
         assertThat(beginsWith.operator()).isEqualTo(BeginsWith.Operator.BEGINS_WITH)
         assertThat(beginsWith.stringToCheck())
             .isEqualTo(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                BeginsWith.StringToCheck.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
-        assertThat(beginsWith.inputs().getOrNull()).containsExactly()
+        assertThat(beginsWith.inputs().getOrNull())
+            .containsExactly(
+                BeginsWith.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
+            )
         assertThat(beginsWith.propertyName()).contains("propertyName")
         assertThat(beginsWith.value()).contains(true)
     }
@@ -52,14 +54,15 @@ internal class BeginsWithTest {
             BeginsWith.builder()
                 .operator(BeginsWith.Operator.BEGINS_WITH)
                 .stringToCheck(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    BeginsWith.StringToCheck.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
-                .inputs(listOf())
+                .addInput(
+                    BeginsWith.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
+                        .build()
+                )
                 .propertyName("propertyName")
                 .value(true)
                 .build()

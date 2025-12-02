@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
@@ -16,11 +17,8 @@ internal class FetchCurrencyDecimalPlacesTest {
             FetchCurrencyDecimalPlaces.builder()
                 .operator(FetchCurrencyDecimalPlaces.Operator.FETCH_CURRENCY_DECIMAL_PLACES)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    FetchCurrencyDecimalPlaces.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
@@ -31,14 +29,9 @@ internal class FetchCurrencyDecimalPlacesTest {
             .isEqualTo(FetchCurrencyDecimalPlaces.Operator.FETCH_CURRENCY_DECIMAL_PLACES)
         assertThat(fetchCurrencyDecimalPlaces.inputs().getOrNull())
             .containsExactly(
-                Expression.ofConstantBoolean(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
-                        .build()
-                )
+                FetchCurrencyDecimalPlaces.Input.builder()
+                    .putAdditionalProperty("foo", JsonValue.from("bar"))
+                    .build()
             )
         assertThat(fetchCurrencyDecimalPlaces.propertyName()).contains("propertyName")
         assertThat(fetchCurrencyDecimalPlaces.value()).contains(0.0)
@@ -51,11 +44,8 @@ internal class FetchCurrencyDecimalPlacesTest {
             FetchCurrencyDecimalPlaces.builder()
                 .operator(FetchCurrencyDecimalPlaces.Operator.FETCH_CURRENCY_DECIMAL_PLACES)
                 .addInput(
-                    ConstantBoolean.builder()
-                        .operator(ConstantBoolean.Operator.CONSTANT_BOOLEAN)
-                        .inputs(listOf())
-                        .propertyName("propertyName")
-                        .value(true)
+                    FetchCurrencyDecimalPlaces.Input.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("bar"))
                         .build()
                 )
                 .propertyName("propertyName")
