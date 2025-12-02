@@ -6,7 +6,6 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
@@ -16,6 +15,7 @@ import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteAssociationPar
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListParams
+import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaListResponse
 import com.hubspot_sdk.api.models.crm.objects.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.events.eventdefinitions.AssociationDefinition
 import java.util.concurrent.CompletableFuture
@@ -82,25 +82,21 @@ interface SchemaServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ObjectsSchemasObjectTypeDefinition>
 
-    fun list(): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
-        list(SchemaListParams.none())
+    fun list(): CompletableFuture<SchemaListResponse> = list(SchemaListParams.none())
 
     /** @see list */
     fun list(
         params: SchemaListParams = SchemaListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging>
+    ): CompletableFuture<SchemaListResponse>
 
     /** @see list */
     fun list(
         params: SchemaListParams = SchemaListParams.none()
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<SchemaListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<SchemaListResponse> =
         list(SchemaListParams.none(), requestOptions)
 
     fun delete(objectType: String): CompletableFuture<Void?> =
@@ -294,25 +290,25 @@ interface SchemaServiceAsync {
          * Returns a raw HTTP response for `get /crm-object-schemas/v3/schemas`, but is otherwise
          * the same as [SchemaServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        fun list(): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(SchemaListParams.none())
 
         /** @see list */
         fun list(
             params: SchemaListParams = SchemaListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>>
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>>
 
         /** @see list */
         fun list(
             params: SchemaListParams = SchemaListParams.none()
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(SchemaListParams.none(), requestOptions)
 
         /**

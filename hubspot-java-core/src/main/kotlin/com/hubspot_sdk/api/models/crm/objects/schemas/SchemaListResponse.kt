@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models
+package com.hubspot_sdk.api.models.crm.objects.schemas
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -14,12 +14,11 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
 
-class CollectionResponseObjectSchemaNoPaging
+class SchemaListResponse
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val results: JsonField<List<ObjectSchema>>,
@@ -61,8 +60,7 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of
-         * [CollectionResponseObjectSchemaNoPaging].
+         * Returns a mutable builder for constructing an instance of [SchemaListResponse].
          *
          * The following fields are required:
          * ```java
@@ -72,19 +70,16 @@ private constructor(
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [CollectionResponseObjectSchemaNoPaging]. */
+    /** A builder for [SchemaListResponse]. */
     class Builder internal constructor() {
 
         private var results: JsonField<MutableList<ObjectSchema>>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(
-            collectionResponseObjectSchemaNoPaging: CollectionResponseObjectSchemaNoPaging
-        ) = apply {
-            results = collectionResponseObjectSchemaNoPaging.results.map { it.toMutableList() }
-            additionalProperties =
-                collectionResponseObjectSchemaNoPaging.additionalProperties.toMutableMap()
+        internal fun from(schemaListResponse: SchemaListResponse) = apply {
+            results = schemaListResponse.results.map { it.toMutableList() }
+            additionalProperties = schemaListResponse.additionalProperties.toMutableMap()
         }
 
         fun results(results: List<ObjectSchema>) = results(JsonField.of(results))
@@ -132,7 +127,7 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [CollectionResponseObjectSchemaNoPaging].
+         * Returns an immutable instance of [SchemaListResponse].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
@@ -143,8 +138,8 @@ private constructor(
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): CollectionResponseObjectSchemaNoPaging =
-            CollectionResponseObjectSchemaNoPaging(
+        fun build(): SchemaListResponse =
+            SchemaListResponse(
                 checkRequired("results", results).map { it.toImmutable() },
                 additionalProperties.toMutableMap(),
             )
@@ -152,7 +147,7 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): CollectionResponseObjectSchemaNoPaging = apply {
+    fun validate(): SchemaListResponse = apply {
         if (validated) {
             return@apply
         }
@@ -183,7 +178,7 @@ private constructor(
             return true
         }
 
-        return other is CollectionResponseObjectSchemaNoPaging &&
+        return other is SchemaListResponse &&
             results == other.results &&
             additionalProperties == other.additionalProperties
     }
@@ -193,5 +188,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CollectionResponseObjectSchemaNoPaging{results=$results, additionalProperties=$additionalProperties}"
+        "SchemaListResponse{results=$results, additionalProperties=$additionalProperties}"
 }

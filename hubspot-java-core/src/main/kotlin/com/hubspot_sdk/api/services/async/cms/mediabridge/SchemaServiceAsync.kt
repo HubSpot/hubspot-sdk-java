@@ -6,11 +6,11 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
+import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
@@ -58,7 +58,7 @@ interface SchemaServiceAsync {
     ): CompletableFuture<ObjectsSchemasObjectTypeDefinition>
 
     /** Get the schemas for all object types. */
-    fun list(appId: Int): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    fun list(appId: Int): CompletableFuture<SchemaListResponse> =
         list(appId, SchemaListParams.none())
 
     /** @see list */
@@ -66,31 +66,27 @@ interface SchemaServiceAsync {
         appId: Int,
         params: SchemaListParams = SchemaListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    ): CompletableFuture<SchemaListResponse> =
         list(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see list */
     fun list(
         appId: Int,
         params: SchemaListParams = SchemaListParams.none(),
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
-        list(appId, params, RequestOptions.none())
+    ): CompletableFuture<SchemaListResponse> = list(appId, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: SchemaListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging>
+    ): CompletableFuture<SchemaListResponse>
 
     /** @see list */
-    fun list(params: SchemaListParams): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    fun list(params: SchemaListParams): CompletableFuture<SchemaListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(
-        appId: Int,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    fun list(appId: Int, requestOptions: RequestOptions): CompletableFuture<SchemaListResponse> =
         list(appId, SchemaListParams.none(), requestOptions)
 
     /** Create a new association definition for the specified object type. */
@@ -213,9 +209,7 @@ interface SchemaServiceAsync {
          * Returns a raw HTTP response for `get /media-bridge/v1/{appId}/schemas`, but is otherwise
          * the same as [SchemaServiceAsync.list].
          */
-        fun list(
-            appId: Int
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        fun list(appId: Int): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(appId, SchemaListParams.none())
 
         /** @see list */
@@ -223,33 +217,31 @@ interface SchemaServiceAsync {
             appId: Int,
             params: SchemaListParams = SchemaListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(params.toBuilder().appId(appId).build(), requestOptions)
 
         /** @see list */
         fun list(
             appId: Int,
             params: SchemaListParams = SchemaListParams.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(appId, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: SchemaListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>>
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>>
 
         /** @see list */
-        fun list(
-            params: SchemaListParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        fun list(params: SchemaListParams): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             appId: Int,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>> =
             list(appId, SchemaListParams.none(), requestOptions)
 
         /**

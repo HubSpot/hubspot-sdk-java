@@ -17,11 +17,11 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListParams
+import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaListResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.schemas.SchemaUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objects.schemas.ObjectsSchemasObjectTypeDefinition
@@ -52,7 +52,7 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: SchemaListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    ): CompletableFuture<SchemaListResponse> =
         // get /media-bridge/v1/{appId}/schemas
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -130,13 +130,13 @@ class SchemaServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<CollectionResponseObjectSchemaNoPaging> =
-            jsonHandler<CollectionResponseObjectSchemaNoPaging>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SchemaListResponse> =
+            jsonHandler<SchemaListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SchemaListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> {
+        ): CompletableFuture<HttpResponseFor<SchemaListResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
