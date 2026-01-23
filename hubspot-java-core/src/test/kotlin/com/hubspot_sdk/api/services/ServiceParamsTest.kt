@@ -18,6 +18,7 @@ import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -45,25 +46,31 @@ internal class ServiceParamsTest {
         stubFor(post(anyUrl()).willReturn(ok("{}")))
 
         contactService.create(
-            SimplePublicObjectInputForCreate.builder()
-                .addAssociation(
-                    PublicAssociationsForObject.builder()
-                        .to(PublicObjectId.builder().id("37295").build())
-                        .addType(
-                            AssociationSpec.builder()
-                                .associationCategory(
-                                    AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+            ContactCreateParams.builder()
+                .simplePublicObjectInputForCreate(
+                    SimplePublicObjectInputForCreate.builder()
+                        .addAssociation(
+                            PublicAssociationsForObject.builder()
+                                .to(PublicObjectId.builder().id("37295").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
                                 )
-                                .associationTypeId(0)
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
                 )
-                .properties(
-                    SimplePublicObjectInputForCreate.Properties.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                        .build()
-                )
+                .putAdditionalHeader("Secret-Header", "42")
+                .putAdditionalQueryParam("secret_query_param", "42")
                 .build()
         )
 
