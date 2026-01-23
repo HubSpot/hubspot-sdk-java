@@ -120,6 +120,11 @@ private constructor(
      * Supplementary metadata associated with the audit log entry. It provides additional context
      * about the audited event (ex: rows deleted/updated for a HubDB event, the specific fields that
      * were changed for a Content Settings event).
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicAuditLog.meta().convert(MyClass.class);
+     * ```
      */
     @JsonProperty("meta") @ExcludeMissing fun _meta(): JsonValue = meta
 

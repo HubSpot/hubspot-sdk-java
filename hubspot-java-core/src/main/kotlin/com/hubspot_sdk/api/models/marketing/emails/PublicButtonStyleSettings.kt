@@ -38,6 +38,12 @@ private constructor(
         fontStyle: JsonField<PublicFontStyle> = JsonMissing.of(),
     ) : this(backgroundColor, cornerRadius, fontStyle, mutableMapOf())
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicButtonStyleSettings.backgroundColor().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("backgroundColor")
     @ExcludeMissing
     fun _backgroundColor(): JsonValue = backgroundColor
