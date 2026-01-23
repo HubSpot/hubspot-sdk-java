@@ -94,7 +94,14 @@ private constructor(
      */
     fun message(): Optional<String> = message.getOptional("message")
 
-    /** An object containing the raw data associated with the audit event. */
+    /**
+     * An object containing the raw data associated with the audit event.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicAuditInfo.rawObject().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("rawObject") @ExcludeMissing fun _rawObject(): JsonValue = rawObject
 
     /**

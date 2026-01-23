@@ -31,6 +31,12 @@ private constructor(
         @JsonProperty("lineType") @ExcludeMissing lineType: JsonField<String> = JsonMissing.of(),
     ) : this(color, height, lineType, mutableMapOf())
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicDividerStyleSettings.color().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("color") @ExcludeMissing fun _color(): JsonValue = color
 
     /**

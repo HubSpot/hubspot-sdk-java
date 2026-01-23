@@ -136,6 +136,12 @@ private constructor(
      */
     fun importName(): Optional<String> = importName.getOptional("importName")
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicImportResponse.importRequestJson().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("importRequestJson")
     @ExcludeMissing
     fun _importRequestJson(): JsonValue = importRequestJson

@@ -104,7 +104,14 @@ private constructor(
      */
     fun id(): Optional<String> = id.getOptional("id")
 
-    /** A more specific error category within each main category. */
+    /**
+     * A more specific error category within each main category.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = standardError.subCategory().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("subCategory") @ExcludeMissing fun _subCategory(): JsonValue = subCategory
 
     /**

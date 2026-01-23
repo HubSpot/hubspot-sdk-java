@@ -137,7 +137,14 @@ private constructor(
      */
     fun email(): Optional<String> = email.getOptional("email")
 
-    /** Additional event-specific data that can be interpreted by the template's markdown. */
+    /**
+     * Additional event-specific data that can be interpreted by the template's markdown.
+     *
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = timelineEventResponse.extraData().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("extraData") @ExcludeMissing fun _extraData(): JsonValue = extraData
 
     /**

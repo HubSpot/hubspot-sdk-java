@@ -61,20 +61,50 @@ private constructor(
      */
     fun capabilities(): Capabilities = capabilities.getRequired("capabilities")
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicChannelIntegrationChannelPatch.channelAccountConnectionRedirectUrl().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("channelAccountConnectionRedirectUrl")
     @ExcludeMissing
     fun _channelAccountConnectionRedirectUrl(): JsonValue = channelAccountConnectionRedirectUrl
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicChannelIntegrationChannelPatch.channelDescription().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("channelDescription")
     @ExcludeMissing
     fun _channelDescription(): JsonValue = channelDescription
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicChannelIntegrationChannelPatch.channelLogoUrl().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("channelLogoUrl")
     @ExcludeMissing
     fun _channelLogoUrl(): JsonValue = channelLogoUrl
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicChannelIntegrationChannelPatch.name().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonValue = name
 
+    /**
+     * This arbitrary value can be deserialized into a custom type using the `convert` method:
+     * ```java
+     * MyClass myObject = publicChannelIntegrationChannelPatch.webhookUrl().convert(MyClass.class);
+     * ```
+     */
     @JsonProperty("webhookUrl") @ExcludeMissing fun _webhookUrl(): JsonValue = webhookUrl
 
     /**
