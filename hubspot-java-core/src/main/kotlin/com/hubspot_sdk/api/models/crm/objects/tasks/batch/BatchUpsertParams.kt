@@ -7,8 +7,10 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputUpsert
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
  * Create or update records identified by a unique property value as specified by the `idProperty`
@@ -17,11 +19,14 @@ import java.util.Objects
  */
 class BatchUpsertParams
 private constructor(
+    private val objectType: String?,
     private val batchInputSimplePublicObjectBatchInputUpsert:
         BatchInputSimplePublicObjectBatchInputUpsert,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     fun batchInputSimplePublicObjectBatchInputUpsert():
         BatchInputSimplePublicObjectBatchInputUpsert = batchInputSimplePublicObjectBatchInputUpsert
@@ -53,6 +58,7 @@ private constructor(
     /** A builder for [BatchUpsertParams]. */
     class Builder internal constructor() {
 
+        private var objectType: String? = null
         private var batchInputSimplePublicObjectBatchInputUpsert:
             BatchInputSimplePublicObjectBatchInputUpsert? =
             null
@@ -61,11 +67,17 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(batchUpsertParams: BatchUpsertParams) = apply {
+            objectType = batchUpsertParams.objectType
             batchInputSimplePublicObjectBatchInputUpsert =
                 batchUpsertParams.batchInputSimplePublicObjectBatchInputUpsert
             additionalHeaders = batchUpsertParams.additionalHeaders.toBuilder()
             additionalQueryParams = batchUpsertParams.additionalQueryParams.toBuilder()
         }
+
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
+
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         fun batchInputSimplePublicObjectBatchInputUpsert(
             batchInputSimplePublicObjectBatchInputUpsert:
@@ -187,6 +199,7 @@ private constructor(
          */
         fun build(): BatchUpsertParams =
             BatchUpsertParams(
+                objectType,
                 checkRequired(
                     "batchInputSimplePublicObjectBatchInputUpsert",
                     batchInputSimplePublicObjectBatchInputUpsert,
@@ -199,6 +212,12 @@ private constructor(
     fun _body(): BatchInputSimplePublicObjectBatchInputUpsert =
         batchInputSimplePublicObjectBatchInputUpsert
 
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> objectType ?: ""
+            else -> ""
+        }
+
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
@@ -209,6 +228,7 @@ private constructor(
         }
 
         return other is BatchUpsertParams &&
+            objectType == other.objectType &&
             batchInputSimplePublicObjectBatchInputUpsert ==
                 other.batchInputSimplePublicObjectBatchInputUpsert &&
             additionalHeaders == other.additionalHeaders &&
@@ -217,11 +237,12 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            objectType,
             batchInputSimplePublicObjectBatchInputUpsert,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "BatchUpsertParams{batchInputSimplePublicObjectBatchInputUpsert=$batchInputSimplePublicObjectBatchInputUpsert, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BatchUpsertParams{objectType=$objectType, batchInputSimplePublicObjectBatchInputUpsert=$batchInputSimplePublicObjectBatchInputUpsert, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

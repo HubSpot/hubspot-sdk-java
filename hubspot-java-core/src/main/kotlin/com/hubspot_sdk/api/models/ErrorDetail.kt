@@ -41,7 +41,7 @@ private constructor(
     ) : this(message, code, context, in_, subCategory, mutableMapOf())
 
     /**
-     * A human readable message describing the error along with remediation steps where appropriate.
+     * A human readable message describing the error along with remediation steps where appropriate
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -49,7 +49,7 @@ private constructor(
     fun message(): String = message.getRequired("message")
 
     /**
-     * The status code associated with the error detail.
+     * The status code associated with the error detail
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -57,7 +57,7 @@ private constructor(
     fun code(): Optional<String> = code.getOptional("code")
 
     /**
-     * Context about the error condition.
+     * Context about the error condition
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -162,7 +162,7 @@ private constructor(
 
         /**
          * A human readable message describing the error along with remediation steps where
-         * appropriate.
+         * appropriate
          */
         fun message(message: String) = message(JsonField.of(message))
 
@@ -174,7 +174,7 @@ private constructor(
          */
         fun message(message: JsonField<String>) = apply { this.message = message }
 
-        /** The status code associated with the error detail. */
+        /** The status code associated with the error detail */
         fun code(code: String) = code(JsonField.of(code))
 
         /**
@@ -185,7 +185,7 @@ private constructor(
          */
         fun code(code: JsonField<String>) = apply { this.code = code }
 
-        /** Context about the error condition. */
+        /** Context about the error condition */
         fun context(context: Context) = context(JsonField.of(context))
 
         /**
@@ -297,7 +297,7 @@ private constructor(
             (if (in_.asKnown().isPresent) 1 else 0) +
             (if (subCategory.asKnown().isPresent) 1 else 0)
 
-    /** Context about the error condition. */
+    /** Context about the error condition */
     class Context
     @JsonCreator
     private constructor(

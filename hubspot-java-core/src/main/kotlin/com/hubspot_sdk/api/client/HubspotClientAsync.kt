@@ -4,18 +4,7 @@ package com.hubspot_sdk.api.client
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.AccountServiceAsync
-import com.hubspot_sdk.api.services.async.AuthServiceAsync
-import com.hubspot_sdk.api.services.async.AutomationServiceAsync
-import com.hubspot_sdk.api.services.async.BusinessUnitServiceAsync
-import com.hubspot_sdk.api.services.async.CmServiceAsync
-import com.hubspot_sdk.api.services.async.ConversationServiceAsync
 import com.hubspot_sdk.api.services.async.CrmServiceAsync
-import com.hubspot_sdk.api.services.async.EventServiceAsync
-import com.hubspot_sdk.api.services.async.FileServiceAsync
-import com.hubspot_sdk.api.services.async.MarketingServiceAsync
-import com.hubspot_sdk.api.services.async.SchedulerServiceAsync
-import com.hubspot_sdk.api.services.async.SettingServiceAsync
-import com.hubspot_sdk.api.services.async.WebhookServiceAsync
 import java.util.function.Consumer
 
 /**
@@ -56,29 +45,7 @@ interface HubspotClientAsync {
 
     fun account(): AccountServiceAsync
 
-    fun auth(): AuthServiceAsync
-
-    fun automation(): AutomationServiceAsync
-
-    fun businessUnits(): BusinessUnitServiceAsync
-
-    fun cms(): CmServiceAsync
-
-    fun conversations(): ConversationServiceAsync
-
     fun crm(): CrmServiceAsync
-
-    fun events(): EventServiceAsync
-
-    fun files(): FileServiceAsync
-
-    fun marketing(): MarketingServiceAsync
-
-    fun scheduler(): SchedulerServiceAsync
-
-    fun settings(): SettingServiceAsync
-
-    fun webhooks(): WebhookServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -109,28 +76,6 @@ interface HubspotClientAsync {
 
         fun account(): AccountServiceAsync.WithRawResponse
 
-        fun auth(): AuthServiceAsync.WithRawResponse
-
-        fun automation(): AutomationServiceAsync.WithRawResponse
-
-        fun businessUnits(): BusinessUnitServiceAsync.WithRawResponse
-
-        fun cms(): CmServiceAsync.WithRawResponse
-
-        fun conversations(): ConversationServiceAsync.WithRawResponse
-
         fun crm(): CrmServiceAsync.WithRawResponse
-
-        fun events(): EventServiceAsync.WithRawResponse
-
-        fun files(): FileServiceAsync.WithRawResponse
-
-        fun marketing(): MarketingServiceAsync.WithRawResponse
-
-        fun scheduler(): SchedulerServiceAsync.WithRawResponse
-
-        fun settings(): SettingServiceAsync.WithRawResponse
-
-        fun webhooks(): WebhookServiceAsync.WithRawResponse
     }
 }

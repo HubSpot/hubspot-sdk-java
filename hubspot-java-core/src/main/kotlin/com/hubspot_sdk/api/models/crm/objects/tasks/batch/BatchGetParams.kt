@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.BatchReadInputSimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -18,11 +18,14 @@ import kotlin.jvm.optionals.getOrNull
  */
 class BatchGetParams
 private constructor(
+    private val objectType: String?,
     private val archived: Boolean?,
     private val batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
@@ -62,6 +65,7 @@ private constructor(
     /** A builder for [BatchGetParams]. */
     class Builder internal constructor() {
 
+        private var objectType: String? = null
         private var archived: Boolean? = null
         private var batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -69,11 +73,17 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(batchGetParams: BatchGetParams) = apply {
+            objectType = batchGetParams.objectType
             archived = batchGetParams.archived
             batchReadInputSimplePublicObjectId = batchGetParams.batchReadInputSimplePublicObjectId
             additionalHeaders = batchGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = batchGetParams.additionalQueryParams.toBuilder()
         }
+
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
+
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
@@ -209,6 +219,7 @@ private constructor(
          */
         fun build(): BatchGetParams =
             BatchGetParams(
+                objectType,
                 archived,
                 checkRequired(
                     "batchReadInputSimplePublicObjectId",
@@ -220,6 +231,12 @@ private constructor(
     }
 
     fun _body(): BatchReadInputSimplePublicObjectId = batchReadInputSimplePublicObjectId
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> objectType ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -237,6 +254,7 @@ private constructor(
         }
 
         return other is BatchGetParams &&
+            objectType == other.objectType &&
             archived == other.archived &&
             batchReadInputSimplePublicObjectId == other.batchReadInputSimplePublicObjectId &&
             additionalHeaders == other.additionalHeaders &&
@@ -245,6 +263,7 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            objectType,
             archived,
             batchReadInputSimplePublicObjectId,
             additionalHeaders,
@@ -252,5 +271,5 @@ private constructor(
         )
 
     override fun toString() =
-        "BatchGetParams{archived=$archived, batchReadInputSimplePublicObjectId=$batchReadInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BatchGetParams{objectType=$objectType, archived=$archived, batchReadInputSimplePublicObjectId=$batchReadInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

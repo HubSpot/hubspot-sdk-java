@@ -6,14 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.PublicGdprDeleteInput
-import com.hubspot_sdk.api.models.crm.PublicMergeInput
-import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
+import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGdprDeleteParams
@@ -23,7 +18,6 @@ import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactMergeParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactSearchParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
-import com.hubspot_sdk.api.services.async.crm.objects.contacts.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -41,63 +35,53 @@ interface ContactServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ContactServiceAsync
 
-    fun batch(): BatchServiceAsync
-
     /**
-     * Create a single contact. Include a `properties` object to define
-     * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the
-     * contact, along with an `associations` array to define
-     * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
-     * with other CRM records.
+     * Create a task with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard tasks is provided.
      */
-    fun create(params: ContactCreateParams): CompletableFuture<CreatedResponseSimplePublicObject> =
+    fun create(
+        objectType: String,
+        params: ContactCreateParams,
+    ): CompletableFuture<SimplePublicObject> = create(objectType, params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        objectType: String,
+        params: ContactCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        create(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see create */
+    fun create(params: ContactCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ContactCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CreatedResponseSimplePublicObject>
-
-    /** @see create */
-    fun create(
-        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CreatedResponseSimplePublicObject> =
-        create(
-            ContactCreateParams.builder()
-                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see create */
-    fun create(
-        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
-    ): CompletableFuture<CreatedResponseSimplePublicObject> =
-        create(simplePublicObjectInputForCreate, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject>
 
     /**
-     * Update an existing contact, identified by ID or email/unique property value. To identify a
-     * contact by ID, include the ID in the request URL path. To identify a contact by their email
-     * or other unique property, include the email/property value in the request URL path, and add
-     * the `idProperty` query parameter
-     * (`/crm/v3/objects/contacts/jon@website.com?idProperty=email`). Provided property values will
-     * be overwritten. Read-only and non-existent properties will result in an error. Properties
-     * values can be cleared by passing an empty string.
+     * Perform a partial update of an Object identified by `{taskId}`or optionally a unique property
+     * value as specified by the `idProperty` query param. `{taskId}` refers to the internal object
+     * ID by default, and the `idProperty` query param refers to a property whose values are unique
+     * for the object. Provided property values will be overwritten. Read-only and non-existent
+     * properties will result in an error. Properties values can be cleared by passing an empty
+     * string.
      */
     fun update(
-        contactId: String,
+        objectId: String,
         params: ContactUpdateParams,
-    ): CompletableFuture<SimplePublicObject> = update(contactId, params, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject> = update(objectId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        contactId: String,
+        objectId: String,
         params: ContactUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject> =
-        update(params.toBuilder().contactId(contactId).build(), requestOptions)
+        update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see update */
     fun update(params: ContactUpdateParams): CompletableFuture<SimplePublicObject> =
@@ -109,49 +93,56 @@ interface ContactServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /**
-     * Retrieve all contacts, using query parameters to specify the information that gets returned.
-     */
-    fun list(): CompletableFuture<ContactListPageAsync> = list(ContactListParams.none())
+    /** Read a page of tasks. Control what is returned via the `properties` query param. */
+    fun list(objectType: String): CompletableFuture<ContactListPageAsync> =
+        list(objectType, ContactListParams.none())
 
     /** @see list */
     fun list(
+        objectType: String,
         params: ContactListParams = ContactListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ContactListPageAsync> =
+        list(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see list */
+    fun list(
+        objectType: String,
+        params: ContactListParams = ContactListParams.none(),
+    ): CompletableFuture<ContactListPageAsync> = list(objectType, params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        params: ContactListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContactListPageAsync>
 
     /** @see list */
-    fun list(
-        params: ContactListParams = ContactListParams.none()
-    ): CompletableFuture<ContactListPageAsync> = list(params, RequestOptions.none())
+    fun list(params: ContactListParams): CompletableFuture<ContactListPageAsync> =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ContactListPageAsync> =
-        list(ContactListParams.none(), requestOptions)
+    fun list(
+        objectType: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ContactListPageAsync> =
+        list(objectType, ContactListParams.none(), requestOptions)
 
-    /**
-     * Delete a contact by ID. Deleted contacts can be restored within 90 days of deletion. Learn
-     * more about the
-     * [data impacted by contact deletions](https://knowledge.hubspot.com/privacy-and-consent/understand-restorable-and-permanent-contact-deletions)
-     * and how to
-     * [restore archived records](https://knowledge.hubspot.com/records/restore-deleted-records).
-     */
-    fun delete(contactId: String): CompletableFuture<Void?> =
-        delete(contactId, ContactDeleteParams.none())
+    /** Move an Object identified by `{taskId}` to the recycling bin. */
+    fun delete(objectId: String, params: ContactDeleteParams): CompletableFuture<Void?> =
+        delete(objectId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
-        contactId: String,
-        params: ContactDeleteParams = ContactDeleteParams.none(),
+        objectId: String,
+        params: ContactDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        delete(params.toBuilder().contactId(contactId).build(), requestOptions)
+        delete(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see delete */
-    fun delete(
-        contactId: String,
-        params: ContactDeleteParams = ContactDeleteParams.none(),
-    ): CompletableFuture<Void?> = delete(contactId, params, RequestOptions.none())
+    fun delete(params: ContactDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -159,21 +150,18 @@ interface ContactServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see delete */
-    fun delete(params: ContactDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
+    fun gdprDelete(objectType: String, params: ContactGdprDeleteParams): CompletableFuture<Void?> =
+        gdprDelete(objectType, params, RequestOptions.none())
 
-    /** @see delete */
-    fun delete(contactId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        delete(contactId, ContactDeleteParams.none(), requestOptions)
+    /** @see gdprDelete */
+    fun gdprDelete(
+        objectType: String,
+        params: ContactGdprDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        gdprDelete(params.toBuilder().objectType(objectType).build(), requestOptions)
 
-    /**
-     * Permanently delete a contact and all associated content to follow GDPR. Use optional property
-     * `idProperty` set to `email` to identify contact by email address. If email address is not
-     * found, the email address will be added to a blocklist and prevent it from being used in the
-     * future. Learn more about
-     * [permanently deleting contacts](https://knowledge.hubspot.com/privacy-and-consent/how-do-i-perform-a-gdpr-delete-in-hubspot).
-     */
+    /** @see gdprDelete */
     fun gdprDelete(params: ContactGdprDeleteParams): CompletableFuture<Void?> =
         gdprDelete(params, RequestOptions.none())
 
@@ -183,47 +171,24 @@ interface ContactServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see gdprDelete */
-    fun gdprDelete(
-        publicGdprDeleteInput: PublicGdprDeleteInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        gdprDelete(
-            ContactGdprDeleteParams.builder().publicGdprDeleteInput(publicGdprDeleteInput).build(),
-            requestOptions,
-        )
-
-    /** @see gdprDelete */
-    fun gdprDelete(publicGdprDeleteInput: PublicGdprDeleteInput): CompletableFuture<Void?> =
-        gdprDelete(publicGdprDeleteInput, RequestOptions.none())
-
     /**
-     * Retrieve a contact by its ID (`contactId`) or by a unique property (`idProperty`). You can
-     * specify what is returned using the `properties` query parameter.
+     * Read an Object identified by `{taskId}`. `{taskId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(contactId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
-        get(contactId, ContactGetParams.none())
-
-    /** @see get */
     fun get(
-        contactId: String,
-        params: ContactGetParams = ContactGetParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
+        objectId: String,
+        params: ContactGetParams,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        get(params.toBuilder().contactId(contactId).build(), requestOptions)
+        get(objectId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        contactId: String,
-        params: ContactGetParams = ContactGetParams.none(),
-    ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        get(contactId, params, RequestOptions.none())
-
-    /** @see get */
-    fun get(
+        objectId: String,
         params: ContactGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimplePublicObjectWithAssociations>
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see get */
     fun get(params: ContactGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
@@ -231,15 +196,24 @@ interface ContactServiceAsync {
 
     /** @see get */
     fun get(
-        contactId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        get(contactId, ContactGetParams.none(), requestOptions)
+        params: ContactGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
 
-    /**
-     * Merge two contact records. Learn more about
-     * [merging records](https://knowledge.hubspot.com/records/merge-records).
-     */
+    fun merge(
+        objectType: String,
+        params: ContactMergeParams,
+    ): CompletableFuture<SimplePublicObject> = merge(objectType, params, RequestOptions.none())
+
+    /** @see merge */
+    fun merge(
+        objectType: String,
+        params: ContactMergeParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        merge(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see merge */
     fun merge(params: ContactMergeParams): CompletableFuture<SimplePublicObject> =
         merge(params, RequestOptions.none())
 
@@ -249,25 +223,26 @@ interface ContactServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /** @see merge */
-    fun merge(
-        publicMergeInput: PublicMergeInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SimplePublicObject> =
-        merge(
-            ContactMergeParams.builder().publicMergeInput(publicMergeInput).build(),
-            requestOptions,
-        )
-
-    /** @see merge */
-    fun merge(publicMergeInput: PublicMergeInput): CompletableFuture<SimplePublicObject> =
-        merge(publicMergeInput, RequestOptions.none())
-
     /**
-     * Search for contacts by filtering on properties, searching through associations, and sorting
-     * results. Learn more about
-     * [CRM search](https://developers.hubspot.com/docs/guides/api/crm/search#make-a-search-request).
+     * Execute a search for tasks based on the provided criteria, including filters, properties, and
+     * sorting options. This allows for retrieving tasks that match specific conditions or property
+     * values.
      */
+    fun search(
+        objectType: String,
+        params: ContactSearchParams,
+    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
+        search(objectType, params, RequestOptions.none())
+
+    /** @see search */
+    fun search(
+        objectType: String,
+        params: ContactSearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
+        search(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see search */
     fun search(
         params: ContactSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
@@ -278,24 +253,6 @@ interface ContactServiceAsync {
         params: ContactSearchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject>
-
-    /** @see search */
-    fun search(
-        publicObjectSearchRequest: PublicObjectSearchRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
-        search(
-            ContactSearchParams.builder()
-                .publicObjectSearchRequest(publicObjectSearchRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see search */
-    fun search(
-        publicObjectSearchRequest: PublicObjectSearchRequest
-    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
-        search(publicObjectSearchRequest, RequestOptions.none())
 
     /**
      * A view of [ContactServiceAsync] that provides access to raw HTTP responses for each method.
@@ -311,58 +268,53 @@ interface ContactServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ContactServiceAsync.WithRawResponse
 
-        fun batch(): BatchServiceAsync.WithRawResponse
-
         /**
-         * Returns a raw HTTP response for `post /crm/v3/objects/contacts`, but is otherwise the
-         * same as [ContactServiceAsync.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}`, but is
+         * otherwise the same as [ContactServiceAsync.create].
          */
         fun create(
+            objectType: String,
+            params: ContactCreateParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            create(objectType, params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            objectType: String,
+            params: ContactCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            create(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see create */
+        fun create(
             params: ContactCreateParams
-        ): CompletableFuture<HttpResponseFor<CreatedResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: ContactCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CreatedResponseSimplePublicObject>>
-
-        /** @see create */
-        fun create(
-            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CreatedResponseSimplePublicObject>> =
-            create(
-                ContactCreateParams.builder()
-                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see create */
-        fun create(
-            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
-        ): CompletableFuture<HttpResponseFor<CreatedResponseSimplePublicObject>> =
-            create(simplePublicObjectInputForCreate, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
-         * Returns a raw HTTP response for `patch /crm/v3/objects/contacts/{contactId}`, but is
-         * otherwise the same as [ContactServiceAsync.update].
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/{objectType}/{objectId}`, but
+         * is otherwise the same as [ContactServiceAsync.update].
          */
         fun update(
-            contactId: String,
+            objectId: String,
             params: ContactUpdateParams,
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
-            update(contactId, params, RequestOptions.none())
+            update(objectId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            contactId: String,
+            objectId: String,
             params: ContactUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
-            update(params.toBuilder().contactId(contactId).build(), requestOptions)
+            update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see update */
         fun update(
@@ -377,56 +329,60 @@ interface ContactServiceAsync {
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
-         * Returns a raw HTTP response for `get /crm/v3/objects/contacts`, but is otherwise the same
-         * as [ContactServiceAsync.list].
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/{objectType}`, but is otherwise
+         * the same as [ContactServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ContactListPageAsync>> =
-            list(ContactListParams.none())
+        fun list(objectType: String): CompletableFuture<HttpResponseFor<ContactListPageAsync>> =
+            list(objectType, ContactListParams.none())
 
         /** @see list */
         fun list(
+            objectType: String,
             params: ContactListParams = ContactListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ContactListPageAsync>> =
+            list(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see list */
+        fun list(
+            objectType: String,
+            params: ContactListParams = ContactListParams.none(),
+        ): CompletableFuture<HttpResponseFor<ContactListPageAsync>> =
+            list(objectType, params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            params: ContactListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ContactListPageAsync>>
 
         /** @see list */
         fun list(
-            params: ContactListParams = ContactListParams.none()
+            params: ContactListParams
         ): CompletableFuture<HttpResponseFor<ContactListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
-            requestOptions: RequestOptions
+            objectType: String,
+            requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ContactListPageAsync>> =
-            list(ContactListParams.none(), requestOptions)
+            list(objectType, ContactListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /crm/v3/objects/contacts/{contactId}`, but is
-         * otherwise the same as [ContactServiceAsync.delete].
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/{objectType}/{objectId}`,
+         * but is otherwise the same as [ContactServiceAsync.delete].
          */
-        fun delete(contactId: String): CompletableFuture<HttpResponse> =
-            delete(contactId, ContactDeleteParams.none())
+        fun delete(objectId: String, params: ContactDeleteParams): CompletableFuture<HttpResponse> =
+            delete(objectId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
-            contactId: String,
-            params: ContactDeleteParams = ContactDeleteParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            delete(params.toBuilder().contactId(contactId).build(), requestOptions)
-
-        /** @see delete */
-        fun delete(
-            contactId: String,
-            params: ContactDeleteParams = ContactDeleteParams.none(),
-        ): CompletableFuture<HttpResponse> = delete(contactId, params, RequestOptions.none())
-
-        /** @see delete */
-        fun delete(
+            objectId: String,
             params: ContactDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see delete */
         fun delete(params: ContactDeleteParams): CompletableFuture<HttpResponse> =
@@ -434,15 +390,28 @@ interface ContactServiceAsync {
 
         /** @see delete */
         fun delete(
-            contactId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> =
-            delete(contactId, ContactDeleteParams.none(), requestOptions)
+            params: ContactDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
 
         /**
-         * Returns a raw HTTP response for `post /crm/v3/objects/contacts/gdpr-delete`, but is
-         * otherwise the same as [ContactServiceAsync.gdprDelete].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/gdpr-delete`, but
+         * is otherwise the same as [ContactServiceAsync.gdprDelete].
          */
+        fun gdprDelete(
+            objectType: String,
+            params: ContactGdprDeleteParams,
+        ): CompletableFuture<HttpResponse> = gdprDelete(objectType, params, RequestOptions.none())
+
+        /** @see gdprDelete */
+        fun gdprDelete(
+            objectType: String,
+            params: ContactGdprDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            gdprDelete(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see gdprDelete */
         fun gdprDelete(params: ContactGdprDeleteParams): CompletableFuture<HttpResponse> =
             gdprDelete(params, RequestOptions.none())
 
@@ -452,53 +421,23 @@ interface ContactServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see gdprDelete */
-        fun gdprDelete(
-            publicGdprDeleteInput: PublicGdprDeleteInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            gdprDelete(
-                ContactGdprDeleteParams.builder()
-                    .publicGdprDeleteInput(publicGdprDeleteInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see gdprDelete */
-        fun gdprDelete(
-            publicGdprDeleteInput: PublicGdprDeleteInput
-        ): CompletableFuture<HttpResponse> =
-            gdprDelete(publicGdprDeleteInput, RequestOptions.none())
-
         /**
-         * Returns a raw HTTP response for `get /crm/v3/objects/contacts/{contactId}`, but is
-         * otherwise the same as [ContactServiceAsync.get].
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/{objectType}/{objectId}`, but
+         * is otherwise the same as [ContactServiceAsync.get].
          */
         fun get(
-            contactId: String
+            objectId: String,
+            params: ContactGetParams,
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            get(contactId, ContactGetParams.none())
+            get(objectId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            contactId: String,
-            params: ContactGetParams = ContactGetParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            get(params.toBuilder().contactId(contactId).build(), requestOptions)
-
-        /** @see get */
-        fun get(
-            contactId: String,
-            params: ContactGetParams = ContactGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            get(contactId, params, RequestOptions.none())
-
-        /** @see get */
-        fun get(
+            objectId: String,
             params: ContactGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see get */
         fun get(
@@ -508,15 +447,29 @@ interface ContactServiceAsync {
 
         /** @see get */
         fun get(
-            contactId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
-            get(contactId, ContactGetParams.none(), requestOptions)
+            params: ContactGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /**
-         * Returns a raw HTTP response for `post /crm/v3/objects/contacts/merge`, but is otherwise
-         * the same as [ContactServiceAsync.merge].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/merge`, but is
+         * otherwise the same as [ContactServiceAsync.merge].
          */
+        fun merge(
+            objectType: String,
+            params: ContactMergeParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            merge(objectType, params, RequestOptions.none())
+
+        /** @see merge */
+        fun merge(
+            objectType: String,
+            params: ContactMergeParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            merge(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see merge */
         fun merge(
             params: ContactMergeParams
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
@@ -528,26 +481,25 @@ interface ContactServiceAsync {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
-        /** @see merge */
-        fun merge(
-            publicMergeInput: PublicMergeInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
-            merge(
-                ContactMergeParams.builder().publicMergeInput(publicMergeInput).build(),
-                requestOptions,
-            )
-
-        /** @see merge */
-        fun merge(
-            publicMergeInput: PublicMergeInput
-        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
-            merge(publicMergeInput, RequestOptions.none())
-
         /**
-         * Returns a raw HTTP response for `post /crm/v3/objects/contacts/search`, but is otherwise
-         * the same as [ContactServiceAsync.search].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/search`, but is
+         * otherwise the same as [ContactServiceAsync.search].
          */
+        fun search(
+            objectType: String,
+            params: ContactSearchParams,
+        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
+            search(objectType, params, RequestOptions.none())
+
+        /** @see search */
+        fun search(
+            objectType: String,
+            params: ContactSearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
+            search(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see search */
         fun search(
             params: ContactSearchParams
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
@@ -558,23 +510,5 @@ interface ContactServiceAsync {
             params: ContactSearchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>>
-
-        /** @see search */
-        fun search(
-            publicObjectSearchRequest: PublicObjectSearchRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
-            search(
-                ContactSearchParams.builder()
-                    .publicObjectSearchRequest(publicObjectSearchRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see search */
-        fun search(
-            publicObjectSearchRequest: PublicObjectSearchRequest
-        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
-            search(publicObjectSearchRequest, RequestOptions.none())
     }
 }

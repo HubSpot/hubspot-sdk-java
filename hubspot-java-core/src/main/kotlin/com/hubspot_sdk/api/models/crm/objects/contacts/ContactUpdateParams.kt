@@ -7,31 +7,33 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Update an existing contact, identified by ID or email/unique property value. To identify a
- * contact by ID, include the ID in the request URL path. To identify a contact by their email or
- * other unique property, include the email/property value in the request URL path, and add the
- * `idProperty` query parameter (`/crm/v3/objects/contacts/jon@website.com?idProperty=email`).
- * Provided property values will be overwritten. Read-only and non-existent properties will result
- * in an error. Properties values can be cleared by passing an empty string.
+ * Perform a partial update of an Object identified by `{taskId}`or optionally a unique property
+ * value as specified by the `idProperty` query param. `{taskId}` refers to the internal object ID
+ * by default, and the `idProperty` query param refers to a property whose values are unique for the
+ * object. Provided property values will be overwritten. Read-only and non-existent properties will
+ * result in an error. Properties values can be cleared by passing an empty string.
  */
 class ContactUpdateParams
 private constructor(
-    private val contactId: String?,
+    private val objectType: String,
+    private val objectId: String?,
     private val idProperty: String?,
     private val simplePublicObjectInput: SimplePublicObjectInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun contactId(): Optional<String> = Optional.ofNullable(contactId)
+    fun objectType(): String = objectType
 
-    /** The name of a property whose values are unique for this object. */
+    fun objectId(): Optional<String> = Optional.ofNullable(objectId)
+
+    /** The name of a property whose values are unique for this object */
     fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
     /**
@@ -58,6 +60,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .objectType()
          * .simplePublicObjectInput()
          * ```
          */
@@ -67,7 +70,8 @@ private constructor(
     /** A builder for [ContactUpdateParams]. */
     class Builder internal constructor() {
 
-        private var contactId: String? = null
+        private var objectType: String? = null
+        private var objectId: String? = null
         private var idProperty: String? = null
         private var simplePublicObjectInput: SimplePublicObjectInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -75,19 +79,22 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(contactUpdateParams: ContactUpdateParams) = apply {
-            contactId = contactUpdateParams.contactId
+            objectType = contactUpdateParams.objectType
+            objectId = contactUpdateParams.objectId
             idProperty = contactUpdateParams.idProperty
             simplePublicObjectInput = contactUpdateParams.simplePublicObjectInput
             additionalHeaders = contactUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun contactId(contactId: String?) = apply { this.contactId = contactId }
+        fun objectType(objectType: String) = apply { this.objectType = objectType }
 
-        /** Alias for calling [Builder.contactId] with `contactId.orElse(null)`. */
-        fun contactId(contactId: Optional<String>) = contactId(contactId.getOrNull())
+        fun objectId(objectId: String?) = apply { this.objectId = objectId }
 
-        /** The name of a property whose values are unique for this object. */
+        /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
+        fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
+
+        /** The name of a property whose values are unique for this object */
         fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
 
         /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
@@ -206,6 +213,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
+         * .objectType()
          * .simplePublicObjectInput()
          * ```
          *
@@ -213,7 +221,8 @@ private constructor(
          */
         fun build(): ContactUpdateParams =
             ContactUpdateParams(
-                contactId,
+                checkRequired("objectType", objectType),
+                objectId,
                 idProperty,
                 checkRequired("simplePublicObjectInput", simplePublicObjectInput),
                 additionalHeaders.build(),
@@ -225,7 +234,8 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> contactId ?: ""
+            0 -> objectType
+            1 -> objectId ?: ""
             else -> ""
         }
 
@@ -245,7 +255,8 @@ private constructor(
         }
 
         return other is ContactUpdateParams &&
-            contactId == other.contactId &&
+            objectType == other.objectType &&
+            objectId == other.objectId &&
             idProperty == other.idProperty &&
             simplePublicObjectInput == other.simplePublicObjectInput &&
             additionalHeaders == other.additionalHeaders &&
@@ -254,7 +265,8 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
-            contactId,
+            objectType,
+            objectId,
             idProperty,
             simplePublicObjectInput,
             additionalHeaders,
@@ -262,5 +274,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ContactUpdateParams{contactId=$contactId, idProperty=$idProperty, simplePublicObjectInput=$simplePublicObjectInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactUpdateParams{objectType=$objectType, objectId=$objectId, idProperty=$idProperty, simplePublicObjectInput=$simplePublicObjectInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

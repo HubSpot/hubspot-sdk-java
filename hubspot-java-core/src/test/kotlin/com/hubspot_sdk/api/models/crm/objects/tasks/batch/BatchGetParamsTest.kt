@@ -3,8 +3,8 @@
 package com.hubspot_sdk.api.models.crm.objects.tasks.batch
 
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,10 +13,11 @@ internal class BatchGetParamsTest {
     @Test
     fun create() {
         BatchGetParams.builder()
+            .objectType("objectType")
             .archived(true)
             .batchReadInputSimplePublicObjectId(
                 BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("id").build())
+                    .addInput(SimplePublicObjectId.builder().id("430001").build())
                     .addProperty("string")
                     .addPropertiesWithHistory("string")
                     .idProperty("idProperty")
@@ -26,13 +27,33 @@ internal class BatchGetParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            BatchGetParams.builder()
+                .objectType("objectType")
+                .batchReadInputSimplePublicObjectId(
+                    BatchReadInputSimplePublicObjectId.builder()
+                        .addInput(SimplePublicObjectId.builder().id("430001").build())
+                        .addProperty("string")
+                        .addPropertiesWithHistory("string")
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("objectType")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             BatchGetParams.builder()
+                .objectType("objectType")
                 .archived(true)
                 .batchReadInputSimplePublicObjectId(
                     BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("id").build())
+                        .addInput(SimplePublicObjectId.builder().id("430001").build())
                         .addProperty("string")
                         .addPropertiesWithHistory("string")
                         .idProperty("idProperty")
@@ -49,9 +70,10 @@ internal class BatchGetParamsTest {
     fun queryParamsWithoutOptionalFields() {
         val params =
             BatchGetParams.builder()
+                .objectType("objectType")
                 .batchReadInputSimplePublicObjectId(
                     BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("id").build())
+                        .addInput(SimplePublicObjectId.builder().id("430001").build())
                         .addProperty("string")
                         .addPropertiesWithHistory("string")
                         .build()
@@ -67,10 +89,11 @@ internal class BatchGetParamsTest {
     fun body() {
         val params =
             BatchGetParams.builder()
+                .objectType("objectType")
                 .archived(true)
                 .batchReadInputSimplePublicObjectId(
                     BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("id").build())
+                        .addInput(SimplePublicObjectId.builder().id("430001").build())
                         .addProperty("string")
                         .addPropertiesWithHistory("string")
                         .idProperty("idProperty")
@@ -83,7 +106,7 @@ internal class BatchGetParamsTest {
         assertThat(body)
             .isEqualTo(
                 BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("id").build())
+                    .addInput(SimplePublicObjectId.builder().id("430001").build())
                     .addProperty("string")
                     .addPropertiesWithHistory("string")
                     .idProperty("idProperty")
@@ -95,9 +118,10 @@ internal class BatchGetParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             BatchGetParams.builder()
+                .objectType("objectType")
                 .batchReadInputSimplePublicObjectId(
                     BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("id").build())
+                        .addInput(SimplePublicObjectId.builder().id("430001").build())
                         .addProperty("string")
                         .addPropertiesWithHistory("string")
                         .build()
@@ -109,7 +133,7 @@ internal class BatchGetParamsTest {
         assertThat(body)
             .isEqualTo(
                 BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("id").build())
+                    .addInput(SimplePublicObjectId.builder().id("430001").build())
                     .addProperty("string")
                     .addPropertiesWithHistory("string")
                     .build()

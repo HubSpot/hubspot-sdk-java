@@ -11,6 +11,7 @@ internal class ContactListParamsTest {
     @Test
     fun create() {
         ContactListParams.builder()
+            .objectType("objectType")
             .after("after")
             .archived(true)
             .addAssociation("string")
@@ -21,9 +22,19 @@ internal class ContactListParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params = ContactListParams.builder().objectType("objectType").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("objectType")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
     fun queryParams() {
         val params =
             ContactListParams.builder()
+                .objectType("objectType")
                 .after("after")
                 .archived(true)
                 .addAssociation("string")
@@ -49,7 +60,7 @@ internal class ContactListParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = ContactListParams.builder().build()
+        val params = ContactListParams.builder().objectType("objectType").build()
 
         val queryParams = params._queryParams()
 

@@ -7,16 +7,25 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Update a batch of tasks by internal ID, or unique property values */
+/**
+ * Update multiple tasks in a single request using their internal IDs or unique property values.
+ * This operation allows you to modify the properties of each task in the batch, ensuring efficient
+ * management of task data.
+ */
 class BatchUpdateParams
 private constructor(
+    private val objectType: String?,
     private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     fun batchInputSimplePublicObjectBatchInput(): BatchInputSimplePublicObjectBatchInput =
         batchInputSimplePublicObjectBatchInput
@@ -48,6 +57,7 @@ private constructor(
     /** A builder for [BatchUpdateParams]. */
     class Builder internal constructor() {
 
+        private var objectType: String? = null
         private var batchInputSimplePublicObjectBatchInput:
             BatchInputSimplePublicObjectBatchInput? =
             null
@@ -56,11 +66,17 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(batchUpdateParams: BatchUpdateParams) = apply {
+            objectType = batchUpdateParams.objectType
             batchInputSimplePublicObjectBatchInput =
                 batchUpdateParams.batchInputSimplePublicObjectBatchInput
             additionalHeaders = batchUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = batchUpdateParams.additionalQueryParams.toBuilder()
         }
+
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
+
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         fun batchInputSimplePublicObjectBatchInput(
             batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
@@ -180,6 +196,7 @@ private constructor(
          */
         fun build(): BatchUpdateParams =
             BatchUpdateParams(
+                objectType,
                 checkRequired(
                     "batchInputSimplePublicObjectBatchInput",
                     batchInputSimplePublicObjectBatchInput,
@@ -191,6 +208,12 @@ private constructor(
 
     fun _body(): BatchInputSimplePublicObjectBatchInput = batchInputSimplePublicObjectBatchInput
 
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> objectType ?: ""
+            else -> ""
+        }
+
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
@@ -201,6 +224,7 @@ private constructor(
         }
 
         return other is BatchUpdateParams &&
+            objectType == other.objectType &&
             batchInputSimplePublicObjectBatchInput ==
                 other.batchInputSimplePublicObjectBatchInput &&
             additionalHeaders == other.additionalHeaders &&
@@ -209,11 +233,12 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            objectType,
             batchInputSimplePublicObjectBatchInput,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "BatchUpdateParams{batchInputSimplePublicObjectBatchInput=$batchInputSimplePublicObjectBatchInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BatchUpdateParams{objectType=$objectType, batchInputSimplePublicObjectBatchInput=$batchInputSimplePublicObjectBatchInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

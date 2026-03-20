@@ -3,10 +3,10 @@
 package com.hubspot_sdk.api.models.crm.objects.contacts
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.AssociationSpec
-import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.AssociationSpec
+import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -15,11 +15,12 @@ internal class ContactCreateParamsTest {
     @Test
     fun create() {
         ContactCreateParams.builder()
+            .objectType("objectType")
             .simplePublicObjectInputForCreate(
                 SimplePublicObjectInputForCreate.builder()
                     .addAssociation(
                         PublicAssociationsForObject.builder()
-                            .to(PublicObjectId.builder().id("37295").build())
+                            .to(PublicObjectId.builder().id("id").build())
                             .addType(
                                 AssociationSpec.builder()
                                     .associationCategory(
@@ -41,14 +42,49 @@ internal class ContactCreateParamsTest {
     }
 
     @Test
-    fun body() {
+    fun pathParams() {
         val params =
             ContactCreateParams.builder()
+                .objectType("objectType")
                 .simplePublicObjectInputForCreate(
                     SimplePublicObjectInputForCreate.builder()
                         .addAssociation(
                             PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
+                                .to(PublicObjectId.builder().id("id").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("objectType")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            ContactCreateParams.builder()
+                .objectType("objectType")
+                .simplePublicObjectInputForCreate(
+                    SimplePublicObjectInputForCreate.builder()
+                        .addAssociation(
+                            PublicAssociationsForObject.builder()
+                                .to(PublicObjectId.builder().id("id").build())
                                 .addType(
                                     AssociationSpec.builder()
                                         .associationCategory(
@@ -75,7 +111,7 @@ internal class ContactCreateParamsTest {
                 SimplePublicObjectInputForCreate.builder()
                     .addAssociation(
                         PublicAssociationsForObject.builder()
-                            .to(PublicObjectId.builder().id("37295").build())
+                            .to(PublicObjectId.builder().id("id").build())
                             .addType(
                                 AssociationSpec.builder()
                                     .associationCategory(

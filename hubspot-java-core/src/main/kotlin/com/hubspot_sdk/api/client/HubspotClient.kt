@@ -4,18 +4,7 @@ package com.hubspot_sdk.api.client
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.AccountService
-import com.hubspot_sdk.api.services.blocking.AuthService
-import com.hubspot_sdk.api.services.blocking.AutomationService
-import com.hubspot_sdk.api.services.blocking.BusinessUnitService
-import com.hubspot_sdk.api.services.blocking.CmService
-import com.hubspot_sdk.api.services.blocking.ConversationService
 import com.hubspot_sdk.api.services.blocking.CrmService
-import com.hubspot_sdk.api.services.blocking.EventService
-import com.hubspot_sdk.api.services.blocking.FileService
-import com.hubspot_sdk.api.services.blocking.MarketingService
-import com.hubspot_sdk.api.services.blocking.SchedulerService
-import com.hubspot_sdk.api.services.blocking.SettingService
-import com.hubspot_sdk.api.services.blocking.WebhookService
 import java.util.function.Consumer
 
 /**
@@ -56,29 +45,7 @@ interface HubspotClient {
 
     fun account(): AccountService
 
-    fun auth(): AuthService
-
-    fun automation(): AutomationService
-
-    fun businessUnits(): BusinessUnitService
-
-    fun cms(): CmService
-
-    fun conversations(): ConversationService
-
     fun crm(): CrmService
-
-    fun events(): EventService
-
-    fun files(): FileService
-
-    fun marketing(): MarketingService
-
-    fun scheduler(): SchedulerService
-
-    fun settings(): SettingService
-
-    fun webhooks(): WebhookService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -105,28 +72,6 @@ interface HubspotClient {
 
         fun account(): AccountService.WithRawResponse
 
-        fun auth(): AuthService.WithRawResponse
-
-        fun automation(): AutomationService.WithRawResponse
-
-        fun businessUnits(): BusinessUnitService.WithRawResponse
-
-        fun cms(): CmService.WithRawResponse
-
-        fun conversations(): ConversationService.WithRawResponse
-
         fun crm(): CrmService.WithRawResponse
-
-        fun events(): EventService.WithRawResponse
-
-        fun files(): FileService.WithRawResponse
-
-        fun marketing(): MarketingService.WithRawResponse
-
-        fun scheduler(): SchedulerService.WithRawResponse
-
-        fun settings(): SettingService.WithRawResponse
-
-        fun webhooks(): WebhookService.WithRawResponse
     }
 }

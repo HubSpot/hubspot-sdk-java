@@ -2,23 +2,16 @@
 
 package com.hubspot_sdk.api.services.async.account
 
-import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ActivityServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listAuditLogs() {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val activityServiceAsync = client.account().activity()
 
         val pageFuture = activityServiceAsync.listAuditLogs()
@@ -27,14 +20,10 @@ internal class ActivityServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listLoginActivities() {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val activityServiceAsync = client.account().activity()
 
         val pageFuture = activityServiceAsync.listLoginActivities()
@@ -43,14 +32,10 @@ internal class ActivityServiceAsyncTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun listSecurityActivities() {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val activityServiceAsync = client.account().activity()
 
         val pageFuture = activityServiceAsync.listSecurityActivities()

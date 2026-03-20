@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.models.crm.objects.contacts
 
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.core.toImmutable
@@ -11,22 +12,19 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Delete a contact by ID. Deleted contacts can be restored within 90 days of deletion. Learn more
- * about the
- * [data impacted by contact deletions](https://knowledge.hubspot.com/privacy-and-consent/understand-restorable-and-permanent-contact-deletions)
- * and how to
- * [restore archived records](https://knowledge.hubspot.com/records/restore-deleted-records).
- */
+/** Move an Object identified by `{taskId}` to the recycling bin. */
 class ContactDeleteParams
 private constructor(
-    private val contactId: String?,
+    private val objectType: String,
+    private val objectId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun contactId(): Optional<String> = Optional.ofNullable(contactId)
+    fun objectType(): String = objectType
+
+    fun objectId(): Optional<String> = Optional.ofNullable(objectId)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -41,32 +39,41 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): ContactDeleteParams = builder().build()
-
-        /** Returns a mutable builder for constructing an instance of [ContactDeleteParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [ContactDeleteParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .objectType()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [ContactDeleteParams]. */
     class Builder internal constructor() {
 
-        private var contactId: String? = null
+        private var objectType: String? = null
+        private var objectId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(contactDeleteParams: ContactDeleteParams) = apply {
-            contactId = contactDeleteParams.contactId
+            objectType = contactDeleteParams.objectType
+            objectId = contactDeleteParams.objectId
             additionalHeaders = contactDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties = contactDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun contactId(contactId: String?) = apply { this.contactId = contactId }
+        fun objectType(objectType: String) = apply { this.objectType = objectType }
 
-        /** Alias for calling [Builder.contactId] with `contactId.orElse(null)`. */
-        fun contactId(contactId: Optional<String>) = contactId(contactId.getOrNull())
+        fun objectId(objectId: String?) = apply { this.objectId = objectId }
+
+        /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
+        fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -192,10 +199,18 @@ private constructor(
          * Returns an immutable instance of [ContactDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .objectType()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ContactDeleteParams =
             ContactDeleteParams(
-                contactId,
+                checkRequired("objectType", objectType),
+                objectId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -207,7 +222,8 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> contactId ?: ""
+            0 -> objectType
+            1 -> objectId ?: ""
             else -> ""
         }
 
@@ -221,15 +237,22 @@ private constructor(
         }
 
         return other is ContactDeleteParams &&
-            contactId == other.contactId &&
+            objectType == other.objectType &&
+            objectId == other.objectId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(contactId, additionalHeaders, additionalQueryParams, additionalBodyProperties)
+        Objects.hash(
+            objectType,
+            objectId,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
-        "ContactDeleteParams{contactId=$contactId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "ContactDeleteParams{objectType=$objectType, objectId=$objectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

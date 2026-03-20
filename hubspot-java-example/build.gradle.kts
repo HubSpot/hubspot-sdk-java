@@ -8,7 +8,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":hubspot-java"))
+    implementation(project(":hubspot-java-core"))
+    implementation(project(":hubspot-java-client-okhttp"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
