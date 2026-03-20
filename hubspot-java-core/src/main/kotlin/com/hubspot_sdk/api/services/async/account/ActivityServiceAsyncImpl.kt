@@ -42,21 +42,21 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
         params: ActivityListAuditLogsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActivityListAuditLogsPageAsync> =
-        // get /account-info/v3/activity/audit-logs
+        // get /account-info/2026-03/activity/audit-logs
         withRawResponse().listAuditLogs(params, requestOptions).thenApply { it.parse() }
 
     override fun listLoginActivities(
         params: ActivityListLoginActivitiesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActivityListLoginActivitiesPageAsync> =
-        // get /account-info/v3/activity/login
+        // get /account-info/2026-03/activity/login
         withRawResponse().listLoginActivities(params, requestOptions).thenApply { it.parse() }
 
     override fun listSecurityActivities(
         params: ActivityListSecurityActivitiesParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ActivityListSecurityActivitiesPageAsync> =
-        // get /account-info/v3/activity/security
+        // get /account-info/2026-03/activity/security
         withRawResponse().listSecurityActivities(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -86,7 +86,7 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("account-info", "v3", "activity", "audit-logs")
+                    .addPathSegments("account-info", "2026-03", "activity", "audit-logs")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -125,7 +125,7 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("account-info", "v3", "activity", "login")
+                    .addPathSegments("account-info", "2026-03", "activity", "login")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -166,7 +166,7 @@ class ActivityServiceAsyncImpl internal constructor(private val clientOptions: C
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("account-info", "v3", "activity", "security")
+                    .addPathSegments("account-info", "2026-03", "activity", "security")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

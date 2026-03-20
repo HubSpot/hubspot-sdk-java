@@ -9,15 +9,17 @@ internal class TaskDeleteParamsTest {
 
     @Test
     fun create() {
-        TaskDeleteParams.builder().taskId("taskId").build()
+        TaskDeleteParams.builder().objectType("objectType").objectId("objectId").build()
     }
 
     @Test
     fun pathParams() {
-        val params = TaskDeleteParams.builder().taskId("taskId").build()
+        val params =
+            TaskDeleteParams.builder().objectType("objectType").objectId("objectId").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("taskId")
+        assertThat(params._pathParam(0)).isEqualTo("objectType")
+        assertThat(params._pathParam(1)).isEqualTo("objectId")
         // out-of-bound path param
-        assertThat(params._pathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
     }
 }

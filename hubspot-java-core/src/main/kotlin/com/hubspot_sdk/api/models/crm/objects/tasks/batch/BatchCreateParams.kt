@@ -7,17 +7,26 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Create a batch of tasks */
+/**
+ * Create multiple tasks in a single request by providing a batch of task properties and
+ * associations. This endpoint allows for efficient task creation by processing multiple tasks
+ * together.
+ */
 class BatchCreateParams
 private constructor(
+    private val objectType: String?,
     private val batchInputSimplePublicObjectBatchInputForCreate:
         BatchInputSimplePublicObjectBatchInputForCreate,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     fun batchInputSimplePublicObjectBatchInputForCreate():
         BatchInputSimplePublicObjectBatchInputForCreate =
@@ -50,6 +59,7 @@ private constructor(
     /** A builder for [BatchCreateParams]. */
     class Builder internal constructor() {
 
+        private var objectType: String? = null
         private var batchInputSimplePublicObjectBatchInputForCreate:
             BatchInputSimplePublicObjectBatchInputForCreate? =
             null
@@ -58,11 +68,17 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(batchCreateParams: BatchCreateParams) = apply {
+            objectType = batchCreateParams.objectType
             batchInputSimplePublicObjectBatchInputForCreate =
                 batchCreateParams.batchInputSimplePublicObjectBatchInputForCreate
             additionalHeaders = batchCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = batchCreateParams.additionalQueryParams.toBuilder()
         }
+
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
+
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         fun batchInputSimplePublicObjectBatchInputForCreate(
             batchInputSimplePublicObjectBatchInputForCreate:
@@ -184,6 +200,7 @@ private constructor(
          */
         fun build(): BatchCreateParams =
             BatchCreateParams(
+                objectType,
                 checkRequired(
                     "batchInputSimplePublicObjectBatchInputForCreate",
                     batchInputSimplePublicObjectBatchInputForCreate,
@@ -196,6 +213,12 @@ private constructor(
     fun _body(): BatchInputSimplePublicObjectBatchInputForCreate =
         batchInputSimplePublicObjectBatchInputForCreate
 
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> objectType ?: ""
+            else -> ""
+        }
+
     override fun _headers(): Headers = additionalHeaders
 
     override fun _queryParams(): QueryParams = additionalQueryParams
@@ -206,6 +229,7 @@ private constructor(
         }
 
         return other is BatchCreateParams &&
+            objectType == other.objectType &&
             batchInputSimplePublicObjectBatchInputForCreate ==
                 other.batchInputSimplePublicObjectBatchInputForCreate &&
             additionalHeaders == other.additionalHeaders &&
@@ -214,11 +238,12 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            objectType,
             batchInputSimplePublicObjectBatchInputForCreate,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "BatchCreateParams{batchInputSimplePublicObjectBatchInputForCreate=$batchInputSimplePublicObjectBatchInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BatchCreateParams{objectType=$objectType, batchInputSimplePublicObjectBatchInputForCreate=$batchInputSimplePublicObjectBatchInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

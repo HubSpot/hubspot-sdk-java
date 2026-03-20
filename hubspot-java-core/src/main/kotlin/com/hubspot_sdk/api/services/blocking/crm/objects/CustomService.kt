@@ -7,10 +7,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
+import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.custom.CustomListParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
-import com.hubspot_sdk.api.services.blocking.crm.objects.custom.BatchService
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpsertParams
 import java.util.function.Consumer
 
 interface CustomService {
@@ -36,13 +36,12 @@ interface CustomService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CustomService
 
-    fun batch(): BatchService
-
     /**
-     * Create a CRM object with the given properties and return a copy of the object, including the
-     * ID. Documentation and examples for creating standard objects is provided.
+     * Create multiple tasks in a single request by providing a batch of task properties and
+     * associations. This endpoint allows for efficient task creation by processing multiple tasks
+     * together.
      */
-    fun create(objectType: String, params: CustomCreateParams): CreatedResponseSimplePublicObject =
+    fun create(objectType: String, params: CustomCreateParams): BatchResponseSimplePublicObject =
         create(objectType, params, RequestOptions.none())
 
     /** @see create */
@@ -50,48 +49,46 @@ interface CustomService {
         objectType: String,
         params: CustomCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CreatedResponseSimplePublicObject =
+    ): BatchResponseSimplePublicObject =
         create(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see create */
-    fun create(params: CustomCreateParams): CreatedResponseSimplePublicObject =
+    fun create(params: CustomCreateParams): BatchResponseSimplePublicObject =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: CustomCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CreatedResponseSimplePublicObject
+    ): BatchResponseSimplePublicObject
 
     /**
-     * Perform a partial update of an Object identified by `{objectId}`or optionally a unique
-     * property value as specified by the `idProperty` query param. `{objectId}` refers to the
-     * internal object ID by default, and the `idProperty` query param refers to a property whose
-     * values are unique for the object. Provided property values will be overwritten. Read-only and
-     * non-existent properties will result in an error. Properties values can be cleared by passing
-     * an empty string.
+     * Update multiple tasks in a single request using their internal IDs or unique property values.
+     * This operation allows you to modify the properties of each task in the batch, ensuring
+     * efficient management of task data.
      */
-    fun update(objectId: String, params: CustomUpdateParams): SimplePublicObject =
-        update(objectId, params, RequestOptions.none())
+    fun update(objectType: String, params: CustomUpdateParams): BatchResponseSimplePublicObject =
+        update(objectType, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        objectId: String,
+        objectType: String,
         params: CustomUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObject = update(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): BatchResponseSimplePublicObject =
+        update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see update */
-    fun update(params: CustomUpdateParams): SimplePublicObject =
+    fun update(params: CustomUpdateParams): BatchResponseSimplePublicObject =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: CustomUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObject
+    ): BatchResponseSimplePublicObject
 
-    /** Read a page of objects. Control what is returned via the `properties` query param. */
+    /** Read a page of tasks. Control what is returned via the `properties` query param. */
     fun list(objectType: String): CustomListPage = list(objectType, CustomListParams.none())
 
     /** @see list */
@@ -120,16 +117,19 @@ interface CustomService {
     fun list(objectType: String, requestOptions: RequestOptions): CustomListPage =
         list(objectType, CustomListParams.none(), requestOptions)
 
-    /** Move an Object identified by `{objectId}` to the recycling bin. */
-    fun delete(objectId: String, params: CustomDeleteParams) =
-        delete(objectId, params, RequestOptions.none())
+    /**
+     * Archive a batch of tasks by their IDs, moving them to the recycling bin. This operation
+     * requires a list of task IDs to be provided in the request body.
+     */
+    fun delete(objectType: String, params: CustomDeleteParams) =
+        delete(objectType, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
-        objectId: String,
+        objectType: String,
         params: CustomDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ) = delete(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see delete */
     fun delete(params: CustomDeleteParams) = delete(params, RequestOptions.none())
@@ -138,32 +138,30 @@ interface CustomService {
     fun delete(params: CustomDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /**
-     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
-     * default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
      */
-    fun get(objectId: String, params: CustomGetParams): SimplePublicObjectWithAssociations =
-        get(objectId, params, RequestOptions.none())
+    fun get(objectType: String, params: CustomGetParams): BatchResponseSimplePublicObject =
+        get(objectType, params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        objectId: String,
+        objectType: String,
         params: CustomGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObjectWithAssociations =
-        get(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): BatchResponseSimplePublicObject =
+        get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see get */
-    fun get(params: CustomGetParams): SimplePublicObjectWithAssociations =
+    fun get(params: CustomGetParams): BatchResponseSimplePublicObject =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: CustomGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObjectWithAssociations
+    ): BatchResponseSimplePublicObject
 
-    /** Merge two objects with same type */
     fun merge(objectType: String, params: CustomMergeParams): SimplePublicObject =
         merge(objectType, params, RequestOptions.none())
 
@@ -183,6 +181,11 @@ interface CustomService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
+    /**
+     * Execute a search for tasks based on the provided criteria, including filters, properties, and
+     * sorting options. This allows for retrieving tasks that match specific conditions or property
+     * values.
+     */
     fun search(
         objectType: String,
         params: CustomSearchParams,
@@ -207,6 +210,34 @@ interface CustomService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponseWithTotalSimplePublicObject
 
+    /**
+     * Create or update records identified by a unique property value as specified by the
+     * `idProperty` query param. `idProperty` query param refers to a property whose values are
+     * unique for the object.
+     */
+    fun upsert(
+        objectType: String,
+        params: CustomUpsertParams,
+    ): BatchResponseSimplePublicUpsertObject = upsert(objectType, params, RequestOptions.none())
+
+    /** @see upsert */
+    fun upsert(
+        objectType: String,
+        params: CustomUpsertParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseSimplePublicUpsertObject =
+        upsert(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see upsert */
+    fun upsert(params: CustomUpsertParams): BatchResponseSimplePublicUpsertObject =
+        upsert(params, RequestOptions.none())
+
+    /** @see upsert */
+    fun upsert(
+        params: CustomUpsertParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseSimplePublicUpsertObject
+
     /** A view of [CustomService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -217,17 +248,15 @@ interface CustomService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): CustomService.WithRawResponse
 
-        fun batch(): BatchService.WithRawResponse
-
         /**
-         * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}`, but is otherwise the
-         * same as [CustomService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/batch/create`,
+         * but is otherwise the same as [CustomService.create].
          */
         @MustBeClosed
         fun create(
             objectType: String,
             params: CustomCreateParams,
-        ): HttpResponseFor<CreatedResponseSimplePublicObject> =
+        ): HttpResponseFor<BatchResponseSimplePublicObject> =
             create(objectType, params, RequestOptions.none())
 
         /** @see create */
@@ -236,12 +265,12 @@ interface CustomService {
             objectType: String,
             params: CustomCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CreatedResponseSimplePublicObject> =
+        ): HttpResponseFor<BatchResponseSimplePublicObject> =
             create(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(params: CustomCreateParams): HttpResponseFor<CreatedResponseSimplePublicObject> =
+        fun create(params: CustomCreateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -249,30 +278,31 @@ interface CustomService {
         fun create(
             params: CustomCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CreatedResponseSimplePublicObject>
+        ): HttpResponseFor<BatchResponseSimplePublicObject>
 
         /**
-         * Returns a raw HTTP response for `patch /crm/v3/objects/{objectType}/{objectId}`, but is
-         * otherwise the same as [CustomService.update].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/batch/update`,
+         * but is otherwise the same as [CustomService.update].
          */
         @MustBeClosed
         fun update(
-            objectId: String,
+            objectType: String,
             params: CustomUpdateParams,
-        ): HttpResponseFor<SimplePublicObject> = update(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+            update(objectType, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            objectId: String,
+            objectType: String,
             params: CustomUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObject> =
-            update(params.toBuilder().objectId(objectId).build(), requestOptions)
+        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+            update(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: CustomUpdateParams): HttpResponseFor<SimplePublicObject> =
+        fun update(params: CustomUpdateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -280,11 +310,11 @@ interface CustomService {
         fun update(
             params: CustomUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObject>
+        ): HttpResponseFor<BatchResponseSimplePublicObject>
 
         /**
-         * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}`, but is otherwise the
-         * same as [CustomService.list].
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/{objectType}`, but is otherwise
+         * the same as [CustomService.list].
          */
         @MustBeClosed
         fun list(objectType: String): HttpResponseFor<CustomListPage> =
@@ -327,20 +357,20 @@ interface CustomService {
             list(objectType, CustomListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /crm/v3/objects/{objectType}/{objectId}`, but is
-         * otherwise the same as [CustomService.delete].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/batch/archive`,
+         * but is otherwise the same as [CustomService.delete].
          */
         @MustBeClosed
-        fun delete(objectId: String, params: CustomDeleteParams): HttpResponse =
-            delete(objectId, params, RequestOptions.none())
+        fun delete(objectType: String, params: CustomDeleteParams): HttpResponse =
+            delete(objectType, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
-            objectId: String,
+            objectType: String,
             params: CustomDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
@@ -354,28 +384,28 @@ interface CustomService {
         ): HttpResponse
 
         /**
-         * Returns a raw HTTP response for `get /crm/v3/objects/{objectType}/{objectId}`, but is
-         * otherwise the same as [CustomService.get].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/batch/read`, but
+         * is otherwise the same as [CustomService.get].
          */
         @MustBeClosed
         fun get(
-            objectId: String,
+            objectType: String,
             params: CustomGetParams,
-        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            get(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+            get(objectType, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            objectId: String,
+            objectType: String,
             params: CustomGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            get(params.toBuilder().objectId(objectId).build(), requestOptions)
+        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+            get(params.toBuilder().objectType(objectType).build(), requestOptions)
 
         /** @see get */
         @MustBeClosed
-        fun get(params: CustomGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+        fun get(params: CustomGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
             get(params, RequestOptions.none())
 
         /** @see get */
@@ -383,10 +413,10 @@ interface CustomService {
         fun get(
             params: CustomGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+        ): HttpResponseFor<BatchResponseSimplePublicObject>
 
         /**
-         * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/merge`, but is
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/merge`, but is
          * otherwise the same as [CustomService.merge].
          */
         @MustBeClosed
@@ -417,7 +447,7 @@ interface CustomService {
         ): HttpResponseFor<SimplePublicObject>
 
         /**
-         * Returns a raw HTTP response for `post /crm/v3/objects/{objectType}/search`, but is
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/search`, but is
          * otherwise the same as [CustomService.search].
          */
         @MustBeClosed
@@ -449,5 +479,39 @@ interface CustomService {
             params: CustomSearchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>
+
+        /**
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/batch/upsert`,
+         * but is otherwise the same as [CustomService.upsert].
+         */
+        @MustBeClosed
+        fun upsert(
+            objectType: String,
+            params: CustomUpsertParams,
+        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
+            upsert(objectType, params, RequestOptions.none())
+
+        /** @see upsert */
+        @MustBeClosed
+        fun upsert(
+            objectType: String,
+            params: CustomUpsertParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
+            upsert(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see upsert */
+        @MustBeClosed
+        fun upsert(
+            params: CustomUpsertParams
+        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
+            upsert(params, RequestOptions.none())
+
+        /** @see upsert */
+        @MustBeClosed
+        fun upsert(
+            params: CustomUpsertParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject>
     }
 }

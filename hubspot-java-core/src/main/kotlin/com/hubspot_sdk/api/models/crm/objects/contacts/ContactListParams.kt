@@ -10,9 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all contacts, using query parameters to specify the information that gets returned. */
+/** Read a page of tasks. Control what is returned via the `properties` query param. */
 class ContactListParams
 private constructor(
+    private val objectType: String?,
     private val after: String?,
     private val archived: Boolean?,
     private val associations: List<String>?,
@@ -22,6 +23,8 @@ private constructor(
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     /**
      * The paging cursor token of the last successfully read resource will be returned as the
@@ -50,8 +53,8 @@ private constructor(
     /**
      * A comma separated list of the properties to be returned along with their history of previous
      * values. If any of the specified properties are not present on the requested object(s), they
-     * will be ignored. Usage of this parameter will reduce the maximum number of contacts that can
-     * be read by a single request.
+     * will be ignored. Usage of this parameter will reduce the maximum number of tasks that can be
+     * read by a single request.
      */
     fun propertiesWithHistory(): Optional<List<String>> = Optional.ofNullable(propertiesWithHistory)
 
@@ -74,6 +77,7 @@ private constructor(
     /** A builder for [ContactListParams]. */
     class Builder internal constructor() {
 
+        private var objectType: String? = null
         private var after: String? = null
         private var archived: Boolean? = null
         private var associations: MutableList<String>? = null
@@ -85,6 +89,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(contactListParams: ContactListParams) = apply {
+            objectType = contactListParams.objectType
             after = contactListParams.after
             archived = contactListParams.archived
             associations = contactListParams.associations?.toMutableList()
@@ -94,6 +99,11 @@ private constructor(
             additionalHeaders = contactListParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactListParams.additionalQueryParams.toBuilder()
         }
+
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
+
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         /**
          * The paging cursor token of the last successfully read resource will be returned as the
@@ -175,7 +185,7 @@ private constructor(
          * A comma separated list of the properties to be returned along with their history of
          * previous values. If any of the specified properties are not present on the requested
          * object(s), they will be ignored. Usage of this parameter will reduce the maximum number
-         * of contacts that can be read by a single request.
+         * of tasks that can be read by a single request.
          */
         fun propertiesWithHistory(propertiesWithHistory: List<String>?) = apply {
             this.propertiesWithHistory = propertiesWithHistory?.toMutableList()
@@ -303,6 +313,7 @@ private constructor(
          */
         fun build(): ContactListParams =
             ContactListParams(
+                objectType,
                 after,
                 archived,
                 associations?.toImmutable(),
@@ -313,6 +324,12 @@ private constructor(
                 additionalQueryParams.build(),
             )
     }
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> objectType ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -335,6 +352,7 @@ private constructor(
         }
 
         return other is ContactListParams &&
+            objectType == other.objectType &&
             after == other.after &&
             archived == other.archived &&
             associations == other.associations &&
@@ -347,6 +365,7 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
+            objectType,
             after,
             archived,
             associations,
@@ -358,5 +377,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ContactListParams{after=$after, archived=$archived, associations=$associations, limit=$limit, properties=$properties, propertiesWithHistory=$propertiesWithHistory, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactListParams{objectType=$objectType, after=$after, archived=$archived, associations=$associations, limit=$limit, properties=$properties, propertiesWithHistory=$propertiesWithHistory, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

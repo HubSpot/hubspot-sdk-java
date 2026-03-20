@@ -3,11 +3,11 @@
 package com.hubspot_sdk.api.models.crm.objects.tasks.batch
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.AssociationSpec
-import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.AssociationSpec
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputForCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,13 +16,14 @@ internal class BatchCreateParamsTest {
     @Test
     fun create() {
         BatchCreateParams.builder()
+            .objectType("objectType")
             .batchInputSimplePublicObjectBatchInputForCreate(
                 BatchInputSimplePublicObjectBatchInputForCreate.builder()
                     .addInput(
                         SimplePublicObjectBatchInputForCreate.builder()
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .addType(
                                         AssociationSpec.builder()
                                             .associationCategory(
@@ -47,16 +48,56 @@ internal class BatchCreateParamsTest {
     }
 
     @Test
-    fun body() {
+    fun pathParams() {
         val params =
             BatchCreateParams.builder()
+                .objectType("objectType")
                 .batchInputSimplePublicObjectBatchInputForCreate(
                     BatchInputSimplePublicObjectBatchInputForCreate.builder()
                         .addInput(
                             SimplePublicObjectBatchInputForCreate.builder()
                                 .addAssociation(
                                     PublicAssociationsForObject.builder()
-                                        .to(PublicObjectId.builder().id("37295").build())
+                                        .to(PublicObjectId.builder().id("id").build())
+                                        .addType(
+                                            AssociationSpec.builder()
+                                                .associationCategory(
+                                                    AssociationSpec.AssociationCategory
+                                                        .HUBSPOT_DEFINED
+                                                )
+                                                .associationTypeId(0)
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .properties(
+                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("objectType")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            BatchCreateParams.builder()
+                .objectType("objectType")
+                .batchInputSimplePublicObjectBatchInputForCreate(
+                    BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                        .addInput(
+                            SimplePublicObjectBatchInputForCreate.builder()
+                                .addAssociation(
+                                    PublicAssociationsForObject.builder()
+                                        .to(PublicObjectId.builder().id("id").build())
                                         .addType(
                                             AssociationSpec.builder()
                                                 .associationCategory(
@@ -89,7 +130,7 @@ internal class BatchCreateParamsTest {
                         SimplePublicObjectBatchInputForCreate.builder()
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .addType(
                                         AssociationSpec.builder()
                                             .associationCategory(
@@ -116,13 +157,14 @@ internal class BatchCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             BatchCreateParams.builder()
+                .objectType("objectType")
                 .batchInputSimplePublicObjectBatchInputForCreate(
                     BatchInputSimplePublicObjectBatchInputForCreate.builder()
                         .addInput(
                             SimplePublicObjectBatchInputForCreate.builder()
                                 .addAssociation(
                                     PublicAssociationsForObject.builder()
-                                        .to(PublicObjectId.builder().id("37295").build())
+                                        .to(PublicObjectId.builder().id("id").build())
                                         .addType(
                                             AssociationSpec.builder()
                                                 .associationCategory(
@@ -154,7 +196,7 @@ internal class BatchCreateParamsTest {
                         SimplePublicObjectBatchInputForCreate.builder()
                             .addAssociation(
                                 PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("37295").build())
+                                    .to(PublicObjectId.builder().id("id").build())
                                     .addType(
                                         AssociationSpec.builder()
                                             .associationCategory(

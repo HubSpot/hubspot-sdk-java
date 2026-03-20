@@ -7,43 +7,31 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Perform a partial update of an Object identified by `{objectId}`or optionally a unique property
- * value as specified by the `idProperty` query param. `{objectId}` refers to the internal object ID
- * by default, and the `idProperty` query param refers to a property whose values are unique for the
- * object. Provided property values will be overwritten. Read-only and non-existent properties will
- * result in an error. Properties values can be cleared by passing an empty string.
+ * Update multiple tasks in a single request using their internal IDs or unique property values.
+ * This operation allows you to modify the properties of each task in the batch, ensuring efficient
+ * management of task data.
  */
 class CustomUpdateParams
 private constructor(
-    private val objectType: String,
-    private val objectId: String?,
-    private val idProperty: String?,
-    private val simplePublicObjectInput: SimplePublicObjectInput,
+    private val objectType: String?,
+    private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun objectType(): String = objectType
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
-    fun objectId(): Optional<String> = Optional.ofNullable(objectId)
-
-    /** The name of a property whose values are unique for this object */
-    fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
-
-    /**
-     * Represents the input required to create or update a CRM object, containing an object with
-     * property names and their corresponding values.
-     */
-    fun simplePublicObjectInput(): SimplePublicObjectInput = simplePublicObjectInput
+    fun batchInputSimplePublicObjectBatchInput(): BatchInputSimplePublicObjectBatchInput =
+        batchInputSimplePublicObjectBatchInput
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
-        simplePublicObjectInput._additionalProperties()
+        batchInputSimplePublicObjectBatchInput._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -60,8 +48,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .objectType()
-         * .simplePublicObjectInput()
+         * .batchInputSimplePublicObjectBatchInput()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -71,41 +58,30 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectType: String? = null
-        private var objectId: String? = null
-        private var idProperty: String? = null
-        private var simplePublicObjectInput: SimplePublicObjectInput? = null
+        private var batchInputSimplePublicObjectBatchInput:
+            BatchInputSimplePublicObjectBatchInput? =
+            null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(customUpdateParams: CustomUpdateParams) = apply {
             objectType = customUpdateParams.objectType
-            objectId = customUpdateParams.objectId
-            idProperty = customUpdateParams.idProperty
-            simplePublicObjectInput = customUpdateParams.simplePublicObjectInput
+            batchInputSimplePublicObjectBatchInput =
+                customUpdateParams.batchInputSimplePublicObjectBatchInput
             additionalHeaders = customUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = customUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun objectType(objectType: String) = apply { this.objectType = objectType }
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
 
-        fun objectId(objectId: String?) = apply { this.objectId = objectId }
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
-        /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
-        fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
-
-        /** The name of a property whose values are unique for this object */
-        fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
-
-        /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
-        fun idProperty(idProperty: Optional<String>) = idProperty(idProperty.getOrNull())
-
-        /**
-         * Represents the input required to create or update a CRM object, containing an object with
-         * property names and their corresponding values.
-         */
-        fun simplePublicObjectInput(simplePublicObjectInput: SimplePublicObjectInput) = apply {
-            this.simplePublicObjectInput = simplePublicObjectInput
+        fun batchInputSimplePublicObjectBatchInput(
+            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
+        ) = apply {
+            this.batchInputSimplePublicObjectBatchInput = batchInputSimplePublicObjectBatchInput
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -213,41 +189,34 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .objectType()
-         * .simplePublicObjectInput()
+         * .batchInputSimplePublicObjectBatchInput()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CustomUpdateParams =
             CustomUpdateParams(
-                checkRequired("objectType", objectType),
-                objectId,
-                idProperty,
-                checkRequired("simplePublicObjectInput", simplePublicObjectInput),
+                objectType,
+                checkRequired(
+                    "batchInputSimplePublicObjectBatchInput",
+                    batchInputSimplePublicObjectBatchInput,
+                ),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): SimplePublicObjectInput = simplePublicObjectInput
+    fun _body(): BatchInputSimplePublicObjectBatchInput = batchInputSimplePublicObjectBatchInput
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> objectType
-            1 -> objectId ?: ""
+            0 -> objectType ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams =
-        QueryParams.builder()
-            .apply {
-                idProperty?.let { put("idProperty", it) }
-                putAll(additionalQueryParams)
-            }
-            .build()
+    override fun _queryParams(): QueryParams = additionalQueryParams
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -256,9 +225,8 @@ private constructor(
 
         return other is CustomUpdateParams &&
             objectType == other.objectType &&
-            objectId == other.objectId &&
-            idProperty == other.idProperty &&
-            simplePublicObjectInput == other.simplePublicObjectInput &&
+            batchInputSimplePublicObjectBatchInput ==
+                other.batchInputSimplePublicObjectBatchInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -266,13 +234,11 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             objectType,
-            objectId,
-            idProperty,
-            simplePublicObjectInput,
+            batchInputSimplePublicObjectBatchInput,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "CustomUpdateParams{objectType=$objectType, objectId=$objectId, idProperty=$idProperty, simplePublicObjectInput=$simplePublicObjectInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CustomUpdateParams{objectType=$objectType, batchInputSimplePublicObjectBatchInput=$batchInputSimplePublicObjectBatchInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

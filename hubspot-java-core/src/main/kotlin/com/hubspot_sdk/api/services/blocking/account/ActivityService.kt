@@ -106,7 +106,7 @@ interface ActivityService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActivityService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /account-info/v3/activity/audit-logs`, but is
+         * Returns a raw HTTP response for `get /account-info/2026-03/activity/audit-logs`, but is
          * otherwise the same as [ActivityService.listAuditLogs].
          */
         @MustBeClosed
@@ -134,8 +134,8 @@ interface ActivityService {
             listAuditLogs(ActivityListAuditLogsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /account-info/v3/activity/login`, but is otherwise
-         * the same as [ActivityService.listLoginActivities].
+         * Returns a raw HTTP response for `get /account-info/2026-03/activity/login`, but is
+         * otherwise the same as [ActivityService.listLoginActivities].
          */
         @MustBeClosed
         fun listLoginActivities(): HttpResponseFor<ActivityListLoginActivitiesPage> =
@@ -163,7 +163,7 @@ interface ActivityService {
             listLoginActivities(ActivityListLoginActivitiesParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /account-info/v3/activity/security`, but is
+         * Returns a raw HTTP response for `get /account-info/2026-03/activity/security`, but is
          * otherwise the same as [ActivityService.listSecurityActivities].
          */
         @MustBeClosed

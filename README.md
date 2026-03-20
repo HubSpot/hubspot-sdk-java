@@ -36,13 +36,8 @@ This library requires Java 8 or later.
 ```java
 import com.hubspot_sdk.api.client.HubspotClient;
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
-import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.AssociationSpec;
-import com.hubspot_sdk.api.models.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
 
 HubspotClient client = HubspotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
@@ -51,21 +46,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
-SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
-    .addAssociation(PublicAssociationsForObject.builder()
-        .to(PublicObjectId.builder()
-            .id("37295")
-            .build())
-        .addType(AssociationSpec.builder()
-            .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
-            .associationTypeId(0)
-            .build())
-        .build())
-    .properties(SimplePublicObjectInputForCreate.Properties.builder()
-        .putAdditionalProperty("foo", JsonValue.from("string"))
-        .build())
-    .build();
-CreatedResponseSimplePublicObject result = client.crm().objects().contacts().create(params);
+ActivityListAuditLogsPage page = client.account().activity().listAuditLogs();
 ```
 
 ## Client configuration
@@ -140,7 +121,7 @@ The `withOptions()` method does not affect the original client or service.
 
 To send a request to the Hubspot API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
 
-For example, `client.crm().objects().contacts().create(...)` should be called with an instance of `ContactCreateParams`, and it will return an instance of `CreatedResponseSimplePublicObject`.
+For example, `client.account().activity().listAuditLogs(...)` should be called with an instance of `ActivityListAuditLogsParams`, and it will return an instance of `ActivityListAuditLogsPage`.
 
 ## Immutability
 
@@ -157,13 +138,8 @@ The default client is synchronous. To switch to asynchronous execution, call the
 ```java
 import com.hubspot_sdk.api.client.HubspotClient;
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
-import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.AssociationSpec;
-import com.hubspot_sdk.api.models.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPageAsync;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
 import java.util.concurrent.CompletableFuture;
 
 HubspotClient client = HubspotOkHttpClient.builder()
@@ -173,21 +149,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
-SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
-    .addAssociation(PublicAssociationsForObject.builder()
-        .to(PublicObjectId.builder()
-            .id("37295")
-            .build())
-        .addType(AssociationSpec.builder()
-            .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
-            .associationTypeId(0)
-            .build())
-        .build())
-    .properties(SimplePublicObjectInputForCreate.Properties.builder()
-        .putAdditionalProperty("foo", JsonValue.from("string"))
-        .build())
-    .build();
-CompletableFuture<CreatedResponseSimplePublicObject> result = client.async().crm().objects().contacts().create(params);
+CompletableFuture<ActivityListAuditLogsPageAsync> page = client.async().account().activity().listAuditLogs();
 ```
 
 Or create an asynchronous client from the beginning:
@@ -195,13 +157,8 @@ Or create an asynchronous client from the beginning:
 ```java
 import com.hubspot_sdk.api.client.HubspotClientAsync;
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync;
-import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.AssociationSpec;
-import com.hubspot_sdk.api.models.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPageAsync;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
 import java.util.concurrent.CompletableFuture;
 
 HubspotClientAsync client = HubspotOkHttpClientAsync.builder()
@@ -211,136 +168,10 @@ HubspotClientAsync client = HubspotOkHttpClientAsync.builder()
     .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
-SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
-    .addAssociation(PublicAssociationsForObject.builder()
-        .to(PublicObjectId.builder()
-            .id("37295")
-            .build())
-        .addType(AssociationSpec.builder()
-            .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
-            .associationTypeId(0)
-            .build())
-        .build())
-    .properties(SimplePublicObjectInputForCreate.Properties.builder()
-        .putAdditionalProperty("foo", JsonValue.from("string"))
-        .build())
-    .build();
-CompletableFuture<CreatedResponseSimplePublicObject> result = client.crm().objects().contacts().create(params);
+CompletableFuture<ActivityListAuditLogsPageAsync> page = client.account().activity().listAuditLogs();
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
-
-## File uploads
-
-The SDK defines methods that accept files.
-
-To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
-
-```java
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
-import java.nio.file.Paths;
-
-TableImportDraftParams params = TableImportDraftParams.builder()
-    .tableIdOrName("tableIdOrName")
-    .file(Paths.get("/path/to/file"))
-    .build();
-ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
-```
-
-Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
-
-```java
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
-import java.net.URL;
-
-TableImportDraftParams params = TableImportDraftParams.builder()
-    .tableIdOrName("tableIdOrName")
-    .file(new URL("https://example.com//path/to/file").openStream())
-    .build();
-ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
-```
-
-Or a `byte[]` array:
-
-```java
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
-
-TableImportDraftParams params = TableImportDraftParams.builder()
-    .tableIdOrName("tableIdOrName")
-    .file("content".getBytes())
-    .build();
-ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
-```
-
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt):
-
-```java
-import com.hubspot_sdk.api.core.MultipartField;
-import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
-import java.io.InputStream;
-import java.net.URL;
-
-TableImportDraftParams params = TableImportDraftParams.builder()
-    .tableIdOrName("tableIdOrName")
-    .file(MultipartField.<InputStream>builder()
-        .value(new URL("https://example.com//path/to/file").openStream())
-        .filename("/path/to/file")
-        .build())
-    .build();
-ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
-```
-
-## Binary responses
-
-The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
-
-These methods return [`HttpResponse`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/http/HttpResponse.kt):
-
-```java
-import com.hubspot_sdk.api.core.http.HttpResponse;
-import com.hubspot_sdk.api.models.cms.hubdb.tables.TableExportParams;
-
-HttpResponse response = client.cms().hubdb().tables().export("tableIdOrName");
-```
-
-To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
-
-```java
-import com.hubspot_sdk.api.core.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
-
-try (HttpResponse response = client.cms().hubdb().tables().export(params)) {
-    Files.copy(
-        response.body(),
-        Paths.get(path),
-        StandardCopyOption.REPLACE_EXISTING
-    );
-} catch (Exception e) {
-    System.out.println("Something went wrong!");
-    throw new RuntimeException(e);
-}
-```
-
-Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
-
-```java
-import com.hubspot_sdk.api.core.http.HttpResponse;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
-try (HttpResponse response = client.cms().hubdb().tables().export(params)) {
-    response.body().transferTo(Files.newOutputStream(Paths.get(path)));
-} catch (Exception e) {
-    System.out.println("Something went wrong!");
-    throw new RuntimeException(e);
-}
-```
 
 ## Raw responses
 
@@ -349,42 +180,23 @@ The SDK defines methods that deserialize responses into instances of Java classe
 To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
 
 ```java
-import com.hubspot_sdk.api.core.JsonValue;
 import com.hubspot_sdk.api.core.http.Headers;
 import com.hubspot_sdk.api.core.http.HttpResponseFor;
-import com.hubspot_sdk.api.models.AssociationSpec;
-import com.hubspot_sdk.api.models.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
 
-SimplePublicObjectInputForCreate params = SimplePublicObjectInputForCreate.builder()
-    .addAssociation(PublicAssociationsForObject.builder()
-        .to(PublicObjectId.builder()
-            .id("37295")
-            .build())
-        .addType(AssociationSpec.builder()
-            .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
-            .associationTypeId(0)
-            .build())
-        .build())
-    .properties(SimplePublicObjectInputForCreate.Properties.builder()
-        .putAdditionalProperty("foo", JsonValue.from("string"))
-        .build())
-    .build();
-HttpResponseFor<CreatedResponseSimplePublicObject> createdResponseSimplePublicObject = client.crm().objects().contacts().withRawResponse().create(params);
+HttpResponseFor<ActivityListAuditLogsPage> page = client.account().activity().withRawResponse().listAuditLogs();
 
-int statusCode = createdResponseSimplePublicObject.statusCode();
-Headers headers = createdResponseSimplePublicObject.headers();
+int statusCode = page.statusCode();
+Headers headers = page.headers();
 ```
 
 You can still deserialize the response into an instance of a Java class if needed:
 
 ```java
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
 
-CreatedResponseSimplePublicObject parsedCreatedResponseSimplePublicObject = createdResponseSimplePublicObject.parse();
+ActivityListAuditLogsPage parsedPage = page.parse();
 ```
 
 ## Error handling
@@ -423,43 +235,43 @@ To iterate through all results across all pages, use the `autoPager()` method, w
 When using the synchronous client, the method returns an [`Iterable`](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html)
 
 ```java
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListPage;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
+import com.hubspot_sdk.api.models.account.activity.PublicApiUserActionEvent;
 
-ContactListPage page = client.crm().objects().contacts().list();
+ActivityListAuditLogsPage page = client.account().activity().listAuditLogs();
 
 // Process as an Iterable
-for (SimplePublicObjectWithAssociations contact : page.autoPager()) {
-    System.out.println(contact);
+for (PublicApiUserActionEvent activity : page.autoPager()) {
+    System.out.println(activity);
 }
 
 // Process as a Stream
 page.autoPager()
     .stream()
     .limit(50)
-    .forEach(contact -> System.out.println(contact));
+    .forEach(activity -> System.out.println(activity));
 ```
 
 When using the asynchronous client, the method returns an [`AsyncStreamResponse`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/http/AsyncStreamResponse.kt):
 
 ```java
 import com.hubspot_sdk.api.core.http.AsyncStreamResponse;
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListPageAsync;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPageAsync;
+import com.hubspot_sdk.api.models.account.activity.PublicApiUserActionEvent;
 import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 
-CompletableFuture<ContactListPageAsync> pageFuture = client.async().crm().objects().contacts().list();
+CompletableFuture<ActivityListAuditLogsPageAsync> pageFuture = client.async().account().activity().listAuditLogs();
 
-pageFuture.thenRun(page -> page.autoPager().subscribe(contact -> {
-    System.out.println(contact);
+pageFuture.thenRun(page -> page.autoPager().subscribe(activity -> {
+    System.out.println(activity);
 }));
 
 // If you need to handle errors or completion of the stream
 pageFuture.thenRun(page -> page.autoPager().subscribe(new AsyncStreamResponse.Handler<>() {
     @Override
-    public void onNext(SimplePublicObjectWithAssociations contact) {
-        System.out.println(contact);
+    public void onNext(PublicApiUserActionEvent activity) {
+        System.out.println(activity);
     }
 
     @Override
@@ -475,8 +287,8 @@ pageFuture.thenRun(page -> page.autoPager().subscribe(new AsyncStreamResponse.Ha
 
 // Or use futures
 pageFuture.thenRun(page -> page.autoPager()
-    .subscribe(contact -> {
-        System.out.println(contact);
+    .subscribe(activity -> {
+        System.out.println(activity);
     })
     .onCompleteFuture()
     .whenComplete((unused, error) -> {
@@ -495,13 +307,13 @@ To access individual page items and manually request the next page, use the `ite
 `hasNextPage()`, and `nextPage()` methods:
 
 ```java
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListPage;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
+import com.hubspot_sdk.api.models.account.activity.PublicApiUserActionEvent;
 
-ContactListPage page = client.crm().objects().contacts().list();
+ActivityListAuditLogsPage page = client.account().activity().listAuditLogs();
 while (true) {
-    for (SimplePublicObjectWithAssociations contact : page.items()) {
-        System.out.println(contact);
+    for (PublicApiUserActionEvent activity : page.items()) {
+        System.out.println(activity);
     }
 
     if (!page.hasNextPage()) {
@@ -583,11 +395,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
 
-CreatedResponseSimplePublicObject createdResponseSimplePublicObject = client.crm().objects().contacts().create(
-  params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
-);
+ActivityListAuditLogsPage page = client.account().activity().listAuditLogs(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build());
 ```
 
 Or configure the default for all method calls at the client level:
@@ -624,6 +434,26 @@ HubspotClient client = HubspotOkHttpClient.builder()
     .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 ```
+
+### Connection pooling
+
+To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
+
+```java
+import com.hubspot_sdk.api.client.HubspotClient;
+import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
+import java.time.Duration;
+
+HubspotClient client = HubspotOkHttpClient.builder()
+    .fromEnv()
+    // If `maxIdleConnections` is set, then `keepAliveDuration` must be set, and vice versa.
+    .maxIdleConnections(10)
+    .keepAliveDuration(Duration.ofMinutes(2))
+    .accessToken("pat-na1-xxxxxxxx-xxxx")
+    .build();
+```
+
+If both options are unset, OkHttp's default connection pool settings are used.
 
 ### HTTPS
 
@@ -693,9 +523,9 @@ To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQu
 
 ```java
 import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
 
-ContactCreateParams params = ContactCreateParams.builder()
+ActivityListAuditLogsParams params = ActivityListAuditLogsParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
     .putAdditionalQueryParam("secret_query_param", "42")
     .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
@@ -707,29 +537,9 @@ These can be accessed on the built object later using the `_additionalHeaders()`
 To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt) object to its setter:
 
 ```java
-import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.AssociationSpec;
-import com.hubspot_sdk.api.models.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
 
-ContactCreateParams params = ContactCreateParams.builder()
-    .simplePublicObjectInputForCreate(SimplePublicObjectInputForCreate.builder()
-        .addAssociation(PublicAssociationsForObject.builder()
-            .to(PublicObjectId.builder()
-                .id("37295")
-                .build())
-            .addType(AssociationSpec.builder()
-                .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
-                .associationTypeId(0)
-                .build())
-            .build())
-        .properties(SimplePublicObjectInputForCreate.Properties.builder()
-            .putAdditionalProperty("foo", JsonValue.from("string"))
-            .build())
-        .build())
-    .build();
+ActivityListAuditLogsParams params = ActivityListAuditLogsParams.builder().build();
 ```
 
 The most straightforward way to create a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt) is using its `from(...)` method:
@@ -778,17 +588,18 @@ To forcibly omit a required parameter or property, pass [`JsonMissing`](hubspot-
 ```java
 import com.hubspot_sdk.api.core.JsonMissing;
 import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.AssociationSpec;
-import com.hubspot_sdk.api.models.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
+import com.hubspot_sdk.api.models.crm.objects.AssociationSpec;
+import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject;
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectId;
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate;
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
 
-ContactCreateParams params = ContactCreateParams.builder()
+ActivityListAuditLogsParams params = ContactCreateParams.builder()
     .simplePublicObjectInputForCreate(SimplePublicObjectInputForCreate.builder()
         .addAssociation(PublicAssociationsForObject.builder()
             .to(PublicObjectId.builder()
-                .id("37295")
+                .id("id")
                 .build())
             .addType(AssociationSpec.builder()
                 .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
@@ -799,7 +610,7 @@ ContactCreateParams params = ContactCreateParams.builder()
             .putAdditionalProperty("foo", JsonValue.from("string"))
             .build())
         .build())
-    .associations(JsonMissing.of())
+    .objectType(JsonMissing.of())
     .build();
 ```
 
@@ -866,19 +677,17 @@ By default, the SDK will not throw an exception in this case. It will throw [`Hu
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```java
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObject;
 
-CreatedResponseSimplePublicObject result = client.crm().objects().contacts().create(params).validate();
+SimplePublicObject simplePublicObject = client.crm().objects().contacts().create(params).validate();
 ```
 
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```java
-import com.hubspot_sdk.api.models.crm.CreatedResponseSimplePublicObject;
+import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
 
-CreatedResponseSimplePublicObject result = client.crm().objects().contacts().create(
-  params, RequestOptions.builder().responseValidation(true).build()
-);
+ActivityListAuditLogsPage page = client.account().activity().listAuditLogs(RequestOptions.builder().responseValidation(true).build());
 ```
 
 Or configure the default for all method calls at the client level:

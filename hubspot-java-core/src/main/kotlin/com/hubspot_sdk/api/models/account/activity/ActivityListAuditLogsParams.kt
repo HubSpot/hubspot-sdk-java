@@ -21,6 +21,7 @@ class ActivityListAuditLogsParams
 private constructor(
     private val actingUserId: List<Int>?,
     private val after: String?,
+    private val fillFinalTimestamp: Boolean?,
     private val limit: Int?,
     private val occurredAfter: OffsetDateTime?,
     private val occurredBefore: OffsetDateTime?,
@@ -29,7 +30,6 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The ID of a user, for retrieving user-specific logs. */
     fun actingUserId(): Optional<List<Int>> = Optional.ofNullable(actingUserId)
 
     /**
@@ -38,19 +38,15 @@ private constructor(
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
+    fun fillFinalTimestamp(): Optional<Boolean> = Optional.ofNullable(fillFinalTimestamp)
+
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** A timestamp, as a starting point for retrieving activity logs. */
     fun occurredAfter(): Optional<OffsetDateTime> = Optional.ofNullable(occurredAfter)
 
-    /** A timestamp, as an end point for retrieving activity logs. */
     fun occurredBefore(): Optional<OffsetDateTime> = Optional.ofNullable(occurredBefore)
 
-    /**
-     * Set to `occurredAt` to order results by the time of the event. By default, events are ordered
-     * from oldest to newest.
-     */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Additional headers to send with the request. */
@@ -76,6 +72,7 @@ private constructor(
 
         private var actingUserId: MutableList<Int>? = null
         private var after: String? = null
+        private var fillFinalTimestamp: Boolean? = null
         private var limit: Int? = null
         private var occurredAfter: OffsetDateTime? = null
         private var occurredBefore: OffsetDateTime? = null
@@ -87,6 +84,7 @@ private constructor(
         internal fun from(activityListAuditLogsParams: ActivityListAuditLogsParams) = apply {
             actingUserId = activityListAuditLogsParams.actingUserId?.toMutableList()
             after = activityListAuditLogsParams.after
+            fillFinalTimestamp = activityListAuditLogsParams.fillFinalTimestamp
             limit = activityListAuditLogsParams.limit
             occurredAfter = activityListAuditLogsParams.occurredAfter
             occurredBefore = activityListAuditLogsParams.occurredBefore
@@ -95,7 +93,6 @@ private constructor(
             additionalQueryParams = activityListAuditLogsParams.additionalQueryParams.toBuilder()
         }
 
-        /** The ID of a user, for retrieving user-specific logs. */
         fun actingUserId(actingUserId: List<Int>?) = apply {
             this.actingUserId = actingUserId?.toMutableList()
         }
@@ -121,6 +118,24 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
+        fun fillFinalTimestamp(fillFinalTimestamp: Boolean?) = apply {
+            this.fillFinalTimestamp = fillFinalTimestamp
+        }
+
+        /**
+         * Alias for [Builder.fillFinalTimestamp].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun fillFinalTimestamp(fillFinalTimestamp: Boolean) =
+            fillFinalTimestamp(fillFinalTimestamp as Boolean?)
+
+        /**
+         * Alias for calling [Builder.fillFinalTimestamp] with `fillFinalTimestamp.orElse(null)`.
+         */
+        fun fillFinalTimestamp(fillFinalTimestamp: Optional<Boolean>) =
+            fillFinalTimestamp(fillFinalTimestamp.getOrNull())
+
         /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
@@ -134,7 +149,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** A timestamp, as a starting point for retrieving activity logs. */
         fun occurredAfter(occurredAfter: OffsetDateTime?) = apply {
             this.occurredAfter = occurredAfter
         }
@@ -143,7 +157,6 @@ private constructor(
         fun occurredAfter(occurredAfter: Optional<OffsetDateTime>) =
             occurredAfter(occurredAfter.getOrNull())
 
-        /** A timestamp, as an end point for retrieving activity logs. */
         fun occurredBefore(occurredBefore: OffsetDateTime?) = apply {
             this.occurredBefore = occurredBefore
         }
@@ -152,10 +165,6 @@ private constructor(
         fun occurredBefore(occurredBefore: Optional<OffsetDateTime>) =
             occurredBefore(occurredBefore.getOrNull())
 
-        /**
-         * Set to `occurredAt` to order results by the time of the event. By default, events are
-         * ordered from oldest to newest.
-         */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -277,6 +286,7 @@ private constructor(
             ActivityListAuditLogsParams(
                 actingUserId?.toImmutable(),
                 after,
+                fillFinalTimestamp,
                 limit,
                 occurredAfter,
                 occurredBefore,
@@ -293,6 +303,7 @@ private constructor(
             .apply {
                 actingUserId?.let { put("actingUserId", it.joinToString(",") { it.toString() }) }
                 after?.let { put("after", it) }
+                fillFinalTimestamp?.let { put("fillFinalTimestamp", it.toString()) }
                 limit?.let { put("limit", it.toString()) }
                 occurredAfter?.let {
                     put("occurredAfter", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
@@ -313,6 +324,7 @@ private constructor(
         return other is ActivityListAuditLogsParams &&
             actingUserId == other.actingUserId &&
             after == other.after &&
+            fillFinalTimestamp == other.fillFinalTimestamp &&
             limit == other.limit &&
             occurredAfter == other.occurredAfter &&
             occurredBefore == other.occurredBefore &&
@@ -325,6 +337,7 @@ private constructor(
         Objects.hash(
             actingUserId,
             after,
+            fillFinalTimestamp,
             limit,
             occurredAfter,
             occurredBefore,
@@ -334,5 +347,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ActivityListAuditLogsParams{actingUserId=$actingUserId, after=$after, limit=$limit, occurredAfter=$occurredAfter, occurredBefore=$occurredBefore, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ActivityListAuditLogsParams{actingUserId=$actingUserId, after=$after, fillFinalTimestamp=$fillFinalTimestamp, limit=$limit, occurredAfter=$occurredAfter, occurredBefore=$occurredBefore, sort=$sort, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

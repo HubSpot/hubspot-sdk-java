@@ -4,8 +4,6 @@ package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.account.ActivityServiceAsync
-import com.hubspot_sdk.api.services.async.account.DetailServiceAsync
-import com.hubspot_sdk.api.services.async.account.UsageServiceAsync
 import java.util.function.Consumer
 
 interface AccountServiceAsync {
@@ -24,10 +22,6 @@ interface AccountServiceAsync {
 
     fun activity(): ActivityServiceAsync
 
-    fun details(): DetailServiceAsync
-
-    fun usage(): UsageServiceAsync
-
     /**
      * A view of [AccountServiceAsync] that provides access to raw HTTP responses for each method.
      */
@@ -43,9 +37,5 @@ interface AccountServiceAsync {
         ): AccountServiceAsync.WithRawResponse
 
         fun activity(): ActivityServiceAsync.WithRawResponse
-
-        fun details(): DetailServiceAsync.WithRawResponse
-
-        fun usage(): UsageServiceAsync.WithRawResponse
     }
 }

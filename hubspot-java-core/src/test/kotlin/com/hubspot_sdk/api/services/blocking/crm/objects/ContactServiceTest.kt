@@ -2,79 +2,79 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.objects
 
-import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.AssociationSpec
-import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.Filter
-import com.hubspot_sdk.api.models.crm.FilterGroup
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.PublicGdprDeleteInput
-import com.hubspot_sdk.api.models.crm.PublicMergeInput
-import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.AssociationSpec
+import com.hubspot_sdk.api.models.crm.objects.Filter
+import com.hubspot_sdk.api.models.crm.objects.FilterGroup
+import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
+import com.hubspot_sdk.api.models.crm.objects.PublicGdprDeleteInput
+import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactDeleteParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGdprDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactMergeParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactSearchParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class ContactServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactService = client.crm().objects().contacts()
 
-        val createdResponseSimplePublicObject =
+        val simplePublicObject =
             contactService.create(
-                SimplePublicObjectInputForCreate.builder()
-                    .addAssociation(
-                        PublicAssociationsForObject.builder()
-                            .to(PublicObjectId.builder().id("37295").build())
-                            .addType(
-                                AssociationSpec.builder()
-                                    .associationCategory(
-                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                ContactCreateParams.builder()
+                    .objectType("objectType")
+                    .simplePublicObjectInputForCreate(
+                        SimplePublicObjectInputForCreate.builder()
+                            .addAssociation(
+                                PublicAssociationsForObject.builder()
+                                    .to(PublicObjectId.builder().id("id").build())
+                                    .addType(
+                                        AssociationSpec.builder()
+                                            .associationCategory(
+                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                            )
+                                            .associationTypeId(0)
+                                            .build()
                                     )
-                                    .associationTypeId(0)
                                     .build()
                             )
-                            .build()
-                    )
-                    .properties(
-                        SimplePublicObjectInputForCreate.Properties.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .properties(
+                                SimplePublicObjectInputForCreate.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
                             .build()
                     )
                     .build()
             )
 
-        createdResponseSimplePublicObject.validate()
+        simplePublicObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactService = client.crm().objects().contacts()
 
         val simplePublicObject =
             contactService.update(
                 ContactUpdateParams.builder()
-                    .contactId("contactId")
+                    .objectType("objectType")
+                    .objectId("objectId")
                     .idProperty("idProperty")
                     .simplePublicObjectInput(
                         SimplePublicObjectInput.builder()
@@ -91,63 +91,58 @@ internal class ContactServiceTest {
         simplePublicObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactService = client.crm().objects().contacts()
 
-        val page = contactService.list()
+        val page = contactService.list("objectType")
 
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactService = client.crm().objects().contacts()
 
-        contactService.delete("contactId")
-    }
-
-    @Disabled("Prism tests are disabled")
-    @Test
-    fun gdprDelete() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val contactService = client.crm().objects().contacts()
-
-        contactService.gdprDelete(
-            PublicGdprDeleteInput.builder().objectId("objectId").idProperty("idProperty").build()
+        contactService.delete(
+            ContactDeleteParams.builder().objectType("objectType").objectId("objectId").build()
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun gdprDelete() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val contactService = client.crm().objects().contacts()
+
+        contactService.gdprDelete(
+            ContactGdprDeleteParams.builder()
+                .objectType("objectType")
+                .publicGdprDeleteInput(
+                    PublicGdprDeleteInput.builder()
+                        .objectId("objectId")
+                        .idProperty("idProperty")
+                        .build()
+                )
+                .build()
+        )
+    }
+
+    @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactService = client.crm().objects().contacts()
 
         val simplePublicObjectWithAssociations =
             contactService.get(
                 ContactGetParams.builder()
-                    .contactId("contactId")
+                    .objectType("objectType")
+                    .objectId("objectId")
                     .archived(true)
                     .addAssociation("string")
                     .idProperty("idProperty")
@@ -159,58 +154,60 @@ internal class ContactServiceTest {
         simplePublicObjectWithAssociations.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun merge() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactService = client.crm().objects().contacts()
 
         val simplePublicObject =
             contactService.merge(
-                PublicMergeInput.builder()
-                    .objectIdToMerge("objectIdToMerge")
-                    .primaryObjectId("primaryObjectId")
+                ContactMergeParams.builder()
+                    .objectType("objectType")
+                    .publicMergeInput(
+                        PublicMergeInput.builder()
+                            .objectIdToMerge("objectIdToMerge")
+                            .primaryObjectId("primaryObjectId")
+                            .build()
+                    )
                     .build()
             )
 
         simplePublicObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactService = client.crm().objects().contacts()
 
         val collectionResponseWithTotalSimplePublicObject =
             contactService.search(
-                PublicObjectSearchRequest.builder()
-                    .after("after")
-                    .addFilterGroup(
-                        FilterGroup.builder()
-                            .addFilter(
-                                Filter.builder()
-                                    .operator(Filter.Operator.BETWEEN)
-                                    .propertyName("propertyName")
-                                    .highValue("highValue")
-                                    .value("value")
-                                    .addValue("string")
+                ContactSearchParams.builder()
+                    .objectType("objectType")
+                    .publicObjectSearchRequest(
+                        PublicObjectSearchRequest.builder()
+                            .after("after")
+                            .addFilterGroup(
+                                FilterGroup.builder()
+                                    .addFilter(
+                                        Filter.builder()
+                                            .operator(Filter.Operator.BETWEEN)
+                                            .propertyName("propertyName")
+                                            .highValue("highValue")
+                                            .value("value")
+                                            .addValue("string")
+                                            .build()
+                                    )
                                     .build()
                             )
+                            .limit(0)
+                            .addProperty("string")
+                            .addSort("string")
+                            .query("query")
                             .build()
                     )
-                    .limit(0)
-                    .addProperty("string")
-                    .addSort("string")
-                    .query("query")
                     .build()
             )
 

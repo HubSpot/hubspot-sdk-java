@@ -7,16 +7,24 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.BatchInputSimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Archive a batch of tasks by ID */
+/**
+ * Archive a batch of tasks by their IDs, moving them to the recycling bin. This operation requires
+ * a list of task IDs to be provided in the request body.
+ */
 class BatchDeleteParams
 private constructor(
+    private val objectType: String?,
     private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     fun batchInputSimplePublicObjectId(): BatchInputSimplePublicObjectId =
         batchInputSimplePublicObjectId
@@ -48,16 +56,23 @@ private constructor(
     /** A builder for [BatchDeleteParams]. */
     class Builder internal constructor() {
 
+        private var objectType: String? = null
         private var batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(batchDeleteParams: BatchDeleteParams) = apply {
+            objectType = batchDeleteParams.objectType
             batchInputSimplePublicObjectId = batchDeleteParams.batchInputSimplePublicObjectId
             additionalHeaders = batchDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = batchDeleteParams.additionalQueryParams.toBuilder()
         }
+
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
+
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         fun batchInputSimplePublicObjectId(
             batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
@@ -175,6 +190,7 @@ private constructor(
          */
         fun build(): BatchDeleteParams =
             BatchDeleteParams(
+                objectType,
                 checkRequired("batchInputSimplePublicObjectId", batchInputSimplePublicObjectId),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -182,6 +198,12 @@ private constructor(
     }
 
     fun _body(): BatchInputSimplePublicObjectId = batchInputSimplePublicObjectId
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> objectType ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -193,14 +215,20 @@ private constructor(
         }
 
         return other is BatchDeleteParams &&
+            objectType == other.objectType &&
             batchInputSimplePublicObjectId == other.batchInputSimplePublicObjectId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(batchInputSimplePublicObjectId, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            objectType,
+            batchInputSimplePublicObjectId,
+            additionalHeaders,
+            additionalQueryParams,
+        )
 
     override fun toString() =
-        "BatchDeleteParams{batchInputSimplePublicObjectId=$batchInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "BatchDeleteParams{objectType=$objectType, batchInputSimplePublicObjectId=$batchInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

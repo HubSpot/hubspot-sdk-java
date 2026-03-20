@@ -23,15 +23,14 @@ private constructor(
 ) : Params {
 
     /**
-     * The cursor token value to get the next set of results. You can get this from the
+     * The paging cursor token of the last successfully read resource will be returned as the
      * `paging.next.after` JSON property of a paged response containing more results.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** The maximum number of results to display per page. Max value of limit is 200. */
+    /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** The ID of a user, for retrieving user-specific logs. */
     fun userId(): Optional<Int> = Optional.ofNullable(userId)
 
     /** Additional headers to send with the request. */
@@ -74,7 +73,7 @@ private constructor(
             }
 
         /**
-         * The cursor token value to get the next set of results. You can get this from the
+         * The paging cursor token of the last successfully read resource will be returned as the
          * `paging.next.after` JSON property of a paged response containing more results.
          */
         fun after(after: String?) = apply { this.after = after }
@@ -82,7 +81,7 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** The maximum number of results to display per page. Max value of limit is 200. */
+        /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**
@@ -95,7 +94,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** The ID of a user, for retrieving user-specific logs. */
         fun userId(userId: Int?) = apply { this.userId = userId }
 
         /**

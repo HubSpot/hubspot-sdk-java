@@ -25,21 +25,18 @@ private constructor(
 ) : Params {
 
     /**
-     * The cursor token value to get the next set of results. You can get this from the
+     * The paging cursor token of the last successfully read resource will be returned as the
      * `paging.next.after` JSON property of a paged response containing more results.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** The start time, for retrieving logs within a specific timeframe. */
     fun fromTimestamp(): Optional<Long> = Optional.ofNullable(fromTimestamp)
 
-    /** The maximum number of results to display per page. Max value of limit is 200. */
+    /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** The end time, for retrieving logs within a specific timeframe. */
     fun toTimestamp(): Optional<Long> = Optional.ofNullable(toTimestamp)
 
-    /** The ID of a user, for retrieving user-specific logs. */
     fun userId(): Optional<Int> = Optional.ofNullable(userId)
 
     /** Additional headers to send with the request. */
@@ -87,7 +84,7 @@ private constructor(
         }
 
         /**
-         * The cursor token value to get the next set of results. You can get this from the
+         * The paging cursor token of the last successfully read resource will be returned as the
          * `paging.next.after` JSON property of a paged response containing more results.
          */
         fun after(after: String?) = apply { this.after = after }
@@ -95,7 +92,6 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** The start time, for retrieving logs within a specific timeframe. */
         fun fromTimestamp(fromTimestamp: Long?) = apply { this.fromTimestamp = fromTimestamp }
 
         /**
@@ -108,7 +104,7 @@ private constructor(
         /** Alias for calling [Builder.fromTimestamp] with `fromTimestamp.orElse(null)`. */
         fun fromTimestamp(fromTimestamp: Optional<Long>) = fromTimestamp(fromTimestamp.getOrNull())
 
-        /** The maximum number of results to display per page. Max value of limit is 200. */
+        /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**
@@ -121,7 +117,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** The end time, for retrieving logs within a specific timeframe. */
         fun toTimestamp(toTimestamp: Long?) = apply { this.toTimestamp = toTimestamp }
 
         /**
@@ -134,7 +129,6 @@ private constructor(
         /** Alias for calling [Builder.toTimestamp] with `toTimestamp.orElse(null)`. */
         fun toTimestamp(toTimestamp: Optional<Long>) = toTimestamp(toTimestamp.getOrNull())
 
-        /** The ID of a user, for retrieving user-specific logs. */
         fun userId(userId: Int?) = apply { this.userId = userId }
 
         /**

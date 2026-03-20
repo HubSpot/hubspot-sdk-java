@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.models.crm.objects.custom
 import com.hubspot_sdk.api.core.AutoPager
 import com.hubspot_sdk.api.core.Page
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.models.Paging
-import com.hubspot_sdk.api.models.crm.CollectionResponseSimplePublicObjectWithAssociations
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectWithAssociations
+import com.hubspot_sdk.api.models.ForwardPaging
+import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.services.blocking.crm.objects.CustomService
 import java.util.Objects
 import java.util.Optional
@@ -18,25 +18,25 @@ class CustomListPage
 private constructor(
     private val service: CustomService,
     private val params: CustomListParams,
-    private val response: CollectionResponseSimplePublicObjectWithAssociations,
+    private val response: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging,
 ) : Page<SimplePublicObjectWithAssociations> {
 
     /**
-     * Delegates to [CollectionResponseSimplePublicObjectWithAssociations], but gracefully handles
-     * missing data.
+     * Delegates to [CollectionResponseSimplePublicObjectWithAssociationsForwardPaging], but
+     * gracefully handles missing data.
      *
-     * @see CollectionResponseSimplePublicObjectWithAssociations.results
+     * @see CollectionResponseSimplePublicObjectWithAssociationsForwardPaging.results
      */
     fun results(): List<SimplePublicObjectWithAssociations> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
-     * Delegates to [CollectionResponseSimplePublicObjectWithAssociations], but gracefully handles
-     * missing data.
+     * Delegates to [CollectionResponseSimplePublicObjectWithAssociationsForwardPaging], but
+     * gracefully handles missing data.
      *
-     * @see CollectionResponseSimplePublicObjectWithAssociations.paging
+     * @see CollectionResponseSimplePublicObjectWithAssociationsForwardPaging.paging
      */
-    fun paging(): Optional<Paging> = response._paging().getOptional("paging")
+    fun paging(): Optional<ForwardPaging> = response._paging().getOptional("paging")
 
     override fun items(): List<SimplePublicObjectWithAssociations> = results()
 
@@ -64,7 +64,7 @@ private constructor(
     fun params(): CustomListParams = params
 
     /** The response that this page was parsed from. */
-    fun response(): CollectionResponseSimplePublicObjectWithAssociations = response
+    fun response(): CollectionResponseSimplePublicObjectWithAssociationsForwardPaging = response
 
     fun toBuilder() = Builder().from(this)
 
@@ -88,7 +88,8 @@ private constructor(
 
         private var service: CustomService? = null
         private var params: CustomListParams? = null
-        private var response: CollectionResponseSimplePublicObjectWithAssociations? = null
+        private var response: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging? =
+            null
 
         @JvmSynthetic
         internal fun from(customListPage: CustomListPage) = apply {
@@ -103,9 +104,10 @@ private constructor(
         fun params(params: CustomListParams) = apply { this.params = params }
 
         /** The response that this page was parsed from. */
-        fun response(response: CollectionResponseSimplePublicObjectWithAssociations) = apply {
-            this.response = response
-        }
+        fun response(response: CollectionResponseSimplePublicObjectWithAssociationsForwardPaging) =
+            apply {
+                this.response = response
+            }
 
         /**
          * Returns an immutable instance of [CustomListPage].

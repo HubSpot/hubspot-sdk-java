@@ -7,12 +7,11 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.PublicMergeInput
+import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Merge two objects with same type */
 class CustomMergeParams
 private constructor(
     private val objectType: String?,
@@ -23,6 +22,7 @@ private constructor(
 
     fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
+    /** Input data for merging two records. */
     fun publicMergeInput(): PublicMergeInput = publicMergeInput
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
@@ -70,6 +70,7 @@ private constructor(
         /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
         fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
+        /** Input data for merging two records. */
         fun publicMergeInput(publicMergeInput: PublicMergeInput) = apply {
             this.publicMergeInput = publicMergeInput
         }

@@ -17,6 +17,33 @@ internal class ClientOptionsTest {
     private val httpClient = mock<HttpClient>()
 
     @Test
+    fun putHeader_canOverwriteDefaultHeader() {
+        val clientOptions =
+            ClientOptions.builder()
+                .httpClient(httpClient)
+                .putHeader("User-Agent", "My User Agent")
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+
+        assertThat(clientOptions.headers.values("User-Agent")).containsExactly("My User Agent")
+    }
+
+    @Test
+    fun toBuilder_privateAppsCanBeUpdated() {
+        var clientOptions =
+            ClientOptions.builder()
+                .httpClient(httpClient)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+
+        clientOptions =
+            clientOptions.toBuilder().accessToken("another pat-na1-xxxxxxxx-xxxx").build()
+
+        assertThat(clientOptions.headers.values("Authorization"))
+            .containsExactly("Bearer another pat-na1-xxxxxxxx-xxxx")
+    }
+
+    @Test
     fun toBuilder_whenOriginalClientOptionsGarbageCollected_doesNotCloseOriginalClient() {
         var clientOptions =
             ClientOptions.builder()

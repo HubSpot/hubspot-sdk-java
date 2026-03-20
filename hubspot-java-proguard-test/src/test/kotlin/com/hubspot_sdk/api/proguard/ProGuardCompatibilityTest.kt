@@ -6,34 +6,8 @@ import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
-import com.hubspot_sdk.api.models.PublicAndFilterBranch
-import com.hubspot_sdk.api.models.PublicAssociationFilterBranch
-import com.hubspot_sdk.api.models.PublicBoolPropertyOperation
-import com.hubspot_sdk.api.models.PublicNotAllFilterBranch
-import com.hubspot_sdk.api.models.PublicNotAnyFilterBranch
-import com.hubspot_sdk.api.models.PublicNumOccurrencesRefineBy
-import com.hubspot_sdk.api.models.PublicOrFilterBranch
-import com.hubspot_sdk.api.models.PublicPropertyAssociationFilterBranch
-import com.hubspot_sdk.api.models.PublicPropertyFilter
-import com.hubspot_sdk.api.models.PublicRestrictedFilterBranch
-import com.hubspot_sdk.api.models.PublicUnifiedEventsFilterBranch
-import com.hubspot_sdk.api.models.automation.workflows.ApiActionDataValue
-import com.hubspot_sdk.api.models.automation.workflows.ApiAssociationDataSource
-import com.hubspot_sdk.api.models.automation.workflows.ApiBlockedDate
-import com.hubspot_sdk.api.models.automation.workflows.ApiConnection
-import com.hubspot_sdk.api.models.automation.workflows.ApiContactFlow
-import com.hubspot_sdk.api.models.automation.workflows.ApiContactPropertyAnchor
-import com.hubspot_sdk.api.models.automation.workflows.ApiDailyEnrollmentSchedule
-import com.hubspot_sdk.api.models.automation.workflows.ApiFlow
-import com.hubspot_sdk.api.models.automation.workflows.ApiListBasedEnrollmentCriteria
-import com.hubspot_sdk.api.models.automation.workflows.ApiSort
-import com.hubspot_sdk.api.models.automation.workflows.ApiStaticBranch
-import com.hubspot_sdk.api.models.automation.workflows.ApiStaticBranchAction
-import com.hubspot_sdk.api.models.automation.workflows.ApiTimeOfDay
-import com.hubspot_sdk.api.models.automation.workflows.ApiTimeWindow
-import com.hubspot_sdk.api.models.automation.workflows.ApiUnEnrollmentSetting
-import java.time.OffsetDateTime
+import com.hubspot_sdk.api.models.Error
+import com.hubspot_sdk.api.models.ErrorDetail
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
 import org.assertj.core.api.Assertions.assertThat
@@ -76,596 +50,150 @@ internal class ProGuardCompatibilityTest {
 
         assertThat(client).isNotNull()
         assertThat(client.account()).isNotNull()
-        assertThat(client.auth()).isNotNull()
-        assertThat(client.automation()).isNotNull()
-        assertThat(client.businessUnits()).isNotNull()
-        assertThat(client.cms()).isNotNull()
-        assertThat(client.conversations()).isNotNull()
         assertThat(client.crm()).isNotNull()
-        assertThat(client.events()).isNotNull()
-        assertThat(client.files()).isNotNull()
-        assertThat(client.marketing()).isNotNull()
-        assertThat(client.scheduler()).isNotNull()
-        assertThat(client.settings()).isNotNull()
-        assertThat(client.webhooks()).isNotNull()
     }
 
     @Test
-    fun abTestCreateRequestVNextRoundtrip() {
+    fun errorRoundtrip() {
         val jsonMapper = jsonMapper()
-        val abTestCreateRequestVNext =
-            AbTestCreateRequestVNext.builder()
-                .contentId("contentId")
-                .variationName("variationName")
+        val error =
+            Error.builder()
+                .category("VALIDATION_ERROR")
+                .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
+                .message("Invalid input (details will vary based on the error)")
+                .context(
+                    Error.Context.builder()
+                        .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("31", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("32", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("33", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("34", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("35", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("36", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("37", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("38", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("39", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("40", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("41", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("42", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("43", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("44", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("45", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("46", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("47", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("48", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("49", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("50", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("51", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("52", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("53", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("54", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("55", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("56", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("57", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("58", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("59", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("60", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("61", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("62", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("63", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("64", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("65", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("66", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("67", JsonValue.from(listOf("string")))
+                        .putAdditionalProperty("68", JsonValue.from(listOf("string")))
+                        .build()
+                )
+                .addError(
+                    ErrorDetail.builder()
+                        .message("message")
+                        .code("code")
+                        .context(
+                            ErrorDetail.Context.builder()
+                                .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("31", JsonValue.from(listOf("string")))
+                                .build()
+                        )
+                        .in_("in")
+                        .subCategory("subCategory")
+                        .build()
+                )
+                .links(
+                    Error.Links.builder()
+                        .putAdditionalProperty(
+                            "knowledge-base",
+                            JsonValue.from(
+                                "https://www.hubspot.com/products/service/knowledge-base"
+                            ),
+                        )
+                        .build()
+                )
+                .subCategory("subCategory")
                 .build()
 
-        val roundtrippedAbTestCreateRequestVNext =
-            jsonMapper.readValue(
-                jsonMapper.writeValueAsString(abTestCreateRequestVNext),
-                jacksonTypeRef<AbTestCreateRequestVNext>(),
-            )
+        val roundtrippedError =
+            jsonMapper.readValue(jsonMapper.writeValueAsString(error), jacksonTypeRef<Error>())
 
-        assertThat(roundtrippedAbTestCreateRequestVNext).isEqualTo(abTestCreateRequestVNext)
-    }
-
-    @Test
-    fun apiFlowRoundtrip() {
-        val jsonMapper = jsonMapper()
-        val apiFlow =
-            ApiFlow.ofContact(
-                ApiContactFlow.builder()
-                    .id("id")
-                    .addAction(
-                        ApiStaticBranchAction.builder()
-                            .actionId("actionId")
-                            .inputValue(
-                                ApiActionDataValue.builder()
-                                    .actionId("actionId")
-                                    .dataKey("dataKey")
-                                    .type(ApiActionDataValue.Type.FIELD_DATA)
-                                    .build()
-                            )
-                            .addStaticBranch(
-                                ApiStaticBranch.builder()
-                                    .branchValue("branchValue")
-                                    .connection(
-                                        ApiConnection.builder()
-                                            .edgeType("edgeType")
-                                            .nextActionId("nextActionId")
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .type(ApiStaticBranchAction.Type.STATIC_BRANCH)
-                            .defaultBranch(
-                                ApiConnection.builder()
-                                    .edgeType("edgeType")
-                                    .nextActionId("nextActionId")
-                                    .build()
-                            )
-                            .defaultBranchName("defaultBranchName")
-                            .build()
-                    )
-                    .addBlockedDate(
-                        ApiBlockedDate.builder()
-                            .dayOfMonth(0)
-                            .month(ApiBlockedDate.Month.APRIL)
-                            .year(0)
-                            .build()
-                    )
-                    .canEnrollFromSalesforce(true)
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .crmObjectCreationStatus(ApiContactFlow.CrmObjectCreationStatus.PENDING)
-                    .customProperties(
-                        ApiContactFlow.CustomProperties.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                            .build()
-                    )
-                    .addDataSource(
-                        ApiAssociationDataSource.builder()
-                            .associationCategory(
-                                ApiAssociationDataSource.AssociationCategory.HUBSPOT_DEFINED
-                            )
-                            .associationTypeId(0)
-                            .name("name")
-                            .objectTypeId("objectTypeId")
-                            .type(ApiAssociationDataSource.Type.ASSOCIATION)
-                            .sortBy(
-                                ApiSort.builder()
-                                    .order(ApiSort.Order.ASC)
-                                    .property("property")
-                                    .missing("missing")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .flowType(ApiContactFlow.FlowType.WORKFLOW)
-                    .isEnabled(true)
-                    .nextAvailableActionId("nextAvailableActionId")
-                    .objectTypeId("objectTypeId")
-                    .revisionId("revisionId")
-                    .addSuppressionListId(0)
-                    .addTimeWindow(
-                        ApiTimeWindow.builder()
-                            .day(ApiTimeWindow.Day.FRIDAY)
-                            .endTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
-                            .startTime(ApiTimeOfDay.builder().hour(0).minute(0).build())
-                            .build()
-                    )
-                    .type(ApiContactFlow.Type.CONTACT_FLOW)
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .description("description")
-                    .enrollmentCriteria(
-                        ApiListBasedEnrollmentCriteria.builder()
-                            .listFilterBranch(
-                                PublicOrFilterBranch.builder()
-                                    .addFilterBranch(
-                                        PublicAndFilterBranch.builder()
-                                            .addFilterBranch(
-                                                PublicNotAllFilterBranch.builder()
-                                                    .addFilterBranch(
-                                                        PublicNotAnyFilterBranch.builder()
-                                                            .addFilterBranch(
-                                                                PublicRestrictedFilterBranch
-                                                                    .builder()
-                                                                    .addFilterBranch(
-                                                                        PublicUnifiedEventsFilterBranch
-                                                                            .builder()
-                                                                            .eventTypeId(
-                                                                                "eventTypeId"
-                                                                            )
-                                                                            .addFilterBranch(
-                                                                                PublicPropertyAssociationFilterBranch
-                                                                                    .builder()
-                                                                                    .addFilterBranch(
-                                                                                        PublicAssociationFilterBranch
-                                                                                            .builder()
-                                                                                            .associationCategory(
-                                                                                                "associationCategory"
-                                                                                            )
-                                                                                            .associationTypeId(
-                                                                                                0
-                                                                                            )
-                                                                                            .addFilterBranch(
-                                                                                                PublicOrFilterBranch
-                                                                                                    .builder()
-                                                                                                    .filterBranches(
-                                                                                                        listOf()
-                                                                                                    )
-                                                                                                    .filterBranchOperator(
-                                                                                                        "filterBranchOperator"
-                                                                                                    )
-                                                                                                    .filterBranchType(
-                                                                                                        PublicOrFilterBranch
-                                                                                                            .FilterBranchType
-                                                                                                            .OR
-                                                                                                    )
-                                                                                                    .addFilter(
-                                                                                                        PublicPropertyFilter
-                                                                                                            .builder()
-                                                                                                            .filterType(
-                                                                                                                PublicPropertyFilter
-                                                                                                                    .FilterType
-                                                                                                                    .PROPERTY
-                                                                                                            )
-                                                                                                            .operation(
-                                                                                                                PublicBoolPropertyOperation
-                                                                                                                    .builder()
-                                                                                                                    .includeObjectsWithNoValueSet(
-                                                                                                                        true
-                                                                                                                    )
-                                                                                                                    .operationType(
-                                                                                                                        PublicBoolPropertyOperation
-                                                                                                                            .OperationType
-                                                                                                                            .BOOL
-                                                                                                                    )
-                                                                                                                    .operator(
-                                                                                                                        "operator"
-                                                                                                                    )
-                                                                                                                    .value(
-                                                                                                                        true
-                                                                                                                    )
-                                                                                                                    .build()
-                                                                                                            )
-                                                                                                            .property(
-                                                                                                                "property"
-                                                                                                            )
-                                                                                                            .build()
-                                                                                                    )
-                                                                                                    .build()
-                                                                                            )
-                                                                                            .filterBranchOperator(
-                                                                                                "filterBranchOperator"
-                                                                                            )
-                                                                                            .filterBranchType(
-                                                                                                PublicAssociationFilterBranch
-                                                                                                    .FilterBranchType
-                                                                                                    .ASSOCIATION
-                                                                                            )
-                                                                                            .addFilter(
-                                                                                                PublicPropertyFilter
-                                                                                                    .builder()
-                                                                                                    .filterType(
-                                                                                                        PublicPropertyFilter
-                                                                                                            .FilterType
-                                                                                                            .PROPERTY
-                                                                                                    )
-                                                                                                    .operation(
-                                                                                                        PublicBoolPropertyOperation
-                                                                                                            .builder()
-                                                                                                            .includeObjectsWithNoValueSet(
-                                                                                                                true
-                                                                                                            )
-                                                                                                            .operationType(
-                                                                                                                PublicBoolPropertyOperation
-                                                                                                                    .OperationType
-                                                                                                                    .BOOL
-                                                                                                            )
-                                                                                                            .operator(
-                                                                                                                "operator"
-                                                                                                            )
-                                                                                                            .value(
-                                                                                                                true
-                                                                                                            )
-                                                                                                            .build()
-                                                                                                    )
-                                                                                                    .property(
-                                                                                                        "property"
-                                                                                                    )
-                                                                                                    .build()
-                                                                                            )
-                                                                                            .objectTypeId(
-                                                                                                "objectTypeId"
-                                                                                            )
-                                                                                            .operator(
-                                                                                                "operator"
-                                                                                            )
-                                                                                            .build()
-                                                                                    )
-                                                                                    .filterBranchOperator(
-                                                                                        "filterBranchOperator"
-                                                                                    )
-                                                                                    .filterBranchType(
-                                                                                        PublicPropertyAssociationFilterBranch
-                                                                                            .FilterBranchType
-                                                                                            .PROPERTY_ASSOCIATION
-                                                                                    )
-                                                                                    .addFilter(
-                                                                                        PublicPropertyFilter
-                                                                                            .builder()
-                                                                                            .filterType(
-                                                                                                PublicPropertyFilter
-                                                                                                    .FilterType
-                                                                                                    .PROPERTY
-                                                                                            )
-                                                                                            .operation(
-                                                                                                PublicBoolPropertyOperation
-                                                                                                    .builder()
-                                                                                                    .includeObjectsWithNoValueSet(
-                                                                                                        true
-                                                                                                    )
-                                                                                                    .operationType(
-                                                                                                        PublicBoolPropertyOperation
-                                                                                                            .OperationType
-                                                                                                            .BOOL
-                                                                                                    )
-                                                                                                    .operator(
-                                                                                                        "operator"
-                                                                                                    )
-                                                                                                    .value(
-                                                                                                        true
-                                                                                                    )
-                                                                                                    .build()
-                                                                                            )
-                                                                                            .property(
-                                                                                                "property"
-                                                                                            )
-                                                                                            .build()
-                                                                                    )
-                                                                                    .objectTypeId(
-                                                                                        "objectTypeId"
-                                                                                    )
-                                                                                    .operator(
-                                                                                        "operator"
-                                                                                    )
-                                                                                    .propertyWithObjectId(
-                                                                                        "propertyWithObjectId"
-                                                                                    )
-                                                                                    .build()
-                                                                            )
-                                                                            .filterBranchOperator(
-                                                                                "filterBranchOperator"
-                                                                            )
-                                                                            .filterBranchType(
-                                                                                PublicUnifiedEventsFilterBranch
-                                                                                    .FilterBranchType
-                                                                                    .UNIFIED_EVENTS
-                                                                            )
-                                                                            .addFilter(
-                                                                                PublicPropertyFilter
-                                                                                    .builder()
-                                                                                    .filterType(
-                                                                                        PublicPropertyFilter
-                                                                                            .FilterType
-                                                                                            .PROPERTY
-                                                                                    )
-                                                                                    .operation(
-                                                                                        PublicBoolPropertyOperation
-                                                                                            .builder()
-                                                                                            .includeObjectsWithNoValueSet(
-                                                                                                true
-                                                                                            )
-                                                                                            .operationType(
-                                                                                                PublicBoolPropertyOperation
-                                                                                                    .OperationType
-                                                                                                    .BOOL
-                                                                                            )
-                                                                                            .operator(
-                                                                                                "operator"
-                                                                                            )
-                                                                                            .value(
-                                                                                                true
-                                                                                            )
-                                                                                            .build()
-                                                                                    )
-                                                                                    .property(
-                                                                                        "property"
-                                                                                    )
-                                                                                    .build()
-                                                                            )
-                                                                            .operator(
-                                                                                PublicUnifiedEventsFilterBranch
-                                                                                    .Operator
-                                                                                    .HAS_COMPLETED
-                                                                            )
-                                                                            .coalescingRefineBy(
-                                                                                PublicNumOccurrencesRefineBy
-                                                                                    .builder()
-                                                                                    .type(
-                                                                                        PublicNumOccurrencesRefineBy
-                                                                                            .Type
-                                                                                            .NUM_OCCURRENCES
-                                                                                    )
-                                                                                    .maxOccurrences(
-                                                                                        0
-                                                                                    )
-                                                                                    .minOccurrences(
-                                                                                        0
-                                                                                    )
-                                                                                    .build()
-                                                                            )
-                                                                            .build()
-                                                                    )
-                                                                    .filterBranchOperator(
-                                                                        "filterBranchOperator"
-                                                                    )
-                                                                    .filterBranchType(
-                                                                        PublicRestrictedFilterBranch
-                                                                            .FilterBranchType
-                                                                            .RESTRICTED
-                                                                    )
-                                                                    .addFilter(
-                                                                        PublicPropertyFilter
-                                                                            .builder()
-                                                                            .filterType(
-                                                                                PublicPropertyFilter
-                                                                                    .FilterType
-                                                                                    .PROPERTY
-                                                                            )
-                                                                            .operation(
-                                                                                PublicBoolPropertyOperation
-                                                                                    .builder()
-                                                                                    .includeObjectsWithNoValueSet(
-                                                                                        true
-                                                                                    )
-                                                                                    .operationType(
-                                                                                        PublicBoolPropertyOperation
-                                                                                            .OperationType
-                                                                                            .BOOL
-                                                                                    )
-                                                                                    .operator(
-                                                                                        "operator"
-                                                                                    )
-                                                                                    .value(true)
-                                                                                    .build()
-                                                                            )
-                                                                            .property("property")
-                                                                            .build()
-                                                                    )
-                                                                    .build()
-                                                            )
-                                                            .filterBranchOperator(
-                                                                "filterBranchOperator"
-                                                            )
-                                                            .filterBranchType(
-                                                                PublicNotAnyFilterBranch
-                                                                    .FilterBranchType
-                                                                    .NOT_ANY
-                                                            )
-                                                            .addFilter(
-                                                                PublicPropertyFilter.builder()
-                                                                    .filterType(
-                                                                        PublicPropertyFilter
-                                                                            .FilterType
-                                                                            .PROPERTY
-                                                                    )
-                                                                    .operation(
-                                                                        PublicBoolPropertyOperation
-                                                                            .builder()
-                                                                            .includeObjectsWithNoValueSet(
-                                                                                true
-                                                                            )
-                                                                            .operationType(
-                                                                                PublicBoolPropertyOperation
-                                                                                    .OperationType
-                                                                                    .BOOL
-                                                                            )
-                                                                            .operator("operator")
-                                                                            .value(true)
-                                                                            .build()
-                                                                    )
-                                                                    .property("property")
-                                                                    .build()
-                                                            )
-                                                            .build()
-                                                    )
-                                                    .filterBranchOperator("filterBranchOperator")
-                                                    .filterBranchType(
-                                                        PublicNotAllFilterBranch.FilterBranchType
-                                                            .NOT_ALL
-                                                    )
-                                                    .addFilter(
-                                                        PublicPropertyFilter.builder()
-                                                            .filterType(
-                                                                PublicPropertyFilter.FilterType
-                                                                    .PROPERTY
-                                                            )
-                                                            .operation(
-                                                                PublicBoolPropertyOperation
-                                                                    .builder()
-                                                                    .includeObjectsWithNoValueSet(
-                                                                        true
-                                                                    )
-                                                                    .operationType(
-                                                                        PublicBoolPropertyOperation
-                                                                            .OperationType
-                                                                            .BOOL
-                                                                    )
-                                                                    .operator("operator")
-                                                                    .value(true)
-                                                                    .build()
-                                                            )
-                                                            .property("property")
-                                                            .build()
-                                                    )
-                                                    .build()
-                                            )
-                                            .filterBranchOperator("filterBranchOperator")
-                                            .filterBranchType(
-                                                PublicAndFilterBranch.FilterBranchType.AND
-                                            )
-                                            .addFilter(
-                                                PublicPropertyFilter.builder()
-                                                    .filterType(
-                                                        PublicPropertyFilter.FilterType.PROPERTY
-                                                    )
-                                                    .operation(
-                                                        PublicBoolPropertyOperation.builder()
-                                                            .includeObjectsWithNoValueSet(true)
-                                                            .operationType(
-                                                                PublicBoolPropertyOperation
-                                                                    .OperationType
-                                                                    .BOOL
-                                                            )
-                                                            .operator("operator")
-                                                            .value(true)
-                                                            .build()
-                                                    )
-                                                    .property("property")
-                                                    .build()
-                                            )
-                                            .build()
-                                    )
-                                    .filterBranchOperator("filterBranchOperator")
-                                    .filterBranchType(PublicOrFilterBranch.FilterBranchType.OR)
-                                    .addFilter(
-                                        PublicPropertyFilter.builder()
-                                            .filterType(PublicPropertyFilter.FilterType.PROPERTY)
-                                            .operation(
-                                                PublicBoolPropertyOperation.builder()
-                                                    .includeObjectsWithNoValueSet(true)
-                                                    .operationType(
-                                                        PublicBoolPropertyOperation.OperationType
-                                                            .BOOL
-                                                    )
-                                                    .operator("operator")
-                                                    .value(true)
-                                                    .build()
-                                            )
-                                            .property("property")
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .addReEnrollmentTriggersFilterBranch(
-                                PublicOrFilterBranch.builder()
-                                    .filterBranches(listOf())
-                                    .filterBranchOperator("filterBranchOperator")
-                                    .filterBranchType(PublicOrFilterBranch.FilterBranchType.OR)
-                                    .addFilter(
-                                        PublicPropertyFilter.builder()
-                                            .filterType(PublicPropertyFilter.FilterType.PROPERTY)
-                                            .operation(
-                                                PublicBoolPropertyOperation.builder()
-                                                    .includeObjectsWithNoValueSet(true)
-                                                    .operationType(
-                                                        PublicBoolPropertyOperation.OperationType
-                                                            .BOOL
-                                                    )
-                                                    .operator("operator")
-                                                    .value(true)
-                                                    .build()
-                                            )
-                                            .property("property")
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .shouldReEnroll(true)
-                            .type(ApiListBasedEnrollmentCriteria.Type.LIST_BASED)
-                            .unEnrollObjectsNotMeetingCriteria(true)
-                            .build()
-                    )
-                    .enrollmentSchedule(
-                        ApiDailyEnrollmentSchedule.builder()
-                            .timeOfDay(ApiTimeOfDay.builder().hour(0).minute(0).build())
-                            .type(ApiDailyEnrollmentSchedule.Type.DAILY)
-                            .build()
-                    )
-                    .eventAnchor(
-                        ApiContactPropertyAnchor.builder()
-                            .contactProperty("contactProperty")
-                            .type(ApiContactPropertyAnchor.Type.CONTACT_PROPERTY_ANCHOR)
-                            .build()
-                    )
-                    .goalFilterBranch(
-                        PublicOrFilterBranch.builder()
-                            .filterBranches(listOf())
-                            .filterBranchOperator("filterBranchOperator")
-                            .filterBranchType(PublicOrFilterBranch.FilterBranchType.OR)
-                            .addFilter(
-                                PublicPropertyFilter.builder()
-                                    .filterType(PublicPropertyFilter.FilterType.PROPERTY)
-                                    .operation(
-                                        PublicBoolPropertyOperation.builder()
-                                            .includeObjectsWithNoValueSet(true)
-                                            .operationType(
-                                                PublicBoolPropertyOperation.OperationType.BOOL
-                                            )
-                                            .operator("operator")
-                                            .value(true)
-                                            .build()
-                                    )
-                                    .property("property")
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .name("name")
-                    .startActionId("startActionId")
-                    .unEnrollmentSetting(
-                        ApiUnEnrollmentSetting.builder()
-                            .addFlowId("string")
-                            .type(ApiUnEnrollmentSetting.Type.ALL)
-                            .build()
-                    )
-                    .uuid("uuid")
-                    .build()
-            )
-
-        val roundtrippedApiFlow =
-            jsonMapper.readValue(jsonMapper.writeValueAsString(apiFlow), jacksonTypeRef<ApiFlow>())
-
-        assertThat(roundtrippedApiFlow).isEqualTo(apiFlow)
+        assertThat(roundtrippedError).isEqualTo(error)
     }
 }

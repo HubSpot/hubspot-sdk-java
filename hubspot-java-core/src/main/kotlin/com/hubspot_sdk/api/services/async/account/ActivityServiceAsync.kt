@@ -119,7 +119,7 @@ interface ActivityServiceAsync {
         ): ActivityServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get /account-info/v3/activity/audit-logs`, but is
+         * Returns a raw HTTP response for `get /account-info/2026-03/activity/audit-logs`, but is
          * otherwise the same as [ActivityServiceAsync.listAuditLogs].
          */
         fun listAuditLogs(): CompletableFuture<HttpResponseFor<ActivityListAuditLogsPageAsync>> =
@@ -144,8 +144,8 @@ interface ActivityServiceAsync {
             listAuditLogs(ActivityListAuditLogsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /account-info/v3/activity/login`, but is otherwise
-         * the same as [ActivityServiceAsync.listLoginActivities].
+         * Returns a raw HTTP response for `get /account-info/2026-03/activity/login`, but is
+         * otherwise the same as [ActivityServiceAsync.listLoginActivities].
          */
         fun listLoginActivities():
             CompletableFuture<HttpResponseFor<ActivityListLoginActivitiesPageAsync>> =
@@ -170,7 +170,7 @@ interface ActivityServiceAsync {
             listLoginActivities(ActivityListLoginActivitiesParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /account-info/v3/activity/security`, but is
+         * Returns a raw HTTP response for `get /account-info/2026-03/activity/security`, but is
          * otherwise the same as [ActivityServiceAsync.listSecurityActivities].
          */
         fun listSecurityActivities():

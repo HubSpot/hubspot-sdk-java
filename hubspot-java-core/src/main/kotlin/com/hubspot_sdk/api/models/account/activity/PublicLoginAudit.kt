@@ -17,7 +17,6 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Details about the a particular login activity for a HubSpot account. */
 class PublicLoginAudit
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
@@ -117,6 +116,8 @@ private constructor(
     fun ipAddress(): Optional<String> = ipAddress.getOptional("ipAddress")
 
     /**
+     * The approximate location where the login activity originated.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -347,6 +348,7 @@ private constructor(
          */
         fun ipAddress(ipAddress: JsonField<String>) = apply { this.ipAddress = ipAddress }
 
+        /** The approximate location where the login activity originated. */
         fun location(location: String) = location(JsonField.of(location))
 
         /**

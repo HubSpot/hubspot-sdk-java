@@ -2,63 +2,70 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.objects
 
-import com.hubspot_sdk.api.TestServerExtension
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.AssociationSpec
-import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.Filter
-import com.hubspot_sdk.api.models.crm.FilterGroup
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.PublicMergeInput
-import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.AssociationSpec
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.Filter
+import com.hubspot_sdk.api.models.crm.objects.FilterGroup
+import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
+import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputUpsert
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomMergeParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomSearchParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpdateParams
+import com.hubspot_sdk.api.models.crm.objects.custom.CustomUpsertParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CustomServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val customService = client.crm().objects().custom()
 
-        val createdResponseSimplePublicObject =
+        val batchResponseSimplePublicObject =
             customService.create(
                 CustomCreateParams.builder()
                     .objectType("objectType")
-                    .simplePublicObjectInputForCreate(
-                        SimplePublicObjectInputForCreate.builder()
-                            .addAssociation(
-                                PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("37295").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                    .batchInputSimplePublicObjectBatchInputForCreate(
+                        BatchInputSimplePublicObjectBatchInputForCreate.builder()
+                            .addInput(
+                                SimplePublicObjectBatchInputForCreate.builder()
+                                    .addAssociation(
+                                        PublicAssociationsForObject.builder()
+                                            .to(PublicObjectId.builder().id("id").build())
+                                            .addType(
+                                                AssociationSpec.builder()
+                                                    .associationCategory(
+                                                        AssociationSpec.AssociationCategory
+                                                            .HUBSPOT_DEFINED
+                                                    )
+                                                    .associationTypeId(0)
+                                                    .build()
                                             )
-                                            .associationTypeId(0)
                                             .build()
                                     )
-                                    .build()
-                            )
-                            .properties(
-                                SimplePublicObjectInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .properties(
+                                        SimplePublicObjectBatchInputForCreate.Properties.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .objectWriteTraceId("objectWriteTraceId")
                                     .build()
                             )
                             .build()
@@ -66,30 +73,31 @@ internal class CustomServiceTest {
                     .build()
             )
 
-        createdResponseSimplePublicObject.validate()
+        batchResponseSimplePublicObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val customService = client.crm().objects().custom()
 
-        val simplePublicObject =
+        val batchResponseSimplePublicObject =
             customService.update(
                 CustomUpdateParams.builder()
                     .objectType("objectType")
-                    .objectId("objectId")
-                    .idProperty("idProperty")
-                    .simplePublicObjectInput(
-                        SimplePublicObjectInput.builder()
-                            .properties(
-                                SimplePublicObjectInput.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .batchInputSimplePublicObjectBatchInput(
+                        BatchInputSimplePublicObjectBatchInput.builder()
+                            .addInput(
+                                SimplePublicObjectBatchInput.builder()
+                                    .id("id")
+                                    .properties(
+                                        SimplePublicObjectBatchInput.Properties.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .idProperty("my_unique_property_name")
+                                    .objectWriteTraceId("objectWriteTraceId")
                                     .build()
                             )
                             .build()
@@ -97,17 +105,13 @@ internal class CustomServiceTest {
                     .build()
             )
 
-        simplePublicObject.validate()
+        batchResponseSimplePublicObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val customService = client.crm().objects().custom()
 
         val page = customService.list("objectType")
@@ -115,55 +119,53 @@ internal class CustomServiceTest {
         page.response().validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val customService = client.crm().objects().custom()
 
         customService.delete(
-            CustomDeleteParams.builder().objectType("objectType").objectId("objectId").build()
+            CustomDeleteParams.builder()
+                .objectType("objectType")
+                .batchInputSimplePublicObjectId(
+                    BatchInputSimplePublicObjectId.builder()
+                        .addInput(SimplePublicObjectId.builder().id("430001").build())
+                        .build()
+                )
+                .build()
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val customService = client.crm().objects().custom()
 
-        val simplePublicObjectWithAssociations =
+        val batchResponseSimplePublicObject =
             customService.get(
                 CustomGetParams.builder()
                     .objectType("objectType")
-                    .objectId("objectId")
                     .archived(true)
-                    .addAssociation("string")
-                    .idProperty("idProperty")
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
+                    .batchReadInputSimplePublicObjectId(
+                        BatchReadInputSimplePublicObjectId.builder()
+                            .addInput(SimplePublicObjectId.builder().id("430001").build())
+                            .addProperty("string")
+                            .addPropertiesWithHistory("string")
+                            .idProperty("idProperty")
+                            .build()
+                    )
                     .build()
             )
 
-        simplePublicObjectWithAssociations.validate()
+        batchResponseSimplePublicObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun merge() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val customService = client.crm().objects().custom()
 
         val simplePublicObject =
@@ -182,14 +184,10 @@ internal class CustomServiceTest {
         simplePublicObject.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val customService = client.crm().objects().custom()
 
         val collectionResponseWithTotalSimplePublicObject =
@@ -222,5 +220,37 @@ internal class CustomServiceTest {
             )
 
         collectionResponseWithTotalSimplePublicObject.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun upsert() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val customService = client.crm().objects().custom()
+
+        val batchResponseSimplePublicUpsertObject =
+            customService.upsert(
+                CustomUpsertParams.builder()
+                    .objectType("objectType")
+                    .batchInputSimplePublicObjectBatchInputUpsert(
+                        BatchInputSimplePublicObjectBatchInputUpsert.builder()
+                            .addInput(
+                                SimplePublicObjectBatchInputUpsert.builder()
+                                    .id("id")
+                                    .properties(
+                                        SimplePublicObjectBatchInputUpsert.Properties.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .idProperty("idProperty")
+                                    .objectWriteTraceId("objectWriteTraceId")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        batchResponseSimplePublicUpsertObject.validate()
     }
 }

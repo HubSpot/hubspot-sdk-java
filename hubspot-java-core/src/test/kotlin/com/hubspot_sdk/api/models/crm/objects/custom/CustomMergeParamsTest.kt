@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.models.crm.objects.custom
 
-import com.hubspot_sdk.api.models.crm.PublicMergeInput
+import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

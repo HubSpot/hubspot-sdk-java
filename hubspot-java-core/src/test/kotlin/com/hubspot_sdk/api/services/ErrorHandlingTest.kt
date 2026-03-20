@@ -3,7 +3,7 @@
 package com.hubspot_sdk.api.services
 
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
-import com.github.tomakehurst.wiremock.client.WireMock.post
+import com.github.tomakehurst.wiremock.client.WireMock.get
 import com.github.tomakehurst.wiremock.client.WireMock.status
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
@@ -22,10 +22,6 @@ import com.hubspot_sdk.api.errors.RateLimitException
 import com.hubspot_sdk.api.errors.UnauthorizedException
 import com.hubspot_sdk.api.errors.UnexpectedStatusCodeException
 import com.hubspot_sdk.api.errors.UnprocessableEntityException
-import com.hubspot_sdk.api.models.AssociationSpec
-import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInputForCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
@@ -62,40 +58,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate400() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs400() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(400).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<BadRequestException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<BadRequestException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(400)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -103,40 +75,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate400WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs400WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(400).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<BadRequestException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<BadRequestException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(400)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -144,40 +92,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate401() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs401() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(401).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<UnauthorizedException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<UnauthorizedException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(401)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -185,40 +109,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate401WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs401WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(401).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<UnauthorizedException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<UnauthorizedException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(401)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -226,40 +126,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate403() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs403() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(403).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<PermissionDeniedException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<PermissionDeniedException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(403)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -267,40 +143,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate403WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs403WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(403).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<PermissionDeniedException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<PermissionDeniedException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(403)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -308,40 +160,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate404() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs404() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(404).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<NotFoundException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<NotFoundException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(404)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -349,40 +177,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate404WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs404WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(404).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<NotFoundException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<NotFoundException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(404)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -390,40 +194,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate422() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs422() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(422).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<UnprocessableEntityException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<UnprocessableEntityException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(422)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -431,40 +211,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate422WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs422WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(422).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<UnprocessableEntityException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<UnprocessableEntityException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(422)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -472,40 +228,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate429() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs429() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(429).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<RateLimitException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<RateLimitException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(429)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -513,40 +245,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate429WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs429WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(429).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<RateLimitException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<RateLimitException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(429)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -554,40 +262,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate500() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs500() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(500).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<InternalServerException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<InternalServerException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(500)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -595,40 +279,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate500WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs500WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(500).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<InternalServerException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<InternalServerException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(500)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -636,40 +296,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate999() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogs999() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(999).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<UnexpectedStatusCodeException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<UnexpectedStatusCodeException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(999)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -677,40 +313,16 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreate999WithRawResponse() {
-        val contactService = client.crm().objects().contacts().withRawResponse()
+    fun activityListAuditLogs999WithRawResponse() {
+        val activityService = client.account().activity().withRawResponse()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(
                     status(999).withHeader(HEADER_NAME, HEADER_VALUE).withBody(ERROR_JSON_BYTES)
                 )
         )
 
-        val e =
-            assertThrows<UnexpectedStatusCodeException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<UnexpectedStatusCodeException> { activityService.listAuditLogs() }
 
         assertThat(e.statusCode()).isEqualTo(999)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -718,38 +330,14 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun contactsCreateInvalidJsonBody() {
-        val contactService = client.crm().objects().contacts()
+    fun activityListAuditLogsInvalidJsonBody() {
+        val activityService = client.account().activity()
         stubFor(
-            post(anyUrl())
+            get(anyUrl())
                 .willReturn(status(200).withHeader(HEADER_NAME, HEADER_VALUE).withBody(NOT_JSON))
         )
 
-        val e =
-            assertThrows<HubspotException> {
-                contactService.create(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("37295").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-            }
+        val e = assertThrows<HubspotException> { activityService.listAuditLogs() }
 
         assertThat(e).hasMessage("Error reading response")
     }

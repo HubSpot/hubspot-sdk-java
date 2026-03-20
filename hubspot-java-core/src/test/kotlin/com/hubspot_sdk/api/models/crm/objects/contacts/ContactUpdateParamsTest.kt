@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.models.crm.objects.contacts
 
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.SimplePublicObjectInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,7 +13,8 @@ internal class ContactUpdateParamsTest {
     @Test
     fun create() {
         ContactUpdateParams.builder()
-            .contactId("contactId")
+            .objectType("objectType")
+            .objectId("objectId")
             .idProperty("idProperty")
             .simplePublicObjectInput(
                 SimplePublicObjectInput.builder()
@@ -31,7 +32,8 @@ internal class ContactUpdateParamsTest {
     fun pathParams() {
         val params =
             ContactUpdateParams.builder()
-                .contactId("contactId")
+                .objectType("objectType")
+                .objectId("objectId")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
                         .properties(
@@ -43,16 +45,18 @@ internal class ContactUpdateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("contactId")
+        assertThat(params._pathParam(0)).isEqualTo("objectType")
+        assertThat(params._pathParam(1)).isEqualTo("objectId")
         // out-of-bound path param
-        assertThat(params._pathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
     }
 
     @Test
     fun queryParams() {
         val params =
             ContactUpdateParams.builder()
-                .contactId("contactId")
+                .objectType("objectType")
+                .objectId("objectId")
                 .idProperty("idProperty")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
@@ -75,7 +79,8 @@ internal class ContactUpdateParamsTest {
     fun queryParamsWithoutOptionalFields() {
         val params =
             ContactUpdateParams.builder()
-                .contactId("contactId")
+                .objectType("objectType")
+                .objectId("objectId")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
                         .properties(
@@ -96,7 +101,8 @@ internal class ContactUpdateParamsTest {
     fun body() {
         val params =
             ContactUpdateParams.builder()
-                .contactId("contactId")
+                .objectType("objectType")
+                .objectId("objectId")
                 .idProperty("idProperty")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
@@ -127,7 +133,8 @@ internal class ContactUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ContactUpdateParams.builder()
-                .contactId("contactId")
+                .objectType("objectType")
+                .objectId("objectId")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
                         .properties(

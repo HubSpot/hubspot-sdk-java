@@ -41,21 +41,21 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
         params: ActivityListAuditLogsParams,
         requestOptions: RequestOptions,
     ): ActivityListAuditLogsPage =
-        // get /account-info/v3/activity/audit-logs
+        // get /account-info/2026-03/activity/audit-logs
         withRawResponse().listAuditLogs(params, requestOptions).parse()
 
     override fun listLoginActivities(
         params: ActivityListLoginActivitiesParams,
         requestOptions: RequestOptions,
     ): ActivityListLoginActivitiesPage =
-        // get /account-info/v3/activity/login
+        // get /account-info/2026-03/activity/login
         withRawResponse().listLoginActivities(params, requestOptions).parse()
 
     override fun listSecurityActivities(
         params: ActivityListSecurityActivitiesParams,
         requestOptions: RequestOptions,
     ): ActivityListSecurityActivitiesPage =
-        // get /account-info/v3/activity/security
+        // get /account-info/2026-03/activity/security
         withRawResponse().listSecurityActivities(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -85,7 +85,7 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("account-info", "v3", "activity", "audit-logs")
+                    .addPathSegments("account-info", "2026-03", "activity", "audit-logs")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -120,7 +120,7 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("account-info", "v3", "activity", "login")
+                    .addPathSegments("account-info", "2026-03", "activity", "login")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -157,7 +157,7 @@ class ActivityServiceImpl internal constructor(private val clientOptions: Client
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("account-info", "v3", "activity", "security")
+                    .addPathSegments("account-info", "2026-03", "activity", "security")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

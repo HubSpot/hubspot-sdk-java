@@ -7,11 +7,16 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Execute a search for tasks based on the provided criteria, including filters, properties, and
+ * sorting options. This allows for retrieving tasks that match specific conditions or property
+ * values.
+ */
 class CustomSearchParams
 private constructor(
     private val objectType: String?,

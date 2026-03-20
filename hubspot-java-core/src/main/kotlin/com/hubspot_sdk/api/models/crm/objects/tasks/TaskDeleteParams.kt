@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.models.crm.objects.tasks
 
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.core.toImmutable
@@ -14,13 +15,16 @@ import kotlin.jvm.optionals.getOrNull
 /** Move an Object identified by `{taskId}` to the recycling bin. */
 class TaskDeleteParams
 private constructor(
-    private val taskId: String?,
+    private val objectType: String,
+    private val objectId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun taskId(): Optional<String> = Optional.ofNullable(taskId)
+    fun objectType(): String = objectType
+
+    fun objectId(): Optional<String> = Optional.ofNullable(objectId)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -35,32 +39,41 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): TaskDeleteParams = builder().build()
-
-        /** Returns a mutable builder for constructing an instance of [TaskDeleteParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [TaskDeleteParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .objectType()
+         * ```
+         */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [TaskDeleteParams]. */
     class Builder internal constructor() {
 
-        private var taskId: String? = null
+        private var objectType: String? = null
+        private var objectId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(taskDeleteParams: TaskDeleteParams) = apply {
-            taskId = taskDeleteParams.taskId
+            objectType = taskDeleteParams.objectType
+            objectId = taskDeleteParams.objectId
             additionalHeaders = taskDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = taskDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties = taskDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun taskId(taskId: String?) = apply { this.taskId = taskId }
+        fun objectType(objectType: String) = apply { this.objectType = objectType }
 
-        /** Alias for calling [Builder.taskId] with `taskId.orElse(null)`. */
-        fun taskId(taskId: Optional<String>) = taskId(taskId.getOrNull())
+        fun objectId(objectId: String?) = apply { this.objectId = objectId }
+
+        /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
+        fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -186,10 +199,18 @@ private constructor(
          * Returns an immutable instance of [TaskDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .objectType()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): TaskDeleteParams =
             TaskDeleteParams(
-                taskId,
+                checkRequired("objectType", objectType),
+                objectId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -201,7 +222,8 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> taskId ?: ""
+            0 -> objectType
+            1 -> objectId ?: ""
             else -> ""
         }
 
@@ -215,15 +237,22 @@ private constructor(
         }
 
         return other is TaskDeleteParams &&
-            taskId == other.taskId &&
+            objectType == other.objectType &&
+            objectId == other.objectId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(taskId, additionalHeaders, additionalQueryParams, additionalBodyProperties)
+        Objects.hash(
+            objectType,
+            objectId,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
-        "TaskDeleteParams{taskId=$taskId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "TaskDeleteParams{objectType=$objectType, objectId=$objectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }
