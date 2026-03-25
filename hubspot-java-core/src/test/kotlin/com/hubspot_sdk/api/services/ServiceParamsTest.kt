@@ -4,16 +4,21 @@ package com.hubspot_sdk.api.services
 
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
-import com.github.tomakehurst.wiremock.client.WireMock.get
-import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.ok
+import com.github.tomakehurst.wiremock.client.WireMock.post
+import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.client.WireMock.verify
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.HubspotClient
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.account.AccountGetParams
+import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.AssociationSpec
+import com.hubspot_sdk.api.models.PublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -36,19 +41,41 @@ internal class ServiceParamsTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun get() {
-        val accountService = client.account()
-        stubFor(get(anyUrl()).willReturn(ok("{}")))
+    fun create() {
+        val contactService = client.crm().objects().contacts()
+        stubFor(post(anyUrl()).willReturn(ok("{}")))
 
-        accountService.get(
-            AccountGetParams.builder()
+        contactService.create(
+            ContactCreateParams.builder()
+                .simplePublicObjectInputForCreate(
+                    SimplePublicObjectInputForCreate.builder()
+                        .addAssociation(
+                            PublicAssociationsForObject.builder()
+                                .to(PublicObjectId.builder().id("id").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
                 .putAdditionalHeader("Secret-Header", "42")
                 .putAdditionalQueryParam("secret_query_param", "42")
                 .build()
         )
 
         verify(
-            getRequestedFor(anyUrl())
+            postRequestedFor(anyUrl())
                 .withHeader("Secret-Header", equalTo("42"))
                 .withQueryParam("secret_query_param", equalTo("42"))
         )
