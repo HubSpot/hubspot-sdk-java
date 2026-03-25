@@ -36,8 +36,8 @@ interface ContactService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ContactService
 
     /**
-     * Create a task with the given properties and return a copy of the object, including the ID.
-     * Documentation and examples for creating standard tasks is provided.
+     * Create a CRM object with the given properties and return a copy of the object, including the
+     * ID. Documentation and examples for creating standard objects is provided.
      */
     fun create(objectType: String, params: ContactCreateParams): SimplePublicObject =
         create(objectType, params, RequestOptions.none())
@@ -61,12 +61,12 @@ interface ContactService {
     ): SimplePublicObject
 
     /**
-     * Perform a partial update of an Object identified by `{taskId}`or optionally a unique property
-     * value as specified by the `idProperty` query param. `{taskId}` refers to the internal object
-     * ID by default, and the `idProperty` query param refers to a property whose values are unique
-     * for the object. Provided property values will be overwritten. Read-only and non-existent
-     * properties will result in an error. Properties values can be cleared by passing an empty
-     * string.
+     * Perform a partial update of an Object identified by `{objectId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{objectId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
      */
     fun update(objectId: String, params: ContactUpdateParams): SimplePublicObject =
         update(objectId, params, RequestOptions.none())
@@ -88,7 +88,7 @@ interface ContactService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /** Read a page of tasks. Control what is returned via the `properties` query param. */
+    /** Read a page of objects. Control what is returned via the `properties` query param. */
     fun list(objectType: String): ContactListPage = list(objectType, ContactListParams.none())
 
     /** @see list */
@@ -117,7 +117,7 @@ interface ContactService {
     fun list(objectType: String, requestOptions: RequestOptions): ContactListPage =
         list(objectType, ContactListParams.none(), requestOptions)
 
-    /** Move an Object identified by `{taskId}` to the recycling bin. */
+    /** Move an Object identified by `{objectId}` to the recycling bin. */
     fun delete(objectId: String, params: ContactDeleteParams) =
         delete(objectId, params, RequestOptions.none())
 
@@ -134,6 +134,13 @@ interface ContactService {
     /** @see delete */
     fun delete(params: ContactDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
+    /**
+     * Permanently delete a contact and all associated content to follow GDPR. Use optional property
+     * `idProperty` set to `email` to identify contact by email address. If email address is not
+     * found, the email address will be added to a blocklist and prevent it from being used in the
+     * future. Learn more about
+     * [permanently deleting contacts](https://knowledge.hubspot.com/privacy-and-consent/how-do-i-perform-a-gdpr-delete-in-hubspot).
+     */
     fun gdprDelete(objectType: String, params: ContactGdprDeleteParams) =
         gdprDelete(objectType, params, RequestOptions.none())
 
@@ -154,7 +161,7 @@ interface ContactService {
     )
 
     /**
-     * Read an Object identified by `{taskId}`. `{taskId}` refers to the internal object ID by
+     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
      * default, or optionally any unique property value as specified by the `idProperty` query
      * param. Control what is returned via the `properties` query param.
      */
@@ -179,6 +186,10 @@ interface ContactService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations
 
+    /**
+     * Merge two CRM objects of the same type by specifying one as the primary object and the other
+     * as the object to be merged into it.
+     */
     fun merge(objectType: String, params: ContactMergeParams): SimplePublicObject =
         merge(objectType, params, RequestOptions.none())
 
@@ -199,9 +210,8 @@ interface ContactService {
     ): SimplePublicObject
 
     /**
-     * Execute a search for tasks based on the provided criteria, including filters, properties, and
-     * sorting options. This allows for retrieving tasks that match specific conditions or property
-     * values.
+     * Execute a search query to find CRM objects of a given type, using specified filters and
+     * properties. The search can be customized with filters, sorting, and pagination options.
      */
     fun search(
         objectType: String,

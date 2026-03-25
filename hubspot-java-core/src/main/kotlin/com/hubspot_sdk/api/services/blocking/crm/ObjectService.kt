@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.services.blocking.crm
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.crm.objects.ContactService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CustomService
-import com.hubspot_sdk.api.services.blocking.crm.objects.TaskService
 import java.util.function.Consumer
 
 interface ObjectService {
@@ -26,8 +25,6 @@ interface ObjectService {
 
     fun custom(): CustomService
 
-    fun tasks(): TaskService
-
     /** A view of [ObjectService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -41,7 +38,5 @@ interface ObjectService {
         fun contacts(): ContactService.WithRawResponse
 
         fun custom(): CustomService.WithRawResponse
-
-        fun tasks(): TaskService.WithRawResponse
     }
 }

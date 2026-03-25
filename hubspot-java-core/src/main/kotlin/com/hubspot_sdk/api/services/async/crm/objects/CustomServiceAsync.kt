@@ -37,9 +37,8 @@ interface CustomServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CustomServiceAsync
 
     /**
-     * Create multiple tasks in a single request by providing a batch of task properties and
-     * associations. This endpoint allows for efficient task creation by processing multiple tasks
-     * together.
+     * Create multiple CRM objects in a single request by specifying the object type and providing
+     * the necessary properties and associations for each object.
      */
     fun create(
         objectType: String,
@@ -66,9 +65,8 @@ interface CustomServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject>
 
     /**
-     * Update multiple tasks in a single request using their internal IDs or unique property values.
-     * This operation allows you to modify the properties of each task in the batch, ensuring
-     * efficient management of task data.
+     * Update a batch of CRM objects by their internal IDs or unique property values, allowing for
+     * efficient modifications of multiple records in a single request.
      */
     fun update(
         objectType: String,
@@ -94,7 +92,7 @@ interface CustomServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSimplePublicObject>
 
-    /** Read a page of tasks. Control what is returned via the `properties` query param. */
+    /** Read a page of objects. Control what is returned via the `properties` query param. */
     fun list(objectType: String): CompletableFuture<CustomListPageAsync> =
         list(objectType, CustomListParams.none())
 
@@ -130,8 +128,8 @@ interface CustomServiceAsync {
         list(objectType, CustomListParams.none(), requestOptions)
 
     /**
-     * Archive a batch of tasks by their IDs, moving them to the recycling bin. This operation
-     * requires a list of task IDs to be provided in the request body.
+     * Archive a batch of objects by their unique IDs. This operation moves the specified objects to
+     * the recycling bin, effectively marking them as archived.
      */
     fun delete(objectType: String, params: CustomDeleteParams): CompletableFuture<Void?> =
         delete(objectType, params, RequestOptions.none())
@@ -182,6 +180,10 @@ interface CustomServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSimplePublicObject>
 
+    /**
+     * Merge two CRM objects of the same type by specifying one as the primary object and the other
+     * as the object to be merged into it.
+     */
     fun merge(
         objectType: String,
         params: CustomMergeParams,
@@ -206,9 +208,8 @@ interface CustomServiceAsync {
     ): CompletableFuture<SimplePublicObject>
 
     /**
-     * Execute a search for tasks based on the provided criteria, including filters, properties, and
-     * sorting options. This allows for retrieving tasks that match specific conditions or property
-     * values.
+     * Execute a search query to find CRM objects of a given type, using specified filters and
+     * properties. The search can be customized with filters, sorting, and pagination options.
      */
     fun search(
         objectType: String,

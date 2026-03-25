@@ -13,8 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Create a task with the given properties and return a copy of the object, including the ID.
- * Documentation and examples for creating standard tasks is provided.
+ * Create a CRM object with the given properties and return a copy of the object, including the ID.
+ * Documentation and examples for creating standard objects is provided.
  */
 class ContactCreateParams
 private constructor(

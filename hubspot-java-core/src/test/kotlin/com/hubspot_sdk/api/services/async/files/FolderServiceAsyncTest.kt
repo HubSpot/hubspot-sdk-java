@@ -1,0 +1,72 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.async.files
+
+import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.models.files.FolderUpdateInput
+import com.hubspot_sdk.api.models.files.FolderUpdateInputWithId
+import com.hubspot_sdk.api.models.files.folders.FolderUpdateByIdParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+
+internal class FolderServiceAsyncTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getUpdateAsyncStatus() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val folderActionResponseFuture = folderServiceAsync.getUpdateAsyncStatus("taskId")
+
+        val folderActionResponse = folderActionResponseFuture.get()
+        folderActionResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun search() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val pageFuture = folderServiceAsync.search()
+
+        val page = pageFuture.get()
+        page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateAsyncById() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val folderUpdateTaskLocatorFuture =
+            folderServiceAsync.updateAsyncById(
+                FolderUpdateInputWithId.builder().id("id").name("name").parentFolderId(0L).build()
+            )
+
+        val folderUpdateTaskLocator = folderUpdateTaskLocatorFuture.get()
+        folderUpdateTaskLocator.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateById() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val folderFuture =
+            folderServiceAsync.updateById(
+                FolderUpdateByIdParams.builder()
+                    .folderId("321669910225")
+                    .folderUpdateInput(
+                        FolderUpdateInput.builder().name("name").parentFolderId(0L).build()
+                    )
+                    .build()
+            )
+
+        val folder = folderFuture.get()
+        folder.validate()
+    }
+}

@@ -4,7 +4,16 @@ package com.hubspot_sdk.api.client
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.AccountServiceAsync
+import com.hubspot_sdk.api.services.async.AutomationServiceAsync
+import com.hubspot_sdk.api.services.async.CmServiceAsync
 import com.hubspot_sdk.api.services.async.CrmServiceAsync
+import com.hubspot_sdk.api.services.async.DataStudioServiceAsync
+import com.hubspot_sdk.api.services.async.EventServiceAsync
+import com.hubspot_sdk.api.services.async.FileServiceAsync
+import com.hubspot_sdk.api.services.async.MarketingServiceAsync
+import com.hubspot_sdk.api.services.async.MetaServiceAsync
+import com.hubspot_sdk.api.services.async.SchedulerServiceAsync
+import com.hubspot_sdk.api.services.async.SettingServiceAsync
 import java.util.function.Consumer
 
 /**
@@ -45,7 +54,25 @@ interface HubspotClientAsync {
 
     fun account(): AccountServiceAsync
 
+    fun automation(): AutomationServiceAsync
+
+    fun cms(): CmServiceAsync
+
     fun crm(): CrmServiceAsync
+
+    fun dataStudio(): DataStudioServiceAsync
+
+    fun events(): EventServiceAsync
+
+    fun files(): FileServiceAsync
+
+    fun marketing(): MarketingServiceAsync
+
+    fun meta(): MetaServiceAsync
+
+    fun scheduler(): SchedulerServiceAsync
+
+    fun settings(): SettingServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -76,6 +103,24 @@ interface HubspotClientAsync {
 
         fun account(): AccountServiceAsync.WithRawResponse
 
+        fun automation(): AutomationServiceAsync.WithRawResponse
+
+        fun cms(): CmServiceAsync.WithRawResponse
+
         fun crm(): CrmServiceAsync.WithRawResponse
+
+        fun dataStudio(): DataStudioServiceAsync.WithRawResponse
+
+        fun events(): EventServiceAsync.WithRawResponse
+
+        fun files(): FileServiceAsync.WithRawResponse
+
+        fun marketing(): MarketingServiceAsync.WithRawResponse
+
+        fun meta(): MetaServiceAsync.WithRawResponse
+
+        fun scheduler(): SchedulerServiceAsync.WithRawResponse
+
+        fun settings(): SettingServiceAsync.WithRawResponse
     }
 }

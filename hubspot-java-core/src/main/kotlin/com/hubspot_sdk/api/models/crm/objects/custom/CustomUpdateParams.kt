@@ -13,9 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Update multiple tasks in a single request using their internal IDs or unique property values.
- * This operation allows you to modify the properties of each task in the batch, ensuring efficient
- * management of task data.
+ * Update a batch of CRM objects by their internal IDs or unique property values, allowing for
+ * efficient modifications of multiple records in a single request.
  */
 class CustomUpdateParams
 private constructor(

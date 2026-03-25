@@ -13,8 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Perform a partial update of an Object identified by `{taskId}`or optionally a unique property
- * value as specified by the `idProperty` query param. `{taskId}` refers to the internal object ID
+ * Perform a partial update of an Object identified by `{objectId}`or optionally a unique property
+ * value as specified by the `idProperty` query param. `{objectId}` refers to the internal object ID
  * by default, and the `idProperty` query param refers to a property whose values are unique for the
  * object. Provided property values will be overwritten. Read-only and non-existent properties will
  * result in an error. Properties values can be cleared by passing an empty string.
@@ -33,7 +33,7 @@ private constructor(
 
     fun objectId(): Optional<String> = Optional.ofNullable(objectId)
 
-    /** The name of a property whose values are unique for this object */
+    /** The name of a property whose values are unique for this object type */
     fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
     /**
@@ -94,7 +94,7 @@ private constructor(
         /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
         fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
 
-        /** The name of a property whose values are unique for this object */
+        /** The name of a property whose values are unique for this object type */
         fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
 
         /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */

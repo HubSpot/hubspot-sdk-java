@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Merge two CRM objects of the same type by specifying one as the primary object and the other as
+ * the object to be merged into it.
+ */
 class ContactMergeParams
 private constructor(
     private val objectType: String?,

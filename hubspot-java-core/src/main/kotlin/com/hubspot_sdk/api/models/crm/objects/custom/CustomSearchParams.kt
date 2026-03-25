@@ -13,9 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Execute a search for tasks based on the provided criteria, including filters, properties, and
- * sorting options. This allows for retrieving tasks that match specific conditions or property
- * values.
+ * Execute a search query to find CRM objects of a given type, using specified filters and
+ * properties. The search can be customized with filters, sorting, and pagination options.
  */
 class CustomSearchParams
 private constructor(

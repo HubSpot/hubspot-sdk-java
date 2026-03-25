@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.services.async.crm
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.crm.objects.ContactServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CustomServiceAsync
-import com.hubspot_sdk.api.services.async.crm.objects.TaskServiceAsync
 import java.util.function.Consumer
 
 interface ObjectServiceAsync {
@@ -26,8 +25,6 @@ interface ObjectServiceAsync {
 
     fun custom(): CustomServiceAsync
 
-    fun tasks(): TaskServiceAsync
-
     /**
      * A view of [ObjectServiceAsync] that provides access to raw HTTP responses for each method.
      */
@@ -45,7 +42,5 @@ interface ObjectServiceAsync {
         fun contacts(): ContactServiceAsync.WithRawResponse
 
         fun custom(): CustomServiceAsync.WithRawResponse
-
-        fun tasks(): TaskServiceAsync.WithRawResponse
     }
 }

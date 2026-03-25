@@ -6,8 +6,26 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.getPackageVersion
 import com.hubspot_sdk.api.services.blocking.AccountService
 import com.hubspot_sdk.api.services.blocking.AccountServiceImpl
+import com.hubspot_sdk.api.services.blocking.AutomationService
+import com.hubspot_sdk.api.services.blocking.AutomationServiceImpl
+import com.hubspot_sdk.api.services.blocking.CmService
+import com.hubspot_sdk.api.services.blocking.CmServiceImpl
 import com.hubspot_sdk.api.services.blocking.CrmService
 import com.hubspot_sdk.api.services.blocking.CrmServiceImpl
+import com.hubspot_sdk.api.services.blocking.DataStudioService
+import com.hubspot_sdk.api.services.blocking.DataStudioServiceImpl
+import com.hubspot_sdk.api.services.blocking.EventService
+import com.hubspot_sdk.api.services.blocking.EventServiceImpl
+import com.hubspot_sdk.api.services.blocking.FileService
+import com.hubspot_sdk.api.services.blocking.FileServiceImpl
+import com.hubspot_sdk.api.services.blocking.MarketingService
+import com.hubspot_sdk.api.services.blocking.MarketingServiceImpl
+import com.hubspot_sdk.api.services.blocking.MetaService
+import com.hubspot_sdk.api.services.blocking.MetaServiceImpl
+import com.hubspot_sdk.api.services.blocking.SchedulerService
+import com.hubspot_sdk.api.services.blocking.SchedulerServiceImpl
+import com.hubspot_sdk.api.services.blocking.SettingService
+import com.hubspot_sdk.api.services.blocking.SettingServiceImpl
 import java.util.function.Consumer
 
 class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClient {
@@ -29,7 +47,33 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
 
     private val account: AccountService by lazy { AccountServiceImpl(clientOptionsWithUserAgent) }
 
+    private val automation: AutomationService by lazy {
+        AutomationServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val cms: CmService by lazy { CmServiceImpl(clientOptionsWithUserAgent) }
+
     private val crm: CrmService by lazy { CrmServiceImpl(clientOptionsWithUserAgent) }
+
+    private val dataStudio: DataStudioService by lazy {
+        DataStudioServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val events: EventService by lazy { EventServiceImpl(clientOptionsWithUserAgent) }
+
+    private val files: FileService by lazy { FileServiceImpl(clientOptionsWithUserAgent) }
+
+    private val marketing: MarketingService by lazy {
+        MarketingServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val meta: MetaService by lazy { MetaServiceImpl(clientOptionsWithUserAgent) }
+
+    private val scheduler: SchedulerService by lazy {
+        SchedulerServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val settings: SettingService by lazy { SettingServiceImpl(clientOptionsWithUserAgent) }
 
     override fun async(): HubspotClientAsync = async
 
@@ -40,7 +84,25 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
 
     override fun account(): AccountService = account
 
+    override fun automation(): AutomationService = automation
+
+    override fun cms(): CmService = cms
+
     override fun crm(): CrmService = crm
+
+    override fun dataStudio(): DataStudioService = dataStudio
+
+    override fun events(): EventService = events
+
+    override fun files(): FileService = files
+
+    override fun marketing(): MarketingService = marketing
+
+    override fun meta(): MetaService = meta
+
+    override fun scheduler(): SchedulerService = scheduler
+
+    override fun settings(): SettingService = settings
 
     override fun close() = clientOptions.close()
 
@@ -51,8 +113,44 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
             AccountServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val automation: AutomationService.WithRawResponse by lazy {
+            AutomationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cms: CmService.WithRawResponse by lazy {
+            CmServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val crm: CrmService.WithRawResponse by lazy {
             CrmServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val dataStudio: DataStudioService.WithRawResponse by lazy {
+            DataStudioServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val events: EventService.WithRawResponse by lazy {
+            EventServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val files: FileService.WithRawResponse by lazy {
+            FileServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val marketing: MarketingService.WithRawResponse by lazy {
+            MarketingServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val meta: MetaService.WithRawResponse by lazy {
+            MetaServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val scheduler: SchedulerService.WithRawResponse by lazy {
+            SchedulerServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val settings: SettingService.WithRawResponse by lazy {
+            SettingServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -64,6 +162,24 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
 
         override fun account(): AccountService.WithRawResponse = account
 
+        override fun automation(): AutomationService.WithRawResponse = automation
+
+        override fun cms(): CmService.WithRawResponse = cms
+
         override fun crm(): CrmService.WithRawResponse = crm
+
+        override fun dataStudio(): DataStudioService.WithRawResponse = dataStudio
+
+        override fun events(): EventService.WithRawResponse = events
+
+        override fun files(): FileService.WithRawResponse = files
+
+        override fun marketing(): MarketingService.WithRawResponse = marketing
+
+        override fun meta(): MetaService.WithRawResponse = meta
+
+        override fun scheduler(): SchedulerService.WithRawResponse = scheduler
+
+        override fun settings(): SettingService.WithRawResponse = settings
     }
 }

@@ -13,7 +13,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.HubspotClient
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams
+import com.hubspot_sdk.api.models.account.AccountGetParams
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -36,12 +36,12 @@ internal class ServiceParamsTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun listAuditLogs() {
-        val activityService = client.account().activity()
+    fun get() {
+        val accountService = client.account()
         stubFor(get(anyUrl()).willReturn(ok("{}")))
 
-        activityService.listAuditLogs(
-            ActivityListAuditLogsParams.builder()
+        accountService.get(
+            AccountGetParams.builder()
                 .putAdditionalHeader("Secret-Header", "42")
                 .putAdditionalQueryParam("secret_query_param", "42")
                 .build()
