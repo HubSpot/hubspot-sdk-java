@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Move an Object identified by `{taskId}` to the recycling bin. */
+/** Move an Object identified by `{objectId}` to the recycling bin. */
 class ContactDeleteParams
 private constructor(
     private val objectType: String,

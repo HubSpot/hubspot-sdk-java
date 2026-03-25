@@ -12,9 +12,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Read an Object identified by `{taskId}`. `{taskId}` refers to the internal object ID by default,
- * or optionally any unique property value as specified by the `idProperty` query param. Control
- * what is returned via the `properties` query param.
+ * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
+ * default, or optionally any unique property value as specified by the `idProperty` query param.
+ * Control what is returned via the `properties` query param.
  */
 class ContactGetParams
 private constructor(
@@ -42,7 +42,7 @@ private constructor(
      */
     fun associations(): Optional<List<String>> = Optional.ofNullable(associations)
 
-    /** The name of a property whose values are unique for this object */
+    /** The name of a property whose values are unique for this object type */
     fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
 
     /**
@@ -146,7 +146,7 @@ private constructor(
             associations = (associations ?: mutableListOf()).apply { add(association) }
         }
 
-        /** The name of a property whose values are unique for this object */
+        /** The name of a property whose values are unique for this object type */
         fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
 
         /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */

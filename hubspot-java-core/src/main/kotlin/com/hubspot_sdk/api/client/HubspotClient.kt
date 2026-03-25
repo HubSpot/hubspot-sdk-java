@@ -4,7 +4,16 @@ package com.hubspot_sdk.api.client
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.AccountService
+import com.hubspot_sdk.api.services.blocking.AutomationService
+import com.hubspot_sdk.api.services.blocking.CmService
 import com.hubspot_sdk.api.services.blocking.CrmService
+import com.hubspot_sdk.api.services.blocking.DataStudioService
+import com.hubspot_sdk.api.services.blocking.EventService
+import com.hubspot_sdk.api.services.blocking.FileService
+import com.hubspot_sdk.api.services.blocking.MarketingService
+import com.hubspot_sdk.api.services.blocking.MetaService
+import com.hubspot_sdk.api.services.blocking.SchedulerService
+import com.hubspot_sdk.api.services.blocking.SettingService
 import java.util.function.Consumer
 
 /**
@@ -45,7 +54,25 @@ interface HubspotClient {
 
     fun account(): AccountService
 
+    fun automation(): AutomationService
+
+    fun cms(): CmService
+
     fun crm(): CrmService
+
+    fun dataStudio(): DataStudioService
+
+    fun events(): EventService
+
+    fun files(): FileService
+
+    fun marketing(): MarketingService
+
+    fun meta(): MetaService
+
+    fun scheduler(): SchedulerService
+
+    fun settings(): SettingService
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -72,6 +99,24 @@ interface HubspotClient {
 
         fun account(): AccountService.WithRawResponse
 
+        fun automation(): AutomationService.WithRawResponse
+
+        fun cms(): CmService.WithRawResponse
+
         fun crm(): CrmService.WithRawResponse
+
+        fun dataStudio(): DataStudioService.WithRawResponse
+
+        fun events(): EventService.WithRawResponse
+
+        fun files(): FileService.WithRawResponse
+
+        fun marketing(): MarketingService.WithRawResponse
+
+        fun meta(): MetaService.WithRawResponse
+
+        fun scheduler(): SchedulerService.WithRawResponse
+
+        fun settings(): SettingService.WithRawResponse
     }
 }

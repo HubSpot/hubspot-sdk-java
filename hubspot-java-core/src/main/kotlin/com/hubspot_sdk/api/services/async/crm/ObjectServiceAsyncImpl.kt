@@ -7,8 +7,6 @@ import com.hubspot_sdk.api.services.async.crm.objects.ContactServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ContactServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.CustomServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CustomServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.crm.objects.TaskServiceAsync
-import com.hubspot_sdk.api.services.async.crm.objects.TaskServiceAsyncImpl
 import java.util.function.Consumer
 
 class ObjectServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -22,8 +20,6 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     private val custom: CustomServiceAsync by lazy { CustomServiceAsyncImpl(clientOptions) }
 
-    private val tasks: TaskServiceAsync by lazy { TaskServiceAsyncImpl(clientOptions) }
-
     override fun withRawResponse(): ObjectServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ObjectServiceAsync =
@@ -32,8 +28,6 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun contacts(): ContactServiceAsync = contacts
 
     override fun custom(): CustomServiceAsync = custom
-
-    override fun tasks(): TaskServiceAsync = tasks
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ObjectServiceAsync.WithRawResponse {
@@ -46,10 +40,6 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
             CustomServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val tasks: TaskServiceAsync.WithRawResponse by lazy {
-            TaskServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ObjectServiceAsync.WithRawResponse =
@@ -60,7 +50,5 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
         override fun contacts(): ContactServiceAsync.WithRawResponse = contacts
 
         override fun custom(): CustomServiceAsync.WithRawResponse = custom
-
-        override fun tasks(): TaskServiceAsync.WithRawResponse = tasks
     }
 }

@@ -2,7 +2,6 @@
 
 package com.hubspot_sdk.api.models.crm.objects.contacts
 
-import com.hubspot_sdk.api.models.crm.objects.PublicGdprDeleteInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

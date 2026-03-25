@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Read a page of tasks. Control what is returned via the `properties` query param. */
+/** Read a page of objects. Control what is returned via the `properties` query param. */
 class CustomListParams
 private constructor(
     private val objectType: String?,
@@ -53,8 +53,8 @@ private constructor(
     /**
      * A comma separated list of the properties to be returned along with their history of previous
      * values. If any of the specified properties are not present on the requested object(s), they
-     * will be ignored. Usage of this parameter will reduce the maximum number of tasks that can be
-     * read by a single request.
+     * will be ignored. Usage of this parameter will reduce the maximum number of objects that can
+     * be read by a single request.
      */
     fun propertiesWithHistory(): Optional<List<String>> = Optional.ofNullable(propertiesWithHistory)
 
@@ -185,7 +185,7 @@ private constructor(
          * A comma separated list of the properties to be returned along with their history of
          * previous values. If any of the specified properties are not present on the requested
          * object(s), they will be ignored. Usage of this parameter will reduce the maximum number
-         * of tasks that can be read by a single request.
+         * of objects that can be read by a single request.
          */
         fun propertiesWithHistory(propertiesWithHistory: List<String>?) = apply {
             this.propertiesWithHistory = propertiesWithHistory?.toMutableList()

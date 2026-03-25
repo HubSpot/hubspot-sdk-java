@@ -3,10 +3,10 @@
 package com.hubspot_sdk.api.models.crm.objects.custom
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.crm.objects.AssociationSpec
+import com.hubspot_sdk.api.models.AssociationSpec
+import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputForCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

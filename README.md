@@ -36,8 +36,8 @@ This library requires Java 8 or later.
 ```java
 import com.hubspot_sdk.api.client.HubspotClient;
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
+import com.hubspot_sdk.api.models.account.AccountGetParams;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 
 HubspotClient client = HubspotOkHttpClient.builder()
     // Configures using the `hubspot.baseUrl` system property
@@ -46,7 +46,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
-ActivityListAuditLogsPage page = client.account().activity().listAuditLogs();
+PortalInformationResponse portalInformationResponse = client.account().get();
 ```
 
 ## Client configuration
@@ -121,7 +121,7 @@ The `withOptions()` method does not affect the original client or service.
 
 To send a request to the Hubspot API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
 
-For example, `client.account().activity().listAuditLogs(...)` should be called with an instance of `ActivityListAuditLogsParams`, and it will return an instance of `ActivityListAuditLogsPage`.
+For example, `client.account().get(...)` should be called with an instance of `AccountGetParams`, and it will return an instance of `PortalInformationResponse`.
 
 ## Immutability
 
@@ -138,8 +138,8 @@ The default client is synchronous. To switch to asynchronous execution, call the
 ```java
 import com.hubspot_sdk.api.client.HubspotClient;
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPageAsync;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
+import com.hubspot_sdk.api.models.account.AccountGetParams;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 import java.util.concurrent.CompletableFuture;
 
 HubspotClient client = HubspotOkHttpClient.builder()
@@ -149,7 +149,7 @@ HubspotClient client = HubspotOkHttpClient.builder()
     .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
-CompletableFuture<ActivityListAuditLogsPageAsync> page = client.async().account().activity().listAuditLogs();
+CompletableFuture<PortalInformationResponse> portalInformationResponse = client.async().account().get();
 ```
 
 Or create an asynchronous client from the beginning:
@@ -157,8 +157,8 @@ Or create an asynchronous client from the beginning:
 ```java
 import com.hubspot_sdk.api.client.HubspotClientAsync;
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPageAsync;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
+import com.hubspot_sdk.api.models.account.AccountGetParams;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 import java.util.concurrent.CompletableFuture;
 
 HubspotClientAsync client = HubspotOkHttpClientAsync.builder()
@@ -168,10 +168,320 @@ HubspotClientAsync client = HubspotOkHttpClientAsync.builder()
     .accessToken("pat-na1-xxxxxxxx-xxxx")
     .build();
 
-CompletableFuture<ActivityListAuditLogsPageAsync> page = client.account().activity().listAuditLogs();
+CompletableFuture<PortalInformationResponse> portalInformationResponse = client.account().get();
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
+
+## Binary responses
+
+The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
+
+These methods return [`HttpResponse`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/http/HttpResponse.kt):
+
+```java
+import com.hubspot_sdk.api.core.JsonValue;
+import com.hubspot_sdk.api.core.http.HttpResponse;
+import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule;
+import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost;
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams;
+import java.time.OffsetDateTime;
+import java.util.List;
+import java.util.Map;
+
+BlogPost params = BlogPost.builder()
+    .id("id")
+    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
+    .abTestId("abTestId")
+    .archivedAt(0L)
+    .archivedInDashboard(true)
+    .addAttachedStylesheet(BlogPost.AttachedStylesheet.builder()
+        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
+        .build())
+    .authorName("authorName")
+    .blogAuthorId("blogAuthorId")
+    .campaign("campaign")
+    .categoryId(0)
+    .contentGroupId("contentGroupId")
+    .contentTypeCategory(BlogPost.ContentTypeCategory._0)
+    .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    .createdById("createdById")
+    .currentlyPublished(true)
+    .currentState(BlogPost.CurrentState.AGENT_GENERATED)
+    .domain("domain")
+    .dynamicPageDataSourceId("dynamicPageDataSourceId")
+    .dynamicPageDataSourceType(0)
+    .dynamicPageHubDbTableId("dynamicPageHubDbTableId")
+    .enableDomainStylesheets(true)
+    .enableGoogleAmpOutputOverride(true)
+    .enableLayoutStylesheets(true)
+    .featuredImage("featuredImage")
+    .featuredImageAltText("featuredImageAltText")
+    .folderId("folderId")
+    .footerHtml("footerHtml")
+    .headHtml("headHtml")
+    .htmlTitle("htmlTitle")
+    .includeDefaultCustomCss(true)
+    .language(BlogPost.Language.AA)
+    .layoutSections(BlogPost.LayoutSections.builder()
+        .putAdditionalProperty("foo", JsonValue.from(Map.of(
+          "cells",
+          <Any>List.of(),
+          "cssClass",
+          "cssClass",
+          "cssId",
+          "cssId",
+          "cssStyle",
+          "cssStyle",
+          "label",
+          "label",
+          "name",
+          "name",
+          "params",
+          Map.of(
+            "foo", <String, Object>Map.of()
+          ),
+          "rowMetaData",
+          List.of(Map.of(
+            "cssClass",
+            "cssClass",
+            "styles",
+            Map.of(
+              "backgroundColor",
+              Map.of(
+                "a",
+                0,
+                "b",
+                0,
+                "g",
+                0,
+                "r",
+                0
+              ),
+              "backgroundGradient",
+              Map.of(
+                "angle",
+                Map.of(
+                  "units",
+                  "deg",
+                  "value",
+                  0
+                ),
+                "colors",
+                List.of(Map.of(
+                  "color", Map.of(
+                    "a",
+                    0,
+                    "b",
+                    0,
+                    "g",
+                    0,
+                    "r",
+                    0
+                  )
+                )),
+                "sideOrCorner",
+                Map.of(
+                  "horizontalSide",
+                  "CENTER",
+                  "verticalSide",
+                  "BOTTOM"
+                )
+              ),
+              "backgroundImage",
+              Map.of(
+                "backgroundPosition",
+                "backgroundPosition",
+                "backgroundSize",
+                "backgroundSize",
+                "imageUrl",
+                "imageUrl"
+              ),
+              "flexboxPositioning",
+              "BOTTOM_CENTER",
+              "forceFullWidthSection",
+              true,
+              "maxWidthSectionCentering",
+              0,
+              "verticalAlignment",
+              "BOTTOM"
+            )
+          )),
+          "rows",
+          List.of(<String, Object>Map.of()),
+          "styles",
+          Map.of(
+            "backgroundColor",
+            Map.of(
+              "a",
+              0,
+              "b",
+              0,
+              "g",
+              0,
+              "r",
+              0
+            ),
+            "backgroundGradient",
+            Map.of(
+              "angle",
+              Map.of(
+                "units",
+                "deg",
+                "value",
+                0
+              ),
+              "colors",
+              List.of(Map.of(
+                "color", Map.of(
+                  "a",
+                  0,
+                  "b",
+                  0,
+                  "g",
+                  0,
+                  "r",
+                  0
+                )
+              )),
+              "sideOrCorner",
+              Map.of(
+                "horizontalSide",
+                "CENTER",
+                "verticalSide",
+                "BOTTOM"
+              )
+            ),
+            "backgroundImage",
+            Map.of(
+              "backgroundPosition",
+              "backgroundPosition",
+              "backgroundSize",
+              "backgroundSize",
+              "imageUrl",
+              "imageUrl"
+            ),
+            "flexboxPositioning",
+            "BOTTOM_CENTER",
+            "forceFullWidthSection",
+            true,
+            "maxWidthSectionCentering",
+            0,
+            "verticalAlignment",
+            "BOTTOM"
+          ),
+          "type",
+          "type",
+          "w",
+          0,
+          "x",
+          0
+        )))
+        .build())
+    .linkRelCanonicalUrl("linkRelCanonicalUrl")
+    .mabExperimentId("mabExperimentId")
+    .metaDescription("metaDescription")
+    .name("name")
+    .pageExpiryDate(0L)
+    .pageExpiryEnabled(true)
+    .pageExpiryRedirectId(0L)
+    .pageExpiryRedirectUrl("pageExpiryRedirectUrl")
+    .password("password")
+    .postBody("postBody")
+    .postSummary("postSummary")
+    .addPublicAccessRule(PublicAccessRule.builder().build())
+    .publicAccessRulesEnabled(true)
+    .publishDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    .publishImmediately(true)
+    .rssBody("rssBody")
+    .rssSummary("rssSummary")
+    .slug("slug")
+    .state("state")
+    .addTagId(0L)
+    .themeSettingsValues(BlogPost.ThemeSettingsValues.builder()
+        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
+        .build())
+    .translatedFromId("translatedFromId")
+    .translations(BlogPost.Translations.builder()
+        .putAdditionalProperty("foo", JsonValue.from(Map.of(
+          "id",
+          0,
+          "archivedInDashboard",
+          true,
+          "authorName",
+          "authorName",
+          "campaign",
+          "campaign",
+          "campaignName",
+          "campaignName",
+          "created",
+          "2019-12-27T18:11:19.117Z",
+          "name",
+          "name",
+          "password",
+          "password",
+          "publicAccessRules",
+          List.of(<String, Object>Map.of()),
+          "publicAccessRulesEnabled",
+          true,
+          "publishDate",
+          "2019-12-27T18:11:19.117Z",
+          "slug",
+          "slug",
+          "state",
+          "state",
+          "updated",
+          "2019-12-27T18:11:19.117Z"
+        )))
+        .build())
+    .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+    .updatedById("updatedById")
+    .url("url")
+    .useFeaturedImage(true)
+    .widgetContainers(BlogPost.WidgetContainers.builder()
+        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
+        .build())
+    .widgets(BlogPost.Widgets.builder()
+        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
+        .build())
+    .build();
+HttpResponse post = client.cms().blogs().posts().create(params);
+```
+
+To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
+
+```java
+import com.hubspot_sdk.api.core.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+try (HttpResponse response = client.cms().blogs().posts().create(params)) {
+    Files.copy(
+        response.body(),
+        Paths.get(path),
+        StandardCopyOption.REPLACE_EXISTING
+    );
+} catch (Exception e) {
+    System.out.println("Something went wrong!");
+    throw new RuntimeException(e);
+}
+```
+
+Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
+
+```java
+import com.hubspot_sdk.api.core.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+try (HttpResponse response = client.cms().blogs().posts().create(params)) {
+    response.body().transferTo(Files.newOutputStream(Paths.get(path)));
+} catch (Exception e) {
+    System.out.println("Something went wrong!");
+    throw new RuntimeException(e);
+}
+```
 
 ## Raw responses
 
@@ -182,21 +492,21 @@ To access this data, prefix any HTTP method call on a client or service with `wi
 ```java
 import com.hubspot_sdk.api.core.http.Headers;
 import com.hubspot_sdk.api.core.http.HttpResponseFor;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
+import com.hubspot_sdk.api.models.account.AccountGetParams;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 
-HttpResponseFor<ActivityListAuditLogsPage> page = client.account().activity().withRawResponse().listAuditLogs();
+HttpResponseFor<PortalInformationResponse> portalInformationResponse = client.account().withRawResponse().get();
 
-int statusCode = page.statusCode();
-Headers headers = page.headers();
+int statusCode = portalInformationResponse.statusCode();
+Headers headers = portalInformationResponse.headers();
 ```
 
 You can still deserialize the response into an instance of a Java class if needed:
 
 ```java
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 
-ActivityListAuditLogsPage parsedPage = page.parse();
+PortalInformationResponse parsedPortalInformationResponse = portalInformationResponse.parse();
 ```
 
 ## Error handling
@@ -395,9 +705,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```java
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 
-ActivityListAuditLogsPage page = client.account().activity().listAuditLogs(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build());
+PortalInformationResponse portalInformationResponse = client.account().get(RequestOptions.builder().timeout(Duration.ofSeconds(30)).build());
 ```
 
 Or configure the default for all method calls at the client level:
@@ -523,9 +833,9 @@ To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQu
 
 ```java
 import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
+import com.hubspot_sdk.api.models.account.AccountGetParams;
 
-ActivityListAuditLogsParams params = ActivityListAuditLogsParams.builder()
+AccountGetParams params = AccountGetParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
     .putAdditionalQueryParam("secret_query_param", "42")
     .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
@@ -537,9 +847,9 @@ These can be accessed on the built object later using the `_additionalHeaders()`
 To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt) object to its setter:
 
 ```java
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
+import com.hubspot_sdk.api.models.account.AccountGetParams;
 
-ActivityListAuditLogsParams params = ActivityListAuditLogsParams.builder().build();
+AccountGetParams params = AccountGetParams.builder().build();
 ```
 
 The most straightforward way to create a [`JsonValue`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt) is using its `from(...)` method:
@@ -588,29 +898,42 @@ To forcibly omit a required parameter or property, pass [`JsonMissing`](hubspot-
 ```java
 import com.hubspot_sdk.api.core.JsonMissing;
 import com.hubspot_sdk.api.core.JsonValue;
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsParams;
-import com.hubspot_sdk.api.models.crm.objects.AssociationSpec;
-import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject;
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectId;
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate;
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams;
+import com.hubspot_sdk.api.models.account.AccountGetParams;
+import com.hubspot_sdk.api.models.automation.actions.ActionCreateParams;
+import com.hubspot_sdk.api.models.automation.actions.PublicActionDefinitionEgg;
+import com.hubspot_sdk.api.models.automation.actions.PublicActionFunction;
+import com.hubspot_sdk.api.models.automation.actions.PublicFieldTypeDefinition;
+import com.hubspot_sdk.api.models.automation.actions.PublicInputFieldDefinition;
+import com.hubspot_sdk.api.models.automation.actions.PublicOption;
+import java.util.Map;
 
-ActivityListAuditLogsParams params = ContactCreateParams.builder()
-    .simplePublicObjectInputForCreate(SimplePublicObjectInputForCreate.builder()
-        .addAssociation(PublicAssociationsForObject.builder()
-            .to(PublicObjectId.builder()
-                .id("id")
-                .build())
-            .addType(AssociationSpec.builder()
-                .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
-                .associationTypeId(0)
+AccountGetParams params = ActionCreateParams.builder()
+    .publicActionDefinitionEgg(PublicActionDefinitionEgg.builder()
+        .actionUrl("actionUrl")
+        .addFunction(PublicActionFunction.builder()
+            .functionSource("functionSource")
+            .functionType(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
+            .build())
+        .addInputField(PublicInputFieldDefinition.builder()
+            .isRequired(true)
+            .typeDefinition(PublicFieldTypeDefinition.builder()
+                .name("name")
+                .addOption(PublicOption.builder()
+                    .label("label")
+                    .value("value")
+                    .build())
+                .type(PublicFieldTypeDefinition.Type.BOOL)
                 .build())
             .build())
-        .properties(SimplePublicObjectInputForCreate.Properties.builder()
-            .putAdditionalProperty("foo", JsonValue.from("string"))
+        .labels(PublicActionDefinitionEgg.Labels.builder()
+            .putAdditionalProperty("foo", JsonValue.from(Map.of(
+              "actionName", "actionName"
+            )))
             .build())
+        .addObjectType("string")
+        .published(true)
         .build())
-    .objectType(JsonMissing.of())
+    .appId(JsonMissing.of())
     .build();
 ```
 
@@ -622,7 +945,7 @@ To access undocumented response properties, call the `_additionalProperties()` m
 import com.hubspot_sdk.api.core.JsonValue;
 import java.util.Map;
 
-Map<String, JsonValue> additionalProperties = client.crm().objects().contacts().create(params)._additionalProperties();
+Map<String, JsonValue> additionalProperties = client.account().get(params)._additionalProperties();
 JsonValue secretPropertyValue = additionalProperties.get("secretProperty");
 
 String result = secretPropertyValue.accept(new JsonValue.Visitor<>() {
@@ -652,7 +975,7 @@ To access a property's raw JSON value, which may be undocumented, call its `_` p
 import com.hubspot_sdk.api.core.JsonField;
 import java.util.Optional;
 
-JsonField<Object> field = client.crm().objects().contacts().create(params)._field();
+JsonField<Object> field = client.account().get(params)._field();
 
 if (field.isMissing()) {
   // The property is absent from the JSON response
@@ -677,17 +1000,17 @@ By default, the SDK will not throw an exception in this case. It will throw [`Hu
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```java
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObject;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 
-SimplePublicObject simplePublicObject = client.crm().objects().contacts().create(params).validate();
+PortalInformationResponse portalInformationResponse = client.account().get(params).validate();
 ```
 
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```java
-import com.hubspot_sdk.api.models.account.activity.ActivityListAuditLogsPage;
+import com.hubspot_sdk.api.models.account.PortalInformationResponse;
 
-ActivityListAuditLogsPage page = client.account().activity().listAuditLogs(RequestOptions.builder().responseValidation(true).build());
+PortalInformationResponse portalInformationResponse = client.account().get(RequestOptions.builder().responseValidation(true).build());
 ```
 
 Or configure the default for all method calls at the client level:

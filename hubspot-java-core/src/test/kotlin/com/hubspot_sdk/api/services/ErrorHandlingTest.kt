@@ -58,8 +58,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs400() {
-        val activityService = client.account().activity()
+    fun accountGet400() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -67,7 +67,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<BadRequestException> { activityService.listAuditLogs() }
+        val e = assertThrows<BadRequestException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(400)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -75,8 +75,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs400WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet400WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -84,7 +84,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<BadRequestException> { activityService.listAuditLogs() }
+        val e = assertThrows<BadRequestException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(400)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -92,8 +92,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs401() {
-        val activityService = client.account().activity()
+    fun accountGet401() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -101,7 +101,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<UnauthorizedException> { activityService.listAuditLogs() }
+        val e = assertThrows<UnauthorizedException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(401)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -109,8 +109,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs401WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet401WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -118,7 +118,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<UnauthorizedException> { activityService.listAuditLogs() }
+        val e = assertThrows<UnauthorizedException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(401)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -126,8 +126,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs403() {
-        val activityService = client.account().activity()
+    fun accountGet403() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -135,7 +135,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<PermissionDeniedException> { activityService.listAuditLogs() }
+        val e = assertThrows<PermissionDeniedException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(403)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -143,8 +143,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs403WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet403WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -152,7 +152,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<PermissionDeniedException> { activityService.listAuditLogs() }
+        val e = assertThrows<PermissionDeniedException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(403)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -160,8 +160,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs404() {
-        val activityService = client.account().activity()
+    fun accountGet404() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -169,7 +169,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<NotFoundException> { activityService.listAuditLogs() }
+        val e = assertThrows<NotFoundException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(404)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -177,8 +177,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs404WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet404WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -186,7 +186,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<NotFoundException> { activityService.listAuditLogs() }
+        val e = assertThrows<NotFoundException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(404)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -194,8 +194,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs422() {
-        val activityService = client.account().activity()
+    fun accountGet422() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -203,7 +203,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<UnprocessableEntityException> { activityService.listAuditLogs() }
+        val e = assertThrows<UnprocessableEntityException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(422)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -211,8 +211,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs422WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet422WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -220,7 +220,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<UnprocessableEntityException> { activityService.listAuditLogs() }
+        val e = assertThrows<UnprocessableEntityException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(422)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -228,8 +228,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs429() {
-        val activityService = client.account().activity()
+    fun accountGet429() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -237,7 +237,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<RateLimitException> { activityService.listAuditLogs() }
+        val e = assertThrows<RateLimitException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(429)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -245,8 +245,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs429WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet429WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -254,7 +254,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<RateLimitException> { activityService.listAuditLogs() }
+        val e = assertThrows<RateLimitException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(429)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -262,8 +262,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs500() {
-        val activityService = client.account().activity()
+    fun accountGet500() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -271,7 +271,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<InternalServerException> { activityService.listAuditLogs() }
+        val e = assertThrows<InternalServerException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(500)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -279,8 +279,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs500WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet500WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -288,7 +288,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<InternalServerException> { activityService.listAuditLogs() }
+        val e = assertThrows<InternalServerException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(500)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -296,8 +296,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs999() {
-        val activityService = client.account().activity()
+    fun accountGet999() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -305,7 +305,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<UnexpectedStatusCodeException> { activityService.listAuditLogs() }
+        val e = assertThrows<UnexpectedStatusCodeException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(999)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -313,8 +313,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogs999WithRawResponse() {
-        val activityService = client.account().activity().withRawResponse()
+    fun accountGet999WithRawResponse() {
+        val accountService = client.account().withRawResponse()
         stubFor(
             get(anyUrl())
                 .willReturn(
@@ -322,7 +322,7 @@ internal class ErrorHandlingTest {
                 )
         )
 
-        val e = assertThrows<UnexpectedStatusCodeException> { activityService.listAuditLogs() }
+        val e = assertThrows<UnexpectedStatusCodeException> { accountService.get() }
 
         assertThat(e.statusCode()).isEqualTo(999)
         assertThat(e.headers().toMap()).contains(entry(HEADER_NAME, listOf(HEADER_VALUE)))
@@ -330,14 +330,14 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun activityListAuditLogsInvalidJsonBody() {
-        val activityService = client.account().activity()
+    fun accountGetInvalidJsonBody() {
+        val accountService = client.account()
         stubFor(
             get(anyUrl())
                 .willReturn(status(200).withHeader(HEADER_NAME, HEADER_VALUE).withBody(NOT_JSON))
         )
 
-        val e = assertThrows<HubspotException> { activityService.listAuditLogs() }
+        val e = assertThrows<HubspotException> { accountService.get() }
 
         assertThat(e).hasMessage("Error reading response")
     }

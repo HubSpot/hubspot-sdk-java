@@ -4,13 +4,12 @@ package com.hubspot_sdk.api.services.async.crm.objects
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.crm.objects.AssociationSpec
+import com.hubspot_sdk.api.models.AssociationSpec
+import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.Filter
 import com.hubspot_sdk.api.models.crm.objects.FilterGroup
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.objects.PublicGdprDeleteInput
 import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
@@ -21,6 +20,7 @@ import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactMergeParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactSearchParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.PublicGdprDeleteInput
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 

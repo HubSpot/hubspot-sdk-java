@@ -1,0 +1,35 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.async
+
+import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+
+internal class AccountServiceAsyncTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun get() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val accountServiceAsync = client.account()
+
+        val portalInformationResponseFuture = accountServiceAsync.get()
+
+        val portalInformationResponse = portalInformationResponseFuture.get()
+        portalInformationResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getDailyPrivateAppsUsage() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val accountServiceAsync = client.account()
+
+        val collectionResponseApiUsageNoPagingFuture =
+            accountServiceAsync.getDailyPrivateAppsUsage()
+
+        val collectionResponseApiUsageNoPaging = collectionResponseApiUsageNoPagingFuture.get()
+        collectionResponseApiUsageNoPaging.validate()
+    }
+}
