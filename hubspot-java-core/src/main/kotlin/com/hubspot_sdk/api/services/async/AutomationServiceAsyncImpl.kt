@@ -5,6 +5,8 @@ package com.hubspot_sdk.api.services.async
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.automation.ActionServiceAsync
 import com.hubspot_sdk.api.services.async.automation.ActionServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.automation.SequenceServiceAsync
+import com.hubspot_sdk.api.services.async.automation.SequenceServiceAsyncImpl
 import java.util.function.Consumer
 
 class AutomationServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -16,6 +18,8 @@ class AutomationServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val actions: ActionServiceAsync by lazy { ActionServiceAsyncImpl(clientOptions) }
 
+    private val sequences: SequenceServiceAsync by lazy { SequenceServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): AutomationServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AutomationServiceAsync =
@@ -23,11 +27,17 @@ class AutomationServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun actions(): ActionServiceAsync = actions
 
+    override fun sequences(): SequenceServiceAsync = sequences
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AutomationServiceAsync.WithRawResponse {
 
         private val actions: ActionServiceAsync.WithRawResponse by lazy {
             ActionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val sequences: SequenceServiceAsync.WithRawResponse by lazy {
+            SequenceServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -38,5 +48,7 @@ class AutomationServiceAsyncImpl internal constructor(private val clientOptions:
             )
 
         override fun actions(): ActionServiceAsync.WithRawResponse = actions
+
+        override fun sequences(): SequenceServiceAsync.WithRawResponse = sequences
     }
 }

@@ -17,9 +17,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactDeleteParams
@@ -30,6 +30,8 @@ import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactMergeParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactSearchParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.contacts.BatchService
+import com.hubspot_sdk.api.services.blocking.crm.objects.contacts.BatchServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -40,36 +42,40 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
         WithRawResponseImpl(clientOptions)
     }
 
+    private val batch: BatchService by lazy { BatchServiceImpl(clientOptions) }
+
     override fun withRawResponse(): ContactService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ContactService =
         ContactServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    override fun batch(): BatchService = batch
+
     override fun create(
         params: ContactCreateParams,
         requestOptions: RequestOptions,
     ): SimplePublicObject =
-        // post /crm/objects/2026-03/{objectType}
+        // post /crm/objects/2026-03/contacts
         withRawResponse().create(params, requestOptions).parse()
 
     override fun update(
         params: ContactUpdateParams,
         requestOptions: RequestOptions,
     ): SimplePublicObject =
-        // patch /crm/objects/2026-03/{objectType}/{objectId}
+        // patch /crm/objects/2026-03/contacts/{contactId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(params: ContactListParams, requestOptions: RequestOptions): ContactListPage =
-        // get /crm/objects/2026-03/{objectType}
+        // get /crm/objects/2026-03/contacts
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: ContactDeleteParams, requestOptions: RequestOptions) {
-        // delete /crm/objects/2026-03/{objectType}/{objectId}
+        // delete /crm/objects/2026-03/contacts/{contactId}
         withRawResponse().delete(params, requestOptions)
     }
 
     override fun gdprDelete(params: ContactGdprDeleteParams, requestOptions: RequestOptions) {
-        // post /crm/objects/2026-03/{objectType}/gdpr-delete
+        // post /crm/objects/2026-03/contacts/gdpr-delete
         withRawResponse().gdprDelete(params, requestOptions)
     }
 
@@ -77,21 +83,21 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
         params: ContactGetParams,
         requestOptions: RequestOptions,
     ): SimplePublicObjectWithAssociations =
-        // get /crm/objects/2026-03/{objectType}/{objectId}
+        // get /crm/objects/2026-03/contacts/{contactId}
         withRawResponse().get(params, requestOptions).parse()
 
     override fun merge(
         params: ContactMergeParams,
         requestOptions: RequestOptions,
     ): SimplePublicObject =
-        // post /crm/objects/2026-03/{objectType}/merge
+        // post /crm/objects/2026-03/contacts/merge
         withRawResponse().merge(params, requestOptions).parse()
 
     override fun search(
         params: ContactSearchParams,
         requestOptions: RequestOptions,
     ): CollectionResponseWithTotalSimplePublicObject =
-        // post /crm/objects/2026-03/{objectType}/search
+        // post /crm/objects/2026-03/contacts/search
         withRawResponse().search(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -100,12 +106,18 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val batch: BatchService.WithRawResponse by lazy {
+            BatchServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ContactService.WithRawResponse =
             ContactServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun batch(): BatchService.WithRawResponse = batch
 
         private val createHandler: Handler<SimplePublicObject> =
             jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
@@ -114,14 +126,11 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
             params: ContactCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObject> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0))
+                    .addPathSegments("crm", "objects", "2026-03", "contacts")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -147,18 +156,12 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
         ): HttpResponseFor<SimplePublicObject> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
+            checkRequired("contactId", params.contactId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -185,14 +188,11 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
             params: ContactListParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ContactListPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0))
+                    .addPathSegments("crm", "objects", "2026-03", "contacts")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -223,18 +223,12 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
+            checkRequired("contactId", params.contactId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -251,20 +245,11 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
             params: ContactGdprDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        "gdpr-delete",
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", "gdpr-delete")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -284,18 +269,12 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
         ): HttpResponseFor<SimplePublicObjectWithAssociations> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
+            checkRequired("contactId", params.contactId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -318,14 +297,11 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
             params: ContactMergeParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObject> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0), "merge")
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", "merge")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -349,14 +325,11 @@ class ContactServiceImpl internal constructor(private val clientOptions: ClientO
             params: ContactSearchParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0), "search")
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", "search")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)

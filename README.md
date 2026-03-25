@@ -173,6 +173,74 @@ CompletableFuture<PortalInformationResponse> portalInformationResponse = client.
 
 The asynchronous client supports the same options as the synchronous one, except most methods return `CompletableFuture`s.
 
+## File uploads
+
+The SDK defines methods that accept files.
+
+To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
+
+```java
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
+import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+import java.nio.file.Paths;
+
+SourceCodeCreateParams params = SourceCodeCreateParams.builder()
+    .environment("environment")
+    .path("path")
+    .file(Paths.get("/path/to/file"))
+    .build();
+AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+```
+
+Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
+
+```java
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
+import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+import java.net.URL;
+
+SourceCodeCreateParams params = SourceCodeCreateParams.builder()
+    .environment("environment")
+    .path("path")
+    .file(new URL("https://example.com//path/to/file").openStream())
+    .build();
+AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+```
+
+Or a `byte[]` array:
+
+```java
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
+import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+
+SourceCodeCreateParams params = SourceCodeCreateParams.builder()
+    .environment("environment")
+    .path("path")
+    .file("content".getBytes())
+    .build();
+AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+```
+
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt):
+
+```java
+import com.hubspot_sdk.api.core.MultipartField;
+import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
+import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+import java.io.InputStream;
+import java.net.URL;
+
+SourceCodeCreateParams params = SourceCodeCreateParams.builder()
+    .environment("environment")
+    .path("path")
+    .file(MultipartField.<InputStream>builder()
+        .value(new URL("https://example.com//path/to/file").openStream())
+        .filename("/path/to/file")
+        .build())
+    .build();
+AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+```
+
 ## Binary responses
 
 The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
@@ -180,272 +248,10 @@ The SDK defines methods that return binary responses, which are used for API res
 These methods return [`HttpResponse`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/http/HttpResponse.kt):
 
 ```java
-import com.hubspot_sdk.api.core.JsonValue;
 import com.hubspot_sdk.api.core.http.HttpResponse;
-import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule;
-import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost;
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams;
-import java.time.OffsetDateTime;
-import java.util.List;
-import java.util.Map;
+import com.hubspot_sdk.api.models.auth.oauth.OAuthCreateTokenParams;
 
-BlogPost params = BlogPost.builder()
-    .id("id")
-    .abStatus(BlogPost.AbStatus.AUTOMATED_LOSER_VARIANT)
-    .abTestId("abTestId")
-    .archivedAt(0L)
-    .archivedInDashboard(true)
-    .addAttachedStylesheet(BlogPost.AttachedStylesheet.builder()
-        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
-        .build())
-    .authorName("authorName")
-    .blogAuthorId("blogAuthorId")
-    .campaign("campaign")
-    .categoryId(0)
-    .contentGroupId("contentGroupId")
-    .contentTypeCategory(BlogPost.ContentTypeCategory._0)
-    .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-    .createdById("createdById")
-    .currentlyPublished(true)
-    .currentState(BlogPost.CurrentState.AGENT_GENERATED)
-    .domain("domain")
-    .dynamicPageDataSourceId("dynamicPageDataSourceId")
-    .dynamicPageDataSourceType(0)
-    .dynamicPageHubDbTableId("dynamicPageHubDbTableId")
-    .enableDomainStylesheets(true)
-    .enableGoogleAmpOutputOverride(true)
-    .enableLayoutStylesheets(true)
-    .featuredImage("featuredImage")
-    .featuredImageAltText("featuredImageAltText")
-    .folderId("folderId")
-    .footerHtml("footerHtml")
-    .headHtml("headHtml")
-    .htmlTitle("htmlTitle")
-    .includeDefaultCustomCss(true)
-    .language(BlogPost.Language.AA)
-    .layoutSections(BlogPost.LayoutSections.builder()
-        .putAdditionalProperty("foo", JsonValue.from(Map.of(
-          "cells",
-          <Any>List.of(),
-          "cssClass",
-          "cssClass",
-          "cssId",
-          "cssId",
-          "cssStyle",
-          "cssStyle",
-          "label",
-          "label",
-          "name",
-          "name",
-          "params",
-          Map.of(
-            "foo", <String, Object>Map.of()
-          ),
-          "rowMetaData",
-          List.of(Map.of(
-            "cssClass",
-            "cssClass",
-            "styles",
-            Map.of(
-              "backgroundColor",
-              Map.of(
-                "a",
-                0,
-                "b",
-                0,
-                "g",
-                0,
-                "r",
-                0
-              ),
-              "backgroundGradient",
-              Map.of(
-                "angle",
-                Map.of(
-                  "units",
-                  "deg",
-                  "value",
-                  0
-                ),
-                "colors",
-                List.of(Map.of(
-                  "color", Map.of(
-                    "a",
-                    0,
-                    "b",
-                    0,
-                    "g",
-                    0,
-                    "r",
-                    0
-                  )
-                )),
-                "sideOrCorner",
-                Map.of(
-                  "horizontalSide",
-                  "CENTER",
-                  "verticalSide",
-                  "BOTTOM"
-                )
-              ),
-              "backgroundImage",
-              Map.of(
-                "backgroundPosition",
-                "backgroundPosition",
-                "backgroundSize",
-                "backgroundSize",
-                "imageUrl",
-                "imageUrl"
-              ),
-              "flexboxPositioning",
-              "BOTTOM_CENTER",
-              "forceFullWidthSection",
-              true,
-              "maxWidthSectionCentering",
-              0,
-              "verticalAlignment",
-              "BOTTOM"
-            )
-          )),
-          "rows",
-          List.of(<String, Object>Map.of()),
-          "styles",
-          Map.of(
-            "backgroundColor",
-            Map.of(
-              "a",
-              0,
-              "b",
-              0,
-              "g",
-              0,
-              "r",
-              0
-            ),
-            "backgroundGradient",
-            Map.of(
-              "angle",
-              Map.of(
-                "units",
-                "deg",
-                "value",
-                0
-              ),
-              "colors",
-              List.of(Map.of(
-                "color", Map.of(
-                  "a",
-                  0,
-                  "b",
-                  0,
-                  "g",
-                  0,
-                  "r",
-                  0
-                )
-              )),
-              "sideOrCorner",
-              Map.of(
-                "horizontalSide",
-                "CENTER",
-                "verticalSide",
-                "BOTTOM"
-              )
-            ),
-            "backgroundImage",
-            Map.of(
-              "backgroundPosition",
-              "backgroundPosition",
-              "backgroundSize",
-              "backgroundSize",
-              "imageUrl",
-              "imageUrl"
-            ),
-            "flexboxPositioning",
-            "BOTTOM_CENTER",
-            "forceFullWidthSection",
-            true,
-            "maxWidthSectionCentering",
-            0,
-            "verticalAlignment",
-            "BOTTOM"
-          ),
-          "type",
-          "type",
-          "w",
-          0,
-          "x",
-          0
-        )))
-        .build())
-    .linkRelCanonicalUrl("linkRelCanonicalUrl")
-    .mabExperimentId("mabExperimentId")
-    .metaDescription("metaDescription")
-    .name("name")
-    .pageExpiryDate(0L)
-    .pageExpiryEnabled(true)
-    .pageExpiryRedirectId(0L)
-    .pageExpiryRedirectUrl("pageExpiryRedirectUrl")
-    .password("password")
-    .postBody("postBody")
-    .postSummary("postSummary")
-    .addPublicAccessRule(PublicAccessRule.builder().build())
-    .publicAccessRulesEnabled(true)
-    .publishDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-    .publishImmediately(true)
-    .rssBody("rssBody")
-    .rssSummary("rssSummary")
-    .slug("slug")
-    .state("state")
-    .addTagId(0L)
-    .themeSettingsValues(BlogPost.ThemeSettingsValues.builder()
-        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
-        .build())
-    .translatedFromId("translatedFromId")
-    .translations(BlogPost.Translations.builder()
-        .putAdditionalProperty("foo", JsonValue.from(Map.of(
-          "id",
-          0,
-          "archivedInDashboard",
-          true,
-          "authorName",
-          "authorName",
-          "campaign",
-          "campaign",
-          "campaignName",
-          "campaignName",
-          "created",
-          "2019-12-27T18:11:19.117Z",
-          "name",
-          "name",
-          "password",
-          "password",
-          "publicAccessRules",
-          List.of(<String, Object>Map.of()),
-          "publicAccessRulesEnabled",
-          true,
-          "publishDate",
-          "2019-12-27T18:11:19.117Z",
-          "slug",
-          "slug",
-          "state",
-          "state",
-          "updated",
-          "2019-12-27T18:11:19.117Z"
-        )))
-        .build())
-    .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-    .updatedById("updatedById")
-    .url("url")
-    .useFeaturedImage(true)
-    .widgetContainers(BlogPost.WidgetContainers.builder()
-        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
-        .build())
-    .widgets(BlogPost.Widgets.builder()
-        .putAdditionalProperty("foo", JsonValue.from(<String, Object>Map.of()))
-        .build())
-    .build();
-HttpResponse post = client.cms().blogs().posts().create(params);
+HttpResponse response = client.auth().oauth().createToken();
 ```
 
 To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
@@ -456,7 +262,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 
-try (HttpResponse response = client.cms().blogs().posts().create(params)) {
+try (HttpResponse response = client.auth().oauth().createToken(params)) {
     Files.copy(
         response.body(),
         Paths.get(path),
@@ -475,7 +281,7 @@ import com.hubspot_sdk.api.core.http.HttpResponse;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-try (HttpResponse response = client.cms().blogs().posts().create(params)) {
+try (HttpResponse response = client.auth().oauth().createToken(params)) {
     response.body().transferTo(Files.newOutputStream(Paths.get(path)));
 } catch (Exception e) {
     System.out.println("Something went wrong!");
@@ -897,41 +703,17 @@ To forcibly omit a required parameter or property, pass [`JsonMissing`](hubspot-
 
 ```java
 import com.hubspot_sdk.api.core.JsonMissing;
-import com.hubspot_sdk.api.core.JsonValue;
 import com.hubspot_sdk.api.models.account.AccountGetParams;
-import com.hubspot_sdk.api.models.automation.actions.ActionCreateParams;
-import com.hubspot_sdk.api.models.automation.actions.PublicActionDefinitionEgg;
-import com.hubspot_sdk.api.models.automation.actions.PublicActionFunction;
-import com.hubspot_sdk.api.models.automation.actions.PublicFieldTypeDefinition;
-import com.hubspot_sdk.api.models.automation.actions.PublicInputFieldDefinition;
-import com.hubspot_sdk.api.models.automation.actions.PublicOption;
-import java.util.Map;
+import com.hubspot_sdk.api.models.appwebhooks.AppWebhookBatchUpdateSubscriptionsParams;
+import com.hubspot_sdk.api.models.appwebhooks.BatchInputSubscriptionBatchUpdateRequest;
+import com.hubspot_sdk.api.models.appwebhooks.SubscriptionBatchUpdateRequest;
 
-AccountGetParams params = ActionCreateParams.builder()
-    .publicActionDefinitionEgg(PublicActionDefinitionEgg.builder()
-        .actionUrl("actionUrl")
-        .addFunction(PublicActionFunction.builder()
-            .functionSource("functionSource")
-            .functionType(PublicActionFunction.FunctionType.POST_ACTION_EXECUTION)
+AccountGetParams params = AppWebhookBatchUpdateSubscriptionsParams.builder()
+    .batchInputSubscriptionBatchUpdateRequest(BatchInputSubscriptionBatchUpdateRequest.builder()
+        .addInput(SubscriptionBatchUpdateRequest.builder()
+            .id(0)
+            .active(true)
             .build())
-        .addInputField(PublicInputFieldDefinition.builder()
-            .isRequired(true)
-            .typeDefinition(PublicFieldTypeDefinition.builder()
-                .name("name")
-                .addOption(PublicOption.builder()
-                    .label("label")
-                    .value("value")
-                    .build())
-                .type(PublicFieldTypeDefinition.Type.BOOL)
-                .build())
-            .build())
-        .labels(PublicActionDefinitionEgg.Labels.builder()
-            .putAdditionalProperty("foo", JsonValue.from(Map.of(
-              "actionName", "actionName"
-            )))
-            .build())
-        .addObjectType("string")
-        .published(true)
         .build())
     .appId(JsonMissing.of())
     .build();

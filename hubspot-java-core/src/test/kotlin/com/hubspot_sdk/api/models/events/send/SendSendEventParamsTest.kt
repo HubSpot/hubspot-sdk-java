@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.events.send
 
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.events.BehavioralEventHttpCompletionRequest
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -22,7 +23,7 @@ internal class SendSendEventParamsTest {
                     )
                     .email("email")
                     .objectId("objectId")
-                    .occurredAt(OffsetDateTime.parse("2026-01-20T21:14:16.512Z"))
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .utk("utk")
                     .uuid("uuid")
                     .build()
@@ -44,7 +45,7 @@ internal class SendSendEventParamsTest {
                         )
                         .email("email")
                         .objectId("objectId")
-                        .occurredAt(OffsetDateTime.parse("2026-01-20T21:14:16.512Z"))
+                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .utk("utk")
                         .uuid("uuid")
                         .build()
@@ -64,7 +65,7 @@ internal class SendSendEventParamsTest {
                     )
                     .email("email")
                     .objectId("objectId")
-                    .occurredAt(OffsetDateTime.parse("2026-01-20T21:14:16.512Z"))
+                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .utk("utk")
                     .uuid("uuid")
                     .build()

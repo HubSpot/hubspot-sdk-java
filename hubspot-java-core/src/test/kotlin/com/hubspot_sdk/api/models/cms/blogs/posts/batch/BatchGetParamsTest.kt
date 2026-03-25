@@ -3,7 +3,7 @@
 package com.hubspot_sdk.api.models.cms.blogs.posts.batch
 
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputString
+import com.hubspot_sdk.api.models.BatchInputString
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

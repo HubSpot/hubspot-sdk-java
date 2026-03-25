@@ -13,8 +13,7 @@ internal class ContactUpdateParamsTest {
     @Test
     fun create() {
         ContactUpdateParams.builder()
-            .objectType("objectType")
-            .objectId("objectId")
+            .contactId("contactId")
             .idProperty("idProperty")
             .simplePublicObjectInput(
                 SimplePublicObjectInput.builder()
@@ -32,8 +31,7 @@ internal class ContactUpdateParamsTest {
     fun pathParams() {
         val params =
             ContactUpdateParams.builder()
-                .objectType("objectType")
-                .objectId("objectId")
+                .contactId("contactId")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
                         .properties(
@@ -45,18 +43,16 @@ internal class ContactUpdateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("objectType")
-        assertThat(params._pathParam(1)).isEqualTo("objectId")
+        assertThat(params._pathParam(0)).isEqualTo("contactId")
         // out-of-bound path param
-        assertThat(params._pathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
     fun queryParams() {
         val params =
             ContactUpdateParams.builder()
-                .objectType("objectType")
-                .objectId("objectId")
+                .contactId("contactId")
                 .idProperty("idProperty")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
@@ -79,8 +75,7 @@ internal class ContactUpdateParamsTest {
     fun queryParamsWithoutOptionalFields() {
         val params =
             ContactUpdateParams.builder()
-                .objectType("objectType")
-                .objectId("objectId")
+                .contactId("contactId")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
                         .properties(
@@ -101,8 +96,7 @@ internal class ContactUpdateParamsTest {
     fun body() {
         val params =
             ContactUpdateParams.builder()
-                .objectType("objectType")
-                .objectId("objectId")
+                .contactId("contactId")
                 .idProperty("idProperty")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
@@ -133,8 +127,7 @@ internal class ContactUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             ContactUpdateParams.builder()
-                .objectType("objectType")
-                .objectId("objectId")
+                .contactId("contactId")
                 .simplePublicObjectInput(
                     SimplePublicObjectInput.builder()
                         .properties(

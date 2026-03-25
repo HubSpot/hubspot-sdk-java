@@ -1,0 +1,486 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.crm.pipelines
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.hubspot_sdk.api.core.ExcludeMissing
+import com.hubspot_sdk.api.core.JsonField
+import com.hubspot_sdk.api.core.JsonMissing
+import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.core.checkKnown
+import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.toImmutable
+import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import java.time.OffsetDateTime
+import java.util.Collections
+import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
+
+class Pipeline
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
+private constructor(
+    private val id: JsonField<String>,
+    private val archived: JsonField<Boolean>,
+    private val createdAt: JsonField<OffsetDateTime>,
+    private val displayOrder: JsonField<Int>,
+    private val label: JsonField<String>,
+    private val stages: JsonField<List<PipelineStage>>,
+    private val updatedAt: JsonField<OffsetDateTime>,
+    private val archivedAt: JsonField<OffsetDateTime>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
+) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("archived") @ExcludeMissing archived: JsonField<Boolean> = JsonMissing.of(),
+        @JsonProperty("createdAt")
+        @ExcludeMissing
+        createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("displayOrder")
+        @ExcludeMissing
+        displayOrder: JsonField<Int> = JsonMissing.of(),
+        @JsonProperty("label") @ExcludeMissing label: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("stages")
+        @ExcludeMissing
+        stages: JsonField<List<PipelineStage>> = JsonMissing.of(),
+        @JsonProperty("updatedAt")
+        @ExcludeMissing
+        updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("archivedAt")
+        @ExcludeMissing
+        archivedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+    ) : this(
+        id,
+        archived,
+        createdAt,
+        displayOrder,
+        label,
+        stages,
+        updatedAt,
+        archivedAt,
+        mutableMapOf(),
+    )
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun id(): String = id.getRequired("id")
+
+    /**
+     * Whether the pipeline is archived.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun archived(): Boolean = archived.getRequired("archived")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun displayOrder(): Int = displayOrder.getRequired("displayOrder")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun label(): String = label.getRequired("label")
+
+    /**
+     * The stages associated with the pipeline. They can be retrieved and updated via the pipeline
+     * stages endpoints.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun stages(): List<PipelineStage> = stages.getRequired("stages")
+
+    /**
+     * The date the pipeline was last updated.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
+
+    /**
+     * The date the pipeline was archived. `archivedAt` will only be present if the pipeline is
+     * archived.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
+
+    /**
+     * Returns the raw JSON value of [id].
+     *
+     * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [archived].
+     *
+     * Unlike [archived], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("archived") @ExcludeMissing fun _archived(): JsonField<Boolean> = archived
+
+    /**
+     * Returns the raw JSON value of [createdAt].
+     *
+     * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("createdAt")
+    @ExcludeMissing
+    fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+    /**
+     * Returns the raw JSON value of [displayOrder].
+     *
+     * Unlike [displayOrder], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("displayOrder") @ExcludeMissing fun _displayOrder(): JsonField<Int> = displayOrder
+
+    /**
+     * Returns the raw JSON value of [label].
+     *
+     * Unlike [label], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("label") @ExcludeMissing fun _label(): JsonField<String> = label
+
+    /**
+     * Returns the raw JSON value of [stages].
+     *
+     * Unlike [stages], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("stages") @ExcludeMissing fun _stages(): JsonField<List<PipelineStage>> = stages
+
+    /**
+     * Returns the raw JSON value of [updatedAt].
+     *
+     * Unlike [updatedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("updatedAt")
+    @ExcludeMissing
+    fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
+
+    /**
+     * Returns the raw JSON value of [archivedAt].
+     *
+     * Unlike [archivedAt], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("archivedAt")
+    @ExcludeMissing
+    fun _archivedAt(): JsonField<OffsetDateTime> = archivedAt
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
+    @JsonAnyGetter
+    @ExcludeMissing
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of [Pipeline].
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .archived()
+         * .createdAt()
+         * .displayOrder()
+         * .label()
+         * .stages()
+         * .updatedAt()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [Pipeline]. */
+    class Builder internal constructor() {
+
+        private var id: JsonField<String>? = null
+        private var archived: JsonField<Boolean>? = null
+        private var createdAt: JsonField<OffsetDateTime>? = null
+        private var displayOrder: JsonField<Int>? = null
+        private var label: JsonField<String>? = null
+        private var stages: JsonField<MutableList<PipelineStage>>? = null
+        private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var archivedAt: JsonField<OffsetDateTime> = JsonMissing.of()
+        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+        @JvmSynthetic
+        internal fun from(pipeline: Pipeline) = apply {
+            id = pipeline.id
+            archived = pipeline.archived
+            createdAt = pipeline.createdAt
+            displayOrder = pipeline.displayOrder
+            label = pipeline.label
+            stages = pipeline.stages.map { it.toMutableList() }
+            updatedAt = pipeline.updatedAt
+            archivedAt = pipeline.archivedAt
+            additionalProperties = pipeline.additionalProperties.toMutableMap()
+        }
+
+        fun id(id: String) = id(JsonField.of(id))
+
+        /**
+         * Sets [Builder.id] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.id] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** Whether the pipeline is archived. */
+        fun archived(archived: Boolean) = archived(JsonField.of(archived))
+
+        /**
+         * Sets [Builder.archived] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.archived] with a well-typed [Boolean] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
+
+        fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+        /**
+         * Sets [Builder.createdAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
+
+        /**
+         * Sets [Builder.displayOrder] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.displayOrder] with a well-typed [Int] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun displayOrder(displayOrder: JsonField<Int>) = apply { this.displayOrder = displayOrder }
+
+        fun label(label: String) = label(JsonField.of(label))
+
+        /**
+         * Sets [Builder.label] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.label] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun label(label: JsonField<String>) = apply { this.label = label }
+
+        /**
+         * The stages associated with the pipeline. They can be retrieved and updated via the
+         * pipeline stages endpoints.
+         */
+        fun stages(stages: List<PipelineStage>) = stages(JsonField.of(stages))
+
+        /**
+         * Sets [Builder.stages] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.stages] with a well-typed `List<PipelineStage>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun stages(stages: JsonField<List<PipelineStage>>) = apply {
+            this.stages = stages.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [PipelineStage] to [stages].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addStage(stage: PipelineStage) = apply {
+            stages =
+                (stages ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("stages", it).add(stage)
+                }
+        }
+
+        /** The date the pipeline was last updated. */
+        fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+        /**
+         * Sets [Builder.updatedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        /**
+         * The date the pipeline was archived. `archivedAt` will only be present if the pipeline is
+         * archived.
+         */
+        fun archivedAt(archivedAt: OffsetDateTime) = archivedAt(JsonField.of(archivedAt))
+
+        /**
+         * Sets [Builder.archivedAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.archivedAt] with a well-typed [OffsetDateTime] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun archivedAt(archivedAt: JsonField<OffsetDateTime>) = apply {
+            this.archivedAt = archivedAt
+        }
+
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
+
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
+
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
+
+        /**
+         * Returns an immutable instance of [Pipeline].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .id()
+         * .archived()
+         * .createdAt()
+         * .displayOrder()
+         * .label()
+         * .stages()
+         * .updatedAt()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): Pipeline =
+            Pipeline(
+                checkRequired("id", id),
+                checkRequired("archived", archived),
+                checkRequired("createdAt", createdAt),
+                checkRequired("displayOrder", displayOrder),
+                checkRequired("label", label),
+                checkRequired("stages", stages).map { it.toImmutable() },
+                checkRequired("updatedAt", updatedAt),
+                archivedAt,
+                additionalProperties.toMutableMap(),
+            )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): Pipeline = apply {
+        if (validated) {
+            return@apply
+        }
+
+        id()
+        archived()
+        createdAt()
+        displayOrder()
+        label()
+        stages().forEach { it.validate() }
+        updatedAt()
+        archivedAt()
+        validated = true
+    }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: HubspotInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    @JvmSynthetic
+    internal fun validity(): Int =
+        (if (id.asKnown().isPresent) 1 else 0) +
+            (if (archived.asKnown().isPresent) 1 else 0) +
+            (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (displayOrder.asKnown().isPresent) 1 else 0) +
+            (if (label.asKnown().isPresent) 1 else 0) +
+            (stages.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (if (archivedAt.asKnown().isPresent) 1 else 0)
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is Pipeline &&
+            id == other.id &&
+            archived == other.archived &&
+            createdAt == other.createdAt &&
+            displayOrder == other.displayOrder &&
+            label == other.label &&
+            stages == other.stages &&
+            updatedAt == other.updatedAt &&
+            archivedAt == other.archivedAt &&
+            additionalProperties == other.additionalProperties
+    }
+
+    private val hashCode: Int by lazy {
+        Objects.hash(
+            id,
+            archived,
+            createdAt,
+            displayOrder,
+            label,
+            stages,
+            updatedAt,
+            archivedAt,
+            additionalProperties,
+        )
+    }
+
+    override fun hashCode(): Int = hashCode
+
+    override fun toString() =
+        "Pipeline{id=$id, archived=$archived, createdAt=$createdAt, displayOrder=$displayOrder, label=$label, stages=$stages, updatedAt=$updatedAt, archivedAt=$archivedAt, additionalProperties=$additionalProperties}"
+}

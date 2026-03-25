@@ -4,6 +4,9 @@ package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.marketing.CampaignService
+import com.hubspot_sdk.api.services.blocking.marketing.EmailService
+import com.hubspot_sdk.api.services.blocking.marketing.EventService
+import com.hubspot_sdk.api.services.blocking.marketing.TransactionalService
 import java.util.function.Consumer
 
 interface MarketingService {
@@ -22,6 +25,12 @@ interface MarketingService {
 
     fun campaigns(): CampaignService
 
+    fun emails(): EmailService
+
+    fun events(): EventService
+
+    fun transactional(): TransactionalService
+
     /** A view of [MarketingService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -33,5 +42,11 @@ interface MarketingService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): MarketingService.WithRawResponse
 
         fun campaigns(): CampaignService.WithRawResponse
+
+        fun emails(): EmailService.WithRawResponse
+
+        fun events(): EventService.WithRawResponse
+
+        fun transactional(): TransactionalService.WithRawResponse
     }
 }

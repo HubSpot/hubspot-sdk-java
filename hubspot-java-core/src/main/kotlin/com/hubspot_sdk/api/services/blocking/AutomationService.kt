@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.automation.ActionService
+import com.hubspot_sdk.api.services.blocking.automation.SequenceService
 import java.util.function.Consumer
 
 interface AutomationService {
@@ -22,6 +23,8 @@ interface AutomationService {
 
     fun actions(): ActionService
 
+    fun sequences(): SequenceService
+
     /** A view of [AutomationService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -35,5 +38,7 @@ interface AutomationService {
         ): AutomationService.WithRawResponse
 
         fun actions(): ActionService.WithRawResponse
+
+        fun sequences(): SequenceService.WithRawResponse
     }
 }

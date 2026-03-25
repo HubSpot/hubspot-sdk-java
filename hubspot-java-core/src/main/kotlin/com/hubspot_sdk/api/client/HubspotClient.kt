@@ -4,8 +4,13 @@ package com.hubspot_sdk.api.client
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.AccountService
+import com.hubspot_sdk.api.services.blocking.AppWebhookService
+import com.hubspot_sdk.api.services.blocking.AuthService
 import com.hubspot_sdk.api.services.blocking.AutomationService
+import com.hubspot_sdk.api.services.blocking.BusinessUnitService
 import com.hubspot_sdk.api.services.blocking.CmService
+import com.hubspot_sdk.api.services.blocking.CommunicationPreferenceService
+import com.hubspot_sdk.api.services.blocking.ConversationService
 import com.hubspot_sdk.api.services.blocking.CrmService
 import com.hubspot_sdk.api.services.blocking.DataStudioService
 import com.hubspot_sdk.api.services.blocking.EventService
@@ -54,9 +59,19 @@ interface HubspotClient {
 
     fun account(): AccountService
 
+    fun appWebhooks(): AppWebhookService
+
+    fun auth(): AuthService
+
     fun automation(): AutomationService
 
+    fun businessUnits(): BusinessUnitService
+
     fun cms(): CmService
+
+    fun communicationPreferences(): CommunicationPreferenceService
+
+    fun conversations(): ConversationService
 
     fun crm(): CrmService
 
@@ -99,9 +114,19 @@ interface HubspotClient {
 
         fun account(): AccountService.WithRawResponse
 
+        fun appWebhooks(): AppWebhookService.WithRawResponse
+
+        fun auth(): AuthService.WithRawResponse
+
         fun automation(): AutomationService.WithRawResponse
 
+        fun businessUnits(): BusinessUnitService.WithRawResponse
+
         fun cms(): CmService.WithRawResponse
+
+        fun communicationPreferences(): CommunicationPreferenceService.WithRawResponse
+
+        fun conversations(): ConversationService.WithRawResponse
 
         fun crm(): CrmService.WithRawResponse
 

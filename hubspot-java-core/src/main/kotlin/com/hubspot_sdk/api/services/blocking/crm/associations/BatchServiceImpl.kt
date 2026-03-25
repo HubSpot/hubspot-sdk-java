@@ -1,0 +1,290 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.blocking.crm.associations
+
+import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.handlers.errorBodyHandler
+import com.hubspot_sdk.api.core.handlers.errorHandler
+import com.hubspot_sdk.api.core.handlers.jsonHandler
+import com.hubspot_sdk.api.core.http.HttpMethod
+import com.hubspot_sdk.api.core.http.HttpRequest
+import com.hubspot_sdk.api.core.http.HttpResponse
+import com.hubspot_sdk.api.core.http.HttpResponse.Handler
+import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.core.http.json
+import com.hubspot_sdk.api.core.http.parseable
+import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
+import com.hubspot_sdk.api.models.crm.BatchResponseVoid
+import com.hubspot_sdk.api.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
+import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateDefaultParams
+import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateParams
+import com.hubspot_sdk.api.models.crm.associations.batch.BatchDeleteLabelsParams
+import com.hubspot_sdk.api.models.crm.associations.batch.BatchDeleteParams
+import com.hubspot_sdk.api.models.crm.associations.batch.BatchGetParams
+import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
+
+class BatchServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    BatchService {
+
+    private val withRawResponse: BatchService.WithRawResponse by lazy {
+        WithRawResponseImpl(clientOptions)
+    }
+
+    override fun withRawResponse(): BatchService.WithRawResponse = withRawResponse
+
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService =
+        BatchServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun create(
+        params: BatchCreateParams,
+        requestOptions: RequestOptions,
+    ): BatchResponsePublicDefaultAssociation =
+        // put
+        // /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}
+        withRawResponse().create(params, requestOptions).parse()
+
+    override fun delete(
+        params: BatchDeleteParams,
+        requestOptions: RequestOptions,
+    ): BatchResponseVoid =
+        // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/archive
+        withRawResponse().delete(params, requestOptions).parse()
+
+    override fun createDefault(
+        params: BatchCreateDefaultParams,
+        requestOptions: RequestOptions,
+    ): BatchResponsePublicDefaultAssociation =
+        // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/associate/default
+        withRawResponse().createDefault(params, requestOptions).parse()
+
+    override fun deleteLabels(
+        params: BatchDeleteLabelsParams,
+        requestOptions: RequestOptions,
+    ): BatchResponseVoid =
+        // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/labels/archive
+        withRawResponse().deleteLabels(params, requestOptions).parse()
+
+    override fun get(
+        params: BatchGetParams,
+        requestOptions: RequestOptions,
+    ): BatchResponsePublicAssociationMultiWithLabel =
+        // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/read
+        withRawResponse().get(params, requestOptions).parse()
+
+    class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
+        BatchService.WithRawResponse {
+
+        private val errorHandler: Handler<HttpResponse> =
+            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        override fun withOptions(
+            modifier: Consumer<ClientOptions.Builder>
+        ): BatchService.WithRawResponse =
+            BatchServiceImpl.WithRawResponseImpl(
+                clientOptions.toBuilder().apply(modifier::accept).build()
+            )
+
+        private val createHandler: Handler<BatchResponsePublicDefaultAssociation> =
+            jsonHandler<BatchResponsePublicDefaultAssociation>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: BatchCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectId", params.toObjectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "objects",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "associations",
+                        "default",
+                        params._pathParam(2),
+                        params._pathParam(3),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val deleteHandler: Handler<BatchResponseVoid> =
+            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+
+        override fun delete(
+            params: BatchDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseVoid> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "associations",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "batch",
+                        "archive",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { deleteHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val createDefaultHandler: Handler<BatchResponsePublicDefaultAssociation> =
+            jsonHandler<BatchResponsePublicDefaultAssociation>(clientOptions.jsonMapper)
+
+        override fun createDefault(
+            params: BatchCreateDefaultParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "associations",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "batch",
+                        "associate",
+                        "default",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createDefaultHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val deleteLabelsHandler: Handler<BatchResponseVoid> =
+            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+
+        override fun deleteLabels(
+            params: BatchDeleteLabelsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseVoid> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "associations",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "batch",
+                        "labels",
+                        "archive",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { deleteLabelsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getHandler: Handler<BatchResponsePublicAssociationMultiWithLabel> =
+            jsonHandler<BatchResponsePublicAssociationMultiWithLabel>(clientOptions.jsonMapper)
+
+        override fun get(
+            params: BatchGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponsePublicAssociationMultiWithLabel> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "associations",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "batch",
+                        "read",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+    }
+}

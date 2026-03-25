@@ -26,7 +26,7 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.events.send.Option
+import com.hubspot_sdk.api.models.Option
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

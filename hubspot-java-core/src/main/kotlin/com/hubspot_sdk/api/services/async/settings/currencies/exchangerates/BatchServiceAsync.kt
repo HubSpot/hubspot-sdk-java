@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.services.async.settings.currencies.exchangerates
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateCreateRequest
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateUpdateRequest
-import com.hubspot_sdk.api.models.settings.currencies.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.settings.currencies.BatchResponseExchangeRate
 import com.hubspot_sdk.api.models.settings.currencies.exchangerates.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.settings.currencies.exchangerates.batch.BatchGetParams

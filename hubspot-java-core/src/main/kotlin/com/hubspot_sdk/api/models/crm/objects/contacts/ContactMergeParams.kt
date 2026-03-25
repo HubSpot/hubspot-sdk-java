@@ -9,22 +9,17 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
 import java.util.Objects
-import java.util.Optional
-import kotlin.jvm.optionals.getOrNull
 
 /**
- * Merge two CRM objects of the same type by specifying one as the primary object and the other as
- * the object to be merged into it.
+ * Merge two contact records. Learn more about
+ * [merging records](https://knowledge.hubspot.com/records/merge-records).
  */
 class ContactMergeParams
 private constructor(
-    private val objectType: String?,
     private val publicMergeInput: PublicMergeInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
-
-    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     /** Input data for merging two records. */
     fun publicMergeInput(): PublicMergeInput = publicMergeInput
@@ -56,23 +51,16 @@ private constructor(
     /** A builder for [ContactMergeParams]. */
     class Builder internal constructor() {
 
-        private var objectType: String? = null
         private var publicMergeInput: PublicMergeInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(contactMergeParams: ContactMergeParams) = apply {
-            objectType = contactMergeParams.objectType
             publicMergeInput = contactMergeParams.publicMergeInput
             additionalHeaders = contactMergeParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactMergeParams.additionalQueryParams.toBuilder()
         }
-
-        fun objectType(objectType: String?) = apply { this.objectType = objectType }
-
-        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
-        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         /** Input data for merging two records. */
         fun publicMergeInput(publicMergeInput: PublicMergeInput) = apply {
@@ -191,7 +179,6 @@ private constructor(
          */
         fun build(): ContactMergeParams =
             ContactMergeParams(
-                objectType,
                 checkRequired("publicMergeInput", publicMergeInput),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -199,12 +186,6 @@ private constructor(
     }
 
     fun _body(): PublicMergeInput = publicMergeInput
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> objectType ?: ""
-            else -> ""
-        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -216,15 +197,14 @@ private constructor(
         }
 
         return other is ContactMergeParams &&
-            objectType == other.objectType &&
             publicMergeInput == other.publicMergeInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectType, publicMergeInput, additionalHeaders, additionalQueryParams)
+        Objects.hash(publicMergeInput, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ContactMergeParams{objectType=$objectType, publicMergeInput=$publicMergeInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactMergeParams{publicMergeInput=$publicMergeInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

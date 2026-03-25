@@ -6,9 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
+import com.hubspot_sdk.api.models.BatchInputString
+import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
-import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputJsonNode
-import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputString
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchGetParams

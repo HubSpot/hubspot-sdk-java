@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.settings.CurrencyService
+import com.hubspot_sdk.api.services.blocking.settings.TaxRateService
 import java.util.function.Consumer
 
 interface SettingService {
@@ -22,6 +23,8 @@ interface SettingService {
 
     fun currencies(): CurrencyService
 
+    fun taxRates(): TaxRateService
+
     /** A view of [SettingService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -33,5 +36,7 @@ interface SettingService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingService.WithRawResponse
 
         fun currencies(): CurrencyService.WithRawResponse
+
+        fun taxRates(): TaxRateService.WithRawResponse
     }
 }

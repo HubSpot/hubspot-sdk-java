@@ -10,10 +10,10 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.BatchInputString
+import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
 import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
-import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputJsonNode
-import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputString
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchGetParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchUpdateParams

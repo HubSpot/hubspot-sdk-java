@@ -7,8 +7,11 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactDeleteParams
@@ -19,6 +22,8 @@ import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactMergeParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactSearchParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.PublicGdprDeleteInput
+import com.hubspot_sdk.api.services.blocking.crm.objects.contacts.BatchService
 import java.util.function.Consumer
 
 interface ContactService {
@@ -35,22 +40,15 @@ interface ContactService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ContactService
 
+    fun batch(): BatchService
+
     /**
-     * Create a CRM object with the given properties and return a copy of the object, including the
-     * ID. Documentation and examples for creating standard objects is provided.
+     * Create a single contact. Include a `properties` object to define
+     * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the
+     * contact, along with an `associations` array to define
+     * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
+     * with other CRM records.
      */
-    fun create(objectType: String, params: ContactCreateParams): SimplePublicObject =
-        create(objectType, params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        objectType: String,
-        params: ContactCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObject =
-        create(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-    /** @see create */
     fun create(params: ContactCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
 
@@ -60,23 +58,41 @@ interface ContactService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
+    /** @see create */
+    fun create(
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject =
+        create(
+            ContactCreateParams.builder()
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
+
     /**
-     * Perform a partial update of an Object identified by `{objectId}`or optionally a unique
-     * property value as specified by the `idProperty` query param. `{objectId}` refers to the
-     * internal object ID by default, and the `idProperty` query param refers to a property whose
-     * values are unique for the object. Provided property values will be overwritten. Read-only and
-     * non-existent properties will result in an error. Properties values can be cleared by passing
-     * an empty string.
+     * Update an existing contact, identified by ID or email/unique property value. To identify a
+     * contact by ID, include the ID in the request URL path. To identify a contact by their email
+     * or other unique property, include the email/property value in the request URL path, and add
+     * the `idProperty` query parameter
+     * (`/crm/v3/objects/contacts/jon@website.com?idProperty=email`). Provided property values will
+     * be overwritten. Read-only and non-existent properties will result in an error. Properties
+     * values can be cleared by passing an empty string.
      */
-    fun update(objectId: String, params: ContactUpdateParams): SimplePublicObject =
-        update(objectId, params, RequestOptions.none())
+    fun update(contactId: String, params: ContactUpdateParams): SimplePublicObject =
+        update(contactId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        objectId: String,
+        contactId: String,
         params: ContactUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObject = update(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): SimplePublicObject = update(params.toBuilder().contactId(contactId).build(), requestOptions)
 
     /** @see update */
     fun update(params: ContactUpdateParams): SimplePublicObject =
@@ -88,51 +104,54 @@ interface ContactService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /** Read a page of objects. Control what is returned via the `properties` query param. */
-    fun list(objectType: String): ContactListPage = list(objectType, ContactListParams.none())
+    /**
+     * Retrieve all contacts, using query parameters to specify the information that gets returned.
+     */
+    fun list(): ContactListPage = list(ContactListParams.none())
 
     /** @see list */
     fun list(
-        objectType: String,
         params: ContactListParams = ContactListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ContactListPage = list(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-    /** @see list */
-    fun list(
-        objectType: String,
-        params: ContactListParams = ContactListParams.none(),
-    ): ContactListPage = list(objectType, params, RequestOptions.none())
-
-    /** @see list */
-    fun list(
-        params: ContactListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ContactListPage
 
     /** @see list */
-    fun list(params: ContactListParams): ContactListPage = list(params, RequestOptions.none())
+    fun list(params: ContactListParams = ContactListParams.none()): ContactListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(objectType: String, requestOptions: RequestOptions): ContactListPage =
-        list(objectType, ContactListParams.none(), requestOptions)
+    fun list(requestOptions: RequestOptions): ContactListPage =
+        list(ContactListParams.none(), requestOptions)
 
-    /** Move an Object identified by `{objectId}` to the recycling bin. */
-    fun delete(objectId: String, params: ContactDeleteParams) =
-        delete(objectId, params, RequestOptions.none())
+    /**
+     * Delete a contact by ID. Deleted contacts can be restored within 90 days of deletion. Learn
+     * more about the
+     * [data impacted by contact deletions](https://knowledge.hubspot.com/privacy-and-consent/understand-restorable-and-permanent-contact-deletions)
+     * and how to
+     * [restore archived records](https://knowledge.hubspot.com/records/restore-deleted-records).
+     */
+    fun delete(contactId: String) = delete(contactId, ContactDeleteParams.none())
 
     /** @see delete */
     fun delete(
-        objectId: String,
-        params: ContactDeleteParams,
+        contactId: String,
+        params: ContactDeleteParams = ContactDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ) = delete(params.toBuilder().contactId(contactId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(contactId: String, params: ContactDeleteParams = ContactDeleteParams.none()) =
+        delete(contactId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(params: ContactDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
     fun delete(params: ContactDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(params: ContactDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
+    fun delete(contactId: String, requestOptions: RequestOptions) =
+        delete(contactId, ContactDeleteParams.none(), requestOptions)
 
     /**
      * Permanently delete a contact and all associated content to follow GDPR. Use optional property
@@ -141,17 +160,6 @@ interface ContactService {
      * future. Learn more about
      * [permanently deleting contacts](https://knowledge.hubspot.com/privacy-and-consent/how-do-i-perform-a-gdpr-delete-in-hubspot).
      */
-    fun gdprDelete(objectType: String, params: ContactGdprDeleteParams) =
-        gdprDelete(objectType, params, RequestOptions.none())
-
-    /** @see gdprDelete */
-    fun gdprDelete(
-        objectType: String,
-        params: ContactGdprDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = gdprDelete(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-    /** @see gdprDelete */
     fun gdprDelete(params: ContactGdprDeleteParams) = gdprDelete(params, RequestOptions.none())
 
     /** @see gdprDelete */
@@ -160,25 +168,40 @@ interface ContactService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** @see gdprDelete */
+    fun gdprDelete(
+        publicGdprDeleteInput: PublicGdprDeleteInput,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) =
+        gdprDelete(
+            ContactGdprDeleteParams.builder().publicGdprDeleteInput(publicGdprDeleteInput).build(),
+            requestOptions,
+        )
+
+    /** @see gdprDelete */
+    fun gdprDelete(publicGdprDeleteInput: PublicGdprDeleteInput) =
+        gdprDelete(publicGdprDeleteInput, RequestOptions.none())
+
     /**
-     * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
-     * default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
+     * Retrieve a contact by its ID (`contactId`) or by a unique property (`idProperty`). You can
+     * specify what is returned using the `properties` query parameter.
      */
-    fun get(objectId: String, params: ContactGetParams): SimplePublicObjectWithAssociations =
-        get(objectId, params, RequestOptions.none())
+    fun get(contactId: String): SimplePublicObjectWithAssociations =
+        get(contactId, ContactGetParams.none())
 
     /** @see get */
     fun get(
-        objectId: String,
-        params: ContactGetParams,
+        contactId: String,
+        params: ContactGetParams = ContactGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations =
-        get(params.toBuilder().objectId(objectId).build(), requestOptions)
+        get(params.toBuilder().contactId(contactId).build(), requestOptions)
 
     /** @see get */
-    fun get(params: ContactGetParams): SimplePublicObjectWithAssociations =
-        get(params, RequestOptions.none())
+    fun get(
+        contactId: String,
+        params: ContactGetParams = ContactGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(contactId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
@@ -186,21 +209,18 @@ interface ContactService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObjectWithAssociations
 
+    /** @see get */
+    fun get(params: ContactGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(contactId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(contactId, ContactGetParams.none(), requestOptions)
+
     /**
-     * Merge two CRM objects of the same type by specifying one as the primary object and the other
-     * as the object to be merged into it.
+     * Merge two contact records. Learn more about
+     * [merging records](https://knowledge.hubspot.com/records/merge-records).
      */
-    fun merge(objectType: String, params: ContactMergeParams): SimplePublicObject =
-        merge(objectType, params, RequestOptions.none())
-
-    /** @see merge */
-    fun merge(
-        objectType: String,
-        params: ContactMergeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): SimplePublicObject = merge(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-    /** @see merge */
     fun merge(params: ContactMergeParams): SimplePublicObject = merge(params, RequestOptions.none())
 
     /** @see merge */
@@ -209,25 +229,25 @@ interface ContactService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /**
-     * Execute a search query to find CRM objects of a given type, using specified filters and
-     * properties. The search can be customized with filters, sorting, and pagination options.
-     */
-    fun search(
-        objectType: String,
-        params: ContactSearchParams,
-    ): CollectionResponseWithTotalSimplePublicObject =
-        search(objectType, params, RequestOptions.none())
-
-    /** @see search */
-    fun search(
-        objectType: String,
-        params: ContactSearchParams,
+    /** @see merge */
+    fun merge(
+        publicMergeInput: PublicMergeInput,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CollectionResponseWithTotalSimplePublicObject =
-        search(params.toBuilder().objectType(objectType).build(), requestOptions)
+    ): SimplePublicObject =
+        merge(
+            ContactMergeParams.builder().publicMergeInput(publicMergeInput).build(),
+            requestOptions,
+        )
 
-    /** @see search */
+    /** @see merge */
+    fun merge(publicMergeInput: PublicMergeInput): SimplePublicObject =
+        merge(publicMergeInput, RequestOptions.none())
+
+    /**
+     * Search for contacts by filtering on properties, searching through associations, and sorting
+     * results. Learn more about
+     * [CRM search](https://developers.hubspot.com/docs/guides/api/crm/search#make-a-search-request).
+     */
     fun search(params: ContactSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 
@@ -236,6 +256,24 @@ interface ContactService {
         params: ContactSearchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponseWithTotalSimplePublicObject
+
+    /** @see search */
+    fun search(
+        publicObjectSearchRequest: PublicObjectSearchRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CollectionResponseWithTotalSimplePublicObject =
+        search(
+            ContactSearchParams.builder()
+                .publicObjectSearchRequest(publicObjectSearchRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see search */
+    fun search(
+        publicObjectSearchRequest: PublicObjectSearchRequest
+    ): CollectionResponseWithTotalSimplePublicObject =
+        search(publicObjectSearchRequest, RequestOptions.none())
 
     /** A view of [ContactService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -247,26 +285,12 @@ interface ContactService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ContactService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}`, but is
-         * otherwise the same as [ContactService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/contacts`, but is otherwise
+         * the same as [ContactService.create].
          */
-        @MustBeClosed
-        fun create(
-            objectType: String,
-            params: ContactCreateParams,
-        ): HttpResponseFor<SimplePublicObject> = create(objectType, params, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            objectType: String,
-            params: ContactCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObject> =
-            create(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-        /** @see create */
         @MustBeClosed
         fun create(params: ContactCreateParams): HttpResponseFor<SimplePublicObject> =
             create(params, RequestOptions.none())
@@ -278,24 +302,44 @@ interface ContactService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObject>
 
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            create(
+                ContactCreateParams.builder()
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): HttpResponseFor<SimplePublicObject> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
+
         /**
-         * Returns a raw HTTP response for `patch /crm/objects/2026-03/{objectType}/{objectId}`, but
-         * is otherwise the same as [ContactService.update].
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/contacts/{contactId}`, but is
+         * otherwise the same as [ContactService.update].
          */
         @MustBeClosed
         fun update(
-            objectId: String,
+            contactId: String,
             params: ContactUpdateParams,
-        ): HttpResponseFor<SimplePublicObject> = update(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject> = update(contactId, params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
-            objectId: String,
+            contactId: String,
             params: ContactUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObject> =
-            update(params.toBuilder().objectId(objectId).build(), requestOptions)
+            update(params.toBuilder().contactId(contactId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
@@ -310,69 +354,50 @@ interface ContactService {
         ): HttpResponseFor<SimplePublicObject>
 
         /**
-         * Returns a raw HTTP response for `get /crm/objects/2026-03/{objectType}`, but is otherwise
-         * the same as [ContactService.list].
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/contacts`, but is otherwise the
+         * same as [ContactService.list].
          */
-        @MustBeClosed
-        fun list(objectType: String): HttpResponseFor<ContactListPage> =
-            list(objectType, ContactListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<ContactListPage> = list(ContactListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
-            objectType: String,
             params: ContactListParams = ContactListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ContactListPage> =
-            list(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-        /** @see list */
-        @MustBeClosed
-        fun list(
-            objectType: String,
-            params: ContactListParams = ContactListParams.none(),
-        ): HttpResponseFor<ContactListPage> = list(objectType, params, RequestOptions.none())
-
-        /** @see list */
-        @MustBeClosed
-        fun list(
-            params: ContactListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ContactListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: ContactListParams): HttpResponseFor<ContactListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: ContactListParams = ContactListParams.none()
+        ): HttpResponseFor<ContactListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            objectType: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ContactListPage> =
-            list(objectType, ContactListParams.none(), requestOptions)
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ContactListPage> =
+            list(ContactListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /crm/objects/2026-03/{objectType}/{objectId}`,
-         * but is otherwise the same as [ContactService.delete].
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/contacts/{contactId}`, but
+         * is otherwise the same as [ContactService.delete].
          */
         @MustBeClosed
-        fun delete(objectId: String, params: ContactDeleteParams): HttpResponse =
-            delete(objectId, params, RequestOptions.none())
+        fun delete(contactId: String): HttpResponse = delete(contactId, ContactDeleteParams.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
-            objectId: String,
-            params: ContactDeleteParams,
+            contactId: String,
+            params: ContactDeleteParams = ContactDeleteParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
+        ): HttpResponse = delete(params.toBuilder().contactId(contactId).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: ContactDeleteParams): HttpResponse =
-            delete(params, RequestOptions.none())
+        fun delete(
+            contactId: String,
+            params: ContactDeleteParams = ContactDeleteParams.none(),
+        ): HttpResponse = delete(contactId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -381,24 +406,20 @@ interface ContactService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
+        /** @see delete */
+        @MustBeClosed
+        fun delete(params: ContactDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(contactId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(contactId, ContactDeleteParams.none(), requestOptions)
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/gdpr-delete`, but
-         * is otherwise the same as [ContactService.gdprDelete].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/contacts/gdpr-delete`, but is
+         * otherwise the same as [ContactService.gdprDelete].
          */
-        @MustBeClosed
-        fun gdprDelete(objectType: String, params: ContactGdprDeleteParams): HttpResponse =
-            gdprDelete(objectType, params, RequestOptions.none())
-
-        /** @see gdprDelete */
-        @MustBeClosed
-        fun gdprDelete(
-            objectType: String,
-            params: ContactGdprDeleteParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            gdprDelete(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-        /** @see gdprDelete */
         @MustBeClosed
         fun gdprDelete(params: ContactGdprDeleteParams): HttpResponse =
             gdprDelete(params, RequestOptions.none())
@@ -410,25 +431,55 @@ interface ContactService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
+        /** @see gdprDelete */
+        @MustBeClosed
+        fun gdprDelete(
+            publicGdprDeleteInput: PublicGdprDeleteInput,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            gdprDelete(
+                ContactGdprDeleteParams.builder()
+                    .publicGdprDeleteInput(publicGdprDeleteInput)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see gdprDelete */
+        @MustBeClosed
+        fun gdprDelete(publicGdprDeleteInput: PublicGdprDeleteInput): HttpResponse =
+            gdprDelete(publicGdprDeleteInput, RequestOptions.none())
+
         /**
-         * Returns a raw HTTP response for `get /crm/objects/2026-03/{objectType}/{objectId}`, but
-         * is otherwise the same as [ContactService.get].
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/contacts/{contactId}`, but is
+         * otherwise the same as [ContactService.get].
          */
         @MustBeClosed
-        fun get(
-            objectId: String,
-            params: ContactGetParams,
-        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            get(objectId, params, RequestOptions.none())
+        fun get(contactId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(contactId, ContactGetParams.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            objectId: String,
-            params: ContactGetParams,
+            contactId: String,
+            params: ContactGetParams = ContactGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
-            get(params.toBuilder().objectId(objectId).build(), requestOptions)
+            get(params.toBuilder().contactId(contactId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            contactId: String,
+            params: ContactGetParams = ContactGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(contactId, params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: ContactGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
 
         /** @see get */
         @MustBeClosed
@@ -438,30 +489,15 @@ interface ContactService {
         /** @see get */
         @MustBeClosed
         fun get(
-            params: ContactGetParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+            contactId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(contactId, ContactGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/merge`, but is
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/contacts/merge`, but is
          * otherwise the same as [ContactService.merge].
          */
-        @MustBeClosed
-        fun merge(
-            objectType: String,
-            params: ContactMergeParams,
-        ): HttpResponseFor<SimplePublicObject> = merge(objectType, params, RequestOptions.none())
-
-        /** @see merge */
-        @MustBeClosed
-        fun merge(
-            objectType: String,
-            params: ContactMergeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SimplePublicObject> =
-            merge(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-        /** @see merge */
         @MustBeClosed
         fun merge(params: ContactMergeParams): HttpResponseFor<SimplePublicObject> =
             merge(params, RequestOptions.none())
@@ -473,27 +509,26 @@ interface ContactService {
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SimplePublicObject>
 
+        /** @see merge */
+        @MustBeClosed
+        fun merge(
+            publicMergeInput: PublicMergeInput,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            merge(
+                ContactMergeParams.builder().publicMergeInput(publicMergeInput).build(),
+                requestOptions,
+            )
+
+        /** @see merge */
+        @MustBeClosed
+        fun merge(publicMergeInput: PublicMergeInput): HttpResponseFor<SimplePublicObject> =
+            merge(publicMergeInput, RequestOptions.none())
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/search`, but is
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/contacts/search`, but is
          * otherwise the same as [ContactService.search].
          */
-        @MustBeClosed
-        fun search(
-            objectType: String,
-            params: ContactSearchParams,
-        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
-            search(objectType, params, RequestOptions.none())
-
-        /** @see search */
-        @MustBeClosed
-        fun search(
-            objectType: String,
-            params: ContactSearchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
-            search(params.toBuilder().objectType(objectType).build(), requestOptions)
-
-        /** @see search */
         @MustBeClosed
         fun search(
             params: ContactSearchParams
@@ -506,5 +541,25 @@ interface ContactService {
             params: ContactSearchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            publicObjectSearchRequest: PublicObjectSearchRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(
+                ContactSearchParams.builder()
+                    .publicObjectSearchRequest(publicObjectSearchRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            publicObjectSearchRequest: PublicObjectSearchRequest
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(publicObjectSearchRequest, RequestOptions.none())
     }
 }

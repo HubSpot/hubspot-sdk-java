@@ -15,6 +15,7 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import com.hubspot_sdk.api.models.Paging
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -49,7 +50,7 @@ private constructor(
     fun results(): List<SimplePublicObject> = results.getRequired("results")
 
     /**
-     * The number of available results
+     * The total number of objects included into response.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -158,7 +159,7 @@ private constructor(
                 }
         }
 
-        /** The number of available results */
+        /** The total number of objects included into response. */
         fun total(total: Int) = total(JsonField.of(total))
 
         /**

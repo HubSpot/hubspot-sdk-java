@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.settings.currencies.BatchInputPublicObjectId
+import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import java.util.Objects
 
 class BatchGetParams

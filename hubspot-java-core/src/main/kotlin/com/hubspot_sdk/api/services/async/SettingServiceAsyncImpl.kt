@@ -5,6 +5,8 @@ package com.hubspot_sdk.api.services.async
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.settings.CurrencyServiceAsync
 import com.hubspot_sdk.api.services.async.settings.CurrencyServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.settings.TaxRateServiceAsync
+import com.hubspot_sdk.api.services.async.settings.TaxRateServiceAsyncImpl
 import java.util.function.Consumer
 
 class SettingServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -16,6 +18,8 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     private val currencies: CurrencyServiceAsync by lazy { CurrencyServiceAsyncImpl(clientOptions) }
 
+    private val taxRates: TaxRateServiceAsync by lazy { TaxRateServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): SettingServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingServiceAsync =
@@ -23,11 +27,17 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     override fun currencies(): CurrencyServiceAsync = currencies
 
+    override fun taxRates(): TaxRateServiceAsync = taxRates
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SettingServiceAsync.WithRawResponse {
 
         private val currencies: CurrencyServiceAsync.WithRawResponse by lazy {
             CurrencyServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val taxRates: TaxRateServiceAsync.WithRawResponse by lazy {
+            TaxRateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -38,5 +48,7 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
             )
 
         override fun currencies(): CurrencyServiceAsync.WithRawResponse = currencies
+
+        override fun taxRates(): TaxRateServiceAsync.WithRawResponse = taxRates
     }
 }

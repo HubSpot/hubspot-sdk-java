@@ -3,7 +3,22 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.blocking.crm.AppUninstallService
+import com.hubspot_sdk.api.services.blocking.crm.AssociationService
+import com.hubspot_sdk.api.services.blocking.crm.AssociationsSchemaService
+import com.hubspot_sdk.api.services.blocking.crm.DealSplitService
+import com.hubspot_sdk.api.services.blocking.crm.ExportService
+import com.hubspot_sdk.api.services.blocking.crm.ExtensionService
+import com.hubspot_sdk.api.services.blocking.crm.ImportService
+import com.hubspot_sdk.api.services.blocking.crm.LimitService
+import com.hubspot_sdk.api.services.blocking.crm.ListService
+import com.hubspot_sdk.api.services.blocking.crm.ObjectLibraryService
+import com.hubspot_sdk.api.services.blocking.crm.ObjectSchemaService
 import com.hubspot_sdk.api.services.blocking.crm.ObjectService
+import com.hubspot_sdk.api.services.blocking.crm.OwnerService
+import com.hubspot_sdk.api.services.blocking.crm.PipelineService
+import com.hubspot_sdk.api.services.blocking.crm.PropertiesValidationService
+import com.hubspot_sdk.api.services.blocking.crm.PropertyService
 import java.util.function.Consumer
 
 interface CrmService {
@@ -20,7 +35,37 @@ interface CrmService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CrmService
 
+    fun appUninstalls(): AppUninstallService
+
+    fun associations(): AssociationService
+
+    fun associationsSchema(): AssociationsSchemaService
+
+    fun dealSplits(): DealSplitService
+
+    fun exports(): ExportService
+
+    fun extensions(): ExtensionService
+
+    fun imports(): ImportService
+
+    fun limits(): LimitService
+
+    fun lists(): ListService
+
+    fun objectLibrary(): ObjectLibraryService
+
+    fun objectSchemas(): ObjectSchemaService
+
     fun objects(): ObjectService
+
+    fun owners(): OwnerService
+
+    fun pipelines(): PipelineService
+
+    fun properties(): PropertyService
+
+    fun propertiesValidations(): PropertiesValidationService
 
     /** A view of [CrmService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -32,6 +77,36 @@ interface CrmService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): CrmService.WithRawResponse
 
+        fun appUninstalls(): AppUninstallService.WithRawResponse
+
+        fun associations(): AssociationService.WithRawResponse
+
+        fun associationsSchema(): AssociationsSchemaService.WithRawResponse
+
+        fun dealSplits(): DealSplitService.WithRawResponse
+
+        fun exports(): ExportService.WithRawResponse
+
+        fun extensions(): ExtensionService.WithRawResponse
+
+        fun imports(): ImportService.WithRawResponse
+
+        fun limits(): LimitService.WithRawResponse
+
+        fun lists(): ListService.WithRawResponse
+
+        fun objectLibrary(): ObjectLibraryService.WithRawResponse
+
+        fun objectSchemas(): ObjectSchemaService.WithRawResponse
+
         fun objects(): ObjectService.WithRawResponse
+
+        fun owners(): OwnerService.WithRawResponse
+
+        fun pipelines(): PipelineService.WithRawResponse
+
+        fun properties(): PropertyService.WithRawResponse
+
+        fun propertiesValidations(): PropertiesValidationService.WithRawResponse
     }
 }

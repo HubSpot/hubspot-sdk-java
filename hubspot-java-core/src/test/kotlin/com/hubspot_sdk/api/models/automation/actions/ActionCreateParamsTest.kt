@@ -3,7 +3,7 @@
 package com.hubspot_sdk.api.models.automation.actions
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.events.send.Option
+import com.hubspot_sdk.api.models.Option
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

@@ -4,15 +4,15 @@ package com.hubspot_sdk.api.services.blocking.events
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.events.send.BatchedBehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.send.BehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.send.ExternalBehavioralEventPropertyCreate
-import com.hubspot_sdk.api.models.events.send.ExternalBehavioralEventPropertyDefinitionPatch
-import com.hubspot_sdk.api.models.events.send.ExternalBehavioralEventTypeDefinitionEgg
-import com.hubspot_sdk.api.models.events.send.ExternalBehavioralEventTypeDefinitionPatch
-import com.hubspot_sdk.api.models.events.send.ExternalObjectResolutionMappingRequest
-import com.hubspot_sdk.api.models.events.send.ExternalPrimaryObjectResolutionRule
-import com.hubspot_sdk.api.models.events.send.OptionInput
+import com.hubspot_sdk.api.models.OptionInput
+import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
+import com.hubspot_sdk.api.models.events.BehavioralEventHttpCompletionRequest
+import com.hubspot_sdk.api.models.events.ExternalBehavioralEventPropertyCreate
+import com.hubspot_sdk.api.models.events.ExternalBehavioralEventPropertyDefinitionPatch
+import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionEgg
+import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionPatch
+import com.hubspot_sdk.api.models.events.ExternalObjectResolutionMappingRequest
+import com.hubspot_sdk.api.models.events.ExternalPrimaryObjectResolutionRule
 import com.hubspot_sdk.api.models.events.send.SendCreateEventDefinitionPropertyParams
 import com.hubspot_sdk.api.models.events.send.SendDeleteEventDefinitionPropertyParams
 import com.hubspot_sdk.api.models.events.send.SendUpdateEventDefinitionParams
@@ -164,7 +164,7 @@ internal class SendServiceTest {
                 )
                 .email("email")
                 .objectId("objectId")
-                .occurredAt(OffsetDateTime.parse("2026-01-20T21:14:16.512Z"))
+                .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .utk("utk")
                 .uuid("uuid")
                 .build()
@@ -189,7 +189,7 @@ internal class SendServiceTest {
                         )
                         .email("email")
                         .objectId("objectId")
-                        .occurredAt(OffsetDateTime.parse("2026-01-20T21:14:16.512Z"))
+                        .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .utk("utk")
                         .uuid("uuid")
                         .build()

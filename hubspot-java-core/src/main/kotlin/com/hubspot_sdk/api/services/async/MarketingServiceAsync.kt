@@ -4,6 +4,9 @@ package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.marketing.CampaignServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.EmailServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.EventServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.TransactionalServiceAsync
 import java.util.function.Consumer
 
 interface MarketingServiceAsync {
@@ -22,6 +25,12 @@ interface MarketingServiceAsync {
 
     fun campaigns(): CampaignServiceAsync
 
+    fun emails(): EmailServiceAsync
+
+    fun events(): EventServiceAsync
+
+    fun transactional(): TransactionalServiceAsync
+
     /**
      * A view of [MarketingServiceAsync] that provides access to raw HTTP responses for each method.
      */
@@ -37,5 +46,11 @@ interface MarketingServiceAsync {
         ): MarketingServiceAsync.WithRawResponse
 
         fun campaigns(): CampaignServiceAsync.WithRawResponse
+
+        fun emails(): EmailServiceAsync.WithRawResponse
+
+        fun events(): EventServiceAsync.WithRawResponse
+
+        fun transactional(): TransactionalServiceAsync.WithRawResponse
     }
 }

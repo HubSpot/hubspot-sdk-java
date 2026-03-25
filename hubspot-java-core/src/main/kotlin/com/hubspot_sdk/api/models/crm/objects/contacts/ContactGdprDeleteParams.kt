@@ -8,8 +8,6 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
-import java.util.Optional
-import kotlin.jvm.optionals.getOrNull
 
 /**
  * Permanently delete a contact and all associated content to follow GDPR. Use optional property
@@ -20,13 +18,10 @@ import kotlin.jvm.optionals.getOrNull
  */
 class ContactGdprDeleteParams
 private constructor(
-    private val objectType: String?,
     private val publicGdprDeleteInput: PublicGdprDeleteInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
-
-    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     /**
      * An input that contains the information required to process a public GDPR data deletion
@@ -61,23 +56,16 @@ private constructor(
     /** A builder for [ContactGdprDeleteParams]. */
     class Builder internal constructor() {
 
-        private var objectType: String? = null
         private var publicGdprDeleteInput: PublicGdprDeleteInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(contactGdprDeleteParams: ContactGdprDeleteParams) = apply {
-            objectType = contactGdprDeleteParams.objectType
             publicGdprDeleteInput = contactGdprDeleteParams.publicGdprDeleteInput
             additionalHeaders = contactGdprDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactGdprDeleteParams.additionalQueryParams.toBuilder()
         }
-
-        fun objectType(objectType: String?) = apply { this.objectType = objectType }
-
-        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
-        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         /**
          * An input that contains the information required to process a public GDPR data deletion
@@ -199,7 +187,6 @@ private constructor(
          */
         fun build(): ContactGdprDeleteParams =
             ContactGdprDeleteParams(
-                objectType,
                 checkRequired("publicGdprDeleteInput", publicGdprDeleteInput),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -207,12 +194,6 @@ private constructor(
     }
 
     fun _body(): PublicGdprDeleteInput = publicGdprDeleteInput
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> objectType ?: ""
-            else -> ""
-        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -224,15 +205,14 @@ private constructor(
         }
 
         return other is ContactGdprDeleteParams &&
-            objectType == other.objectType &&
             publicGdprDeleteInput == other.publicGdprDeleteInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectType, publicGdprDeleteInput, additionalHeaders, additionalQueryParams)
+        Objects.hash(publicGdprDeleteInput, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ContactGdprDeleteParams{objectType=$objectType, publicGdprDeleteInput=$publicGdprDeleteInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactGdprDeleteParams{publicGdprDeleteInput=$publicGdprDeleteInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

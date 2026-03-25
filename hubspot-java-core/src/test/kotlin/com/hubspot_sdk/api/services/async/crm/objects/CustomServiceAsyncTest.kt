@@ -6,13 +6,13 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
+import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.Filter
-import com.hubspot_sdk.api.models.crm.objects.FilterGroup
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
 import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
