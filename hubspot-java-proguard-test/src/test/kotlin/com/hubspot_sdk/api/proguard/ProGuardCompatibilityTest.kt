@@ -4,12 +4,10 @@ package com.hubspot_sdk.api.proguard
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.ActionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.CreateMbObjectRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.CreateVideoObjectRequest
-import java.time.OffsetDateTime
+import com.hubspot_sdk.api.models.crm.objects.contacts.PublicGdprDeleteInput
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
 import org.assertj.core.api.Assertions.assertThat
@@ -70,28 +68,18 @@ internal class ProGuardCompatibilityTest {
     }
 
     @Test
-    fun actionResponseRoundtrip() {
+    fun publicGdprDeleteInputRoundtrip() {
         val jsonMapper = jsonMapper()
-        val actionResponse =
-            ActionResponse.builder()
-                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .status(ActionResponse.Status.CANCELED)
-                .links(
-                    ActionResponse.Links.builder()
-                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                        .build()
-                )
-                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                .build()
+        val publicGdprDeleteInput =
+            PublicGdprDeleteInput.builder().objectId("objectId").idProperty("idProperty").build()
 
-        val roundtrippedActionResponse =
+        val roundtrippedPublicGdprDeleteInput =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(actionResponse),
-                jacksonTypeRef<ActionResponse>(),
+                jsonMapper.writeValueAsString(publicGdprDeleteInput),
+                jacksonTypeRef<PublicGdprDeleteInput>(),
             )
 
-        assertThat(roundtrippedActionResponse).isEqualTo(actionResponse)
+        assertThat(roundtrippedPublicGdprDeleteInput).isEqualTo(publicGdprDeleteInput)
     }
 
     @Test
