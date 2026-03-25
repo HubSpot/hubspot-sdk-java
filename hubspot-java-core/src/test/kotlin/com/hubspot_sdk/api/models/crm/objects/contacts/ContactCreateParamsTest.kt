@@ -15,7 +15,6 @@ internal class ContactCreateParamsTest {
     @Test
     fun create() {
         ContactCreateParams.builder()
-            .objectType("objectType")
             .simplePublicObjectInputForCreate(
                 SimplePublicObjectInputForCreate.builder()
                     .addAssociation(
@@ -42,44 +41,9 @@ internal class ContactCreateParamsTest {
     }
 
     @Test
-    fun pathParams() {
-        val params =
-            ContactCreateParams.builder()
-                .objectType("objectType")
-                .simplePublicObjectInputForCreate(
-                    SimplePublicObjectInputForCreate.builder()
-                        .addAssociation(
-                            PublicAssociationsForObject.builder()
-                                .to(PublicObjectId.builder().id("id").build())
-                                .addType(
-                                    AssociationSpec.builder()
-                                        .associationCategory(
-                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                        )
-                                        .associationTypeId(0)
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .properties(
-                            SimplePublicObjectInputForCreate.Properties.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
-                                .build()
-                        )
-                        .build()
-                )
-                .build()
-
-        assertThat(params._pathParam(0)).isEqualTo("objectType")
-        // out-of-bound path param
-        assertThat(params._pathParam(1)).isEqualTo("")
-    }
-
-    @Test
     fun body() {
         val params =
             ContactCreateParams.builder()
-                .objectType("objectType")
                 .simplePublicObjectInputForCreate(
                     SimplePublicObjectInputForCreate.builder()
                         .addAssociation(

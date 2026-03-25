@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.crm.objects.contacts
 
 import com.hubspot_sdk.api.core.Params
-import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.core.toImmutable
@@ -12,14 +11,12 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Read an Object identified by `{objectId}`. `{objectId}` refers to the internal object ID by
- * default, or optionally any unique property value as specified by the `idProperty` query param.
- * Control what is returned via the `properties` query param.
+ * Retrieve a contact by its ID (`contactId`) or by a unique property (`idProperty`). You can
+ * specify what is returned using the `properties` query parameter.
  */
 class ContactGetParams
 private constructor(
-    private val objectType: String,
-    private val objectId: String?,
+    private val contactId: String?,
     private val archived: Boolean?,
     private val associations: List<String>?,
     private val idProperty: String?,
@@ -29,9 +26,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun objectType(): String = objectType
-
-    fun objectId(): Optional<String> = Optional.ofNullable(objectId)
+    fun contactId(): Optional<String> = Optional.ofNullable(contactId)
 
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
@@ -68,22 +63,16 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ContactGetParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .objectType()
-         * ```
-         */
+        @JvmStatic fun none(): ContactGetParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ContactGetParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [ContactGetParams]. */
     class Builder internal constructor() {
 
-        private var objectType: String? = null
-        private var objectId: String? = null
+        private var contactId: String? = null
         private var archived: Boolean? = null
         private var associations: MutableList<String>? = null
         private var idProperty: String? = null
@@ -94,8 +83,7 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(contactGetParams: ContactGetParams) = apply {
-            objectType = contactGetParams.objectType
-            objectId = contactGetParams.objectId
+            contactId = contactGetParams.contactId
             archived = contactGetParams.archived
             associations = contactGetParams.associations?.toMutableList()
             idProperty = contactGetParams.idProperty
@@ -105,12 +93,10 @@ private constructor(
             additionalQueryParams = contactGetParams.additionalQueryParams.toBuilder()
         }
 
-        fun objectType(objectType: String) = apply { this.objectType = objectType }
+        fun contactId(contactId: String?) = apply { this.contactId = contactId }
 
-        fun objectId(objectId: String?) = apply { this.objectId = objectId }
-
-        /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
-        fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
+        /** Alias for calling [Builder.contactId] with `contactId.orElse(null)`. */
+        fun contactId(contactId: Optional<String>) = contactId(contactId.getOrNull())
 
         /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
@@ -300,18 +286,10 @@ private constructor(
          * Returns an immutable instance of [ContactGetParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .objectType()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ContactGetParams =
             ContactGetParams(
-                checkRequired("objectType", objectType),
-                objectId,
+                contactId,
                 archived,
                 associations?.toImmutable(),
                 idProperty,
@@ -324,8 +302,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> objectType
-            1 -> objectId ?: ""
+            0 -> contactId ?: ""
             else -> ""
         }
 
@@ -349,8 +326,7 @@ private constructor(
         }
 
         return other is ContactGetParams &&
-            objectType == other.objectType &&
-            objectId == other.objectId &&
+            contactId == other.contactId &&
             archived == other.archived &&
             associations == other.associations &&
             idProperty == other.idProperty &&
@@ -362,8 +338,7 @@ private constructor(
 
     override fun hashCode(): Int =
         Objects.hash(
-            objectType,
-            objectId,
+            contactId,
             archived,
             associations,
             idProperty,
@@ -374,5 +349,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ContactGetParams{objectType=$objectType, objectId=$objectId, archived=$archived, associations=$associations, idProperty=$idProperty, properties=$properties, propertiesWithHistory=$propertiesWithHistory, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactGetParams{contactId=$contactId, archived=$archived, associations=$associations, idProperty=$idProperty, properties=$properties, propertiesWithHistory=$propertiesWithHistory, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

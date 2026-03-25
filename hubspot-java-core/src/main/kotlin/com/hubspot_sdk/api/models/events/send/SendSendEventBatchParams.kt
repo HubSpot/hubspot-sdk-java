@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
 import java.util.Objects
 
 class SendSendEventBatchParams

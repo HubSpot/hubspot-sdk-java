@@ -9,22 +9,20 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import java.util.Objects
-import java.util.Optional
-import kotlin.jvm.optionals.getOrNull
 
 /**
- * Create a CRM object with the given properties and return a copy of the object, including the ID.
- * Documentation and examples for creating standard objects is provided.
+ * Create a single contact. Include a `properties` object to define
+ * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the contact,
+ * along with an `associations` array to define
+ * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
+ * with other CRM records.
  */
 class ContactCreateParams
 private constructor(
-    private val objectType: String?,
     private val simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
-
-    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     /**
      * Is the input object used to create a new CRM object, containing the properties to be set and
@@ -60,23 +58,16 @@ private constructor(
     /** A builder for [ContactCreateParams]. */
     class Builder internal constructor() {
 
-        private var objectType: String? = null
         private var simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(contactCreateParams: ContactCreateParams) = apply {
-            objectType = contactCreateParams.objectType
             simplePublicObjectInputForCreate = contactCreateParams.simplePublicObjectInputForCreate
             additionalHeaders = contactCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactCreateParams.additionalQueryParams.toBuilder()
         }
-
-        fun objectType(objectType: String?) = apply { this.objectType = objectType }
-
-        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
-        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         /**
          * Is the input object used to create a new CRM object, containing the properties to be set
@@ -198,7 +189,6 @@ private constructor(
          */
         fun build(): ContactCreateParams =
             ContactCreateParams(
-                objectType,
                 checkRequired("simplePublicObjectInputForCreate", simplePublicObjectInputForCreate),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -206,12 +196,6 @@ private constructor(
     }
 
     fun _body(): SimplePublicObjectInputForCreate = simplePublicObjectInputForCreate
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> objectType ?: ""
-            else -> ""
-        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -223,20 +207,14 @@ private constructor(
         }
 
         return other is ContactCreateParams &&
-            objectType == other.objectType &&
             simplePublicObjectInputForCreate == other.simplePublicObjectInputForCreate &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            objectType,
-            simplePublicObjectInputForCreate,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(simplePublicObjectInputForCreate, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ContactCreateParams{objectType=$objectType, simplePublicObjectInputForCreate=$simplePublicObjectInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactCreateParams{simplePublicObjectInputForCreate=$simplePublicObjectInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

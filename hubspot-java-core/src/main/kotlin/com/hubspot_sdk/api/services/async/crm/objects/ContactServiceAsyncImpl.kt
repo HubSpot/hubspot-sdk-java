@@ -17,9 +17,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactDeleteParams
@@ -30,6 +30,8 @@ import com.hubspot_sdk.api.models.crm.objects.contacts.ContactListParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactMergeParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactSearchParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
+import com.hubspot_sdk.api.services.async.crm.objects.contacts.BatchServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.contacts.BatchServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -41,65 +43,69 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
         WithRawResponseImpl(clientOptions)
     }
 
+    private val batch: BatchServiceAsync by lazy { BatchServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): ContactServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ContactServiceAsync =
         ContactServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    override fun batch(): BatchServiceAsync = batch
+
     override fun create(
         params: ContactCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObject> =
-        // post /crm/objects/2026-03/{objectType}
+        // post /crm/objects/2026-03/contacts
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: ContactUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObject> =
-        // patch /crm/objects/2026-03/{objectType}/{objectId}
+        // patch /crm/objects/2026-03/contacts/{contactId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: ContactListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ContactListPageAsync> =
-        // get /crm/objects/2026-03/{objectType}
+        // get /crm/objects/2026-03/contacts
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: ContactDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // delete /crm/objects/2026-03/{objectType}/{objectId}
+        // delete /crm/objects/2026-03/contacts/{contactId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun gdprDelete(
         params: ContactGdprDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // post /crm/objects/2026-03/{objectType}/gdpr-delete
+        // post /crm/objects/2026-03/contacts/gdpr-delete
         withRawResponse().gdprDelete(params, requestOptions).thenAccept {}
 
     override fun get(
         params: ContactGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
-        // get /crm/objects/2026-03/{objectType}/{objectId}
+        // get /crm/objects/2026-03/contacts/{contactId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun merge(
         params: ContactMergeParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObject> =
-        // post /crm/objects/2026-03/{objectType}/merge
+        // post /crm/objects/2026-03/contacts/merge
         withRawResponse().merge(params, requestOptions).thenApply { it.parse() }
 
     override fun search(
         params: ContactSearchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
-        // post /crm/objects/2026-03/{objectType}/search
+        // post /crm/objects/2026-03/contacts/search
         withRawResponse().search(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -108,12 +114,18 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val batch: BatchServiceAsync.WithRawResponse by lazy {
+            BatchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): ContactServiceAsync.WithRawResponse =
             ContactServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun batch(): BatchServiceAsync.WithRawResponse = batch
 
         private val createHandler: Handler<SimplePublicObject> =
             jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
@@ -122,14 +134,11 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: ContactCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0))
+                    .addPathSegments("crm", "objects", "2026-03", "contacts")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -158,18 +167,12 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
+            checkRequired("contactId", params.contactId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -199,14 +202,11 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: ContactListParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ContactListPageAsync>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0))
+                    .addPathSegments("crm", "objects", "2026-03", "contacts")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -241,18 +241,12 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
+            checkRequired("contactId", params.contactId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -272,20 +266,11 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: ContactGdprDeleteParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        "gdpr-delete",
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", "gdpr-delete")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -308,18 +293,12 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
+            checkRequired("contactId", params.contactId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "objects",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -345,14 +324,11 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: ContactMergeParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<SimplePublicObject>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0), "merge")
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", "merge")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -379,14 +355,11 @@ class ContactServiceAsyncImpl internal constructor(private val clientOptions: Cl
             params: ContactSearchParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectType", params.objectType().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0), "search")
+                    .addPathSegments("crm", "objects", "2026-03", "contacts", "search")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)

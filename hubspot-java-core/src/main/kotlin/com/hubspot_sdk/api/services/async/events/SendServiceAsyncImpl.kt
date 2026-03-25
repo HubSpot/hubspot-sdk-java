@@ -17,9 +17,9 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.events.send.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.send.ExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.send.Property
+import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.events.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinition
 import com.hubspot_sdk.api.models.events.send.SendCreateEventDefinitionParams
 import com.hubspot_sdk.api.models.events.send.SendCreateEventDefinitionPropertyParams
 import com.hubspot_sdk.api.models.events.send.SendDeleteEventDefinitionParams

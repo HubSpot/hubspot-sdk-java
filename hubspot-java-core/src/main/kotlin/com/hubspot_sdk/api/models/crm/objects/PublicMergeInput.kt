@@ -35,7 +35,7 @@ private constructor(
     ) : this(objectIdToMerge, primaryObjectId, mutableMapOf())
 
     /**
-     * The object ID of the record that the merge will not set as the current value after the merge.
+     * The ID of the company to merge into the primary.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -43,8 +43,7 @@ private constructor(
     fun objectIdToMerge(): String = objectIdToMerge.getRequired("objectIdToMerge")
 
     /**
-     * The object ID of the record that the merge will generally set as the current value after the
-     * merge.
+     * The ID of the primary company, which the other will merge into.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -109,10 +108,7 @@ private constructor(
             additionalProperties = publicMergeInput.additionalProperties.toMutableMap()
         }
 
-        /**
-         * The object ID of the record that the merge will not set as the current value after the
-         * merge.
-         */
+        /** The ID of the company to merge into the primary. */
         fun objectIdToMerge(objectIdToMerge: String) =
             objectIdToMerge(JsonField.of(objectIdToMerge))
 
@@ -127,10 +123,7 @@ private constructor(
             this.objectIdToMerge = objectIdToMerge
         }
 
-        /**
-         * The object ID of the record that the merge will generally set as the current value after
-         * the merge.
-         */
+        /** The ID of the primary company, which the other will merge into. */
         fun primaryObjectId(primaryObjectId: String) =
             primaryObjectId(JsonField.of(primaryObjectId))
 

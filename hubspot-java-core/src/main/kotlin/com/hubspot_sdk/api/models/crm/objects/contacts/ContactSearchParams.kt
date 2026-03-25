@@ -9,22 +9,18 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import java.util.Objects
-import java.util.Optional
-import kotlin.jvm.optionals.getOrNull
 
 /**
- * Execute a search query to find CRM objects of a given type, using specified filters and
- * properties. The search can be customized with filters, sorting, and pagination options.
+ * Search for contacts by filtering on properties, searching through associations, and sorting
+ * results. Learn more about
+ * [CRM search](https://developers.hubspot.com/docs/guides/api/crm/search#make-a-search-request).
  */
 class ContactSearchParams
 private constructor(
-    private val objectType: String?,
     private val publicObjectSearchRequest: PublicObjectSearchRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
-
-    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     /** Describes a search request */
     fun publicObjectSearchRequest(): PublicObjectSearchRequest = publicObjectSearchRequest
@@ -56,23 +52,16 @@ private constructor(
     /** A builder for [ContactSearchParams]. */
     class Builder internal constructor() {
 
-        private var objectType: String? = null
         private var publicObjectSearchRequest: PublicObjectSearchRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(contactSearchParams: ContactSearchParams) = apply {
-            objectType = contactSearchParams.objectType
             publicObjectSearchRequest = contactSearchParams.publicObjectSearchRequest
             additionalHeaders = contactSearchParams.additionalHeaders.toBuilder()
             additionalQueryParams = contactSearchParams.additionalQueryParams.toBuilder()
         }
-
-        fun objectType(objectType: String?) = apply { this.objectType = objectType }
-
-        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
-        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         /** Describes a search request */
         fun publicObjectSearchRequest(publicObjectSearchRequest: PublicObjectSearchRequest) =
@@ -192,7 +181,6 @@ private constructor(
          */
         fun build(): ContactSearchParams =
             ContactSearchParams(
-                objectType,
                 checkRequired("publicObjectSearchRequest", publicObjectSearchRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -200,12 +188,6 @@ private constructor(
     }
 
     fun _body(): PublicObjectSearchRequest = publicObjectSearchRequest
-
-    fun _pathParam(index: Int): String =
-        when (index) {
-            0 -> objectType ?: ""
-            else -> ""
-        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -217,20 +199,14 @@ private constructor(
         }
 
         return other is ContactSearchParams &&
-            objectType == other.objectType &&
             publicObjectSearchRequest == other.publicObjectSearchRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            objectType,
-            publicObjectSearchRequest,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(publicObjectSearchRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "ContactSearchParams{objectType=$objectType, publicObjectSearchRequest=$publicObjectSearchRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ContactSearchParams{publicObjectSearchRequest=$publicObjectSearchRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

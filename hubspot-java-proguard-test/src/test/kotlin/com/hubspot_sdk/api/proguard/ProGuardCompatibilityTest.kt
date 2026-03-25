@@ -4,8 +4,12 @@ package com.hubspot_sdk.api.proguard
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.AssociationSpec
+import com.hubspot_sdk.api.models.ActionResponse
+import com.hubspot_sdk.api.models.cms.mediabridge.CreateMbObjectRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.CreateVideoObjectRequest
+import java.time.OffsetDateTime
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
 import org.assertj.core.api.Assertions.assertThat
@@ -48,8 +52,13 @@ internal class ProGuardCompatibilityTest {
 
         assertThat(client).isNotNull()
         assertThat(client.account()).isNotNull()
+        assertThat(client.appWebhooks()).isNotNull()
+        assertThat(client.auth()).isNotNull()
         assertThat(client.automation()).isNotNull()
+        assertThat(client.businessUnits()).isNotNull()
         assertThat(client.cms()).isNotNull()
+        assertThat(client.communicationPreferences()).isNotNull()
+        assertThat(client.conversations()).isNotNull()
         assertThat(client.crm()).isNotNull()
         assertThat(client.dataStudio()).isNotNull()
         assertThat(client.events()).isNotNull()
@@ -61,20 +70,56 @@ internal class ProGuardCompatibilityTest {
     }
 
     @Test
-    fun associationSpecRoundtrip() {
+    fun actionResponseRoundtrip() {
         val jsonMapper = jsonMapper()
-        val associationSpec =
-            AssociationSpec.builder()
-                .associationCategory(AssociationSpec.AssociationCategory.HUBSPOT_DEFINED)
-                .associationTypeId(0)
+        val actionResponse =
+            ActionResponse.builder()
+                .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .startedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                .status(ActionResponse.Status.CANCELED)
+                .links(
+                    ActionResponse.Links.builder()
+                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .build()
+                )
+                .requestedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .build()
 
-        val roundtrippedAssociationSpec =
+        val roundtrippedActionResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(associationSpec),
-                jacksonTypeRef<AssociationSpec>(),
+                jsonMapper.writeValueAsString(actionResponse),
+                jacksonTypeRef<ActionResponse>(),
             )
 
-        assertThat(roundtrippedAssociationSpec).isEqualTo(associationSpec)
+        assertThat(roundtrippedActionResponse).isEqualTo(actionResponse)
+    }
+
+    @Test
+    fun createMbObjectRequestRoundtrip() {
+        val jsonMapper = jsonMapper()
+        val createMbObjectRequest =
+            CreateMbObjectRequest.ofVideo(
+                CreateVideoObjectRequest.builder()
+                    .mediaType(CreateVideoObjectRequest.MediaType.VIDEO)
+                    .title("title")
+                    .bearerToken("bearerToken")
+                    .detailsPageLink("detailsPageLink")
+                    .duration(0L)
+                    .externalId("externalId")
+                    .fileUrl("fileUrl")
+                    .oembedUrl("oembedUrl")
+                    .posterUrl("posterUrl")
+                    .thumbnailUrl("thumbnailUrl")
+                    .transcriptUrl("transcriptUrl")
+                    .build()
+            )
+
+        val roundtrippedCreateMbObjectRequest =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(createMbObjectRequest),
+                jacksonTypeRef<CreateMbObjectRequest>(),
+            )
+
+        assertThat(roundtrippedCreateMbObjectRequest).isEqualTo(createMbObjectRequest)
     }
 }

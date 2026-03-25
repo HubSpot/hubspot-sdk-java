@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.automation.ActionServiceAsync
+import com.hubspot_sdk.api.services.async.automation.SequenceServiceAsync
 import java.util.function.Consumer
 
 interface AutomationServiceAsync {
@@ -22,6 +23,8 @@ interface AutomationServiceAsync {
 
     fun actions(): ActionServiceAsync
 
+    fun sequences(): SequenceServiceAsync
+
     /**
      * A view of [AutomationServiceAsync] that provides access to raw HTTP responses for each
      * method.
@@ -38,5 +41,7 @@ interface AutomationServiceAsync {
         ): AutomationServiceAsync.WithRawResponse
 
         fun actions(): ActionServiceAsync.WithRawResponse
+
+        fun sequences(): SequenceServiceAsync.WithRawResponse
     }
 }

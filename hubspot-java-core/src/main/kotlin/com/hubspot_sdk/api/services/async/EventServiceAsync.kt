@@ -3,6 +3,8 @@
 package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.async.events.DefinitionServiceAsync
+import com.hubspot_sdk.api.services.async.events.OccurrenceServiceAsync
 import com.hubspot_sdk.api.services.async.events.SendServiceAsync
 import java.util.function.Consumer
 
@@ -20,6 +22,10 @@ interface EventServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventServiceAsync
 
+    fun definitions(): DefinitionServiceAsync
+
+    fun occurrences(): OccurrenceServiceAsync
+
     fun send(): SendServiceAsync
 
     /** A view of [EventServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -33,6 +39,10 @@ interface EventServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): EventServiceAsync.WithRawResponse
+
+        fun definitions(): DefinitionServiceAsync.WithRawResponse
+
+        fun occurrences(): OccurrenceServiceAsync.WithRawResponse
 
         fun send(): SendServiceAsync.WithRawResponse
     }

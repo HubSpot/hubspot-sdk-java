@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.settings.CurrencyServiceAsync
+import com.hubspot_sdk.api.services.async.settings.TaxRateServiceAsync
 import java.util.function.Consumer
 
 interface SettingServiceAsync {
@@ -22,6 +23,8 @@ interface SettingServiceAsync {
 
     fun currencies(): CurrencyServiceAsync
 
+    fun taxRates(): TaxRateServiceAsync
+
     /**
      * A view of [SettingServiceAsync] that provides access to raw HTTP responses for each method.
      */
@@ -37,5 +40,7 @@ interface SettingServiceAsync {
         ): SettingServiceAsync.WithRawResponse
 
         fun currencies(): CurrencyServiceAsync.WithRawResponse
+
+        fun taxRates(): TaxRateServiceAsync.WithRawResponse
     }
 }

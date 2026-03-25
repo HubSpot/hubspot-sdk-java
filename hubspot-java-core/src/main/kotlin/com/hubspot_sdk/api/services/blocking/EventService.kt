@@ -3,6 +3,8 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.blocking.events.DefinitionService
+import com.hubspot_sdk.api.services.blocking.events.OccurrenceService
 import com.hubspot_sdk.api.services.blocking.events.SendService
 import java.util.function.Consumer
 
@@ -20,6 +22,10 @@ interface EventService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService
 
+    fun definitions(): DefinitionService
+
+    fun occurrences(): OccurrenceService
+
     fun send(): SendService
 
     /** A view of [EventService] that provides access to raw HTTP responses for each method. */
@@ -31,6 +37,10 @@ interface EventService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService.WithRawResponse
+
+        fun definitions(): DefinitionService.WithRawResponse
+
+        fun occurrences(): OccurrenceService.WithRawResponse
 
         fun send(): SendService.WithRawResponse
     }

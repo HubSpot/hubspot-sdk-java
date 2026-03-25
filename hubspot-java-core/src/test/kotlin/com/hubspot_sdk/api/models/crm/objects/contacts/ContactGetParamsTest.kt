@@ -11,8 +11,7 @@ internal class ContactGetParamsTest {
     @Test
     fun create() {
         ContactGetParams.builder()
-            .objectType("objectType")
-            .objectId("objectId")
+            .contactId("contactId")
             .archived(true)
             .addAssociation("string")
             .idProperty("idProperty")
@@ -23,21 +22,18 @@ internal class ContactGetParamsTest {
 
     @Test
     fun pathParams() {
-        val params =
-            ContactGetParams.builder().objectType("objectType").objectId("objectId").build()
+        val params = ContactGetParams.builder().contactId("contactId").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("objectType")
-        assertThat(params._pathParam(1)).isEqualTo("objectId")
+        assertThat(params._pathParam(0)).isEqualTo("contactId")
         // out-of-bound path param
-        assertThat(params._pathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
     fun queryParams() {
         val params =
             ContactGetParams.builder()
-                .objectType("objectType")
-                .objectId("objectId")
+                .contactId("contactId")
                 .archived(true)
                 .addAssociation("string")
                 .idProperty("idProperty")
@@ -61,8 +57,7 @@ internal class ContactGetParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params =
-            ContactGetParams.builder().objectType("objectType").objectId("objectId").build()
+        val params = ContactGetParams.builder().contactId("contactId").build()
 
         val queryParams = params._queryParams()
 

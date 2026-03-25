@@ -35,7 +35,8 @@ private constructor(
     ) : this(before, link, mutableMapOf())
 
     /**
-     * A paging cursor token for retrieving previous pages.
+     * A string token used to identify the position before the current page in the pagination
+     * sequence.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -43,7 +44,7 @@ private constructor(
     fun before(): String = before.getRequired("before")
 
     /**
-     * A URL that can be used to retrieve the previous pages' results.
+     * A URL string that provides a direct link to the previous page of results.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -103,7 +104,10 @@ private constructor(
             additionalProperties = previousPage.additionalProperties.toMutableMap()
         }
 
-        /** A paging cursor token for retrieving previous pages. */
+        /**
+         * A string token used to identify the position before the current page in the pagination
+         * sequence.
+         */
         fun before(before: String) = before(JsonField.of(before))
 
         /**
@@ -114,7 +118,7 @@ private constructor(
          */
         fun before(before: JsonField<String>) = apply { this.before = before }
 
-        /** A URL that can be used to retrieve the previous pages' results. */
+        /** A URL string that provides a direct link to the previous page of results. */
         fun link(link: String) = link(JsonField.of(link))
 
         /**

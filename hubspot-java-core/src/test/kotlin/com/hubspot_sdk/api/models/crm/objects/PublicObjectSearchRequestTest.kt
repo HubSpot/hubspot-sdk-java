@@ -4,6 +4,8 @@ package com.hubspot_sdk.api.models.crm.objects
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
+import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

@@ -2,8 +2,8 @@
 
 package com.hubspot_sdk.api.models.settings.currencies.exchangerates.batch
 
+import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.settings.currencies.BatchInputPublicObjectId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

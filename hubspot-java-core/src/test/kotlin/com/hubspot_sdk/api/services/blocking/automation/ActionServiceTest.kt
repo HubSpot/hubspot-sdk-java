@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.blocking.automation
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.Option
 import com.hubspot_sdk.api.models.automation.actions.ActionCompleteParams
 import com.hubspot_sdk.api.models.automation.actions.ActionCreateOrReplaceByFunctionTypeParams
 import com.hubspot_sdk.api.models.automation.actions.ActionCreateOrReplaceParams
@@ -34,7 +35,6 @@ import com.hubspot_sdk.api.models.automation.actions.PublicObjectRequestOptions
 import com.hubspot_sdk.api.models.automation.actions.PublicOption
 import com.hubspot_sdk.api.models.automation.actions.PublicSingleFieldDependency
 import com.hubspot_sdk.api.models.automation.actions.WorkflowsRequestContext
-import com.hubspot_sdk.api.models.events.send.Option
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 

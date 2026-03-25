@@ -49,7 +49,7 @@ private constructor(
     ) : this(category, context, errors, links, message, status, id, subCategory, mutableMapOf())
 
     /**
-     * Error category.
+     * The main category of the error.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -57,7 +57,7 @@ private constructor(
     fun category(): String = category.getRequired("category")
 
     /**
-     * Error context.
+     * Additional context-specific information related to the error.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -65,7 +65,7 @@ private constructor(
     fun context(): Context = context.getRequired("context")
 
     /**
-     * List of error details.
+     * The detailed error objects.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -73,7 +73,7 @@ private constructor(
     fun errors(): List<ErrorDetail> = errors.getRequired("errors")
 
     /**
-     * Error links.
+     * URLs linking to documentation or resources associated with the error.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -81,7 +81,7 @@ private constructor(
     fun links(): Links = links.getRequired("links")
 
     /**
-     * Error message.
+     * A human-readable string describing the error and possible remediation steps.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -89,7 +89,7 @@ private constructor(
     fun message(): String = message.getRequired("message")
 
     /**
-     * Error status.
+     * The HTTP status code associated with the error.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -97,7 +97,7 @@ private constructor(
     fun status(): String = status.getRequired("status")
 
     /**
-     * Error ID.
+     * A unique ID for the error instance.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -105,7 +105,7 @@ private constructor(
     fun id(): Optional<String> = id.getOptional("id")
 
     /**
-     * Error subcategory.
+     * A more specific error category within each main category.
      *
      * This arbitrary value can be deserialized into a custom type using the `convert` method:
      * ```java
@@ -219,7 +219,7 @@ private constructor(
             additionalProperties = standardError.additionalProperties.toMutableMap()
         }
 
-        /** Error category. */
+        /** The main category of the error. */
         fun category(category: String) = category(JsonField.of(category))
 
         /**
@@ -230,7 +230,7 @@ private constructor(
          */
         fun category(category: JsonField<String>) = apply { this.category = category }
 
-        /** Error context. */
+        /** Additional context-specific information related to the error. */
         fun context(context: Context) = context(JsonField.of(context))
 
         /**
@@ -241,7 +241,7 @@ private constructor(
          */
         fun context(context: JsonField<Context>) = apply { this.context = context }
 
-        /** List of error details. */
+        /** The detailed error objects. */
         fun errors(errors: List<ErrorDetail>) = errors(JsonField.of(errors))
 
         /**
@@ -267,7 +267,7 @@ private constructor(
                 }
         }
 
-        /** Error links. */
+        /** URLs linking to documentation or resources associated with the error. */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -278,7 +278,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
-        /** Error message. */
+        /** A human-readable string describing the error and possible remediation steps. */
         fun message(message: String) = message(JsonField.of(message))
 
         /**
@@ -289,7 +289,7 @@ private constructor(
          */
         fun message(message: JsonField<String>) = apply { this.message = message }
 
-        /** Error status. */
+        /** The HTTP status code associated with the error. */
         fun status(status: String) = status(JsonField.of(status))
 
         /**
@@ -300,7 +300,7 @@ private constructor(
          */
         fun status(status: JsonField<String>) = apply { this.status = status }
 
-        /** Error ID. */
+        /** A unique ID for the error instance. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -311,7 +311,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** Error subcategory. */
+        /** A more specific error category within each main category. */
         fun subCategory(subCategory: JsonValue) = apply { this.subCategory = subCategory }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -404,7 +404,7 @@ private constructor(
             (if (status.asKnown().isPresent) 1 else 0) +
             (if (id.asKnown().isPresent) 1 else 0)
 
-    /** Error context. */
+    /** Additional context-specific information related to the error. */
     class Context
     @JsonCreator
     private constructor(
@@ -504,7 +504,7 @@ private constructor(
         override fun toString() = "Context{additionalProperties=$additionalProperties}"
     }
 
-    /** Error links. */
+    /** URLs linking to documentation or resources associated with the error. */
     class Links
     @JsonCreator
     private constructor(

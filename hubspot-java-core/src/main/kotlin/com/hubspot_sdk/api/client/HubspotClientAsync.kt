@@ -4,8 +4,13 @@ package com.hubspot_sdk.api.client
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.AccountServiceAsync
+import com.hubspot_sdk.api.services.async.AppWebhookServiceAsync
+import com.hubspot_sdk.api.services.async.AuthServiceAsync
 import com.hubspot_sdk.api.services.async.AutomationServiceAsync
+import com.hubspot_sdk.api.services.async.BusinessUnitServiceAsync
 import com.hubspot_sdk.api.services.async.CmServiceAsync
+import com.hubspot_sdk.api.services.async.CommunicationPreferenceServiceAsync
+import com.hubspot_sdk.api.services.async.ConversationServiceAsync
 import com.hubspot_sdk.api.services.async.CrmServiceAsync
 import com.hubspot_sdk.api.services.async.DataStudioServiceAsync
 import com.hubspot_sdk.api.services.async.EventServiceAsync
@@ -54,9 +59,19 @@ interface HubspotClientAsync {
 
     fun account(): AccountServiceAsync
 
+    fun appWebhooks(): AppWebhookServiceAsync
+
+    fun auth(): AuthServiceAsync
+
     fun automation(): AutomationServiceAsync
 
+    fun businessUnits(): BusinessUnitServiceAsync
+
     fun cms(): CmServiceAsync
+
+    fun communicationPreferences(): CommunicationPreferenceServiceAsync
+
+    fun conversations(): ConversationServiceAsync
 
     fun crm(): CrmServiceAsync
 
@@ -103,9 +118,19 @@ interface HubspotClientAsync {
 
         fun account(): AccountServiceAsync.WithRawResponse
 
+        fun appWebhooks(): AppWebhookServiceAsync.WithRawResponse
+
+        fun auth(): AuthServiceAsync.WithRawResponse
+
         fun automation(): AutomationServiceAsync.WithRawResponse
 
+        fun businessUnits(): BusinessUnitServiceAsync.WithRawResponse
+
         fun cms(): CmServiceAsync.WithRawResponse
+
+        fun communicationPreferences(): CommunicationPreferenceServiceAsync.WithRawResponse
+
+        fun conversations(): ConversationServiceAsync.WithRawResponse
 
         fun crm(): CrmServiceAsync.WithRawResponse
 

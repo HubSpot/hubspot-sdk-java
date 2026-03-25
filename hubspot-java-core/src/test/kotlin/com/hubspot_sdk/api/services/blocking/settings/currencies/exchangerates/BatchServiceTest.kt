@@ -3,10 +3,10 @@
 package com.hubspot_sdk.api.services.blocking.settings.currencies.exchangerates
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateCreateRequest
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateUpdateRequest
-import com.hubspot_sdk.api.models.settings.currencies.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.settings.currencies.ExchangeRateCreateRequest
 import com.hubspot_sdk.api.models.settings.currencies.ExchangeRateUpdateRequest
 import java.time.OffsetDateTime

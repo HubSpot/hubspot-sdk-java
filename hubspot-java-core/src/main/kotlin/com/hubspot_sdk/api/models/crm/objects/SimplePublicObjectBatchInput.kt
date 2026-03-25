@@ -47,8 +47,8 @@ private constructor(
     ) : this(id, properties, idProperty, objectWriteTraceId, mutableMapOf())
 
     /**
-     * The ID of the contact to update. This can be the object ID, or the unique property value of
-     * the `idProperty` property.
+     * The id to be updated. This can be the object id, or the unique property value of the
+     * idProperty property
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -64,7 +64,7 @@ private constructor(
     fun properties(): Properties = properties.getRequired("properties")
 
     /**
-     * The name of a unique property, when identifying records by property.
+     * The name of a property whose values are unique for this object
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -158,8 +158,8 @@ private constructor(
         }
 
         /**
-         * The ID of the contact to update. This can be the object ID, or the unique property value
-         * of the `idProperty` property.
+         * The id to be updated. This can be the object id, or the unique property value of the
+         * idProperty property
          */
         fun id(id: String) = id(JsonField.of(id))
 
@@ -183,7 +183,7 @@ private constructor(
          */
         fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
 
-        /** The name of a unique property, when identifying records by property. */
+        /** The name of a property whose values are unique for this object */
         fun idProperty(idProperty: String) = idProperty(JsonField.of(idProperty))
 
         /**

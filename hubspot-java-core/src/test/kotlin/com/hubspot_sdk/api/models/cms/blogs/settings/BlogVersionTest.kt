@@ -4,8 +4,8 @@ package com.hubspot_sdk.api.models.cms.blogs.settings
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
+import com.hubspot_sdk.api.models.VersionUser
 import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
-import com.hubspot_sdk.api.models.cms.blogs.VersionUser
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

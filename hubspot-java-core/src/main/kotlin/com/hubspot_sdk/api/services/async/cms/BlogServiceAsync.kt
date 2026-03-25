@@ -3,8 +3,10 @@
 package com.hubspot_sdk.api.services.async.cms
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.async.cms.blogs.AuthorServiceAsync
 import com.hubspot_sdk.api.services.async.cms.blogs.PostServiceAsync
 import com.hubspot_sdk.api.services.async.cms.blogs.SettingServiceAsync
+import com.hubspot_sdk.api.services.async.cms.blogs.TagServiceAsync
 import java.util.function.Consumer
 
 interface BlogServiceAsync {
@@ -21,9 +23,13 @@ interface BlogServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BlogServiceAsync
 
+    fun authors(): AuthorServiceAsync
+
     fun posts(): PostServiceAsync
 
     fun settings(): SettingServiceAsync
+
+    fun tags(): TagServiceAsync
 
     /** A view of [BlogServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -35,8 +41,12 @@ interface BlogServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): BlogServiceAsync.WithRawResponse
 
+        fun authors(): AuthorServiceAsync.WithRawResponse
+
         fun posts(): PostServiceAsync.WithRawResponse
 
         fun settings(): SettingServiceAsync.WithRawResponse
+
+        fun tags(): TagServiceAsync.WithRawResponse
     }
 }

@@ -5,6 +5,8 @@ package com.hubspot_sdk.api.services.blocking
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.automation.ActionService
 import com.hubspot_sdk.api.services.blocking.automation.ActionServiceImpl
+import com.hubspot_sdk.api.services.blocking.automation.SequenceService
+import com.hubspot_sdk.api.services.blocking.automation.SequenceServiceImpl
 import java.util.function.Consumer
 
 class AutomationServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -16,6 +18,8 @@ class AutomationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val actions: ActionService by lazy { ActionServiceImpl(clientOptions) }
 
+    private val sequences: SequenceService by lazy { SequenceServiceImpl(clientOptions) }
+
     override fun withRawResponse(): AutomationService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): AutomationService =
@@ -23,11 +27,17 @@ class AutomationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun actions(): ActionService = actions
 
+    override fun sequences(): SequenceService = sequences
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         AutomationService.WithRawResponse {
 
         private val actions: ActionService.WithRawResponse by lazy {
             ActionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val sequences: SequenceService.WithRawResponse by lazy {
+            SequenceServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -38,5 +48,7 @@ class AutomationServiceImpl internal constructor(private val clientOptions: Clie
             )
 
         override fun actions(): ActionService.WithRawResponse = actions
+
+        override fun sequences(): SequenceService.WithRawResponse = sequences
     }
 }

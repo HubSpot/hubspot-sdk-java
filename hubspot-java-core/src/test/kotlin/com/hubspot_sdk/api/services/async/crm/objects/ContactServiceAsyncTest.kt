@@ -6,19 +6,14 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.Filter
-import com.hubspot_sdk.api.models.crm.objects.FilterGroup
+import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
 import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactDeleteParams
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGdprDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactMergeParams
-import com.hubspot_sdk.api.models.crm.objects.contacts.ContactSearchParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactUpdateParams
 import com.hubspot_sdk.api.models.crm.objects.contacts.PublicGdprDeleteInput
 import org.junit.jupiter.api.Disabled
@@ -34,28 +29,23 @@ internal class ContactServiceAsyncTest {
 
         val simplePublicObjectFuture =
             contactServiceAsync.create(
-                ContactCreateParams.builder()
-                    .objectType("objectType")
-                    .simplePublicObjectInputForCreate(
-                        SimplePublicObjectInputForCreate.builder()
-                            .addAssociation(
-                                PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("id").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                            )
-                                            .associationTypeId(0)
-                                            .build()
+                SimplePublicObjectInputForCreate.builder()
+                    .addAssociation(
+                        PublicAssociationsForObject.builder()
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
+                                    .associationTypeId(0)
                                     .build()
                             )
-                            .properties(
-                                SimplePublicObjectInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
+                            .build()
+                    )
+                    .properties(
+                        SimplePublicObjectInputForCreate.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -74,8 +64,7 @@ internal class ContactServiceAsyncTest {
         val simplePublicObjectFuture =
             contactServiceAsync.update(
                 ContactUpdateParams.builder()
-                    .objectType("objectType")
-                    .objectId("objectId")
+                    .contactId("contactId")
                     .idProperty("idProperty")
                     .simplePublicObjectInput(
                         SimplePublicObjectInput.builder()
@@ -99,7 +88,7 @@ internal class ContactServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactServiceAsync = client.crm().objects().contacts()
 
-        val pageFuture = contactServiceAsync.list("objectType")
+        val pageFuture = contactServiceAsync.list()
 
         val page = pageFuture.get()
         page.response().validate()
@@ -111,10 +100,7 @@ internal class ContactServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val contactServiceAsync = client.crm().objects().contacts()
 
-        val future =
-            contactServiceAsync.delete(
-                ContactDeleteParams.builder().objectType("objectType").objectId("objectId").build()
-            )
+        val future = contactServiceAsync.delete("contactId")
 
         val response = future.get()
     }
@@ -127,14 +113,9 @@ internal class ContactServiceAsyncTest {
 
         val future =
             contactServiceAsync.gdprDelete(
-                ContactGdprDeleteParams.builder()
-                    .objectType("objectType")
-                    .publicGdprDeleteInput(
-                        PublicGdprDeleteInput.builder()
-                            .objectId("objectId")
-                            .idProperty("idProperty")
-                            .build()
-                    )
+                PublicGdprDeleteInput.builder()
+                    .objectId("objectId")
+                    .idProperty("idProperty")
                     .build()
             )
 
@@ -150,8 +131,7 @@ internal class ContactServiceAsyncTest {
         val simplePublicObjectWithAssociationsFuture =
             contactServiceAsync.get(
                 ContactGetParams.builder()
-                    .objectType("objectType")
-                    .objectId("objectId")
+                    .contactId("contactId")
                     .archived(true)
                     .addAssociation("string")
                     .idProperty("idProperty")
@@ -172,14 +152,9 @@ internal class ContactServiceAsyncTest {
 
         val simplePublicObjectFuture =
             contactServiceAsync.merge(
-                ContactMergeParams.builder()
-                    .objectType("objectType")
-                    .publicMergeInput(
-                        PublicMergeInput.builder()
-                            .objectIdToMerge("objectIdToMerge")
-                            .primaryObjectId("primaryObjectId")
-                            .build()
-                    )
+                PublicMergeInput.builder()
+                    .objectIdToMerge("objectIdToMerge")
+                    .primaryObjectId("primaryObjectId")
                     .build()
             )
 
@@ -195,30 +170,25 @@ internal class ContactServiceAsyncTest {
 
         val collectionResponseWithTotalSimplePublicObjectFuture =
             contactServiceAsync.search(
-                ContactSearchParams.builder()
-                    .objectType("objectType")
-                    .publicObjectSearchRequest(
-                        PublicObjectSearchRequest.builder()
-                            .after("after")
-                            .addFilterGroup(
-                                FilterGroup.builder()
-                                    .addFilter(
-                                        Filter.builder()
-                                            .operator(Filter.Operator.BETWEEN)
-                                            .propertyName("propertyName")
-                                            .highValue("highValue")
-                                            .value("value")
-                                            .addValue("string")
-                                            .build()
-                                    )
+                PublicObjectSearchRequest.builder()
+                    .after("after")
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.BETWEEN)
+                                    .propertyName("propertyName")
+                                    .highValue("highValue")
+                                    .value("value")
+                                    .addValue("string")
                                     .build()
                             )
-                            .limit(0)
-                            .addProperty("string")
-                            .addSort("string")
-                            .query("query")
                             .build()
                     )
+                    .limit(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .query("query")
                     .build()
             )
 

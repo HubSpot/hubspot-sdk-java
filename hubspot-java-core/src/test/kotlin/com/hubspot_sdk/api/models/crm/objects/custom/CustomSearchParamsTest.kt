@@ -2,8 +2,8 @@
 
 package com.hubspot_sdk.api.models.crm.objects.custom
 
-import com.hubspot_sdk.api.models.crm.objects.Filter
-import com.hubspot_sdk.api.models.crm.objects.FilterGroup
+import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

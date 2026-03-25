@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.ForwardPaging
 import com.hubspot_sdk.api.models.NextPage
-import com.hubspot_sdk.api.models.events.send.Option
+import com.hubspot_sdk.api.models.Option
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

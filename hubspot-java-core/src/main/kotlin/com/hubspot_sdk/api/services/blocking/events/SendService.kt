@@ -7,11 +7,11 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.events.send.BatchedBehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.send.BehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.send.ExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.send.ExternalBehavioralEventTypeDefinitionEgg
-import com.hubspot_sdk.api.models.events.send.Property
+import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
+import com.hubspot_sdk.api.models.events.BehavioralEventHttpCompletionRequest
+import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionEgg
 import com.hubspot_sdk.api.models.events.send.SendCreateEventDefinitionParams
 import com.hubspot_sdk.api.models.events.send.SendCreateEventDefinitionPropertyParams
 import com.hubspot_sdk.api.models.events.send.SendDeleteEventDefinitionParams

@@ -6,10 +6,20 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.getPackageVersion
 import com.hubspot_sdk.api.services.blocking.AccountService
 import com.hubspot_sdk.api.services.blocking.AccountServiceImpl
+import com.hubspot_sdk.api.services.blocking.AppWebhookService
+import com.hubspot_sdk.api.services.blocking.AppWebhookServiceImpl
+import com.hubspot_sdk.api.services.blocking.AuthService
+import com.hubspot_sdk.api.services.blocking.AuthServiceImpl
 import com.hubspot_sdk.api.services.blocking.AutomationService
 import com.hubspot_sdk.api.services.blocking.AutomationServiceImpl
+import com.hubspot_sdk.api.services.blocking.BusinessUnitService
+import com.hubspot_sdk.api.services.blocking.BusinessUnitServiceImpl
 import com.hubspot_sdk.api.services.blocking.CmService
 import com.hubspot_sdk.api.services.blocking.CmServiceImpl
+import com.hubspot_sdk.api.services.blocking.CommunicationPreferenceService
+import com.hubspot_sdk.api.services.blocking.CommunicationPreferenceServiceImpl
+import com.hubspot_sdk.api.services.blocking.ConversationService
+import com.hubspot_sdk.api.services.blocking.ConversationServiceImpl
 import com.hubspot_sdk.api.services.blocking.CrmService
 import com.hubspot_sdk.api.services.blocking.CrmServiceImpl
 import com.hubspot_sdk.api.services.blocking.DataStudioService
@@ -47,11 +57,29 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
 
     private val account: AccountService by lazy { AccountServiceImpl(clientOptionsWithUserAgent) }
 
+    private val appWebhooks: AppWebhookService by lazy {
+        AppWebhookServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val auth: AuthService by lazy { AuthServiceImpl(clientOptionsWithUserAgent) }
+
     private val automation: AutomationService by lazy {
         AutomationServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val businessUnits: BusinessUnitService by lazy {
+        BusinessUnitServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val cms: CmService by lazy { CmServiceImpl(clientOptionsWithUserAgent) }
+
+    private val communicationPreferences: CommunicationPreferenceService by lazy {
+        CommunicationPreferenceServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val conversations: ConversationService by lazy {
+        ConversationServiceImpl(clientOptionsWithUserAgent)
+    }
 
     private val crm: CrmService by lazy { CrmServiceImpl(clientOptionsWithUserAgent) }
 
@@ -84,9 +112,20 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
 
     override fun account(): AccountService = account
 
+    override fun appWebhooks(): AppWebhookService = appWebhooks
+
+    override fun auth(): AuthService = auth
+
     override fun automation(): AutomationService = automation
 
+    override fun businessUnits(): BusinessUnitService = businessUnits
+
     override fun cms(): CmService = cms
+
+    override fun communicationPreferences(): CommunicationPreferenceService =
+        communicationPreferences
+
+    override fun conversations(): ConversationService = conversations
 
     override fun crm(): CrmService = crm
 
@@ -113,12 +152,33 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
             AccountServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val appWebhooks: AppWebhookService.WithRawResponse by lazy {
+            AppWebhookServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val auth: AuthService.WithRawResponse by lazy {
+            AuthServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val automation: AutomationService.WithRawResponse by lazy {
             AutomationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val businessUnits: BusinessUnitService.WithRawResponse by lazy {
+            BusinessUnitServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val cms: CmService.WithRawResponse by lazy {
             CmServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val communicationPreferences:
+            CommunicationPreferenceService.WithRawResponse by lazy {
+            CommunicationPreferenceServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val conversations: ConversationService.WithRawResponse by lazy {
+            ConversationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val crm: CrmService.WithRawResponse by lazy {
@@ -162,9 +222,20 @@ class HubspotClientImpl(private val clientOptions: ClientOptions) : HubspotClien
 
         override fun account(): AccountService.WithRawResponse = account
 
+        override fun appWebhooks(): AppWebhookService.WithRawResponse = appWebhooks
+
+        override fun auth(): AuthService.WithRawResponse = auth
+
         override fun automation(): AutomationService.WithRawResponse = automation
 
+        override fun businessUnits(): BusinessUnitService.WithRawResponse = businessUnits
+
         override fun cms(): CmService.WithRawResponse = cms
+
+        override fun communicationPreferences(): CommunicationPreferenceService.WithRawResponse =
+            communicationPreferences
+
+        override fun conversations(): ConversationService.WithRawResponse = conversations
 
         override fun crm(): CrmService.WithRawResponse = crm
 

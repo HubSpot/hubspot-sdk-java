@@ -5,6 +5,12 @@ package com.hubspot_sdk.api.services.blocking
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.marketing.CampaignService
 import com.hubspot_sdk.api.services.blocking.marketing.CampaignServiceImpl
+import com.hubspot_sdk.api.services.blocking.marketing.EmailService
+import com.hubspot_sdk.api.services.blocking.marketing.EmailServiceImpl
+import com.hubspot_sdk.api.services.blocking.marketing.EventService
+import com.hubspot_sdk.api.services.blocking.marketing.EventServiceImpl
+import com.hubspot_sdk.api.services.blocking.marketing.TransactionalService
+import com.hubspot_sdk.api.services.blocking.marketing.TransactionalServiceImpl
 import java.util.function.Consumer
 
 class MarketingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -16,6 +22,14 @@ class MarketingServiceImpl internal constructor(private val clientOptions: Clien
 
     private val campaigns: CampaignService by lazy { CampaignServiceImpl(clientOptions) }
 
+    private val emails: EmailService by lazy { EmailServiceImpl(clientOptions) }
+
+    private val events: EventService by lazy { EventServiceImpl(clientOptions) }
+
+    private val transactional: TransactionalService by lazy {
+        TransactionalServiceImpl(clientOptions)
+    }
+
     override fun withRawResponse(): MarketingService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): MarketingService =
@@ -23,11 +37,29 @@ class MarketingServiceImpl internal constructor(private val clientOptions: Clien
 
     override fun campaigns(): CampaignService = campaigns
 
+    override fun emails(): EmailService = emails
+
+    override fun events(): EventService = events
+
+    override fun transactional(): TransactionalService = transactional
+
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         MarketingService.WithRawResponse {
 
         private val campaigns: CampaignService.WithRawResponse by lazy {
             CampaignServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val emails: EmailService.WithRawResponse by lazy {
+            EmailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val events: EventService.WithRawResponse by lazy {
+            EventServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val transactional: TransactionalService.WithRawResponse by lazy {
+            TransactionalServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -38,5 +70,11 @@ class MarketingServiceImpl internal constructor(private val clientOptions: Clien
             )
 
         override fun campaigns(): CampaignService.WithRawResponse = campaigns
+
+        override fun emails(): EmailService.WithRawResponse = emails
+
+        override fun events(): EventService.WithRawResponse = events
+
+        override fun transactional(): TransactionalService.WithRawResponse = transactional
     }
 }

@@ -9,17 +9,15 @@ internal class ContactDeleteParamsTest {
 
     @Test
     fun create() {
-        ContactDeleteParams.builder().objectType("objectType").objectId("objectId").build()
+        ContactDeleteParams.builder().contactId("contactId").build()
     }
 
     @Test
     fun pathParams() {
-        val params =
-            ContactDeleteParams.builder().objectType("objectType").objectId("objectId").build()
+        val params = ContactDeleteParams.builder().contactId("contactId").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("objectType")
-        assertThat(params._pathParam(1)).isEqualTo("objectId")
+        assertThat(params._pathParam(0)).isEqualTo("contactId")
         // out-of-bound path param
-        assertThat(params._pathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

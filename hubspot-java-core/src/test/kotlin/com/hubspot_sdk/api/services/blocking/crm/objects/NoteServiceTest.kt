@@ -1,0 +1,154 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.services.blocking.crm.objects
+
+import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.models.AssociationSpec
+import com.hubspot_sdk.api.models.PublicObjectId
+import com.hubspot_sdk.api.models.crm.Filter
+import com.hubspot_sdk.api.models.crm.FilterGroup
+import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
+import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.notes.NoteGetParams
+import com.hubspot_sdk.api.models.crm.objects.notes.NoteUpdateParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+
+internal class NoteServiceTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun create() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val noteService = client.crm().objects().notes()
+
+        val simplePublicObject =
+            noteService.create(
+                SimplePublicObjectInputForCreate.builder()
+                    .addAssociation(
+                        PublicAssociationsForObject.builder()
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                    )
+                                    .associationTypeId(0)
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .properties(
+                        SimplePublicObjectInputForCreate.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .build()
+            )
+
+        simplePublicObject.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun update() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val noteService = client.crm().objects().notes()
+
+        val simplePublicObject =
+            noteService.update(
+                NoteUpdateParams.builder()
+                    .noteId("noteId")
+                    .idProperty("idProperty")
+                    .simplePublicObjectInput(
+                        SimplePublicObjectInput.builder()
+                            .properties(
+                                SimplePublicObjectInput.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        simplePublicObject.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun list() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val noteService = client.crm().objects().notes()
+
+        val page = noteService.list()
+
+        page.response().validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun delete() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val noteService = client.crm().objects().notes()
+
+        noteService.delete("noteId")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun get() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val noteService = client.crm().objects().notes()
+
+        val simplePublicObjectWithAssociations =
+            noteService.get(
+                NoteGetParams.builder()
+                    .noteId("noteId")
+                    .archived(true)
+                    .addAssociation("string")
+                    .idProperty("idProperty")
+                    .addProperty("string")
+                    .addPropertiesWithHistory("string")
+                    .build()
+            )
+
+        simplePublicObjectWithAssociations.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun search() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val noteService = client.crm().objects().notes()
+
+        val collectionResponseWithTotalSimplePublicObject =
+            noteService.search(
+                PublicObjectSearchRequest.builder()
+                    .after("after")
+                    .addFilterGroup(
+                        FilterGroup.builder()
+                            .addFilter(
+                                Filter.builder()
+                                    .operator(Filter.Operator.BETWEEN)
+                                    .propertyName("propertyName")
+                                    .highValue("highValue")
+                                    .value("value")
+                                    .addValue("string")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .limit(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .query("query")
+                    .build()
+            )
+
+        collectionResponseWithTotalSimplePublicObject.validate()
+    }
+}
