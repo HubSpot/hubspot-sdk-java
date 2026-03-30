@@ -3,8 +3,6 @@
 package com.hubspot_sdk.api.models.crm.objects.partnerservices
 
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,106 +11,56 @@ internal class PartnerServiceGetParamsTest {
     @Test
     fun create() {
         PartnerServiceGetParams.builder()
+            .partnerServiceId("partnerServiceId")
             .archived(true)
-            .batchReadInputSimplePublicObjectId(
-                BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .idProperty("idProperty")
-                    .build()
-            )
+            .addAssociation("string")
+            .idProperty("idProperty")
+            .addProperty("string")
+            .addPropertiesWithHistory("string")
             .build()
+    }
+
+    @Test
+    fun pathParams() {
+        val params = PartnerServiceGetParams.builder().partnerServiceId("partnerServiceId").build()
+
+        assertThat(params._pathParam(0)).isEqualTo("partnerServiceId")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
     fun queryParams() {
         val params =
             PartnerServiceGetParams.builder()
+                .partnerServiceId("partnerServiceId")
                 .archived(true)
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .idProperty("idProperty")
-                        .build()
-                )
+                .addAssociation("string")
+                .idProperty("idProperty")
+                .addProperty("string")
+                .addPropertiesWithHistory("string")
                 .build()
 
         val queryParams = params._queryParams()
 
-        assertThat(queryParams).isEqualTo(QueryParams.builder().put("archived", "true").build())
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("archived", "true")
+                    .put("associations", listOf("string").joinToString(","))
+                    .put("idProperty", "idProperty")
+                    .put("properties", listOf("string").joinToString(","))
+                    .put("propertiesWithHistory", listOf("string").joinToString(","))
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params =
-            PartnerServiceGetParams.builder()
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .build()
-                )
-                .build()
+        val params = PartnerServiceGetParams.builder().partnerServiceId("partnerServiceId").build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams).isEqualTo(QueryParams.builder().build())
-    }
-
-    @Test
-    fun body() {
-        val params =
-            PartnerServiceGetParams.builder()
-                .archived(true)
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .idProperty("idProperty")
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .idProperty("idProperty")
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            PartnerServiceGetParams.builder()
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .build()
-            )
     }
 }

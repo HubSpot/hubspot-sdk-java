@@ -7,22 +7,33 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Update multiple postal mail objects in a single request. */
 class PostalMailUpdateParams
 private constructor(
-    private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
+    private val postalMailId: String?,
+    private val idProperty: String?,
+    private val simplePublicObjectInput: SimplePublicObjectInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun batchInputSimplePublicObjectBatchInput(): BatchInputSimplePublicObjectBatchInput =
-        batchInputSimplePublicObjectBatchInput
+    fun postalMailId(): Optional<String> = Optional.ofNullable(postalMailId)
+
+    /** The name of a property whose values are unique for this object type */
+    fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
+
+    /**
+     * Represents the input required to create or update a CRM object, containing an object with
+     * property names and their corresponding values.
+     */
+    fun simplePublicObjectInput(): SimplePublicObjectInput = simplePublicObjectInput
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchInputSimplePublicObjectBatchInput._additionalProperties()
+        simplePublicObjectInput._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -39,7 +50,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInput()
+         * .simplePublicObjectInput()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -48,24 +59,38 @@ private constructor(
     /** A builder for [PostalMailUpdateParams]. */
     class Builder internal constructor() {
 
-        private var batchInputSimplePublicObjectBatchInput:
-            BatchInputSimplePublicObjectBatchInput? =
-            null
+        private var postalMailId: String? = null
+        private var idProperty: String? = null
+        private var simplePublicObjectInput: SimplePublicObjectInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(postalMailUpdateParams: PostalMailUpdateParams) = apply {
-            batchInputSimplePublicObjectBatchInput =
-                postalMailUpdateParams.batchInputSimplePublicObjectBatchInput
+            postalMailId = postalMailUpdateParams.postalMailId
+            idProperty = postalMailUpdateParams.idProperty
+            simplePublicObjectInput = postalMailUpdateParams.simplePublicObjectInput
             additionalHeaders = postalMailUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = postalMailUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun batchInputSimplePublicObjectBatchInput(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ) = apply {
-            this.batchInputSimplePublicObjectBatchInput = batchInputSimplePublicObjectBatchInput
+        fun postalMailId(postalMailId: String?) = apply { this.postalMailId = postalMailId }
+
+        /** Alias for calling [Builder.postalMailId] with `postalMailId.orElse(null)`. */
+        fun postalMailId(postalMailId: Optional<String>) = postalMailId(postalMailId.getOrNull())
+
+        /** The name of a property whose values are unique for this object type */
+        fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
+
+        /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
+        fun idProperty(idProperty: Optional<String>) = idProperty(idProperty.getOrNull())
+
+        /**
+         * Represents the input required to create or update a CRM object, containing an object with
+         * property names and their corresponding values.
+         */
+        fun simplePublicObjectInput(simplePublicObjectInput: SimplePublicObjectInput) = apply {
+            this.simplePublicObjectInput = simplePublicObjectInput
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -173,27 +198,38 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInput()
+         * .simplePublicObjectInput()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PostalMailUpdateParams =
             PostalMailUpdateParams(
-                checkRequired(
-                    "batchInputSimplePublicObjectBatchInput",
-                    batchInputSimplePublicObjectBatchInput,
-                ),
+                postalMailId,
+                idProperty,
+                checkRequired("simplePublicObjectInput", simplePublicObjectInput),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): BatchInputSimplePublicObjectBatchInput = batchInputSimplePublicObjectBatchInput
+    fun _body(): SimplePublicObjectInput = simplePublicObjectInput
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> postalMailId ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                idProperty?.let { put("idProperty", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -201,19 +237,22 @@ private constructor(
         }
 
         return other is PostalMailUpdateParams &&
-            batchInputSimplePublicObjectBatchInput ==
-                other.batchInputSimplePublicObjectBatchInput &&
+            postalMailId == other.postalMailId &&
+            idProperty == other.idProperty &&
+            simplePublicObjectInput == other.simplePublicObjectInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
         Objects.hash(
-            batchInputSimplePublicObjectBatchInput,
+            postalMailId,
+            idProperty,
+            simplePublicObjectInput,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "PostalMailUpdateParams{batchInputSimplePublicObjectBatchInput=$batchInputSimplePublicObjectBatchInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PostalMailUpdateParams{postalMailId=$postalMailId, idProperty=$idProperty, simplePublicObjectInput=$simplePublicObjectInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

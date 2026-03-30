@@ -8,13 +8,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.products.ProductCreateParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductGetParams
@@ -22,7 +18,7 @@ import com.hubspot_sdk.api.models.crm.objects.products.ProductListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.products.ProductListParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductSearchParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.products.ProductUpsertParams
+import com.hubspot_sdk.api.services.async.crm.objects.products.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,73 +36,69 @@ interface ProductServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProductServiceAsync
 
+    fun batch(): BatchServiceAsync
+
     /**
-     * Create multiple products in a single request by specifying their properties, and receive a
-     * response containing the details of the created products.
+     * Create a product with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard products is provided.
      */
-    fun create(params: ProductCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun create(params: ProductCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ProductCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObject>
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
+    ): CompletableFuture<SimplePublicObject> =
         create(
             ProductCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): CompletableFuture<SimplePublicObject> =
+        create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update multiple products in a single request using their internal IDs or unique property
-     * values. This batch operation allows for efficient modifications of product records by
-     * specifying the properties to be updated. Ensure that the provided property values are
-     * correct, as read-only and non-existent properties will result in an error.
+     * Perform a partial update of an Object identified by `{productId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{productId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
      */
-    fun update(params: ProductUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun update(
+        productId: String,
+        params: ProductUpdateParams,
+    ): CompletableFuture<SimplePublicObject> = update(productId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        productId: String,
+        params: ProductUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        update(params.toBuilder().productId(productId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: ProductUpdateParams): CompletableFuture<SimplePublicObject> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ProductUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(
-            ProductUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject>
 
     /** Read a page of products. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<ProductListPageAsync> = list(ProductListParams.none())
@@ -126,13 +118,23 @@ interface ProductServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<ProductListPageAsync> =
         list(ProductListParams.none(), requestOptions)
 
-    /**
-     * Archive multiple products at once by providing their IDs. This operation moves the specified
-     * products to the recycling bin, effectively removing them from active use without permanently
-     * deleting them.
-     */
-    fun delete(params: ProductDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
+    /** Move an Object identified by `{productId}` to the recycling bin. */
+    fun delete(productId: String): CompletableFuture<Void?> =
+        delete(productId, ProductDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        productId: String,
+        params: ProductDeleteParams = ProductDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        delete(params.toBuilder().productId(productId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        productId: String,
+        params: ProductDeleteParams = ProductDeleteParams.none(),
+    ): CompletableFuture<Void?> = delete(productId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -141,52 +143,52 @@ interface ProductServiceAsync {
     ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        delete(
-            ProductDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: ProductDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-    ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(productId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        delete(productId, ProductDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{productId}`. `{productId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: ProductGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(params, RequestOptions.none())
+    fun get(productId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(productId, ProductGetParams.none())
+
+    /** @see get */
+    fun get(
+        productId: String,
+        params: ProductGetParams = ProductGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().productId(productId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        productId: String,
+        params: ProductGetParams = ProductGetParams.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(productId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ProductGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
+
+    /** @see get */
+    fun get(params: ProductGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(
-            ProductGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        productId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(productId, ProductGetParams.none(), requestOptions)
 
     /**
      * Execute a search for products based on defined filters, properties, and sorting options. This
@@ -224,42 +226,6 @@ interface ProductServiceAsync {
         search(publicObjectSearchRequest, RequestOptions.none())
 
     /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(
-        params: ProductUpsertParams
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: ProductUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject>
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(
-            ProductUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
-    /**
      * A view of [ProductServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
@@ -273,75 +239,70 @@ interface ProductServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ProductServiceAsync.WithRawResponse
 
+        fun batch(): BatchServiceAsync.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/create`, but is
-         * otherwise the same as [ProductServiceAsync.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/products`, but is otherwise
+         * the same as [ProductServiceAsync.create].
          */
         fun create(
             params: ProductCreateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: ProductCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(
                 ProductCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/products/{productId}`, but is
          * otherwise the same as [ProductServiceAsync.update].
          */
         fun update(
+            productId: String,
+            params: ProductUpdateParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(productId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            productId: String,
+            params: ProductUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(params.toBuilder().productId(productId).build(), requestOptions)
+
+        /** @see update */
+        fun update(
             params: ProductUpdateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ProductUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(
-                ProductUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/products`, but is otherwise the
@@ -369,11 +330,25 @@ interface ProductServiceAsync {
             list(ProductListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/archive`, but
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/products/{productId}`, but
          * is otherwise the same as [ProductServiceAsync.delete].
          */
-        fun delete(params: ProductDeleteParams): CompletableFuture<HttpResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(productId: String): CompletableFuture<HttpResponse> =
+            delete(productId, ProductDeleteParams.none())
+
+        /** @see delete */
+        fun delete(
+            productId: String,
+            params: ProductDeleteParams = ProductDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().productId(productId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(
+            productId: String,
+            params: ProductDeleteParams = ProductDeleteParams.none(),
+        ): CompletableFuture<HttpResponse> = delete(productId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
@@ -382,55 +357,58 @@ interface ProductServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            delete(
-                ProductDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: ProductDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
+            productId: String,
+            requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+            delete(productId, ProductDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/products/{productId}`, but is
          * otherwise the same as [ProductServiceAsync.get].
          */
         fun get(
-            params: ProductGetParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(params, RequestOptions.none())
+            productId: String
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(productId, ProductGetParams.none())
+
+        /** @see get */
+        fun get(
+            productId: String,
+            params: ProductGetParams = ProductGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().productId(productId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            productId: String,
+            params: ProductGetParams = ProductGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(productId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: ProductGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(
-                ProductGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+            params: ProductGetParams
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            productId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(productId, ProductGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/products/search`, but is
@@ -464,42 +442,5 @@ interface ProductServiceAsync {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/upsert`, but is
-         * otherwise the same as [ProductServiceAsync.upsert].
-         */
-        fun upsert(
-            params: ProductUpsertParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        fun upsert(
-            params: ProductUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>>
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(
-                ProductUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

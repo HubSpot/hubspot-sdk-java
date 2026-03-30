@@ -9,13 +9,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceCreateParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceGetParams
@@ -23,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.services.ServiceListPage
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceListParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceSearchParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.services.ServiceUpsertParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.services.BatchService
 import java.util.function.Consumer
 
 interface ServiceService {
@@ -40,65 +36,65 @@ interface ServiceService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ServiceService
 
-    /** Create a batch of objects */
-    fun create(params: ServiceCreateParams): BatchResponseSimplePublicObject =
+    fun batch(): BatchService
+
+    /**
+     * Create a service with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard services is provided.
+     */
+    fun create(params: ServiceCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ServiceCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObject
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
+    ): SimplePublicObject =
         create(
             ServiceCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): BatchResponseSimplePublicObject =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
-    /** Update a batch of objects */
-    fun update(params: ServiceUpdateParams): BatchResponseSimplePublicObject =
+    /**
+     * Perform a partial update of an Object identified by `{serviceId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{serviceId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
+     */
+    fun update(serviceId: String, params: ServiceUpdateParams): SimplePublicObject =
+        update(serviceId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        serviceId: String,
+        params: ServiceUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject = update(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: ServiceUpdateParams): SimplePublicObject =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ServiceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        update(
-            ServiceUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): BatchResponseSimplePublicObject =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): SimplePublicObject
 
     /** Read a page of services. Control what is returned via the `properties` query param. */
     fun list(): ServiceListPage = list(ServiceListParams.none())
@@ -117,58 +113,65 @@ interface ServiceService {
     fun list(requestOptions: RequestOptions): ServiceListPage =
         list(ServiceListParams.none(), requestOptions)
 
-    /** Archive a batch of objects */
-    fun delete(params: ServiceDeleteParams) = delete(params, RequestOptions.none())
+    /** Move an Object identified by `{serviceId}` to the recycling bin. */
+    fun delete(serviceId: String) = delete(serviceId, ServiceDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        serviceId: String,
+        params: ServiceDeleteParams = ServiceDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(serviceId: String, params: ServiceDeleteParams = ServiceDeleteParams.none()) =
+        delete(serviceId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(params: ServiceDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        delete(
-            ServiceDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: ServiceDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
-        delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(serviceId: String, requestOptions: RequestOptions) =
+        delete(serviceId, ServiceDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{serviceId}`. `{serviceId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: ServiceGetParams): BatchResponseSimplePublicObject =
-        get(params, RequestOptions.none())
+    fun get(serviceId: String): SimplePublicObjectWithAssociations =
+        get(serviceId, ServiceGetParams.none())
+
+    /** @see get */
+    fun get(
+        serviceId: String,
+        params: ServiceGetParams = ServiceGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        serviceId: String,
+        params: ServiceGetParams = ServiceGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(serviceId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ServiceGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObjectWithAssociations
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        get(
-            ServiceGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun get(params: ServiceGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): BatchResponseSimplePublicObject =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+    fun get(serviceId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(serviceId, ServiceGetParams.none(), requestOptions)
 
     /** Fetch objects via a search query */
     fun search(params: ServiceSearchParams): CollectionResponseWithTotalSimplePublicObject =
@@ -198,40 +201,6 @@ interface ServiceService {
     ): CollectionResponseWithTotalSimplePublicObject =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: ServiceUpsertParams): BatchResponseSimplePublicUpsertObject =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: ServiceUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(
-            ServiceUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [ServiceService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -242,12 +211,14 @@ interface ServiceService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ServiceService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/create`, but is
-         * otherwise the same as [ServiceService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162`, but is otherwise the
+         * same as [ServiceService.create].
          */
         @MustBeClosed
-        fun create(params: ServiceCreateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun create(params: ServiceCreateParams): HttpResponseFor<SimplePublicObject> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -255,20 +226,17 @@ interface ServiceService {
         fun create(
             params: ServiceCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObject>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+        ): HttpResponseFor<SimplePublicObject> =
             create(
                 ServiceCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
@@ -276,17 +244,32 @@ interface ServiceService {
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): HttpResponseFor<SimplePublicObject> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/0-162/{serviceId}`, but is
          * otherwise the same as [ServiceService.update].
          */
         @MustBeClosed
-        fun update(params: ServiceUpdateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun update(
+            serviceId: String,
+            params: ServiceUpdateParams,
+        ): HttpResponseFor<SimplePublicObject> = update(serviceId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            serviceId: String,
+            params: ServiceUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: ServiceUpdateParams): HttpResponseFor<SimplePublicObject> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -294,27 +277,7 @@ interface ServiceService {
         fun update(
             params: ServiceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(
-                ServiceUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/0-162`, but is otherwise the
@@ -341,12 +304,26 @@ interface ServiceService {
             list(ServiceListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/archive`, but is
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/0-162/{serviceId}`, but is
          * otherwise the same as [ServiceService.delete].
          */
         @MustBeClosed
-        fun delete(params: ServiceDeleteParams): HttpResponse =
-            delete(params, RequestOptions.none())
+        fun delete(serviceId: String): HttpResponse = delete(serviceId, ServiceDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            serviceId: String,
+            params: ServiceDeleteParams = ServiceDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            serviceId: String,
+            params: ServiceDeleteParams = ServiceDeleteParams.none(),
+        ): HttpResponse = delete(serviceId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -357,56 +334,58 @@ interface ServiceService {
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            delete(
-                ServiceDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: ServiceDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(serviceId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(serviceId, ServiceDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/0-162/{serviceId}`, but is
          * otherwise the same as [ServiceService.get].
          */
         @MustBeClosed
-        fun get(params: ServiceGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(params, RequestOptions.none())
+        fun get(serviceId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(serviceId, ServiceGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            serviceId: String,
+            params: ServiceGetParams = ServiceGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            serviceId: String,
+            params: ServiceGetParams = ServiceGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(serviceId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: ServiceGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: ServiceGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(
-                ServiceGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            serviceId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(serviceId, ServiceGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/search`, but is
@@ -444,46 +423,5 @@ interface ServiceService {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/upsert`, but is
-         * otherwise the same as [ServiceService.upsert].
-         */
-        @MustBeClosed
-        fun upsert(
-            params: ServiceUpsertParams
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            params: ServiceUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject>
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(
-                ServiceUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

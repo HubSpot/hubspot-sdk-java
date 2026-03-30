@@ -2,8 +2,6 @@
 
 package com.hubspot_sdk.api.models.crm.objects.services
 
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -11,33 +9,15 @@ internal class ServiceDeleteParamsTest {
 
     @Test
     fun create() {
-        ServiceDeleteParams.builder()
-            .batchInputSimplePublicObjectId(
-                BatchInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .build()
-            )
-            .build()
+        ServiceDeleteParams.builder().serviceId("serviceId").build()
     }
 
     @Test
-    fun body() {
-        val params =
-            ServiceDeleteParams.builder()
-                .batchInputSimplePublicObjectId(
-                    BatchInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .build()
-                )
-                .build()
+    fun pathParams() {
+        val params = ServiceDeleteParams.builder().serviceId("serviceId").build()
 
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .build()
-            )
+        assertThat(params._pathParam(0)).isEqualTo("serviceId")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

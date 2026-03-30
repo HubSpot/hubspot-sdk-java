@@ -8,13 +8,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.taxes.TaxCreateParams
 import com.hubspot_sdk.api.models.crm.objects.taxes.TaxDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.taxes.TaxGetParams
@@ -22,7 +18,7 @@ import com.hubspot_sdk.api.models.crm.objects.taxes.TaxListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.taxes.TaxListParams
 import com.hubspot_sdk.api.models.crm.objects.taxes.TaxSearchParams
 import com.hubspot_sdk.api.models.crm.objects.taxes.TaxUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.taxes.TaxUpsertParams
+import com.hubspot_sdk.api.services.async.crm.objects.taxes.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,72 +36,67 @@ interface TaxServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TaxServiceAsync
 
+    fun batch(): BatchServiceAsync
+
     /**
-     * Create multiple tax records in a single request, each with specified properties and optional
-     * associations, and receive a response with details of the created objects.
+     * Create a tax with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard taxes is provided.
      */
-    fun create(params: TaxCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun create(params: TaxCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: TaxCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObject>
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
+    ): CompletableFuture<SimplePublicObject> =
         create(
             TaxCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): CompletableFuture<SimplePublicObject> =
+        create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update multiple tax records using their internal IDs or unique property values. This
-     * operation allows for batch processing of updates to tax objects, ensuring efficient
-     * management of tax data in bulk.
+     * Perform a partial update of an Object identified by `{taxId}`or optionally a unique property
+     * value as specified by the `idProperty` query param. `{taxId}` refers to the internal object
+     * ID by default, and the `idProperty` query param refers to a property whose values are unique
+     * for the object. Provided property values will be overwritten. Read-only and non-existent
+     * properties will result in an error. Properties values can be cleared by passing an empty
+     * string.
      */
-    fun update(params: TaxUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun update(taxId: String, params: TaxUpdateParams): CompletableFuture<SimplePublicObject> =
+        update(taxId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        taxId: String,
+        params: TaxUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        update(params.toBuilder().taxId(taxId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: TaxUpdateParams): CompletableFuture<SimplePublicObject> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: TaxUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(
-            TaxUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject>
 
     /** Read a page of taxes. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<TaxListPageAsync> = list(TaxListParams.none())
@@ -124,9 +115,21 @@ interface TaxServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<TaxListPageAsync> =
         list(TaxListParams.none(), requestOptions)
 
-    /** Archive multiple taxes by their IDs in a single request. */
-    fun delete(params: TaxDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
+    /** Move an Object identified by `{taxId}` to the recycling bin. */
+    fun delete(taxId: String): CompletableFuture<Void?> = delete(taxId, TaxDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        taxId: String,
+        params: TaxDeleteParams = TaxDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> = delete(params.toBuilder().taxId(taxId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        taxId: String,
+        params: TaxDeleteParams = TaxDeleteParams.none(),
+    ): CompletableFuture<Void?> = delete(taxId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -135,52 +138,52 @@ interface TaxServiceAsync {
     ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        delete(
-            TaxDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: TaxDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-    ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(taxId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        delete(taxId, TaxDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{taxId}`. `{taxId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: TaxGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(params, RequestOptions.none())
+    fun get(taxId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(taxId, TaxGetParams.none())
+
+    /** @see get */
+    fun get(
+        taxId: String,
+        params: TaxGetParams = TaxGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().taxId(taxId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        taxId: String,
+        params: TaxGetParams = TaxGetParams.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(taxId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: TaxGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
+
+    /** @see get */
+    fun get(params: TaxGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(
-            TaxGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        taxId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(taxId, TaxGetParams.none(), requestOptions)
 
     /**
      * Execute a search for tax objects based on defined filters, sorting options, and properties to
@@ -214,40 +217,6 @@ interface TaxServiceAsync {
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: TaxUpsertParams): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: TaxUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject>
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(
-            TaxUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [TaxServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -258,75 +227,70 @@ interface TaxServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TaxServiceAsync.WithRawResponse
 
+        fun batch(): BatchServiceAsync.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/taxes/batch/create`, but is
-         * otherwise the same as [TaxServiceAsync.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/taxes`, but is otherwise the
+         * same as [TaxServiceAsync.create].
          */
         fun create(
             params: TaxCreateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: TaxCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(
                 TaxCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/taxes/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/taxes/{taxId}`, but is
          * otherwise the same as [TaxServiceAsync.update].
          */
         fun update(
+            taxId: String,
+            params: TaxUpdateParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(taxId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            taxId: String,
+            params: TaxUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(params.toBuilder().taxId(taxId).build(), requestOptions)
+
+        /** @see update */
+        fun update(
             params: TaxUpdateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: TaxUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(
-                TaxUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/taxes`, but is otherwise the
@@ -354,11 +318,25 @@ interface TaxServiceAsync {
             list(TaxListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/taxes/batch/archive`, but is
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/taxes/{taxId}`, but is
          * otherwise the same as [TaxServiceAsync.delete].
          */
-        fun delete(params: TaxDeleteParams): CompletableFuture<HttpResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(taxId: String): CompletableFuture<HttpResponse> =
+            delete(taxId, TaxDeleteParams.none())
+
+        /** @see delete */
+        fun delete(
+            taxId: String,
+            params: TaxDeleteParams = TaxDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().taxId(taxId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(
+            taxId: String,
+            params: TaxDeleteParams = TaxDeleteParams.none(),
+        ): CompletableFuture<HttpResponse> = delete(taxId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
@@ -367,55 +345,55 @@ interface TaxServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            delete(
-                TaxDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: TaxDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponse> =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(taxId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            delete(taxId, TaxDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/taxes/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/taxes/{taxId}`, but is
          * otherwise the same as [TaxServiceAsync.get].
          */
         fun get(
-            params: TaxGetParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(params, RequestOptions.none())
+            taxId: String
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(taxId, TaxGetParams.none())
+
+        /** @see get */
+        fun get(
+            taxId: String,
+            params: TaxGetParams = TaxGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().taxId(taxId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            taxId: String,
+            params: TaxGetParams = TaxGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(taxId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: TaxGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(
-                TaxGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+            params: TaxGetParams
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            taxId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(taxId, TaxGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/taxes/search`, but is
@@ -449,42 +427,5 @@ interface TaxServiceAsync {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/taxes/batch/upsert`, but is
-         * otherwise the same as [TaxServiceAsync.upsert].
-         */
-        fun upsert(
-            params: TaxUpsertParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        fun upsert(
-            params: TaxUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>>
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(
-                TaxUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

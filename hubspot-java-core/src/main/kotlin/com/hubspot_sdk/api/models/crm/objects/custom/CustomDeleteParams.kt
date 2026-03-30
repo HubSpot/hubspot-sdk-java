@@ -7,27 +7,27 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
+import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Archive a batch of objects by ID */
+/** Move an Object identified by `{objectId}` to the recycling bin. */
 class CustomDeleteParams
 private constructor(
-    private val objectType: String?,
-    private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
+    private val objectType: String,
+    private val objectId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
+    fun objectType(): String = objectType
 
-    fun batchInputSimplePublicObjectId(): BatchInputSimplePublicObjectId =
-        batchInputSimplePublicObjectId
+    fun objectId(): Optional<String> = Optional.ofNullable(objectId)
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchInputSimplePublicObjectId._additionalProperties()
+    /** Additional body properties to send with the request. */
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -44,7 +44,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectId()
+         * .objectType()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -54,26 +54,26 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectType: String? = null
-        private var batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId? = null
+        private var objectId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(customDeleteParams: CustomDeleteParams) = apply {
             objectType = customDeleteParams.objectType
-            batchInputSimplePublicObjectId = customDeleteParams.batchInputSimplePublicObjectId
+            objectId = customDeleteParams.objectId
             additionalHeaders = customDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = customDeleteParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = customDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun objectType(objectType: String?) = apply { this.objectType = objectType }
+        fun objectType(objectType: String) = apply { this.objectType = objectType }
 
-        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
-        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
+        fun objectId(objectId: String?) = apply { this.objectId = objectId }
 
-        fun batchInputSimplePublicObjectId(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-        ) = apply { this.batchInputSimplePublicObjectId = batchInputSimplePublicObjectId }
+        /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
+        fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -173,6 +173,28 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            putAllAdditionalBodyProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            additionalBodyProperties.remove(key)
+        }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalBodyProperty)
+        }
+
         /**
          * Returns an immutable instance of [CustomDeleteParams].
          *
@@ -180,25 +202,28 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectId()
+         * .objectType()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): CustomDeleteParams =
             CustomDeleteParams(
-                objectType,
-                checkRequired("batchInputSimplePublicObjectId", batchInputSimplePublicObjectId),
+                checkRequired("objectType", objectType),
+                objectId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
-    fun _body(): BatchInputSimplePublicObjectId = batchInputSimplePublicObjectId
+    fun _body(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> objectType ?: ""
+            0 -> objectType
+            1 -> objectId ?: ""
             else -> ""
         }
 
@@ -213,19 +238,21 @@ private constructor(
 
         return other is CustomDeleteParams &&
             objectType == other.objectType &&
-            batchInputSimplePublicObjectId == other.batchInputSimplePublicObjectId &&
+            objectId == other.objectId &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
         Objects.hash(
             objectType,
-            batchInputSimplePublicObjectId,
+            objectId,
             additionalHeaders,
             additionalQueryParams,
+            additionalBodyProperties,
         )
 
     override fun toString() =
-        "CustomDeleteParams{objectType=$objectType, batchInputSimplePublicObjectId=$batchInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CustomDeleteParams{objectType=$objectType, objectId=$objectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

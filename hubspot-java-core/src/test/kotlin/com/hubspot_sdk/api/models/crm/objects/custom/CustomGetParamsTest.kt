@@ -3,8 +3,6 @@
 package com.hubspot_sdk.api.models.crm.objects.custom
 
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,35 +12,23 @@ internal class CustomGetParamsTest {
     fun create() {
         CustomGetParams.builder()
             .objectType("objectType")
+            .objectId("objectId")
             .archived(true)
-            .batchReadInputSimplePublicObjectId(
-                BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .idProperty("idProperty")
-                    .build()
-            )
+            .addAssociation("string")
+            .idProperty("idProperty")
+            .addProperty("string")
+            .addPropertiesWithHistory("string")
             .build()
     }
 
     @Test
     fun pathParams() {
-        val params =
-            CustomGetParams.builder()
-                .objectType("objectType")
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .build()
-                )
-                .build()
+        val params = CustomGetParams.builder().objectType("objectType").objectId("objectId").build()
 
         assertThat(params._pathParam(0)).isEqualTo("objectType")
+        assertThat(params._pathParam(1)).isEqualTo("objectId")
         // out-of-bound path param
-        assertThat(params._pathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
     }
 
     @Test
@@ -50,93 +36,34 @@ internal class CustomGetParamsTest {
         val params =
             CustomGetParams.builder()
                 .objectType("objectType")
+                .objectId("objectId")
                 .archived(true)
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .idProperty("idProperty")
-                        .build()
-                )
+                .addAssociation("string")
+                .idProperty("idProperty")
+                .addProperty("string")
+                .addPropertiesWithHistory("string")
                 .build()
 
         val queryParams = params._queryParams()
 
-        assertThat(queryParams).isEqualTo(QueryParams.builder().put("archived", "true").build())
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("archived", "true")
+                    .put("associations", listOf("string").joinToString(","))
+                    .put("idProperty", "idProperty")
+                    .put("properties", listOf("string").joinToString(","))
+                    .put("propertiesWithHistory", listOf("string").joinToString(","))
+                    .build()
+            )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params =
-            CustomGetParams.builder()
-                .objectType("objectType")
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .build()
-                )
-                .build()
+        val params = CustomGetParams.builder().objectType("objectType").objectId("objectId").build()
 
         val queryParams = params._queryParams()
 
         assertThat(queryParams).isEqualTo(QueryParams.builder().build())
-    }
-
-    @Test
-    fun body() {
-        val params =
-            CustomGetParams.builder()
-                .objectType("objectType")
-                .archived(true)
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .idProperty("idProperty")
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .idProperty("idProperty")
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            CustomGetParams.builder()
-                .objectType("objectType")
-                .batchReadInputSimplePublicObjectId(
-                    BatchReadInputSimplePublicObjectId.builder()
-                        .addInput(SimplePublicObjectId.builder().id("430001").build())
-                        .addProperty("string")
-                        .addPropertiesWithHistory("string")
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchReadInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .addProperty("string")
-                    .addPropertiesWithHistory("string")
-                    .build()
-            )
     }
 }

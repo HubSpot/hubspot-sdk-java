@@ -8,13 +8,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceCreateParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceGetParams
@@ -22,7 +18,7 @@ import com.hubspot_sdk.api.models.crm.objects.services.ServiceListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceListParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceSearchParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.services.ServiceUpsertParams
+import com.hubspot_sdk.api.services.async.crm.objects.services.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,65 +36,69 @@ interface ServiceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ServiceServiceAsync
 
-    /** Create a batch of objects */
-    fun create(params: ServiceCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun batch(): BatchServiceAsync
+
+    /**
+     * Create a service with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard services is provided.
+     */
+    fun create(params: ServiceCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ServiceCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObject>
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
+    ): CompletableFuture<SimplePublicObject> =
         create(
             ServiceCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): CompletableFuture<SimplePublicObject> =
+        create(simplePublicObjectInputForCreate, RequestOptions.none())
 
-    /** Update a batch of objects */
-    fun update(params: ServiceUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    /**
+     * Perform a partial update of an Object identified by `{serviceId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{serviceId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
+     */
+    fun update(
+        serviceId: String,
+        params: ServiceUpdateParams,
+    ): CompletableFuture<SimplePublicObject> = update(serviceId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        serviceId: String,
+        params: ServiceUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        update(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: ServiceUpdateParams): CompletableFuture<SimplePublicObject> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ServiceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(
-            ServiceUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject>
 
     /** Read a page of services. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<ServiceListPageAsync> = list(ServiceListParams.none())
@@ -118,9 +118,23 @@ interface ServiceServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<ServiceListPageAsync> =
         list(ServiceListParams.none(), requestOptions)
 
-    /** Archive a batch of objects */
-    fun delete(params: ServiceDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
+    /** Move an Object identified by `{serviceId}` to the recycling bin. */
+    fun delete(serviceId: String): CompletableFuture<Void?> =
+        delete(serviceId, ServiceDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        serviceId: String,
+        params: ServiceDeleteParams = ServiceDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        delete(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        serviceId: String,
+        params: ServiceDeleteParams = ServiceDeleteParams.none(),
+    ): CompletableFuture<Void?> = delete(serviceId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -129,52 +143,52 @@ interface ServiceServiceAsync {
     ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        delete(
-            ServiceDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: ServiceDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-    ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(serviceId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        delete(serviceId, ServiceDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{serviceId}`. `{serviceId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: ServiceGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(params, RequestOptions.none())
+    fun get(serviceId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(serviceId, ServiceGetParams.none())
+
+    /** @see get */
+    fun get(
+        serviceId: String,
+        params: ServiceGetParams = ServiceGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        serviceId: String,
+        params: ServiceGetParams = ServiceGetParams.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(serviceId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ServiceGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
+
+    /** @see get */
+    fun get(params: ServiceGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(
-            ServiceGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        serviceId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(serviceId, ServiceGetParams.none(), requestOptions)
 
     /** Fetch objects via a search query */
     fun search(
@@ -207,42 +221,6 @@ interface ServiceServiceAsync {
         search(publicObjectSearchRequest, RequestOptions.none())
 
     /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(
-        params: ServiceUpsertParams
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: ServiceUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject>
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(
-            ServiceUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
-    /**
      * A view of [ServiceServiceAsync] that provides access to raw HTTP responses for each method.
      */
     interface WithRawResponse {
@@ -256,75 +234,70 @@ interface ServiceServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): ServiceServiceAsync.WithRawResponse
 
+        fun batch(): BatchServiceAsync.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/create`, but is
-         * otherwise the same as [ServiceServiceAsync.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162`, but is otherwise the
+         * same as [ServiceServiceAsync.create].
          */
         fun create(
             params: ServiceCreateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: ServiceCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(
                 ServiceCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/0-162/{serviceId}`, but is
          * otherwise the same as [ServiceServiceAsync.update].
          */
         fun update(
+            serviceId: String,
+            params: ServiceUpdateParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(serviceId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            serviceId: String,
+            params: ServiceUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+        /** @see update */
+        fun update(
             params: ServiceUpdateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: ServiceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(
-                ServiceUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/0-162`, but is otherwise the
@@ -352,11 +325,25 @@ interface ServiceServiceAsync {
             list(ServiceListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/archive`, but is
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/0-162/{serviceId}`, but is
          * otherwise the same as [ServiceServiceAsync.delete].
          */
-        fun delete(params: ServiceDeleteParams): CompletableFuture<HttpResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(serviceId: String): CompletableFuture<HttpResponse> =
+            delete(serviceId, ServiceDeleteParams.none())
+
+        /** @see delete */
+        fun delete(
+            serviceId: String,
+            params: ServiceDeleteParams = ServiceDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(
+            serviceId: String,
+            params: ServiceDeleteParams = ServiceDeleteParams.none(),
+        ): CompletableFuture<HttpResponse> = delete(serviceId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
@@ -365,55 +352,58 @@ interface ServiceServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            delete(
-                ServiceDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: ServiceDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
+            serviceId: String,
+            requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+            delete(serviceId, ServiceDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/0-162/{serviceId}`, but is
          * otherwise the same as [ServiceServiceAsync.get].
          */
         fun get(
-            params: ServiceGetParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(params, RequestOptions.none())
+            serviceId: String
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(serviceId, ServiceGetParams.none())
+
+        /** @see get */
+        fun get(
+            serviceId: String,
+            params: ServiceGetParams = ServiceGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().serviceId(serviceId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            serviceId: String,
+            params: ServiceGetParams = ServiceGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(serviceId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: ServiceGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(
-                ServiceGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+            params: ServiceGetParams
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            serviceId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(serviceId, ServiceGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/search`, but is
@@ -447,42 +437,5 @@ interface ServiceServiceAsync {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-162/batch/upsert`, but is
-         * otherwise the same as [ServiceServiceAsync.upsert].
-         */
-        fun upsert(
-            params: ServiceUpsertParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        fun upsert(
-            params: ServiceUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>>
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(
-                ServiceUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

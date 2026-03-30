@@ -9,13 +9,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.products.ProductCreateParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductGetParams
@@ -23,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.products.ProductListPage
 import com.hubspot_sdk.api.models.crm.objects.products.ProductListParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductSearchParams
 import com.hubspot_sdk.api.models.crm.objects.products.ProductUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.products.ProductUpsertParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.products.BatchService
 import java.util.function.Consumer
 
 interface ProductService {
@@ -40,73 +36,65 @@ interface ProductService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProductService
 
+    fun batch(): BatchService
+
     /**
-     * Create multiple products in a single request by specifying their properties, and receive a
-     * response containing the details of the created products.
+     * Create a product with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard products is provided.
      */
-    fun create(params: ProductCreateParams): BatchResponseSimplePublicObject =
+    fun create(params: ProductCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ProductCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObject
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
+    ): SimplePublicObject =
         create(
             ProductCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): BatchResponseSimplePublicObject =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update multiple products in a single request using their internal IDs or unique property
-     * values. This batch operation allows for efficient modifications of product records by
-     * specifying the properties to be updated. Ensure that the provided property values are
-     * correct, as read-only and non-existent properties will result in an error.
+     * Perform a partial update of an Object identified by `{productId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{productId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
      */
-    fun update(params: ProductUpdateParams): BatchResponseSimplePublicObject =
+    fun update(productId: String, params: ProductUpdateParams): SimplePublicObject =
+        update(productId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        productId: String,
+        params: ProductUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject = update(params.toBuilder().productId(productId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: ProductUpdateParams): SimplePublicObject =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ProductUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        update(
-            ProductUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): BatchResponseSimplePublicObject =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): SimplePublicObject
 
     /** Read a page of products. Control what is returned via the `properties` query param. */
     fun list(): ProductListPage = list(ProductListParams.none())
@@ -125,62 +113,65 @@ interface ProductService {
     fun list(requestOptions: RequestOptions): ProductListPage =
         list(ProductListParams.none(), requestOptions)
 
-    /**
-     * Archive multiple products at once by providing their IDs. This operation moves the specified
-     * products to the recycling bin, effectively removing them from active use without permanently
-     * deleting them.
-     */
-    fun delete(params: ProductDeleteParams) = delete(params, RequestOptions.none())
+    /** Move an Object identified by `{productId}` to the recycling bin. */
+    fun delete(productId: String) = delete(productId, ProductDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        productId: String,
+        params: ProductDeleteParams = ProductDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().productId(productId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(productId: String, params: ProductDeleteParams = ProductDeleteParams.none()) =
+        delete(productId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(params: ProductDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        delete(
-            ProductDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: ProductDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
-        delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(productId: String, requestOptions: RequestOptions) =
+        delete(productId, ProductDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{productId}`. `{productId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: ProductGetParams): BatchResponseSimplePublicObject =
-        get(params, RequestOptions.none())
+    fun get(productId: String): SimplePublicObjectWithAssociations =
+        get(productId, ProductGetParams.none())
+
+    /** @see get */
+    fun get(
+        productId: String,
+        params: ProductGetParams = ProductGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().productId(productId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        productId: String,
+        params: ProductGetParams = ProductGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(productId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ProductGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObjectWithAssociations
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        get(
-            ProductGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun get(params: ProductGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): BatchResponseSimplePublicObject =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+    fun get(productId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(productId, ProductGetParams.none(), requestOptions)
 
     /**
      * Execute a search for products based on defined filters, properties, and sorting options. This
@@ -215,40 +206,6 @@ interface ProductService {
     ): CollectionResponseWithTotalSimplePublicObject =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: ProductUpsertParams): BatchResponseSimplePublicUpsertObject =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: ProductUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(
-            ProductUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [ProductService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -259,12 +216,14 @@ interface ProductService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ProductService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/create`, but is
-         * otherwise the same as [ProductService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/products`, but is otherwise
+         * the same as [ProductService.create].
          */
         @MustBeClosed
-        fun create(params: ProductCreateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun create(params: ProductCreateParams): HttpResponseFor<SimplePublicObject> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -272,20 +231,17 @@ interface ProductService {
         fun create(
             params: ProductCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObject>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+        ): HttpResponseFor<SimplePublicObject> =
             create(
                 ProductCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
@@ -293,17 +249,32 @@ interface ProductService {
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): HttpResponseFor<SimplePublicObject> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/products/{productId}`, but is
          * otherwise the same as [ProductService.update].
          */
         @MustBeClosed
-        fun update(params: ProductUpdateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun update(
+            productId: String,
+            params: ProductUpdateParams,
+        ): HttpResponseFor<SimplePublicObject> = update(productId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            productId: String,
+            params: ProductUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().productId(productId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: ProductUpdateParams): HttpResponseFor<SimplePublicObject> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -311,27 +282,7 @@ interface ProductService {
         fun update(
             params: ProductUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(
-                ProductUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/products`, but is otherwise the
@@ -358,12 +309,26 @@ interface ProductService {
             list(ProductListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/archive`, but
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/products/{productId}`, but
          * is otherwise the same as [ProductService.delete].
          */
         @MustBeClosed
-        fun delete(params: ProductDeleteParams): HttpResponse =
-            delete(params, RequestOptions.none())
+        fun delete(productId: String): HttpResponse = delete(productId, ProductDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            productId: String,
+            params: ProductDeleteParams = ProductDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().productId(productId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            productId: String,
+            params: ProductDeleteParams = ProductDeleteParams.none(),
+        ): HttpResponse = delete(productId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -374,56 +339,58 @@ interface ProductService {
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            delete(
-                ProductDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: ProductDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(productId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(productId, ProductDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/products/{productId}`, but is
          * otherwise the same as [ProductService.get].
          */
         @MustBeClosed
-        fun get(params: ProductGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(params, RequestOptions.none())
+        fun get(productId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(productId, ProductGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            productId: String,
+            params: ProductGetParams = ProductGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().productId(productId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            productId: String,
+            params: ProductGetParams = ProductGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(productId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: ProductGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: ProductGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(
-                ProductGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            productId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(productId, ProductGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/products/search`, but is
@@ -461,46 +428,5 @@ interface ProductService {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/products/batch/upsert`, but is
-         * otherwise the same as [ProductService.upsert].
-         */
-        @MustBeClosed
-        fun upsert(
-            params: ProductUpsertParams
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            params: ProductUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject>
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(
-                ProductUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

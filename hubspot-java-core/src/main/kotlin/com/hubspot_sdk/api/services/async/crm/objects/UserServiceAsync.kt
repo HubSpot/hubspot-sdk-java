@@ -8,13 +8,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.users.UserCreateParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserGetParams
@@ -22,7 +18,7 @@ import com.hubspot_sdk.api.models.crm.objects.users.UserListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.users.UserListParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserSearchParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.users.UserUpsertParams
+import com.hubspot_sdk.api.services.async.crm.objects.users.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,72 +36,67 @@ interface UserServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserServiceAsync
 
+    fun batch(): BatchServiceAsync
+
     /**
-     * Create multiple users in a single request by providing a batch of user properties and
-     * associations. This endpoint returns the created users along with their IDs.
+     * Create a user with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard users is provided.
      */
-    fun create(params: UserCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun create(params: UserCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: UserCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObject>
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
+    ): CompletableFuture<SimplePublicObject> =
         create(
             UserCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): CompletableFuture<SimplePublicObject> =
+        create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update multiple user records in a single request by specifying their internal IDs or unique
-     * property values. This operation allows for batch processing of user data, ensuring efficient
-     * updates across multiple user profiles.
+     * Perform a partial update of an Object identified by `{userId}`or optionally a unique property
+     * value as specified by the `idProperty` query param. `{userId}` refers to the internal object
+     * ID by default, and the `idProperty` query param refers to a property whose values are unique
+     * for the object. Provided property values will be overwritten. Read-only and non-existent
+     * properties will result in an error. Properties values can be cleared by passing an empty
+     * string.
      */
-    fun update(params: UserUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun update(userId: String, params: UserUpdateParams): CompletableFuture<SimplePublicObject> =
+        update(userId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        userId: String,
+        params: UserUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        update(params.toBuilder().userId(userId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: UserUpdateParams): CompletableFuture<SimplePublicObject> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: UserUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(
-            UserUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject>
 
     /** Read a page of users. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<UserListPageAsync> = list(UserListParams.none())
@@ -124,12 +115,21 @@ interface UserServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<UserListPageAsync> =
         list(UserListParams.none(), requestOptions)
 
-    /**
-     * Archive multiple users by their IDs in a single request. This operation moves the specified
-     * users to the recycling bin, effectively deactivating them from active use.
-     */
-    fun delete(params: UserDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
+    /** Move an Object identified by `{userId}` to the recycling bin. */
+    fun delete(userId: String): CompletableFuture<Void?> = delete(userId, UserDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        userId: String,
+        params: UserDeleteParams = UserDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> = delete(params.toBuilder().userId(userId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        userId: String,
+        params: UserDeleteParams = UserDeleteParams.none(),
+    ): CompletableFuture<Void?> = delete(userId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -138,52 +138,52 @@ interface UserServiceAsync {
     ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        delete(
-            UserDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: UserDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-    ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(userId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        delete(userId, UserDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{userId}`. `{userId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: UserGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(params, RequestOptions.none())
+    fun get(userId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(userId, UserGetParams.none())
+
+    /** @see get */
+    fun get(
+        userId: String,
+        params: UserGetParams = UserGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().userId(userId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        userId: String,
+        params: UserGetParams = UserGetParams.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(userId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: UserGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
+
+    /** @see get */
+    fun get(params: UserGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(
-            UserGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        userId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(userId, UserGetParams.none(), requestOptions)
 
     /**
      * Execute a search for users using defined filters, properties, and sorting options. The
@@ -216,40 +216,6 @@ interface UserServiceAsync {
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: UserUpsertParams): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: UserUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject>
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(
-            UserUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [UserServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -260,75 +226,70 @@ interface UserServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserServiceAsync.WithRawResponse
 
+        fun batch(): BatchServiceAsync.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/create`, but is
-         * otherwise the same as [UserServiceAsync.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/users`, but is otherwise the
+         * same as [UserServiceAsync.create].
          */
         fun create(
             params: UserCreateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: UserCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(
                 UserCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/users/{userId}`, but is
          * otherwise the same as [UserServiceAsync.update].
          */
         fun update(
+            userId: String,
+            params: UserUpdateParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(userId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            userId: String,
+            params: UserUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(params.toBuilder().userId(userId).build(), requestOptions)
+
+        /** @see update */
+        fun update(
             params: UserUpdateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: UserUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(
-                UserUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/users`, but is otherwise the
@@ -356,11 +317,25 @@ interface UserServiceAsync {
             list(UserListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/archive`, but is
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/users/{userId}`, but is
          * otherwise the same as [UserServiceAsync.delete].
          */
-        fun delete(params: UserDeleteParams): CompletableFuture<HttpResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(userId: String): CompletableFuture<HttpResponse> =
+            delete(userId, UserDeleteParams.none())
+
+        /** @see delete */
+        fun delete(
+            userId: String,
+            params: UserDeleteParams = UserDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().userId(userId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(
+            userId: String,
+            params: UserDeleteParams = UserDeleteParams.none(),
+        ): CompletableFuture<HttpResponse> = delete(userId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
@@ -369,55 +344,57 @@ interface UserServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            delete(
-                UserDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: UserDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponse> =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+            userId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> = delete(userId, UserDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/users/{userId}`, but is
          * otherwise the same as [UserServiceAsync.get].
          */
         fun get(
-            params: UserGetParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(params, RequestOptions.none())
+            userId: String
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(userId, UserGetParams.none())
+
+        /** @see get */
+        fun get(
+            userId: String,
+            params: UserGetParams = UserGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().userId(userId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            userId: String,
+            params: UserGetParams = UserGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(userId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: UserGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(
-                UserGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+            params: UserGetParams
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            userId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(userId, UserGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/users/search`, but is
@@ -451,42 +428,5 @@ interface UserServiceAsync {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/upsert`, but is
-         * otherwise the same as [UserServiceAsync.upsert].
-         */
-        fun upsert(
-            params: UserUpsertParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        fun upsert(
-            params: UserUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>>
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(
-                UserUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

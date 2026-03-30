@@ -3,8 +3,8 @@
 package com.hubspot_sdk.api.models.crm.objects.invoices
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
+import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -13,18 +13,13 @@ internal class InvoiceUpdateParamsTest {
     @Test
     fun create() {
         InvoiceUpdateParams.builder()
-            .batchInputSimplePublicObjectBatchInput(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .idProperty("my_unique_property_name")
-                            .objectWriteTraceId("objectWriteTraceId")
+            .invoiceId("invoiceId")
+            .idProperty("idProperty")
+            .simplePublicObjectInput(
+                SimplePublicObjectInput.builder()
+                    .properties(
+                        SimplePublicObjectInput.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -33,21 +28,81 @@ internal class InvoiceUpdateParamsTest {
     }
 
     @Test
+    fun pathParams() {
+        val params =
+            InvoiceUpdateParams.builder()
+                .invoiceId("invoiceId")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        assertThat(params._pathParam(0)).isEqualTo("invoiceId")
+        // out-of-bound path param
+        assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun queryParams() {
+        val params =
+            InvoiceUpdateParams.builder()
+                .invoiceId("invoiceId")
+                .idProperty("idProperty")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(QueryParams.builder().put("idProperty", "idProperty").build())
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
+        val params =
+            InvoiceUpdateParams.builder()
+                .invoiceId("invoiceId")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
+    }
+
+    @Test
     fun body() {
         val params =
             InvoiceUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(
-                    BatchInputSimplePublicObjectBatchInput.builder()
-                        .addInput(
-                            SimplePublicObjectBatchInput.builder()
-                                .id("id")
-                                .properties(
-                                    SimplePublicObjectBatchInput.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
-                                .idProperty("my_unique_property_name")
-                                .objectWriteTraceId("objectWriteTraceId")
+                .invoiceId("invoiceId")
+                .idProperty("idProperty")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -58,17 +113,10 @@ internal class InvoiceUpdateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .idProperty("my_unique_property_name")
-                            .objectWriteTraceId("objectWriteTraceId")
+                SimplePublicObjectInput.builder()
+                    .properties(
+                        SimplePublicObjectInput.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -79,16 +127,12 @@ internal class InvoiceUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             InvoiceUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(
-                    BatchInputSimplePublicObjectBatchInput.builder()
-                        .addInput(
-                            SimplePublicObjectBatchInput.builder()
-                                .id("id")
-                                .properties(
-                                    SimplePublicObjectBatchInput.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
+                .invoiceId("invoiceId")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -99,15 +143,10 @@ internal class InvoiceUpdateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
+                SimplePublicObjectInput.builder()
+                    .properties(
+                        SimplePublicObjectInput.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()

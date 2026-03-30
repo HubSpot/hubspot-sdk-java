@@ -7,27 +7,40 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /**
- * Update multiple products in a single request using their internal IDs or unique property values.
- * This batch operation allows for efficient modifications of product records by specifying the
- * properties to be updated. Ensure that the provided property values are correct, as read-only and
- * non-existent properties will result in an error.
+ * Perform a partial update of an Object identified by `{productId}`or optionally a unique property
+ * value as specified by the `idProperty` query param. `{productId}` refers to the internal object
+ * ID by default, and the `idProperty` query param refers to a property whose values are unique for
+ * the object. Provided property values will be overwritten. Read-only and non-existent properties
+ * will result in an error. Properties values can be cleared by passing an empty string.
  */
 class ProductUpdateParams
 private constructor(
-    private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
+    private val productId: String?,
+    private val idProperty: String?,
+    private val simplePublicObjectInput: SimplePublicObjectInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun batchInputSimplePublicObjectBatchInput(): BatchInputSimplePublicObjectBatchInput =
-        batchInputSimplePublicObjectBatchInput
+    fun productId(): Optional<String> = Optional.ofNullable(productId)
+
+    /** The name of a property whose values are unique for this object type */
+    fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
+
+    /**
+     * Represents the input required to create or update a CRM object, containing an object with
+     * property names and their corresponding values.
+     */
+    fun simplePublicObjectInput(): SimplePublicObjectInput = simplePublicObjectInput
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchInputSimplePublicObjectBatchInput._additionalProperties()
+        simplePublicObjectInput._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -44,7 +57,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInput()
+         * .simplePublicObjectInput()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -53,24 +66,38 @@ private constructor(
     /** A builder for [ProductUpdateParams]. */
     class Builder internal constructor() {
 
-        private var batchInputSimplePublicObjectBatchInput:
-            BatchInputSimplePublicObjectBatchInput? =
-            null
+        private var productId: String? = null
+        private var idProperty: String? = null
+        private var simplePublicObjectInput: SimplePublicObjectInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(productUpdateParams: ProductUpdateParams) = apply {
-            batchInputSimplePublicObjectBatchInput =
-                productUpdateParams.batchInputSimplePublicObjectBatchInput
+            productId = productUpdateParams.productId
+            idProperty = productUpdateParams.idProperty
+            simplePublicObjectInput = productUpdateParams.simplePublicObjectInput
             additionalHeaders = productUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = productUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        fun batchInputSimplePublicObjectBatchInput(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ) = apply {
-            this.batchInputSimplePublicObjectBatchInput = batchInputSimplePublicObjectBatchInput
+        fun productId(productId: String?) = apply { this.productId = productId }
+
+        /** Alias for calling [Builder.productId] with `productId.orElse(null)`. */
+        fun productId(productId: Optional<String>) = productId(productId.getOrNull())
+
+        /** The name of a property whose values are unique for this object type */
+        fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
+
+        /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
+        fun idProperty(idProperty: Optional<String>) = idProperty(idProperty.getOrNull())
+
+        /**
+         * Represents the input required to create or update a CRM object, containing an object with
+         * property names and their corresponding values.
+         */
+        fun simplePublicObjectInput(simplePublicObjectInput: SimplePublicObjectInput) = apply {
+            this.simplePublicObjectInput = simplePublicObjectInput
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -178,27 +205,38 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInput()
+         * .simplePublicObjectInput()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ProductUpdateParams =
             ProductUpdateParams(
-                checkRequired(
-                    "batchInputSimplePublicObjectBatchInput",
-                    batchInputSimplePublicObjectBatchInput,
-                ),
+                productId,
+                idProperty,
+                checkRequired("simplePublicObjectInput", simplePublicObjectInput),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): BatchInputSimplePublicObjectBatchInput = batchInputSimplePublicObjectBatchInput
+    fun _body(): SimplePublicObjectInput = simplePublicObjectInput
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> productId ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                idProperty?.let { put("idProperty", it) }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -206,19 +244,22 @@ private constructor(
         }
 
         return other is ProductUpdateParams &&
-            batchInputSimplePublicObjectBatchInput ==
-                other.batchInputSimplePublicObjectBatchInput &&
+            productId == other.productId &&
+            idProperty == other.idProperty &&
+            simplePublicObjectInput == other.simplePublicObjectInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
         Objects.hash(
-            batchInputSimplePublicObjectBatchInput,
+            productId,
+            idProperty,
+            simplePublicObjectInput,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "ProductUpdateParams{batchInputSimplePublicObjectBatchInput=$batchInputSimplePublicObjectBatchInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ProductUpdateParams{productId=$productId, idProperty=$idProperty, simplePublicObjectInput=$simplePublicObjectInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

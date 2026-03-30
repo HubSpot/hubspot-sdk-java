@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.async.crm.objects
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.handlers.emptyHandler
 import com.hubspot_sdk.api.core.handlers.errorBodyHandler
 import com.hubspot_sdk.api.core.handlers.errorHandler
@@ -17,9 +18,9 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.users.UserCreateParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserGetParams
@@ -27,9 +28,11 @@ import com.hubspot_sdk.api.models.crm.objects.users.UserListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.users.UserListParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserSearchParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.users.UserUpsertParams
+import com.hubspot_sdk.api.services.async.crm.objects.users.BatchServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.users.BatchServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
 
 class UserServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
     UserServiceAsync {
@@ -38,23 +41,27 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
         WithRawResponseImpl(clientOptions)
     }
 
+    private val batch: BatchServiceAsync by lazy { BatchServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): UserServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserServiceAsync =
         UserServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    override fun batch(): BatchServiceAsync = batch
+
     override fun create(
         params: UserCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        // post /crm/objects/2026-03/users/batch/create
+    ): CompletableFuture<SimplePublicObject> =
+        // post /crm/objects/2026-03/users
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: UserUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        // post /crm/objects/2026-03/users/batch/update
+    ): CompletableFuture<SimplePublicObject> =
+        // patch /crm/objects/2026-03/users/{userId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
@@ -68,14 +75,14 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
         params: UserDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // post /crm/objects/2026-03/users/batch/archive
+        // delete /crm/objects/2026-03/users/{userId}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun get(
         params: UserGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        // post /crm/objects/2026-03/users/batch/read
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        // get /crm/objects/2026-03/users/{userId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun search(
@@ -85,18 +92,15 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // post /crm/objects/2026-03/users/search
         withRawResponse().search(params, requestOptions).thenApply { it.parse() }
 
-    override fun upsert(
-        params: UserUpsertParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        // post /crm/objects/2026-03/users/batch/upsert
-        withRawResponse().upsert(params, requestOptions).thenApply { it.parse() }
-
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         UserServiceAsync.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        private val batch: BatchServiceAsync.WithRawResponse by lazy {
+            BatchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -105,18 +109,20 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        override fun batch(): BatchServiceAsync.WithRawResponse = batch
+
+        private val createHandler: Handler<SimplePublicObject> =
+            jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
 
         override fun create(
             params: UserCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> {
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "users", "batch", "create")
+                    .addPathSegments("crm", "objects", "2026-03", "users")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -136,18 +142,21 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val updateHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<SimplePublicObject> =
+            jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
 
         override fun update(
             params: UserUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> {
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("userId", params.userId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "users", "batch", "update")
+                    .addPathSegments("crm", "objects", "2026-03", "users", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -214,12 +223,15 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
             params: UserDeleteParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("userId", params.userId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "users", "batch", "archive")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .addPathSegments("crm", "objects", "2026-03", "users", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -232,19 +244,21 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val getHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
+            jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
         override fun get(
             params: UserGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> {
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("userId", params.userId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "users", "batch", "read")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .addPathSegments("crm", "objects", "2026-03", "users", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -285,37 +299,6 @@ class UserServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     errorHandler.handle(response).parseable {
                         response
                             .use { searchHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val upsertHandler: Handler<BatchResponseSimplePublicUpsertObject> =
-            jsonHandler<BatchResponseSimplePublicUpsertObject>(clientOptions.jsonMapper)
-
-        override fun upsert(
-            params: UserUpsertParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "users", "batch", "upsert")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { upsertHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

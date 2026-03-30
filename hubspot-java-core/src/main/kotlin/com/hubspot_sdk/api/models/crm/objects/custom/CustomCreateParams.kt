@@ -7,29 +7,34 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a batch of objects */
+/**
+ * Create a CRM object with the given properties and return a copy of the object, including the ID.
+ * Documentation and examples for creating standard objects is provided.
+ */
 class CustomCreateParams
 private constructor(
     private val objectType: String?,
-    private val batchInputSimplePublicObjectBatchInputForCreate:
-        BatchInputSimplePublicObjectBatchInputForCreate,
+    private val simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
-    fun batchInputSimplePublicObjectBatchInputForCreate():
-        BatchInputSimplePublicObjectBatchInputForCreate =
-        batchInputSimplePublicObjectBatchInputForCreate
+    /**
+     * Is the input object used to create a new CRM object, containing the properties to be set and
+     * optional associations to link the new record with other CRM objects.
+     */
+    fun simplePublicObjectInputForCreate(): SimplePublicObjectInputForCreate =
+        simplePublicObjectInputForCreate
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchInputSimplePublicObjectBatchInputForCreate._additionalProperties()
+        simplePublicObjectInputForCreate._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -46,7 +51,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInputForCreate()
+         * .simplePublicObjectInputForCreate()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -56,17 +61,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectType: String? = null
-        private var batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate? =
-            null
+        private var simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(customCreateParams: CustomCreateParams) = apply {
             objectType = customCreateParams.objectType
-            batchInputSimplePublicObjectBatchInputForCreate =
-                customCreateParams.batchInputSimplePublicObjectBatchInputForCreate
+            simplePublicObjectInputForCreate = customCreateParams.simplePublicObjectInputForCreate
             additionalHeaders = customCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = customCreateParams.additionalQueryParams.toBuilder()
         }
@@ -76,13 +78,13 @@ private constructor(
         /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
         fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
-        fun batchInputSimplePublicObjectBatchInputForCreate(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ) = apply {
-            this.batchInputSimplePublicObjectBatchInputForCreate =
-                batchInputSimplePublicObjectBatchInputForCreate
-        }
+        /**
+         * Is the input object used to create a new CRM object, containing the properties to be set
+         * and optional associations to link the new record with other CRM objects.
+         */
+        fun simplePublicObjectInputForCreate(
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ) = apply { this.simplePublicObjectInputForCreate = simplePublicObjectInputForCreate }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -189,7 +191,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInputForCreate()
+         * .simplePublicObjectInputForCreate()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -197,17 +199,13 @@ private constructor(
         fun build(): CustomCreateParams =
             CustomCreateParams(
                 objectType,
-                checkRequired(
-                    "batchInputSimplePublicObjectBatchInputForCreate",
-                    batchInputSimplePublicObjectBatchInputForCreate,
-                ),
+                checkRequired("simplePublicObjectInputForCreate", simplePublicObjectInputForCreate),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): BatchInputSimplePublicObjectBatchInputForCreate =
-        batchInputSimplePublicObjectBatchInputForCreate
+    fun _body(): SimplePublicObjectInputForCreate = simplePublicObjectInputForCreate
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -226,8 +224,7 @@ private constructor(
 
         return other is CustomCreateParams &&
             objectType == other.objectType &&
-            batchInputSimplePublicObjectBatchInputForCreate ==
-                other.batchInputSimplePublicObjectBatchInputForCreate &&
+            simplePublicObjectInputForCreate == other.simplePublicObjectInputForCreate &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -235,11 +232,11 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             objectType,
-            batchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "CustomCreateParams{objectType=$objectType, batchInputSimplePublicObjectBatchInputForCreate=$batchInputSimplePublicObjectBatchInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "CustomCreateParams{objectType=$objectType, simplePublicObjectInputForCreate=$simplePublicObjectInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

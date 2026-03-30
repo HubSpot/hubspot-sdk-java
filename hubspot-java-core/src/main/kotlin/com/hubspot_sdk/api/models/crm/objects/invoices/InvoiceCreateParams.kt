@@ -7,27 +7,29 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import java.util.Objects
 
 /**
- * Create multiple invoices at once by providing a batch of invoice data, and receive a response
- * with details of the created invoices, including their IDs.
+ * Create a invoice with the given properties and return a copy of the object, including the ID.
+ * Documentation and examples for creating standard invoices is provided.
  */
 class InvoiceCreateParams
 private constructor(
-    private val batchInputSimplePublicObjectBatchInputForCreate:
-        BatchInputSimplePublicObjectBatchInputForCreate,
+    private val simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun batchInputSimplePublicObjectBatchInputForCreate():
-        BatchInputSimplePublicObjectBatchInputForCreate =
-        batchInputSimplePublicObjectBatchInputForCreate
+    /**
+     * Is the input object used to create a new CRM object, containing the properties to be set and
+     * optional associations to link the new record with other CRM objects.
+     */
+    fun simplePublicObjectInputForCreate(): SimplePublicObjectInputForCreate =
+        simplePublicObjectInputForCreate
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchInputSimplePublicObjectBatchInputForCreate._additionalProperties()
+        simplePublicObjectInputForCreate._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -44,7 +46,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInputForCreate()
+         * .simplePublicObjectInputForCreate()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -53,27 +55,24 @@ private constructor(
     /** A builder for [InvoiceCreateParams]. */
     class Builder internal constructor() {
 
-        private var batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate? =
-            null
+        private var simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(invoiceCreateParams: InvoiceCreateParams) = apply {
-            batchInputSimplePublicObjectBatchInputForCreate =
-                invoiceCreateParams.batchInputSimplePublicObjectBatchInputForCreate
+            simplePublicObjectInputForCreate = invoiceCreateParams.simplePublicObjectInputForCreate
             additionalHeaders = invoiceCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = invoiceCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun batchInputSimplePublicObjectBatchInputForCreate(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ) = apply {
-            this.batchInputSimplePublicObjectBatchInputForCreate =
-                batchInputSimplePublicObjectBatchInputForCreate
-        }
+        /**
+         * Is the input object used to create a new CRM object, containing the properties to be set
+         * and optional associations to link the new record with other CRM objects.
+         */
+        fun simplePublicObjectInputForCreate(
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ) = apply { this.simplePublicObjectInputForCreate = simplePublicObjectInputForCreate }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -180,24 +179,20 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .batchInputSimplePublicObjectBatchInputForCreate()
+         * .simplePublicObjectInputForCreate()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): InvoiceCreateParams =
             InvoiceCreateParams(
-                checkRequired(
-                    "batchInputSimplePublicObjectBatchInputForCreate",
-                    batchInputSimplePublicObjectBatchInputForCreate,
-                ),
+                checkRequired("simplePublicObjectInputForCreate", simplePublicObjectInputForCreate),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): BatchInputSimplePublicObjectBatchInputForCreate =
-        batchInputSimplePublicObjectBatchInputForCreate
+    fun _body(): SimplePublicObjectInputForCreate = simplePublicObjectInputForCreate
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -209,19 +204,14 @@ private constructor(
         }
 
         return other is InvoiceCreateParams &&
-            batchInputSimplePublicObjectBatchInputForCreate ==
-                other.batchInputSimplePublicObjectBatchInputForCreate &&
+            simplePublicObjectInputForCreate == other.simplePublicObjectInputForCreate &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            batchInputSimplePublicObjectBatchInputForCreate,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(simplePublicObjectInputForCreate, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "InvoiceCreateParams{batchInputSimplePublicObjectBatchInputForCreate=$batchInputSimplePublicObjectBatchInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "InvoiceCreateParams{simplePublicObjectInputForCreate=$simplePublicObjectInputForCreate, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -9,13 +9,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.orders.OrderCreateParams
 import com.hubspot_sdk.api.models.crm.objects.orders.OrderDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.orders.OrderGetParams
@@ -23,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.orders.OrderListPage
 import com.hubspot_sdk.api.models.crm.objects.orders.OrderListParams
 import com.hubspot_sdk.api.models.crm.objects.orders.OrderSearchParams
 import com.hubspot_sdk.api.models.crm.objects.orders.OrderUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.orders.OrderUpsertParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.orders.BatchService
 import java.util.function.Consumer
 
 interface OrderService {
@@ -40,65 +36,65 @@ interface OrderService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): OrderService
 
-    /** Create a batch of orders in the system. */
-    fun create(params: OrderCreateParams): BatchResponseSimplePublicObject =
+    fun batch(): BatchService
+
+    /**
+     * Create a order with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard orders is provided.
+     */
+    fun create(params: OrderCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: OrderCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObject
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
+    ): SimplePublicObject =
         create(
             OrderCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): BatchResponseSimplePublicObject =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
-    /** Update a batch of orders using their internal IDs or unique property values. */
-    fun update(params: OrderUpdateParams): BatchResponseSimplePublicObject =
+    /**
+     * Perform a partial update of an Object identified by `{orderId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{orderId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
+     */
+    fun update(orderId: String, params: OrderUpdateParams): SimplePublicObject =
+        update(orderId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        orderId: String,
+        params: OrderUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject = update(params.toBuilder().orderId(orderId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: OrderUpdateParams): SimplePublicObject =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: OrderUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        update(
-            OrderUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): BatchResponseSimplePublicObject =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): SimplePublicObject
 
     /** Read a page of orders. Control what is returned via the `properties` query param. */
     fun list(): OrderListPage = list(OrderListParams.none())
@@ -117,58 +113,65 @@ interface OrderService {
     fun list(requestOptions: RequestOptions): OrderListPage =
         list(OrderListParams.none(), requestOptions)
 
-    /** Archive a batch of orders identified by their IDs. */
-    fun delete(params: OrderDeleteParams) = delete(params, RequestOptions.none())
+    /** Move an Object identified by `{orderId}` to the recycling bin. */
+    fun delete(orderId: String) = delete(orderId, OrderDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        orderId: String,
+        params: OrderDeleteParams = OrderDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().orderId(orderId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(orderId: String, params: OrderDeleteParams = OrderDeleteParams.none()) =
+        delete(orderId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(params: OrderDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        delete(
-            OrderDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: OrderDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
-        delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(orderId: String, requestOptions: RequestOptions) =
+        delete(orderId, OrderDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{orderId}`. `{orderId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: OrderGetParams): BatchResponseSimplePublicObject =
-        get(params, RequestOptions.none())
+    fun get(orderId: String): SimplePublicObjectWithAssociations =
+        get(orderId, OrderGetParams.none())
+
+    /** @see get */
+    fun get(
+        orderId: String,
+        params: OrderGetParams = OrderGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().orderId(orderId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        orderId: String,
+        params: OrderGetParams = OrderGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(orderId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: OrderGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObjectWithAssociations
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        get(
-            OrderGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun get(params: OrderGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): BatchResponseSimplePublicObject =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+    fun get(orderId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(orderId, OrderGetParams.none(), requestOptions)
 
     /** Execute a search for orders using specified criteria and return matching results. */
     fun search(params: OrderSearchParams): CollectionResponseWithTotalSimplePublicObject =
@@ -198,40 +201,6 @@ interface OrderService {
     ): CollectionResponseWithTotalSimplePublicObject =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: OrderUpsertParams): BatchResponseSimplePublicUpsertObject =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: OrderUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(
-            OrderUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [OrderService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -242,12 +211,14 @@ interface OrderService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): OrderService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/orders/batch/create`, but is
-         * otherwise the same as [OrderService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/orders`, but is otherwise the
+         * same as [OrderService.create].
          */
         @MustBeClosed
-        fun create(params: OrderCreateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun create(params: OrderCreateParams): HttpResponseFor<SimplePublicObject> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -255,20 +226,17 @@ interface OrderService {
         fun create(
             params: OrderCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObject>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+        ): HttpResponseFor<SimplePublicObject> =
             create(
                 OrderCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
@@ -276,17 +244,32 @@ interface OrderService {
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): HttpResponseFor<SimplePublicObject> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/orders/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/orders/{orderId}`, but is
          * otherwise the same as [OrderService.update].
          */
         @MustBeClosed
-        fun update(params: OrderUpdateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun update(
+            orderId: String,
+            params: OrderUpdateParams,
+        ): HttpResponseFor<SimplePublicObject> = update(orderId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            orderId: String,
+            params: OrderUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().orderId(orderId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: OrderUpdateParams): HttpResponseFor<SimplePublicObject> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -294,27 +277,7 @@ interface OrderService {
         fun update(
             params: OrderUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(
-                OrderUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/orders`, but is otherwise the
@@ -340,11 +303,26 @@ interface OrderService {
             list(OrderListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/orders/batch/archive`, but is
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/orders/{orderId}`, but is
          * otherwise the same as [OrderService.delete].
          */
         @MustBeClosed
-        fun delete(params: OrderDeleteParams): HttpResponse = delete(params, RequestOptions.none())
+        fun delete(orderId: String): HttpResponse = delete(orderId, OrderDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            orderId: String,
+            params: OrderDeleteParams = OrderDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().orderId(orderId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            orderId: String,
+            params: OrderDeleteParams = OrderDeleteParams.none(),
+        ): HttpResponse = delete(orderId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -355,56 +333,57 @@ interface OrderService {
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            delete(
-                OrderDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: OrderDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(orderId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(orderId, OrderDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/orders/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/orders/{orderId}`, but is
          * otherwise the same as [OrderService.get].
          */
         @MustBeClosed
-        fun get(params: OrderGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(params, RequestOptions.none())
+        fun get(orderId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(orderId, OrderGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            orderId: String,
+            params: OrderGetParams = OrderGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().orderId(orderId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            orderId: String,
+            params: OrderGetParams = OrderGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(orderId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: OrderGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: OrderGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(
-                OrderGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            orderId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(orderId, OrderGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/orders/search`, but is
@@ -442,46 +421,5 @@ interface OrderService {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/orders/batch/upsert`, but is
-         * otherwise the same as [OrderService.upsert].
-         */
-        @MustBeClosed
-        fun upsert(
-            params: OrderUpsertParams
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            params: OrderUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject>
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(
-                OrderUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

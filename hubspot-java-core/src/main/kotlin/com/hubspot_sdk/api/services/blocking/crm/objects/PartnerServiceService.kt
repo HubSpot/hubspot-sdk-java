@@ -8,14 +8,14 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceGetParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceListPage
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceListParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceSearchParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceUpdateParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.partnerservices.BatchService
 import java.util.function.Consumer
 
 interface PartnerServiceService {
@@ -32,37 +32,36 @@ interface PartnerServiceService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PartnerServiceService
 
+    fun batch(): BatchService
+
     /**
-     * Update multiple partner services using their internal IDs or unique property values. This
-     * operation allows for batch processing of updates, ensuring efficient synchronization of
-     * service data between HubSpot and other systems.
+     * Perform a partial update of an Object identified by `{partnerServiceId}`or optionally a
+     * unique property value as specified by the `idProperty` query param. `{partnerServiceId}`
+     * refers to the internal object ID by default, and the `idProperty` query param refers to a
+     * property whose values are unique for the object. Provided property values will be
+     * overwritten. Read-only and non-existent properties will result in an error. Properties values
+     * can be cleared by passing an empty string.
      */
-    fun update(params: PartnerServiceUpdateParams): BatchResponseSimplePublicObject =
+    fun update(partnerServiceId: String, params: PartnerServiceUpdateParams): SimplePublicObject =
+        update(partnerServiceId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        partnerServiceId: String,
+        params: PartnerServiceUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject =
+        update(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: PartnerServiceUpdateParams): SimplePublicObject =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PartnerServiceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        update(
-            PartnerServiceUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): BatchResponseSimplePublicObject =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): SimplePublicObject
 
     /**
      * Retrieve a list of associations for a specific partner service, filtered by the type of
@@ -90,35 +89,43 @@ interface PartnerServiceService {
     ): PartnerServiceListPage
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{partnerServiceId}`. `{partnerServiceId}` refers to the
+     * internal object ID by default, or optionally any unique property value as specified by the
+     * `idProperty` query param. Control what is returned via the `properties` query param.
      */
-    fun get(params: PartnerServiceGetParams): BatchResponseSimplePublicObject =
-        get(params, RequestOptions.none())
+    fun get(partnerServiceId: String): SimplePublicObjectWithAssociations =
+        get(partnerServiceId, PartnerServiceGetParams.none())
+
+    /** @see get */
+    fun get(
+        partnerServiceId: String,
+        params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        partnerServiceId: String,
+        params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(partnerServiceId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PartnerServiceGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObjectWithAssociations
+
+    /** @see get */
+    fun get(params: PartnerServiceGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        get(
-            PartnerServiceGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): BatchResponseSimplePublicObject =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        partnerServiceId: String,
+        requestOptions: RequestOptions,
+    ): SimplePublicObjectWithAssociations =
+        get(partnerServiceId, PartnerServiceGetParams.none(), requestOptions)
 
     /**
      * Execute a search query to find partner services based on defined filters, properties, and
@@ -166,42 +173,40 @@ interface PartnerServiceService {
             modifier: Consumer<ClientOptions.Builder>
         ): PartnerServiceService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post
-         * /crm/objects/2026-03/partner_services/batch/update`, but is otherwise the same as
+         * Returns a raw HTTP response for `patch
+         * /crm/objects/2026-03/partner_services/{partnerServiceId}`, but is otherwise the same as
          * [PartnerServiceService.update].
          */
         @MustBeClosed
         fun update(
-            params: PartnerServiceUpdateParams
-        ): HttpResponseFor<BatchResponseSimplePublicObject> = update(params, RequestOptions.none())
+            partnerServiceId: String,
+            params: PartnerServiceUpdateParams,
+        ): HttpResponseFor<SimplePublicObject> =
+            update(partnerServiceId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            partnerServiceId: String,
+            params: PartnerServiceUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: PartnerServiceUpdateParams): HttpResponseFor<SimplePublicObject> =
+            update(params, RequestOptions.none())
 
         /** @see update */
         @MustBeClosed
         fun update(
             params: PartnerServiceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(
-                PartnerServiceUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `get
@@ -237,39 +242,51 @@ interface PartnerServiceService {
         ): HttpResponseFor<PartnerServiceListPage>
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_services/batch/read`,
-         * but is otherwise the same as [PartnerServiceService.get].
+         * Returns a raw HTTP response for `get
+         * /crm/objects/2026-03/partner_services/{partnerServiceId}`, but is otherwise the same as
+         * [PartnerServiceService.get].
          */
         @MustBeClosed
-        fun get(params: PartnerServiceGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(params, RequestOptions.none())
+        fun get(partnerServiceId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(partnerServiceId, PartnerServiceGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            partnerServiceId: String,
+            params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            partnerServiceId: String,
+            params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(partnerServiceId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: PartnerServiceGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(
-                PartnerServiceGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+            params: PartnerServiceGetParams
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> = get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            partnerServiceId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(partnerServiceId, PartnerServiceGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_services/search`, but

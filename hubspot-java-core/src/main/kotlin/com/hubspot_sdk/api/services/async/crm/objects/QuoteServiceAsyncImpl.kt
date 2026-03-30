@@ -28,8 +28,8 @@ import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteSearchParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteUpdateParams
-import com.hubspot_sdk.api.services.async.crm.objects.quotes.BasicServiceAsync
-import com.hubspot_sdk.api.services.async.crm.objects.quotes.BasicServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.crm.objects.quotes.BatchServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.quotes.BatchServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -41,14 +41,14 @@ class QuoteServiceAsyncImpl internal constructor(private val clientOptions: Clie
         WithRawResponseImpl(clientOptions)
     }
 
-    private val basic: BasicServiceAsync by lazy { BasicServiceAsyncImpl(clientOptions) }
+    private val batch: BatchServiceAsync by lazy { BatchServiceAsyncImpl(clientOptions) }
 
     override fun withRawResponse(): QuoteServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): QuoteServiceAsync =
         QuoteServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun basic(): BasicServiceAsync = basic
+    override fun batch(): BatchServiceAsync = batch
 
     override fun create(
         params: QuoteCreateParams,
@@ -98,8 +98,8 @@ class QuoteServiceAsyncImpl internal constructor(private val clientOptions: Clie
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val basic: BasicServiceAsync.WithRawResponse by lazy {
-            BasicServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val batch: BatchServiceAsync.WithRawResponse by lazy {
+            BatchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -109,7 +109,7 @@ class QuoteServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        override fun basic(): BasicServiceAsync.WithRawResponse = basic
+        override fun batch(): BatchServiceAsync.WithRawResponse = batch
 
         private val createHandler: Handler<SimplePublicObject> =
             jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
