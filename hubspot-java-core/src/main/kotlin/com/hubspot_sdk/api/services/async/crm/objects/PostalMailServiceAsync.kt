@@ -8,13 +8,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailCreateParams
 import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailGetParams
@@ -22,7 +18,7 @@ import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailListParams
 import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailSearchParams
 import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.postalmail.PostalMailUpsertParams
+import com.hubspot_sdk.api.services.async.crm.objects.postalmail.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,65 +36,61 @@ interface PostalMailServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PostalMailServiceAsync
 
-    /** Create a batch of postal mail objects. */
-    fun create(params: PostalMailCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun batch(): BatchServiceAsync
+
+    /**
+     * Create a postal mail object with the given properties and return a copy of the object,
+     * including the ID.
+     */
+    fun create(params: PostalMailCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: PostalMailCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObject>
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
+    ): CompletableFuture<SimplePublicObject> =
         create(
             PostalMailCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): CompletableFuture<SimplePublicObject> =
+        create(simplePublicObjectInputForCreate, RequestOptions.none())
 
-    /** Update multiple postal mail objects in a single request. */
-    fun update(params: PostalMailUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
+    fun update(
+        postalMailId: String,
+        params: PostalMailUpdateParams,
+    ): CompletableFuture<SimplePublicObject> = update(postalMailId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        postalMailId: String,
+        params: PostalMailUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        update(params.toBuilder().postalMailId(postalMailId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: PostalMailUpdateParams): CompletableFuture<SimplePublicObject> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PostalMailUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(
-            PostalMailUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject>
 
     fun list(): CompletableFuture<PostalMailListPageAsync> = list(PostalMailListParams.none())
 
@@ -117,9 +109,23 @@ interface PostalMailServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<PostalMailListPageAsync> =
         list(PostalMailListParams.none(), requestOptions)
 
-    /** Archive a batch of postal mail objects using their IDs. */
-    fun delete(params: PostalMailDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
+    /** Move the postal mail object with the ID `{postalMailId}` to the recycling bin. */
+    fun delete(postalMailId: String): CompletableFuture<Void?> =
+        delete(postalMailId, PostalMailDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        postalMailId: String,
+        params: PostalMailDeleteParams = PostalMailDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        delete(params.toBuilder().postalMailId(postalMailId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        postalMailId: String,
+        params: PostalMailDeleteParams = PostalMailDeleteParams.none(),
+    ): CompletableFuture<Void?> = delete(postalMailId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
@@ -128,49 +134,47 @@ interface PostalMailServiceAsync {
     ): CompletableFuture<Void?>
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        delete(
-            PostalMailDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: PostalMailDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-    ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(postalMailId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        delete(postalMailId, PostalMailDeleteParams.none(), requestOptions)
 
-    /** Retrieve multiple postal mail objects using their internal IDs or unique property values. */
-    fun get(params: PostalMailGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(params, RequestOptions.none())
+    fun get(postalMailId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(postalMailId, PostalMailGetParams.none())
+
+    /** @see get */
+    fun get(
+        postalMailId: String,
+        params: PostalMailGetParams = PostalMailGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().postalMailId(postalMailId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        postalMailId: String,
+        params: PostalMailGetParams = PostalMailGetParams.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(postalMailId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PostalMailGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
+
+    /** @see get */
+    fun get(params: PostalMailGetParams): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(
-            PostalMailGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        postalMailId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(postalMailId, PostalMailGetParams.none(), requestOptions)
 
     /** Search for postal mail objects using specific criteria in the request. */
     fun search(
@@ -203,42 +207,6 @@ interface PostalMailServiceAsync {
         search(publicObjectSearchRequest, RequestOptions.none())
 
     /**
-     * Create or update postal mails identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(
-        params: PostalMailUpsertParams
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: PostalMailUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject>
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(
-            PostalMailUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
-    /**
      * A view of [PostalMailServiceAsync] that provides access to raw HTTP responses for each
      * method.
      */
@@ -253,75 +221,70 @@ interface PostalMailServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): PostalMailServiceAsync.WithRawResponse
 
+        fun batch(): BatchServiceAsync.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/postal_mail/batch/create`, but
-         * is otherwise the same as [PostalMailServiceAsync.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/postal_mail`, but is otherwise
+         * the same as [PostalMailServiceAsync.create].
          */
         fun create(
             params: PostalMailCreateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: PostalMailCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             create(
                 PostalMailCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
 
         /** @see create */
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/postal_mail/batch/update`, but
-         * is otherwise the same as [PostalMailServiceAsync.update].
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/postal_mail/{postalMailId}`,
+         * but is otherwise the same as [PostalMailServiceAsync.update].
          */
         fun update(
+            postalMailId: String,
+            params: PostalMailUpdateParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(postalMailId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            postalMailId: String,
+            params: PostalMailUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(params.toBuilder().postalMailId(postalMailId).build(), requestOptions)
+
+        /** @see update */
+        fun update(
             params: PostalMailUpdateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: PostalMailUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(
-                PostalMailUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/postal_mail`, but is otherwise
@@ -349,11 +312,25 @@ interface PostalMailServiceAsync {
             list(PostalMailListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/postal_mail/batch/archive`,
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/postal_mail/{postalMailId}`,
          * but is otherwise the same as [PostalMailServiceAsync.delete].
          */
-        fun delete(params: PostalMailDeleteParams): CompletableFuture<HttpResponse> =
-            delete(params, RequestOptions.none())
+        fun delete(postalMailId: String): CompletableFuture<HttpResponse> =
+            delete(postalMailId, PostalMailDeleteParams.none())
+
+        /** @see delete */
+        fun delete(
+            postalMailId: String,
+            params: PostalMailDeleteParams = PostalMailDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().postalMailId(postalMailId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(
+            postalMailId: String,
+            params: PostalMailDeleteParams = PostalMailDeleteParams.none(),
+        ): CompletableFuture<HttpResponse> = delete(postalMailId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
@@ -362,55 +339,58 @@ interface PostalMailServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /** @see delete */
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            delete(
-                PostalMailDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: PostalMailDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
+            postalMailId: String,
+            requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+            delete(postalMailId, PostalMailDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/postal_mail/batch/read`, but
-         * is otherwise the same as [PostalMailServiceAsync.get].
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/postal_mail/{postalMailId}`,
+         * but is otherwise the same as [PostalMailServiceAsync.get].
          */
         fun get(
-            params: PostalMailGetParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(params, RequestOptions.none())
+            postalMailId: String
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(postalMailId, PostalMailGetParams.none())
+
+        /** @see get */
+        fun get(
+            postalMailId: String,
+            params: PostalMailGetParams = PostalMailGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().postalMailId(postalMailId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            postalMailId: String,
+            params: PostalMailGetParams = PostalMailGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(postalMailId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: PostalMailGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(
-                PostalMailGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+            params: PostalMailGetParams
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            postalMailId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(postalMailId, PostalMailGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/postal_mail/search`, but is
@@ -444,42 +424,5 @@ interface PostalMailServiceAsync {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/postal_mail/batch/upsert`, but
-         * is otherwise the same as [PostalMailServiceAsync.upsert].
-         */
-        fun upsert(
-            params: PostalMailUpsertParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        fun upsert(
-            params: PostalMailUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>>
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(
-                PostalMailUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

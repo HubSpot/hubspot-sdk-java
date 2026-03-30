@@ -19,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListPage
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteSearchParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteUpdateParams
-import com.hubspot_sdk.api.services.blocking.crm.objects.quotes.BasicService
+import com.hubspot_sdk.api.services.blocking.crm.objects.quotes.BatchService
 import java.util.function.Consumer
 
 interface QuoteService {
@@ -36,7 +36,7 @@ interface QuoteService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QuoteService
 
-    fun basic(): BasicService
+    fun batch(): BatchService
 
     /**
      * Create a quote with the given properties and return a copy of the object, including the ID.
@@ -215,7 +215,7 @@ interface QuoteService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): QuoteService.WithRawResponse
 
-        fun basic(): BasicService.WithRawResponse
+        fun batch(): BatchService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/quotes`, but is otherwise the

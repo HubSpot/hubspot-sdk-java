@@ -18,12 +18,15 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabelForwardPaging
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceGetParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceListPage
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceListParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceSearchParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceUpdateParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.partnerservices.BatchService
+import com.hubspot_sdk.api.services.blocking.crm.objects.partnerservices.BatchServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -34,16 +37,20 @@ class PartnerServiceServiceImpl internal constructor(private val clientOptions: 
         WithRawResponseImpl(clientOptions)
     }
 
+    private val batch: BatchService by lazy { BatchServiceImpl(clientOptions) }
+
     override fun withRawResponse(): PartnerServiceService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PartnerServiceService =
         PartnerServiceServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    override fun batch(): BatchService = batch
+
     override fun update(
         params: PartnerServiceUpdateParams,
         requestOptions: RequestOptions,
-    ): BatchResponseSimplePublicObject =
-        // post /crm/objects/2026-03/partner_services/batch/update
+    ): SimplePublicObject =
+        // patch /crm/objects/2026-03/partner_services/{partnerServiceId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(
@@ -56,8 +63,8 @@ class PartnerServiceServiceImpl internal constructor(private val clientOptions: 
     override fun get(
         params: PartnerServiceGetParams,
         requestOptions: RequestOptions,
-    ): BatchResponseSimplePublicObject =
-        // post /crm/objects/2026-03/partner_services/batch/read
+    ): SimplePublicObjectWithAssociations =
+        // get /crm/objects/2026-03/partner_services/{partnerServiceId}
         withRawResponse().get(params, requestOptions).parse()
 
     override fun search(
@@ -73,6 +80,10 @@ class PartnerServiceServiceImpl internal constructor(private val clientOptions: 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val batch: BatchService.WithRawResponse by lazy {
+            BatchServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): PartnerServiceService.WithRawResponse =
@@ -80,24 +91,28 @@ class PartnerServiceServiceImpl internal constructor(private val clientOptions: 
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val updateHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        override fun batch(): BatchService.WithRawResponse = batch
+
+        private val updateHandler: Handler<SimplePublicObject> =
+            jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
 
         override fun update(
             params: PartnerServiceUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSimplePublicObject> {
+        ): HttpResponseFor<SimplePublicObject> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("partnerServiceId", params.partnerServiceId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "crm",
                         "objects",
                         "2026-03",
                         "partner_services",
-                        "batch",
-                        "update",
+                        params._pathParam(0),
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -163,26 +178,27 @@ class PartnerServiceServiceImpl internal constructor(private val clientOptions: 
             }
         }
 
-        private val getHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
+            jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
         override fun get(
             params: PartnerServiceGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSimplePublicObject> {
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("partnerServiceId", params.partnerServiceId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "crm",
                         "objects",
                         "2026-03",
                         "partner_services",
-                        "batch",
-                        "read",
+                        params._pathParam(0),
                     )
-                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

@@ -18,7 +18,7 @@ import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteSearchParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteUpdateParams
-import com.hubspot_sdk.api.services.async.crm.objects.quotes.BasicServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.quotes.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -36,7 +36,7 @@ interface QuoteServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): QuoteServiceAsync
 
-    fun basic(): BasicServiceAsync
+    fun batch(): BatchServiceAsync
 
     /**
      * Create a quote with the given properties and return a copy of the object, including the ID.
@@ -234,7 +234,7 @@ interface QuoteServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): QuoteServiceAsync.WithRawResponse
 
-        fun basic(): BasicServiceAsync.WithRawResponse
+        fun batch(): BatchServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/quotes`, but is otherwise the

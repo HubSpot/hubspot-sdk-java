@@ -5,9 +5,8 @@ package com.hubspot_sdk.api.models.crm.objects.invoices
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,29 +15,24 @@ internal class InvoiceCreateParamsTest {
     @Test
     fun create() {
         InvoiceCreateParams.builder()
-            .batchInputSimplePublicObjectBatchInputForCreate(
-                BatchInputSimplePublicObjectBatchInputForCreate.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInputForCreate.builder()
-                            .addAssociation(
-                                PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("id").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                            )
-                                            .associationTypeId(0)
-                                            .build()
+            .simplePublicObjectInputForCreate(
+                SimplePublicObjectInputForCreate.builder()
+                    .addAssociation(
+                        PublicAssociationsForObject.builder()
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
+                                    .associationTypeId(0)
                                     .build()
                             )
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .objectWriteTraceId("objectWriteTraceId")
+                            .build()
+                    )
+                    .properties(
+                        SimplePublicObjectInputForCreate.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -50,30 +44,24 @@ internal class InvoiceCreateParamsTest {
     fun body() {
         val params =
             InvoiceCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    BatchInputSimplePublicObjectBatchInputForCreate.builder()
-                        .addInput(
-                            SimplePublicObjectBatchInputForCreate.builder()
-                                .addAssociation(
-                                    PublicAssociationsForObject.builder()
-                                        .to(PublicObjectId.builder().id("id").build())
-                                        .addType(
-                                            AssociationSpec.builder()
-                                                .associationCategory(
-                                                    AssociationSpec.AssociationCategory
-                                                        .HUBSPOT_DEFINED
-                                                )
-                                                .associationTypeId(0)
-                                                .build()
+                .simplePublicObjectInputForCreate(
+                    SimplePublicObjectInputForCreate.builder()
+                        .addAssociation(
+                            PublicAssociationsForObject.builder()
+                                .to(PublicObjectId.builder().id("id").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                         )
+                                        .associationTypeId(0)
                                         .build()
                                 )
-                                .properties(
-                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
-                                .objectWriteTraceId("objectWriteTraceId")
+                                .build()
+                        )
+                        .properties(
+                            SimplePublicObjectInputForCreate.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -84,92 +72,23 @@ internal class InvoiceCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                BatchInputSimplePublicObjectBatchInputForCreate.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInputForCreate.builder()
-                            .addAssociation(
-                                PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("id").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                            )
-                                            .associationTypeId(0)
-                                            .build()
+                SimplePublicObjectInputForCreate.builder()
+                    .addAssociation(
+                        PublicAssociationsForObject.builder()
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
+                                    .associationTypeId(0)
                                     .build()
                             )
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .objectWriteTraceId("objectWriteTraceId")
                             .build()
                     )
-                    .build()
-            )
-    }
-
-    @Test
-    fun bodyWithoutOptionalFields() {
-        val params =
-            InvoiceCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    BatchInputSimplePublicObjectBatchInputForCreate.builder()
-                        .addInput(
-                            SimplePublicObjectBatchInputForCreate.builder()
-                                .addAssociation(
-                                    PublicAssociationsForObject.builder()
-                                        .to(PublicObjectId.builder().id("id").build())
-                                        .addType(
-                                            AssociationSpec.builder()
-                                                .associationCategory(
-                                                    AssociationSpec.AssociationCategory
-                                                        .HUBSPOT_DEFINED
-                                                )
-                                                .associationTypeId(0)
-                                                .build()
-                                        )
-                                        .build()
-                                )
-                                .properties(
-                                    SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
-                                .build()
-                        )
-                        .build()
-                )
-                .build()
-
-        val body = params._body()
-
-        assertThat(body)
-            .isEqualTo(
-                BatchInputSimplePublicObjectBatchInputForCreate.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInputForCreate.builder()
-                            .addAssociation(
-                                PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("id").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                            )
-                                            .associationTypeId(0)
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
+                    .properties(
+                        SimplePublicObjectInputForCreate.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()

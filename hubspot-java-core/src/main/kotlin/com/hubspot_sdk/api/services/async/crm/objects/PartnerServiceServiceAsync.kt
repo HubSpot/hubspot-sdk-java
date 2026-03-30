@@ -7,14 +7,14 @@ import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceGetParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceListParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceSearchParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceUpdateParams
+import com.hubspot_sdk.api.services.async.crm.objects.partnerservices.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -32,38 +32,39 @@ interface PartnerServiceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PartnerServiceServiceAsync
 
+    fun batch(): BatchServiceAsync
+
     /**
-     * Update multiple partner services using their internal IDs or unique property values. This
-     * operation allows for batch processing of updates, ensuring efficient synchronization of
-     * service data between HubSpot and other systems.
+     * Perform a partial update of an Object identified by `{partnerServiceId}`or optionally a
+     * unique property value as specified by the `idProperty` query param. `{partnerServiceId}`
+     * refers to the internal object ID by default, and the `idProperty` query param refers to a
+     * property whose values are unique for the object. Provided property values will be
+     * overwritten. Read-only and non-existent properties will result in an error. Properties values
+     * can be cleared by passing an empty string.
      */
     fun update(
-        params: PartnerServiceUpdateParams
-    ): CompletableFuture<BatchResponseSimplePublicObject> = update(params, RequestOptions.none())
+        partnerServiceId: String,
+        params: PartnerServiceUpdateParams,
+    ): CompletableFuture<SimplePublicObject> =
+        update(partnerServiceId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        partnerServiceId: String,
+        params: PartnerServiceUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObject> =
+        update(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: PartnerServiceUpdateParams): CompletableFuture<SimplePublicObject> =
+        update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PartnerServiceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(
-            PartnerServiceUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): CompletableFuture<SimplePublicObject>
 
     /**
      * Retrieve a list of associations for a specific partner service, filtered by the type of
@@ -94,35 +95,45 @@ interface PartnerServiceServiceAsync {
     ): CompletableFuture<PartnerServiceListPageAsync>
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{partnerServiceId}`. `{partnerServiceId}` refers to the
+     * internal object ID by default, or optionally any unique property value as specified by the
+     * `idProperty` query param. Control what is returned via the `properties` query param.
      */
-    fun get(params: PartnerServiceGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(params, RequestOptions.none())
+    fun get(partnerServiceId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(partnerServiceId, PartnerServiceGetParams.none())
+
+    /** @see get */
+    fun get(
+        partnerServiceId: String,
+        params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        partnerServiceId: String,
+        params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(partnerServiceId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PartnerServiceGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject>
+    ): CompletableFuture<SimplePublicObjectWithAssociations>
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(
-            PartnerServiceGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+        params: PartnerServiceGetParams
+    ): CompletableFuture<SimplePublicObjectWithAssociations> = get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): CompletableFuture<BatchResponseSimplePublicObject> =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+        partnerServiceId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SimplePublicObjectWithAssociations> =
+        get(partnerServiceId, PartnerServiceGetParams.none(), requestOptions)
 
     /**
      * Execute a search query to find partner services based on defined filters, properties, and
@@ -173,39 +184,38 @@ interface PartnerServiceServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): PartnerServiceServiceAsync.WithRawResponse
 
+        fun batch(): BatchServiceAsync.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post
-         * /crm/objects/2026-03/partner_services/batch/update`, but is otherwise the same as
+         * Returns a raw HTTP response for `patch
+         * /crm/objects/2026-03/partner_services/{partnerServiceId}`, but is otherwise the same as
          * [PartnerServiceServiceAsync.update].
          */
         fun update(
+            partnerServiceId: String,
+            params: PartnerServiceUpdateParams,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(partnerServiceId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            partnerServiceId: String,
+            params: PartnerServiceUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
+            update(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+        /** @see update */
+        fun update(
             params: PartnerServiceUpdateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: PartnerServiceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(
-                PartnerServiceUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<SimplePublicObject>>
 
         /**
          * Returns a raw HTTP response for `get
@@ -239,37 +249,48 @@ interface PartnerServiceServiceAsync {
         ): CompletableFuture<HttpResponseFor<PartnerServiceListPageAsync>>
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_services/batch/read`,
-         * but is otherwise the same as [PartnerServiceServiceAsync.get].
+         * Returns a raw HTTP response for `get
+         * /crm/objects/2026-03/partner_services/{partnerServiceId}`, but is otherwise the same as
+         * [PartnerServiceServiceAsync.get].
          */
         fun get(
-            params: PartnerServiceGetParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(params, RequestOptions.none())
+            partnerServiceId: String
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(partnerServiceId, PartnerServiceGetParams.none())
+
+        /** @see get */
+        fun get(
+            partnerServiceId: String,
+            params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params.toBuilder().partnerServiceId(partnerServiceId).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            partnerServiceId: String,
+            params: PartnerServiceGetParams = PartnerServiceGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(partnerServiceId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: PartnerServiceGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>>
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(
-                PartnerServiceGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+            params: PartnerServiceGetParams
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            partnerServiceId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
+            get(partnerServiceId, PartnerServiceGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_services/search`, but

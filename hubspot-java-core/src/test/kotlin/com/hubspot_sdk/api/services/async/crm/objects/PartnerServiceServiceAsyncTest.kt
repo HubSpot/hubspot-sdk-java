@@ -7,12 +7,10 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceGetParams
 import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceListParams
+import com.hubspot_sdk.api.models.crm.objects.partnerservices.PartnerServiceUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -24,26 +22,25 @@ internal class PartnerServiceServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val partnerServiceServiceAsync = client.crm().objects().partnerServices()
 
-        val batchResponseSimplePublicObjectFuture =
+        val simplePublicObjectFuture =
             partnerServiceServiceAsync.update(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
+                PartnerServiceUpdateParams.builder()
+                    .partnerServiceId("partnerServiceId")
+                    .idProperty("idProperty")
+                    .simplePublicObjectInput(
+                        SimplePublicObjectInput.builder()
                             .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
+                                SimplePublicObjectInput.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
-                            .idProperty("my_unique_property_name")
-                            .objectWriteTraceId("objectWriteTraceId")
                             .build()
                     )
                     .build()
             )
 
-        val batchResponseSimplePublicObject = batchResponseSimplePublicObjectFuture.get()
-        batchResponseSimplePublicObject.validate()
+        val simplePublicObject = simplePublicObjectFuture.get()
+        simplePublicObject.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -70,23 +67,20 @@ internal class PartnerServiceServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val partnerServiceServiceAsync = client.crm().objects().partnerServices()
 
-        val batchResponseSimplePublicObjectFuture =
+        val simplePublicObjectWithAssociationsFuture =
             partnerServiceServiceAsync.get(
                 PartnerServiceGetParams.builder()
+                    .partnerServiceId("partnerServiceId")
                     .archived(true)
-                    .batchReadInputSimplePublicObjectId(
-                        BatchReadInputSimplePublicObjectId.builder()
-                            .addInput(SimplePublicObjectId.builder().id("430001").build())
-                            .addProperty("string")
-                            .addPropertiesWithHistory("string")
-                            .idProperty("idProperty")
-                            .build()
-                    )
+                    .addAssociation("string")
+                    .idProperty("idProperty")
+                    .addProperty("string")
+                    .addPropertiesWithHistory("string")
                     .build()
             )
 
-        val batchResponseSimplePublicObject = batchResponseSimplePublicObjectFuture.get()
-        batchResponseSimplePublicObject.validate()
+        val simplePublicObjectWithAssociations = simplePublicObjectWithAssociationsFuture.get()
+        simplePublicObjectWithAssociations.validate()
     }
 
     @Disabled("Mock server tests are disabled")

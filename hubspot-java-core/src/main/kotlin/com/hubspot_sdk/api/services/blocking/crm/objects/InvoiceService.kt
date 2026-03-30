@@ -9,13 +9,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceCreateParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceGetParams
@@ -23,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceListPage
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceListParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceSearchParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceUpsertParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.invoices.BatchService
 import java.util.function.Consumer
 
 interface InvoiceService {
@@ -40,72 +36,65 @@ interface InvoiceService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InvoiceService
 
+    fun batch(): BatchService
+
     /**
-     * Create multiple invoices at once by providing a batch of invoice data, and receive a response
-     * with details of the created invoices, including their IDs.
+     * Create a invoice with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard invoices is provided.
      */
-    fun create(params: InvoiceCreateParams): BatchResponseSimplePublicObject =
+    fun create(params: InvoiceCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: InvoiceCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObject
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
+    ): SimplePublicObject =
         create(
             InvoiceCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): BatchResponseSimplePublicObject =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update multiple invoices in a single request using either their internal IDs or unique
-     * property values. This endpoint allows for efficient batch processing of invoice updates,
-     * ensuring that changes are applied consistently across multiple records.
+     * Perform a partial update of an Object identified by `{invoiceId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{invoiceId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
      */
-    fun update(params: InvoiceUpdateParams): BatchResponseSimplePublicObject =
+    fun update(invoiceId: String, params: InvoiceUpdateParams): SimplePublicObject =
+        update(invoiceId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        invoiceId: String,
+        params: InvoiceUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject = update(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: InvoiceUpdateParams): SimplePublicObject =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: InvoiceUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        update(
-            InvoiceUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): BatchResponseSimplePublicObject =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): SimplePublicObject
 
     /** Read a page of invoices. Control what is returned via the `properties` query param. */
     fun list(): InvoiceListPage = list(InvoiceListParams.none())
@@ -124,61 +113,65 @@ interface InvoiceService {
     fun list(requestOptions: RequestOptions): InvoiceListPage =
         list(InvoiceListParams.none(), requestOptions)
 
-    /**
-     * Archive multiple invoices by their IDs in a single request. This operation moves the
-     * specified invoices to the archive, making them inactive but retrievable for future reference.
-     */
-    fun delete(params: InvoiceDeleteParams) = delete(params, RequestOptions.none())
+    /** Move an Object identified by `{invoiceId}` to the recycling bin. */
+    fun delete(invoiceId: String) = delete(invoiceId, InvoiceDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        invoiceId: String,
+        params: InvoiceDeleteParams = InvoiceDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(invoiceId: String, params: InvoiceDeleteParams = InvoiceDeleteParams.none()) =
+        delete(invoiceId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(params: InvoiceDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        delete(
-            InvoiceDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: InvoiceDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
-        delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(invoiceId: String, requestOptions: RequestOptions) =
+        delete(invoiceId, InvoiceDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{invoiceId}`. `{invoiceId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: InvoiceGetParams): BatchResponseSimplePublicObject =
-        get(params, RequestOptions.none())
+    fun get(invoiceId: String): SimplePublicObjectWithAssociations =
+        get(invoiceId, InvoiceGetParams.none())
+
+    /** @see get */
+    fun get(
+        invoiceId: String,
+        params: InvoiceGetParams = InvoiceGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        invoiceId: String,
+        params: InvoiceGetParams = InvoiceGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(invoiceId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: InvoiceGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObjectWithAssociations
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        get(
-            InvoiceGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun get(params: InvoiceGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): BatchResponseSimplePublicObject =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+    fun get(invoiceId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(invoiceId, InvoiceGetParams.none(), requestOptions)
 
     /**
      * Execute a search for invoices based on filter criteria, sorting options, and properties to
@@ -212,40 +205,6 @@ interface InvoiceService {
     ): CollectionResponseWithTotalSimplePublicObject =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: InvoiceUpsertParams): BatchResponseSimplePublicUpsertObject =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: InvoiceUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(
-            InvoiceUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [InvoiceService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -256,12 +215,14 @@ interface InvoiceService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): InvoiceService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/invoices/batch/create`, but is
-         * otherwise the same as [InvoiceService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/invoices`, but is otherwise
+         * the same as [InvoiceService.create].
          */
         @MustBeClosed
-        fun create(params: InvoiceCreateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun create(params: InvoiceCreateParams): HttpResponseFor<SimplePublicObject> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -269,20 +230,17 @@ interface InvoiceService {
         fun create(
             params: InvoiceCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObject>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+        ): HttpResponseFor<SimplePublicObject> =
             create(
                 InvoiceCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
@@ -290,17 +248,32 @@ interface InvoiceService {
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): HttpResponseFor<SimplePublicObject> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/invoices/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/invoices/{invoiceId}`, but is
          * otherwise the same as [InvoiceService.update].
          */
         @MustBeClosed
-        fun update(params: InvoiceUpdateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun update(
+            invoiceId: String,
+            params: InvoiceUpdateParams,
+        ): HttpResponseFor<SimplePublicObject> = update(invoiceId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            invoiceId: String,
+            params: InvoiceUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: InvoiceUpdateParams): HttpResponseFor<SimplePublicObject> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -308,27 +281,7 @@ interface InvoiceService {
         fun update(
             params: InvoiceUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(
-                InvoiceUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/invoices`, but is otherwise the
@@ -355,12 +308,26 @@ interface InvoiceService {
             list(InvoiceListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/invoices/batch/archive`, but
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/invoices/{invoiceId}`, but
          * is otherwise the same as [InvoiceService.delete].
          */
         @MustBeClosed
-        fun delete(params: InvoiceDeleteParams): HttpResponse =
-            delete(params, RequestOptions.none())
+        fun delete(invoiceId: String): HttpResponse = delete(invoiceId, InvoiceDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            invoiceId: String,
+            params: InvoiceDeleteParams = InvoiceDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            invoiceId: String,
+            params: InvoiceDeleteParams = InvoiceDeleteParams.none(),
+        ): HttpResponse = delete(invoiceId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -371,56 +338,58 @@ interface InvoiceService {
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            delete(
-                InvoiceDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: InvoiceDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(invoiceId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(invoiceId, InvoiceDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/invoices/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/invoices/{invoiceId}`, but is
          * otherwise the same as [InvoiceService.get].
          */
         @MustBeClosed
-        fun get(params: InvoiceGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(params, RequestOptions.none())
+        fun get(invoiceId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(invoiceId, InvoiceGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            invoiceId: String,
+            params: InvoiceGetParams = InvoiceGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().invoiceId(invoiceId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            invoiceId: String,
+            params: InvoiceGetParams = InvoiceGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(invoiceId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: InvoiceGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: InvoiceGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(
-                InvoiceGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            invoiceId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(invoiceId, InvoiceGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/invoices/search`, but is
@@ -458,46 +427,5 @@ interface InvoiceService {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/invoices/batch/upsert`, but is
-         * otherwise the same as [InvoiceService.upsert].
-         */
-        @MustBeClosed
-        fun upsert(
-            params: InvoiceUpsertParams
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            params: InvoiceUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject>
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(
-                InvoiceUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

@@ -9,13 +9,9 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.users.UserCreateParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserGetParams
@@ -23,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.users.UserListPage
 import com.hubspot_sdk.api.models.crm.objects.users.UserListParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserSearchParams
 import com.hubspot_sdk.api.models.crm.objects.users.UserUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.users.UserUpsertParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.users.BatchService
 import java.util.function.Consumer
 
 interface UserService {
@@ -40,72 +36,63 @@ interface UserService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserService
 
+    fun batch(): BatchService
+
     /**
-     * Create multiple users in a single request by providing a batch of user properties and
-     * associations. This endpoint returns the created users along with their IDs.
+     * Create a user with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard users is provided.
      */
-    fun create(params: UserCreateParams): BatchResponseSimplePublicObject =
-        create(params, RequestOptions.none())
+    fun create(params: UserCreateParams): SimplePublicObject = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: UserCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObject
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
+    ): SimplePublicObject =
         create(
             UserCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): BatchResponseSimplePublicObject =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update multiple user records in a single request by specifying their internal IDs or unique
-     * property values. This operation allows for batch processing of user data, ensuring efficient
-     * updates across multiple user profiles.
+     * Perform a partial update of an Object identified by `{userId}`or optionally a unique property
+     * value as specified by the `idProperty` query param. `{userId}` refers to the internal object
+     * ID by default, and the `idProperty` query param refers to a property whose values are unique
+     * for the object. Provided property values will be overwritten. Read-only and non-existent
+     * properties will result in an error. Properties values can be cleared by passing an empty
+     * string.
      */
-    fun update(params: UserUpdateParams): BatchResponseSimplePublicObject =
-        update(params, RequestOptions.none())
+    fun update(userId: String, params: UserUpdateParams): SimplePublicObject =
+        update(userId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        userId: String,
+        params: UserUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject = update(params.toBuilder().userId(userId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: UserUpdateParams): SimplePublicObject = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: UserUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        update(
-            UserUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): BatchResponseSimplePublicObject =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): SimplePublicObject
 
     /** Read a page of users. Control what is returned via the `properties` query param. */
     fun list(): UserListPage = list(UserListParams.none())
@@ -124,61 +111,64 @@ interface UserService {
     fun list(requestOptions: RequestOptions): UserListPage =
         list(UserListParams.none(), requestOptions)
 
-    /**
-     * Archive multiple users by their IDs in a single request. This operation moves the specified
-     * users to the recycling bin, effectively deactivating them from active use.
-     */
-    fun delete(params: UserDeleteParams) = delete(params, RequestOptions.none())
+    /** Move an Object identified by `{userId}` to the recycling bin. */
+    fun delete(userId: String) = delete(userId, UserDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        userId: String,
+        params: UserDeleteParams = UserDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().userId(userId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(userId: String, params: UserDeleteParams = UserDeleteParams.none()) =
+        delete(userId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(params: UserDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        delete(
-            UserDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: UserDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
-        delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(userId: String, requestOptions: RequestOptions) =
+        delete(userId, UserDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{userId}`. `{userId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: UserGetParams): BatchResponseSimplePublicObject =
-        get(params, RequestOptions.none())
+    fun get(userId: String): SimplePublicObjectWithAssociations = get(userId, UserGetParams.none())
+
+    /** @see get */
+    fun get(
+        userId: String,
+        params: UserGetParams = UserGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().userId(userId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        userId: String,
+        params: UserGetParams = UserGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(userId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: UserGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObjectWithAssociations
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        get(
-            UserGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun get(params: UserGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): BatchResponseSimplePublicObject =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+    fun get(userId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(userId, UserGetParams.none(), requestOptions)
 
     /**
      * Execute a search for users using defined filters, properties, and sorting options. The
@@ -209,40 +199,6 @@ interface UserService {
     ): CollectionResponseWithTotalSimplePublicObject =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: UserUpsertParams): BatchResponseSimplePublicUpsertObject =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: UserUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(
-            UserUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [UserService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -253,12 +209,14 @@ interface UserService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): UserService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/create`, but is
-         * otherwise the same as [UserService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/users`, but is otherwise the
+         * same as [UserService.create].
          */
         @MustBeClosed
-        fun create(params: UserCreateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun create(params: UserCreateParams): HttpResponseFor<SimplePublicObject> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -266,20 +224,17 @@ interface UserService {
         fun create(
             params: UserCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObject>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+        ): HttpResponseFor<SimplePublicObject> =
             create(
                 UserCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
@@ -287,17 +242,30 @@ interface UserService {
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): HttpResponseFor<SimplePublicObject> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/users/{userId}`, but is
          * otherwise the same as [UserService.update].
          */
         @MustBeClosed
-        fun update(params: UserUpdateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun update(userId: String, params: UserUpdateParams): HttpResponseFor<SimplePublicObject> =
+            update(userId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            userId: String,
+            params: UserUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().userId(userId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: UserUpdateParams): HttpResponseFor<SimplePublicObject> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -305,27 +273,7 @@ interface UserService {
         fun update(
             params: UserUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(
-                UserUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/users`, but is otherwise the
@@ -351,11 +299,26 @@ interface UserService {
             list(UserListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/archive`, but is
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/users/{userId}`, but is
          * otherwise the same as [UserService.delete].
          */
         @MustBeClosed
-        fun delete(params: UserDeleteParams): HttpResponse = delete(params, RequestOptions.none())
+        fun delete(userId: String): HttpResponse = delete(userId, UserDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            userId: String,
+            params: UserDeleteParams = UserDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().userId(userId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            userId: String,
+            params: UserDeleteParams = UserDeleteParams.none(),
+        ): HttpResponse = delete(userId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -366,56 +329,57 @@ interface UserService {
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            delete(
-                UserDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: UserDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(userId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(userId, UserDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/users/{userId}`, but is
          * otherwise the same as [UserService.get].
          */
         @MustBeClosed
-        fun get(params: UserGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(params, RequestOptions.none())
+        fun get(userId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(userId, UserGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            userId: String,
+            params: UserGetParams = UserGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().userId(userId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            userId: String,
+            params: UserGetParams = UserGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(userId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: UserGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: UserGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(
-                UserGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            userId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(userId, UserGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/users/search`, but is
@@ -453,46 +417,5 @@ interface UserService {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/users/batch/upsert`, but is
-         * otherwise the same as [UserService.upsert].
-         */
-        @MustBeClosed
-        fun upsert(
-            params: UserUpsertParams
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            params: UserUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject>
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(
-                UserUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

@@ -28,8 +28,8 @@ import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListPage
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteListParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteSearchParams
 import com.hubspot_sdk.api.models.crm.objects.quotes.QuoteUpdateParams
-import com.hubspot_sdk.api.services.blocking.crm.objects.quotes.BasicService
-import com.hubspot_sdk.api.services.blocking.crm.objects.quotes.BasicServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.objects.quotes.BatchService
+import com.hubspot_sdk.api.services.blocking.crm.objects.quotes.BatchServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -40,14 +40,14 @@ class QuoteServiceImpl internal constructor(private val clientOptions: ClientOpt
         WithRawResponseImpl(clientOptions)
     }
 
-    private val basic: BasicService by lazy { BasicServiceImpl(clientOptions) }
+    private val batch: BatchService by lazy { BatchServiceImpl(clientOptions) }
 
     override fun withRawResponse(): QuoteService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): QuoteService =
         QuoteServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun basic(): BasicService = basic
+    override fun batch(): BatchService = batch
 
     override fun create(
         params: QuoteCreateParams,
@@ -92,8 +92,8 @@ class QuoteServiceImpl internal constructor(private val clientOptions: ClientOpt
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
-        private val basic: BasicService.WithRawResponse by lazy {
-            BasicServiceImpl.WithRawResponseImpl(clientOptions)
+        private val batch: BatchService.WithRawResponse by lazy {
+            BatchServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -103,7 +103,7 @@ class QuoteServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        override fun basic(): BasicService.WithRawResponse = basic
+        override fun batch(): BatchService.WithRawResponse = batch
 
         private val createHandler: Handler<SimplePublicObject> =
             jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)

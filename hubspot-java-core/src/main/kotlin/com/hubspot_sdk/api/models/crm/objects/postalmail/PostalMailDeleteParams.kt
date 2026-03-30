@@ -4,25 +4,26 @@ package com.hubspot_sdk.api.models.crm.objects.postalmail
 
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
-import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
+import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Archive a batch of postal mail objects using their IDs. */
+/** Move the postal mail object with the ID `{postalMailId}` to the recycling bin. */
 class PostalMailDeleteParams
 private constructor(
-    private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
+    private val postalMailId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun batchInputSimplePublicObjectId(): BatchInputSimplePublicObjectId =
-        batchInputSimplePublicObjectId
+    fun postalMailId(): Optional<String> = Optional.ofNullable(postalMailId)
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchInputSimplePublicObjectId._additionalProperties()
+    /** Additional body properties to send with the request. */
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -34,34 +35,33 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [PostalMailDeleteParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .batchInputSimplePublicObjectId()
-         * ```
-         */
+        @JvmStatic fun none(): PostalMailDeleteParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [PostalMailDeleteParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [PostalMailDeleteParams]. */
     class Builder internal constructor() {
 
-        private var batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId? = null
+        private var postalMailId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(postalMailDeleteParams: PostalMailDeleteParams) = apply {
-            batchInputSimplePublicObjectId = postalMailDeleteParams.batchInputSimplePublicObjectId
+            postalMailId = postalMailDeleteParams.postalMailId
             additionalHeaders = postalMailDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = postalMailDeleteParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties =
+                postalMailDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun batchInputSimplePublicObjectId(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-        ) = apply { this.batchInputSimplePublicObjectId = batchInputSimplePublicObjectId }
+        fun postalMailId(postalMailId: String?) = apply { this.postalMailId = postalMailId }
+
+        /** Alias for calling [Builder.postalMailId] with `postalMailId.orElse(null)`. */
+        fun postalMailId(postalMailId: Optional<String>) = postalMailId(postalMailId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -161,27 +161,50 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            putAllAdditionalBodyProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            additionalBodyProperties.remove(key)
+        }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalBodyProperty)
+        }
+
         /**
          * Returns an immutable instance of [PostalMailDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .batchInputSimplePublicObjectId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PostalMailDeleteParams =
             PostalMailDeleteParams(
-                checkRequired("batchInputSimplePublicObjectId", batchInputSimplePublicObjectId),
+                postalMailId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
-    fun _body(): BatchInputSimplePublicObjectId = batchInputSimplePublicObjectId
+    fun _body(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> postalMailId ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -193,14 +216,20 @@ private constructor(
         }
 
         return other is PostalMailDeleteParams &&
-            batchInputSimplePublicObjectId == other.batchInputSimplePublicObjectId &&
+            postalMailId == other.postalMailId &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(batchInputSimplePublicObjectId, additionalHeaders, additionalQueryParams)
+        Objects.hash(
+            postalMailId,
+            additionalHeaders,
+            additionalQueryParams,
+            additionalBodyProperties,
+        )
 
     override fun toString() =
-        "PostalMailDeleteParams{batchInputSimplePublicObjectId=$batchInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PostalMailDeleteParams{postalMailId=$postalMailId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

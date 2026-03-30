@@ -9,17 +9,11 @@ import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.taxes.TaxGetParams
+import com.hubspot_sdk.api.models.crm.objects.taxes.TaxUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -31,37 +25,32 @@ internal class TaxServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val taxServiceAsync = client.crm().objects().taxes()
 
-        val batchResponseSimplePublicObjectFuture =
+        val simplePublicObjectFuture =
             taxServiceAsync.create(
-                BatchInputSimplePublicObjectBatchInputForCreate.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInputForCreate.builder()
-                            .addAssociation(
-                                PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("id").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                            )
-                                            .associationTypeId(0)
-                                            .build()
+                SimplePublicObjectInputForCreate.builder()
+                    .addAssociation(
+                        PublicAssociationsForObject.builder()
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
+                                    .associationTypeId(0)
                                     .build()
                             )
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .objectWriteTraceId("objectWriteTraceId")
+                            .build()
+                    )
+                    .properties(
+                        SimplePublicObjectInputForCreate.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
             )
 
-        val batchResponseSimplePublicObject = batchResponseSimplePublicObjectFuture.get()
-        batchResponseSimplePublicObject.validate()
+        val simplePublicObject = simplePublicObjectFuture.get()
+        simplePublicObject.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -70,26 +59,25 @@ internal class TaxServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val taxServiceAsync = client.crm().objects().taxes()
 
-        val batchResponseSimplePublicObjectFuture =
+        val simplePublicObjectFuture =
             taxServiceAsync.update(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
+                TaxUpdateParams.builder()
+                    .taxId("taxId")
+                    .idProperty("idProperty")
+                    .simplePublicObjectInput(
+                        SimplePublicObjectInput.builder()
                             .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
+                                SimplePublicObjectInput.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
-                            .idProperty("my_unique_property_name")
-                            .objectWriteTraceId("objectWriteTraceId")
                             .build()
                     )
                     .build()
             )
 
-        val batchResponseSimplePublicObject = batchResponseSimplePublicObjectFuture.get()
-        batchResponseSimplePublicObject.validate()
+        val simplePublicObject = simplePublicObjectFuture.get()
+        simplePublicObject.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -110,12 +98,7 @@ internal class TaxServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val taxServiceAsync = client.crm().objects().taxes()
 
-        val future =
-            taxServiceAsync.delete(
-                BatchInputSimplePublicObjectId.builder()
-                    .addInput(SimplePublicObjectId.builder().id("430001").build())
-                    .build()
-            )
+        val future = taxServiceAsync.delete("taxId")
 
         val response = future.get()
     }
@@ -126,23 +109,20 @@ internal class TaxServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val taxServiceAsync = client.crm().objects().taxes()
 
-        val batchResponseSimplePublicObjectFuture =
+        val simplePublicObjectWithAssociationsFuture =
             taxServiceAsync.get(
                 TaxGetParams.builder()
+                    .taxId("taxId")
                     .archived(true)
-                    .batchReadInputSimplePublicObjectId(
-                        BatchReadInputSimplePublicObjectId.builder()
-                            .addInput(SimplePublicObjectId.builder().id("430001").build())
-                            .addProperty("string")
-                            .addPropertiesWithHistory("string")
-                            .idProperty("idProperty")
-                            .build()
-                    )
+                    .addAssociation("string")
+                    .idProperty("idProperty")
+                    .addProperty("string")
+                    .addPropertiesWithHistory("string")
                     .build()
             )
 
-        val batchResponseSimplePublicObject = batchResponseSimplePublicObjectFuture.get()
-        batchResponseSimplePublicObject.validate()
+        val simplePublicObjectWithAssociations = simplePublicObjectWithAssociationsFuture.get()
+        simplePublicObjectWithAssociations.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -178,34 +158,5 @@ internal class TaxServiceAsyncTest {
         val collectionResponseWithTotalSimplePublicObject =
             collectionResponseWithTotalSimplePublicObjectFuture.get()
         collectionResponseWithTotalSimplePublicObject.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun upsert() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val taxServiceAsync = client.crm().objects().taxes()
-
-        val batchResponseSimplePublicUpsertObjectFuture =
-            taxServiceAsync.upsert(
-                BatchInputSimplePublicObjectBatchInputUpsert.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInputUpsert.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInputUpsert.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .idProperty("idProperty")
-                            .objectWriteTraceId("objectWriteTraceId")
-                            .build()
-                    )
-                    .build()
-            )
-
-        val batchResponseSimplePublicUpsertObject =
-            batchResponseSimplePublicUpsertObjectFuture.get()
-        batchResponseSimplePublicUpsertObject.validate()
     }
 }

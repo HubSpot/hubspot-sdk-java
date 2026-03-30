@@ -4,6 +4,7 @@ package com.hubspot_sdk.api.services.blocking.crm.objects
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.handlers.emptyHandler
 import com.hubspot_sdk.api.core.handlers.errorBodyHandler
 import com.hubspot_sdk.api.core.handlers.errorHandler
@@ -17,9 +18,9 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceCreateParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceGetParams
@@ -27,8 +28,10 @@ import com.hubspot_sdk.api.models.crm.objects.services.ServiceListPage
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceListParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceSearchParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.services.ServiceUpsertParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.services.BatchService
+import com.hubspot_sdk.api.services.blocking.crm.objects.services.BatchServiceImpl
 import java.util.function.Consumer
+import kotlin.jvm.optionals.getOrNull
 
 class ServiceServiceImpl internal constructor(private val clientOptions: ClientOptions) :
     ServiceService {
@@ -37,23 +40,27 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
         WithRawResponseImpl(clientOptions)
     }
 
+    private val batch: BatchService by lazy { BatchServiceImpl(clientOptions) }
+
     override fun withRawResponse(): ServiceService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ServiceService =
         ServiceServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
+    override fun batch(): BatchService = batch
+
     override fun create(
         params: ServiceCreateParams,
         requestOptions: RequestOptions,
-    ): BatchResponseSimplePublicObject =
-        // post /crm/objects/2026-03/0-162/batch/create
+    ): SimplePublicObject =
+        // post /crm/objects/2026-03/0-162
         withRawResponse().create(params, requestOptions).parse()
 
     override fun update(
         params: ServiceUpdateParams,
         requestOptions: RequestOptions,
-    ): BatchResponseSimplePublicObject =
-        // post /crm/objects/2026-03/0-162/batch/update
+    ): SimplePublicObject =
+        // patch /crm/objects/2026-03/0-162/{serviceId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(params: ServiceListParams, requestOptions: RequestOptions): ServiceListPage =
@@ -61,15 +68,15 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: ServiceDeleteParams, requestOptions: RequestOptions) {
-        // post /crm/objects/2026-03/0-162/batch/archive
+        // delete /crm/objects/2026-03/0-162/{serviceId}
         withRawResponse().delete(params, requestOptions)
     }
 
     override fun get(
         params: ServiceGetParams,
         requestOptions: RequestOptions,
-    ): BatchResponseSimplePublicObject =
-        // post /crm/objects/2026-03/0-162/batch/read
+    ): SimplePublicObjectWithAssociations =
+        // get /crm/objects/2026-03/0-162/{serviceId}
         withRawResponse().get(params, requestOptions).parse()
 
     override fun search(
@@ -79,18 +86,15 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
         // post /crm/objects/2026-03/0-162/search
         withRawResponse().search(params, requestOptions).parse()
 
-    override fun upsert(
-        params: ServiceUpsertParams,
-        requestOptions: RequestOptions,
-    ): BatchResponseSimplePublicUpsertObject =
-        // post /crm/objects/2026-03/0-162/batch/upsert
-        withRawResponse().upsert(params, requestOptions).parse()
-
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         ServiceService.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+
+        private val batch: BatchService.WithRawResponse by lazy {
+            BatchServiceImpl.WithRawResponseImpl(clientOptions)
+        }
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -99,18 +103,20 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        override fun batch(): BatchService.WithRawResponse = batch
+
+        private val createHandler: Handler<SimplePublicObject> =
+            jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
 
         override fun create(
             params: ServiceCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSimplePublicObject> {
+        ): HttpResponseFor<SimplePublicObject> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "0-162", "batch", "create")
+                    .addPathSegments("crm", "objects", "2026-03", "0-162")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -127,18 +133,21 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val updateHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<SimplePublicObject> =
+            jsonHandler<SimplePublicObject>(clientOptions.jsonMapper)
 
         override fun update(
             params: ServiceUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSimplePublicObject> {
+        ): HttpResponseFor<SimplePublicObject> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("serviceId", params.serviceId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "0-162", "batch", "update")
+                    .addPathSegments("crm", "objects", "2026-03", "0-162", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -198,12 +207,15 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
             params: ServiceDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("serviceId", params.serviceId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "0-162", "batch", "archive")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .addPathSegments("crm", "objects", "2026-03", "0-162", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -213,19 +225,21 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val getHandler: Handler<BatchResponseSimplePublicObject> =
-            jsonHandler<BatchResponseSimplePublicObject>(clientOptions.jsonMapper)
+        private val getHandler: Handler<SimplePublicObjectWithAssociations> =
+            jsonHandler<SimplePublicObjectWithAssociations>(clientOptions.jsonMapper)
 
         override fun get(
             params: ServiceGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSimplePublicObject> {
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("serviceId", params.serviceId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "0-162", "batch", "read")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .addPathSegments("crm", "objects", "2026-03", "0-162", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -261,34 +275,6 @@ class ServiceServiceImpl internal constructor(private val clientOptions: ClientO
             return errorHandler.handle(response).parseable {
                 response
                     .use { searchHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val upsertHandler: Handler<BatchResponseSimplePublicUpsertObject> =
-            jsonHandler<BatchResponseSimplePublicUpsertObject>(clientOptions.jsonMapper)
-
-        override fun upsert(
-            params: ServiceUpsertParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "objects", "2026-03", "0-162", "batch", "upsert")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { upsertHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

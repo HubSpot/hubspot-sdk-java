@@ -3,8 +3,8 @@
 package com.hubspot_sdk.api.models.crm.objects.custom
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
+import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,18 +14,13 @@ internal class CustomUpdateParamsTest {
     fun create() {
         CustomUpdateParams.builder()
             .objectType("objectType")
-            .batchInputSimplePublicObjectBatchInput(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .idProperty("my_unique_property_name")
-                            .objectWriteTraceId("objectWriteTraceId")
+            .objectId("objectId")
+            .idProperty("idProperty")
+            .simplePublicObjectInput(
+                SimplePublicObjectInput.builder()
+                    .properties(
+                        SimplePublicObjectInput.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -38,16 +33,12 @@ internal class CustomUpdateParamsTest {
         val params =
             CustomUpdateParams.builder()
                 .objectType("objectType")
-                .batchInputSimplePublicObjectBatchInput(
-                    BatchInputSimplePublicObjectBatchInput.builder()
-                        .addInput(
-                            SimplePublicObjectBatchInput.builder()
-                                .id("id")
-                                .properties(
-                                    SimplePublicObjectBatchInput.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
+                .objectId("objectId")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -55,8 +46,55 @@ internal class CustomUpdateParamsTest {
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("objectType")
+        assertThat(params._pathParam(1)).isEqualTo("objectId")
         // out-of-bound path param
-        assertThat(params._pathParam(1)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
+    }
+
+    @Test
+    fun queryParams() {
+        val params =
+            CustomUpdateParams.builder()
+                .objectType("objectType")
+                .objectId("objectId")
+                .idProperty("idProperty")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(QueryParams.builder().put("idProperty", "idProperty").build())
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
+        val params =
+            CustomUpdateParams.builder()
+                .objectType("objectType")
+                .objectId("objectId")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 
     @Test
@@ -64,18 +102,13 @@ internal class CustomUpdateParamsTest {
         val params =
             CustomUpdateParams.builder()
                 .objectType("objectType")
-                .batchInputSimplePublicObjectBatchInput(
-                    BatchInputSimplePublicObjectBatchInput.builder()
-                        .addInput(
-                            SimplePublicObjectBatchInput.builder()
-                                .id("id")
-                                .properties(
-                                    SimplePublicObjectBatchInput.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
-                                .idProperty("my_unique_property_name")
-                                .objectWriteTraceId("objectWriteTraceId")
+                .objectId("objectId")
+                .idProperty("idProperty")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -86,17 +119,10 @@ internal class CustomUpdateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .idProperty("my_unique_property_name")
-                            .objectWriteTraceId("objectWriteTraceId")
+                SimplePublicObjectInput.builder()
+                    .properties(
+                        SimplePublicObjectInput.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
@@ -108,16 +134,12 @@ internal class CustomUpdateParamsTest {
         val params =
             CustomUpdateParams.builder()
                 .objectType("objectType")
-                .batchInputSimplePublicObjectBatchInput(
-                    BatchInputSimplePublicObjectBatchInput.builder()
-                        .addInput(
-                            SimplePublicObjectBatchInput.builder()
-                                .id("id")
-                                .properties(
-                                    SimplePublicObjectBatchInput.Properties.builder()
-                                        .putAdditionalProperty("foo", JsonValue.from("string"))
-                                        .build()
-                                )
+                .objectId("objectId")
+                .simplePublicObjectInput(
+                    SimplePublicObjectInput.builder()
+                        .properties(
+                            SimplePublicObjectInput.Properties.builder()
+                                .putAdditionalProperty("foo", JsonValue.from("string"))
                                 .build()
                         )
                         .build()
@@ -128,15 +150,10 @@ internal class CustomUpdateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
+                SimplePublicObjectInput.builder()
+                    .properties(
+                        SimplePublicObjectInput.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()

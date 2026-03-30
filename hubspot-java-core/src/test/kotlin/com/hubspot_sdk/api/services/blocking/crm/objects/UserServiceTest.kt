@@ -9,17 +9,11 @@ import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.users.UserGetParams
+import com.hubspot_sdk.api.models.crm.objects.users.UserUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -31,36 +25,31 @@ internal class UserServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val userService = client.crm().objects().users()
 
-        val batchResponseSimplePublicObject =
+        val simplePublicObject =
             userService.create(
-                BatchInputSimplePublicObjectBatchInputForCreate.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInputForCreate.builder()
-                            .addAssociation(
-                                PublicAssociationsForObject.builder()
-                                    .to(PublicObjectId.builder().id("id").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                            )
-                                            .associationTypeId(0)
-                                            .build()
+                SimplePublicObjectInputForCreate.builder()
+                    .addAssociation(
+                        PublicAssociationsForObject.builder()
+                            .to(PublicObjectId.builder().id("id").build())
+                            .addType(
+                                AssociationSpec.builder()
+                                    .associationCategory(
+                                        AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
                                     )
+                                    .associationTypeId(0)
                                     .build()
                             )
-                            .properties(
-                                SimplePublicObjectBatchInputForCreate.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .objectWriteTraceId("objectWriteTraceId")
+                            .build()
+                    )
+                    .properties(
+                        SimplePublicObjectInputForCreate.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
                             .build()
                     )
                     .build()
             )
 
-        batchResponseSimplePublicObject.validate()
+        simplePublicObject.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -69,25 +58,24 @@ internal class UserServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val userService = client.crm().objects().users()
 
-        val batchResponseSimplePublicObject =
+        val simplePublicObject =
             userService.update(
-                BatchInputSimplePublicObjectBatchInput.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInput.builder()
-                            .id("id")
+                UserUpdateParams.builder()
+                    .userId("userId")
+                    .idProperty("idProperty")
+                    .simplePublicObjectInput(
+                        SimplePublicObjectInput.builder()
                             .properties(
-                                SimplePublicObjectBatchInput.Properties.builder()
+                                SimplePublicObjectInput.Properties.builder()
                                     .putAdditionalProperty("foo", JsonValue.from("string"))
                                     .build()
                             )
-                            .idProperty("my_unique_property_name")
-                            .objectWriteTraceId("objectWriteTraceId")
                             .build()
                     )
                     .build()
             )
 
-        batchResponseSimplePublicObject.validate()
+        simplePublicObject.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -107,11 +95,7 @@ internal class UserServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val userService = client.crm().objects().users()
 
-        userService.delete(
-            BatchInputSimplePublicObjectId.builder()
-                .addInput(SimplePublicObjectId.builder().id("430001").build())
-                .build()
-        )
+        userService.delete("userId")
     }
 
     @Disabled("Mock server tests are disabled")
@@ -120,22 +104,19 @@ internal class UserServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val userService = client.crm().objects().users()
 
-        val batchResponseSimplePublicObject =
+        val simplePublicObjectWithAssociations =
             userService.get(
                 UserGetParams.builder()
+                    .userId("userId")
                     .archived(true)
-                    .batchReadInputSimplePublicObjectId(
-                        BatchReadInputSimplePublicObjectId.builder()
-                            .addInput(SimplePublicObjectId.builder().id("430001").build())
-                            .addProperty("string")
-                            .addPropertiesWithHistory("string")
-                            .idProperty("idProperty")
-                            .build()
-                    )
+                    .addAssociation("string")
+                    .idProperty("idProperty")
+                    .addProperty("string")
+                    .addPropertiesWithHistory("string")
                     .build()
             )
 
-        batchResponseSimplePublicObject.validate()
+        simplePublicObjectWithAssociations.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -169,32 +150,5 @@ internal class UserServiceTest {
             )
 
         collectionResponseWithTotalSimplePublicObject.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun upsert() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val userService = client.crm().objects().users()
-
-        val batchResponseSimplePublicUpsertObject =
-            userService.upsert(
-                BatchInputSimplePublicObjectBatchInputUpsert.builder()
-                    .addInput(
-                        SimplePublicObjectBatchInputUpsert.builder()
-                            .id("id")
-                            .properties(
-                                SimplePublicObjectBatchInputUpsert.Properties.builder()
-                                    .putAdditionalProperty("foo", JsonValue.from("string"))
-                                    .build()
-                            )
-                            .idProperty("idProperty")
-                            .objectWriteTraceId("objectWriteTraceId")
-                            .build()
-                    )
-                    .build()
-            )
-
-        batchResponseSimplePublicUpsertObject.validate()
     }
 }
