@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Get the list of blog tags. Supports paging and filtering. This method would be useful for an
+ * integration that examined these models and used an external service to suggest edits.
+ */
 class TagListParams
 private constructor(
     private val after: String?,

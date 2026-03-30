@@ -65,18 +65,24 @@ private constructor(
     )
 
     /**
+     * The unique identifier for the callback.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun callbackId(): String = callbackId.getRequired("callbackId")
 
     /**
+     * Holds the output fields for the callback completion.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun outputFields(): OutputFields = outputFields.getRequired("outputFields")
 
     /**
+     * Contains the typed outputs for the callback completion.
+     *
      * This arbitrary value can be deserialized into a custom type using the `convert` method:
      * ```java
      * MyClass myObject = callbackCompletionBatchRequest.typedOutputs().convert(MyClass.class);
@@ -85,12 +91,16 @@ private constructor(
     @JsonProperty("typedOutputs") @ExcludeMissing fun _typedOutputs(): JsonValue = typedOutputs
 
     /**
+     * Specifies the type of failure reason for the callback completion.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun failureReasonType(): Optional<String> = failureReasonType.getOptional("failureReasonType")
 
     /**
+     * Defines the context of the request, which can be one of several predefined types.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -180,6 +190,7 @@ private constructor(
                 callbackCompletionBatchRequest.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the callback. */
         fun callbackId(callbackId: String) = callbackId(JsonField.of(callbackId))
 
         /**
@@ -191,6 +202,7 @@ private constructor(
          */
         fun callbackId(callbackId: JsonField<String>) = apply { this.callbackId = callbackId }
 
+        /** Holds the output fields for the callback completion. */
         fun outputFields(outputFields: OutputFields) = outputFields(JsonField.of(outputFields))
 
         /**
@@ -204,8 +216,10 @@ private constructor(
             this.outputFields = outputFields
         }
 
+        /** Contains the typed outputs for the callback completion. */
         fun typedOutputs(typedOutputs: JsonValue) = apply { this.typedOutputs = typedOutputs }
 
+        /** Specifies the type of failure reason for the callback completion. */
         fun failureReasonType(failureReasonType: String) =
             failureReasonType(JsonField.of(failureReasonType))
 
@@ -220,6 +234,7 @@ private constructor(
             this.failureReasonType = failureReasonType
         }
 
+        /** Defines the context of the request, which can be one of several predefined types. */
         fun requestContext(requestContext: RequestContext) =
             requestContext(JsonField.of(requestContext))
 
@@ -331,6 +346,7 @@ private constructor(
             (if (failureReasonType.asKnown().isPresent) 1 else 0) +
             (requestContext.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Holds the output fields for the callback completion. */
     class OutputFields
     @JsonCreator
     private constructor(
@@ -430,6 +446,7 @@ private constructor(
         override fun toString() = "OutputFields{additionalProperties=$additionalProperties}"
     }
 
+    /** Defines the context of the request, which can be one of several predefined types. */
     @JsonDeserialize(using = RequestContext.Deserializer::class)
     @JsonSerialize(using = RequestContext.Serializer::class)
     class RequestContext

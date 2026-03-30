@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.services.async.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CartServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CommercePaymentServiceAsync
@@ -24,11 +25,13 @@ import com.hubspot_sdk.api.services.async.crm.objects.LineItemServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ListingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.MeetingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.NoteServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.ObjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.OrderServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerClientServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerServiceServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PostalMailServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ProductServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.ProjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.QuoteServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ServiceServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.SubscriptionServiceAsync
@@ -94,6 +97,8 @@ interface ObjectServiceAsync {
 
     fun notes(): NoteServiceAsync
 
+    fun objects(): ObjectServiceAsync
+
     fun orders(): OrderServiceAsync
 
     fun partnerClients(): PartnerClientServiceAsync
@@ -103,6 +108,8 @@ interface ObjectServiceAsync {
     fun postalMail(): PostalMailServiceAsync
 
     fun products(): ProductServiceAsync
+
+    fun projects(): ProjectServiceAsync
 
     fun quotes(): QuoteServiceAsync
 
@@ -174,6 +181,8 @@ interface ObjectServiceAsync {
 
         fun notes(): NoteServiceAsync.WithRawResponse
 
+        fun objects(): ObjectServiceAsync.WithRawResponse
+
         fun orders(): OrderServiceAsync.WithRawResponse
 
         fun partnerClients(): PartnerClientServiceAsync.WithRawResponse
@@ -183,6 +192,8 @@ interface ObjectServiceAsync {
         fun postalMail(): PostalMailServiceAsync.WithRawResponse
 
         fun products(): ProductServiceAsync.WithRawResponse
+
+        fun projects(): ProjectServiceAsync.WithRawResponse
 
         fun quotes(): QuoteServiceAsync.WithRawResponse
 

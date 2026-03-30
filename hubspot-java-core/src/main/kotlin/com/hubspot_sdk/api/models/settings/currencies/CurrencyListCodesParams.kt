@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve a list of all available currency codes and their names. */
 class CurrencyListCodesParams
 private constructor(
     private val additionalHeaders: Headers,

@@ -726,6 +726,8 @@ private constructor(
 
             @JvmField val INVALID_OBJECT_ID = of("INVALID_OBJECT_ID")
 
+            @JvmField val INVALID_PROPERTY_VALUE_FORMAT = of("INVALID_PROPERTY_VALUE_FORMAT")
+
             @JvmField val INVALID_RECORD_ID = of("INVALID_RECORD_ID")
 
             @JvmField val INVALID_REQUIRED_PROPERTY = of("INVALID_REQUIRED_PROPERTY")
@@ -826,6 +828,7 @@ private constructor(
             INVALID_FILE_TYPE,
             INVALID_NUMBER_SIZE,
             INVALID_OBJECT_ID,
+            INVALID_PROPERTY_VALUE_FORMAT,
             INVALID_RECORD_ID,
             INVALID_REQUIRED_PROPERTY,
             INVALID_SHEET_COUNT,
@@ -904,6 +907,7 @@ private constructor(
             INVALID_FILE_TYPE,
             INVALID_NUMBER_SIZE,
             INVALID_OBJECT_ID,
+            INVALID_PROPERTY_VALUE_FORMAT,
             INVALID_RECORD_ID,
             INVALID_REQUIRED_PROPERTY,
             INVALID_SHEET_COUNT,
@@ -987,6 +991,7 @@ private constructor(
                 INVALID_FILE_TYPE -> Value.INVALID_FILE_TYPE
                 INVALID_NUMBER_SIZE -> Value.INVALID_NUMBER_SIZE
                 INVALID_OBJECT_ID -> Value.INVALID_OBJECT_ID
+                INVALID_PROPERTY_VALUE_FORMAT -> Value.INVALID_PROPERTY_VALUE_FORMAT
                 INVALID_RECORD_ID -> Value.INVALID_RECORD_ID
                 INVALID_REQUIRED_PROPERTY -> Value.INVALID_REQUIRED_PROPERTY
                 INVALID_SHEET_COUNT -> Value.INVALID_SHEET_COUNT
@@ -1071,6 +1076,7 @@ private constructor(
                 INVALID_FILE_TYPE -> Known.INVALID_FILE_TYPE
                 INVALID_NUMBER_SIZE -> Known.INVALID_NUMBER_SIZE
                 INVALID_OBJECT_ID -> Known.INVALID_OBJECT_ID
+                INVALID_PROPERTY_VALUE_FORMAT -> Known.INVALID_PROPERTY_VALUE_FORMAT
                 INVALID_RECORD_ID -> Known.INVALID_RECORD_ID
                 INVALID_REQUIRED_PROPERTY -> Known.INVALID_REQUIRED_PROPERTY
                 INVALID_SHEET_COUNT -> Known.INVALID_SHEET_COUNT

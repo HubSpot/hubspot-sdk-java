@@ -34,18 +34,24 @@ private constructor(
     ) : this(objectId, objectTypeId, portalId, mutableMapOf())
 
     /**
+     * The unique identifier for the object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectId(): Int = objectId.getRequired("objectId")
 
     /**
+     * The type identifier for the object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectTypeId(): String = objectTypeId.getRequired("objectTypeId")
 
     /**
+     * The unique identifier for the portal.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -117,6 +123,7 @@ private constructor(
             additionalProperties = objectCoordinates.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the object. */
         fun objectId(objectId: Int) = objectId(JsonField.of(objectId))
 
         /**
@@ -127,6 +134,7 @@ private constructor(
          */
         fun objectId(objectId: JsonField<Int>) = apply { this.objectId = objectId }
 
+        /** The type identifier for the object. */
         fun objectTypeId(objectTypeId: String) = objectTypeId(JsonField.of(objectTypeId))
 
         /**
@@ -140,6 +148,7 @@ private constructor(
             this.objectTypeId = objectTypeId
         }
 
+        /** The unique identifier for the portal. */
         fun portalId(portalId: Int) = portalId(JsonField.of(portalId))
 
         /**

@@ -7,10 +7,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.Blog
 import com.hubspot_sdk.api.models.cms.blogs.settings.BlogLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.multilanguage.MultiLanguageAttachToLangGroupParams
@@ -34,6 +34,7 @@ interface MultiLanguageService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MultiLanguageService
 
+    /** Attach a blog to a multi-language group. */
     @MustBeClosed
     fun attachToLangGroup(params: MultiLanguageAttachToLangGroupParams): HttpResponse =
         attachToLangGroup(params, RequestOptions.none())
@@ -64,6 +65,7 @@ interface MultiLanguageService {
         attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext
     ): HttpResponse = attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
+    /** Create a new language variation from an existing blog. */
     fun createLanguageVariation(params: MultiLanguageCreateLanguageVariationParams): Blog =
         createLanguageVariation(params, RequestOptions.none())
 
@@ -90,6 +92,7 @@ interface MultiLanguageService {
         blogLanguageCloneRequestVNext: BlogLanguageCloneRequestVNext
     ): Blog = createLanguageVariation(blogLanguageCloneRequestVNext, RequestOptions.none())
 
+    /** Detaches a blog from a multi-language group. */
     @MustBeClosed
     fun detachFromLangGroup(params: MultiLanguageDetachFromLangGroupParams): HttpResponse =
         detachFromLangGroup(params, RequestOptions.none())
@@ -120,6 +123,7 @@ interface MultiLanguageService {
         detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext
     ): HttpResponse = detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
+    /** Set a blog as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: MultiLanguageSetNewLangPrimaryParams) =
         setNewLangPrimary(params, RequestOptions.none())
 
@@ -145,6 +149,7 @@ interface MultiLanguageService {
     fun setNewLangPrimary(setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext) =
         setNewLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
 
+    /** Explicitly set new languages for each blog in a multi-language group. */
     @MustBeClosed
     fun updateLanguages(params: MultiLanguageUpdateLanguagesParams): HttpResponse =
         updateLanguages(params, RequestOptions.none())

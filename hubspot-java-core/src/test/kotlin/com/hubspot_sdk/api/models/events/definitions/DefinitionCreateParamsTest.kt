@@ -3,10 +3,6 @@
 package com.hubspot_sdk.api.models.events.definitions
 
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventPropertyCreate
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionEgg
-import com.hubspot_sdk.api.models.events.ExternalObjectResolutionMappingRequest
-import com.hubspot_sdk.api.models.events.ExternalPrimaryObjectResolutionRule
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

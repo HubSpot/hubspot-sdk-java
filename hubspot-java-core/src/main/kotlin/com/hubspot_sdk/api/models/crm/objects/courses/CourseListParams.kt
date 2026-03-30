@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all courses. */
+/** Read a page of courses. Control what is returned via the `properties` query param. */
 class CourseListParams
 private constructor(
     private val after: String?,

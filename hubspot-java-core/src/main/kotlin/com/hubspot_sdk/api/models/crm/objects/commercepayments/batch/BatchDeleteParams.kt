@@ -10,7 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import java.util.Objects
 
-/** Delete a batch of payments by ID. */
+/**
+ * Archive a batch of commerce payments by their IDs. This operation moves the specified payments to
+ * the archive, making them inactive in the system.
+ */
 class BatchDeleteParams
 private constructor(
     private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,

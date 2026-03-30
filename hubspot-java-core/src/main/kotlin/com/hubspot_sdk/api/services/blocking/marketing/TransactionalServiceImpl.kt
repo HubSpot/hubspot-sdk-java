@@ -3,20 +3,10 @@
 package com.hubspot_sdk.api.services.blocking.marketing
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.core.RequestOptions
-import com.hubspot_sdk.api.core.handlers.errorBodyHandler
-import com.hubspot_sdk.api.core.handlers.errorHandler
-import com.hubspot_sdk.api.core.handlers.jsonHandler
-import com.hubspot_sdk.api.core.http.HttpMethod
-import com.hubspot_sdk.api.core.http.HttpRequest
-import com.hubspot_sdk.api.core.http.HttpResponse
-import com.hubspot_sdk.api.core.http.HttpResponse.Handler
-import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.core.http.json
-import com.hubspot_sdk.api.core.http.parseable
-import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.marketing.transactional.EmailSendStatusView
-import com.hubspot_sdk.api.models.marketing.transactional.TransactionalSendParams
+import com.hubspot_sdk.api.services.blocking.marketing.transactional.SingleEmailService
+import com.hubspot_sdk.api.services.blocking.marketing.transactional.SingleEmailServiceImpl
+import com.hubspot_sdk.api.services.blocking.marketing.transactional.SmtpTokenService
+import com.hubspot_sdk.api.services.blocking.marketing.transactional.SmtpTokenServiceImpl
 import java.util.function.Consumer
 
 class TransactionalServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -26,23 +16,29 @@ class TransactionalServiceImpl internal constructor(private val clientOptions: C
         WithRawResponseImpl(clientOptions)
     }
 
+    private val singleEmail: SingleEmailService by lazy { SingleEmailServiceImpl(clientOptions) }
+
+    private val smtpTokens: SmtpTokenService by lazy { SmtpTokenServiceImpl(clientOptions) }
+
     override fun withRawResponse(): TransactionalService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TransactionalService =
         TransactionalServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun send(
-        params: TransactionalSendParams,
-        requestOptions: RequestOptions,
-    ): EmailSendStatusView =
-        // post /marketing/transactional/2026-03/single-email/send
-        withRawResponse().send(params, requestOptions).parse()
+    override fun singleEmail(): SingleEmailService = singleEmail
+
+    override fun smtpTokens(): SmtpTokenService = smtpTokens
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         TransactionalService.WithRawResponse {
 
-        private val errorHandler: Handler<HttpResponse> =
-            errorHandler(errorBodyHandler(clientOptions.jsonMapper))
+        private val singleEmail: SingleEmailService.WithRawResponse by lazy {
+            SingleEmailServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val smtpTokens: SmtpTokenService.WithRawResponse by lazy {
+            SmtpTokenServiceImpl.WithRawResponseImpl(clientOptions)
+        }
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
@@ -51,38 +47,8 @@ class TransactionalServiceImpl internal constructor(private val clientOptions: C
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val sendHandler: Handler<EmailSendStatusView> =
-            jsonHandler<EmailSendStatusView>(clientOptions.jsonMapper)
+        override fun singleEmail(): SingleEmailService.WithRawResponse = singleEmail
 
-        override fun send(
-            params: TransactionalSendParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<EmailSendStatusView> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "marketing",
-                        "transactional",
-                        "2026-03",
-                        "single-email",
-                        "send",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { sendHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
+        override fun smtpTokens(): SmtpTokenService.WithRawResponse = smtpTokens
     }
 }

@@ -42,12 +42,16 @@ private constructor(
     ) : this(controllingFieldName, dependencyType, dependentFieldNames, mutableMapOf())
 
     /**
+     * The name of the field that controls the dependency.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun controllingFieldName(): String = controllingFieldName.getRequired("controllingFieldName")
 
     /**
+     * The type of dependency, with the default value being 'SINGLE_FIELD'.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -132,6 +136,7 @@ private constructor(
             additionalProperties = publicSingleFieldDependency.additionalProperties.toMutableMap()
         }
 
+        /** The name of the field that controls the dependency. */
         fun controllingFieldName(controllingFieldName: String) =
             controllingFieldName(JsonField.of(controllingFieldName))
 
@@ -146,6 +151,7 @@ private constructor(
             this.controllingFieldName = controllingFieldName
         }
 
+        /** The type of dependency, with the default value being 'SINGLE_FIELD'. */
         fun dependencyType(dependencyType: DependencyType) =
             dependencyType(JsonField.of(dependencyType))
 
@@ -260,6 +266,7 @@ private constructor(
             (dependencyType.asKnown().getOrNull()?.validity() ?: 0) +
             (dependentFieldNames.asKnown().getOrNull()?.size ?: 0)
 
+    /** The type of dependency, with the default value being 'SINGLE_FIELD'. */
     class DependencyType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

@@ -9,6 +9,12 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Deletes multiple Marketing Events from the portal based on their objectId, if they exist.
+ *
+ * Responses: 204: Returned if all specified Marketing Events were successfully deleted. 207:
+ * Returned if some objectIds did not correspond to any existing Marketing Events.
+ */
 class EventDeleteBatchParams
 private constructor(
     private val batchInputMarketingEventPublicObjectIdDeleteRequest:

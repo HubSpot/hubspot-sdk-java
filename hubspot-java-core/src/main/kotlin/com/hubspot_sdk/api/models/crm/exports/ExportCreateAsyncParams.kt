@@ -8,6 +8,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Begins exporting CRM data for the portal as specified in the request body */
 class ExportCreateAsyncParams
 private constructor(
     private val publicExportRequest: PublicExportRequest,

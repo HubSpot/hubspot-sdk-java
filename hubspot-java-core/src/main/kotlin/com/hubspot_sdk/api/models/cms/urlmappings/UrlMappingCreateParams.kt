@@ -7,7 +7,6 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
 import java.util.Objects
 
 /**
@@ -17,14 +16,15 @@ import java.util.Objects
  */
 class UrlMappingCreateParams
 private constructor(
-    private val urlMapping: UrlMapping,
+    private val urlMappingsUrlMapping: UrlMappingsUrlMapping,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun urlMapping(): UrlMapping = urlMapping
+    fun urlMappingsUrlMapping(): UrlMappingsUrlMapping = urlMappingsUrlMapping
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = urlMapping._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> =
+        urlMappingsUrlMapping._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -41,7 +41,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .urlMapping()
+         * .urlMappingsUrlMapping()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -50,18 +50,20 @@ private constructor(
     /** A builder for [UrlMappingCreateParams]. */
     class Builder internal constructor() {
 
-        private var urlMapping: UrlMapping? = null
+        private var urlMappingsUrlMapping: UrlMappingsUrlMapping? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(urlMappingCreateParams: UrlMappingCreateParams) = apply {
-            urlMapping = urlMappingCreateParams.urlMapping
+            urlMappingsUrlMapping = urlMappingCreateParams.urlMappingsUrlMapping
             additionalHeaders = urlMappingCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = urlMappingCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun urlMapping(urlMapping: UrlMapping) = apply { this.urlMapping = urlMapping }
+        fun urlMappingsUrlMapping(urlMappingsUrlMapping: UrlMappingsUrlMapping) = apply {
+            this.urlMappingsUrlMapping = urlMappingsUrlMapping
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -168,20 +170,20 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .urlMapping()
+         * .urlMappingsUrlMapping()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): UrlMappingCreateParams =
             UrlMappingCreateParams(
-                checkRequired("urlMapping", urlMapping),
+                checkRequired("urlMappingsUrlMapping", urlMappingsUrlMapping),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): UrlMapping = urlMapping
+    fun _body(): UrlMappingsUrlMapping = urlMappingsUrlMapping
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -193,14 +195,14 @@ private constructor(
         }
 
         return other is UrlMappingCreateParams &&
-            urlMapping == other.urlMapping &&
+            urlMappingsUrlMapping == other.urlMappingsUrlMapping &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(urlMapping, additionalHeaders, additionalQueryParams)
+        Objects.hash(urlMappingsUrlMapping, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "UrlMappingCreateParams{urlMapping=$urlMapping, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "UrlMappingCreateParams{urlMappingsUrlMapping=$urlMappingsUrlMapping, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

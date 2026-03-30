@@ -8,17 +8,11 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.communicationpreferences.ActionResponseWithResultsPublicStatus
 import com.hubspot_sdk.api.models.communicationpreferences.ActionResponseWithResultsPublicWideStatus
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGenerateLinksParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetStatusByEmailParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetStatusesParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetUnsubscribeAllStatusParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceSubscribeParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUnsubscribeAllParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUnsubscribeParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUpdateStatusParams
 import com.hubspot_sdk.api.models.communicationpreferences.LinkGenerationResponse
-import com.hubspot_sdk.api.models.communicationpreferences.PublicSubscriptionStatus
-import com.hubspot_sdk.api.models.communicationpreferences.PublicSubscriptionStatusesResponse
-import com.hubspot_sdk.api.models.communicationpreferences.PublicUpdateSubscriptionStatusRequest
 import com.hubspot_sdk.api.services.async.communicationpreferences.DefinitionServiceAsync
 import com.hubspot_sdk.api.services.async.communicationpreferences.StatusServiceAsync
 import java.util.concurrent.CompletableFuture
@@ -56,56 +50,6 @@ interface CommunicationPreferenceServiceAsync {
         params: CommunicationPreferenceGenerateLinksParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<LinkGenerationResponse>
-
-    /**
-     * Retrieve the subscription statuses for a specific email address. This endpoint allows you to
-     * check the current subscription status for email communications, which can be useful for
-     * managing communication preferences and ensuring compliance with user preferences.
-     */
-    fun getStatusByEmail(
-        emailAddress: String
-    ): CompletableFuture<PublicSubscriptionStatusesResponse> =
-        getStatusByEmail(emailAddress, CommunicationPreferenceGetStatusByEmailParams.none())
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        emailAddress: String,
-        params: CommunicationPreferenceGetStatusByEmailParams =
-            CommunicationPreferenceGetStatusByEmailParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSubscriptionStatusesResponse> =
-        getStatusByEmail(params.toBuilder().emailAddress(emailAddress).build(), requestOptions)
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        emailAddress: String,
-        params: CommunicationPreferenceGetStatusByEmailParams =
-            CommunicationPreferenceGetStatusByEmailParams.none(),
-    ): CompletableFuture<PublicSubscriptionStatusesResponse> =
-        getStatusByEmail(emailAddress, params, RequestOptions.none())
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        params: CommunicationPreferenceGetStatusByEmailParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSubscriptionStatusesResponse>
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        params: CommunicationPreferenceGetStatusByEmailParams
-    ): CompletableFuture<PublicSubscriptionStatusesResponse> =
-        getStatusByEmail(params, RequestOptions.none())
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        emailAddress: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PublicSubscriptionStatusesResponse> =
-        getStatusByEmail(
-            emailAddress,
-            CommunicationPreferenceGetStatusByEmailParams.none(),
-            requestOptions,
-        )
 
     /** Retrieve a contact's current email subscription preferences. */
     fun getStatuses(
@@ -170,79 +114,7 @@ interface CommunicationPreferenceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionResponseWithResultsPublicWideStatus>
 
-    /**
-     * Subscribe a user to a specific communication preference using their email address and
-     * subscription ID. This endpoint allows you to manage subscription statuses by updating them to
-     * 'subscribed' for a given email address. It is useful for ensuring that users receive
-     * communications they have opted into.
-     */
-    fun subscribe(
-        params: CommunicationPreferenceSubscribeParams
-    ): CompletableFuture<PublicSubscriptionStatus> = subscribe(params, RequestOptions.none())
-
-    /** @see subscribe */
-    fun subscribe(
-        params: CommunicationPreferenceSubscribeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSubscriptionStatus>
-
-    /** @see subscribe */
-    fun subscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSubscriptionStatus> =
-        subscribe(
-            CommunicationPreferenceSubscribeParams.builder()
-                .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see subscribe */
-    fun subscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-    ): CompletableFuture<PublicSubscriptionStatus> =
-        subscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
-
-    /**
-     * Unsubscribe a user from communication preferences. This endpoint allows you to update the
-     * subscription status of a user to 'unsubscribed' for specified communication channels. It is
-     * useful for managing user preferences and ensuring compliance with user opt-out requests.
-     */
-    fun unsubscribe(
-        params: CommunicationPreferenceUnsubscribeParams
-    ): CompletableFuture<PublicSubscriptionStatus> = unsubscribe(params, RequestOptions.none())
-
-    /** @see unsubscribe */
-    fun unsubscribe(
-        params: CommunicationPreferenceUnsubscribeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSubscriptionStatus>
-
-    /** @see unsubscribe */
-    fun unsubscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PublicSubscriptionStatus> =
-        unsubscribe(
-            CommunicationPreferenceUnsubscribeParams.builder()
-                .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see unsubscribe */
-    fun unsubscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-    ): CompletableFuture<PublicSubscriptionStatus> =
-        unsubscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
-
-    /**
-     * Unsubscribe a subscriber from all communication channels. This endpoint allows you to remove
-     * a subscriber from all communication preferences, effectively opting them out from receiving
-     * any further communications. This can be useful for ensuring compliance with user requests or
-     * legal requirements.
-     */
+    /** Unsubscribe a contact from all email subscriptions. */
     fun unsubscribeAll(
         subscriberIdString: String,
         params: CommunicationPreferenceUnsubscribeAllParams,
@@ -338,56 +210,6 @@ interface CommunicationPreferenceServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get
-         * /communication-preferences/2026-03/status/email/{emailAddress}`, but is otherwise the
-         * same as [CommunicationPreferenceServiceAsync.getStatusByEmail].
-         */
-        fun getStatusByEmail(
-            emailAddress: String
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatusesResponse>> =
-            getStatusByEmail(emailAddress, CommunicationPreferenceGetStatusByEmailParams.none())
-
-        /** @see getStatusByEmail */
-        fun getStatusByEmail(
-            emailAddress: String,
-            params: CommunicationPreferenceGetStatusByEmailParams =
-                CommunicationPreferenceGetStatusByEmailParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatusesResponse>> =
-            getStatusByEmail(params.toBuilder().emailAddress(emailAddress).build(), requestOptions)
-
-        /** @see getStatusByEmail */
-        fun getStatusByEmail(
-            emailAddress: String,
-            params: CommunicationPreferenceGetStatusByEmailParams =
-                CommunicationPreferenceGetStatusByEmailParams.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatusesResponse>> =
-            getStatusByEmail(emailAddress, params, RequestOptions.none())
-
-        /** @see getStatusByEmail */
-        fun getStatusByEmail(
-            params: CommunicationPreferenceGetStatusByEmailParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatusesResponse>>
-
-        /** @see getStatusByEmail */
-        fun getStatusByEmail(
-            params: CommunicationPreferenceGetStatusByEmailParams
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatusesResponse>> =
-            getStatusByEmail(params, RequestOptions.none())
-
-        /** @see getStatusByEmail */
-        fun getStatusByEmail(
-            emailAddress: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatusesResponse>> =
-            getStatusByEmail(
-                emailAddress,
-                CommunicationPreferenceGetStatusByEmailParams.none(),
-                requestOptions,
-            )
-
-        /**
-         * Returns a raw HTTP response for `get
          * /communication-preferences/2026-03/statuses/{subscriberIdString}`, but is otherwise the
          * same as [CommunicationPreferenceServiceAsync.getStatuses].
          */
@@ -453,72 +275,6 @@ interface CommunicationPreferenceServiceAsync {
             params: CommunicationPreferenceGetUnsubscribeAllStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ActionResponseWithResultsPublicWideStatus>>
-
-        /**
-         * Returns a raw HTTP response for `post /communication-preferences/2026-03/subscribe`, but
-         * is otherwise the same as [CommunicationPreferenceServiceAsync.subscribe].
-         */
-        fun subscribe(
-            params: CommunicationPreferenceSubscribeParams
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> =
-            subscribe(params, RequestOptions.none())
-
-        /** @see subscribe */
-        fun subscribe(
-            params: CommunicationPreferenceSubscribeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>>
-
-        /** @see subscribe */
-        fun subscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> =
-            subscribe(
-                CommunicationPreferenceSubscribeParams.builder()
-                    .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see subscribe */
-        fun subscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> =
-            subscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /communication-preferences/2026-03/unsubscribe`,
-         * but is otherwise the same as [CommunicationPreferenceServiceAsync.unsubscribe].
-         */
-        fun unsubscribe(
-            params: CommunicationPreferenceUnsubscribeParams
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> =
-            unsubscribe(params, RequestOptions.none())
-
-        /** @see unsubscribe */
-        fun unsubscribe(
-            params: CommunicationPreferenceUnsubscribeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>>
-
-        /** @see unsubscribe */
-        fun unsubscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> =
-            unsubscribe(
-                CommunicationPreferenceUnsubscribeParams.builder()
-                    .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see unsubscribe */
-        fun unsubscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> =
-            unsubscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post

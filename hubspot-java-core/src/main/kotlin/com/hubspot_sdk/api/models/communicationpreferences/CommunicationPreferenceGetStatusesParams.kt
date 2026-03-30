@@ -26,13 +26,8 @@ private constructor(
 
     fun subscriberIdString(): Optional<String> = Optional.ofNullable(subscriberIdString)
 
-    /**
-     * A required string indicating the communication channel to retrieve the status for. Valid
-     * value is 'EMAIL'.
-     */
     fun channel(): Channel = channel
 
-    /** An optional integer representing the business unit ID to filter the subscription status. */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
     /** Additional headers to send with the request. */
@@ -89,15 +84,8 @@ private constructor(
         fun subscriberIdString(subscriberIdString: Optional<String>) =
             subscriberIdString(subscriberIdString.getOrNull())
 
-        /**
-         * A required string indicating the communication channel to retrieve the status for. Valid
-         * value is 'EMAIL'.
-         */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
-        /**
-         * An optional integer representing the business unit ID to filter the subscription status.
-         */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -248,10 +236,6 @@ private constructor(
             }
             .build()
 
-    /**
-     * A required string indicating the communication channel to retrieve the status for. Valid
-     * value is 'EMAIL'.
-     */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

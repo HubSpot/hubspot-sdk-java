@@ -40,12 +40,16 @@ private constructor(
     ) : this(source, workflowId, actionExecutionIndexIdentifier, actionId, mutableMapOf())
 
     /**
+     * Indicates the source of the request, with the default value being WORKFLOWS.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun source(): Source = source.getRequired("source")
 
     /**
+     * The ID of the workflow associated with the request context.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -59,6 +63,8 @@ private constructor(
         actionExecutionIndexIdentifier.getOptional("actionExecutionIndexIdentifier")
 
     /**
+     * The ID of the action within the workflow context.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -141,6 +147,7 @@ private constructor(
             additionalProperties = workflowsRequestContext.additionalProperties.toMutableMap()
         }
 
+        /** Indicates the source of the request, with the default value being WORKFLOWS. */
         fun source(source: Source) = source(JsonField.of(source))
 
         /**
@@ -151,6 +158,7 @@ private constructor(
          */
         fun source(source: JsonField<Source>) = apply { this.source = source }
 
+        /** The ID of the workflow associated with the request context. */
         fun workflowId(workflowId: Int) = workflowId(JsonField.of(workflowId))
 
         /**
@@ -176,6 +184,7 @@ private constructor(
             actionExecutionIndexIdentifier: JsonField<ActionExecutionIndexIdentifier>
         ) = apply { this.actionExecutionIndexIdentifier = actionExecutionIndexIdentifier }
 
+        /** The ID of the action within the workflow context. */
         fun actionId(actionId: Long) = actionId(JsonField.of(actionId))
 
         /**
@@ -262,6 +271,7 @@ private constructor(
             (actionExecutionIndexIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
             (if (actionId.asKnown().isPresent) 1 else 0)
 
+    /** Indicates the source of the request, with the default value being WORKFLOWS. */
     class Source @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

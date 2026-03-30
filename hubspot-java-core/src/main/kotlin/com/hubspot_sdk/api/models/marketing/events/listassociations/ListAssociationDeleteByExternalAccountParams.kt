@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Disassociates a list from a marketing event by external account id, external event id, and ILS
+ * list id
+ */
 class ListAssociationDeleteByExternalAccountParams
 private constructor(
     private val externalAccountId: String,

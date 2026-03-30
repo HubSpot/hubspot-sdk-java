@@ -10,11 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
 import java.util.Objects
 
-/**
- * Create multiple discounts in a single request by providing the necessary properties and
- * associations for each discount. This operation returns a list of the created discounts, including
- * their unique identifiers.
- */
 class BatchCreateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInputForCreate:

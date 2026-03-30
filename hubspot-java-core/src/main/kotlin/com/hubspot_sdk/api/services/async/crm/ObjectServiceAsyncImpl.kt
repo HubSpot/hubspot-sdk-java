@@ -3,6 +3,8 @@
 package com.hubspot_sdk.api.services.async.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsync
+import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.CartServiceAsync
@@ -45,6 +47,8 @@ import com.hubspot_sdk.api.services.async.crm.objects.MeetingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.MeetingServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.NoteServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.NoteServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.crm.objects.ObjectServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.ObjectServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.OrderServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.OrderServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerClientServiceAsync
@@ -55,6 +59,8 @@ import com.hubspot_sdk.api.services.async.crm.objects.PostalMailServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PostalMailServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.ProductServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ProductServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.crm.objects.ProjectServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.ProjectServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.QuoteServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.QuoteServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.ServiceServiceAsync
@@ -128,6 +134,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     private val notes: NoteServiceAsync by lazy { NoteServiceAsyncImpl(clientOptions) }
 
+    private val objects: ObjectServiceAsync by lazy { ObjectServiceAsyncImpl(clientOptions) }
+
     private val orders: OrderServiceAsync by lazy { OrderServiceAsyncImpl(clientOptions) }
 
     private val partnerClients: PartnerClientServiceAsync by lazy {
@@ -143,6 +151,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
     }
 
     private val products: ProductServiceAsync by lazy { ProductServiceAsyncImpl(clientOptions) }
+
+    private val projects: ProjectServiceAsync by lazy { ProjectServiceAsyncImpl(clientOptions) }
 
     private val quotes: QuoteServiceAsync by lazy { QuoteServiceAsyncImpl(clientOptions) }
 
@@ -207,6 +217,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun notes(): NoteServiceAsync = notes
 
+    override fun objects(): ObjectServiceAsync = objects
+
     override fun orders(): OrderServiceAsync = orders
 
     override fun partnerClients(): PartnerClientServiceAsync = partnerClients
@@ -216,6 +228,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun postalMail(): PostalMailServiceAsync = postalMail
 
     override fun products(): ProductServiceAsync = products
+
+    override fun projects(): ProjectServiceAsync = projects
 
     override fun quotes(): QuoteServiceAsync = quotes
 
@@ -318,6 +332,10 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
             NoteServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val objects: ObjectServiceAsync.WithRawResponse by lazy {
+            ObjectServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val orders: OrderServiceAsync.WithRawResponse by lazy {
             OrderServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -336,6 +354,10 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         private val products: ProductServiceAsync.WithRawResponse by lazy {
             ProductServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val projects: ProjectServiceAsync.WithRawResponse by lazy {
+            ProjectServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val quotes: QuoteServiceAsync.WithRawResponse by lazy {
@@ -417,6 +439,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         override fun notes(): NoteServiceAsync.WithRawResponse = notes
 
+        override fun objects(): ObjectServiceAsync.WithRawResponse = objects
+
         override fun orders(): OrderServiceAsync.WithRawResponse = orders
 
         override fun partnerClients(): PartnerClientServiceAsync.WithRawResponse = partnerClients
@@ -426,6 +450,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
         override fun postalMail(): PostalMailServiceAsync.WithRawResponse = postalMail
 
         override fun products(): ProductServiceAsync.WithRawResponse = products
+
+        override fun projects(): ProjectServiceAsync.WithRawResponse = projects
 
         override fun quotes(): QuoteServiceAsync.WithRawResponse = quotes
 

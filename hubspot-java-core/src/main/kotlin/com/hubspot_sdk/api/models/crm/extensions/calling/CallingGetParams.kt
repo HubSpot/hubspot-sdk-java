@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the current recording settings for a specific app using the provided app ID. */
 class CallingGetParams
 private constructor(
     private val appId: Int?,

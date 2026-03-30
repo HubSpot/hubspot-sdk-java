@@ -17,9 +17,10 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
-import com.hubspot_sdk.api.models.ObjectSchema
+import com.hubspot_sdk.api.models.AssociationDefinition
 import com.hubspot_sdk.api.models.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objectschemas.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaDeleteAssociationParams
@@ -27,7 +28,6 @@ import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaDeleteParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaGetParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaListParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaUpdateParams
-import com.hubspot_sdk.api.models.events.AssociationDefinition
 import com.hubspot_sdk.api.services.async.crm.objectschemas.BatchServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objectschemas.BatchServiceAsyncImpl
 import java.util.concurrent.CompletableFuture

@@ -6,9 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListPage
@@ -117,8 +117,9 @@ interface PartnerClientService {
         get(partnerClientId, PartnerClientGetParams.none(), requestOptions)
 
     /**
-     * Search for partner clients by filtering on properties, searching through associations, and
-     * sorting results.
+     * Execute a search for partner clients based on defined filters, properties, and sorting
+     * options. This endpoint allows you to retrieve partner client data that matches the search
+     * criteria, facilitating integration and data synchronization with third-party systems.
      */
     fun search(params: PartnerClientSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())

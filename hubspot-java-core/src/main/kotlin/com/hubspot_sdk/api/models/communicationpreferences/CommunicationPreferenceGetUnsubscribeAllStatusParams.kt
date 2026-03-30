@@ -30,16 +30,10 @@ private constructor(
 
     fun subscriberIdString(): Optional<String> = Optional.ofNullable(subscriberIdString)
 
-    /** The communication channel to unsubscribe from. Must be 'EMAIL'. */
     fun channel(): Channel = channel
 
-    /** The ID of the business unit associated with the communication preferences. */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
-    /**
-     * A boolean indicating whether to include detailed information in the response. Defaults to
-     * false.
-     */
     fun verbose(): Optional<Boolean> = Optional.ofNullable(verbose)
 
     /** Additional headers to send with the request. */
@@ -101,10 +95,8 @@ private constructor(
         fun subscriberIdString(subscriberIdString: Optional<String>) =
             subscriberIdString(subscriberIdString.getOrNull())
 
-        /** The communication channel to unsubscribe from. Must be 'EMAIL'. */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
-        /** The ID of the business unit associated with the communication preferences. */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -118,10 +110,6 @@ private constructor(
         fun businessUnitId(businessUnitId: Optional<Long>) =
             businessUnitId(businessUnitId.getOrNull())
 
-        /**
-         * A boolean indicating whether to include detailed information in the response. Defaults to
-         * false.
-         */
         fun verbose(verbose: Boolean?) = apply { this.verbose = verbose }
 
         /**
@@ -273,7 +261,6 @@ private constructor(
             }
             .build()
 
-    /** The communication channel to unsubscribe from. Must be 'EMAIL'. */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

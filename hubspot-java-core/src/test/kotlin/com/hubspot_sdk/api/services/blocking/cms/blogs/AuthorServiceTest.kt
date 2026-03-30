@@ -12,13 +12,18 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.BlogAuthor
 import com.hubspot_sdk.api.models.cms.blogs.authors.BlogAuthorCloneRequestVNext
@@ -255,6 +260,156 @@ internal class AuthorServiceTest {
             )
 
         assertThat(author.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val authorService = client.cms().blogs().authors()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            authorService.listByQuery(
+                AuthorListByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listPosts(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val authorService = client.cms().blogs().authors()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            authorService.listPosts(
+                AuthorListPostsParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listPostsByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val authorService = client.cms().blogs().authors()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            authorService.listPostsByQuery(
+                AuthorListPostsByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listTags(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val authorService = client.cms().blogs().authors()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            authorService.listTags(
+                AuthorListTagsParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listTagsByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClient.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val authorService = client.cms().blogs().authors()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val response =
+            authorService.listTagsByQuery(
+                AuthorListTagsByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        assertThat(response.body()).hasContent("abc")
     }
 
     @Disabled("Mock server tests are disabled")

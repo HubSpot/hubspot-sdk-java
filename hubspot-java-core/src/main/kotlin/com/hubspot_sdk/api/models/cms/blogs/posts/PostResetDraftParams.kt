@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Discard all drafted content, resetting the draft to contain the content in the currently
+ * published version.
+ */
 class PostResetDraftParams
 private constructor(
     private val objectId: String?,

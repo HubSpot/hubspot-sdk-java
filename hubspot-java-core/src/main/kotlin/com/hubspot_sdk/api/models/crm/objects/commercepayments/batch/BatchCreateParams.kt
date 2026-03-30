@@ -11,10 +11,8 @@ import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchI
 import java.util.Objects
 
 /**
- * Create a batch of payments The `inputs` array can contain a `properties` object to define
- * property values for the record, along with an `associations` array to define
- * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
- * with other CRM records.
+ * Create multiple commerce payment records in a single request, returning the details of each
+ * created payment, including their unique IDs.
  */
 class BatchCreateParams
 private constructor(

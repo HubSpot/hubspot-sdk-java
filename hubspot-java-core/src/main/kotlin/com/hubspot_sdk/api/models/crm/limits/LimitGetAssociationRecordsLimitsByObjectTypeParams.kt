@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Returns records approaching or at association limits between two objects */
 class LimitGetAssociationRecordsLimitsByObjectTypeParams
 private constructor(
     private val fromObjectTypeId: String,

@@ -54,6 +54,7 @@ internal class MessageServiceTest {
                                             .build()
                                     )
                                     .name("name")
+                                    .senderActorId("senderActorId")
                                     .build()
                             )
                             .addSender(
@@ -68,6 +69,7 @@ internal class MessageServiceTest {
                                             .build()
                                     )
                                     .name("name")
+                                    .senderActorId("senderActorId")
                                     .build()
                             )
                             .text("text")

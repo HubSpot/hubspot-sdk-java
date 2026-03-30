@@ -14,9 +14,11 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve a batch of campaigns with specified properties and date range. This endpoint allows you
- * to filter campaigns by start and end dates and specify which properties to include in the
- * response.
+ * This endpoint reads a batch of campaigns based on the provided input data and returns the
+ * campaigns along with their associated assets. The maximum number of items in a batch request
+ * is 50. The campaigns in the response are not guaranteed to be in the same order as they were
+ * provided in the request. If duplicate campaign IDs are provided in the request, duplicates will
+ * be ignored. The response will include only unique IDs and will be returned without duplicates.
  */
 class BatchGetParams
 private constructor(
@@ -28,13 +30,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The end date for filtering campaigns, in YYYY-MM-DD format. */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
-    /** A comma-separated list of property names to include in the response. */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
-    /** The start date for filtering campaigns, in YYYY-MM-DD format. */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     fun batchInputPublicCampaignReadInput(): BatchInputPublicCampaignReadInput =
@@ -84,13 +83,11 @@ private constructor(
             additionalQueryParams = batchGetParams.additionalQueryParams.toBuilder()
         }
 
-        /** The end date for filtering campaigns, in YYYY-MM-DD format. */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
-        /** A comma-separated list of property names to include in the response. */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -107,7 +104,6 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
-        /** The start date for filtering campaigns, in YYYY-MM-DD format. */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

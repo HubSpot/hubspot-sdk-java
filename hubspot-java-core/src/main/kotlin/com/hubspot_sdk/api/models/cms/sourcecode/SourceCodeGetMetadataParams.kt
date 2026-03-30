@@ -10,11 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve metadata for a specific file or folder within a specified environment in the HubSpot
- * CMS. This endpoint is useful for obtaining detailed information about content files, such as
- * their creation and update timestamps, and other metadata attributes.
- */
+/** Gets the metadata object for the file at the specified path in the specified environment. */
 class SourceCodeGetMetadataParams
 private constructor(
     private val environment: String,
@@ -28,7 +24,6 @@ private constructor(
 
     fun path(): Optional<String> = Optional.ofNullable(path)
 
-    /** A comma-separated list of specific metadata properties to include in the response. */
     fun properties(): Optional<String> = Optional.ofNullable(properties)
 
     /** Additional headers to send with the request. */
@@ -77,7 +72,6 @@ private constructor(
         /** Alias for calling [Builder.path] with `path.orElse(null)`. */
         fun path(path: Optional<String>) = path(path.getOrNull())
 
-        /** A comma-separated list of specific metadata properties to include in the response. */
         fun properties(properties: String?) = apply { this.properties = properties }
 
         /** Alias for calling [Builder.properties] with `properties.orElse(null)`. */

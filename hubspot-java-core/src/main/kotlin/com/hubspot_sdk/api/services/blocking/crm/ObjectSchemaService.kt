@@ -7,9 +7,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
-import com.hubspot_sdk.api.models.ObjectSchema
+import com.hubspot_sdk.api.models.AssociationDefinition
 import com.hubspot_sdk.api.models.ObjectTypeDefinition
+import com.hubspot_sdk.api.models.crm.objectschemas.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchema
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaCreateAssociationParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaCreateParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaDeleteAssociationParams
@@ -18,7 +19,6 @@ import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaEgg
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaGetParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaListParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaUpdateParams
-import com.hubspot_sdk.api.models.events.AssociationDefinition
 import com.hubspot_sdk.api.services.blocking.crm.objectschemas.BatchService
 import java.util.function.Consumer
 
@@ -38,6 +38,7 @@ interface ObjectSchemaService {
 
     fun batch(): BatchService
 
+    /** Create a new custom object schema by defining its properties and associations. */
     fun create(params: ObjectSchemaCreateParams): ObjectSchema =
         create(params, RequestOptions.none())
 
@@ -61,6 +62,10 @@ interface ObjectSchemaService {
     fun create(objectSchemaEgg: ObjectSchemaEgg): ObjectSchema =
         create(objectSchemaEgg, RequestOptions.none())
 
+    /**
+     * Update attributes of a custom object schema, such as properties and labels, using the object
+     * type ID or fully qualified name.
+     */
     fun update(objectType: String, params: ObjectSchemaUpdateParams): ObjectTypeDefinition =
         update(objectType, params, RequestOptions.none())
 
@@ -82,6 +87,10 @@ interface ObjectSchemaService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ObjectTypeDefinition
 
+    /**
+     * Retrieve all custom object schemas, with options to include property definitions, association
+     * definitions, and audit metadata.
+     */
     fun list(): CollectionResponseObjectSchemaNoPaging = list(ObjectSchemaListParams.none())
 
     /** @see list */
@@ -99,6 +108,10 @@ interface ObjectSchemaService {
     fun list(requestOptions: RequestOptions): CollectionResponseObjectSchemaNoPaging =
         list(ObjectSchemaListParams.none(), requestOptions)
 
+    /**
+     * Remove a custom object schema from the account using its object type ID or fully qualified
+     * name.
+     */
     fun delete(objectType: String) = delete(objectType, ObjectSchemaDeleteParams.none())
 
     /** @see delete */
@@ -127,6 +140,11 @@ interface ObjectSchemaService {
     fun delete(objectType: String, requestOptions: RequestOptions) =
         delete(objectType, ObjectSchemaDeleteParams.none(), requestOptions)
 
+    /**
+     * Create a new association between the specified object type and another object type. This
+     * operation requires the definition of the association attributes, such as the primary and
+     * target object type IDs.
+     */
     fun createAssociation(
         objectType: String,
         params: ObjectSchemaCreateAssociationParams,
@@ -150,6 +168,11 @@ interface ObjectSchemaService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AssociationDefinition
 
+    /**
+     * Remove an association between two object types identified by the association identifier and
+     * object type. This operation is irreversible and will permanently delete the specified
+     * association.
+     */
     fun deleteAssociation(
         associationIdentifier: String,
         params: ObjectSchemaDeleteAssociationParams,
@@ -176,6 +199,10 @@ interface ObjectSchemaService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /**
+     * Retrieve details of a custom object schema, including its properties and associations, using
+     * the object type ID or fully qualified name.
+     */
     fun get(objectType: String): ObjectSchema = get(objectType, ObjectSchemaGetParams.none())
 
     /** @see get */

@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all calls. Control what is returned via the `properties` query param. */
+/** Read a page of calls. Control what is returned via the `properties` query param. */
 class CallListParams
 private constructor(
     private val after: String?,

@@ -11,8 +11,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve a payment by its ID (`objectId`) or by a unique property (`idProperty`). You can specify
- * what is returned using the `properties` query parameter.
+ * Read an Object identified by `{commercePaymentId}`. `{commercePaymentId}` refers to the internal
+ * object ID by default, or optionally any unique property value as specified by the `idProperty`
+ * query param. Control what is returned via the `properties` query param.
  */
 class CommercePaymentGetParams
 private constructor(

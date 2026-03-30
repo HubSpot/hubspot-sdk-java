@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all goal targets. Control what is returned via the `properties` query param. */
+/** Read a page of goal targets. Control what is returned via the `properties` query param. */
 class GoalTargetListParams
 private constructor(
     private val after: String?,

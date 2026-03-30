@@ -14,6 +14,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve a specific validation rule for a property identified by its name and rule type. */
 class PropertiesValidationGetByObjectTypeIdPropertyNameAndRuleTypeParams
 private constructor(
     private val objectTypeId: String,

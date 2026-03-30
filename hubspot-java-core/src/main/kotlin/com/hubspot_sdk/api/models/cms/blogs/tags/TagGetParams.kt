@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the Blog Tag object identified by the id in the path. */
 class TagGetParams
 private constructor(
     private val objectId: String?,

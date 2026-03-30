@@ -39,6 +39,8 @@ private constructor(
     ) : this(callerIdType, objectCoordinates, name, mutableMapOf())
 
     /**
+     * Specifies the type of caller ID, which is set to 'COMPANY' by default.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -51,6 +53,8 @@ private constructor(
     fun objectCoordinates(): ObjectCoordinates = objectCoordinates.getRequired("objectCoordinates")
 
     /**
+     * The name associated with the company caller ID.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -124,6 +128,7 @@ private constructor(
             additionalProperties = companyCallerId.additionalProperties.toMutableMap()
         }
 
+        /** Specifies the type of caller ID, which is set to 'COMPANY' by default. */
         fun callerIdType(callerIdType: CallerIdType) = callerIdType(JsonField.of(callerIdType))
 
         /**
@@ -151,6 +156,7 @@ private constructor(
             this.objectCoordinates = objectCoordinates
         }
 
+        /** The name associated with the company caller ID. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -234,6 +240,7 @@ private constructor(
             (objectCoordinates.asKnown().getOrNull()?.validity() ?: 0) +
             (if (name.asKnown().isPresent) 1 else 0)
 
+    /** Specifies the type of caller ID, which is set to 'COMPANY' by default. */
     class CallerIdType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

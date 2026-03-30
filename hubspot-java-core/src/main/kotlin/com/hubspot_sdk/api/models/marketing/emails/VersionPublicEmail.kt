@@ -53,6 +53,8 @@ private constructor(
     fun object_(): PublicEmail = object_.getRequired("object")
 
     /**
+     * The date and time of the last update to the email, in ISO8601 representation.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -162,6 +164,7 @@ private constructor(
          */
         fun object_(object_: JsonField<PublicEmail>) = apply { this.object_ = object_ }
 
+        /** The date and time of the last update to the email, in ISO8601 representation. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**

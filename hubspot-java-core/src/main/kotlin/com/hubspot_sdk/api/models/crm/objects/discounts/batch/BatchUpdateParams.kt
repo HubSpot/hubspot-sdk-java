@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import java.util.Objects
 
-/** Update discounts */
+/** Update a batch of discounts by internal ID, or unique property values */
 class BatchUpdateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,

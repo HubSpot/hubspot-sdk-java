@@ -20,6 +20,7 @@ internal class ChannelIntegrationParticipantTest {
                         .build()
                 )
                 .name("name")
+                .senderActorId("senderActorId")
                 .build()
 
         assertThat(channelIntegrationParticipant.deliveryIdentifier())
@@ -30,6 +31,7 @@ internal class ChannelIntegrationParticipantTest {
                     .build()
             )
         assertThat(channelIntegrationParticipant.name()).contains("name")
+        assertThat(channelIntegrationParticipant.senderActorId()).contains("senderActorId")
     }
 
     @Test
@@ -44,6 +46,7 @@ internal class ChannelIntegrationParticipantTest {
                         .build()
                 )
                 .name("name")
+                .senderActorId("senderActorId")
                 .build()
 
         val roundtrippedChannelIntegrationParticipant =

@@ -34,9 +34,9 @@ interface BatchServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
     /**
-     * Create a batch of campaigns with specified properties. This endpoint allows for the creation
-     * of multiple campaigns in a single request. Note that the 'hs_goal' property is deprecated and
-     * will be ignored if provided.
+     * This endpoint creates a batch of campaigns. The maximum number of items in a batch request
+     * is 50. The campaigns in the response are not guaranteed to be in the same order as they were
+     * provided in the request.
      */
     fun create(params: BatchCreateParams): CompletableFuture<BatchResponsePublicCampaign> =
         create(params, RequestOptions.none())
@@ -66,9 +66,9 @@ interface BatchServiceAsync {
         create(batchInputPublicCampaignInput, RequestOptions.none())
 
     /**
-     * Update a batch of marketing campaigns with specified properties. This endpoint allows you to
-     * modify multiple campaigns in one request. Note that the 'hs_goal' property is deprecated and
-     * will be ignored if provided.
+     * This endpoint updates a batch of campaigns based on the provided input data. The maximum
+     * number of items in a batch request is 50. If an empty string ("") is passed for any property
+     * in the Batch Update, it will reset that property's value.
      */
     fun update(params: BatchUpdateParams): CompletableFuture<BatchResponsePublicCampaign> =
         update(params, RequestOptions.none())
@@ -98,9 +98,10 @@ interface BatchServiceAsync {
         update(batchInputPublicCampaignBatchUpdateItem, RequestOptions.none())
 
     /**
-     * Archive a batch of marketing campaigns in your HubSpot account. This operation permanently
-     * removes the specified campaigns, making them inaccessible. It is useful for cleaning up
-     * outdated or unnecessary campaigns in bulk.
+     * This endpoint deletes a batch of campaigns. The maximum number of items in a batch request
+     * is 50. The response will always be 204 No Content, regardless of whether the campaigns exist
+     * or not, whether they were successfully deleted or not, or if only some of the campaigns in
+     * the batch were deleted.
      */
     fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
@@ -129,9 +130,12 @@ interface BatchServiceAsync {
     ): CompletableFuture<Void?> = delete(batchInputPublicCampaignDeleteInput, RequestOptions.none())
 
     /**
-     * Retrieve a batch of campaigns with specified properties and date range. This endpoint allows
-     * you to filter campaigns by start and end dates and specify which properties to include in the
-     * response.
+     * This endpoint reads a batch of campaigns based on the provided input data and returns the
+     * campaigns along with their associated assets. The maximum number of items in a batch request
+     * is 50. The campaigns in the response are not guaranteed to be in the same order as they were
+     * provided in the request. If duplicate campaign IDs are provided in the request, duplicates
+     * will be ignored. The response will include only unique IDs and will be returned without
+     * duplicates.
      */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponsePublicCampaignWithAssets> =
         get(params, RequestOptions.none())

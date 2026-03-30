@@ -15,7 +15,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
+import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -104,6 +104,8 @@ private constructor(
     )
 
     /**
+     * The unique ID of the Blog.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -118,6 +120,8 @@ private constructor(
     fun absoluteUrl(): String = absoluteUrl.getRequired("absoluteUrl")
 
     /**
+     * Boolean determining whether or not this blog allows public comments.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -132,7 +136,7 @@ private constructor(
     fun created(): OffsetDateTime = created.getRequired("created")
 
     /**
-     * The timestamp (ISO8601 format) when this blog was deleted.
+     * The timestamp (ISO8601 format) when this Blog was deleted.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -140,18 +144,25 @@ private constructor(
     fun deletedAt(): OffsetDateTime = deletedAt.getRequired("deletedAt")
 
     /**
+     * The Description of this Blog.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun description(): String = description.getRequired("description")
 
     /**
+     * The html title of this Blog.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun htmlTitle(): String = htmlTitle.getRequired("htmlTitle")
 
     /**
+     * The explicitly defined language of the Blog. If null, the Blog will default to the language
+     * of the Domain.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -164,12 +175,16 @@ private constructor(
     fun listingPageId(): String = listingPageId.getRequired("listingPageId")
 
     /**
+     * The internal name of the blog.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
 
     /**
+     * Rules for require member registration to access private content.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -177,6 +192,8 @@ private constructor(
         publicAccessRules.getRequired("publicAccessRules")
 
     /**
+     * Boolean to determine whether or not to respect publicAccessRules.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -184,18 +201,25 @@ private constructor(
         publicAccessRulesEnabled.getRequired("publicAccessRulesEnabled")
 
     /**
+     * The public title of this Blog.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publicTitle(): String = publicTitle.getRequired("publicTitle")
 
     /**
+     * The path of the this blog. This field is appended to the domain to construct the url of this
+     * blog.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun slug(): String = slug.getRequired("slug")
 
     /**
+     * ID of the primary Blog this object was translated from.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -418,6 +442,7 @@ private constructor(
             additionalProperties = blog.additionalProperties.toMutableMap()
         }
 
+        /** The unique ID of the Blog. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -440,6 +465,7 @@ private constructor(
          */
         fun absoluteUrl(absoluteUrl: JsonField<String>) = apply { this.absoluteUrl = absoluteUrl }
 
+        /** Boolean determining whether or not this blog allows public comments. */
         fun allowComments(allowComments: Boolean) = allowComments(JsonField.of(allowComments))
 
         /**
@@ -465,7 +491,7 @@ private constructor(
          */
         fun created(created: JsonField<OffsetDateTime>) = apply { this.created = created }
 
-        /** The timestamp (ISO8601 format) when this blog was deleted. */
+        /** The timestamp (ISO8601 format) when this Blog was deleted. */
         fun deletedAt(deletedAt: OffsetDateTime) = deletedAt(JsonField.of(deletedAt))
 
         /**
@@ -477,6 +503,7 @@ private constructor(
          */
         fun deletedAt(deletedAt: JsonField<OffsetDateTime>) = apply { this.deletedAt = deletedAt }
 
+        /** The Description of this Blog. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**
@@ -488,6 +515,7 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
+        /** The html title of this Blog. */
         fun htmlTitle(htmlTitle: String) = htmlTitle(JsonField.of(htmlTitle))
 
         /**
@@ -499,6 +527,10 @@ private constructor(
          */
         fun htmlTitle(htmlTitle: JsonField<String>) = apply { this.htmlTitle = htmlTitle }
 
+        /**
+         * The explicitly defined language of the Blog. If null, the Blog will default to the
+         * language of the Domain.
+         */
         fun language(language: Language) = language(JsonField.of(language))
 
         /**
@@ -523,6 +555,7 @@ private constructor(
             this.listingPageId = listingPageId
         }
 
+        /** The internal name of the blog. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -533,6 +566,7 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
+        /** Rules for require member registration to access private content. */
         fun publicAccessRules(publicAccessRules: List<PublicAccessRule>) =
             publicAccessRules(JsonField.of(publicAccessRules))
 
@@ -559,6 +593,7 @@ private constructor(
                 }
         }
 
+        /** Boolean to determine whether or not to respect publicAccessRules. */
         fun publicAccessRulesEnabled(publicAccessRulesEnabled: Boolean) =
             publicAccessRulesEnabled(JsonField.of(publicAccessRulesEnabled))
 
@@ -573,6 +608,7 @@ private constructor(
             this.publicAccessRulesEnabled = publicAccessRulesEnabled
         }
 
+        /** The public title of this Blog. */
         fun publicTitle(publicTitle: String) = publicTitle(JsonField.of(publicTitle))
 
         /**
@@ -584,6 +620,10 @@ private constructor(
          */
         fun publicTitle(publicTitle: JsonField<String>) = apply { this.publicTitle = publicTitle }
 
+        /**
+         * The path of the this blog. This field is appended to the domain to construct the url of
+         * this blog.
+         */
         fun slug(slug: String) = slug(JsonField.of(slug))
 
         /**
@@ -594,6 +634,7 @@ private constructor(
          */
         fun slug(slug: JsonField<String>) = apply { this.slug = slug }
 
+        /** ID of the primary Blog this object was translated from. */
         fun translatedFromId(translatedFromId: String) =
             translatedFromId(JsonField.of(translatedFromId))
 
@@ -746,6 +787,10 @@ private constructor(
             (if (translatedFromId.asKnown().isPresent) 1 else 0) +
             (if (updated.asKnown().isPresent) 1 else 0)
 
+    /**
+     * The explicitly defined language of the Blog. If null, the Blog will default to the language
+     * of the Domain.
+     */
     class Language @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

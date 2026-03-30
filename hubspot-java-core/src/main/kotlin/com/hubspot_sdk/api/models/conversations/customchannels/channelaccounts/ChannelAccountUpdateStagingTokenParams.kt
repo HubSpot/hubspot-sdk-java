@@ -12,6 +12,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Update a channel account staging token's account name and delivery identifier. This information
+ * will be applied to the channel account created from this staging token. This is used for public
+ * apps.
+ */
 class ChannelAccountUpdateStagingTokenParams
 private constructor(
     private val channelId: Int,

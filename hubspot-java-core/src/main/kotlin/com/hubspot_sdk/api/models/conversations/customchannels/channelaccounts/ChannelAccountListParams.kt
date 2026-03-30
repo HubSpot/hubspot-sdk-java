@@ -14,6 +14,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve a list of accounts for a custom channel. */
 class ChannelAccountListParams
 private constructor(
     private val channelId: Int?,

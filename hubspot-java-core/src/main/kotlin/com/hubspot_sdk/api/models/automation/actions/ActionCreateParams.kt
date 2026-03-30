@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Create a new custom workflow action. */
 class ActionCreateParams
 private constructor(
     private val appId: Int?,

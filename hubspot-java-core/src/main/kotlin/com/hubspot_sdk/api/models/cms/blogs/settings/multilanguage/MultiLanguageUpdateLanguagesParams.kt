@@ -7,9 +7,10 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import java.util.Objects
 
+/** Explicitly set new languages for each blog in a multi-language group. */
 class MultiLanguageUpdateLanguagesParams
 private constructor(
     private val updateLanguagesRequestVNext: UpdateLanguagesRequestVNext,

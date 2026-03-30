@@ -13,8 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve a batch of emails by record ID or include the `idProperty` parameter to retrieve records
- * by a custom unique value property.
+ * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+ * custom unique value property.
  */
 class BatchGetParams
 private constructor(

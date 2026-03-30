@@ -10,6 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Use this endpoint to get aggregated statistics of emails sent in a specified time span. It also
+ * returns the list of emails that were sent during the time span.
+ */
 class EmailGetParams
 private constructor(
     private val emailIds: List<Long>?,

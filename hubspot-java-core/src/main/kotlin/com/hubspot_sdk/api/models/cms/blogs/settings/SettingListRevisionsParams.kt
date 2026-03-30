@@ -9,6 +9,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Get the list of blog revisions. Results can be limited and filtered by creation or updated date.
+ */
 class SettingListRevisionsParams
 private constructor(
     private val blogId: String?,

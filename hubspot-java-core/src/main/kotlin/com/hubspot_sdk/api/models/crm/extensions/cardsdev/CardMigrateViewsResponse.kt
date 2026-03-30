@@ -28,6 +28,8 @@ private constructor(
     ) : this(message, mutableMapOf())
 
     /**
+     * A human readable message describing the error along with remediation steps where appropriate
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -77,6 +79,10 @@ private constructor(
             additionalProperties = cardMigrateViewsResponse.additionalProperties.toMutableMap()
         }
 
+        /**
+         * A human readable message describing the error along with remediation steps where
+         * appropriate
+         */
         fun message(message: String) = message(JsonField.of(message))
 
         /**

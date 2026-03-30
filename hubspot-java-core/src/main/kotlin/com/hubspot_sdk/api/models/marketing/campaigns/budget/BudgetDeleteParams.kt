@@ -12,11 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Delete a specific budget item from a campaign using its unique ID. This operation removes the
- * budget item from the campaign's budget list, ensuring it is no longer considered in budget
- * calculations.
- */
+/** Delete a specific budget item by ID */
 class BudgetDeleteParams
 private constructor(
     private val campaignGuid: String,

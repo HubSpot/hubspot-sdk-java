@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.models.cms.blogs.authors.batch
 
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
+import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

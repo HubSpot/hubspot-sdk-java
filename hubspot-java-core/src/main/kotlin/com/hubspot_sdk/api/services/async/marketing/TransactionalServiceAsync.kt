@@ -3,12 +3,8 @@
 package com.hubspot_sdk.api.services.async.marketing
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.core.RequestOptions
-import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.marketing.transactional.EmailSendStatusView
-import com.hubspot_sdk.api.models.marketing.transactional.PublicSingleSendRequestEgg
-import com.hubspot_sdk.api.models.marketing.transactional.TransactionalSendParams
-import java.util.concurrent.CompletableFuture
+import com.hubspot_sdk.api.services.async.marketing.transactional.SingleEmailServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.transactional.SmtpTokenServiceAsync
 import java.util.function.Consumer
 
 interface TransactionalServiceAsync {
@@ -25,32 +21,9 @@ interface TransactionalServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TransactionalServiceAsync
 
-    fun send(params: TransactionalSendParams): CompletableFuture<EmailSendStatusView> =
-        send(params, RequestOptions.none())
+    fun singleEmail(): SingleEmailServiceAsync
 
-    /** @see send */
-    fun send(
-        params: TransactionalSendParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailSendStatusView>
-
-    /** @see send */
-    fun send(
-        publicSingleSendRequestEgg: PublicSingleSendRequestEgg,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EmailSendStatusView> =
-        send(
-            TransactionalSendParams.builder()
-                .publicSingleSendRequestEgg(publicSingleSendRequestEgg)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see send */
-    fun send(
-        publicSingleSendRequestEgg: PublicSingleSendRequestEgg
-    ): CompletableFuture<EmailSendStatusView> =
-        send(publicSingleSendRequestEgg, RequestOptions.none())
+    fun smtpTokens(): SmtpTokenServiceAsync
 
     /**
      * A view of [TransactionalServiceAsync] that provides access to raw HTTP responses for each
@@ -67,38 +40,8 @@ interface TransactionalServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): TransactionalServiceAsync.WithRawResponse
 
-        /**
-         * Returns a raw HTTP response for `post
-         * /marketing/transactional/2026-03/single-email/send`, but is otherwise the same as
-         * [TransactionalServiceAsync.send].
-         */
-        fun send(
-            params: TransactionalSendParams
-        ): CompletableFuture<HttpResponseFor<EmailSendStatusView>> =
-            send(params, RequestOptions.none())
+        fun singleEmail(): SingleEmailServiceAsync.WithRawResponse
 
-        /** @see send */
-        fun send(
-            params: TransactionalSendParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailSendStatusView>>
-
-        /** @see send */
-        fun send(
-            publicSingleSendRequestEgg: PublicSingleSendRequestEgg,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EmailSendStatusView>> =
-            send(
-                TransactionalSendParams.builder()
-                    .publicSingleSendRequestEgg(publicSingleSendRequestEgg)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see send */
-        fun send(
-            publicSingleSendRequestEgg: PublicSingleSendRequestEgg
-        ): CompletableFuture<HttpResponseFor<EmailSendStatusView>> =
-            send(publicSingleSendRequestEgg, RequestOptions.none())
+        fun smtpTokens(): SmtpTokenServiceAsync.WithRawResponse
     }
 }

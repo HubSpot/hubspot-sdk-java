@@ -10,6 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve the details for a specific channel account. This contains all the metadata about your
+ * channel account, including its channel, associated inbox id, and delivery identifier information.
+ */
 class CustomChannelGetParams
 private constructor(
     private val channelId: Int,

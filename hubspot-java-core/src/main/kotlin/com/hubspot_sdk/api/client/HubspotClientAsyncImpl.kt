@@ -6,8 +6,6 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.getPackageVersion
 import com.hubspot_sdk.api.services.async.AccountServiceAsync
 import com.hubspot_sdk.api.services.async.AccountServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.AppWebhookServiceAsync
-import com.hubspot_sdk.api.services.async.AppWebhookServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.AuthServiceAsync
 import com.hubspot_sdk.api.services.async.AuthServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.AutomationServiceAsync
@@ -22,8 +20,6 @@ import com.hubspot_sdk.api.services.async.ConversationServiceAsync
 import com.hubspot_sdk.api.services.async.ConversationServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.CrmServiceAsync
 import com.hubspot_sdk.api.services.async.CrmServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.DataStudioServiceAsync
-import com.hubspot_sdk.api.services.async.DataStudioServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.EventServiceAsync
 import com.hubspot_sdk.api.services.async.EventServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.FileServiceAsync
@@ -36,6 +32,8 @@ import com.hubspot_sdk.api.services.async.SchedulerServiceAsync
 import com.hubspot_sdk.api.services.async.SchedulerServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.SettingServiceAsync
 import com.hubspot_sdk.api.services.async.SettingServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.WebhookServiceAsync
+import com.hubspot_sdk.api.services.async.WebhookServiceAsyncImpl
 import java.util.function.Consumer
 
 class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : HubspotClientAsync {
@@ -57,10 +55,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
 
     private val account: AccountServiceAsync by lazy {
         AccountServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val appWebhooks: AppWebhookServiceAsync by lazy {
-        AppWebhookServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val auth: AuthServiceAsync by lazy { AuthServiceAsyncImpl(clientOptionsWithUserAgent) }
@@ -85,10 +79,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
 
     private val crm: CrmServiceAsync by lazy { CrmServiceAsyncImpl(clientOptionsWithUserAgent) }
 
-    private val dataStudio: DataStudioServiceAsync by lazy {
-        DataStudioServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val events: EventServiceAsync by lazy {
         EventServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -109,6 +99,10 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
         SettingServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val webhooks: WebhookServiceAsync by lazy {
+        WebhookServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     override fun sync(): HubspotClient = sync
 
     override fun withRawResponse(): HubspotClientAsync.WithRawResponse = withRawResponse
@@ -117,8 +111,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
         HubspotClientAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun account(): AccountServiceAsync = account
-
-    override fun appWebhooks(): AppWebhookServiceAsync = appWebhooks
 
     override fun auth(): AuthServiceAsync = auth
 
@@ -135,8 +127,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
 
     override fun crm(): CrmServiceAsync = crm
 
-    override fun dataStudio(): DataStudioServiceAsync = dataStudio
-
     override fun events(): EventServiceAsync = events
 
     override fun files(): FileServiceAsync = files
@@ -149,6 +139,8 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
 
     override fun settings(): SettingServiceAsync = settings
 
+    override fun webhooks(): WebhookServiceAsync = webhooks
+
     override fun close() = clientOptions.close()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -156,10 +148,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
 
         private val account: AccountServiceAsync.WithRawResponse by lazy {
             AccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val appWebhooks: AppWebhookServiceAsync.WithRawResponse by lazy {
-            AppWebhookServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val auth: AuthServiceAsync.WithRawResponse by lazy {
@@ -191,10 +179,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
             CrmServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val dataStudio: DataStudioServiceAsync.WithRawResponse by lazy {
-            DataStudioServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val events: EventServiceAsync.WithRawResponse by lazy {
             EventServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -219,6 +203,10 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
             SettingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val webhooks: WebhookServiceAsync.WithRawResponse by lazy {
+            WebhookServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): HubspotClientAsync.WithRawResponse =
@@ -227,8 +215,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
             )
 
         override fun account(): AccountServiceAsync.WithRawResponse = account
-
-        override fun appWebhooks(): AppWebhookServiceAsync.WithRawResponse = appWebhooks
 
         override fun auth(): AuthServiceAsync.WithRawResponse = auth
 
@@ -245,8 +231,6 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
 
         override fun crm(): CrmServiceAsync.WithRawResponse = crm
 
-        override fun dataStudio(): DataStudioServiceAsync.WithRawResponse = dataStudio
-
         override fun events(): EventServiceAsync.WithRawResponse = events
 
         override fun files(): FileServiceAsync.WithRawResponse = files
@@ -258,5 +242,7 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
         override fun scheduler(): SchedulerServiceAsync.WithRawResponse = scheduler
 
         override fun settings(): SettingServiceAsync.WithRawResponse = settings
+
+        override fun webhooks(): WebhookServiceAsync.WithRawResponse = webhooks
     }
 }

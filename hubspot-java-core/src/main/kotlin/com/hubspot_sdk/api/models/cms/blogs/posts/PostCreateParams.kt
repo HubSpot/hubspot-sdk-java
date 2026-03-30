@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Create a new blog post, specifying its content in the request body. */
 class PostCreateParams
 private constructor(
     private val blogPost: BlogPost,

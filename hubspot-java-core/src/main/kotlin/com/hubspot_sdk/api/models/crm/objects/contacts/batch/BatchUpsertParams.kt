@@ -10,10 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
 import java.util.Objects
 
-/**
- * Upsert a batch of contacts. The `inputs` array can contain a `properties` object to define
- * property values for each record.
- */
 class BatchUpsertParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInputUpsert:

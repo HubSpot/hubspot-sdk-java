@@ -39,6 +39,16 @@ private constructor(
     ) : this(metadata, archived, displayOrder, label, mutableMapOf())
 
     /**
+     * A JSON object containing properties that are not present on all object pipelines.
+     *
+     * For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and
+     * represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in
+     * increments of 0.1.
+     *
+     * For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`),
+     * and represents whether the ticket remains open or has been closed by a member of your Support
+     * team. Possible values are `OPEN` or `CLOSED`.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -53,6 +63,9 @@ private constructor(
     fun archived(): Optional<Boolean> = archived.getOptional("archived")
 
     /**
+     * The order for displaying this pipeline stage. If two pipeline stages have a matching
+     * `displayOrder`, they will be sorted alphabetically by label.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -138,6 +151,17 @@ private constructor(
             additionalProperties = pipelineStagePatchInput.additionalProperties.toMutableMap()
         }
 
+        /**
+         * A JSON object containing properties that are not present on all object pipelines.
+         *
+         * For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`),
+         * and represents the likelihood a deal will close. Possible values are between 0.0 and 1.0
+         * in increments of 0.1.
+         *
+         * For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN"
+         * }`), and represents whether the ticket remains open or has been closed by a member of
+         * your Support team. Possible values are `OPEN` or `CLOSED`.
+         */
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
@@ -161,6 +185,10 @@ private constructor(
          */
         fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
+        /**
+         * The order for displaying this pipeline stage. If two pipeline stages have a matching
+         * `displayOrder`, they will be sorted alphabetically by label.
+         */
         fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
 
         /**
@@ -261,6 +289,17 @@ private constructor(
             (if (displayOrder.asKnown().isPresent) 1 else 0) +
             (if (label.asKnown().isPresent) 1 else 0)
 
+    /**
+     * A JSON object containing properties that are not present on all object pipelines.
+     *
+     * For `deals` pipelines, the `probability` field is required (`{ "probability": 0.5 }`), and
+     * represents the likelihood a deal will close. Possible values are between 0.0 and 1.0 in
+     * increments of 0.1.
+     *
+     * For `tickets` pipelines, the `ticketState` field is optional (`{ "ticketState": "OPEN" }`),
+     * and represents whether the ticket remains open or has been closed by a member of your Support
+     * team. Possible values are `OPEN` or `CLOSED`.
+     */
     class Metadata
     @JsonCreator
     private constructor(

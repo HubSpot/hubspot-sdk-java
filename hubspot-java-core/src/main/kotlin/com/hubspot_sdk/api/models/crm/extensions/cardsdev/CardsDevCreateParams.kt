@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Defines a new card that will become active on an account when this app is installed. */
 class CardsDevCreateParams
 private constructor(
     private val appId: Int?,

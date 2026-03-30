@@ -7,8 +7,10 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import java.util.Objects
 
+/** Clone a blog post, making a copy of it in a new blog post. */
 class PostCloneParams
 private constructor(
     private val contentCloneRequestVNext: ContentCloneRequestVNext,

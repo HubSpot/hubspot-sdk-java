@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Archive an existing registered custom channel */
 class CustomChannelDeleteParams
 private constructor(
     private val channelId: Int?,

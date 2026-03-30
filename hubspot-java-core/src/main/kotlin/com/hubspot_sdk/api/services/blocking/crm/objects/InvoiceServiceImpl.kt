@@ -16,10 +16,10 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceCreateParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.invoices.InvoiceGetParams

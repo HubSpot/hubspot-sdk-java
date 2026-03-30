@@ -34,36 +34,29 @@ private constructor(
 ) : Params {
 
     /**
-     * A cursor token for pagination. Use the value from the previous response's paging.next.after
-     * field.
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * `paging.next.after` JSON property of a paged response containing more results.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    /** Filter redirects created after a specific timestamp. Format must be date-time. */
     fun createdAfter(): Optional<OffsetDateTime> = Optional.ofNullable(createdAfter)
 
-    /** Filter redirects by their exact creation timestamp. Format must be date-time. */
     fun createdAt(): Optional<OffsetDateTime> = Optional.ofNullable(createdAt)
 
-    /** Filter redirects created before a specific timestamp. Format must be date-time. */
     fun createdBefore(): Optional<OffsetDateTime> = Optional.ofNullable(createdBefore)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** Specify the order in which to sort the results. Accepts an array of strings. */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
-    /** Filter redirects updated after a specific timestamp. Format must be date-time. */
     fun updatedAfter(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAfter)
 
-    /** Filter redirects by their exact update timestamp. Format must be date-time. */
     fun updatedAt(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAt)
 
-    /** Filter redirects updated before a specific timestamp. Format must be date-time. */
     fun updatedBefore(): Optional<OffsetDateTime> = Optional.ofNullable(updatedBefore)
 
     /** Additional headers to send with the request. */
@@ -115,8 +108,8 @@ private constructor(
         }
 
         /**
-         * A cursor token for pagination. Use the value from the previous response's
-         * paging.next.after field.
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * `paging.next.after` JSON property of a paged response containing more results.
          */
         fun after(after: String?) = apply { this.after = after }
 
@@ -136,20 +129,17 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        /** Filter redirects created after a specific timestamp. Format must be date-time. */
         fun createdAfter(createdAfter: OffsetDateTime?) = apply { this.createdAfter = createdAfter }
 
         /** Alias for calling [Builder.createdAfter] with `createdAfter.orElse(null)`. */
         fun createdAfter(createdAfter: Optional<OffsetDateTime>) =
             createdAfter(createdAfter.getOrNull())
 
-        /** Filter redirects by their exact creation timestamp. Format must be date-time. */
         fun createdAt(createdAt: OffsetDateTime?) = apply { this.createdAt = createdAt }
 
         /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<OffsetDateTime>) = createdAt(createdAt.getOrNull())
 
-        /** Filter redirects created before a specific timestamp. Format must be date-time. */
         fun createdBefore(createdBefore: OffsetDateTime?) = apply {
             this.createdBefore = createdBefore
         }
@@ -171,7 +161,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** Specify the order in which to sort the results. Accepts an array of strings. */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -186,20 +175,17 @@ private constructor(
             this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
         }
 
-        /** Filter redirects updated after a specific timestamp. Format must be date-time. */
         fun updatedAfter(updatedAfter: OffsetDateTime?) = apply { this.updatedAfter = updatedAfter }
 
         /** Alias for calling [Builder.updatedAfter] with `updatedAfter.orElse(null)`. */
         fun updatedAfter(updatedAfter: Optional<OffsetDateTime>) =
             updatedAfter(updatedAfter.getOrNull())
 
-        /** Filter redirects by their exact update timestamp. Format must be date-time. */
         fun updatedAt(updatedAt: OffsetDateTime?) = apply { this.updatedAt = updatedAt }
 
         /** Alias for calling [Builder.updatedAt] with `updatedAt.orElse(null)`. */
         fun updatedAt(updatedAt: Optional<OffsetDateTime>) = updatedAt(updatedAt.getOrNull())
 
-        /** Filter redirects updated before a specific timestamp. Format must be date-time. */
         fun updatedBefore(updatedBefore: OffsetDateTime?) = apply {
             this.updatedBefore = updatedBefore
         }

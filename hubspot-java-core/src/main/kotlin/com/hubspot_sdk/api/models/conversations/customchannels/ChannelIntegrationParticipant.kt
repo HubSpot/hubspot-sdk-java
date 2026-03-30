@@ -22,6 +22,7 @@ class ChannelIntegrationParticipant
 private constructor(
     private val deliveryIdentifier: JsonField<PublicDeliveryIdentifier>,
     private val name: JsonField<String>,
+    private val senderActorId: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -31,7 +32,10 @@ private constructor(
         @ExcludeMissing
         deliveryIdentifier: JsonField<PublicDeliveryIdentifier> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-    ) : this(deliveryIdentifier, name, mutableMapOf())
+        @JsonProperty("senderActorId")
+        @ExcludeMissing
+        senderActorId: JsonField<String> = JsonMissing.of(),
+    ) : this(deliveryIdentifier, name, senderActorId, mutableMapOf())
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -45,6 +49,12 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun senderActorId(): Optional<String> = senderActorId.getOptional("senderActorId")
 
     /**
      * Returns the raw JSON value of [deliveryIdentifier].
@@ -62,6 +72,15 @@ private constructor(
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+    /**
+     * Returns the raw JSON value of [senderActorId].
+     *
+     * Unlike [senderActorId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("senderActorId")
+    @ExcludeMissing
+    fun _senderActorId(): JsonField<String> = senderActorId
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -94,12 +113,14 @@ private constructor(
 
         private var deliveryIdentifier: JsonField<PublicDeliveryIdentifier>? = null
         private var name: JsonField<String> = JsonMissing.of()
+        private var senderActorId: JsonField<String> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(channelIntegrationParticipant: ChannelIntegrationParticipant) = apply {
             deliveryIdentifier = channelIntegrationParticipant.deliveryIdentifier
             name = channelIntegrationParticipant.name
+            senderActorId = channelIntegrationParticipant.senderActorId
             additionalProperties = channelIntegrationParticipant.additionalProperties.toMutableMap()
         }
 
@@ -126,6 +147,19 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
+
+        fun senderActorId(senderActorId: String) = senderActorId(JsonField.of(senderActorId))
+
+        /**
+         * Sets [Builder.senderActorId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.senderActorId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun senderActorId(senderActorId: JsonField<String>) = apply {
+            this.senderActorId = senderActorId
+        }
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -162,6 +196,7 @@ private constructor(
             ChannelIntegrationParticipant(
                 checkRequired("deliveryIdentifier", deliveryIdentifier),
                 name,
+                senderActorId,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -175,6 +210,7 @@ private constructor(
 
         deliveryIdentifier().validate()
         name()
+        senderActorId()
         validated = true
     }
 
@@ -194,7 +230,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (deliveryIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (name.asKnown().isPresent) 1 else 0)
+            (if (name.asKnown().isPresent) 1 else 0) +
+            (if (senderActorId.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -204,15 +241,16 @@ private constructor(
         return other is ChannelIntegrationParticipant &&
             deliveryIdentifier == other.deliveryIdentifier &&
             name == other.name &&
+            senderActorId == other.senderActorId &&
             additionalProperties == other.additionalProperties
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(deliveryIdentifier, name, additionalProperties)
+        Objects.hash(deliveryIdentifier, name, senderActorId, additionalProperties)
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ChannelIntegrationParticipant{deliveryIdentifier=$deliveryIdentifier, name=$name, additionalProperties=$additionalProperties}"
+        "ChannelIntegrationParticipant{deliveryIdentifier=$deliveryIdentifier, name=$name, senderActorId=$senderActorId, additionalProperties=$additionalProperties}"
 }

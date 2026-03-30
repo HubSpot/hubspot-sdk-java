@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * This API is used to update the name of the channel account and it's isAuthorized status. Setting
+ * to isAuthorized flag to False disables the channel account.
+ */
 class ChannelAccountUpdateParams
 private constructor(
     private val channelId: Int,

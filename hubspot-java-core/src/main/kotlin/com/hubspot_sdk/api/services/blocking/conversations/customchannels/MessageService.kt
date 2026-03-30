@@ -26,6 +26,7 @@ interface MessageService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MessageService
 
+    /** Publish a message over your custom channel */
     fun create(channelId: Int, params: MessageCreateParams): PublicConversationsMessage =
         create(channelId, params, RequestOptions.none())
 
@@ -47,6 +48,10 @@ interface MessageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicConversationsMessage
 
+    /**
+     * Update a message's status to indicate if it was successfully sent, failed to send, or was
+     * read. For failed messages, this can also include the error message for the failure.
+     */
     fun update(messageId: String, params: MessageUpdateParams): PublicConversationsMessage =
         update(messageId, params, RequestOptions.none())
 
@@ -68,6 +73,7 @@ interface MessageService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicConversationsMessage
 
+    /** Get the details for a specific message sent over a custom channel */
     fun get(messageId: String, params: MessageGetParams): PublicConversationsMessage =
         get(messageId, params, RequestOptions.none())
 

@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Associates a list with a marketing event by marketing event id and ILS list id */
 class ListAssociationAssociateParams
 private constructor(
     private val marketingEventId: String,

@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
 import java.util.Objects
 
+/** Send multiple event occurrences at once. */
 class DefinitionSendBatchParams
 private constructor(
     private val batchedBehavioralEventHttpCompletionRequest:

@@ -11,9 +11,10 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Read a campaign identified by a specified internal ID. This endpoint allows you to retrieve
- * detailed information about a specific marketing campaign using its unique identifier. It supports
- * filtering the response by specific properties and date ranges.
+ * Get a campaign identified by a specific campaignGuid with the given properties. Along with the
+ * campaign information, it also returns information about assets. Depending on the query parameters
+ * used, this can also be used to return information about the corresponding assets' metrics.
+ * Metrics are available only if startDate and endDate are provided.
  */
 class CampaignGetParams
 private constructor(
@@ -27,13 +28,10 @@ private constructor(
 
     fun campaignGuid(): Optional<String> = Optional.ofNullable(campaignGuid)
 
-    /** The end date for filtering campaign data, in YYYY-MM-DD format. */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
-    /** A comma-separated list of property names to include in the response. */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
-    /** The start date for filtering campaign data, in YYYY-MM-DD format. */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -77,13 +75,11 @@ private constructor(
         /** Alias for calling [Builder.campaignGuid] with `campaignGuid.orElse(null)`. */
         fun campaignGuid(campaignGuid: Optional<String>) = campaignGuid(campaignGuid.getOrNull())
 
-        /** The end date for filtering campaign data, in YYYY-MM-DD format. */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
-        /** A comma-separated list of property names to include in the response. */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -100,7 +96,6 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
-        /** The start date for filtering campaign data, in YYYY-MM-DD format. */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

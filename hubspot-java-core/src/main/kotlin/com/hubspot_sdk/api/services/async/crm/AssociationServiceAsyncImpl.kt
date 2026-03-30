@@ -17,9 +17,14 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabelForwardPaging
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.LabelsBetweenObjectPair
-import com.hubspot_sdk.api.models.crm.associations.AssociationDeleteAssociationsParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationDeleteParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationListPageAsync
+import com.hubspot_sdk.api.models.crm.associations.AssociationListParams
 import com.hubspot_sdk.api.models.crm.associations.AssociationRequestHighUsageReportParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationSearchParams
 import com.hubspot_sdk.api.models.crm.associations.AssociationUpdateAssociationLabelsParams
 import com.hubspot_sdk.api.models.crm.associations.ReportCreationResponse
 import com.hubspot_sdk.api.services.async.crm.associations.BatchServiceAsync
@@ -44,13 +49,20 @@ class AssociationServiceAsyncImpl internal constructor(private val clientOptions
 
     override fun batch(): BatchServiceAsync = batch
 
-    override fun deleteAssociations(
-        params: AssociationDeleteAssociationsParams,
+    override fun list(
+        params: AssociationListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AssociationListPageAsync> =
+        // get /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun delete(
+        params: AssociationDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete
         // /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}
-        withRawResponse().deleteAssociations(params, requestOptions).thenAccept {}
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun requestHighUsageReport(
         params: AssociationRequestHighUsageReportParams,
@@ -58,6 +70,13 @@ class AssociationServiceAsyncImpl internal constructor(private val clientOptions
     ): CompletableFuture<ReportCreationResponse> =
         // post /crm/associations/2026-03/usage/high-usage-report/{userId}
         withRawResponse().requestHighUsageReport(params, requestOptions).thenApply { it.parse() }
+
+    override fun search(
+        params: AssociationSearchParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
+        // post /crm/objects/2026-03/{objectType}/search
+        withRawResponse().search(params, requestOptions).thenApply { it.parse() }
 
     override fun updateAssociationLabels(
         params: AssociationUpdateAssociationLabelsParams,
@@ -85,10 +104,62 @@ class AssociationServiceAsyncImpl internal constructor(private val clientOptions
 
         override fun batch(): BatchServiceAsync.WithRawResponse = batch
 
-        private val deleteAssociationsHandler: Handler<Void?> = emptyHandler()
+        private val listHandler:
+            Handler<CollectionResponseMultiAssociatedObjectWithLabelForwardPaging> =
+            jsonHandler<CollectionResponseMultiAssociatedObjectWithLabelForwardPaging>(
+                clientOptions.jsonMapper
+            )
 
-        override fun deleteAssociations(
-            params: AssociationDeleteAssociationsParams,
+        override fun list(
+            params: AssociationListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AssociationListPageAsync>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "objects",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "associations",
+                        params._pathParam(2),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                AssociationListPageAsync.builder()
+                                    .service(AssociationServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
+                    }
+                }
+        }
+
+        private val deleteHandler: Handler<Void?> = emptyHandler()
+
+        override fun delete(
+            params: AssociationDeleteParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -116,7 +187,7 @@ class AssociationServiceAsyncImpl internal constructor(private val clientOptions
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { deleteAssociationsHandler.handle(it) }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }
@@ -153,6 +224,40 @@ class AssociationServiceAsyncImpl internal constructor(private val clientOptions
                     errorHandler.handle(response).parseable {
                         response
                             .use { requestHighUsageReportHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val searchHandler: Handler<CollectionResponseWithTotalSimplePublicObject> =
+            jsonHandler<CollectionResponseWithTotalSimplePublicObject>(clientOptions.jsonMapper)
+
+        override fun search(
+            params: AssociationSearchParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectType", params.objectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "objects", "2026-03", params._pathParam(0), "search")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { searchHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

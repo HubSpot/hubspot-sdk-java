@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Publish the draft version of the blog post, sending its content to the live page. */
 class PostPushLiveParams
 private constructor(
     private val objectId: String?,

@@ -9,17 +9,11 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.communicationpreferences.ActionResponseWithResultsPublicStatus
 import com.hubspot_sdk.api.models.communicationpreferences.ActionResponseWithResultsPublicWideStatus
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGenerateLinksParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetStatusByEmailParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetStatusesParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetUnsubscribeAllStatusParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceSubscribeParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUnsubscribeAllParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUnsubscribeParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUpdateStatusParams
 import com.hubspot_sdk.api.models.communicationpreferences.LinkGenerationResponse
-import com.hubspot_sdk.api.models.communicationpreferences.PublicSubscriptionStatus
-import com.hubspot_sdk.api.models.communicationpreferences.PublicSubscriptionStatusesResponse
-import com.hubspot_sdk.api.models.communicationpreferences.PublicUpdateSubscriptionStatusRequest
 import com.hubspot_sdk.api.services.blocking.communicationpreferences.DefinitionService
 import com.hubspot_sdk.api.services.blocking.communicationpreferences.StatusService
 import java.util.function.Consumer
@@ -55,53 +49,6 @@ interface CommunicationPreferenceService {
         params: CommunicationPreferenceGenerateLinksParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): LinkGenerationResponse
-
-    /**
-     * Retrieve the subscription statuses for a specific email address. This endpoint allows you to
-     * check the current subscription status for email communications, which can be useful for
-     * managing communication preferences and ensuring compliance with user preferences.
-     */
-    fun getStatusByEmail(emailAddress: String): PublicSubscriptionStatusesResponse =
-        getStatusByEmail(emailAddress, CommunicationPreferenceGetStatusByEmailParams.none())
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        emailAddress: String,
-        params: CommunicationPreferenceGetStatusByEmailParams =
-            CommunicationPreferenceGetStatusByEmailParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSubscriptionStatusesResponse =
-        getStatusByEmail(params.toBuilder().emailAddress(emailAddress).build(), requestOptions)
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        emailAddress: String,
-        params: CommunicationPreferenceGetStatusByEmailParams =
-            CommunicationPreferenceGetStatusByEmailParams.none(),
-    ): PublicSubscriptionStatusesResponse =
-        getStatusByEmail(emailAddress, params, RequestOptions.none())
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        params: CommunicationPreferenceGetStatusByEmailParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSubscriptionStatusesResponse
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        params: CommunicationPreferenceGetStatusByEmailParams
-    ): PublicSubscriptionStatusesResponse = getStatusByEmail(params, RequestOptions.none())
-
-    /** @see getStatusByEmail */
-    fun getStatusByEmail(
-        emailAddress: String,
-        requestOptions: RequestOptions,
-    ): PublicSubscriptionStatusesResponse =
-        getStatusByEmail(
-            emailAddress,
-            CommunicationPreferenceGetStatusByEmailParams.none(),
-            requestOptions,
-        )
 
     /** Retrieve a contact's current email subscription preferences. */
     fun getStatuses(
@@ -165,77 +112,7 @@ interface CommunicationPreferenceService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionResponseWithResultsPublicWideStatus
 
-    /**
-     * Subscribe a user to a specific communication preference using their email address and
-     * subscription ID. This endpoint allows you to manage subscription statuses by updating them to
-     * 'subscribed' for a given email address. It is useful for ensuring that users receive
-     * communications they have opted into.
-     */
-    fun subscribe(params: CommunicationPreferenceSubscribeParams): PublicSubscriptionStatus =
-        subscribe(params, RequestOptions.none())
-
-    /** @see subscribe */
-    fun subscribe(
-        params: CommunicationPreferenceSubscribeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSubscriptionStatus
-
-    /** @see subscribe */
-    fun subscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSubscriptionStatus =
-        subscribe(
-            CommunicationPreferenceSubscribeParams.builder()
-                .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see subscribe */
-    fun subscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-    ): PublicSubscriptionStatus =
-        subscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
-
-    /**
-     * Unsubscribe a user from communication preferences. This endpoint allows you to update the
-     * subscription status of a user to 'unsubscribed' for specified communication channels. It is
-     * useful for managing user preferences and ensuring compliance with user opt-out requests.
-     */
-    fun unsubscribe(params: CommunicationPreferenceUnsubscribeParams): PublicSubscriptionStatus =
-        unsubscribe(params, RequestOptions.none())
-
-    /** @see unsubscribe */
-    fun unsubscribe(
-        params: CommunicationPreferenceUnsubscribeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSubscriptionStatus
-
-    /** @see unsubscribe */
-    fun unsubscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): PublicSubscriptionStatus =
-        unsubscribe(
-            CommunicationPreferenceUnsubscribeParams.builder()
-                .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see unsubscribe */
-    fun unsubscribe(
-        publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-    ): PublicSubscriptionStatus =
-        unsubscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
-
-    /**
-     * Unsubscribe a subscriber from all communication channels. This endpoint allows you to remove
-     * a subscriber from all communication preferences, effectively opting them out from receiving
-     * any further communications. This can be useful for ensuring compliance with user requests or
-     * legal requirements.
-     */
+    /** Unsubscribe a contact from all email subscriptions. */
     fun unsubscribeAll(
         subscriberIdString: String,
         params: CommunicationPreferenceUnsubscribeAllParams,
@@ -330,62 +207,6 @@ interface CommunicationPreferenceService {
 
         /**
          * Returns a raw HTTP response for `get
-         * /communication-preferences/2026-03/status/email/{emailAddress}`, but is otherwise the
-         * same as [CommunicationPreferenceService.getStatusByEmail].
-         */
-        @MustBeClosed
-        fun getStatusByEmail(
-            emailAddress: String
-        ): HttpResponseFor<PublicSubscriptionStatusesResponse> =
-            getStatusByEmail(emailAddress, CommunicationPreferenceGetStatusByEmailParams.none())
-
-        /** @see getStatusByEmail */
-        @MustBeClosed
-        fun getStatusByEmail(
-            emailAddress: String,
-            params: CommunicationPreferenceGetStatusByEmailParams =
-                CommunicationPreferenceGetStatusByEmailParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSubscriptionStatusesResponse> =
-            getStatusByEmail(params.toBuilder().emailAddress(emailAddress).build(), requestOptions)
-
-        /** @see getStatusByEmail */
-        @MustBeClosed
-        fun getStatusByEmail(
-            emailAddress: String,
-            params: CommunicationPreferenceGetStatusByEmailParams =
-                CommunicationPreferenceGetStatusByEmailParams.none(),
-        ): HttpResponseFor<PublicSubscriptionStatusesResponse> =
-            getStatusByEmail(emailAddress, params, RequestOptions.none())
-
-        /** @see getStatusByEmail */
-        @MustBeClosed
-        fun getStatusByEmail(
-            params: CommunicationPreferenceGetStatusByEmailParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSubscriptionStatusesResponse>
-
-        /** @see getStatusByEmail */
-        @MustBeClosed
-        fun getStatusByEmail(
-            params: CommunicationPreferenceGetStatusByEmailParams
-        ): HttpResponseFor<PublicSubscriptionStatusesResponse> =
-            getStatusByEmail(params, RequestOptions.none())
-
-        /** @see getStatusByEmail */
-        @MustBeClosed
-        fun getStatusByEmail(
-            emailAddress: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PublicSubscriptionStatusesResponse> =
-            getStatusByEmail(
-                emailAddress,
-                CommunicationPreferenceGetStatusByEmailParams.none(),
-                requestOptions,
-            )
-
-        /**
-         * Returns a raw HTTP response for `get
          * /communication-preferences/2026-03/statuses/{subscriberIdString}`, but is otherwise the
          * same as [CommunicationPreferenceService.getStatuses].
          */
@@ -459,78 +280,6 @@ interface CommunicationPreferenceService {
             params: CommunicationPreferenceGetUnsubscribeAllStatusParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ActionResponseWithResultsPublicWideStatus>
-
-        /**
-         * Returns a raw HTTP response for `post /communication-preferences/2026-03/subscribe`, but
-         * is otherwise the same as [CommunicationPreferenceService.subscribe].
-         */
-        @MustBeClosed
-        fun subscribe(
-            params: CommunicationPreferenceSubscribeParams
-        ): HttpResponseFor<PublicSubscriptionStatus> = subscribe(params, RequestOptions.none())
-
-        /** @see subscribe */
-        @MustBeClosed
-        fun subscribe(
-            params: CommunicationPreferenceSubscribeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSubscriptionStatus>
-
-        /** @see subscribe */
-        @MustBeClosed
-        fun subscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSubscriptionStatus> =
-            subscribe(
-                CommunicationPreferenceSubscribeParams.builder()
-                    .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see subscribe */
-        @MustBeClosed
-        fun subscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-        ): HttpResponseFor<PublicSubscriptionStatus> =
-            subscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /communication-preferences/2026-03/unsubscribe`,
-         * but is otherwise the same as [CommunicationPreferenceService.unsubscribe].
-         */
-        @MustBeClosed
-        fun unsubscribe(
-            params: CommunicationPreferenceUnsubscribeParams
-        ): HttpResponseFor<PublicSubscriptionStatus> = unsubscribe(params, RequestOptions.none())
-
-        /** @see unsubscribe */
-        @MustBeClosed
-        fun unsubscribe(
-            params: CommunicationPreferenceUnsubscribeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSubscriptionStatus>
-
-        /** @see unsubscribe */
-        @MustBeClosed
-        fun unsubscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PublicSubscriptionStatus> =
-            unsubscribe(
-                CommunicationPreferenceUnsubscribeParams.builder()
-                    .publicUpdateSubscriptionStatusRequest(publicUpdateSubscriptionStatusRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see unsubscribe */
-        @MustBeClosed
-        fun unsubscribe(
-            publicUpdateSubscriptionStatusRequest: PublicUpdateSubscriptionStatusRequest
-        ): HttpResponseFor<PublicSubscriptionStatus> =
-            unsubscribe(publicUpdateSubscriptionStatusRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post

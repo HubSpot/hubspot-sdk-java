@@ -27,16 +27,8 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * An array of traffic directions to filter the IP ranges. Valid values are `INGRESS` and
-     * `EGRESS`.
-     */
     fun direction(): Optional<List<Direction>> = Optional.ofNullable(direction)
 
-    /**
-     * An array of service types to filter the IP ranges. Valid values include `EMAIL`, `API`,
-     * `DNS`, `WEB_SCRAPING`, and `TEST_SERVICE`.
-     */
     fun service(): Optional<List<Service>> = Optional.ofNullable(service)
 
     /** Additional headers to send with the request. */
@@ -71,10 +63,6 @@ private constructor(
             additionalQueryParams = ipRangeListParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * An array of traffic directions to filter the IP ranges. Valid values are `INGRESS` and
-         * `EGRESS`.
-         */
         fun direction(direction: List<Direction>?) = apply {
             this.direction = direction?.toMutableList()
         }
@@ -91,10 +79,6 @@ private constructor(
             this.direction = (this.direction ?: mutableListOf()).apply { add(direction) }
         }
 
-        /**
-         * An array of service types to filter the IP ranges. Valid values include `EMAIL`, `API`,
-         * `DNS`, `WEB_SCRAPING`, and `TEST_SERVICE`.
-         */
         fun service(service: List<Service>?) = apply { this.service = service?.toMutableList() }
 
         /** Alias for calling [Builder.service] with `service.orElse(null)`. */
@@ -381,6 +365,8 @@ private constructor(
 
             @JvmField val WEB_SCRAPING = of("WEB_SCRAPING")
 
+            @JvmField val TEST_SERVICE = of("TEST_SERVICE")
+
             @JvmStatic fun of(value: String) = Service(JsonField.of(value))
         }
 
@@ -390,6 +376,7 @@ private constructor(
             API,
             DNS,
             WEB_SCRAPING,
+            TEST_SERVICE,
         }
 
         /**
@@ -406,6 +393,7 @@ private constructor(
             API,
             DNS,
             WEB_SCRAPING,
+            TEST_SERVICE,
             /** An enum member indicating that [Service] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -423,6 +411,7 @@ private constructor(
                 API -> Value.API
                 DNS -> Value.DNS
                 WEB_SCRAPING -> Value.WEB_SCRAPING
+                TEST_SERVICE -> Value.TEST_SERVICE
                 else -> Value._UNKNOWN
             }
 
@@ -441,6 +430,7 @@ private constructor(
                 API -> Known.API
                 DNS -> Known.DNS
                 WEB_SCRAPING -> Known.WEB_SCRAPING
+                TEST_SERVICE -> Known.TEST_SERVICE
                 else -> throw HubspotInvalidDataException("Unknown Service: $value")
             }
 

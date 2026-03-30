@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.BatchInputBlogAuthor
 import java.util.Objects
 
+/** Create the Blog Author objects detailed in the request body. */
 class BatchCreateParams
 private constructor(
     private val batchInputBlogAuthor: BatchInputBlogAuthor,

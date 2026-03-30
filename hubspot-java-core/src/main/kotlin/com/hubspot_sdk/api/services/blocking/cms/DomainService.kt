@@ -42,6 +42,7 @@ interface DomainService {
     fun list(requestOptions: RequestOptions): DomainListPage =
         list(DomainListParams.none(), requestOptions)
 
+    /** Returns a single domains with the id specified. */
     fun get(domainId: String): Domain = get(domainId, DomainGetParams.none())
 
     /** @see get */

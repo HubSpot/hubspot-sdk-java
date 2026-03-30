@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve details of a custom object schema, including its properties and associations, using the
+ * object type ID or fully qualified name.
+ */
 class ObjectSchemaGetParams
 private constructor(
     private val objectType: String?,

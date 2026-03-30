@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.BatchResponseProperty
+import com.hubspot_sdk.api.models.cms.mediabridge.BatchResponseProperty
 import com.hubspot_sdk.api.models.cms.mediabridge.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.batch.BatchGetParams

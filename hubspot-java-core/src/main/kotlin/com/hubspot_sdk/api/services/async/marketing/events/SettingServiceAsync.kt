@@ -25,6 +25,7 @@ interface SettingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingServiceAsync
 
+    /** Create or update the current settings for the application. */
     fun createOrUpdate(
         appId: Int,
         params: SettingCreateOrUpdateParams,
@@ -49,6 +50,7 @@ interface SettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventDetailSettings>
 
+    /** Retrieve the current settings for the application. */
     fun get(appId: Int): CompletableFuture<EventDetailSettings> =
         get(appId, SettingGetParams.none())
 

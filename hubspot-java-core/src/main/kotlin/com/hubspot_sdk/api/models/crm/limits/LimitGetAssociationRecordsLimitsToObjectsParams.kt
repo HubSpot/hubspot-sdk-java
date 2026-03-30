@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Returns objects for which the from object has records approaching or at association limits */
 class LimitGetAssociationRecordsLimitsToObjectsParams
 private constructor(
     private val fromObjectTypeId: String?,

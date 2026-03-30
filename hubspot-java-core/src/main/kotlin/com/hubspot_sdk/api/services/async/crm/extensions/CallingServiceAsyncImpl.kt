@@ -17,11 +17,13 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateInboundCallParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingDeleteParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingGetParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingMarkReadyParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CompletedThirdPartyCallResponse
 import com.hubspot_sdk.api.models.crm.extensions.calling.RecordingSettingsResponse
 import com.hubspot_sdk.api.services.async.crm.extensions.calling.TranscriptServiceAsync
 import com.hubspot_sdk.api.services.async.crm.extensions.calling.TranscriptServiceAsyncImpl
@@ -67,6 +69,13 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
     ): CompletableFuture<Void?> =
         // delete /crm/extensions/calling/2026-03/{appId}/settings/channel-connection
         withRawResponse().delete(params, requestOptions).thenAccept {}
+
+    override fun createInboundCall(
+        params: CallingCreateInboundCallParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CompletedThirdPartyCallResponse> =
+        // post /crm/extensions/calling/2026-03/inbound-call
+        withRawResponse().createInboundCall(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: CallingGetParams,
@@ -216,6 +225,37 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response.use { deleteHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val createInboundCallHandler: Handler<CompletedThirdPartyCallResponse> =
+            jsonHandler<CompletedThirdPartyCallResponse>(clientOptions.jsonMapper)
+
+        override fun createInboundCall(
+            params: CallingCreateInboundCallParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CompletedThirdPartyCallResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "extensions", "calling", "2026-03", "inbound-call")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createInboundCallHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

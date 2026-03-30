@@ -38,6 +38,7 @@ internal class MessageCreateParamsTest {
                                     .build()
                             )
                             .name("name")
+                            .senderActorId("senderActorId")
                             .build()
                     )
                     .addSender(
@@ -49,6 +50,7 @@ internal class MessageCreateParamsTest {
                                     .build()
                             )
                             .name("name")
+                            .senderActorId("senderActorId")
                             .build()
                     )
                     .text("text")
@@ -152,6 +154,7 @@ internal class MessageCreateParamsTest {
                                         .build()
                                 )
                                 .name("name")
+                                .senderActorId("senderActorId")
                                 .build()
                         )
                         .addSender(
@@ -165,6 +168,7 @@ internal class MessageCreateParamsTest {
                                         .build()
                                 )
                                 .name("name")
+                                .senderActorId("senderActorId")
                                 .build()
                         )
                         .text("text")
@@ -214,6 +218,7 @@ internal class MessageCreateParamsTest {
                                     .build()
                             )
                             .name("name")
+                            .senderActorId("senderActorId")
                             .build()
                     )
                     .addSender(
@@ -225,6 +230,7 @@ internal class MessageCreateParamsTest {
                                     .build()
                             )
                             .name("name")
+                            .senderActorId("senderActorId")
                             .build()
                     )
                     .text("text")

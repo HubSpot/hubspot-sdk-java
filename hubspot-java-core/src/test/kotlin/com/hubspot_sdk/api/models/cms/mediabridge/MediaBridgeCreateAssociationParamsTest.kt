@@ -11,7 +11,7 @@ internal class MediaBridgeCreateAssociationParamsTest {
     @Test
     fun create() {
         MediaBridgeCreateAssociationParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .associationDefinitionEgg(
                 AssociationDefinitionEgg.builder()
@@ -27,7 +27,7 @@ internal class MediaBridgeCreateAssociationParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeCreateAssociationParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .associationDefinitionEgg(
                     AssociationDefinitionEgg.builder()
@@ -37,7 +37,7 @@ internal class MediaBridgeCreateAssociationParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -47,7 +47,7 @@ internal class MediaBridgeCreateAssociationParamsTest {
     fun body() {
         val params =
             MediaBridgeCreateAssociationParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .associationDefinitionEgg(
                     AssociationDefinitionEgg.builder()
@@ -74,7 +74,7 @@ internal class MediaBridgeCreateAssociationParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MediaBridgeCreateAssociationParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .associationDefinitionEgg(
                     AssociationDefinitionEgg.builder()

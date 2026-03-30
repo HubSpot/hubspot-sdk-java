@@ -12,6 +12,17 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Records the participation of multiple HubSpot contacts in a Marketing Event using their HubSpot
+ * contact IDs.
+ *
+ * Additional Functionality:
+ * - Adds a timeline event to the contacts.
+ *
+ * Allowed Properties: For the state "attend":
+ * - joinedAt
+ * - leftAt
+ */
 class AttendanceCreateByExternalEventIdAndContactIdParams
 private constructor(
     private val externalEventId: String,

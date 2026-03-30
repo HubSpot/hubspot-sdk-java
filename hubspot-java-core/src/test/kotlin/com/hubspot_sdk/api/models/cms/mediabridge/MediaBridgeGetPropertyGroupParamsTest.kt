@@ -10,7 +10,7 @@ internal class MediaBridgeGetPropertyGroupParamsTest {
     @Test
     fun create() {
         MediaBridgeGetPropertyGroupParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .groupName("groupName")
             .build()
@@ -20,12 +20,12 @@ internal class MediaBridgeGetPropertyGroupParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeGetPropertyGroupParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .groupName("groupName")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         assertThat(params._pathParam(2)).isEqualTo("groupName")
         // out-of-bound path param

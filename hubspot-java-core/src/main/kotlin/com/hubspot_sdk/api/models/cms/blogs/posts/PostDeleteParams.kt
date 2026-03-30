@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Delete a blog post by ID. */
 class PostDeleteParams
 private constructor(
     private val objectId: String?,

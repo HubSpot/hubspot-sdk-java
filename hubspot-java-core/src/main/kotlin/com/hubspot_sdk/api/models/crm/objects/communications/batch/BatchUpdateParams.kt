@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchI
 import java.util.Objects
 
 /**
- * Update a batch of communications by ID (`objectId`) or unique property value (`idProperty`).
+ * Update a batch of messages by ID (`communicationId`) or unique property value (`idProperty`).
  * Provided property values will be overwritten. Read-only and non-existent properties will result
  * in an error. Properties values can be cleared by passing an empty string.
  */

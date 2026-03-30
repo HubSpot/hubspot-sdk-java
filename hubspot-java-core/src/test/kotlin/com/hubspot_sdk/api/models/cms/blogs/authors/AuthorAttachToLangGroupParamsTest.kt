@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.models.cms.blogs.authors
 
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

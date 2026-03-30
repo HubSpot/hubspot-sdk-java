@@ -33,18 +33,24 @@ private constructor(
     ) : this(portalId, email, vid, mutableMapOf())
 
     /**
+     * The ID of the portal associated with the contact.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun portalId(): Int = portalId.getRequired("portalId")
 
     /**
+     * The email address of the contact.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun email(): Optional<String> = email.getOptional("email")
 
     /**
+     * The unique identifier for the contact.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -112,6 +118,7 @@ private constructor(
             additionalProperties = contactId.additionalProperties.toMutableMap()
         }
 
+        /** The ID of the portal associated with the contact. */
         fun portalId(portalId: Int) = portalId(JsonField.of(portalId))
 
         /**
@@ -122,6 +129,7 @@ private constructor(
          */
         fun portalId(portalId: JsonField<Int>) = apply { this.portalId = portalId }
 
+        /** The email address of the contact. */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -132,6 +140,7 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
+        /** The unique identifier for the contact. */
         fun vid(vid: Long) = vid(JsonField.of(vid))
 
         /**

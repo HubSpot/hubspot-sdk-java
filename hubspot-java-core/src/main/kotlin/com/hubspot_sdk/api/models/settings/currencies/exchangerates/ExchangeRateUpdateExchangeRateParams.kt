@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update an existing conversion rate, specified by its ID. */
 class ExchangeRateUpdateExchangeRateParams
 private constructor(
     private val exchangeRateId: String?,

@@ -7,6 +7,10 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Returns an example card detail response. This is the payload with displayed details for a card
+ * that will be shown to a user. An app should send this in response to the data fetch request.
+ */
 class CardsDevGetSampleResponseParams
 private constructor(
     private val additionalHeaders: Headers,

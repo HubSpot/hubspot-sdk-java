@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Returns the details of a Marketing Event with the specified objectId, if it exists. */
 class EventGetParams
 private constructor(
     private val objectId: String?,

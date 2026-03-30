@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a discount. */
+/** Archive */
 class DiscountDeleteParams
 private constructor(
     private val discountId: String?,

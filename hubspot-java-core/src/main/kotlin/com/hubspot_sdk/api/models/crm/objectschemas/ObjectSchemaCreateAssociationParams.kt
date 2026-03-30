@@ -12,6 +12,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Create a new association between the specified object type and another object type. This
+ * operation requires the definition of the association attributes, such as the primary and target
+ * object type IDs.
+ */
 class ObjectSchemaCreateAssociationParams
 private constructor(
     private val objectType: String?,

@@ -6,8 +6,6 @@ import com.hubspot_sdk.api.core.AutoPagerAsync
 import com.hubspot_sdk.api.core.PageAsync
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.Paging
-import com.hubspot_sdk.api.models.events.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinition
 import com.hubspot_sdk.api.services.async.events.DefinitionServiceAsync
 import java.util.Objects
 import java.util.Optional

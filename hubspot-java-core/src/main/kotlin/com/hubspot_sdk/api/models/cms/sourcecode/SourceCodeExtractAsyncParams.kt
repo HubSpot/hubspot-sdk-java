@@ -10,10 +10,8 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
 /**
- * Initiate an asynchronous extraction of source code files in the HubSpot CMS. This endpoint is
- * useful for handling large file extractions without blocking the client application. Upon
- * acceptance, it returns a task locator that can be used to check the status of the extraction
- * process.
+ * Extract a zip file in the developer file system. Extraction status can be checked with the
+ * `/extract/async/tasks/taskId/status` endpoint below.
  */
 class SourceCodeExtractAsyncParams
 private constructor(

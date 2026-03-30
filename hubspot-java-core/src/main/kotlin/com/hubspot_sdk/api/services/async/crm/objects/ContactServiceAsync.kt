@@ -6,10 +6,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
@@ -42,13 +42,7 @@ interface ContactServiceAsync {
 
     fun batch(): BatchServiceAsync
 
-    /**
-     * Create a single contact. Include a `properties` object to define
-     * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the
-     * contact, along with an `associations` array to define
-     * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
-     * with other CRM records.
-     */
+    /** Create a contact */
     fun create(params: ContactCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
@@ -108,9 +102,6 @@ interface ContactServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /**
-     * Retrieve all contacts, using query parameters to specify the information that gets returned.
-     */
     fun list(): CompletableFuture<ContactListPageAsync> = list(ContactListParams.none())
 
     /** @see list */
@@ -166,13 +157,6 @@ interface ContactServiceAsync {
     fun delete(contactId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(contactId, ContactDeleteParams.none(), requestOptions)
 
-    /**
-     * Permanently delete a contact and all associated content to follow GDPR. Use optional property
-     * `idProperty` set to `email` to identify contact by email address. If email address is not
-     * found, the email address will be added to a blocklist and prevent it from being used in the
-     * future. Learn more about
-     * [permanently deleting contacts](https://knowledge.hubspot.com/privacy-and-consent/how-do-i-perform-a-gdpr-delete-in-hubspot).
-     */
     fun gdprDelete(params: ContactGdprDeleteParams): CompletableFuture<Void?> =
         gdprDelete(params, RequestOptions.none())
 
@@ -196,10 +180,6 @@ interface ContactServiceAsync {
     fun gdprDelete(publicGdprDeleteInput: PublicGdprDeleteInput): CompletableFuture<Void?> =
         gdprDelete(publicGdprDeleteInput, RequestOptions.none())
 
-    /**
-     * Retrieve a contact by its ID (`contactId`) or by a unique property (`idProperty`). You can
-     * specify what is returned using the `properties` query parameter.
-     */
     fun get(contactId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(contactId, ContactGetParams.none())
 
@@ -235,10 +215,7 @@ interface ContactServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(contactId, ContactGetParams.none(), requestOptions)
 
-    /**
-     * Merge two contact records. Learn more about
-     * [merging records](https://knowledge.hubspot.com/records/merge-records).
-     */
+    /** Merge two contacts */
     fun merge(params: ContactMergeParams): CompletableFuture<SimplePublicObject> =
         merge(params, RequestOptions.none())
 

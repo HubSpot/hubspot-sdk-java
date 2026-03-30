@@ -7,11 +7,14 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateInboundCallParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingDeleteParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingGetParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingMarkReadyParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CompletedThirdPartyCallRequest
+import com.hubspot_sdk.api.models.crm.extensions.calling.CompletedThirdPartyCallResponse
 import com.hubspot_sdk.api.models.crm.extensions.calling.MarkRecordingAsReadyRequest
 import com.hubspot_sdk.api.models.crm.extensions.calling.RecordingSettingsResponse
 import com.hubspot_sdk.api.services.blocking.crm.extensions.calling.TranscriptService
@@ -33,6 +36,7 @@ interface CallingService {
 
     fun transcripts(): TranscriptService
 
+    /** Create new recording settings for a specific app using the provided app ID. */
     fun create(appId: Int, params: CallingCreateParams): RecordingSettingsResponse =
         create(appId, params, RequestOptions.none())
 
@@ -53,6 +57,7 @@ interface CallingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RecordingSettingsResponse
 
+    /** Update the recording settings for a specific app using the provided app ID. */
     fun update(appId: Int, params: CallingUpdateParams): RecordingSettingsResponse =
         update(appId, params, RequestOptions.none())
 
@@ -73,6 +78,7 @@ interface CallingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): RecordingSettingsResponse
 
+    /** Delete the channel connection settings associated with the specified app. */
     fun delete(appId: Int) = delete(appId, CallingDeleteParams.none())
 
     /** @see delete */
@@ -96,6 +102,34 @@ interface CallingService {
     fun delete(appId: Int, requestOptions: RequestOptions) =
         delete(appId, CallingDeleteParams.none(), requestOptions)
 
+    fun createInboundCall(params: CallingCreateInboundCallParams): CompletedThirdPartyCallResponse =
+        createInboundCall(params, RequestOptions.none())
+
+    /** @see createInboundCall */
+    fun createInboundCall(
+        params: CallingCreateInboundCallParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletedThirdPartyCallResponse
+
+    /** @see createInboundCall */
+    fun createInboundCall(
+        completedThirdPartyCallRequest: CompletedThirdPartyCallRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletedThirdPartyCallResponse =
+        createInboundCall(
+            CallingCreateInboundCallParams.builder()
+                .completedThirdPartyCallRequest(completedThirdPartyCallRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see createInboundCall */
+    fun createInboundCall(
+        completedThirdPartyCallRequest: CompletedThirdPartyCallRequest
+    ): CompletedThirdPartyCallResponse =
+        createInboundCall(completedThirdPartyCallRequest, RequestOptions.none())
+
+    /** Retrieve the current recording settings for a specific app using the provided app ID. */
     fun get(appId: Int): RecordingSettingsResponse = get(appId, CallingGetParams.none())
 
     /** @see get */
@@ -125,6 +159,10 @@ interface CallingService {
     fun get(appId: Int, requestOptions: RequestOptions): RecordingSettingsResponse =
         get(appId, CallingGetParams.none(), requestOptions)
 
+    /**
+     * This endpoint is used to mark a call recording as ready. It requires the engagementId to
+     * identify the specific recording.
+     */
     fun markReady(params: CallingMarkReadyParams) = markReady(params, RequestOptions.none())
 
     /** @see markReady */
@@ -264,6 +302,43 @@ interface CallingService {
         @MustBeClosed
         fun delete(appId: Int, requestOptions: RequestOptions): HttpResponse =
             delete(appId, CallingDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /crm/extensions/calling/2026-03/inbound-call`, but
+         * is otherwise the same as [CallingService.createInboundCall].
+         */
+        @MustBeClosed
+        fun createInboundCall(
+            params: CallingCreateInboundCallParams
+        ): HttpResponseFor<CompletedThirdPartyCallResponse> =
+            createInboundCall(params, RequestOptions.none())
+
+        /** @see createInboundCall */
+        @MustBeClosed
+        fun createInboundCall(
+            params: CallingCreateInboundCallParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CompletedThirdPartyCallResponse>
+
+        /** @see createInboundCall */
+        @MustBeClosed
+        fun createInboundCall(
+            completedThirdPartyCallRequest: CompletedThirdPartyCallRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CompletedThirdPartyCallResponse> =
+            createInboundCall(
+                CallingCreateInboundCallParams.builder()
+                    .completedThirdPartyCallRequest(completedThirdPartyCallRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see createInboundCall */
+        @MustBeClosed
+        fun createInboundCall(
+            completedThirdPartyCallRequest: CompletedThirdPartyCallRequest
+        ): HttpResponseFor<CompletedThirdPartyCallResponse> =
+            createInboundCall(completedThirdPartyCallRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get

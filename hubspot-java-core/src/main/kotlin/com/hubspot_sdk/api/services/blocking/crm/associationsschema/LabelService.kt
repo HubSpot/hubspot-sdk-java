@@ -30,10 +30,7 @@ interface LabelService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LabelService
 
-    /**
-     * Create multiple association definitions between two specified CRM object types in a single
-     * request.
-     */
+    /** Batch configure association limits between two object types. */
     fun batchCreate(
         toObjectType: String,
         params: LabelBatchCreateParams,

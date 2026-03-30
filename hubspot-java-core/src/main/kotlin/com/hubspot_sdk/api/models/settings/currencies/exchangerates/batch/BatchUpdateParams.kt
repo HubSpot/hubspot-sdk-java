@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateUpdateRequest
 import java.util.Objects
 
+/** Update the conversion rates for multiple exchange rates in a batch operation. */
 class BatchUpdateParams
 private constructor(
     private val batchInputExchangeRateUpdateRequest: BatchInputExchangeRateUpdateRequest,

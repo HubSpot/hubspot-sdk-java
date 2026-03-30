@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Returns limits and usage for custom association labels */
 class LimitGetAssociationLabelLimitsParams
 private constructor(
     private val fromObjectTypeId: String?,

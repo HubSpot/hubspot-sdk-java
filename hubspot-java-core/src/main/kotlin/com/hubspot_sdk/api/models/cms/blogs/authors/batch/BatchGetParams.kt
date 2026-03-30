@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the Blog Author objects identified in the request body. */
 class BatchGetParams
 private constructor(
     private val archived: Boolean?,

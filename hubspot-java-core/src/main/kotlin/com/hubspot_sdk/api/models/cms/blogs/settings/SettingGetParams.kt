@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve a specific blog by its ID. */
 class SettingGetParams
 private constructor(
     private val blogId: String?,

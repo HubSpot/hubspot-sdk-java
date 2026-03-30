@@ -30,6 +30,7 @@ interface PropertiesValidationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PropertiesValidationService
 
+    /** Read all properties with validation rules for a given object. */
     fun getByObjectTypeId(
         objectTypeId: String
     ): CollectionResponsePublicPropertyValidationRuleMapNoPaging =
@@ -75,6 +76,7 @@ interface PropertiesValidationService {
             requestOptions,
         )
 
+    /** Read a property's validation rules identified by {propertyName}. */
     fun getByObjectTypeIdAndPropertyName(
         propertyName: String,
         params: PropertiesValidationGetByObjectTypeIdAndPropertyNameParams,
@@ -104,6 +106,7 @@ interface PropertiesValidationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponsePublicPropertyValidationRuleNoPaging
 
+    /** Retrieve a specific validation rule for a property identified by its name and rule type. */
     fun getByObjectTypeIdPropertyNameAndRuleType(
         ruleType: PropertiesValidationGetByObjectTypeIdPropertyNameAndRuleTypeParams.RuleType,
         params: PropertiesValidationGetByObjectTypeIdPropertyNameAndRuleTypeParams,
@@ -133,6 +136,7 @@ interface PropertiesValidationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicPropertyValidationRule
 
+    /** Update a specific validation rule for a property identified by its name and rule type. */
     fun updateByObjectTypeIdPropertyNameAndRuleType(
         ruleType: PropertiesValidationUpdateByObjectTypeIdPropertyNameAndRuleTypeParams.RuleType,
         params: PropertiesValidationUpdateByObjectTypeIdPropertyNameAndRuleTypeParams,

@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.cms.blogs.posts
 
+import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

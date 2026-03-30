@@ -15,7 +15,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
+import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -299,7 +299,7 @@ private constructor(
     )
 
     /**
-     * The unique ID of the blog post.
+     * The unique ID of the Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -352,8 +352,7 @@ private constructor(
         attachedStylesheets.getRequired("attachedStylesheets")
 
     /**
-     * The name of the user who last published the blog post. For posts that haven't been published
-     * yet, this property will reflect the user who initially created the draft.
+     * The name of the user that updated this Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -361,7 +360,7 @@ private constructor(
     fun authorName(): String = authorName.getRequired("authorName")
 
     /**
-     * The ID of the blog author associated with this post.
+     * The ID of the Blog Author associated with this Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -369,7 +368,7 @@ private constructor(
     fun blogAuthorId(): String = blogAuthorId.getRequired("blogAuthorId")
 
     /**
-     * The GUID of the marketing campaign the post is associated with.
+     * The GUID of the marketing campaign this Blog Post is a part of.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -377,7 +376,7 @@ private constructor(
     fun campaign(): String = campaign.getRequired("campaign")
 
     /**
-     * ID of the object type.
+     * ID of the type of object this is. Should always .
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -385,7 +384,7 @@ private constructor(
     fun categoryId(): Int = categoryId.getRequired("categoryId")
 
     /**
-     * The ID of the post's parent blog.
+     * The ID of the parent Blog this Blog Post is associated with.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -410,7 +409,7 @@ private constructor(
     fun created(): OffsetDateTime = created.getRequired("created")
 
     /**
-     * The ID of the user that created the post.
+     * The ID of the user that created this Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -434,8 +433,8 @@ private constructor(
     fun currentState(): CurrentState = currentState.getRequired("currentState")
 
     /**
-     * The domain that the post lives on. If null, the post will default to the domain of the parent
-     * blog.
+     * The domain this Blog Post will resolve to. If null, the Blog Post will default to the domain
+     * of the ParentBlog.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -461,7 +460,7 @@ private constructor(
         dynamicPageDataSourceType.getRequired("dynamicPageDataSourceType")
 
     /**
-     * For dynamic HubDB pages, the ID of the HubDB table this post references.
+     * The ID of the HubDB table this Blog Post references, if applicable
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -538,7 +537,7 @@ private constructor(
     fun headHtml(): String = headHtml.getRequired("headHtml")
 
     /**
-     * The HTML title of the post.
+     * The html title of this Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -555,8 +554,8 @@ private constructor(
         includeDefaultCustomCss.getRequired("includeDefaultCustomCss")
 
     /**
-     * The explicitly defined ISO 639 language code of the post. If null, the post will default to
-     * the language of the parent blog.
+     * The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will
+     * default to the language of the ParentBlog.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -596,7 +595,7 @@ private constructor(
     fun metaDescription(): String = metaDescription.getRequired("metaDescription")
 
     /**
-     * The internal name of the post.
+     * The internal name of the Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -639,7 +638,7 @@ private constructor(
 
     /**
      * Set this to create a password protected page. Entering the password will be required to view
-     * the blog post.
+     * the page.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -714,7 +713,7 @@ private constructor(
     fun rssSummary(): String = rssSummary.getRequired("rssSummary")
 
     /**
-     * The URL slug of the blog post. This field is appended to the domain to construct the url of
+     * The path of the this blog post. This field is appended to the domain to construct the url of
      * this post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -723,7 +722,7 @@ private constructor(
     fun slug(): String = slug.getRequired("slug")
 
     /**
-     * An enumeration describing the current publish state of the post.
+     * An ENUM descibing the current state of this Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -731,7 +730,7 @@ private constructor(
     fun state(): String = state.getRequired("state")
 
     /**
-     * The IDs of the tags associated with this post.
+     * List of IDs for the tags associated with this Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -748,7 +747,7 @@ private constructor(
         themeSettingsValues.getRequired("themeSettingsValues")
 
     /**
-     * ID of the primary blog post that this post was translated from.
+     * ID of the primary blog post this object was translated from.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -772,7 +771,7 @@ private constructor(
     fun updated(): OffsetDateTime = updated.getRequired("updated")
 
     /**
-     * The ID of the user that updated the post.
+     * The ID of the user that updated this Blog Post.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -788,7 +787,7 @@ private constructor(
     fun url(): String = url.getRequired("url")
 
     /**
-     * Boolean to determine if this post should use a featured image.
+     * Boolean to determine if this post should use a featuredImage.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1545,7 +1544,7 @@ private constructor(
             additionalProperties = blogPost.additionalProperties.toMutableMap()
         }
 
-        /** The unique ID of the blog post. */
+        /** The unique ID of the Blog Post. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -1643,10 +1642,7 @@ private constructor(
                 }
         }
 
-        /**
-         * The name of the user who last published the blog post. For posts that haven't been
-         * published yet, this property will reflect the user who initially created the draft.
-         */
+        /** The name of the user that updated this Blog Post. */
         fun authorName(authorName: String) = authorName(JsonField.of(authorName))
 
         /**
@@ -1658,7 +1654,7 @@ private constructor(
          */
         fun authorName(authorName: JsonField<String>) = apply { this.authorName = authorName }
 
-        /** The ID of the blog author associated with this post. */
+        /** The ID of the Blog Author associated with this Blog Post. */
         fun blogAuthorId(blogAuthorId: String) = blogAuthorId(JsonField.of(blogAuthorId))
 
         /**
@@ -1672,7 +1668,7 @@ private constructor(
             this.blogAuthorId = blogAuthorId
         }
 
-        /** The GUID of the marketing campaign the post is associated with. */
+        /** The GUID of the marketing campaign this Blog Post is a part of. */
         fun campaign(campaign: String) = campaign(JsonField.of(campaign))
 
         /**
@@ -1683,7 +1679,7 @@ private constructor(
          */
         fun campaign(campaign: JsonField<String>) = apply { this.campaign = campaign }
 
-        /** ID of the object type. */
+        /** ID of the type of object this is. Should always . */
         fun categoryId(categoryId: Int) = categoryId(JsonField.of(categoryId))
 
         /**
@@ -1694,7 +1690,7 @@ private constructor(
          */
         fun categoryId(categoryId: JsonField<Int>) = apply { this.categoryId = categoryId }
 
-        /** The ID of the post's parent blog. */
+        /** The ID of the parent Blog this Blog Post is associated with. */
         fun contentGroupId(contentGroupId: String) = contentGroupId(JsonField.of(contentGroupId))
 
         /**
@@ -1735,7 +1731,7 @@ private constructor(
          */
         fun created(created: JsonField<OffsetDateTime>) = apply { this.created = created }
 
-        /** The ID of the user that created the post. */
+        /** The ID of the user that created this Blog Post. */
         fun createdById(createdById: String) = createdById(JsonField.of(createdById))
 
         /**
@@ -1780,8 +1776,8 @@ private constructor(
         }
 
         /**
-         * The domain that the post lives on. If null, the post will default to the domain of the
-         * parent blog.
+         * The domain this Blog Post will resolve to. If null, the Blog Post will default to the
+         * domain of the ParentBlog.
          */
         fun domain(domain: String) = domain(JsonField.of(domain))
 
@@ -1823,7 +1819,7 @@ private constructor(
             this.dynamicPageDataSourceType = dynamicPageDataSourceType
         }
 
-        /** For dynamic HubDB pages, the ID of the HubDB table this post references. */
+        /** The ID of the HubDB table this Blog Post references, if applicable */
         fun dynamicPageHubDbTableId(dynamicPageHubDbTableId: String) =
             dynamicPageHubDbTableId(JsonField.of(dynamicPageHubDbTableId))
 
@@ -1952,7 +1948,7 @@ private constructor(
          */
         fun headHtml(headHtml: JsonField<String>) = apply { this.headHtml = headHtml }
 
-        /** The HTML title of the post. */
+        /** The html title of this Blog Post. */
         fun htmlTitle(htmlTitle: String) = htmlTitle(JsonField.of(htmlTitle))
 
         /**
@@ -1980,8 +1976,8 @@ private constructor(
         }
 
         /**
-         * The explicitly defined ISO 639 language code of the post. If null, the post will default
-         * to the language of the parent blog.
+         * The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post
+         * will default to the language of the ParentBlog.
          */
         fun language(language: Language) = language(JsonField.of(language))
 
@@ -2056,7 +2052,7 @@ private constructor(
             this.metaDescription = metaDescription
         }
 
-        /** The internal name of the post. */
+        /** The internal name of the Blog Post. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -2137,7 +2133,7 @@ private constructor(
 
         /**
          * Set this to create a password protected page. Entering the password will be required to
-         * view the blog post.
+         * view the page.
          */
         fun password(password: String) = password(JsonField.of(password))
 
@@ -2270,7 +2266,7 @@ private constructor(
         fun rssSummary(rssSummary: JsonField<String>) = apply { this.rssSummary = rssSummary }
 
         /**
-         * The URL slug of the blog post. This field is appended to the domain to construct the url
+         * The path of the this blog post. This field is appended to the domain to construct the url
          * of this post.
          */
         fun slug(slug: String) = slug(JsonField.of(slug))
@@ -2283,7 +2279,7 @@ private constructor(
          */
         fun slug(slug: JsonField<String>) = apply { this.slug = slug }
 
-        /** An enumeration describing the current publish state of the post. */
+        /** An ENUM descibing the current state of this Blog Post. */
         fun state(state: String) = state(JsonField.of(state))
 
         /**
@@ -2294,7 +2290,7 @@ private constructor(
          */
         fun state(state: JsonField<String>) = apply { this.state = state }
 
-        /** The IDs of the tags associated with this post. */
+        /** List of IDs for the tags associated with this Blog Post. */
         fun tagIds(tagIds: List<Long>) = tagIds(JsonField.of(tagIds))
 
         /**
@@ -2335,7 +2331,7 @@ private constructor(
             this.themeSettingsValues = themeSettingsValues
         }
 
-        /** ID of the primary blog post that this post was translated from. */
+        /** ID of the primary blog post this object was translated from. */
         fun translatedFromId(translatedFromId: String) =
             translatedFromId(JsonField.of(translatedFromId))
 
@@ -2379,7 +2375,7 @@ private constructor(
          */
         fun updated(updated: JsonField<OffsetDateTime>) = apply { this.updated = updated }
 
-        /** The ID of the user that updated the post. */
+        /** The ID of the user that updated this Blog Post. */
         fun updatedById(updatedById: String) = updatedById(JsonField.of(updatedById))
 
         /**
@@ -2402,7 +2398,7 @@ private constructor(
          */
         fun url(url: JsonField<String>) = apply { this.url = url }
 
-        /** Boolean to determine if this post should use a featured image. */
+        /** Boolean to determine if this post should use a featuredImage. */
         fun useFeaturedImage(useFeaturedImage: Boolean) =
             useFeaturedImage(JsonField.of(useFeaturedImage))
 
@@ -3587,8 +3583,8 @@ private constructor(
     }
 
     /**
-     * The explicitly defined ISO 639 language code of the post. If null, the post will default to
-     * the language of the parent blog.
+     * The explicitly defined ISO 639 language code of the Blog Post. If null, the Blog Post will
+     * default to the language of the ParentBlog.
      */
     class Language @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 

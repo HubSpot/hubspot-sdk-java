@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Complete a batch of blocked action executions. */
 class ActionCompleteBatchParams
 private constructor(
     private val batchInputCallbackCompletionBatchRequest: BatchInputCallbackCompletionBatchRequest,

@@ -11,11 +11,8 @@ import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import java.util.Objects
 
 /**
- * Create a single payment. Include a `properties` object to define
- * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the
- * {objectName}, along with an `associations` array to define
- * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
- * with other CRM records.
+ * Create a commerce payment with the given properties and return a copy of the object, including
+ * the ID. Documentation and examples for creating standard commerce payments is provided.
  */
 class CommercePaymentCreateParams
 private constructor(

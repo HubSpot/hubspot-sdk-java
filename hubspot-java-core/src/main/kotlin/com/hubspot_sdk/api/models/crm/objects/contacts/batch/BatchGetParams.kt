@@ -12,7 +12,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a batch of contacts by ID (`contactId`) or unique property value (`idProperty`). */
 class BatchGetParams
 private constructor(
     private val archived: Boolean?,

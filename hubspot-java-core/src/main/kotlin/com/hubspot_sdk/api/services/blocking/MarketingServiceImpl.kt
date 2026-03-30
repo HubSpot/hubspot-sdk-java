@@ -9,6 +9,8 @@ import com.hubspot_sdk.api.services.blocking.marketing.EmailService
 import com.hubspot_sdk.api.services.blocking.marketing.EmailServiceImpl
 import com.hubspot_sdk.api.services.blocking.marketing.EventService
 import com.hubspot_sdk.api.services.blocking.marketing.EventServiceImpl
+import com.hubspot_sdk.api.services.blocking.marketing.SingleSendService
+import com.hubspot_sdk.api.services.blocking.marketing.SingleSendServiceImpl
 import com.hubspot_sdk.api.services.blocking.marketing.TransactionalService
 import com.hubspot_sdk.api.services.blocking.marketing.TransactionalServiceImpl
 import java.util.function.Consumer
@@ -26,6 +28,8 @@ class MarketingServiceImpl internal constructor(private val clientOptions: Clien
 
     private val events: EventService by lazy { EventServiceImpl(clientOptions) }
 
+    private val singleSend: SingleSendService by lazy { SingleSendServiceImpl(clientOptions) }
+
     private val transactional: TransactionalService by lazy {
         TransactionalServiceImpl(clientOptions)
     }
@@ -40,6 +44,8 @@ class MarketingServiceImpl internal constructor(private val clientOptions: Clien
     override fun emails(): EmailService = emails
 
     override fun events(): EventService = events
+
+    override fun singleSend(): SingleSendService = singleSend
 
     override fun transactional(): TransactionalService = transactional
 
@@ -58,6 +64,10 @@ class MarketingServiceImpl internal constructor(private val clientOptions: Clien
             EventServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val singleSend: SingleSendService.WithRawResponse by lazy {
+            SingleSendServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val transactional: TransactionalService.WithRawResponse by lazy {
             TransactionalServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -74,6 +84,8 @@ class MarketingServiceImpl internal constructor(private val clientOptions: Clien
         override fun emails(): EmailService.WithRawResponse = emails
 
         override fun events(): EventService.WithRawResponse = events
+
+        override fun singleSend(): SingleSendService.WithRawResponse = singleSend
 
         override fun transactional(): TransactionalService.WithRawResponse = transactional
     }

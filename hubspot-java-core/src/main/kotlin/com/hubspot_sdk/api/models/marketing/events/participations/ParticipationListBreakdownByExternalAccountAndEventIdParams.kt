@@ -10,6 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Read Marketing event's participations breakdown with optional filters by externalAccountId and
+ * externalEventId pair.
+ */
 class ParticipationListBreakdownByExternalAccountAndEventIdParams
 private constructor(
     private val externalAccountId: String,

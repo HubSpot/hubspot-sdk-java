@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all carts. Control what is returned via the `properties` query param. */
+/** Retrieve all carts. You can control what is returned via the `properties` query parameter. */
 class CartListParams
 private constructor(
     private val after: String?,

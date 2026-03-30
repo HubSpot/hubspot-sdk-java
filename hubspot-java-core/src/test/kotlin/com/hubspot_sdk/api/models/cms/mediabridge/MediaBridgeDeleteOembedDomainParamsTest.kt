@@ -10,18 +10,14 @@ internal class MediaBridgeDeleteOembedDomainParamsTest {
 
     @Test
     fun create() {
-        MediaBridgeDeleteOembedDomainParams.builder()
-            .appId("appId")
-            .id(0L)
-            .domainPortalId(0)
-            .build()
+        MediaBridgeDeleteOembedDomainParams.builder().appId(0).id(0L).domainPortalId(0).build()
     }
 
     @Test
     fun pathParams() {
-        val params = MediaBridgeDeleteOembedDomainParams.builder().appId("appId").build()
+        val params = MediaBridgeDeleteOembedDomainParams.builder().appId(0).build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -29,11 +25,7 @@ internal class MediaBridgeDeleteOembedDomainParamsTest {
     @Test
     fun queryParams() {
         val params =
-            MediaBridgeDeleteOembedDomainParams.builder()
-                .appId("appId")
-                .id(0L)
-                .domainPortalId(0)
-                .build()
+            MediaBridgeDeleteOembedDomainParams.builder().appId(0).id(0L).domainPortalId(0).build()
 
         val queryParams = params._queryParams()
 
@@ -43,7 +35,7 @@ internal class MediaBridgeDeleteOembedDomainParamsTest {
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = MediaBridgeDeleteOembedDomainParams.builder().appId("appId").build()
+        val params = MediaBridgeDeleteOembedDomainParams.builder().appId(0).build()
 
         val queryParams = params._queryParams()
 

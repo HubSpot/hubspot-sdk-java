@@ -78,18 +78,24 @@ private constructor(
     fun userIds(): List<Int> = userIds.getRequired("userIds")
 
     /**
+     * The reason why no contact ID is available.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun noContactIdReason(): Optional<String> = noContactIdReason.getOptional("noContactIdReason")
 
     /**
+     * The reason why no portal ID is available.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun noPortalIdReason(): Optional<String> = noPortalIdReason.getOptional("noPortalIdReason")
 
     /**
+     * The reason why no user ID is available.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -271,6 +277,7 @@ private constructor(
                 }
         }
 
+        /** The reason why no contact ID is available. */
         fun noContactIdReason(noContactIdReason: String) =
             noContactIdReason(JsonField.of(noContactIdReason))
 
@@ -285,6 +292,7 @@ private constructor(
             this.noContactIdReason = noContactIdReason
         }
 
+        /** The reason why no portal ID is available. */
         fun noPortalIdReason(noPortalIdReason: String) =
             noPortalIdReason(JsonField.of(noPortalIdReason))
 
@@ -299,6 +307,7 @@ private constructor(
             this.noPortalIdReason = noPortalIdReason
         }
 
+        /** The reason why no user ID is available. */
         fun noUserIdReason(noUserIdReason: String) = noUserIdReason(JsonField.of(noUserIdReason))
 
         /**

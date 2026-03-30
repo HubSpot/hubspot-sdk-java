@@ -11,10 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Archive a cart by ID. Deleted carts can be restored within 90 days of deletion. Learn more about
- * [restoring records](https://knowledge.hubspot.com/records/restore-deleted-records).
- */
+/** Delete a cart by its ID, moving it to the recycling bin. */
 class CartDeleteParams
 private constructor(
     private val cartId: String?,

@@ -10,10 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
 import java.util.Objects
 
-/**
- * Create and update a batch of discounts by a unique property. Discounts that don't exist will be
- * created, while existing discounts will be updated.
- */
 class BatchUpsertParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInputUpsert:

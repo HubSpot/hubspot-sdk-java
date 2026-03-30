@@ -91,7 +91,7 @@ private constructor(
     fun fetch(): PublicCardFetchBody = fetch.getRequired("fetch")
 
     /**
-     * The top-level title for this card, displayed to users in the CRM UI.
+     * The top-level title for this card. Displayed to users in the CRM UI.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -303,7 +303,7 @@ private constructor(
          */
         fun fetch(fetch: JsonField<PublicCardFetchBody>) = apply { this.fetch = fetch }
 
-        /** The top-level title for this card, displayed to users in the CRM UI. */
+        /** The top-level title for this card. Displayed to users in the CRM UI. */
         fun title(title: String) = title(JsonField.of(title))
 
         /**

@@ -7,8 +7,13 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import java.util.Objects
 
+/**
+ * Create a variation of a marketing email for an A/B test. The new variation will be created as a
+ * draft. If an active variation already exists, a new one won't be created.
+ */
 class EmailCreateAbTestVariationParams
 private constructor(
     private val abTestCreateRequestVNext: AbTestCreateRequestVNext,

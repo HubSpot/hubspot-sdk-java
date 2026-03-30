@@ -4,7 +4,6 @@ package com.hubspot_sdk.api.models.businessunits
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.marketing.campaigns.PublicBusinessUnit
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -14,11 +13,35 @@ internal class CollectionResponsePublicBusinessUnitNoPagingTest {
     fun create() {
         val collectionResponsePublicBusinessUnitNoPaging =
             CollectionResponsePublicBusinessUnitNoPaging.builder()
-                .addResult(PublicBusinessUnit.builder().id(0).build())
+                .addResult(
+                    PublicBusinessUnit.builder()
+                        .id("id")
+                        .name("name")
+                        .logoMetadata(
+                            PublicBusinessUnitLogoMetadata.builder()
+                                .logoAltText("logoAltText")
+                                .logoUrl("logoUrl")
+                                .resizedUrl("resizedUrl")
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         assertThat(collectionResponsePublicBusinessUnitNoPaging.results())
-            .containsExactly(PublicBusinessUnit.builder().id(0).build())
+            .containsExactly(
+                PublicBusinessUnit.builder()
+                    .id("id")
+                    .name("name")
+                    .logoMetadata(
+                        PublicBusinessUnitLogoMetadata.builder()
+                            .logoAltText("logoAltText")
+                            .logoUrl("logoUrl")
+                            .resizedUrl("resizedUrl")
+                            .build()
+                    )
+                    .build()
+            )
     }
 
     @Test
@@ -26,7 +49,19 @@ internal class CollectionResponsePublicBusinessUnitNoPagingTest {
         val jsonMapper = jsonMapper()
         val collectionResponsePublicBusinessUnitNoPaging =
             CollectionResponsePublicBusinessUnitNoPaging.builder()
-                .addResult(PublicBusinessUnit.builder().id(0).build())
+                .addResult(
+                    PublicBusinessUnit.builder()
+                        .id("id")
+                        .name("name")
+                        .logoMetadata(
+                            PublicBusinessUnitLogoMetadata.builder()
+                                .logoAltText("logoAltText")
+                                .logoUrl("logoUrl")
+                                .resizedUrl("resizedUrl")
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         val roundtrippedCollectionResponsePublicBusinessUnitNoPaging =

@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Get the details for a specific message sent over a custom channel */
 class MessageGetParams
 private constructor(
     private val channelId: Int,

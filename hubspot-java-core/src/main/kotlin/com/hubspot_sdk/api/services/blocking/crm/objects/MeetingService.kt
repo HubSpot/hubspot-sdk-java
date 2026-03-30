@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.meetings.MeetingCreateParams
@@ -69,9 +69,12 @@ interface MeetingService {
     ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update a meeting by ID (`objectId`) or unique property value (`idProperty`). Provided
-     * property values will be overwritten. Read-only and non-existent properties will result in an
-     * error. Properties values can be cleared by passing an empty string.
+     * Perform a partial update of an Object identified by `{meetingId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{meetingId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
      */
     fun update(meetingId: String, params: MeetingUpdateParams): SimplePublicObject =
         update(meetingId, params, RequestOptions.none())
@@ -93,9 +96,7 @@ interface MeetingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /**
-     * Retrieve all meetings, using query parameters to specify the information that gets returned.
-     */
+    /** Read a page of meetings. Control what is returned via the `properties` query param. */
     fun list(): MeetingListPage = list(MeetingListParams.none())
 
     /** @see list */
@@ -112,7 +113,7 @@ interface MeetingService {
     fun list(requestOptions: RequestOptions): MeetingListPage =
         list(MeetingListParams.none(), requestOptions)
 
-    /** Delete a meeting by ID. */
+    /** Move an Object identified by `{meetingId}` to the recycling bin. */
     fun delete(meetingId: String) = delete(meetingId, MeetingDeleteParams.none())
 
     /** @see delete */
@@ -137,8 +138,9 @@ interface MeetingService {
         delete(meetingId, MeetingDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve a meeting by its ID (`objectId`) or by a unique property (`idProperty`). You can
-     * specify what is returned using the `properties` query parameter.
+     * Read an Object identified by `{meetingId}`. `{meetingId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
     fun get(meetingId: String): SimplePublicObjectWithAssociations =
         get(meetingId, MeetingGetParams.none())

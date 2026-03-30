@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Updates multiple Marketing Events on the portal based on their objectId, if they exist. */
 class EventUpdateBatchParams
 private constructor(
     private val batchInputMarketingEventPublicUpdateRequestFullV2:

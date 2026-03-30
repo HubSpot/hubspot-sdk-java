@@ -5,11 +5,68 @@ package com.hubspot_sdk.api.services.async.files
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.files.FolderUpdateInput
 import com.hubspot_sdk.api.models.files.FolderUpdateInputWithId
+import com.hubspot_sdk.api.models.files.folders.FolderGetByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByPathParams
 import com.hubspot_sdk.api.models.files.folders.FolderUpdateByIdParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class FolderServiceAsyncTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deleteById() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val future = folderServiceAsync.deleteById("321669910225")
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deleteByPath() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val future = folderServiceAsync.deleteByPath("folderPath")
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getById() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val folderFuture =
+            folderServiceAsync.getById(
+                FolderGetByIdParams.builder().folderId("321669910225").addProperty("string").build()
+            )
+
+        val folder = folderFuture.get()
+        folder.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getByPath() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderServiceAsync = client.files().folders()
+
+        val folderFuture =
+            folderServiceAsync.getByPath(
+                FolderGetByPathParams.builder()
+                    .folderPath("folderPath")
+                    .addProperty("string")
+                    .build()
+            )
+
+        val folder = folderFuture.get()
+        folder.validate()
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test

@@ -16,6 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Archive a function for a specific definition. */
 class ActionDeleteParams
 private constructor(
     private val appId: Int,

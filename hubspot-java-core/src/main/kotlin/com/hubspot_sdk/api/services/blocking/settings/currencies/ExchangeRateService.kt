@@ -37,6 +37,7 @@ interface ExchangeRateService {
 
     fun batch(): BatchService
 
+    /** Create a new exchange rate with specified conversion rate and currency codes. */
     fun createExchangeRate(params: ExchangeRateCreateExchangeRateParams): ExchangeRate =
         createExchangeRate(params, RequestOptions.none())
 
@@ -62,6 +63,7 @@ interface ExchangeRateService {
     fun createExchangeRate(exchangeRateCreateRequest: ExchangeRateCreateRequest): ExchangeRate =
         createExchangeRate(exchangeRateCreateRequest, RequestOptions.none())
 
+    /** Retrieve the details for a specific exchange rate specified by its ID. */
     fun getExchangeRateById(exchangeRateId: String): ExchangeRate =
         getExchangeRateById(exchangeRateId, ExchangeRateGetExchangeRateByIdParams.none())
 
@@ -101,6 +103,7 @@ interface ExchangeRateService {
             requestOptions,
         )
 
+    /** Retrieve all current exchange rates for all currency pairs. */
     fun listCurrentExchangeRates(): CollectionResponseExchangeRateNoPaging =
         listCurrentExchangeRates(ExchangeRateListCurrentExchangeRatesParams.none())
 
@@ -124,6 +127,7 @@ interface ExchangeRateService {
     ): CollectionResponseExchangeRateNoPaging =
         listCurrentExchangeRates(ExchangeRateListCurrentExchangeRatesParams.none(), requestOptions)
 
+    /** Get a list of exchange rates */
     fun listExchangeRates(): ExchangeRateListExchangeRatesPage =
         listExchangeRates(ExchangeRateListExchangeRatesParams.none())
 
@@ -142,6 +146,7 @@ interface ExchangeRateService {
     fun listExchangeRates(requestOptions: RequestOptions): ExchangeRateListExchangeRatesPage =
         listExchangeRates(ExchangeRateListExchangeRatesParams.none(), requestOptions)
 
+    /** Update an existing conversion rate, specified by its ID. */
     fun updateExchangeRate(
         exchangeRateId: String,
         params: ExchangeRateUpdateExchangeRateParams,
@@ -168,6 +173,10 @@ interface ExchangeRateService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExchangeRate
 
+    /**
+     * Change the visibility setting for a currency pair. This will hide or display a currency pair
+     * for users in the HubSpot app.
+     */
     fun updateVisibility(params: ExchangeRateUpdateVisibilityParams) =
         updateVisibility(params, RequestOptions.none())
 

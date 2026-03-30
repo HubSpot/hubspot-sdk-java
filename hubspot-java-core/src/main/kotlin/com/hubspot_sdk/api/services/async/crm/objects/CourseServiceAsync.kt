@@ -6,9 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.courses.CourseCreateParams
@@ -100,7 +100,7 @@ interface CourseServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /** Retrieve all courses. */
+    /** Read a page of courses. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<CourseListPageAsync> = list(CourseListParams.none())
 
     /** @see list */
@@ -118,7 +118,7 @@ interface CourseServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<CourseListPageAsync> =
         list(CourseListParams.none(), requestOptions)
 
-    /** Delete a course by ID. */
+    /** Move an Object identified by `{courseId}` to the recycling bin. */
     fun delete(courseId: String): CompletableFuture<Void?> =
         delete(courseId, CourseDeleteParams.none())
 

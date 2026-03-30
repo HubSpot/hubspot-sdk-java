@@ -71,8 +71,8 @@ interface BatchServiceAsync {
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
     /**
-     * Batch update multiple subscription objects in a single batch operation, allowing for
-     * efficient modifications of CRM subscription records.
+     * Update multiple subscription objects in a single batch operation, allowing for efficient
+     * modifications of CRM subscription records.
      */
     fun update(params: BatchUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         update(params, RequestOptions.none())
@@ -129,7 +129,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Retrieve a batch of commerce subscriptions by their IDs, including specified properties and
+     * Retrieve a batch of CRM subscription objects by their IDs, including specified properties and
      * their histories.
      */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =

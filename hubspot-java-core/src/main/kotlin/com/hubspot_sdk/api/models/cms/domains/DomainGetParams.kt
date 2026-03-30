@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Returns a single domains with the id specified. */
 class DomainGetParams
 private constructor(
     private val domainId: String?,

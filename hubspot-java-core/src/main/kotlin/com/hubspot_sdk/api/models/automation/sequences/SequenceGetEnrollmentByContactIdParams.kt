@@ -9,12 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve the sequence enrollment details for a specific contact in your HubSpot account. This
- * endpoint provides information about the sequence a contact is enrolled in, including enrollment
- * timestamps and the sequence's name. It is useful for tracking the progress and status of a
- * contact within a sequence.
- */
+/** Get the enrollment status of a contact in sequences by their contact ID. */
 class SequenceGetEnrollmentByContactIdParams
 private constructor(
     private val contactId: String?,

@@ -6,9 +6,13 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.LabelsBetweenObjectPair
-import com.hubspot_sdk.api.models.crm.associations.AssociationDeleteAssociationsParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationDeleteParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationListPageAsync
+import com.hubspot_sdk.api.models.crm.associations.AssociationListParams
 import com.hubspot_sdk.api.models.crm.associations.AssociationRequestHighUsageReportParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationSearchParams
 import com.hubspot_sdk.api.models.crm.associations.AssociationUpdateAssociationLabelsParams
 import com.hubspot_sdk.api.models.crm.associations.ReportCreationResponse
 import com.hubspot_sdk.api.services.async.crm.associations.BatchServiceAsync
@@ -31,26 +35,51 @@ interface AssociationServiceAsync {
 
     fun batch(): BatchServiceAsync
 
-    fun deleteAssociations(
-        toObjectId: String,
-        params: AssociationDeleteAssociationsParams,
-    ): CompletableFuture<Void?> = deleteAssociations(toObjectId, params, RequestOptions.none())
+    /**
+     * Retrieve all associations between a specific record and an object type. Limit 500 per call.
+     */
+    fun list(
+        toObjectType: String,
+        params: AssociationListParams,
+    ): CompletableFuture<AssociationListPageAsync> =
+        list(toObjectType, params, RequestOptions.none())
 
-    /** @see deleteAssociations */
-    fun deleteAssociations(
+    /** @see list */
+    fun list(
+        toObjectType: String,
+        params: AssociationListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AssociationListPageAsync> =
+        list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+    /** @see list */
+    fun list(params: AssociationListParams): CompletableFuture<AssociationListPageAsync> =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
+        params: AssociationListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<AssociationListPageAsync>
+
+    fun delete(toObjectId: String, params: AssociationDeleteParams): CompletableFuture<Void?> =
+        delete(toObjectId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
         toObjectId: String,
-        params: AssociationDeleteAssociationsParams,
+        params: AssociationDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        deleteAssociations(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-    /** @see deleteAssociations */
-    fun deleteAssociations(params: AssociationDeleteAssociationsParams): CompletableFuture<Void?> =
-        deleteAssociations(params, RequestOptions.none())
+    /** @see delete */
+    fun delete(params: AssociationDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
 
-    /** @see deleteAssociations */
-    fun deleteAssociations(
-        params: AssociationDeleteAssociationsParams,
+    /** @see delete */
+    fun delete(
+        params: AssociationDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
@@ -98,6 +127,32 @@ interface AssociationServiceAsync {
             requestOptions,
         )
 
+    fun search(
+        objectType: String,
+        params: AssociationSearchParams,
+    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
+        search(objectType, params, RequestOptions.none())
+
+    /** @see search */
+    fun search(
+        objectType: String,
+        params: AssociationSearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
+        search(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see search */
+    fun search(
+        params: AssociationSearchParams
+    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =
+        search(params, RequestOptions.none())
+
+    /** @see search */
+    fun search(
+        params: AssociationSearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject>
+
     fun updateAssociationLabels(
         toObjectId: String,
         params: AssociationUpdateAssociationLabelsParams,
@@ -142,32 +197,61 @@ interface AssociationServiceAsync {
         fun batch(): BatchServiceAsync.WithRawResponse
 
         /**
+         * Returns a raw HTTP response for `get
+         * /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}`, but is
+         * otherwise the same as [AssociationServiceAsync.list].
+         */
+        fun list(
+            toObjectType: String,
+            params: AssociationListParams,
+        ): CompletableFuture<HttpResponseFor<AssociationListPageAsync>> =
+            list(toObjectType, params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            toObjectType: String,
+            params: AssociationListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AssociationListPageAsync>> =
+            list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+        /** @see list */
+        fun list(
+            params: AssociationListParams
+        ): CompletableFuture<HttpResponseFor<AssociationListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            params: AssociationListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<AssociationListPageAsync>>
+
+        /**
          * Returns a raw HTTP response for `delete
          * /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [AssociationServiceAsync.deleteAssociations].
+         * but is otherwise the same as [AssociationServiceAsync.delete].
          */
-        fun deleteAssociations(
+        fun delete(
             toObjectId: String,
-            params: AssociationDeleteAssociationsParams,
-        ): CompletableFuture<HttpResponse> =
-            deleteAssociations(toObjectId, params, RequestOptions.none())
+            params: AssociationDeleteParams,
+        ): CompletableFuture<HttpResponse> = delete(toObjectId, params, RequestOptions.none())
 
-        /** @see deleteAssociations */
-        fun deleteAssociations(
+        /** @see delete */
+        fun delete(
             toObjectId: String,
-            params: AssociationDeleteAssociationsParams,
+            params: AssociationDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            deleteAssociations(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+            delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
 
-        /** @see deleteAssociations */
-        fun deleteAssociations(
-            params: AssociationDeleteAssociationsParams
-        ): CompletableFuture<HttpResponse> = deleteAssociations(params, RequestOptions.none())
+        /** @see delete */
+        fun delete(params: AssociationDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
 
-        /** @see deleteAssociations */
-        fun deleteAssociations(
-            params: AssociationDeleteAssociationsParams,
+        /** @see delete */
+        fun delete(
+            params: AssociationDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
@@ -220,6 +304,36 @@ interface AssociationServiceAsync {
                 AssociationRequestHighUsageReportParams.none(),
                 requestOptions,
             )
+
+        /**
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/search`, but is
+         * otherwise the same as [AssociationServiceAsync.search].
+         */
+        fun search(
+            objectType: String,
+            params: AssociationSearchParams,
+        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
+            search(objectType, params, RequestOptions.none())
+
+        /** @see search */
+        fun search(
+            objectType: String,
+            params: AssociationSearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
+            search(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see search */
+        fun search(
+            params: AssociationSearchParams
+        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>> =
+            search(params, RequestOptions.none())
+
+        /** @see search */
+        fun search(
+            params: AssociationSearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>>
 
         /**
          * Returns a raw HTTP response for `put

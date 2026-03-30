@@ -72,7 +72,8 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * A collection of related links associated with the action.
+     * A map of link names to associated URIs containing documentation about the error or
+     * recommended remediation steps
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -215,7 +216,10 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** A collection of related links associated with the action. */
+        /**
+         * A map of link names to associated URIs containing documentation about the error or
+         * recommended remediation steps
+         */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -461,7 +465,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** A collection of related links associated with the action. */
+    /**
+     * A map of link names to associated URIs containing documentation about the error or
+     * recommended remediation steps
+     */
     class Links
     @JsonCreator
     private constructor(

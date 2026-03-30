@@ -9,8 +9,12 @@ import com.hubspot_sdk.api.services.blocking.cms.BlogService
 import com.hubspot_sdk.api.services.blocking.cms.BlogServiceImpl
 import com.hubspot_sdk.api.services.blocking.cms.DomainService
 import com.hubspot_sdk.api.services.blocking.cms.DomainServiceImpl
+import com.hubspot_sdk.api.services.blocking.cms.HubdbService
+import com.hubspot_sdk.api.services.blocking.cms.HubdbServiceImpl
 import com.hubspot_sdk.api.services.blocking.cms.MediaBridgeService
 import com.hubspot_sdk.api.services.blocking.cms.MediaBridgeServiceImpl
+import com.hubspot_sdk.api.services.blocking.cms.PageService
+import com.hubspot_sdk.api.services.blocking.cms.PageServiceImpl
 import com.hubspot_sdk.api.services.blocking.cms.SiteSearchService
 import com.hubspot_sdk.api.services.blocking.cms.SiteSearchServiceImpl
 import com.hubspot_sdk.api.services.blocking.cms.SourceCodeService
@@ -33,7 +37,11 @@ class CmServiceImpl internal constructor(private val clientOptions: ClientOption
 
     private val domains: DomainService by lazy { DomainServiceImpl(clientOptions) }
 
+    private val hubdb: HubdbService by lazy { HubdbServiceImpl(clientOptions) }
+
     private val mediaBridge: MediaBridgeService by lazy { MediaBridgeServiceImpl(clientOptions) }
+
+    private val pages: PageService by lazy { PageServiceImpl(clientOptions) }
 
     private val siteSearch: SiteSearchService by lazy { SiteSearchServiceImpl(clientOptions) }
 
@@ -54,7 +62,11 @@ class CmServiceImpl internal constructor(private val clientOptions: ClientOption
 
     override fun domains(): DomainService = domains
 
+    override fun hubdb(): HubdbService = hubdb
+
     override fun mediaBridge(): MediaBridgeService = mediaBridge
+
+    override fun pages(): PageService = pages
 
     override fun siteSearch(): SiteSearchService = siteSearch
 
@@ -79,8 +91,16 @@ class CmServiceImpl internal constructor(private val clientOptions: ClientOption
             DomainServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val hubdb: HubdbService.WithRawResponse by lazy {
+            HubdbServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val mediaBridge: MediaBridgeService.WithRawResponse by lazy {
             MediaBridgeServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val pages: PageService.WithRawResponse by lazy {
+            PageServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val siteSearch: SiteSearchService.WithRawResponse by lazy {
@@ -112,7 +132,11 @@ class CmServiceImpl internal constructor(private val clientOptions: ClientOption
 
         override fun domains(): DomainService.WithRawResponse = domains
 
+        override fun hubdb(): HubdbService.WithRawResponse = hubdb
+
         override fun mediaBridge(): MediaBridgeService.WithRawResponse = mediaBridge
+
+        override fun pages(): PageService.WithRawResponse = pages
 
         override fun siteSearch(): SiteSearchService.WithRawResponse = siteSearch
 

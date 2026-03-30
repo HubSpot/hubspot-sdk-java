@@ -81,6 +81,8 @@ private constructor(
     )
 
     /**
+     * The URL endpoint where the action is executed.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -108,6 +110,8 @@ private constructor(
         inputFields.getOptional("inputFields")
 
     /**
+     * Contains labels for the action, including names and descriptions.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -134,6 +138,8 @@ private constructor(
         outputFields.getOptional("outputFields")
 
     /**
+     * Indicates whether the action is published and available for use.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -265,6 +271,7 @@ private constructor(
             additionalProperties = publicActionDefinitionPatch.additionalProperties.toMutableMap()
         }
 
+        /** The URL endpoint where the action is executed. */
         fun actionUrl(actionUrl: String) = actionUrl(JsonField.of(actionUrl))
 
         /**
@@ -374,6 +381,7 @@ private constructor(
                 }
         }
 
+        /** Contains labels for the action, including names and descriptions. */
         fun labels(labels: Labels) = labels(JsonField.of(labels))
 
         /**
@@ -450,6 +458,7 @@ private constructor(
                 }
         }
 
+        /** Indicates whether the action is published and available for use. */
         fun published(published: Boolean) = published(JsonField.of(published))
 
         /**
@@ -743,6 +752,7 @@ private constructor(
         }
     }
 
+    /** Contains labels for the action, including names and descriptions. */
     class Labels
     @JsonCreator
     private constructor(

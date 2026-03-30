@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Retrieve all current exchange rates for all currency pairs. */
 class ExchangeRateListCurrentExchangeRatesParams
 private constructor(
     private val additionalHeaders: Headers,

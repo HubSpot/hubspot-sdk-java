@@ -6,17 +6,22 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateLanguageVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateLanguagesParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
@@ -41,6 +46,7 @@ interface AuthorService {
 
     fun batch(): BatchService
 
+    /** Create a new Blog Author. */
     @MustBeClosed
     fun create(params: AuthorCreateParams): HttpResponse = create(params, RequestOptions.none())
 
@@ -63,6 +69,10 @@ interface AuthorService {
     @MustBeClosed
     fun create(blogAuthor: BlogAuthor): HttpResponse = create(blogAuthor, RequestOptions.none())
 
+    /**
+     * Sparse updates a single Blog Author object identified by the id in the path. All the column
+     * values need not be specified. Only the that need to be modified can be specified.
+     */
     @MustBeClosed
     fun update(objectId: String, params: AuthorUpdateParams): HttpResponse =
         update(objectId, params, RequestOptions.none())
@@ -105,6 +115,7 @@ interface AuthorService {
     fun list(requestOptions: RequestOptions): HttpResponse =
         list(AuthorListParams.none(), requestOptions)
 
+    /** Delete the Blog Author object identified by the id in the path. */
     fun delete(objectId: String) = delete(objectId, AuthorDeleteParams.none())
 
     /** @see delete */
@@ -128,6 +139,7 @@ interface AuthorService {
     fun delete(objectId: String, requestOptions: RequestOptions) =
         delete(objectId, AuthorDeleteParams.none(), requestOptions)
 
+    /** Attach a Blog Author to a multi-language group. */
     @MustBeClosed
     fun attachToLangGroup(params: AuthorAttachToLangGroupParams): HttpResponse =
         attachToLangGroup(params, RequestOptions.none())
@@ -158,6 +170,7 @@ interface AuthorService {
         attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext
     ): HttpResponse = attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
+    /** Create a new language variation from an existing Blog Author. */
     @MustBeClosed
     fun createLanguageVariation(params: AuthorCreateLanguageVariationParams): HttpResponse =
         createLanguageVariation(params, RequestOptions.none())
@@ -188,6 +201,7 @@ interface AuthorService {
         blogAuthorCloneRequestVNext: BlogAuthorCloneRequestVNext
     ): HttpResponse = createLanguageVariation(blogAuthorCloneRequestVNext, RequestOptions.none())
 
+    /** Detach a Blog Author from a multi-language group. */
     @MustBeClosed
     fun detachFromLangGroup(params: AuthorDetachFromLangGroupParams): HttpResponse =
         detachFromLangGroup(params, RequestOptions.none())
@@ -218,6 +232,7 @@ interface AuthorService {
         detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext
     ): HttpResponse = detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
+    /** Retrieve the Blog Author object identified by the id in the path. */
     @MustBeClosed fun get(objectId: String): HttpResponse = get(objectId, AuthorGetParams.none())
 
     /** @see get */
@@ -249,6 +264,107 @@ interface AuthorService {
     fun get(objectId: String, requestOptions: RequestOptions): HttpResponse =
         get(objectId, AuthorGetParams.none(), requestOptions)
 
+    @MustBeClosed fun listByQuery(): HttpResponse = listByQuery(AuthorListByQueryParams.none())
+
+    /** @see listByQuery */
+    @MustBeClosed
+    fun listByQuery(
+        params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listByQuery */
+    @MustBeClosed
+    fun listByQuery(
+        params: AuthorListByQueryParams = AuthorListByQueryParams.none()
+    ): HttpResponse = listByQuery(params, RequestOptions.none())
+
+    /** @see listByQuery */
+    @MustBeClosed
+    fun listByQuery(requestOptions: RequestOptions): HttpResponse =
+        listByQuery(AuthorListByQueryParams.none(), requestOptions)
+
+    @MustBeClosed fun listPosts(): HttpResponse = listPosts(AuthorListPostsParams.none())
+
+    /** @see listPosts */
+    @MustBeClosed
+    fun listPosts(
+        params: AuthorListPostsParams = AuthorListPostsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listPosts */
+    @MustBeClosed
+    fun listPosts(params: AuthorListPostsParams = AuthorListPostsParams.none()): HttpResponse =
+        listPosts(params, RequestOptions.none())
+
+    /** @see listPosts */
+    @MustBeClosed
+    fun listPosts(requestOptions: RequestOptions): HttpResponse =
+        listPosts(AuthorListPostsParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun listPostsByQuery(): HttpResponse = listPostsByQuery(AuthorListPostsByQueryParams.none())
+
+    /** @see listPostsByQuery */
+    @MustBeClosed
+    fun listPostsByQuery(
+        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listPostsByQuery */
+    @MustBeClosed
+    fun listPostsByQuery(
+        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
+    ): HttpResponse = listPostsByQuery(params, RequestOptions.none())
+
+    /** @see listPostsByQuery */
+    @MustBeClosed
+    fun listPostsByQuery(requestOptions: RequestOptions): HttpResponse =
+        listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+
+    @MustBeClosed fun listTags(): HttpResponse = listTags(AuthorListTagsParams.none())
+
+    /** @see listTags */
+    @MustBeClosed
+    fun listTags(
+        params: AuthorListTagsParams = AuthorListTagsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listTags */
+    @MustBeClosed
+    fun listTags(params: AuthorListTagsParams = AuthorListTagsParams.none()): HttpResponse =
+        listTags(params, RequestOptions.none())
+
+    /** @see listTags */
+    @MustBeClosed
+    fun listTags(requestOptions: RequestOptions): HttpResponse =
+        listTags(AuthorListTagsParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun listTagsByQuery(): HttpResponse = listTagsByQuery(AuthorListTagsByQueryParams.none())
+
+    /** @see listTagsByQuery */
+    @MustBeClosed
+    fun listTagsByQuery(
+        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listTagsByQuery */
+    @MustBeClosed
+    fun listTagsByQuery(
+        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
+    ): HttpResponse = listTagsByQuery(params, RequestOptions.none())
+
+    /** @see listTagsByQuery */
+    @MustBeClosed
+    fun listTagsByQuery(requestOptions: RequestOptions): HttpResponse =
+        listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
+
+    /** Set a Blog Author as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: AuthorSetNewLangPrimaryParams) =
         setNewLangPrimary(params, RequestOptions.none())
 
@@ -274,6 +390,7 @@ interface AuthorService {
     fun setNewLangPrimary(setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext) =
         setNewLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
 
+    /** Explicitly set new languages for each Blog Author in a multi-language group. */
     @MustBeClosed
     fun updateLanguages(params: AuthorUpdateLanguagesParams): HttpResponse =
         updateLanguages(params, RequestOptions.none())
@@ -369,8 +486,8 @@ interface AuthorService {
         ): HttpResponse
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors`, but is otherwise the
-         * same as [AuthorService.list].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
+         * the same as [AuthorService.list].
          */
         @MustBeClosed fun list(): HttpResponse = list(AuthorListParams.none())
 
@@ -571,6 +688,126 @@ interface AuthorService {
         @MustBeClosed
         fun get(objectId: String, requestOptions: RequestOptions): HttpResponse =
             get(objectId, AuthorGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
+         * otherwise the same as [AuthorService.listByQuery].
+         */
+        @MustBeClosed fun listByQuery(): HttpResponse = listByQuery(AuthorListByQueryParams.none())
+
+        /** @see listByQuery */
+        @MustBeClosed
+        fun listByQuery(
+            params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listByQuery */
+        @MustBeClosed
+        fun listByQuery(
+            params: AuthorListByQueryParams = AuthorListByQueryParams.none()
+        ): HttpResponse = listByQuery(params, RequestOptions.none())
+
+        /** @see listByQuery */
+        @MustBeClosed
+        fun listByQuery(requestOptions: RequestOptions): HttpResponse =
+            listByQuery(AuthorListByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor`, but is otherwise
+         * the same as [AuthorService.listPosts].
+         */
+        @MustBeClosed fun listPosts(): HttpResponse = listPosts(AuthorListPostsParams.none())
+
+        /** @see listPosts */
+        @MustBeClosed
+        fun listPosts(
+            params: AuthorListPostsParams = AuthorListPostsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listPosts */
+        @MustBeClosed
+        fun listPosts(params: AuthorListPostsParams = AuthorListPostsParams.none()): HttpResponse =
+            listPosts(params, RequestOptions.none())
+
+        /** @see listPosts */
+        @MustBeClosed
+        fun listPosts(requestOptions: RequestOptions): HttpResponse =
+            listPosts(AuthorListPostsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor/query`, but is
+         * otherwise the same as [AuthorService.listPostsByQuery].
+         */
+        @MustBeClosed
+        fun listPostsByQuery(): HttpResponse = listPostsByQuery(AuthorListPostsByQueryParams.none())
+
+        /** @see listPostsByQuery */
+        @MustBeClosed
+        fun listPostsByQuery(
+            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listPostsByQuery */
+        @MustBeClosed
+        fun listPostsByQuery(
+            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
+        ): HttpResponse = listPostsByQuery(params, RequestOptions.none())
+
+        /** @see listPostsByQuery */
+        @MustBeClosed
+        fun listPostsByQuery(requestOptions: RequestOptions): HttpResponse =
+            listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor`, but is otherwise
+         * the same as [AuthorService.listTags].
+         */
+        @MustBeClosed fun listTags(): HttpResponse = listTags(AuthorListTagsParams.none())
+
+        /** @see listTags */
+        @MustBeClosed
+        fun listTags(
+            params: AuthorListTagsParams = AuthorListTagsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listTags */
+        @MustBeClosed
+        fun listTags(params: AuthorListTagsParams = AuthorListTagsParams.none()): HttpResponse =
+            listTags(params, RequestOptions.none())
+
+        /** @see listTags */
+        @MustBeClosed
+        fun listTags(requestOptions: RequestOptions): HttpResponse =
+            listTags(AuthorListTagsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor/query`, but is
+         * otherwise the same as [AuthorService.listTagsByQuery].
+         */
+        @MustBeClosed
+        fun listTagsByQuery(): HttpResponse = listTagsByQuery(AuthorListTagsByQueryParams.none())
+
+        /** @see listTagsByQuery */
+        @MustBeClosed
+        fun listTagsByQuery(
+            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listTagsByQuery */
+        @MustBeClosed
+        fun listTagsByQuery(
+            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
+        ): HttpResponse = listTagsByQuery(params, RequestOptions.none())
+
+        /** @see listTagsByQuery */
+        @MustBeClosed
+        fun listTagsByQuery(requestOptions: RequestOptions): HttpResponse =
+            listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put

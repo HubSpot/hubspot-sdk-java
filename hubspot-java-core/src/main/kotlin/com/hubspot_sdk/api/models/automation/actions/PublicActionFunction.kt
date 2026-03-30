@@ -39,18 +39,25 @@ private constructor(
     ) : this(functionSource, functionType, id, mutableMapOf())
 
     /**
+     * The source code or script that defines the function's behavior.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun functionSource(): String = functionSource.getRequired("functionSource")
 
     /**
+     * The type of function, with accepted values: POST_ACTION_EXECUTION, POST_FETCH_OPTIONS,
+     * PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun functionType(): FunctionType = functionType.getRequired("functionType")
 
     /**
+     * The unique identifier for the action function.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -123,6 +130,7 @@ private constructor(
             additionalProperties = publicActionFunction.additionalProperties.toMutableMap()
         }
 
+        /** The source code or script that defines the function's behavior. */
         fun functionSource(functionSource: String) = functionSource(JsonField.of(functionSource))
 
         /**
@@ -136,6 +144,10 @@ private constructor(
             this.functionSource = functionSource
         }
 
+        /**
+         * The type of function, with accepted values: POST_ACTION_EXECUTION, POST_FETCH_OPTIONS,
+         * PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS.
+         */
         fun functionType(functionType: FunctionType) = functionType(JsonField.of(functionType))
 
         /**
@@ -149,6 +161,7 @@ private constructor(
             this.functionType = functionType
         }
 
+        /** The unique identifier for the action function. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -232,6 +245,10 @@ private constructor(
             (functionType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (id.asKnown().isPresent) 1 else 0)
 
+    /**
+     * The type of function, with accepted values: POST_ACTION_EXECUTION, POST_FETCH_OPTIONS,
+     * PRE_ACTION_EXECUTION, PRE_FETCH_OPTIONS.
+     */
     class FunctionType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

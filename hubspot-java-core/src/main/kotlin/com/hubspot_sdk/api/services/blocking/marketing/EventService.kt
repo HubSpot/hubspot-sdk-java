@@ -22,6 +22,8 @@ import com.hubspot_sdk.api.models.marketing.events.EventDeleteByExternalEventIdP
 import com.hubspot_sdk.api.models.marketing.events.EventDeleteParams
 import com.hubspot_sdk.api.models.marketing.events.EventGetByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventGetParams
+import com.hubspot_sdk.api.models.marketing.events.EventListPage
+import com.hubspot_sdk.api.models.marketing.events.EventListParams
 import com.hubspot_sdk.api.models.marketing.events.EventSearchByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventSearchIdentifiersByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateBatchParams
@@ -29,8 +31,6 @@ import com.hubspot_sdk.api.models.marketing.events.EventUpdateByExternalEventIdP
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpsertBatchParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpsertByExternalEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByEmailParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByIdParams
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventCreateRequestParams
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventDefaultResponse
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventPublicDefaultResponse
@@ -43,6 +43,7 @@ import com.hubspot_sdk.api.services.blocking.marketing.events.EventService
 import com.hubspot_sdk.api.services.blocking.marketing.events.ListAssociationService
 import com.hubspot_sdk.api.services.blocking.marketing.events.ParticipationService
 import com.hubspot_sdk.api.services.blocking.marketing.events.SettingService
+import com.hubspot_sdk.api.services.blocking.marketing.events.SubscriberStateService
 import java.util.function.Consumer
 
 interface EventService {
@@ -69,6 +70,9 @@ interface EventService {
 
     fun settings(): SettingService
 
+    fun subscriberState(): SubscriberStateService
+
+    /** Creates a new marketing event in HubSpot */
     fun create(params: EventCreateParams): MarketingEventDefaultResponse =
         create(params, RequestOptions.none())
 
@@ -96,6 +100,9 @@ interface EventService {
     ): MarketingEventDefaultResponse =
         create(marketingEventCreateRequestParams, RequestOptions.none())
 
+    /**
+     * Updates the details of an existing Marketing Event identified by its objectId, if it exists.
+     */
     fun update(objectId: String, params: EventUpdateParams): MarketingEventPublicDefaultResponseV2 =
         update(objectId, params, RequestOptions.none())
 
@@ -117,6 +124,23 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MarketingEventPublicDefaultResponseV2
 
+    fun list(): EventListPage = list(EventListParams.none())
+
+    /** @see list */
+    fun list(
+        params: EventListParams = EventListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EventListPage
+
+    /** @see list */
+    fun list(params: EventListParams = EventListParams.none()): EventListPage =
+        list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): EventListPage =
+        list(EventListParams.none(), requestOptions)
+
+    /** Deletes the existing Marketing Event with the specified objectId, if it exists. */
     fun delete(objectId: String) = delete(objectId, EventDeleteParams.none())
 
     /** @see delete */
@@ -140,6 +164,12 @@ interface EventService {
     fun delete(objectId: String, requestOptions: RequestOptions) =
         delete(objectId, EventDeleteParams.none(), requestOptions)
 
+    /**
+     * Deletes multiple Marketing Events from the portal based on their objectId, if they exist.
+     *
+     * Responses: 204: Returned if all specified Marketing Events were successfully deleted. 207:
+     * Returned if some objectIds did not correspond to any existing Marketing Events.
+     */
     @MustBeClosed
     fun deleteBatch(params: EventDeleteBatchParams): HttpResponse =
         deleteBatch(params, RequestOptions.none())
@@ -175,6 +205,12 @@ interface EventService {
     ): HttpResponse =
         deleteBatch(batchInputMarketingEventPublicObjectIdDeleteRequest, RequestOptions.none())
 
+    /**
+     * Deletes multiple Marketing Events based on externalAccountId, externalEventId, and appId.
+     *
+     * Only Marketing Events created by the same apps will be deleted; events from other apps cannot
+     * be removed by this endpoint.
+     */
     @MustBeClosed
     fun deleteBatchByExternalEventId(
         params: EventDeleteBatchByExternalEventIdParams
@@ -214,6 +250,12 @@ interface EventService {
             RequestOptions.none(),
         )
 
+    /**
+     * Deletes the existing Marketing Event with the specified externalAccountId, externalEventId,
+     * if it exists.
+     *
+     * Only Marketing Events created by the same app can be deleted.
+     */
     fun deleteByExternalEventId(
         externalEventId: String,
         params: EventDeleteByExternalEventIdParams,
@@ -240,6 +282,7 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** Returns the details of a Marketing Event with the specified objectId, if it exists. */
     fun get(objectId: String): MarketingEventPublicReadResponseV2 =
         get(objectId, EventGetParams.none())
 
@@ -271,6 +314,12 @@ interface EventService {
     fun get(objectId: String, requestOptions: RequestOptions): MarketingEventPublicReadResponseV2 =
         get(objectId, EventGetParams.none(), requestOptions)
 
+    /**
+     * Returns the details of a Marketing Event with the specified externalAccountId,
+     * externalEventId, if it exists.
+     *
+     * Only Marketing Events created by the same app making the request can be retrieved.
+     */
     fun getByExternalEventId(
         externalEventId: String,
         params: EventGetByExternalEventIdParams,
@@ -299,6 +348,12 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MarketingEventPublicReadResponse
 
+    /**
+     * Retrieves Marketing Events where the externalEventId matches the value provided in the
+     * request, limited to events created by the app making the request.
+     *
+     * Marketing Events created by other apps will not be included in the results.
+     */
     fun searchByExternalEventId(
         params: EventSearchByExternalEventIdParams
     ): CollectionResponseSearchPublicResponseWrapperNoPaging =
@@ -310,6 +365,17 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponseSearchPublicResponseWrapperNoPaging
 
+    /**
+     * This endpoint searches the portal for all Marketing Events whose externalEventId matches the
+     * value provided in the request.
+     *
+     * It retrieves the objectId and additional event details for each matching Marketing Event.
+     *
+     * Since multiple Marketing Events can have the same externalEventId, the endpoint returns all
+     * matching results.
+     *
+     * Note: Marketing Events become searchable by externalEventId a few minutes after creation.
+     */
     fun searchIdentifiersByExternalEventId(
         externalEventId: String
     ): CollectionResponseWithTotalMarketingEventIdentifiersResponse =
@@ -361,6 +427,7 @@ interface EventService {
             requestOptions,
         )
 
+    /** Updates multiple Marketing Events on the portal based on their objectId, if they exist. */
     fun updateBatch(
         params: EventUpdateBatchParams
     ): BatchResponseMarketingEventPublicDefaultResponseV2 =
@@ -394,6 +461,12 @@ interface EventService {
     ): BatchResponseMarketingEventPublicDefaultResponseV2 =
         updateBatch(batchInputMarketingEventPublicUpdateRequestFullV2, RequestOptions.none())
 
+    /**
+     * Updates the details of an existing Marketing Event identified by its externalAccountId,
+     * externalEventId if it exists.
+     *
+     * Only Marketing Events created by the same app can be updated.
+     */
     fun updateByExternalEventId(
         externalEventId: String,
         params: EventUpdateByExternalEventIdParams,
@@ -422,6 +495,12 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MarketingEventPublicDefaultResponse
 
+    /**
+     * Upserts multiple Marketing Events. If a Marketing Event with the specified ID already exists,
+     * it will be updated; otherwise, a new event will be created.
+     *
+     * Only Marketing Events originally created by the same app can be updated.
+     */
     fun upsertBatch(
         params: EventUpsertBatchParams
     ): BatchResponseMarketingEventPublicDefaultResponse = upsertBatch(params, RequestOptions.none())
@@ -452,6 +531,10 @@ interface EventService {
     ): BatchResponseMarketingEventPublicDefaultResponse =
         upsertBatch(batchInputMarketingEventCreateRequestParams, RequestOptions.none())
 
+    /**
+     * Upserts a marketing event If there is an existing marketing event with the specified ID, it
+     * will be updated; otherwise a new event will be created.
+     */
     fun upsertByExternalEventId(
         pathExternalEventId: String,
         params: EventUpsertByExternalEventIdParams,
@@ -480,67 +563,6 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MarketingEventPublicDefaultResponse
 
-    @MustBeClosed
-    fun upsertSubscriberStateByEmail(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByEmailParams,
-    ): HttpResponse = upsertSubscriberStateByEmail(subscriberState, params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateByEmail */
-    @MustBeClosed
-    fun upsertSubscriberStateByEmail(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByEmailParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        upsertSubscriberStateByEmail(
-            params.toBuilder().subscriberState(subscriberState).build(),
-            requestOptions,
-        )
-
-    /** @see upsertSubscriberStateByEmail */
-    @MustBeClosed
-    fun upsertSubscriberStateByEmail(
-        params: EventUpsertSubscriberStateByEmailParams
-    ): HttpResponse = upsertSubscriberStateByEmail(params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateByEmail */
-    @MustBeClosed
-    fun upsertSubscriberStateByEmail(
-        params: EventUpsertSubscriberStateByEmailParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    @MustBeClosed
-    fun upsertSubscriberStateById(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByIdParams,
-    ): HttpResponse = upsertSubscriberStateById(subscriberState, params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateById */
-    @MustBeClosed
-    fun upsertSubscriberStateById(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByIdParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        upsertSubscriberStateById(
-            params.toBuilder().subscriberState(subscriberState).build(),
-            requestOptions,
-        )
-
-    /** @see upsertSubscriberStateById */
-    @MustBeClosed
-    fun upsertSubscriberStateById(params: EventUpsertSubscriberStateByIdParams): HttpResponse =
-        upsertSubscriberStateById(params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateById */
-    @MustBeClosed
-    fun upsertSubscriberStateById(
-        params: EventUpsertSubscriberStateByIdParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
     /** A view of [EventService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -560,6 +582,8 @@ interface EventService {
         fun participations(): ParticipationService.WithRawResponse
 
         fun settings(): SettingService.WithRawResponse
+
+        fun subscriberState(): SubscriberStateService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /marketing/marketing-events/2026-03/events`, but is
@@ -629,6 +653,29 @@ interface EventService {
             params: EventUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MarketingEventPublicDefaultResponseV2>
+
+        /**
+         * Returns a raw HTTP response for `get /marketing/marketing-events/2026-03`, but is
+         * otherwise the same as [EventService.list].
+         */
+        @MustBeClosed fun list(): HttpResponseFor<EventListPage> = list(EventListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: EventListParams = EventListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EventListPage>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(params: EventListParams = EventListParams.none()): HttpResponseFor<EventListPage> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EventListPage> =
+            list(EventListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /marketing/marketing-events/2026-03/{objectId}`,
@@ -1103,77 +1150,5 @@ interface EventService {
             params: EventUpsertByExternalEventIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MarketingEventPublicDefaultResponse>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /marketing/marketing-events/2026-03/events/{externalEventId}/{subscriberState}/email-upsert`,
-         * but is otherwise the same as [EventService.upsertSubscriberStateByEmail].
-         */
-        @MustBeClosed
-        fun upsertSubscriberStateByEmail(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByEmailParams,
-        ): HttpResponse =
-            upsertSubscriberStateByEmail(subscriberState, params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateByEmail */
-        @MustBeClosed
-        fun upsertSubscriberStateByEmail(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByEmailParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            upsertSubscriberStateByEmail(
-                params.toBuilder().subscriberState(subscriberState).build(),
-                requestOptions,
-            )
-
-        /** @see upsertSubscriberStateByEmail */
-        @MustBeClosed
-        fun upsertSubscriberStateByEmail(
-            params: EventUpsertSubscriberStateByEmailParams
-        ): HttpResponse = upsertSubscriberStateByEmail(params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateByEmail */
-        @MustBeClosed
-        fun upsertSubscriberStateByEmail(
-            params: EventUpsertSubscriberStateByEmailParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /marketing/marketing-events/2026-03/events/{externalEventId}/{subscriberState}/upsert`,
-         * but is otherwise the same as [EventService.upsertSubscriberStateById].
-         */
-        @MustBeClosed
-        fun upsertSubscriberStateById(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByIdParams,
-        ): HttpResponse = upsertSubscriberStateById(subscriberState, params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateById */
-        @MustBeClosed
-        fun upsertSubscriberStateById(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByIdParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            upsertSubscriberStateById(
-                params.toBuilder().subscriberState(subscriberState).build(),
-                requestOptions,
-            )
-
-        /** @see upsertSubscriberStateById */
-        @MustBeClosed
-        fun upsertSubscriberStateById(params: EventUpsertSubscriberStateByIdParams): HttpResponse =
-            upsertSubscriberStateById(params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateById */
-        @MustBeClosed
-        fun upsertSubscriberStateById(
-            params: EventUpsertSubscriberStateByIdParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
     }
 }

@@ -14,7 +14,7 @@ import kotlin.jvm.optionals.getOrNull
 /** Delete an existing oEmbed domain. */
 class MediaBridgeDeleteOembedDomainParams
 private constructor(
-    private val appId: String?,
+    private val appId: Int?,
     private val id: Long?,
     private val domainPortalId: Int?,
     private val additionalHeaders: Headers,
@@ -22,7 +22,7 @@ private constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun appId(): Optional<String> = Optional.ofNullable(appId)
+    fun appId(): Optional<Int> = Optional.ofNullable(appId)
 
     fun id(): Optional<Long> = Optional.ofNullable(id)
 
@@ -53,7 +53,7 @@ private constructor(
     /** A builder for [MediaBridgeDeleteOembedDomainParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var id: Long? = null
         private var domainPortalId: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -74,10 +74,17 @@ private constructor(
                 mediaBridgeDeleteOembedDomainParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun appId(appId: String?) = apply { this.appId = appId }
+        fun appId(appId: Int?) = apply { this.appId = appId }
+
+        /**
+         * Alias for [Builder.appId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun appId(appId: Int) = appId(appId as Int?)
 
         /** Alias for calling [Builder.appId] with `appId.orElse(null)`. */
-        fun appId(appId: Optional<String>) = appId(appId.getOrNull())
+        fun appId(appId: Optional<Int>) = appId(appId.getOrNull())
 
         fun id(id: Long?) = apply { this.id = id }
 
@@ -245,7 +252,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId ?: ""
+            0 -> appId?.toString() ?: ""
             else -> ""
         }
 

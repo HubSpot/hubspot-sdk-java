@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the versions of a definition by ID. */
 class ActionListParams
 private constructor(
     private val appId: Int,

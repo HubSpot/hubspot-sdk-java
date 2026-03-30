@@ -9,12 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
-/**
- * Enroll a contact into a sequence using the specified sequence ID and sender email. This endpoint
- * requires the user ID to be provided as a query parameter and a valid JSON body with the necessary
- * enrollment details. It is used to automate the process of enrolling contacts into predefined
- * sequences for streamlined communication.
- */
+/** Enroll a contact into a sequence using the specified user ID and sequence details. */
 class SequenceCreateEnrollmentParams
 private constructor(
     private val userId: String,
@@ -23,7 +18,6 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The unique identifier of the user performing the enrollment. This parameter is required. */
     fun userId(): String = userId
 
     fun publicSequenceEnrollmentRequest(): PublicSequenceEnrollmentRequest =
@@ -72,9 +66,6 @@ private constructor(
             additionalQueryParams = sequenceCreateEnrollmentParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The unique identifier of the user performing the enrollment. This parameter is required.
-         */
         fun userId(userId: String) = apply { this.userId = userId }
 
         fun publicSequenceEnrollmentRequest(

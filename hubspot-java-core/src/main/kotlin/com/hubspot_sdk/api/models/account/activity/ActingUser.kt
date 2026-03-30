@@ -31,7 +31,7 @@ private constructor(
     ) : this(userId, userEmail, mutableMapOf())
 
     /**
-     * The ID of the user who performed the action.
+     * The user's unique ID.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -99,7 +99,7 @@ private constructor(
             additionalProperties = actingUser.additionalProperties.toMutableMap()
         }
 
-        /** The ID of the user who performed the action. */
+        /** The user's unique ID. */
         fun userId(userId: Int) = userId(JsonField.of(userId))
 
         /**

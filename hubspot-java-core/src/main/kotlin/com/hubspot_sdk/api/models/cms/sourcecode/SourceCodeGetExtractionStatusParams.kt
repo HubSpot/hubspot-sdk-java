@@ -10,9 +10,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve the status of an asynchronous task related to source code extraction. This endpoint is
- * useful for checking the progress or completion of a task initiated through the asynchronous file
- * extraction process.
+ * Get the status of an extraction by the `taskId` returned from the initial `extract/async`
+ * request.
  */
 class SourceCodeGetExtractionStatusParams
 private constructor(

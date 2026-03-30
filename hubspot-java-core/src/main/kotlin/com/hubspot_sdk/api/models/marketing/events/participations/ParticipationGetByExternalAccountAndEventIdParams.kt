@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Read Marketing event's participations counters by externalAccountId and externalEventId pair. */
 class ParticipationGetByExternalAccountAndEventIdParams
 private constructor(
     private val externalAccountId: String,

@@ -126,8 +126,8 @@ interface BatchService {
         delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Retrieve multiple meetings in a single call. Specify meetings by ID or by including the
-     * `idProperty` parameter to retrieve them by a custom unique value property.
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
      */
     fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
         get(params, RequestOptions.none())
@@ -157,8 +157,9 @@ interface BatchService {
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Create and update a batch of meetings by a unique property. Meetings that don't exist will be
-     * created, while existing meetings will be updated.
+     * Create or update records identified by a unique property value as specified by the
+     * `idProperty` query param. `idProperty` query param refers to a property whose values are
+     * unique for the object.
      */
     fun upsert(params: BatchUpsertParams): BatchResponseSimplePublicUpsertObject =
         upsert(params, RequestOptions.none())

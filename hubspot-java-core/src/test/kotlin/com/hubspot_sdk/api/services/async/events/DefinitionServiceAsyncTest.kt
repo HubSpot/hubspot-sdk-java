@@ -7,16 +7,16 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
 import com.hubspot_sdk.api.models.events.BehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventPropertyCreate
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventPropertyDefinitionPatch
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionEgg
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionPatch
-import com.hubspot_sdk.api.models.events.ExternalObjectResolutionMappingRequest
-import com.hubspot_sdk.api.models.events.ExternalPrimaryObjectResolutionRule
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreatePropertyParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionDeletePropertyParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdatePropertyParams
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventPropertyCreate
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventPropertyDefinitionPatch
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinitionEgg
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinitionPatch
+import com.hubspot_sdk.api.models.events.definitions.ExternalObjectResolutionMappingRequest
+import com.hubspot_sdk.api.models.events.definitions.ExternalPrimaryObjectResolutionRule
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -181,32 +181,6 @@ internal class DefinitionServiceAsyncTest {
         val externalBehavioralEventTypeDefinition =
             externalBehavioralEventTypeDefinitionFuture.get()
         externalBehavioralEventTypeDefinition.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun send() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val definitionServiceAsync = client.events().definitions()
-
-        val future =
-            definitionServiceAsync.send(
-                BehavioralEventHttpCompletionRequest.builder()
-                    .eventName("eventName")
-                    .properties(
-                        BehavioralEventHttpCompletionRequest.Properties.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                            .build()
-                    )
-                    .email("email")
-                    .objectId("objectId")
-                    .occurredAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .utk("utk")
-                    .uuid("uuid")
-                    .build()
-            )
-
-        val response = future.get()
     }
 
     @Disabled("Mock server tests are disabled")

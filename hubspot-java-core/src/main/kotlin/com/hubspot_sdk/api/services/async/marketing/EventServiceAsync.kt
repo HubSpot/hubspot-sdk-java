@@ -21,6 +21,8 @@ import com.hubspot_sdk.api.models.marketing.events.EventDeleteByExternalEventIdP
 import com.hubspot_sdk.api.models.marketing.events.EventDeleteParams
 import com.hubspot_sdk.api.models.marketing.events.EventGetByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventGetParams
+import com.hubspot_sdk.api.models.marketing.events.EventListPageAsync
+import com.hubspot_sdk.api.models.marketing.events.EventListParams
 import com.hubspot_sdk.api.models.marketing.events.EventSearchByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventSearchIdentifiersByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateBatchParams
@@ -28,8 +30,6 @@ import com.hubspot_sdk.api.models.marketing.events.EventUpdateByExternalEventIdP
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpsertBatchParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpsertByExternalEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByEmailParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByIdParams
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventCreateRequestParams
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventDefaultResponse
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventPublicDefaultResponse
@@ -42,6 +42,7 @@ import com.hubspot_sdk.api.services.async.marketing.events.EventServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.events.ListAssociationServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.events.ParticipationServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.events.SettingServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.events.SubscriberStateServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -69,6 +70,9 @@ interface EventServiceAsync {
 
     fun settings(): SettingServiceAsync
 
+    fun subscriberState(): SubscriberStateServiceAsync
+
+    /** Creates a new marketing event in HubSpot */
     fun create(params: EventCreateParams): CompletableFuture<MarketingEventDefaultResponse> =
         create(params, RequestOptions.none())
 
@@ -96,6 +100,9 @@ interface EventServiceAsync {
     ): CompletableFuture<MarketingEventDefaultResponse> =
         create(marketingEventCreateRequestParams, RequestOptions.none())
 
+    /**
+     * Updates the details of an existing Marketing Event identified by its objectId, if it exists.
+     */
     fun update(
         objectId: String,
         params: EventUpdateParams,
@@ -122,6 +129,24 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MarketingEventPublicDefaultResponseV2>
 
+    fun list(): CompletableFuture<EventListPageAsync> = list(EventListParams.none())
+
+    /** @see list */
+    fun list(
+        params: EventListParams = EventListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EventListPageAsync>
+
+    /** @see list */
+    fun list(
+        params: EventListParams = EventListParams.none()
+    ): CompletableFuture<EventListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): CompletableFuture<EventListPageAsync> =
+        list(EventListParams.none(), requestOptions)
+
+    /** Deletes the existing Marketing Event with the specified objectId, if it exists. */
     fun delete(objectId: String): CompletableFuture<Void?> =
         delete(objectId, EventDeleteParams.none())
 
@@ -153,6 +178,12 @@ interface EventServiceAsync {
     fun delete(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(objectId, EventDeleteParams.none(), requestOptions)
 
+    /**
+     * Deletes multiple Marketing Events from the portal based on their objectId, if they exist.
+     *
+     * Responses: 204: Returned if all specified Marketing Events were successfully deleted. 207:
+     * Returned if some objectIds did not correspond to any existing Marketing Events.
+     */
     fun deleteBatch(params: EventDeleteBatchParams): CompletableFuture<HttpResponse> =
         deleteBatch(params, RequestOptions.none())
 
@@ -184,6 +215,12 @@ interface EventServiceAsync {
     ): CompletableFuture<HttpResponse> =
         deleteBatch(batchInputMarketingEventPublicObjectIdDeleteRequest, RequestOptions.none())
 
+    /**
+     * Deletes multiple Marketing Events based on externalAccountId, externalEventId, and appId.
+     *
+     * Only Marketing Events created by the same apps will be deleted; events from other apps cannot
+     * be removed by this endpoint.
+     */
     fun deleteBatchByExternalEventId(
         params: EventDeleteBatchByExternalEventIdParams
     ): CompletableFuture<HttpResponse> = deleteBatchByExternalEventId(params, RequestOptions.none())
@@ -219,6 +256,12 @@ interface EventServiceAsync {
             RequestOptions.none(),
         )
 
+    /**
+     * Deletes the existing Marketing Event with the specified externalAccountId, externalEventId,
+     * if it exists.
+     *
+     * Only Marketing Events created by the same app can be deleted.
+     */
     fun deleteByExternalEventId(
         externalEventId: String,
         params: EventDeleteByExternalEventIdParams,
@@ -247,6 +290,7 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Returns the details of a Marketing Event with the specified objectId, if it exists. */
     fun get(objectId: String): CompletableFuture<MarketingEventPublicReadResponseV2> =
         get(objectId, EventGetParams.none())
 
@@ -282,6 +326,12 @@ interface EventServiceAsync {
     ): CompletableFuture<MarketingEventPublicReadResponseV2> =
         get(objectId, EventGetParams.none(), requestOptions)
 
+    /**
+     * Returns the details of a Marketing Event with the specified externalAccountId,
+     * externalEventId, if it exists.
+     *
+     * Only Marketing Events created by the same app making the request can be retrieved.
+     */
     fun getByExternalEventId(
         externalEventId: String,
         params: EventGetByExternalEventIdParams,
@@ -311,6 +361,12 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MarketingEventPublicReadResponse>
 
+    /**
+     * Retrieves Marketing Events where the externalEventId matches the value provided in the
+     * request, limited to events created by the app making the request.
+     *
+     * Marketing Events created by other apps will not be included in the results.
+     */
     fun searchByExternalEventId(
         params: EventSearchByExternalEventIdParams
     ): CompletableFuture<CollectionResponseSearchPublicResponseWrapperNoPaging> =
@@ -322,6 +378,17 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponseSearchPublicResponseWrapperNoPaging>
 
+    /**
+     * This endpoint searches the portal for all Marketing Events whose externalEventId matches the
+     * value provided in the request.
+     *
+     * It retrieves the objectId and additional event details for each matching Marketing Event.
+     *
+     * Since multiple Marketing Events can have the same externalEventId, the endpoint returns all
+     * matching results.
+     *
+     * Note: Marketing Events become searchable by externalEventId a few minutes after creation.
+     */
     fun searchIdentifiersByExternalEventId(
         externalEventId: String
     ): CompletableFuture<CollectionResponseWithTotalMarketingEventIdentifiersResponse> =
@@ -373,6 +440,7 @@ interface EventServiceAsync {
             requestOptions,
         )
 
+    /** Updates multiple Marketing Events on the portal based on their objectId, if they exist. */
     fun updateBatch(
         params: EventUpdateBatchParams
     ): CompletableFuture<BatchResponseMarketingEventPublicDefaultResponseV2> =
@@ -406,6 +474,12 @@ interface EventServiceAsync {
     ): CompletableFuture<BatchResponseMarketingEventPublicDefaultResponseV2> =
         updateBatch(batchInputMarketingEventPublicUpdateRequestFullV2, RequestOptions.none())
 
+    /**
+     * Updates the details of an existing Marketing Event identified by its externalAccountId,
+     * externalEventId if it exists.
+     *
+     * Only Marketing Events created by the same app can be updated.
+     */
     fun updateByExternalEventId(
         externalEventId: String,
         params: EventUpdateByExternalEventIdParams,
@@ -435,6 +509,12 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MarketingEventPublicDefaultResponse>
 
+    /**
+     * Upserts multiple Marketing Events. If a Marketing Event with the specified ID already exists,
+     * it will be updated; otherwise, a new event will be created.
+     *
+     * Only Marketing Events originally created by the same app can be updated.
+     */
     fun upsertBatch(
         params: EventUpsertBatchParams
     ): CompletableFuture<BatchResponseMarketingEventPublicDefaultResponse> =
@@ -466,6 +546,10 @@ interface EventServiceAsync {
     ): CompletableFuture<BatchResponseMarketingEventPublicDefaultResponse> =
         upsertBatch(batchInputMarketingEventCreateRequestParams, RequestOptions.none())
 
+    /**
+     * Upserts a marketing event If there is an existing marketing event with the specified ID, it
+     * will be updated; otherwise a new event will be created.
+     */
     fun upsertByExternalEventId(
         pathExternalEventId: String,
         params: EventUpsertByExternalEventIdParams,
@@ -495,62 +579,6 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MarketingEventPublicDefaultResponse>
 
-    fun upsertSubscriberStateByEmail(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByEmailParams,
-    ): CompletableFuture<HttpResponse> =
-        upsertSubscriberStateByEmail(subscriberState, params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateByEmail */
-    fun upsertSubscriberStateByEmail(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByEmailParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        upsertSubscriberStateByEmail(
-            params.toBuilder().subscriberState(subscriberState).build(),
-            requestOptions,
-        )
-
-    /** @see upsertSubscriberStateByEmail */
-    fun upsertSubscriberStateByEmail(
-        params: EventUpsertSubscriberStateByEmailParams
-    ): CompletableFuture<HttpResponse> = upsertSubscriberStateByEmail(params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateByEmail */
-    fun upsertSubscriberStateByEmail(
-        params: EventUpsertSubscriberStateByEmailParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
-    fun upsertSubscriberStateById(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByIdParams,
-    ): CompletableFuture<HttpResponse> =
-        upsertSubscriberStateById(subscriberState, params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateById */
-    fun upsertSubscriberStateById(
-        subscriberState: String,
-        params: EventUpsertSubscriberStateByIdParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        upsertSubscriberStateById(
-            params.toBuilder().subscriberState(subscriberState).build(),
-            requestOptions,
-        )
-
-    /** @see upsertSubscriberStateById */
-    fun upsertSubscriberStateById(
-        params: EventUpsertSubscriberStateByIdParams
-    ): CompletableFuture<HttpResponse> = upsertSubscriberStateById(params, RequestOptions.none())
-
-    /** @see upsertSubscriberStateById */
-    fun upsertSubscriberStateById(
-        params: EventUpsertSubscriberStateByIdParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
     /** A view of [EventServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -572,6 +600,8 @@ interface EventServiceAsync {
         fun participations(): ParticipationServiceAsync.WithRawResponse
 
         fun settings(): SettingServiceAsync.WithRawResponse
+
+        fun subscriberState(): SubscriberStateServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /marketing/marketing-events/2026-03/events`, but is
@@ -635,6 +665,31 @@ interface EventServiceAsync {
             params: EventUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MarketingEventPublicDefaultResponseV2>>
+
+        /**
+         * Returns a raw HTTP response for `get /marketing/marketing-events/2026-03`, but is
+         * otherwise the same as [EventServiceAsync.list].
+         */
+        fun list(): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
+            list(EventListParams.none())
+
+        /** @see list */
+        fun list(
+            params: EventListParams = EventListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EventListPageAsync>>
+
+        /** @see list */
+        fun list(
+            params: EventListParams = EventListParams.none()
+        ): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<EventListPageAsync>> =
+            list(EventListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /marketing/marketing-events/2026-03/{objectId}`,
@@ -1081,73 +1136,5 @@ interface EventServiceAsync {
             params: EventUpsertByExternalEventIdParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MarketingEventPublicDefaultResponse>>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /marketing/marketing-events/2026-03/events/{externalEventId}/{subscriberState}/email-upsert`,
-         * but is otherwise the same as [EventServiceAsync.upsertSubscriberStateByEmail].
-         */
-        fun upsertSubscriberStateByEmail(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByEmailParams,
-        ): CompletableFuture<HttpResponse> =
-            upsertSubscriberStateByEmail(subscriberState, params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateByEmail */
-        fun upsertSubscriberStateByEmail(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByEmailParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            upsertSubscriberStateByEmail(
-                params.toBuilder().subscriberState(subscriberState).build(),
-                requestOptions,
-            )
-
-        /** @see upsertSubscriberStateByEmail */
-        fun upsertSubscriberStateByEmail(
-            params: EventUpsertSubscriberStateByEmailParams
-        ): CompletableFuture<HttpResponse> =
-            upsertSubscriberStateByEmail(params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateByEmail */
-        fun upsertSubscriberStateByEmail(
-            params: EventUpsertSubscriberStateByEmailParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /marketing/marketing-events/2026-03/events/{externalEventId}/{subscriberState}/upsert`,
-         * but is otherwise the same as [EventServiceAsync.upsertSubscriberStateById].
-         */
-        fun upsertSubscriberStateById(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByIdParams,
-        ): CompletableFuture<HttpResponse> =
-            upsertSubscriberStateById(subscriberState, params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateById */
-        fun upsertSubscriberStateById(
-            subscriberState: String,
-            params: EventUpsertSubscriberStateByIdParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            upsertSubscriberStateById(
-                params.toBuilder().subscriberState(subscriberState).build(),
-                requestOptions,
-            )
-
-        /** @see upsertSubscriberStateById */
-        fun upsertSubscriberStateById(
-            params: EventUpsertSubscriberStateByIdParams
-        ): CompletableFuture<HttpResponse> =
-            upsertSubscriberStateById(params, RequestOptions.none())
-
-        /** @see upsertSubscriberStateById */
-        fun upsertSubscriberStateById(
-            params: EventUpsertSubscriberStateByIdParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
     }
 }

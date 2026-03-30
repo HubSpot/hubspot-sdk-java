@@ -6,7 +6,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.models.BatchInputString
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
+import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.batch.BatchDeleteParams
@@ -29,6 +29,7 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
+    /** Create a batch of blog posts, specifying their content in the request body. */
     fun create(params: BatchCreateParams): CompletableFuture<HttpResponse> =
         create(params, RequestOptions.none())
 
@@ -52,6 +53,7 @@ interface BatchServiceAsync {
     fun create(batchInputBlogPost: BatchInputBlogPost): CompletableFuture<HttpResponse> =
         create(batchInputBlogPost, RequestOptions.none())
 
+    /** Update a batch of blog posts. */
     fun update(params: BatchUpdateParams): CompletableFuture<HttpResponse> =
         update(params, RequestOptions.none())
 
@@ -75,6 +77,11 @@ interface BatchServiceAsync {
     fun update(batchInputJsonNode: BatchInputJsonNode): CompletableFuture<HttpResponse> =
         update(batchInputJsonNode, RequestOptions.none())
 
+    /**
+     * Delete a blog post by ID. Note: This is not the same as the in-app `archive` function. To
+     * perform a dashboard `archive` send an normal update with the `archivedInDashboard` field set
+     * to `true`.
+     */
     fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
@@ -98,6 +105,7 @@ interface BatchServiceAsync {
     fun delete(batchInputString: BatchInputString): CompletableFuture<Void?> =
         delete(batchInputString, RequestOptions.none())
 
+    /** Retrieve a batch of blog posts by ID. identified in the request body. */
     fun get(params: BatchGetParams): CompletableFuture<HttpResponse> =
         get(params, RequestOptions.none())
 

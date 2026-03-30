@@ -33,6 +33,7 @@ interface PipelineServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PipelineServiceAsync
 
+    /** Create a pipeline stage */
     fun create(pipelineId: String, params: PipelineCreateParams): CompletableFuture<PipelineStage> =
         create(pipelineId, params, RequestOptions.none())
 
@@ -75,6 +76,7 @@ interface PipelineServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PipelineStage>
 
+    /** Return all the stages associated with the pipeline identified by `{pipelineId}`. */
     fun list(
         pipelineId: String,
         params: PipelineListParams,
@@ -101,6 +103,7 @@ interface PipelineServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePipelineStageNoPaging>
 
+    /** Delete a pipeline stage */
     fun delete(stageId: String, params: PipelineDeleteParams): CompletableFuture<Void?> =
         delete(stageId, params, RequestOptions.none())
 
@@ -122,6 +125,7 @@ interface PipelineServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Return a pipeline stage by ID */
     fun get(stageId: String, params: PipelineGetParams): CompletableFuture<PipelineStage> =
         get(stageId, params, RequestOptions.none())
 
@@ -143,6 +147,10 @@ interface PipelineServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PipelineStage>
 
+    /**
+     * Return a reverse chronological list of all mutations that have occurred on the pipeline stage
+     * identified by `{stageId}`.
+     */
     fun getAudit(
         stageId: String,
         params: PipelineGetAuditParams,
@@ -169,6 +177,10 @@ interface PipelineServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging>
 
+    /**
+     * Replace all the properties of an existing pipeline stage with the values provided. The
+     * updated stage will be returned in the response.
+     */
     fun replace(stageId: String, params: PipelineReplaceParams): CompletableFuture<PipelineStage> =
         replace(stageId, params, RequestOptions.none())
 

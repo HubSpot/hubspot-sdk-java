@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the Blog Author object identified by the id in the path. */
 class AuthorGetParams
 private constructor(
     private val objectId: String?,

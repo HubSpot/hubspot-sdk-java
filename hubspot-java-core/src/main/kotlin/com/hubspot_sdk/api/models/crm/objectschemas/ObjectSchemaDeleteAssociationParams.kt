@@ -12,6 +12,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Remove an association between two object types identified by the association identifier and
+ * object type. This operation is irreversible and will permanently delete the specified
+ * association.
+ */
 class ObjectSchemaDeleteAssociationParams
 private constructor(
     private val objectType: String,

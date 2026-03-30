@@ -30,10 +30,7 @@ interface BudgetService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BudgetService
 
-    /**
-     * Add a new budget item to the specified campaign. This operation allows you to allocate a
-     * budget for a campaign by specifying the necessary details in the request body.
-     */
+    /** Add a new budget item to the campaign */
     fun create(campaignGuid: String, params: BudgetCreateParams): PublicBudgetItem =
         create(campaignGuid, params, RequestOptions.none())
 
@@ -54,11 +51,7 @@ interface BudgetService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicBudgetItem
 
-    /**
-     * Update a specific budget item by its ID within a marketing campaign. This operation allows
-     * you to modify the details of a budget item, such as its amount, name, or order, ensuring that
-     * your campaign's financial records are accurate and up-to-date.
-     */
+    /** Update a specific budget item by ID */
     fun update(budgetId: Long, params: BudgetUpdateParams): PublicBudgetItem =
         update(budgetId, params, RequestOptions.none())
 
@@ -78,11 +71,7 @@ interface BudgetService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicBudgetItem
 
-    /**
-     * Delete a specific budget item from a campaign using its unique ID. This operation removes the
-     * budget item from the campaign's budget list, ensuring it is no longer considered in budget
-     * calculations.
-     */
+    /** Delete a specific budget item by ID */
     fun delete(budgetId: Long, params: BudgetDeleteParams) =
         delete(budgetId, params, RequestOptions.none())
 
@@ -99,11 +88,7 @@ interface BudgetService {
     /** @see delete */
     fun delete(params: BudgetDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
-    /**
-     * Retrieve a specific budget item by its ID for a given campaign. This endpoint is useful for
-     * accessing detailed information about a particular budget item associated with a marketing
-     * campaign.
-     */
+    /** Get a specific budget item by ID */
     fun get(budgetId: Long, params: BudgetGetParams): PublicBudgetItem =
         get(budgetId, params, RequestOptions.none())
 
@@ -124,9 +109,10 @@ interface BudgetService {
     ): PublicBudgetItem
 
     /**
-     * Retrieve budget and spending items along with their totals for a specific campaign. This
-     * endpoint provides insights into the financial allocations and expenditures associated with
-     * the campaign, helping users to manage and analyze campaign budgets effectively.
+     * Retrieve detailed information about the budget and spend items for a specified campaign,
+     * including the total budget, total spend, and remaining budget. Budget and Spend items may be
+     * returned in any order, but the order field specifies their sequence based on the creation
+     * date. The item with order 0 is the oldest, and items with higher order values are newer
      */
     fun getTotals(campaignGuid: String): PublicBudgetTotals =
         getTotals(campaignGuid, BudgetGetTotalsParams.none())

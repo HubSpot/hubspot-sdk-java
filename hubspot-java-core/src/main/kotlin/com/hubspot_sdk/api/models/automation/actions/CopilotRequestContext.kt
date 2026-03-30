@@ -35,12 +35,16 @@ private constructor(
     ) : this(source, trajectoryId, mutableMapOf())
 
     /**
+     * Indicates the source of the request, with the default value being 'COPILOT'.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun source(): Source = source.getRequired("source")
 
     /**
+     * The unique identifier for the trajectory.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -101,6 +105,7 @@ private constructor(
             additionalProperties = copilotRequestContext.additionalProperties.toMutableMap()
         }
 
+        /** Indicates the source of the request, with the default value being 'COPILOT'. */
         fun source(source: Source) = source(JsonField.of(source))
 
         /**
@@ -111,6 +116,7 @@ private constructor(
          */
         fun source(source: JsonField<Source>) = apply { this.source = source }
 
+        /** The unique identifier for the trajectory. */
         fun trajectoryId(trajectoryId: String) = trajectoryId(JsonField.of(trajectoryId))
 
         /**
@@ -193,6 +199,7 @@ private constructor(
         (source.asKnown().getOrNull()?.validity() ?: 0) +
             (if (trajectoryId.asKnown().isPresent) 1 else 0)
 
+    /** Indicates the source of the request, with the default value being 'COPILOT'. */
     class Source @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

@@ -6,7 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.cms.AuditLogService
 import com.hubspot_sdk.api.services.blocking.cms.BlogService
 import com.hubspot_sdk.api.services.blocking.cms.DomainService
+import com.hubspot_sdk.api.services.blocking.cms.HubdbService
 import com.hubspot_sdk.api.services.blocking.cms.MediaBridgeService
+import com.hubspot_sdk.api.services.blocking.cms.PageService
 import com.hubspot_sdk.api.services.blocking.cms.SiteSearchService
 import com.hubspot_sdk.api.services.blocking.cms.SourceCodeService
 import com.hubspot_sdk.api.services.blocking.cms.UrlMappingService
@@ -33,7 +35,11 @@ interface CmService {
 
     fun domains(): DomainService
 
+    fun hubdb(): HubdbService
+
     fun mediaBridge(): MediaBridgeService
+
+    fun pages(): PageService
 
     fun siteSearch(): SiteSearchService
 
@@ -59,7 +65,11 @@ interface CmService {
 
         fun domains(): DomainService.WithRawResponse
 
+        fun hubdb(): HubdbService.WithRawResponse
+
         fun mediaBridge(): MediaBridgeService.WithRawResponse
+
+        fun pages(): PageService.WithRawResponse
 
         fun siteSearch(): SiteSearchService.WithRawResponse
 

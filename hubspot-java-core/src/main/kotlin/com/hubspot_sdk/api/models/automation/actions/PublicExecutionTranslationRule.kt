@@ -34,12 +34,16 @@ private constructor(
     ) : this(conditions, labelName, mutableMapOf())
 
     /**
+     * Defines the conditions that must be met for the execution rule to apply.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun conditions(): Conditions = conditions.getRequired("conditions")
 
     /**
+     * Specifies the name of the label associated with the execution rule.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -103,6 +107,7 @@ private constructor(
                 publicExecutionTranslationRule.additionalProperties.toMutableMap()
         }
 
+        /** Defines the conditions that must be met for the execution rule to apply. */
         fun conditions(conditions: Conditions) = conditions(JsonField.of(conditions))
 
         /**
@@ -114,6 +119,7 @@ private constructor(
          */
         fun conditions(conditions: JsonField<Conditions>) = apply { this.conditions = conditions }
 
+        /** Specifies the name of the label associated with the execution rule. */
         fun labelName(labelName: String) = labelName(JsonField.of(labelName))
 
         /**
@@ -195,6 +201,7 @@ private constructor(
         (conditions.asKnown().getOrNull()?.validity() ?: 0) +
             (if (labelName.asKnown().isPresent) 1 else 0)
 
+    /** Defines the conditions that must be met for the execution rule to apply. */
     class Conditions
     @JsonCreator
     private constructor(

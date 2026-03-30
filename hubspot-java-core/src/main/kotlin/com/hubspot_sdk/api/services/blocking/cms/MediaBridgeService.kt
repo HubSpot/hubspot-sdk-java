@@ -7,21 +7,15 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.AssociationDefinition
 import com.hubspot_sdk.api.models.CollectionResponsePropertyGroupNoPaging
-import com.hubspot_sdk.api.models.CollectionResponsePropertyNoPaging
-import com.hubspot_sdk.api.models.ObjectSchema
 import com.hubspot_sdk.api.models.ObjectTypeDefinition
-import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.PropertyGroup
+import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEventRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateAudioObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateDocumentObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateImageObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateMbObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateOtherObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateVideoObjectRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
 import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainModel
@@ -31,43 +25,39 @@ import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateMediaPlayedEv
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateMediaPlayedPercentEventParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateObjectTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateVideoAssociationDefinitionParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetEventVisibilitySettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListObjectTypesByMediaTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListOembedDomainsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPage
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertiesParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertyGroupsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListSchemasParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeObject
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderRegistrationResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeRegisterAppNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateEventVisibilitySettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSettingsParams
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEventRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEventRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.OEmbedDomainsCollectionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.ObjectDefinitionResponse
-import com.hubspot_sdk.api.models.events.AssociationDefinition
+import com.hubspot_sdk.api.models.cms.mediabridge.ObjectSchema
+import com.hubspot_sdk.api.models.cms.mediabridge.Property
 import com.hubspot_sdk.api.services.blocking.cms.mediabridge.BatchService
 import java.util.function.Consumer
 
@@ -86,150 +76,6 @@ interface MediaBridgeService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MediaBridgeService
 
     fun batch(): BatchService
-
-    fun create(params: MediaBridgeCreateParams): MediaBridgeObject =
-        create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        params: MediaBridgeCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject
-
-    /** @see create */
-    fun create(
-        createMbObjectRequest: CreateMbObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject =
-        create(
-            MediaBridgeCreateParams.builder().createMbObjectRequest(createMbObjectRequest).build(),
-            requestOptions,
-        )
-
-    /** @see create */
-    fun create(createMbObjectRequest: CreateMbObjectRequest): MediaBridgeObject =
-        create(createMbObjectRequest, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        video: CreateVideoObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject = create(CreateMbObjectRequest.ofVideo(video), requestOptions)
-
-    /** @see create */
-    fun create(video: CreateVideoObjectRequest): MediaBridgeObject =
-        create(video, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        other: CreateOtherObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject = create(CreateMbObjectRequest.ofOther(other), requestOptions)
-
-    /** @see create */
-    fun create(other: CreateOtherObjectRequest): MediaBridgeObject =
-        create(other, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        audio: CreateAudioObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject = create(CreateMbObjectRequest.ofAudio(audio), requestOptions)
-
-    /** @see create */
-    fun create(audio: CreateAudioObjectRequest): MediaBridgeObject =
-        create(audio, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        image: CreateImageObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject = create(CreateMbObjectRequest.ofImage(image), requestOptions)
-
-    /** @see create */
-    fun create(image: CreateImageObjectRequest): MediaBridgeObject =
-        create(image, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        document: CreateDocumentObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject = create(CreateMbObjectRequest.ofDocument(document), requestOptions)
-
-    /** @see create */
-    fun create(document: CreateDocumentObjectRequest): MediaBridgeObject =
-        create(document, RequestOptions.none())
-
-    fun update(objectId: Long, params: MediaBridgeUpdateParams): MediaBridgeObject =
-        update(objectId, params, RequestOptions.none())
-
-    /** @see update */
-    fun update(
-        objectId: Long,
-        params: MediaBridgeUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject = update(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see update */
-    fun update(params: MediaBridgeUpdateParams): MediaBridgeObject =
-        update(params, RequestOptions.none())
-
-    /** @see update */
-    fun update(
-        params: MediaBridgeUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject
-
-    fun list(mediaType: MediaBridgeListParams.MediaType): MediaBridgeListPage =
-        list(mediaType, MediaBridgeListParams.none())
-
-    /** @see list */
-    fun list(
-        mediaType: MediaBridgeListParams.MediaType,
-        params: MediaBridgeListParams = MediaBridgeListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeListPage = list(params.toBuilder().mediaType(mediaType).build(), requestOptions)
-
-    /** @see list */
-    fun list(
-        mediaType: MediaBridgeListParams.MediaType,
-        params: MediaBridgeListParams = MediaBridgeListParams.none(),
-    ): MediaBridgeListPage = list(mediaType, params, RequestOptions.none())
-
-    /** @see list */
-    fun list(
-        params: MediaBridgeListParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeListPage
-
-    /** @see list */
-    fun list(params: MediaBridgeListParams): MediaBridgeListPage =
-        list(params, RequestOptions.none())
-
-    /** @see list */
-    fun list(
-        mediaType: MediaBridgeListParams.MediaType,
-        requestOptions: RequestOptions,
-    ): MediaBridgeListPage = list(mediaType, MediaBridgeListParams.none(), requestOptions)
-
-    fun delete(objectId: Long, params: MediaBridgeDeleteParams) =
-        delete(objectId, params, RequestOptions.none())
-
-    /** @see delete */
-    fun delete(
-        objectId: Long,
-        params: MediaBridgeDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see delete */
-    fun delete(params: MediaBridgeDeleteParams) = delete(params, RequestOptions.none())
-
-    /** @see delete */
-    fun delete(
-        params: MediaBridgeDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
 
     /** Create a new association definition for the specified object type. */
     fun createAssociation(
@@ -256,23 +102,21 @@ interface MediaBridgeService {
     ): AssociationDefinition
 
     /** Create an event containing the viewers attention span details for the media. */
-    @MustBeClosed
-    fun createAttentionSpanEvent(params: MediaBridgeCreateAttentionSpanEventParams): HttpResponse =
-        createAttentionSpanEvent(params, RequestOptions.none())
+    fun createAttentionSpanEvent(
+        params: MediaBridgeCreateAttentionSpanEventParams
+    ): AttentionSpanEvent = createAttentionSpanEvent(params, RequestOptions.none())
 
     /** @see createAttentionSpanEvent */
-    @MustBeClosed
     fun createAttentionSpanEvent(
         params: MediaBridgeCreateAttentionSpanEventParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
+    ): AttentionSpanEvent
 
     /** @see createAttentionSpanEvent */
-    @MustBeClosed
     fun createAttentionSpanEvent(
         attentionSpanEventRequest: AttentionSpanEventRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
+    ): AttentionSpanEvent =
         createAttentionSpanEvent(
             MediaBridgeCreateAttentionSpanEventParams.builder()
                 .attentionSpanEventRequest(attentionSpanEventRequest)
@@ -281,29 +125,26 @@ interface MediaBridgeService {
         )
 
     /** @see createAttentionSpanEvent */
-    @MustBeClosed
     fun createAttentionSpanEvent(
         attentionSpanEventRequest: AttentionSpanEventRequest
-    ): HttpResponse = createAttentionSpanEvent(attentionSpanEventRequest, RequestOptions.none())
+    ): AttentionSpanEvent =
+        createAttentionSpanEvent(attentionSpanEventRequest, RequestOptions.none())
 
     /** Create an event for when a user begins playing a piece of media. */
-    @MustBeClosed
-    fun createMediaPlayedEvent(params: MediaBridgeCreateMediaPlayedEventParams): HttpResponse =
+    fun createMediaPlayedEvent(params: MediaBridgeCreateMediaPlayedEventParams): MediaPlayedEvent =
         createMediaPlayedEvent(params, RequestOptions.none())
 
     /** @see createMediaPlayedEvent */
-    @MustBeClosed
     fun createMediaPlayedEvent(
         params: MediaBridgeCreateMediaPlayedEventParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
+    ): MediaPlayedEvent
 
     /** @see createMediaPlayedEvent */
-    @MustBeClosed
     fun createMediaPlayedEvent(
         mediaPlayedEventRequest: MediaPlayedEventRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
+    ): MediaPlayedEvent =
         createMediaPlayedEvent(
             MediaBridgeCreateMediaPlayedEventParams.builder()
                 .mediaPlayedEventRequest(mediaPlayedEventRequest)
@@ -312,32 +153,28 @@ interface MediaBridgeService {
         )
 
     /** @see createMediaPlayedEvent */
-    @MustBeClosed
-    fun createMediaPlayedEvent(mediaPlayedEventRequest: MediaPlayedEventRequest): HttpResponse =
+    fun createMediaPlayedEvent(mediaPlayedEventRequest: MediaPlayedEventRequest): MediaPlayedEvent =
         createMediaPlayedEvent(mediaPlayedEventRequest, RequestOptions.none())
 
     /**
      * Create an event representing a user reaching quarterly milestones in a piece of media they're
      * viewing.
      */
-    @MustBeClosed
     fun createMediaPlayedPercentEvent(
         params: MediaBridgeCreateMediaPlayedPercentEventParams
-    ): HttpResponse = createMediaPlayedPercentEvent(params, RequestOptions.none())
+    ): MediaPlayedPercentageEvent = createMediaPlayedPercentEvent(params, RequestOptions.none())
 
     /** @see createMediaPlayedPercentEvent */
-    @MustBeClosed
     fun createMediaPlayedPercentEvent(
         params: MediaBridgeCreateMediaPlayedPercentEventParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
+    ): MediaPlayedPercentageEvent
 
     /** @see createMediaPlayedPercentEvent */
-    @MustBeClosed
     fun createMediaPlayedPercentEvent(
         mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
+    ): MediaPlayedPercentageEvent =
         createMediaPlayedPercentEvent(
             MediaBridgeCreateMediaPlayedPercentEventParams.builder()
                 .mediaPlayedPercentageEventRequest(mediaPlayedPercentageEventRequest)
@@ -346,21 +183,20 @@ interface MediaBridgeService {
         )
 
     /** @see createMediaPlayedPercentEvent */
-    @MustBeClosed
     fun createMediaPlayedPercentEvent(
         mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest
-    ): HttpResponse =
+    ): MediaPlayedPercentageEvent =
         createMediaPlayedPercentEvent(mediaPlayedPercentageEventRequest, RequestOptions.none())
 
     /** Create a new media object type */
     fun createObjectType(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateObjectTypeParams,
     ): BulkIntegratorObjectCreationResponse = createObjectType(appId, params, RequestOptions.none())
 
     /** @see createObjectType */
     fun createObjectType(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateObjectTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BulkIntegratorObjectCreationResponse =
@@ -379,13 +215,13 @@ interface MediaBridgeService {
 
     /** Set up a new oEmbed domain for your media bridge app. */
     fun createOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateOembedDomainParams,
     ): IntegratorOEmbedDomainModel = createOembedDomain(appId, params, RequestOptions.none())
 
     /** @see createOembedDomain */
     fun createOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): IntegratorOEmbedDomainModel =
@@ -447,7 +283,7 @@ interface MediaBridgeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PropertyGroup
 
-    fun createVideoAssociationDefinition(appId: String): AssociationDefinition =
+    fun createVideoAssociationDefinition(appId: Int): AssociationDefinition =
         createVideoAssociationDefinition(
             appId,
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -455,7 +291,7 @@ interface MediaBridgeService {
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -464,7 +300,7 @@ interface MediaBridgeService {
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
     ): AssociationDefinition =
@@ -483,7 +319,7 @@ interface MediaBridgeService {
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): AssociationDefinition =
         createVideoAssociationDefinition(
@@ -514,19 +350,19 @@ interface MediaBridgeService {
     )
 
     /** Delete an existing oEmbed domain. */
-    fun deleteOembedDomain(appId: String) =
+    fun deleteOembedDomain(appId: Int) =
         deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none())
 
     /** @see deleteOembedDomain */
     fun deleteOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeDeleteOembedDomainParams = MediaBridgeDeleteOembedDomainParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ) = deleteOembedDomain(params.toBuilder().appId(appId).build(), requestOptions)
 
     /** @see deleteOembedDomain */
     fun deleteOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeDeleteOembedDomainParams = MediaBridgeDeleteOembedDomainParams.none(),
     ) = deleteOembedDomain(appId, params, RequestOptions.none())
 
@@ -541,7 +377,7 @@ interface MediaBridgeService {
         deleteOembedDomain(params, RequestOptions.none())
 
     /** @see deleteOembedDomain */
-    fun deleteOembedDomain(appId: String, requestOptions: RequestOptions) =
+    fun deleteOembedDomain(appId: Int, requestOptions: RequestOptions) =
         deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none(), requestOptions)
 
     /** Delete an existing property for an object type. */
@@ -586,32 +422,13 @@ interface MediaBridgeService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    fun get(objectId: Long, params: MediaBridgeGetParams): MediaBridgeObject =
-        get(objectId, params, RequestOptions.none())
-
-    /** @see get */
-    fun get(
-        objectId: Long,
-        params: MediaBridgeGetParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject = get(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see get */
-    fun get(params: MediaBridgeGetParams): MediaBridgeObject = get(params, RequestOptions.none())
-
-    /** @see get */
-    fun get(
-        params: MediaBridgeGetParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): MediaBridgeObject
-
     /** Get the visibility settings for media bridge events for your apps. */
-    fun getEventVisibilitySettings(appId: String): EventVisibilityResponse =
+    fun getEventVisibilitySettings(appId: Int): EventVisibilityResponse =
         getEventVisibilitySettings(appId, MediaBridgeGetEventVisibilitySettingsParams.none())
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeGetEventVisibilitySettingsParams =
             MediaBridgeGetEventVisibilitySettingsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -620,7 +437,7 @@ interface MediaBridgeService {
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeGetEventVisibilitySettingsParams =
             MediaBridgeGetEventVisibilitySettingsParams.none(),
     ): EventVisibilityResponse = getEventVisibilitySettings(appId, params, RequestOptions.none())
@@ -638,7 +455,7 @@ interface MediaBridgeService {
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): EventVisibilityResponse =
         getEventVisibilitySettings(
@@ -764,12 +581,12 @@ interface MediaBridgeService {
     ): ObjectDefinitionResponse
 
     /** Get the details for existing oEmbed domains for your app */
-    fun listOembedDomains(appId: String): OEmbedDomainsCollectionResponse =
+    fun listOembedDomains(appId: Int): OEmbedDomainsCollectionResponse =
         listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none())
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): OEmbedDomainsCollectionResponse =
@@ -777,7 +594,7 @@ interface MediaBridgeService {
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
     ): OEmbedDomainsCollectionResponse = listOembedDomains(appId, params, RequestOptions.none())
 
@@ -794,7 +611,7 @@ interface MediaBridgeService {
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): OEmbedDomainsCollectionResponse =
         listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none(), requestOptions)
@@ -852,12 +669,12 @@ interface MediaBridgeService {
     ): CollectionResponsePropertyGroupNoPaging
 
     /** Get the schemas for all object types. */
-    fun listSchemas(appId: String): CollectionResponseObjectSchemaNoPaging =
+    fun listSchemas(appId: Int): CollectionResponseObjectSchemaNoPaging =
         listSchemas(appId, MediaBridgeListSchemasParams.none())
 
     /** @see listSchemas */
     fun listSchemas(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponseObjectSchemaNoPaging =
@@ -865,7 +682,7 @@ interface MediaBridgeService {
 
     /** @see listSchemas */
     fun listSchemas(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
     ): CollectionResponseObjectSchemaNoPaging = listSchemas(appId, params, RequestOptions.none())
 
@@ -881,7 +698,7 @@ interface MediaBridgeService {
 
     /** @see listSchemas */
     fun listSchemas(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): CollectionResponseObjectSchemaNoPaging =
         listSchemas(appId, MediaBridgeListSchemasParams.none(), requestOptions)
@@ -889,7 +706,7 @@ interface MediaBridgeService {
     /** Register the name that your app will display when a user is selecting media bridge items. */
     @Deprecated("deprecated")
     fun registerAppName(
-        appId: String,
+        appId: Int,
         params: MediaBridgeRegisterAppNameParams,
     ): MediaBridgeProviderRegistrationResponse =
         registerAppName(appId, params, RequestOptions.none())
@@ -897,7 +714,7 @@ interface MediaBridgeService {
     /** @see registerAppName */
     @Deprecated("deprecated")
     fun registerAppName(
-        appId: String,
+        appId: Int,
         params: MediaBridgeRegisterAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MediaBridgeProviderRegistrationResponse =
@@ -918,13 +735,13 @@ interface MediaBridgeService {
 
     /** Set the visibility settings for media bridge events created by your app. */
     fun updateEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateEventVisibilitySettingsParams,
     ): EventVisibilityChange = updateEventVisibilitySettings(appId, params, RequestOptions.none())
 
     /** @see updateEventVisibilitySettings */
     fun updateEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateEventVisibilitySettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventVisibilityChange =
@@ -1042,14 +859,14 @@ interface MediaBridgeService {
 
     /** Update the name that your app will display when a user is selecting media bridge items. */
     fun updateSettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateSettingsParams,
     ): MediaBridgeProviderRegistrationResponse =
         updateSettings(appId, params, RequestOptions.none())
 
     /** @see updateSettings */
     fun updateSettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateSettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MediaBridgeProviderRegistrationResponse =
@@ -1081,209 +898,6 @@ interface MediaBridgeService {
         ): MediaBridgeService.WithRawResponse
 
         fun batch(): BatchService.WithRawResponse
-
-        /**
-         * Returns a raw HTTP response for `post /media-bridge/2026-03/objects`, but is otherwise
-         * the same as [MediaBridgeService.create].
-         */
-        @MustBeClosed
-        fun create(params: MediaBridgeCreateParams): HttpResponseFor<MediaBridgeObject> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            params: MediaBridgeCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject>
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            createMbObjectRequest: CreateMbObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            create(
-                MediaBridgeCreateParams.builder()
-                    .createMbObjectRequest(createMbObjectRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            createMbObjectRequest: CreateMbObjectRequest
-        ): HttpResponseFor<MediaBridgeObject> = create(createMbObjectRequest, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            video: CreateVideoObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            create(CreateMbObjectRequest.ofVideo(video), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(video: CreateVideoObjectRequest): HttpResponseFor<MediaBridgeObject> =
-            create(video, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            other: CreateOtherObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            create(CreateMbObjectRequest.ofOther(other), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(other: CreateOtherObjectRequest): HttpResponseFor<MediaBridgeObject> =
-            create(other, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            audio: CreateAudioObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            create(CreateMbObjectRequest.ofAudio(audio), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(audio: CreateAudioObjectRequest): HttpResponseFor<MediaBridgeObject> =
-            create(audio, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            image: CreateImageObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            create(CreateMbObjectRequest.ofImage(image), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(image: CreateImageObjectRequest): HttpResponseFor<MediaBridgeObject> =
-            create(image, RequestOptions.none())
-
-        /** @see create */
-        @MustBeClosed
-        fun create(
-            document: CreateDocumentObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            create(CreateMbObjectRequest.ofDocument(document), requestOptions)
-
-        /** @see create */
-        @MustBeClosed
-        fun create(document: CreateDocumentObjectRequest): HttpResponseFor<MediaBridgeObject> =
-            create(document, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `patch /media-bridge/2026-03/objects/{objectId}`, but is
-         * otherwise the same as [MediaBridgeService.update].
-         */
-        @MustBeClosed
-        fun update(
-            objectId: Long,
-            params: MediaBridgeUpdateParams,
-        ): HttpResponseFor<MediaBridgeObject> = update(objectId, params, RequestOptions.none())
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            objectId: Long,
-            params: MediaBridgeUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            update(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see update */
-        @MustBeClosed
-        fun update(params: MediaBridgeUpdateParams): HttpResponseFor<MediaBridgeObject> =
-            update(params, RequestOptions.none())
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            params: MediaBridgeUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject>
-
-        /**
-         * Returns a raw HTTP response for `get /media-bridge/2026-03/objects/{mediaType}`, but is
-         * otherwise the same as [MediaBridgeService.list].
-         */
-        @MustBeClosed
-        fun list(mediaType: MediaBridgeListParams.MediaType): HttpResponseFor<MediaBridgeListPage> =
-            list(mediaType, MediaBridgeListParams.none())
-
-        /** @see list */
-        @MustBeClosed
-        fun list(
-            mediaType: MediaBridgeListParams.MediaType,
-            params: MediaBridgeListParams = MediaBridgeListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeListPage> =
-            list(params.toBuilder().mediaType(mediaType).build(), requestOptions)
-
-        /** @see list */
-        @MustBeClosed
-        fun list(
-            mediaType: MediaBridgeListParams.MediaType,
-            params: MediaBridgeListParams = MediaBridgeListParams.none(),
-        ): HttpResponseFor<MediaBridgeListPage> = list(mediaType, params, RequestOptions.none())
-
-        /** @see list */
-        @MustBeClosed
-        fun list(
-            params: MediaBridgeListParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeListPage>
-
-        /** @see list */
-        @MustBeClosed
-        fun list(params: MediaBridgeListParams): HttpResponseFor<MediaBridgeListPage> =
-            list(params, RequestOptions.none())
-
-        /** @see list */
-        @MustBeClosed
-        fun list(
-            mediaType: MediaBridgeListParams.MediaType,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MediaBridgeListPage> =
-            list(mediaType, MediaBridgeListParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `delete
-         * /media-bridge/2026-03/objects/{mediaType}/{objectId}`, but is otherwise the same as
-         * [MediaBridgeService.delete].
-         */
-        @MustBeClosed
-        fun delete(objectId: Long, params: MediaBridgeDeleteParams): HttpResponse =
-            delete(objectId, params, RequestOptions.none())
-
-        /** @see delete */
-        @MustBeClosed
-        fun delete(
-            objectId: Long,
-            params: MediaBridgeDeleteParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see delete */
-        @MustBeClosed
-        fun delete(params: MediaBridgeDeleteParams): HttpResponse =
-            delete(params, RequestOptions.none())
-
-        /** @see delete */
-        @MustBeClosed
-        fun delete(
-            params: MediaBridgeDeleteParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `post
@@ -1326,21 +940,22 @@ interface MediaBridgeService {
         @MustBeClosed
         fun createAttentionSpanEvent(
             params: MediaBridgeCreateAttentionSpanEventParams
-        ): HttpResponse = createAttentionSpanEvent(params, RequestOptions.none())
+        ): HttpResponseFor<AttentionSpanEvent> =
+            createAttentionSpanEvent(params, RequestOptions.none())
 
         /** @see createAttentionSpanEvent */
         @MustBeClosed
         fun createAttentionSpanEvent(
             params: MediaBridgeCreateAttentionSpanEventParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<AttentionSpanEvent>
 
         /** @see createAttentionSpanEvent */
         @MustBeClosed
         fun createAttentionSpanEvent(
             attentionSpanEventRequest: AttentionSpanEventRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
+        ): HttpResponseFor<AttentionSpanEvent> =
             createAttentionSpanEvent(
                 MediaBridgeCreateAttentionSpanEventParams.builder()
                     .attentionSpanEventRequest(attentionSpanEventRequest)
@@ -1352,29 +967,31 @@ interface MediaBridgeService {
         @MustBeClosed
         fun createAttentionSpanEvent(
             attentionSpanEventRequest: AttentionSpanEventRequest
-        ): HttpResponse = createAttentionSpanEvent(attentionSpanEventRequest, RequestOptions.none())
+        ): HttpResponseFor<AttentionSpanEvent> =
+            createAttentionSpanEvent(attentionSpanEventRequest, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post /media-bridge/2026-03/events/media-played`, but is
          * otherwise the same as [MediaBridgeService.createMediaPlayedEvent].
          */
         @MustBeClosed
-        fun createMediaPlayedEvent(params: MediaBridgeCreateMediaPlayedEventParams): HttpResponse =
-            createMediaPlayedEvent(params, RequestOptions.none())
+        fun createMediaPlayedEvent(
+            params: MediaBridgeCreateMediaPlayedEventParams
+        ): HttpResponseFor<MediaPlayedEvent> = createMediaPlayedEvent(params, RequestOptions.none())
 
         /** @see createMediaPlayedEvent */
         @MustBeClosed
         fun createMediaPlayedEvent(
             params: MediaBridgeCreateMediaPlayedEventParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<MediaPlayedEvent>
 
         /** @see createMediaPlayedEvent */
         @MustBeClosed
         fun createMediaPlayedEvent(
             mediaPlayedEventRequest: MediaPlayedEventRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
+        ): HttpResponseFor<MediaPlayedEvent> =
             createMediaPlayedEvent(
                 MediaBridgeCreateMediaPlayedEventParams.builder()
                     .mediaPlayedEventRequest(mediaPlayedEventRequest)
@@ -1384,7 +1001,9 @@ interface MediaBridgeService {
 
         /** @see createMediaPlayedEvent */
         @MustBeClosed
-        fun createMediaPlayedEvent(mediaPlayedEventRequest: MediaPlayedEventRequest): HttpResponse =
+        fun createMediaPlayedEvent(
+            mediaPlayedEventRequest: MediaPlayedEventRequest
+        ): HttpResponseFor<MediaPlayedEvent> =
             createMediaPlayedEvent(mediaPlayedEventRequest, RequestOptions.none())
 
         /**
@@ -1394,21 +1013,22 @@ interface MediaBridgeService {
         @MustBeClosed
         fun createMediaPlayedPercentEvent(
             params: MediaBridgeCreateMediaPlayedPercentEventParams
-        ): HttpResponse = createMediaPlayedPercentEvent(params, RequestOptions.none())
+        ): HttpResponseFor<MediaPlayedPercentageEvent> =
+            createMediaPlayedPercentEvent(params, RequestOptions.none())
 
         /** @see createMediaPlayedPercentEvent */
         @MustBeClosed
         fun createMediaPlayedPercentEvent(
             params: MediaBridgeCreateMediaPlayedPercentEventParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
+        ): HttpResponseFor<MediaPlayedPercentageEvent>
 
         /** @see createMediaPlayedPercentEvent */
         @MustBeClosed
         fun createMediaPlayedPercentEvent(
             mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
+        ): HttpResponseFor<MediaPlayedPercentageEvent> =
             createMediaPlayedPercentEvent(
                 MediaBridgeCreateMediaPlayedPercentEventParams.builder()
                     .mediaPlayedPercentageEventRequest(mediaPlayedPercentageEventRequest)
@@ -1420,7 +1040,7 @@ interface MediaBridgeService {
         @MustBeClosed
         fun createMediaPlayedPercentEvent(
             mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest
-        ): HttpResponse =
+        ): HttpResponseFor<MediaPlayedPercentageEvent> =
             createMediaPlayedPercentEvent(mediaPlayedPercentageEventRequest, RequestOptions.none())
 
         /**
@@ -1430,7 +1050,7 @@ interface MediaBridgeService {
          */
         @MustBeClosed
         fun createObjectType(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateObjectTypeParams,
         ): HttpResponseFor<BulkIntegratorObjectCreationResponse> =
             createObjectType(appId, params, RequestOptions.none())
@@ -1438,7 +1058,7 @@ interface MediaBridgeService {
         /** @see createObjectType */
         @MustBeClosed
         fun createObjectType(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateObjectTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BulkIntegratorObjectCreationResponse> =
@@ -1465,7 +1085,7 @@ interface MediaBridgeService {
          */
         @MustBeClosed
         fun createOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateOembedDomainParams,
         ): HttpResponseFor<IntegratorOEmbedDomainModel> =
             createOembedDomain(appId, params, RequestOptions.none())
@@ -1473,7 +1093,7 @@ interface MediaBridgeService {
         /** @see createOembedDomain */
         @MustBeClosed
         fun createOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IntegratorOEmbedDomainModel> =
@@ -1565,9 +1185,7 @@ interface MediaBridgeService {
          * the same as [MediaBridgeService.createVideoAssociationDefinition].
          */
         @MustBeClosed
-        fun createVideoAssociationDefinition(
-            appId: String
-        ): HttpResponseFor<AssociationDefinition> =
+        fun createVideoAssociationDefinition(appId: Int): HttpResponseFor<AssociationDefinition> =
             createVideoAssociationDefinition(
                 appId,
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -1576,7 +1194,7 @@ interface MediaBridgeService {
         /** @see createVideoAssociationDefinition */
         @MustBeClosed
         fun createVideoAssociationDefinition(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -1589,7 +1207,7 @@ interface MediaBridgeService {
         /** @see createVideoAssociationDefinition */
         @MustBeClosed
         fun createVideoAssociationDefinition(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
         ): HttpResponseFor<AssociationDefinition> =
@@ -1612,7 +1230,7 @@ interface MediaBridgeService {
         /** @see createVideoAssociationDefinition */
         @MustBeClosed
         fun createVideoAssociationDefinition(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<AssociationDefinition> =
             createVideoAssociationDefinition(
@@ -1662,13 +1280,13 @@ interface MediaBridgeService {
          * [MediaBridgeService.deleteOembedDomain].
          */
         @MustBeClosed
-        fun deleteOembedDomain(appId: String): HttpResponse =
+        fun deleteOembedDomain(appId: Int): HttpResponse =
             deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none())
 
         /** @see deleteOembedDomain */
         @MustBeClosed
         fun deleteOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeDeleteOembedDomainParams =
                 MediaBridgeDeleteOembedDomainParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -1678,7 +1296,7 @@ interface MediaBridgeService {
         /** @see deleteOembedDomain */
         @MustBeClosed
         fun deleteOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeDeleteOembedDomainParams = MediaBridgeDeleteOembedDomainParams.none(),
         ): HttpResponse = deleteOembedDomain(appId, params, RequestOptions.none())
 
@@ -1696,7 +1314,7 @@ interface MediaBridgeService {
 
         /** @see deleteOembedDomain */
         @MustBeClosed
-        fun deleteOembedDomain(appId: String, requestOptions: RequestOptions): HttpResponse =
+        fun deleteOembedDomain(appId: Int, requestOptions: RequestOptions): HttpResponse =
             deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none(), requestOptions)
 
         /**
@@ -1765,47 +1383,17 @@ interface MediaBridgeService {
 
         /**
          * Returns a raw HTTP response for `get
-         * /media-bridge/2026-03/objects/{mediaType}/{objectId}`, but is otherwise the same as
-         * [MediaBridgeService.get].
-         */
-        @MustBeClosed
-        fun get(objectId: Long, params: MediaBridgeGetParams): HttpResponseFor<MediaBridgeObject> =
-            get(objectId, params, RequestOptions.none())
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            objectId: Long,
-            params: MediaBridgeGetParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject> =
-            get(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see get */
-        @MustBeClosed
-        fun get(params: MediaBridgeGetParams): HttpResponseFor<MediaBridgeObject> =
-            get(params, RequestOptions.none())
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            params: MediaBridgeGetParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<MediaBridgeObject>
-
-        /**
-         * Returns a raw HTTP response for `get
          * /media-bridge/2026-03/{appId}/settings/event-visibility`, but is otherwise the same as
          * [MediaBridgeService.getEventVisibilitySettings].
          */
         @MustBeClosed
-        fun getEventVisibilitySettings(appId: String): HttpResponseFor<EventVisibilityResponse> =
+        fun getEventVisibilitySettings(appId: Int): HttpResponseFor<EventVisibilityResponse> =
             getEventVisibilitySettings(appId, MediaBridgeGetEventVisibilitySettingsParams.none())
 
         /** @see getEventVisibilitySettings */
         @MustBeClosed
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeGetEventVisibilitySettingsParams =
                 MediaBridgeGetEventVisibilitySettingsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -1815,7 +1403,7 @@ interface MediaBridgeService {
         /** @see getEventVisibilitySettings */
         @MustBeClosed
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeGetEventVisibilitySettingsParams =
                 MediaBridgeGetEventVisibilitySettingsParams.none(),
         ): HttpResponseFor<EventVisibilityResponse> =
@@ -1838,7 +1426,7 @@ interface MediaBridgeService {
         /** @see getEventVisibilitySettings */
         @MustBeClosed
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<EventVisibilityResponse> =
             getEventVisibilitySettings(
@@ -2026,13 +1614,13 @@ interface MediaBridgeService {
          * [MediaBridgeService.listOembedDomains].
          */
         @MustBeClosed
-        fun listOembedDomains(appId: String): HttpResponseFor<OEmbedDomainsCollectionResponse> =
+        fun listOembedDomains(appId: Int): HttpResponseFor<OEmbedDomainsCollectionResponse> =
             listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none())
 
         /** @see listOembedDomains */
         @MustBeClosed
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<OEmbedDomainsCollectionResponse> =
@@ -2041,7 +1629,7 @@ interface MediaBridgeService {
         /** @see listOembedDomains */
         @MustBeClosed
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
         ): HttpResponseFor<OEmbedDomainsCollectionResponse> =
             listOembedDomains(appId, params, RequestOptions.none())
@@ -2063,7 +1651,7 @@ interface MediaBridgeService {
         /** @see listOembedDomains */
         @MustBeClosed
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<OEmbedDomainsCollectionResponse> =
             listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none(), requestOptions)
@@ -2143,13 +1731,13 @@ interface MediaBridgeService {
          * otherwise the same as [MediaBridgeService.listSchemas].
          */
         @MustBeClosed
-        fun listSchemas(appId: String): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
+        fun listSchemas(appId: Int): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
             listSchemas(appId, MediaBridgeListSchemasParams.none())
 
         /** @see listSchemas */
         @MustBeClosed
         fun listSchemas(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
@@ -2158,7 +1746,7 @@ interface MediaBridgeService {
         /** @see listSchemas */
         @MustBeClosed
         fun listSchemas(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
         ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
             listSchemas(appId, params, RequestOptions.none())
@@ -2180,7 +1768,7 @@ interface MediaBridgeService {
         /** @see listSchemas */
         @MustBeClosed
         fun listSchemas(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CollectionResponseObjectSchemaNoPaging> =
             listSchemas(appId, MediaBridgeListSchemasParams.none(), requestOptions)
@@ -2192,7 +1780,7 @@ interface MediaBridgeService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun registerAppName(
-            appId: String,
+            appId: Int,
             params: MediaBridgeRegisterAppNameParams,
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =
             registerAppName(appId, params, RequestOptions.none())
@@ -2201,7 +1789,7 @@ interface MediaBridgeService {
         @Deprecated("deprecated")
         @MustBeClosed
         fun registerAppName(
-            appId: String,
+            appId: Int,
             params: MediaBridgeRegisterAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =
@@ -2230,7 +1818,7 @@ interface MediaBridgeService {
          */
         @MustBeClosed
         fun updateEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateEventVisibilitySettingsParams,
         ): HttpResponseFor<EventVisibilityChange> =
             updateEventVisibilitySettings(appId, params, RequestOptions.none())
@@ -2238,7 +1826,7 @@ interface MediaBridgeService {
         /** @see updateEventVisibilitySettings */
         @MustBeClosed
         fun updateEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateEventVisibilitySettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<EventVisibilityChange> =
@@ -2402,7 +1990,7 @@ interface MediaBridgeService {
          */
         @MustBeClosed
         fun updateSettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateSettingsParams,
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =
             updateSettings(appId, params, RequestOptions.none())
@@ -2410,7 +1998,7 @@ interface MediaBridgeService {
         /** @see updateSettings */
         @MustBeClosed
         fun updateSettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateSettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<MediaBridgeProviderRegistrationResponse> =

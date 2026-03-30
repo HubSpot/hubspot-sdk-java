@@ -44,12 +44,17 @@ private constructor(
     ) : this(items, type, mutableMapOf())
 
     /**
+     * Defines the type of elements contained within the array, which can be an integer, long,
+     * double, string, boolean, another array, or an object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun items(): Items = items.getRequired("items")
 
     /**
+     * Specifies that the field is of type 'ARRAY'.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -109,6 +114,10 @@ private constructor(
             additionalProperties = arrayFieldSchema.additionalProperties.toMutableMap()
         }
 
+        /**
+         * Defines the type of elements contained within the array, which can be an integer, long,
+         * double, string, boolean, another array, or an object.
+         */
         fun items(items: Items) = items(JsonField.of(items))
 
         /**
@@ -147,6 +156,7 @@ private constructor(
         fun items(objectFieldSchema: ObjectFieldSchema) =
             items(Items.ofObjectFieldSchema(objectFieldSchema))
 
+        /** Specifies that the field is of type 'ARRAY'. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -227,6 +237,10 @@ private constructor(
         (items.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
+    /**
+     * Defines the type of elements contained within the array, which can be an integer, long,
+     * double, string, boolean, another array, or an object.
+     */
     @JsonDeserialize(using = Items.Deserializer::class)
     @JsonSerialize(using = Items.Serializer::class)
     class Items
@@ -565,6 +579,7 @@ private constructor(
         }
     }
 
+    /** Specifies that the field is of type 'ARRAY'. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

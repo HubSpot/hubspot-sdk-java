@@ -27,6 +27,7 @@ interface VideoConferencingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VideoConferencingService
 
+    /** Create or update video conference extension settings for your app */
     fun update(appId: Int, params: VideoConferencingUpdateParams): ExternalSettings =
         update(appId, params, RequestOptions.none())
 
@@ -47,6 +48,7 @@ interface VideoConferencingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalSettings
 
+    /** Delete video conference extension settings for your app */
     fun delete(appId: Int) = delete(appId, VideoConferencingDeleteParams.none())
 
     /** @see delete */
@@ -75,6 +77,7 @@ interface VideoConferencingService {
     fun delete(appId: Int, requestOptions: RequestOptions) =
         delete(appId, VideoConferencingDeleteParams.none(), requestOptions)
 
+    /** Fetch video conference extension settings for your app */
     fun get(appId: Int): ExternalSettings = get(appId, VideoConferencingGetParams.none())
 
     /** @see get */

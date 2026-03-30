@@ -12,11 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Delete a specific campaign spend item by its ID. This operation is useful for removing spend
- * items that are no longer needed or were added in error. Once deleted, the spend item cannot be
- * recovered.
- */
+/** Delete a specific campaign spend item by ID */
 class SpendDeleteParams
 private constructor(
     private val campaignGuid: String,

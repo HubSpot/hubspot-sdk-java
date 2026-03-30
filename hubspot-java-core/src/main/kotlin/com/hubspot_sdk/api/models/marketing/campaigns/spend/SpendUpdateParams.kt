@@ -12,11 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Update a specific campaign spend item by its ID. This endpoint allows you to modify the details
- * of a spend item associated with a marketing campaign, such as its amount, name, or order. Use
- * this to keep your campaign spend data accurate and up-to-date.
- */
+/** Update a specific campaign spend item by ID */
 class SpendUpdateParams
 private constructor(
     private val campaignGuid: String,

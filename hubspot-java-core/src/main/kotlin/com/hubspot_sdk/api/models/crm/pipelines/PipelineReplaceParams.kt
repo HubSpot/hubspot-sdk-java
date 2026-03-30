@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Replace all the properties of an existing pipeline stage with the values provided. The updated
+ * stage will be returned in the response.
+ */
 class PipelineReplaceParams
 private constructor(
     private val objectType: String,

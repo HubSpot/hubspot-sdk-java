@@ -11,11 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Move a call to the recycling bin, specified by call ID. Activities in the recycling bin can be
- * restored within 90 days of being deleted. Learn more about
- * [restoring deleted activities](https://knowledge.hubspot.com/records/restore-deleted-activity-in-a-record).
- */
+/** Move an Object identified by `{callId}` to the recycling bin. */
 class CallDeleteParams
 private constructor(
     private val callId: String?,

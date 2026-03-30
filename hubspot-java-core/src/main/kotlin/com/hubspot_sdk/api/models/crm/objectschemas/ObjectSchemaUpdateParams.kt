@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Update attributes of a custom object schema, such as properties and labels, using the object type
+ * ID or fully qualified name.
+ */
 class ObjectSchemaUpdateParams
 private constructor(
     private val objectType: String?,

@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Set or update the primary company currency. */
 class CurrencyUpdateCompanyCurrencyParams
 private constructor(
     private val companyCurrencyUpdateRequest: CompanyCurrencyUpdateRequest,

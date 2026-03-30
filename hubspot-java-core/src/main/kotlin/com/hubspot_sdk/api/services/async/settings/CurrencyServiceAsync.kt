@@ -34,6 +34,10 @@ interface CurrencyServiceAsync {
 
     fun exchangeRates(): ExchangeRateServiceAsync
 
+    /**
+     * Get the details for the company currency. The company currency is used in deal totals,
+     * reports, and the default currency for new deals.
+     */
     fun getCompanyCurrency(): CompletableFuture<CompanyCurrency> =
         getCompanyCurrency(CurrencyGetCompanyCurrencyParams.none())
 
@@ -52,6 +56,7 @@ interface CurrencyServiceAsync {
     fun getCompanyCurrency(requestOptions: RequestOptions): CompletableFuture<CompanyCurrency> =
         getCompanyCurrency(CurrencyGetCompanyCurrencyParams.none(), requestOptions)
 
+    /** Retrieve a list of all available currency codes and their names. */
     fun listCodes(): CompletableFuture<CollectionResponseCurrencyCodeInfoNoPaging> =
         listCodes(CurrencyListCodesParams.none())
 
@@ -73,6 +78,7 @@ interface CurrencyServiceAsync {
     ): CompletableFuture<CollectionResponseCurrencyCodeInfoNoPaging> =
         listCodes(CurrencyListCodesParams.none(), requestOptions)
 
+    /** Set or update the primary company currency. */
     fun updateCompanyCurrency(
         params: CurrencyUpdateCompanyCurrencyParams
     ): CompletableFuture<CompanyCurrency> = updateCompanyCurrency(params, RequestOptions.none())

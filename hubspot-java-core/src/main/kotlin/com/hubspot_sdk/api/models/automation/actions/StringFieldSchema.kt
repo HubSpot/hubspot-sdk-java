@@ -33,12 +33,17 @@ private constructor(
     ) : this(type, format, mutableMapOf())
 
     /**
+     * Indicates that the type is a string, with the default value being STRING.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
+     * Specifies the format of the string, with accepted values: DATE, DATE_TIME, OBJECT_COORDINATE,
+     * TIME, URI.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -97,6 +102,7 @@ private constructor(
             additionalProperties = stringFieldSchema.additionalProperties.toMutableMap()
         }
 
+        /** Indicates that the type is a string, with the default value being STRING. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -107,6 +113,10 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * Specifies the format of the string, with accepted values: DATE, DATE_TIME,
+         * OBJECT_COORDINATE, TIME, URI.
+         */
         fun format(format: Format) = format(JsonField.of(format))
 
         /**
@@ -186,6 +196,7 @@ private constructor(
         (type.asKnown().getOrNull()?.validity() ?: 0) +
             (format.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Indicates that the type is a string, with the default value being STRING. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -305,6 +316,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * Specifies the format of the string, with accepted values: DATE, DATE_TIME, OBJECT_COORDINATE,
+     * TIME, URI.
+     */
     class Format @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

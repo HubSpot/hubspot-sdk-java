@@ -418,6 +418,8 @@ private constructor(
 
             @JvmField val EMAIL = of("EMAIL")
 
+            @JvmField val TEST_SERVICE = of("TEST_SERVICE")
+
             @JvmField val WEB_SCRAPING = of("WEB_SCRAPING")
 
             @JvmStatic fun of(value: String) = Service(JsonField.of(value))
@@ -428,6 +430,7 @@ private constructor(
             API,
             DNS,
             EMAIL,
+            TEST_SERVICE,
             WEB_SCRAPING,
         }
 
@@ -444,6 +447,7 @@ private constructor(
             API,
             DNS,
             EMAIL,
+            TEST_SERVICE,
             WEB_SCRAPING,
             /** An enum member indicating that [Service] was instantiated with an unknown value. */
             _UNKNOWN,
@@ -461,6 +465,7 @@ private constructor(
                 API -> Value.API
                 DNS -> Value.DNS
                 EMAIL -> Value.EMAIL
+                TEST_SERVICE -> Value.TEST_SERVICE
                 WEB_SCRAPING -> Value.WEB_SCRAPING
                 else -> Value._UNKNOWN
             }
@@ -479,6 +484,7 @@ private constructor(
                 API -> Known.API
                 DNS -> Known.DNS
                 EMAIL -> Known.EMAIL
+                TEST_SERVICE -> Known.TEST_SERVICE
                 WEB_SCRAPING -> Known.WEB_SCRAPING
                 else -> throw HubspotInvalidDataException("Unknown Service: $value")
             }

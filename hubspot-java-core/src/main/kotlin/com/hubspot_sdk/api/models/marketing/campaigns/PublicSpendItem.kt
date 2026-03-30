@@ -43,7 +43,7 @@ private constructor(
     ) : this(id, amount, createdAt, name, order, updatedAt, description, mutableMapOf())
 
     /**
-     * The unique identifier for the spend item, represented as a string.
+     * Unique identifier for the spend item.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -51,7 +51,7 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The monetary amount of the spend item, represented as a number.
+     * The monetary value associated with the spend item.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -59,7 +59,7 @@ private constructor(
     fun amount(): Double = amount.getRequired("amount")
 
     /**
-     * A Unix timestamp in milliseconds indicating when the spend item was created.
+     * The timestamp indicating when the spend item was created.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -67,7 +67,7 @@ private constructor(
     fun createdAt(): Long = createdAt.getRequired("createdAt")
 
     /**
-     * The name of the spend item, represented as a string.
+     * The name assigned to the spend item.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -75,7 +75,7 @@ private constructor(
     fun name(): String = name.getRequired("name")
 
     /**
-     * An integer that specifies the order of the spend item.
+     * The sequence order of the spend item, where 0 is the oldest.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -83,7 +83,7 @@ private constructor(
     fun order(): Int = order.getRequired("order")
 
     /**
-     * A Unix timestamp in milliseconds indicating when the spend item was last updated.
+     * The timestamp indicating when the spend item was last updated.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -91,7 +91,7 @@ private constructor(
     fun updatedAt(): Long = updatedAt.getRequired("updatedAt")
 
     /**
-     * A brief description of the spend item, represented as a string.
+     * A detailed explanation or notes about the spend item.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -201,7 +201,7 @@ private constructor(
             additionalProperties = publicSpendItem.additionalProperties.toMutableMap()
         }
 
-        /** The unique identifier for the spend item, represented as a string. */
+        /** Unique identifier for the spend item. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -212,7 +212,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** The monetary amount of the spend item, represented as a number. */
+        /** The monetary value associated with the spend item. */
         fun amount(amount: Double) = amount(JsonField.of(amount))
 
         /**
@@ -223,7 +223,7 @@ private constructor(
          */
         fun amount(amount: JsonField<Double>) = apply { this.amount = amount }
 
-        /** A Unix timestamp in milliseconds indicating when the spend item was created. */
+        /** The timestamp indicating when the spend item was created. */
         fun createdAt(createdAt: Long) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -234,7 +234,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<Long>) = apply { this.createdAt = createdAt }
 
-        /** The name of the spend item, represented as a string. */
+        /** The name assigned to the spend item. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -245,7 +245,7 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
-        /** An integer that specifies the order of the spend item. */
+        /** The sequence order of the spend item, where 0 is the oldest. */
         fun order(order: Int) = order(JsonField.of(order))
 
         /**
@@ -256,7 +256,7 @@ private constructor(
          */
         fun order(order: JsonField<Int>) = apply { this.order = order }
 
-        /** A Unix timestamp in milliseconds indicating when the spend item was last updated. */
+        /** The timestamp indicating when the spend item was last updated. */
         fun updatedAt(updatedAt: Long) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -267,7 +267,7 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<Long>) = apply { this.updatedAt = updatedAt }
 
-        /** A brief description of the spend item, represented as a string. */
+        /** A detailed explanation or notes about the spend item. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**

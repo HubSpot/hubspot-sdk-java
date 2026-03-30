@@ -4,11 +4,16 @@ package com.hubspot_sdk.api.services.async.files
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.files.Folder
 import com.hubspot_sdk.api.models.files.FolderActionResponse
 import com.hubspot_sdk.api.models.files.FolderUpdateInputWithId
 import com.hubspot_sdk.api.models.files.FolderUpdateTaskLocator
+import com.hubspot_sdk.api.models.files.folders.FolderDeleteByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderDeleteByPathParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByPathParams
 import com.hubspot_sdk.api.models.files.folders.FolderGetUpdateAsyncStatusParams
 import com.hubspot_sdk.api.models.files.folders.FolderSearchPageAsync
 import com.hubspot_sdk.api.models.files.folders.FolderSearchParams
@@ -30,6 +35,134 @@ interface FolderServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderServiceAsync
+
+    /** Delete folder by ID. */
+    fun deleteById(folderId: String): CompletableFuture<Void?> =
+        deleteById(folderId, FolderDeleteByIdParams.none())
+
+    /** @see deleteById */
+    fun deleteById(
+        folderId: String,
+        params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+    /** @see deleteById */
+    fun deleteById(
+        folderId: String,
+        params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+    ): CompletableFuture<Void?> = deleteById(folderId, params, RequestOptions.none())
+
+    /** @see deleteById */
+    fun deleteById(
+        params: FolderDeleteByIdParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see deleteById */
+    fun deleteById(params: FolderDeleteByIdParams): CompletableFuture<Void?> =
+        deleteById(params, RequestOptions.none())
+
+    /** @see deleteById */
+    fun deleteById(folderId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        deleteById(folderId, FolderDeleteByIdParams.none(), requestOptions)
+
+    /** Delete a folder, identified by its path. */
+    fun deleteByPath(folderPath: String): CompletableFuture<Void?> =
+        deleteByPath(folderPath, FolderDeleteByPathParams.none())
+
+    /** @see deleteByPath */
+    fun deleteByPath(
+        folderPath: String,
+        params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+    /** @see deleteByPath */
+    fun deleteByPath(
+        folderPath: String,
+        params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+    ): CompletableFuture<Void?> = deleteByPath(folderPath, params, RequestOptions.none())
+
+    /** @see deleteByPath */
+    fun deleteByPath(
+        params: FolderDeleteByPathParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see deleteByPath */
+    fun deleteByPath(params: FolderDeleteByPathParams): CompletableFuture<Void?> =
+        deleteByPath(params, RequestOptions.none())
+
+    /** @see deleteByPath */
+    fun deleteByPath(folderPath: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        deleteByPath(folderPath, FolderDeleteByPathParams.none(), requestOptions)
+
+    /** Retrieve a folder by its ID. */
+    fun getById(folderId: String): CompletableFuture<Folder> =
+        getById(folderId, FolderGetByIdParams.none())
+
+    /** @see getById */
+    fun getById(
+        folderId: String,
+        params: FolderGetByIdParams = FolderGetByIdParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Folder> =
+        getById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+    /** @see getById */
+    fun getById(
+        folderId: String,
+        params: FolderGetByIdParams = FolderGetByIdParams.none(),
+    ): CompletableFuture<Folder> = getById(folderId, params, RequestOptions.none())
+
+    /** @see getById */
+    fun getById(
+        params: FolderGetByIdParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Folder>
+
+    /** @see getById */
+    fun getById(params: FolderGetByIdParams): CompletableFuture<Folder> =
+        getById(params, RequestOptions.none())
+
+    /** @see getById */
+    fun getById(folderId: String, requestOptions: RequestOptions): CompletableFuture<Folder> =
+        getById(folderId, FolderGetByIdParams.none(), requestOptions)
+
+    /** Retrieve a folder, identified by its path. */
+    fun getByPath(folderPath: String): CompletableFuture<Folder> =
+        getByPath(folderPath, FolderGetByPathParams.none())
+
+    /** @see getByPath */
+    fun getByPath(
+        folderPath: String,
+        params: FolderGetByPathParams = FolderGetByPathParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Folder> =
+        getByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+    /** @see getByPath */
+    fun getByPath(
+        folderPath: String,
+        params: FolderGetByPathParams = FolderGetByPathParams.none(),
+    ): CompletableFuture<Folder> = getByPath(folderPath, params, RequestOptions.none())
+
+    /** @see getByPath */
+    fun getByPath(
+        params: FolderGetByPathParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Folder>
+
+    /** @see getByPath */
+    fun getByPath(params: FolderGetByPathParams): CompletableFuture<Folder> =
+        getByPath(params, RequestOptions.none())
+
+    /** @see getByPath */
+    fun getByPath(folderPath: String, requestOptions: RequestOptions): CompletableFuture<Folder> =
+        getByPath(folderPath, FolderGetByPathParams.none(), requestOptions)
 
     /** Check status of folder update. Folder updates happen asynchronously. */
     fun getUpdateAsyncStatus(taskId: String): CompletableFuture<FolderActionResponse> =
@@ -153,6 +286,160 @@ interface FolderServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): FolderServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `delete /files/2026-03/folders/{folderId}`, but is
+         * otherwise the same as [FolderServiceAsync.deleteById].
+         */
+        fun deleteById(folderId: String): CompletableFuture<HttpResponse> =
+            deleteById(folderId, FolderDeleteByIdParams.none())
+
+        /** @see deleteById */
+        fun deleteById(
+            folderId: String,
+            params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+        /** @see deleteById */
+        fun deleteById(
+            folderId: String,
+            params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+        ): CompletableFuture<HttpResponse> = deleteById(folderId, params, RequestOptions.none())
+
+        /** @see deleteById */
+        fun deleteById(
+            params: FolderDeleteByIdParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see deleteById */
+        fun deleteById(params: FolderDeleteByIdParams): CompletableFuture<HttpResponse> =
+            deleteById(params, RequestOptions.none())
+
+        /** @see deleteById */
+        fun deleteById(
+            folderId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> =
+            deleteById(folderId, FolderDeleteByIdParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete /files/2026-03/folders/{folderPath}`, but is
+         * otherwise the same as [FolderServiceAsync.deleteByPath].
+         */
+        fun deleteByPath(folderPath: String): CompletableFuture<HttpResponse> =
+            deleteByPath(folderPath, FolderDeleteByPathParams.none())
+
+        /** @see deleteByPath */
+        fun deleteByPath(
+            folderPath: String,
+            params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+        /** @see deleteByPath */
+        fun deleteByPath(
+            folderPath: String,
+            params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+        ): CompletableFuture<HttpResponse> = deleteByPath(folderPath, params, RequestOptions.none())
+
+        /** @see deleteByPath */
+        fun deleteByPath(
+            params: FolderDeleteByPathParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see deleteByPath */
+        fun deleteByPath(params: FolderDeleteByPathParams): CompletableFuture<HttpResponse> =
+            deleteByPath(params, RequestOptions.none())
+
+        /** @see deleteByPath */
+        fun deleteByPath(
+            folderPath: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> =
+            deleteByPath(folderPath, FolderDeleteByPathParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /files/2026-03/folders/{folderId}`, but is otherwise
+         * the same as [FolderServiceAsync.getById].
+         */
+        fun getById(folderId: String): CompletableFuture<HttpResponseFor<Folder>> =
+            getById(folderId, FolderGetByIdParams.none())
+
+        /** @see getById */
+        fun getById(
+            folderId: String,
+            params: FolderGetByIdParams = FolderGetByIdParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Folder>> =
+            getById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+        /** @see getById */
+        fun getById(
+            folderId: String,
+            params: FolderGetByIdParams = FolderGetByIdParams.none(),
+        ): CompletableFuture<HttpResponseFor<Folder>> =
+            getById(folderId, params, RequestOptions.none())
+
+        /** @see getById */
+        fun getById(
+            params: FolderGetByIdParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Folder>>
+
+        /** @see getById */
+        fun getById(params: FolderGetByIdParams): CompletableFuture<HttpResponseFor<Folder>> =
+            getById(params, RequestOptions.none())
+
+        /** @see getById */
+        fun getById(
+            folderId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Folder>> =
+            getById(folderId, FolderGetByIdParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /files/2026-03/folders/{folderPath}`, but is
+         * otherwise the same as [FolderServiceAsync.getByPath].
+         */
+        fun getByPath(folderPath: String): CompletableFuture<HttpResponseFor<Folder>> =
+            getByPath(folderPath, FolderGetByPathParams.none())
+
+        /** @see getByPath */
+        fun getByPath(
+            folderPath: String,
+            params: FolderGetByPathParams = FolderGetByPathParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Folder>> =
+            getByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+        /** @see getByPath */
+        fun getByPath(
+            folderPath: String,
+            params: FolderGetByPathParams = FolderGetByPathParams.none(),
+        ): CompletableFuture<HttpResponseFor<Folder>> =
+            getByPath(folderPath, params, RequestOptions.none())
+
+        /** @see getByPath */
+        fun getByPath(
+            params: FolderGetByPathParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Folder>>
+
+        /** @see getByPath */
+        fun getByPath(params: FolderGetByPathParams): CompletableFuture<HttpResponseFor<Folder>> =
+            getByPath(params, RequestOptions.none())
+
+        /** @see getByPath */
+        fun getByPath(
+            folderPath: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Folder>> =
+            getByPath(folderPath, FolderGetByPathParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

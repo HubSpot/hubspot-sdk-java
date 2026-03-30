@@ -10,7 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all contacts, using query parameters to specify the information that gets returned. */
 class ContactListParams
 private constructor(
     private val after: String?,

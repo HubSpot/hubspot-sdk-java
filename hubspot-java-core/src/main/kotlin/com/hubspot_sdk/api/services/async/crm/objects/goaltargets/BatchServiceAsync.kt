@@ -122,7 +122,10 @@ interface BatchServiceAsync {
         batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
     ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Retrieve multiple goal targets with a single request. Goal targets are specified by ID. */
+    /**
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
+     */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
         get(params, RequestOptions.none())
 

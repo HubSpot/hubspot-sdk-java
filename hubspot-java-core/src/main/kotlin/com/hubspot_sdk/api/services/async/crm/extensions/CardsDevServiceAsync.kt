@@ -34,6 +34,7 @@ interface CardsDevServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardsDevServiceAsync
 
+    /** Defines a new card that will become active on an account when this app is installed. */
     fun create(appId: Int, params: CardsDevCreateParams): CompletableFuture<PublicCardResponse> =
         create(appId, params, RequestOptions.none())
 
@@ -55,6 +56,7 @@ interface CardsDevServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicCardResponse>
 
+    /** Update a card definition with new details. */
     fun update(
         cardId: String,
         params: CardsDevUpdateParams,
@@ -78,6 +80,10 @@ interface CardsDevServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicCardResponse>
 
+    /**
+     * Permanently deletes a card definition with the given ID. Once deleted, data fetch requests
+     * for this card will no longer be sent to your service. This can't be undone.
+     */
     fun delete(cardId: String, params: CardsDevDeleteParams): CompletableFuture<Void?> =
         delete(cardId, params, RequestOptions.none())
 
@@ -98,6 +104,7 @@ interface CardsDevServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Returns a list of cards for a given app. */
     fun get(appId: Int): CompletableFuture<PublicCardListResponse> =
         get(appId, CardsDevGetParams.none())
 
@@ -129,6 +136,7 @@ interface CardsDevServiceAsync {
     fun get(appId: Int, requestOptions: RequestOptions): CompletableFuture<PublicCardListResponse> =
         get(appId, CardsDevGetParams.none(), requestOptions)
 
+    /** Returns the definition for a card with the given ID. */
     fun getById(
         cardId: String,
         params: CardsDevGetByIdParams,
@@ -152,6 +160,11 @@ interface CardsDevServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicCardResponse>
 
+    /**
+     * Returns an example card detail response. This is the payload with displayed details for a
+     * card that will be shown to a user. An app should send this in response to the data fetch
+     * request.
+     */
     fun getSampleResponse(): CompletableFuture<IntegratorCardPayloadResponse> =
         getSampleResponse(CardsDevGetSampleResponseParams.none())
 

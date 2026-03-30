@@ -25,22 +25,17 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The unique identifier of the user whose sequences are to be retrieved. This parameter is
-     * required.
-     */
     fun userId(): String = userId
 
     /**
-     * The paging cursor token of the last successfully read resource. Use this for pagination to
-     * retrieve the next set of results.
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * `paging.next.after` JSON property of a paged response containing more results.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** The name of the sequence to filter results by. */
     fun name(): Optional<String> = Optional.ofNullable(name)
 
     /** Additional headers to send with the request. */
@@ -84,15 +79,11 @@ private constructor(
             additionalQueryParams = sequenceListParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The unique identifier of the user whose sequences are to be retrieved. This parameter is
-         * required.
-         */
         fun userId(userId: String) = apply { this.userId = userId }
 
         /**
-         * The paging cursor token of the last successfully read resource. Use this for pagination
-         * to retrieve the next set of results.
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * `paging.next.after` JSON property of a paged response containing more results.
          */
         fun after(after: String?) = apply { this.after = after }
 
@@ -112,7 +103,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** The name of the sequence to filter results by. */
         fun name(name: String?) = apply { this.name = name }
 
         /** Alias for calling [Builder.name] with `name.orElse(null)`. */

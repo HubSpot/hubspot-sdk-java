@@ -40,12 +40,16 @@ private constructor(
     ) : this(id, createdAt, definition, revisionId, mutableMapOf())
 
     /**
+     * The unique identifier for the action revision.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * The date and time when the action revision was created.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -58,6 +62,8 @@ private constructor(
     fun definition(): PublicActionDefinition = definition.getRequired("definition")
 
     /**
+     * The unique identifier for the specific revision of the action.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -141,6 +147,7 @@ private constructor(
             additionalProperties = publicActionRevision.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the action revision. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -151,6 +158,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** The date and time when the action revision was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -175,6 +183,7 @@ private constructor(
             this.definition = definition
         }
 
+        /** The unique identifier for the specific revision of the action. */
         fun revisionId(revisionId: String) = revisionId(JsonField.of(revisionId))
 
         /**

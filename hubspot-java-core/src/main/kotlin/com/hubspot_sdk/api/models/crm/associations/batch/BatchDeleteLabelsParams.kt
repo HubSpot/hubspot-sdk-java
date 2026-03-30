@@ -13,8 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Batch remove specific labelled associations between records in bulk. Deleting an unlabeled
- * association will also delete all labeled associations between those two objects
+ * Batch delete specific association labels for objects. Deleting an unlabeled association will also
+ * delete all labeled associations between those two objects
  */
 class BatchDeleteLabelsParams
 private constructor(

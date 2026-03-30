@@ -10,7 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import java.util.Objects
 
-/** Create a discount */
+/**
+ * Create a discount with the given properties and return a copy of the object, including the ID.
+ * Documentation and examples for creating standard discounts is provided.
+ */
 class DiscountCreateParams
 private constructor(
     private val simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,

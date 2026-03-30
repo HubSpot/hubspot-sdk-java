@@ -82,12 +82,16 @@ private constructor(
     )
 
     /**
+     * Indicates whether an engagement should be created for the call.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createEngagement(): Boolean = createEngagement.getRequired("createEngagement")
 
     /**
+     * Contains additional properties related to the engagement.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -95,12 +99,18 @@ private constructor(
         engagementProperties.getRequired("engagementProperties")
 
     /**
+     * The unique identifier for the call from an external system.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun externalCallId(): String = externalCallId.getRequired("externalCallId")
 
     /**
+     * The final status of the call, with accepted values including: BUSY, CALLING_CRM_USER,
+     * CANCELED, COMPLETED, CONNECTING, FAILED, HOLD, IN_PROGRESS, MISSED, NO_ANSWER, QUEUED,
+     * RINGING, UNKNOWN.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -126,6 +136,8 @@ private constructor(
     fun toNumber(): FormattedPhoneNumber = toNumber.getRequired("toNumber")
 
     /**
+     * The timestamp indicating when the call started, formatted as a date-time string.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -133,12 +145,16 @@ private constructor(
         callStartedTimestamp.getOptional("callStartedTimestamp")
 
     /**
+     * The duration of the call in seconds.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun durationSeconds(): Optional<Int> = durationSeconds.getOptional("durationSeconds")
 
     /**
+     * The ID of the user associated with the call.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -300,6 +316,7 @@ private constructor(
                 completedThirdPartyCallRequest.additionalProperties.toMutableMap()
         }
 
+        /** Indicates whether an engagement should be created for the call. */
         fun createEngagement(createEngagement: Boolean) =
             createEngagement(JsonField.of(createEngagement))
 
@@ -314,6 +331,7 @@ private constructor(
             this.createEngagement = createEngagement
         }
 
+        /** Contains additional properties related to the engagement. */
         fun engagementProperties(engagementProperties: EngagementProperties) =
             engagementProperties(JsonField.of(engagementProperties))
 
@@ -328,6 +346,7 @@ private constructor(
             this.engagementProperties = engagementProperties
         }
 
+        /** The unique identifier for the call from an external system. */
         fun externalCallId(externalCallId: String) = externalCallId(JsonField.of(externalCallId))
 
         /**
@@ -341,6 +360,11 @@ private constructor(
             this.externalCallId = externalCallId
         }
 
+        /**
+         * The final status of the call, with accepted values including: BUSY, CALLING_CRM_USER,
+         * CANCELED, COMPLETED, CONNECTING, FAILED, HOLD, IN_PROGRESS, MISSED, NO_ANSWER, QUEUED,
+         * RINGING, UNKNOWN.
+         */
         fun finalCallStatus(finalCallStatus: FinalCallStatus) =
             finalCallStatus(JsonField.of(finalCallStatus))
 
@@ -405,6 +429,7 @@ private constructor(
          */
         fun toNumber(toNumber: JsonField<FormattedPhoneNumber>) = apply { this.toNumber = toNumber }
 
+        /** The timestamp indicating when the call started, formatted as a date-time string. */
         fun callStartedTimestamp(callStartedTimestamp: OffsetDateTime) =
             callStartedTimestamp(JsonField.of(callStartedTimestamp))
 
@@ -419,6 +444,7 @@ private constructor(
             this.callStartedTimestamp = callStartedTimestamp
         }
 
+        /** The duration of the call in seconds. */
         fun durationSeconds(durationSeconds: Int) = durationSeconds(JsonField.of(durationSeconds))
 
         /**
@@ -432,6 +458,7 @@ private constructor(
             this.durationSeconds = durationSeconds
         }
 
+        /** The ID of the user associated with the call. */
         fun userId(userId: Int) = userId(JsonField.of(userId))
 
         /**
@@ -543,6 +570,7 @@ private constructor(
             (if (durationSeconds.asKnown().isPresent) 1 else 0) +
             (if (userId.asKnown().isPresent) 1 else 0)
 
+    /** Contains additional properties related to the engagement. */
     class EngagementProperties
     @JsonCreator
     private constructor(
@@ -644,6 +672,11 @@ private constructor(
         override fun toString() = "EngagementProperties{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The final status of the call, with accepted values including: BUSY, CALLING_CRM_USER,
+     * CANCELED, COMPLETED, CONNECTING, FAILED, HOLD, IN_PROGRESS, MISSED, NO_ANSWER, QUEUED,
+     * RINGING, UNKNOWN.
+     */
     class FinalCallStatus @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

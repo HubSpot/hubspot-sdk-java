@@ -25,6 +25,7 @@ interface EventServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventServiceAsync
 
+    /** Mark a marketing event as cancelled. */
     fun cancelByExternalEventId(
         externalEventId: String,
         params: EventCancelByExternalEventIdParams,
@@ -54,6 +55,7 @@ interface EventServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MarketingEventDefaultResponse>
 
+    /** Mark a marketing event as completed */
     fun completeByExternalEventId(
         externalEventId: String,
         params: EventCompleteByExternalEventIdParams,

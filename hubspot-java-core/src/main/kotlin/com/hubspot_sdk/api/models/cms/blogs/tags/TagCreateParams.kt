@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Create a new Blog Tag. */
 class TagCreateParams
 private constructor(
     private val tag: Tag,

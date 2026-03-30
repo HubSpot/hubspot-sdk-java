@@ -10,6 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyPairUpdate
 import java.util.Objects
 
+/**
+ * Change the visibility setting for a currency pair. This will hide or display a currency pair for
+ * users in the HubSpot app.
+ */
 class ExchangeRateUpdateVisibilityParams
 private constructor(
     private val currencyPairUpdate: CurrencyPairUpdate,

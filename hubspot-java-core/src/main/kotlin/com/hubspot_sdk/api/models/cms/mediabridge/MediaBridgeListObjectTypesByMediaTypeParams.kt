@@ -17,14 +17,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the existing objects types that belong to the specified media type. */
 class MediaBridgeListObjectTypesByMediaTypeParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val mediaType: MediaType?,
     private val includeFullDefinition: Boolean?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun mediaType(): Optional<MediaType> = Optional.ofNullable(mediaType)
 
@@ -55,7 +55,7 @@ private constructor(
     /** A builder for [MediaBridgeListObjectTypesByMediaTypeParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var mediaType: MediaType? = null
         private var includeFullDefinition: Boolean? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -75,7 +75,7 @@ private constructor(
                 mediaBridgeListObjectTypesByMediaTypeParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun mediaType(mediaType: MediaType?) = apply { this.mediaType = mediaType }
 
@@ -223,7 +223,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> mediaType?.toString() ?: ""
             else -> ""
         }

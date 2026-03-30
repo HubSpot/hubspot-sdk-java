@@ -10,8 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
-import java.time.OffsetDateTime
+import com.hubspot_sdk.api.models.cms.urlmappings.UrlMappingsUrlMapping
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -33,20 +32,33 @@ internal class UrlMappingServiceTest {
 
         val urlMapping =
             urlMappingService.create(
-                UrlMapping.builder()
-                    .id("id")
-                    .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                UrlMappingsUrlMapping.builder()
+                    .id(0L)
+                    .cdnPurgeEmbargoTime(0L)
+                    .contentGroupId(0L)
+                    .cosObjectType(UrlMappingsUrlMapping.CosObjectType.ACCESS_GROUP_MEMBERSHIP)
+                    .created(0L)
+                    .createdById(0)
+                    .deletedAt(0L)
                     .destination("destination")
+                    .internallyCreated(true)
+                    .isActive(true)
                     .isMatchFullUrl(true)
                     .isMatchQueryString(true)
                     .isOnlyAfterNotFound(true)
                     .isPattern(true)
                     .isProtocolAgnostic(true)
+                    .isRegex(true)
                     .isTrailingSlashOptional(true)
+                    .label("label")
+                    .name("name")
+                    .note("note")
+                    .portalId(0)
                     .precedence(0)
                     .redirectStyle(0)
                     .routePrefix("routePrefix")
-                    .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updated(0L)
+                    .updatedById(0)
                     .build()
             )
 

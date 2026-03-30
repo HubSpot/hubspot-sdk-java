@@ -34,6 +34,7 @@ interface CardsDevService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CardsDevService
 
+    /** Defines a new card that will become active on an account when this app is installed. */
     fun create(appId: Int, params: CardsDevCreateParams): PublicCardResponse =
         create(appId, params, RequestOptions.none())
 
@@ -54,6 +55,7 @@ interface CardsDevService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicCardResponse
 
+    /** Update a card definition with new details. */
     fun update(cardId: String, params: CardsDevUpdateParams): PublicCardResponse =
         update(cardId, params, RequestOptions.none())
 
@@ -74,6 +76,10 @@ interface CardsDevService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicCardResponse
 
+    /**
+     * Permanently deletes a card definition with the given ID. Once deleted, data fetch requests
+     * for this card will no longer be sent to your service. This can't be undone.
+     */
     fun delete(cardId: String, params: CardsDevDeleteParams) =
         delete(cardId, params, RequestOptions.none())
 
@@ -90,6 +96,7 @@ interface CardsDevService {
     /** @see delete */
     fun delete(params: CardsDevDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
+    /** Returns a list of cards for a given app. */
     fun get(appId: Int): PublicCardListResponse = get(appId, CardsDevGetParams.none())
 
     /** @see get */
@@ -118,6 +125,7 @@ interface CardsDevService {
     fun get(appId: Int, requestOptions: RequestOptions): PublicCardListResponse =
         get(appId, CardsDevGetParams.none(), requestOptions)
 
+    /** Returns the definition for a card with the given ID. */
     fun getById(cardId: String, params: CardsDevGetByIdParams): PublicCardResponse =
         getById(cardId, params, RequestOptions.none())
 
@@ -138,6 +146,11 @@ interface CardsDevService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicCardResponse
 
+    /**
+     * Returns an example card detail response. This is the payload with displayed details for a
+     * card that will be shown to a user. An app should send this in response to the data fetch
+     * request.
+     */
     fun getSampleResponse(): IntegratorCardPayloadResponse =
         getSampleResponse(CardsDevGetSampleResponseParams.none())
 

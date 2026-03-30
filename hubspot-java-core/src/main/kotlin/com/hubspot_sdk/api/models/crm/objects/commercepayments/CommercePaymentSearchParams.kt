@@ -7,13 +7,13 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 
 /**
- * Search for payments by filtering on properties, searching through associations, and sorting
- * results. Learn more about
- * [CRM search](https://developers.hubspot.com/docs/guides/api/crm/search#make-a-search-request).
+ * Execute a search for commerce payments based on the provided filter groups, properties, and
+ * sorting options. This endpoint allows for complex queries to retrieve specific payment records
+ * from the CRM.
  */
 class CommercePaymentSearchParams
 private constructor(

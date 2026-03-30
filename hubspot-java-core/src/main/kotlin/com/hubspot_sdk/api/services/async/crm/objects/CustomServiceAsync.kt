@@ -6,10 +6,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomCreateParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.custom.CustomGetParams
@@ -36,10 +36,7 @@ interface CustomServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CustomServiceAsync
 
-    /**
-     * Create multiple CRM objects in a single request by specifying the object type and providing
-     * the necessary properties and associations for each object.
-     */
+    /** Create a batch of objects */
     fun create(
         objectType: String,
         params: CustomCreateParams,
@@ -64,10 +61,7 @@ interface CustomServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSimplePublicObject>
 
-    /**
-     * Update a batch of CRM objects by their internal IDs or unique property values, allowing for
-     * efficient modifications of multiple records in a single request.
-     */
+    /** Update a batch of objects by internal ID, or unique property values */
     fun update(
         objectType: String,
         params: CustomUpdateParams,
@@ -127,10 +121,7 @@ interface CustomServiceAsync {
     ): CompletableFuture<CustomListPageAsync> =
         list(objectType, CustomListParams.none(), requestOptions)
 
-    /**
-     * Archive a batch of objects by their unique IDs. This operation moves the specified objects to
-     * the recycling bin, effectively marking them as archived.
-     */
+    /** Archive a batch of objects by ID */
     fun delete(objectType: String, params: CustomDeleteParams): CompletableFuture<Void?> =
         delete(objectType, params, RequestOptions.none())
 
@@ -207,10 +198,6 @@ interface CustomServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /**
-     * Execute a search query to find CRM objects of a given type, using specified filters and
-     * properties. The search can be customized with filters, sorting, and pagination options.
-     */
     fun search(
         objectType: String,
         params: CustomSearchParams,

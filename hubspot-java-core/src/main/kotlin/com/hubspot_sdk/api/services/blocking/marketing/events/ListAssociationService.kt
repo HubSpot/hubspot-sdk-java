@@ -30,6 +30,7 @@ interface ListAssociationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListAssociationService
 
+    /** Gets lists associated with a marketing event by marketing event id */
     fun list(marketingEventId: String): CollectionResponseWithTotalPublicList =
         list(marketingEventId, ListAssociationListParams.none())
 
@@ -64,6 +65,7 @@ interface ListAssociationService {
     ): CollectionResponseWithTotalPublicList =
         list(marketingEventId, ListAssociationListParams.none(), requestOptions)
 
+    /** Disassociates a list from a marketing event by marketing event id and ILS list id */
     fun delete(listId: String, params: ListAssociationDeleteParams) =
         delete(listId, params, RequestOptions.none())
 
@@ -83,6 +85,7 @@ interface ListAssociationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** Associates a list with a marketing event by marketing event id and ILS list id */
     fun associate(listId: String, params: ListAssociationAssociateParams) =
         associate(listId, params, RequestOptions.none())
 
@@ -102,6 +105,10 @@ interface ListAssociationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /**
+     * Associates a list with a marketing event by external account id, external event id, and ILS
+     * list id
+     */
     fun associateByExternalAccount(
         listId: String,
         params: ListAssociationAssociateByExternalAccountParams,
@@ -124,6 +131,10 @@ interface ListAssociationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /**
+     * Disassociates a list from a marketing event by external account id, external event id, and
+     * ILS list id
+     */
     fun deleteByExternalAccount(
         listId: String,
         params: ListAssociationDeleteByExternalAccountParams,
@@ -146,6 +157,7 @@ interface ListAssociationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** Gets lists associated with a marketing event by external account id and external event id */
     fun listByExternalAccount(
         externalEventId: String,
         params: ListAssociationListByExternalAccountParams,

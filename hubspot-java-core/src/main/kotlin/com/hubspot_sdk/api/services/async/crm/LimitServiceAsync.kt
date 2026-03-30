@@ -39,6 +39,7 @@ interface LimitServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LimitServiceAsync
 
+    /** Returns limits and usage for custom association labels */
     fun getAssociationLabelLimits():
         CompletableFuture<CollectionResponseAssociationLabelLimitResponseNoPaging> =
         getAssociationLabelLimits(LimitGetAssociationLabelLimitsParams.none())
@@ -61,6 +62,7 @@ interface LimitServiceAsync {
     ): CompletableFuture<CollectionResponseAssociationLabelLimitResponseNoPaging> =
         getAssociationLabelLimits(LimitGetAssociationLabelLimitsParams.none(), requestOptions)
 
+    /** Returns records approaching or at association limits between two objects */
     fun getAssociationRecordsLimitsByObjectType(
         toObjectTypeId: String,
         params: LimitGetAssociationRecordsLimitsByObjectTypeParams,
@@ -90,6 +92,7 @@ interface LimitServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AssociationRecordLimitResponse>
 
+    /** Returns objects with records approaching or at association limits */
     fun getAssociationRecordsLimitsFromObjects():
         CompletableFuture<CollectionResponseObjectTypeNearOrAtAssociationLimitNoPaging> =
         getAssociationRecordsLimitsFromObjects(
@@ -119,6 +122,9 @@ interface LimitServiceAsync {
             requestOptions,
         )
 
+    /**
+     * Returns objects for which the from object has records approaching or at association limits
+     */
     fun getAssociationRecordsLimitsToObjects(
         fromObjectTypeId: String
     ): CompletableFuture<CollectionResponseObjectTypeNearOrAtAssociationLimitNoPaging> =
@@ -170,6 +176,7 @@ interface LimitServiceAsync {
             requestOptions,
         )
 
+    /** Returns overall limit and per object usage for calculated properties */
     fun getCalculatedPropertyLimits(): CompletableFuture<CalculatedPropertyLimitResponse> =
         getCalculatedPropertyLimits(LimitGetCalculatedPropertyLimitsParams.none())
 
@@ -193,6 +200,7 @@ interface LimitServiceAsync {
     ): CompletableFuture<CalculatedPropertyLimitResponse> =
         getCalculatedPropertyLimits(LimitGetCalculatedPropertyLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage for custom object schemas */
     fun getCustomObjectTypeLimits(): CompletableFuture<CustomObjectLimitResponse> =
         getCustomObjectTypeLimits(LimitGetCustomObjectTypeLimitsParams.none())
 
@@ -214,6 +222,7 @@ interface LimitServiceAsync {
     ): CompletableFuture<CustomObjectLimitResponse> =
         getCustomObjectTypeLimits(LimitGetCustomObjectTypeLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage per object for custom properties */
     fun getCustomPropertyLimits(): CompletableFuture<CustomPropertyLimitResponse> =
         getCustomPropertyLimits(LimitGetCustomPropertyLimitsParams.none())
 
@@ -235,6 +244,7 @@ interface LimitServiceAsync {
     ): CompletableFuture<CustomPropertyLimitResponse> =
         getCustomPropertyLimits(LimitGetCustomPropertyLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage per object for pipelines */
     fun getPipelineLimits(): CompletableFuture<PipelineLimitResponse> =
         getPipelineLimits(LimitGetPipelineLimitsParams.none())
 
@@ -255,6 +265,7 @@ interface LimitServiceAsync {
     ): CompletableFuture<PipelineLimitResponse> =
         getPipelineLimits(LimitGetPipelineLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage per object for records */
     fun getRecordLimits(): CompletableFuture<RecordLimitResponse> =
         getRecordLimits(LimitGetRecordLimitsParams.none())
 

@@ -30,6 +30,7 @@ interface ListAssociationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListAssociationServiceAsync
 
+    /** Gets lists associated with a marketing event by marketing event id */
     fun list(marketingEventId: String): CompletableFuture<CollectionResponseWithTotalPublicList> =
         list(marketingEventId, ListAssociationListParams.none())
 
@@ -67,6 +68,7 @@ interface ListAssociationServiceAsync {
     ): CompletableFuture<CollectionResponseWithTotalPublicList> =
         list(marketingEventId, ListAssociationListParams.none(), requestOptions)
 
+    /** Disassociates a list from a marketing event by marketing event id and ILS list id */
     fun delete(listId: String, params: ListAssociationDeleteParams): CompletableFuture<Void?> =
         delete(listId, params, RequestOptions.none())
 
@@ -87,6 +89,7 @@ interface ListAssociationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Associates a list with a marketing event by marketing event id and ILS list id */
     fun associate(
         listId: String,
         params: ListAssociationAssociateParams,
@@ -110,6 +113,10 @@ interface ListAssociationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /**
+     * Associates a list with a marketing event by external account id, external event id, and ILS
+     * list id
+     */
     fun associateByExternalAccount(
         listId: String,
         params: ListAssociationAssociateByExternalAccountParams,
@@ -134,6 +141,10 @@ interface ListAssociationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /**
+     * Disassociates a list from a marketing event by external account id, external event id, and
+     * ILS list id
+     */
     fun deleteByExternalAccount(
         listId: String,
         params: ListAssociationDeleteByExternalAccountParams,
@@ -158,6 +169,7 @@ interface ListAssociationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Gets lists associated with a marketing event by external account id and external event id */
     fun listByExternalAccount(
         externalEventId: String,
         params: ListAssociationListByExternalAccountParams,

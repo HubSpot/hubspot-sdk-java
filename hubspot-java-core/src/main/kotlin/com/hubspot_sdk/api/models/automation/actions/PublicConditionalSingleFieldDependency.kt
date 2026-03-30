@@ -52,18 +52,24 @@ private constructor(
     )
 
     /**
+     * The name of the field that determines the dependency.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun controllingFieldName(): String = controllingFieldName.getRequired("controllingFieldName")
 
     /**
+     * The value of the controlling field that triggers the dependency.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun controllingFieldValue(): String = controllingFieldValue.getRequired("controllingFieldValue")
 
     /**
+     * The type of dependency, with the default value being CONDITIONAL_SINGLE_FIELD.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -167,6 +173,7 @@ private constructor(
                 publicConditionalSingleFieldDependency.additionalProperties.toMutableMap()
         }
 
+        /** The name of the field that determines the dependency. */
         fun controllingFieldName(controllingFieldName: String) =
             controllingFieldName(JsonField.of(controllingFieldName))
 
@@ -181,6 +188,7 @@ private constructor(
             this.controllingFieldName = controllingFieldName
         }
 
+        /** The value of the controlling field that triggers the dependency. */
         fun controllingFieldValue(controllingFieldValue: String) =
             controllingFieldValue(JsonField.of(controllingFieldValue))
 
@@ -195,6 +203,7 @@ private constructor(
             this.controllingFieldValue = controllingFieldValue
         }
 
+        /** The type of dependency, with the default value being CONDITIONAL_SINGLE_FIELD. */
         fun dependencyType(dependencyType: DependencyType) =
             dependencyType(JsonField.of(dependencyType))
 
@@ -313,6 +322,7 @@ private constructor(
             (dependencyType.asKnown().getOrNull()?.validity() ?: 0) +
             (dependentFieldNames.asKnown().getOrNull()?.size ?: 0)
 
+    /** The type of dependency, with the default value being CONDITIONAL_SINGLE_FIELD. */
     class DependencyType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

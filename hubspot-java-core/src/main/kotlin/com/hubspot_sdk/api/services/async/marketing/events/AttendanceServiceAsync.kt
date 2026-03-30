@@ -28,6 +28,17 @@ interface AttendanceServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): AttendanceServiceAsync
 
+    /**
+     * Records the participation of multiple HubSpot contacts in a Marketing Event using their
+     * HubSpot contact IDs.
+     *
+     * Additional Functionality:
+     * - Adds a timeline event to the contacts.
+     *
+     * Allowed Properties: For the state "attend":
+     * - joinedAt
+     * - leftAt
+     */
     fun createByEventIdAndContactId(
         subscriberState: String,
         params: AttendanceCreateByEventIdAndContactIdParams,
@@ -57,6 +68,21 @@ interface AttendanceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSubscriberVidResponse>
 
+    /**
+     * Records the participation of multiple HubSpot contacts in a Marketing Event using their email
+     * addresses.
+     *
+     * If a contact does not exist, it will be automatically created. The contactProperties field is
+     * used exclusively for creating new contacts and will not update properties of existing
+     * contacts.
+     *
+     * Additional Functionality:
+     * - Adds a timeline event to the contacts.
+     *
+     * Allowed Properties: For the state "attend":
+     * - joinedAt
+     * - leftAt
+     */
     fun createByEventIdAndEmail(
         subscriberState: String,
         params: AttendanceCreateByEventIdAndEmailParams,
@@ -86,6 +112,17 @@ interface AttendanceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSubscriberEmailResponse>
 
+    /**
+     * Records the participation of multiple HubSpot contacts in a Marketing Event using their
+     * HubSpot contact IDs.
+     *
+     * Additional Functionality:
+     * - Adds a timeline event to the contacts.
+     *
+     * Allowed Properties: For the state "attend":
+     * - joinedAt
+     * - leftAt
+     */
     fun createByExternalEventIdAndContactId(
         subscriberState: String,
         params: AttendanceCreateByExternalEventIdAndContactIdParams,
@@ -115,6 +152,21 @@ interface AttendanceServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseSubscriberVidResponse>
 
+    /**
+     * Records the participation of multiple HubSpot contacts in a Marketing Event using their email
+     * addresses.
+     *
+     * If a contact does not exist, it will be automatically created. The contactProperties field is
+     * used exclusively for creating new contacts and will not update properties of existing
+     * contacts.
+     *
+     * Additional Functionality:
+     * - Adds a timeline event to the contacts.
+     *
+     * Allowed Properties: For the state "attend":
+     * - joinedAt
+     * - leftAt
+     */
     fun createByExternalEventIdAndEmail(
         subscriberState: String,
         params: AttendanceCreateByExternalEventIdAndEmailParams,

@@ -39,24 +39,32 @@ private constructor(
     ) : this(label, value, description, displayOrder, mutableMapOf())
 
     /**
+     * A user-friendly label that identifies the option.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
 
     /**
+     * The actual value of the option.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun value(): String = value.getRequired("value")
 
     /**
+     * A description of the option.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun description(): Optional<String> = description.getOptional("description")
 
     /**
+     * The position of the option relative to others in the list.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -134,6 +142,7 @@ private constructor(
             additionalProperties = publicOption.additionalProperties.toMutableMap()
         }
 
+        /** A user-friendly label that identifies the option. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -144,6 +153,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        /** The actual value of the option. */
         fun value(value: String) = value(JsonField.of(value))
 
         /**
@@ -154,6 +164,7 @@ private constructor(
          */
         fun value(value: JsonField<String>) = apply { this.value = value }
 
+        /** A description of the option. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**
@@ -165,6 +176,7 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
+        /** The position of the option relative to others in the list. */
         fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
 
         /**

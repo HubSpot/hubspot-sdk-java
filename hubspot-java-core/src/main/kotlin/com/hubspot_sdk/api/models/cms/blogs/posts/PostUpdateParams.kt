@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Partially updates a single blog post by ID. You only need to specify the values that you want to
+ * update.
+ */
 class PostUpdateParams
 private constructor(
     private val objectId: String?,

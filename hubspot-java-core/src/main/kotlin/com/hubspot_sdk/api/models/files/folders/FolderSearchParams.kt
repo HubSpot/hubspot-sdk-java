@@ -37,42 +37,71 @@ private constructor(
 ) : Params {
 
     /**
-     * The paging cursor token of the last successfully read resource will be returned as the
-     * `paging.next.after` JSON property of a paged response containing more results.
+     * Offset search results by this value. The default offset is 0 and the maximum offset of items
+     * for a given search is 10,000. Narrow your search down if you are reaching this limit.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
+    /** Search folders updated before this timestamp. Time must be epoch time in milliseconds. */
     fun before(): Optional<String> = Optional.ofNullable(before)
 
+    /** Search folders by exact time of creation. Time must be epoch time in milliseconds. */
     fun createdAt(): Optional<OffsetDateTime> = Optional.ofNullable(createdAt)
 
+    /**
+     * Search folders by greater than or equal to time of creation. Can be used with createdAtLte to
+     * create a range.
+     */
     fun createdAtGte(): Optional<OffsetDateTime> = Optional.ofNullable(createdAtGte)
 
+    /**
+     * Search folders by less than or equal to time of creation. Can be used with createdAtGte to
+     * create a range.
+     */
     fun createdAtLte(): Optional<OffsetDateTime> = Optional.ofNullable(createdAtLte)
 
+    /** Search folders by greater than or equal to ID. Can be used with idLte to create a range. */
     fun idGte(): Optional<Long> = Optional.ofNullable(idGte)
 
+    /** Search folders by less than or equal to ID. Can be used with idGte to create a range. */
     fun idLte(): Optional<Long> = Optional.ofNullable(idLte)
 
+    /** Search folders by multiple IDs. Comma-separated list of folder IDs. */
     fun ids(): Optional<List<Long>> = Optional.ofNullable(ids)
 
-    /** The maximum number of results to display per page. */
+    /** Number of items to return. Default limit is 10, maximum limit is 100. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
+    /** Search for folders containing the specified name. */
     fun name(): Optional<String> = Optional.ofNullable(name)
 
     fun parentFolderIds(): Optional<List<Long>> = Optional.ofNullable(parentFolderIds)
 
+    /** Search folders by path. */
     fun path(): Optional<String> = Optional.ofNullable(path)
 
+    /** Properties that should be included in the returned folders. */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
+    /**
+     * Sort results by given property. For example -name sorts by name field descending, name sorts
+     * by name field ascending.
+     */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
+    /** Search folders by exact time of latest updated. Time must be epoch time in milliseconds. */
     fun updatedAt(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAt)
 
+    /**
+     * Search folders by greater than or equal to time of latest update. Can be used with
+     * updatedAtLte to create a range.
+     */
     fun updatedAtGte(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAtGte)
 
+    /**
+     * Search folders by less than or equal to time of latest update. Can be used with updatedAtGte
+     * to create a range.
+     */
     fun updatedAtLte(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAtLte)
 
     /** Additional headers to send with the request. */
@@ -138,36 +167,52 @@ private constructor(
         }
 
         /**
-         * The paging cursor token of the last successfully read resource will be returned as the
-         * `paging.next.after` JSON property of a paged response containing more results.
+         * Offset search results by this value. The default offset is 0 and the maximum offset of
+         * items for a given search is 10,000. Narrow your search down if you are reaching this
+         * limit.
          */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
+        /**
+         * Search folders updated before this timestamp. Time must be epoch time in milliseconds.
+         */
         fun before(before: String?) = apply { this.before = before }
 
         /** Alias for calling [Builder.before] with `before.orElse(null)`. */
         fun before(before: Optional<String>) = before(before.getOrNull())
 
+        /** Search folders by exact time of creation. Time must be epoch time in milliseconds. */
         fun createdAt(createdAt: OffsetDateTime?) = apply { this.createdAt = createdAt }
 
         /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<OffsetDateTime>) = createdAt(createdAt.getOrNull())
 
+        /**
+         * Search folders by greater than or equal to time of creation. Can be used with
+         * createdAtLte to create a range.
+         */
         fun createdAtGte(createdAtGte: OffsetDateTime?) = apply { this.createdAtGte = createdAtGte }
 
         /** Alias for calling [Builder.createdAtGte] with `createdAtGte.orElse(null)`. */
         fun createdAtGte(createdAtGte: Optional<OffsetDateTime>) =
             createdAtGte(createdAtGte.getOrNull())
 
+        /**
+         * Search folders by less than or equal to time of creation. Can be used with createdAtGte
+         * to create a range.
+         */
         fun createdAtLte(createdAtLte: OffsetDateTime?) = apply { this.createdAtLte = createdAtLte }
 
         /** Alias for calling [Builder.createdAtLte] with `createdAtLte.orElse(null)`. */
         fun createdAtLte(createdAtLte: Optional<OffsetDateTime>) =
             createdAtLte(createdAtLte.getOrNull())
 
+        /**
+         * Search folders by greater than or equal to ID. Can be used with idLte to create a range.
+         */
         fun idGte(idGte: Long?) = apply { this.idGte = idGte }
 
         /**
@@ -180,6 +225,7 @@ private constructor(
         /** Alias for calling [Builder.idGte] with `idGte.orElse(null)`. */
         fun idGte(idGte: Optional<Long>) = idGte(idGte.getOrNull())
 
+        /** Search folders by less than or equal to ID. Can be used with idGte to create a range. */
         fun idLte(idLte: Long?) = apply { this.idLte = idLte }
 
         /**
@@ -192,6 +238,7 @@ private constructor(
         /** Alias for calling [Builder.idLte] with `idLte.orElse(null)`. */
         fun idLte(idLte: Optional<Long>) = idLte(idLte.getOrNull())
 
+        /** Search folders by multiple IDs. Comma-separated list of folder IDs. */
         fun ids(ids: List<Long>?) = apply { this.ids = ids?.toMutableList() }
 
         /** Alias for calling [Builder.ids] with `ids.orElse(null)`. */
@@ -204,7 +251,7 @@ private constructor(
          */
         fun addId(id: Long) = apply { ids = (ids ?: mutableListOf()).apply { add(id) } }
 
-        /** The maximum number of results to display per page. */
+        /** Number of items to return. Default limit is 10, maximum limit is 100. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**
@@ -217,6 +264,7 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
+        /** Search for folders containing the specified name. */
         fun name(name: String?) = apply { this.name = name }
 
         /** Alias for calling [Builder.name] with `name.orElse(null)`. */
@@ -239,11 +287,13 @@ private constructor(
             parentFolderIds = (parentFolderIds ?: mutableListOf()).apply { add(parentFolderId) }
         }
 
+        /** Search folders by path. */
         fun path(path: String?) = apply { this.path = path }
 
         /** Alias for calling [Builder.path] with `path.orElse(null)`. */
         fun path(path: Optional<String>) = path(path.getOrNull())
 
+        /** Properties that should be included in the returned folders. */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -260,6 +310,10 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
+        /**
+         * Sort results by given property. For example -name sorts by name field descending, name
+         * sorts by name field ascending.
+         */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -274,17 +328,28 @@ private constructor(
             this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
         }
 
+        /**
+         * Search folders by exact time of latest updated. Time must be epoch time in milliseconds.
+         */
         fun updatedAt(updatedAt: OffsetDateTime?) = apply { this.updatedAt = updatedAt }
 
         /** Alias for calling [Builder.updatedAt] with `updatedAt.orElse(null)`. */
         fun updatedAt(updatedAt: Optional<OffsetDateTime>) = updatedAt(updatedAt.getOrNull())
 
+        /**
+         * Search folders by greater than or equal to time of latest update. Can be used with
+         * updatedAtLte to create a range.
+         */
         fun updatedAtGte(updatedAtGte: OffsetDateTime?) = apply { this.updatedAtGte = updatedAtGte }
 
         /** Alias for calling [Builder.updatedAtGte] with `updatedAtGte.orElse(null)`. */
         fun updatedAtGte(updatedAtGte: Optional<OffsetDateTime>) =
             updatedAtGte(updatedAtGte.getOrNull())
 
+        /**
+         * Search folders by less than or equal to time of latest update. Can be used with
+         * updatedAtGte to create a range.
+         */
         fun updatedAtLte(updatedAtLte: OffsetDateTime?) = apply { this.updatedAtLte = updatedAtLte }
 
         /** Alias for calling [Builder.updatedAtLte] with `updatedAtLte.orElse(null)`. */

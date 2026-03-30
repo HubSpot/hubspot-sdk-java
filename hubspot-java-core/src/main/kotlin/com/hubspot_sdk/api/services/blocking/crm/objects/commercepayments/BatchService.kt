@@ -36,10 +36,8 @@ interface BatchService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
     /**
-     * Create a batch of payments The `inputs` array can contain a `properties` object to define
-     * property values for the record, along with an `associations` array to define
-     * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
-     * with other CRM records.
+     * Create multiple commerce payment records in a single request, returning the details of each
+     * created payment, including their unique IDs.
      */
     fun create(params: BatchCreateParams): BatchResponseSimplePublicObject =
         create(params, RequestOptions.none())
@@ -73,9 +71,9 @@ interface BatchService {
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
     /**
-     * Update a batch of payments by ID (`objectId`) or unique property value (`idProperty`).
-     * Provided property values will be overwritten. Read-only and non-existent properties will
-     * result in an error. Properties values can be cleared by passing an empty string.
+     * Update multiple commerce payment records using their internal IDs or unique property values.
+     * This operation allows you to modify existing payment records in bulk by providing a list of
+     * records with their respective IDs and updated property values.
      */
     fun update(params: BatchUpdateParams): BatchResponseSimplePublicObject =
         update(params, RequestOptions.none())
@@ -104,7 +102,10 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /** Delete a batch of payments by ID. */
+    /**
+     * Archive a batch of commerce payments by their IDs. This operation moves the specified
+     * payments to the archive, making them inactive in the system.
+     */
     fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
@@ -126,7 +127,10 @@ interface BatchService {
     fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
         delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Retrieve a batch of payments by ID (`objectId`) or unique property value (`idProperty`). */
+    /**
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
+     */
     fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
         get(params, RequestOptions.none())
 
@@ -155,8 +159,9 @@ interface BatchService {
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Create and update a batch of payments by a unique property. Payments that don't exist will be
-     * created, while existing payments will be updated.
+     * Create or update records identified by a unique property value as specified by the
+     * `idProperty` query param. `idProperty` query param refers to a property whose values are
+     * unique for the object.
      */
     fun upsert(params: BatchUpsertParams): BatchResponseSimplePublicUpsertObject =
         upsert(params, RequestOptions.none())

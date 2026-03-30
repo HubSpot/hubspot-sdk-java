@@ -29,6 +29,7 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
+    /** Create multiple exchange rates in a single request. */
     fun create(params: BatchCreateParams): CompletableFuture<BatchResponseExchangeRate> =
         create(params, RequestOptions.none())
 
@@ -56,6 +57,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseExchangeRate> =
         create(batchInputExchangeRateCreateRequest, RequestOptions.none())
 
+    /** Update the conversion rates for multiple exchange rates in a batch operation. */
     fun update(params: BatchUpdateParams): CompletableFuture<BatchResponseExchangeRate> =
         update(params, RequestOptions.none())
 
@@ -83,6 +85,9 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseExchangeRate> =
         update(batchInputExchangeRateUpdateRequest, RequestOptions.none())
 
+    /**
+     * Retrieve the details of multiple exchange rates in a single request, specified by their IDs.
+     */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponseExchangeRate> =
         get(params, RequestOptions.none())
 

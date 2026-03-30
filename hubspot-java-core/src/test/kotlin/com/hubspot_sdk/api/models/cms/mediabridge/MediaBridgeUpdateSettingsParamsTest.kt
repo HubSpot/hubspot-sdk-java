@@ -10,7 +10,7 @@ internal class MediaBridgeUpdateSettingsParamsTest {
     @Test
     fun create() {
         MediaBridgeUpdateSettingsParams.builder()
-            .appId("appId")
+            .appId(0)
             .mediaBridgeProviderPartial(
                 MediaBridgeProviderPartial.builder()
                     .updatedAt(0L)
@@ -26,13 +26,13 @@ internal class MediaBridgeUpdateSettingsParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeUpdateSettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .mediaBridgeProviderPartial(
                     MediaBridgeProviderPartial.builder().updatedAt(0L).build()
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -41,7 +41,7 @@ internal class MediaBridgeUpdateSettingsParamsTest {
     fun body() {
         val params =
             MediaBridgeUpdateSettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .mediaBridgeProviderPartial(
                     MediaBridgeProviderPartial.builder()
                         .updatedAt(0L)
@@ -69,7 +69,7 @@ internal class MediaBridgeUpdateSettingsParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MediaBridgeUpdateSettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .mediaBridgeProviderPartial(
                     MediaBridgeProviderPartial.builder().updatedAt(0L).build()
                 )

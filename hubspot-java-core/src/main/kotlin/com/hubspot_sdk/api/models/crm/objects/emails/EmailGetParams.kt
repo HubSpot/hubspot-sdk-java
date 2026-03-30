@@ -11,7 +11,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve an email identified by `{emailId}`. `{emailId}` refers to the internal object ID by
+ * Read an Object identified by `{emailId}`. `{emailId}` refers to the internal object ID by
  * default, or optionally any unique property value as specified by the `idProperty` query param.
  * Control what is returned via the `properties` query param.
  */

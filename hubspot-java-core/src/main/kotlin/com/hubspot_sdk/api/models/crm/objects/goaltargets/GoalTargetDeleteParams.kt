@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a goal target by ID. */
+/** Delete a goal target by `{goalTargetId}` to the recycling bin. */
 class GoalTargetDeleteParams
 private constructor(
     private val goalTargetId: String?,

@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
 import java.util.Objects
 
+/** Create a batch of blog posts, specifying their content in the request body. */
 class BatchCreateParams
 private constructor(
     private val batchInputBlogPost: BatchInputBlogPost,

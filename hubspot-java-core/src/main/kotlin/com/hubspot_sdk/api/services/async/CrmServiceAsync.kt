@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.services.async.crm.AssociationsSchemaServiceAsync
 import com.hubspot_sdk.api.services.async.crm.DealSplitServiceAsync
 import com.hubspot_sdk.api.services.async.crm.ExportServiceAsync
 import com.hubspot_sdk.api.services.async.crm.ExtensionServiceAsync
+import com.hubspot_sdk.api.services.async.crm.FeatureFlagServiceAsync
 import com.hubspot_sdk.api.services.async.crm.ImportServiceAsync
 import com.hubspot_sdk.api.services.async.crm.LimitServiceAsync
 import com.hubspot_sdk.api.services.async.crm.ListServiceAsync
@@ -19,6 +20,7 @@ import com.hubspot_sdk.api.services.async.crm.OwnerServiceAsync
 import com.hubspot_sdk.api.services.async.crm.PipelineServiceAsync
 import com.hubspot_sdk.api.services.async.crm.PropertiesValidationServiceAsync
 import com.hubspot_sdk.api.services.async.crm.PropertyServiceAsync
+import com.hubspot_sdk.api.services.async.crm.TimelineServiceAsync
 import java.util.function.Consumer
 
 interface CrmServiceAsync {
@@ -47,6 +49,8 @@ interface CrmServiceAsync {
 
     fun extensions(): ExtensionServiceAsync
 
+    fun featureFlags(): FeatureFlagServiceAsync
+
     fun imports(): ImportServiceAsync
 
     fun limits(): LimitServiceAsync
@@ -66,6 +70,8 @@ interface CrmServiceAsync {
     fun properties(): PropertyServiceAsync
 
     fun propertiesValidations(): PropertiesValidationServiceAsync
+
+    fun timeline(): TimelineServiceAsync
 
     /** A view of [CrmServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -89,6 +95,8 @@ interface CrmServiceAsync {
 
         fun extensions(): ExtensionServiceAsync.WithRawResponse
 
+        fun featureFlags(): FeatureFlagServiceAsync.WithRawResponse
+
         fun imports(): ImportServiceAsync.WithRawResponse
 
         fun limits(): LimitServiceAsync.WithRawResponse
@@ -108,5 +116,7 @@ interface CrmServiceAsync {
         fun properties(): PropertyServiceAsync.WithRawResponse
 
         fun propertiesValidations(): PropertiesValidationServiceAsync.WithRawResponse
+
+        fun timeline(): TimelineServiceAsync.WithRawResponse
     }
 }

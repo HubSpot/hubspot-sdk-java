@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all meetings, using query parameters to specify the information that gets returned. */
+/** Read a page of meetings. Control what is returned via the `properties` query param. */
 class MeetingListParams
 private constructor(
     private val after: String?,

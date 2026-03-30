@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Restores a previous revision of a marketing email. The current revision becomes old, and the
+ * restored revision is given a new version number.
+ */
 class EmailRestoreRevisionParams
 private constructor(
     private val emailId: String,

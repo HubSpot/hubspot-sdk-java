@@ -156,7 +156,7 @@ private constructor(
     fun authorFullName(): Optional<String> = authorFullName.getOptional("authorFullName")
 
     /**
-     * For knowledge articles, the category of the article.
+     * The error category
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -560,7 +560,7 @@ private constructor(
             this.authorFullName = authorFullName
         }
 
-        /** For knowledge articles, the category of the article. */
+        /** The error category */
         fun category(category: String) = category(JsonField.of(category))
 
         /**

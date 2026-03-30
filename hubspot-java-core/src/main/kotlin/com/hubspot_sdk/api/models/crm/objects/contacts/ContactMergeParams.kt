@@ -10,10 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.PublicMergeInput
 import java.util.Objects
 
-/**
- * Merge two contact records. Learn more about
- * [merging records](https://knowledge.hubspot.com/records/merge-records).
- */
+/** Merge two contacts */
 class ContactMergeParams
 private constructor(
     private val publicMergeInput: PublicMergeInput,

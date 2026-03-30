@@ -58,8 +58,8 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * A map of asset types to their corresponding collection of campaign assets, represented by
-     * CollectionResponsePublicCampaignAsset objects.
+     * Contains the assets associated with the campaign, each represented as a collection of
+     * campaign assets.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -76,7 +76,7 @@ private constructor(
     fun businessUnits(): List<PublicBusinessUnit> = businessUnits.getRequired("businessUnits")
 
     /**
-     * The date and time when the campaign was created, in ISO 8601 format.
+     * The date and time when the campaign was created, formatted as a date-time string.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -84,7 +84,7 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
 
     /**
-     * A map of custom property names to their values for the campaign.
+     * A map of key-value pairs representing the properties of the campaign.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -92,7 +92,7 @@ private constructor(
     fun properties(): Properties = properties.getRequired("properties")
 
     /**
-     * The date and time when the campaign was last updated, in ISO 8601 format.
+     * The date and time when the campaign was last updated, formatted as a date-time string.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -213,8 +213,8 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * A map of asset types to their corresponding collection of campaign assets, represented by
-         * CollectionResponsePublicCampaignAsset objects.
+         * Contains the assets associated with the campaign, each represented as a collection of
+         * campaign assets.
          */
         fun assets(assets: Assets) = assets(JsonField.of(assets))
 
@@ -256,7 +256,7 @@ private constructor(
                 }
         }
 
-        /** The date and time when the campaign was created, in ISO 8601 format. */
+        /** The date and time when the campaign was created, formatted as a date-time string. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -268,7 +268,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** A map of custom property names to their values for the campaign. */
+        /** A map of key-value pairs representing the properties of the campaign. */
         fun properties(properties: Properties) = properties(JsonField.of(properties))
 
         /**
@@ -280,7 +280,9 @@ private constructor(
          */
         fun properties(properties: JsonField<Properties>) = apply { this.properties = properties }
 
-        /** The date and time when the campaign was last updated, in ISO 8601 format. */
+        /**
+         * The date and time when the campaign was last updated, formatted as a date-time string.
+         */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -379,8 +381,8 @@ private constructor(
             (if (updatedAt.asKnown().isPresent) 1 else 0)
 
     /**
-     * A map of asset types to their corresponding collection of campaign assets, represented by
-     * CollectionResponsePublicCampaignAsset objects.
+     * Contains the assets associated with the campaign, each represented as a collection of
+     * campaign assets.
      */
     class Assets
     @JsonCreator
@@ -481,7 +483,7 @@ private constructor(
         override fun toString() = "Assets{additionalProperties=$additionalProperties}"
     }
 
-    /** A map of custom property names to their values for the campaign. */
+    /** A map of key-value pairs representing the properties of the campaign. */
     class Properties
     @JsonCreator
     private constructor(

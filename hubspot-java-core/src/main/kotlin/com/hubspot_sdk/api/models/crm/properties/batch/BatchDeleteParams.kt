@@ -13,8 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Delete multiple properties in a single request. This method will return a 204 No Content response
- * on success regardless of the initial state of the property (e.g. active, already archived,
+ * Archive a provided list of properties. This method will return a 204 No Content response on
+ * success regardless of the initial state of the property (e.g. active, already archived,
  * non-existent).
  */
 class BatchDeleteParams

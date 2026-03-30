@@ -12,20 +12,21 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.BatchInputString
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.tags.BatchInputTag
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.Tag
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListAuthorsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListAuthorsCursorParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPostsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPostsCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -169,38 +170,6 @@ internal class TagServiceAsyncTest {
     }
 
     @Test
-    fun createBatch(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val tagServiceAsync = client.cms().blogs().tags()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            tagServiceAsync.createBatch(
-                BatchInputTag.builder()
-                    .addInput(
-                        Tag.builder()
-                            .id("id")
-                            .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .language(Tag.Language.AA)
-                            .name("name")
-                            .slug("slug")
-                            .translatedFromId(0L)
-                            .updated(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
     fun createLangVariation(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
@@ -222,18 +191,6 @@ internal class TagServiceAsyncTest {
 
         val response = responseFuture.get()
         assertThat(response.body()).hasContent("abc")
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun deleteBatch() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val tagServiceAsync = client.cms().blogs().tags()
-
-        val future =
-            tagServiceAsync.deleteBatch(BatchInputString.builder().addInput("string").build())
-
-        val response = future.get()
     }
 
     @Test
@@ -279,20 +236,184 @@ internal class TagServiceAsyncTest {
     }
 
     @Test
-    fun getBatch(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun listAuthorsCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("pat-na1-xxxxxxxx-xxxx")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            tagServiceAsync.getBatch(
-                TagGetBatchParams.builder()
+            tagServiceAsync.listAuthorsCursor(
+                TagListAuthorsCursorParams.builder()
+                    .after("after")
                     .archived(true)
-                    .batchInputString(BatchInputString.builder().addInput("string").build())
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listAuthorsCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val tagServiceAsync = client.cms().blogs().tags()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            tagServiceAsync.listAuthorsCursorByQuery(
+                TagListAuthorsCursorByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val tagServiceAsync = client.cms().blogs().tags()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            tagServiceAsync.listCursor(
+                TagListCursorParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val tagServiceAsync = client.cms().blogs().tags()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            tagServiceAsync.listCursorByQuery(
+                TagListCursorByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listPostsCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val tagServiceAsync = client.cms().blogs().tags()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            tagServiceAsync.listPostsCursor(
+                TagListPostsCursorParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun listPostsCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val tagServiceAsync = client.cms().blogs().tags()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            tagServiceAsync.listPostsCursorByQuery(
+                TagListPostsCursorByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
 
@@ -312,32 +433,6 @@ internal class TagServiceAsyncTest {
             )
 
         val response = future.get()
-    }
-
-    @Test
-    fun updateBatch(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val tagServiceAsync = client.cms().blogs().tags()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            tagServiceAsync.updateBatch(
-                TagUpdateBatchParams.builder()
-                    .archived(true)
-                    .batchInputJsonNode(
-                        BatchInputJsonNode.builder()
-                            .addInput(JsonValue.from(mapOf<String, Any>()))
-                            .build()
-                    )
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
     }
 
     @Test

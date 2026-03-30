@@ -10,11 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve details of a specific sequence in your HubSpot account using the sequence ID. This
- * endpoint requires the user ID to be specified and provides comprehensive information about the
- * sequence, including its steps and dependencies.
- */
+/** Retrieve details of a specific sequence by its ID. */
 class SequenceGetParams
 private constructor(
     private val sequenceId: String?,
@@ -25,10 +21,6 @@ private constructor(
 
     fun sequenceId(): Optional<String> = Optional.ofNullable(sequenceId)
 
-    /**
-     * The unique identifier of the user requesting the sequence details. This parameter is
-     * required.
-     */
     fun userId(): String = userId
 
     /** Additional headers to send with the request. */
@@ -73,10 +65,6 @@ private constructor(
         /** Alias for calling [Builder.sequenceId] with `sequenceId.orElse(null)`. */
         fun sequenceId(sequenceId: Optional<String>) = sequenceId(sequenceId.getOrNull())
 
-        /**
-         * The unique identifier of the user requesting the sequence details. This parameter is
-         * required.
-         */
         fun userId(userId: String) = apply { this.userId = userId }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {

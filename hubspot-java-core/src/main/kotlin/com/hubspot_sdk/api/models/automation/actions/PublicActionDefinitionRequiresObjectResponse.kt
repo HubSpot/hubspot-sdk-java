@@ -30,6 +30,8 @@ private constructor(
     ) : this(requiresObject, mutableMapOf())
 
     /**
+     * Indicates whether a custom action definition requires an object.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -86,6 +88,7 @@ private constructor(
                 publicActionDefinitionRequiresObjectResponse.additionalProperties.toMutableMap()
         }
 
+        /** Indicates whether a custom action definition requires an object. */
         fun requiresObject(requiresObject: Boolean) = requiresObject(JsonField.of(requiresObject))
 
         /**

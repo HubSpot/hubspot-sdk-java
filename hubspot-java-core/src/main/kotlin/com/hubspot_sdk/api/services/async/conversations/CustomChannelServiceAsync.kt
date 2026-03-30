@@ -66,6 +66,10 @@ interface CustomChannelServiceAsync {
     ): CompletableFuture<PublicChannelIntegrationChannel> =
         create(publicChannelIntegrationChannelCreate, RequestOptions.none())
 
+    /**
+     * Update the capabilities for an existing. You can also use it to update the channel's
+     * webhookUri and its channelAccountConnectionRedirectUrl.
+     */
     fun update(
         channelId: Int,
         params: CustomChannelUpdateParams,
@@ -108,6 +112,7 @@ interface CustomChannelServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<CustomChannelListPageAsync> =
         list(CustomChannelListParams.none(), requestOptions)
 
+    /** Archive an existing registered custom channel */
     fun delete(channelId: Int): CompletableFuture<Void?> =
         delete(channelId, CustomChannelDeleteParams.none())
 
@@ -139,6 +144,11 @@ interface CustomChannelServiceAsync {
     fun delete(channelId: Int, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(channelId, CustomChannelDeleteParams.none(), requestOptions)
 
+    /**
+     * Retrieve the details for a specific channel account. This contains all the metadata about
+     * your channel account, including its channel, associated inbox id, and delivery identifier
+     * information.
+     */
     fun get(
         channelAccountId: Long,
         params: CustomChannelGetParams,

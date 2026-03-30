@@ -5,11 +5,62 @@ package com.hubspot_sdk.api.services.blocking.files
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.files.FolderUpdateInput
 import com.hubspot_sdk.api.models.files.FolderUpdateInputWithId
+import com.hubspot_sdk.api.models.files.folders.FolderGetByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByPathParams
 import com.hubspot_sdk.api.models.files.folders.FolderUpdateByIdParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
 internal class FolderServiceTest {
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deleteById() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderService = client.files().folders()
+
+        folderService.deleteById("321669910225")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deleteByPath() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderService = client.files().folders()
+
+        folderService.deleteByPath("folderPath")
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getById() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderService = client.files().folders()
+
+        val folder =
+            folderService.getById(
+                FolderGetByIdParams.builder().folderId("321669910225").addProperty("string").build()
+            )
+
+        folder.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getByPath() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val folderService = client.files().folders()
+
+        val folder =
+            folderService.getByPath(
+                FolderGetByPathParams.builder()
+                    .folderPath("folderPath")
+                    .addProperty("string")
+                    .build()
+            )
+
+        folder.validate()
+    }
 
     @Disabled("Mock server tests are disabled")
     @Test

@@ -9,11 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Fetch revenue attribution report data for a specific campaign. This endpoint allows you to
- * retrieve detailed revenue attribution information, which can be filtered by attribution model and
- * date range. It is useful for analyzing the financial impact of marketing campaigns.
- */
+/** Fetch revenue attribution report data for a specified campaign */
 class MetricGetRevenueAttributionParams
 private constructor(
     private val campaignGuid: String?,
@@ -26,13 +22,12 @@ private constructor(
 
     fun campaignGuid(): Optional<String> = Optional.ofNullable(campaignGuid)
 
-    /** The model used to attribute revenue to the campaign. */
     fun attributionModel(): Optional<String> = Optional.ofNullable(attributionModel)
 
-    /** End date to fetch attribution data, YYYY-MM-DD. */
+    /** End date to fetch attribution data, YYYY-MM-DD */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
-    /** Start date to fetch attribution data, YYYY-MM-DD. */
+    /** Start date to fetch attribution data, YYYY-MM-DD */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -81,7 +76,6 @@ private constructor(
         /** Alias for calling [Builder.campaignGuid] with `campaignGuid.orElse(null)`. */
         fun campaignGuid(campaignGuid: Optional<String>) = campaignGuid(campaignGuid.getOrNull())
 
-        /** The model used to attribute revenue to the campaign. */
         fun attributionModel(attributionModel: String?) = apply {
             this.attributionModel = attributionModel
         }
@@ -90,13 +84,13 @@ private constructor(
         fun attributionModel(attributionModel: Optional<String>) =
             attributionModel(attributionModel.getOrNull())
 
-        /** End date to fetch attribution data, YYYY-MM-DD. */
+        /** End date to fetch attribution data, YYYY-MM-DD */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
         fun endDate(endDate: Optional<String>) = endDate(endDate.getOrNull())
 
-        /** Start date to fetch attribution data, YYYY-MM-DD. */
+        /** Start date to fetch attribution data, YYYY-MM-DD */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

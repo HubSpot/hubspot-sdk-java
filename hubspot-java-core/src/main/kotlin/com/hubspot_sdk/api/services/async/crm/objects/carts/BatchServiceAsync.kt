@@ -67,11 +67,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
-    /**
-     * Update a batch of carts by ID (`objectId`) or unique property value (`idProperty`). Provided
-     * property values will be overwritten. Read-only and non-existent properties will result in an
-     * error. Properties values can be cleared by passing an empty string.
-     */
+    /** Update a batch of carts using their internal IDs or unique property values. */
     fun update(params: BatchUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         update(params, RequestOptions.none())
 
@@ -99,11 +95,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /**
-     * Delete a batch of carts by ID. Deleted carts can be restored within 90 days of deletion.
-     * Learn more about
-     * [restoring records](https://knowledge.hubspot.com/records/restore-deleted-records).
-     */
+    /** Archive a batch of carts identified by their IDs. */
     fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
@@ -130,7 +122,10 @@ interface BatchServiceAsync {
         batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
     ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Retrieve a batch of carts by ID (`objectId`) or unique property value (`idProperty`). */
+    /**
+     * Retrieve carts by ID, or include the `idProperty` parameter to retrieve carts by a custom
+     * unique value property.
+     */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
         get(params, RequestOptions.none())
 
@@ -159,8 +154,8 @@ interface BatchServiceAsync {
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Batch create and update a batch of carts by a unique property. Carts that don't exist will be
-     * created, while existing carts will be updated.
+     * Create or update records identified by a unique property value as specified by the
+     * `idProperty` query parameter.
      */
     fun upsert(
         params: BatchUpsertParams

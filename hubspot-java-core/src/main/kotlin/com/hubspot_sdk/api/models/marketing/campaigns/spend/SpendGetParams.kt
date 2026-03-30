@@ -10,11 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve details of a specific campaign spend item using its spendId. This endpoint allows you to
- * access information about the spend associated with a particular campaign, identified by the
- * campaignGuid.
- */
+/** Read a campaign spend item by its spendId */
 class SpendGetParams
 private constructor(
     private val campaignGuid: String,

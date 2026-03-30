@@ -13,7 +13,7 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the details for an existing property by name. */
 class MediaBridgeGetPropertyParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val objectType: String,
     private val propertyName: String?,
     private val archived: Boolean?,
@@ -22,7 +22,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun objectType(): String = objectType
 
@@ -58,7 +58,7 @@ private constructor(
     /** A builder for [MediaBridgeGetPropertyParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var objectType: String? = null
         private var propertyName: String? = null
         private var archived: Boolean? = null
@@ -77,7 +77,7 @@ private constructor(
             additionalQueryParams = mediaBridgeGetPropertyParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun objectType(objectType: String) = apply { this.objectType = objectType }
 
@@ -229,7 +229,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> objectType
             2 -> propertyName ?: ""
             else -> ""

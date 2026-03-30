@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Returns overall limit and per object usage for calculated properties */
 class LimitGetCalculatedPropertyLimitsParams
 private constructor(
     private val additionalHeaders: Headers,

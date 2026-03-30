@@ -6,9 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.discounts.DiscountCreateParams
@@ -38,7 +38,10 @@ interface DiscountServiceAsync {
 
     fun batch(): BatchServiceAsync
 
-    /** Create a discount */
+    /**
+     * Create a discount with the given properties and return a copy of the object, including the
+     * ID. Documentation and examples for creating standard discounts is provided.
+     */
     fun create(params: DiscountCreateParams): CompletableFuture<SimplePublicObject> =
         create(params, RequestOptions.none())
 
@@ -97,9 +100,7 @@ interface DiscountServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /**
-     * Retrieve all discounts, using query parameters to specify the information that gets returned.
-     */
+    /** List */
     fun list(): CompletableFuture<DiscountListPageAsync> = list(DiscountListParams.none())
 
     /** @see list */
@@ -117,7 +118,7 @@ interface DiscountServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<DiscountListPageAsync> =
         list(DiscountListParams.none(), requestOptions)
 
-    /** Delete a discount. */
+    /** Archive */
     fun delete(discountId: String): CompletableFuture<Void?> =
         delete(discountId, DiscountDeleteParams.none())
 
@@ -150,8 +151,9 @@ interface DiscountServiceAsync {
         delete(discountId, DiscountDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve a discount by its ID (`objectId`) or by a unique property (`idProperty`). You can
-     * specify what is returned using the `properties` query parameter.
+     * Read an Object identified by `{discountId}`. `{discountId}` refers to the internal object ID
+     * by default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
     fun get(discountId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(discountId, DiscountGetParams.none())
@@ -188,7 +190,6 @@ interface DiscountServiceAsync {
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(discountId, DiscountGetParams.none(), requestOptions)
 
-    /** Search for a discount */
     fun search(
         params: DiscountSearchParams
     ): CompletableFuture<CollectionResponseWithTotalSimplePublicObject> =

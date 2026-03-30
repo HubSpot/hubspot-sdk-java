@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Create or update the current settings for the application. */
 class SettingCreateOrUpdateParams
 private constructor(
     private val appId: Int?,

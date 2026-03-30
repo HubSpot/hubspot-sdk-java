@@ -7,6 +7,10 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Get the details for the company currency. The company currency is used in deal totals, reports,
+ * and the default currency for new deals.
+ */
 class CurrencyGetCompanyCurrencyParams
 private constructor(
     private val additionalHeaders: Headers,

@@ -10,6 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * This endpoint lets you obtain the variation of an A/B marketing email. If the email is variation
+ * A (master) it will return variation B (variant) and vice versa.
+ */
 class EmailGetAbTestVariationParams
 private constructor(
     private val emailId: String?,

@@ -7,8 +7,10 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
+import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
 import java.util.Objects
 
+/** Schedule a blog post to be published at a specified time. */
 class PostScheduleParams
 private constructor(
     private val contentScheduleRequestVNext: ContentScheduleRequestVNext,

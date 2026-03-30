@@ -10,6 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.settings.currencies.CurrencyCreateRequest
 import java.util.Objects
 
+/**
+ * Create a new currency with central exchange rates in the portal. Unsupported currencies cannot be
+ * added here.
+ */
 class CentralFxRateCreateCurrencyParams
 private constructor(
     private val currencyCreateRequest: CurrencyCreateRequest,

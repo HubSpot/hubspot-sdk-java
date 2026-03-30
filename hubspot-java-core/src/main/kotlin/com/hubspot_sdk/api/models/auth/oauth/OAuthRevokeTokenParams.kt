@@ -18,6 +18,7 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
+/** Deletes/Revokes provided Refresh Token */
 class OAuthRevokeTokenParams
 private constructor(
     private val body: Body,

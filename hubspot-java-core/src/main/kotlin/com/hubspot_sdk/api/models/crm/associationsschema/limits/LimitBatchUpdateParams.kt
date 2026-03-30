@@ -12,10 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Update multiple association configurations between two specified CRM object types in a single
- * batch operation. This defines details about cardinality limits (i.e., one-to-many vs one-to-one).
- */
+/** Batch update association limits that have been configured between two object types. */
 class LimitBatchUpdateParams
 private constructor(
     private val fromObjectType: String,

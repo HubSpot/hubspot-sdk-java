@@ -9,11 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve detailed information about a specific URL redirect in your HubSpot account using its
- * unique identifier. This endpoint is useful for obtaining the configuration and properties of a
- * URL redirect, such as its destination, route prefix, and other settings.
- */
+/** Returns the details for a single existing URL redirect by ID. */
 class UrlRedirectGetParams
 private constructor(
     private val urlRedirectId: String?,

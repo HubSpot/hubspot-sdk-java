@@ -69,7 +69,7 @@ private constructor(
     )
 
     /**
-     * The date and time when the batch operation was completed, in ISO 8601 format.
+     * The timestamp when the batch request processing was completed.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -86,7 +86,7 @@ private constructor(
     fun results(): List<PublicCampaignWithAssets> = results.getRequired("results")
 
     /**
-     * The date and time when the batch operation started, in ISO 8601 format.
+     * The timestamp when the processing of the batch request began.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -94,8 +94,8 @@ private constructor(
     fun startedAt(): OffsetDateTime = startedAt.getRequired("startedAt")
 
     /**
-     * The current status of the batch operation. Valid values include 'PENDING', 'PROCESSING',
-     * 'CANCELED', and 'COMPLETE'.
+     * The current processing status of the batch operation, with possible values: CANCELED,
+     * COMPLETE, PENDING, PROCESSING.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -112,8 +112,7 @@ private constructor(
     fun errors(): Optional<List<StandardError>> = errors.getOptional("errors")
 
     /**
-     * A map of link names to associated URIs that provide additional information about the batch
-     * operation.
+     * A collection of URLs linking to related resources or documentation.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -129,7 +128,7 @@ private constructor(
     fun numErrors(): Optional<Int> = numErrors.getOptional("numErrors")
 
     /**
-     * The date and time when the batch operation was requested, in ISO 8601 format.
+     * The timestamp when the batch request was initially made.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -258,7 +257,7 @@ private constructor(
                 batchResponsePublicCampaignWithAssets.additionalProperties.toMutableMap()
         }
 
-        /** The date and time when the batch operation was completed, in ISO 8601 format. */
+        /** The timestamp when the batch request processing was completed. */
         fun completedAt(completedAt: OffsetDateTime) = completedAt(JsonField.of(completedAt))
 
         /**
@@ -301,7 +300,7 @@ private constructor(
                 }
         }
 
-        /** The date and time when the batch operation started, in ISO 8601 format. */
+        /** The timestamp when the processing of the batch request began. */
         fun startedAt(startedAt: OffsetDateTime) = startedAt(JsonField.of(startedAt))
 
         /**
@@ -314,8 +313,8 @@ private constructor(
         fun startedAt(startedAt: JsonField<OffsetDateTime>) = apply { this.startedAt = startedAt }
 
         /**
-         * The current status of the batch operation. Valid values include 'PENDING', 'PROCESSING',
-         * 'CANCELED', and 'COMPLETE'.
+         * The current processing status of the batch operation, with possible values: CANCELED,
+         * COMPLETE, PENDING, PROCESSING.
          */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -356,10 +355,7 @@ private constructor(
                 }
         }
 
-        /**
-         * A map of link names to associated URIs that provide additional information about the
-         * batch operation.
-         */
+        /** A collection of URLs linking to related resources or documentation. */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -381,7 +377,7 @@ private constructor(
          */
         fun numErrors(numErrors: JsonField<Int>) = apply { this.numErrors = numErrors }
 
-        /** The date and time when the batch operation was requested, in ISO 8601 format. */
+        /** The timestamp when the batch request was initially made. */
         fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
         /**
@@ -486,8 +482,8 @@ private constructor(
             (if (requestedAt.asKnown().isPresent) 1 else 0)
 
     /**
-     * The current status of the batch operation. Valid values include 'PENDING', 'PROCESSING',
-     * 'CANCELED', and 'COMPLETE'.
+     * The current processing status of the batch operation, with possible values: CANCELED,
+     * COMPLETE, PENDING, PROCESSING.
      */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -626,10 +622,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * A map of link names to associated URIs that provide additional information about the batch
-     * operation.
-     */
+    /** A collection of URLs linking to related resources or documentation. */
     class Links
     @JsonCreator
     private constructor(

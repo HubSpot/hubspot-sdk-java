@@ -9,29 +9,22 @@ import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.PropertyValue
 import com.hubspot_sdk.api.models.marketing.events.BatchInputMarketingEventCreateRequestParams
-import com.hubspot_sdk.api.models.marketing.events.BatchInputMarketingEventEmailSubscriber
 import com.hubspot_sdk.api.models.marketing.events.BatchInputMarketingEventExternalUniqueIdentifier
 import com.hubspot_sdk.api.models.marketing.events.BatchInputMarketingEventPublicObjectIdDeleteRequest
 import com.hubspot_sdk.api.models.marketing.events.BatchInputMarketingEventPublicUpdateRequestFullV2
-import com.hubspot_sdk.api.models.marketing.events.BatchInputMarketingEventSubscriber
 import com.hubspot_sdk.api.models.marketing.events.EventDeleteByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventGetByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventSearchByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpsertByExternalEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByEmailParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByIdParams
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventCreateRequestParams
-import com.hubspot_sdk.api.models.marketing.events.MarketingEventEmailSubscriber
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventExternalUniqueIdentifier
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventPublicObjectIdDeleteRequest
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventPublicUpdateRequestFullV2
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventPublicUpdateRequestV2
-import com.hubspot_sdk.api.models.marketing.events.MarketingEventSubscriber
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventUpdateRequestParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -144,6 +137,18 @@ internal class EventServiceAsyncTest {
         val marketingEventPublicDefaultResponseV2 =
             marketingEventPublicDefaultResponseV2Future.get()
         marketingEventPublicDefaultResponseV2.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun list() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val eventServiceAsync = client.marketing().events()
+
+        val pageFuture = eventServiceAsync.list()
+
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -501,86 +506,5 @@ internal class EventServiceAsyncTest {
 
         val marketingEventPublicDefaultResponse = marketingEventPublicDefaultResponseFuture.get()
         marketingEventPublicDefaultResponse.validate()
-    }
-
-    @Test
-    fun upsertSubscriberStateByEmail(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val eventServiceAsync = client.marketing().events()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            eventServiceAsync.upsertSubscriberStateByEmail(
-                EventUpsertSubscriberStateByEmailParams.builder()
-                    .externalEventId("externalEventId")
-                    .subscriberState("subscriberState")
-                    .externalAccountId("externalAccountId")
-                    .batchInputMarketingEventEmailSubscriber(
-                        BatchInputMarketingEventEmailSubscriber.builder()
-                            .addInput(
-                                MarketingEventEmailSubscriber.builder()
-                                    .contactProperties(
-                                        MarketingEventEmailSubscriber.ContactProperties.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                                            .build()
-                                    )
-                                    .email("email")
-                                    .interactionDateTime(0L)
-                                    .properties(
-                                        MarketingEventEmailSubscriber.Properties.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
-    fun upsertSubscriberStateById(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val eventServiceAsync = client.marketing().events()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            eventServiceAsync.upsertSubscriberStateById(
-                EventUpsertSubscriberStateByIdParams.builder()
-                    .externalEventId("externalEventId")
-                    .subscriberState("subscriberState")
-                    .externalAccountId("externalAccountId")
-                    .batchInputMarketingEventSubscriber(
-                        BatchInputMarketingEventSubscriber.builder()
-                            .addInput(
-                                MarketingEventSubscriber.builder()
-                                    .interactionDateTime(0L)
-                                    .properties(
-                                        MarketingEventSubscriber.Properties.builder()
-                                            .putAdditionalProperty("foo", JsonValue.from("string"))
-                                            .build()
-                                    )
-                                    .vid(0)
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
     }
 }

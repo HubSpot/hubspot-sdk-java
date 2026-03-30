@@ -11,6 +11,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Create or update the draft version of a marketing email. If no draft exists, the system creates a
+ * draft from the current “live” email then applies the request body to that draft. The draft
+ * version only lives on the buffer—the email is not cloned.
+ */
 class EmailUpdateDraftParams
 private constructor(
     private val emailId: String?,

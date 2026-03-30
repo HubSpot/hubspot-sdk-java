@@ -43,6 +43,7 @@ interface OwnerServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<OwnerListPageAsync> =
         list(OwnerListParams.none(), requestOptions)
 
+    /** Retrieve details of a specific owner using either their 'id' or 'userId'. */
     fun get(ownerId: Int): CompletableFuture<PublicOwner> = get(ownerId, OwnerGetParams.none())
 
     /** @see get */

@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.marketing.emails
 
+import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

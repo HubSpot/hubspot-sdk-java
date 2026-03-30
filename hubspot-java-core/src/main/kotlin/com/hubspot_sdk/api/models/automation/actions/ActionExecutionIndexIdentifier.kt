@@ -34,12 +34,16 @@ private constructor(
     ) : this(actionExecutionIndex, enrollmentId, mutableMapOf())
 
     /**
+     * The index number representing the execution order of the action.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionExecutionIndex(): Int = actionExecutionIndex.getRequired("actionExecutionIndex")
 
     /**
+     * The ID associated with the enrollment process.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -104,6 +108,7 @@ private constructor(
                 actionExecutionIndexIdentifier.additionalProperties.toMutableMap()
         }
 
+        /** The index number representing the execution order of the action. */
         fun actionExecutionIndex(actionExecutionIndex: Int) =
             actionExecutionIndex(JsonField.of(actionExecutionIndex))
 
@@ -118,6 +123,7 @@ private constructor(
             this.actionExecutionIndex = actionExecutionIndex
         }
 
+        /** The ID associated with the enrollment process. */
         fun enrollmentId(enrollmentId: Int) = enrollmentId(JsonField.of(enrollmentId))
 
         /**

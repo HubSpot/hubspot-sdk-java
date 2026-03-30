@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Batch create the default (most generic) association type between two object types. */
+/** Create the default (most generic) association type between two object types */
 class BatchCreateDefaultParams
 private constructor(
     private val fromObjectType: String,

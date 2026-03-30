@@ -42,6 +42,7 @@ interface OwnerService {
     fun list(requestOptions: RequestOptions): OwnerListPage =
         list(OwnerListParams.none(), requestOptions)
 
+    /** Retrieve details of a specific owner using either their 'id' or 'userId'. */
     fun get(ownerId: Int): PublicOwner = get(ownerId, OwnerGetParams.none())
 
     /** @see get */

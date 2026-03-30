@@ -8,9 +8,6 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.BehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionEgg
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreatePropertyParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionDeleteParams
@@ -19,9 +16,10 @@ import com.hubspot_sdk.api.models.events.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListPageAsync
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionSendBatchParams
-import com.hubspot_sdk.api.models.events.definitions.DefinitionSendParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdatePropertyParams
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinitionEgg
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -39,6 +37,7 @@ interface DefinitionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DefinitionServiceAsync
 
+    /** Create a custom event definition. */
     fun create(
         params: DefinitionCreateParams
     ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
@@ -68,6 +67,7 @@ interface DefinitionServiceAsync {
     ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
+    /** Update a specific custom event definition by name. */
     fun update(
         eventName: String,
         params: DefinitionUpdateParams,
@@ -94,6 +94,7 @@ interface DefinitionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalBehavioralEventTypeDefinition>
 
+    /** Retrieve existing custom event definitions. */
     fun list(): CompletableFuture<DefinitionListPageAsync> = list(DefinitionListParams.none())
 
     /** @see list */
@@ -111,6 +112,7 @@ interface DefinitionServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<DefinitionListPageAsync> =
         list(DefinitionListParams.none(), requestOptions)
 
+    /** Delete a custom event definition by name. */
     fun delete(eventName: String): CompletableFuture<Void?> =
         delete(eventName, DefinitionDeleteParams.none())
 
@@ -142,6 +144,7 @@ interface DefinitionServiceAsync {
     fun delete(eventName: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(eventName, DefinitionDeleteParams.none(), requestOptions)
 
+    /** Create a new property for an existing event definition. */
     fun createProperty(
         eventName: String,
         params: DefinitionCreatePropertyParams,
@@ -165,6 +168,7 @@ interface DefinitionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Property>
 
+    /** Delete an existing property from a custom event definition. */
     fun deleteProperty(
         propertyName: String,
         params: DefinitionDeletePropertyParams,
@@ -188,6 +192,7 @@ interface DefinitionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Fetch a single custom event definition by name. */
     fun get(eventName: String): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         get(eventName, DefinitionGetParams.none())
 
@@ -223,32 +228,7 @@ interface DefinitionServiceAsync {
     ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
         get(eventName, DefinitionGetParams.none(), requestOptions)
 
-    fun send(params: DefinitionSendParams): CompletableFuture<Void?> =
-        send(params, RequestOptions.none())
-
-    /** @see send */
-    fun send(
-        params: DefinitionSendParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see send */
-    fun send(
-        behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        send(
-            DefinitionSendParams.builder()
-                .behavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see send */
-    fun send(
-        behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest
-    ): CompletableFuture<Void?> = send(behavioralEventHttpCompletionRequest, RequestOptions.none())
-
+    /** Send multiple event occurrences at once. */
     fun sendBatch(params: DefinitionSendBatchParams): CompletableFuture<Void?> =
         sendBatch(params, RequestOptions.none())
 
@@ -278,6 +258,7 @@ interface DefinitionServiceAsync {
     ): CompletableFuture<Void?> =
         sendBatch(batchedBehavioralEventHttpCompletionRequest, RequestOptions.none())
 
+    /** Update an existing property in a custom event definition. */
     fun updateProperty(
         propertyName: String,
         params: DefinitionUpdatePropertyParams,
@@ -317,7 +298,7 @@ interface DefinitionServiceAsync {
         ): DefinitionServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /events/custom/2026-03/event-definitions`, but is
+         * Returns a raw HTTP response for `post /events/2026-03/event-definitions`, but is
          * otherwise the same as [DefinitionServiceAsync.create].
          */
         fun create(
@@ -352,9 +333,8 @@ interface DefinitionServiceAsync {
             create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `patch
-         * /events/custom/2026-03/event-definitions/{eventName}`, but is otherwise the same as
-         * [DefinitionServiceAsync.update].
+         * Returns a raw HTTP response for `patch /events/2026-03/event-definitions/{eventName}`,
+         * but is otherwise the same as [DefinitionServiceAsync.update].
          */
         fun update(
             eventName: String,
@@ -383,8 +363,8 @@ interface DefinitionServiceAsync {
         ): CompletableFuture<HttpResponseFor<ExternalBehavioralEventTypeDefinition>>
 
         /**
-         * Returns a raw HTTP response for `get /events/custom/2026-03/event-definitions`, but is
-         * otherwise the same as [DefinitionServiceAsync.list].
+         * Returns a raw HTTP response for `get /events/2026-03/event-definitions`, but is otherwise
+         * the same as [DefinitionServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponseFor<DefinitionListPageAsync>> =
             list(DefinitionListParams.none())
@@ -408,9 +388,8 @@ interface DefinitionServiceAsync {
             list(DefinitionListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /events/custom/2026-03/event-definitions/{eventName}`, but is otherwise the same as
-         * [DefinitionServiceAsync.delete].
+         * Returns a raw HTTP response for `delete /events/2026-03/event-definitions/{eventName}`,
+         * but is otherwise the same as [DefinitionServiceAsync.delete].
          */
         fun delete(eventName: String): CompletableFuture<HttpResponse> =
             delete(eventName, DefinitionDeleteParams.none())
@@ -448,8 +427,8 @@ interface DefinitionServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post
-         * /events/custom/2026-03/event-definitions/{eventName}/property`, but is otherwise the same
-         * as [DefinitionServiceAsync.createProperty].
+         * /events/2026-03/event-definitions/{eventName}/property`, but is otherwise the same as
+         * [DefinitionServiceAsync.createProperty].
          */
         fun createProperty(
             eventName: String,
@@ -479,8 +458,8 @@ interface DefinitionServiceAsync {
 
         /**
          * Returns a raw HTTP response for `delete
-         * /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is
-         * otherwise the same as [DefinitionServiceAsync.deleteProperty].
+         * /events/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is otherwise
+         * the same as [DefinitionServiceAsync.deleteProperty].
          */
         fun deleteProperty(
             propertyName: String,
@@ -508,9 +487,8 @@ interface DefinitionServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /**
-         * Returns a raw HTTP response for `get
-         * /events/custom/2026-03/event-definitions/{eventName}`, but is otherwise the same as
-         * [DefinitionServiceAsync.get].
+         * Returns a raw HTTP response for `get /events/2026-03/event-definitions/{eventName}`, but
+         * is otherwise the same as [DefinitionServiceAsync.get].
          */
         fun get(
             eventName: String
@@ -552,39 +530,8 @@ interface DefinitionServiceAsync {
             get(eventName, DefinitionGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /events/custom/2026-03/send`, but is otherwise the
-         * same as [DefinitionServiceAsync.send].
-         */
-        fun send(params: DefinitionSendParams): CompletableFuture<HttpResponse> =
-            send(params, RequestOptions.none())
-
-        /** @see send */
-        fun send(
-            params: DefinitionSendParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see send */
-        fun send(
-            behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            send(
-                DefinitionSendParams.builder()
-                    .behavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see send */
-        fun send(
-            behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest
-        ): CompletableFuture<HttpResponse> =
-            send(behavioralEventHttpCompletionRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /events/custom/2026-03/send/batch`, but is
-         * otherwise the same as [DefinitionServiceAsync.sendBatch].
+         * Returns a raw HTTP response for `post /events/2026-03/send/batch`, but is otherwise the
+         * same as [DefinitionServiceAsync.sendBatch].
          */
         fun sendBatch(params: DefinitionSendBatchParams): CompletableFuture<HttpResponse> =
             sendBatch(params, RequestOptions.none())
@@ -618,8 +565,8 @@ interface DefinitionServiceAsync {
 
         /**
          * Returns a raw HTTP response for `patch
-         * /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is
-         * otherwise the same as [DefinitionServiceAsync.updateProperty].
+         * /events/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is otherwise
+         * the same as [DefinitionServiceAsync.updateProperty].
          */
         fun updateProperty(
             propertyName: String,

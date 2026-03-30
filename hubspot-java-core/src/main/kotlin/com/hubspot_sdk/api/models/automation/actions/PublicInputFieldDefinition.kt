@@ -43,6 +43,8 @@ private constructor(
     ) : this(isRequired, typeDefinition, supportedValueTypes, mutableMapOf())
 
     /**
+     * Indicates whether the input field is mandatory.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -130,6 +132,7 @@ private constructor(
             additionalProperties = publicInputFieldDefinition.additionalProperties.toMutableMap()
         }
 
+        /** Indicates whether the input field is mandatory. */
         fun isRequired(isRequired: Boolean) = isRequired(JsonField.of(isRequired))
 
         /**

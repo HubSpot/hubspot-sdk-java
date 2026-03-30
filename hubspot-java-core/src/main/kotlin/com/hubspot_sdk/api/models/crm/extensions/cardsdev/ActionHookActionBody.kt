@@ -68,7 +68,7 @@ private constructor(
         propertyNamesIncluded.getRequired("propertyNamesIncluded")
 
     /**
-     * Specifies the type of action, which is 'ACTION_HOOK' for action hooks.
+     * The type of status.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -90,7 +90,7 @@ private constructor(
     fun confirmation(): Optional<ActionConfirmationBody> = confirmation.getOptional("confirmation")
 
     /**
-     * The label for the button that triggers the action as it will be displayed to users.
+     * The label for this property as you'd like it displayed to users.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -242,7 +242,7 @@ private constructor(
                 }
         }
 
-        /** Specifies the type of action, which is 'ACTION_HOOK' for action hooks. */
+        /** The type of status. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -278,7 +278,7 @@ private constructor(
             this.confirmation = confirmation
         }
 
-        /** The label for the button that triggers the action as it will be displayed to users. */
+        /** The label for this property as you'd like it displayed to users. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -548,7 +548,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** Specifies the type of action, which is 'ACTION_HOOK' for action hooks. */
+    /** The type of status. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

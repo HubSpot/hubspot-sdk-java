@@ -3,7 +3,7 @@
 package com.hubspot_sdk.api.models.cms.blogs.posts
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
+import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

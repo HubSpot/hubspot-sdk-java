@@ -11,11 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Delete a specific URL redirect in your HubSpot account using its unique identifier. This
- * operation is useful for removing outdated or incorrect URL redirects, ensuring that your URL
- * mappings remain current and accurate.
- */
+/** Delete one existing redirect, so it is no longer mapped. */
 class UrlRedirectDeleteParams
 private constructor(
     private val urlRedirectId: String?,

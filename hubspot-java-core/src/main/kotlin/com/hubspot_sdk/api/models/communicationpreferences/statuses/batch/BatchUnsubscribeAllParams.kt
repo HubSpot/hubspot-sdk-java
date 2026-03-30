@@ -27,18 +27,10 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * A required string specifying the communication channel. Currently, only 'EMAIL' is supported.
-     */
     fun channel(): Channel = channel
 
-    /** The ID of the business unit to which the operation applies. It is an optional parameter. */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
-    /**
-     * A boolean indicating whether to include detailed information in the response. Defaults to
-     * false.
-     */
     fun verbose(): Optional<Boolean> = Optional.ofNullable(verbose)
 
     fun batchInputString(): BatchInputString = batchInputString
@@ -88,15 +80,8 @@ private constructor(
             additionalQueryParams = batchUnsubscribeAllParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * A required string specifying the communication channel. Currently, only 'EMAIL' is
-         * supported.
-         */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
-        /**
-         * The ID of the business unit to which the operation applies. It is an optional parameter.
-         */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -110,10 +95,6 @@ private constructor(
         fun businessUnitId(businessUnitId: Optional<Long>) =
             businessUnitId(businessUnitId.getOrNull())
 
-        /**
-         * A boolean indicating whether to include detailed information in the response. Defaults to
-         * false.
-         */
         fun verbose(verbose: Boolean?) = apply { this.verbose = verbose }
 
         /**
@@ -266,9 +247,6 @@ private constructor(
             }
             .build()
 
-    /**
-     * A required string specifying the communication channel. Currently, only 'EMAIL' is supported.
-     */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

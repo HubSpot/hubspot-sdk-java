@@ -14,14 +14,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Update an existing oEmbed domain. */
 class MediaBridgeUpdateOembedDomainParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val oEmbedDomainId: String?,
     private val integratorOEmbedDomainRequest: IntegratorOEmbedDomainRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun oEmbedDomainId(): Optional<String> = Optional.ofNullable(oEmbedDomainId)
 
@@ -57,7 +57,7 @@ private constructor(
     /** A builder for [MediaBridgeUpdateOembedDomainParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var oEmbedDomainId: String? = null
         private var integratorOEmbedDomainRequest: IntegratorOEmbedDomainRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -76,7 +76,7 @@ private constructor(
                 mediaBridgeUpdateOembedDomainParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun oEmbedDomainId(oEmbedDomainId: String?) = apply { this.oEmbedDomainId = oEmbedDomainId }
 
@@ -213,7 +213,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> oEmbedDomainId ?: ""
             else -> ""
         }

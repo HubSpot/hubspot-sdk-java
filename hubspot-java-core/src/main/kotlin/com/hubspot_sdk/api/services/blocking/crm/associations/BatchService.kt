@@ -74,7 +74,7 @@ interface BatchService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseVoid
 
-    /** Batch create the default (most generic) association type between two object types. */
+    /** Create the default (most generic) association type between two object types */
     fun createDefault(
         toObjectType: String,
         params: BatchCreateDefaultParams,
@@ -100,8 +100,8 @@ interface BatchService {
     ): BatchResponsePublicDefaultAssociation
 
     /**
-     * Batch remove specific labelled associations between records in bulk. Deleting an unlabeled
-     * association will also delete all labeled associations between those two objects
+     * Batch delete specific association labels for objects. Deleting an unlabeled association will
+     * also delete all labeled associations between those two objects
      */
     fun deleteLabels(toObjectType: String, params: BatchDeleteLabelsParams): BatchResponseVoid =
         deleteLabels(toObjectType, params, RequestOptions.none())

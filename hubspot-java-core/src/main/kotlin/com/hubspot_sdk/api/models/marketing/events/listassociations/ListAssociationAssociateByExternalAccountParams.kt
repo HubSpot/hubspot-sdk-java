@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Associates a list with a marketing event by external account id, external event id, and ILS list
+ * id
+ */
 class ListAssociationAssociateByExternalAccountParams
 private constructor(
     private val externalAccountId: String,

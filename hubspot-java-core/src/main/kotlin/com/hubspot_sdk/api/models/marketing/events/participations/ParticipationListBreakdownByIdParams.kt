@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Read Marketing event's participations breakdown with optional filters by internal identifier
+ * marketingEventId.
+ */
 class ParticipationListBreakdownByIdParams
 private constructor(
     private val marketingEventId: Long?,

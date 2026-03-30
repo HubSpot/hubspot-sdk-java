@@ -10,11 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import java.util.Objects
 
-/**
- * Update a batch of contacts by ID (`contactId`) or unique property value (`idProperty`). Provided
- * property values will be overwritten. Read-only and non-existent properties will result in an
- * error. Properties values can be cleared by passing an empty string.
- */
 class BatchUpdateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,

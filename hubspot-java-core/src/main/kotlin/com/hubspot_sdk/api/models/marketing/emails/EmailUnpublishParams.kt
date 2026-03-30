@@ -11,6 +11,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * If you have a Marketing Hub Enterprise account or the transactional email add-on, you can use
+ * this endpoint to unpublish an automated email or cancel a regular email. If the email is already
+ * in the process of being sent, canceling might not be possible.
+ */
 class EmailUnpublishParams
 private constructor(
     private val emailId: String?,

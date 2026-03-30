@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Deletes the existing Marketing Event with the specified objectId, if it exists. */
 class EventDeleteParams
 private constructor(
     private val objectId: String?,

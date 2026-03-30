@@ -8,7 +8,7 @@ import com.hubspot_sdk.api.models.NextPage
 import com.hubspot_sdk.api.models.Paging
 import com.hubspot_sdk.api.models.PreviousPage
 import com.hubspot_sdk.api.models.VersionUser
-import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
+import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test

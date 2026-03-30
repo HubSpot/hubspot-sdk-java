@@ -33,6 +33,7 @@ interface PipelineService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PipelineService
 
+    /** Create a pipeline stage */
     fun create(pipelineId: String, params: PipelineCreateParams): PipelineStage =
         create(pipelineId, params, RequestOptions.none())
 
@@ -71,6 +72,7 @@ interface PipelineService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PipelineStage
 
+    /** Return all the stages associated with the pipeline identified by `{pipelineId}`. */
     fun list(
         pipelineId: String,
         params: PipelineListParams,
@@ -94,6 +96,7 @@ interface PipelineService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponsePipelineStageNoPaging
 
+    /** Delete a pipeline stage */
     fun delete(stageId: String, params: PipelineDeleteParams) =
         delete(stageId, params, RequestOptions.none())
 
@@ -110,6 +113,7 @@ interface PipelineService {
     /** @see delete */
     fun delete(params: PipelineDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
+    /** Return a pipeline stage by ID */
     fun get(stageId: String, params: PipelineGetParams): PipelineStage =
         get(stageId, params, RequestOptions.none())
 
@@ -129,6 +133,10 @@ interface PipelineService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PipelineStage
 
+    /**
+     * Return a reverse chronological list of all mutations that have occurred on the pipeline stage
+     * identified by `{stageId}`.
+     */
     fun getAudit(
         stageId: String,
         params: PipelineGetAuditParams,
@@ -152,6 +160,10 @@ interface PipelineService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CollectionResponsePublicAuditInfoNoPaging
 
+    /**
+     * Replace all the properties of an existing pipeline stage with the values provided. The
+     * updated stage will be returned in the response.
+     */
     fun replace(stageId: String, params: PipelineReplaceParams): PipelineStage =
         replace(stageId, params, RequestOptions.none())
 

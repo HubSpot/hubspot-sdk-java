@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update a card definition with new details. */
 class CardsDevUpdateParams
 private constructor(
     private val appId: Int,

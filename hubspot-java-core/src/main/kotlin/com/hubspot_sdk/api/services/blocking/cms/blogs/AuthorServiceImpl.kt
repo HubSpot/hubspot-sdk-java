@@ -21,7 +21,12 @@ import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateLanguagesParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
@@ -55,7 +60,7 @@ class AuthorServiceImpl internal constructor(private val clientOptions: ClientOp
         withRawResponse().update(params, requestOptions)
 
     override fun list(params: AuthorListParams, requestOptions: RequestOptions): HttpResponse =
-        // get /cms/blogs/2026-03/authors
+        // get /cms/blogs/2026-03/authors/cursor
         withRawResponse().list(params, requestOptions)
 
     override fun delete(params: AuthorDeleteParams, requestOptions: RequestOptions) {
@@ -87,6 +92,41 @@ class AuthorServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun get(params: AuthorGetParams, requestOptions: RequestOptions): HttpResponse =
         // get /cms/blogs/2026-03/authors/{objectId}
         withRawResponse().get(params, requestOptions)
+
+    override fun listByQuery(
+        params: AuthorListByQueryParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/blogs/2026-03/authors/cursor/query
+        withRawResponse().listByQuery(params, requestOptions)
+
+    override fun listPosts(
+        params: AuthorListPostsParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/blogs/2026-03/posts/cursor
+        withRawResponse().listPosts(params, requestOptions)
+
+    override fun listPostsByQuery(
+        params: AuthorListPostsByQueryParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/blogs/2026-03/posts/cursor/query
+        withRawResponse().listPostsByQuery(params, requestOptions)
+
+    override fun listTags(
+        params: AuthorListTagsParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/blogs/2026-03/tags/cursor
+        withRawResponse().listTags(params, requestOptions)
+
+    override fun listTagsByQuery(
+        params: AuthorListTagsByQueryParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/blogs/2026-03/tags/cursor/query
+        withRawResponse().listTagsByQuery(params, requestOptions)
 
     override fun setNewLangPrimary(
         params: AuthorSetNewLangPrimaryParams,
@@ -166,7 +206,7 @@ class AuthorServiceImpl internal constructor(private val clientOptions: ClientOp
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "blogs", "2026-03", "authors")
+                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepare(clientOptions, params)
@@ -283,6 +323,91 @@ class AuthorServiceImpl internal constructor(private val clientOptions: ClientOp
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("cms", "blogs", "2026-03", "authors", params._pathParam(0))
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun listByQuery(
+            params: AuthorListByQueryParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor", "query")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun listPosts(
+            params: AuthorListPostsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "posts", "cursor")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun listPostsByQuery(
+            params: AuthorListPostsByQueryParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "posts", "cursor", "query")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun listTags(
+            params: AuthorListTagsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "tags", "cursor")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun listTagsByQuery(
+            params: AuthorListTagsByQueryParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "tags", "cursor", "query")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepare(clientOptions, params)

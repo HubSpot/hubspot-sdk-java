@@ -44,7 +44,8 @@ private constructor(
     fun conversionType(): ConversionType = conversionType.getRequired("conversionType")
 
     /**
-     * The number of time units for the inactivity period.
+     * Value used to paginate through lists. The `offset` provided in the response can be used in
+     * the next request to fetch the next page of results. Defaults to `0` if no offset is provided.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -142,7 +143,11 @@ private constructor(
             this.conversionType = conversionType
         }
 
-        /** The number of time units for the inactivity period. */
+        /**
+         * Value used to paginate through lists. The `offset` provided in the response can be used
+         * in the next request to fetch the next page of results. Defaults to `0` if no offset is
+         * provided.
+         */
         fun offset(offset: Int) = offset(JsonField.of(offset))
 
         /**

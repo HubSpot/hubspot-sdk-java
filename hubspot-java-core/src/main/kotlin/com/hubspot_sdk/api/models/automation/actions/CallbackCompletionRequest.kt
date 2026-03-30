@@ -54,12 +54,17 @@ private constructor(
     ) : this(outputFields, typedOutputs, failureReasonType, requestContext, mutableMapOf())
 
     /**
+     * Contains the output fields associated with the callback, with each field represented as a
+     * key-value pair.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun outputFields(): OutputFields = outputFields.getRequired("outputFields")
 
     /**
+     * Holds the typed outputs related to the callback, structured as an object.
+     *
      * This arbitrary value can be deserialized into a custom type using the `convert` method:
      * ```java
      * MyClass myObject = callbackCompletionRequest.typedOutputs().convert(MyClass.class);
@@ -68,12 +73,17 @@ private constructor(
     @JsonProperty("typedOutputs") @ExcludeMissing fun _typedOutputs(): JsonValue = typedOutputs
 
     /**
+     * Indicates the reason for the failure of a callback completion.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun failureReasonType(): Optional<String> = failureReasonType.getOptional("failureReasonType")
 
     /**
+     * Specifies the context in which the request is made, which can be one of several predefined
+     * contexts.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -151,6 +161,10 @@ private constructor(
             additionalProperties = callbackCompletionRequest.additionalProperties.toMutableMap()
         }
 
+        /**
+         * Contains the output fields associated with the callback, with each field represented as a
+         * key-value pair.
+         */
         fun outputFields(outputFields: OutputFields) = outputFields(JsonField.of(outputFields))
 
         /**
@@ -164,8 +178,10 @@ private constructor(
             this.outputFields = outputFields
         }
 
+        /** Holds the typed outputs related to the callback, structured as an object. */
         fun typedOutputs(typedOutputs: JsonValue) = apply { this.typedOutputs = typedOutputs }
 
+        /** Indicates the reason for the failure of a callback completion. */
         fun failureReasonType(failureReasonType: String) =
             failureReasonType(JsonField.of(failureReasonType))
 
@@ -180,6 +196,10 @@ private constructor(
             this.failureReasonType = failureReasonType
         }
 
+        /**
+         * Specifies the context in which the request is made, which can be one of several
+         * predefined contexts.
+         */
         fun requestContext(requestContext: RequestContext) =
             requestContext(JsonField.of(requestContext))
 
@@ -287,6 +307,10 @@ private constructor(
             (if (failureReasonType.asKnown().isPresent) 1 else 0) +
             (requestContext.asKnown().getOrNull()?.validity() ?: 0)
 
+    /**
+     * Contains the output fields associated with the callback, with each field represented as a
+     * key-value pair.
+     */
     class OutputFields
     @JsonCreator
     private constructor(
@@ -386,6 +410,10 @@ private constructor(
         override fun toString() = "OutputFields{additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * Specifies the context in which the request is made, which can be one of several predefined
+     * contexts.
+     */
     @JsonDeserialize(using = RequestContext.Deserializer::class)
     @JsonSerialize(using = RequestContext.Serializer::class)
     class RequestContext

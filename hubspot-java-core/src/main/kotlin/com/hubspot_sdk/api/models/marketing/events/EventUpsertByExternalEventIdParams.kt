@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Upserts a marketing event If there is an existing marketing event with the specified ID, it will
+ * be updated; otherwise a new event will be created.
+ */
 class EventUpsertByExternalEventIdParams
 private constructor(
     private val pathExternalEventId: String?,

@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.models.cms.urlmappings.UrlMappingCreateParams
 import com.hubspot_sdk.api.models.cms.urlmappings.UrlMappingDeleteParams
 import com.hubspot_sdk.api.models.cms.urlmappings.UrlMappingGetParams
 import com.hubspot_sdk.api.models.cms.urlmappings.UrlMappingListParams
-import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
+import com.hubspot_sdk.api.models.cms.urlmappings.UrlMappingsUrlMapping
 import java.util.function.Consumer
 
 interface UrlMappingService {
@@ -45,14 +45,18 @@ interface UrlMappingService {
     /** @see create */
     @MustBeClosed
     fun create(
-        urlMapping: UrlMapping,
+        urlMappingsUrlMapping: UrlMappingsUrlMapping,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse =
-        create(UrlMappingCreateParams.builder().urlMapping(urlMapping).build(), requestOptions)
+        create(
+            UrlMappingCreateParams.builder().urlMappingsUrlMapping(urlMappingsUrlMapping).build(),
+            requestOptions,
+        )
 
     /** @see create */
     @MustBeClosed
-    fun create(urlMapping: UrlMapping): HttpResponse = create(urlMapping, RequestOptions.none())
+    fun create(urlMappingsUrlMapping: UrlMappingsUrlMapping): HttpResponse =
+        create(urlMappingsUrlMapping, RequestOptions.none())
 
     /**
      * Retrieve a list of URL mappings from the HubSpot account. This endpoint provides access to
@@ -176,14 +180,20 @@ interface UrlMappingService {
         /** @see create */
         @MustBeClosed
         fun create(
-            urlMapping: UrlMapping,
+            urlMappingsUrlMapping: UrlMappingsUrlMapping,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            create(UrlMappingCreateParams.builder().urlMapping(urlMapping).build(), requestOptions)
+            create(
+                UrlMappingCreateParams.builder()
+                    .urlMappingsUrlMapping(urlMappingsUrlMapping)
+                    .build(),
+                requestOptions,
+            )
 
         /** @see create */
         @MustBeClosed
-        fun create(urlMapping: UrlMapping): HttpResponse = create(urlMapping, RequestOptions.none())
+        fun create(urlMappingsUrlMapping: UrlMappingsUrlMapping): HttpResponse =
+            create(urlMappingsUrlMapping, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /url-mappings/2026-03/url-mappings`, but is

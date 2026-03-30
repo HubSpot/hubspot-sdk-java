@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Create or update video conference extension settings for your app */
 class VideoConferencingUpdateParams
 private constructor(
     private val appId: Int?,

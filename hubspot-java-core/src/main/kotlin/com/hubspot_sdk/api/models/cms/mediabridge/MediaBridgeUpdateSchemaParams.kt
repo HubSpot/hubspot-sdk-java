@@ -15,14 +15,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Update the schema for an existing object type */
 class MediaBridgeUpdateSchemaParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val objectType: String?,
     private val objectTypeDefinitionPatch: ObjectTypeDefinitionPatch,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
@@ -57,7 +57,7 @@ private constructor(
     /** A builder for [MediaBridgeUpdateSchemaParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var objectType: String? = null
         private var objectTypeDefinitionPatch: ObjectTypeDefinitionPatch? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -72,7 +72,7 @@ private constructor(
             additionalQueryParams = mediaBridgeUpdateSchemaParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun objectType(objectType: String?) = apply { this.objectType = objectType }
 
@@ -209,7 +209,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> objectType ?: ""
             else -> ""
         }

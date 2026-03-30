@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a meeting by ID. */
+/** Move an Object identified by `{meetingId}` to the recycling bin. */
 class MeetingDeleteParams
 private constructor(
     private val meetingId: String?,

@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateCreateRequest
 import java.util.Objects
 
+/** Create multiple exchange rates in a single request. */
 class BatchCreateParams
 private constructor(
     private val batchInputExchangeRateCreateRequest: BatchInputExchangeRateCreateRequest,

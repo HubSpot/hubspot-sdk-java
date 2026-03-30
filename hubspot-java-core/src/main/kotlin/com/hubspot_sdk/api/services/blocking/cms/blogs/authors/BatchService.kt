@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.models.BatchInputString
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
+import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
 import com.hubspot_sdk.api.models.cms.blogs.authors.BatchInputBlogAuthor
 import com.hubspot_sdk.api.models.cms.blogs.authors.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.batch.BatchDeleteParams
@@ -29,6 +29,7 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
+    /** Create the Blog Author objects detailed in the request body. */
     @MustBeClosed
     fun create(params: BatchCreateParams): HttpResponse = create(params, RequestOptions.none())
 
@@ -55,6 +56,7 @@ interface BatchService {
     fun create(batchInputBlogAuthor: BatchInputBlogAuthor): HttpResponse =
         create(batchInputBlogAuthor, RequestOptions.none())
 
+    /** Update the Blog Author objects identified in the request body. */
     @MustBeClosed
     fun update(params: BatchUpdateParams): HttpResponse = update(params, RequestOptions.none())
 
@@ -81,6 +83,7 @@ interface BatchService {
     fun update(batchInputJsonNode: BatchInputJsonNode): HttpResponse =
         update(batchInputJsonNode, RequestOptions.none())
 
+    /** Delete the Blog Author objects identified in the request body. */
     fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
@@ -99,6 +102,7 @@ interface BatchService {
     /** @see delete */
     fun delete(batchInputString: BatchInputString) = delete(batchInputString, RequestOptions.none())
 
+    /** Retrieve the Blog Author objects identified in the request body. */
     @MustBeClosed fun get(params: BatchGetParams): HttpResponse = get(params, RequestOptions.none())
 
     /** @see get */

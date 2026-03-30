@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.files
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.handlers.emptyHandler
 import com.hubspot_sdk.api.core.handlers.errorBodyHandler
 import com.hubspot_sdk.api.core.handlers.errorHandler
 import com.hubspot_sdk.api.core.handlers.jsonHandler
@@ -20,6 +21,10 @@ import com.hubspot_sdk.api.models.files.CollectionResponseFolder
 import com.hubspot_sdk.api.models.files.Folder
 import com.hubspot_sdk.api.models.files.FolderActionResponse
 import com.hubspot_sdk.api.models.files.FolderUpdateTaskLocator
+import com.hubspot_sdk.api.models.files.folders.FolderDeleteByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderDeleteByPathParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByPathParams
 import com.hubspot_sdk.api.models.files.folders.FolderGetUpdateAsyncStatusParams
 import com.hubspot_sdk.api.models.files.folders.FolderSearchPageAsync
 import com.hubspot_sdk.api.models.files.folders.FolderSearchParams
@@ -40,6 +45,34 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderServiceAsync =
         FolderServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun deleteById(
+        params: FolderDeleteByIdParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /files/2026-03/folders/{folderId}
+        withRawResponse().deleteById(params, requestOptions).thenAccept {}
+
+    override fun deleteByPath(
+        params: FolderDeleteByPathParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /files/2026-03/folders/{folderPath}
+        withRawResponse().deleteByPath(params, requestOptions).thenAccept {}
+
+    override fun getById(
+        params: FolderGetByIdParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Folder> =
+        // get /files/2026-03/folders/{folderId}
+        withRawResponse().getById(params, requestOptions).thenApply { it.parse() }
+
+    override fun getByPath(
+        params: FolderGetByPathParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Folder> =
+        // get /files/2026-03/folders/{folderPath}
+        withRawResponse().getByPath(params, requestOptions).thenApply { it.parse() }
 
     override fun getUpdateAsyncStatus(
         params: FolderGetUpdateAsyncStatusParams,
@@ -81,6 +114,125 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
             FolderServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val deleteByIdHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteById(
+            params: FolderDeleteByIdParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("folderId", params.folderId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("files", "2026-03", "folders", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteByIdHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val deleteByPathHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteByPath(
+            params: FolderDeleteByPathParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("folderPath", params.folderPath().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("files", "2026-03", "folders", params._pathParam(0))
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteByPathHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val getByIdHandler: Handler<Folder> = jsonHandler<Folder>(clientOptions.jsonMapper)
+
+        override fun getById(
+            params: FolderGetByIdParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Folder>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("folderId", params.folderId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("files", "2026-03", "folders", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getByIdHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val getByPathHandler: Handler<Folder> =
+            jsonHandler<Folder>(clientOptions.jsonMapper)
+
+        override fun getByPath(
+            params: FolderGetByPathParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Folder>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("folderPath", params.folderPath().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("files", "2026-03", "folders", params._pathParam(0))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getByPathHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
 
         private val getUpdateAsyncStatusHandler: Handler<FolderActionResponse> =
             jsonHandler<FolderActionResponse>(clientOptions.jsonMapper)

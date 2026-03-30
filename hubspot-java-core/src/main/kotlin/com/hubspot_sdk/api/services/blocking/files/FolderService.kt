@@ -5,11 +5,16 @@ package com.hubspot_sdk.api.services.blocking.files
 import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.files.Folder
 import com.hubspot_sdk.api.models.files.FolderActionResponse
 import com.hubspot_sdk.api.models.files.FolderUpdateInputWithId
 import com.hubspot_sdk.api.models.files.FolderUpdateTaskLocator
+import com.hubspot_sdk.api.models.files.folders.FolderDeleteByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderDeleteByPathParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByIdParams
+import com.hubspot_sdk.api.models.files.folders.FolderGetByPathParams
 import com.hubspot_sdk.api.models.files.folders.FolderGetUpdateAsyncStatusParams
 import com.hubspot_sdk.api.models.files.folders.FolderSearchPage
 import com.hubspot_sdk.api.models.files.folders.FolderSearchParams
@@ -30,6 +35,122 @@ interface FolderService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderService
+
+    /** Delete folder by ID. */
+    fun deleteById(folderId: String) = deleteById(folderId, FolderDeleteByIdParams.none())
+
+    /** @see deleteById */
+    fun deleteById(
+        folderId: String,
+        params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = deleteById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+    /** @see deleteById */
+    fun deleteById(
+        folderId: String,
+        params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+    ) = deleteById(folderId, params, RequestOptions.none())
+
+    /** @see deleteById */
+    fun deleteById(
+        params: FolderDeleteByIdParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see deleteById */
+    fun deleteById(params: FolderDeleteByIdParams) = deleteById(params, RequestOptions.none())
+
+    /** @see deleteById */
+    fun deleteById(folderId: String, requestOptions: RequestOptions) =
+        deleteById(folderId, FolderDeleteByIdParams.none(), requestOptions)
+
+    /** Delete a folder, identified by its path. */
+    fun deleteByPath(folderPath: String) = deleteByPath(folderPath, FolderDeleteByPathParams.none())
+
+    /** @see deleteByPath */
+    fun deleteByPath(
+        folderPath: String,
+        params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = deleteByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+    /** @see deleteByPath */
+    fun deleteByPath(
+        folderPath: String,
+        params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+    ) = deleteByPath(folderPath, params, RequestOptions.none())
+
+    /** @see deleteByPath */
+    fun deleteByPath(
+        params: FolderDeleteByPathParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see deleteByPath */
+    fun deleteByPath(params: FolderDeleteByPathParams) = deleteByPath(params, RequestOptions.none())
+
+    /** @see deleteByPath */
+    fun deleteByPath(folderPath: String, requestOptions: RequestOptions) =
+        deleteByPath(folderPath, FolderDeleteByPathParams.none(), requestOptions)
+
+    /** Retrieve a folder by its ID. */
+    fun getById(folderId: String): Folder = getById(folderId, FolderGetByIdParams.none())
+
+    /** @see getById */
+    fun getById(
+        folderId: String,
+        params: FolderGetByIdParams = FolderGetByIdParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Folder = getById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+    /** @see getById */
+    fun getById(
+        folderId: String,
+        params: FolderGetByIdParams = FolderGetByIdParams.none(),
+    ): Folder = getById(folderId, params, RequestOptions.none())
+
+    /** @see getById */
+    fun getById(
+        params: FolderGetByIdParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Folder
+
+    /** @see getById */
+    fun getById(params: FolderGetByIdParams): Folder = getById(params, RequestOptions.none())
+
+    /** @see getById */
+    fun getById(folderId: String, requestOptions: RequestOptions): Folder =
+        getById(folderId, FolderGetByIdParams.none(), requestOptions)
+
+    /** Retrieve a folder, identified by its path. */
+    fun getByPath(folderPath: String): Folder = getByPath(folderPath, FolderGetByPathParams.none())
+
+    /** @see getByPath */
+    fun getByPath(
+        folderPath: String,
+        params: FolderGetByPathParams = FolderGetByPathParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Folder = getByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+    /** @see getByPath */
+    fun getByPath(
+        folderPath: String,
+        params: FolderGetByPathParams = FolderGetByPathParams.none(),
+    ): Folder = getByPath(folderPath, params, RequestOptions.none())
+
+    /** @see getByPath */
+    fun getByPath(
+        params: FolderGetByPathParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Folder
+
+    /** @see getByPath */
+    fun getByPath(params: FolderGetByPathParams): Folder = getByPath(params, RequestOptions.none())
+
+    /** @see getByPath */
+    fun getByPath(folderPath: String, requestOptions: RequestOptions): Folder =
+        getByPath(folderPath, FolderGetByPathParams.none(), requestOptions)
 
     /** Check status of folder update. Folder updates happen asynchronously. */
     fun getUpdateAsyncStatus(taskId: String): FolderActionResponse =
@@ -139,6 +260,169 @@ interface FolderService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `delete /files/2026-03/folders/{folderId}`, but is
+         * otherwise the same as [FolderService.deleteById].
+         */
+        @MustBeClosed
+        fun deleteById(folderId: String): HttpResponse =
+            deleteById(folderId, FolderDeleteByIdParams.none())
+
+        /** @see deleteById */
+        @MustBeClosed
+        fun deleteById(
+            folderId: String,
+            params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = deleteById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+        /** @see deleteById */
+        @MustBeClosed
+        fun deleteById(
+            folderId: String,
+            params: FolderDeleteByIdParams = FolderDeleteByIdParams.none(),
+        ): HttpResponse = deleteById(folderId, params, RequestOptions.none())
+
+        /** @see deleteById */
+        @MustBeClosed
+        fun deleteById(
+            params: FolderDeleteByIdParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see deleteById */
+        @MustBeClosed
+        fun deleteById(params: FolderDeleteByIdParams): HttpResponse =
+            deleteById(params, RequestOptions.none())
+
+        /** @see deleteById */
+        @MustBeClosed
+        fun deleteById(folderId: String, requestOptions: RequestOptions): HttpResponse =
+            deleteById(folderId, FolderDeleteByIdParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete /files/2026-03/folders/{folderPath}`, but is
+         * otherwise the same as [FolderService.deleteByPath].
+         */
+        @MustBeClosed
+        fun deleteByPath(folderPath: String): HttpResponse =
+            deleteByPath(folderPath, FolderDeleteByPathParams.none())
+
+        /** @see deleteByPath */
+        @MustBeClosed
+        fun deleteByPath(
+            folderPath: String,
+            params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            deleteByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+        /** @see deleteByPath */
+        @MustBeClosed
+        fun deleteByPath(
+            folderPath: String,
+            params: FolderDeleteByPathParams = FolderDeleteByPathParams.none(),
+        ): HttpResponse = deleteByPath(folderPath, params, RequestOptions.none())
+
+        /** @see deleteByPath */
+        @MustBeClosed
+        fun deleteByPath(
+            params: FolderDeleteByPathParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see deleteByPath */
+        @MustBeClosed
+        fun deleteByPath(params: FolderDeleteByPathParams): HttpResponse =
+            deleteByPath(params, RequestOptions.none())
+
+        /** @see deleteByPath */
+        @MustBeClosed
+        fun deleteByPath(folderPath: String, requestOptions: RequestOptions): HttpResponse =
+            deleteByPath(folderPath, FolderDeleteByPathParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /files/2026-03/folders/{folderId}`, but is otherwise
+         * the same as [FolderService.getById].
+         */
+        @MustBeClosed
+        fun getById(folderId: String): HttpResponseFor<Folder> =
+            getById(folderId, FolderGetByIdParams.none())
+
+        /** @see getById */
+        @MustBeClosed
+        fun getById(
+            folderId: String,
+            params: FolderGetByIdParams = FolderGetByIdParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Folder> =
+            getById(params.toBuilder().folderId(folderId).build(), requestOptions)
+
+        /** @see getById */
+        @MustBeClosed
+        fun getById(
+            folderId: String,
+            params: FolderGetByIdParams = FolderGetByIdParams.none(),
+        ): HttpResponseFor<Folder> = getById(folderId, params, RequestOptions.none())
+
+        /** @see getById */
+        @MustBeClosed
+        fun getById(
+            params: FolderGetByIdParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Folder>
+
+        /** @see getById */
+        @MustBeClosed
+        fun getById(params: FolderGetByIdParams): HttpResponseFor<Folder> =
+            getById(params, RequestOptions.none())
+
+        /** @see getById */
+        @MustBeClosed
+        fun getById(folderId: String, requestOptions: RequestOptions): HttpResponseFor<Folder> =
+            getById(folderId, FolderGetByIdParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /files/2026-03/folders/{folderPath}`, but is
+         * otherwise the same as [FolderService.getByPath].
+         */
+        @MustBeClosed
+        fun getByPath(folderPath: String): HttpResponseFor<Folder> =
+            getByPath(folderPath, FolderGetByPathParams.none())
+
+        /** @see getByPath */
+        @MustBeClosed
+        fun getByPath(
+            folderPath: String,
+            params: FolderGetByPathParams = FolderGetByPathParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Folder> =
+            getByPath(params.toBuilder().folderPath(folderPath).build(), requestOptions)
+
+        /** @see getByPath */
+        @MustBeClosed
+        fun getByPath(
+            folderPath: String,
+            params: FolderGetByPathParams = FolderGetByPathParams.none(),
+        ): HttpResponseFor<Folder> = getByPath(folderPath, params, RequestOptions.none())
+
+        /** @see getByPath */
+        @MustBeClosed
+        fun getByPath(
+            params: FolderGetByPathParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Folder>
+
+        /** @see getByPath */
+        @MustBeClosed
+        fun getByPath(params: FolderGetByPathParams): HttpResponseFor<Folder> =
+            getByPath(params, RequestOptions.none())
+
+        /** @see getByPath */
+        @MustBeClosed
+        fun getByPath(folderPath: String, requestOptions: RequestOptions): HttpResponseFor<Folder> =
+            getByPath(folderPath, FolderGetByPathParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get

@@ -3,7 +3,7 @@
 package com.hubspot_sdk.api.models.cms.blogs.posts.batch
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
+import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import com.hubspot_sdk.api.models.cms.blogs.posts.BatchInputBlogPost
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost
 import java.time.OffsetDateTime

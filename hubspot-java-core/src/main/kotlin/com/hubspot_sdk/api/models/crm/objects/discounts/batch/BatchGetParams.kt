@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Batch retrieve discounts. */
+/**
+ * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+ * custom unique value property.
+ */
 class BatchGetParams
 private constructor(
     private val archived: Boolean?,

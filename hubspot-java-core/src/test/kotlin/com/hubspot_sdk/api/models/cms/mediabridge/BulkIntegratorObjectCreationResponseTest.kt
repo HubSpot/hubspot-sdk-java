@@ -81,51 +81,73 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                 "objectTypeId" to "objectTypeId",
                                                 "property" to
                                                     mapOf(
-                                                        "description" to "description",
-                                                        "fieldType" to "fieldType",
-                                                        "groupName" to "groupName",
-                                                        "label" to "label",
-                                                        "name" to "name",
-                                                        "options" to
+                                                        "allowedObjectTypes" to
                                                             listOf(
                                                                 mapOf(
-                                                                    "hidden" to true,
-                                                                    "label" to "label",
-                                                                    "value" to "value",
-                                                                    "description" to "description",
-                                                                    "displayOrder" to 0,
+                                                                    "innerId" to 0,
+                                                                    "metaTypeId" to 0,
                                                                 )
                                                             ),
-                                                        "type" to "type",
-                                                        "archived" to true,
-                                                        "archivedAt" to "2019-12-27T18:11:19.117Z",
                                                         "calculated" to true,
-                                                        "calculationFormula" to
-                                                            "calculationFormula",
-                                                        "createdAt" to "2019-12-27T18:11:19.117Z",
-                                                        "createdUserId" to "createdUserId",
-                                                        "dataSensitivity" to "highly_sensitive",
+                                                        "canArchive" to true,
+                                                        "canRestore" to true,
+                                                        "createdAt" to 0,
+                                                        "createdUserId" to 0,
+                                                        "currencyPropertyName" to
+                                                            "currencyPropertyName",
+                                                        "dataSensitivity" to "high",
                                                         "dateDisplayHint" to "absolute",
+                                                        "deleted" to true,
+                                                        "description" to "description",
+                                                        "displayMode" to "all_unique_versions",
                                                         "displayOrder" to 0,
+                                                        "enforceMultivalueUniqueness" to true,
                                                         "externalOptions" to true,
+                                                        "externalOptionsReferenceType" to
+                                                            "externalOptionsReferenceType",
+                                                        "favorited" to true,
+                                                        "favoritedOrder" to 0,
+                                                        "fieldType" to "fieldType",
                                                         "formField" to true,
+                                                        "fromUserId" to 0,
+                                                        "groupName" to "groupName",
                                                         "hasUniqueValue" to true,
                                                         "hidden" to false,
                                                         "hubspotDefined" to true,
-                                                        "modificationMetadata" to
-                                                            mapOf(
-                                                                "archivable" to true,
-                                                                "readOnlyDefinition" to true,
-                                                                "readOnlyValue" to true,
-                                                                "readOnlyOptions" to true,
+                                                        "isCustomizedDefault" to true,
+                                                        "isMultiValued" to true,
+                                                        "isPartial" to true,
+                                                        "label" to "label",
+                                                        "mutableDefinitionNotDeletable" to true,
+                                                        "name" to "name",
+                                                        "numberDisplayHint" to "currency",
+                                                        "options" to
+                                                            listOf(
+                                                                mapOf(
+                                                                    "description" to "description",
+                                                                    "displayOrder" to 0,
+                                                                    "doubleData" to 0,
+                                                                    "hidden" to true,
+                                                                    "label" to "label",
+                                                                    "readOnly" to true,
+                                                                    "value" to "value",
+                                                                )
                                                             ),
-                                                        "referencedObjectType" to
-                                                            "referencedObjectType",
+                                                        "optionsAreMutable" to true,
+                                                        "optionSortStrategy" to "ALPHABETICAL",
+                                                        "owningAppId" to 0,
+                                                        "portalId" to 0,
+                                                        "readOnlyDefinition" to true,
+                                                        "readOnlyValue" to true,
+                                                        "referencedObjectType" to "ABANDONED_CART",
+                                                        "searchableInGlobalSearch" to true,
+                                                        "searchTextAnalysisMode" to "NONE",
                                                         "sensitiveDataCategories" to
                                                             listOf("string"),
                                                         "showCurrencySymbol" to true,
-                                                        "updatedAt" to "2019-12-27T18:11:19.117Z",
-                                                        "updatedUserId" to "updatedUserId",
+                                                        "textDisplayHint" to "domain_name",
+                                                        "type" to "bool",
+                                                        "updatedAt" to 0,
                                                     ),
                                                 "calculationExpression" to
                                                     mapOf(
@@ -302,49 +324,69 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                             "objectTypeId" to "objectTypeId",
                                             "property" to
                                                 mapOf(
-                                                    "description" to "description",
-                                                    "fieldType" to "fieldType",
-                                                    "groupName" to "groupName",
-                                                    "label" to "label",
-                                                    "name" to "name",
-                                                    "options" to
+                                                    "allowedObjectTypes" to
                                                         listOf(
-                                                            mapOf(
-                                                                "hidden" to true,
-                                                                "label" to "label",
-                                                                "value" to "value",
-                                                                "description" to "description",
-                                                                "displayOrder" to 0,
-                                                            )
+                                                            mapOf("innerId" to 0, "metaTypeId" to 0)
                                                         ),
-                                                    "type" to "type",
-                                                    "archived" to true,
-                                                    "archivedAt" to "2019-12-27T18:11:19.117Z",
                                                     "calculated" to true,
-                                                    "calculationFormula" to "calculationFormula",
-                                                    "createdAt" to "2019-12-27T18:11:19.117Z",
-                                                    "createdUserId" to "createdUserId",
-                                                    "dataSensitivity" to "highly_sensitive",
+                                                    "canArchive" to true,
+                                                    "canRestore" to true,
+                                                    "createdAt" to 0,
+                                                    "createdUserId" to 0,
+                                                    "currencyPropertyName" to
+                                                        "currencyPropertyName",
+                                                    "dataSensitivity" to "high",
                                                     "dateDisplayHint" to "absolute",
+                                                    "deleted" to true,
+                                                    "description" to "description",
+                                                    "displayMode" to "all_unique_versions",
                                                     "displayOrder" to 0,
+                                                    "enforceMultivalueUniqueness" to true,
                                                     "externalOptions" to true,
+                                                    "externalOptionsReferenceType" to
+                                                        "externalOptionsReferenceType",
+                                                    "favorited" to true,
+                                                    "favoritedOrder" to 0,
+                                                    "fieldType" to "fieldType",
                                                     "formField" to true,
+                                                    "fromUserId" to 0,
+                                                    "groupName" to "groupName",
                                                     "hasUniqueValue" to true,
                                                     "hidden" to false,
                                                     "hubspotDefined" to true,
-                                                    "modificationMetadata" to
-                                                        mapOf(
-                                                            "archivable" to true,
-                                                            "readOnlyDefinition" to true,
-                                                            "readOnlyValue" to true,
-                                                            "readOnlyOptions" to true,
+                                                    "isCustomizedDefault" to true,
+                                                    "isMultiValued" to true,
+                                                    "isPartial" to true,
+                                                    "label" to "label",
+                                                    "mutableDefinitionNotDeletable" to true,
+                                                    "name" to "name",
+                                                    "numberDisplayHint" to "currency",
+                                                    "options" to
+                                                        listOf(
+                                                            mapOf(
+                                                                "description" to "description",
+                                                                "displayOrder" to 0,
+                                                                "doubleData" to 0,
+                                                                "hidden" to true,
+                                                                "label" to "label",
+                                                                "readOnly" to true,
+                                                                "value" to "value",
+                                                            )
                                                         ),
-                                                    "referencedObjectType" to
-                                                        "referencedObjectType",
+                                                    "optionsAreMutable" to true,
+                                                    "optionSortStrategy" to "ALPHABETICAL",
+                                                    "owningAppId" to 0,
+                                                    "portalId" to 0,
+                                                    "readOnlyDefinition" to true,
+                                                    "readOnlyValue" to true,
+                                                    "referencedObjectType" to "ABANDONED_CART",
+                                                    "searchableInGlobalSearch" to true,
+                                                    "searchTextAnalysisMode" to "NONE",
                                                     "sensitiveDataCategories" to listOf("string"),
                                                     "showCurrencySymbol" to true,
-                                                    "updatedAt" to "2019-12-27T18:11:19.117Z",
-                                                    "updatedUserId" to "updatedUserId",
+                                                    "textDisplayHint" to "domain_name",
+                                                    "type" to "bool",
+                                                    "updatedAt" to 0,
                                                 ),
                                             "calculationExpression" to
                                                 mapOf(
@@ -519,51 +561,73 @@ internal class BulkIntegratorObjectCreationResponseTest {
                                                 "objectTypeId" to "objectTypeId",
                                                 "property" to
                                                     mapOf(
-                                                        "description" to "description",
-                                                        "fieldType" to "fieldType",
-                                                        "groupName" to "groupName",
-                                                        "label" to "label",
-                                                        "name" to "name",
-                                                        "options" to
+                                                        "allowedObjectTypes" to
                                                             listOf(
                                                                 mapOf(
-                                                                    "hidden" to true,
-                                                                    "label" to "label",
-                                                                    "value" to "value",
-                                                                    "description" to "description",
-                                                                    "displayOrder" to 0,
+                                                                    "innerId" to 0,
+                                                                    "metaTypeId" to 0,
                                                                 )
                                                             ),
-                                                        "type" to "type",
-                                                        "archived" to true,
-                                                        "archivedAt" to "2019-12-27T18:11:19.117Z",
                                                         "calculated" to true,
-                                                        "calculationFormula" to
-                                                            "calculationFormula",
-                                                        "createdAt" to "2019-12-27T18:11:19.117Z",
-                                                        "createdUserId" to "createdUserId",
-                                                        "dataSensitivity" to "highly_sensitive",
+                                                        "canArchive" to true,
+                                                        "canRestore" to true,
+                                                        "createdAt" to 0,
+                                                        "createdUserId" to 0,
+                                                        "currencyPropertyName" to
+                                                            "currencyPropertyName",
+                                                        "dataSensitivity" to "high",
                                                         "dateDisplayHint" to "absolute",
+                                                        "deleted" to true,
+                                                        "description" to "description",
+                                                        "displayMode" to "all_unique_versions",
                                                         "displayOrder" to 0,
+                                                        "enforceMultivalueUniqueness" to true,
                                                         "externalOptions" to true,
+                                                        "externalOptionsReferenceType" to
+                                                            "externalOptionsReferenceType",
+                                                        "favorited" to true,
+                                                        "favoritedOrder" to 0,
+                                                        "fieldType" to "fieldType",
                                                         "formField" to true,
+                                                        "fromUserId" to 0,
+                                                        "groupName" to "groupName",
                                                         "hasUniqueValue" to true,
                                                         "hidden" to false,
                                                         "hubspotDefined" to true,
-                                                        "modificationMetadata" to
-                                                            mapOf(
-                                                                "archivable" to true,
-                                                                "readOnlyDefinition" to true,
-                                                                "readOnlyValue" to true,
-                                                                "readOnlyOptions" to true,
+                                                        "isCustomizedDefault" to true,
+                                                        "isMultiValued" to true,
+                                                        "isPartial" to true,
+                                                        "label" to "label",
+                                                        "mutableDefinitionNotDeletable" to true,
+                                                        "name" to "name",
+                                                        "numberDisplayHint" to "currency",
+                                                        "options" to
+                                                            listOf(
+                                                                mapOf(
+                                                                    "description" to "description",
+                                                                    "displayOrder" to 0,
+                                                                    "doubleData" to 0,
+                                                                    "hidden" to true,
+                                                                    "label" to "label",
+                                                                    "readOnly" to true,
+                                                                    "value" to "value",
+                                                                )
                                                             ),
-                                                        "referencedObjectType" to
-                                                            "referencedObjectType",
+                                                        "optionsAreMutable" to true,
+                                                        "optionSortStrategy" to "ALPHABETICAL",
+                                                        "owningAppId" to 0,
+                                                        "portalId" to 0,
+                                                        "readOnlyDefinition" to true,
+                                                        "readOnlyValue" to true,
+                                                        "referencedObjectType" to "ABANDONED_CART",
+                                                        "searchableInGlobalSearch" to true,
+                                                        "searchTextAnalysisMode" to "NONE",
                                                         "sensitiveDataCategories" to
                                                             listOf("string"),
                                                         "showCurrencySymbol" to true,
-                                                        "updatedAt" to "2019-12-27T18:11:19.117Z",
-                                                        "updatedUserId" to "updatedUserId",
+                                                        "textDisplayHint" to "domain_name",
+                                                        "type" to "bool",
+                                                        "updatedAt" to 0,
                                                     ),
                                                 "calculationExpression" to
                                                     mapOf(

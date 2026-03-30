@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a course by ID. */
+/** Move an Object identified by `{courseId}` to the recycling bin. */
 class CourseDeleteParams
 private constructor(
     private val courseId: String?,

@@ -10,6 +10,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Return a reverse chronological list of all mutations that have occurred on the pipeline stage
+ * identified by `{stageId}`.
+ */
 class PipelineGetAuditParams
 private constructor(
     private val objectType: String,

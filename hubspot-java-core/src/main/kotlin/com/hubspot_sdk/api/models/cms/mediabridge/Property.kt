@@ -15,7 +15,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.Option
+import com.hubspot_sdk.api.models.AutomationActionsOption
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -56,7 +56,7 @@ private constructor(
     private val mutableDefinitionNotDeletable: JsonField<Boolean>,
     private val name: JsonField<String>,
     private val numberDisplayHint: JsonField<NumberDisplayHint>,
-    private val options: JsonField<List<Option>>,
+    private val options: JsonField<List<AutomationActionsOption>>,
     private val optionsAreMutable: JsonField<Boolean>,
     private val optionSortStrategy: JsonField<OptionSortStrategy>,
     private val owningAppId: JsonField<Long>,
@@ -152,7 +152,7 @@ private constructor(
         numberDisplayHint: JsonField<NumberDisplayHint> = JsonMissing.of(),
         @JsonProperty("options")
         @ExcludeMissing
-        options: JsonField<List<Option>> = JsonMissing.of(),
+        options: JsonField<List<AutomationActionsOption>> = JsonMissing.of(),
         @JsonProperty("optionsAreMutable")
         @ExcludeMissing
         optionsAreMutable: JsonField<Boolean> = JsonMissing.of(),
@@ -507,7 +507,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun options(): List<Option> = options.getRequired("options")
+    fun options(): List<AutomationActionsOption> = options.getRequired("options")
 
     /**
      * Whether options can be modified after creation.
@@ -894,7 +894,9 @@ private constructor(
      *
      * Unlike [options], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("options") @ExcludeMissing fun _options(): JsonField<List<Option>> = options
+    @JsonProperty("options")
+    @ExcludeMissing
+    fun _options(): JsonField<List<AutomationActionsOption>> = options
 
     /**
      * Returns the raw JSON value of [optionsAreMutable].
@@ -1128,7 +1130,7 @@ private constructor(
         private var mutableDefinitionNotDeletable: JsonField<Boolean>? = null
         private var name: JsonField<String>? = null
         private var numberDisplayHint: JsonField<NumberDisplayHint>? = null
-        private var options: JsonField<MutableList<Option>>? = null
+        private var options: JsonField<MutableList<AutomationActionsOption>>? = null
         private var optionsAreMutable: JsonField<Boolean>? = null
         private var optionSortStrategy: JsonField<OptionSortStrategy>? = null
         private var owningAppId: JsonField<Long>? = null
@@ -1657,25 +1659,25 @@ private constructor(
          * A list of valid options for the property. This field is required for enumerated
          * properties.
          */
-        fun options(options: List<Option>) = options(JsonField.of(options))
+        fun options(options: List<AutomationActionsOption>) = options(JsonField.of(options))
 
         /**
          * Sets [Builder.options] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.options] with a well-typed `List<Option>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.options] with a well-typed
+         * `List<AutomationActionsOption>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun options(options: JsonField<List<Option>>) = apply {
+        fun options(options: JsonField<List<AutomationActionsOption>>) = apply {
             this.options = options.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Option] to [options].
+         * Adds a single [AutomationActionsOption] to [options].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addOption(option: Option) = apply {
+        fun addOption(option: AutomationActionsOption) = apply {
             options =
                 (options ?: JsonField.of(mutableListOf())).also {
                     checkKnown("options", it).add(option)

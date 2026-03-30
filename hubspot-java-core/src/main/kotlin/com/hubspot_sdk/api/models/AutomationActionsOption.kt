@@ -63,6 +63,8 @@ private constructor(
     fun displayOrder(): Int = displayOrder.getRequired("displayOrder")
 
     /**
+     * A numerical value associated with the option.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -228,6 +230,7 @@ private constructor(
          */
         fun displayOrder(displayOrder: JsonField<Int>) = apply { this.displayOrder = displayOrder }
 
+        /** A numerical value associated with the option. */
         fun doubleData(doubleData: Double) = doubleData(JsonField.of(doubleData))
 
         /**

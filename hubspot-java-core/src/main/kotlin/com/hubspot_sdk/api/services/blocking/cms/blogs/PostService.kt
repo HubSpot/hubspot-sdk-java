@@ -6,35 +6,28 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
+import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost
-import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPostLanguageCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.ContentCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.ContentScheduleRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostCloneParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetDraftByIdParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListAuthorsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostPushLiveParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryAuthorsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostResetDraftParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostScheduleParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostSetLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateDraftParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateLangsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateParams
 import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.BatchService
+import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.MultiLanguageService
+import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.RevisionService
 import java.util.function.Consumer
 
 interface PostService {
@@ -53,6 +46,11 @@ interface PostService {
 
     fun batch(): BatchService
 
+    fun multiLanguage(): MultiLanguageService
+
+    fun revisions(): RevisionService
+
+    /** Create a new blog post, specifying its content in the request body. */
     @MustBeClosed
     fun create(params: PostCreateParams): HttpResponse = create(params, RequestOptions.none())
 
@@ -74,6 +72,10 @@ interface PostService {
     @MustBeClosed
     fun create(blogPost: BlogPost): HttpResponse = create(blogPost, RequestOptions.none())
 
+    /**
+     * Partially updates a single blog post by ID. You only need to specify the values that you want
+     * to update.
+     */
     @MustBeClosed
     fun update(objectId: String, params: PostUpdateParams): HttpResponse =
         update(objectId, params, RequestOptions.none())
@@ -116,6 +118,7 @@ interface PostService {
     fun list(requestOptions: RequestOptions): HttpResponse =
         list(PostListParams.none(), requestOptions)
 
+    /** Delete a blog post by ID. */
     fun delete(objectId: String) = delete(objectId, PostDeleteParams.none())
 
     /** @see delete */
@@ -139,36 +142,7 @@ interface PostService {
     fun delete(objectId: String, requestOptions: RequestOptions) =
         delete(objectId, PostDeleteParams.none(), requestOptions)
 
-    @MustBeClosed
-    fun attachToLangGroup(params: PostAttachToLangGroupParams): HttpResponse =
-        attachToLangGroup(params, RequestOptions.none())
-
-    /** @see attachToLangGroup */
-    @MustBeClosed
-    fun attachToLangGroup(
-        params: PostAttachToLangGroupParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see attachToLangGroup */
-    @MustBeClosed
-    fun attachToLangGroup(
-        attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        attachToLangGroup(
-            PostAttachToLangGroupParams.builder()
-                .attachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see attachToLangGroup */
-    @MustBeClosed
-    fun attachToLangGroup(
-        attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext
-    ): HttpResponse = attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
-
+    /** Clone a blog post, making a copy of it in a new blog post. */
     @MustBeClosed
     fun clone(params: PostCloneParams): HttpResponse = clone(params, RequestOptions.none())
 
@@ -195,66 +169,7 @@ interface PostService {
     fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): HttpResponse =
         clone(contentCloneRequestVNext, RequestOptions.none())
 
-    @MustBeClosed
-    fun createLangVariation(params: PostCreateLangVariationParams): HttpResponse =
-        createLangVariation(params, RequestOptions.none())
-
-    /** @see createLangVariation */
-    @MustBeClosed
-    fun createLangVariation(
-        params: PostCreateLangVariationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see createLangVariation */
-    @MustBeClosed
-    fun createLangVariation(
-        blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        createLangVariation(
-            PostCreateLangVariationParams.builder()
-                .blogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see createLangVariation */
-    @MustBeClosed
-    fun createLangVariation(
-        blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext
-    ): HttpResponse = createLangVariation(blogPostLanguageCloneRequestVNext, RequestOptions.none())
-
-    @MustBeClosed
-    fun detachFromLangGroup(params: PostDetachFromLangGroupParams): HttpResponse =
-        detachFromLangGroup(params, RequestOptions.none())
-
-    /** @see detachFromLangGroup */
-    @MustBeClosed
-    fun detachFromLangGroup(
-        params: PostDetachFromLangGroupParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see detachFromLangGroup */
-    @MustBeClosed
-    fun detachFromLangGroup(
-        detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        detachFromLangGroup(
-            PostDetachFromLangGroupParams.builder()
-                .detachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see detachFromLangGroup */
-    @MustBeClosed
-    fun detachFromLangGroup(
-        detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext
-    ): HttpResponse = detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
-
+    /** Retrieve a blog post by the post ID. */
     @MustBeClosed fun get(objectId: String): HttpResponse = get(objectId, PostGetParams.none())
 
     /** @see get */
@@ -285,6 +200,7 @@ interface PostService {
     fun get(objectId: String, requestOptions: RequestOptions): HttpResponse =
         get(objectId, PostGetParams.none(), requestOptions)
 
+    /** Retrieve the full draft version of a blog post. */
     @MustBeClosed
     fun getDraftById(objectId: String): HttpResponse =
         getDraftById(objectId, PostGetDraftByIdParams.none())
@@ -321,68 +237,45 @@ interface PostService {
     fun getDraftById(objectId: String, requestOptions: RequestOptions): HttpResponse =
         getDraftById(objectId, PostGetDraftByIdParams.none(), requestOptions)
 
-    @MustBeClosed
-    fun getPreviousVersion(revisionId: String, params: PostGetPreviousVersionParams): HttpResponse =
-        getPreviousVersion(revisionId, params, RequestOptions.none())
+    @MustBeClosed fun listAuthors(): HttpResponse = listAuthors(PostListAuthorsParams.none())
 
-    /** @see getPreviousVersion */
+    /** @see listAuthors */
     @MustBeClosed
-    fun getPreviousVersion(
-        revisionId: String,
-        params: PostGetPreviousVersionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        getPreviousVersion(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-    /** @see getPreviousVersion */
-    @MustBeClosed
-    fun getPreviousVersion(params: PostGetPreviousVersionParams): HttpResponse =
-        getPreviousVersion(params, RequestOptions.none())
-
-    /** @see getPreviousVersion */
-    @MustBeClosed
-    fun getPreviousVersion(
-        params: PostGetPreviousVersionParams,
+    fun listAuthors(
+        params: PostListAuthorsParams = PostListAuthorsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
+    /** @see listAuthors */
     @MustBeClosed
-    fun getPreviousVersions(objectId: String): HttpResponse =
-        getPreviousVersions(objectId, PostGetPreviousVersionsParams.none())
+    fun listAuthors(params: PostListAuthorsParams = PostListAuthorsParams.none()): HttpResponse =
+        listAuthors(params, RequestOptions.none())
 
-    /** @see getPreviousVersions */
+    /** @see listAuthors */
     @MustBeClosed
-    fun getPreviousVersions(
-        objectId: String,
-        params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        getPreviousVersions(params.toBuilder().objectId(objectId).build(), requestOptions)
+    fun listAuthors(requestOptions: RequestOptions): HttpResponse =
+        listAuthors(PostListAuthorsParams.none(), requestOptions)
 
-    /** @see getPreviousVersions */
-    @MustBeClosed
-    fun getPreviousVersions(
-        objectId: String,
-        params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-    ): HttpResponse = getPreviousVersions(objectId, params, RequestOptions.none())
+    @MustBeClosed fun listTags(): HttpResponse = listTags(PostListTagsParams.none())
 
-    /** @see getPreviousVersions */
+    /** @see listTags */
     @MustBeClosed
-    fun getPreviousVersions(
-        params: PostGetPreviousVersionsParams,
+    fun listTags(
+        params: PostListTagsParams = PostListTagsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getPreviousVersions */
+    /** @see listTags */
     @MustBeClosed
-    fun getPreviousVersions(params: PostGetPreviousVersionsParams): HttpResponse =
-        getPreviousVersions(params, RequestOptions.none())
+    fun listTags(params: PostListTagsParams = PostListTagsParams.none()): HttpResponse =
+        listTags(params, RequestOptions.none())
 
-    /** @see getPreviousVersions */
+    /** @see listTags */
     @MustBeClosed
-    fun getPreviousVersions(objectId: String, requestOptions: RequestOptions): HttpResponse =
-        getPreviousVersions(objectId, PostGetPreviousVersionsParams.none(), requestOptions)
+    fun listTags(requestOptions: RequestOptions): HttpResponse =
+        listTags(PostListTagsParams.none(), requestOptions)
 
+    /** Publish the draft version of the blog post, sending its content to the live page. */
     fun pushLive(objectId: String) = pushLive(objectId, PostPushLiveParams.none())
 
     /** @see pushLive */
@@ -406,6 +299,67 @@ interface PostService {
     fun pushLive(objectId: String, requestOptions: RequestOptions) =
         pushLive(objectId, PostPushLiveParams.none(), requestOptions)
 
+    @MustBeClosed fun query(): HttpResponse = query(PostQueryParams.none())
+
+    /** @see query */
+    @MustBeClosed
+    fun query(
+        params: PostQueryParams = PostQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see query */
+    @MustBeClosed
+    fun query(params: PostQueryParams = PostQueryParams.none()): HttpResponse =
+        query(params, RequestOptions.none())
+
+    /** @see query */
+    @MustBeClosed
+    fun query(requestOptions: RequestOptions): HttpResponse =
+        query(PostQueryParams.none(), requestOptions)
+
+    @MustBeClosed fun queryAuthors(): HttpResponse = queryAuthors(PostQueryAuthorsParams.none())
+
+    /** @see queryAuthors */
+    @MustBeClosed
+    fun queryAuthors(
+        params: PostQueryAuthorsParams = PostQueryAuthorsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see queryAuthors */
+    @MustBeClosed
+    fun queryAuthors(params: PostQueryAuthorsParams = PostQueryAuthorsParams.none()): HttpResponse =
+        queryAuthors(params, RequestOptions.none())
+
+    /** @see queryAuthors */
+    @MustBeClosed
+    fun queryAuthors(requestOptions: RequestOptions): HttpResponse =
+        queryAuthors(PostQueryAuthorsParams.none(), requestOptions)
+
+    @MustBeClosed fun queryTags(): HttpResponse = queryTags(PostQueryTagsParams.none())
+
+    /** @see queryTags */
+    @MustBeClosed
+    fun queryTags(
+        params: PostQueryTagsParams = PostQueryTagsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see queryTags */
+    @MustBeClosed
+    fun queryTags(params: PostQueryTagsParams = PostQueryTagsParams.none()): HttpResponse =
+        queryTags(params, RequestOptions.none())
+
+    /** @see queryTags */
+    @MustBeClosed
+    fun queryTags(requestOptions: RequestOptions): HttpResponse =
+        queryTags(PostQueryTagsParams.none(), requestOptions)
+
+    /**
+     * Discard all drafted content, resetting the draft to contain the content in the currently
+     * published version.
+     */
     fun resetDraft(objectId: String) = resetDraft(objectId, PostResetDraftParams.none())
 
     /** @see resetDraft */
@@ -432,64 +386,7 @@ interface PostService {
     fun resetDraft(objectId: String, requestOptions: RequestOptions) =
         resetDraft(objectId, PostResetDraftParams.none(), requestOptions)
 
-    @MustBeClosed
-    fun restorePreviousVersion(
-        revisionId: String,
-        params: PostRestorePreviousVersionParams,
-    ): HttpResponse = restorePreviousVersion(revisionId, params, RequestOptions.none())
-
-    /** @see restorePreviousVersion */
-    @MustBeClosed
-    fun restorePreviousVersion(
-        revisionId: String,
-        params: PostRestorePreviousVersionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        restorePreviousVersion(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-    /** @see restorePreviousVersion */
-    @MustBeClosed
-    fun restorePreviousVersion(params: PostRestorePreviousVersionParams): HttpResponse =
-        restorePreviousVersion(params, RequestOptions.none())
-
-    /** @see restorePreviousVersion */
-    @MustBeClosed
-    fun restorePreviousVersion(
-        params: PostRestorePreviousVersionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    @MustBeClosed
-    fun restorePreviousVersionToDraft(
-        revisionId: Long,
-        params: PostRestorePreviousVersionToDraftParams,
-    ): HttpResponse = restorePreviousVersionToDraft(revisionId, params, RequestOptions.none())
-
-    /** @see restorePreviousVersionToDraft */
-    @MustBeClosed
-    fun restorePreviousVersionToDraft(
-        revisionId: Long,
-        params: PostRestorePreviousVersionToDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        restorePreviousVersionToDraft(
-            params.toBuilder().revisionId(revisionId).build(),
-            requestOptions,
-        )
-
-    /** @see restorePreviousVersionToDraft */
-    @MustBeClosed
-    fun restorePreviousVersionToDraft(
-        params: PostRestorePreviousVersionToDraftParams
-    ): HttpResponse = restorePreviousVersionToDraft(params, RequestOptions.none())
-
-    /** @see restorePreviousVersionToDraft */
-    @MustBeClosed
-    fun restorePreviousVersionToDraft(
-        params: PostRestorePreviousVersionToDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
+    /** Schedule a blog post to be published at a specified time. */
     fun schedule(params: PostScheduleParams) = schedule(params, RequestOptions.none())
 
     /** @see schedule */
@@ -511,31 +408,10 @@ interface PostService {
     fun schedule(contentScheduleRequestVNext: ContentScheduleRequestVNext) =
         schedule(contentScheduleRequestVNext, RequestOptions.none())
 
-    fun setLangPrimary(params: PostSetLangPrimaryParams) =
-        setLangPrimary(params, RequestOptions.none())
-
-    /** @see setLangPrimary */
-    fun setLangPrimary(
-        params: PostSetLangPrimaryParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see setLangPrimary */
-    fun setLangPrimary(
-        setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        setLangPrimary(
-            PostSetLangPrimaryParams.builder()
-                .setNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see setLangPrimary */
-    fun setLangPrimary(setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext) =
-        setLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
-
+    /**
+     * Partially updates the draft version of a single blog post by ID. You only need to specify the
+     * values that you want to update.
+     */
     @MustBeClosed
     fun updateDraft(objectId: String, params: PostUpdateDraftParams): HttpResponse =
         updateDraft(objectId, params, RequestOptions.none())
@@ -560,35 +436,6 @@ interface PostService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    @MustBeClosed
-    fun updateLangs(params: PostUpdateLangsParams): HttpResponse =
-        updateLangs(params, RequestOptions.none())
-
-    /** @see updateLangs */
-    @MustBeClosed
-    fun updateLangs(
-        params: PostUpdateLangsParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see updateLangs */
-    @MustBeClosed
-    fun updateLangs(
-        updateLanguagesRequestVNext: UpdateLanguagesRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        updateLangs(
-            PostUpdateLangsParams.builder()
-                .updateLanguagesRequestVNext(updateLanguagesRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see updateLangs */
-    @MustBeClosed
-    fun updateLangs(updateLanguagesRequestVNext: UpdateLanguagesRequestVNext): HttpResponse =
-        updateLangs(updateLanguagesRequestVNext, RequestOptions.none())
-
     /** A view of [PostService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -600,6 +447,10 @@ interface PostService {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): PostService.WithRawResponse
 
         fun batch(): BatchService.WithRawResponse
+
+        fun multiLanguage(): MultiLanguageService.WithRawResponse
+
+        fun revisions(): RevisionService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts`, but is otherwise the
@@ -655,8 +506,8 @@ interface PostService {
         ): HttpResponse
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts`, but is otherwise the same
-         * as [PostService.list].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor`, but is otherwise
+         * the same as [PostService.list].
          */
         @MustBeClosed fun list(): HttpResponse = list(PostListParams.none())
 
@@ -716,41 +567,6 @@ interface PostService {
             delete(objectId, PostDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/attach-to-lang-group`, but is otherwise the same
-         * as [PostService.attachToLangGroup].
-         */
-        @MustBeClosed
-        fun attachToLangGroup(params: PostAttachToLangGroupParams): HttpResponse =
-            attachToLangGroup(params, RequestOptions.none())
-
-        /** @see attachToLangGroup */
-        @MustBeClosed
-        fun attachToLangGroup(
-            params: PostAttachToLangGroupParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see attachToLangGroup */
-        @MustBeClosed
-        fun attachToLangGroup(
-            attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            attachToLangGroup(
-                PostAttachToLangGroupParams.builder()
-                    .attachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see attachToLangGroup */
-        @MustBeClosed
-        fun attachToLangGroup(
-            attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext
-        ): HttpResponse = attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts/clone`, but is otherwise
          * the same as [PostService.clone].
          */
@@ -781,78 +597,6 @@ interface PostService {
         @MustBeClosed
         fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): HttpResponse =
             clone(contentCloneRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/create-language-variation`, but is otherwise the
-         * same as [PostService.createLangVariation].
-         */
-        @MustBeClosed
-        fun createLangVariation(params: PostCreateLangVariationParams): HttpResponse =
-            createLangVariation(params, RequestOptions.none())
-
-        /** @see createLangVariation */
-        @MustBeClosed
-        fun createLangVariation(
-            params: PostCreateLangVariationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see createLangVariation */
-        @MustBeClosed
-        fun createLangVariation(
-            blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            createLangVariation(
-                PostCreateLangVariationParams.builder()
-                    .blogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see createLangVariation */
-        @MustBeClosed
-        fun createLangVariation(
-            blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext
-        ): HttpResponse =
-            createLangVariation(blogPostLanguageCloneRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/detach-from-lang-group`, but is otherwise the
-         * same as [PostService.detachFromLangGroup].
-         */
-        @MustBeClosed
-        fun detachFromLangGroup(params: PostDetachFromLangGroupParams): HttpResponse =
-            detachFromLangGroup(params, RequestOptions.none())
-
-        /** @see detachFromLangGroup */
-        @MustBeClosed
-        fun detachFromLangGroup(
-            params: PostDetachFromLangGroupParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see detachFromLangGroup */
-        @MustBeClosed
-        fun detachFromLangGroup(
-            detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            detachFromLangGroup(
-                PostDetachFromLangGroupParams.builder()
-                    .detachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see detachFromLangGroup */
-        @MustBeClosed
-        fun detachFromLangGroup(
-            detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext
-        ): HttpResponse =
-            detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/{objectId}`, but is
@@ -931,77 +675,51 @@ interface PostService {
             getDraftById(objectId, PostGetDraftByIdParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get
-         * /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}`, but is otherwise the same as
-         * [PostService.getPreviousVersion].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
+         * the same as [PostService.listAuthors].
          */
-        @MustBeClosed
-        fun getPreviousVersion(
-            revisionId: String,
-            params: PostGetPreviousVersionParams,
-        ): HttpResponse = getPreviousVersion(revisionId, params, RequestOptions.none())
+        @MustBeClosed fun listAuthors(): HttpResponse = listAuthors(PostListAuthorsParams.none())
 
-        /** @see getPreviousVersion */
+        /** @see listAuthors */
         @MustBeClosed
-        fun getPreviousVersion(
-            revisionId: String,
-            params: PostGetPreviousVersionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            getPreviousVersion(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see getPreviousVersion */
-        @MustBeClosed
-        fun getPreviousVersion(params: PostGetPreviousVersionParams): HttpResponse =
-            getPreviousVersion(params, RequestOptions.none())
-
-        /** @see getPreviousVersion */
-        @MustBeClosed
-        fun getPreviousVersion(
-            params: PostGetPreviousVersionParams,
+        fun listAuthors(
+            params: PostListAuthorsParams = PostListAuthorsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
+
+        /** @see listAuthors */
+        @MustBeClosed
+        fun listAuthors(
+            params: PostListAuthorsParams = PostListAuthorsParams.none()
+        ): HttpResponse = listAuthors(params, RequestOptions.none())
+
+        /** @see listAuthors */
+        @MustBeClosed
+        fun listAuthors(requestOptions: RequestOptions): HttpResponse =
+            listAuthors(PostListAuthorsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/{objectId}/revisions`, but
-         * is otherwise the same as [PostService.getPreviousVersions].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor`, but is otherwise
+         * the same as [PostService.listTags].
          */
-        @MustBeClosed
-        fun getPreviousVersions(objectId: String): HttpResponse =
-            getPreviousVersions(objectId, PostGetPreviousVersionsParams.none())
+        @MustBeClosed fun listTags(): HttpResponse = listTags(PostListTagsParams.none())
 
-        /** @see getPreviousVersions */
+        /** @see listTags */
         @MustBeClosed
-        fun getPreviousVersions(
-            objectId: String,
-            params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            getPreviousVersions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see getPreviousVersions */
-        @MustBeClosed
-        fun getPreviousVersions(
-            objectId: String,
-            params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-        ): HttpResponse = getPreviousVersions(objectId, params, RequestOptions.none())
-
-        /** @see getPreviousVersions */
-        @MustBeClosed
-        fun getPreviousVersions(
-            params: PostGetPreviousVersionsParams,
+        fun listTags(
+            params: PostListTagsParams = PostListTagsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getPreviousVersions */
+        /** @see listTags */
         @MustBeClosed
-        fun getPreviousVersions(params: PostGetPreviousVersionsParams): HttpResponse =
-            getPreviousVersions(params, RequestOptions.none())
+        fun listTags(params: PostListTagsParams = PostListTagsParams.none()): HttpResponse =
+            listTags(params, RequestOptions.none())
 
-        /** @see getPreviousVersions */
+        /** @see listTags */
         @MustBeClosed
-        fun getPreviousVersions(objectId: String, requestOptions: RequestOptions): HttpResponse =
-            getPreviousVersions(objectId, PostGetPreviousVersionsParams.none(), requestOptions)
+        fun listTags(requestOptions: RequestOptions): HttpResponse =
+            listTags(PostListTagsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
@@ -1044,6 +762,76 @@ interface PostService {
             pushLive(objectId, PostPushLiveParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor/query`, but is
+         * otherwise the same as [PostService.query].
+         */
+        @MustBeClosed fun query(): HttpResponse = query(PostQueryParams.none())
+
+        /** @see query */
+        @MustBeClosed
+        fun query(
+            params: PostQueryParams = PostQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see query */
+        @MustBeClosed
+        fun query(params: PostQueryParams = PostQueryParams.none()): HttpResponse =
+            query(params, RequestOptions.none())
+
+        /** @see query */
+        @MustBeClosed
+        fun query(requestOptions: RequestOptions): HttpResponse =
+            query(PostQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
+         * otherwise the same as [PostService.queryAuthors].
+         */
+        @MustBeClosed fun queryAuthors(): HttpResponse = queryAuthors(PostQueryAuthorsParams.none())
+
+        /** @see queryAuthors */
+        @MustBeClosed
+        fun queryAuthors(
+            params: PostQueryAuthorsParams = PostQueryAuthorsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see queryAuthors */
+        @MustBeClosed
+        fun queryAuthors(
+            params: PostQueryAuthorsParams = PostQueryAuthorsParams.none()
+        ): HttpResponse = queryAuthors(params, RequestOptions.none())
+
+        /** @see queryAuthors */
+        @MustBeClosed
+        fun queryAuthors(requestOptions: RequestOptions): HttpResponse =
+            queryAuthors(PostQueryAuthorsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor/query`, but is
+         * otherwise the same as [PostService.queryTags].
+         */
+        @MustBeClosed fun queryTags(): HttpResponse = queryTags(PostQueryTagsParams.none())
+
+        /** @see queryTags */
+        @MustBeClosed
+        fun queryTags(
+            params: PostQueryTagsParams = PostQueryTagsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see queryTags */
+        @MustBeClosed
+        fun queryTags(params: PostQueryTagsParams = PostQueryTagsParams.none()): HttpResponse =
+            queryTags(params, RequestOptions.none())
+
+        /** @see queryTags */
+        @MustBeClosed
+        fun queryTags(requestOptions: RequestOptions): HttpResponse =
+            queryTags(PostQueryTagsParams.none(), requestOptions)
+
+        /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts/{objectId}/draft/reset`,
          * but is otherwise the same as [PostService.resetDraft].
          */
@@ -1084,77 +872,6 @@ interface PostService {
             resetDraft(objectId, PostResetDraftParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}/restore`, but is otherwise the
-         * same as [PostService.restorePreviousVersion].
-         */
-        @MustBeClosed
-        fun restorePreviousVersion(
-            revisionId: String,
-            params: PostRestorePreviousVersionParams,
-        ): HttpResponse = restorePreviousVersion(revisionId, params, RequestOptions.none())
-
-        /** @see restorePreviousVersion */
-        @MustBeClosed
-        fun restorePreviousVersion(
-            revisionId: String,
-            params: PostRestorePreviousVersionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            restorePreviousVersion(
-                params.toBuilder().revisionId(revisionId).build(),
-                requestOptions,
-            )
-
-        /** @see restorePreviousVersion */
-        @MustBeClosed
-        fun restorePreviousVersion(params: PostRestorePreviousVersionParams): HttpResponse =
-            restorePreviousVersion(params, RequestOptions.none())
-
-        /** @see restorePreviousVersion */
-        @MustBeClosed
-        fun restorePreviousVersion(
-            params: PostRestorePreviousVersionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}/restore-to-draft`, but is
-         * otherwise the same as [PostService.restorePreviousVersionToDraft].
-         */
-        @MustBeClosed
-        fun restorePreviousVersionToDraft(
-            revisionId: Long,
-            params: PostRestorePreviousVersionToDraftParams,
-        ): HttpResponse = restorePreviousVersionToDraft(revisionId, params, RequestOptions.none())
-
-        /** @see restorePreviousVersionToDraft */
-        @MustBeClosed
-        fun restorePreviousVersionToDraft(
-            revisionId: Long,
-            params: PostRestorePreviousVersionToDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            restorePreviousVersionToDraft(
-                params.toBuilder().revisionId(revisionId).build(),
-                requestOptions,
-            )
-
-        /** @see restorePreviousVersionToDraft */
-        @MustBeClosed
-        fun restorePreviousVersionToDraft(
-            params: PostRestorePreviousVersionToDraftParams
-        ): HttpResponse = restorePreviousVersionToDraft(params, RequestOptions.none())
-
-        /** @see restorePreviousVersionToDraft */
-        @MustBeClosed
-        fun restorePreviousVersionToDraft(
-            params: PostRestorePreviousVersionToDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts/schedule`, but is
          * otherwise the same as [PostService.schedule].
          */
@@ -1188,41 +905,6 @@ interface PostService {
             schedule(contentScheduleRequestVNext, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `put
-         * /cms/blogs/2026-03/posts/multi-language/set-new-lang-primary`, but is otherwise the same
-         * as [PostService.setLangPrimary].
-         */
-        @MustBeClosed
-        fun setLangPrimary(params: PostSetLangPrimaryParams): HttpResponse =
-            setLangPrimary(params, RequestOptions.none())
-
-        /** @see setLangPrimary */
-        @MustBeClosed
-        fun setLangPrimary(
-            params: PostSetLangPrimaryParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see setLangPrimary */
-        @MustBeClosed
-        fun setLangPrimary(
-            setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            setLangPrimary(
-                PostSetLangPrimaryParams.builder()
-                    .setNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see setLangPrimary */
-        @MustBeClosed
-        fun setLangPrimary(
-            setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext
-        ): HttpResponse = setLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `patch /cms/blogs/2026-03/posts/{objectId}/draft`, but is
          * otherwise the same as [PostService.updateDraft].
          */
@@ -1249,39 +931,5 @@ interface PostService {
             params: PostUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/update-languages`, but is otherwise the same as
-         * [PostService.updateLangs].
-         */
-        @MustBeClosed
-        fun updateLangs(params: PostUpdateLangsParams): HttpResponse =
-            updateLangs(params, RequestOptions.none())
-
-        /** @see updateLangs */
-        @MustBeClosed
-        fun updateLangs(
-            params: PostUpdateLangsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see updateLangs */
-        @MustBeClosed
-        fun updateLangs(
-            updateLanguagesRequestVNext: UpdateLanguagesRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            updateLangs(
-                PostUpdateLangsParams.builder()
-                    .updateLanguagesRequestVNext(updateLanguagesRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see updateLangs */
-        @MustBeClosed
-        fun updateLangs(updateLanguagesRequestVNext: UpdateLanguagesRequestVNext): HttpResponse =
-            updateLangs(updateLanguagesRequestVNext, RequestOptions.none())
     }
 }

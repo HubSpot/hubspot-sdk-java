@@ -12,7 +12,7 @@ internal class MediaBridgeUpdateSchemaParamsTest {
     @Test
     fun create() {
         MediaBridgeUpdateSchemaParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .objectTypeDefinitionPatch(
                 ObjectTypeDefinitionPatch.builder()
@@ -39,14 +39,14 @@ internal class MediaBridgeUpdateSchemaParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeUpdateSchemaParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .objectTypeDefinitionPatch(
                     ObjectTypeDefinitionPatch.builder().clearDescription(true).build()
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -56,7 +56,7 @@ internal class MediaBridgeUpdateSchemaParamsTest {
     fun body() {
         val params =
             MediaBridgeUpdateSchemaParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .objectTypeDefinitionPatch(
                     ObjectTypeDefinitionPatch.builder()
@@ -105,7 +105,7 @@ internal class MediaBridgeUpdateSchemaParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MediaBridgeUpdateSchemaParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .objectTypeDefinitionPatch(
                     ObjectTypeDefinitionPatch.builder().clearDescription(true).build()

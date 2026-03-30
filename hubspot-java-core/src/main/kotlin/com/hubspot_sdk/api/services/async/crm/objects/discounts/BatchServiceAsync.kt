@@ -35,11 +35,6 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
-    /**
-     * Create multiple discounts in a single request by providing the necessary properties and
-     * associations for each discount. This operation returns a list of the created discounts,
-     * including their unique identifiers.
-     */
     fun create(params: BatchCreateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         create(params, RequestOptions.none())
 
@@ -71,7 +66,7 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
-    /** Update discounts */
+    /** Update a batch of discounts by internal ID, or unique property values */
     fun update(params: BatchUpdateParams): CompletableFuture<BatchResponseSimplePublicObject> =
         update(params, RequestOptions.none())
 
@@ -99,7 +94,6 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /** Batch delete discounts */
     fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
@@ -126,7 +120,10 @@ interface BatchServiceAsync {
         batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
     ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Batch retrieve discounts. */
+    /**
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
+     */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
         get(params, RequestOptions.none())
 
@@ -154,10 +151,6 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
-    /**
-     * Create and update a batch of discounts by a unique property. Discounts that don't exist will
-     * be created, while existing discounts will be updated.
-     */
     fun upsert(
         params: BatchUpsertParams
     ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =

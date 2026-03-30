@@ -43,8 +43,8 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The new name for the folder, which will also update the fullPath and all children of the
-     * folder.
+     * New name. If specified the folder's name and fullPath will change. All children of the folder
+     * will be updated accordingly.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -52,8 +52,8 @@ private constructor(
     fun name(): Optional<String> = name.getOptional("name")
 
     /**
-     * The ID of the new parent folder, which will move the folder and its children into the
-     * specified folder.
+     * New parent folderId. If changed, the folder and all it's children will be moved into the
+     * specified folder. parentFolderId and parentFolderPath cannot be specified at the same time.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -136,8 +136,8 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /**
-         * The new name for the folder, which will also update the fullPath and all children of the
-         * folder.
+         * New name. If specified the folder's name and fullPath will change. All children of the
+         * folder will be updated accordingly.
          */
         fun name(name: String) = name(JsonField.of(name))
 
@@ -150,8 +150,9 @@ private constructor(
         fun name(name: JsonField<String>) = apply { this.name = name }
 
         /**
-         * The ID of the new parent folder, which will move the folder and its children into the
-         * specified folder.
+         * New parent folderId. If changed, the folder and all it's children will be moved into the
+         * specified folder. parentFolderId and parentFolderPath cannot be specified at the same
+         * time.
          */
         fun parentFolderId(parentFolderId: Long) = parentFolderId(JsonField.of(parentFolderId))
 

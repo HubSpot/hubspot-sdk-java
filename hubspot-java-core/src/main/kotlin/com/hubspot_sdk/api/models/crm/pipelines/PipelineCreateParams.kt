@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Create a pipeline stage */
 class PipelineCreateParams
 private constructor(
     private val objectType: String,

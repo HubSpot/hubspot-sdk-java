@@ -30,6 +30,8 @@ private constructor(
     ) : this(source, mutableMapOf())
 
     /**
+     * Indicates the source of the test request, with the only accepted value being 'TEST'.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -79,6 +81,7 @@ private constructor(
             additionalProperties = testRequestContext.additionalProperties.toMutableMap()
         }
 
+        /** Indicates the source of the test request, with the only accepted value being 'TEST'. */
         fun source(source: Source) = source(JsonField.of(source))
 
         /**
@@ -150,6 +153,7 @@ private constructor(
      */
     @JvmSynthetic internal fun validity(): Int = (source.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Indicates the source of the test request, with the only accepted value being 'TEST'. */
     class Source @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

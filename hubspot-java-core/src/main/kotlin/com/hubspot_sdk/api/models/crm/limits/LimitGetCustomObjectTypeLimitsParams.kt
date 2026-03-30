@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Returns limits and usage for custom object schemas */
 class LimitGetCustomObjectTypeLimitsParams
 private constructor(
     private val additionalHeaders: Headers,

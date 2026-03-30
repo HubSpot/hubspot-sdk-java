@@ -72,7 +72,7 @@ private constructor(
     fun actions(): List<Action> = actions.getRequired("actions")
 
     /**
-     * The title of the object card, displayed to users.
+     * The top-level title for this card. Displayed to users in the CRM UI.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -226,7 +226,7 @@ private constructor(
         fun addAction(iFrameActionBody: IFrameActionBody) =
             addAction(Action.ofIFrameActionBody(iFrameActionBody))
 
-        /** The title of the object card, displayed to users. */
+        /** The top-level title for this card. Displayed to users in the CRM UI. */
         fun title(title: String) = title(JsonField.of(title))
 
         /**

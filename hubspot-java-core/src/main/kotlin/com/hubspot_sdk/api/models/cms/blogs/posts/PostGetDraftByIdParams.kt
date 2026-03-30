@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the full draft version of a blog post. */
 class PostGetDraftByIdParams
 private constructor(
     private val objectId: String?,

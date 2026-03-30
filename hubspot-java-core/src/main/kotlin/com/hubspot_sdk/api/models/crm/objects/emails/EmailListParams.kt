@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all emails. Control what is returned via the `properties` query param. */
+/** Read a page of emails. Control what is returned via the `properties` query param. */
 class EmailListParams
 private constructor(
     private val after: String?,

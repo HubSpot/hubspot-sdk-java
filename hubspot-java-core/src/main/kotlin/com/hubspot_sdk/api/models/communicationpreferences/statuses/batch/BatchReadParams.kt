@@ -16,11 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve the subscription statuses for multiple subscribers in a batch operation. This endpoint
- * allows you to check the communication preferences of several subscribers at once, which is useful
- * for managing large lists of contacts efficiently.
- */
+/** Batch retrieve subscription statuses for a set of contacts. */
 class BatchReadParams
 private constructor(
     private val channel: Channel,
@@ -30,13 +26,8 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The communication channel to filter by. This parameter is required and currently only
-     * supports 'EMAIL'.
-     */
     fun channel(): Channel = channel
 
-    /** An optional identifier for the business unit. This is an integer value. */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
     fun batchInputString(): BatchInputString = batchInputString
@@ -84,13 +75,8 @@ private constructor(
             additionalQueryParams = batchReadParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The communication channel to filter by. This parameter is required and currently only
-         * supports 'EMAIL'.
-         */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
-        /** An optional identifier for the business unit. This is an integer value. */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -242,10 +228,6 @@ private constructor(
             }
             .build()
 
-    /**
-     * The communication channel to filter by. This parameter is required and currently only
-     * supports 'EMAIL'.
-     */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

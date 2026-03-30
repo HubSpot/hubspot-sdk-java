@@ -300,7 +300,7 @@ private constructor(
     fun businessUnitId(): Optional<String> = businessUnitId.getOptional("businessUnitId")
 
     /**
-     * The campaign GUID on the email.
+     * The ID of the campaign this email is associated to.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -581,7 +581,7 @@ private constructor(
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
 
     /**
-     * The ID of the user who last updated the email.
+     * The id of the user who last updated the email.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1235,7 +1235,7 @@ private constructor(
             this.businessUnitId = businessUnitId
         }
 
-        /** The campaign GUID on the email. */
+        /** The ID of the campaign this email is associated to. */
         fun campaign(campaign: String) = campaign(JsonField.of(campaign))
 
         /**
@@ -1740,7 +1740,7 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        /** The ID of the user who last updated the email. */
+        /** The id of the user who last updated the email. */
         fun updatedById(updatedById: String) = updatedById(JsonField.of(updatedById))
 
         /**

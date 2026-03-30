@@ -12,11 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Update a specific budget item by its ID within a marketing campaign. This operation allows you to
- * modify the details of a budget item, such as its amount, name, or order, ensuring that your
- * campaign's financial records are accurate and up-to-date.
- */
+/** Update a specific budget item by ID */
 class BudgetUpdateParams
 private constructor(
     private val campaignGuid: String,

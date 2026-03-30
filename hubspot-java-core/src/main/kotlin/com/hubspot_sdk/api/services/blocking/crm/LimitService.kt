@@ -39,6 +39,7 @@ interface LimitService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LimitService
 
+    /** Returns limits and usage for custom association labels */
     fun getAssociationLabelLimits(): CollectionResponseAssociationLabelLimitResponseNoPaging =
         getAssociationLabelLimits(LimitGetAssociationLabelLimitsParams.none())
 
@@ -60,6 +61,7 @@ interface LimitService {
     ): CollectionResponseAssociationLabelLimitResponseNoPaging =
         getAssociationLabelLimits(LimitGetAssociationLabelLimitsParams.none(), requestOptions)
 
+    /** Returns records approaching or at association limits between two objects */
     fun getAssociationRecordsLimitsByObjectType(
         toObjectTypeId: String,
         params: LimitGetAssociationRecordsLimitsByObjectTypeParams,
@@ -89,6 +91,7 @@ interface LimitService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AssociationRecordLimitResponse
 
+    /** Returns objects with records approaching or at association limits */
     fun getAssociationRecordsLimitsFromObjects():
         CollectionResponseObjectTypeNearOrAtAssociationLimitNoPaging =
         getAssociationRecordsLimitsFromObjects(
@@ -118,6 +121,9 @@ interface LimitService {
             requestOptions,
         )
 
+    /**
+     * Returns objects for which the from object has records approaching or at association limits
+     */
     fun getAssociationRecordsLimitsToObjects(
         fromObjectTypeId: String
     ): CollectionResponseObjectTypeNearOrAtAssociationLimitNoPaging =
@@ -169,6 +175,7 @@ interface LimitService {
             requestOptions,
         )
 
+    /** Returns overall limit and per object usage for calculated properties */
     fun getCalculatedPropertyLimits(): CalculatedPropertyLimitResponse =
         getCalculatedPropertyLimits(LimitGetCalculatedPropertyLimitsParams.none())
 
@@ -191,6 +198,7 @@ interface LimitService {
     ): CalculatedPropertyLimitResponse =
         getCalculatedPropertyLimits(LimitGetCalculatedPropertyLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage for custom object schemas */
     fun getCustomObjectTypeLimits(): CustomObjectLimitResponse =
         getCustomObjectTypeLimits(LimitGetCustomObjectTypeLimitsParams.none())
 
@@ -209,6 +217,7 @@ interface LimitService {
     fun getCustomObjectTypeLimits(requestOptions: RequestOptions): CustomObjectLimitResponse =
         getCustomObjectTypeLimits(LimitGetCustomObjectTypeLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage per object for custom properties */
     fun getCustomPropertyLimits(): CustomPropertyLimitResponse =
         getCustomPropertyLimits(LimitGetCustomPropertyLimitsParams.none())
 
@@ -227,6 +236,7 @@ interface LimitService {
     fun getCustomPropertyLimits(requestOptions: RequestOptions): CustomPropertyLimitResponse =
         getCustomPropertyLimits(LimitGetCustomPropertyLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage per object for pipelines */
     fun getPipelineLimits(): PipelineLimitResponse =
         getPipelineLimits(LimitGetPipelineLimitsParams.none())
 
@@ -245,6 +255,7 @@ interface LimitService {
     fun getPipelineLimits(requestOptions: RequestOptions): PipelineLimitResponse =
         getPipelineLimits(LimitGetPipelineLimitsParams.none(), requestOptions)
 
+    /** Returns limits and usage per object for records */
     fun getRecordLimits(): RecordLimitResponse = getRecordLimits(LimitGetRecordLimitsParams.none())
 
     /** @see getRecordLimits */

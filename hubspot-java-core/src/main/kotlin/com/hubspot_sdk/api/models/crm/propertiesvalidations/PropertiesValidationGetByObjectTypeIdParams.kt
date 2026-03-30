@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Read all properties with validation rules for a given object. */
 class PropertiesValidationGetByObjectTypeIdParams
 private constructor(
     private val objectTypeId: String?,

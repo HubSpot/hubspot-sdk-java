@@ -16,11 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve the unsubscribe-all status for a batch of subscribers in a specified channel. This
- * endpoint is useful for checking the current unsubscribe-all status of multiple subscribers at
- * once, helping to manage and audit communication preferences efficiently.
- */
+/** Checks whether a set of contacts have opted out of all communications. */
 class BatchGetUnsubscribeAllStatusesParams
 private constructor(
     private val channel: Channel,
@@ -30,16 +26,8 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /**
-     * The communication channel to check the unsubscribe-all status for. Currently, only 'EMAIL' is
-     * supported. This parameter is required.
-     */
     fun channel(): Channel = channel
 
-    /**
-     * The ID of the business unit for which the statuses are being retrieved. This is an optional
-     * parameter.
-     */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
     fun batchInputString(): BatchInputString = batchInputString
@@ -91,16 +79,8 @@ private constructor(
                 batchGetUnsubscribeAllStatusesParams.additionalQueryParams.toBuilder()
         }
 
-        /**
-         * The communication channel to check the unsubscribe-all status for. Currently, only
-         * 'EMAIL' is supported. This parameter is required.
-         */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
-        /**
-         * The ID of the business unit for which the statuses are being retrieved. This is an
-         * optional parameter.
-         */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -252,10 +232,6 @@ private constructor(
             }
             .build()
 
-    /**
-     * The communication channel to check the unsubscribe-all status for. Currently, only 'EMAIL' is
-     * supported. This parameter is required.
-     */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
