@@ -12,10 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Create multiple association definitions between two specified CRM object types in a single
- * request.
- */
+/** Batch configure association limits between two object types. */
 class LabelBatchCreateParams
 private constructor(
     private val fromObjectType: String,

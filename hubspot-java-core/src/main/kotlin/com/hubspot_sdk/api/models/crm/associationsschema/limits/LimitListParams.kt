@@ -8,8 +8,8 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
 /**
- * Fetch all limits for CRM associations, which include details about cardinality limits (i.e.,
- * one-to-many vs one-to-one).
+ * Retrieve all configured association limits between objects, which include details about how
+ * different CRM object types are associated with each other.
  */
 class LimitListParams
 private constructor(

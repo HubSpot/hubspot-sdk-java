@@ -7,11 +7,11 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionPatch
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update a specific custom event definition by name. */
 class DefinitionUpdateParams
 private constructor(
     private val eventName: String?,

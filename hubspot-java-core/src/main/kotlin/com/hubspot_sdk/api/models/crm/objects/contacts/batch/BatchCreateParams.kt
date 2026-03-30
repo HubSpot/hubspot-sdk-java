@@ -10,12 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
 import java.util.Objects
 
-/**
- * Create a batch of contacts. The `inputs` array can contain a `properties` object to define
- * property values for each record, along with an `associations` array to define
- * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
- * with other CRM records.
- */
 class BatchCreateParams
 private constructor(
     private val batchInputSimplePublicObjectBatchInputForCreate:

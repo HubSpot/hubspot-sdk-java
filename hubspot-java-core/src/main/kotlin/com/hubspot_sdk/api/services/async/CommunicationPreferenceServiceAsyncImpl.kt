@@ -19,16 +19,11 @@ import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.communicationpreferences.ActionResponseWithResultsPublicStatus
 import com.hubspot_sdk.api.models.communicationpreferences.ActionResponseWithResultsPublicWideStatus
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGenerateLinksParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetStatusByEmailParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetStatusesParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetUnsubscribeAllStatusParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceSubscribeParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUnsubscribeAllParams
-import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUnsubscribeParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUpdateStatusParams
 import com.hubspot_sdk.api.models.communicationpreferences.LinkGenerationResponse
-import com.hubspot_sdk.api.models.communicationpreferences.PublicSubscriptionStatus
-import com.hubspot_sdk.api.models.communicationpreferences.PublicSubscriptionStatusesResponse
 import com.hubspot_sdk.api.services.async.communicationpreferences.DefinitionServiceAsync
 import com.hubspot_sdk.api.services.async.communicationpreferences.DefinitionServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.communicationpreferences.StatusServiceAsync
@@ -72,13 +67,6 @@ internal constructor(private val clientOptions: ClientOptions) :
         // post /communication-preferences/2026-03/links/generate
         withRawResponse().generateLinks(params, requestOptions).thenApply { it.parse() }
 
-    override fun getStatusByEmail(
-        params: CommunicationPreferenceGetStatusByEmailParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PublicSubscriptionStatusesResponse> =
-        // get /communication-preferences/2026-03/status/email/{emailAddress}
-        withRawResponse().getStatusByEmail(params, requestOptions).thenApply { it.parse() }
-
     override fun getStatuses(
         params: CommunicationPreferenceGetStatusesParams,
         requestOptions: RequestOptions,
@@ -92,20 +80,6 @@ internal constructor(private val clientOptions: ClientOptions) :
     ): CompletableFuture<ActionResponseWithResultsPublicWideStatus> =
         // get /communication-preferences/2026-03/statuses/{subscriberIdString}/unsubscribe-all
         withRawResponse().getUnsubscribeAllStatus(params, requestOptions).thenApply { it.parse() }
-
-    override fun subscribe(
-        params: CommunicationPreferenceSubscribeParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PublicSubscriptionStatus> =
-        // post /communication-preferences/2026-03/subscribe
-        withRawResponse().subscribe(params, requestOptions).thenApply { it.parse() }
-
-    override fun unsubscribe(
-        params: CommunicationPreferenceUnsubscribeParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<PublicSubscriptionStatus> =
-        // post /communication-preferences/2026-03/unsubscribe
-        withRawResponse().unsubscribe(params, requestOptions).thenApply { it.parse() }
 
     override fun unsubscribeAll(
         params: CommunicationPreferenceUnsubscribeAllParams,
@@ -168,45 +142,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                     errorHandler.handle(response).parseable {
                         response
                             .use { generateLinksHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val getStatusByEmailHandler: Handler<PublicSubscriptionStatusesResponse> =
-            jsonHandler<PublicSubscriptionStatusesResponse>(clientOptions.jsonMapper)
-
-        override fun getStatusByEmail(
-            params: CommunicationPreferenceGetStatusByEmailParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatusesResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("emailAddress", params.emailAddress().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "communication-preferences",
-                        "2026-03",
-                        "status",
-                        "email",
-                        params._pathParam(0),
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getStatusByEmailHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -285,68 +220,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                     errorHandler.handle(response).parseable {
                         response
                             .use { getUnsubscribeAllStatusHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val subscribeHandler: Handler<PublicSubscriptionStatus> =
-            jsonHandler<PublicSubscriptionStatus>(clientOptions.jsonMapper)
-
-        override fun subscribe(
-            params: CommunicationPreferenceSubscribeParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("communication-preferences", "2026-03", "subscribe")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { subscribeHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val unsubscribeHandler: Handler<PublicSubscriptionStatus> =
-            jsonHandler<PublicSubscriptionStatus>(clientOptions.jsonMapper)
-
-        override fun unsubscribe(
-            params: CommunicationPreferenceUnsubscribeParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PublicSubscriptionStatus>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("communication-preferences", "2026-03", "unsubscribe")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { unsubscribeHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

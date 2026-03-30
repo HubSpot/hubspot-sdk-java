@@ -15,7 +15,7 @@ import kotlin.jvm.optionals.getOrNull
 /** Update an existing property group by name. */
 class MediaBridgeUpdatePropertyGroupParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val objectType: String,
     private val groupName: String?,
     private val propertyGroupUpdate: PropertyGroupUpdate,
@@ -23,7 +23,7 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun objectType(): String = objectType
 
@@ -61,7 +61,7 @@ private constructor(
     /** A builder for [MediaBridgeUpdatePropertyGroupParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var objectType: String? = null
         private var groupName: String? = null
         private var propertyGroupUpdate: PropertyGroupUpdate? = null
@@ -81,7 +81,7 @@ private constructor(
                 mediaBridgeUpdatePropertyGroupParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun objectType(objectType: String) = apply { this.objectType = objectType }
 
@@ -221,7 +221,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> objectType
             2 -> groupName ?: ""
             else -> ""

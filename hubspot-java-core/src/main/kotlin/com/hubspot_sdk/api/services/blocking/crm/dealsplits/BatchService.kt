@@ -27,6 +27,7 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
+    /** Read a batch of deal split objects by their associated deal object internal ID */
     fun read(params: BatchReadParams): BatchResponseDealToDealSplits =
         read(params, RequestOptions.none())
 
@@ -50,6 +51,10 @@ interface BatchService {
     fun read(batchInputPublicObjectId: BatchInputPublicObjectId): BatchResponseDealToDealSplits =
         read(batchInputPublicObjectId, RequestOptions.none())
 
+    /**
+     * Create or replace deal splits for deals with the provided IDs. Deal split percentages for
+     * each deal must sum up to 1.0 (100%) and may have up to 8 decimal places
+     */
     fun upsert(params: BatchUpsertParams): BatchResponseDealToDealSplits =
         upsert(params, RequestOptions.none())
 

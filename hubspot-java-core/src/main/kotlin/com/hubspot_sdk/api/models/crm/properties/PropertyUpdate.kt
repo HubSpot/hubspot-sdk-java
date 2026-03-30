@@ -90,8 +90,8 @@ private constructor(
     fun description(): Optional<String> = description.getOptional("description")
 
     /**
-     * Property groups are displayed in order starting with the lowest positive integer value.
-     * Values of -1 will cause the property group to be displayed after any positive values.
+     * Properties are displayed in order starting with the lowest positive integer value. Values of
+     * -1 will cause the Property to be displayed after any positive values.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -131,7 +131,7 @@ private constructor(
     fun hidden(): Optional<Boolean> = hidden.getOptional("hidden")
 
     /**
-     * A human-readable label that will be shown in HubSpot.
+     * A human-readable property label that will be shown in HubSpot.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -139,7 +139,7 @@ private constructor(
     fun label(): Optional<String> = label.getOptional("label")
 
     /**
-     * A list of valid options for the property. This field is required for enumerated properties.
+     * A list of valid options for the property.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -303,8 +303,8 @@ private constructor(
         fun description(description: JsonField<String>) = apply { this.description = description }
 
         /**
-         * Property groups are displayed in order starting with the lowest positive integer value.
-         * Values of -1 will cause the property group to be displayed after any positive values.
+         * Properties are displayed in order starting with the lowest positive integer value. Values
+         * of -1 will cause the Property to be displayed after any positive values.
          */
         fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
 
@@ -364,7 +364,7 @@ private constructor(
          */
         fun hidden(hidden: JsonField<Boolean>) = apply { this.hidden = hidden }
 
-        /** A human-readable label that will be shown in HubSpot. */
+        /** A human-readable property label that will be shown in HubSpot. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -375,10 +375,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
-        /**
-         * A list of valid options for the property. This field is required for enumerated
-         * properties.
-         */
+        /** A list of valid options for the property. */
         fun options(options: List<OptionInput>) = options(JsonField.of(options))
 
         /**

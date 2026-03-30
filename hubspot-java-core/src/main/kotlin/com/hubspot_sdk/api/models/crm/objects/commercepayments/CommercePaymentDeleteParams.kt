@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a payment by ID. */
+/** Move an Object identified by `{commercePaymentId}` to the recycling bin. */
 class CommercePaymentDeleteParams
 private constructor(
     private val commercePaymentId: String?,

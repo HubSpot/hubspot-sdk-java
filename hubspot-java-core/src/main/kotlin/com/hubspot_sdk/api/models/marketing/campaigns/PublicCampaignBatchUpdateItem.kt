@@ -34,7 +34,7 @@ private constructor(
     ) : this(id, properties, mutableMapOf())
 
     /**
-     * The unique identifier for the campaign to be updated. It is a string.
+     * The unique identifier for the campaign to be updated.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -42,8 +42,7 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * A map of property names to their new values for the campaign. Each property name is a string,
-     * and its value is also a string.
+     * A set of key-value pairs representing the properties to be updated for the campaign.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -107,7 +106,7 @@ private constructor(
             additionalProperties = publicCampaignBatchUpdateItem.additionalProperties.toMutableMap()
         }
 
-        /** The unique identifier for the campaign to be updated. It is a string. */
+        /** The unique identifier for the campaign to be updated. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -118,10 +117,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /**
-         * A map of property names to their new values for the campaign. Each property name is a
-         * string, and its value is also a string.
-         */
+        /** A set of key-value pairs representing the properties to be updated for the campaign. */
         fun properties(properties: Properties) = properties(JsonField.of(properties))
 
         /**
@@ -202,10 +198,7 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) + (properties.asKnown().getOrNull()?.validity() ?: 0)
 
-    /**
-     * A map of property names to their new values for the campaign. Each property name is a string,
-     * and its value is also a string.
-     */
+    /** A set of key-value pairs representing the properties to be updated for the campaign. */
     class Properties
     @JsonCreator
     private constructor(

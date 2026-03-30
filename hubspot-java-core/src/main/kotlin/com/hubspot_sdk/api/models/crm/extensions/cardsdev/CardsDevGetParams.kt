@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Returns a list of cards for a given app. */
 class CardsDevGetParams
 private constructor(
     private val appId: Int?,

@@ -76,36 +76,48 @@ private constructor(
     )
 
     /**
+     * The name of the action.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionName(): String = actionName.getRequired("actionName")
 
     /**
+     * Content displayed on the action card.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun actionCardContent(): Optional<String> = actionCardContent.getOptional("actionCardContent")
 
     /**
+     * A description of what the action does.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun actionDescription(): Optional<String> = actionDescription.getOptional("actionDescription")
 
     /**
+     * The display name of the application associated with the action.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun appDisplayName(): Optional<String> = appDisplayName.getOptional("appDisplayName")
 
     /**
+     * Rules that govern the execution of the action.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun executionRules(): Optional<ExecutionRules> = executionRules.getOptional("executionRules")
 
     /**
+     * Descriptions for each input field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -113,6 +125,8 @@ private constructor(
         inputFieldDescriptions.getOptional("inputFieldDescriptions")
 
     /**
+     * Labels for the input fields.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -120,6 +134,8 @@ private constructor(
         inputFieldLabels.getOptional("inputFieldLabels")
 
     /**
+     * Labels for the options available in input fields.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -127,6 +143,8 @@ private constructor(
         inputFieldOptionLabels.getOptional("inputFieldOptionLabels")
 
     /**
+     * Labels for the output fields.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -271,6 +289,7 @@ private constructor(
             additionalProperties = publicActionLabels.additionalProperties.toMutableMap()
         }
 
+        /** The name of the action. */
         fun actionName(actionName: String) = actionName(JsonField.of(actionName))
 
         /**
@@ -282,6 +301,7 @@ private constructor(
          */
         fun actionName(actionName: JsonField<String>) = apply { this.actionName = actionName }
 
+        /** Content displayed on the action card. */
         fun actionCardContent(actionCardContent: String) =
             actionCardContent(JsonField.of(actionCardContent))
 
@@ -296,6 +316,7 @@ private constructor(
             this.actionCardContent = actionCardContent
         }
 
+        /** A description of what the action does. */
         fun actionDescription(actionDescription: String) =
             actionDescription(JsonField.of(actionDescription))
 
@@ -310,6 +331,7 @@ private constructor(
             this.actionDescription = actionDescription
         }
 
+        /** The display name of the application associated with the action. */
         fun appDisplayName(appDisplayName: String) = appDisplayName(JsonField.of(appDisplayName))
 
         /**
@@ -323,6 +345,7 @@ private constructor(
             this.appDisplayName = appDisplayName
         }
 
+        /** Rules that govern the execution of the action. */
         fun executionRules(executionRules: ExecutionRules) =
             executionRules(JsonField.of(executionRules))
 
@@ -337,6 +360,7 @@ private constructor(
             this.executionRules = executionRules
         }
 
+        /** Descriptions for each input field. */
         fun inputFieldDescriptions(inputFieldDescriptions: InputFieldDescriptions) =
             inputFieldDescriptions(JsonField.of(inputFieldDescriptions))
 
@@ -352,6 +376,7 @@ private constructor(
                 this.inputFieldDescriptions = inputFieldDescriptions
             }
 
+        /** Labels for the input fields. */
         fun inputFieldLabels(inputFieldLabels: InputFieldLabels) =
             inputFieldLabels(JsonField.of(inputFieldLabels))
 
@@ -366,6 +391,7 @@ private constructor(
             this.inputFieldLabels = inputFieldLabels
         }
 
+        /** Labels for the options available in input fields. */
         fun inputFieldOptionLabels(inputFieldOptionLabels: InputFieldOptionLabels) =
             inputFieldOptionLabels(JsonField.of(inputFieldOptionLabels))
 
@@ -381,6 +407,7 @@ private constructor(
                 this.inputFieldOptionLabels = inputFieldOptionLabels
             }
 
+        /** Labels for the output fields. */
         fun outputFieldLabels(outputFieldLabels: OutputFieldLabels) =
             outputFieldLabels(JsonField.of(outputFieldLabels))
 
@@ -485,6 +512,7 @@ private constructor(
             (inputFieldOptionLabels.asKnown().getOrNull()?.validity() ?: 0) +
             (outputFieldLabels.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Rules that govern the execution of the action. */
     class ExecutionRules
     @JsonCreator
     private constructor(
@@ -584,6 +612,7 @@ private constructor(
         override fun toString() = "ExecutionRules{additionalProperties=$additionalProperties}"
     }
 
+    /** Descriptions for each input field. */
     class InputFieldDescriptions
     @JsonCreator
     private constructor(
@@ -688,6 +717,7 @@ private constructor(
             "InputFieldDescriptions{additionalProperties=$additionalProperties}"
     }
 
+    /** Labels for the input fields. */
     class InputFieldLabels
     @JsonCreator
     private constructor(
@@ -787,6 +817,7 @@ private constructor(
         override fun toString() = "InputFieldLabels{additionalProperties=$additionalProperties}"
     }
 
+    /** Labels for the options available in input fields. */
     class InputFieldOptionLabels
     @JsonCreator
     private constructor(
@@ -891,6 +922,7 @@ private constructor(
             "InputFieldOptionLabels{additionalProperties=$additionalProperties}"
     }
 
+    /** Labels for the output fields. */
     class OutputFieldLabels
     @JsonCreator
     private constructor(

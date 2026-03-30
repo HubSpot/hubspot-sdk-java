@@ -12,11 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Delete a specific content file from the specified environment in your HubSpot CMS. This operation
- * is useful for removing outdated or unnecessary files from your source code repository. Ensure you
- * have the necessary permissions to perform this action.
- */
+/** Deletes the file at the specified path in the specified environment. */
 class SourceCodeDeleteParams
 private constructor(
     private val environment: String,

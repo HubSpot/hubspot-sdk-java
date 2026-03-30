@@ -16,8 +16,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.feedbacksubmissions.FeedbackSubmissionGetParams
 import com.hubspot_sdk.api.models.crm.objects.feedbacksubmissions.FeedbackSubmissionListPage

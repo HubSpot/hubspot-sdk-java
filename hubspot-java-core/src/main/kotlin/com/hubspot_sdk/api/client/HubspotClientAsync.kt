@@ -4,7 +4,6 @@ package com.hubspot_sdk.api.client
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.AccountServiceAsync
-import com.hubspot_sdk.api.services.async.AppWebhookServiceAsync
 import com.hubspot_sdk.api.services.async.AuthServiceAsync
 import com.hubspot_sdk.api.services.async.AutomationServiceAsync
 import com.hubspot_sdk.api.services.async.BusinessUnitServiceAsync
@@ -12,13 +11,13 @@ import com.hubspot_sdk.api.services.async.CmServiceAsync
 import com.hubspot_sdk.api.services.async.CommunicationPreferenceServiceAsync
 import com.hubspot_sdk.api.services.async.ConversationServiceAsync
 import com.hubspot_sdk.api.services.async.CrmServiceAsync
-import com.hubspot_sdk.api.services.async.DataStudioServiceAsync
 import com.hubspot_sdk.api.services.async.EventServiceAsync
 import com.hubspot_sdk.api.services.async.FileServiceAsync
 import com.hubspot_sdk.api.services.async.MarketingServiceAsync
 import com.hubspot_sdk.api.services.async.MetaServiceAsync
 import com.hubspot_sdk.api.services.async.SchedulerServiceAsync
 import com.hubspot_sdk.api.services.async.SettingServiceAsync
+import com.hubspot_sdk.api.services.async.WebhookServiceAsync
 import java.util.function.Consumer
 
 /**
@@ -59,8 +58,6 @@ interface HubspotClientAsync {
 
     fun account(): AccountServiceAsync
 
-    fun appWebhooks(): AppWebhookServiceAsync
-
     fun auth(): AuthServiceAsync
 
     fun automation(): AutomationServiceAsync
@@ -75,8 +72,6 @@ interface HubspotClientAsync {
 
     fun crm(): CrmServiceAsync
 
-    fun dataStudio(): DataStudioServiceAsync
-
     fun events(): EventServiceAsync
 
     fun files(): FileServiceAsync
@@ -88,6 +83,8 @@ interface HubspotClientAsync {
     fun scheduler(): SchedulerServiceAsync
 
     fun settings(): SettingServiceAsync
+
+    fun webhooks(): WebhookServiceAsync
 
     /**
      * Closes this client, relinquishing any underlying resources.
@@ -118,8 +115,6 @@ interface HubspotClientAsync {
 
         fun account(): AccountServiceAsync.WithRawResponse
 
-        fun appWebhooks(): AppWebhookServiceAsync.WithRawResponse
-
         fun auth(): AuthServiceAsync.WithRawResponse
 
         fun automation(): AutomationServiceAsync.WithRawResponse
@@ -134,8 +129,6 @@ interface HubspotClientAsync {
 
         fun crm(): CrmServiceAsync.WithRawResponse
 
-        fun dataStudio(): DataStudioServiceAsync.WithRawResponse
-
         fun events(): EventServiceAsync.WithRawResponse
 
         fun files(): FileServiceAsync.WithRawResponse
@@ -147,5 +140,7 @@ interface HubspotClientAsync {
         fun scheduler(): SchedulerServiceAsync.WithRawResponse
 
         fun settings(): SettingServiceAsync.WithRawResponse
+
+        fun webhooks(): WebhookServiceAsync.WithRawResponse
     }
 }

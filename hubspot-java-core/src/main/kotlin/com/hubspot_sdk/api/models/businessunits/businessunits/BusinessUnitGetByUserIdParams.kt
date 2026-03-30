@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the brands that a specific user can access. */
 class BusinessUnitGetByUserIdParams
 private constructor(
     private val userId: String?,

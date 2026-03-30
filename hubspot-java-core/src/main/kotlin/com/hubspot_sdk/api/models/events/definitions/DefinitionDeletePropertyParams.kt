@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Delete an existing property from a custom event definition. */
 class DefinitionDeletePropertyParams
 private constructor(
     private val eventName: String,

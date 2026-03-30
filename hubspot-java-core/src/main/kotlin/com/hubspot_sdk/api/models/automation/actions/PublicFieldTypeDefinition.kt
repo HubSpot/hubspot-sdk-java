@@ -70,6 +70,8 @@ private constructor(
     )
 
     /**
+     * The internal name used to identify the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -82,42 +84,58 @@ private constructor(
     fun options(): List<PublicOption> = options.getRequired("options")
 
     /**
+     * The data type of the field, with accepted values including bool, date, datetime, enumeration,
+     * json, number, object_coordinates, phone_number, and string.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
+     * A detailed explanation of the field's purpose.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun description(): Optional<String> = description.getOptional("description")
 
     /**
+     * The type of field, with accepted values including booleancheckbox, calculation_equation,
+     * checkbox, date, file, html, number, phonenumber, radio, select, text, and textarea.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fieldType(): Optional<FieldType> = fieldType.getOptional("fieldType")
 
     /**
+     * Additional information or guidance about the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun helpText(): Optional<String> = helpText.getOptional("helpText")
 
     /**
+     * A user-friendly name for the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun label(): Optional<String> = label.getOptional("label")
 
     /**
+     * A URL that provides options for the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun optionsUrl(): Optional<String> = optionsUrl.getOptional("optionsUrl")
 
     /**
+     * The type of object that the field references, with accepted values including OWNER.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -245,6 +263,7 @@ private constructor(
             additionalProperties = publicFieldTypeDefinition.additionalProperties.toMutableMap()
         }
 
+        /** The internal name used to identify the field. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -280,6 +299,10 @@ private constructor(
                 }
         }
 
+        /**
+         * The data type of the field, with accepted values including bool, date, datetime,
+         * enumeration, json, number, object_coordinates, phone_number, and string.
+         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -290,6 +313,7 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** A detailed explanation of the field's purpose. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**
@@ -301,6 +325,10 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
+        /**
+         * The type of field, with accepted values including booleancheckbox, calculation_equation,
+         * checkbox, date, file, html, number, phonenumber, radio, select, text, and textarea.
+         */
         fun fieldType(fieldType: FieldType) = fieldType(JsonField.of(fieldType))
 
         /**
@@ -312,6 +340,7 @@ private constructor(
          */
         fun fieldType(fieldType: JsonField<FieldType>) = apply { this.fieldType = fieldType }
 
+        /** Additional information or guidance about the field. */
         fun helpText(helpText: String) = helpText(JsonField.of(helpText))
 
         /**
@@ -322,6 +351,7 @@ private constructor(
          */
         fun helpText(helpText: JsonField<String>) = apply { this.helpText = helpText }
 
+        /** A user-friendly name for the field. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -332,6 +362,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        /** A URL that provides options for the field. */
         fun optionsUrl(optionsUrl: String) = optionsUrl(JsonField.of(optionsUrl))
 
         /**
@@ -343,6 +374,7 @@ private constructor(
          */
         fun optionsUrl(optionsUrl: JsonField<String>) = apply { this.optionsUrl = optionsUrl }
 
+        /** The type of object that the field references, with accepted values including OWNER. */
         fun referencedObjectType(referencedObjectType: ReferencedObjectType) =
             referencedObjectType(JsonField.of(referencedObjectType))
 
@@ -449,6 +481,10 @@ private constructor(
             (if (optionsUrl.asKnown().isPresent) 1 else 0) +
             (referencedObjectType.asKnown().getOrNull()?.validity() ?: 0)
 
+    /**
+     * The data type of the field, with accepted values including bool, date, datetime, enumeration,
+     * json, number, object_coordinates, phone_number, and string.
+     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -616,6 +652,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * The type of field, with accepted values including booleancheckbox, calculation_equation,
+     * checkbox, date, file, html, number, phonenumber, radio, select, text, and textarea.
+     */
     class FieldType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -803,6 +843,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The type of object that the field references, with accepted values including OWNER. */
     class ReferencedObjectType
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {

@@ -44,12 +44,17 @@ private constructor(
     fun archived(): Optional<Boolean> = archived.getOptional("archived")
 
     /**
+     * The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they
+     * will be sorted alphabetically by label.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun displayOrder(): Optional<Int> = displayOrder.getOptional("displayOrder")
 
     /**
+     * A unique label used to organize pipelines in HubSpot's UI
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -126,6 +131,10 @@ private constructor(
          */
         fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
+        /**
+         * The order for displaying this pipeline. If two pipelines have a matching `displayOrder`,
+         * they will be sorted alphabetically by label.
+         */
         fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
 
         /**
@@ -137,6 +146,7 @@ private constructor(
          */
         fun displayOrder(displayOrder: JsonField<Int>) = apply { this.displayOrder = displayOrder }
 
+        /** A unique label used to organize pipelines in HubSpot's UI */
         fun label(label: String) = label(JsonField.of(label))
 
         /**

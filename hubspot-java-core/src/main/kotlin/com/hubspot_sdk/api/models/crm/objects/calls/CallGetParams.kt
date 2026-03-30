@@ -11,9 +11,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve a call, specified by its ID. Alternatively, you can use a `isUnique` property to
- * identify the call by using the `idProperty` query parameter. Control what is returned via the
- * `properties` query parameter.
+ * Read an Object identified by `{callId}`. `{callId}` refers to the internal object ID by default,
+ * or optionally any unique property value as specified by the `idProperty` query param. Control
+ * what is returned via the `properties` query param.
  */
 class CallGetParams
 private constructor(

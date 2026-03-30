@@ -28,7 +28,7 @@ private constructor(
     ) : this(id, mutableMapOf())
 
     /**
-     * The unique identifier for the campaign, represented as a string.
+     * The unique identifier for a campaign.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -79,7 +79,7 @@ private constructor(
             additionalProperties = publicCampaignReadInput.additionalProperties.toMutableMap()
         }
 
-        /** The unique identifier for the campaign, represented as a string. */
+        /** The unique identifier for a campaign. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**

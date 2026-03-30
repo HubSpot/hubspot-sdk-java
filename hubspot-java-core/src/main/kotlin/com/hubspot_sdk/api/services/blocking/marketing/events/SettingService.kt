@@ -25,6 +25,7 @@ interface SettingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingService
 
+    /** Create or update the current settings for the application. */
     fun createOrUpdate(appId: Int, params: SettingCreateOrUpdateParams): EventDetailSettings =
         createOrUpdate(appId, params, RequestOptions.none())
 
@@ -45,6 +46,7 @@ interface SettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EventDetailSettings
 
+    /** Retrieve the current settings for the application. */
     fun get(appId: Int): EventDetailSettings = get(appId, SettingGetParams.none())
 
     /** @see get */

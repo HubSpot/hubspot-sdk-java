@@ -14,6 +14,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Get aggregated statistics in intervals for a specified time span. Each interval contains
+ * aggregated statistics of the emails that were sent in that time.
+ */
 class EmailGetHistogramParams
 private constructor(
     private val emailIds: List<Long>?,

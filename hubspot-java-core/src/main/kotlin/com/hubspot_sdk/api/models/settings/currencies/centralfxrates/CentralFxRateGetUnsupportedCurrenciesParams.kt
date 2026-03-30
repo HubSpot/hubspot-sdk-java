@@ -7,6 +7,10 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Retrieve a list of currency codes that are not supported by the central exchange rates.
+ * Unsupported currencies will need to be manually updated.
+ */
 class CentralFxRateGetUnsupportedCurrenciesParams
 private constructor(
     private val additionalHeaders: Headers,

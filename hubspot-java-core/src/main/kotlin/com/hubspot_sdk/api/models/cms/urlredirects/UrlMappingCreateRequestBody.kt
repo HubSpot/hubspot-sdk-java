@@ -75,7 +75,8 @@ private constructor(
     )
 
     /**
-     * The destination URL, where the target URL should be redirected if it matches the routePrefix.
+     * The destination URL, where the target URL should be redirected if it matches the
+     * `routePrefix`.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -84,7 +85,8 @@ private constructor(
 
     /**
      * The type of redirect to create. Options include: 301 (permanent), 302 (temporary), or 305
-     * (proxy).
+     * (proxy). Find more details
+     * [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page).
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -100,7 +102,7 @@ private constructor(
     fun routePrefix(): String = routePrefix.getRequired("routePrefix")
 
     /**
-     * Whether the routePrefix should match on the entire URL, including the domain.
+     * Whether the `routePrefix` should match on the entire URL, including the domain.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -108,7 +110,7 @@ private constructor(
     fun isMatchFullUrl(): Optional<Boolean> = isMatchFullUrl.getOptional("isMatchFullUrl")
 
     /**
-     * Whether the routePrefix should match on the entire URL path, including the query string.
+     * Whether the `routePrefix` should match on the entire URL path, including the query string.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -127,7 +129,7 @@ private constructor(
         isOnlyAfterNotFound.getOptional("isOnlyAfterNotFound")
 
     /**
-     * Whether the routePrefix should match based on pattern.
+     * Whether the `routePrefix` should match based on pattern.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -135,7 +137,7 @@ private constructor(
     fun isPattern(): Optional<Boolean> = isPattern.getOptional("isPattern")
 
     /**
-     * Whether the routePrefix should match both HTTP and HTTPS protocols.
+     * Whether the `routePrefix` should match both HTTP and HTTPS protocols.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -154,7 +156,7 @@ private constructor(
 
     /**
      * Used to prioritize URL redirection. If a given URL matches more than one redirect, the one
-     * with the lower precedence will be used.
+     * with the **lower** precedence will be used.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -306,7 +308,7 @@ private constructor(
 
         /**
          * The destination URL, where the target URL should be redirected if it matches the
-         * routePrefix.
+         * `routePrefix`.
          */
         fun destination(destination: String) = destination(JsonField.of(destination))
 
@@ -321,7 +323,8 @@ private constructor(
 
         /**
          * The type of redirect to create. Options include: 301 (permanent), 302 (temporary), or 305
-         * (proxy).
+         * (proxy). Find more details
+         * [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page).
          */
         fun redirectStyle(redirectStyle: Int) = redirectStyle(JsonField.of(redirectStyle))
 
@@ -348,7 +351,7 @@ private constructor(
          */
         fun routePrefix(routePrefix: JsonField<String>) = apply { this.routePrefix = routePrefix }
 
-        /** Whether the routePrefix should match on the entire URL, including the domain. */
+        /** Whether the `routePrefix` should match on the entire URL, including the domain. */
         fun isMatchFullUrl(isMatchFullUrl: Boolean) = isMatchFullUrl(JsonField.of(isMatchFullUrl))
 
         /**
@@ -363,7 +366,8 @@ private constructor(
         }
 
         /**
-         * Whether the routePrefix should match on the entire URL path, including the query string.
+         * Whether the `routePrefix` should match on the entire URL path, including the query
+         * string.
          */
         fun isMatchQueryString(isMatchQueryString: Boolean) =
             isMatchQueryString(JsonField.of(isMatchQueryString))
@@ -397,7 +401,7 @@ private constructor(
             this.isOnlyAfterNotFound = isOnlyAfterNotFound
         }
 
-        /** Whether the routePrefix should match based on pattern. */
+        /** Whether the `routePrefix` should match based on pattern. */
         fun isPattern(isPattern: Boolean) = isPattern(JsonField.of(isPattern))
 
         /**
@@ -409,7 +413,7 @@ private constructor(
          */
         fun isPattern(isPattern: JsonField<Boolean>) = apply { this.isPattern = isPattern }
 
-        /** Whether the routePrefix should match both HTTP and HTTPS protocols. */
+        /** Whether the `routePrefix` should match both HTTP and HTTPS protocols. */
         fun isProtocolAgnostic(isProtocolAgnostic: Boolean) =
             isProtocolAgnostic(JsonField.of(isProtocolAgnostic))
 
@@ -441,7 +445,7 @@ private constructor(
 
         /**
          * Used to prioritize URL redirection. If a given URL matches more than one redirect, the
-         * one with the lower precedence will be used.
+         * one with the **lower** precedence will be used.
          */
         fun precedence(precedence: Int) = precedence(JsonField.of(precedence))
 

@@ -11,7 +11,7 @@ import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.BatchInputString
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
+import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
 import com.hubspot_sdk.api.models.cms.blogs.authors.BatchInputBlogAuthor
 import com.hubspot_sdk.api.models.cms.blogs.authors.BlogAuthor
 import com.hubspot_sdk.api.models.cms.blogs.authors.batch.BatchGetParams

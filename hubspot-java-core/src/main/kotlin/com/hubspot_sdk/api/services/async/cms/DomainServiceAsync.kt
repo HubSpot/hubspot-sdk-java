@@ -43,6 +43,7 @@ interface DomainServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<DomainListPageAsync> =
         list(DomainListParams.none(), requestOptions)
 
+    /** Returns a single domains with the id specified. */
     fun get(domainId: String): CompletableFuture<Domain> = get(domainId, DomainGetParams.none())
 
     /** @see get */

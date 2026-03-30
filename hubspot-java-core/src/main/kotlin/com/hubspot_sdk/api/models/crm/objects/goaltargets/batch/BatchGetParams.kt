@@ -12,7 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve multiple goal targets with a single request. Goal targets are specified by ID. */
+/**
+ * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+ * custom unique value property.
+ */
 class BatchGetParams
 private constructor(
     private val archived: Boolean?,

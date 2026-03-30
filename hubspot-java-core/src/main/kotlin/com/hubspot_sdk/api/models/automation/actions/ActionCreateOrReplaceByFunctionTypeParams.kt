@@ -14,6 +14,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Add a function for a given definition. */
 class ActionCreateOrReplaceByFunctionTypeParams
 private constructor(
     private val appId: Int,

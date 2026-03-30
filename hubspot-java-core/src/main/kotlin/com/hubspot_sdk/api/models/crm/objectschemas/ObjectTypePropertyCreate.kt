@@ -161,6 +161,8 @@ private constructor(
     fun displayOrder(): Optional<Int> = displayOrder.getOptional("displayOrder")
 
     /**
+     * Specifies the reference type for external options associated with the property.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -192,6 +194,8 @@ private constructor(
     fun hasUniqueValue(): Optional<Boolean> = hasUniqueValue.getOptional("hasUniqueValue")
 
     /**
+     * Hidden options won't be shown in HubSpot.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -560,6 +564,7 @@ private constructor(
          */
         fun displayOrder(displayOrder: JsonField<Int>) = apply { this.displayOrder = displayOrder }
 
+        /** Specifies the reference type for external options associated with the property. */
         fun externalOptionsReferenceType(externalOptionsReferenceType: String) =
             externalOptionsReferenceType(JsonField.of(externalOptionsReferenceType))
 
@@ -612,6 +617,7 @@ private constructor(
             this.hasUniqueValue = hasUniqueValue
         }
 
+        /** Hidden options won't be shown in HubSpot. */
         fun hidden(hidden: Boolean) = hidden(JsonField.of(hidden))
 
         /**

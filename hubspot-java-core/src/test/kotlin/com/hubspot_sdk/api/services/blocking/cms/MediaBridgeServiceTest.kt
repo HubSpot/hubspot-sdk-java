@@ -2,12 +2,6 @@
 
 package com.hubspot_sdk.api.services.blocking.cms
 
-import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
-import com.github.tomakehurst.wiremock.client.WireMock.ok
-import com.github.tomakehurst.wiremock.client.WireMock.post
-import com.github.tomakehurst.wiremock.client.WireMock.stubFor
-import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
-import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AssociationDefinitionEgg
@@ -19,7 +13,6 @@ import com.hubspot_sdk.api.models.PropertyGroupCreate
 import com.hubspot_sdk.api.models.PropertyGroupUpdate
 import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanCalculatedValues
 import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEventRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateVideoObjectRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.Endpoints
 import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
 import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainRequest
@@ -31,17 +24,14 @@ import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyGroup
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListObjectTypesByMediaTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListOembedDomainsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertiesParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertyGroupsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListSchemasParams
@@ -50,104 +40,16 @@ import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderPartial
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeRegisterAppNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateEventVisibilitySettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEventRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEventRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.UpdateVideoObjectRequest
-import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.parallel.ResourceLock
 
-@WireMockTest
-@ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class MediaBridgeServiceTest {
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val mediaBridgeService = client.cms().mediaBridge()
-
-        val mediaBridgeObject =
-            mediaBridgeService.create(
-                CreateVideoObjectRequest.builder()
-                    .mediaType(CreateVideoObjectRequest.MediaType.VIDEO)
-                    .title("title")
-                    .bearerToken("bearerToken")
-                    .detailsPageLink("detailsPageLink")
-                    .duration(0L)
-                    .externalId("externalId")
-                    .fileUrl("fileUrl")
-                    .oembedUrl("oembedUrl")
-                    .posterUrl("posterUrl")
-                    .thumbnailUrl("thumbnailUrl")
-                    .transcriptUrl("transcriptUrl")
-                    .build()
-            )
-
-        mediaBridgeObject.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val mediaBridgeService = client.cms().mediaBridge()
-
-        val mediaBridgeObject =
-            mediaBridgeService.update(
-                MediaBridgeUpdateParams.builder()
-                    .objectId(0L)
-                    .updateMbObjectRequest(
-                        UpdateVideoObjectRequest.builder()
-                            .mediaType(UpdateVideoObjectRequest.MediaType.VIDEO)
-                            .bearerToken("bearerToken")
-                            .detailsPageLink("detailsPageLink")
-                            .duration(0L)
-                            .externalId("externalId")
-                            .fileUrl("fileUrl")
-                            .oembedUrl("oembedUrl")
-                            .posterUrl("posterUrl")
-                            .thumbnailUrl("thumbnailUrl")
-                            .title("title")
-                            .transcriptUrl("transcriptUrl")
-                            .build()
-                    )
-                    .build()
-            )
-
-        mediaBridgeObject.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val mediaBridgeService = client.cms().mediaBridge()
-
-        val page = mediaBridgeService.list(MediaBridgeListParams.MediaType.AUDIO)
-
-        page.response().validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val mediaBridgeService = client.cms().mediaBridge()
-
-        mediaBridgeService.delete(
-            MediaBridgeDeleteParams.builder()
-                .mediaType(MediaBridgeDeleteParams.MediaType.AUDIO)
-                .objectId(0L)
-                .build()
-        )
-    }
 
     @Disabled("Mock server tests are disabled")
     @Test
@@ -158,7 +60,7 @@ internal class MediaBridgeServiceTest {
         val associationDefinition =
             mediaBridgeService.createAssociation(
                 MediaBridgeCreateAssociationParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .associationDefinitionEgg(
                         AssociationDefinitionEgg.builder()
@@ -173,17 +75,13 @@ internal class MediaBridgeServiceTest {
         associationDefinition.validate()
     }
 
+    @Disabled("Mock server tests are disabled")
     @Test
-    fun createAttentionSpanEvent(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+    fun createAttentionSpanEvent() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val mediaBridgeService = client.cms().mediaBridge()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
 
-        val response =
+        val attentionSpanEvent =
             mediaBridgeService.createAttentionSpanEvent(
                 AttentionSpanEventRequest.builder()
                     .mediaType(AttentionSpanEventRequest.MediaType.AUDIO)
@@ -215,20 +113,16 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        assertThat(response.body()).hasContent("abc")
+        attentionSpanEvent.validate()
     }
 
+    @Disabled("Mock server tests are disabled")
     @Test
-    fun createMediaPlayedEvent(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+    fun createMediaPlayedEvent() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val mediaBridgeService = client.cms().mediaBridge()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
 
-        val response =
+        val mediaPlayedEvent =
             mediaBridgeService.createMediaPlayedEvent(
                 MediaPlayedEventRequest.builder()
                     .mediaType(MediaPlayedEventRequest.MediaType.AUDIO)
@@ -250,20 +144,16 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        assertThat(response.body()).hasContent("abc")
+        mediaPlayedEvent.validate()
     }
 
+    @Disabled("Mock server tests are disabled")
     @Test
-    fun createMediaPlayedPercentEvent(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClient.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+    fun createMediaPlayedPercentEvent() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val mediaBridgeService = client.cms().mediaBridge()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
 
-        val response =
+        val mediaPlayedPercentageEvent =
             mediaBridgeService.createMediaPlayedPercentEvent(
                 MediaPlayedPercentageEventRequest.builder()
                     .mediaType(MediaPlayedPercentageEventRequest.MediaType.AUDIO)
@@ -286,7 +176,7 @@ internal class MediaBridgeServiceTest {
                     .build()
             )
 
-        assertThat(response.body()).hasContent("abc")
+        mediaPlayedPercentageEvent.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -298,7 +188,7 @@ internal class MediaBridgeServiceTest {
         val bulkIntegratorObjectCreationResponse =
             mediaBridgeService.createObjectType(
                 MediaBridgeCreateObjectTypeParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .integratorObjectCreationRequest(
                         IntegratorObjectCreationRequest.builder()
                             .addMediaType(IntegratorObjectCreationRequest.MediaType.VIDEO)
@@ -319,7 +209,7 @@ internal class MediaBridgeServiceTest {
         val integratorOEmbedDomainModel =
             mediaBridgeService.createOembedDomain(
                 MediaBridgeCreateOembedDomainParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .integratorOEmbedDomainRequest(
                         IntegratorOEmbedDomainRequest.builder()
                             .endpoints(
@@ -347,7 +237,7 @@ internal class MediaBridgeServiceTest {
         val property =
             mediaBridgeService.createProperty(
                 MediaBridgeCreatePropertyParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyCreate(
                         PropertyCreate.builder()
@@ -391,7 +281,7 @@ internal class MediaBridgeServiceTest {
         val propertyGroup =
             mediaBridgeService.createPropertyGroup(
                 MediaBridgeCreatePropertyGroupParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyGroupCreate(
                         PropertyGroupCreate.builder()
@@ -412,7 +302,7 @@ internal class MediaBridgeServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val associationDefinition = mediaBridgeService.createVideoAssociationDefinition("appId")
+        val associationDefinition = mediaBridgeService.createVideoAssociationDefinition(0)
 
         associationDefinition.validate()
     }
@@ -425,7 +315,7 @@ internal class MediaBridgeServiceTest {
 
         mediaBridgeService.deleteAssociation(
             MediaBridgeDeleteAssociationParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .associationId("associationId")
                 .build()
@@ -439,11 +329,7 @@ internal class MediaBridgeServiceTest {
         val mediaBridgeService = client.cms().mediaBridge()
 
         mediaBridgeService.deleteOembedDomain(
-            MediaBridgeDeleteOembedDomainParams.builder()
-                .appId("appId")
-                .id(0L)
-                .domainPortalId(0)
-                .build()
+            MediaBridgeDeleteOembedDomainParams.builder().appId(0).id(0L).domainPortalId(0).build()
         )
     }
 
@@ -455,7 +341,7 @@ internal class MediaBridgeServiceTest {
 
         mediaBridgeService.deleteProperty(
             MediaBridgeDeletePropertyParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .build()
@@ -470,7 +356,7 @@ internal class MediaBridgeServiceTest {
 
         mediaBridgeService.deletePropertyGroup(
             MediaBridgeDeletePropertyGroupParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .groupName("groupName")
                 .build()
@@ -479,28 +365,11 @@ internal class MediaBridgeServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val mediaBridgeService = client.cms().mediaBridge()
-
-        val mediaBridgeObject =
-            mediaBridgeService.get(
-                MediaBridgeGetParams.builder()
-                    .mediaType(MediaBridgeGetParams.MediaType.AUDIO)
-                    .objectId(0L)
-                    .build()
-            )
-
-        mediaBridgeObject.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
     fun getEventVisibilitySettings() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val mediaBridgeService = client.cms().mediaBridge()
 
-        val eventVisibilityResponse = mediaBridgeService.getEventVisibilitySettings("appId")
+        val eventVisibilityResponse = mediaBridgeService.getEventVisibilitySettings(0)
 
         eventVisibilityResponse.validate()
     }
@@ -514,7 +383,7 @@ internal class MediaBridgeServiceTest {
         val integratorOEmbedDomainModel =
             mediaBridgeService.getOembedDomain(
                 MediaBridgeGetOembedDomainParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .oEmbedDomainId("oEmbedDomainId")
                     .build()
             )
@@ -531,7 +400,7 @@ internal class MediaBridgeServiceTest {
         val property =
             mediaBridgeService.getProperty(
                 MediaBridgeGetPropertyParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyName("propertyName")
                     .archived(true)
@@ -551,7 +420,7 @@ internal class MediaBridgeServiceTest {
         val propertyGroup =
             mediaBridgeService.getPropertyGroup(
                 MediaBridgeGetPropertyGroupParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .groupName("groupName")
                     .build()
@@ -568,7 +437,7 @@ internal class MediaBridgeServiceTest {
 
         val objectSchema =
             mediaBridgeService.getSchema(
-                MediaBridgeGetSchemaParams.builder().appId("appId").objectType("objectType").build()
+                MediaBridgeGetSchemaParams.builder().appId(0).objectType("objectType").build()
             )
 
         objectSchema.validate()
@@ -583,7 +452,7 @@ internal class MediaBridgeServiceTest {
         val objectDefinitionResponse =
             mediaBridgeService.listObjectTypesByMediaType(
                 MediaBridgeListObjectTypesByMediaTypeParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .mediaType(MediaBridgeListObjectTypesByMediaTypeParams.MediaType.AUDIO)
                     .includeFullDefinition(true)
                     .build()
@@ -600,10 +469,7 @@ internal class MediaBridgeServiceTest {
 
         val oEmbedDomainsCollectionResponse =
             mediaBridgeService.listOembedDomains(
-                MediaBridgeListOembedDomainsParams.builder()
-                    .appId("appId")
-                    .domainPortalId(0)
-                    .build()
+                MediaBridgeListOembedDomainsParams.builder().appId(0).domainPortalId(0).build()
             )
 
         oEmbedDomainsCollectionResponse.validate()
@@ -618,7 +484,7 @@ internal class MediaBridgeServiceTest {
         val collectionResponsePropertyNoPaging =
             mediaBridgeService.listProperties(
                 MediaBridgeListPropertiesParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .archived(true)
                     .properties("properties")
@@ -637,7 +503,7 @@ internal class MediaBridgeServiceTest {
         val collectionResponsePropertyGroupNoPaging =
             mediaBridgeService.listPropertyGroups(
                 MediaBridgeListPropertyGroupsParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .build()
             )
@@ -653,7 +519,7 @@ internal class MediaBridgeServiceTest {
 
         val collectionResponseObjectSchemaNoPaging =
             mediaBridgeService.listSchemas(
-                MediaBridgeListSchemasParams.builder().appId("appId").archived(true).build()
+                MediaBridgeListSchemasParams.builder().appId(0).archived(true).build()
             )
 
         collectionResponseObjectSchemaNoPaging.validate()
@@ -668,7 +534,7 @@ internal class MediaBridgeServiceTest {
         val mediaBridgeProviderRegistrationResponse =
             mediaBridgeService.registerAppName(
                 MediaBridgeRegisterAppNameParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .mediaBridgeProviderPartial(
                         MediaBridgeProviderPartial.builder()
                             .updatedAt(0L)
@@ -692,7 +558,7 @@ internal class MediaBridgeServiceTest {
         val eventVisibilityChange =
             mediaBridgeService.updateEventVisibilitySettings(
                 MediaBridgeUpdateEventVisibilitySettingsParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .eventVisibilityChange(
                         EventVisibilityChange.builder()
                             .eventType(EventVisibilityChange.EventType.ALL)
@@ -717,7 +583,7 @@ internal class MediaBridgeServiceTest {
         val integratorOEmbedDomainModel =
             mediaBridgeService.updateOembedDomain(
                 MediaBridgeUpdateOembedDomainParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .oEmbedDomainId("oEmbedDomainId")
                     .integratorOEmbedDomainRequest(
                         IntegratorOEmbedDomainRequest.builder()
@@ -746,7 +612,7 @@ internal class MediaBridgeServiceTest {
         val property =
             mediaBridgeService.updateProperty(
                 MediaBridgeUpdatePropertyParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .propertyName("propertyName")
                     .mediaBridgePropertyUpdate(
@@ -787,7 +653,7 @@ internal class MediaBridgeServiceTest {
         val propertyGroup =
             mediaBridgeService.updatePropertyGroup(
                 MediaBridgeUpdatePropertyGroupParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .groupName("groupName")
                     .propertyGroupUpdate(
@@ -808,7 +674,7 @@ internal class MediaBridgeServiceTest {
         val objectTypeDefinition =
             mediaBridgeService.updateSchema(
                 MediaBridgeUpdateSchemaParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .objectTypeDefinitionPatch(
                         ObjectTypeDefinitionPatch.builder()
@@ -843,7 +709,7 @@ internal class MediaBridgeServiceTest {
         val mediaBridgeProviderRegistrationResponse =
             mediaBridgeService.updateSettings(
                 MediaBridgeUpdateSettingsParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .mediaBridgeProviderPartial(
                         MediaBridgeProviderPartial.builder()
                             .updatedAt(0L)

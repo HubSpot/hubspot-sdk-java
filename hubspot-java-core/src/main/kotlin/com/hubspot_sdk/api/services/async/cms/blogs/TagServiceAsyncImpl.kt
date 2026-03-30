@@ -16,19 +16,23 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagAttachToLangGroupParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDetachFromLangGroupParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListAuthorsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListAuthorsCursorParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPostsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPostsCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagSetLangPrimaryParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateLangsParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateParams
+import com.hubspot_sdk.api.services.async.cms.blogs.tags.BatchServiceAsync
+import com.hubspot_sdk.api.services.async.cms.blogs.tags.BatchServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -40,10 +44,14 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         WithRawResponseImpl(clientOptions)
     }
 
+    private val batch: BatchServiceAsync by lazy { BatchServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): TagServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagServiceAsync =
         TagServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun batch(): BatchServiceAsync = batch
 
     override fun create(
         params: TagCreateParams,
@@ -80,26 +88,12 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         // post /cms/blogs/2026-03/tags/multi-language/attach-to-lang-group
         withRawResponse().attachToLangGroup(params, requestOptions)
 
-    override fun createBatch(
-        params: TagCreateBatchParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        // post /cms/blogs/2026-03/tags/batch/create
-        withRawResponse().createBatch(params, requestOptions)
-
     override fun createLangVariation(
         params: TagCreateLangVariationParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // post /cms/blogs/2026-03/tags/multi-language/create-language-variation
         withRawResponse().createLangVariation(params, requestOptions)
-
-    override fun deleteBatch(
-        params: TagDeleteBatchParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // post /cms/blogs/2026-03/tags/batch/archive
-        withRawResponse().deleteBatch(params, requestOptions).thenAccept {}
 
     override fun detachFromLangGroup(
         params: TagDetachFromLangGroupParams,
@@ -115,12 +109,47 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         // get /cms/blogs/2026-03/tags/{objectId}
         withRawResponse().get(params, requestOptions)
 
-    override fun getBatch(
-        params: TagGetBatchParams,
+    override fun listAuthorsCursor(
+        params: TagListAuthorsCursorParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
-        // post /cms/blogs/2026-03/tags/batch/read
-        withRawResponse().getBatch(params, requestOptions)
+        // get /cms/blogs/2026-03/authors/cursor
+        withRawResponse().listAuthorsCursor(params, requestOptions)
+
+    override fun listAuthorsCursorByQuery(
+        params: TagListAuthorsCursorByQueryParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/blogs/2026-03/authors/cursor/query
+        withRawResponse().listAuthorsCursorByQuery(params, requestOptions)
+
+    override fun listCursor(
+        params: TagListCursorParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/blogs/2026-03/tags/cursor
+        withRawResponse().listCursor(params, requestOptions)
+
+    override fun listCursorByQuery(
+        params: TagListCursorByQueryParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/blogs/2026-03/tags/cursor/query
+        withRawResponse().listCursorByQuery(params, requestOptions)
+
+    override fun listPostsCursor(
+        params: TagListPostsCursorParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/blogs/2026-03/posts/cursor
+        withRawResponse().listPostsCursor(params, requestOptions)
+
+    override fun listPostsCursorByQuery(
+        params: TagListPostsCursorByQueryParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/blogs/2026-03/posts/cursor/query
+        withRawResponse().listPostsCursorByQuery(params, requestOptions)
 
     override fun setLangPrimary(
         params: TagSetLangPrimaryParams,
@@ -128,13 +157,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
     ): CompletableFuture<Void?> =
         // put /cms/blogs/2026-03/tags/multi-language/set-new-lang-primary
         withRawResponse().setLangPrimary(params, requestOptions).thenAccept {}
-
-    override fun updateBatch(
-        params: TagUpdateBatchParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        // post /cms/blogs/2026-03/tags/batch/update
-        withRawResponse().updateBatch(params, requestOptions)
 
     override fun updateLangs(
         params: TagUpdateLangsParams,
@@ -149,12 +171,18 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
+        private val batch: BatchServiceAsync.WithRawResponse by lazy {
+            BatchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): TagServiceAsync.WithRawResponse =
             TagServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        override fun batch(): BatchServiceAsync.WithRawResponse = batch
 
         override fun create(
             params: TagCreateParams,
@@ -268,25 +296,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun createBatch(
-            params: TagCreateBatchParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "blogs", "2026-03", "tags", "batch", "create")
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
-        }
-
         override fun createLangVariation(
             params: TagCreateLangVariationParams,
             requestOptions: RequestOptions,
@@ -311,30 +320,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response -> errorHandler.handle(response) }
-        }
-
-        private val deleteBatchHandler: Handler<Void?> = emptyHandler()
-
-        override fun deleteBatch(
-            params: TagDeleteBatchParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "blogs", "2026-03", "tags", "batch", "archive")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { deleteBatchHandler.handle(it) }
-                    }
-                }
         }
 
         override fun detachFromLangGroup(
@@ -384,17 +369,106 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun getBatch(
-            params: TagGetBatchParams,
+        override fun listAuthorsCursor(
+            params: TagListAuthorsCursorParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "blogs", "2026-03", "tags", "batch", "read")
+                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor")
                     .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun listAuthorsCursorByQuery(
+            params: TagListAuthorsCursorByQueryParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor", "query")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun listCursor(
+            params: TagListCursorParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "tags", "cursor")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun listCursorByQuery(
+            params: TagListCursorByQueryParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "tags", "cursor", "query")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun listPostsCursor(
+            params: TagListPostsCursorParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "posts", "cursor")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun listPostsCursorByQuery(
+            params: TagListPostsCursorByQueryParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "posts", "cursor", "query")
+                    .putHeader("Accept", "*/*")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -432,25 +506,6 @@ class TagServiceAsyncImpl internal constructor(private val clientOptions: Client
                         response.use { setLangPrimaryHandler.handle(it) }
                     }
                 }
-        }
-
-        override fun updateBatch(
-            params: TagUpdateBatchParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "blogs", "2026-03", "tags", "batch", "update")
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
         }
 
         override fun updateLangs(

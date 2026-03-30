@@ -9,8 +9,12 @@ import com.hubspot_sdk.api.services.async.cms.BlogServiceAsync
 import com.hubspot_sdk.api.services.async.cms.BlogServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.cms.DomainServiceAsync
 import com.hubspot_sdk.api.services.async.cms.DomainServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.cms.HubdbServiceAsync
+import com.hubspot_sdk.api.services.async.cms.HubdbServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.cms.MediaBridgeServiceAsync
 import com.hubspot_sdk.api.services.async.cms.MediaBridgeServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.cms.PageServiceAsync
+import com.hubspot_sdk.api.services.async.cms.PageServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.cms.SiteSearchServiceAsync
 import com.hubspot_sdk.api.services.async.cms.SiteSearchServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.cms.SourceCodeServiceAsync
@@ -34,9 +38,13 @@ class CmServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     private val domains: DomainServiceAsync by lazy { DomainServiceAsyncImpl(clientOptions) }
 
+    private val hubdb: HubdbServiceAsync by lazy { HubdbServiceAsyncImpl(clientOptions) }
+
     private val mediaBridge: MediaBridgeServiceAsync by lazy {
         MediaBridgeServiceAsyncImpl(clientOptions)
     }
+
+    private val pages: PageServiceAsync by lazy { PageServiceAsyncImpl(clientOptions) }
 
     private val siteSearch: SiteSearchServiceAsync by lazy {
         SiteSearchServiceAsyncImpl(clientOptions)
@@ -65,7 +73,11 @@ class CmServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
     override fun domains(): DomainServiceAsync = domains
 
+    override fun hubdb(): HubdbServiceAsync = hubdb
+
     override fun mediaBridge(): MediaBridgeServiceAsync = mediaBridge
+
+    override fun pages(): PageServiceAsync = pages
 
     override fun siteSearch(): SiteSearchServiceAsync = siteSearch
 
@@ -90,8 +102,16 @@ class CmServiceAsyncImpl internal constructor(private val clientOptions: ClientO
             DomainServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val hubdb: HubdbServiceAsync.WithRawResponse by lazy {
+            HubdbServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val mediaBridge: MediaBridgeServiceAsync.WithRawResponse by lazy {
             MediaBridgeServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val pages: PageServiceAsync.WithRawResponse by lazy {
+            PageServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val siteSearch: SiteSearchServiceAsync.WithRawResponse by lazy {
@@ -123,7 +143,11 @@ class CmServiceAsyncImpl internal constructor(private val clientOptions: ClientO
 
         override fun domains(): DomainServiceAsync.WithRawResponse = domains
 
+        override fun hubdb(): HubdbServiceAsync.WithRawResponse = hubdb
+
         override fun mediaBridge(): MediaBridgeServiceAsync.WithRawResponse = mediaBridge
+
+        override fun pages(): PageServiceAsync.WithRawResponse = pages
 
         override fun siteSearch(): SiteSearchServiceAsync.WithRawResponse = siteSearch
 

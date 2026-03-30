@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve a specific revision of a definition by revision ID. */
 class ActionGetParams
 private constructor(
     private val appId: Int,

@@ -9,9 +9,6 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.BehavioralEventHttpCompletionRequest
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionEgg
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreatePropertyParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionDeleteParams
@@ -20,9 +17,10 @@ import com.hubspot_sdk.api.models.events.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListPage
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionSendBatchParams
-import com.hubspot_sdk.api.models.events.definitions.DefinitionSendParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdatePropertyParams
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinitionEgg
 import java.util.function.Consumer
 
 interface DefinitionService {
@@ -39,6 +37,7 @@ interface DefinitionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DefinitionService
 
+    /** Create a custom event definition. */
     fun create(params: DefinitionCreateParams): ExternalBehavioralEventTypeDefinition =
         create(params, RequestOptions.none())
 
@@ -66,6 +65,7 @@ interface DefinitionService {
     ): ExternalBehavioralEventTypeDefinition =
         create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
+    /** Update a specific custom event definition by name. */
     fun update(
         eventName: String,
         params: DefinitionUpdateParams,
@@ -89,6 +89,7 @@ interface DefinitionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ExternalBehavioralEventTypeDefinition
 
+    /** Retrieve existing custom event definitions. */
     fun list(): DefinitionListPage = list(DefinitionListParams.none())
 
     /** @see list */
@@ -105,6 +106,7 @@ interface DefinitionService {
     fun list(requestOptions: RequestOptions): DefinitionListPage =
         list(DefinitionListParams.none(), requestOptions)
 
+    /** Delete a custom event definition by name. */
     fun delete(eventName: String) = delete(eventName, DefinitionDeleteParams.none())
 
     /** @see delete */
@@ -131,6 +133,7 @@ interface DefinitionService {
     fun delete(eventName: String, requestOptions: RequestOptions) =
         delete(eventName, DefinitionDeleteParams.none(), requestOptions)
 
+    /** Create a new property for an existing event definition. */
     fun createProperty(eventName: String, params: DefinitionCreatePropertyParams): Property =
         createProperty(eventName, params, RequestOptions.none())
 
@@ -151,6 +154,7 @@ interface DefinitionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Property
 
+    /** Delete an existing property from a custom event definition. */
     fun deleteProperty(propertyName: String, params: DefinitionDeletePropertyParams) =
         deleteProperty(propertyName, params, RequestOptions.none())
 
@@ -171,6 +175,7 @@ interface DefinitionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** Fetch a single custom event definition by name. */
     fun get(eventName: String): ExternalBehavioralEventTypeDefinition =
         get(eventName, DefinitionGetParams.none())
 
@@ -205,27 +210,7 @@ interface DefinitionService {
     ): ExternalBehavioralEventTypeDefinition =
         get(eventName, DefinitionGetParams.none(), requestOptions)
 
-    fun send(params: DefinitionSendParams) = send(params, RequestOptions.none())
-
-    /** @see send */
-    fun send(params: DefinitionSendParams, requestOptions: RequestOptions = RequestOptions.none())
-
-    /** @see send */
-    fun send(
-        behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        send(
-            DefinitionSendParams.builder()
-                .behavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see send */
-    fun send(behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest) =
-        send(behavioralEventHttpCompletionRequest, RequestOptions.none())
-
+    /** Send multiple event occurrences at once. */
     fun sendBatch(params: DefinitionSendBatchParams) = sendBatch(params, RequestOptions.none())
 
     /** @see sendBatch */
@@ -253,6 +238,7 @@ interface DefinitionService {
         batchedBehavioralEventHttpCompletionRequest: BatchedBehavioralEventHttpCompletionRequest
     ) = sendBatch(batchedBehavioralEventHttpCompletionRequest, RequestOptions.none())
 
+    /** Update an existing property in a custom event definition. */
     fun updateProperty(propertyName: String, params: DefinitionUpdatePropertyParams): Property =
         updateProperty(propertyName, params, RequestOptions.none())
 
@@ -287,7 +273,7 @@ interface DefinitionService {
         ): DefinitionService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /events/custom/2026-03/event-definitions`, but is
+         * Returns a raw HTTP response for `post /events/2026-03/event-definitions`, but is
          * otherwise the same as [DefinitionService.create].
          */
         @MustBeClosed
@@ -326,9 +312,8 @@ interface DefinitionService {
             create(externalBehavioralEventTypeDefinitionEgg, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `patch
-         * /events/custom/2026-03/event-definitions/{eventName}`, but is otherwise the same as
-         * [DefinitionService.update].
+         * Returns a raw HTTP response for `patch /events/2026-03/event-definitions/{eventName}`,
+         * but is otherwise the same as [DefinitionService.update].
          */
         @MustBeClosed
         fun update(
@@ -361,8 +346,8 @@ interface DefinitionService {
         ): HttpResponseFor<ExternalBehavioralEventTypeDefinition>
 
         /**
-         * Returns a raw HTTP response for `get /events/custom/2026-03/event-definitions`, but is
-         * otherwise the same as [DefinitionService.list].
+         * Returns a raw HTTP response for `get /events/2026-03/event-definitions`, but is otherwise
+         * the same as [DefinitionService.list].
          */
         @MustBeClosed
         fun list(): HttpResponseFor<DefinitionListPage> = list(DefinitionListParams.none())
@@ -386,9 +371,8 @@ interface DefinitionService {
             list(DefinitionListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /events/custom/2026-03/event-definitions/{eventName}`, but is otherwise the same as
-         * [DefinitionService.delete].
+         * Returns a raw HTTP response for `delete /events/2026-03/event-definitions/{eventName}`,
+         * but is otherwise the same as [DefinitionService.delete].
          */
         @MustBeClosed
         fun delete(eventName: String): HttpResponse =
@@ -428,8 +412,8 @@ interface DefinitionService {
 
         /**
          * Returns a raw HTTP response for `post
-         * /events/custom/2026-03/event-definitions/{eventName}/property`, but is otherwise the same
-         * as [DefinitionService.createProperty].
+         * /events/2026-03/event-definitions/{eventName}/property`, but is otherwise the same as
+         * [DefinitionService.createProperty].
          */
         @MustBeClosed
         fun createProperty(
@@ -460,8 +444,8 @@ interface DefinitionService {
 
         /**
          * Returns a raw HTTP response for `delete
-         * /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is
-         * otherwise the same as [DefinitionService.deleteProperty].
+         * /events/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is otherwise
+         * the same as [DefinitionService.deleteProperty].
          */
         @MustBeClosed
         fun deleteProperty(
@@ -491,9 +475,8 @@ interface DefinitionService {
         ): HttpResponse
 
         /**
-         * Returns a raw HTTP response for `get
-         * /events/custom/2026-03/event-definitions/{eventName}`, but is otherwise the same as
-         * [DefinitionService.get].
+         * Returns a raw HTTP response for `get /events/2026-03/event-definitions/{eventName}`, but
+         * is otherwise the same as [DefinitionService.get].
          */
         @MustBeClosed
         fun get(eventName: String): HttpResponseFor<ExternalBehavioralEventTypeDefinition> =
@@ -539,41 +522,8 @@ interface DefinitionService {
             get(eventName, DefinitionGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /events/custom/2026-03/send`, but is otherwise the
-         * same as [DefinitionService.send].
-         */
-        @MustBeClosed
-        fun send(params: DefinitionSendParams): HttpResponse = send(params, RequestOptions.none())
-
-        /** @see send */
-        @MustBeClosed
-        fun send(
-            params: DefinitionSendParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see send */
-        @MustBeClosed
-        fun send(
-            behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            send(
-                DefinitionSendParams.builder()
-                    .behavioralEventHttpCompletionRequest(behavioralEventHttpCompletionRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see send */
-        @MustBeClosed
-        fun send(
-            behavioralEventHttpCompletionRequest: BehavioralEventHttpCompletionRequest
-        ): HttpResponse = send(behavioralEventHttpCompletionRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /events/custom/2026-03/send/batch`, but is
-         * otherwise the same as [DefinitionService.sendBatch].
+         * Returns a raw HTTP response for `post /events/2026-03/send/batch`, but is otherwise the
+         * same as [DefinitionService.sendBatch].
          */
         @MustBeClosed
         fun sendBatch(params: DefinitionSendBatchParams): HttpResponse =
@@ -611,8 +561,8 @@ interface DefinitionService {
 
         /**
          * Returns a raw HTTP response for `patch
-         * /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is
-         * otherwise the same as [DefinitionService.updateProperty].
+         * /events/2026-03/event-definitions/{eventName}/property/{propertyName}`, but is otherwise
+         * the same as [DefinitionService.updateProperty].
          */
         @MustBeClosed
         fun updateProperty(

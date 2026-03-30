@@ -11,8 +11,7 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve a cart by its ID (`objectId`) or by a unique property (`idProperty`). Includes options
- * for specifying what gets returned, such as the `properties` query parameter.
+ * Retrieve a cart by its ID. You can control what is returned via the `properties` query parameter.
  */
 class CartGetParams
 private constructor(

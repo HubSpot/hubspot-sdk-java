@@ -37,44 +37,35 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** An array of event IDs to filter by. */
     fun id(): Optional<List<String>> = Optional.ofNullable(id)
 
     /**
-     * A cursor token for pagination. Use the value from the previous response's paging.next.after
-     * field.
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * `paging.next.after` JSON property of a paged response containing more results.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** A cursor token to retrieve results before a specific point. */
     fun before(): Optional<String> = Optional.ofNullable(before)
 
-    /** The type of event to filter by. */
     fun eventType(): Optional<String> = Optional.ofNullable(eventType)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** The unique identifier of the object associated with the events. */
     fun objectId(): Optional<Long> = Optional.ofNullable(objectId)
 
     fun objectProperty(): Optional<ObjectProperty> = Optional.ofNullable(objectProperty)
 
-    /** The type of object associated with the events. */
     fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
-    /** Filter events that occurred after this date-time. */
     fun occurredAfter(): Optional<OffsetDateTime> = Optional.ofNullable(occurredAfter)
 
-    /** Filter events that occurred before this date-time. */
     fun occurredBefore(): Optional<OffsetDateTime> = Optional.ofNullable(occurredBefore)
 
-    /** An array of property names to include in the response. */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
     fun property(): Optional<Property> = Optional.ofNullable(property)
 
-    /** An array of fields to sort the results by. */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
     /** Additional headers to send with the request. */
@@ -131,7 +122,6 @@ private constructor(
             additionalQueryParams = occurrenceListParams.additionalQueryParams.toBuilder()
         }
 
-        /** An array of event IDs to filter by. */
         fun id(id: List<String>?) = apply { this.id = id?.toMutableList() }
 
         /** Alias for calling [Builder.id] with `id.orElse(null)`. */
@@ -145,21 +135,19 @@ private constructor(
         fun addId(id: String) = apply { this.id = (this.id ?: mutableListOf()).apply { add(id) } }
 
         /**
-         * A cursor token for pagination. Use the value from the previous response's
-         * paging.next.after field.
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * `paging.next.after` JSON property of a paged response containing more results.
          */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** A cursor token to retrieve results before a specific point. */
         fun before(before: String?) = apply { this.before = before }
 
         /** Alias for calling [Builder.before] with `before.orElse(null)`. */
         fun before(before: Optional<String>) = before(before.getOrNull())
 
-        /** The type of event to filter by. */
         fun eventType(eventType: String?) = apply { this.eventType = eventType }
 
         /** Alias for calling [Builder.eventType] with `eventType.orElse(null)`. */
@@ -178,7 +166,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** The unique identifier of the object associated with the events. */
         fun objectId(objectId: Long?) = apply { this.objectId = objectId }
 
         /**
@@ -199,13 +186,11 @@ private constructor(
         fun objectProperty(objectProperty: Optional<ObjectProperty>) =
             objectProperty(objectProperty.getOrNull())
 
-        /** The type of object associated with the events. */
         fun objectType(objectType: String?) = apply { this.objectType = objectType }
 
         /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
         fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
-        /** Filter events that occurred after this date-time. */
         fun occurredAfter(occurredAfter: OffsetDateTime?) = apply {
             this.occurredAfter = occurredAfter
         }
@@ -214,7 +199,6 @@ private constructor(
         fun occurredAfter(occurredAfter: Optional<OffsetDateTime>) =
             occurredAfter(occurredAfter.getOrNull())
 
-        /** Filter events that occurred before this date-time. */
         fun occurredBefore(occurredBefore: OffsetDateTime?) = apply {
             this.occurredBefore = occurredBefore
         }
@@ -223,7 +207,6 @@ private constructor(
         fun occurredBefore(occurredBefore: Optional<OffsetDateTime>) =
             occurredBefore(occurredBefore.getOrNull())
 
-        /** An array of property names to include in the response. */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -245,7 +228,6 @@ private constructor(
         /** Alias for calling [Builder.property] with `property.orElse(null)`. */
         fun property(property: Optional<Property>) = property(property.getOrNull())
 
-        /** An array of fields to sort the results by. */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -427,7 +409,6 @@ private constructor(
         private val additionalProperties: QueryParams,
     ) {
 
-        /** Filter events by specific object properties. */
         fun propname(): Optional<JsonValue> = Optional.ofNullable(propname)
 
         /** Query params to send with the request. */
@@ -453,7 +434,6 @@ private constructor(
                 additionalProperties = objectProperty.additionalProperties.toBuilder()
             }
 
-            /** Filter events by specific object properties. */
             fun propname(propname: JsonValue?) = apply { this.propname = propname }
 
             /** Alias for calling [Builder.propname] with `propname.orElse(null)`. */
@@ -540,7 +520,6 @@ private constructor(
         private val additionalProperties: QueryParams,
     ) {
 
-        /** Filter events by specific event properties. */
         fun propname(): Optional<JsonValue> = Optional.ofNullable(propname)
 
         /** Query params to send with the request. */
@@ -566,7 +545,6 @@ private constructor(
                 additionalProperties = property.additionalProperties.toBuilder()
             }
 
-            /** Filter events by specific event properties. */
             fun propname(propname: JsonValue?) = apply { this.propname = propname }
 
             /** Alias for calling [Builder.propname] with `propname.orElse(null)`. */

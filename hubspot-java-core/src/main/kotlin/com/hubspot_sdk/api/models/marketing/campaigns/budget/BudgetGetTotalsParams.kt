@@ -10,9 +10,10 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve budget and spending items along with their totals for a specific campaign. This endpoint
- * provides insights into the financial allocations and expenditures associated with the campaign,
- * helping users to manage and analyze campaign budgets effectively.
+ * Retrieve detailed information about the budget and spend items for a specified campaign,
+ * including the total budget, total spend, and remaining budget. Budget and Spend items may be
+ * returned in any order, but the order field specifies their sequence based on the creation date.
+ * The item with order 0 is the oldest, and items with higher order values are newer
  */
 class BudgetGetTotalsParams
 private constructor(

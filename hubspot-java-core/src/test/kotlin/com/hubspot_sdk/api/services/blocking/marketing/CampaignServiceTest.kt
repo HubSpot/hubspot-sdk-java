@@ -14,6 +14,26 @@ internal class CampaignServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun create() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val campaignService = client.marketing().campaigns()
+
+        val publicCampaign =
+            campaignService.create(
+                PublicCampaignInput.builder()
+                    .properties(
+                        PublicCampaignInput.Properties.builder()
+                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                            .build()
+                    )
+                    .build()
+            )
+
+        publicCampaign.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun update() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val campaignService = client.marketing().campaigns()
@@ -35,6 +55,17 @@ internal class CampaignServiceTest {
             )
 
         publicCampaign.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun list() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val campaignService = client.marketing().campaigns()
+
+        val page = campaignService.list()
+
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

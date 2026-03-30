@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.emails.EmailCreateParams
@@ -96,7 +96,7 @@ interface EmailService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /** Retrieve all emails. Control what is returned via the `properties` query param. */
+    /** Read a page of emails. Control what is returned via the `properties` query param. */
     fun list(): EmailListPage = list(EmailListParams.none())
 
     /** @see list */
@@ -138,7 +138,7 @@ interface EmailService {
         delete(emailId, EmailDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve an email identified by `{emailId}`. `{emailId}` refers to the internal object ID by
+     * Read an Object identified by `{emailId}`. `{emailId}` refers to the internal object ID by
      * default, or optionally any unique property value as specified by the `idProperty` query
      * param. Control what is returned via the `properties` query param.
      */

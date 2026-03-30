@@ -13,8 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve multiple meetings in a single call. Specify meetings by ID or by including the
- * `idProperty` parameter to retrieve them by a custom unique value property.
+ * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+ * custom unique value property.
  */
 class BatchGetParams
 private constructor(

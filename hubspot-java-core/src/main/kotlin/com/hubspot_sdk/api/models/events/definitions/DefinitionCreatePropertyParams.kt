@@ -7,11 +7,11 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventPropertyCreate
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Create a new property for an existing event definition. */
 class DefinitionCreatePropertyParams
 private constructor(
     private val eventName: String?,

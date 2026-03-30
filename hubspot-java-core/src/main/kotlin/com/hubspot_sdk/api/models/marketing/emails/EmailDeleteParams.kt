@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Delete a marketing email by its ID */
 class EmailDeleteParams
 private constructor(
     private val emailId: String?,

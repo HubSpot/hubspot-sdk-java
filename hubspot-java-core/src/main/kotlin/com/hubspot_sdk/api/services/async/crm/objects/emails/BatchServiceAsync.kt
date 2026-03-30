@@ -123,8 +123,8 @@ interface BatchServiceAsync {
     ): CompletableFuture<Void?> = delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Retrieve a batch of emails by record ID or include the `idProperty` parameter to retrieve
-     * records by a custom unique value property.
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
      */
     fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
         get(params, RequestOptions.none())
@@ -154,8 +154,9 @@ interface BatchServiceAsync {
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
     /**
-     * Create and update a batch of emails by a unique property. Emails that don't exist will be
-     * created, while existing emails will be updated.
+     * Create or update records identified by a unique property value as specified by the
+     * `idProperty` query param. `idProperty` query param refers to a property whose values are
+     * unique for the object.
      */
     fun upsert(
         params: BatchUpsertParams

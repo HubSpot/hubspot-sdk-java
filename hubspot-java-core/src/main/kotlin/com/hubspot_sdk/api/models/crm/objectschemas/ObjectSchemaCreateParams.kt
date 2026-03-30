@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Create a new custom object schema by defining its properties and associations. */
 class ObjectSchemaCreateParams
 private constructor(
     private val objectSchemaEgg: ObjectSchemaEgg,

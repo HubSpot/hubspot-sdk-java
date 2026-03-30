@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete an existing property. */
+/** Move a property identified by {propertyName} to the recycling bin. */
 class PropertyDeleteParams
 private constructor(
     private val objectType: String,

@@ -35,18 +35,24 @@ private constructor(
     ) : this(type, maximum, minimum, mutableMapOf())
 
     /**
+     * The type of the field, which is set to INTEGER.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
+     * The maximum value allowed for the integer field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun maximum(): Optional<Int> = maximum.getOptional("maximum")
 
     /**
+     * The minimum value allowed for the integer field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -114,6 +120,7 @@ private constructor(
             additionalProperties = integerFieldSchema.additionalProperties.toMutableMap()
         }
 
+        /** The type of the field, which is set to INTEGER. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -124,6 +131,7 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** The maximum value allowed for the integer field. */
         fun maximum(maximum: Int) = maximum(JsonField.of(maximum))
 
         /**
@@ -134,6 +142,7 @@ private constructor(
          */
         fun maximum(maximum: JsonField<Int>) = apply { this.maximum = maximum }
 
+        /** The minimum value allowed for the integer field. */
         fun minimum(minimum: Int) = minimum(JsonField.of(minimum))
 
         /**
@@ -216,6 +225,7 @@ private constructor(
             (if (maximum.asKnown().isPresent) 1 else 0) +
             (if (minimum.asKnown().isPresent) 1 else 0)
 
+    /** The type of the field, which is set to INTEGER. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

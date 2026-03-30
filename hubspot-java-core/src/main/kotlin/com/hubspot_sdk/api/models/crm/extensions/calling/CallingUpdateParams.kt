@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update the recording settings for a specific app using the provided app ID. */
 class CallingUpdateParams
 private constructor(
     private val appId: Int?,

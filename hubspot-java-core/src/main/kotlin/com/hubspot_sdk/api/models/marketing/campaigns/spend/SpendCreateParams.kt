@@ -12,11 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Create a new campaign spend item for a specific campaign identified by its unique ID. This
- * endpoint allows you to add financial details related to campaign expenditures, which can be
- * useful for budget tracking and financial reporting.
- */
+/** Create a new campaign spend item */
 class SpendCreateParams
 private constructor(
     private val campaignGuid: String?,

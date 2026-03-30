@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Return all indexed data for an asset (e.g., page, blog post, HubDB table), specified by ID. This
+ * is useful when debugging why a particular asset is not returned from a custom search.
+ */
 class SiteSearchGetIndexedDataParams
 private constructor(
     private val contentId: String?,

@@ -24,6 +24,7 @@ interface BusinessUnitServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BusinessUnitServiceAsync
 
+    /** Retrieve the brands that a specific user can access. */
     fun getByUserId(
         userId: String
     ): CompletableFuture<CollectionResponsePublicBusinessUnitNoPaging> =

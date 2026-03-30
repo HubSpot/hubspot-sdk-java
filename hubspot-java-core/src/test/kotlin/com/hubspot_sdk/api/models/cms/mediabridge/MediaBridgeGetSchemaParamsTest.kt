@@ -9,15 +9,14 @@ internal class MediaBridgeGetSchemaParamsTest {
 
     @Test
     fun create() {
-        MediaBridgeGetSchemaParams.builder().appId("appId").objectType("objectType").build()
+        MediaBridgeGetSchemaParams.builder().appId(0).objectType("objectType").build()
     }
 
     @Test
     fun pathParams() {
-        val params =
-            MediaBridgeGetSchemaParams.builder().appId("appId").objectType("objectType").build()
+        val params = MediaBridgeGetSchemaParams.builder().appId(0).objectType("objectType").build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")

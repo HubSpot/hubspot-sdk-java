@@ -7,8 +7,8 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponsePropertyNoPaging
 import com.hubspot_sdk.api.models.Property
+import com.hubspot_sdk.api.models.crm.properties.CollectionResponsePropertyNoPaging
 import com.hubspot_sdk.api.models.crm.properties.PropertyCreateParams
 import com.hubspot_sdk.api.models.crm.properties.PropertyDeleteParams
 import com.hubspot_sdk.api.models.crm.properties.PropertyGetParams
@@ -114,7 +114,7 @@ interface PropertyService {
     ): CollectionResponsePropertyNoPaging =
         list(objectType, PropertyListParams.none(), requestOptions)
 
-    /** Delete an existing property. */
+    /** Move a property identified by {propertyName} to the recycling bin. */
     fun delete(propertyName: String, params: PropertyDeleteParams) =
         delete(propertyName, params, RequestOptions.none())
 

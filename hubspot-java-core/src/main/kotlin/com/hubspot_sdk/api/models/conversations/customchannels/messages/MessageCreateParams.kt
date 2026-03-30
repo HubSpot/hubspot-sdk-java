@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Publish a message over your custom channel */
 class MessageCreateParams
 private constructor(
     private val channelId: Int?,

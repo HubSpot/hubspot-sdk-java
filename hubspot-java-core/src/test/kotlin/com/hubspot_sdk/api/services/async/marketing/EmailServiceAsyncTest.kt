@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.services.async.marketing
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.marketing.emails.AbTestCreateRequestVNext
+import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import com.hubspot_sdk.api.models.marketing.emails.EmailCloneRequestVNext
 import com.hubspot_sdk.api.models.marketing.emails.EmailCreateRequest
 import com.hubspot_sdk.api.models.marketing.emails.EmailDeleteParams

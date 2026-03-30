@@ -9,6 +9,10 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * This will create a duplicate email with the same properties as the original, with the exception
+ * of a unique ID.
+ */
 class EmailCloneParams
 private constructor(
     private val emailCloneRequestVNext: EmailCloneRequestVNext,

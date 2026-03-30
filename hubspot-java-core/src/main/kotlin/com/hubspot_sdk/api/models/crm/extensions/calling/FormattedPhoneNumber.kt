@@ -39,18 +39,25 @@ private constructor(
     ) : this(e164Number, phoneNumberType, extension, mutableMapOf())
 
     /**
+     * The phone number formatted in E.164 standard.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun e164Number(): String = e164Number.getRequired("e164Number")
 
     /**
+     * The type of phone number, with accepted values including FIXED_LINE, MOBILE, VOIP, and
+     * others.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun phoneNumberType(): PhoneNumberType = phoneNumberType.getRequired("phoneNumberType")
 
     /**
+     * The extension number associated with the phone number.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -121,6 +128,7 @@ private constructor(
             additionalProperties = formattedPhoneNumber.additionalProperties.toMutableMap()
         }
 
+        /** The phone number formatted in E.164 standard. */
         fun e164Number(e164Number: String) = e164Number(JsonField.of(e164Number))
 
         /**
@@ -132,6 +140,10 @@ private constructor(
          */
         fun e164Number(e164Number: JsonField<String>) = apply { this.e164Number = e164Number }
 
+        /**
+         * The type of phone number, with accepted values including FIXED_LINE, MOBILE, VOIP, and
+         * others.
+         */
         fun phoneNumberType(phoneNumberType: PhoneNumberType) =
             phoneNumberType(JsonField.of(phoneNumberType))
 
@@ -146,6 +158,7 @@ private constructor(
             this.phoneNumberType = phoneNumberType
         }
 
+        /** The extension number associated with the phone number. */
         fun extension(extension: String) = extension(JsonField.of(extension))
 
         /**
@@ -230,6 +243,10 @@ private constructor(
             (phoneNumberType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (extension.asKnown().isPresent) 1 else 0)
 
+    /**
+     * The type of phone number, with accepted values including FIXED_LINE, MOBILE, VOIP, and
+     * others.
+     */
     class PhoneNumberType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

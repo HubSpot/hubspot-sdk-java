@@ -5,35 +5,28 @@ package com.hubspot_sdk.api.services.async.cms.blogs
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
+import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost
-import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPostLanguageCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.ContentCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.ContentScheduleRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostCloneParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetDraftByIdParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListAuthorsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostPushLiveParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryAuthorsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostResetDraftParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostScheduleParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostSetLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateDraftParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateLangsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateParams
 import com.hubspot_sdk.api.services.async.cms.blogs.posts.BatchServiceAsync
+import com.hubspot_sdk.api.services.async.cms.blogs.posts.MultiLanguageServiceAsync
+import com.hubspot_sdk.api.services.async.cms.blogs.posts.RevisionServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -53,6 +46,11 @@ interface PostServiceAsync {
 
     fun batch(): BatchServiceAsync
 
+    fun multiLanguage(): MultiLanguageServiceAsync
+
+    fun revisions(): RevisionServiceAsync
+
+    /** Create a new blog post, specifying its content in the request body. */
     fun create(params: PostCreateParams): CompletableFuture<HttpResponse> =
         create(params, RequestOptions.none())
 
@@ -73,6 +71,10 @@ interface PostServiceAsync {
     fun create(blogPost: BlogPost): CompletableFuture<HttpResponse> =
         create(blogPost, RequestOptions.none())
 
+    /**
+     * Partially updates a single blog post by ID. You only need to specify the values that you want
+     * to update.
+     */
     fun update(objectId: String, params: PostUpdateParams): CompletableFuture<HttpResponse> =
         update(objectId, params, RequestOptions.none())
 
@@ -110,6 +112,7 @@ interface PostServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
         list(PostListParams.none(), requestOptions)
 
+    /** Delete a blog post by ID. */
     fun delete(objectId: String): CompletableFuture<Void?> =
         delete(objectId, PostDeleteParams.none())
 
@@ -141,33 +144,7 @@ interface PostServiceAsync {
     fun delete(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(objectId, PostDeleteParams.none(), requestOptions)
 
-    fun attachToLangGroup(params: PostAttachToLangGroupParams): CompletableFuture<HttpResponse> =
-        attachToLangGroup(params, RequestOptions.none())
-
-    /** @see attachToLangGroup */
-    fun attachToLangGroup(
-        params: PostAttachToLangGroupParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
-    /** @see attachToLangGroup */
-    fun attachToLangGroup(
-        attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        attachToLangGroup(
-            PostAttachToLangGroupParams.builder()
-                .attachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see attachToLangGroup */
-    fun attachToLangGroup(
-        attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext
-    ): CompletableFuture<HttpResponse> =
-        attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
-
+    /** Clone a blog post, making a copy of it in a new blog post. */
     fun clone(params: PostCloneParams): CompletableFuture<HttpResponse> =
         clone(params, RequestOptions.none())
 
@@ -191,62 +168,7 @@ interface PostServiceAsync {
     fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): CompletableFuture<HttpResponse> =
         clone(contentCloneRequestVNext, RequestOptions.none())
 
-    fun createLangVariation(
-        params: PostCreateLangVariationParams
-    ): CompletableFuture<HttpResponse> = createLangVariation(params, RequestOptions.none())
-
-    /** @see createLangVariation */
-    fun createLangVariation(
-        params: PostCreateLangVariationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
-    /** @see createLangVariation */
-    fun createLangVariation(
-        blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        createLangVariation(
-            PostCreateLangVariationParams.builder()
-                .blogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see createLangVariation */
-    fun createLangVariation(
-        blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext
-    ): CompletableFuture<HttpResponse> =
-        createLangVariation(blogPostLanguageCloneRequestVNext, RequestOptions.none())
-
-    fun detachFromLangGroup(
-        params: PostDetachFromLangGroupParams
-    ): CompletableFuture<HttpResponse> = detachFromLangGroup(params, RequestOptions.none())
-
-    /** @see detachFromLangGroup */
-    fun detachFromLangGroup(
-        params: PostDetachFromLangGroupParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
-    /** @see detachFromLangGroup */
-    fun detachFromLangGroup(
-        detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        detachFromLangGroup(
-            PostDetachFromLangGroupParams.builder()
-                .detachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see detachFromLangGroup */
-    fun detachFromLangGroup(
-        detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext
-    ): CompletableFuture<HttpResponse> =
-        detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
-
+    /** Retrieve a blog post by the post ID. */
     fun get(objectId: String): CompletableFuture<HttpResponse> = get(objectId, PostGetParams.none())
 
     /** @see get */
@@ -277,6 +199,7 @@ interface PostServiceAsync {
     fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
         get(objectId, PostGetParams.none(), requestOptions)
 
+    /** Retrieve the full draft version of a blog post. */
     fun getDraftById(objectId: String): CompletableFuture<HttpResponse> =
         getDraftById(objectId, PostGetDraftByIdParams.none())
 
@@ -311,66 +234,41 @@ interface PostServiceAsync {
     ): CompletableFuture<HttpResponse> =
         getDraftById(objectId, PostGetDraftByIdParams.none(), requestOptions)
 
-    fun getPreviousVersion(
-        revisionId: String,
-        params: PostGetPreviousVersionParams,
-    ): CompletableFuture<HttpResponse> =
-        getPreviousVersion(revisionId, params, RequestOptions.none())
+    fun listAuthors(): CompletableFuture<HttpResponse> = listAuthors(PostListAuthorsParams.none())
 
-    /** @see getPreviousVersion */
-    fun getPreviousVersion(
-        revisionId: String,
-        params: PostGetPreviousVersionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        getPreviousVersion(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-    /** @see getPreviousVersion */
-    fun getPreviousVersion(params: PostGetPreviousVersionParams): CompletableFuture<HttpResponse> =
-        getPreviousVersion(params, RequestOptions.none())
-
-    /** @see getPreviousVersion */
-    fun getPreviousVersion(
-        params: PostGetPreviousVersionParams,
+    /** @see listAuthors */
+    fun listAuthors(
+        params: PostListAuthorsParams = PostListAuthorsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    fun getPreviousVersions(objectId: String): CompletableFuture<HttpResponse> =
-        getPreviousVersions(objectId, PostGetPreviousVersionsParams.none())
+    /** @see listAuthors */
+    fun listAuthors(
+        params: PostListAuthorsParams = PostListAuthorsParams.none()
+    ): CompletableFuture<HttpResponse> = listAuthors(params, RequestOptions.none())
 
-    /** @see getPreviousVersions */
-    fun getPreviousVersions(
-        objectId: String,
-        params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        getPreviousVersions(params.toBuilder().objectId(objectId).build(), requestOptions)
+    /** @see listAuthors */
+    fun listAuthors(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        listAuthors(PostListAuthorsParams.none(), requestOptions)
 
-    /** @see getPreviousVersions */
-    fun getPreviousVersions(
-        objectId: String,
-        params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-    ): CompletableFuture<HttpResponse> =
-        getPreviousVersions(objectId, params, RequestOptions.none())
+    fun listTags(): CompletableFuture<HttpResponse> = listTags(PostListTagsParams.none())
 
-    /** @see getPreviousVersions */
-    fun getPreviousVersions(
-        params: PostGetPreviousVersionsParams,
+    /** @see listTags */
+    fun listTags(
+        params: PostListTagsParams = PostListTagsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    /** @see getPreviousVersions */
-    fun getPreviousVersions(
-        params: PostGetPreviousVersionsParams
-    ): CompletableFuture<HttpResponse> = getPreviousVersions(params, RequestOptions.none())
+    /** @see listTags */
+    fun listTags(
+        params: PostListTagsParams = PostListTagsParams.none()
+    ): CompletableFuture<HttpResponse> = listTags(params, RequestOptions.none())
 
-    /** @see getPreviousVersions */
-    fun getPreviousVersions(
-        objectId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        getPreviousVersions(objectId, PostGetPreviousVersionsParams.none(), requestOptions)
+    /** @see listTags */
+    fun listTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        listTags(PostListTagsParams.none(), requestOptions)
 
+    /** Publish the draft version of the blog post, sending its content to the live page. */
     fun pushLive(objectId: String): CompletableFuture<Void?> =
         pushLive(objectId, PostPushLiveParams.none())
 
@@ -402,6 +300,61 @@ interface PostServiceAsync {
     fun pushLive(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         pushLive(objectId, PostPushLiveParams.none(), requestOptions)
 
+    fun query(): CompletableFuture<HttpResponse> = query(PostQueryParams.none())
+
+    /** @see query */
+    fun query(
+        params: PostQueryParams = PostQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see query */
+    fun query(params: PostQueryParams = PostQueryParams.none()): CompletableFuture<HttpResponse> =
+        query(params, RequestOptions.none())
+
+    /** @see query */
+    fun query(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        query(PostQueryParams.none(), requestOptions)
+
+    fun queryAuthors(): CompletableFuture<HttpResponse> =
+        queryAuthors(PostQueryAuthorsParams.none())
+
+    /** @see queryAuthors */
+    fun queryAuthors(
+        params: PostQueryAuthorsParams = PostQueryAuthorsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see queryAuthors */
+    fun queryAuthors(
+        params: PostQueryAuthorsParams = PostQueryAuthorsParams.none()
+    ): CompletableFuture<HttpResponse> = queryAuthors(params, RequestOptions.none())
+
+    /** @see queryAuthors */
+    fun queryAuthors(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        queryAuthors(PostQueryAuthorsParams.none(), requestOptions)
+
+    fun queryTags(): CompletableFuture<HttpResponse> = queryTags(PostQueryTagsParams.none())
+
+    /** @see queryTags */
+    fun queryTags(
+        params: PostQueryTagsParams = PostQueryTagsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see queryTags */
+    fun queryTags(
+        params: PostQueryTagsParams = PostQueryTagsParams.none()
+    ): CompletableFuture<HttpResponse> = queryTags(params, RequestOptions.none())
+
+    /** @see queryTags */
+    fun queryTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        queryTags(PostQueryTagsParams.none(), requestOptions)
+
+    /**
+     * Discard all drafted content, resetting the draft to contain the content in the currently
+     * published version.
+     */
     fun resetDraft(objectId: String): CompletableFuture<Void?> =
         resetDraft(objectId, PostResetDraftParams.none())
 
@@ -433,60 +386,7 @@ interface PostServiceAsync {
     fun resetDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         resetDraft(objectId, PostResetDraftParams.none(), requestOptions)
 
-    fun restorePreviousVersion(
-        revisionId: String,
-        params: PostRestorePreviousVersionParams,
-    ): CompletableFuture<HttpResponse> =
-        restorePreviousVersion(revisionId, params, RequestOptions.none())
-
-    /** @see restorePreviousVersion */
-    fun restorePreviousVersion(
-        revisionId: String,
-        params: PostRestorePreviousVersionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        restorePreviousVersion(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-    /** @see restorePreviousVersion */
-    fun restorePreviousVersion(
-        params: PostRestorePreviousVersionParams
-    ): CompletableFuture<HttpResponse> = restorePreviousVersion(params, RequestOptions.none())
-
-    /** @see restorePreviousVersion */
-    fun restorePreviousVersion(
-        params: PostRestorePreviousVersionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
-    fun restorePreviousVersionToDraft(
-        revisionId: Long,
-        params: PostRestorePreviousVersionToDraftParams,
-    ): CompletableFuture<HttpResponse> =
-        restorePreviousVersionToDraft(revisionId, params, RequestOptions.none())
-
-    /** @see restorePreviousVersionToDraft */
-    fun restorePreviousVersionToDraft(
-        revisionId: Long,
-        params: PostRestorePreviousVersionToDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        restorePreviousVersionToDraft(
-            params.toBuilder().revisionId(revisionId).build(),
-            requestOptions,
-        )
-
-    /** @see restorePreviousVersionToDraft */
-    fun restorePreviousVersionToDraft(
-        params: PostRestorePreviousVersionToDraftParams
-    ): CompletableFuture<HttpResponse> =
-        restorePreviousVersionToDraft(params, RequestOptions.none())
-
-    /** @see restorePreviousVersionToDraft */
-    fun restorePreviousVersionToDraft(
-        params: PostRestorePreviousVersionToDraftParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
+    /** Schedule a blog post to be published at a specified time. */
     fun schedule(params: PostScheduleParams): CompletableFuture<Void?> =
         schedule(params, RequestOptions.none())
 
@@ -513,33 +413,10 @@ interface PostServiceAsync {
         contentScheduleRequestVNext: ContentScheduleRequestVNext
     ): CompletableFuture<Void?> = schedule(contentScheduleRequestVNext, RequestOptions.none())
 
-    fun setLangPrimary(params: PostSetLangPrimaryParams): CompletableFuture<Void?> =
-        setLangPrimary(params, RequestOptions.none())
-
-    /** @see setLangPrimary */
-    fun setLangPrimary(
-        params: PostSetLangPrimaryParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see setLangPrimary */
-    fun setLangPrimary(
-        setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        setLangPrimary(
-            PostSetLangPrimaryParams.builder()
-                .setNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see setLangPrimary */
-    fun setLangPrimary(
-        setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext
-    ): CompletableFuture<Void?> =
-        setLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
-
+    /**
+     * Partially updates the draft version of a single blog post by ID. You only need to specify the
+     * values that you want to update.
+     */
     fun updateDraft(
         objectId: String,
         params: PostUpdateDraftParams,
@@ -563,33 +440,6 @@ interface PostServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    fun updateLangs(params: PostUpdateLangsParams): CompletableFuture<HttpResponse> =
-        updateLangs(params, RequestOptions.none())
-
-    /** @see updateLangs */
-    fun updateLangs(
-        params: PostUpdateLangsParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
-
-    /** @see updateLangs */
-    fun updateLangs(
-        updateLanguagesRequestVNext: UpdateLanguagesRequestVNext,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
-        updateLangs(
-            PostUpdateLangsParams.builder()
-                .updateLanguagesRequestVNext(updateLanguagesRequestVNext)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see updateLangs */
-    fun updateLangs(
-        updateLanguagesRequestVNext: UpdateLanguagesRequestVNext
-    ): CompletableFuture<HttpResponse> =
-        updateLangs(updateLanguagesRequestVNext, RequestOptions.none())
-
     /** A view of [PostServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -601,6 +451,10 @@ interface PostServiceAsync {
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): PostServiceAsync.WithRawResponse
 
         fun batch(): BatchServiceAsync.WithRawResponse
+
+        fun multiLanguage(): MultiLanguageServiceAsync.WithRawResponse
+
+        fun revisions(): RevisionServiceAsync.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts`, but is otherwise the
@@ -652,8 +506,8 @@ interface PostServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts`, but is otherwise the same
-         * as [PostServiceAsync.list].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor`, but is otherwise
+         * the same as [PostServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponse> = list(PostListParams.none())
 
@@ -710,39 +564,6 @@ interface PostServiceAsync {
             delete(objectId, PostDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/attach-to-lang-group`, but is otherwise the same
-         * as [PostServiceAsync.attachToLangGroup].
-         */
-        fun attachToLangGroup(
-            params: PostAttachToLangGroupParams
-        ): CompletableFuture<HttpResponse> = attachToLangGroup(params, RequestOptions.none())
-
-        /** @see attachToLangGroup */
-        fun attachToLangGroup(
-            params: PostAttachToLangGroupParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see attachToLangGroup */
-        fun attachToLangGroup(
-            attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            attachToLangGroup(
-                PostAttachToLangGroupParams.builder()
-                    .attachToLangPrimaryRequestVNext(attachToLangPrimaryRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see attachToLangGroup */
-        fun attachToLangGroup(
-            attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext
-        ): CompletableFuture<HttpResponse> =
-            attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts/clone`, but is otherwise
          * the same as [PostServiceAsync.clone].
          */
@@ -771,72 +592,6 @@ interface PostServiceAsync {
         fun clone(
             contentCloneRequestVNext: ContentCloneRequestVNext
         ): CompletableFuture<HttpResponse> = clone(contentCloneRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/create-language-variation`, but is otherwise the
-         * same as [PostServiceAsync.createLangVariation].
-         */
-        fun createLangVariation(
-            params: PostCreateLangVariationParams
-        ): CompletableFuture<HttpResponse> = createLangVariation(params, RequestOptions.none())
-
-        /** @see createLangVariation */
-        fun createLangVariation(
-            params: PostCreateLangVariationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see createLangVariation */
-        fun createLangVariation(
-            blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            createLangVariation(
-                PostCreateLangVariationParams.builder()
-                    .blogPostLanguageCloneRequestVNext(blogPostLanguageCloneRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see createLangVariation */
-        fun createLangVariation(
-            blogPostLanguageCloneRequestVNext: BlogPostLanguageCloneRequestVNext
-        ): CompletableFuture<HttpResponse> =
-            createLangVariation(blogPostLanguageCloneRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/detach-from-lang-group`, but is otherwise the
-         * same as [PostServiceAsync.detachFromLangGroup].
-         */
-        fun detachFromLangGroup(
-            params: PostDetachFromLangGroupParams
-        ): CompletableFuture<HttpResponse> = detachFromLangGroup(params, RequestOptions.none())
-
-        /** @see detachFromLangGroup */
-        fun detachFromLangGroup(
-            params: PostDetachFromLangGroupParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see detachFromLangGroup */
-        fun detachFromLangGroup(
-            detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            detachFromLangGroup(
-                PostDetachFromLangGroupParams.builder()
-                    .detachFromLangGroupRequestVNext(detachFromLangGroupRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see detachFromLangGroup */
-        fun detachFromLangGroup(
-            detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext
-        ): CompletableFuture<HttpResponse> =
-            detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/{objectId}`, but is
@@ -912,74 +667,47 @@ interface PostServiceAsync {
             getDraftById(objectId, PostGetDraftByIdParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get
-         * /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}`, but is otherwise the same as
-         * [PostServiceAsync.getPreviousVersion].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
+         * the same as [PostServiceAsync.listAuthors].
          */
-        fun getPreviousVersion(
-            revisionId: String,
-            params: PostGetPreviousVersionParams,
-        ): CompletableFuture<HttpResponse> =
-            getPreviousVersion(revisionId, params, RequestOptions.none())
+        fun listAuthors(): CompletableFuture<HttpResponse> =
+            listAuthors(PostListAuthorsParams.none())
 
-        /** @see getPreviousVersion */
-        fun getPreviousVersion(
-            revisionId: String,
-            params: PostGetPreviousVersionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            getPreviousVersion(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see getPreviousVersion */
-        fun getPreviousVersion(
-            params: PostGetPreviousVersionParams
-        ): CompletableFuture<HttpResponse> = getPreviousVersion(params, RequestOptions.none())
-
-        /** @see getPreviousVersion */
-        fun getPreviousVersion(
-            params: PostGetPreviousVersionParams,
+        /** @see listAuthors */
+        fun listAuthors(
+            params: PostListAuthorsParams = PostListAuthorsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
+
+        /** @see listAuthors */
+        fun listAuthors(
+            params: PostListAuthorsParams = PostListAuthorsParams.none()
+        ): CompletableFuture<HttpResponse> = listAuthors(params, RequestOptions.none())
+
+        /** @see listAuthors */
+        fun listAuthors(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            listAuthors(PostListAuthorsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/{objectId}/revisions`, but
-         * is otherwise the same as [PostServiceAsync.getPreviousVersions].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor`, but is otherwise
+         * the same as [PostServiceAsync.listTags].
          */
-        fun getPreviousVersions(objectId: String): CompletableFuture<HttpResponse> =
-            getPreviousVersions(objectId, PostGetPreviousVersionsParams.none())
+        fun listTags(): CompletableFuture<HttpResponse> = listTags(PostListTagsParams.none())
 
-        /** @see getPreviousVersions */
-        fun getPreviousVersions(
-            objectId: String,
-            params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            getPreviousVersions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see getPreviousVersions */
-        fun getPreviousVersions(
-            objectId: String,
-            params: PostGetPreviousVersionsParams = PostGetPreviousVersionsParams.none(),
-        ): CompletableFuture<HttpResponse> =
-            getPreviousVersions(objectId, params, RequestOptions.none())
-
-        /** @see getPreviousVersions */
-        fun getPreviousVersions(
-            params: PostGetPreviousVersionsParams,
+        /** @see listTags */
+        fun listTags(
+            params: PostListTagsParams = PostListTagsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see getPreviousVersions */
-        fun getPreviousVersions(
-            params: PostGetPreviousVersionsParams
-        ): CompletableFuture<HttpResponse> = getPreviousVersions(params, RequestOptions.none())
+        /** @see listTags */
+        fun listTags(
+            params: PostListTagsParams = PostListTagsParams.none()
+        ): CompletableFuture<HttpResponse> = listTags(params, RequestOptions.none())
 
-        /** @see getPreviousVersions */
-        fun getPreviousVersions(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> =
-            getPreviousVersions(objectId, PostGetPreviousVersionsParams.none(), requestOptions)
+        /** @see listTags */
+        fun listTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            listTags(PostListTagsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
@@ -1021,6 +749,70 @@ interface PostServiceAsync {
             pushLive(objectId, PostPushLiveParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor/query`, but is
+         * otherwise the same as [PostServiceAsync.query].
+         */
+        fun query(): CompletableFuture<HttpResponse> = query(PostQueryParams.none())
+
+        /** @see query */
+        fun query(
+            params: PostQueryParams = PostQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see query */
+        fun query(
+            params: PostQueryParams = PostQueryParams.none()
+        ): CompletableFuture<HttpResponse> = query(params, RequestOptions.none())
+
+        /** @see query */
+        fun query(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            query(PostQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
+         * otherwise the same as [PostServiceAsync.queryAuthors].
+         */
+        fun queryAuthors(): CompletableFuture<HttpResponse> =
+            queryAuthors(PostQueryAuthorsParams.none())
+
+        /** @see queryAuthors */
+        fun queryAuthors(
+            params: PostQueryAuthorsParams = PostQueryAuthorsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see queryAuthors */
+        fun queryAuthors(
+            params: PostQueryAuthorsParams = PostQueryAuthorsParams.none()
+        ): CompletableFuture<HttpResponse> = queryAuthors(params, RequestOptions.none())
+
+        /** @see queryAuthors */
+        fun queryAuthors(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            queryAuthors(PostQueryAuthorsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor/query`, but is
+         * otherwise the same as [PostServiceAsync.queryTags].
+         */
+        fun queryTags(): CompletableFuture<HttpResponse> = queryTags(PostQueryTagsParams.none())
+
+        /** @see queryTags */
+        fun queryTags(
+            params: PostQueryTagsParams = PostQueryTagsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see queryTags */
+        fun queryTags(
+            params: PostQueryTagsParams = PostQueryTagsParams.none()
+        ): CompletableFuture<HttpResponse> = queryTags(params, RequestOptions.none())
+
+        /** @see queryTags */
+        fun queryTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            queryTags(PostQueryTagsParams.none(), requestOptions)
+
+        /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts/{objectId}/draft/reset`,
          * but is otherwise the same as [PostServiceAsync.resetDraft].
          */
@@ -1059,73 +851,6 @@ interface PostServiceAsync {
             resetDraft(objectId, PostResetDraftParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}/restore`, but is otherwise the
-         * same as [PostServiceAsync.restorePreviousVersion].
-         */
-        fun restorePreviousVersion(
-            revisionId: String,
-            params: PostRestorePreviousVersionParams,
-        ): CompletableFuture<HttpResponse> =
-            restorePreviousVersion(revisionId, params, RequestOptions.none())
-
-        /** @see restorePreviousVersion */
-        fun restorePreviousVersion(
-            revisionId: String,
-            params: PostRestorePreviousVersionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            restorePreviousVersion(
-                params.toBuilder().revisionId(revisionId).build(),
-                requestOptions,
-            )
-
-        /** @see restorePreviousVersion */
-        fun restorePreviousVersion(
-            params: PostRestorePreviousVersionParams
-        ): CompletableFuture<HttpResponse> = restorePreviousVersion(params, RequestOptions.none())
-
-        /** @see restorePreviousVersion */
-        fun restorePreviousVersion(
-            params: PostRestorePreviousVersionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}/restore-to-draft`, but is
-         * otherwise the same as [PostServiceAsync.restorePreviousVersionToDraft].
-         */
-        fun restorePreviousVersionToDraft(
-            revisionId: Long,
-            params: PostRestorePreviousVersionToDraftParams,
-        ): CompletableFuture<HttpResponse> =
-            restorePreviousVersionToDraft(revisionId, params, RequestOptions.none())
-
-        /** @see restorePreviousVersionToDraft */
-        fun restorePreviousVersionToDraft(
-            revisionId: Long,
-            params: PostRestorePreviousVersionToDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            restorePreviousVersionToDraft(
-                params.toBuilder().revisionId(revisionId).build(),
-                requestOptions,
-            )
-
-        /** @see restorePreviousVersionToDraft */
-        fun restorePreviousVersionToDraft(
-            params: PostRestorePreviousVersionToDraftParams
-        ): CompletableFuture<HttpResponse> =
-            restorePreviousVersionToDraft(params, RequestOptions.none())
-
-        /** @see restorePreviousVersionToDraft */
-        fun restorePreviousVersionToDraft(
-            params: PostRestorePreviousVersionToDraftParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/posts/schedule`, but is
          * otherwise the same as [PostServiceAsync.schedule].
          */
@@ -1157,38 +882,6 @@ interface PostServiceAsync {
             schedule(contentScheduleRequestVNext, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `put
-         * /cms/blogs/2026-03/posts/multi-language/set-new-lang-primary`, but is otherwise the same
-         * as [PostServiceAsync.setLangPrimary].
-         */
-        fun setLangPrimary(params: PostSetLangPrimaryParams): CompletableFuture<HttpResponse> =
-            setLangPrimary(params, RequestOptions.none())
-
-        /** @see setLangPrimary */
-        fun setLangPrimary(
-            params: PostSetLangPrimaryParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see setLangPrimary */
-        fun setLangPrimary(
-            setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            setLangPrimary(
-                PostSetLangPrimaryParams.builder()
-                    .setNewLanguagePrimaryRequestVNext(setNewLanguagePrimaryRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see setLangPrimary */
-        fun setLangPrimary(
-            setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext
-        ): CompletableFuture<HttpResponse> =
-            setLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `patch /cms/blogs/2026-03/posts/{objectId}/draft`, but is
          * otherwise the same as [PostServiceAsync.updateDraft].
          */
@@ -1214,37 +907,5 @@ interface PostServiceAsync {
             params: PostUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/blogs/2026-03/posts/multi-language/update-languages`, but is otherwise the same as
-         * [PostServiceAsync.updateLangs].
-         */
-        fun updateLangs(params: PostUpdateLangsParams): CompletableFuture<HttpResponse> =
-            updateLangs(params, RequestOptions.none())
-
-        /** @see updateLangs */
-        fun updateLangs(
-            params: PostUpdateLangsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see updateLangs */
-        fun updateLangs(
-            updateLanguagesRequestVNext: UpdateLanguagesRequestVNext,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            updateLangs(
-                PostUpdateLangsParams.builder()
-                    .updateLanguagesRequestVNext(updateLanguagesRequestVNext)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see updateLangs */
-        fun updateLangs(
-            updateLanguagesRequestVNext: UpdateLanguagesRequestVNext
-        ): CompletableFuture<HttpResponse> =
-            updateLangs(updateLanguagesRequestVNext, RequestOptions.none())
     }
 }

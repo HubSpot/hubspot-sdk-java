@@ -10,7 +10,7 @@ internal class MediaBridgeUpdateEventVisibilitySettingsParamsTest {
     @Test
     fun create() {
         MediaBridgeUpdateEventVisibilitySettingsParams.builder()
-            .appId("appId")
+            .appId(0)
             .eventVisibilityChange(
                 EventVisibilityChange.builder()
                     .eventType(EventVisibilityChange.EventType.ALL)
@@ -27,7 +27,7 @@ internal class MediaBridgeUpdateEventVisibilitySettingsParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeUpdateEventVisibilitySettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .eventVisibilityChange(
                     EventVisibilityChange.builder()
                         .eventType(EventVisibilityChange.EventType.ALL)
@@ -36,7 +36,7 @@ internal class MediaBridgeUpdateEventVisibilitySettingsParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -45,7 +45,7 @@ internal class MediaBridgeUpdateEventVisibilitySettingsParamsTest {
     fun body() {
         val params =
             MediaBridgeUpdateEventVisibilitySettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .eventVisibilityChange(
                     EventVisibilityChange.builder()
                         .eventType(EventVisibilityChange.EventType.ALL)
@@ -75,7 +75,7 @@ internal class MediaBridgeUpdateEventVisibilitySettingsParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MediaBridgeUpdateEventVisibilitySettingsParams.builder()
-                .appId("appId")
+                .appId(0)
                 .eventVisibilityChange(
                     EventVisibilityChange.builder()
                         .eventType(EventVisibilityChange.EventType.ALL)

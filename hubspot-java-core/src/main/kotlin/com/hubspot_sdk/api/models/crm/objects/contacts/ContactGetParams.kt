@@ -10,10 +10,6 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve a contact by its ID (`contactId`) or by a unique property (`idProperty`). You can
- * specify what is returned using the `properties` query parameter.
- */
 class ContactGetParams
 private constructor(
     private val contactId: String?,

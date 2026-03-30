@@ -41,6 +41,8 @@ private constructor(
     ) : this(agentId, chirpAiContextObject, source, trajectoryId, mutableMapOf())
 
     /**
+     * The unique identifier for the agent making the request.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -54,12 +56,16 @@ private constructor(
         chirpAiContextObject.getRequired("chirpAiContextObject")
 
     /**
+     * Indicates the source of the request, with the default value being 'AGENTS'.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun source(): Source = source.getRequired("source")
 
     /**
+     * The unique identifier for the trajectory associated with the agent request.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -143,6 +149,7 @@ private constructor(
             additionalProperties = agentRequestContext.additionalProperties.toMutableMap()
         }
 
+        /** The unique identifier for the agent making the request. */
         fun agentId(agentId: Int) = agentId(JsonField.of(agentId))
 
         /**
@@ -167,6 +174,7 @@ private constructor(
             this.chirpAiContextObject = chirpAiContextObject
         }
 
+        /** Indicates the source of the request, with the default value being 'AGENTS'. */
         fun source(source: Source) = source(JsonField.of(source))
 
         /**
@@ -177,6 +185,7 @@ private constructor(
          */
         fun source(source: JsonField<Source>) = apply { this.source = source }
 
+        /** The unique identifier for the trajectory associated with the agent request. */
         fun trajectoryId(trajectoryId: String) = trajectoryId(JsonField.of(trajectoryId))
 
         /**
@@ -267,6 +276,7 @@ private constructor(
             (source.asKnown().getOrNull()?.validity() ?: 0) +
             (if (trajectoryId.asKnown().isPresent) 1 else 0)
 
+    /** Indicates the source of the request, with the default value being 'AGENTS'. */
     class Source @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

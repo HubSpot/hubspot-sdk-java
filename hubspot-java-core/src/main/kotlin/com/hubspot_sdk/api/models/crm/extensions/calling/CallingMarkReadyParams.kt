@@ -9,6 +9,10 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * This endpoint is used to mark a call recording as ready. It requires the engagementId to identify
+ * the specific recording.
+ */
 class CallingMarkReadyParams
 private constructor(
     private val markRecordingAsReadyRequest: MarkRecordingAsReadyRequest,

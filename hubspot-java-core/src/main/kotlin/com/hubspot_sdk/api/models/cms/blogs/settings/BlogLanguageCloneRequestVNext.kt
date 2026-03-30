@@ -37,24 +37,32 @@ private constructor(
     ) : this(id, language, primaryLanguage, slug, mutableMapOf())
 
     /**
+     * ID of blog to clone.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
 
     /**
+     * Target language of new variant.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun language(): Optional<String> = language.getOptional("language")
 
     /**
+     * Language of primary blog to clone.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun primaryLanguage(): Optional<String> = primaryLanguage.getOptional("primaryLanguage")
 
     /**
+     * Path to this blog.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -134,6 +142,7 @@ private constructor(
             additionalProperties = blogLanguageCloneRequestVNext.additionalProperties.toMutableMap()
         }
 
+        /** ID of blog to clone. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -144,6 +153,7 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
+        /** Target language of new variant. */
         fun language(language: String) = language(JsonField.of(language))
 
         /**
@@ -154,6 +164,7 @@ private constructor(
          */
         fun language(language: JsonField<String>) = apply { this.language = language }
 
+        /** Language of primary blog to clone. */
         fun primaryLanguage(primaryLanguage: String) =
             primaryLanguage(JsonField.of(primaryLanguage))
 
@@ -168,6 +179,7 @@ private constructor(
             this.primaryLanguage = primaryLanguage
         }
 
+        /** Path to this blog. */
         fun slug(slug: String) = slug(JsonField.of(slug))
 
         /**

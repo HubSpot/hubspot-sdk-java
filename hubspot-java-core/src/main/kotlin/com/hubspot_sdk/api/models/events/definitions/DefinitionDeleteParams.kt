@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Delete a custom event definition by name. */
 class DefinitionDeleteParams
 private constructor(
     private val eventName: String?,

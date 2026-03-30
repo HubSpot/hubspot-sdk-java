@@ -17,15 +17,14 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.AssociationDefinition
 import com.hubspot_sdk.api.models.CollectionResponsePropertyGroupNoPaging
-import com.hubspot_sdk.api.models.CollectionResponsePropertyNoPaging
-import com.hubspot_sdk.api.models.ObjectSchema
 import com.hubspot_sdk.api.models.ObjectTypeDefinition
-import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.PropertyGroup
+import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
-import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponseMediaBridgeObjectForwardPaging
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
 import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainModel
@@ -35,41 +34,37 @@ import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateMediaPlayedEv
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateMediaPlayedPercentEventParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateObjectTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateVideoAssociationDefinitionParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetEventVisibilitySettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListObjectTypesByMediaTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListOembedDomainsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPage
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertiesParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertyGroupsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListSchemasParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeObject
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderRegistrationResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeRegisterAppNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateEventVisibilitySettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSettingsParams
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEvent
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.OEmbedDomainsCollectionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.ObjectDefinitionResponse
-import com.hubspot_sdk.api.models.events.AssociationDefinition
+import com.hubspot_sdk.api.models.cms.mediabridge.ObjectSchema
+import com.hubspot_sdk.api.models.cms.mediabridge.Property
 import com.hubspot_sdk.api.services.blocking.cms.mediabridge.BatchService
 import com.hubspot_sdk.api.services.blocking.cms.mediabridge.BatchServiceImpl
 import java.util.function.Consumer
@@ -91,32 +86,6 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
 
     override fun batch(): BatchService = batch
 
-    override fun create(
-        params: MediaBridgeCreateParams,
-        requestOptions: RequestOptions,
-    ): MediaBridgeObject =
-        // post /media-bridge/2026-03/objects
-        withRawResponse().create(params, requestOptions).parse()
-
-    override fun update(
-        params: MediaBridgeUpdateParams,
-        requestOptions: RequestOptions,
-    ): MediaBridgeObject =
-        // patch /media-bridge/2026-03/objects/{objectId}
-        withRawResponse().update(params, requestOptions).parse()
-
-    override fun list(
-        params: MediaBridgeListParams,
-        requestOptions: RequestOptions,
-    ): MediaBridgeListPage =
-        // get /media-bridge/2026-03/objects/{mediaType}
-        withRawResponse().list(params, requestOptions).parse()
-
-    override fun delete(params: MediaBridgeDeleteParams, requestOptions: RequestOptions) {
-        // delete /media-bridge/2026-03/objects/{mediaType}/{objectId}
-        withRawResponse().delete(params, requestOptions)
-    }
-
     override fun createAssociation(
         params: MediaBridgeCreateAssociationParams,
         requestOptions: RequestOptions,
@@ -127,23 +96,23 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
     override fun createAttentionSpanEvent(
         params: MediaBridgeCreateAttentionSpanEventParams,
         requestOptions: RequestOptions,
-    ): HttpResponse =
+    ): AttentionSpanEvent =
         // post /media-bridge/2026-03/events/attention-span
-        withRawResponse().createAttentionSpanEvent(params, requestOptions)
+        withRawResponse().createAttentionSpanEvent(params, requestOptions).parse()
 
     override fun createMediaPlayedEvent(
         params: MediaBridgeCreateMediaPlayedEventParams,
         requestOptions: RequestOptions,
-    ): HttpResponse =
+    ): MediaPlayedEvent =
         // post /media-bridge/2026-03/events/media-played
-        withRawResponse().createMediaPlayedEvent(params, requestOptions)
+        withRawResponse().createMediaPlayedEvent(params, requestOptions).parse()
 
     override fun createMediaPlayedPercentEvent(
         params: MediaBridgeCreateMediaPlayedPercentEventParams,
         requestOptions: RequestOptions,
-    ): HttpResponse =
+    ): MediaPlayedPercentageEvent =
         // post /media-bridge/2026-03/events/media-played-percent
-        withRawResponse().createMediaPlayedPercentEvent(params, requestOptions)
+        withRawResponse().createMediaPlayedPercentEvent(params, requestOptions).parse()
 
     override fun createObjectType(
         params: MediaBridgeCreateObjectTypeParams,
@@ -211,13 +180,6 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
         // delete /media-bridge/2026-03/{appId}/properties/{objectType}/groups/{groupName}
         withRawResponse().deletePropertyGroup(params, requestOptions)
     }
-
-    override fun get(
-        params: MediaBridgeGetParams,
-        requestOptions: RequestOptions,
-    ): MediaBridgeObject =
-        // get /media-bridge/2026-03/objects/{mediaType}/{objectId}
-        withRawResponse().get(params, requestOptions).parse()
 
     override fun getEventVisibilitySettings(
         params: MediaBridgeGetEventVisibilitySettingsParams,
@@ -358,132 +320,6 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
 
         override fun batch(): BatchService.WithRawResponse = batch
 
-        private val createHandler: Handler<MediaBridgeObject> =
-            jsonHandler<MediaBridgeObject>(clientOptions.jsonMapper)
-
-        override fun create(
-            params: MediaBridgeCreateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MediaBridgeObject> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("media-bridge", "2026-03", "objects")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val updateHandler: Handler<MediaBridgeObject> =
-            jsonHandler<MediaBridgeObject>(clientOptions.jsonMapper)
-
-        override fun update(
-            params: MediaBridgeUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MediaBridgeObject> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("media-bridge", "2026-03", "objects", params._pathParam(0))
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val listHandler: Handler<CollectionResponseMediaBridgeObjectForwardPaging> =
-            jsonHandler<CollectionResponseMediaBridgeObjectForwardPaging>(clientOptions.jsonMapper)
-
-        override fun list(
-            params: MediaBridgeListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MediaBridgeListPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("mediaType", params.mediaType().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("media-bridge", "2026-03", "objects", params._pathParam(0))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        MediaBridgeListPage.builder()
-                            .service(MediaBridgeServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
-                    }
-            }
-        }
-
-        private val deleteHandler: Handler<Void?> = emptyHandler()
-
-        override fun delete(
-            params: MediaBridgeDeleteParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "media-bridge",
-                        "2026-03",
-                        "objects",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { deleteHandler.handle(it) }
-            }
-        }
-
         private val createAssociationHandler: Handler<AssociationDefinition> =
             jsonHandler<AssociationDefinition>(clientOptions.jsonMapper)
 
@@ -522,58 +358,88 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
+        private val createAttentionSpanEventHandler: Handler<AttentionSpanEvent> =
+            jsonHandler<AttentionSpanEvent>(clientOptions.jsonMapper)
+
         override fun createAttentionSpanEvent(
             params: MediaBridgeCreateAttentionSpanEventParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<AttentionSpanEvent> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("media-bridge", "2026-03", "events", "attention-span")
-                    .putHeader("Accept", "*/*")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createAttentionSpanEventHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
+
+        private val createMediaPlayedEventHandler: Handler<MediaPlayedEvent> =
+            jsonHandler<MediaPlayedEvent>(clientOptions.jsonMapper)
 
         override fun createMediaPlayedEvent(
             params: MediaBridgeCreateMediaPlayedEventParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<MediaPlayedEvent> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("media-bridge", "2026-03", "events", "media-played")
-                    .putHeader("Accept", "*/*")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createMediaPlayedEventHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
+
+        private val createMediaPlayedPercentEventHandler: Handler<MediaPlayedPercentageEvent> =
+            jsonHandler<MediaPlayedPercentageEvent>(clientOptions.jsonMapper)
 
         override fun createMediaPlayedPercentEvent(
             params: MediaBridgeCreateMediaPlayedPercentEventParams,
             requestOptions: RequestOptions,
-        ): HttpResponse {
+        ): HttpResponseFor<MediaPlayedPercentageEvent> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("media-bridge", "2026-03", "events", "media-played-percent")
-                    .putHeader("Accept", "*/*")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createMediaPlayedPercentEventHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
         }
 
         private val createObjectTypeHandler: Handler<BulkIntegratorObjectCreationResponse> =
@@ -884,42 +750,6 @@ class MediaBridgeServiceImpl internal constructor(private val clientOptions: Cli
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response.use { deletePropertyGroupHandler.handle(it) }
-            }
-        }
-
-        private val getHandler: Handler<MediaBridgeObject> =
-            jsonHandler<MediaBridgeObject>(clientOptions.jsonMapper)
-
-        override fun get(
-            params: MediaBridgeGetParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<MediaBridgeObject> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "media-bridge",
-                        "2026-03",
-                        "objects",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { getHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
             }
         }
 

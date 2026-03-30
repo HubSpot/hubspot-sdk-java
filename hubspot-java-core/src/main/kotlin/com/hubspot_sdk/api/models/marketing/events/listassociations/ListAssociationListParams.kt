@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Gets lists associated with a marketing event by marketing event id */
 class ListAssociationListParams
 private constructor(
     private val marketingEventId: String?,

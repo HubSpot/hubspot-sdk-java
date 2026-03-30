@@ -71,7 +71,7 @@ private constructor(
     )
 
     /**
-     * The unique ID of the activity.
+     * The activity's unique ID.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -111,7 +111,7 @@ private constructor(
     fun actingUser(): Optional<String> = actingUser.getOptional("actingUser")
 
     /**
-     * The approximate country code.
+     * The approximate country code
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -151,7 +151,7 @@ private constructor(
     fun objectId(): Optional<String> = objectId.getOptional("objectId")
 
     /**
-     * The approximate region code.
+     * The approximate region code
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -297,7 +297,7 @@ private constructor(
             additionalProperties = hydratedCriticalAction.additionalProperties.toMutableMap()
         }
 
-        /** The unique ID of the activity. */
+        /** The activity's unique ID. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -354,7 +354,7 @@ private constructor(
          */
         fun actingUser(actingUser: JsonField<String>) = apply { this.actingUser = actingUser }
 
-        /** The approximate country code. */
+        /** The approximate country code */
         fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
 
         /**
@@ -411,7 +411,7 @@ private constructor(
          */
         fun objectId(objectId: JsonField<String>) = apply { this.objectId = objectId }
 
-        /** The approximate region code. */
+        /** The approximate region code */
         fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
 
         /**

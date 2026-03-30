@@ -35,8 +35,8 @@ private constructor(
     ) : this(objectTypes, targetUrl, mutableMapOf())
 
     /**
-     * An array of CRM object types where this card should be displayed. HubSpot will call your data
-     * fetch URL whenever a user visits a record page of the types defined here.
+     * An array of CRM object types where this card should be displayed. HubSpot will call your
+     * target URL whenever a user visits a record page of the types defined here.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -44,8 +44,8 @@ private constructor(
     fun objectTypes(): List<CardObjectTypeBody> = objectTypes.getRequired("objectTypes")
 
     /**
-     * URL to a service endpoint that will respond with card details. HubSpot will call this
-     * endpoint each time a user visits a CRM record page where this card should be displayed.
+     * URL to a service endpoint that will respond with details for this card. HubSpot will call
+     * this endpoint each time a user visits a CRM record page where this card should be displayed.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -110,7 +110,7 @@ private constructor(
 
         /**
          * An array of CRM object types where this card should be displayed. HubSpot will call your
-         * data fetch URL whenever a user visits a record page of the types defined here.
+         * target URL whenever a user visits a record page of the types defined here.
          */
         fun objectTypes(objectTypes: List<CardObjectTypeBody>) =
             objectTypes(JsonField.of(objectTypes))
@@ -139,8 +139,9 @@ private constructor(
         }
 
         /**
-         * URL to a service endpoint that will respond with card details. HubSpot will call this
-         * endpoint each time a user visits a CRM record page where this card should be displayed.
+         * URL to a service endpoint that will respond with details for this card. HubSpot will call
+         * this endpoint each time a user visits a CRM record page where this card should be
+         * displayed.
          */
         fun targetUrl(targetUrl: String) = targetUrl(JsonField.of(targetUrl))
 

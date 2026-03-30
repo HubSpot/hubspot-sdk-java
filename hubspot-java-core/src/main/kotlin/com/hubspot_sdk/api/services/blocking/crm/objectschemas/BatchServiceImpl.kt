@@ -15,7 +15,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.crm.objectschemas.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objectschemas.batch.BatchGetParams
 import java.util.function.Consumer
 

@@ -13,8 +13,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve a batch of commerce subscriptions by their IDs, including specified properties and their
- * histories.
+ * Retrieve a batch of CRM subscription objects by their IDs, including specified properties and
+ * their histories.
  */
 class BatchGetParams
 private constructor(

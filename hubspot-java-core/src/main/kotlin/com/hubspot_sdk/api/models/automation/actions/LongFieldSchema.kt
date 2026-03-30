@@ -35,18 +35,24 @@ private constructor(
     ) : this(type, maximum, minimum, mutableMapOf())
 
     /**
+     * The type of the field, which is LONG by default.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
+     * The maximum value allowed for the long field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun maximum(): Optional<Long> = maximum.getOptional("maximum")
 
     /**
+     * The minimum value allowed for the long field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -114,6 +120,7 @@ private constructor(
             additionalProperties = longFieldSchema.additionalProperties.toMutableMap()
         }
 
+        /** The type of the field, which is LONG by default. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -124,6 +131,7 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** The maximum value allowed for the long field. */
         fun maximum(maximum: Long) = maximum(JsonField.of(maximum))
 
         /**
@@ -134,6 +142,7 @@ private constructor(
          */
         fun maximum(maximum: JsonField<Long>) = apply { this.maximum = maximum }
 
+        /** The minimum value allowed for the long field. */
         fun minimum(minimum: Long) = minimum(JsonField.of(minimum))
 
         /**
@@ -216,6 +225,7 @@ private constructor(
             (if (maximum.asKnown().isPresent) 1 else 0) +
             (if (minimum.asKnown().isPresent) 1 else 0)
 
+    /** The type of the field, which is LONG by default. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

@@ -4,25 +4,26 @@ package com.hubspot_sdk.api.models.crm.objects.listings
 
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
-import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
+import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
-/** Archive multiple listings by their IDs. */
+/** Move an Object identified by `{listingId}` to the recycling bin. */
 class ListingDeleteParams
 private constructor(
-    private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
+    private val listingId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
+    private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun batchInputSimplePublicObjectId(): BatchInputSimplePublicObjectId =
-        batchInputSimplePublicObjectId
+    fun listingId(): Optional<String> = Optional.ofNullable(listingId)
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchInputSimplePublicObjectId._additionalProperties()
+    /** Additional body properties to send with the request. */
+    fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -34,34 +35,32 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ListingDeleteParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .batchInputSimplePublicObjectId()
-         * ```
-         */
+        @JvmStatic fun none(): ListingDeleteParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ListingDeleteParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [ListingDeleteParams]. */
     class Builder internal constructor() {
 
-        private var batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId? = null
+        private var listingId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+        private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(listingDeleteParams: ListingDeleteParams) = apply {
-            batchInputSimplePublicObjectId = listingDeleteParams.batchInputSimplePublicObjectId
+            listingId = listingDeleteParams.listingId
             additionalHeaders = listingDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = listingDeleteParams.additionalQueryParams.toBuilder()
+            additionalBodyProperties = listingDeleteParams.additionalBodyProperties.toMutableMap()
         }
 
-        fun batchInputSimplePublicObjectId(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId
-        ) = apply { this.batchInputSimplePublicObjectId = batchInputSimplePublicObjectId }
+        fun listingId(listingId: String?) = apply { this.listingId = listingId }
+
+        /** Alias for calling [Builder.listingId] with `listingId.orElse(null)`. */
+        fun listingId(listingId: Optional<String>) = listingId(listingId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -161,27 +160,50 @@ private constructor(
             additionalQueryParams.removeAll(keys)
         }
 
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            this.additionalBodyProperties.clear()
+            putAllAdditionalBodyProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            additionalBodyProperties.put(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                this.additionalBodyProperties.putAll(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply {
+            additionalBodyProperties.remove(key)
+        }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalBodyProperty)
+        }
+
         /**
          * Returns an immutable instance of [ListingDeleteParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .batchInputSimplePublicObjectId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ListingDeleteParams =
             ListingDeleteParams(
-                checkRequired("batchInputSimplePublicObjectId", batchInputSimplePublicObjectId),
+                listingId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
+                additionalBodyProperties.toImmutable(),
             )
     }
 
-    fun _body(): BatchInputSimplePublicObjectId = batchInputSimplePublicObjectId
+    fun _body(): Optional<Map<String, JsonValue>> =
+        Optional.ofNullable(additionalBodyProperties.ifEmpty { null })
+
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> listingId ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -193,14 +215,15 @@ private constructor(
         }
 
         return other is ListingDeleteParams &&
-            batchInputSimplePublicObjectId == other.batchInputSimplePublicObjectId &&
+            listingId == other.listingId &&
             additionalHeaders == other.additionalHeaders &&
-            additionalQueryParams == other.additionalQueryParams
+            additionalQueryParams == other.additionalQueryParams &&
+            additionalBodyProperties == other.additionalBodyProperties
     }
 
     override fun hashCode(): Int =
-        Objects.hash(batchInputSimplePublicObjectId, additionalHeaders, additionalQueryParams)
+        Objects.hash(listingId, additionalHeaders, additionalQueryParams, additionalBodyProperties)
 
     override fun toString() =
-        "ListingDeleteParams{batchInputSimplePublicObjectId=$batchInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ListingDeleteParams{listingId=$listingId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

@@ -39,12 +39,16 @@ private constructor(
     ) : this(results, total, paging, mutableMapOf())
 
     /**
+     * The results of the query.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun results(): List<Domain> = results.getRequired("results")
 
     /**
+     * The number of available results.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -122,6 +126,7 @@ private constructor(
                     collectionResponseWithTotalDomain.additionalProperties.toMutableMap()
             }
 
+        /** The results of the query. */
         fun results(results: List<Domain>) = results(JsonField.of(results))
 
         /**
@@ -147,6 +152,7 @@ private constructor(
                 }
         }
 
+        /** The number of available results. */
         fun total(total: Int) = total(JsonField.of(total))
 
         /**

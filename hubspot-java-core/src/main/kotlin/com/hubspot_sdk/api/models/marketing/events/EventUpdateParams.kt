@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Updates the details of an existing Marketing Event identified by its objectId, if it exists. */
 class EventUpdateParams
 private constructor(
     private val objectId: String?,

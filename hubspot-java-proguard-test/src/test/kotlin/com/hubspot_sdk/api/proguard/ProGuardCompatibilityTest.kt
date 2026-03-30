@@ -5,8 +5,11 @@ package com.hubspot_sdk.api.proguard
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateMbObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateVideoObjectRequest
+import com.hubspot_sdk.api.models.cms.hubdb.BoundedNextPage
+import com.hubspot_sdk.api.models.cms.hubdb.BoundedPaging
+import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableRowV3Wrapper
+import com.hubspot_sdk.api.models.cms.hubdb.RandomAccessCollectionResponseWithTotalHubDbTableRowV3
+import com.hubspot_sdk.api.models.cms.hubdb.UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
 import com.hubspot_sdk.api.models.crm.objects.contacts.PublicGdprDeleteInput
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -50,7 +53,6 @@ internal class ProGuardCompatibilityTest {
 
         assertThat(client).isNotNull()
         assertThat(client.account()).isNotNull()
-        assertThat(client.appWebhooks()).isNotNull()
         assertThat(client.auth()).isNotNull()
         assertThat(client.automation()).isNotNull()
         assertThat(client.businessUnits()).isNotNull()
@@ -58,13 +60,13 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.communicationPreferences()).isNotNull()
         assertThat(client.conversations()).isNotNull()
         assertThat(client.crm()).isNotNull()
-        assertThat(client.dataStudio()).isNotNull()
         assertThat(client.events()).isNotNull()
         assertThat(client.files()).isNotNull()
         assertThat(client.marketing()).isNotNull()
         assertThat(client.meta()).isNotNull()
         assertThat(client.scheduler()).isNotNull()
         assertThat(client.settings()).isNotNull()
+        assertThat(client.webhooks()).isNotNull()
     }
 
     @Test
@@ -83,31 +85,35 @@ internal class ProGuardCompatibilityTest {
     }
 
     @Test
-    fun createMbObjectRequestRoundtrip() {
+    fun unifiedCollectionResponseWithTotalBaseHubDbTableRowV3Roundtrip() {
         val jsonMapper = jsonMapper()
-        val createMbObjectRequest =
-            CreateMbObjectRequest.ofVideo(
-                CreateVideoObjectRequest.builder()
-                    .mediaType(CreateVideoObjectRequest.MediaType.VIDEO)
-                    .title("title")
-                    .bearerToken("bearerToken")
-                    .detailsPageLink("detailsPageLink")
-                    .duration(0L)
-                    .externalId("externalId")
-                    .fileUrl("fileUrl")
-                    .oembedUrl("oembedUrl")
-                    .posterUrl("posterUrl")
-                    .thumbnailUrl("thumbnailUrl")
-                    .transcriptUrl("transcriptUrl")
-                    .build()
-            )
+        val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
+            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
+                .ofRandomAccessCollectionResponseWithTotal(
+                    RandomAccessCollectionResponseWithTotalHubDbTableRowV3.builder()
+                        .addResult(HubDbTableRowV3Wrapper.builder().build())
+                        .total(0)
+                        .type(
+                            RandomAccessCollectionResponseWithTotalHubDbTableRowV3.Type
+                                .RANDOM_ACCESS
+                        )
+                        .paging(
+                            BoundedPaging.builder()
+                                .next(BoundedNextPage.builder().offset(0).link("link").build())
+                                .build()
+                        )
+                        .build()
+                )
 
-        val roundtrippedCreateMbObjectRequest =
+        val roundtrippedUnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(createMbObjectRequest),
-                jacksonTypeRef<CreateMbObjectRequest>(),
+                jsonMapper.writeValueAsString(
+                    unifiedCollectionResponseWithTotalBaseHubDbTableRowV3
+                ),
+                jacksonTypeRef<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>(),
             )
 
-        assertThat(roundtrippedCreateMbObjectRequest).isEqualTo(createMbObjectRequest)
+        assertThat(roundtrippedUnifiedCollectionResponseWithTotalBaseHubDbTableRowV3)
+            .isEqualTo(unifiedCollectionResponseWithTotalBaseHubDbTableRowV3)
     }
 }

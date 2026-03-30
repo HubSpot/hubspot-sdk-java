@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * If you have a Marketing Hub Enterprise account or the transactional email add-on, you can use
+ * this endpoint to publish an automated email or send/schedule a regular email.
+ */
 class EmailPublishParams
 private constructor(
     private val emailId: String?,

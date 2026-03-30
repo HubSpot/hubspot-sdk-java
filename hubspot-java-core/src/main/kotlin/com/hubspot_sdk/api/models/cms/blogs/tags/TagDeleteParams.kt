@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Delete the Blog Tag object identified by the id in the path. */
 class TagDeleteParams
 private constructor(
     private val objectId: String?,

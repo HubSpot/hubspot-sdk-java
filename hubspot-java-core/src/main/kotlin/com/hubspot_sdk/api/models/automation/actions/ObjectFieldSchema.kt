@@ -32,6 +32,8 @@ private constructor(
     ) : this(properties, type, mutableMapOf())
 
     /**
+     * Contains the properties of the object.
+     *
      * This arbitrary value can be deserialized into a custom type using the `convert` method:
      * ```java
      * MyClass myObject = objectFieldSchema.properties().convert(MyClass.class);
@@ -40,6 +42,8 @@ private constructor(
     @JsonProperty("properties") @ExcludeMissing fun _properties(): JsonValue = properties
 
     /**
+     * Specifies the type of the field, which is 'OBJECT' by default.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -92,8 +96,10 @@ private constructor(
             additionalProperties = objectFieldSchema.additionalProperties.toMutableMap()
         }
 
+        /** Contains the properties of the object. */
         fun properties(properties: JsonValue) = apply { this.properties = properties }
 
+        /** Specifies the type of the field, which is 'OBJECT' by default. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -170,6 +176,7 @@ private constructor(
      */
     @JvmSynthetic internal fun validity(): Int = (type.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Specifies the type of the field, which is 'OBJECT' by default. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

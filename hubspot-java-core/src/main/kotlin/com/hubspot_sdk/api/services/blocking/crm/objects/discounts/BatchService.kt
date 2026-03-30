@@ -35,11 +35,6 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
-    /**
-     * Create multiple discounts in a single request by providing the necessary properties and
-     * associations for each discount. This operation returns a list of the created discounts,
-     * including their unique identifiers.
-     */
     fun create(params: BatchCreateParams): BatchResponseSimplePublicObject =
         create(params, RequestOptions.none())
 
@@ -71,7 +66,7 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
 
-    /** Update discounts */
+    /** Update a batch of discounts by internal ID, or unique property values */
     fun update(params: BatchUpdateParams): BatchResponseSimplePublicObject =
         update(params, RequestOptions.none())
 
@@ -99,7 +94,6 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
-    /** Batch delete discounts */
     fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
@@ -121,7 +115,10 @@ interface BatchService {
     fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
         delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Batch retrieve discounts. */
+    /**
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
+     */
     fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
         get(params, RequestOptions.none())
 
@@ -149,10 +146,6 @@ interface BatchService {
     ): BatchResponseSimplePublicObject =
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
-    /**
-     * Create and update a batch of discounts by a unique property. Discounts that don't exist will
-     * be created, while existing discounts will be updated.
-     */
     fun upsert(params: BatchUpsertParams): BatchResponseSimplePublicUpsertObject =
         upsert(params, RequestOptions.none())
 

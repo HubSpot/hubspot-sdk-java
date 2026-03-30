@@ -31,6 +31,7 @@ interface ExportServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportServiceAsync
 
+    /** Begins exporting CRM data for the portal as specified in the request body */
     fun createAsync(params: ExportCreateAsyncParams): CompletableFuture<TaskLocator> =
         createAsync(params, RequestOptions.none())
 
@@ -76,6 +77,10 @@ interface ExportServiceAsync {
     fun createAsync(list: PublicExportListRequest): CompletableFuture<TaskLocator> =
         createAsync(list, RequestOptions.none())
 
+    /**
+     * Retrieve detailed information about a specific CRM export, including its current state and
+     * properties.
+     */
     fun get(exportId: Long): CompletableFuture<PublicExportResponse> =
         get(exportId, ExportGetParams.none())
 
@@ -110,6 +115,10 @@ interface ExportServiceAsync {
     ): CompletableFuture<PublicExportResponse> =
         get(exportId, ExportGetParams.none(), requestOptions)
 
+    /**
+     * Returns the status of the export with taskId, including the URL of the resulting file if the
+     * export status is COMPLETE
+     */
     fun getStatus(taskId: Long): CompletableFuture<ActionResponseWithSingleResultUri> =
         getStatus(taskId, ExportGetStatusParams.none())
 

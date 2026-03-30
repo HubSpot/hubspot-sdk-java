@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Read a batch of properties. */
+/** Read a provided list of properties. */
 class BatchGetParams
 private constructor(
     private val objectType: String?,

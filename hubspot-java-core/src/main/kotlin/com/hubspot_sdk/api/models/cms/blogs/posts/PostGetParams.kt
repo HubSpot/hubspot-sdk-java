@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve a blog post by the post ID. */
 class PostGetParams
 private constructor(
     private val objectId: String?,

@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.discounts.DiscountCreateParams
@@ -38,7 +38,10 @@ interface DiscountService {
 
     fun batch(): BatchService
 
-    /** Create a discount */
+    /**
+     * Create a discount with the given properties and return a copy of the object, including the
+     * ID. Documentation and examples for creating standard discounts is provided.
+     */
     fun create(params: DiscountCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
 
@@ -94,9 +97,7 @@ interface DiscountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /**
-     * Retrieve all discounts, using query parameters to specify the information that gets returned.
-     */
+    /** List */
     fun list(): DiscountListPage = list(DiscountListParams.none())
 
     /** @see list */
@@ -113,7 +114,7 @@ interface DiscountService {
     fun list(requestOptions: RequestOptions): DiscountListPage =
         list(DiscountListParams.none(), requestOptions)
 
-    /** Delete a discount. */
+    /** Archive */
     fun delete(discountId: String) = delete(discountId, DiscountDeleteParams.none())
 
     /** @see delete */
@@ -138,8 +139,9 @@ interface DiscountService {
         delete(discountId, DiscountDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve a discount by its ID (`objectId`) or by a unique property (`idProperty`). You can
-     * specify what is returned using the `properties` query parameter.
+     * Read an Object identified by `{discountId}`. `{discountId}` refers to the internal object ID
+     * by default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
     fun get(discountId: String): SimplePublicObjectWithAssociations =
         get(discountId, DiscountGetParams.none())
@@ -175,7 +177,6 @@ interface DiscountService {
     ): SimplePublicObjectWithAssociations =
         get(discountId, DiscountGetParams.none(), requestOptions)
 
-    /** Search for a discount */
     fun search(params: DiscountSearchParams): CollectionResponseWithTotalSimplePublicObject =
         search(params, RequestOptions.none())
 

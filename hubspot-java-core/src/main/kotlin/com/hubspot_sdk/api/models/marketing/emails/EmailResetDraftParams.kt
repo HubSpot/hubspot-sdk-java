@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Resets the draft back to a copy of the live object. */
 class EmailResetDraftParams
 private constructor(
     private val emailId: String?,

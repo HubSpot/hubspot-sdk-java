@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Create new recording settings for a specific app using the provided app ID. */
 class CallingCreateParams
 private constructor(
     private val appId: Int?,

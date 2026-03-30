@@ -12,10 +12,10 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Perform a partial update of a campaign identified by the specified ID. Provided property values
- * will be overwritten. Read-only and non-existent properties will be ignored. Properties values can
- * be cleared by passing an empty string. Note: The 'hs_goal' property is deprecated and will be
- * ignored if provided.
+ * Perform a partial update of a campaign identified by the specified campaignGuid. Provided
+ * property values will be overwritten. Read-only and non-existent properties will cause 400 error.
+ * If an empty string is passed for any property in the Batch Update, it will reset that property's
+ * value.
  */
 class CampaignUpdateParams
 private constructor(

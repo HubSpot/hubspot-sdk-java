@@ -12,8 +12,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Delete a specified campaign from the system. This operation removes the campaign identified by
- * the provided campaignGuid from your HubSpot account.
+ * Delete a specified campaign from the system. This call will return a 204 No Content response
+ * regardless of whether the campaignGuid provided corresponds to an existing campaign or not.
  */
 class CampaignDeleteParams
 private constructor(

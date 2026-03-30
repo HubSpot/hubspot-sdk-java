@@ -7,6 +7,8 @@ import com.hubspot_sdk.api.services.blocking.settings.CurrencyService
 import com.hubspot_sdk.api.services.blocking.settings.CurrencyServiceImpl
 import com.hubspot_sdk.api.services.blocking.settings.TaxRateService
 import com.hubspot_sdk.api.services.blocking.settings.TaxRateServiceImpl
+import com.hubspot_sdk.api.services.blocking.settings.UserService
+import com.hubspot_sdk.api.services.blocking.settings.UserServiceImpl
 import java.util.function.Consumer
 
 class SettingServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -20,6 +22,8 @@ class SettingServiceImpl internal constructor(private val clientOptions: ClientO
 
     private val taxRates: TaxRateService by lazy { TaxRateServiceImpl(clientOptions) }
 
+    private val users: UserService by lazy { UserServiceImpl(clientOptions) }
+
     override fun withRawResponse(): SettingService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingService =
@@ -28,6 +32,8 @@ class SettingServiceImpl internal constructor(private val clientOptions: ClientO
     override fun currencies(): CurrencyService = currencies
 
     override fun taxRates(): TaxRateService = taxRates
+
+    override fun users(): UserService = users
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SettingService.WithRawResponse {
@@ -40,6 +46,10 @@ class SettingServiceImpl internal constructor(private val clientOptions: ClientO
             TaxRateServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val users: UserService.WithRawResponse by lazy {
+            UserServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): SettingService.WithRawResponse =
@@ -50,5 +60,7 @@ class SettingServiceImpl internal constructor(private val clientOptions: ClientO
         override fun currencies(): CurrencyService.WithRawResponse = currencies
 
         override fun taxRates(): TaxRateService.WithRawResponse = taxRates
+
+        override fun users(): UserService.WithRawResponse = users
     }
 }

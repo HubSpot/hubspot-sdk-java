@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the current settings for the application. */
 class SettingGetParams
 private constructor(
     private val appId: Int?,

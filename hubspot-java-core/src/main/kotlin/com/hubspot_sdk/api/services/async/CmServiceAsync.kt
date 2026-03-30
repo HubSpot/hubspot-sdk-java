@@ -6,7 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.cms.AuditLogServiceAsync
 import com.hubspot_sdk.api.services.async.cms.BlogServiceAsync
 import com.hubspot_sdk.api.services.async.cms.DomainServiceAsync
+import com.hubspot_sdk.api.services.async.cms.HubdbServiceAsync
 import com.hubspot_sdk.api.services.async.cms.MediaBridgeServiceAsync
+import com.hubspot_sdk.api.services.async.cms.PageServiceAsync
 import com.hubspot_sdk.api.services.async.cms.SiteSearchServiceAsync
 import com.hubspot_sdk.api.services.async.cms.SourceCodeServiceAsync
 import com.hubspot_sdk.api.services.async.cms.UrlMappingServiceAsync
@@ -33,7 +35,11 @@ interface CmServiceAsync {
 
     fun domains(): DomainServiceAsync
 
+    fun hubdb(): HubdbServiceAsync
+
     fun mediaBridge(): MediaBridgeServiceAsync
+
+    fun pages(): PageServiceAsync
 
     fun siteSearch(): SiteSearchServiceAsync
 
@@ -59,7 +65,11 @@ interface CmServiceAsync {
 
         fun domains(): DomainServiceAsync.WithRawResponse
 
+        fun hubdb(): HubdbServiceAsync.WithRawResponse
+
         fun mediaBridge(): MediaBridgeServiceAsync.WithRawResponse
+
+        fun pages(): PageServiceAsync.WithRawResponse
 
         fun siteSearch(): SiteSearchServiceAsync.WithRawResponse
 

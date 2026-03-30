@@ -15,6 +15,8 @@ import com.hubspot_sdk.api.services.blocking.crm.ExportService
 import com.hubspot_sdk.api.services.blocking.crm.ExportServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.ExtensionService
 import com.hubspot_sdk.api.services.blocking.crm.ExtensionServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.FeatureFlagService
+import com.hubspot_sdk.api.services.blocking.crm.FeatureFlagServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.ImportService
 import com.hubspot_sdk.api.services.blocking.crm.ImportServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.LimitService
@@ -35,6 +37,8 @@ import com.hubspot_sdk.api.services.blocking.crm.PropertiesValidationService
 import com.hubspot_sdk.api.services.blocking.crm.PropertiesValidationServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.PropertyService
 import com.hubspot_sdk.api.services.blocking.crm.PropertyServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.TimelineService
+import com.hubspot_sdk.api.services.blocking.crm.TimelineServiceImpl
 import java.util.function.Consumer
 
 class CrmServiceImpl internal constructor(private val clientOptions: ClientOptions) : CrmService {
@@ -58,6 +62,8 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
     private val exports: ExportService by lazy { ExportServiceImpl(clientOptions) }
 
     private val extensions: ExtensionService by lazy { ExtensionServiceImpl(clientOptions) }
+
+    private val featureFlags: FeatureFlagService by lazy { FeatureFlagServiceImpl(clientOptions) }
 
     private val imports: ImportService by lazy { ImportServiceImpl(clientOptions) }
 
@@ -85,6 +91,8 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
         PropertiesValidationServiceImpl(clientOptions)
     }
 
+    private val timeline: TimelineService by lazy { TimelineServiceImpl(clientOptions) }
+
     override fun withRawResponse(): CrmService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CrmService =
@@ -101,6 +109,8 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun exports(): ExportService = exports
 
     override fun extensions(): ExtensionService = extensions
+
+    override fun featureFlags(): FeatureFlagService = featureFlags
 
     override fun imports(): ImportService = imports
 
@@ -121,6 +131,8 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
     override fun properties(): PropertyService = properties
 
     override fun propertiesValidations(): PropertiesValidationService = propertiesValidations
+
+    override fun timeline(): TimelineService = timeline
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CrmService.WithRawResponse {
@@ -147,6 +159,10 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
 
         private val extensions: ExtensionService.WithRawResponse by lazy {
             ExtensionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val featureFlags: FeatureFlagService.WithRawResponse by lazy {
+            FeatureFlagServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val imports: ImportService.WithRawResponse by lazy {
@@ -189,6 +205,10 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
             PropertiesValidationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val timeline: TimelineService.WithRawResponse by lazy {
+            TimelineServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): CrmService.WithRawResponse =
@@ -208,6 +228,8 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
         override fun exports(): ExportService.WithRawResponse = exports
 
         override fun extensions(): ExtensionService.WithRawResponse = extensions
+
+        override fun featureFlags(): FeatureFlagService.WithRawResponse = featureFlags
 
         override fun imports(): ImportService.WithRawResponse = imports
 
@@ -229,5 +251,7 @@ class CrmServiceImpl internal constructor(private val clientOptions: ClientOptio
 
         override fun propertiesValidations(): PropertiesValidationService.WithRawResponse =
             propertiesValidations
+
+        override fun timeline(): TimelineService.WithRawResponse = timeline
     }
 }

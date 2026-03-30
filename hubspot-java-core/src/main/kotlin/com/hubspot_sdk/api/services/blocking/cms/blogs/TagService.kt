@@ -6,29 +6,29 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
-import com.hubspot_sdk.api.models.BatchInputString
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.tags.BatchInputTag
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.tags.Tag
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagCreateParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagDetachFromLangGroupParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagGetParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListAuthorsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListAuthorsCursorParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagListParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPostsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.tags.TagListPostsCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagSetLangPrimaryParams
-import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateBatchParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateLangsParams
 import com.hubspot_sdk.api.models.cms.blogs.tags.TagUpdateParams
+import com.hubspot_sdk.api.services.blocking.cms.blogs.tags.BatchService
 import java.util.function.Consumer
 
 interface TagService {
@@ -45,6 +45,9 @@ interface TagService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagService
 
+    fun batch(): BatchService
+
+    /** Create a new Blog Tag. */
     @MustBeClosed
     fun create(params: TagCreateParams): HttpResponse = create(params, RequestOptions.none())
 
@@ -63,6 +66,10 @@ interface TagService {
     /** @see create */
     @MustBeClosed fun create(tag: Tag): HttpResponse = create(tag, RequestOptions.none())
 
+    /**
+     * Sparse updates a single Blog Tag object identified by the id in the path. All the column
+     * values need not be specified. Only the that need to be modified can be specified.
+     */
     @MustBeClosed
     fun update(objectId: String, params: TagUpdateParams): HttpResponse =
         update(objectId, params, RequestOptions.none())
@@ -86,6 +93,10 @@ interface TagService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
+    /**
+     * Get the list of blog tags. Supports paging and filtering. This method would be useful for an
+     * integration that examined these models and used an external service to suggest edits.
+     */
     @MustBeClosed fun list(): HttpResponse = list(TagListParams.none())
 
     /** @see list */
@@ -105,6 +116,7 @@ interface TagService {
     fun list(requestOptions: RequestOptions): HttpResponse =
         list(TagListParams.none(), requestOptions)
 
+    /** Delete the Blog Tag object identified by the id in the path. */
     fun delete(objectId: String) = delete(objectId, TagDeleteParams.none())
 
     /** @see delete */
@@ -128,6 +140,7 @@ interface TagService {
     fun delete(objectId: String, requestOptions: RequestOptions) =
         delete(objectId, TagDeleteParams.none(), requestOptions)
 
+    /** Attach a Blog Tag to a multi-language group. */
     @MustBeClosed
     fun attachToLangGroup(params: TagAttachToLangGroupParams): HttpResponse =
         attachToLangGroup(params, RequestOptions.none())
@@ -158,33 +171,7 @@ interface TagService {
         attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext
     ): HttpResponse = attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
-    @MustBeClosed
-    fun createBatch(params: TagCreateBatchParams): HttpResponse =
-        createBatch(params, RequestOptions.none())
-
-    /** @see createBatch */
-    @MustBeClosed
-    fun createBatch(
-        params: TagCreateBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see createBatch */
-    @MustBeClosed
-    fun createBatch(
-        batchInputTag: BatchInputTag,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        createBatch(
-            TagCreateBatchParams.builder().batchInputTag(batchInputTag).build(),
-            requestOptions,
-        )
-
-    /** @see createBatch */
-    @MustBeClosed
-    fun createBatch(batchInputTag: BatchInputTag): HttpResponse =
-        createBatch(batchInputTag, RequestOptions.none())
-
+    /** Create a new language variation from an existing Blog Tag */
     @MustBeClosed
     fun createLangVariation(params: TagCreateLangVariationParams): HttpResponse =
         createLangVariation(params, RequestOptions.none())
@@ -214,28 +201,7 @@ interface TagService {
     fun createLangVariation(tagCloneRequestVNext: TagCloneRequestVNext): HttpResponse =
         createLangVariation(tagCloneRequestVNext, RequestOptions.none())
 
-    fun deleteBatch(params: TagDeleteBatchParams) = deleteBatch(params, RequestOptions.none())
-
-    /** @see deleteBatch */
-    fun deleteBatch(
-        params: TagDeleteBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see deleteBatch */
-    fun deleteBatch(
-        batchInputString: BatchInputString,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        deleteBatch(
-            TagDeleteBatchParams.builder().batchInputString(batchInputString).build(),
-            requestOptions,
-        )
-
-    /** @see deleteBatch */
-    fun deleteBatch(batchInputString: BatchInputString) =
-        deleteBatch(batchInputString, RequestOptions.none())
-
+    /** Detach a Blog Tag from a multi-language group. */
     @MustBeClosed
     fun detachFromLangGroup(params: TagDetachFromLangGroupParams): HttpResponse =
         detachFromLangGroup(params, RequestOptions.none())
@@ -266,6 +232,7 @@ interface TagService {
         detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext
     ): HttpResponse = detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
+    /** Retrieve the Blog Tag object identified by the id in the path. */
     @MustBeClosed fun get(objectId: String): HttpResponse = get(objectId, TagGetParams.none())
 
     /** @see get */
@@ -297,31 +264,132 @@ interface TagService {
         get(objectId, TagGetParams.none(), requestOptions)
 
     @MustBeClosed
-    fun getBatch(params: TagGetBatchParams): HttpResponse = getBatch(params, RequestOptions.none())
+    fun listAuthorsCursor(): HttpResponse = listAuthorsCursor(TagListAuthorsCursorParams.none())
 
-    /** @see getBatch */
+    /** @see listAuthorsCursor */
     @MustBeClosed
-    fun getBatch(
-        params: TagGetBatchParams,
+    fun listAuthorsCursor(
+        params: TagListAuthorsCursorParams = TagListAuthorsCursorParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getBatch */
+    /** @see listAuthorsCursor */
     @MustBeClosed
-    fun getBatch(
-        batchInputString: BatchInputString,
+    fun listAuthorsCursor(
+        params: TagListAuthorsCursorParams = TagListAuthorsCursorParams.none()
+    ): HttpResponse = listAuthorsCursor(params, RequestOptions.none())
+
+    /** @see listAuthorsCursor */
+    @MustBeClosed
+    fun listAuthorsCursor(requestOptions: RequestOptions): HttpResponse =
+        listAuthorsCursor(TagListAuthorsCursorParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun listAuthorsCursorByQuery(): HttpResponse =
+        listAuthorsCursorByQuery(TagListAuthorsCursorByQueryParams.none())
+
+    /** @see listAuthorsCursorByQuery */
+    @MustBeClosed
+    fun listAuthorsCursorByQuery(
+        params: TagListAuthorsCursorByQueryParams = TagListAuthorsCursorByQueryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        getBatch(
-            TagGetBatchParams.builder().batchInputString(batchInputString).build(),
-            requestOptions,
-        )
+    ): HttpResponse
 
-    /** @see getBatch */
+    /** @see listAuthorsCursorByQuery */
     @MustBeClosed
-    fun getBatch(batchInputString: BatchInputString): HttpResponse =
-        getBatch(batchInputString, RequestOptions.none())
+    fun listAuthorsCursorByQuery(
+        params: TagListAuthorsCursorByQueryParams = TagListAuthorsCursorByQueryParams.none()
+    ): HttpResponse = listAuthorsCursorByQuery(params, RequestOptions.none())
 
+    /** @see listAuthorsCursorByQuery */
+    @MustBeClosed
+    fun listAuthorsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+        listAuthorsCursorByQuery(TagListAuthorsCursorByQueryParams.none(), requestOptions)
+
+    @MustBeClosed fun listCursor(): HttpResponse = listCursor(TagListCursorParams.none())
+
+    /** @see listCursor */
+    @MustBeClosed
+    fun listCursor(
+        params: TagListCursorParams = TagListCursorParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listCursor */
+    @MustBeClosed
+    fun listCursor(params: TagListCursorParams = TagListCursorParams.none()): HttpResponse =
+        listCursor(params, RequestOptions.none())
+
+    /** @see listCursor */
+    @MustBeClosed
+    fun listCursor(requestOptions: RequestOptions): HttpResponse =
+        listCursor(TagListCursorParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun listCursorByQuery(): HttpResponse = listCursorByQuery(TagListCursorByQueryParams.none())
+
+    /** @see listCursorByQuery */
+    @MustBeClosed
+    fun listCursorByQuery(
+        params: TagListCursorByQueryParams = TagListCursorByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listCursorByQuery */
+    @MustBeClosed
+    fun listCursorByQuery(
+        params: TagListCursorByQueryParams = TagListCursorByQueryParams.none()
+    ): HttpResponse = listCursorByQuery(params, RequestOptions.none())
+
+    /** @see listCursorByQuery */
+    @MustBeClosed
+    fun listCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+        listCursorByQuery(TagListCursorByQueryParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun listPostsCursor(): HttpResponse = listPostsCursor(TagListPostsCursorParams.none())
+
+    /** @see listPostsCursor */
+    @MustBeClosed
+    fun listPostsCursor(
+        params: TagListPostsCursorParams = TagListPostsCursorParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listPostsCursor */
+    @MustBeClosed
+    fun listPostsCursor(
+        params: TagListPostsCursorParams = TagListPostsCursorParams.none()
+    ): HttpResponse = listPostsCursor(params, RequestOptions.none())
+
+    /** @see listPostsCursor */
+    @MustBeClosed
+    fun listPostsCursor(requestOptions: RequestOptions): HttpResponse =
+        listPostsCursor(TagListPostsCursorParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun listPostsCursorByQuery(): HttpResponse =
+        listPostsCursorByQuery(TagListPostsCursorByQueryParams.none())
+
+    /** @see listPostsCursorByQuery */
+    @MustBeClosed
+    fun listPostsCursorByQuery(
+        params: TagListPostsCursorByQueryParams = TagListPostsCursorByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see listPostsCursorByQuery */
+    @MustBeClosed
+    fun listPostsCursorByQuery(
+        params: TagListPostsCursorByQueryParams = TagListPostsCursorByQueryParams.none()
+    ): HttpResponse = listPostsCursorByQuery(params, RequestOptions.none())
+
+    /** @see listPostsCursorByQuery */
+    @MustBeClosed
+    fun listPostsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+        listPostsCursorByQuery(TagListPostsCursorByQueryParams.none(), requestOptions)
+
+    /** Set a Blog Tag as the primary language of a multi-language group. */
     fun setLangPrimary(params: TagSetLangPrimaryParams) =
         setLangPrimary(params, RequestOptions.none())
 
@@ -347,33 +415,7 @@ interface TagService {
     fun setLangPrimary(setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext) =
         setLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
 
-    @MustBeClosed
-    fun updateBatch(params: TagUpdateBatchParams): HttpResponse =
-        updateBatch(params, RequestOptions.none())
-
-    /** @see updateBatch */
-    @MustBeClosed
-    fun updateBatch(
-        params: TagUpdateBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see updateBatch */
-    @MustBeClosed
-    fun updateBatch(
-        batchInputJsonNode: BatchInputJsonNode,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        updateBatch(
-            TagUpdateBatchParams.builder().batchInputJsonNode(batchInputJsonNode).build(),
-            requestOptions,
-        )
-
-    /** @see updateBatch */
-    @MustBeClosed
-    fun updateBatch(batchInputJsonNode: BatchInputJsonNode): HttpResponse =
-        updateBatch(batchInputJsonNode, RequestOptions.none())
-
+    /** Explicitly set new languages for each Blog Tag in a multi-language group. */
     @MustBeClosed
     fun updateLangs(params: TagUpdateLangsParams): HttpResponse =
         updateLangs(params, RequestOptions.none())
@@ -412,6 +454,8 @@ interface TagService {
          * The original service is not modified.
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): TagService.WithRawResponse
+
+        fun batch(): BatchService.WithRawResponse
 
         /**
          * Returns a raw HTTP response for `post /cms/blogs/2026-03/tags`, but is otherwise the same
@@ -559,37 +603,6 @@ interface TagService {
         ): HttpResponse = attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /cms/blogs/2026-03/tags/batch/create`, but is
-         * otherwise the same as [TagService.createBatch].
-         */
-        @MustBeClosed
-        fun createBatch(params: TagCreateBatchParams): HttpResponse =
-            createBatch(params, RequestOptions.none())
-
-        /** @see createBatch */
-        @MustBeClosed
-        fun createBatch(
-            params: TagCreateBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see createBatch */
-        @MustBeClosed
-        fun createBatch(
-            batchInputTag: BatchInputTag,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            createBatch(
-                TagCreateBatchParams.builder().batchInputTag(batchInputTag).build(),
-                requestOptions,
-            )
-
-        /** @see createBatch */
-        @MustBeClosed
-        fun createBatch(batchInputTag: BatchInputTag): HttpResponse =
-            createBatch(batchInputTag, RequestOptions.none())
-
-        /**
          * Returns a raw HTTP response for `post
          * /cms/blogs/2026-03/tags/multi-language/create-language-variation`, but is otherwise the
          * same as [TagService.createLangVariation].
@@ -622,37 +635,6 @@ interface TagService {
         @MustBeClosed
         fun createLangVariation(tagCloneRequestVNext: TagCloneRequestVNext): HttpResponse =
             createLangVariation(tagCloneRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /cms/blogs/2026-03/tags/batch/archive`, but is
-         * otherwise the same as [TagService.deleteBatch].
-         */
-        @MustBeClosed
-        fun deleteBatch(params: TagDeleteBatchParams): HttpResponse =
-            deleteBatch(params, RequestOptions.none())
-
-        /** @see deleteBatch */
-        @MustBeClosed
-        fun deleteBatch(
-            params: TagDeleteBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see deleteBatch */
-        @MustBeClosed
-        fun deleteBatch(
-            batchInputString: BatchInputString,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            deleteBatch(
-                TagDeleteBatchParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
-
-        /** @see deleteBatch */
-        @MustBeClosed
-        fun deleteBatch(batchInputString: BatchInputString): HttpResponse =
-            deleteBatch(batchInputString, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post
@@ -726,35 +708,154 @@ interface TagService {
             get(objectId, TagGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /cms/blogs/2026-03/tags/batch/read`, but is
-         * otherwise the same as [TagService.getBatch].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
+         * the same as [TagService.listAuthorsCursor].
          */
         @MustBeClosed
-        fun getBatch(params: TagGetBatchParams): HttpResponse =
-            getBatch(params, RequestOptions.none())
+        fun listAuthorsCursor(): HttpResponse = listAuthorsCursor(TagListAuthorsCursorParams.none())
 
-        /** @see getBatch */
+        /** @see listAuthorsCursor */
         @MustBeClosed
-        fun getBatch(
-            params: TagGetBatchParams,
+        fun listAuthorsCursor(
+            params: TagListAuthorsCursorParams = TagListAuthorsCursorParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getBatch */
+        /** @see listAuthorsCursor */
         @MustBeClosed
-        fun getBatch(
-            batchInputString: BatchInputString,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            getBatch(
-                TagGetBatchParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
+        fun listAuthorsCursor(
+            params: TagListAuthorsCursorParams = TagListAuthorsCursorParams.none()
+        ): HttpResponse = listAuthorsCursor(params, RequestOptions.none())
 
-        /** @see getBatch */
+        /** @see listAuthorsCursor */
         @MustBeClosed
-        fun getBatch(batchInputString: BatchInputString): HttpResponse =
-            getBatch(batchInputString, RequestOptions.none())
+        fun listAuthorsCursor(requestOptions: RequestOptions): HttpResponse =
+            listAuthorsCursor(TagListAuthorsCursorParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
+         * otherwise the same as [TagService.listAuthorsCursorByQuery].
+         */
+        @MustBeClosed
+        fun listAuthorsCursorByQuery(): HttpResponse =
+            listAuthorsCursorByQuery(TagListAuthorsCursorByQueryParams.none())
+
+        /** @see listAuthorsCursorByQuery */
+        @MustBeClosed
+        fun listAuthorsCursorByQuery(
+            params: TagListAuthorsCursorByQueryParams = TagListAuthorsCursorByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listAuthorsCursorByQuery */
+        @MustBeClosed
+        fun listAuthorsCursorByQuery(
+            params: TagListAuthorsCursorByQueryParams = TagListAuthorsCursorByQueryParams.none()
+        ): HttpResponse = listAuthorsCursorByQuery(params, RequestOptions.none())
+
+        /** @see listAuthorsCursorByQuery */
+        @MustBeClosed
+        fun listAuthorsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+            listAuthorsCursorByQuery(TagListAuthorsCursorByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor`, but is otherwise
+         * the same as [TagService.listCursor].
+         */
+        @MustBeClosed fun listCursor(): HttpResponse = listCursor(TagListCursorParams.none())
+
+        /** @see listCursor */
+        @MustBeClosed
+        fun listCursor(
+            params: TagListCursorParams = TagListCursorParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listCursor */
+        @MustBeClosed
+        fun listCursor(params: TagListCursorParams = TagListCursorParams.none()): HttpResponse =
+            listCursor(params, RequestOptions.none())
+
+        /** @see listCursor */
+        @MustBeClosed
+        fun listCursor(requestOptions: RequestOptions): HttpResponse =
+            listCursor(TagListCursorParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor/query`, but is
+         * otherwise the same as [TagService.listCursorByQuery].
+         */
+        @MustBeClosed
+        fun listCursorByQuery(): HttpResponse = listCursorByQuery(TagListCursorByQueryParams.none())
+
+        /** @see listCursorByQuery */
+        @MustBeClosed
+        fun listCursorByQuery(
+            params: TagListCursorByQueryParams = TagListCursorByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listCursorByQuery */
+        @MustBeClosed
+        fun listCursorByQuery(
+            params: TagListCursorByQueryParams = TagListCursorByQueryParams.none()
+        ): HttpResponse = listCursorByQuery(params, RequestOptions.none())
+
+        /** @see listCursorByQuery */
+        @MustBeClosed
+        fun listCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+            listCursorByQuery(TagListCursorByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor`, but is otherwise
+         * the same as [TagService.listPostsCursor].
+         */
+        @MustBeClosed
+        fun listPostsCursor(): HttpResponse = listPostsCursor(TagListPostsCursorParams.none())
+
+        /** @see listPostsCursor */
+        @MustBeClosed
+        fun listPostsCursor(
+            params: TagListPostsCursorParams = TagListPostsCursorParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listPostsCursor */
+        @MustBeClosed
+        fun listPostsCursor(
+            params: TagListPostsCursorParams = TagListPostsCursorParams.none()
+        ): HttpResponse = listPostsCursor(params, RequestOptions.none())
+
+        /** @see listPostsCursor */
+        @MustBeClosed
+        fun listPostsCursor(requestOptions: RequestOptions): HttpResponse =
+            listPostsCursor(TagListPostsCursorParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor/query`, but is
+         * otherwise the same as [TagService.listPostsCursorByQuery].
+         */
+        @MustBeClosed
+        fun listPostsCursorByQuery(): HttpResponse =
+            listPostsCursorByQuery(TagListPostsCursorByQueryParams.none())
+
+        /** @see listPostsCursorByQuery */
+        @MustBeClosed
+        fun listPostsCursorByQuery(
+            params: TagListPostsCursorByQueryParams = TagListPostsCursorByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see listPostsCursorByQuery */
+        @MustBeClosed
+        fun listPostsCursorByQuery(
+            params: TagListPostsCursorByQueryParams = TagListPostsCursorByQueryParams.none()
+        ): HttpResponse = listPostsCursorByQuery(params, RequestOptions.none())
+
+        /** @see listPostsCursorByQuery */
+        @MustBeClosed
+        fun listPostsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+            listPostsCursorByQuery(TagListPostsCursorByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put
@@ -790,37 +891,6 @@ interface TagService {
         fun setLangPrimary(
             setNewLanguagePrimaryRequestVNext: SetNewLanguagePrimaryRequestVNext
         ): HttpResponse = setLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /cms/blogs/2026-03/tags/batch/update`, but is
-         * otherwise the same as [TagService.updateBatch].
-         */
-        @MustBeClosed
-        fun updateBatch(params: TagUpdateBatchParams): HttpResponse =
-            updateBatch(params, RequestOptions.none())
-
-        /** @see updateBatch */
-        @MustBeClosed
-        fun updateBatch(
-            params: TagUpdateBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see updateBatch */
-        @MustBeClosed
-        fun updateBatch(
-            batchInputJsonNode: BatchInputJsonNode,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            updateBatch(
-                TagUpdateBatchParams.builder().batchInputJsonNode(batchInputJsonNode).build(),
-                requestOptions,
-            )
-
-        /** @see updateBatch */
-        @MustBeClosed
-        fun updateBatch(batchInputJsonNode: BatchInputJsonNode): HttpResponse =
-            updateBatch(batchInputJsonNode, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `post

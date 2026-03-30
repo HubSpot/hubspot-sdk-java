@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.models.cms.blogs.settings.multilanguage
 
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

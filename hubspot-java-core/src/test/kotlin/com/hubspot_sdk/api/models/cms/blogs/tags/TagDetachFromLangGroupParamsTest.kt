@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.models.cms.blogs.tags
 
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

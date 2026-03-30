@@ -26,7 +26,7 @@ internal class BatchServiceAsyncTest {
         val batchResponsePropertyFuture =
             batchServiceAsync.create(
                 BatchCreateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchInputPropertyCreate(
                         BatchInputPropertyCreate.builder()
@@ -77,7 +77,7 @@ internal class BatchServiceAsyncTest {
         val future =
             batchServiceAsync.delete(
                 BatchDeleteParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchInputPropertyName(
                         BatchInputPropertyName.builder()
@@ -99,7 +99,7 @@ internal class BatchServiceAsyncTest {
         val batchResponsePropertyFuture =
             batchServiceAsync.get(
                 BatchGetParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchReadInputPropertyName(
                         BatchReadInputPropertyName.builder()

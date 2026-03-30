@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.services.blocking.crm.AssociationsSchemaService
 import com.hubspot_sdk.api.services.blocking.crm.DealSplitService
 import com.hubspot_sdk.api.services.blocking.crm.ExportService
 import com.hubspot_sdk.api.services.blocking.crm.ExtensionService
+import com.hubspot_sdk.api.services.blocking.crm.FeatureFlagService
 import com.hubspot_sdk.api.services.blocking.crm.ImportService
 import com.hubspot_sdk.api.services.blocking.crm.LimitService
 import com.hubspot_sdk.api.services.blocking.crm.ListService
@@ -19,6 +20,7 @@ import com.hubspot_sdk.api.services.blocking.crm.OwnerService
 import com.hubspot_sdk.api.services.blocking.crm.PipelineService
 import com.hubspot_sdk.api.services.blocking.crm.PropertiesValidationService
 import com.hubspot_sdk.api.services.blocking.crm.PropertyService
+import com.hubspot_sdk.api.services.blocking.crm.TimelineService
 import java.util.function.Consumer
 
 interface CrmService {
@@ -47,6 +49,8 @@ interface CrmService {
 
     fun extensions(): ExtensionService
 
+    fun featureFlags(): FeatureFlagService
+
     fun imports(): ImportService
 
     fun limits(): LimitService
@@ -66,6 +70,8 @@ interface CrmService {
     fun properties(): PropertyService
 
     fun propertiesValidations(): PropertiesValidationService
+
+    fun timeline(): TimelineService
 
     /** A view of [CrmService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -89,6 +95,8 @@ interface CrmService {
 
         fun extensions(): ExtensionService.WithRawResponse
 
+        fun featureFlags(): FeatureFlagService.WithRawResponse
+
         fun imports(): ImportService.WithRawResponse
 
         fun limits(): LimitService.WithRawResponse
@@ -108,5 +116,7 @@ interface CrmService {
         fun properties(): PropertyService.WithRawResponse
 
         fun propertiesValidations(): PropertiesValidationService.WithRawResponse
+
+        fun timeline(): TimelineService.WithRawResponse
     }
 }

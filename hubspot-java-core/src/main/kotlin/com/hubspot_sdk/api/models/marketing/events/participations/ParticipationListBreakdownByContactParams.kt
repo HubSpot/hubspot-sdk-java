@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Read Contact's participations by identifier - email or internal id. */
 class ParticipationListBreakdownByContactParams
 private constructor(
     private val contactIdentifier: String?,

@@ -7,6 +7,8 @@ import com.hubspot_sdk.api.services.async.settings.CurrencyServiceAsync
 import com.hubspot_sdk.api.services.async.settings.CurrencyServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.settings.TaxRateServiceAsync
 import com.hubspot_sdk.api.services.async.settings.TaxRateServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.settings.UserServiceAsync
+import com.hubspot_sdk.api.services.async.settings.UserServiceAsyncImpl
 import java.util.function.Consumer
 
 class SettingServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -20,6 +22,8 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     private val taxRates: TaxRateServiceAsync by lazy { TaxRateServiceAsyncImpl(clientOptions) }
 
+    private val users: UserServiceAsync by lazy { UserServiceAsyncImpl(clientOptions) }
+
     override fun withRawResponse(): SettingServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): SettingServiceAsync =
@@ -28,6 +32,8 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun currencies(): CurrencyServiceAsync = currencies
 
     override fun taxRates(): TaxRateServiceAsync = taxRates
+
+    override fun users(): UserServiceAsync = users
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         SettingServiceAsync.WithRawResponse {
@@ -40,6 +46,10 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
             TaxRateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val users: UserServiceAsync.WithRawResponse by lazy {
+            UserServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): SettingServiceAsync.WithRawResponse =
@@ -50,5 +60,7 @@ class SettingServiceAsyncImpl internal constructor(private val clientOptions: Cl
         override fun currencies(): CurrencyServiceAsync.WithRawResponse = currencies
 
         override fun taxRates(): TaxRateServiceAsync.WithRawResponse = taxRates
+
+        override fun users(): UserServiceAsync.WithRawResponse = users
     }
 }

@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Create a new language variation from an existing Blog Author. */
 class AuthorCreateLanguageVariationParams
 private constructor(
     private val blogAuthorCloneRequestVNext: BlogAuthorCloneRequestVNext,

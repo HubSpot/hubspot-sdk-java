@@ -18,8 +18,7 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.Property
-import com.hubspot_sdk.api.models.events.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.definitions.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreatePropertyParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionDeleteParams
@@ -28,9 +27,9 @@ import com.hubspot_sdk.api.models.events.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListPage
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionSendBatchParams
-import com.hubspot_sdk.api.models.events.definitions.DefinitionSendParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdatePropertyParams
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinition
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -50,25 +49,25 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
         params: DefinitionCreateParams,
         requestOptions: RequestOptions,
     ): ExternalBehavioralEventTypeDefinition =
-        // post /events/custom/2026-03/event-definitions
+        // post /events/2026-03/event-definitions
         withRawResponse().create(params, requestOptions).parse()
 
     override fun update(
         params: DefinitionUpdateParams,
         requestOptions: RequestOptions,
     ): ExternalBehavioralEventTypeDefinition =
-        // patch /events/custom/2026-03/event-definitions/{eventName}
+        // patch /events/2026-03/event-definitions/{eventName}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(
         params: DefinitionListParams,
         requestOptions: RequestOptions,
     ): DefinitionListPage =
-        // get /events/custom/2026-03/event-definitions
+        // get /events/2026-03/event-definitions
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: DefinitionDeleteParams, requestOptions: RequestOptions) {
-        // delete /events/custom/2026-03/event-definitions/{eventName}
+        // delete /events/2026-03/event-definitions/{eventName}
         withRawResponse().delete(params, requestOptions)
     }
 
@@ -76,14 +75,14 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions,
     ): Property =
-        // post /events/custom/2026-03/event-definitions/{eventName}/property
+        // post /events/2026-03/event-definitions/{eventName}/property
         withRawResponse().createProperty(params, requestOptions).parse()
 
     override fun deleteProperty(
         params: DefinitionDeletePropertyParams,
         requestOptions: RequestOptions,
     ) {
-        // delete /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}
+        // delete /events/2026-03/event-definitions/{eventName}/property/{propertyName}
         withRawResponse().deleteProperty(params, requestOptions)
     }
 
@@ -91,16 +90,11 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
         params: DefinitionGetParams,
         requestOptions: RequestOptions,
     ): ExternalBehavioralEventTypeDefinition =
-        // get /events/custom/2026-03/event-definitions/{eventName}
+        // get /events/2026-03/event-definitions/{eventName}
         withRawResponse().get(params, requestOptions).parse()
 
-    override fun send(params: DefinitionSendParams, requestOptions: RequestOptions) {
-        // post /events/custom/2026-03/send
-        withRawResponse().send(params, requestOptions)
-    }
-
     override fun sendBatch(params: DefinitionSendBatchParams, requestOptions: RequestOptions) {
-        // post /events/custom/2026-03/send/batch
+        // post /events/2026-03/send/batch
         withRawResponse().sendBatch(params, requestOptions)
     }
 
@@ -108,7 +102,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions,
     ): Property =
-        // patch /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}
+        // patch /events/2026-03/event-definitions/{eventName}/property/{propertyName}
         withRawResponse().updateProperty(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -135,7 +129,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "event-definitions")
+                    .addPathSegments("events", "2026-03", "event-definitions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -166,13 +160,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "events",
-                        "custom",
-                        "2026-03",
-                        "event-definitions",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("events", "2026-03", "event-definitions", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -203,7 +191,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "event-definitions")
+                    .addPathSegments("events", "2026-03", "event-definitions")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -239,13 +227,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "events",
-                        "custom",
-                        "2026-03",
-                        "event-definitions",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("events", "2026-03", "event-definitions", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
@@ -272,7 +254,6 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "events",
-                        "custom",
                         "2026-03",
                         "event-definitions",
                         params._pathParam(0),
@@ -309,7 +290,6 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "events",
-                        "custom",
                         "2026-03",
                         "event-definitions",
                         params._pathParam(0),
@@ -340,13 +320,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "events",
-                        "custom",
-                        "2026-03",
-                        "event-definitions",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("events", "2026-03", "event-definitions", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -362,27 +336,6 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
             }
         }
 
-        private val sendHandler: Handler<Void?> = emptyHandler()
-
-        override fun send(
-            params: DefinitionSendParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "send")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { sendHandler.handle(it) }
-            }
-        }
-
         private val sendBatchHandler: Handler<Void?> = emptyHandler()
 
         override fun sendBatch(
@@ -393,7 +346,7 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "send", "batch")
+                    .addPathSegments("events", "2026-03", "send", "batch")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -420,7 +373,6 @@ class DefinitionServiceImpl internal constructor(private val clientOptions: Clie
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "events",
-                        "custom",
                         "2026-03",
                         "event-definitions",
                         params._pathParam(0),

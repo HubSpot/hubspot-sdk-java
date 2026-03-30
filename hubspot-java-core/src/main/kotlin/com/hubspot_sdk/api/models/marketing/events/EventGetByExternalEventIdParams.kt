@@ -10,6 +10,12 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Returns the details of a Marketing Event with the specified externalAccountId, externalEventId,
+ * if it exists.
+ *
+ * Only Marketing Events created by the same app making the request can be retrieved.
+ */
 class EventGetByExternalEventIdParams
 private constructor(
     private val externalEventId: String?,

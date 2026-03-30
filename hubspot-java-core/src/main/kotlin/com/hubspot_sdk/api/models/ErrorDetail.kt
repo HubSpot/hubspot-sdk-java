@@ -73,7 +73,7 @@ private constructor(
     fun in_(): Optional<String> = in_.getOptional("in")
 
     /**
-     * A specific category that contains more specific detail about the error.
+     * A specific category that contains more specific detail about the error
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -207,7 +207,7 @@ private constructor(
          */
         fun in_(in_: JsonField<String>) = apply { this.in_ = in_ }
 
-        /** A specific category that contains more specific detail about the error. */
+        /** A specific category that contains more specific detail about the error */
         fun subCategory(subCategory: String) = subCategory(JsonField.of(subCategory))
 
         /**

@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinitionEgg
 import java.util.Objects
 
+/** Create a custom event definition. */
 class DefinitionCreateParams
 private constructor(
     private val externalBehavioralEventTypeDefinitionEgg: ExternalBehavioralEventTypeDefinitionEgg,

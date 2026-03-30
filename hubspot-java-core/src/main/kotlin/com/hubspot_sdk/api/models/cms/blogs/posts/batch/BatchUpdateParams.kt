@@ -7,11 +7,12 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
+import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update a batch of blog posts. */
 class BatchUpdateParams
 private constructor(
     private val archived: Boolean?,

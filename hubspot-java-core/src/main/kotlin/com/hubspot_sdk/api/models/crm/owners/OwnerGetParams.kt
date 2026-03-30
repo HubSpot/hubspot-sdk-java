@@ -13,6 +13,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve details of a specific owner using either their 'id' or 'userId'. */
 class OwnerGetParams
 private constructor(
     private val ownerId: Int?,

@@ -11,7 +11,7 @@ internal class MediaBridgeGetPropertyParamsTest {
     @Test
     fun create() {
         MediaBridgeGetPropertyParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .propertyName("propertyName")
             .archived(true)
@@ -23,12 +23,12 @@ internal class MediaBridgeGetPropertyParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeGetPropertyParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         assertThat(params._pathParam(2)).isEqualTo("propertyName")
         // out-of-bound path param
@@ -39,7 +39,7 @@ internal class MediaBridgeGetPropertyParamsTest {
     fun queryParams() {
         val params =
             MediaBridgeGetPropertyParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .archived(true)
@@ -61,7 +61,7 @@ internal class MediaBridgeGetPropertyParamsTest {
     fun queryParamsWithoutOptionalFields() {
         val params =
             MediaBridgeGetPropertyParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .build()

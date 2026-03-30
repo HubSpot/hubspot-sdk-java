@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.models.cms.mediabridge
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.Option
+import com.hubspot_sdk.api.models.AutomationActionsOption
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -47,12 +47,14 @@ internal class PropertyTest {
                 .name("name")
                 .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                 .addOption(
-                    Option.builder()
-                        .hidden(true)
-                        .label("label")
-                        .value("value")
+                    AutomationActionsOption.builder()
                         .description("description")
                         .displayOrder(0)
+                        .doubleData(0.0)
+                        .hidden(true)
+                        .label("label")
+                        .readOnly(true)
+                        .value("value")
                         .build()
                 )
                 .optionsAreMutable(true)
@@ -107,12 +109,14 @@ internal class PropertyTest {
         assertThat(property.numberDisplayHint()).isEqualTo(Property.NumberDisplayHint.CURRENCY)
         assertThat(property.options())
             .containsExactly(
-                Option.builder()
-                    .hidden(true)
-                    .label("label")
-                    .value("value")
+                AutomationActionsOption.builder()
                     .description("description")
                     .displayOrder(0)
+                    .doubleData(0.0)
+                    .hidden(true)
+                    .label("label")
+                    .readOnly(true)
+                    .value("value")
                     .build()
             )
         assertThat(property.optionsAreMutable()).isEqualTo(true)
@@ -172,12 +176,14 @@ internal class PropertyTest {
                 .name("name")
                 .numberDisplayHint(Property.NumberDisplayHint.CURRENCY)
                 .addOption(
-                    Option.builder()
-                        .hidden(true)
-                        .label("label")
-                        .value("value")
+                    AutomationActionsOption.builder()
                         .description("description")
                         .displayOrder(0)
+                        .doubleData(0.0)
+                        .hidden(true)
+                        .label("label")
+                        .readOnly(true)
+                        .value("value")
                         .build()
                 )
                 .optionsAreMutable(true)

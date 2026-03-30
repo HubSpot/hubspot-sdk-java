@@ -11,7 +11,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
     @Test
     fun create() {
         MediaBridgeUpdatePropertyParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .propertyName("propertyName")
             .mediaBridgePropertyUpdate(
@@ -44,13 +44,13 @@ internal class MediaBridgeUpdatePropertyParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeUpdatePropertyParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .mediaBridgePropertyUpdate(MediaBridgePropertyUpdate.builder().build())
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         assertThat(params._pathParam(2)).isEqualTo("propertyName")
         // out-of-bound path param
@@ -61,7 +61,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
     fun body() {
         val params =
             MediaBridgeUpdatePropertyParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .mediaBridgePropertyUpdate(
@@ -121,7 +121,7 @@ internal class MediaBridgeUpdatePropertyParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MediaBridgeUpdatePropertyParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .propertyName("propertyName")
                 .mediaBridgePropertyUpdate(MediaBridgePropertyUpdate.builder().build())

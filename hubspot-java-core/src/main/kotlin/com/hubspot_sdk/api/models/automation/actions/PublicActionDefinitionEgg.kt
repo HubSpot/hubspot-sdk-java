@@ -90,6 +90,8 @@ private constructor(
     )
 
     /**
+     * The URL endpoint where the action is executed.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -108,6 +110,8 @@ private constructor(
     fun inputFields(): List<PublicInputFieldDefinition> = inputFields.getRequired("inputFields")
 
     /**
+     * Holds various labels associated with the action, including names and descriptions.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -120,12 +124,16 @@ private constructor(
     fun objectTypes(): List<String> = objectTypes.getRequired("objectTypes")
 
     /**
+     * Indicates whether the action is published and available for use.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun published(): Boolean = published.getRequired("published")
 
     /**
+     * The timestamp indicating when the action was archived.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -315,6 +323,7 @@ private constructor(
             additionalProperties = publicActionDefinitionEgg.additionalProperties.toMutableMap()
         }
 
+        /** The URL endpoint where the action is executed. */
         fun actionUrl(actionUrl: String) = actionUrl(JsonField.of(actionUrl))
 
         /**
@@ -377,6 +386,7 @@ private constructor(
                 }
         }
 
+        /** Holds various labels associated with the action, including names and descriptions. */
         fun labels(labels: Labels) = labels(JsonField.of(labels))
 
         /**
@@ -412,6 +422,7 @@ private constructor(
                 }
         }
 
+        /** Indicates whether the action is published and available for use. */
         fun published(published: Boolean) = published(JsonField.of(published))
 
         /**
@@ -423,6 +434,7 @@ private constructor(
          */
         fun published(published: JsonField<Boolean>) = apply { this.published = published }
 
+        /** The timestamp indicating when the action was archived. */
         fun archivedAt(archivedAt: Long) = archivedAt(JsonField.of(archivedAt))
 
         /**
@@ -647,6 +659,7 @@ private constructor(
             (objectRequestOptions.asKnown().getOrNull()?.validity() ?: 0) +
             (outputFields.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
+    /** Holds various labels associated with the action, including names and descriptions. */
     class Labels
     @JsonCreator
     private constructor(

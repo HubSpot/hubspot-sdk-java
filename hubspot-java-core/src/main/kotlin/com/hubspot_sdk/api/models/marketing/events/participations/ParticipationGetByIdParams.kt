@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Read Marketing event's participations counters by internal identifier marketingEventId. */
 class ParticipationGetByIdParams
 private constructor(
     private val marketingEventId: Long?,

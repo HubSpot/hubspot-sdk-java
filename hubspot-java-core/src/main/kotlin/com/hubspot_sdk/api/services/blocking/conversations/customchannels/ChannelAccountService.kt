@@ -29,6 +29,10 @@ interface ChannelAccountService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ChannelAccountService
 
+    /**
+     * Create a new account for a channel. Multiple accounts can communicate over a single channel
+     * using different delivery identifiers.
+     */
     fun create(channelId: Int, params: ChannelAccountCreateParams): PublicChannelAccount =
         create(channelId, params, RequestOptions.none())
 
@@ -50,6 +54,10 @@ interface ChannelAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicChannelAccount
 
+    /**
+     * This API is used to update the name of the channel account and it's isAuthorized status.
+     * Setting to isAuthorized flag to False disables the channel account.
+     */
     fun update(channelAccountId: Long, params: ChannelAccountUpdateParams): PublicChannelAccount =
         update(channelAccountId, params, RequestOptions.none())
 
@@ -71,6 +79,7 @@ interface ChannelAccountService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicChannelAccount
 
+    /** Retrieve a list of accounts for a custom channel. */
     fun list(channelId: Int): ChannelAccountListPage =
         list(channelId, ChannelAccountListParams.none())
 
@@ -102,6 +111,11 @@ interface ChannelAccountService {
     fun list(channelId: Int, requestOptions: RequestOptions): ChannelAccountListPage =
         list(channelId, ChannelAccountListParams.none(), requestOptions)
 
+    /**
+     * Update a channel account staging token's account name and delivery identifier. This
+     * information will be applied to the channel account created from this staging token. This is
+     * used for public apps.
+     */
     fun updateStagingToken(
         accountToken: String,
         params: ChannelAccountUpdateStagingTokenParams,

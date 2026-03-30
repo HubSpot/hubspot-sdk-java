@@ -10,11 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve a specific budget item by its ID for a given campaign. This endpoint is useful for
- * accessing detailed information about a particular budget item associated with a marketing
- * campaign.
- */
+/** Get a specific budget item by ID */
 class BudgetGetParams
 private constructor(
     private val campaignGuid: String,

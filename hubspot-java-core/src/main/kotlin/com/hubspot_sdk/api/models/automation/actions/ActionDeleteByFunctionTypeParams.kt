@@ -16,6 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Delete a function within a given definition. */
 class ActionDeleteByFunctionTypeParams
 private constructor(
     private val appId: Int,

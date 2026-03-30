@@ -11,11 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Update the details of an existing URL redirect in your HubSpot account. This operation allows you
- * to modify properties such as the destination URL, route prefix, and other redirect settings. Use
- * this endpoint to ensure your URL redirects are up-to-date and functioning as intended.
- */
+/** Updates the settings for an existing URL redirect. */
 class UrlRedirectUpdateParams
 private constructor(
     private val urlRedirectId: String?,

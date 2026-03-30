@@ -179,7 +179,7 @@ private constructor(
     fun isSslOnly(): Boolean = isSslOnly.getRequired("isSslOnly")
 
     /**
-     * Whether the domain is used for CMS blog posts. Deprecated
+     * Whether the domain is used for CMS blog posts.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -187,7 +187,7 @@ private constructor(
     fun isUsedForBlogPost(): Boolean = isUsedForBlogPost.getRequired("isUsedForBlogPost")
 
     /**
-     * Whether the domain is used for CMS email web pages. Deprecated
+     * Whether the domain is used for CMS email web pages.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -195,7 +195,7 @@ private constructor(
     fun isUsedForEmail(): Boolean = isUsedForEmail.getRequired("isUsedForEmail")
 
     /**
-     * Whether the domain is used for CMS knowledge pages. Deprecated
+     * Whether the domain is used for CMS knowledge pages.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -203,7 +203,7 @@ private constructor(
     fun isUsedForKnowledge(): Boolean = isUsedForKnowledge.getRequired("isUsedForKnowledge")
 
     /**
-     * Whether the domain is used for CMS landing pages. Deprecated
+     * Whether the domain is used for CMS landing pages.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -211,7 +211,7 @@ private constructor(
     fun isUsedForLandingPage(): Boolean = isUsedForLandingPage.getRequired("isUsedForLandingPage")
 
     /**
-     * Whether the domain is used for CMS site pages. Deprecated
+     * Whether the domain is used for CMS site pages.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -641,7 +641,7 @@ private constructor(
          */
         fun isSslOnly(isSslOnly: JsonField<Boolean>) = apply { this.isSslOnly = isSslOnly }
 
-        /** Whether the domain is used for CMS blog posts. Deprecated */
+        /** Whether the domain is used for CMS blog posts. */
         fun isUsedForBlogPost(isUsedForBlogPost: Boolean) =
             isUsedForBlogPost(JsonField.of(isUsedForBlogPost))
 
@@ -656,7 +656,7 @@ private constructor(
             this.isUsedForBlogPost = isUsedForBlogPost
         }
 
-        /** Whether the domain is used for CMS email web pages. Deprecated */
+        /** Whether the domain is used for CMS email web pages. */
         fun isUsedForEmail(isUsedForEmail: Boolean) = isUsedForEmail(JsonField.of(isUsedForEmail))
 
         /**
@@ -670,7 +670,7 @@ private constructor(
             this.isUsedForEmail = isUsedForEmail
         }
 
-        /** Whether the domain is used for CMS knowledge pages. Deprecated */
+        /** Whether the domain is used for CMS knowledge pages. */
         fun isUsedForKnowledge(isUsedForKnowledge: Boolean) =
             isUsedForKnowledge(JsonField.of(isUsedForKnowledge))
 
@@ -685,7 +685,7 @@ private constructor(
             this.isUsedForKnowledge = isUsedForKnowledge
         }
 
-        /** Whether the domain is used for CMS landing pages. Deprecated */
+        /** Whether the domain is used for CMS landing pages. */
         fun isUsedForLandingPage(isUsedForLandingPage: Boolean) =
             isUsedForLandingPage(JsonField.of(isUsedForLandingPage))
 
@@ -700,7 +700,7 @@ private constructor(
             this.isUsedForLandingPage = isUsedForLandingPage
         }
 
-        /** Whether the domain is used for CMS site pages. Deprecated */
+        /** Whether the domain is used for CMS site pages. */
         fun isUsedForSitePage(isUsedForSitePage: Boolean) =
             isUsedForSitePage(JsonField.of(isUsedForSitePage))
 

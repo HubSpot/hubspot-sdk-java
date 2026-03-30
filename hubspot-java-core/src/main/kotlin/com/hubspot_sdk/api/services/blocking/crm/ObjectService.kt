@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.services.blocking.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.blocking.crm.ObjectService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CallService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CartService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CommercePaymentService
@@ -24,11 +25,13 @@ import com.hubspot_sdk.api.services.blocking.crm.objects.LineItemService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ListingService
 import com.hubspot_sdk.api.services.blocking.crm.objects.MeetingService
 import com.hubspot_sdk.api.services.blocking.crm.objects.NoteService
+import com.hubspot_sdk.api.services.blocking.crm.objects.ObjectService
 import com.hubspot_sdk.api.services.blocking.crm.objects.OrderService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PartnerClientService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PartnerServiceService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PostalMailService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ProductService
+import com.hubspot_sdk.api.services.blocking.crm.objects.ProjectService
 import com.hubspot_sdk.api.services.blocking.crm.objects.QuoteService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ServiceService
 import com.hubspot_sdk.api.services.blocking.crm.objects.SubscriptionService
@@ -94,6 +97,8 @@ interface ObjectService {
 
     fun notes(): NoteService
 
+    fun objects(): ObjectService
+
     fun orders(): OrderService
 
     fun partnerClients(): PartnerClientService
@@ -103,6 +108,8 @@ interface ObjectService {
     fun postalMail(): PostalMailService
 
     fun products(): ProductService
+
+    fun projects(): ProjectService
 
     fun quotes(): QuoteService
 
@@ -170,6 +177,8 @@ interface ObjectService {
 
         fun notes(): NoteService.WithRawResponse
 
+        fun objects(): ObjectService.WithRawResponse
+
         fun orders(): OrderService.WithRawResponse
 
         fun partnerClients(): PartnerClientService.WithRawResponse
@@ -179,6 +188,8 @@ interface ObjectService {
         fun postalMail(): PostalMailService.WithRawResponse
 
         fun products(): ProductService.WithRawResponse
+
+        fun projects(): ProjectService.WithRawResponse
 
         fun quotes(): QuoteService.WithRawResponse
 

@@ -31,6 +31,9 @@ interface ParticipationServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ParticipationServiceAsync
 
+    /**
+     * Read Marketing event's participations counters by externalAccountId and externalEventId pair.
+     */
     fun getByExternalAccountAndEventId(
         externalEventId: String,
         params: ParticipationGetByExternalAccountAndEventIdParams,
@@ -60,6 +63,7 @@ interface ParticipationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AttendanceCounters>
 
+    /** Read Marketing event's participations counters by internal identifier marketingEventId. */
     fun getById(marketingEventId: Long): CompletableFuture<AttendanceCounters> =
         getById(marketingEventId, ParticipationGetByIdParams.none())
 
@@ -95,6 +99,7 @@ interface ParticipationServiceAsync {
     ): CompletableFuture<AttendanceCounters> =
         getById(marketingEventId, ParticipationGetByIdParams.none(), requestOptions)
 
+    /** Read Contact's participations by identifier - email or internal id. */
     fun listBreakdownByContact(
         contactIdentifier: String
     ): CompletableFuture<ParticipationListBreakdownByContactPageAsync> =
@@ -143,6 +148,10 @@ interface ParticipationServiceAsync {
             requestOptions,
         )
 
+    /**
+     * Read Marketing event's participations breakdown with optional filters by externalAccountId
+     * and externalEventId pair.
+     */
     fun listBreakdownByExternalAccountAndEventId(
         externalEventId: String,
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
@@ -172,6 +181,10 @@ interface ParticipationServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ParticipationListBreakdownByExternalAccountAndEventIdPageAsync>
 
+    /**
+     * Read Marketing event's participations breakdown with optional filters by internal identifier
+     * marketingEventId.
+     */
     fun listBreakdownById(
         marketingEventId: Long
     ): CompletableFuture<ParticipationListBreakdownByIdPageAsync> =

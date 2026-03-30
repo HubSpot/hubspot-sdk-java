@@ -14,6 +14,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Returns any website content matching the given search criteria for a given HubSpot account.
+ * Searches can be filtered by content type, domain, or URL path. Includes options for weighing
+ * results by recency and popularity, along with language support.
+ */
 class SiteSearchSearchParams
 private constructor(
     private val analytics: Boolean?,

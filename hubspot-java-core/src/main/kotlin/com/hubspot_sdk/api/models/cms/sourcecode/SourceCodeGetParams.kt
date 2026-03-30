@@ -10,11 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Retrieve content from the specified environment and path in your HubSpot CMS. This endpoint
- * allows you to access specific content files based on the environment and path parameters, which
- * can be useful for managing and displaying content in different environments.
- */
+/** Downloads the byte contents of the file at the specified path in the specified environment. */
 class SourceCodeGetParams
 private constructor(
     private val environment: String,

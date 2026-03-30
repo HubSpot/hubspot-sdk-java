@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve all discounts, using query parameters to specify the information that gets returned. */
+/** List */
 class DiscountListParams
 private constructor(
     private val after: String?,

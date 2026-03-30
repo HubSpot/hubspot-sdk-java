@@ -7,6 +7,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Returns limits and usage per object for records */
 class LimitGetRecordLimitsParams
 private constructor(
     private val additionalHeaders: Headers,

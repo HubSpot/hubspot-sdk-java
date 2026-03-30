@@ -29,10 +29,8 @@ interface MetricServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MetricServiceAsync
 
     /**
-     * Fetch the metrics for a specific marketing campaign using its unique identifier. This
-     * endpoint allows you to retrieve various performance metrics of the campaign, which can be
-     * useful for analyzing the effectiveness of your marketing efforts over a specified time
-     * period.
+     * This endpoint retrieves key attribution metrics for a specified campaign, such as sessions,
+     * new contacts, and influenced contacts.
      */
     fun getAttributionMetrics(campaignGuid: String): CompletableFuture<MetricsCounters> =
         getAttributionMetrics(campaignGuid, MetricGetAttributionMetricsParams.none())
@@ -74,11 +72,7 @@ interface MetricServiceAsync {
             requestOptions,
         )
 
-    /**
-     * Fetch revenue attribution report data for a specific campaign. This endpoint allows you to
-     * retrieve detailed revenue attribution information, which can be filtered by attribution model
-     * and date range. It is useful for analyzing the financial impact of marketing campaigns.
-     */
+    /** Fetch revenue attribution report data for a specified campaign */
     fun getRevenueAttribution(
         campaignGuid: String
     ): CompletableFuture<RevenueAttributionAggregate> =
@@ -122,12 +116,7 @@ interface MetricServiceAsync {
             requestOptions,
         )
 
-    /**
-     * Fetch the list of contact IDs for the specified campaign and contact type. This endpoint
-     * allows you to retrieve contact identifiers associated with a particular campaign, filtered by
-     * the type of contact. It is useful for analyzing or processing contacts involved in specific
-     * marketing campaigns.
-     */
+    /** Fetch the list of contact IDs for the specified campaign and contact type */
     fun listContactIdsByType(
         contactType: String,
         params: MetricListContactIdsByTypeParams,

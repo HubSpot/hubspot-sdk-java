@@ -23,7 +23,6 @@ import com.hubspot_sdk.api.core.allMaxBy
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.Property
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

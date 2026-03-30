@@ -45,8 +45,7 @@ private constructor(
     fun value(): String = value.getRequired("value")
 
     /**
-     * The type of the property. Can be one of CURRENCY, DATE, DATETIME, EMAIL, LINK, NUMERIC,
-     * STATUS
+     * Type of data represented by this property.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -54,7 +53,7 @@ private constructor(
     fun dataType(): Optional<DataType> = dataType.getOptional("dataType")
 
     /**
-     * The label of the property as it will be displayed to users
+     * The label for this property as you'd like it displayed to users.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -62,7 +61,7 @@ private constructor(
     fun label(): Optional<String> = label.getOptional("label")
 
     /**
-     * The name of the property
+     * An internal identifier for this property. This value must be unique TODO.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -151,10 +150,7 @@ private constructor(
          */
         fun value(value: JsonField<String>) = apply { this.value = value }
 
-        /**
-         * The type of the property. Can be one of CURRENCY, DATE, DATETIME, EMAIL, LINK, NUMERIC,
-         * STATUS
-         */
+        /** Type of data represented by this property. */
         fun dataType(dataType: DataType) = dataType(JsonField.of(dataType))
 
         /**
@@ -166,7 +162,7 @@ private constructor(
          */
         fun dataType(dataType: JsonField<DataType>) = apply { this.dataType = dataType }
 
-        /** The label of the property as it will be displayed to users */
+        /** The label for this property as you'd like it displayed to users. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -177,7 +173,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
-        /** The name of the property */
+        /** An internal identifier for this property. This value must be unique TODO. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -263,10 +259,7 @@ private constructor(
             (if (label.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0)
 
-    /**
-     * The type of the property. Can be one of CURRENCY, DATE, DATETIME, EMAIL, LINK, NUMERIC,
-     * STATUS
-     */
+    /** Type of data represented by this property. */
     class DataType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

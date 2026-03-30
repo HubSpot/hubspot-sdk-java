@@ -9,6 +9,12 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Deletes multiple Marketing Events based on externalAccountId, externalEventId, and appId.
+ *
+ * Only Marketing Events created by the same apps will be deleted; events from other apps cannot be
+ * removed by this endpoint.
+ */
 class EventDeleteBatchByExternalEventIdParams
 private constructor(
     private val batchInputMarketingEventExternalUniqueIdentifier:

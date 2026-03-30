@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import java.util.Objects
 
+/** Retrieve the details of multiple exchange rates in a single request, specified by their IDs. */
 class BatchGetParams
 private constructor(
     private val batchInputPublicObjectId: BatchInputPublicObjectId,

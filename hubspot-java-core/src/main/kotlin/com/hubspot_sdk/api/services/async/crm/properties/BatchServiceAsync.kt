@@ -6,7 +6,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.BatchResponseProperty
+import com.hubspot_sdk.api.models.crm.properties.BatchResponseProperty
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchGetParams
@@ -54,9 +54,9 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseProperty>
 
     /**
-     * Delete multiple properties in a single request. This method will return a 204 No Content
-     * response on success regardless of the initial state of the property (e.g. active, already
-     * archived, non-existent).
+     * Archive a provided list of properties. This method will return a 204 No Content response on
+     * success regardless of the initial state of the property (e.g. active, already archived,
+     * non-existent).
      */
     fun delete(objectType: String, params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(objectType, params, RequestOptions.none())
@@ -79,7 +79,7 @@ interface BatchServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Read a batch of properties. */
+    /** Read a provided list of properties. */
     fun get(objectType: String, params: BatchGetParams): CompletableFuture<BatchResponseProperty> =
         get(objectType, params, RequestOptions.none())
 

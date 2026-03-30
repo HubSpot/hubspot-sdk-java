@@ -10,6 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.BatchInputString
 import java.util.Objects
 
+/**
+ * Delete a blog post by ID. Note: This is not the same as the in-app `archive` function. To perform
+ * a dashboard `archive` send an normal update with the `archivedInDashboard` field set to `true`.
+ */
 class BatchDeleteParams
 private constructor(
     private val batchInputString: BatchInputString,

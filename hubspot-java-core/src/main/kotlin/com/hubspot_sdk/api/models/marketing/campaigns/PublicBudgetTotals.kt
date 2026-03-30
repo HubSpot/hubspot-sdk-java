@@ -70,8 +70,7 @@ private constructor(
     fun budgetItems(): List<PublicBudgetItem> = budgetItems.getRequired("budgetItems")
 
     /**
-     * The currency code used for budget and spending amounts. Valid values include standard
-     * currency codes such as 'USD', 'EUR', 'JPY', etc.
+     * The currency code used for the budget and spend amounts, following ISO 4217 standards.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -88,7 +87,7 @@ private constructor(
     fun spendItems(): List<PublicSpendItem> = spendItems.getRequired("spendItems")
 
     /**
-     * The total budget amount for the campaign, represented as a number.
+     * The total budget allocated for the campaign.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -96,7 +95,7 @@ private constructor(
     fun budgetTotal(): Optional<Double> = budgetTotal.getOptional("budgetTotal")
 
     /**
-     * The remaining budget for the campaign after spending, represented as a number.
+     * The remaining budget available for the campaign after accounting for all spend items.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -104,7 +103,7 @@ private constructor(
     fun remainingBudget(): Optional<Double> = remainingBudget.getOptional("remainingBudget")
 
     /**
-     * The total amount spent for the campaign, represented as a number.
+     * The total amount spent across all spend items in the campaign.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -241,8 +240,7 @@ private constructor(
         }
 
         /**
-         * The currency code used for budget and spending amounts. Valid values include standard
-         * currency codes such as 'USD', 'EUR', 'JPY', etc.
+         * The currency code used for the budget and spend amounts, following ISO 4217 standards.
          */
         fun currencyCode(currencyCode: CurrencyCode) = currencyCode(JsonField.of(currencyCode))
 
@@ -286,7 +284,7 @@ private constructor(
                 }
         }
 
-        /** The total budget amount for the campaign, represented as a number. */
+        /** The total budget allocated for the campaign. */
         fun budgetTotal(budgetTotal: Double) = budgetTotal(JsonField.of(budgetTotal))
 
         /**
@@ -298,7 +296,7 @@ private constructor(
          */
         fun budgetTotal(budgetTotal: JsonField<Double>) = apply { this.budgetTotal = budgetTotal }
 
-        /** The remaining budget for the campaign after spending, represented as a number. */
+        /** The remaining budget available for the campaign after accounting for all spend items. */
         fun remainingBudget(remainingBudget: Double) =
             remainingBudget(JsonField.of(remainingBudget))
 
@@ -313,7 +311,7 @@ private constructor(
             this.remainingBudget = remainingBudget
         }
 
-        /** The total amount spent for the campaign, represented as a number. */
+        /** The total amount spent across all spend items in the campaign. */
         fun spendTotal(spendTotal: Double) = spendTotal(JsonField.of(spendTotal))
 
         /**
@@ -408,10 +406,7 @@ private constructor(
             (if (remainingBudget.asKnown().isPresent) 1 else 0) +
             (if (spendTotal.asKnown().isPresent) 1 else 0)
 
-    /**
-     * The currency code used for budget and spending amounts. Valid values include standard
-     * currency codes such as 'USD', 'EUR', 'JPY', etc.
-     */
+    /** The currency code used for the budget and spend amounts, following ISO 4217 standards. */
     class CurrencyCode @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

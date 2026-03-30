@@ -66,6 +66,7 @@ interface OAuthServiceAsync {
     ): CompletableFuture<TokenInfoResponseBaseIf> =
         introspectToken(OAuthIntrospectTokenParams.none(), requestOptions)
 
+    /** Deletes/Revokes provided Refresh Token */
     fun revokeToken(): CompletableFuture<HttpResponse> = revokeToken(OAuthRevokeTokenParams.none())
 
     /** @see revokeToken */

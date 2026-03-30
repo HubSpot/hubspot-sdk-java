@@ -24,6 +24,7 @@ interface BusinessUnitService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BusinessUnitService
 
+    /** Retrieve the brands that a specific user can access. */
     fun getByUserId(userId: String): CollectionResponsePublicBusinessUnitNoPaging =
         getByUserId(userId, BusinessUnitGetByUserIdParams.none())
 

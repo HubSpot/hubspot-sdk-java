@@ -92,7 +92,7 @@ private constructor(
     fun loginSucceeded(): Boolean = loginSucceeded.getRequired("loginSucceeded")
 
     /**
-     * The approximate country code of the login.
+     * The approximate country code of the login
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -124,7 +124,7 @@ private constructor(
     fun location(): Optional<String> = location.getOptional("location")
 
     /**
-     * The approximate region code of the login.
+     * The approximate region code of the login
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -313,7 +313,7 @@ private constructor(
             this.loginSucceeded = loginSucceeded
         }
 
-        /** The approximate country code of the login. */
+        /** The approximate country code of the login */
         fun countryCode(countryCode: String) = countryCode(JsonField.of(countryCode))
 
         /**
@@ -359,7 +359,7 @@ private constructor(
          */
         fun location(location: JsonField<String>) = apply { this.location = location }
 
-        /** The approximate region code of the login. */
+        /** The approximate region code of the login */
         fun regionCode(regionCode: String) = regionCode(JsonField.of(regionCode))
 
         /**

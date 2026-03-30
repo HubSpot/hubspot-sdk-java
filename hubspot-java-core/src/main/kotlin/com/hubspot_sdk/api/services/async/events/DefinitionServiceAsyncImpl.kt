@@ -18,8 +18,7 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.Property
-import com.hubspot_sdk.api.models.events.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
-import com.hubspot_sdk.api.models.events.ExternalBehavioralEventTypeDefinition
+import com.hubspot_sdk.api.models.events.definitions.CollectionResponseWithTotalExternalBehavioralEventTypeDefinition
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionCreatePropertyParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionDeleteParams
@@ -28,9 +27,9 @@ import com.hubspot_sdk.api.models.events.definitions.DefinitionGetParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListPageAsync
 import com.hubspot_sdk.api.models.events.definitions.DefinitionListParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionSendBatchParams
-import com.hubspot_sdk.api.models.events.definitions.DefinitionSendParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdateParams
 import com.hubspot_sdk.api.models.events.definitions.DefinitionUpdatePropertyParams
+import com.hubspot_sdk.api.models.events.definitions.ExternalBehavioralEventTypeDefinition
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -51,70 +50,63 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
         params: DefinitionCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
-        // post /events/custom/2026-03/event-definitions
+        // post /events/2026-03/event-definitions
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: DefinitionUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
-        // patch /events/custom/2026-03/event-definitions/{eventName}
+        // patch /events/2026-03/event-definitions/{eventName}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
     override fun list(
         params: DefinitionListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<DefinitionListPageAsync> =
-        // get /events/custom/2026-03/event-definitions
+        // get /events/2026-03/event-definitions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: DefinitionDeleteParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // delete /events/custom/2026-03/event-definitions/{eventName}
+        // delete /events/2026-03/event-definitions/{eventName}
         withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun createProperty(
         params: DefinitionCreatePropertyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Property> =
-        // post /events/custom/2026-03/event-definitions/{eventName}/property
+        // post /events/2026-03/event-definitions/{eventName}/property
         withRawResponse().createProperty(params, requestOptions).thenApply { it.parse() }
 
     override fun deleteProperty(
         params: DefinitionDeletePropertyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // delete /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}
+        // delete /events/2026-03/event-definitions/{eventName}/property/{propertyName}
         withRawResponse().deleteProperty(params, requestOptions).thenAccept {}
 
     override fun get(
         params: DefinitionGetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ExternalBehavioralEventTypeDefinition> =
-        // get /events/custom/2026-03/event-definitions/{eventName}
+        // get /events/2026-03/event-definitions/{eventName}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
-
-    override fun send(
-        params: DefinitionSendParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // post /events/custom/2026-03/send
-        withRawResponse().send(params, requestOptions).thenAccept {}
 
     override fun sendBatch(
         params: DefinitionSendBatchParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
-        // post /events/custom/2026-03/send/batch
+        // post /events/2026-03/send/batch
         withRawResponse().sendBatch(params, requestOptions).thenAccept {}
 
     override fun updateProperty(
         params: DefinitionUpdatePropertyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Property> =
-        // patch /events/custom/2026-03/event-definitions/{eventName}/property/{propertyName}
+        // patch /events/2026-03/event-definitions/{eventName}/property/{propertyName}
         withRawResponse().updateProperty(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -141,7 +133,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "event-definitions")
+                    .addPathSegments("events", "2026-03", "event-definitions")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -175,13 +167,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "events",
-                        "custom",
-                        "2026-03",
-                        "event-definitions",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("events", "2026-03", "event-definitions", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -215,7 +201,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "event-definitions")
+                    .addPathSegments("events", "2026-03", "event-definitions")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -255,13 +241,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "events",
-                        "custom",
-                        "2026-03",
-                        "event-definitions",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("events", "2026-03", "event-definitions", params._pathParam(0))
                     .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -291,7 +271,6 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "events",
-                        "custom",
                         "2026-03",
                         "event-definitions",
                         params._pathParam(0),
@@ -331,7 +310,6 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "events",
-                        "custom",
                         "2026-03",
                         "event-definitions",
                         params._pathParam(0),
@@ -365,13 +343,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "events",
-                        "custom",
-                        "2026-03",
-                        "event-definitions",
-                        params._pathParam(0),
-                    )
+                    .addPathSegments("events", "2026-03", "event-definitions", params._pathParam(0))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -390,30 +362,6 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 }
         }
 
-        private val sendHandler: Handler<Void?> = emptyHandler()
-
-        override fun send(
-            params: DefinitionSendParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "send")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { sendHandler.handle(it) }
-                    }
-                }
-        }
-
         private val sendBatchHandler: Handler<Void?> = emptyHandler()
 
         override fun sendBatch(
@@ -424,7 +372,7 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("events", "custom", "2026-03", "send", "batch")
+                    .addPathSegments("events", "2026-03", "send", "batch")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -454,7 +402,6 @@ class DefinitionServiceAsyncImpl internal constructor(private val clientOptions:
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "events",
-                        "custom",
                         "2026-03",
                         "event-definitions",
                         params._pathParam(0),

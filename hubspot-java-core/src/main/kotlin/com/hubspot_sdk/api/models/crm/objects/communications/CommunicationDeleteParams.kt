@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a communication by ID. */
+/** Move an Object identified by `{communicationId}` to the recycling bin. */
 class CommunicationDeleteParams
 private constructor(
     private val communicationId: String?,

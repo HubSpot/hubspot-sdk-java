@@ -7,15 +7,11 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Execute a search query to find CRM objects of a given type, using specified filters and
- * properties. The search can be customized with filters, sorting, and pagination options.
- */
 class CustomSearchParams
 private constructor(
     private val objectType: String?,

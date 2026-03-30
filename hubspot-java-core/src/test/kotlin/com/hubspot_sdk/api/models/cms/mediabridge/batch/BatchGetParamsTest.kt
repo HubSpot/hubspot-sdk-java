@@ -12,7 +12,7 @@ internal class BatchGetParamsTest {
     @Test
     fun create() {
         BatchGetParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .batchReadInputPropertyName(
                 BatchReadInputPropertyName.builder()
@@ -28,7 +28,7 @@ internal class BatchGetParamsTest {
     fun pathParams() {
         val params =
             BatchGetParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchReadInputPropertyName(
                     BatchReadInputPropertyName.builder()
@@ -41,7 +41,7 @@ internal class BatchGetParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -51,7 +51,7 @@ internal class BatchGetParamsTest {
     fun body() {
         val params =
             BatchGetParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchReadInputPropertyName(
                     BatchReadInputPropertyName.builder()

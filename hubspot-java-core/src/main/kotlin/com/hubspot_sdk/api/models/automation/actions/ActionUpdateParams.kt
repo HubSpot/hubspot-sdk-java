@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update an existing action definition by ID. */
 class ActionUpdateParams
 private constructor(
     private val appId: Int,

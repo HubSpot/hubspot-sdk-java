@@ -6,7 +6,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.marketing.emails.AbTestCreateRequestVNext
+import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import com.hubspot_sdk.api.models.marketing.emails.AggregateEmailStatistics
 import com.hubspot_sdk.api.models.marketing.emails.CollectionResponseWithTotalEmailStatisticInterval
 import com.hubspot_sdk.api.models.marketing.emails.EmailCloneParams
@@ -73,6 +73,7 @@ interface EmailServiceAsync {
     fun create(emailCreateRequest: EmailCreateRequest): CompletableFuture<PublicEmail> =
         create(emailCreateRequest, RequestOptions.none())
 
+    /** Change properties of a marketing email. */
     fun update(emailId: String, params: EmailUpdateParams): CompletableFuture<PublicEmail> =
         update(emailId, params, RequestOptions.none())
 
@@ -111,6 +112,7 @@ interface EmailServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<EmailListPageAsync> =
         list(EmailListParams.none(), requestOptions)
 
+    /** Delete a marketing email by its ID */
     fun delete(emailId: String): CompletableFuture<Void?> =
         delete(emailId, EmailDeleteParams.none())
 
@@ -142,6 +144,10 @@ interface EmailServiceAsync {
     fun delete(emailId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(emailId, EmailDeleteParams.none(), requestOptions)
 
+    /**
+     * This will create a duplicate email with the same properties as the original, with the
+     * exception of a unique ID.
+     */
     fun clone(params: EmailCloneParams): CompletableFuture<PublicEmail> =
         clone(params, RequestOptions.none())
 
@@ -165,6 +171,10 @@ interface EmailServiceAsync {
     fun clone(emailCloneRequestVNext: EmailCloneRequestVNext): CompletableFuture<PublicEmail> =
         clone(emailCloneRequestVNext, RequestOptions.none())
 
+    /**
+     * Create a variation of a marketing email for an A/B test. The new variation will be created as
+     * a draft. If an active variation already exists, a new one won't be created.
+     */
     fun createAbTestVariation(
         params: EmailCreateAbTestVariationParams
     ): CompletableFuture<PublicEmail> = createAbTestVariation(params, RequestOptions.none())
@@ -193,6 +203,10 @@ interface EmailServiceAsync {
     ): CompletableFuture<PublicEmail> =
         createAbTestVariation(abTestCreateRequestVNext, RequestOptions.none())
 
+    /**
+     * Use this endpoint to get aggregated statistics of emails sent in a specified time span. It
+     * also returns the list of emails that were sent during the time span.
+     */
     fun get(): CompletableFuture<AggregateEmailStatistics> = get(EmailGetParams.none())
 
     /** @see get */
@@ -210,6 +224,10 @@ interface EmailServiceAsync {
     fun get(requestOptions: RequestOptions): CompletableFuture<AggregateEmailStatistics> =
         get(EmailGetParams.none(), requestOptions)
 
+    /**
+     * This endpoint lets you obtain the variation of an A/B marketing email. If the email is
+     * variation A (master) it will return variation B (variant) and vice versa.
+     */
     fun getAbTestVariation(emailId: String): CompletableFuture<PublicEmail> =
         getAbTestVariation(emailId, EmailGetAbTestVariationParams.none())
 
@@ -244,6 +262,10 @@ interface EmailServiceAsync {
     ): CompletableFuture<PublicEmail> =
         getAbTestVariation(emailId, EmailGetAbTestVariationParams.none(), requestOptions)
 
+    /**
+     * Get the draft version of an email (if it exists). If no draft version exists, the published
+     * email is returned.
+     */
     fun getDraft(emailId: String): CompletableFuture<PublicEmail> =
         getDraft(emailId, EmailGetDraftParams.none())
 
@@ -275,6 +297,10 @@ interface EmailServiceAsync {
     fun getDraft(emailId: String, requestOptions: RequestOptions): CompletableFuture<PublicEmail> =
         getDraft(emailId, EmailGetDraftParams.none(), requestOptions)
 
+    /**
+     * Get aggregated statistics in intervals for a specified time span. Each interval contains
+     * aggregated statistics of the emails that were sent in that time.
+     */
     fun getHistogram(): CompletableFuture<CollectionResponseWithTotalEmailStatisticInterval> =
         getHistogram(EmailGetHistogramParams.none())
 
@@ -296,6 +322,7 @@ interface EmailServiceAsync {
     ): CompletableFuture<CollectionResponseWithTotalEmailStatisticInterval> =
         getHistogram(EmailGetHistogramParams.none(), requestOptions)
 
+    /** Get a specific revision of a marketing email. */
     fun getRevision(
         revisionId: String,
         params: EmailGetRevisionParams,
@@ -320,6 +347,10 @@ interface EmailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicEmailVersion>
 
+    /**
+     * Get a list of all versions of a marketing email, with each entry including the full state of
+     * that particular version. To view the most recent version, sort by the updatedAt parameter.
+     */
     fun listRevisions(emailId: String): CompletableFuture<EmailListRevisionsPageAsync> =
         listRevisions(emailId, EmailListRevisionsParams.none())
 
@@ -356,6 +387,10 @@ interface EmailServiceAsync {
     ): CompletableFuture<EmailListRevisionsPageAsync> =
         listRevisions(emailId, EmailListRevisionsParams.none(), requestOptions)
 
+    /**
+     * If you have a Marketing Hub Enterprise account or the transactional email add-on, you can use
+     * this endpoint to publish an automated email or send/schedule a regular email.
+     */
     fun publish(emailId: String): CompletableFuture<Void?> =
         publish(emailId, EmailPublishParams.none())
 
@@ -387,6 +422,7 @@ interface EmailServiceAsync {
     fun publish(emailId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         publish(emailId, EmailPublishParams.none(), requestOptions)
 
+    /** Resets the draft back to a copy of the live object. */
     fun resetDraft(emailId: String): CompletableFuture<Void?> =
         resetDraft(emailId, EmailResetDraftParams.none())
 
@@ -418,6 +454,10 @@ interface EmailServiceAsync {
     fun resetDraft(emailId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         resetDraft(emailId, EmailResetDraftParams.none(), requestOptions)
 
+    /**
+     * Restores a previous revision of a marketing email. The current revision becomes old, and the
+     * restored revision is given a new version number.
+     */
     fun restoreRevision(
         revisionId: String,
         params: EmailRestoreRevisionParams,
@@ -441,6 +481,10 @@ interface EmailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /**
+     * Restores a previous revision of a marketing email to DRAFT state. If there is currently
+     * something in the draft for that object, it is overwritten.
+     */
     fun restoreRevisionToDraft(
         revisionId: Long,
         params: EmailRestoreRevisionToDraftParams,
@@ -466,6 +510,11 @@ interface EmailServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicEmail>
 
+    /**
+     * If you have a Marketing Hub Enterprise account or the transactional email add-on, you can use
+     * this endpoint to unpublish an automated email or cancel a regular email. If the email is
+     * already in the process of being sent, canceling might not be possible.
+     */
     fun unpublish(emailId: String): CompletableFuture<Void?> =
         unpublish(emailId, EmailUnpublishParams.none())
 
@@ -497,6 +546,11 @@ interface EmailServiceAsync {
     fun unpublish(emailId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         unpublish(emailId, EmailUnpublishParams.none(), requestOptions)
 
+    /**
+     * Create or update the draft version of a marketing email. If no draft exists, the system
+     * creates a draft from the current “live” email then applies the request body to that draft.
+     * The draft version only lives on the buffer—the email is not cloned.
+     */
     fun updateDraft(
         emailId: String,
         params: EmailUpdateDraftParams,

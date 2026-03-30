@@ -43,6 +43,7 @@ interface ActionService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionService
 
+    /** Create a new custom workflow action. */
     fun create(appId: Int, params: ActionCreateParams): PublicActionDefinition =
         create(appId, params, RequestOptions.none())
 
@@ -63,6 +64,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionDefinition
 
+    /** Update an existing action definition by ID. */
     fun update(definitionId: String, params: ActionUpdateParams): PublicActionDefinition =
         update(definitionId, params, RequestOptions.none())
 
@@ -84,6 +86,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionDefinition
 
+    /** Retrieve the versions of a definition by ID. */
     fun list(definitionId: String, params: ActionListParams): ActionListPage =
         list(definitionId, params, RequestOptions.none())
 
@@ -103,6 +106,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ActionListPage
 
+    /** Archive a function for a specific definition. */
     fun delete(functionId: String, params: ActionDeleteParams) =
         delete(functionId, params, RequestOptions.none())
 
@@ -119,6 +123,7 @@ interface ActionService {
     /** @see delete */
     fun delete(params: ActionDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
+    /** Complete a specific blocked action execution by ID. */
     fun complete(callbackId: String, params: ActionCompleteParams) =
         complete(callbackId, params, RequestOptions.none())
 
@@ -138,6 +143,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** Complete a batch of blocked action executions. */
     fun completeBatch(params: ActionCompleteBatchParams) =
         completeBatch(params, RequestOptions.none())
 
@@ -164,6 +170,7 @@ interface ActionService {
         batchInputCallbackCompletionBatchRequest: BatchInputCallbackCompletionBatchRequest
     ) = completeBatch(batchInputCallbackCompletionBatchRequest, RequestOptions.none())
 
+    /** Update a function for a given definition by ID. */
     fun createOrReplace(
         functionId: String,
         params: ActionCreateOrReplaceParams,
@@ -187,6 +194,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionFunctionIdentifier
 
+    /** Add a function for a given definition. */
     fun createOrReplaceByFunctionType(
         functionType: ActionCreateOrReplaceByFunctionTypeParams.FunctionType,
         params: ActionCreateOrReplaceByFunctionTypeParams,
@@ -215,6 +223,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionFunctionIdentifier
 
+    /** Set whether a custom action definition requires an object. */
     fun createRequiresObject(definitionId: String, params: ActionCreateRequiresObjectParams) =
         createRequiresObject(definitionId, params, RequestOptions.none())
 
@@ -235,6 +244,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** Delete a function within a given definition. */
     fun deleteByFunctionType(
         functionType: ActionDeleteByFunctionTypeParams.FunctionType,
         params: ActionDeleteByFunctionTypeParams,
@@ -257,6 +267,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
+    /** Retrieve a specific revision of a definition by revision ID. */
     fun get(revisionId: String, params: ActionGetParams): PublicActionRevision =
         get(revisionId, params, RequestOptions.none())
 
@@ -276,6 +287,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionRevision
 
+    /** Retrieve functions of a specific type for a given definition. */
     fun getByFunctionType(
         functionType: ActionGetByFunctionTypeParams.FunctionType,
         params: ActionGetByFunctionTypeParams,
@@ -299,6 +311,7 @@ interface ActionService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PublicActionFunction
 
+    /** Retrieve whether a custom action definition requires an object. */
     fun getRequiresObject(
         definitionId: String,
         params: ActionGetRequiresObjectParams,

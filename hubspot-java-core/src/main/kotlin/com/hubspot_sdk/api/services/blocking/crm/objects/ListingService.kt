@@ -7,15 +7,11 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
-import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.SimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.listings.ListingCreateParams
 import com.hubspot_sdk.api.models.crm.objects.listings.ListingDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.listings.ListingGetParams
@@ -23,7 +19,7 @@ import com.hubspot_sdk.api.models.crm.objects.listings.ListingListPage
 import com.hubspot_sdk.api.models.crm.objects.listings.ListingListParams
 import com.hubspot_sdk.api.models.crm.objects.listings.ListingSearchParams
 import com.hubspot_sdk.api.models.crm.objects.listings.ListingUpdateParams
-import com.hubspot_sdk.api.models.crm.objects.listings.ListingUpsertParams
+import com.hubspot_sdk.api.services.blocking.crm.objects.listings.BatchService
 import java.util.function.Consumer
 
 interface ListingService {
@@ -40,65 +36,65 @@ interface ListingService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListingService
 
-    /** Create multiple listings in a single request. */
-    fun create(params: ListingCreateParams): BatchResponseSimplePublicObject =
+    fun batch(): BatchService
+
+    /**
+     * Create a listing with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard listings is provided.
+     */
+    fun create(params: ListingCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: ListingCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObject
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate,
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
+    ): SimplePublicObject =
         create(
             ListingCreateParams.builder()
-                .batchInputSimplePublicObjectBatchInputForCreate(
-                    batchInputSimplePublicObjectBatchInputForCreate
-                )
+                .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                 .build(),
             requestOptions,
         )
 
     /** @see create */
     fun create(
-        batchInputSimplePublicObjectBatchInputForCreate:
-            BatchInputSimplePublicObjectBatchInputForCreate
-    ): BatchResponseSimplePublicObject =
-        create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+        simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+    ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
-    /** Update multiple listings using their internal IDs or unique property values. */
-    fun update(params: ListingUpdateParams): BatchResponseSimplePublicObject =
+    /**
+     * Perform a partial update of an Object identified by `{listingId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{listingId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
+     */
+    fun update(listingId: String, params: ListingUpdateParams): SimplePublicObject =
+        update(listingId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        listingId: String,
+        params: ListingUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObject = update(params.toBuilder().listingId(listingId).build(), requestOptions)
+
+    /** @see update */
+    fun update(params: ListingUpdateParams): SimplePublicObject =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: ListingUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        update(
-            ListingUpdateParams.builder()
-                .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                .build(),
-            requestOptions,
-        )
-
-    /** @see update */
-    fun update(
-        batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-    ): BatchResponseSimplePublicObject =
-        update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+    ): SimplePublicObject
 
     /** Read a page of listings. Control what is returned via the `properties` query param. */
     fun list(): ListingListPage = list(ListingListParams.none())
@@ -117,58 +113,65 @@ interface ListingService {
     fun list(requestOptions: RequestOptions): ListingListPage =
         list(ListingListParams.none(), requestOptions)
 
-    /** Archive multiple listings by their IDs. */
-    fun delete(params: ListingDeleteParams) = delete(params, RequestOptions.none())
+    /** Move an Object identified by `{listingId}` to the recycling bin. */
+    fun delete(listingId: String) = delete(listingId, ListingDeleteParams.none())
+
+    /** @see delete */
+    fun delete(
+        listingId: String,
+        params: ListingDeleteParams = ListingDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().listingId(listingId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(listingId: String, params: ListingDeleteParams = ListingDeleteParams.none()) =
+        delete(listingId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(params: ListingDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        delete(
-            ListingDeleteParams.builder()
-                .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun delete(params: ListingDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
-        delete(batchInputSimplePublicObjectId, RequestOptions.none())
+    fun delete(listingId: String, requestOptions: RequestOptions) =
+        delete(listingId, ListingDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
-     * custom unique value property.
+     * Read an Object identified by `{listingId}`. `{listingId}` refers to the internal object ID by
+     * default, or optionally any unique property value as specified by the `idProperty` query
+     * param. Control what is returned via the `properties` query param.
      */
-    fun get(params: ListingGetParams): BatchResponseSimplePublicObject =
-        get(params, RequestOptions.none())
+    fun get(listingId: String): SimplePublicObjectWithAssociations =
+        get(listingId, ListingGetParams.none())
+
+    /** @see get */
+    fun get(
+        listingId: String,
+        params: ListingGetParams = ListingGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SimplePublicObjectWithAssociations =
+        get(params.toBuilder().listingId(listingId).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        listingId: String,
+        params: ListingGetParams = ListingGetParams.none(),
+    ): SimplePublicObjectWithAssociations = get(listingId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: ListingGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject
+    ): SimplePublicObjectWithAssociations
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicObject =
-        get(
-            ListingGetParams.builder()
-                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                .build(),
-            requestOptions,
-        )
+    fun get(params: ListingGetParams): SimplePublicObjectWithAssociations =
+        get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(
-        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-    ): BatchResponseSimplePublicObject =
-        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+    fun get(listingId: String, requestOptions: RequestOptions): SimplePublicObjectWithAssociations =
+        get(listingId, ListingGetParams.none(), requestOptions)
 
     /** Execute a search query to find listings based on specified filters and properties. */
     fun search(params: ListingSearchParams): CollectionResponseWithTotalSimplePublicObject =
@@ -198,40 +201,6 @@ interface ListingService {
     ): CollectionResponseWithTotalSimplePublicObject =
         search(publicObjectSearchRequest, RequestOptions.none())
 
-    /**
-     * Create or update records identified by a unique property value as specified by the
-     * `idProperty` query param. `idProperty` query param refers to a property whose values are
-     * unique for the object.
-     */
-    fun upsert(params: ListingUpsertParams): BatchResponseSimplePublicUpsertObject =
-        upsert(params, RequestOptions.none())
-
-    /** @see upsert */
-    fun upsert(
-        params: ListingUpsertParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(
-            ListingUpsertParams.builder()
-                .batchInputSimplePublicObjectBatchInputUpsert(
-                    batchInputSimplePublicObjectBatchInputUpsert
-                )
-                .build(),
-            requestOptions,
-        )
-
-    /** @see upsert */
-    fun upsert(
-        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
-    ): BatchResponseSimplePublicUpsertObject =
-        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
-
     /** A view of [ListingService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -242,12 +211,14 @@ interface ListingService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): ListingService.WithRawResponse
 
+        fun batch(): BatchService.WithRawResponse
+
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-420/batch/create`, but is
-         * otherwise the same as [ListingService.create].
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-420`, but is otherwise the
+         * same as [ListingService.create].
          */
         @MustBeClosed
-        fun create(params: ListingCreateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun create(params: ListingCreateParams): HttpResponseFor<SimplePublicObject> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -255,20 +226,17 @@ interface ListingService {
         fun create(
             params: ListingCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObject>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate,
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
+        ): HttpResponseFor<SimplePublicObject> =
             create(
                 ListingCreateParams.builder()
-                    .batchInputSimplePublicObjectBatchInputForCreate(
-                        batchInputSimplePublicObjectBatchInputForCreate
-                    )
+                    .simplePublicObjectInputForCreate(simplePublicObjectInputForCreate)
                     .build(),
                 requestOptions,
             )
@@ -276,17 +244,32 @@ interface ListingService {
         /** @see create */
         @MustBeClosed
         fun create(
-            batchInputSimplePublicObjectBatchInputForCreate:
-                BatchInputSimplePublicObjectBatchInputForCreate
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            create(batchInputSimplePublicObjectBatchInputForCreate, RequestOptions.none())
+            simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate
+        ): HttpResponseFor<SimplePublicObject> =
+            create(simplePublicObjectInputForCreate, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-420/batch/update`, but is
+         * Returns a raw HTTP response for `patch /crm/objects/2026-03/0-420/{listingId}`, but is
          * otherwise the same as [ListingService.update].
          */
         @MustBeClosed
-        fun update(params: ListingUpdateParams): HttpResponseFor<BatchResponseSimplePublicObject> =
+        fun update(
+            listingId: String,
+            params: ListingUpdateParams,
+        ): HttpResponseFor<SimplePublicObject> = update(listingId, params, RequestOptions.none())
+
+        /** @see update */
+        @MustBeClosed
+        fun update(
+            listingId: String,
+            params: ListingUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObject> =
+            update(params.toBuilder().listingId(listingId).build(), requestOptions)
+
+        /** @see update */
+        @MustBeClosed
+        fun update(params: ListingUpdateParams): HttpResponseFor<SimplePublicObject> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -294,27 +277,7 @@ interface ListingService {
         fun update(
             params: ListingUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(
-                ListingUpdateParams.builder()
-                    .batchInputSimplePublicObjectBatchInput(batchInputSimplePublicObjectBatchInput)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see update */
-        @MustBeClosed
-        fun update(
-            batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+        ): HttpResponseFor<SimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `get /crm/objects/2026-03/0-420`, but is otherwise the
@@ -341,12 +304,26 @@ interface ListingService {
             list(ListingListParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-420/batch/archive`, but is
+         * Returns a raw HTTP response for `delete /crm/objects/2026-03/0-420/{listingId}`, but is
          * otherwise the same as [ListingService.delete].
          */
         @MustBeClosed
-        fun delete(params: ListingDeleteParams): HttpResponse =
-            delete(params, RequestOptions.none())
+        fun delete(listingId: String): HttpResponse = delete(listingId, ListingDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            listingId: String,
+            params: ListingDeleteParams = ListingDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().listingId(listingId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            listingId: String,
+            params: ListingDeleteParams = ListingDeleteParams.none(),
+        ): HttpResponse = delete(listingId, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -357,56 +334,58 @@ interface ListingService {
 
         /** @see delete */
         @MustBeClosed
-        fun delete(
-            batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            delete(
-                ListingDeleteParams.builder()
-                    .batchInputSimplePublicObjectId(batchInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
+        fun delete(params: ListingDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
-        fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId): HttpResponse =
-            delete(batchInputSimplePublicObjectId, RequestOptions.none())
+        fun delete(listingId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(listingId, ListingDeleteParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-420/batch/read`, but is
+         * Returns a raw HTTP response for `get /crm/objects/2026-03/0-420/{listingId}`, but is
          * otherwise the same as [ListingService.get].
          */
         @MustBeClosed
-        fun get(params: ListingGetParams): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(params, RequestOptions.none())
+        fun get(listingId: String): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(listingId, ListingGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            listingId: String,
+            params: ListingGetParams = ListingGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params.toBuilder().listingId(listingId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            listingId: String,
+            params: ListingGetParams = ListingGetParams.none(),
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(listingId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: ListingGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject>
+        ): HttpResponseFor<SimplePublicObjectWithAssociations>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: ListingGetParams): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(
-                ListingGetParams.builder()
-                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see get */
-        @MustBeClosed
-        fun get(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ): HttpResponseFor<BatchResponseSimplePublicObject> =
-            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+            listingId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<SimplePublicObjectWithAssociations> =
+            get(listingId, ListingGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/0-420/search`, but is
@@ -444,46 +423,5 @@ interface ListingService {
             publicObjectSearchRequest: PublicObjectSearchRequest
         ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
             search(publicObjectSearchRequest, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `post /crm/objects/2026-03/0-420/batch/upsert`, but is
-         * otherwise the same as [ListingService.upsert].
-         */
-        @MustBeClosed
-        fun upsert(
-            params: ListingUpsertParams
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(params, RequestOptions.none())
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            params: ListingUpsertParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject>
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(
-                ListingUpsertParams.builder()
-                    .batchInputSimplePublicObjectBatchInputUpsert(
-                        batchInputSimplePublicObjectBatchInputUpsert
-                    )
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see upsert */
-        @MustBeClosed
-        fun upsert(
-            batchInputSimplePublicObjectBatchInputUpsert:
-                BatchInputSimplePublicObjectBatchInputUpsert
-        ): HttpResponseFor<BatchResponseSimplePublicUpsertObject> =
-            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

@@ -43,6 +43,7 @@ interface ActionServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ActionServiceAsync
 
+    /** Create a new custom workflow action. */
     fun create(appId: Int, params: ActionCreateParams): CompletableFuture<PublicActionDefinition> =
         create(appId, params, RequestOptions.none())
 
@@ -64,6 +65,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionDefinition>
 
+    /** Update an existing action definition by ID. */
     fun update(
         definitionId: String,
         params: ActionUpdateParams,
@@ -88,6 +90,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionDefinition>
 
+    /** Retrieve the versions of a definition by ID. */
     fun list(
         definitionId: String,
         params: ActionListParams,
@@ -111,6 +114,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ActionListPageAsync>
 
+    /** Archive a function for a specific definition. */
     fun delete(functionId: String, params: ActionDeleteParams): CompletableFuture<Void?> =
         delete(functionId, params, RequestOptions.none())
 
@@ -132,6 +136,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Complete a specific blocked action execution by ID. */
     fun complete(callbackId: String, params: ActionCompleteParams): CompletableFuture<Void?> =
         complete(callbackId, params, RequestOptions.none())
 
@@ -153,6 +158,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Complete a batch of blocked action executions. */
     fun completeBatch(params: ActionCompleteBatchParams): CompletableFuture<Void?> =
         completeBatch(params, RequestOptions.none())
 
@@ -180,6 +186,7 @@ interface ActionServiceAsync {
     ): CompletableFuture<Void?> =
         completeBatch(batchInputCallbackCompletionBatchRequest, RequestOptions.none())
 
+    /** Update a function for a given definition by ID. */
     fun createOrReplace(
         functionId: String,
         params: ActionCreateOrReplaceParams,
@@ -206,6 +213,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionFunctionIdentifier>
 
+    /** Add a function for a given definition. */
     fun createOrReplaceByFunctionType(
         functionType: ActionCreateOrReplaceByFunctionTypeParams.FunctionType,
         params: ActionCreateOrReplaceByFunctionTypeParams,
@@ -235,6 +243,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionFunctionIdentifier>
 
+    /** Set whether a custom action definition requires an object. */
     fun createRequiresObject(
         definitionId: String,
         params: ActionCreateRequiresObjectParams,
@@ -258,6 +267,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Delete a function within a given definition. */
     fun deleteByFunctionType(
         functionType: ActionDeleteByFunctionTypeParams.FunctionType,
         params: ActionDeleteByFunctionTypeParams,
@@ -281,6 +291,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
+    /** Retrieve a specific revision of a definition by revision ID. */
     fun get(revisionId: String, params: ActionGetParams): CompletableFuture<PublicActionRevision> =
         get(revisionId, params, RequestOptions.none())
 
@@ -302,6 +313,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionRevision>
 
+    /** Retrieve functions of a specific type for a given definition. */
     fun getByFunctionType(
         functionType: ActionGetByFunctionTypeParams.FunctionType,
         params: ActionGetByFunctionTypeParams,
@@ -327,6 +339,7 @@ interface ActionServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PublicActionFunction>
 
+    /** Retrieve whether a custom action definition requires an object. */
     fun getRequiresObject(
         definitionId: String,
         params: ActionGetRequiresObjectParams,

@@ -10,12 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Fetch the list of contact IDs for the specified campaign and contact type. This endpoint allows
- * you to retrieve contact identifiers associated with a particular campaign, filtered by the type
- * of contact. It is useful for analyzing or processing contacts involved in specific marketing
- * campaigns.
- */
+/** Fetch the list of contact IDs for the specified campaign and contact type */
 class MetricListContactIdsByTypeParams
 private constructor(
     private val campaignGuid: String,
@@ -32,16 +27,17 @@ private constructor(
 
     fun contactType(): Optional<String> = Optional.ofNullable(contactType)
 
-    /** The paging cursor token of the last successfully read resource, used for pagination. */
+    /**
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * `paging.next.after` JSON property of a paged response containing more results.
+     */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** The end date for filtering contacts, formatted as a string. */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** The start date for filtering contacts, formatted as a string. */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -99,13 +95,15 @@ private constructor(
         /** Alias for calling [Builder.contactType] with `contactType.orElse(null)`. */
         fun contactType(contactType: Optional<String>) = contactType(contactType.getOrNull())
 
-        /** The paging cursor token of the last successfully read resource, used for pagination. */
+        /**
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * `paging.next.after` JSON property of a paged response containing more results.
+         */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** The end date for filtering contacts, formatted as a string. */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
@@ -124,7 +122,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** The start date for filtering contacts, formatted as a string. */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

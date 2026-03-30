@@ -12,22 +12,18 @@ import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.PublicAccessRule
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
+import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
+import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPost
-import com.hubspot_sdk.api.models.cms.blogs.posts.BlogPostLanguageCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.ContentCloneRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.posts.ContentScheduleRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListAuthorsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListTagsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryAuthorsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateParams
 import java.time.OffsetDateTime
@@ -795,30 +791,6 @@ internal class PostServiceAsyncTest {
     }
 
     @Test
-    fun attachToLangGroup(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val postServiceAsync = client.cms().blogs().posts()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            postServiceAsync.attachToLangGroup(
-                AttachToLangPrimaryRequestVNext.builder()
-                    .id("id")
-                    .language(AttachToLangPrimaryRequestVNext.Language.AA)
-                    .primaryId("primaryId")
-                    .primaryLanguage(AttachToLangPrimaryRequestVNext.PrimaryLanguage.AA)
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
     fun clone(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
@@ -831,44 +803,6 @@ internal class PostServiceAsyncTest {
         val responseFuture =
             postServiceAsync.clone(
                 ContentCloneRequestVNext.builder().id("id").cloneName("cloneName").build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
-    fun createLangVariation(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val postServiceAsync = client.cms().blogs().posts()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            postServiceAsync.createLangVariation(
-                BlogPostLanguageCloneRequestVNext.builder().id("id").language("language").build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
-    fun detachFromLangGroup(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val postServiceAsync = client.cms().blogs().posts()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            postServiceAsync.detachFromLangGroup(
-                DetachFromLangGroupRequestVNext.builder().id("id").build()
             )
 
         val response = responseFuture.get()
@@ -915,7 +849,7 @@ internal class PostServiceAsyncTest {
     }
 
     @Test
-    fun getPreviousVersion(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun listAuthors(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -925,10 +859,19 @@ internal class PostServiceAsyncTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            postServiceAsync.getPreviousVersion(
-                PostGetPreviousVersionParams.builder()
-                    .objectId("objectId")
-                    .revisionId("revisionId")
+            postServiceAsync.listAuthors(
+                PostListAuthorsParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
 
@@ -937,7 +880,7 @@ internal class PostServiceAsyncTest {
     }
 
     @Test
-    fun getPreviousVersions(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun listTags(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -947,12 +890,19 @@ internal class PostServiceAsyncTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            postServiceAsync.getPreviousVersions(
-                PostGetPreviousVersionsParams.builder()
-                    .objectId("objectId")
+            postServiceAsync.listTags(
+                PostListTagsParams.builder()
                     .after("after")
-                    .before("before")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
             )
 
@@ -971,6 +921,99 @@ internal class PostServiceAsyncTest {
         val response = future.get()
     }
 
+    @Test
+    fun query(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val postServiceAsync = client.cms().blogs().posts()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            postServiceAsync.query(
+                PostQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun queryAuthors(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val postServiceAsync = client.cms().blogs().posts()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            postServiceAsync.queryAuthors(
+                PostQueryAuthorsParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun queryTags(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .build()
+        val postServiceAsync = client.cms().blogs().posts()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            postServiceAsync.queryTags(
+                PostQueryTagsParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
     @Disabled("Mock server tests are disabled")
     @Test
     fun resetDraft() {
@@ -980,50 +1023,6 @@ internal class PostServiceAsyncTest {
         val future = postServiceAsync.resetDraft("objectId")
 
         val response = future.get()
-    }
-
-    @Test
-    fun restorePreviousVersion(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val postServiceAsync = client.cms().blogs().posts()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            postServiceAsync.restorePreviousVersion(
-                PostRestorePreviousVersionParams.builder()
-                    .objectId("objectId")
-                    .revisionId("revisionId")
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
-    fun restorePreviousVersionToDraft(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val postServiceAsync = client.cms().blogs().posts()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            postServiceAsync.restorePreviousVersionToDraft(
-                PostRestorePreviousVersionToDraftParams.builder()
-                    .objectId("objectId")
-                    .revisionId(0L)
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
     }
 
     @Disabled("Mock server tests are disabled")
@@ -1038,20 +1037,6 @@ internal class PostServiceAsyncTest {
                     .id("id")
                     .publishDate(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
-            )
-
-        val response = future.get()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun setLangPrimary() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val postServiceAsync = client.cms().blogs().posts()
-
-        val future =
-            postServiceAsync.setLangPrimary(
-                SetNewLanguagePrimaryRequestVNext.builder().id("id").build()
             )
 
         val response = future.get()
@@ -1424,32 +1409,6 @@ internal class PostServiceAsyncTest {
                             )
                             .build()
                     )
-                    .build()
-            )
-
-        val response = responseFuture.get()
-        assertThat(response.body()).hasContent("abc")
-    }
-
-    @Test
-    fun updateLangs(wmRuntimeInfo: WireMockRuntimeInfo) {
-        val client =
-            HubspotOkHttpClientAsync.builder()
-                .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
-        val postServiceAsync = client.cms().blogs().posts()
-        stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
-
-        val responseFuture =
-            postServiceAsync.updateLangs(
-                UpdateLanguagesRequestVNext.builder()
-                    .languages(
-                        UpdateLanguagesRequestVNext.Languages.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("aa"))
-                            .build()
-                    )
-                    .primaryId("primaryId")
                     .build()
             )
 

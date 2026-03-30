@@ -15,14 +15,14 @@ import kotlin.jvm.optionals.getOrNull
 /** Get the details for a batch of properties for a specified object type. */
 class BatchGetParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val objectType: String?,
     private val batchReadInputPropertyName: BatchReadInputPropertyName,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
@@ -56,7 +56,7 @@ private constructor(
     /** A builder for [BatchGetParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var objectType: String? = null
         private var batchReadInputPropertyName: BatchReadInputPropertyName? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -71,7 +71,7 @@ private constructor(
             additionalQueryParams = batchGetParams.additionalQueryParams.toBuilder()
         }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun objectType(objectType: String?) = apply { this.objectType = objectType }
 
@@ -208,7 +208,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> objectType ?: ""
             else -> ""
         }

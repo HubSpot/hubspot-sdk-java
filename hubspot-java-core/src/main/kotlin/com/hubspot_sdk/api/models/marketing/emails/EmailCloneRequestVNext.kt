@@ -33,7 +33,7 @@ private constructor(
     ) : this(id, cloneName, language, mutableMapOf())
 
     /**
-     * The unique identifier of the email to be cloned.
+     * The email ID.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -118,7 +118,7 @@ private constructor(
             additionalProperties = emailCloneRequestVNext.additionalProperties.toMutableMap()
         }
 
-        /** The unique identifier of the email to be cloned. */
+        /** The email ID. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**

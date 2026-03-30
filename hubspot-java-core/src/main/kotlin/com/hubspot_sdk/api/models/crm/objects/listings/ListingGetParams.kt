@@ -2,41 +2,57 @@
 
 package com.hubspot_sdk.api.models.crm.objects.listings
 
-import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
-import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
+import com.hubspot_sdk.api.core.toImmutable
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
- * custom unique value property.
+ * Read an Object identified by `{listingId}`. `{listingId}` refers to the internal object ID by
+ * default, or optionally any unique property value as specified by the `idProperty` query param.
+ * Control what is returned via the `properties` query param.
  */
 class ListingGetParams
 private constructor(
+    private val listingId: String?,
     private val archived: Boolean?,
-    private val batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
+    private val associations: List<String>?,
+    private val idProperty: String?,
+    private val properties: List<String>?,
+    private val propertiesWithHistory: List<String>?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
+
+    fun listingId(): Optional<String> = Optional.ofNullable(listingId)
 
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
     /**
-     * Specifies the input for reading a batch of CRM objects, including arrays of object IDs,
-     * requested property names (with optional history), and an optional unique identifying
-     * property.
+     * A comma separated list of object types to retrieve associated IDs for. If any of the
+     * specified associations do not exist, they will be ignored.
      */
-    fun batchReadInputSimplePublicObjectId(): BatchReadInputSimplePublicObjectId =
-        batchReadInputSimplePublicObjectId
+    fun associations(): Optional<List<String>> = Optional.ofNullable(associations)
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> =
-        batchReadInputSimplePublicObjectId._additionalProperties()
+    /** The name of a property whose values are unique for this object type */
+    fun idProperty(): Optional<String> = Optional.ofNullable(idProperty)
+
+    /**
+     * A comma separated list of the properties to be returned in the response. If any of the
+     * specified properties are not present on the requested object(s), they will be ignored.
+     */
+    fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
+
+    /**
+     * A comma separated list of the properties to be returned along with their history of previous
+     * values. If any of the specified properties are not present on the requested object(s), they
+     * will be ignored.
+     */
+    fun propertiesWithHistory(): Optional<List<String>> = Optional.ofNullable(propertiesWithHistory)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -48,32 +64,40 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [ListingGetParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .batchReadInputSimplePublicObjectId()
-         * ```
-         */
+        @JvmStatic fun none(): ListingGetParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [ListingGetParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
     /** A builder for [ListingGetParams]. */
     class Builder internal constructor() {
 
+        private var listingId: String? = null
         private var archived: Boolean? = null
-        private var batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId? = null
+        private var associations: MutableList<String>? = null
+        private var idProperty: String? = null
+        private var properties: MutableList<String>? = null
+        private var propertiesWithHistory: MutableList<String>? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(listingGetParams: ListingGetParams) = apply {
+            listingId = listingGetParams.listingId
             archived = listingGetParams.archived
-            batchReadInputSimplePublicObjectId = listingGetParams.batchReadInputSimplePublicObjectId
+            associations = listingGetParams.associations?.toMutableList()
+            idProperty = listingGetParams.idProperty
+            properties = listingGetParams.properties?.toMutableList()
+            propertiesWithHistory = listingGetParams.propertiesWithHistory?.toMutableList()
             additionalHeaders = listingGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = listingGetParams.additionalQueryParams.toBuilder()
         }
+
+        fun listingId(listingId: String?) = apply { this.listingId = listingId }
+
+        /** Alias for calling [Builder.listingId] with `listingId.orElse(null)`. */
+        fun listingId(listingId: Optional<String>) = listingId(listingId.getOrNull())
 
         /** Whether to return only results that have been archived. */
         fun archived(archived: Boolean?) = apply { this.archived = archived }
@@ -89,13 +113,77 @@ private constructor(
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
         /**
-         * Specifies the input for reading a batch of CRM objects, including arrays of object IDs,
-         * requested property names (with optional history), and an optional unique identifying
-         * property.
+         * A comma separated list of object types to retrieve associated IDs for. If any of the
+         * specified associations do not exist, they will be ignored.
          */
-        fun batchReadInputSimplePublicObjectId(
-            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
-        ) = apply { this.batchReadInputSimplePublicObjectId = batchReadInputSimplePublicObjectId }
+        fun associations(associations: List<String>?) = apply {
+            this.associations = associations?.toMutableList()
+        }
+
+        /** Alias for calling [Builder.associations] with `associations.orElse(null)`. */
+        fun associations(associations: Optional<List<String>>) =
+            associations(associations.getOrNull())
+
+        /**
+         * Adds a single [String] to [associations].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addAssociation(association: String) = apply {
+            associations = (associations ?: mutableListOf()).apply { add(association) }
+        }
+
+        /** The name of a property whose values are unique for this object type */
+        fun idProperty(idProperty: String?) = apply { this.idProperty = idProperty }
+
+        /** Alias for calling [Builder.idProperty] with `idProperty.orElse(null)`. */
+        fun idProperty(idProperty: Optional<String>) = idProperty(idProperty.getOrNull())
+
+        /**
+         * A comma separated list of the properties to be returned in the response. If any of the
+         * specified properties are not present on the requested object(s), they will be ignored.
+         */
+        fun properties(properties: List<String>?) = apply {
+            this.properties = properties?.toMutableList()
+        }
+
+        /** Alias for calling [Builder.properties] with `properties.orElse(null)`. */
+        fun properties(properties: Optional<List<String>>) = properties(properties.getOrNull())
+
+        /**
+         * Adds a single [String] to [properties].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addProperty(property: String) = apply {
+            properties = (properties ?: mutableListOf()).apply { add(property) }
+        }
+
+        /**
+         * A comma separated list of the properties to be returned along with their history of
+         * previous values. If any of the specified properties are not present on the requested
+         * object(s), they will be ignored.
+         */
+        fun propertiesWithHistory(propertiesWithHistory: List<String>?) = apply {
+            this.propertiesWithHistory = propertiesWithHistory?.toMutableList()
+        }
+
+        /**
+         * Alias for calling [Builder.propertiesWithHistory] with
+         * `propertiesWithHistory.orElse(null)`.
+         */
+        fun propertiesWithHistory(propertiesWithHistory: Optional<List<String>>) =
+            propertiesWithHistory(propertiesWithHistory.getOrNull())
+
+        /**
+         * Adds a single [String] to [Builder.propertiesWithHistory].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addPropertiesWithHistory(propertiesWithHistory: String) = apply {
+            this.propertiesWithHistory =
+                (this.propertiesWithHistory ?: mutableListOf()).apply { add(propertiesWithHistory) }
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -199,27 +287,25 @@ private constructor(
          * Returns an immutable instance of [ListingGetParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .batchReadInputSimplePublicObjectId()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): ListingGetParams =
             ListingGetParams(
+                listingId,
                 archived,
-                checkRequired(
-                    "batchReadInputSimplePublicObjectId",
-                    batchReadInputSimplePublicObjectId,
-                ),
+                associations?.toImmutable(),
+                idProperty,
+                properties?.toImmutable(),
+                propertiesWithHistory?.toImmutable(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): BatchReadInputSimplePublicObjectId = batchReadInputSimplePublicObjectId
+    fun _pathParam(index: Int): String =
+        when (index) {
+            0 -> listingId ?: ""
+            else -> ""
+        }
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -227,6 +313,10 @@ private constructor(
         QueryParams.builder()
             .apply {
                 archived?.let { put("archived", it.toString()) }
+                associations?.let { put("associations", it.joinToString(",")) }
+                idProperty?.let { put("idProperty", it) }
+                properties?.let { put("properties", it.joinToString(",")) }
+                propertiesWithHistory?.let { put("propertiesWithHistory", it.joinToString(",")) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -237,20 +327,28 @@ private constructor(
         }
 
         return other is ListingGetParams &&
+            listingId == other.listingId &&
             archived == other.archived &&
-            batchReadInputSimplePublicObjectId == other.batchReadInputSimplePublicObjectId &&
+            associations == other.associations &&
+            idProperty == other.idProperty &&
+            properties == other.properties &&
+            propertiesWithHistory == other.propertiesWithHistory &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
         Objects.hash(
+            listingId,
             archived,
-            batchReadInputSimplePublicObjectId,
+            associations,
+            idProperty,
+            properties,
+            propertiesWithHistory,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "ListingGetParams{archived=$archived, batchReadInputSimplePublicObjectId=$batchReadInputSimplePublicObjectId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ListingGetParams{listingId=$listingId, archived=$archived, associations=$associations, idProperty=$idProperty, properties=$properties, propertiesWithHistory=$propertiesWithHistory, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

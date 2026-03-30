@@ -17,9 +17,13 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.marketing.campaigns.CampaignCreateParams
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignDeleteParams
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignGetParams
+import com.hubspot_sdk.api.models.marketing.campaigns.CampaignListPageAsync
+import com.hubspot_sdk.api.models.marketing.campaigns.CampaignListParams
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignUpdateParams
+import com.hubspot_sdk.api.models.marketing.campaigns.CollectionResponseWithTotalPublicCampaign
 import com.hubspot_sdk.api.models.marketing.campaigns.PublicCampaign
 import com.hubspot_sdk.api.models.marketing.campaigns.PublicCampaignWithAssets
 import com.hubspot_sdk.api.services.async.marketing.campaigns.AssetServiceAsync
@@ -68,12 +72,26 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
 
     override fun spend(): SpendServiceAsync = spend
 
+    override fun create(
+        params: CampaignCreateParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PublicCampaign> =
+        // post /marketing/campaigns/2026-03
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+
     override fun update(
         params: CampaignUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<PublicCampaign> =
         // patch /marketing/campaigns/2026-03/{campaignGuid}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+
+    override fun list(
+        params: CampaignListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CampaignListPageAsync> =
+        // get /marketing/campaigns/2026-03
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: CampaignDeleteParams,
@@ -132,6 +150,37 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
 
         override fun spend(): SpendServiceAsync.WithRawResponse = spend
 
+        private val createHandler: Handler<PublicCampaign> =
+            jsonHandler<PublicCampaign>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: CampaignCreateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PublicCampaign>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("marketing", "campaigns", "2026-03")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val updateHandler: Handler<PublicCampaign> =
             jsonHandler<PublicCampaign>(clientOptions.jsonMapper)
 
@@ -161,6 +210,44 @@ class CampaignServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<CollectionResponseWithTotalPublicCampaign> =
+            jsonHandler<CollectionResponseWithTotalPublicCampaign>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: CampaignListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("marketing", "campaigns", "2026-03")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                CampaignListPageAsync.builder()
+                                    .service(CampaignServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

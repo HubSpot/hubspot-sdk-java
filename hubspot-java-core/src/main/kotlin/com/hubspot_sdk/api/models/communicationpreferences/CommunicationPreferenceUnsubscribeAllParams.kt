@@ -16,12 +16,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Unsubscribe a subscriber from all communication channels. This endpoint allows you to remove a
- * subscriber from all communication preferences, effectively opting them out from receiving any
- * further communications. This can be useful for ensuring compliance with user requests or legal
- * requirements.
- */
+/** Unsubscribe a contact from all email subscriptions. */
 class CommunicationPreferenceUnsubscribeAllParams
 private constructor(
     private val subscriberIdString: String?,
@@ -35,18 +30,10 @@ private constructor(
 
     fun subscriberIdString(): Optional<String> = Optional.ofNullable(subscriberIdString)
 
-    /** The communication channel from which to unsubscribe the subscriber. Must be 'EMAIL'. */
     fun channel(): Channel = channel
 
-    /**
-     * The ID of the business unit associated with the subscriber. This is an optional parameter.
-     */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
-    /**
-     * A boolean flag indicating whether to include detailed information in the response. Defaults
-     * to false.
-     */
     fun verbose(): Optional<Boolean> = Optional.ofNullable(verbose)
 
     /** Additional body properties to send with the request. */
@@ -111,13 +98,8 @@ private constructor(
         fun subscriberIdString(subscriberIdString: Optional<String>) =
             subscriberIdString(subscriberIdString.getOrNull())
 
-        /** The communication channel from which to unsubscribe the subscriber. Must be 'EMAIL'. */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
-        /**
-         * The ID of the business unit associated with the subscriber. This is an optional
-         * parameter.
-         */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -131,10 +113,6 @@ private constructor(
         fun businessUnitId(businessUnitId: Optional<Long>) =
             businessUnitId(businessUnitId.getOrNull())
 
-        /**
-         * A boolean flag indicating whether to include detailed information in the response.
-         * Defaults to false.
-         */
         fun verbose(verbose: Boolean?) = apply { this.verbose = verbose }
 
         /**
@@ -312,7 +290,6 @@ private constructor(
             }
             .build()
 
-    /** The communication channel from which to unsubscribe the subscriber. Must be 'EMAIL'. */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Returns the definition for a card with the given ID. */
 class CardsDevGetByIdParams
 private constructor(
     private val appId: Int,

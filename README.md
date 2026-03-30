@@ -237,65 +237,61 @@ The SDK defines methods that accept files.
 To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
 
 ```java
-import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
 import java.nio.file.Paths;
 
-SourceCodeCreateParams params = SourceCodeCreateParams.builder()
-    .environment("environment")
-    .path("path")
+TableImportDraftParams params = TableImportDraftParams.builder()
+    .tableIdOrName("tableIdOrName")
     .file(Paths.get("/path/to/file"))
     .build();
-AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 ```
 
 Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
 
 ```java
-import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
 import java.net.URL;
 
-SourceCodeCreateParams params = SourceCodeCreateParams.builder()
-    .environment("environment")
-    .path("path")
+TableImportDraftParams params = TableImportDraftParams.builder()
+    .tableIdOrName("tableIdOrName")
     .file(new URL("https://example.com//path/to/file").openStream())
     .build();
-AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 ```
 
 Or a `byte[]` array:
 
 ```java
-import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
 
-SourceCodeCreateParams params = SourceCodeCreateParams.builder()
-    .environment("environment")
-    .path("path")
+TableImportDraftParams params = TableImportDraftParams.builder()
+    .tableIdOrName("tableIdOrName")
     .file("content".getBytes())
     .build();
-AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 ```
 
 Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](hubspot-java-core/src/main/kotlin/com/hubspot_sdk/api/core/Values.kt):
 
 ```java
 import com.hubspot_sdk.api.core.MultipartField;
-import com.hubspot_sdk.api.models.cms.sourcecode.AssetFileMetadata;
-import com.hubspot_sdk.api.models.cms.sourcecode.SourceCodeCreateParams;
+import com.hubspot_sdk.api.models.cms.hubdb.ImportResult;
+import com.hubspot_sdk.api.models.cms.hubdb.tables.TableImportDraftParams;
 import java.io.InputStream;
 import java.net.URL;
 
-SourceCodeCreateParams params = SourceCodeCreateParams.builder()
-    .environment("environment")
-    .path("path")
+TableImportDraftParams params = TableImportDraftParams.builder()
+    .tableIdOrName("tableIdOrName")
     .file(MultipartField.<InputStream>builder()
         .value(new URL("https://example.com//path/to/file").openStream())
         .filename("/path/to/file")
         .build())
     .build();
-AssetFileMetadata assetFileMetadata = client.cms().sourceCode().create(params);
+ImportResult importResult = client.cms().hubdb().tables().importDraft(params);
 ```
 
 ## Binary responses

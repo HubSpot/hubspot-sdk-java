@@ -7,12 +7,13 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import java.util.Objects
 
 /**
- * Search for partner clients by filtering on properties, searching through associations, and
- * sorting results.
+ * Execute a search for partner clients based on defined filters, properties, and sorting options.
+ * This endpoint allows you to retrieve partner client data that matches the search criteria,
+ * facilitating integration and data synchronization with third-party systems.
  */
 class PartnerClientSearchParams
 private constructor(

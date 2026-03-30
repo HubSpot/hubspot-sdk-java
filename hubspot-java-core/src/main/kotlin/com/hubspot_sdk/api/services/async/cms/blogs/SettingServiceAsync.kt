@@ -33,6 +33,7 @@ interface SettingServiceAsync {
 
     fun multiLanguage(): MultiLanguageServiceAsync
 
+    /** Get the list of blogs. Results can be limited and filtered by creation or updated date. */
     fun list(): CompletableFuture<SettingListPageAsync> = list(SettingListParams.none())
 
     /** @see list */
@@ -50,6 +51,7 @@ interface SettingServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<SettingListPageAsync> =
         list(SettingListParams.none(), requestOptions)
 
+    /** Retrieve a specific blog by its ID. */
     fun get(blogId: String): CompletableFuture<Blog> = get(blogId, SettingGetParams.none())
 
     /** @see get */
@@ -78,6 +80,7 @@ interface SettingServiceAsync {
     fun get(blogId: String, requestOptions: RequestOptions): CompletableFuture<Blog> =
         get(blogId, SettingGetParams.none(), requestOptions)
 
+    /** Get a specific blog revision. */
     fun getRevision(
         revisionId: String,
         params: SettingGetRevisionParams,
@@ -101,6 +104,10 @@ interface SettingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BlogVersion>
 
+    /**
+     * Get the list of blog revisions. Results can be limited and filtered by creation or updated
+     * date.
+     */
     fun listRevisions(blogId: String): CompletableFuture<SettingListRevisionsPageAsync> =
         listRevisions(blogId, SettingListRevisionsParams.none())
 

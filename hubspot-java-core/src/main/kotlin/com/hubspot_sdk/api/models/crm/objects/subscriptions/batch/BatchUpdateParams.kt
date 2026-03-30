@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchI
 import java.util.Objects
 
 /**
- * Batch update multiple subscription objects in a single batch operation, allowing for efficient
+ * Update multiple subscription objects in a single batch operation, allowing for efficient
  * modifications of CRM subscription records.
  */
 class BatchUpdateParams

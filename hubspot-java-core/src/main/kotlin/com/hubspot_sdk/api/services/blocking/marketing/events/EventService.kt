@@ -25,6 +25,7 @@ interface EventService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventService
 
+    /** Mark a marketing event as cancelled. */
     fun cancelByExternalEventId(
         externalEventId: String,
         params: EventCancelByExternalEventIdParams,
@@ -53,6 +54,7 @@ interface EventService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): MarketingEventDefaultResponse
 
+    /** Mark a marketing event as completed */
     fun completeByExternalEventId(
         externalEventId: String,
         params: EventCompleteByExternalEventIdParams,

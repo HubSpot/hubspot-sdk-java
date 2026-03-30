@@ -11,6 +11,9 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Remove a custom object schema from the account using its object type ID or fully qualified name.
+ */
 class ObjectSchemaDeleteParams
 private constructor(
     private val objectType: String?,

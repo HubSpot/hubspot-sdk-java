@@ -6,10 +6,10 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.Blog
 import com.hubspot_sdk.api.models.cms.blogs.settings.BlogLanguageCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.settings.multilanguage.MultiLanguageAttachToLangGroupParams
@@ -34,6 +34,7 @@ interface MultiLanguageServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MultiLanguageServiceAsync
 
+    /** Attach a blog to a multi-language group. */
     fun attachToLangGroup(
         params: MultiLanguageAttachToLangGroupParams
     ): CompletableFuture<HttpResponse> = attachToLangGroup(params, RequestOptions.none())
@@ -62,6 +63,7 @@ interface MultiLanguageServiceAsync {
     ): CompletableFuture<HttpResponse> =
         attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
+    /** Create a new language variation from an existing blog. */
     fun createLanguageVariation(
         params: MultiLanguageCreateLanguageVariationParams
     ): CompletableFuture<Blog> = createLanguageVariation(params, RequestOptions.none())
@@ -90,6 +92,7 @@ interface MultiLanguageServiceAsync {
     ): CompletableFuture<Blog> =
         createLanguageVariation(blogLanguageCloneRequestVNext, RequestOptions.none())
 
+    /** Detaches a blog from a multi-language group. */
     fun detachFromLangGroup(
         params: MultiLanguageDetachFromLangGroupParams
     ): CompletableFuture<HttpResponse> = detachFromLangGroup(params, RequestOptions.none())
@@ -118,6 +121,7 @@ interface MultiLanguageServiceAsync {
     ): CompletableFuture<HttpResponse> =
         detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
+    /** Set a blog as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: MultiLanguageSetNewLangPrimaryParams): CompletableFuture<Void?> =
         setNewLangPrimary(params, RequestOptions.none())
 
@@ -145,6 +149,7 @@ interface MultiLanguageServiceAsync {
     ): CompletableFuture<Void?> =
         setNewLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
 
+    /** Explicitly set new languages for each blog in a multi-language group. */
     fun updateLanguages(
         params: MultiLanguageUpdateLanguagesParams
     ): CompletableFuture<HttpResponse> = updateLanguages(params, RequestOptions.none())

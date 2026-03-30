@@ -39,18 +39,27 @@ private constructor(
     ) : this(displayOrder, label, stages, mutableMapOf())
 
     /**
+     * The order for displaying this pipeline stage. If two pipeline stages have a matching
+     * `displayOrder`, they will be sorted alphabetically by label.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun displayOrder(): Int = displayOrder.getRequired("displayOrder")
 
     /**
+     * A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label must be
+     * unique within that pipeline.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
 
     /**
+     * The stages associated with the pipeline. They can be retrieved and updated via the pipeline
+     * stages endpoints.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -122,6 +131,10 @@ private constructor(
             additionalProperties = pipelineReplaceInput.additionalProperties.toMutableMap()
         }
 
+        /**
+         * The order for displaying this pipeline stage. If two pipeline stages have a matching
+         * `displayOrder`, they will be sorted alphabetically by label.
+         */
         fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
 
         /**
@@ -133,6 +146,10 @@ private constructor(
          */
         fun displayOrder(displayOrder: JsonField<Int>) = apply { this.displayOrder = displayOrder }
 
+        /**
+         * A label used to organize pipeline stages in HubSpot's UI. Each pipeline stage's label
+         * must be unique within that pipeline.
+         */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -143,6 +160,10 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        /**
+         * The stages associated with the pipeline. They can be retrieved and updated via the
+         * pipeline stages endpoints.
+         */
         fun stages(stages: List<PipelineStageInput>) = stages(JsonField.of(stages))
 
         /**

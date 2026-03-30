@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Get a specific revision of a marketing email. */
 class EmailGetRevisionParams
 private constructor(
     private val emailId: String,

@@ -3,6 +3,8 @@
 package com.hubspot_sdk.api.services.blocking.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
+import com.hubspot_sdk.api.services.blocking.crm.ObjectService
+import com.hubspot_sdk.api.services.blocking.crm.ObjectServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.CallService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CallServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.CartService
@@ -45,6 +47,8 @@ import com.hubspot_sdk.api.services.blocking.crm.objects.MeetingService
 import com.hubspot_sdk.api.services.blocking.crm.objects.MeetingServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.NoteService
 import com.hubspot_sdk.api.services.blocking.crm.objects.NoteServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.objects.ObjectService
+import com.hubspot_sdk.api.services.blocking.crm.objects.ObjectServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.OrderService
 import com.hubspot_sdk.api.services.blocking.crm.objects.OrderServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.PartnerClientService
@@ -55,6 +59,8 @@ import com.hubspot_sdk.api.services.blocking.crm.objects.PostalMailService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PostalMailServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.ProductService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ProductServiceImpl
+import com.hubspot_sdk.api.services.blocking.crm.objects.ProjectService
+import com.hubspot_sdk.api.services.blocking.crm.objects.ProjectServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.QuoteService
 import com.hubspot_sdk.api.services.blocking.crm.objects.QuoteServiceImpl
 import com.hubspot_sdk.api.services.blocking.crm.objects.ServiceService
@@ -126,6 +132,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
     private val notes: NoteService by lazy { NoteServiceImpl(clientOptions) }
 
+    private val objects: ObjectService by lazy { ObjectServiceImpl(clientOptions) }
+
     private val orders: OrderService by lazy { OrderServiceImpl(clientOptions) }
 
     private val partnerClients: PartnerClientService by lazy {
@@ -139,6 +147,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
     private val postalMail: PostalMailService by lazy { PostalMailServiceImpl(clientOptions) }
 
     private val products: ProductService by lazy { ProductServiceImpl(clientOptions) }
+
+    private val projects: ProjectService by lazy { ProjectServiceImpl(clientOptions) }
 
     private val quotes: QuoteService by lazy { QuoteServiceImpl(clientOptions) }
 
@@ -203,6 +213,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun notes(): NoteService = notes
 
+    override fun objects(): ObjectService = objects
+
     override fun orders(): OrderService = orders
 
     override fun partnerClients(): PartnerClientService = partnerClients
@@ -212,6 +224,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun postalMail(): PostalMailService = postalMail
 
     override fun products(): ProductService = products
+
+    override fun projects(): ProjectService = projects
 
     override fun quotes(): QuoteService = quotes
 
@@ -314,6 +328,10 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
             NoteServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val objects: ObjectService.WithRawResponse by lazy {
+            ObjectServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val orders: OrderService.WithRawResponse by lazy {
             OrderServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -332,6 +350,10 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
         private val products: ProductService.WithRawResponse by lazy {
             ProductServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val projects: ProjectService.WithRawResponse by lazy {
+            ProjectServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val quotes: QuoteService.WithRawResponse by lazy {
@@ -412,6 +434,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
         override fun notes(): NoteService.WithRawResponse = notes
 
+        override fun objects(): ObjectService.WithRawResponse = objects
+
         override fun orders(): OrderService.WithRawResponse = orders
 
         override fun partnerClients(): PartnerClientService.WithRawResponse = partnerClients
@@ -421,6 +445,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun postalMail(): PostalMailService.WithRawResponse = postalMail
 
         override fun products(): ProductService.WithRawResponse = products
+
+        override fun projects(): ProjectService.WithRawResponse = projects
 
         override fun quotes(): QuoteService.WithRawResponse = quotes
 

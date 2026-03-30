@@ -6,7 +6,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.models.BatchInputString
-import com.hubspot_sdk.api.models.cms.blogs.BatchInputJsonNode
+import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
 import com.hubspot_sdk.api.models.cms.blogs.authors.BatchInputBlogAuthor
 import com.hubspot_sdk.api.models.cms.blogs.authors.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.batch.BatchDeleteParams
@@ -29,6 +29,7 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
+    /** Create the Blog Author objects detailed in the request body. */
     fun create(params: BatchCreateParams): CompletableFuture<HttpResponse> =
         create(params, RequestOptions.none())
 
@@ -52,6 +53,7 @@ interface BatchServiceAsync {
     fun create(batchInputBlogAuthor: BatchInputBlogAuthor): CompletableFuture<HttpResponse> =
         create(batchInputBlogAuthor, RequestOptions.none())
 
+    /** Update the Blog Author objects identified in the request body. */
     fun update(params: BatchUpdateParams): CompletableFuture<HttpResponse> =
         update(params, RequestOptions.none())
 
@@ -75,6 +77,7 @@ interface BatchServiceAsync {
     fun update(batchInputJsonNode: BatchInputJsonNode): CompletableFuture<HttpResponse> =
         update(batchInputJsonNode, RequestOptions.none())
 
+    /** Delete the Blog Author objects identified in the request body. */
     fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
@@ -98,6 +101,7 @@ interface BatchServiceAsync {
     fun delete(batchInputString: BatchInputString): CompletableFuture<Void?> =
         delete(batchInputString, RequestOptions.none())
 
+    /** Retrieve the Blog Author objects identified in the request body. */
     fun get(params: BatchGetParams): CompletableFuture<HttpResponse> =
         get(params, RequestOptions.none())
 

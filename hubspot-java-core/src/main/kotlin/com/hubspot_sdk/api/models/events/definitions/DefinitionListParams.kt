@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve existing custom event definitions. */
 class DefinitionListParams
 private constructor(
     private val after: String?,

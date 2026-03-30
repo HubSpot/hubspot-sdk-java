@@ -50,7 +50,7 @@ private constructor(
     ) : this(category, correlationId, message, context, errors, links, subCategory, mutableMapOf())
 
     /**
-     * The error category.
+     * The error category
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -100,7 +100,7 @@ private constructor(
     fun links(): Optional<Links> = links.getOptional("links")
 
     /**
-     * A specific category that contains more specific detail about the error.
+     * A specific category that contains more specific detail about the error
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -209,7 +209,7 @@ private constructor(
             additionalProperties = error.additionalProperties.toMutableMap()
         }
 
-        /** The error category. */
+        /** The error category */
         fun category(category: String) = category(JsonField.of(category))
 
         /**
@@ -302,7 +302,7 @@ private constructor(
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
 
-        /** A specific category that contains more specific detail about the error. */
+        /** A specific category that contains more specific detail about the error */
         fun subCategory(subCategory: String) = subCategory(JsonField.of(subCategory))
 
         /**

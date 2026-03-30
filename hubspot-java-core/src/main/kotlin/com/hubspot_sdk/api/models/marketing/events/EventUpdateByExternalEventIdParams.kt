@@ -11,6 +11,12 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Updates the details of an existing Marketing Event identified by its externalAccountId,
+ * externalEventId if it exists.
+ *
+ * Only Marketing Events created by the same app can be updated.
+ */
 class EventUpdateByExternalEventIdParams
 private constructor(
     private val externalEventId: String?,

@@ -10,13 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import java.util.Objects
 
-/**
- * Create a single contact. Include a `properties` object to define
- * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the contact,
- * along with an `associations` array to define
- * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
- * with other CRM records.
- */
+/** Create a contact */
 class ContactCreateParams
 private constructor(
     private val simplePublicObjectInputForCreate: SimplePublicObjectInputForCreate,

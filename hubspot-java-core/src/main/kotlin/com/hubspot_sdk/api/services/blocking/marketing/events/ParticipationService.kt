@@ -31,6 +31,9 @@ interface ParticipationService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ParticipationService
 
+    /**
+     * Read Marketing event's participations counters by externalAccountId and externalEventId pair.
+     */
     fun getByExternalAccountAndEventId(
         externalEventId: String,
         params: ParticipationGetByExternalAccountAndEventIdParams,
@@ -59,6 +62,7 @@ interface ParticipationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AttendanceCounters
 
+    /** Read Marketing event's participations counters by internal identifier marketingEventId. */
     fun getById(marketingEventId: Long): AttendanceCounters =
         getById(marketingEventId, ParticipationGetByIdParams.none())
 
@@ -90,6 +94,7 @@ interface ParticipationService {
     fun getById(marketingEventId: Long, requestOptions: RequestOptions): AttendanceCounters =
         getById(marketingEventId, ParticipationGetByIdParams.none(), requestOptions)
 
+    /** Read Contact's participations by identifier - email or internal id. */
     fun listBreakdownByContact(contactIdentifier: String): ParticipationListBreakdownByContactPage =
         listBreakdownByContact(contactIdentifier, ParticipationListBreakdownByContactParams.none())
 
@@ -136,6 +141,10 @@ interface ParticipationService {
             requestOptions,
         )
 
+    /**
+     * Read Marketing event's participations breakdown with optional filters by externalAccountId
+     * and externalEventId pair.
+     */
     fun listBreakdownByExternalAccountAndEventId(
         externalEventId: String,
         params: ParticipationListBreakdownByExternalAccountAndEventIdParams,
@@ -165,6 +174,10 @@ interface ParticipationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ParticipationListBreakdownByExternalAccountAndEventIdPage
 
+    /**
+     * Read Marketing event's participations breakdown with optional filters by internal identifier
+     * marketingEventId.
+     */
     fun listBreakdownById(marketingEventId: Long): ParticipationListBreakdownByIdPage =
         listBreakdownById(marketingEventId, ParticipationListBreakdownByIdParams.none())
 

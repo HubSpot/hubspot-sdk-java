@@ -10,10 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import java.util.Objects
 
-/**
- * Delete a batch of carts by ID. Deleted carts can be restored within 90 days of deletion. Learn
- * more about [restoring records](https://knowledge.hubspot.com/records/restore-deleted-records).
- */
+/** Archive a batch of carts identified by their IDs. */
 class BatchDeleteParams
 private constructor(
     private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,

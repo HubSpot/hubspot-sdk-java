@@ -6,9 +6,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.goaltargets.GoalTargetCreateParams
@@ -70,9 +70,12 @@ interface GoalTargetServiceAsync {
         create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update a goal target by ID (`objectId`) or unique property value (`idProperty`). Provided
-     * property values will be overwritten. Read-only and non-existent properties will result in an
-     * error. Properties values can be cleared by passing an empty string.
+     * Perform a partial update of an Object identified by `{goalTargetId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{goalTargetId}` refers to the
+     * internal object ID by default, and the `idProperty` query param refers to a property whose
+     * values are unique for the object. Provided property values will be overwritten. Read-only and
+     * non-existent properties will result in an error. Properties values can be cleared by passing
+     * an empty string.
      */
     fun update(
         goalTargetId: String,
@@ -97,7 +100,7 @@ interface GoalTargetServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<SimplePublicObject>
 
-    /** Retrieve all goal targets. Control what is returned via the `properties` query param. */
+    /** Read a page of goal targets. Control what is returned via the `properties` query param. */
     fun list(): CompletableFuture<GoalTargetListPageAsync> = list(GoalTargetListParams.none())
 
     /** @see list */
@@ -115,7 +118,7 @@ interface GoalTargetServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<GoalTargetListPageAsync> =
         list(GoalTargetListParams.none(), requestOptions)
 
-    /** Delete a goal target by ID. */
+    /** Delete a goal target by `{goalTargetId}` to the recycling bin. */
     fun delete(goalTargetId: String): CompletableFuture<Void?> =
         delete(goalTargetId, GoalTargetDeleteParams.none())
 
@@ -148,9 +151,8 @@ interface GoalTargetServiceAsync {
         delete(goalTargetId, GoalTargetDeleteParams.none(), requestOptions)
 
     /**
-     * Read an Object identified by `{goalTargetId}`. `{goalTargetId}` refers to the internal object
-     * ID by default, or optionally any unique property value as specified by the `idProperty` query
-     * param. Control what is returned via the `properties` query param.
+     * Retrieve a goal target by its ID. You can specify what is returned using the `properties`
+     * query parameter.
      */
     fun get(goalTargetId: String): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(goalTargetId, GoalTargetGetParams.none())

@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Get a specific blog revision. */
 class SettingGetRevisionParams
 private constructor(
     private val blogId: String,

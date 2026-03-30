@@ -10,7 +10,6 @@ import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferen
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceUpdateStatusParams
 import com.hubspot_sdk.api.models.communicationpreferences.LinkGenerationRequest
 import com.hubspot_sdk.api.models.communicationpreferences.PartialPublicStatusRequest
-import com.hubspot_sdk.api.models.communicationpreferences.PublicUpdateSubscriptionStatusRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -39,19 +38,6 @@ internal class CommunicationPreferenceServiceAsyncTest {
 
         val linkGenerationResponse = linkGenerationResponseFuture.get()
         linkGenerationResponse.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun getStatusByEmail() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val communicationPreferenceServiceAsync = client.communicationPreferences()
-
-        val publicSubscriptionStatusesResponseFuture =
-            communicationPreferenceServiceAsync.getStatusByEmail("emailAddress")
-
-        val publicSubscriptionStatusesResponse = publicSubscriptionStatusesResponseFuture.get()
-        publicSubscriptionStatusesResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -93,50 +79,6 @@ internal class CommunicationPreferenceServiceAsyncTest {
         val actionResponseWithResultsPublicWideStatus =
             actionResponseWithResultsPublicWideStatusFuture.get()
         actionResponseWithResultsPublicWideStatus.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun subscribe() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val communicationPreferenceServiceAsync = client.communicationPreferences()
-
-        val publicSubscriptionStatusFuture =
-            communicationPreferenceServiceAsync.subscribe(
-                PublicUpdateSubscriptionStatusRequest.builder()
-                    .emailAddress("emailAddress")
-                    .subscriptionId("subscriptionId")
-                    .legalBasis(
-                        PublicUpdateSubscriptionStatusRequest.LegalBasis.CONSENT_WITH_NOTICE
-                    )
-                    .legalBasisExplanation("legalBasisExplanation")
-                    .build()
-            )
-
-        val publicSubscriptionStatus = publicSubscriptionStatusFuture.get()
-        publicSubscriptionStatus.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun unsubscribe() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val communicationPreferenceServiceAsync = client.communicationPreferences()
-
-        val publicSubscriptionStatusFuture =
-            communicationPreferenceServiceAsync.unsubscribe(
-                PublicUpdateSubscriptionStatusRequest.builder()
-                    .emailAddress("emailAddress")
-                    .subscriptionId("subscriptionId")
-                    .legalBasis(
-                        PublicUpdateSubscriptionStatusRequest.LegalBasis.CONSENT_WITH_NOTICE
-                    )
-                    .legalBasisExplanation("legalBasisExplanation")
-                    .build()
-            )
-
-        val publicSubscriptionStatus = publicSubscriptionStatusFuture.get()
-        publicSubscriptionStatus.validate()
     }
 
     @Disabled("Mock server tests are disabled")

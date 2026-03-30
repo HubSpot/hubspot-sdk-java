@@ -30,8 +30,8 @@ interface LimitService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LimitService
 
     /**
-     * Fetch all limits for CRM associations, which include details about cardinality limits (i.e.,
-     * one-to-many vs one-to-one).
+     * Retrieve all configured association limits between objects, which include details about how
+     * different CRM object types are associated with each other.
      */
     fun list(): CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging =
         list(LimitListParams.none())
@@ -54,7 +54,9 @@ interface LimitService {
     ): CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging =
         list(LimitListParams.none(), requestOptions)
 
-    /** Batch delete limits defined for associations between two specified CRM object types. */
+    /**
+     * Batch delete limits that have been defined for association types between two object types.
+     */
     fun batchDelete(toObjectType: String, params: LimitBatchDeleteParams): BatchResponseVoid =
         batchDelete(toObjectType, params, RequestOptions.none())
 
@@ -76,11 +78,7 @@ interface LimitService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BatchResponseVoid
 
-    /**
-     * Update multiple association configurations between two specified CRM object types in a single
-     * batch operation. This defines details about cardinality limits (i.e., one-to-many vs
-     * one-to-one).
-     */
+    /** Batch update association limits that have been configured between two object types. */
     fun batchUpdate(
         toObjectType: String,
         params: LimitBatchUpdateParams,
@@ -108,8 +106,8 @@ interface LimitService {
     ): BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
 
     /**
-     * Retrieve the cardinality limits for associations between two specified CRM object types
-     * (i.e., one-to-many vs one-to-one).
+     * Retrieve the configuration details for associations between two specified CRM object types.
+     * Use this endpoint to understand limits that have been set for specific association types.
      */
     fun getByObjectTypes(
         toObjectType: String,

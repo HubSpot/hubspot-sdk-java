@@ -49,9 +49,11 @@ interface OccurrenceServiceAsync {
         list(OccurrenceListParams.none(), requestOptions)
 
     /**
-     * Retrieve a list of visible external event type names for the specified event occurrences in
-     * March 2026. This endpoint is useful for identifying the types of events that are available
-     * for analysis or reporting within your HubSpot account.
+     * Retrieve a list of event type names. You may use these event types to query the API for event
+     * occurrences of a desired type.
+     *
+     * Note: the `get_types` method is only supported in the Python SDK version `12.0.0-beta.1` or
+     * later.
      */
     fun listEventTypes(): CompletableFuture<VisibleExternalEventTypeNames> =
         listEventTypes(OccurrenceListEventTypesParams.none())

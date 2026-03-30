@@ -9,6 +9,8 @@ import com.hubspot_sdk.api.services.async.marketing.EmailServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.EmailServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.marketing.EventServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.EventServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.marketing.SingleSendServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.SingleSendServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.marketing.TransactionalServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.TransactionalServiceAsyncImpl
 import java.util.function.Consumer
@@ -26,6 +28,10 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
 
     private val events: EventServiceAsync by lazy { EventServiceAsyncImpl(clientOptions) }
 
+    private val singleSend: SingleSendServiceAsync by lazy {
+        SingleSendServiceAsyncImpl(clientOptions)
+    }
+
     private val transactional: TransactionalServiceAsync by lazy {
         TransactionalServiceAsyncImpl(clientOptions)
     }
@@ -40,6 +46,8 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
     override fun emails(): EmailServiceAsync = emails
 
     override fun events(): EventServiceAsync = events
+
+    override fun singleSend(): SingleSendServiceAsync = singleSend
 
     override fun transactional(): TransactionalServiceAsync = transactional
 
@@ -58,6 +66,10 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
             EventServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val singleSend: SingleSendServiceAsync.WithRawResponse by lazy {
+            SingleSendServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val transactional: TransactionalServiceAsync.WithRawResponse by lazy {
             TransactionalServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -74,6 +86,8 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
         override fun emails(): EmailServiceAsync.WithRawResponse = emails
 
         override fun events(): EventServiceAsync.WithRawResponse = events
+
+        override fun singleSend(): SingleSendServiceAsync.WithRawResponse = singleSend
 
         override fun transactional(): TransactionalServiceAsync.WithRawResponse = transactional
     }

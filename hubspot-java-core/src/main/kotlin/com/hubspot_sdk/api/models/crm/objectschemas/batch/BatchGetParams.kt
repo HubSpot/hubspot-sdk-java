@@ -10,6 +10,11 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaBatchReadRequest
 import java.util.Objects
 
+/**
+ * Retrieve details of multiple custom object schemas by providing a batch request with specified
+ * inputs. This operation allows you to fetch schema information, including properties and
+ * associations, for multiple custom objects in a single API call.
+ */
 class BatchGetParams
 private constructor(
     private val objectSchemaBatchReadRequest: ObjectSchemaBatchReadRequest,

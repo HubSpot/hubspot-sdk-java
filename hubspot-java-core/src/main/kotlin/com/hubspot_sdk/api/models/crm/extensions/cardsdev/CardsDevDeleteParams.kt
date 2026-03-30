@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Permanently deletes a card definition with the given ID. Once deleted, data fetch requests for
+ * this card will no longer be sent to your service. This can't be undone.
+ */
 class CardsDevDeleteParams
 private constructor(
     private val appId: Int,

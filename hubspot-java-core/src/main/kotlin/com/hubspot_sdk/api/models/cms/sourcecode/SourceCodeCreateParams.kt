@@ -24,9 +24,8 @@ import kotlin.io.path.name
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Upload a content file to a specified environment and path in the HubSpot CMS. This endpoint
- * allows you to add new content files to your HubSpot account by specifying the environment and
- * path where the file should be stored. The request must include a file in binary format.
+ * Creates a file at the specified path in the specified environment. Accepts multipart/form-data
+ * content type. Throws an error if a file already exists at the specified path.
  */
 @Deprecated("deprecated")
 class SourceCodeCreateParams

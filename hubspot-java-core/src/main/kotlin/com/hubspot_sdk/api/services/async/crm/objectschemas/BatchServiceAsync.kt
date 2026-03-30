@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.services.async.crm.objectschemas
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.crm.objectschemas.CollectionResponseObjectSchemaNoPaging
 import com.hubspot_sdk.api.models.crm.objectschemas.ObjectSchemaBatchReadRequest
 import com.hubspot_sdk.api.models.crm.objectschemas.batch.BatchGetParams
 import java.util.concurrent.CompletableFuture
@@ -25,6 +25,11 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
+    /**
+     * Retrieve details of multiple custom object schemas by providing a batch request with
+     * specified inputs. This operation allows you to fetch schema information, including properties
+     * and associations, for multiple custom objects in a single API call.
+     */
     fun get(params: BatchGetParams): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         get(params, RequestOptions.none())
 

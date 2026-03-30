@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Retrieve the details for a specific exchange rate specified by its ID. */
 class ExchangeRateGetExchangeRateByIdParams
 private constructor(
     private val exchangeRateId: String?,

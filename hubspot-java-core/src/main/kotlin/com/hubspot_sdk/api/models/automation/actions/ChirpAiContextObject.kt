@@ -74,24 +74,32 @@ private constructor(
     )
 
     /**
+     * The group to which the application belongs.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun applicationGroup(): String = applicationGroup.getRequired("applicationGroup")
 
     /**
+     * The identifier for the application associated with the context.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun applicationId(): String = applicationId.getRequired("applicationId")
 
     /**
+     * Additional metadata related to the context, represented as key-value pairs.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun metadata(): Metadata = metadata.getRequired("metadata")
 
     /**
+     * Holds OpenTelemetry context information as key-value pairs.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -111,18 +119,24 @@ private constructor(
     fun complianceIds(): Optional<ComplianceIds> = complianceIds.getOptional("complianceIds")
 
     /**
+     * The identifier for the feature associated with the context.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun featureId(): Optional<String> = featureId.getOptional("featureId")
 
     /**
+     * The identifier for the inference associated with the context.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun inferenceId(): Optional<String> = inferenceId.getOptional("inferenceId")
 
     /**
+     * The identifier for the trajectory, formatted as a UUID.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -264,6 +278,7 @@ private constructor(
             additionalProperties = chirpAiContextObject.additionalProperties.toMutableMap()
         }
 
+        /** The group to which the application belongs. */
         fun applicationGroup(applicationGroup: String) =
             applicationGroup(JsonField.of(applicationGroup))
 
@@ -278,6 +293,7 @@ private constructor(
             this.applicationGroup = applicationGroup
         }
 
+        /** The identifier for the application associated with the context. */
         fun applicationId(applicationId: String) = applicationId(JsonField.of(applicationId))
 
         /**
@@ -291,6 +307,7 @@ private constructor(
             this.applicationId = applicationId
         }
 
+        /** Additional metadata related to the context, represented as key-value pairs. */
         fun metadata(metadata: Metadata) = metadata(JsonField.of(metadata))
 
         /**
@@ -302,6 +319,7 @@ private constructor(
          */
         fun metadata(metadata: JsonField<Metadata>) = apply { this.metadata = metadata }
 
+        /** Holds OpenTelemetry context information as key-value pairs. */
         fun otelContextHolder(otelContextHolder: OtelContextHolder) =
             otelContextHolder(JsonField.of(otelContextHolder))
 
@@ -355,6 +373,7 @@ private constructor(
             this.complianceIds = complianceIds
         }
 
+        /** The identifier for the feature associated with the context. */
         fun featureId(featureId: String) = featureId(JsonField.of(featureId))
 
         /**
@@ -366,6 +385,7 @@ private constructor(
          */
         fun featureId(featureId: JsonField<String>) = apply { this.featureId = featureId }
 
+        /** The identifier for the inference associated with the context. */
         fun inferenceId(inferenceId: String) = inferenceId(JsonField.of(inferenceId))
 
         /**
@@ -377,6 +397,7 @@ private constructor(
          */
         fun inferenceId(inferenceId: JsonField<String>) = apply { this.inferenceId = inferenceId }
 
+        /** The identifier for the trajectory, formatted as a UUID. */
         fun trajectoryId(trajectoryId: String) = trajectoryId(JsonField.of(trajectoryId))
 
         /**
@@ -484,6 +505,7 @@ private constructor(
             (if (inferenceId.asKnown().isPresent) 1 else 0) +
             (if (trajectoryId.asKnown().isPresent) 1 else 0)
 
+    /** Additional metadata related to the context, represented as key-value pairs. */
     class Metadata
     @JsonCreator
     private constructor(
@@ -583,6 +605,7 @@ private constructor(
         override fun toString() = "Metadata{additionalProperties=$additionalProperties}"
     }
 
+    /** Holds OpenTelemetry context information as key-value pairs. */
     class OtelContextHolder
     @JsonCreator
     private constructor(

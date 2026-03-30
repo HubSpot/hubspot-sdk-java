@@ -37,6 +37,7 @@ interface ExchangeRateServiceAsync {
 
     fun batch(): BatchServiceAsync
 
+    /** Create a new exchange rate with specified conversion rate and currency codes. */
     fun createExchangeRate(
         params: ExchangeRateCreateExchangeRateParams
     ): CompletableFuture<ExchangeRate> = createExchangeRate(params, RequestOptions.none())
@@ -65,6 +66,7 @@ interface ExchangeRateServiceAsync {
     ): CompletableFuture<ExchangeRate> =
         createExchangeRate(exchangeRateCreateRequest, RequestOptions.none())
 
+    /** Retrieve the details for a specific exchange rate specified by its ID. */
     fun getExchangeRateById(exchangeRateId: String): CompletableFuture<ExchangeRate> =
         getExchangeRateById(exchangeRateId, ExchangeRateGetExchangeRateByIdParams.none())
 
@@ -109,6 +111,7 @@ interface ExchangeRateServiceAsync {
             requestOptions,
         )
 
+    /** Retrieve all current exchange rates for all currency pairs. */
     fun listCurrentExchangeRates(): CompletableFuture<CollectionResponseExchangeRateNoPaging> =
         listCurrentExchangeRates(ExchangeRateListCurrentExchangeRatesParams.none())
 
@@ -132,6 +135,7 @@ interface ExchangeRateServiceAsync {
     ): CompletableFuture<CollectionResponseExchangeRateNoPaging> =
         listCurrentExchangeRates(ExchangeRateListCurrentExchangeRatesParams.none(), requestOptions)
 
+    /** Get a list of exchange rates */
     fun listExchangeRates(): CompletableFuture<ExchangeRateListExchangeRatesPageAsync> =
         listExchangeRates(ExchangeRateListExchangeRatesParams.none())
 
@@ -153,6 +157,7 @@ interface ExchangeRateServiceAsync {
     ): CompletableFuture<ExchangeRateListExchangeRatesPageAsync> =
         listExchangeRates(ExchangeRateListExchangeRatesParams.none(), requestOptions)
 
+    /** Update an existing conversion rate, specified by its ID. */
     fun updateExchangeRate(
         exchangeRateId: String,
         params: ExchangeRateUpdateExchangeRateParams,
@@ -181,6 +186,10 @@ interface ExchangeRateServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExchangeRate>
 
+    /**
+     * Change the visibility setting for a currency pair. This will hide or display a currency pair
+     * for users in the HubSpot app.
+     */
     fun updateVisibility(params: ExchangeRateUpdateVisibilityParams): CompletableFuture<Void?> =
         updateVisibility(params, RequestOptions.none())
 

@@ -49,6 +49,8 @@ private constructor(
     )
 
     /**
+     * Indicates whether to include association definitions in the response.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -56,12 +58,16 @@ private constructor(
         includeAssociationDefinitions.getRequired("includeAssociationDefinitions")
 
     /**
+     * Indicates whether to include audit metadata in the response.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun includeAuditMetadata(): Boolean = includeAuditMetadata.getRequired("includeAuditMetadata")
 
     /**
+     * Indicates whether to include property definitions in the response.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -158,6 +164,7 @@ private constructor(
             additionalProperties = objectSchemaBatchReadRequest.additionalProperties.toMutableMap()
         }
 
+        /** Indicates whether to include association definitions in the response. */
         fun includeAssociationDefinitions(includeAssociationDefinitions: Boolean) =
             includeAssociationDefinitions(JsonField.of(includeAssociationDefinitions))
 
@@ -173,6 +180,7 @@ private constructor(
                 this.includeAssociationDefinitions = includeAssociationDefinitions
             }
 
+        /** Indicates whether to include audit metadata in the response. */
         fun includeAuditMetadata(includeAuditMetadata: Boolean) =
             includeAuditMetadata(JsonField.of(includeAuditMetadata))
 
@@ -187,6 +195,7 @@ private constructor(
             this.includeAuditMetadata = includeAuditMetadata
         }
 
+        /** Indicates whether to include property definitions in the response. */
         fun includePropertyDefinitions(includePropertyDefinitions: Boolean) =
             includePropertyDefinitions(JsonField.of(includePropertyDefinitions))
 

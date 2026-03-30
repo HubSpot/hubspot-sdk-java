@@ -12,10 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Create multiple CRM objects in a single request by specifying the object type and providing the
- * necessary properties and associations for each object.
- */
+/** Create a batch of objects */
 class CustomCreateParams
 private constructor(
     private val objectType: String?,

@@ -3,7 +3,7 @@
 package com.hubspot_sdk.api.models.cms.blogs.authors
 
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 

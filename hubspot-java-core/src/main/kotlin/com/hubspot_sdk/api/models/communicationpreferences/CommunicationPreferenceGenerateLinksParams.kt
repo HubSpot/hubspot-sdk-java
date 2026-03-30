@@ -29,10 +29,8 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The communication channel for which the links are generated. Must be 'EMAIL'. */
     fun channel(): Channel = channel
 
-    /** The ID of the business unit associated with the request. Defaults to 0. */
     fun businessUnitId(): Optional<Long> = Optional.ofNullable(businessUnitId)
 
     fun linkGenerationRequest(): LinkGenerationRequest = linkGenerationRequest
@@ -85,10 +83,8 @@ private constructor(
                 communicationPreferenceGenerateLinksParams.additionalQueryParams.toBuilder()
         }
 
-        /** The communication channel for which the links are generated. Must be 'EMAIL'. */
         fun channel(channel: Channel) = apply { this.channel = channel }
 
-        /** The ID of the business unit associated with the request. Defaults to 0. */
         fun businessUnitId(businessUnitId: Long?) = apply { this.businessUnitId = businessUnitId }
 
         /**
@@ -240,7 +236,6 @@ private constructor(
             }
             .build()
 
-    /** The communication channel for which the links are generated. Must be 'EMAIL'. */
     class Channel @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

@@ -13,7 +13,7 @@ internal class BatchCreateParamsTest {
     @Test
     fun create() {
         BatchCreateParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .batchInputPropertyCreate(
                 BatchInputPropertyCreate.builder()
@@ -53,7 +53,7 @@ internal class BatchCreateParamsTest {
     fun pathParams() {
         val params =
             BatchCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchInputPropertyCreate(
                     BatchInputPropertyCreate.builder()
@@ -70,7 +70,7 @@ internal class BatchCreateParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -80,7 +80,7 @@ internal class BatchCreateParamsTest {
     fun body() {
         val params =
             BatchCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchInputPropertyCreate(
                     BatchInputPropertyCreate.builder()
@@ -155,7 +155,7 @@ internal class BatchCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             BatchCreateParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchInputPropertyCreate(
                     BatchInputPropertyCreate.builder()

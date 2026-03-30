@@ -31,11 +31,7 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
-    /**
-     * Retrieve the unsubscribe-all status for a batch of subscribers in a specified channel. This
-     * endpoint is useful for checking the current unsubscribe-all status of multiple subscribers at
-     * once, helping to manage and audit communication preferences efficiently.
-     */
+    /** Checks whether a set of contacts have opted out of all communications. */
     fun getUnsubscribeAllStatuses(
         params: BatchGetUnsubscribeAllStatusesParams
     ): CompletableFuture<BatchResponsePublicWideStatusBulkResponse> =
@@ -47,11 +43,7 @@ interface BatchServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponsePublicWideStatusBulkResponse>
 
-    /**
-     * Retrieve the subscription statuses for multiple subscribers in a batch operation. This
-     * endpoint allows you to check the communication preferences of several subscribers at once,
-     * which is useful for managing large lists of contacts efficiently.
-     */
+    /** Batch retrieve subscription statuses for a set of contacts. */
     fun read(params: BatchReadParams): CompletableFuture<BatchResponsePublicStatusBulkResponse> =
         read(params, RequestOptions.none())
 

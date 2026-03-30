@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Returns the status of the export with taskId, including the URL of the resulting file if the
+ * export status is COMPLETE
+ */
 class ExportGetStatusParams
 private constructor(
     private val taskId: Long?,

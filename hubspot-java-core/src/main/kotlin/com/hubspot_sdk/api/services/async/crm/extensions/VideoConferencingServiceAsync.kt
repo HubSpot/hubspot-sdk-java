@@ -27,6 +27,7 @@ interface VideoConferencingServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): VideoConferencingServiceAsync
 
+    /** Create or update video conference extension settings for your app */
     fun update(
         appId: Int,
         params: VideoConferencingUpdateParams,
@@ -50,6 +51,7 @@ interface VideoConferencingServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ExternalSettings>
 
+    /** Delete video conference extension settings for your app */
     fun delete(appId: Int): CompletableFuture<Void?> =
         delete(appId, VideoConferencingDeleteParams.none())
 
@@ -80,6 +82,7 @@ interface VideoConferencingServiceAsync {
     fun delete(appId: Int, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(appId, VideoConferencingDeleteParams.none(), requestOptions)
 
+    /** Fetch video conference extension settings for your app */
     fun get(appId: Int): CompletableFuture<ExternalSettings> =
         get(appId, VideoConferencingGetParams.none())
 

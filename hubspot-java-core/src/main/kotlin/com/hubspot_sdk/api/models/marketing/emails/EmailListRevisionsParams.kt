@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Get a list of all versions of a marketing email, with each entry including the full state of that
+ * particular version. To view the most recent version, sort by the updatedAt parameter.
+ */
 class EmailListRevisionsParams
 private constructor(
     private val emailId: String?,

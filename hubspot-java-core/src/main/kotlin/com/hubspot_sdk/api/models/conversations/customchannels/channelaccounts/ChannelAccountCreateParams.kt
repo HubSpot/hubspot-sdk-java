@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Create a new account for a channel. Multiple accounts can communicate over a single channel using
+ * different delivery identifiers.
+ */
 class ChannelAccountCreateParams
 private constructor(
     private val channelId: Int?,

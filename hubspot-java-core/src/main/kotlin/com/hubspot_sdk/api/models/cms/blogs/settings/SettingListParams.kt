@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Get the list of blogs. Results can be limited and filtered by creation or updated date. */
 class SettingListParams
 private constructor(
     private val after: String?,

@@ -15,7 +15,7 @@ import kotlin.jvm.optionals.getOrNull
 /** Delete an existing property for an object type. */
 class MediaBridgeDeletePropertyParams
 private constructor(
-    private val appId: String,
+    private val appId: Int,
     private val objectType: String,
     private val propertyName: String?,
     private val additionalHeaders: Headers,
@@ -23,7 +23,7 @@ private constructor(
     private val additionalBodyProperties: Map<String, JsonValue>,
 ) : Params {
 
-    fun appId(): String = appId
+    fun appId(): Int = appId
 
     fun objectType(): String = objectType
 
@@ -58,7 +58,7 @@ private constructor(
     /** A builder for [MediaBridgeDeletePropertyParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var objectType: String? = null
         private var propertyName: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -78,7 +78,7 @@ private constructor(
                     mediaBridgeDeletePropertyParams.additionalBodyProperties.toMutableMap()
             }
 
-        fun appId(appId: String) = apply { this.appId = appId }
+        fun appId(appId: Int) = apply { this.appId = appId }
 
         fun objectType(objectType: String) = apply { this.objectType = objectType }
 
@@ -236,7 +236,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId
+            0 -> appId.toString()
             1 -> objectType
             2 -> propertyName ?: ""
             else -> ""

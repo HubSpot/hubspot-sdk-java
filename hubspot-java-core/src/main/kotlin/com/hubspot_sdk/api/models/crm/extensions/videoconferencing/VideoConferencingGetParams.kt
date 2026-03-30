@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Fetch video conference extension settings for your app */
 class VideoConferencingGetParams
 private constructor(
     private val appId: Int?,

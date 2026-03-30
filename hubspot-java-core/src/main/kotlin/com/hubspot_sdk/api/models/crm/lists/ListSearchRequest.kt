@@ -78,11 +78,8 @@ private constructor(
         additionalProperties.getRequired("additionalProperties")
 
     /**
-     * The `listIds` that will be used to filter results by `listId`. If values are provided, then
-     * the response will only include results that have a `listId` in this array.
-     *
-     * If no value is provided, or if an empty list is provided, then the results will not be
-     * filtered by `listId`.
+     * ILS list ids to be included in search results. If not specified, all lists matching other
+     * criteria will be included
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -99,14 +96,8 @@ private constructor(
     fun offset(): Int = offset.getRequired("offset")
 
     /**
-     * The `processingTypes` that will be used to filter results by `processingType`. If values are
-     * provided, then the response will only include results that have a `processingType` in this
-     * array.
-     *
-     * If no value is provided, or if an empty list is provided, then results will not be filtered
-     * by `processingType`.
-     *
-     * Valid `processingTypes` are: `MANUAL`, `SNAPSHOT`, or `DYNAMIC`.
+     * List processing types to be included in search results. If not specified, all lists with all
+     * processing types will be included.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -298,11 +289,8 @@ private constructor(
         }
 
         /**
-         * The `listIds` that will be used to filter results by `listId`. If values are provided,
-         * then the response will only include results that have a `listId` in this array.
-         *
-         * If no value is provided, or if an empty list is provided, then the results will not be
-         * filtered by `listId`.
+         * ILS list ids to be included in search results. If not specified, all lists matching other
+         * criteria will be included
          */
         fun listIds(listIds: List<String>) = listIds(JsonField.of(listIds))
 
@@ -345,14 +333,8 @@ private constructor(
         fun offset(offset: JsonField<Int>) = apply { this.offset = offset }
 
         /**
-         * The `processingTypes` that will be used to filter results by `processingType`. If values
-         * are provided, then the response will only include results that have a `processingType` in
-         * this array.
-         *
-         * If no value is provided, or if an empty list is provided, then results will not be
-         * filtered by `processingType`.
-         *
-         * Valid `processingTypes` are: `MANUAL`, `SNAPSHOT`, or `DYNAMIC`.
+         * List processing types to be included in search results. If not specified, all lists with
+         * all processing types will be included.
          */
         fun processingTypes(processingTypes: List<String>) =
             processingTypes(JsonField.of(processingTypes))

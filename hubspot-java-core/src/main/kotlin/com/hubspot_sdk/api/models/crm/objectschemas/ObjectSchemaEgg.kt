@@ -81,6 +81,8 @@ private constructor(
     )
 
     /**
+     * Determines if the object type can include properties that are marked as sensitive.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -145,6 +147,8 @@ private constructor(
         secondaryDisplayProperties.getRequired("secondaryDisplayProperties")
 
     /**
+     * A brief explanation of the object type.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -315,6 +319,7 @@ private constructor(
             additionalProperties = objectSchemaEgg.additionalProperties.toMutableMap()
         }
 
+        /** Determines if the object type can include properties that are marked as sensitive. */
         fun allowsSensitiveProperties(allowsSensitiveProperties: Boolean) =
             allowsSensitiveProperties(JsonField.of(allowsSensitiveProperties))
 
@@ -496,6 +501,7 @@ private constructor(
                 }
         }
 
+        /** A brief explanation of the object type. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**

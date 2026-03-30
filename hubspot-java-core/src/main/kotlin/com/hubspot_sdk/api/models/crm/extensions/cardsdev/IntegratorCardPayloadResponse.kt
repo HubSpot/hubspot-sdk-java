@@ -75,7 +75,7 @@ private constructor(
     fun sections(): List<IntegratorObjectResult> = sections.getRequired("sections")
 
     /**
-     * The total number of cards that are sent in this response.
+     * The total number of card properties that will be sent in this response.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -83,8 +83,9 @@ private constructor(
     fun totalCount(): Int = totalCount.getRequired("totalCount")
 
     /**
-     * URL to a page the integrator has built that displays all details for the object cards. This
-     * URL will be displayed to users on the title of the card.
+     * URL to a page the integrator has built that displays all details for this card. This URL will
+     * be displayed to users under a `See more [x]` link if there are more than five items in your
+     * response, where `[x]` is the value of `itemLabel`.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -92,8 +93,8 @@ private constructor(
     fun allItemsLinkUrl(): Optional<String> = allItemsLinkUrl.getOptional("allItemsLinkUrl")
 
     /**
-     * The label to be used for the `allItemsLinkUrl` link (e.g. 'See more tickets') and the title
-     * of the card.
+     * The label to be used for the `allItemsLinkUrl` link (e.g. 'See more tickets'). If not
+     * provided, this falls back to the card's title.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -248,7 +249,7 @@ private constructor(
                 }
         }
 
-        /** The total number of cards that are sent in this response. */
+        /** The total number of card properties that will be sent in this response. */
         fun totalCount(totalCount: Int) = totalCount(JsonField.of(totalCount))
 
         /**
@@ -260,8 +261,9 @@ private constructor(
         fun totalCount(totalCount: JsonField<Int>) = apply { this.totalCount = totalCount }
 
         /**
-         * URL to a page the integrator has built that displays all details for the object cards.
-         * This URL will be displayed to users on the title of the card.
+         * URL to a page the integrator has built that displays all details for this card. This URL
+         * will be displayed to users under a `See more [x]` link if there are more than five items
+         * in your response, where `[x]` is the value of `itemLabel`.
          */
         fun allItemsLinkUrl(allItemsLinkUrl: String) =
             allItemsLinkUrl(JsonField.of(allItemsLinkUrl))
@@ -278,8 +280,8 @@ private constructor(
         }
 
         /**
-         * The label to be used for the `allItemsLinkUrl` link (e.g. 'See more tickets') and the
-         * title of the card.
+         * The label to be used for the `allItemsLinkUrl` link (e.g. 'See more tickets'). If not
+         * provided, this falls back to the card's title.
          */
         fun cardLabel(cardLabel: String) = cardLabel(JsonField.of(cardLabel))
 

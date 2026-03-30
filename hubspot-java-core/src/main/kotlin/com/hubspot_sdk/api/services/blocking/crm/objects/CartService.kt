@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.carts.CartCreateParams
@@ -39,11 +39,8 @@ interface CartService {
     fun batch(): BatchService
 
     /**
-     * Create a single cart. Include a `properties` object to define
-     * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the
-     * {objectName}, along with an `associations` array to define
-     * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
-     * with other records.
+     * Create a cart with the given properties and return a copy of the object, including the ID.
+     * Documentation and examples for creating standard carts is provided.
      */
     fun create(params: CartCreateParams): SimplePublicObject = create(params, RequestOptions.none())
 
@@ -71,7 +68,8 @@ interface CartService {
     ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update a cart by ID (`objectId`) or unique property value (`idProperty`). Provided property
+     * Perform a partial update of a cart, specified by its ID. Alternatively, you can specify a
+     * cart by a unique property value using the `idProperty` query parameter. Provided property
      * values will be overwritten. Read-only and non-existent properties will result in an error.
      * Properties values can be cleared by passing an empty string.
      */
@@ -94,7 +92,9 @@ interface CartService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /** Retrieve all carts. Control what is returned via the `properties` query param. */
+    /**
+     * Retrieve all carts. You can control what is returned via the `properties` query parameter.
+     */
     fun list(): CartListPage = list(CartListParams.none())
 
     /** @see list */
@@ -111,10 +111,7 @@ interface CartService {
     fun list(requestOptions: RequestOptions): CartListPage =
         list(CartListParams.none(), requestOptions)
 
-    /**
-     * Archive a cart by ID. Deleted carts can be restored within 90 days of deletion. Learn more
-     * about [restoring records](https://knowledge.hubspot.com/records/restore-deleted-records).
-     */
+    /** Delete a cart by its ID, moving it to the recycling bin. */
     fun delete(cartId: String) = delete(cartId, CartDeleteParams.none())
 
     /** @see delete */
@@ -139,8 +136,8 @@ interface CartService {
         delete(cartId, CartDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve a cart by its ID (`objectId`) or by a unique property (`idProperty`). Includes
-     * options for specifying what gets returned, such as the `properties` query parameter.
+     * Retrieve a cart by its ID. You can control what is returned via the `properties` query
+     * parameter.
      */
     fun get(cartId: String): SimplePublicObjectWithAssociations = get(cartId, CartGetParams.none())
 

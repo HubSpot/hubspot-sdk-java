@@ -12,10 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Archive a batch of objects by their unique IDs. This operation moves the specified objects to the
- * recycling bin, effectively marking them as archived.
- */
+/** Archive a batch of objects by ID */
 class CustomDeleteParams
 private constructor(
     private val objectType: String?,

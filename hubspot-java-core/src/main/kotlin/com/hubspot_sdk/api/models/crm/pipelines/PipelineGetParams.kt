@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Return a pipeline stage by ID */
 class PipelineGetParams
 private constructor(
     private val objectType: String,

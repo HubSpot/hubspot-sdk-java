@@ -14,13 +14,13 @@ import kotlin.jvm.optionals.getOrNull
 /** Update the name that your app will display when a user is selecting media bridge items. */
 class MediaBridgeUpdateSettingsParams
 private constructor(
-    private val appId: String?,
+    private val appId: Int?,
     private val mediaBridgeProviderPartial: MediaBridgeProviderPartial,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun appId(): Optional<String> = Optional.ofNullable(appId)
+    fun appId(): Optional<Int> = Optional.ofNullable(appId)
 
     fun mediaBridgeProviderPartial(): MediaBridgeProviderPartial = mediaBridgeProviderPartial
 
@@ -52,7 +52,7 @@ private constructor(
     /** A builder for [MediaBridgeUpdateSettingsParams]. */
     class Builder internal constructor() {
 
-        private var appId: String? = null
+        private var appId: Int? = null
         private var mediaBridgeProviderPartial: MediaBridgeProviderPartial? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
@@ -68,10 +68,17 @@ private constructor(
                     mediaBridgeUpdateSettingsParams.additionalQueryParams.toBuilder()
             }
 
-        fun appId(appId: String?) = apply { this.appId = appId }
+        fun appId(appId: Int?) = apply { this.appId = appId }
+
+        /**
+         * Alias for [Builder.appId].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun appId(appId: Int) = appId(appId as Int?)
 
         /** Alias for calling [Builder.appId] with `appId.orElse(null)`. */
-        fun appId(appId: Optional<String>) = appId(appId.getOrNull())
+        fun appId(appId: Optional<Int>) = appId(appId.getOrNull())
 
         fun mediaBridgeProviderPartial(mediaBridgeProviderPartial: MediaBridgeProviderPartial) =
             apply {
@@ -201,7 +208,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> appId ?: ""
+            0 -> appId?.toString() ?: ""
             else -> ""
         }
 

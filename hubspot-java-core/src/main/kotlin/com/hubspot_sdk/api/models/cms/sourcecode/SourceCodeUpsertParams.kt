@@ -24,9 +24,8 @@ import kotlin.io.path.name
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Update the content file in the specified environment and path within the HubSpot CMS. This
- * operation allows you to upload a new file to replace the existing content at the given path. It
- * is useful for managing and updating your website's source code files directly through the API.
+ * Upserts a file at the specified path in the specified environment. Accepts multipart/form-data
+ * content type.
  */
 class SourceCodeUpsertParams
 private constructor(

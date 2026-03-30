@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Mark a marketing event as completed */
 class EventCompleteByExternalEventIdParams
 private constructor(
     private val externalEventId: String?,

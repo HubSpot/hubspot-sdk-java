@@ -43,6 +43,8 @@ private constructor(
     ) : this(callerIdType, objectCoordinates, email, firstName, lastName, mutableMapOf())
 
     /**
+     * Specifies the type of caller ID, with the default value being CONTACT.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -55,18 +57,24 @@ private constructor(
     fun objectCoordinates(): ObjectCoordinates = objectCoordinates.getRequired("objectCoordinates")
 
     /**
+     * The email address of the contact.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun email(): Optional<String> = email.getOptional("email")
 
     /**
+     * The first name of the contact.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun firstName(): Optional<String> = firstName.getOptional("firstName")
 
     /**
+     * The last name of the contact.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -158,6 +166,7 @@ private constructor(
             additionalProperties = contactCallerId.additionalProperties.toMutableMap()
         }
 
+        /** Specifies the type of caller ID, with the default value being CONTACT. */
         fun callerIdType(callerIdType: CallerIdType) = callerIdType(JsonField.of(callerIdType))
 
         /**
@@ -185,6 +194,7 @@ private constructor(
             this.objectCoordinates = objectCoordinates
         }
 
+        /** The email address of the contact. */
         fun email(email: String) = email(JsonField.of(email))
 
         /**
@@ -195,6 +205,7 @@ private constructor(
          */
         fun email(email: JsonField<String>) = apply { this.email = email }
 
+        /** The first name of the contact. */
         fun firstName(firstName: String) = firstName(JsonField.of(firstName))
 
         /**
@@ -206,6 +217,7 @@ private constructor(
          */
         fun firstName(firstName: JsonField<String>) = apply { this.firstName = firstName }
 
+        /** The last name of the contact. */
         fun lastName(lastName: String) = lastName(JsonField.of(lastName))
 
         /**
@@ -295,6 +307,7 @@ private constructor(
             (if (firstName.asKnown().isPresent) 1 else 0) +
             (if (lastName.asKnown().isPresent) 1 else 0)
 
+    /** Specifies the type of caller ID, with the default value being CONTACT. */
     class CallerIdType @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 

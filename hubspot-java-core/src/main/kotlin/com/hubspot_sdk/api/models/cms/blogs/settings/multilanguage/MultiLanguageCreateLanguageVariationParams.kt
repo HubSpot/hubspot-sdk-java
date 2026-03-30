@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.cms.blogs.settings.BlogLanguageCloneRequestVNext
 import java.util.Objects
 
+/** Create a new language variation from an existing blog. */
 class MultiLanguageCreateLanguageVariationParams
 private constructor(
     private val blogLanguageCloneRequestVNext: BlogLanguageCloneRequestVNext,

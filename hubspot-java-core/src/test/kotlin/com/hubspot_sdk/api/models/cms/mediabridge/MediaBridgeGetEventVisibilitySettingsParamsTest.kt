@@ -9,14 +9,14 @@ internal class MediaBridgeGetEventVisibilitySettingsParamsTest {
 
     @Test
     fun create() {
-        MediaBridgeGetEventVisibilitySettingsParams.builder().appId("appId").build()
+        MediaBridgeGetEventVisibilitySettingsParams.builder().appId(0).build()
     }
 
     @Test
     fun pathParams() {
-        val params = MediaBridgeGetEventVisibilitySettingsParams.builder().appId("appId").build()
+        val params = MediaBridgeGetEventVisibilitySettingsParams.builder().appId(0).build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

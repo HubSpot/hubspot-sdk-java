@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Update the capabilities for an existing. You can also use it to update the channel's webhookUri
+ * and its channelAccountConnectionRedirectUrl.
+ */
 class CustomChannelUpdateParams
 private constructor(
     private val channelId: Int?,

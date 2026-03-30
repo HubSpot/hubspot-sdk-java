@@ -13,6 +13,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Get a list of exchange rates */
 class ExchangeRateListExchangeRatesParams
 private constructor(
     private val after: String?,

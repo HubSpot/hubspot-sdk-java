@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Get the draft version of an email (if it exists). If no draft version exists, the published email
+ * is returned.
+ */
 class EmailGetDraftParams
 private constructor(
     private val emailId: String?,

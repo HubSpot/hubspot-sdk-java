@@ -10,7 +10,6 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import java.util.Objects
 
-/** Batch delete discounts */
 class BatchDeleteParams
 private constructor(
     private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,

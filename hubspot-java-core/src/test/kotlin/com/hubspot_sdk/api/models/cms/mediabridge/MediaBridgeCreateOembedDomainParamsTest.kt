@@ -10,7 +10,7 @@ internal class MediaBridgeCreateOembedDomainParamsTest {
     @Test
     fun create() {
         MediaBridgeCreateOembedDomainParams.builder()
-            .appId("appId")
+            .appId(0)
             .integratorOEmbedDomainRequest(
                 IntegratorOEmbedDomainRequest.builder()
                     .endpoints(
@@ -26,7 +26,7 @@ internal class MediaBridgeCreateOembedDomainParamsTest {
     fun pathParams() {
         val params =
             MediaBridgeCreateOembedDomainParams.builder()
-                .appId("appId")
+                .appId(0)
                 .integratorOEmbedDomainRequest(
                     IntegratorOEmbedDomainRequest.builder()
                         .endpoints(
@@ -40,7 +40,7 @@ internal class MediaBridgeCreateOembedDomainParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -49,7 +49,7 @@ internal class MediaBridgeCreateOembedDomainParamsTest {
     fun body() {
         val params =
             MediaBridgeCreateOembedDomainParams.builder()
-                .appId("appId")
+                .appId(0)
                 .integratorOEmbedDomainRequest(
                     IntegratorOEmbedDomainRequest.builder()
                         .endpoints(
@@ -81,7 +81,7 @@ internal class MediaBridgeCreateOembedDomainParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             MediaBridgeCreateOembedDomainParams.builder()
-                .appId("appId")
+                .appId(0)
                 .integratorOEmbedDomainRequest(
                     IntegratorOEmbedDomainRequest.builder()
                         .endpoints(

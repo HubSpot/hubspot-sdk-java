@@ -41,7 +41,8 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * A collection of link names mapped to their corresponding URIs.
+     * A map of link names to associated URIs containing documentation about the error or
+     * recommended remediation steps
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -112,7 +113,10 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** A collection of link names mapped to their corresponding URIs. */
+        /**
+         * A map of link names to associated URIs containing documentation about the error or
+         * recommended remediation steps
+         */
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -187,7 +191,10 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) + (links.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** A collection of link names mapped to their corresponding URIs. */
+    /**
+     * A map of link names to associated URIs containing documentation about the error or
+     * recommended remediation steps
+     */
     class Links
     @JsonCreator
     private constructor(

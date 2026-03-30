@@ -37,7 +37,8 @@ private constructor(
     ) : this(results, paging, mutableMapOf())
 
     /**
-     * An array of ExternalUnifiedEvent objects, each representing an individual event occurrence.
+     * An array of ExternalUnifiedEvent objects, each representing an individual event with its
+     * associated details.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -110,8 +111,8 @@ private constructor(
         }
 
         /**
-         * An array of ExternalUnifiedEvent objects, each representing an individual event
-         * occurrence.
+         * An array of ExternalUnifiedEvent objects, each representing an individual event with its
+         * associated details.
          */
         fun results(results: List<ExternalUnifiedEvent>) = results(JsonField.of(results))
 

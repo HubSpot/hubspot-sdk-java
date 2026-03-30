@@ -12,6 +12,20 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Records the participation of multiple HubSpot contacts in a Marketing Event using their email
+ * addresses.
+ *
+ * If a contact does not exist, it will be automatically created. The contactProperties field is
+ * used exclusively for creating new contacts and will not update properties of existing contacts.
+ *
+ * Additional Functionality:
+ * - Adds a timeline event to the contacts.
+ *
+ * Allowed Properties: For the state "attend":
+ * - joinedAt
+ * - leftAt
+ */
 class AttendanceCreateByEventIdAndEmailParams
 private constructor(
     private val objectId: String,

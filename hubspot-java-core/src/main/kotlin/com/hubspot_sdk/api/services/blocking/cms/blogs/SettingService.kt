@@ -33,6 +33,7 @@ interface SettingService {
 
     fun multiLanguage(): MultiLanguageService
 
+    /** Get the list of blogs. Results can be limited and filtered by creation or updated date. */
     fun list(): SettingListPage = list(SettingListParams.none())
 
     /** @see list */
@@ -49,6 +50,7 @@ interface SettingService {
     fun list(requestOptions: RequestOptions): SettingListPage =
         list(SettingListParams.none(), requestOptions)
 
+    /** Retrieve a specific blog by its ID. */
     fun get(blogId: String): Blog = get(blogId, SettingGetParams.none())
 
     /** @see get */
@@ -72,6 +74,7 @@ interface SettingService {
     fun get(blogId: String, requestOptions: RequestOptions): Blog =
         get(blogId, SettingGetParams.none(), requestOptions)
 
+    /** Get a specific blog revision. */
     fun getRevision(revisionId: String, params: SettingGetRevisionParams): BlogVersion =
         getRevision(revisionId, params, RequestOptions.none())
 
@@ -92,6 +95,10 @@ interface SettingService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BlogVersion
 
+    /**
+     * Get the list of blog revisions. Results can be limited and filtered by creation or updated
+     * date.
+     */
     fun listRevisions(blogId: String): SettingListRevisionsPage =
         listRevisions(blogId, SettingListRevisionsParams.none())
 

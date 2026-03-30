@@ -34,6 +34,10 @@ interface CurrencyService {
 
     fun exchangeRates(): ExchangeRateService
 
+    /**
+     * Get the details for the company currency. The company currency is used in deal totals,
+     * reports, and the default currency for new deals.
+     */
     fun getCompanyCurrency(): CompanyCurrency =
         getCompanyCurrency(CurrencyGetCompanyCurrencyParams.none())
 
@@ -52,6 +56,7 @@ interface CurrencyService {
     fun getCompanyCurrency(requestOptions: RequestOptions): CompanyCurrency =
         getCompanyCurrency(CurrencyGetCompanyCurrencyParams.none(), requestOptions)
 
+    /** Retrieve a list of all available currency codes and their names. */
     fun listCodes(): CollectionResponseCurrencyCodeInfoNoPaging =
         listCodes(CurrencyListCodesParams.none())
 
@@ -70,6 +75,7 @@ interface CurrencyService {
     fun listCodes(requestOptions: RequestOptions): CollectionResponseCurrencyCodeInfoNoPaging =
         listCodes(CurrencyListCodesParams.none(), requestOptions)
 
+    /** Set or update the primary company currency. */
     fun updateCompanyCurrency(params: CurrencyUpdateCompanyCurrencyParams): CompanyCurrency =
         updateCompanyCurrency(params, RequestOptions.none())
 

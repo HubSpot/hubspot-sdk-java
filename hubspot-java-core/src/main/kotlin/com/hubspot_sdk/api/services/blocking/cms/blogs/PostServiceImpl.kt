@@ -15,28 +15,28 @@ import com.hubspot_sdk.api.core.http.HttpResponse.Handler
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostCloneParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateLangVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostDeleteParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetDraftByIdParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostGetPreviousVersionsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListAuthorsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostListParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostPushLiveParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryAuthorsParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.posts.PostQueryTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostResetDraftParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostRestorePreviousVersionToDraftParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostScheduleParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostSetLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateDraftParams
-import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateLangsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.PostUpdateParams
 import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.BatchService
 import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.BatchServiceImpl
+import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.MultiLanguageService
+import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.MultiLanguageServiceImpl
+import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.RevisionService
+import com.hubspot_sdk.api.services.blocking.cms.blogs.posts.RevisionServiceImpl
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -48,12 +48,22 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
 
     private val batch: BatchService by lazy { BatchServiceImpl(clientOptions) }
 
+    private val multiLanguage: MultiLanguageService by lazy {
+        MultiLanguageServiceImpl(clientOptions)
+    }
+
+    private val revisions: RevisionService by lazy { RevisionServiceImpl(clientOptions) }
+
     override fun withRawResponse(): PostService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PostService =
         PostServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun batch(): BatchService = batch
+
+    override fun multiLanguage(): MultiLanguageService = multiLanguage
+
+    override fun revisions(): RevisionService = revisions
 
     override fun create(params: PostCreateParams, requestOptions: RequestOptions): HttpResponse =
         // post /cms/blogs/2026-03/posts
@@ -64,7 +74,7 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
         withRawResponse().update(params, requestOptions)
 
     override fun list(params: PostListParams, requestOptions: RequestOptions): HttpResponse =
-        // get /cms/blogs/2026-03/posts
+        // get /cms/blogs/2026-03/posts/cursor
         withRawResponse().list(params, requestOptions)
 
     override fun delete(params: PostDeleteParams, requestOptions: RequestOptions) {
@@ -72,30 +82,9 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun attachToLangGroup(
-        params: PostAttachToLangGroupParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // post /cms/blogs/2026-03/posts/multi-language/attach-to-lang-group
-        withRawResponse().attachToLangGroup(params, requestOptions)
-
     override fun clone(params: PostCloneParams, requestOptions: RequestOptions): HttpResponse =
         // post /cms/blogs/2026-03/posts/clone
         withRawResponse().clone(params, requestOptions)
-
-    override fun createLangVariation(
-        params: PostCreateLangVariationParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // post /cms/blogs/2026-03/posts/multi-language/create-language-variation
-        withRawResponse().createLangVariation(params, requestOptions)
-
-    override fun detachFromLangGroup(
-        params: PostDetachFromLangGroupParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // post /cms/blogs/2026-03/posts/multi-language/detach-from-lang-group
-        withRawResponse().detachFromLangGroup(params, requestOptions)
 
     override fun get(params: PostGetParams, requestOptions: RequestOptions): HttpResponse =
         // get /cms/blogs/2026-03/posts/{objectId}
@@ -108,52 +97,51 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
         // get /cms/blogs/2026-03/posts/{objectId}/draft
         withRawResponse().getDraftById(params, requestOptions)
 
-    override fun getPreviousVersion(
-        params: PostGetPreviousVersionParams,
+    override fun listAuthors(
+        params: PostListAuthorsParams,
         requestOptions: RequestOptions,
     ): HttpResponse =
-        // get /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}
-        withRawResponse().getPreviousVersion(params, requestOptions)
+        // get /cms/blogs/2026-03/authors/cursor
+        withRawResponse().listAuthors(params, requestOptions)
 
-    override fun getPreviousVersions(
-        params: PostGetPreviousVersionsParams,
+    override fun listTags(
+        params: PostListTagsParams,
         requestOptions: RequestOptions,
     ): HttpResponse =
-        // get /cms/blogs/2026-03/posts/{objectId}/revisions
-        withRawResponse().getPreviousVersions(params, requestOptions)
+        // get /cms/blogs/2026-03/tags/cursor
+        withRawResponse().listTags(params, requestOptions)
 
     override fun pushLive(params: PostPushLiveParams, requestOptions: RequestOptions) {
         // post /cms/blogs/2026-03/posts/{objectId}/draft/push-live
         withRawResponse().pushLive(params, requestOptions)
     }
 
+    override fun query(params: PostQueryParams, requestOptions: RequestOptions): HttpResponse =
+        // get /cms/blogs/2026-03/posts/cursor/query
+        withRawResponse().query(params, requestOptions)
+
+    override fun queryAuthors(
+        params: PostQueryAuthorsParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/blogs/2026-03/authors/cursor/query
+        withRawResponse().queryAuthors(params, requestOptions)
+
+    override fun queryTags(
+        params: PostQueryTagsParams,
+        requestOptions: RequestOptions,
+    ): HttpResponse =
+        // get /cms/blogs/2026-03/tags/cursor/query
+        withRawResponse().queryTags(params, requestOptions)
+
     override fun resetDraft(params: PostResetDraftParams, requestOptions: RequestOptions) {
         // post /cms/blogs/2026-03/posts/{objectId}/draft/reset
         withRawResponse().resetDraft(params, requestOptions)
     }
 
-    override fun restorePreviousVersion(
-        params: PostRestorePreviousVersionParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // post /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}/restore
-        withRawResponse().restorePreviousVersion(params, requestOptions)
-
-    override fun restorePreviousVersionToDraft(
-        params: PostRestorePreviousVersionToDraftParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // post /cms/blogs/2026-03/posts/{objectId}/revisions/{revisionId}/restore-to-draft
-        withRawResponse().restorePreviousVersionToDraft(params, requestOptions)
-
     override fun schedule(params: PostScheduleParams, requestOptions: RequestOptions) {
         // post /cms/blogs/2026-03/posts/schedule
         withRawResponse().schedule(params, requestOptions)
-    }
-
-    override fun setLangPrimary(params: PostSetLangPrimaryParams, requestOptions: RequestOptions) {
-        // put /cms/blogs/2026-03/posts/multi-language/set-new-lang-primary
-        withRawResponse().setLangPrimary(params, requestOptions)
     }
 
     override fun updateDraft(
@@ -162,13 +150,6 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
     ): HttpResponse =
         // patch /cms/blogs/2026-03/posts/{objectId}/draft
         withRawResponse().updateDraft(params, requestOptions)
-
-    override fun updateLangs(
-        params: PostUpdateLangsParams,
-        requestOptions: RequestOptions,
-    ): HttpResponse =
-        // post /cms/blogs/2026-03/posts/multi-language/update-languages
-        withRawResponse().updateLangs(params, requestOptions)
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PostService.WithRawResponse {
@@ -180,6 +161,14 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             BatchServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val multiLanguage: MultiLanguageService.WithRawResponse by lazy {
+            MultiLanguageServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val revisions: RevisionService.WithRawResponse by lazy {
+            RevisionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): PostService.WithRawResponse =
@@ -188,6 +177,10 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             )
 
         override fun batch(): BatchService.WithRawResponse = batch
+
+        override fun multiLanguage(): MultiLanguageService.WithRawResponse = multiLanguage
+
+        override fun revisions(): RevisionService.WithRawResponse = revisions
 
         override fun create(
             params: PostCreateParams,
@@ -233,7 +226,7 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "blogs", "2026-03", "posts")
+                    .addPathSegments("cms", "blogs", "2026-03", "posts", "cursor")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepare(clientOptions, params)
@@ -266,87 +259,12 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        override fun attachToLangGroup(
-            params: PostAttachToLangGroupParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        "multi-language",
-                        "attach-to-lang-group",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
-        }
-
         override fun clone(params: PostCloneParams, requestOptions: RequestOptions): HttpResponse {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("cms", "blogs", "2026-03", "posts", "clone")
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
-        }
-
-        override fun createLangVariation(
-            params: PostCreateLangVariationParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        "multi-language",
-                        "create-language-variation",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
-        }
-
-        override fun detachFromLangGroup(
-            params: PostDetachFromLangGroupParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        "multi-language",
-                        "detach-from-lang-group",
-                    )
                     .putHeader("Accept", "*/*")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -400,26 +318,15 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             return errorHandler.handle(response)
         }
 
-        override fun getPreviousVersion(
-            params: PostGetPreviousVersionParams,
+        override fun listAuthors(
+            params: PostListAuthorsParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("revisionId", params.revisionId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        params._pathParam(0),
-                        "revisions",
-                        params._pathParam(1),
-                    )
+                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepare(clientOptions, params)
@@ -428,25 +335,15 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             return errorHandler.handle(response)
         }
 
-        override fun getPreviousVersions(
-            params: PostGetPreviousVersionsParams,
+        override fun listTags(
+            params: PostListTagsParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        params._pathParam(0),
-                        "revisions",
-                    )
+                    .addPathSegments("cms", "blogs", "2026-03", "tags", "cursor")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepare(clientOptions, params)
@@ -487,6 +384,54 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
+        override fun query(params: PostQueryParams, requestOptions: RequestOptions): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "posts", "cursor", "query")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun queryAuthors(
+            params: PostQueryAuthorsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor", "query")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
+        override fun queryTags(
+            params: PostQueryTagsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "tags", "cursor", "query")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response)
+        }
+
         private val resetDraftHandler: Handler<Void?> = emptyHandler()
 
         override fun resetDraft(
@@ -519,66 +464,6 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        override fun restorePreviousVersion(
-            params: PostRestorePreviousVersionParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("revisionId", params.revisionId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        params._pathParam(0),
-                        "revisions",
-                        params._pathParam(1),
-                        "restore",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
-        }
-
-        override fun restorePreviousVersionToDraft(
-            params: PostRestorePreviousVersionToDraftParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("revisionId", params.revisionId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        params._pathParam(0),
-                        "revisions",
-                        params._pathParam(1),
-                        "restore-to-draft",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
-        }
-
         private val scheduleHandler: Handler<Void?> = emptyHandler()
 
         override fun schedule(
@@ -600,34 +485,6 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val setLangPrimaryHandler: Handler<Void?> = emptyHandler()
-
-        override fun setLangPrimary(
-            params: PostSetLangPrimaryParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PUT)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        "multi-language",
-                        "set-new-lang-primary",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { setLangPrimaryHandler.handle(it) }
-            }
-        }
-
         override fun updateDraft(
             params: PostUpdateDraftParams,
             requestOptions: RequestOptions,
@@ -646,31 +503,6 @@ class PostServiceImpl internal constructor(private val clientOptions: ClientOpti
                         "posts",
                         params._pathParam(0),
                         "draft",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response)
-        }
-
-        override fun updateLangs(
-            params: PostUpdateLangsParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "blogs",
-                        "2026-03",
-                        "posts",
-                        "multi-language",
-                        "update-languages",
                     )
                     .putHeader("Accept", "*/*")
                     .body(json(clientOptions.jsonMapper, params._body()))

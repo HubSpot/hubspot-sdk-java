@@ -7,6 +7,8 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
@@ -14,8 +16,6 @@ import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceCreateParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.services.ServiceGetParams

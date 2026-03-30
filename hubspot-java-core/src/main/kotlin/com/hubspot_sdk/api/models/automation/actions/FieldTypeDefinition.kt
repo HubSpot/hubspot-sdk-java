@@ -26,7 +26,7 @@ import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.Option
+import com.hubspot_sdk.api.models.AutomationActionsOption
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -37,7 +37,7 @@ class FieldTypeDefinition
 private constructor(
     private val externalOptions: JsonField<Boolean>,
     private val name: JsonField<String>,
-    private val options: JsonField<List<Option>>,
+    private val options: JsonField<List<AutomationActionsOption>>,
     private val schema: JsonField<Schema>,
     private val type: JsonField<Type>,
     private val useChirp: JsonField<Boolean>,
@@ -59,7 +59,7 @@ private constructor(
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("options")
         @ExcludeMissing
-        options: JsonField<List<Option>> = JsonMissing.of(),
+        options: JsonField<List<AutomationActionsOption>> = JsonMissing.of(),
         @JsonProperty("schema") @ExcludeMissing schema: JsonField<Schema> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("useChirp") @ExcludeMissing useChirp: JsonField<Boolean> = JsonMissing.of(),
@@ -98,12 +98,16 @@ private constructor(
     )
 
     /**
+     * Indicates whether the field's options are sourced externally.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun externalOptions(): Boolean = externalOptions.getRequired("externalOptions")
 
     /**
+     * The unique identifier for the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -113,33 +117,44 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun options(): List<Option> = options.getRequired("options")
+    fun options(): List<AutomationActionsOption> = options.getRequired("options")
 
     /**
+     * Defines the structure and constraints of the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun schema(): Schema = schema.getRequired("schema")
 
     /**
+     * Specifies the data type of the field, with accepted values like bool, date, datetime,
+     * enumeration, json, number, object_coordinates, phone_number, string.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
+     * Specifies whether the field uses the Chirp feature.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun useChirp(): Boolean = useChirp.getRequired("useChirp")
 
     /**
+     * A detailed explanation of the field's purpose and usage.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun description(): Optional<String> = description.getOptional("description")
 
     /**
+     * Specifies the type of external reference for options.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -147,30 +162,42 @@ private constructor(
         externalOptionsReferenceType.getOptional("externalOptionsReferenceType")
 
     /**
+     * Describes the field's type in the UI, with accepted values like booleancheckbox,
+     * calculation_equation, checkbox, date, file, html, number, phonenumber, radio, select, text,
+     * textarea, unknown.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fieldType(): Optional<FieldType> = fieldType.getOptional("fieldType")
 
     /**
+     * Additional information or guidance about the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun helpText(): Optional<String> = helpText.getOptional("helpText")
 
     /**
+     * The user-friendly label for the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun label(): Optional<String> = label.getOptional("label")
 
     /**
+     * A URL that provides options for the field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun optionsUrl(): Optional<String> = optionsUrl.getOptional("optionsUrl")
 
     /**
+     * Indicates the type of object that the field references, with accepted values like OWNER.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -198,7 +225,9 @@ private constructor(
      *
      * Unlike [options], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("options") @ExcludeMissing fun _options(): JsonField<List<Option>> = options
+    @JsonProperty("options")
+    @ExcludeMissing
+    fun _options(): JsonField<List<AutomationActionsOption>> = options
 
     /**
      * Returns the raw JSON value of [schema].
@@ -311,7 +340,7 @@ private constructor(
 
         private var externalOptions: JsonField<Boolean>? = null
         private var name: JsonField<String>? = null
-        private var options: JsonField<MutableList<Option>>? = null
+        private var options: JsonField<MutableList<AutomationActionsOption>>? = null
         private var schema: JsonField<Schema>? = null
         private var type: JsonField<Type>? = null
         private var useChirp: JsonField<Boolean>? = null
@@ -342,6 +371,7 @@ private constructor(
             additionalProperties = fieldTypeDefinition.additionalProperties.toMutableMap()
         }
 
+        /** Indicates whether the field's options are sourced externally. */
         fun externalOptions(externalOptions: Boolean) =
             externalOptions(JsonField.of(externalOptions))
 
@@ -356,6 +386,7 @@ private constructor(
             this.externalOptions = externalOptions
         }
 
+        /** The unique identifier for the field. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -366,31 +397,32 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { this.name = name }
 
-        fun options(options: List<Option>) = options(JsonField.of(options))
+        fun options(options: List<AutomationActionsOption>) = options(JsonField.of(options))
 
         /**
          * Sets [Builder.options] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.options] with a well-typed `List<Option>` value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.options] with a well-typed
+         * `List<AutomationActionsOption>` value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
          */
-        fun options(options: JsonField<List<Option>>) = apply {
+        fun options(options: JsonField<List<AutomationActionsOption>>) = apply {
             this.options = options.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Option] to [options].
+         * Adds a single [AutomationActionsOption] to [options].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addOption(option: Option) = apply {
+        fun addOption(option: AutomationActionsOption) = apply {
             options =
                 (options ?: JsonField.of(mutableListOf())).also {
                     checkKnown("options", it).add(option)
                 }
         }
 
+        /** Defines the structure and constraints of the field. */
         fun schema(schema: Schema) = schema(JsonField.of(schema))
 
         /**
@@ -422,6 +454,10 @@ private constructor(
         /** Alias for calling [schema] with `Schema.ofObjectField(objectField)`. */
         fun schema(objectField: ObjectFieldSchema) = schema(Schema.ofObjectField(objectField))
 
+        /**
+         * Specifies the data type of the field, with accepted values like bool, date, datetime,
+         * enumeration, json, number, object_coordinates, phone_number, string.
+         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -432,6 +468,7 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** Specifies whether the field uses the Chirp feature. */
         fun useChirp(useChirp: Boolean) = useChirp(JsonField.of(useChirp))
 
         /**
@@ -443,6 +480,7 @@ private constructor(
          */
         fun useChirp(useChirp: JsonField<Boolean>) = apply { this.useChirp = useChirp }
 
+        /** A detailed explanation of the field's purpose and usage. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**
@@ -454,6 +492,7 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
+        /** Specifies the type of external reference for options. */
         fun externalOptionsReferenceType(externalOptionsReferenceType: String) =
             externalOptionsReferenceType(JsonField.of(externalOptionsReferenceType))
 
@@ -468,6 +507,11 @@ private constructor(
             this.externalOptionsReferenceType = externalOptionsReferenceType
         }
 
+        /**
+         * Describes the field's type in the UI, with accepted values like booleancheckbox,
+         * calculation_equation, checkbox, date, file, html, number, phonenumber, radio, select,
+         * text, textarea, unknown.
+         */
         fun fieldType(fieldType: FieldType) = fieldType(JsonField.of(fieldType))
 
         /**
@@ -479,6 +523,7 @@ private constructor(
          */
         fun fieldType(fieldType: JsonField<FieldType>) = apply { this.fieldType = fieldType }
 
+        /** Additional information or guidance about the field. */
         fun helpText(helpText: String) = helpText(JsonField.of(helpText))
 
         /**
@@ -489,6 +534,7 @@ private constructor(
          */
         fun helpText(helpText: JsonField<String>) = apply { this.helpText = helpText }
 
+        /** The user-friendly label for the field. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -499,6 +545,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
+        /** A URL that provides options for the field. */
         fun optionsUrl(optionsUrl: String) = optionsUrl(JsonField.of(optionsUrl))
 
         /**
@@ -510,6 +557,9 @@ private constructor(
          */
         fun optionsUrl(optionsUrl: JsonField<String>) = apply { this.optionsUrl = optionsUrl }
 
+        /**
+         * Indicates the type of object that the field references, with accepted values like OWNER.
+         */
         fun referencedObjectType(referencedObjectType: ReferencedObjectType) =
             referencedObjectType(JsonField.of(referencedObjectType))
 
@@ -631,6 +681,7 @@ private constructor(
             (if (optionsUrl.asKnown().isPresent) 1 else 0) +
             (referencedObjectType.asKnown().getOrNull()?.validity() ?: 0)
 
+    /** Defines the structure and constraints of the field. */
     @JsonDeserialize(using = Schema.Deserializer::class)
     @JsonSerialize(using = Schema.Serializer::class)
     class Schema
@@ -947,6 +998,10 @@ private constructor(
         }
     }
 
+    /**
+     * Specifies the data type of the field, with accepted values like bool, date, datetime,
+     * enumeration, json, number, object_coordinates, phone_number, string.
+     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -1120,6 +1175,11 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /**
+     * Describes the field's type in the UI, with accepted values like booleancheckbox,
+     * calculation_equation, checkbox, date, file, html, number, phonenumber, radio, select, text,
+     * textarea, unknown.
+     */
     class FieldType @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -1331,6 +1391,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Indicates the type of object that the field references, with accepted values like OWNER. */
     class ReferencedObjectType
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {

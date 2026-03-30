@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Set whether a custom action definition requires an object. */
 class ActionCreateRequiresObjectParams
 private constructor(
     private val appId: Int,

@@ -11,9 +11,9 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * List all assets of a specified campaign by asset type. This endpoint allows you to retrieve
- * assets associated with a campaign, filtered by the type of asset. It supports pagination and date
- * filtering to manage and refine the results.
+ * This endpoint lists all assets of the campaign by asset type. The assetType parameter is
+ * required, and each request can only fetch assets of a single type. Asset metrics can also be
+ * fetched along with the assets; they are available only if start and end dates are provided.
  */
 class AssetListParams
 private constructor(
@@ -37,13 +37,11 @@ private constructor(
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /** The end date for filtering assets, in YYYY-MM-DD format. */
     fun endDate(): Optional<String> = Optional.ofNullable(endDate)
 
     /** The maximum number of results to display per page. */
     fun limit(): Optional<String> = Optional.ofNullable(limit)
 
-    /** The start date for filtering assets, in YYYY-MM-DD format. */
     fun startDate(): Optional<String> = Optional.ofNullable(startDate)
 
     /** Additional headers to send with the request. */
@@ -107,7 +105,6 @@ private constructor(
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /** The end date for filtering assets, in YYYY-MM-DD format. */
         fun endDate(endDate: String?) = apply { this.endDate = endDate }
 
         /** Alias for calling [Builder.endDate] with `endDate.orElse(null)`. */
@@ -119,7 +116,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<String>) = limit(limit.getOrNull())
 
-        /** The start date for filtering assets, in YYYY-MM-DD format. */
         fun startDate(startDate: String?) = apply { this.startDate = startDate }
 
         /** Alias for calling [Builder.startDate] with `startDate.orElse(null)`. */

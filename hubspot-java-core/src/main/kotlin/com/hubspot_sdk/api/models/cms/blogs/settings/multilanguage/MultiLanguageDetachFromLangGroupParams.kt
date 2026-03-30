@@ -7,9 +7,10 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
 import java.util.Objects
 
+/** Detaches a blog from a multi-language group. */
 class MultiLanguageDetachFromLangGroupParams
 private constructor(
     private val detachFromLangGroupRequestVNext: DetachFromLangGroupRequestVNext,

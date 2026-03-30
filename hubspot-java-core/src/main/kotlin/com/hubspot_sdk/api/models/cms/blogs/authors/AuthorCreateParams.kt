@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/** Create a new Blog Author. */
 class AuthorCreateParams
 private constructor(
     private val blogAuthor: BlogAuthor,

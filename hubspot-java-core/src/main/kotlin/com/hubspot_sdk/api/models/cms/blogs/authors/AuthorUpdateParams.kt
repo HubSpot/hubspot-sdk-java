@@ -11,6 +11,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Sparse updates a single Blog Author object identified by the id in the path. All the column
+ * values need not be specified. Only the that need to be modified can be specified.
+ */
 class AuthorUpdateParams
 private constructor(
     private val objectId: String?,

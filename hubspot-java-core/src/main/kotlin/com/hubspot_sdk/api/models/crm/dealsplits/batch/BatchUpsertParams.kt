@@ -10,6 +10,10 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.dealsplits.PublicDealSplitsBatchCreateRequest
 import java.util.Objects
 
+/**
+ * Create or replace deal splits for deals with the provided IDs. Deal split percentages for each
+ * deal must sum up to 1.0 (100%) and may have up to 8 decimal places
+ */
 class BatchUpsertParams
 private constructor(
     private val publicDealSplitsBatchCreateRequest: PublicDealSplitsBatchCreateRequest,

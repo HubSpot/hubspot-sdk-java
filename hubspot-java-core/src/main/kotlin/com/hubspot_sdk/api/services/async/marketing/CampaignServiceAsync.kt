@@ -6,10 +6,14 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.marketing.campaigns.CampaignCreateParams
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignDeleteParams
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignGetParams
+import com.hubspot_sdk.api.models.marketing.campaigns.CampaignListPageAsync
+import com.hubspot_sdk.api.models.marketing.campaigns.CampaignListParams
 import com.hubspot_sdk.api.models.marketing.campaigns.CampaignUpdateParams
 import com.hubspot_sdk.api.models.marketing.campaigns.PublicCampaign
+import com.hubspot_sdk.api.models.marketing.campaigns.PublicCampaignInput
 import com.hubspot_sdk.api.models.marketing.campaigns.PublicCampaignWithAssets
 import com.hubspot_sdk.api.services.async.marketing.campaigns.AssetServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.campaigns.BatchServiceAsync
@@ -44,10 +48,38 @@ interface CampaignServiceAsync {
     fun spend(): SpendServiceAsync
 
     /**
-     * Perform a partial update of a campaign identified by the specified ID. Provided property
-     * values will be overwritten. Read-only and non-existent properties will be ignored. Properties
-     * values can be cleared by passing an empty string. Note: The 'hs_goal' property is deprecated
-     * and will be ignored if provided.
+     * Create a campaign with the specified properties and receive a copy of the campaign object,
+     * including its ID. Note that the 'hs_goal' property is deprecated and will be ignored if
+     * provided.
+     */
+    fun create(params: CampaignCreateParams): CompletableFuture<PublicCampaign> =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: CampaignCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicCampaign>
+
+    /** @see create */
+    fun create(
+        publicCampaignInput: PublicCampaignInput,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PublicCampaign> =
+        create(
+            CampaignCreateParams.builder().publicCampaignInput(publicCampaignInput).build(),
+            requestOptions,
+        )
+
+    /** @see create */
+    fun create(publicCampaignInput: PublicCampaignInput): CompletableFuture<PublicCampaign> =
+        create(publicCampaignInput, RequestOptions.none())
+
+    /**
+     * Perform a partial update of a campaign identified by the specified campaignGuid. Provided
+     * property values will be overwritten. Read-only and non-existent properties will cause 400
+     * error. If an empty string is passed for any property in the Batch Update, it will reset that
+     * property's value.
      */
     fun update(
         campaignGuid: String,
@@ -73,8 +105,29 @@ interface CampaignServiceAsync {
     ): CompletableFuture<PublicCampaign>
 
     /**
-     * Delete a specified campaign from the system. This operation removes the campaign identified
-     * by the provided campaignGuid from your HubSpot account.
+     * Retrieve a paginated list of campaigns from your HubSpot account. This endpoint allows you to
+     * specify sorting, pagination, and filtering options to tailor the results to your needs.
+     */
+    fun list(): CompletableFuture<CampaignListPageAsync> = list(CampaignListParams.none())
+
+    /** @see list */
+    fun list(
+        params: CampaignListParams = CampaignListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CampaignListPageAsync>
+
+    /** @see list */
+    fun list(
+        params: CampaignListParams = CampaignListParams.none()
+    ): CompletableFuture<CampaignListPageAsync> = list(params, RequestOptions.none())
+
+    /** @see list */
+    fun list(requestOptions: RequestOptions): CompletableFuture<CampaignListPageAsync> =
+        list(CampaignListParams.none(), requestOptions)
+
+    /**
+     * Delete a specified campaign from the system. This call will return a 204 No Content response
+     * regardless of whether the campaignGuid provided corresponds to an existing campaign or not.
      */
     fun delete(campaignGuid: String): CompletableFuture<Void?> =
         delete(campaignGuid, CampaignDeleteParams.none())
@@ -108,9 +161,10 @@ interface CampaignServiceAsync {
         delete(campaignGuid, CampaignDeleteParams.none(), requestOptions)
 
     /**
-     * Read a campaign identified by a specified internal ID. This endpoint allows you to retrieve
-     * detailed information about a specific marketing campaign using its unique identifier. It
-     * supports filtering the response by specific properties and date ranges.
+     * Get a campaign identified by a specific campaignGuid with the given properties. Along with
+     * the campaign information, it also returns information about assets. Depending on the query
+     * parameters used, this can also be used to return information about the corresponding assets'
+     * metrics. Metrics are available only if startDate and endDate are provided.
      */
     fun get(campaignGuid: String): CompletableFuture<PublicCampaignWithAssets> =
         get(campaignGuid, CampaignGetParams.none())
@@ -172,6 +226,37 @@ interface CampaignServiceAsync {
         fun spend(): SpendServiceAsync.WithRawResponse
 
         /**
+         * Returns a raw HTTP response for `post /marketing/campaigns/2026-03`, but is otherwise the
+         * same as [CampaignServiceAsync.create].
+         */
+        fun create(
+            params: CampaignCreateParams
+        ): CompletableFuture<HttpResponseFor<PublicCampaign>> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            params: CampaignCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicCampaign>>
+
+        /** @see create */
+        fun create(
+            publicCampaignInput: PublicCampaignInput,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PublicCampaign>> =
+            create(
+                CampaignCreateParams.builder().publicCampaignInput(publicCampaignInput).build(),
+                requestOptions,
+            )
+
+        /** @see create */
+        fun create(
+            publicCampaignInput: PublicCampaignInput
+        ): CompletableFuture<HttpResponseFor<PublicCampaign>> =
+            create(publicCampaignInput, RequestOptions.none())
+
+        /**
          * Returns a raw HTTP response for `patch /marketing/campaigns/2026-03/{campaignGuid}`, but
          * is otherwise the same as [CampaignServiceAsync.update].
          */
@@ -200,6 +285,31 @@ interface CampaignServiceAsync {
             params: CampaignUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PublicCampaign>>
+
+        /**
+         * Returns a raw HTTP response for `get /marketing/campaigns/2026-03`, but is otherwise the
+         * same as [CampaignServiceAsync.list].
+         */
+        fun list(): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> =
+            list(CampaignListParams.none())
+
+        /** @see list */
+        fun list(
+            params: CampaignListParams = CampaignListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>>
+
+        /** @see list */
+        fun list(
+            params: CampaignListParams = CampaignListParams.none()
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<CampaignListPageAsync>> =
+            list(CampaignListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete /marketing/campaigns/2026-03/{campaignGuid}`, but

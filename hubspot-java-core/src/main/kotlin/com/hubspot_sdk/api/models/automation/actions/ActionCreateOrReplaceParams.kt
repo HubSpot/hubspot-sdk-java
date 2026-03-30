@@ -14,6 +14,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Update a function for a given definition by ID. */
 class ActionCreateOrReplaceParams
 private constructor(
     private val appId: Int,

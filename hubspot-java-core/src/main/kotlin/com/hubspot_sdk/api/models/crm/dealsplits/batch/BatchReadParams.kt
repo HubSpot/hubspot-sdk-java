@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import java.util.Objects
 
+/** Read a batch of deal split objects by their associated deal object internal ID */
 class BatchReadParams
 private constructor(
     private val batchInputPublicObjectId: BatchInputPublicObjectId,

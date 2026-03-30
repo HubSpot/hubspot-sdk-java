@@ -29,6 +29,7 @@ interface BatchService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService
 
+    /** Create multiple exchange rates in a single request. */
     fun create(params: BatchCreateParams): BatchResponseExchangeRate =
         create(params, RequestOptions.none())
 
@@ -56,6 +57,7 @@ interface BatchService {
     ): BatchResponseExchangeRate =
         create(batchInputExchangeRateCreateRequest, RequestOptions.none())
 
+    /** Update the conversion rates for multiple exchange rates in a batch operation. */
     fun update(params: BatchUpdateParams): BatchResponseExchangeRate =
         update(params, RequestOptions.none())
 
@@ -83,6 +85,9 @@ interface BatchService {
     ): BatchResponseExchangeRate =
         update(batchInputExchangeRateUpdateRequest, RequestOptions.none())
 
+    /**
+     * Retrieve the details of multiple exchange rates in a single request, specified by their IDs.
+     */
     fun get(params: BatchGetParams): BatchResponseExchangeRate = get(params, RequestOptions.none())
 
     /** @see get */

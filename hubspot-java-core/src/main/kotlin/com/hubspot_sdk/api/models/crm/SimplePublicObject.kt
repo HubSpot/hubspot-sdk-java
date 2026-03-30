@@ -120,7 +120,7 @@ private constructor(
     fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
 
     /**
-     * An identifier used for tracing the write request for the object.
+     * A unique identifier for tracing the creation request.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -352,7 +352,7 @@ private constructor(
             this.archivedAt = archivedAt
         }
 
-        /** An identifier used for tracing the write request for the object. */
+        /** A unique identifier for tracing the creation request. */
         fun objectWriteTraceId(objectWriteTraceId: String) =
             objectWriteTraceId(JsonField.of(objectWriteTraceId))
 

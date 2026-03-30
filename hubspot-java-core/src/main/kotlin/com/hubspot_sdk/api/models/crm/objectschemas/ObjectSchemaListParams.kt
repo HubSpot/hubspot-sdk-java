@@ -9,6 +9,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Retrieve all custom object schemas, with options to include property definitions, association
+ * definitions, and audit metadata.
+ */
 class ObjectSchemaListParams
 private constructor(
     private val archived: Boolean?,

@@ -66,6 +66,7 @@ interface OAuthService {
     fun introspectToken(requestOptions: RequestOptions): TokenInfoResponseBaseIf =
         introspectToken(OAuthIntrospectTokenParams.none(), requestOptions)
 
+    /** Deletes/Revokes provided Refresh Token */
     @MustBeClosed fun revokeToken(): HttpResponse = revokeToken(OAuthRevokeTokenParams.none())
 
     /** @see revokeToken */

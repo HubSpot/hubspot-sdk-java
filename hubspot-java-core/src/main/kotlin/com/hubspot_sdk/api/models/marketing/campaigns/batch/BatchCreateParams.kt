@@ -11,9 +11,9 @@ import com.hubspot_sdk.api.models.marketing.campaigns.BatchInputPublicCampaignIn
 import java.util.Objects
 
 /**
- * Create a batch of campaigns with specified properties. This endpoint allows for the creation of
- * multiple campaigns in a single request. Note that the 'hs_goal' property is deprecated and will
- * be ignored if provided.
+ * This endpoint creates a batch of campaigns. The maximum number of items in a batch request is 50.
+ * The campaigns in the response are not guaranteed to be in the same order as they were provided in
+ * the request.
  */
 class BatchCreateParams
 private constructor(

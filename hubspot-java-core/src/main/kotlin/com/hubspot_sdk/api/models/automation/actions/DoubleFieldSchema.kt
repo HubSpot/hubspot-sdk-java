@@ -35,18 +35,24 @@ private constructor(
     ) : this(type, maximum, minimum, mutableMapOf())
 
     /**
+     * Indicates the field type as DOUBLE.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
 
     /**
+     * The maximum allowable value for the double field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun maximum(): Optional<Double> = maximum.getOptional("maximum")
 
     /**
+     * The minimum allowable value for the double field.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -114,6 +120,7 @@ private constructor(
             additionalProperties = doubleFieldSchema.additionalProperties.toMutableMap()
         }
 
+        /** Indicates the field type as DOUBLE. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -124,6 +131,7 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** The maximum allowable value for the double field. */
         fun maximum(maximum: Double) = maximum(JsonField.of(maximum))
 
         /**
@@ -134,6 +142,7 @@ private constructor(
          */
         fun maximum(maximum: JsonField<Double>) = apply { this.maximum = maximum }
 
+        /** The minimum allowable value for the double field. */
         fun minimum(minimum: Double) = minimum(JsonField.of(minimum))
 
         /**
@@ -216,6 +225,7 @@ private constructor(
             (if (maximum.asKnown().isPresent) 1 else 0) +
             (if (minimum.asKnown().isPresent) 1 else 0)
 
+    /** Indicates the field type as DOUBLE. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

@@ -19,6 +19,7 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.marketing.events.BatchResponseMarketingEventPublicDefaultResponse
 import com.hubspot_sdk.api.models.marketing.events.BatchResponseMarketingEventPublicDefaultResponseV2
+import com.hubspot_sdk.api.models.marketing.events.CollectionResponseMarketingEventPublicReadResponseV2ForwardPaging
 import com.hubspot_sdk.api.models.marketing.events.CollectionResponseSearchPublicResponseWrapperNoPaging
 import com.hubspot_sdk.api.models.marketing.events.CollectionResponseWithTotalMarketingEventIdentifiersResponse
 import com.hubspot_sdk.api.models.marketing.events.EventCreateParams
@@ -28,6 +29,8 @@ import com.hubspot_sdk.api.models.marketing.events.EventDeleteByExternalEventIdP
 import com.hubspot_sdk.api.models.marketing.events.EventDeleteParams
 import com.hubspot_sdk.api.models.marketing.events.EventGetByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventGetParams
+import com.hubspot_sdk.api.models.marketing.events.EventListPageAsync
+import com.hubspot_sdk.api.models.marketing.events.EventListParams
 import com.hubspot_sdk.api.models.marketing.events.EventSearchByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventSearchIdentifiersByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateBatchParams
@@ -35,8 +38,6 @@ import com.hubspot_sdk.api.models.marketing.events.EventUpdateByExternalEventIdP
 import com.hubspot_sdk.api.models.marketing.events.EventUpdateParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpsertBatchParams
 import com.hubspot_sdk.api.models.marketing.events.EventUpsertByExternalEventIdParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByEmailParams
-import com.hubspot_sdk.api.models.marketing.events.EventUpsertSubscriberStateByIdParams
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventDefaultResponse
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventPublicDefaultResponse
 import com.hubspot_sdk.api.models.marketing.events.MarketingEventPublicDefaultResponseV2
@@ -54,6 +55,8 @@ import com.hubspot_sdk.api.services.async.marketing.events.ParticipationServiceA
 import com.hubspot_sdk.api.services.async.marketing.events.ParticipationServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.marketing.events.SettingServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.events.SettingServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.marketing.events.SubscriberStateServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.events.SubscriberStateServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -81,6 +84,10 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
     private val settings: SettingServiceAsync by lazy { SettingServiceAsyncImpl(clientOptions) }
 
+    private val subscriberState: SubscriberStateServiceAsync by lazy {
+        SubscriberStateServiceAsyncImpl(clientOptions)
+    }
+
     override fun withRawResponse(): EventServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EventServiceAsync =
@@ -96,6 +103,8 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
 
     override fun settings(): SettingServiceAsync = settings
 
+    override fun subscriberState(): SubscriberStateServiceAsync = subscriberState
+
     override fun create(
         params: EventCreateParams,
         requestOptions: RequestOptions,
@@ -109,6 +118,13 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
     ): CompletableFuture<MarketingEventPublicDefaultResponseV2> =
         // patch /marketing/marketing-events/2026-03/{objectId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+
+    override fun list(
+        params: EventListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EventListPageAsync> =
+        // get /marketing/marketing-events/2026-03
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
     override fun delete(
         params: EventDeleteParams,
@@ -196,22 +212,6 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // put /marketing/marketing-events/2026-03/events/{externalEventId}
         withRawResponse().upsertByExternalEventId(params, requestOptions).thenApply { it.parse() }
 
-    override fun upsertSubscriberStateByEmail(
-        params: EventUpsertSubscriberStateByEmailParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        // post
-        // /marketing/marketing-events/2026-03/events/{externalEventId}/{subscriberState}/email-upsert
-        withRawResponse().upsertSubscriberStateByEmail(params, requestOptions)
-
-    override fun upsertSubscriberStateById(
-        params: EventUpsertSubscriberStateByIdParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        // post
-        // /marketing/marketing-events/2026-03/events/{externalEventId}/{subscriberState}/upsert
-        withRawResponse().upsertSubscriberStateById(params, requestOptions)
-
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EventServiceAsync.WithRawResponse {
 
@@ -238,6 +238,10 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
             SettingServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val subscriberState: SubscriberStateServiceAsync.WithRawResponse by lazy {
+            SubscriberStateServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): EventServiceAsync.WithRawResponse =
@@ -255,6 +259,9 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
         override fun participations(): ParticipationServiceAsync.WithRawResponse = participations
 
         override fun settings(): SettingServiceAsync.WithRawResponse = settings
+
+        override fun subscriberState(): SubscriberStateServiceAsync.WithRawResponse =
+            subscriberState
 
         private val createHandler: Handler<MarketingEventDefaultResponse> =
             jsonHandler<MarketingEventDefaultResponse>(clientOptions.jsonMapper)
@@ -321,6 +328,47 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler:
+            Handler<CollectionResponseMarketingEventPublicReadResponseV2ForwardPaging> =
+            jsonHandler<CollectionResponseMarketingEventPublicReadResponseV2ForwardPaging>(
+                clientOptions.jsonMapper
+            )
+
+        override fun list(
+            params: EventListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EventListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("marketing", "marketing-events", "2026-03")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                EventListPageAsync.builder()
+                                    .service(EventServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }
@@ -728,66 +776,6 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
                             }
                     }
                 }
-        }
-
-        override fun upsertSubscriberStateByEmail(
-            params: EventUpsertSubscriberStateByEmailParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("subscriberState", params.subscriberState().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "marketing",
-                        "marketing-events",
-                        "2026-03",
-                        "events",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "email-upsert",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
-        }
-
-        override fun upsertSubscriberStateById(
-            params: EventUpsertSubscriberStateByIdParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("subscriberState", params.subscriberState().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "marketing",
-                        "marketing-events",
-                        "2026-03",
-                        "events",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "upsert",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
         }
     }
 }

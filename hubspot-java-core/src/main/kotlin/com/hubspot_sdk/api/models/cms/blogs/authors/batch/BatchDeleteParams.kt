@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.BatchInputString
 import java.util.Objects
 
+/** Delete the Blog Author objects identified in the request body. */
 class BatchDeleteParams
 private constructor(
     private val batchInputString: BatchInputString,

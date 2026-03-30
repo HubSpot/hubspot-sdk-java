@@ -6,6 +6,7 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.marketing.CampaignService
 import com.hubspot_sdk.api.services.blocking.marketing.EmailService
 import com.hubspot_sdk.api.services.blocking.marketing.EventService
+import com.hubspot_sdk.api.services.blocking.marketing.SingleSendService
 import com.hubspot_sdk.api.services.blocking.marketing.TransactionalService
 import java.util.function.Consumer
 
@@ -29,6 +30,8 @@ interface MarketingService {
 
     fun events(): EventService
 
+    fun singleSend(): SingleSendService
+
     fun transactional(): TransactionalService
 
     /** A view of [MarketingService] that provides access to raw HTTP responses for each method. */
@@ -46,6 +49,8 @@ interface MarketingService {
         fun emails(): EmailService.WithRawResponse
 
         fun events(): EventService.WithRawResponse
+
+        fun singleSend(): SingleSendService.WithRawResponse
 
         fun transactional(): TransactionalService.WithRawResponse
     }

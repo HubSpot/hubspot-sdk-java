@@ -10,6 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Return all the stages associated with the pipeline identified by `{pipelineId}`. */
 class PipelineListParams
 private constructor(
     private val objectType: String,

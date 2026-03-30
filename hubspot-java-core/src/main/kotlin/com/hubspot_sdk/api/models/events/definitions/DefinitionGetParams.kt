@@ -9,6 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Fetch a single custom event definition by name. */
 class DefinitionGetParams
 private constructor(
     private val eventName: String?,

@@ -46,12 +46,16 @@ private constructor(
         chirpAiContextObject.getRequired("chirpAiContextObject")
 
     /**
+     * Indicates the source of the request, with the default value being 'STANDALONE'.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun source(): Source = source.getRequired("source")
 
     /**
+     * A unique identifier for tracking the trajectory of the request.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -139,6 +143,7 @@ private constructor(
             this.chirpAiContextObject = chirpAiContextObject
         }
 
+        /** Indicates the source of the request, with the default value being 'STANDALONE'. */
         fun source(source: Source) = source(JsonField.of(source))
 
         /**
@@ -149,6 +154,7 @@ private constructor(
          */
         fun source(source: JsonField<Source>) = apply { this.source = source }
 
+        /** A unique identifier for tracking the trajectory of the request. */
         fun trajectoryId(trajectoryId: String) = trajectoryId(JsonField.of(trajectoryId))
 
         /**
@@ -235,6 +241,7 @@ private constructor(
             (source.asKnown().getOrNull()?.validity() ?: 0) +
             (if (trajectoryId.asKnown().isPresent) 1 else 0)
 
+    /** Indicates the source of the request, with the default value being 'STANDALONE'. */
     class Source @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

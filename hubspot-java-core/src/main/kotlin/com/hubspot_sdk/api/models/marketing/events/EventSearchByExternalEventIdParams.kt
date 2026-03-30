@@ -8,6 +8,12 @@ import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 
+/**
+ * Retrieves Marketing Events where the externalEventId matches the value provided in the request,
+ * limited to events created by the app making the request.
+ *
+ * Marketing Events created by other apps will not be included in the results.
+ */
 class EventSearchByExternalEventIdParams
 private constructor(
     private val q: String,

@@ -9,6 +9,17 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * This endpoint searches the portal for all Marketing Events whose externalEventId matches the
+ * value provided in the request.
+ *
+ * It retrieves the objectId and additional event details for each matching Marketing Event.
+ *
+ * Since multiple Marketing Events can have the same externalEventId, the endpoint returns all
+ * matching results.
+ *
+ * Note: Marketing Events become searchable by externalEventId a few minutes after creation.
+ */
 class EventSearchIdentifiersByExternalEventIdParams
 private constructor(
     private val externalEventId: String?,

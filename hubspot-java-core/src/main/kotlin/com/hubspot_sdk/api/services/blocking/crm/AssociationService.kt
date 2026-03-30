@@ -7,9 +7,13 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.LabelsBetweenObjectPair
-import com.hubspot_sdk.api.models.crm.associations.AssociationDeleteAssociationsParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationDeleteParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationListPage
+import com.hubspot_sdk.api.models.crm.associations.AssociationListParams
 import com.hubspot_sdk.api.models.crm.associations.AssociationRequestHighUsageReportParams
+import com.hubspot_sdk.api.models.crm.associations.AssociationSearchParams
 import com.hubspot_sdk.api.models.crm.associations.AssociationUpdateAssociationLabelsParams
 import com.hubspot_sdk.api.models.crm.associations.ReportCreationResponse
 import com.hubspot_sdk.api.services.blocking.crm.associations.BatchService
@@ -31,23 +35,46 @@ interface AssociationService {
 
     fun batch(): BatchService
 
-    fun deleteAssociations(toObjectId: String, params: AssociationDeleteAssociationsParams) =
-        deleteAssociations(toObjectId, params, RequestOptions.none())
+    /**
+     * Retrieve all associations between a specific record and an object type. Limit 500 per call.
+     */
+    fun list(toObjectType: String, params: AssociationListParams): AssociationListPage =
+        list(toObjectType, params, RequestOptions.none())
 
-    /** @see deleteAssociations */
-    fun deleteAssociations(
-        toObjectId: String,
-        params: AssociationDeleteAssociationsParams,
+    /** @see list */
+    fun list(
+        toObjectType: String,
+        params: AssociationListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = deleteAssociations(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+    ): AssociationListPage =
+        list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-    /** @see deleteAssociations */
-    fun deleteAssociations(params: AssociationDeleteAssociationsParams) =
-        deleteAssociations(params, RequestOptions.none())
+    /** @see list */
+    fun list(params: AssociationListParams): AssociationListPage =
+        list(params, RequestOptions.none())
 
-    /** @see deleteAssociations */
-    fun deleteAssociations(
-        params: AssociationDeleteAssociationsParams,
+    /** @see list */
+    fun list(
+        params: AssociationListParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): AssociationListPage
+
+    fun delete(toObjectId: String, params: AssociationDeleteParams) =
+        delete(toObjectId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        toObjectId: String,
+        params: AssociationDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(params: AssociationDeleteParams) = delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        params: AssociationDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
@@ -93,6 +120,30 @@ interface AssociationService {
             requestOptions,
         )
 
+    fun search(
+        objectType: String,
+        params: AssociationSearchParams,
+    ): CollectionResponseWithTotalSimplePublicObject =
+        search(objectType, params, RequestOptions.none())
+
+    /** @see search */
+    fun search(
+        objectType: String,
+        params: AssociationSearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CollectionResponseWithTotalSimplePublicObject =
+        search(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see search */
+    fun search(params: AssociationSearchParams): CollectionResponseWithTotalSimplePublicObject =
+        search(params, RequestOptions.none())
+
+    /** @see search */
+    fun search(
+        params: AssociationSearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CollectionResponseWithTotalSimplePublicObject
+
     fun updateAssociationLabels(
         toObjectId: String,
         params: AssociationUpdateAssociationLabelsParams,
@@ -134,34 +185,63 @@ interface AssociationService {
         fun batch(): BatchService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `delete
-         * /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [AssociationService.deleteAssociations].
+         * Returns a raw HTTP response for `get
+         * /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}`, but is
+         * otherwise the same as [AssociationService.list].
          */
         @MustBeClosed
-        fun deleteAssociations(
-            toObjectId: String,
-            params: AssociationDeleteAssociationsParams,
-        ): HttpResponse = deleteAssociations(toObjectId, params, RequestOptions.none())
+        fun list(
+            toObjectType: String,
+            params: AssociationListParams,
+        ): HttpResponseFor<AssociationListPage> = list(toObjectType, params, RequestOptions.none())
 
-        /** @see deleteAssociations */
+        /** @see list */
         @MustBeClosed
-        fun deleteAssociations(
-            toObjectId: String,
-            params: AssociationDeleteAssociationsParams,
+        fun list(
+            toObjectType: String,
+            params: AssociationListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            deleteAssociations(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+        ): HttpResponseFor<AssociationListPage> =
+            list(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
-        /** @see deleteAssociations */
+        /** @see list */
         @MustBeClosed
-        fun deleteAssociations(params: AssociationDeleteAssociationsParams): HttpResponse =
-            deleteAssociations(params, RequestOptions.none())
+        fun list(params: AssociationListParams): HttpResponseFor<AssociationListPage> =
+            list(params, RequestOptions.none())
 
-        /** @see deleteAssociations */
+        /** @see list */
         @MustBeClosed
-        fun deleteAssociations(
-            params: AssociationDeleteAssociationsParams,
+        fun list(
+            params: AssociationListParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<AssociationListPage>
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /crm/objects/2026-03/{objectType}/{objectId}/associations/{toObjectType}/{toObjectId}`,
+         * but is otherwise the same as [AssociationService.delete].
+         */
+        @MustBeClosed
+        fun delete(toObjectId: String, params: AssociationDeleteParams): HttpResponse =
+            delete(toObjectId, params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            toObjectId: String,
+            params: AssociationDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(params: AssociationDeleteParams): HttpResponse =
+            delete(params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            params: AssociationDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
@@ -218,6 +298,40 @@ interface AssociationService {
                 AssociationRequestHighUsageReportParams.none(),
                 requestOptions,
             )
+
+        /**
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/{objectType}/search`, but is
+         * otherwise the same as [AssociationService.search].
+         */
+        @MustBeClosed
+        fun search(
+            objectType: String,
+            params: AssociationSearchParams,
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(objectType, params, RequestOptions.none())
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            objectType: String,
+            params: AssociationSearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            params: AssociationSearchParams
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject> =
+            search(params, RequestOptions.none())
+
+        /** @see search */
+        @MustBeClosed
+        fun search(
+            params: AssociationSearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CollectionResponseWithTotalSimplePublicObject>
 
         /**
          * Returns a raw HTTP response for `put

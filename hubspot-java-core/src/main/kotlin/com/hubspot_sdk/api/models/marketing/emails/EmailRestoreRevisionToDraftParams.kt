@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Restores a previous revision of a marketing email to DRAFT state. If there is currently something
+ * in the draft for that object, it is overwritten.
+ */
 class EmailRestoreRevisionToDraftParams
 private constructor(
     private val emailId: String,

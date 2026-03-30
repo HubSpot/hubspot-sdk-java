@@ -12,7 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Batch delete limits defined for associations between two specified CRM object types. */
+/** Batch delete limits that have been defined for association types between two object types. */
 class LimitBatchDeleteParams
 private constructor(
     private val fromObjectType: String,

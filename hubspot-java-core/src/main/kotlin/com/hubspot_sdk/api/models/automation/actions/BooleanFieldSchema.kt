@@ -30,6 +30,9 @@ private constructor(
     ) : this(type, mutableMapOf())
 
     /**
+     * Specifies the field type as BOOLEAN, indicating that the field can hold a true or false
+     * value.
+     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -79,6 +82,10 @@ private constructor(
             additionalProperties = booleanFieldSchema.additionalProperties.toMutableMap()
         }
 
+        /**
+         * Specifies the field type as BOOLEAN, indicating that the field can hold a true or false
+         * value.
+         */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -150,6 +157,10 @@ private constructor(
      */
     @JvmSynthetic internal fun validity(): Int = (type.asKnown().getOrNull()?.validity() ?: 0)
 
+    /**
+     * Specifies the field type as BOOLEAN, indicating that the field can hold a true or false
+     * value.
+     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

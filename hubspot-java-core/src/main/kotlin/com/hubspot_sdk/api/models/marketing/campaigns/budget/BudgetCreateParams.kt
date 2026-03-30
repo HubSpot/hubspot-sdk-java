@@ -12,10 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Add a new budget item to the specified campaign. This operation allows you to allocate a budget
- * for a campaign by specifying the necessary details in the request body.
- */
+/** Add a new budget item to the campaign */
 class BudgetCreateParams
 private constructor(
     private val campaignGuid: String?,

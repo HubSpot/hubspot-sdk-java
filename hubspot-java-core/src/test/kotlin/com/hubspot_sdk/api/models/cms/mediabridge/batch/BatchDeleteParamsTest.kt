@@ -12,7 +12,7 @@ internal class BatchDeleteParamsTest {
     @Test
     fun create() {
         BatchDeleteParams.builder()
-            .appId("appId")
+            .appId(0)
             .objectType("objectType")
             .batchInputPropertyName(
                 BatchInputPropertyName.builder()
@@ -26,7 +26,7 @@ internal class BatchDeleteParamsTest {
     fun pathParams() {
         val params =
             BatchDeleteParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchInputPropertyName(
                     BatchInputPropertyName.builder()
@@ -35,7 +35,7 @@ internal class BatchDeleteParamsTest {
                 )
                 .build()
 
-        assertThat(params._pathParam(0)).isEqualTo("appId")
+        assertThat(params._pathParam(0)).isEqualTo("0")
         assertThat(params._pathParam(1)).isEqualTo("objectType")
         // out-of-bound path param
         assertThat(params._pathParam(2)).isEqualTo("")
@@ -45,7 +45,7 @@ internal class BatchDeleteParamsTest {
     fun body() {
         val params =
             BatchDeleteParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchInputPropertyName(
                     BatchInputPropertyName.builder()

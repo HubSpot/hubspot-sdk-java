@@ -1,0 +1,645 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.hubspot_sdk.api.models.cms.hubdb
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
+import com.hubspot_sdk.api.core.jsonMapper
+import com.hubspot_sdk.api.models.Error
+import com.hubspot_sdk.api.models.ErrorDetail
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class ImportResultTest {
+
+    @Test
+    fun create() {
+        val importResult =
+            ImportResult.builder()
+                .duplicateRows(0)
+                .addError(
+                    Error.builder()
+                        .category("VALIDATION_ERROR")
+                        .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
+                        .message("Invalid input (details will vary based on the error)")
+                        .context(
+                            Error.Context.builder()
+                                .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("31", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("32", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("33", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("34", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("35", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("36", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("37", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("38", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("39", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("40", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("41", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("42", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("43", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("44", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("45", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("46", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("47", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("48", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("49", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("50", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("51", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("52", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("53", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("54", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("55", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("56", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("57", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("58", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("59", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("60", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("61", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("62", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("63", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("64", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("65", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("66", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("67", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("68", JsonValue.from(listOf("string")))
+                                .build()
+                        )
+                        .addError(
+                            ErrorDetail.builder()
+                                .message("message")
+                                .code("code")
+                                .context(
+                                    ErrorDetail.Context.builder()
+                                        .putAdditionalProperty(
+                                            "0",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "1",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "2",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "3",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "4",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "5",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "6",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "7",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "8",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "9",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "10",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "11",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "12",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "13",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "14",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "15",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "16",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "17",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "18",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "19",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "20",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "21",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "22",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "23",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "24",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "25",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "26",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "27",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "28",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "29",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "30",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "31",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .build()
+                                )
+                                .in_("in")
+                                .subCategory("subCategory")
+                                .build()
+                        )
+                        .links(
+                            Error.Links.builder()
+                                .putAdditionalProperty(
+                                    "knowledge-base",
+                                    JsonValue.from(
+                                        "https://www.hubspot.com/products/service/knowledge-base"
+                                    ),
+                                )
+                                .build()
+                        )
+                        .subCategory("subCategory")
+                        .build()
+                )
+                .rowLimitExceeded(true)
+                .rowsImported(0)
+                .build()
+
+        assertThat(importResult.duplicateRows()).isEqualTo(0)
+        assertThat(importResult.errors())
+            .containsExactly(
+                Error.builder()
+                    .category("VALIDATION_ERROR")
+                    .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
+                    .message("Invalid input (details will vary based on the error)")
+                    .context(
+                        Error.Context.builder()
+                            .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("31", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("32", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("33", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("34", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("35", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("36", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("37", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("38", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("39", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("40", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("41", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("42", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("43", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("44", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("45", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("46", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("47", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("48", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("49", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("50", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("51", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("52", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("53", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("54", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("55", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("56", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("57", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("58", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("59", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("60", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("61", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("62", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("63", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("64", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("65", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("66", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("67", JsonValue.from(listOf("string")))
+                            .putAdditionalProperty("68", JsonValue.from(listOf("string")))
+                            .build()
+                    )
+                    .addError(
+                        ErrorDetail.builder()
+                            .message("message")
+                            .code("code")
+                            .context(
+                                ErrorDetail.Context.builder()
+                                    .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                                    .putAdditionalProperty("31", JsonValue.from(listOf("string")))
+                                    .build()
+                            )
+                            .in_("in")
+                            .subCategory("subCategory")
+                            .build()
+                    )
+                    .links(
+                        Error.Links.builder()
+                            .putAdditionalProperty(
+                                "knowledge-base",
+                                JsonValue.from(
+                                    "https://www.hubspot.com/products/service/knowledge-base"
+                                ),
+                            )
+                            .build()
+                    )
+                    .subCategory("subCategory")
+                    .build()
+            )
+        assertThat(importResult.rowLimitExceeded()).isEqualTo(true)
+        assertThat(importResult.rowsImported()).isEqualTo(0)
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val importResult =
+            ImportResult.builder()
+                .duplicateRows(0)
+                .addError(
+                    Error.builder()
+                        .category("VALIDATION_ERROR")
+                        .correlationId("aeb5f871-7f07-4993-9211-075dc63e7cbf")
+                        .message("Invalid input (details will vary based on the error)")
+                        .context(
+                            Error.Context.builder()
+                                .putAdditionalProperty("0", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("1", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("2", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("3", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("4", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("5", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("6", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("7", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("8", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("9", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("10", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("11", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("12", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("13", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("14", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("15", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("16", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("17", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("18", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("19", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("20", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("21", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("22", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("23", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("24", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("25", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("26", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("27", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("28", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("29", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("30", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("31", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("32", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("33", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("34", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("35", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("36", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("37", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("38", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("39", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("40", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("41", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("42", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("43", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("44", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("45", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("46", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("47", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("48", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("49", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("50", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("51", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("52", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("53", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("54", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("55", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("56", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("57", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("58", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("59", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("60", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("61", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("62", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("63", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("64", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("65", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("66", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("67", JsonValue.from(listOf("string")))
+                                .putAdditionalProperty("68", JsonValue.from(listOf("string")))
+                                .build()
+                        )
+                        .addError(
+                            ErrorDetail.builder()
+                                .message("message")
+                                .code("code")
+                                .context(
+                                    ErrorDetail.Context.builder()
+                                        .putAdditionalProperty(
+                                            "0",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "1",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "2",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "3",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "4",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "5",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "6",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "7",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "8",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "9",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "10",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "11",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "12",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "13",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "14",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "15",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "16",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "17",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "18",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "19",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "20",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "21",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "22",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "23",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "24",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "25",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "26",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "27",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "28",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "29",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "30",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .putAdditionalProperty(
+                                            "31",
+                                            JsonValue.from(listOf("string")),
+                                        )
+                                        .build()
+                                )
+                                .in_("in")
+                                .subCategory("subCategory")
+                                .build()
+                        )
+                        .links(
+                            Error.Links.builder()
+                                .putAdditionalProperty(
+                                    "knowledge-base",
+                                    JsonValue.from(
+                                        "https://www.hubspot.com/products/service/knowledge-base"
+                                    ),
+                                )
+                                .build()
+                        )
+                        .subCategory("subCategory")
+                        .build()
+                )
+                .rowLimitExceeded(true)
+                .rowsImported(0)
+                .build()
+
+        val roundtrippedImportResult =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(importResult),
+                jacksonTypeRef<ImportResult>(),
+            )
+
+        assertThat(roundtrippedImportResult).isEqualTo(importResult)
+    }
+}

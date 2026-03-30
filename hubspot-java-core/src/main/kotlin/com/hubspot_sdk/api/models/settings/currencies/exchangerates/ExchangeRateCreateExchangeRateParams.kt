@@ -10,6 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.settings.currencies.ExchangeRateCreateRequest
 import java.util.Objects
 
+/** Create a new exchange rate with specified conversion rate and currency codes. */
 class ExchangeRateCreateExchangeRateParams
 private constructor(
     private val exchangeRateCreateRequest: ExchangeRateCreateRequest,

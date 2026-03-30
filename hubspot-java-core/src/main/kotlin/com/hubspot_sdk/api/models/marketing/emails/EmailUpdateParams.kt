@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Change properties of a marketing email. */
 class EmailUpdateParams
 private constructor(
     private val emailId: String?,

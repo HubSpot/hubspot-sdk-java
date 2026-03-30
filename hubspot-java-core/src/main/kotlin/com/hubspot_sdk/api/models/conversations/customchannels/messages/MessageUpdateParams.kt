@@ -12,6 +12,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Update a message's status to indicate if it was successfully sent, failed to send, or was read.
+ * For failed messages, this can also include the error message for the failure.
+ */
 class MessageUpdateParams
 private constructor(
     private val channelId: Int,

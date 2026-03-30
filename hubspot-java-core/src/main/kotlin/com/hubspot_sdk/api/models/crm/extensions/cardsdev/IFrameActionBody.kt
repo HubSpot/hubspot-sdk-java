@@ -62,7 +62,7 @@ private constructor(
         propertyNamesIncluded.getRequired("propertyNamesIncluded")
 
     /**
-     * Specifies the type of action, which is 'IFRAME' for iframe actions.
+     * The type of status.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -86,7 +86,7 @@ private constructor(
     fun width(): Int = width.getRequired("width")
 
     /**
-     * The label for the button that opens the iframen as it will be displayed to users.
+     * The label for this property as you'd like it displayed to users.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -228,7 +228,7 @@ private constructor(
                 }
         }
 
-        /** Specifies the type of action, which is 'IFRAME' for iframe actions. */
+        /** The type of status. */
         fun type(type: Type) = type(JsonField.of(type))
 
         /**
@@ -261,7 +261,7 @@ private constructor(
          */
         fun width(width: JsonField<Int>) = apply { this.width = width }
 
-        /** The label for the button that opens the iframen as it will be displayed to users. */
+        /** The label for this property as you'd like it displayed to users. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -359,7 +359,7 @@ private constructor(
             (if (width.asKnown().isPresent) 1 else 0) +
             (if (label.asKnown().isPresent) 1 else 0)
 
-    /** Specifies the type of action, which is 'IFRAME' for iframe actions. */
+    /** The type of status. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

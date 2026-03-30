@@ -7,9 +7,10 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
 import java.util.Objects
 
+/** Attach a Blog Tag to a multi-language group. */
 class TagAttachToLangGroupParams
 private constructor(
     private val attachToLangPrimaryRequestVNext: AttachToLangPrimaryRequestVNext,

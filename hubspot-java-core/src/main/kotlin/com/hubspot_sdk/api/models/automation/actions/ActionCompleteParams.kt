@@ -11,6 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Complete a specific blocked action execution by ID. */
 class ActionCompleteParams
 private constructor(
     private val callbackId: String?,

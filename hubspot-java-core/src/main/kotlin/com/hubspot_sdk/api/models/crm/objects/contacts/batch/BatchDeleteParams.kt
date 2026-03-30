@@ -10,13 +10,7 @@ import com.hubspot_sdk.api.core.http.QueryParams
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import java.util.Objects
 
-/**
- * Archive a batch of contacts by ID. Archived contacts can be restored within 90 days of deletion.
- * Learn more about the
- * [data impacted by contact deletions](https://knowledge.hubspot.com/privacy-and-consent/understand-restorable-and-permanent-contact-deletions)
- * and how to
- * [restore archived records](https://knowledge.hubspot.com/records/restore-deleted-records).
- */
+/** Archive a batch of contacts */
 class BatchDeleteParams
 private constructor(
     private val batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId,

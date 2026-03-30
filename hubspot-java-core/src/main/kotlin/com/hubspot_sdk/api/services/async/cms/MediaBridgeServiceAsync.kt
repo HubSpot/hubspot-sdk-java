@@ -6,21 +6,15 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.AssociationDefinition
 import com.hubspot_sdk.api.models.CollectionResponsePropertyGroupNoPaging
-import com.hubspot_sdk.api.models.CollectionResponsePropertyNoPaging
-import com.hubspot_sdk.api.models.ObjectSchema
 import com.hubspot_sdk.api.models.ObjectTypeDefinition
-import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.PropertyGroup
+import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanEventRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.BulkIntegratorObjectCreationResponse
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateAudioObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateDocumentObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateImageObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateMbObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateOtherObjectRequest
-import com.hubspot_sdk.api.models.cms.mediabridge.CreateVideoObjectRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponseObjectSchemaNoPaging
+import com.hubspot_sdk.api.models.cms.mediabridge.CollectionResponsePropertyNoPaging
 import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityChange
 import com.hubspot_sdk.api.models.cms.mediabridge.EventVisibilityResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.IntegratorOEmbedDomainModel
@@ -30,43 +24,39 @@ import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateMediaPlayedEv
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateMediaPlayedPercentEventParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateObjectTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeCreateVideoAssociationDefinitionParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteAssociationParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeDeletePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetEventVisibilitySettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetPropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeGetSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListObjectTypesByMediaTypeParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListOembedDomainsParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPageAsync
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertiesParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListPropertyGroupsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeListSchemasParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeObject
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeProviderRegistrationResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeRegisterAppNameParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateEventVisibilitySettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateOembedDomainParams
-import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyGroupParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdatePropertyParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSettingsParams
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEventRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEvent
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEventRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.OEmbedDomainsCollectionResponse
 import com.hubspot_sdk.api.models.cms.mediabridge.ObjectDefinitionResponse
-import com.hubspot_sdk.api.models.events.AssociationDefinition
+import com.hubspot_sdk.api.models.cms.mediabridge.ObjectSchema
+import com.hubspot_sdk.api.models.cms.mediabridge.Property
 import com.hubspot_sdk.api.services.async.cms.mediabridge.BatchServiceAsync
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -86,163 +76,6 @@ interface MediaBridgeServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): MediaBridgeServiceAsync
 
     fun batch(): BatchServiceAsync
-
-    fun create(params: MediaBridgeCreateParams): CompletableFuture<MediaBridgeObject> =
-        create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        params: MediaBridgeCreateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject>
-
-    /** @see create */
-    fun create(
-        createMbObjectRequest: CreateMbObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        create(
-            MediaBridgeCreateParams.builder().createMbObjectRequest(createMbObjectRequest).build(),
-            requestOptions,
-        )
-
-    /** @see create */
-    fun create(createMbObjectRequest: CreateMbObjectRequest): CompletableFuture<MediaBridgeObject> =
-        create(createMbObjectRequest, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        video: CreateVideoObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        create(CreateMbObjectRequest.ofVideo(video), requestOptions)
-
-    /** @see create */
-    fun create(video: CreateVideoObjectRequest): CompletableFuture<MediaBridgeObject> =
-        create(video, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        other: CreateOtherObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        create(CreateMbObjectRequest.ofOther(other), requestOptions)
-
-    /** @see create */
-    fun create(other: CreateOtherObjectRequest): CompletableFuture<MediaBridgeObject> =
-        create(other, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        audio: CreateAudioObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        create(CreateMbObjectRequest.ofAudio(audio), requestOptions)
-
-    /** @see create */
-    fun create(audio: CreateAudioObjectRequest): CompletableFuture<MediaBridgeObject> =
-        create(audio, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        image: CreateImageObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        create(CreateMbObjectRequest.ofImage(image), requestOptions)
-
-    /** @see create */
-    fun create(image: CreateImageObjectRequest): CompletableFuture<MediaBridgeObject> =
-        create(image, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        document: CreateDocumentObjectRequest,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        create(CreateMbObjectRequest.ofDocument(document), requestOptions)
-
-    /** @see create */
-    fun create(document: CreateDocumentObjectRequest): CompletableFuture<MediaBridgeObject> =
-        create(document, RequestOptions.none())
-
-    fun update(
-        objectId: Long,
-        params: MediaBridgeUpdateParams,
-    ): CompletableFuture<MediaBridgeObject> = update(objectId, params, RequestOptions.none())
-
-    /** @see update */
-    fun update(
-        objectId: Long,
-        params: MediaBridgeUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        update(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see update */
-    fun update(params: MediaBridgeUpdateParams): CompletableFuture<MediaBridgeObject> =
-        update(params, RequestOptions.none())
-
-    /** @see update */
-    fun update(
-        params: MediaBridgeUpdateParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject>
-
-    fun list(
-        mediaType: MediaBridgeListParams.MediaType
-    ): CompletableFuture<MediaBridgeListPageAsync> = list(mediaType, MediaBridgeListParams.none())
-
-    /** @see list */
-    fun list(
-        mediaType: MediaBridgeListParams.MediaType,
-        params: MediaBridgeListParams = MediaBridgeListParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeListPageAsync> =
-        list(params.toBuilder().mediaType(mediaType).build(), requestOptions)
-
-    /** @see list */
-    fun list(
-        mediaType: MediaBridgeListParams.MediaType,
-        params: MediaBridgeListParams = MediaBridgeListParams.none(),
-    ): CompletableFuture<MediaBridgeListPageAsync> = list(mediaType, params, RequestOptions.none())
-
-    /** @see list */
-    fun list(
-        params: MediaBridgeListParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeListPageAsync>
-
-    /** @see list */
-    fun list(params: MediaBridgeListParams): CompletableFuture<MediaBridgeListPageAsync> =
-        list(params, RequestOptions.none())
-
-    /** @see list */
-    fun list(
-        mediaType: MediaBridgeListParams.MediaType,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<MediaBridgeListPageAsync> =
-        list(mediaType, MediaBridgeListParams.none(), requestOptions)
-
-    fun delete(objectId: Long, params: MediaBridgeDeleteParams): CompletableFuture<Void?> =
-        delete(objectId, params, RequestOptions.none())
-
-    /** @see delete */
-    fun delete(
-        objectId: Long,
-        params: MediaBridgeDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        delete(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see delete */
-    fun delete(params: MediaBridgeDeleteParams): CompletableFuture<Void?> =
-        delete(params, RequestOptions.none())
-
-    /** @see delete */
-    fun delete(
-        params: MediaBridgeDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
 
     /** Create a new association definition for the specified object type. */
     fun createAssociation(
@@ -273,19 +106,20 @@ interface MediaBridgeServiceAsync {
     /** Create an event containing the viewers attention span details for the media. */
     fun createAttentionSpanEvent(
         params: MediaBridgeCreateAttentionSpanEventParams
-    ): CompletableFuture<HttpResponse> = createAttentionSpanEvent(params, RequestOptions.none())
+    ): CompletableFuture<AttentionSpanEvent> =
+        createAttentionSpanEvent(params, RequestOptions.none())
 
     /** @see createAttentionSpanEvent */
     fun createAttentionSpanEvent(
         params: MediaBridgeCreateAttentionSpanEventParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
+    ): CompletableFuture<AttentionSpanEvent>
 
     /** @see createAttentionSpanEvent */
     fun createAttentionSpanEvent(
         attentionSpanEventRequest: AttentionSpanEventRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<AttentionSpanEvent> =
         createAttentionSpanEvent(
             MediaBridgeCreateAttentionSpanEventParams.builder()
                 .attentionSpanEventRequest(attentionSpanEventRequest)
@@ -296,25 +130,25 @@ interface MediaBridgeServiceAsync {
     /** @see createAttentionSpanEvent */
     fun createAttentionSpanEvent(
         attentionSpanEventRequest: AttentionSpanEventRequest
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<AttentionSpanEvent> =
         createAttentionSpanEvent(attentionSpanEventRequest, RequestOptions.none())
 
     /** Create an event for when a user begins playing a piece of media. */
     fun createMediaPlayedEvent(
         params: MediaBridgeCreateMediaPlayedEventParams
-    ): CompletableFuture<HttpResponse> = createMediaPlayedEvent(params, RequestOptions.none())
+    ): CompletableFuture<MediaPlayedEvent> = createMediaPlayedEvent(params, RequestOptions.none())
 
     /** @see createMediaPlayedEvent */
     fun createMediaPlayedEvent(
         params: MediaBridgeCreateMediaPlayedEventParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
+    ): CompletableFuture<MediaPlayedEvent>
 
     /** @see createMediaPlayedEvent */
     fun createMediaPlayedEvent(
         mediaPlayedEventRequest: MediaPlayedEventRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<MediaPlayedEvent> =
         createMediaPlayedEvent(
             MediaBridgeCreateMediaPlayedEventParams.builder()
                 .mediaPlayedEventRequest(mediaPlayedEventRequest)
@@ -325,7 +159,7 @@ interface MediaBridgeServiceAsync {
     /** @see createMediaPlayedEvent */
     fun createMediaPlayedEvent(
         mediaPlayedEventRequest: MediaPlayedEventRequest
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<MediaPlayedEvent> =
         createMediaPlayedEvent(mediaPlayedEventRequest, RequestOptions.none())
 
     /**
@@ -334,20 +168,20 @@ interface MediaBridgeServiceAsync {
      */
     fun createMediaPlayedPercentEvent(
         params: MediaBridgeCreateMediaPlayedPercentEventParams
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<MediaPlayedPercentageEvent> =
         createMediaPlayedPercentEvent(params, RequestOptions.none())
 
     /** @see createMediaPlayedPercentEvent */
     fun createMediaPlayedPercentEvent(
         params: MediaBridgeCreateMediaPlayedPercentEventParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse>
+    ): CompletableFuture<MediaPlayedPercentageEvent>
 
     /** @see createMediaPlayedPercentEvent */
     fun createMediaPlayedPercentEvent(
         mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<MediaPlayedPercentageEvent> =
         createMediaPlayedPercentEvent(
             MediaBridgeCreateMediaPlayedPercentEventParams.builder()
                 .mediaPlayedPercentageEventRequest(mediaPlayedPercentageEventRequest)
@@ -358,19 +192,19 @@ interface MediaBridgeServiceAsync {
     /** @see createMediaPlayedPercentEvent */
     fun createMediaPlayedPercentEvent(
         mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest
-    ): CompletableFuture<HttpResponse> =
+    ): CompletableFuture<MediaPlayedPercentageEvent> =
         createMediaPlayedPercentEvent(mediaPlayedPercentageEventRequest, RequestOptions.none())
 
     /** Create a new media object type */
     fun createObjectType(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateObjectTypeParams,
     ): CompletableFuture<BulkIntegratorObjectCreationResponse> =
         createObjectType(appId, params, RequestOptions.none())
 
     /** @see createObjectType */
     fun createObjectType(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateObjectTypeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BulkIntegratorObjectCreationResponse> =
@@ -390,14 +224,14 @@ interface MediaBridgeServiceAsync {
 
     /** Set up a new oEmbed domain for your media bridge app. */
     fun createOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateOembedDomainParams,
     ): CompletableFuture<IntegratorOEmbedDomainModel> =
         createOembedDomain(appId, params, RequestOptions.none())
 
     /** @see createOembedDomain */
     fun createOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateOembedDomainParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<IntegratorOEmbedDomainModel> =
@@ -465,7 +299,7 @@ interface MediaBridgeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PropertyGroup>
 
-    fun createVideoAssociationDefinition(appId: String): CompletableFuture<AssociationDefinition> =
+    fun createVideoAssociationDefinition(appId: Int): CompletableFuture<AssociationDefinition> =
         createVideoAssociationDefinition(
             appId,
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
@@ -473,7 +307,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -482,7 +316,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
-        appId: String,
+        appId: Int,
         params: MediaBridgeCreateVideoAssociationDefinitionParams =
             MediaBridgeCreateVideoAssociationDefinitionParams.none(),
     ): CompletableFuture<AssociationDefinition> =
@@ -502,7 +336,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see createVideoAssociationDefinition */
     fun createVideoAssociationDefinition(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): CompletableFuture<AssociationDefinition> =
         createVideoAssociationDefinition(
@@ -536,12 +370,12 @@ interface MediaBridgeServiceAsync {
     ): CompletableFuture<Void?>
 
     /** Delete an existing oEmbed domain. */
-    fun deleteOembedDomain(appId: String): CompletableFuture<Void?> =
+    fun deleteOembedDomain(appId: Int): CompletableFuture<Void?> =
         deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none())
 
     /** @see deleteOembedDomain */
     fun deleteOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeDeleteOembedDomainParams = MediaBridgeDeleteOembedDomainParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
@@ -549,7 +383,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see deleteOembedDomain */
     fun deleteOembedDomain(
-        appId: String,
+        appId: Int,
         params: MediaBridgeDeleteOembedDomainParams = MediaBridgeDeleteOembedDomainParams.none(),
     ): CompletableFuture<Void?> = deleteOembedDomain(appId, params, RequestOptions.none())
 
@@ -564,10 +398,7 @@ interface MediaBridgeServiceAsync {
         deleteOembedDomain(params, RequestOptions.none())
 
     /** @see deleteOembedDomain */
-    fun deleteOembedDomain(
-        appId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
+    fun deleteOembedDomain(appId: Int, requestOptions: RequestOptions): CompletableFuture<Void?> =
         deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none(), requestOptions)
 
     /** Delete an existing property for an object type. */
@@ -619,34 +450,13 @@ interface MediaBridgeServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    fun get(objectId: Long, params: MediaBridgeGetParams): CompletableFuture<MediaBridgeObject> =
-        get(objectId, params, RequestOptions.none())
-
-    /** @see get */
-    fun get(
-        objectId: Long,
-        params: MediaBridgeGetParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject> =
-        get(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see get */
-    fun get(params: MediaBridgeGetParams): CompletableFuture<MediaBridgeObject> =
-        get(params, RequestOptions.none())
-
-    /** @see get */
-    fun get(
-        params: MediaBridgeGetParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<MediaBridgeObject>
-
     /** Get the visibility settings for media bridge events for your apps. */
-    fun getEventVisibilitySettings(appId: String): CompletableFuture<EventVisibilityResponse> =
+    fun getEventVisibilitySettings(appId: Int): CompletableFuture<EventVisibilityResponse> =
         getEventVisibilitySettings(appId, MediaBridgeGetEventVisibilitySettingsParams.none())
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeGetEventVisibilitySettingsParams =
             MediaBridgeGetEventVisibilitySettingsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
@@ -655,7 +465,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeGetEventVisibilitySettingsParams =
             MediaBridgeGetEventVisibilitySettingsParams.none(),
     ): CompletableFuture<EventVisibilityResponse> =
@@ -675,7 +485,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see getEventVisibilitySettings */
     fun getEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): CompletableFuture<EventVisibilityResponse> =
         getEventVisibilitySettings(
@@ -812,12 +622,12 @@ interface MediaBridgeServiceAsync {
     ): CompletableFuture<ObjectDefinitionResponse>
 
     /** Get the details for existing oEmbed domains for your app */
-    fun listOembedDomains(appId: String): CompletableFuture<OEmbedDomainsCollectionResponse> =
+    fun listOembedDomains(appId: Int): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none())
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<OEmbedDomainsCollectionResponse> =
@@ -825,7 +635,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
     ): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(appId, params, RequestOptions.none())
@@ -844,7 +654,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see listOembedDomains */
     fun listOembedDomains(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): CompletableFuture<OEmbedDomainsCollectionResponse> =
         listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none(), requestOptions)
@@ -904,12 +714,12 @@ interface MediaBridgeServiceAsync {
     ): CompletableFuture<CollectionResponsePropertyGroupNoPaging>
 
     /** Get the schemas for all object types. */
-    fun listSchemas(appId: String): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
+    fun listSchemas(appId: Int): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         listSchemas(appId, MediaBridgeListSchemasParams.none())
 
     /** @see listSchemas */
     fun listSchemas(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
@@ -917,7 +727,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see listSchemas */
     fun listSchemas(
-        appId: String,
+        appId: Int,
         params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
     ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         listSchemas(appId, params, RequestOptions.none())
@@ -936,7 +746,7 @@ interface MediaBridgeServiceAsync {
 
     /** @see listSchemas */
     fun listSchemas(
-        appId: String,
+        appId: Int,
         requestOptions: RequestOptions,
     ): CompletableFuture<CollectionResponseObjectSchemaNoPaging> =
         listSchemas(appId, MediaBridgeListSchemasParams.none(), requestOptions)
@@ -944,7 +754,7 @@ interface MediaBridgeServiceAsync {
     /** Register the name that your app will display when a user is selecting media bridge items. */
     @Deprecated("deprecated")
     fun registerAppName(
-        appId: String,
+        appId: Int,
         params: MediaBridgeRegisterAppNameParams,
     ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         registerAppName(appId, params, RequestOptions.none())
@@ -952,7 +762,7 @@ interface MediaBridgeServiceAsync {
     /** @see registerAppName */
     @Deprecated("deprecated")
     fun registerAppName(
-        appId: String,
+        appId: Int,
         params: MediaBridgeRegisterAppNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
@@ -974,14 +784,14 @@ interface MediaBridgeServiceAsync {
 
     /** Set the visibility settings for media bridge events created by your app. */
     fun updateEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateEventVisibilitySettingsParams,
     ): CompletableFuture<EventVisibilityChange> =
         updateEventVisibilitySettings(appId, params, RequestOptions.none())
 
     /** @see updateEventVisibilitySettings */
     fun updateEventVisibilitySettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateEventVisibilitySettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EventVisibilityChange> =
@@ -1107,14 +917,14 @@ interface MediaBridgeServiceAsync {
 
     /** Update the name that your app will display when a user is selecting media bridge items. */
     fun updateSettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateSettingsParams,
     ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
         updateSettings(appId, params, RequestOptions.none())
 
     /** @see updateSettings */
     fun updateSettings(
-        appId: String,
+        appId: Int,
         params: MediaBridgeUpdateSettingsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<MediaBridgeProviderRegistrationResponse> =
@@ -1148,205 +958,6 @@ interface MediaBridgeServiceAsync {
         ): MediaBridgeServiceAsync.WithRawResponse
 
         fun batch(): BatchServiceAsync.WithRawResponse
-
-        /**
-         * Returns a raw HTTP response for `post /media-bridge/2026-03/objects`, but is otherwise
-         * the same as [MediaBridgeServiceAsync.create].
-         */
-        fun create(
-            params: MediaBridgeCreateParams
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            params: MediaBridgeCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>>
-
-        /** @see create */
-        fun create(
-            createMbObjectRequest: CreateMbObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(
-                MediaBridgeCreateParams.builder()
-                    .createMbObjectRequest(createMbObjectRequest)
-                    .build(),
-                requestOptions,
-            )
-
-        /** @see create */
-        fun create(
-            createMbObjectRequest: CreateMbObjectRequest
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(createMbObjectRequest, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            video: CreateVideoObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(CreateMbObjectRequest.ofVideo(video), requestOptions)
-
-        /** @see create */
-        fun create(
-            video: CreateVideoObjectRequest
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(video, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            other: CreateOtherObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(CreateMbObjectRequest.ofOther(other), requestOptions)
-
-        /** @see create */
-        fun create(
-            other: CreateOtherObjectRequest
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(other, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            audio: CreateAudioObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(CreateMbObjectRequest.ofAudio(audio), requestOptions)
-
-        /** @see create */
-        fun create(
-            audio: CreateAudioObjectRequest
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(audio, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            image: CreateImageObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(CreateMbObjectRequest.ofImage(image), requestOptions)
-
-        /** @see create */
-        fun create(
-            image: CreateImageObjectRequest
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(image, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            document: CreateDocumentObjectRequest,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(CreateMbObjectRequest.ofDocument(document), requestOptions)
-
-        /** @see create */
-        fun create(
-            document: CreateDocumentObjectRequest
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            create(document, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `patch /media-bridge/2026-03/objects/{objectId}`, but is
-         * otherwise the same as [MediaBridgeServiceAsync.update].
-         */
-        fun update(
-            objectId: Long,
-            params: MediaBridgeUpdateParams,
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            update(objectId, params, RequestOptions.none())
-
-        /** @see update */
-        fun update(
-            objectId: Long,
-            params: MediaBridgeUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            update(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see update */
-        fun update(
-            params: MediaBridgeUpdateParams
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            update(params, RequestOptions.none())
-
-        /** @see update */
-        fun update(
-            params: MediaBridgeUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>>
-
-        /**
-         * Returns a raw HTTP response for `get /media-bridge/2026-03/objects/{mediaType}`, but is
-         * otherwise the same as [MediaBridgeServiceAsync.list].
-         */
-        fun list(
-            mediaType: MediaBridgeListParams.MediaType
-        ): CompletableFuture<HttpResponseFor<MediaBridgeListPageAsync>> =
-            list(mediaType, MediaBridgeListParams.none())
-
-        /** @see list */
-        fun list(
-            mediaType: MediaBridgeListParams.MediaType,
-            params: MediaBridgeListParams = MediaBridgeListParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeListPageAsync>> =
-            list(params.toBuilder().mediaType(mediaType).build(), requestOptions)
-
-        /** @see list */
-        fun list(
-            mediaType: MediaBridgeListParams.MediaType,
-            params: MediaBridgeListParams = MediaBridgeListParams.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeListPageAsync>> =
-            list(mediaType, params, RequestOptions.none())
-
-        /** @see list */
-        fun list(
-            params: MediaBridgeListParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeListPageAsync>>
-
-        /** @see list */
-        fun list(
-            params: MediaBridgeListParams
-        ): CompletableFuture<HttpResponseFor<MediaBridgeListPageAsync>> =
-            list(params, RequestOptions.none())
-
-        /** @see list */
-        fun list(
-            mediaType: MediaBridgeListParams.MediaType,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<MediaBridgeListPageAsync>> =
-            list(mediaType, MediaBridgeListParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `delete
-         * /media-bridge/2026-03/objects/{mediaType}/{objectId}`, but is otherwise the same as
-         * [MediaBridgeServiceAsync.delete].
-         */
-        fun delete(
-            objectId: Long,
-            params: MediaBridgeDeleteParams,
-        ): CompletableFuture<HttpResponse> = delete(objectId, params, RequestOptions.none())
-
-        /** @see delete */
-        fun delete(
-            objectId: Long,
-            params: MediaBridgeDeleteParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            delete(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see delete */
-        fun delete(params: MediaBridgeDeleteParams): CompletableFuture<HttpResponse> =
-            delete(params, RequestOptions.none())
-
-        /** @see delete */
-        fun delete(
-            params: MediaBridgeDeleteParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `post
@@ -1385,19 +996,20 @@ interface MediaBridgeServiceAsync {
          */
         fun createAttentionSpanEvent(
             params: MediaBridgeCreateAttentionSpanEventParams
-        ): CompletableFuture<HttpResponse> = createAttentionSpanEvent(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<AttentionSpanEvent>> =
+            createAttentionSpanEvent(params, RequestOptions.none())
 
         /** @see createAttentionSpanEvent */
         fun createAttentionSpanEvent(
             params: MediaBridgeCreateAttentionSpanEventParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<AttentionSpanEvent>>
 
         /** @see createAttentionSpanEvent */
         fun createAttentionSpanEvent(
             attentionSpanEventRequest: AttentionSpanEventRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<AttentionSpanEvent>> =
             createAttentionSpanEvent(
                 MediaBridgeCreateAttentionSpanEventParams.builder()
                     .attentionSpanEventRequest(attentionSpanEventRequest)
@@ -1408,7 +1020,7 @@ interface MediaBridgeServiceAsync {
         /** @see createAttentionSpanEvent */
         fun createAttentionSpanEvent(
             attentionSpanEventRequest: AttentionSpanEventRequest
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<AttentionSpanEvent>> =
             createAttentionSpanEvent(attentionSpanEventRequest, RequestOptions.none())
 
         /**
@@ -1417,19 +1029,20 @@ interface MediaBridgeServiceAsync {
          */
         fun createMediaPlayedEvent(
             params: MediaBridgeCreateMediaPlayedEventParams
-        ): CompletableFuture<HttpResponse> = createMediaPlayedEvent(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<MediaPlayedEvent>> =
+            createMediaPlayedEvent(params, RequestOptions.none())
 
         /** @see createMediaPlayedEvent */
         fun createMediaPlayedEvent(
             params: MediaBridgeCreateMediaPlayedEventParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<MediaPlayedEvent>>
 
         /** @see createMediaPlayedEvent */
         fun createMediaPlayedEvent(
             mediaPlayedEventRequest: MediaPlayedEventRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<MediaPlayedEvent>> =
             createMediaPlayedEvent(
                 MediaBridgeCreateMediaPlayedEventParams.builder()
                     .mediaPlayedEventRequest(mediaPlayedEventRequest)
@@ -1440,7 +1053,7 @@ interface MediaBridgeServiceAsync {
         /** @see createMediaPlayedEvent */
         fun createMediaPlayedEvent(
             mediaPlayedEventRequest: MediaPlayedEventRequest
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<MediaPlayedEvent>> =
             createMediaPlayedEvent(mediaPlayedEventRequest, RequestOptions.none())
 
         /**
@@ -1449,20 +1062,20 @@ interface MediaBridgeServiceAsync {
          */
         fun createMediaPlayedPercentEvent(
             params: MediaBridgeCreateMediaPlayedPercentEventParams
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<MediaPlayedPercentageEvent>> =
             createMediaPlayedPercentEvent(params, RequestOptions.none())
 
         /** @see createMediaPlayedPercentEvent */
         fun createMediaPlayedPercentEvent(
             params: MediaBridgeCreateMediaPlayedPercentEventParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
+        ): CompletableFuture<HttpResponseFor<MediaPlayedPercentageEvent>>
 
         /** @see createMediaPlayedPercentEvent */
         fun createMediaPlayedPercentEvent(
             mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<MediaPlayedPercentageEvent>> =
             createMediaPlayedPercentEvent(
                 MediaBridgeCreateMediaPlayedPercentEventParams.builder()
                     .mediaPlayedPercentageEventRequest(mediaPlayedPercentageEventRequest)
@@ -1473,7 +1086,7 @@ interface MediaBridgeServiceAsync {
         /** @see createMediaPlayedPercentEvent */
         fun createMediaPlayedPercentEvent(
             mediaPlayedPercentageEventRequest: MediaPlayedPercentageEventRequest
-        ): CompletableFuture<HttpResponse> =
+        ): CompletableFuture<HttpResponseFor<MediaPlayedPercentageEvent>> =
             createMediaPlayedPercentEvent(mediaPlayedPercentageEventRequest, RequestOptions.none())
 
         /**
@@ -1482,14 +1095,14 @@ interface MediaBridgeServiceAsync {
          * [MediaBridgeServiceAsync.createObjectType].
          */
         fun createObjectType(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateObjectTypeParams,
         ): CompletableFuture<HttpResponseFor<BulkIntegratorObjectCreationResponse>> =
             createObjectType(appId, params, RequestOptions.none())
 
         /** @see createObjectType */
         fun createObjectType(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateObjectTypeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BulkIntegratorObjectCreationResponse>> =
@@ -1513,14 +1126,14 @@ interface MediaBridgeServiceAsync {
          * [MediaBridgeServiceAsync.createOembedDomain].
          */
         fun createOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateOembedDomainParams,
         ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
             createOembedDomain(appId, params, RequestOptions.none())
 
         /** @see createOembedDomain */
         fun createOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateOembedDomainParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<IntegratorOEmbedDomainModel>> =
@@ -1606,7 +1219,7 @@ interface MediaBridgeServiceAsync {
          * the same as [MediaBridgeServiceAsync.createVideoAssociationDefinition].
          */
         fun createVideoAssociationDefinition(
-            appId: String
+            appId: Int
         ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createVideoAssociationDefinition(
                 appId,
@@ -1615,7 +1228,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see createVideoAssociationDefinition */
         fun createVideoAssociationDefinition(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -1627,7 +1240,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see createVideoAssociationDefinition */
         fun createVideoAssociationDefinition(
-            appId: String,
+            appId: Int,
             params: MediaBridgeCreateVideoAssociationDefinitionParams =
                 MediaBridgeCreateVideoAssociationDefinitionParams.none(),
         ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
@@ -1647,7 +1260,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see createVideoAssociationDefinition */
         fun createVideoAssociationDefinition(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<AssociationDefinition>> =
             createVideoAssociationDefinition(
@@ -1694,12 +1307,12 @@ interface MediaBridgeServiceAsync {
          * /media-bridge/2026-03/{appId}/settings/oembed-domains`, but is otherwise the same as
          * [MediaBridgeServiceAsync.deleteOembedDomain].
          */
-        fun deleteOembedDomain(appId: String): CompletableFuture<HttpResponse> =
+        fun deleteOembedDomain(appId: Int): CompletableFuture<HttpResponse> =
             deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none())
 
         /** @see deleteOembedDomain */
         fun deleteOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeDeleteOembedDomainParams =
                 MediaBridgeDeleteOembedDomainParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -1708,7 +1321,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see deleteOembedDomain */
         fun deleteOembedDomain(
-            appId: String,
+            appId: Int,
             params: MediaBridgeDeleteOembedDomainParams = MediaBridgeDeleteOembedDomainParams.none(),
         ): CompletableFuture<HttpResponse> =
             deleteOembedDomain(appId, params, RequestOptions.none())
@@ -1726,7 +1339,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see deleteOembedDomain */
         fun deleteOembedDomain(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
             deleteOembedDomain(appId, MediaBridgeDeleteOembedDomainParams.none(), requestOptions)
@@ -1793,48 +1406,17 @@ interface MediaBridgeServiceAsync {
 
         /**
          * Returns a raw HTTP response for `get
-         * /media-bridge/2026-03/objects/{mediaType}/{objectId}`, but is otherwise the same as
-         * [MediaBridgeServiceAsync.get].
-         */
-        fun get(
-            objectId: Long,
-            params: MediaBridgeGetParams,
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            get(objectId, params, RequestOptions.none())
-
-        /** @see get */
-        fun get(
-            objectId: Long,
-            params: MediaBridgeGetParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            get(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see get */
-        fun get(
-            params: MediaBridgeGetParams
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>> =
-            get(params, RequestOptions.none())
-
-        /** @see get */
-        fun get(
-            params: MediaBridgeGetParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<MediaBridgeObject>>
-
-        /**
-         * Returns a raw HTTP response for `get
          * /media-bridge/2026-03/{appId}/settings/event-visibility`, but is otherwise the same as
          * [MediaBridgeServiceAsync.getEventVisibilitySettings].
          */
         fun getEventVisibilitySettings(
-            appId: String
+            appId: Int
         ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
             getEventVisibilitySettings(appId, MediaBridgeGetEventVisibilitySettingsParams.none())
 
         /** @see getEventVisibilitySettings */
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeGetEventVisibilitySettingsParams =
                 MediaBridgeGetEventVisibilitySettingsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
@@ -1843,7 +1425,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see getEventVisibilitySettings */
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeGetEventVisibilitySettingsParams =
                 MediaBridgeGetEventVisibilitySettingsParams.none(),
         ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
@@ -1863,7 +1445,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see getEventVisibilitySettings */
         fun getEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<EventVisibilityResponse>> =
             getEventVisibilitySettings(
@@ -2037,13 +1619,13 @@ interface MediaBridgeServiceAsync {
          * [MediaBridgeServiceAsync.listOembedDomains].
          */
         fun listOembedDomains(
-            appId: String
+            appId: Int
         ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none())
 
         /** @see listOembedDomains */
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
@@ -2051,7 +1633,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see listOembedDomains */
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListOembedDomainsParams = MediaBridgeListOembedDomainsParams.none(),
         ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(appId, params, RequestOptions.none())
@@ -2070,7 +1652,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see listOembedDomains */
         fun listOembedDomains(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<OEmbedDomainsCollectionResponse>> =
             listOembedDomains(appId, MediaBridgeListOembedDomainsParams.none(), requestOptions)
@@ -2142,13 +1724,13 @@ interface MediaBridgeServiceAsync {
          * otherwise the same as [MediaBridgeServiceAsync.listSchemas].
          */
         fun listSchemas(
-            appId: String
+            appId: Int
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
             listSchemas(appId, MediaBridgeListSchemasParams.none())
 
         /** @see listSchemas */
         fun listSchemas(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
@@ -2156,7 +1738,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see listSchemas */
         fun listSchemas(
-            appId: String,
+            appId: Int,
             params: MediaBridgeListSchemasParams = MediaBridgeListSchemasParams.none(),
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
             listSchemas(appId, params, RequestOptions.none())
@@ -2175,7 +1757,7 @@ interface MediaBridgeServiceAsync {
 
         /** @see listSchemas */
         fun listSchemas(
-            appId: String,
+            appId: Int,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CollectionResponseObjectSchemaNoPaging>> =
             listSchemas(appId, MediaBridgeListSchemasParams.none(), requestOptions)
@@ -2186,7 +1768,7 @@ interface MediaBridgeServiceAsync {
          */
         @Deprecated("deprecated")
         fun registerAppName(
-            appId: String,
+            appId: Int,
             params: MediaBridgeRegisterAppNameParams,
         ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             registerAppName(appId, params, RequestOptions.none())
@@ -2194,7 +1776,7 @@ interface MediaBridgeServiceAsync {
         /** @see registerAppName */
         @Deprecated("deprecated")
         fun registerAppName(
-            appId: String,
+            appId: Int,
             params: MediaBridgeRegisterAppNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
@@ -2220,14 +1802,14 @@ interface MediaBridgeServiceAsync {
          * [MediaBridgeServiceAsync.updateEventVisibilitySettings].
          */
         fun updateEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateEventVisibilitySettingsParams,
         ): CompletableFuture<HttpResponseFor<EventVisibilityChange>> =
             updateEventVisibilitySettings(appId, params, RequestOptions.none())
 
         /** @see updateEventVisibilitySettings */
         fun updateEventVisibilitySettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateEventVisibilitySettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<EventVisibilityChange>> =
@@ -2377,14 +1959,14 @@ interface MediaBridgeServiceAsync {
          * otherwise the same as [MediaBridgeServiceAsync.updateSettings].
          */
         fun updateSettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateSettingsParams,
         ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =
             updateSettings(appId, params, RequestOptions.none())
 
         /** @see updateSettings */
         fun updateSettings(
-            appId: String,
+            appId: Int,
             params: MediaBridgeUpdateSettingsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<MediaBridgeProviderRegistrationResponse>> =

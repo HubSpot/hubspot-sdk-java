@@ -117,7 +117,10 @@ interface BatchService {
     fun delete(batchInputSimplePublicObjectId: BatchInputSimplePublicObjectId) =
         delete(batchInputSimplePublicObjectId, RequestOptions.none())
 
-    /** Retrieve multiple goal targets with a single request. Goal targets are specified by ID. */
+    /**
+     * Retrieve records by record ID or include the `idProperty` parameter to retrieve records by a
+     * custom unique value property.
+     */
     fun get(params: BatchGetParams): BatchResponseSimplePublicObject =
         get(params, RequestOptions.none())
 

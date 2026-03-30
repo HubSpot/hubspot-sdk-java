@@ -12,6 +12,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/** Mark a marketing event as cancelled. */
 class EventCancelByExternalEventIdParams
 private constructor(
     private val externalEventId: String?,

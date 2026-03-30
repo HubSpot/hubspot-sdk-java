@@ -6,6 +6,7 @@ import com.hubspot_sdk.api.core.AutoPagerAsync
 import com.hubspot_sdk.api.core.PageAsync
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.ForwardPaging
+import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabelForwardPaging
 import com.hubspot_sdk.api.models.crm.MultiAssociatedObjectWithLabel
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerServiceServiceAsync
 import java.util.Objects

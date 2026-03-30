@@ -26,7 +26,7 @@ internal class BatchServiceTest {
         val batchResponseProperty =
             batchService.create(
                 BatchCreateParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchInputPropertyCreate(
                         BatchInputPropertyCreate.builder()
@@ -75,7 +75,7 @@ internal class BatchServiceTest {
 
         batchService.delete(
             BatchDeleteParams.builder()
-                .appId("appId")
+                .appId(0)
                 .objectType("objectType")
                 .batchInputPropertyName(
                     BatchInputPropertyName.builder()
@@ -95,7 +95,7 @@ internal class BatchServiceTest {
         val batchResponseProperty =
             batchService.get(
                 BatchGetParams.builder()
-                    .appId("appId")
+                    .appId(0)
                     .objectType("objectType")
                     .batchReadInputPropertyName(
                         BatchReadInputPropertyName.builder()

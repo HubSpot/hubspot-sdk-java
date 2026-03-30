@@ -5,17 +5,22 @@ package com.hubspot_sdk.api.services.async.cms.blogs
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
-import com.hubspot_sdk.api.models.cms.blogs.AttachToLangPrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.DetachFromLangGroupRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.blogs.UpdateLanguagesRequestVNext
+import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
+import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
+import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateLanguageVariationParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDetachFromLangGroupParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateLanguagesParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
@@ -41,6 +46,7 @@ interface AuthorServiceAsync {
 
     fun batch(): BatchServiceAsync
 
+    /** Create a new Blog Author. */
     fun create(params: AuthorCreateParams): CompletableFuture<HttpResponse> =
         create(params, RequestOptions.none())
 
@@ -61,6 +67,10 @@ interface AuthorServiceAsync {
     fun create(blogAuthor: BlogAuthor): CompletableFuture<HttpResponse> =
         create(blogAuthor, RequestOptions.none())
 
+    /**
+     * Sparse updates a single Blog Author object identified by the id in the path. All the column
+     * values need not be specified. Only the that need to be modified can be specified.
+     */
     fun update(objectId: String, params: AuthorUpdateParams): CompletableFuture<HttpResponse> =
         update(objectId, params, RequestOptions.none())
 
@@ -98,6 +108,7 @@ interface AuthorServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
         list(AuthorListParams.none(), requestOptions)
 
+    /** Delete the Blog Author object identified by the id in the path. */
     fun delete(objectId: String): CompletableFuture<Void?> =
         delete(objectId, AuthorDeleteParams.none())
 
@@ -129,6 +140,7 @@ interface AuthorServiceAsync {
     fun delete(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         delete(objectId, AuthorDeleteParams.none(), requestOptions)
 
+    /** Attach a Blog Author to a multi-language group. */
     fun attachToLangGroup(params: AuthorAttachToLangGroupParams): CompletableFuture<HttpResponse> =
         attachToLangGroup(params, RequestOptions.none())
 
@@ -156,6 +168,7 @@ interface AuthorServiceAsync {
     ): CompletableFuture<HttpResponse> =
         attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
+    /** Create a new language variation from an existing Blog Author. */
     fun createLanguageVariation(
         params: AuthorCreateLanguageVariationParams
     ): CompletableFuture<HttpResponse> = createLanguageVariation(params, RequestOptions.none())
@@ -184,6 +197,7 @@ interface AuthorServiceAsync {
     ): CompletableFuture<HttpResponse> =
         createLanguageVariation(blogAuthorCloneRequestVNext, RequestOptions.none())
 
+    /** Detach a Blog Author from a multi-language group. */
     fun detachFromLangGroup(
         params: AuthorDetachFromLangGroupParams
     ): CompletableFuture<HttpResponse> = detachFromLangGroup(params, RequestOptions.none())
@@ -212,6 +226,7 @@ interface AuthorServiceAsync {
     ): CompletableFuture<HttpResponse> =
         detachFromLangGroup(detachFromLangGroupRequestVNext, RequestOptions.none())
 
+    /** Retrieve the Blog Author object identified by the id in the path. */
     fun get(objectId: String): CompletableFuture<HttpResponse> =
         get(objectId, AuthorGetParams.none())
 
@@ -243,6 +258,94 @@ interface AuthorServiceAsync {
     fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
         get(objectId, AuthorGetParams.none(), requestOptions)
 
+    fun listByQuery(): CompletableFuture<HttpResponse> = listByQuery(AuthorListByQueryParams.none())
+
+    /** @see listByQuery */
+    fun listByQuery(
+        params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see listByQuery */
+    fun listByQuery(
+        params: AuthorListByQueryParams = AuthorListByQueryParams.none()
+    ): CompletableFuture<HttpResponse> = listByQuery(params, RequestOptions.none())
+
+    /** @see listByQuery */
+    fun listByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        listByQuery(AuthorListByQueryParams.none(), requestOptions)
+
+    fun listPosts(): CompletableFuture<HttpResponse> = listPosts(AuthorListPostsParams.none())
+
+    /** @see listPosts */
+    fun listPosts(
+        params: AuthorListPostsParams = AuthorListPostsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see listPosts */
+    fun listPosts(
+        params: AuthorListPostsParams = AuthorListPostsParams.none()
+    ): CompletableFuture<HttpResponse> = listPosts(params, RequestOptions.none())
+
+    /** @see listPosts */
+    fun listPosts(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        listPosts(AuthorListPostsParams.none(), requestOptions)
+
+    fun listPostsByQuery(): CompletableFuture<HttpResponse> =
+        listPostsByQuery(AuthorListPostsByQueryParams.none())
+
+    /** @see listPostsByQuery */
+    fun listPostsByQuery(
+        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see listPostsByQuery */
+    fun listPostsByQuery(
+        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
+    ): CompletableFuture<HttpResponse> = listPostsByQuery(params, RequestOptions.none())
+
+    /** @see listPostsByQuery */
+    fun listPostsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+
+    fun listTags(): CompletableFuture<HttpResponse> = listTags(AuthorListTagsParams.none())
+
+    /** @see listTags */
+    fun listTags(
+        params: AuthorListTagsParams = AuthorListTagsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see listTags */
+    fun listTags(
+        params: AuthorListTagsParams = AuthorListTagsParams.none()
+    ): CompletableFuture<HttpResponse> = listTags(params, RequestOptions.none())
+
+    /** @see listTags */
+    fun listTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        listTags(AuthorListTagsParams.none(), requestOptions)
+
+    fun listTagsByQuery(): CompletableFuture<HttpResponse> =
+        listTagsByQuery(AuthorListTagsByQueryParams.none())
+
+    /** @see listTagsByQuery */
+    fun listTagsByQuery(
+        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see listTagsByQuery */
+    fun listTagsByQuery(
+        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
+    ): CompletableFuture<HttpResponse> = listTagsByQuery(params, RequestOptions.none())
+
+    /** @see listTagsByQuery */
+    fun listTagsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
+
+    /** Set a Blog Author as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: AuthorSetNewLangPrimaryParams): CompletableFuture<Void?> =
         setNewLangPrimary(params, RequestOptions.none())
 
@@ -270,6 +373,7 @@ interface AuthorServiceAsync {
     ): CompletableFuture<Void?> =
         setNewLangPrimary(setNewLanguagePrimaryRequestVNext, RequestOptions.none())
 
+    /** Explicitly set new languages for each Blog Author in a multi-language group. */
     fun updateLanguages(params: AuthorUpdateLanguagesParams): CompletableFuture<HttpResponse> =
         updateLanguages(params, RequestOptions.none())
 
@@ -363,8 +467,8 @@ interface AuthorServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors`, but is otherwise the
-         * same as [AuthorServiceAsync.list].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
+         * the same as [AuthorServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponse> = list(AuthorListParams.none())
 
@@ -554,6 +658,114 @@ interface AuthorServiceAsync {
         /** @see get */
         fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
             get(objectId, AuthorGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
+         * otherwise the same as [AuthorServiceAsync.listByQuery].
+         */
+        fun listByQuery(): CompletableFuture<HttpResponse> =
+            listByQuery(AuthorListByQueryParams.none())
+
+        /** @see listByQuery */
+        fun listByQuery(
+            params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see listByQuery */
+        fun listByQuery(
+            params: AuthorListByQueryParams = AuthorListByQueryParams.none()
+        ): CompletableFuture<HttpResponse> = listByQuery(params, RequestOptions.none())
+
+        /** @see listByQuery */
+        fun listByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            listByQuery(AuthorListByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor`, but is otherwise
+         * the same as [AuthorServiceAsync.listPosts].
+         */
+        fun listPosts(): CompletableFuture<HttpResponse> = listPosts(AuthorListPostsParams.none())
+
+        /** @see listPosts */
+        fun listPosts(
+            params: AuthorListPostsParams = AuthorListPostsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see listPosts */
+        fun listPosts(
+            params: AuthorListPostsParams = AuthorListPostsParams.none()
+        ): CompletableFuture<HttpResponse> = listPosts(params, RequestOptions.none())
+
+        /** @see listPosts */
+        fun listPosts(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            listPosts(AuthorListPostsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor/query`, but is
+         * otherwise the same as [AuthorServiceAsync.listPostsByQuery].
+         */
+        fun listPostsByQuery(): CompletableFuture<HttpResponse> =
+            listPostsByQuery(AuthorListPostsByQueryParams.none())
+
+        /** @see listPostsByQuery */
+        fun listPostsByQuery(
+            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see listPostsByQuery */
+        fun listPostsByQuery(
+            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
+        ): CompletableFuture<HttpResponse> = listPostsByQuery(params, RequestOptions.none())
+
+        /** @see listPostsByQuery */
+        fun listPostsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor`, but is otherwise
+         * the same as [AuthorServiceAsync.listTags].
+         */
+        fun listTags(): CompletableFuture<HttpResponse> = listTags(AuthorListTagsParams.none())
+
+        /** @see listTags */
+        fun listTags(
+            params: AuthorListTagsParams = AuthorListTagsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see listTags */
+        fun listTags(
+            params: AuthorListTagsParams = AuthorListTagsParams.none()
+        ): CompletableFuture<HttpResponse> = listTags(params, RequestOptions.none())
+
+        /** @see listTags */
+        fun listTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            listTags(AuthorListTagsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor/query`, but is
+         * otherwise the same as [AuthorServiceAsync.listTagsByQuery].
+         */
+        fun listTagsByQuery(): CompletableFuture<HttpResponse> =
+            listTagsByQuery(AuthorListTagsByQueryParams.none())
+
+        /** @see listTagsByQuery */
+        fun listTagsByQuery(
+            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see listTagsByQuery */
+        fun listTagsByQuery(
+            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
+        ): CompletableFuture<HttpResponse> = listTagsByQuery(params, RequestOptions.none())
+
+        /** @see listTagsByQuery */
+        fun listTagsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put

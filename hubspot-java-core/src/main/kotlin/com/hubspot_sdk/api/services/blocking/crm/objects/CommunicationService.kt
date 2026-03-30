@@ -7,9 +7,9 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
+import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.CollectionResponseWithTotalSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.communications.CommunicationCreateParams
@@ -39,12 +39,8 @@ interface CommunicationService {
     fun batch(): BatchService
 
     /**
-     * Create a single communication (WhatsApp, SMS, LinkedIn message). Include a `properties`
-     * object to define
-     * [property values](https://developers.hubspot.com/docs/guides/api/crm/properties) for the
-     * {objectName}, along with an `associations` array to define
-     * [associations](https://developers.hubspot.com/docs/guides/api/crm/associations/associations-v4)
-     * with other CRM records.
+     * Create a communication with the given properties and return a copy of the object, including
+     * the ID. Documentation and examples for creating standard communications is provided.
      */
     fun create(params: CommunicationCreateParams): SimplePublicObject =
         create(params, RequestOptions.none())
@@ -73,9 +69,12 @@ interface CommunicationService {
     ): SimplePublicObject = create(simplePublicObjectInputForCreate, RequestOptions.none())
 
     /**
-     * Update a communication by ID (`objectId`) or unique property value (`idProperty`). Provided
-     * property values will be overwritten. Read-only and non-existent properties will result in an
-     * error. Properties values can be cleared by passing an empty string.
+     * Perform a partial update of an Object identified by `{communicationId}`or optionally a unique
+     * property value as specified by the `idProperty` query param. `{communicationId}` refers to
+     * the internal object ID by default, and the `idProperty` query param refers to a property
+     * whose values are unique for the object. Provided property values will be overwritten.
+     * Read-only and non-existent properties will result in an error. Properties values can be
+     * cleared by passing an empty string.
      */
     fun update(communicationId: String, params: CommunicationUpdateParams): SimplePublicObject =
         update(communicationId, params, RequestOptions.none())
@@ -98,10 +97,7 @@ interface CommunicationService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SimplePublicObject
 
-    /**
-     * Retrieve a communication by its ID (`objectId`) or by a unique property (`idProperty`). You
-     * can specify what is returned using the `properties` query parameter.
-     */
+    /** Read a page of communications. Control what is returned via the `properties` query param. */
     fun list(): CommunicationListPage = list(CommunicationListParams.none())
 
     /** @see list */
@@ -119,7 +115,7 @@ interface CommunicationService {
     fun list(requestOptions: RequestOptions): CommunicationListPage =
         list(CommunicationListParams.none(), requestOptions)
 
-    /** Delete a communication by ID. */
+    /** Move an Object identified by `{communicationId}` to the recycling bin. */
     fun delete(communicationId: String) = delete(communicationId, CommunicationDeleteParams.none())
 
     /** @see delete */
@@ -149,9 +145,9 @@ interface CommunicationService {
         delete(communicationId, CommunicationDeleteParams.none(), requestOptions)
 
     /**
-     * Retrieve a communication (WhatsApp, SMS, LinkedIn message) by its ID (`objectId`) or by a
-     * unique property (`idProperty`). You can specify what is returned using the `properties` query
-     * parameter.
+     * Read an Object identified by `{communicationId}`. `{communicationId}` refers to the internal
+     * object ID by default, or optionally any unique property value as specified by the
+     * `idProperty` query param. Control what is returned via the `properties` query param.
      */
     fun get(communicationId: String): SimplePublicObjectWithAssociations =
         get(communicationId, CommunicationGetParams.none())
