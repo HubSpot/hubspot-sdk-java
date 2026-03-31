@@ -28,7 +28,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createChannelConnectionSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val channelConnectionSettingsResponse =
@@ -47,7 +47,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createInboundCall() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val completedThirdPartyCallResponse =
@@ -88,7 +88,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createRecordingReady() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         callingService.createRecordingReady(
@@ -99,7 +99,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createRecordingSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val recordingSettingsResponse =
@@ -120,7 +120,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val settingsResponse =
@@ -149,7 +149,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteChannelConnectionSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         callingService.deleteChannelConnectionSettings(0)
@@ -158,7 +158,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         callingService.deleteSettings(0)
@@ -167,7 +167,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getChannelConnectionSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val channelConnectionSettingsResponse = callingService.getChannelConnectionSettings(0)
@@ -178,7 +178,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRecordingSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val recordingSettingsResponse = callingService.getRecordingSettings(0)
@@ -189,7 +189,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val settingsResponse = callingService.getSettings(0)
@@ -200,7 +200,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateChannelConnectionSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val channelConnectionSettingsResponse =
@@ -222,7 +222,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateRecordingSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val recordingSettingsResponse =
@@ -243,7 +243,7 @@ internal class CallingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val callingService = client.crm().extensions().calling()
 
         val settingsResponse =

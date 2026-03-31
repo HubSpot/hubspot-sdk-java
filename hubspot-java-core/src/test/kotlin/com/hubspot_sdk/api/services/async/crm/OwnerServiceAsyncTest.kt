@@ -12,7 +12,7 @@ internal class OwnerServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ownerServiceAsync = client.crm().owners()
 
         val pageFuture = ownerServiceAsync.list()
@@ -24,7 +24,7 @@ internal class OwnerServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ownerServiceAsync = client.crm().owners()
 
         val publicOwnerFuture =

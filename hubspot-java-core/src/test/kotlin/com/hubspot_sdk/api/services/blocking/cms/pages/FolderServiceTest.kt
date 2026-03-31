@@ -20,7 +20,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val contentFolder =
@@ -42,7 +42,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val contentFolder =
@@ -70,7 +70,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val page = folderService.list()
@@ -81,7 +81,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         folderService.delete(
@@ -92,7 +92,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchGet() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val batchResponseContentFolder =
@@ -109,7 +109,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val contentFolder =
@@ -127,7 +127,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRevision() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val contentFolderVersion =
@@ -144,7 +144,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listRevisions() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val page = folderService.listRevisions("objectId")
@@ -155,7 +155,7 @@ internal class FolderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreRevision() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val folderService = client.cms().pages().folders()
 
         val contentFolder =

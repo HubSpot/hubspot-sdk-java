@@ -42,7 +42,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -78,7 +78,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(patch(anyUrl()).willReturn(ok().withBody("abc")))
@@ -120,7 +120,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -148,7 +148,7 @@ internal class AuthorServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val authorService = client.cms().blogs().authors()
 
         authorService.delete(
@@ -161,7 +161,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -184,7 +184,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -227,7 +227,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -245,7 +245,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -267,7 +267,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -297,7 +297,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -327,7 +327,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -357,7 +357,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -387,7 +387,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -415,7 +415,7 @@ internal class AuthorServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun setNewLangPrimary() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val authorService = client.cms().blogs().authors()
 
         authorService.setNewLangPrimary(
@@ -428,7 +428,7 @@ internal class AuthorServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val authorService = client.cms().blogs().authors()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

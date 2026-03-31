@@ -11,7 +11,7 @@ internal class TaxRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val taxRateServiceAsync = client.settings().taxRates()
 
         val pageFuture = taxRateServiceAsync.list()
@@ -23,7 +23,7 @@ internal class TaxRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val taxRateServiceAsync = client.settings().taxRates()
 
         val publicTaxRateGroupFuture = taxRateServiceAsync.get("taxRateGroupId")

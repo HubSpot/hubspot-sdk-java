@@ -29,7 +29,7 @@ internal class MultiLanguageServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val multiLanguageService = client.cms().blogs().posts().multiLanguage()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -52,7 +52,7 @@ internal class MultiLanguageServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val multiLanguageService = client.cms().blogs().posts().multiLanguage()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -70,7 +70,7 @@ internal class MultiLanguageServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val multiLanguageService = client.cms().blogs().posts().multiLanguage()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -86,7 +86,7 @@ internal class MultiLanguageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun setLangPrimary() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val multiLanguageService = client.cms().blogs().posts().multiLanguage()
 
         multiLanguageService.setLangPrimary(
@@ -99,7 +99,7 @@ internal class MultiLanguageServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val multiLanguageService = client.cms().blogs().posts().multiLanguage()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

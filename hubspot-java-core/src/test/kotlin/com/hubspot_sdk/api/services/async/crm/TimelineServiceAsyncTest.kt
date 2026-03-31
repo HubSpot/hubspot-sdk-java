@@ -16,7 +16,7 @@ internal class TimelineServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createEvent() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val timelineServiceAsync = client.crm().timeline()
 
         val future =
@@ -54,7 +54,7 @@ internal class TimelineServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createProjectType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val timelineServiceAsync = client.crm().timeline()
 
         val appEventResolutionResponseFuture =

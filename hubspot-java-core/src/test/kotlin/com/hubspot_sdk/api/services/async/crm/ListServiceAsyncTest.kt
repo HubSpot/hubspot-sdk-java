@@ -49,7 +49,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listCreateResponseFuture =
@@ -457,7 +457,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listsByIdResponseFuture =
@@ -472,7 +472,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val future = listServiceAsync.delete("listId")
@@ -483,7 +483,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun addAndRemoveMemberships() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val membershipsUpdateResponseFuture =
@@ -506,7 +506,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun addMemberships() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val membershipsUpdateResponseFuture =
@@ -521,7 +521,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun addMembershipsFrom() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val future =
@@ -538,7 +538,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchReadMemberships() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val batchResponseRecordIdWithMembershipsFuture =
@@ -560,7 +560,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createFolder() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listFolderCreateResponseFuture =
@@ -578,7 +578,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createIdMapping() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val publicBatchMigrationMappingFuture = listServiceAsync.createIdMapping(listOf("string"))
@@ -590,7 +590,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteFolder() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val future = listServiceAsync.deleteFolder("folderId")
@@ -601,7 +601,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteMemberships() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val future = listServiceAsync.deleteMemberships("listId")
@@ -612,7 +612,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteScheduleConversion() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val future = listServiceAsync.deleteScheduleConversion("listId")
@@ -623,7 +623,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listFetchResponseFuture =
@@ -638,7 +638,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeIdAndName() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listFetchResponseFuture =
@@ -657,7 +657,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getIdMapping() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val publicMigrationMappingFuture =
@@ -672,7 +672,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRecordMemberships() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val apiCollectionResponseRecordListMembershipFuture =
@@ -691,7 +691,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getScheduleConversion() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val publicListConversionResponseFuture = listServiceAsync.getScheduleConversion("listId")
@@ -703,7 +703,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listFolders() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listFolderFetchResponseFuture =
@@ -718,7 +718,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listMemberships() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val pageFuture = listServiceAsync.listMemberships("listId")
@@ -730,7 +730,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listMembershipsJoinOrder() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val pageFuture = listServiceAsync.listMembershipsJoinOrder("listId")
@@ -742,7 +742,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun moveFolder() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listFolderFetchResponseFuture =
@@ -760,7 +760,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun moveList() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val future =
@@ -774,7 +774,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun removeMemberships() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val membershipsUpdateResponseFuture =
@@ -789,7 +789,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun renameFolder() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listFolderFetchResponseFuture =
@@ -807,7 +807,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restore() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val future = listServiceAsync.restore("listId")
@@ -818,7 +818,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listSearchResponseFuture =
@@ -842,7 +842,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateListFilters() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listUpdateResponseFuture =
@@ -1270,7 +1270,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateListName() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val listUpdateResponseFuture =
@@ -1289,7 +1289,7 @@ internal class ListServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateScheduleConversion() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val listServiceAsync = client.crm().lists()
 
         val publicListConversionResponseFuture =

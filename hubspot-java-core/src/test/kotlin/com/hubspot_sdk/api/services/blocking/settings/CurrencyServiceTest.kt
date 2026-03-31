@@ -12,7 +12,7 @@ internal class CurrencyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCompanyCurrency() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val currencyService = client.settings().currencies()
 
         val companyCurrency = currencyService.getCompanyCurrency()
@@ -23,7 +23,7 @@ internal class CurrencyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listCodes() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val currencyService = client.settings().currencies()
 
         val collectionResponseCurrencyCodeInfoNoPaging = currencyService.listCodes()
@@ -34,7 +34,7 @@ internal class CurrencyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateCompanyCurrency() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val currencyService = client.settings().currencies()
 
         val companyCurrency =

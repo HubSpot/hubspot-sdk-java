@@ -19,7 +19,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val simplePublicObject =
@@ -45,7 +45,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val page =
@@ -62,7 +62,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val simplePublicObjectWithAssociations =
@@ -83,7 +83,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val collectionResponseWithTotalSimplePublicObject =

@@ -22,7 +22,7 @@ internal class ClientOptionsTest {
             ClientOptions.builder()
                 .httpClient(httpClient)
                 .putHeader("User-Agent", "My User Agent")
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
 
         assertThat(clientOptions.headers.values("User-Agent")).containsExactly("My User Agent")
@@ -31,25 +31,18 @@ internal class ClientOptionsTest {
     @Test
     fun toBuilder_privateAppsCanBeUpdated() {
         var clientOptions =
-            ClientOptions.builder()
-                .httpClient(httpClient)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+            ClientOptions.builder().httpClient(httpClient).accessToken("My Access Token").build()
 
-        clientOptions =
-            clientOptions.toBuilder().accessToken("another pat-na1-xxxxxxxx-xxxx").build()
+        clientOptions = clientOptions.toBuilder().accessToken("another My Access Token").build()
 
         assertThat(clientOptions.headers.values("Authorization"))
-            .containsExactly("Bearer another pat-na1-xxxxxxxx-xxxx")
+            .containsExactly("Bearer another My Access Token")
     }
 
     @Test
     fun toBuilder_whenOriginalClientOptionsGarbageCollected_doesNotCloseOriginalClient() {
         var clientOptions =
-            ClientOptions.builder()
-                .httpClient(httpClient)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
-                .build()
+            ClientOptions.builder().httpClient(httpClient).accessToken("My Access Token").build()
         verify(httpClient, never()).close()
 
         // Overwrite the `clientOptions` variable so that the original `ClientOptions` is GC'd.

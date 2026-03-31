@@ -13,7 +13,7 @@ internal class RevisionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val revisionServiceAsync = client.automation().actions().revisions()
 
         val pageFuture =
@@ -28,7 +28,7 @@ internal class RevisionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val revisionServiceAsync = client.automation().actions().revisions()
 
         val publicActionRevisionFuture =

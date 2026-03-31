@@ -16,7 +16,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val userServiceAsync = client.settings().users()
 
         val publicUserFuture =
@@ -39,7 +39,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val userServiceAsync = client.settings().users()
 
         val publicUserFuture =
@@ -66,7 +66,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val userServiceAsync = client.settings().users()
 
         val pageFuture = userServiceAsync.list()
@@ -78,7 +78,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val userServiceAsync = client.settings().users()
 
         val future =
@@ -95,7 +95,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val userServiceAsync = client.settings().users()
 
         val publicUserFuture =
@@ -113,7 +113,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listRoles() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val userServiceAsync = client.settings().users()
 
         val collectionResponsePublicPermissionSetNoPagingFuture = userServiceAsync.listRoles()
@@ -126,7 +126,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listTeams() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val userServiceAsync = client.settings().users()
 
         val collectionResponsePublicTeamNoPagingFuture = userServiceAsync.listTeams()

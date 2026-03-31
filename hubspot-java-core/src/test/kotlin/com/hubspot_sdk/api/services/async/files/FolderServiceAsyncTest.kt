@@ -16,7 +16,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteById() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val future = folderServiceAsync.deleteById("321669910225")
@@ -27,7 +27,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteByPath() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val future = folderServiceAsync.deleteByPath("folderPath")
@@ -38,7 +38,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getById() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val folderFuture =
@@ -53,7 +53,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByPath() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val folderFuture =
@@ -71,7 +71,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getUpdateAsyncStatus() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val folderActionResponseFuture = folderServiceAsync.getUpdateAsyncStatus("taskId")
@@ -83,7 +83,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val pageFuture = folderServiceAsync.search()
@@ -95,7 +95,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateAsyncById() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val folderUpdateTaskLocatorFuture =
@@ -110,7 +110,7 @@ internal class FolderServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateById() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val folderServiceAsync = client.files().folders()
 
         val folderFuture =

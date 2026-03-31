@@ -15,7 +15,7 @@ internal class EventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun cancelByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val eventService = client.marketing().events().events()
 
         val marketingEventDefaultResponse =
@@ -32,7 +32,7 @@ internal class EventServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun completeByExternalEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val eventService = client.marketing().events().events()
 
         val marketingEventDefaultResponse =

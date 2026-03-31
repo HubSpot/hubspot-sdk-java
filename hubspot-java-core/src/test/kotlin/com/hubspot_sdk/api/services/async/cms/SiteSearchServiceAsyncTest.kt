@@ -13,7 +13,7 @@ internal class SiteSearchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getIndexedData() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val siteSearchServiceAsync = client.cms().siteSearch()
 
         val indexedDataFuture =
@@ -28,7 +28,7 @@ internal class SiteSearchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val siteSearchServiceAsync = client.cms().siteSearch()
 
         val publicSearchResultsFuture =

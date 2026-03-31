@@ -13,7 +13,7 @@ internal class AuditLogServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val auditLogServiceAsync = client.cms().auditLogs()
 
         val pageFuture = auditLogServiceAsync.list()
@@ -25,7 +25,7 @@ internal class AuditLogServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun export() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val auditLogServiceAsync = client.cms().auditLogs()
 
         val future =

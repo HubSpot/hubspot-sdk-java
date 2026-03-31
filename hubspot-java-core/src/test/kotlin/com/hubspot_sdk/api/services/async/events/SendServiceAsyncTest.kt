@@ -15,7 +15,7 @@ internal class SendServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchSend() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sendServiceAsync = client.events().send()
 
         val future =
@@ -45,7 +45,7 @@ internal class SendServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sendServiceAsync = client.events().send()
 
         val future =

@@ -15,7 +15,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val publicCampaignFuture =
@@ -36,7 +36,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val publicCampaignFuture =
@@ -62,7 +62,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val pageFuture = campaignServiceAsync.list()
@@ -74,7 +74,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val future = campaignServiceAsync.delete("campaignGuid")
@@ -85,7 +85,7 @@ internal class CampaignServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val campaignServiceAsync = client.marketing().campaigns()
 
         val publicCampaignWithAssetsFuture =

@@ -15,7 +15,7 @@ internal class UrlRedirectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
         val urlMappingFuture =
@@ -41,7 +41,7 @@ internal class UrlRedirectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
         val urlMappingFuture =
@@ -75,7 +75,7 @@ internal class UrlRedirectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
         val pageFuture = urlRedirectServiceAsync.list()
@@ -87,7 +87,7 @@ internal class UrlRedirectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
         val future = urlRedirectServiceAsync.delete("urlRedirectId")
@@ -98,7 +98,7 @@ internal class UrlRedirectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val urlRedirectServiceAsync = client.cms().urlRedirects()
 
         val urlMappingFuture = urlRedirectServiceAsync.get("urlRedirectId")

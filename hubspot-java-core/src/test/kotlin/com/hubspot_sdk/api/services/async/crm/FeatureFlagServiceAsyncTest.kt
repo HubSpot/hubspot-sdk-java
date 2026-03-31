@@ -16,7 +16,7 @@ internal class FeatureFlagServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val featureFlagServiceAsync = client.crm().featureFlags()
 
         val portalFlagStateResponseFuture =
@@ -40,7 +40,7 @@ internal class FeatureFlagServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val featureFlagServiceAsync = client.crm().featureFlags()
 
         val portalFlagStateResponseFuture =
@@ -55,7 +55,7 @@ internal class FeatureFlagServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val featureFlagServiceAsync = client.crm().featureFlags()
 
         val portalFlagStateResponseFuture =
@@ -70,7 +70,7 @@ internal class FeatureFlagServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listAll() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val featureFlagServiceAsync = client.crm().featureFlags()
 
         val flagsForAppResponseFuture = featureFlagServiceAsync.listAll(0)
@@ -82,7 +82,7 @@ internal class FeatureFlagServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listPortals() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val featureFlagServiceAsync = client.crm().featureFlags()
 
         val portalFlagStateBatchResponseFuture =

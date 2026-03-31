@@ -32,7 +32,7 @@ internal class BatchServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val batchServiceAsync = client.cms().blogs().posts().batch()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -405,7 +405,7 @@ internal class BatchServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val batchServiceAsync = client.cms().blogs().posts().batch()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -429,7 +429,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.cms().blogs().posts().batch()
 
         val future = batchServiceAsync.delete(BatchInputString.builder().addInput("string").build())
@@ -442,7 +442,7 @@ internal class BatchServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val batchServiceAsync = client.cms().blogs().posts().batch()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

@@ -18,7 +18,7 @@ internal class TranscriptServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val transcriptService = client.crm().extensions().calling().transcripts()
 
         val transcriptCreateResponse =
@@ -43,7 +43,7 @@ internal class TranscriptServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val transcriptService = client.crm().extensions().calling().transcripts()
 
         transcriptService.delete("transcriptId")
@@ -52,7 +52,7 @@ internal class TranscriptServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createInboundCall() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val transcriptService = client.crm().extensions().calling().transcripts()
 
         val completedThirdPartyCallResponse =
@@ -93,7 +93,7 @@ internal class TranscriptServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val transcriptService = client.crm().extensions().calling().transcripts()
 
         val transcriptResponse = transcriptService.get("transcriptId")

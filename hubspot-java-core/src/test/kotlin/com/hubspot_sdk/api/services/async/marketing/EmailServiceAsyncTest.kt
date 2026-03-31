@@ -38,7 +38,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture =
@@ -291,7 +291,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture =
@@ -555,7 +555,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val pageFuture = emailServiceAsync.list()
@@ -567,7 +567,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val future =
@@ -581,7 +581,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun clone() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture =
@@ -600,7 +600,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createAbTestVariation() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture =
@@ -618,7 +618,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val aggregateEmailStatisticsFuture =
@@ -638,7 +638,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAbTestVariation() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture =
@@ -661,7 +661,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture = emailServiceAsync.getDraft("emailId")
@@ -673,7 +673,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getHistogram() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val collectionResponseWithTotalEmailStatisticIntervalFuture =
@@ -694,7 +694,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailVersionFuture =
@@ -709,7 +709,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listRevisions() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val pageFuture = emailServiceAsync.listRevisions("emailId")
@@ -721,7 +721,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun publish() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val future = emailServiceAsync.publish("emailId")
@@ -732,7 +732,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun resetDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val future = emailServiceAsync.resetDraft("emailId")
@@ -743,7 +743,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val future =
@@ -760,7 +760,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreRevisionToDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture =
@@ -778,7 +778,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun unpublish() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val future = emailServiceAsync.unpublish("emailId")
@@ -789,7 +789,7 @@ internal class EmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val emailServiceAsync = client.marketing().emails()
 
         val publicEmailFuture =

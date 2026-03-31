@@ -11,7 +11,7 @@ internal class AppUninstallServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun uninstall() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val appUninstallService = client.crm().appUninstalls()
 
         appUninstallService.uninstall()

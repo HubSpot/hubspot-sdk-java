@@ -43,7 +43,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -71,7 +71,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(patch(anyUrl()).willReturn(ok().withBody("abc")))
@@ -105,7 +105,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -134,7 +134,7 @@ internal class TagServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val tagServiceAsync = client.cms().blogs().tags()
 
         val future =
@@ -150,7 +150,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -174,7 +174,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -198,7 +198,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -217,7 +217,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -240,7 +240,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -271,7 +271,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -302,7 +302,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -333,7 +333,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -364,7 +364,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -395,7 +395,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -424,7 +424,7 @@ internal class TagServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun setLangPrimary() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val tagServiceAsync = client.cms().blogs().tags()
 
         val future =
@@ -440,7 +440,7 @@ internal class TagServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val tagServiceAsync = client.cms().blogs().tags()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

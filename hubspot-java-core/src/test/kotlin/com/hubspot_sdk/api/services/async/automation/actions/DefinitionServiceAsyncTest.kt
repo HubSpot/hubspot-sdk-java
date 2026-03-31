@@ -32,7 +32,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val publicActionDefinitionFuture =
@@ -189,7 +189,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val publicActionDefinitionFuture =
@@ -337,7 +337,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val pageFuture = definitionServiceAsync.list(0)
@@ -349,7 +349,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val future =
@@ -363,7 +363,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createRequiresObject() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val future =
@@ -385,7 +385,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val publicActionDefinitionFuture =
@@ -404,7 +404,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRequiresObject() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.automation().actions().definitions()
 
         val publicActionDefinitionRequiresObjectResponseFuture =

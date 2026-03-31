@@ -12,7 +12,7 @@ internal class ImportServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val importServiceAsync = client.crm().imports()
 
         val publicImportResponseFuture =
@@ -30,7 +30,7 @@ internal class ImportServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val importServiceAsync = client.crm().imports()
 
         val pageFuture = importServiceAsync.list()
@@ -42,7 +42,7 @@ internal class ImportServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun cancel() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val importServiceAsync = client.crm().imports()
 
         val actionResponseFuture = importServiceAsync.cancel(0L)
@@ -54,7 +54,7 @@ internal class ImportServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val importServiceAsync = client.crm().imports()
 
         val publicImportResponseFuture = importServiceAsync.get(0L)
@@ -66,7 +66,7 @@ internal class ImportServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listErrors() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val importServiceAsync = client.crm().imports()
 
         val pageFuture = importServiceAsync.listErrors(0L)

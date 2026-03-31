@@ -13,7 +13,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOrUpdate() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.marketing().events().settings()
 
         val eventDetailSettings =
@@ -32,7 +32,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.marketing().events().settings()
 
         val eventDetailSettings = settingService.get(0)

@@ -15,7 +15,7 @@ internal class ExportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createAsync() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val exportService = client.crm().exports()
 
         val taskLocator =
@@ -71,7 +71,7 @@ internal class ExportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val exportService = client.crm().exports()
 
         val publicExportResponse = exportService.get(0L)
@@ -82,7 +82,7 @@ internal class ExportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getStatus() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val exportService = client.crm().exports()
 
         val actionResponseWithSingleResultUri = exportService.getStatus(0L)

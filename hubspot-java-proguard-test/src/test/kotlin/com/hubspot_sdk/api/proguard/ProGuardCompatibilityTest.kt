@@ -47,7 +47,7 @@ internal class ProGuardCompatibilityTest {
 
     @Test
     fun client() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
 
         assertThat(client).isNotNull()
         assertThat(client.account()).isNotNull()

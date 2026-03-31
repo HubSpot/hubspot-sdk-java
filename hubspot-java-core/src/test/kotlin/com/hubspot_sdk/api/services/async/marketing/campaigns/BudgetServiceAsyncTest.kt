@@ -16,7 +16,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetItemFuture =
@@ -41,7 +41,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetItemFuture =
@@ -67,7 +67,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val future =
@@ -81,7 +81,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetItemFuture =
@@ -96,7 +96,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getTotals() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetTotalsFuture = budgetServiceAsync.getTotals("campaignGuid")

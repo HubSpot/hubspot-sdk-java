@@ -15,7 +15,7 @@ internal class SequenceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sequenceServiceAsync = client.automation().sequences()
 
         val pageFuture =
@@ -28,7 +28,7 @@ internal class SequenceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createEnrollment() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sequenceServiceAsync = client.automation().sequences()
 
         val publicSequenceEnrollmentLiteResponseFuture =
@@ -53,7 +53,7 @@ internal class SequenceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sequenceServiceAsync = client.automation().sequences()
 
         val publicSequenceResponseFuture =
@@ -68,7 +68,7 @@ internal class SequenceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getEnrollmentByContactId() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sequenceServiceAsync = client.automation().sequences()
 
         val publicSequenceEnrollmentResponseFuture =

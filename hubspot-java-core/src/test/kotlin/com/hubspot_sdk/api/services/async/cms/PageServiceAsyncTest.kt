@@ -24,7 +24,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getLandingPageFolders() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val cursorPagedResultContentFolderLongFuture =
@@ -51,7 +51,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getLandingPageFoldersByQuery() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val cursorPagedResultContentFolderLongFuture =
@@ -78,7 +78,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getLandingPageRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageVersionFuture =
@@ -96,7 +96,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getLandingPages() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val cursorPagedResultPageLongFuture =
@@ -123,7 +123,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getLandingPagesByQuery() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val cursorPagedResultPageLongFuture =
@@ -150,7 +150,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSitePageRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageVersionFuture =
@@ -168,7 +168,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSitePages() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val cursorPagedResultPageLongFuture =
@@ -195,7 +195,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSitePagesByQuery() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val cursorPagedResultPageLongFuture =
@@ -222,7 +222,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listLandingPageRevisions() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageFuture = pageServiceAsync.listLandingPageRevisions("objectId")
@@ -234,7 +234,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listSitePageRevisions() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageFuture = pageServiceAsync.listSitePageRevisions("objectId")
@@ -246,7 +246,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun resetSitePageDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val future = pageServiceAsync.resetSitePageDraft("objectId")
@@ -257,7 +257,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreLandingPageRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageFuture =
@@ -275,7 +275,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreLandingPageRevisionToDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageFuture =
@@ -293,7 +293,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreSitePageRevision() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageFuture =
@@ -311,7 +311,7 @@ internal class PageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun restoreSitePageRevisionToDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
         val pageFuture =

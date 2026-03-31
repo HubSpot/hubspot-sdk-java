@@ -11,7 +11,7 @@ internal class OccurrenceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val occurrenceServiceAsync = client.events().occurrences()
 
         val pageFuture = occurrenceServiceAsync.list()
@@ -23,7 +23,7 @@ internal class OccurrenceServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listEventTypes() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val occurrenceServiceAsync = client.events().occurrences()
 
         val visibleExternalEventTypeNamesFuture = occurrenceServiceAsync.listEventTypes()

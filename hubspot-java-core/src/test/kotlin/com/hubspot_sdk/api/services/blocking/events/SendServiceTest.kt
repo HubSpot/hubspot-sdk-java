@@ -15,7 +15,7 @@ internal class SendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchSend() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val sendService = client.events().send()
 
         sendService.batchSend(
@@ -42,7 +42,7 @@ internal class SendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val sendService = client.events().send()
 
         sendService.send(

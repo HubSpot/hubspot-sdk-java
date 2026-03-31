@@ -16,7 +16,7 @@ internal class ListAssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listAssociationService = client.marketing().events().listAssociations()
 
         val collectionResponseWithTotalPublicList = listAssociationService.list("marketingEventId")
@@ -27,7 +27,7 @@ internal class ListAssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listAssociationService = client.marketing().events().listAssociations()
 
         listAssociationService.delete(
@@ -41,7 +41,7 @@ internal class ListAssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun associate() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listAssociationService = client.marketing().events().listAssociations()
 
         listAssociationService.associate(
@@ -55,7 +55,7 @@ internal class ListAssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun associateByExternalAccount() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listAssociationService = client.marketing().events().listAssociations()
 
         listAssociationService.associateByExternalAccount(
@@ -70,7 +70,7 @@ internal class ListAssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteByExternalAccount() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listAssociationService = client.marketing().events().listAssociations()
 
         listAssociationService.deleteByExternalAccount(
@@ -85,7 +85,7 @@ internal class ListAssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listByExternalAccount() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listAssociationService = client.marketing().events().listAssociations()
 
         val collectionResponseWithTotalPublicList =

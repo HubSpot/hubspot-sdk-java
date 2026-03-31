@@ -22,7 +22,7 @@ internal class ServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val serviceService = client.crm().objects().services()
 
         val simplePublicObject =
@@ -55,7 +55,7 @@ internal class ServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val serviceService = client.crm().objects().services()
 
         val simplePublicObject =
@@ -81,7 +81,7 @@ internal class ServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val serviceService = client.crm().objects().services()
 
         val page = serviceService.list()
@@ -92,7 +92,7 @@ internal class ServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val serviceService = client.crm().objects().services()
 
         serviceService.delete("serviceId")
@@ -101,7 +101,7 @@ internal class ServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val serviceService = client.crm().objects().services()
 
         val simplePublicObjectWithAssociations =
@@ -122,7 +122,7 @@ internal class ServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val serviceService = client.crm().objects().services()
 
         val collectionResponseWithTotalSimplePublicObject =

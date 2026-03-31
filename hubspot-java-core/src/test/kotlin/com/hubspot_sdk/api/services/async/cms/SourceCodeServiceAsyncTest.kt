@@ -29,7 +29,7 @@ internal class SourceCodeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
 
         val assetFileMetadataFuture =
@@ -48,7 +48,7 @@ internal class SourceCodeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
 
         val future =
@@ -62,7 +62,7 @@ internal class SourceCodeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun extractAsync() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
 
         val taskLocatorFuture =
@@ -77,7 +77,7 @@ internal class SourceCodeServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -94,7 +94,7 @@ internal class SourceCodeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getExtractionStatus() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
 
         val actionResponseFuture = sourceCodeServiceAsync.getExtractionStatus(0)
@@ -106,7 +106,7 @@ internal class SourceCodeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getMetadata() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
 
         val assetFileMetadataFuture =
@@ -125,7 +125,7 @@ internal class SourceCodeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upsert() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
 
         val assetFileMetadataFuture =
@@ -146,7 +146,7 @@ internal class SourceCodeServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val sourceCodeServiceAsync = client.cms().sourceCode()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

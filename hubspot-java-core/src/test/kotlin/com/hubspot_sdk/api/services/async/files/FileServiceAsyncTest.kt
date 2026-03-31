@@ -21,7 +21,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val folderFuture =
@@ -40,7 +40,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val fileFuture =
@@ -68,7 +68,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val future = fileServiceAsync.delete("321669910225")
@@ -79,7 +79,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun gdprDelete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val future = fileServiceAsync.gdprDelete("321669910225")
@@ -90,7 +90,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val fileFuture =
@@ -105,7 +105,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByPath() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val fileStatFuture =
@@ -120,7 +120,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getImportTaskStatus() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val fileActionResponseFuture = fileServiceAsync.getImportTaskStatus("taskId")
@@ -132,7 +132,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSignedUrl() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val signedUrlFuture =
@@ -152,7 +152,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun importFromUrlAsync() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val importFromUrlTaskLocatorFuture =
@@ -182,7 +182,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun replace() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val fileFuture =
@@ -202,7 +202,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val pageFuture = fileServiceAsync.search()
@@ -214,7 +214,7 @@ internal class FileServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upload() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val fileServiceAsync = client.files().files()
 
         val fileFuture =

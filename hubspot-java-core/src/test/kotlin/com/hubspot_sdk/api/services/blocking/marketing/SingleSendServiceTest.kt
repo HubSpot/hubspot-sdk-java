@@ -14,7 +14,7 @@ internal class SingleSendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val singleSendService = client.marketing().singleSend()
 
         val emailSendStatusView =

@@ -12,7 +12,7 @@ internal class SmtpTokenServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val smtpTokenService = client.marketing().transactional().smtpTokens()
 
         val smtpApiTokenView =
@@ -29,7 +29,7 @@ internal class SmtpTokenServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val smtpTokenService = client.marketing().transactional().smtpTokens()
 
         val page = smtpTokenService.list()
@@ -40,7 +40,7 @@ internal class SmtpTokenServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val smtpTokenService = client.marketing().transactional().smtpTokens()
 
         smtpTokenService.delete("tokenId")
@@ -49,7 +49,7 @@ internal class SmtpTokenServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val smtpTokenService = client.marketing().transactional().smtpTokens()
 
         val smtpApiTokenView = smtpTokenService.get("tokenId")
@@ -60,7 +60,7 @@ internal class SmtpTokenServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun resetPassword() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val smtpTokenService = client.marketing().transactional().smtpTokens()
 
         val smtpApiTokenView = smtpTokenService.resetPassword("tokenId")
