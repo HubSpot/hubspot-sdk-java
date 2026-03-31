@@ -21,7 +21,6 @@ private constructor(
 
     fun folderId(): Optional<String> = Optional.ofNullable(folderId)
 
-    /** Properties to set on returned folder. */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
     /** Additional headers to send with the request. */
@@ -61,7 +60,6 @@ private constructor(
         /** Alias for calling [Builder.folderId] with `folderId.orElse(null)`. */
         fun folderId(folderId: Optional<String>) = folderId(folderId.getOrNull())
 
-        /** Properties to set on returned folder. */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }

@@ -10,17 +10,17 @@ import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.cms.pages.BatchResponseContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentFolderVersion
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFoldersBatchParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsPageAsync
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersPageAsync
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateFolderParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderBatchGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListPageAsync
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsPageAsync
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -39,263 +39,247 @@ interface FolderServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderServiceAsync
 
     /** Create a new folder for landing pages. */
-    fun createFolder(params: FolderCreateFolderParams): CompletableFuture<ContentFolder> =
-        createFolder(params, RequestOptions.none())
+    fun create(params: FolderCreateParams): CompletableFuture<ContentFolder> =
+        create(params, RequestOptions.none())
 
-    /** @see createFolder */
-    fun createFolder(
-        params: FolderCreateFolderParams,
+    /** @see create */
+    fun create(
+        params: FolderCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder>
 
-    /** @see createFolder */
-    fun createFolder(
+    /** @see create */
+    fun create(
         contentFolder: ContentFolder,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder> =
-        createFolder(
-            FolderCreateFolderParams.builder().contentFolder(contentFolder).build(),
-            requestOptions,
-        )
+        create(FolderCreateParams.builder().contentFolder(contentFolder).build(), requestOptions)
 
-    /** @see createFolder */
-    fun createFolder(contentFolder: ContentFolder): CompletableFuture<ContentFolder> =
-        createFolder(contentFolder, RequestOptions.none())
+    /** @see create */
+    fun create(contentFolder: ContentFolder): CompletableFuture<ContentFolder> =
+        create(contentFolder, RequestOptions.none())
 
-    /** Delete a landing page folder, specified by its ID. */
-    fun deleteFolder(objectId: String): CompletableFuture<Void?> =
-        deleteFolder(objectId, FolderDeleteFolderParams.none())
+    /**
+     * Partially update a landing page folder, specified by the folder ID. You only need to specify
+     * the details values that you are modifying.
+     */
+    fun update(objectId: String, params: FolderUpdateParams): CompletableFuture<ContentFolder> =
+        update(objectId, params, RequestOptions.none())
 
-    /** @see deleteFolder */
-    fun deleteFolder(
+    /** @see update */
+    fun update(
         objectId: String,
-        params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        deleteFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see deleteFolder */
-    fun deleteFolder(
-        objectId: String,
-        params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
-    ): CompletableFuture<Void?> = deleteFolder(objectId, params, RequestOptions.none())
-
-    /** @see deleteFolder */
-    fun deleteFolder(
-        params: FolderDeleteFolderParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see deleteFolder */
-    fun deleteFolder(params: FolderDeleteFolderParams): CompletableFuture<Void?> =
-        deleteFolder(params, RequestOptions.none())
-
-    /** @see deleteFolder */
-    fun deleteFolder(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        deleteFolder(objectId, FolderDeleteFolderParams.none(), requestOptions)
-
-    /** Retrieve a landing page folder, specified by its ID. */
-    fun getFolder(objectId: String): CompletableFuture<ContentFolder> =
-        getFolder(objectId, FolderGetFolderParams.none())
-
-    /** @see getFolder */
-    fun getFolder(
-        objectId: String,
-        params: FolderGetFolderParams = FolderGetFolderParams.none(),
+        params: FolderUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder> =
-        getFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
+        update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see getFolder */
-    fun getFolder(
-        objectId: String,
-        params: FolderGetFolderParams = FolderGetFolderParams.none(),
-    ): CompletableFuture<ContentFolder> = getFolder(objectId, params, RequestOptions.none())
+    /** @see update */
+    fun update(params: FolderUpdateParams): CompletableFuture<ContentFolder> =
+        update(params, RequestOptions.none())
 
-    /** @see getFolder */
-    fun getFolder(
-        params: FolderGetFolderParams,
+    /** @see update */
+    fun update(
+        params: FolderUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder>
-
-    /** @see getFolder */
-    fun getFolder(params: FolderGetFolderParams): CompletableFuture<ContentFolder> =
-        getFolder(params, RequestOptions.none())
-
-    /** @see getFolder */
-    fun getFolder(
-        objectId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ContentFolder> =
-        getFolder(objectId, FolderGetFolderParams.none(), requestOptions)
-
-    /** Retrieve a previous version of a folder, specified by the folder ID and revision ID. */
-    fun getFolderRevision(
-        revisionId: String,
-        params: FolderGetFolderRevisionParams,
-    ): CompletableFuture<ContentFolderVersion> =
-        getFolderRevision(revisionId, params, RequestOptions.none())
-
-    /** @see getFolderRevision */
-    fun getFolderRevision(
-        revisionId: String,
-        params: FolderGetFolderRevisionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ContentFolderVersion> =
-        getFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-    /** @see getFolderRevision */
-    fun getFolderRevision(
-        params: FolderGetFolderRevisionParams
-    ): CompletableFuture<ContentFolderVersion> = getFolderRevision(params, RequestOptions.none())
-
-    /** @see getFolderRevision */
-    fun getFolderRevision(
-        params: FolderGetFolderRevisionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ContentFolderVersion>
-
-    /** Retrieve a batch of landing page folders as identified in the request body. */
-    fun getFoldersBatch(
-        params: FolderGetFoldersBatchParams
-    ): CompletableFuture<BatchResponseContentFolder> =
-        getFoldersBatch(params, RequestOptions.none())
-
-    /** @see getFoldersBatch */
-    fun getFoldersBatch(
-        params: FolderGetFoldersBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseContentFolder>
-
-    /** @see getFoldersBatch */
-    fun getFoldersBatch(
-        batchInputString: BatchInputString,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseContentFolder> =
-        getFoldersBatch(
-            FolderGetFoldersBatchParams.builder().batchInputString(batchInputString).build(),
-            requestOptions,
-        )
-
-    /** @see getFoldersBatch */
-    fun getFoldersBatch(
-        batchInputString: BatchInputString
-    ): CompletableFuture<BatchResponseContentFolder> =
-        getFoldersBatch(batchInputString, RequestOptions.none())
-
-    /** Retrieves all the previous versions of a landing page folder. */
-    fun listFolderRevisions(
-        objectId: String
-    ): CompletableFuture<FolderListFolderRevisionsPageAsync> =
-        listFolderRevisions(objectId, FolderListFolderRevisionsParams.none())
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        objectId: String,
-        params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FolderListFolderRevisionsPageAsync> =
-        listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        objectId: String,
-        params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-    ): CompletableFuture<FolderListFolderRevisionsPageAsync> =
-        listFolderRevisions(objectId, params, RequestOptions.none())
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        params: FolderListFolderRevisionsParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FolderListFolderRevisionsPageAsync>
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        params: FolderListFolderRevisionsParams
-    ): CompletableFuture<FolderListFolderRevisionsPageAsync> =
-        listFolderRevisions(params, RequestOptions.none())
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        objectId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<FolderListFolderRevisionsPageAsync> =
-        listFolderRevisions(objectId, FolderListFolderRevisionsParams.none(), requestOptions)
 
     /**
      * Get the list of Landing Page Folders. Supports paging and filtering. This method would be
      * useful for an integration that examined these models and used an external service to suggest
      * edits.
      */
-    fun listFolders(): CompletableFuture<FolderListFoldersPageAsync> =
-        listFolders(FolderListFoldersParams.none())
+    fun list(): CompletableFuture<FolderListPageAsync> = list(FolderListParams.none())
 
-    /** @see listFolders */
-    fun listFolders(
-        params: FolderListFoldersParams = FolderListFoldersParams.none(),
+    /** @see list */
+    fun list(
+        params: FolderListParams = FolderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FolderListFoldersPageAsync>
+    ): CompletableFuture<FolderListPageAsync>
 
-    /** @see listFolders */
-    fun listFolders(
-        params: FolderListFoldersParams = FolderListFoldersParams.none()
-    ): CompletableFuture<FolderListFoldersPageAsync> = listFolders(params, RequestOptions.none())
+    /** @see list */
+    fun list(
+        params: FolderListParams = FolderListParams.none()
+    ): CompletableFuture<FolderListPageAsync> = list(params, RequestOptions.none())
 
-    /** @see listFolders */
-    fun listFolders(requestOptions: RequestOptions): CompletableFuture<FolderListFoldersPageAsync> =
-        listFolders(FolderListFoldersParams.none(), requestOptions)
+    /** @see list */
+    fun list(requestOptions: RequestOptions): CompletableFuture<FolderListPageAsync> =
+        list(FolderListParams.none(), requestOptions)
 
-    /** Takes a specified version of a landing page folder and restores it. */
-    fun restoreFolderRevision(
-        revisionId: String,
-        params: FolderRestoreFolderRevisionParams,
-    ): CompletableFuture<ContentFolder> =
-        restoreFolderRevision(revisionId, params, RequestOptions.none())
+    /** Delete a landing page folder, specified by its ID. */
+    fun delete(objectId: String): CompletableFuture<Void?> =
+        delete(objectId, FolderDeleteParams.none())
 
-    /** @see restoreFolderRevision */
-    fun restoreFolderRevision(
-        revisionId: String,
-        params: FolderRestoreFolderRevisionParams,
+    /** @see delete */
+    fun delete(
+        objectId: String,
+        params: FolderDeleteParams = FolderDeleteParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        delete(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see delete */
+    fun delete(
+        objectId: String,
+        params: FolderDeleteParams = FolderDeleteParams.none(),
+    ): CompletableFuture<Void?> = delete(objectId, params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(
+        params: FolderDeleteParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see delete */
+    fun delete(params: FolderDeleteParams): CompletableFuture<Void?> =
+        delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        delete(objectId, FolderDeleteParams.none(), requestOptions)
+
+    /** Retrieve a batch of landing page folders as identified in the request body. */
+    fun batchGet(params: FolderBatchGetParams): CompletableFuture<BatchResponseContentFolder> =
+        batchGet(params, RequestOptions.none())
+
+    /** @see batchGet */
+    fun batchGet(
+        params: FolderBatchGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseContentFolder>
+
+    /** @see batchGet */
+    fun batchGet(
+        batchInputString: BatchInputString,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseContentFolder> =
+        batchGet(
+            FolderBatchGetParams.builder().batchInputString(batchInputString).build(),
+            requestOptions,
+        )
+
+    /** @see batchGet */
+    fun batchGet(
+        batchInputString: BatchInputString
+    ): CompletableFuture<BatchResponseContentFolder> =
+        batchGet(batchInputString, RequestOptions.none())
+
+    /** Retrieve a landing page folder, specified by its ID. */
+    fun get(objectId: String): CompletableFuture<ContentFolder> =
+        get(objectId, FolderGetParams.none())
+
+    /** @see get */
+    fun get(
+        objectId: String,
+        params: FolderGetParams = FolderGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder> =
-        restoreFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see restoreFolderRevision */
-    fun restoreFolderRevision(
-        params: FolderRestoreFolderRevisionParams
-    ): CompletableFuture<ContentFolder> = restoreFolderRevision(params, RequestOptions.none())
+    /** @see get */
+    fun get(
+        objectId: String,
+        params: FolderGetParams = FolderGetParams.none(),
+    ): CompletableFuture<ContentFolder> = get(objectId, params, RequestOptions.none())
 
-    /** @see restoreFolderRevision */
-    fun restoreFolderRevision(
-        params: FolderRestoreFolderRevisionParams,
+    /** @see get */
+    fun get(
+        params: FolderGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder>
 
-    /**
-     * Partially update a landing page folder, specified by the folder ID. You only need to specify
-     * the details values that you are modifying.
-     */
-    fun updateFolder(
-        objectId: String,
-        params: FolderUpdateFolderParams,
-    ): CompletableFuture<ContentFolder> = updateFolder(objectId, params, RequestOptions.none())
+    /** @see get */
+    fun get(params: FolderGetParams): CompletableFuture<ContentFolder> =
+        get(params, RequestOptions.none())
 
-    /** @see updateFolder */
-    fun updateFolder(
+    /** @see get */
+    fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<ContentFolder> =
+        get(objectId, FolderGetParams.none(), requestOptions)
+
+    /** Retrieve a previous version of a folder, specified by the folder ID and revision ID. */
+    fun getRevision(
+        revisionId: String,
+        params: FolderGetRevisionParams,
+    ): CompletableFuture<ContentFolderVersion> =
+        getRevision(revisionId, params, RequestOptions.none())
+
+    /** @see getRevision */
+    fun getRevision(
+        revisionId: String,
+        params: FolderGetRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ContentFolderVersion> =
+        getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+    /** @see getRevision */
+    fun getRevision(params: FolderGetRevisionParams): CompletableFuture<ContentFolderVersion> =
+        getRevision(params, RequestOptions.none())
+
+    /** @see getRevision */
+    fun getRevision(
+        params: FolderGetRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ContentFolderVersion>
+
+    /** Retrieves all the previous versions of a landing page folder. */
+    fun listRevisions(objectId: String): CompletableFuture<FolderListRevisionsPageAsync> =
+        listRevisions(objectId, FolderListRevisionsParams.none())
+
+    /** @see listRevisions */
+    fun listRevisions(
         objectId: String,
-        params: FolderUpdateFolderParams,
+        params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<FolderListRevisionsPageAsync> =
+        listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see listRevisions */
+    fun listRevisions(
+        objectId: String,
+        params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+    ): CompletableFuture<FolderListRevisionsPageAsync> =
+        listRevisions(objectId, params, RequestOptions.none())
+
+    /** @see listRevisions */
+    fun listRevisions(
+        params: FolderListRevisionsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<FolderListRevisionsPageAsync>
+
+    /** @see listRevisions */
+    fun listRevisions(
+        params: FolderListRevisionsParams
+    ): CompletableFuture<FolderListRevisionsPageAsync> =
+        listRevisions(params, RequestOptions.none())
+
+    /** @see listRevisions */
+    fun listRevisions(
+        objectId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<FolderListRevisionsPageAsync> =
+        listRevisions(objectId, FolderListRevisionsParams.none(), requestOptions)
+
+    /** Takes a specified version of a landing page folder and restores it. */
+    fun restoreRevision(
+        revisionId: String,
+        params: FolderRestoreRevisionParams,
+    ): CompletableFuture<ContentFolder> = restoreRevision(revisionId, params, RequestOptions.none())
+
+    /** @see restoreRevision */
+    fun restoreRevision(
+        revisionId: String,
+        params: FolderRestoreRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder> =
-        updateFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
+        restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-    /** @see updateFolder */
-    fun updateFolder(params: FolderUpdateFolderParams): CompletableFuture<ContentFolder> =
-        updateFolder(params, RequestOptions.none())
+    /** @see restoreRevision */
+    fun restoreRevision(params: FolderRestoreRevisionParams): CompletableFuture<ContentFolder> =
+        restoreRevision(params, RequestOptions.none())
 
-    /** @see updateFolder */
-    fun updateFolder(
-        params: FolderUpdateFolderParams,
+    /** @see restoreRevision */
+    fun restoreRevision(
+        params: FolderRestoreRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ContentFolder>
 
@@ -315,307 +299,301 @@ interface FolderServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/folders`, but is
-         * otherwise the same as [FolderServiceAsync.createFolder].
+         * otherwise the same as [FolderServiceAsync.create].
          */
-        fun createFolder(
-            params: FolderCreateFolderParams
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            createFolder(params, RequestOptions.none())
+        fun create(params: FolderCreateParams): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            create(params, RequestOptions.none())
 
-        /** @see createFolder */
-        fun createFolder(
-            params: FolderCreateFolderParams,
+        /** @see create */
+        fun create(
+            params: FolderCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ContentFolder>>
 
-        /** @see createFolder */
-        fun createFolder(
+        /** @see create */
+        fun create(
             contentFolder: ContentFolder,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            createFolder(
-                FolderCreateFolderParams.builder().contentFolder(contentFolder).build(),
+            create(
+                FolderCreateParams.builder().contentFolder(contentFolder).build(),
                 requestOptions,
             )
 
-        /** @see createFolder */
-        fun createFolder(
+        /** @see create */
+        fun create(
             contentFolder: ContentFolder
         ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            createFolder(contentFolder, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `delete
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
-         * [FolderServiceAsync.deleteFolder].
-         */
-        fun deleteFolder(objectId: String): CompletableFuture<HttpResponse> =
-            deleteFolder(objectId, FolderDeleteFolderParams.none())
-
-        /** @see deleteFolder */
-        fun deleteFolder(
-            objectId: String,
-            params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            deleteFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see deleteFolder */
-        fun deleteFolder(
-            objectId: String,
-            params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
-        ): CompletableFuture<HttpResponse> = deleteFolder(objectId, params, RequestOptions.none())
-
-        /** @see deleteFolder */
-        fun deleteFolder(
-            params: FolderDeleteFolderParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see deleteFolder */
-        fun deleteFolder(params: FolderDeleteFolderParams): CompletableFuture<HttpResponse> =
-            deleteFolder(params, RequestOptions.none())
-
-        /** @see deleteFolder */
-        fun deleteFolder(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> =
-            deleteFolder(objectId, FolderDeleteFolderParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
-         * [FolderServiceAsync.getFolder].
-         */
-        fun getFolder(objectId: String): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            getFolder(objectId, FolderGetFolderParams.none())
-
-        /** @see getFolder */
-        fun getFolder(
-            objectId: String,
-            params: FolderGetFolderParams = FolderGetFolderParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            getFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see getFolder */
-        fun getFolder(
-            objectId: String,
-            params: FolderGetFolderParams = FolderGetFolderParams.none(),
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            getFolder(objectId, params, RequestOptions.none())
-
-        /** @see getFolder */
-        fun getFolder(
-            params: FolderGetFolderParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ContentFolder>>
-
-        /** @see getFolder */
-        fun getFolder(
-            params: FolderGetFolderParams
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            getFolder(params, RequestOptions.none())
-
-        /** @see getFolder */
-        fun getFolder(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            getFolder(objectId, FolderGetFolderParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}`, but is
-         * otherwise the same as [FolderServiceAsync.getFolderRevision].
-         */
-        fun getFolderRevision(
-            revisionId: String,
-            params: FolderGetFolderRevisionParams,
-        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>> =
-            getFolderRevision(revisionId, params, RequestOptions.none())
-
-        /** @see getFolderRevision */
-        fun getFolderRevision(
-            revisionId: String,
-            params: FolderGetFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>> =
-            getFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see getFolderRevision */
-        fun getFolderRevision(
-            params: FolderGetFolderRevisionParams
-        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>> =
-            getFolderRevision(params, RequestOptions.none())
-
-        /** @see getFolderRevision */
-        fun getFolderRevision(
-            params: FolderGetFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/folders/batch/read`, but is otherwise the same as
-         * [FolderServiceAsync.getFoldersBatch].
-         */
-        fun getFoldersBatch(
-            params: FolderGetFoldersBatchParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> =
-            getFoldersBatch(params, RequestOptions.none())
-
-        /** @see getFoldersBatch */
-        fun getFoldersBatch(
-            params: FolderGetFoldersBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>>
-
-        /** @see getFoldersBatch */
-        fun getFoldersBatch(
-            batchInputString: BatchInputString,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> =
-            getFoldersBatch(
-                FolderGetFoldersBatchParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
-
-        /** @see getFoldersBatch */
-        fun getFoldersBatch(
-            batchInputString: BatchInputString
-        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> =
-            getFoldersBatch(batchInputString, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions`, but is otherwise the same
-         * as [FolderServiceAsync.listFolderRevisions].
-         */
-        fun listFolderRevisions(
-            objectId: String
-        ): CompletableFuture<HttpResponseFor<FolderListFolderRevisionsPageAsync>> =
-            listFolderRevisions(objectId, FolderListFolderRevisionsParams.none())
-
-        /** @see listFolderRevisions */
-        fun listFolderRevisions(
-            objectId: String,
-            params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FolderListFolderRevisionsPageAsync>> =
-            listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see listFolderRevisions */
-        fun listFolderRevisions(
-            objectId: String,
-            params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-        ): CompletableFuture<HttpResponseFor<FolderListFolderRevisionsPageAsync>> =
-            listFolderRevisions(objectId, params, RequestOptions.none())
-
-        /** @see listFolderRevisions */
-        fun listFolderRevisions(
-            params: FolderListFolderRevisionsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FolderListFolderRevisionsPageAsync>>
-
-        /** @see listFolderRevisions */
-        fun listFolderRevisions(
-            params: FolderListFolderRevisionsParams
-        ): CompletableFuture<HttpResponseFor<FolderListFolderRevisionsPageAsync>> =
-            listFolderRevisions(params, RequestOptions.none())
-
-        /** @see listFolderRevisions */
-        fun listFolderRevisions(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FolderListFolderRevisionsPageAsync>> =
-            listFolderRevisions(objectId, FolderListFolderRevisionsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders`, but is
-         * otherwise the same as [FolderServiceAsync.listFolders].
-         */
-        fun listFolders(): CompletableFuture<HttpResponseFor<FolderListFoldersPageAsync>> =
-            listFolders(FolderListFoldersParams.none())
-
-        /** @see listFolders */
-        fun listFolders(
-            params: FolderListFoldersParams = FolderListFoldersParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FolderListFoldersPageAsync>>
-
-        /** @see listFolders */
-        fun listFolders(
-            params: FolderListFoldersParams = FolderListFoldersParams.none()
-        ): CompletableFuture<HttpResponseFor<FolderListFoldersPageAsync>> =
-            listFolders(params, RequestOptions.none())
-
-        /** @see listFolders */
-        fun listFolders(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<FolderListFoldersPageAsync>> =
-            listFolders(FolderListFoldersParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}/restore`, but
-         * is otherwise the same as [FolderServiceAsync.restoreFolderRevision].
-         */
-        fun restoreFolderRevision(
-            revisionId: String,
-            params: FolderRestoreFolderRevisionParams,
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            restoreFolderRevision(revisionId, params, RequestOptions.none())
-
-        /** @see restoreFolderRevision */
-        fun restoreFolderRevision(
-            revisionId: String,
-            params: FolderRestoreFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            restoreFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see restoreFolderRevision */
-        fun restoreFolderRevision(
-            params: FolderRestoreFolderRevisionParams
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            restoreFolderRevision(params, RequestOptions.none())
-
-        /** @see restoreFolderRevision */
-        fun restoreFolderRevision(
-            params: FolderRestoreFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ContentFolder>>
+            create(contentFolder, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch
          * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
-         * [FolderServiceAsync.updateFolder].
+         * [FolderServiceAsync.update].
          */
-        fun updateFolder(
+        fun update(
             objectId: String,
-            params: FolderUpdateFolderParams,
+            params: FolderUpdateParams,
         ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            updateFolder(objectId, params, RequestOptions.none())
+            update(objectId, params, RequestOptions.none())
 
-        /** @see updateFolder */
-        fun updateFolder(
+        /** @see update */
+        fun update(
             objectId: String,
-            params: FolderUpdateFolderParams,
+            params: FolderUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            updateFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
+            update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see updateFolder */
-        fun updateFolder(
-            params: FolderUpdateFolderParams
+        /** @see update */
+        fun update(params: FolderUpdateParams): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: FolderUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ContentFolder>>
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders`, but is
+         * otherwise the same as [FolderServiceAsync.list].
+         */
+        fun list(): CompletableFuture<HttpResponseFor<FolderListPageAsync>> =
+            list(FolderListParams.none())
+
+        /** @see list */
+        fun list(
+            params: FolderListParams = FolderListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<FolderListPageAsync>>
+
+        /** @see list */
+        fun list(
+            params: FolderListParams = FolderListParams.none()
+        ): CompletableFuture<HttpResponseFor<FolderListPageAsync>> =
+            list(params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<FolderListPageAsync>> =
+            list(FolderListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
+         * [FolderServiceAsync.delete].
+         */
+        fun delete(objectId: String): CompletableFuture<HttpResponse> =
+            delete(objectId, FolderDeleteParams.none())
+
+        /** @see delete */
+        fun delete(
+            objectId: String,
+            params: FolderDeleteParams = FolderDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            delete(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see delete */
+        fun delete(
+            objectId: String,
+            params: FolderDeleteParams = FolderDeleteParams.none(),
+        ): CompletableFuture<HttpResponse> = delete(objectId, params, RequestOptions.none())
+
+        /** @see delete */
+        fun delete(
+            params: FolderDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see delete */
+        fun delete(params: FolderDeleteParams): CompletableFuture<HttpResponse> =
+            delete(params, RequestOptions.none())
+
+        /** @see delete */
+        fun delete(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> =
+            delete(objectId, FolderDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/folders/batch/read`, but is otherwise the same as
+         * [FolderServiceAsync.batchGet].
+         */
+        fun batchGet(
+            params: FolderBatchGetParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> =
+            batchGet(params, RequestOptions.none())
+
+        /** @see batchGet */
+        fun batchGet(
+            params: FolderBatchGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>>
+
+        /** @see batchGet */
+        fun batchGet(
+            batchInputString: BatchInputString,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> =
+            batchGet(
+                FolderBatchGetParams.builder().batchInputString(batchInputString).build(),
+                requestOptions,
+            )
+
+        /** @see batchGet */
+        fun batchGet(
+            batchInputString: BatchInputString
+        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> =
+            batchGet(batchInputString, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
+         * [FolderServiceAsync.get].
+         */
+        fun get(objectId: String): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            get(objectId, FolderGetParams.none())
+
+        /** @see get */
+        fun get(
+            objectId: String,
+            params: FolderGetParams = FolderGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ContentFolder>> =
-            updateFolder(params, RequestOptions.none())
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see updateFolder */
-        fun updateFolder(
-            params: FolderUpdateFolderParams,
+        /** @see get */
+        fun get(
+            objectId: String,
+            params: FolderGetParams = FolderGetParams.none(),
+        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            get(objectId, params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            params: FolderGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ContentFolder>>
+
+        /** @see get */
+        fun get(params: FolderGetParams): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            get(objectId, FolderGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}`, but is
+         * otherwise the same as [FolderServiceAsync.getRevision].
+         */
+        fun getRevision(
+            revisionId: String,
+            params: FolderGetRevisionParams,
+        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>> =
+            getRevision(revisionId, params, RequestOptions.none())
+
+        /** @see getRevision */
+        fun getRevision(
+            revisionId: String,
+            params: FolderGetRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>> =
+            getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+        /** @see getRevision */
+        fun getRevision(
+            params: FolderGetRevisionParams
+        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>> =
+            getRevision(params, RequestOptions.none())
+
+        /** @see getRevision */
+        fun getRevision(
+            params: FolderGetRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ContentFolderVersion>>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions`, but is otherwise the same
+         * as [FolderServiceAsync.listRevisions].
+         */
+        fun listRevisions(
+            objectId: String
+        ): CompletableFuture<HttpResponseFor<FolderListRevisionsPageAsync>> =
+            listRevisions(objectId, FolderListRevisionsParams.none())
+
+        /** @see listRevisions */
+        fun listRevisions(
+            objectId: String,
+            params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<FolderListRevisionsPageAsync>> =
+            listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see listRevisions */
+        fun listRevisions(
+            objectId: String,
+            params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+        ): CompletableFuture<HttpResponseFor<FolderListRevisionsPageAsync>> =
+            listRevisions(objectId, params, RequestOptions.none())
+
+        /** @see listRevisions */
+        fun listRevisions(
+            params: FolderListRevisionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<FolderListRevisionsPageAsync>>
+
+        /** @see listRevisions */
+        fun listRevisions(
+            params: FolderListRevisionsParams
+        ): CompletableFuture<HttpResponseFor<FolderListRevisionsPageAsync>> =
+            listRevisions(params, RequestOptions.none())
+
+        /** @see listRevisions */
+        fun listRevisions(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<FolderListRevisionsPageAsync>> =
+            listRevisions(objectId, FolderListRevisionsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}/restore`, but
+         * is otherwise the same as [FolderServiceAsync.restoreRevision].
+         */
+        fun restoreRevision(
+            revisionId: String,
+            params: FolderRestoreRevisionParams,
+        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            restoreRevision(revisionId, params, RequestOptions.none())
+
+        /** @see restoreRevision */
+        fun restoreRevision(
+            revisionId: String,
+            params: FolderRestoreRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+        /** @see restoreRevision */
+        fun restoreRevision(
+            params: FolderRestoreRevisionParams
+        ): CompletableFuture<HttpResponseFor<ContentFolder>> =
+            restoreRevision(params, RequestOptions.none())
+
+        /** @see restoreRevision */
+        fun restoreRevision(
+            params: FolderRestoreRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ContentFolder>>
     }

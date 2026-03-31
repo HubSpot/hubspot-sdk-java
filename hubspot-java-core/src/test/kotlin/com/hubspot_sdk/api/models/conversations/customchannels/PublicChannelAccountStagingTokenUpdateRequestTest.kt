@@ -23,9 +23,9 @@ internal class PublicChannelAccountStagingTokenUpdateRequestTest {
                 .build()
 
         assertThat(publicChannelAccountStagingTokenUpdateRequest.accountName())
-            .isEqualTo("accountName")
+            .contains("accountName")
         assertThat(publicChannelAccountStagingTokenUpdateRequest.deliveryIdentifier())
-            .isEqualTo(
+            .contains(
                 PublicDeliveryIdentifier.builder()
                     .type(PublicDeliveryIdentifier.Type.CHANNEL_SPECIFIC_OPAQUE_ID)
                     .value("value")

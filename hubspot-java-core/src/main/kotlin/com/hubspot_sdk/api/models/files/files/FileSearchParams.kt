@@ -56,153 +56,80 @@ private constructor(
 ) : Params {
 
     /**
-     * Offset search results by this value. The default offset is 0 and the maximum offset of items
-     * for a given search is 10,000. Narrow your search down if you are reaching this limit.
+     * The paging cursor token of the last successfully read resource will be returned as the
+     * `paging.next.after` JSON property of a paged response containing more results.
      */
     fun after(): Optional<String> = Optional.ofNullable(after)
 
-    /**
-     * Search files by access. If 'true' will show only public files; if 'false' will show only
-     * private files
-     */
     fun allowsAnonymousAccess(): Optional<Boolean> = Optional.ofNullable(allowsAnonymousAccess)
 
-    /** Search files updated before this timestamp. Time must be epoch time in milliseconds. */
     fun before(): Optional<String> = Optional.ofNullable(before)
 
-    /** Search files by exact time of creation. Time must be epoch time in milliseconds. */
     fun createdAt(): Optional<OffsetDateTime> = Optional.ofNullable(createdAt)
 
-    /**
-     * Search files by greater than or equal to time of creation. Can be used with createdAtLte to
-     * create a range.
-     */
     fun createdAtGte(): Optional<OffsetDateTime> = Optional.ofNullable(createdAtGte)
 
-    /**
-     * Search files by less than or equal to time of creation. Can be used with createdAtGte to
-     * create a range.
-     */
     fun createdAtLte(): Optional<OffsetDateTime> = Optional.ofNullable(createdAtLte)
 
-    /** Search files by specified encoding. */
     fun encoding(): Optional<String> = Optional.ofNullable(encoding)
 
-    /** Search files by exact expires time. Time must be epoch time in milliseconds. */
     fun expiresAt(): Optional<OffsetDateTime> = Optional.ofNullable(expiresAt)
 
-    /**
-     * Search files by greater than or equal to expires time. Can be used with expiresAtLte to
-     * create a range.
-     */
     fun expiresAtGte(): Optional<OffsetDateTime> = Optional.ofNullable(expiresAtGte)
 
-    /**
-     * Search files by less than or equal to expires time. Can be used with expiresAtGte to create a
-     * range.
-     */
     fun expiresAtLte(): Optional<OffsetDateTime> = Optional.ofNullable(expiresAtLte)
 
-    /** Search files by given extension. */
     fun extension(): Optional<String> = Optional.ofNullable(extension)
 
-    /** Search files by specific md5 hash. */
     fun fileMd5(): Optional<String> = Optional.ofNullable(fileMd5)
 
-    /** Search files by height of image or video. */
     fun height(): Optional<Int> = Optional.ofNullable(height)
 
-    /**
-     * Search files by greater than or equal to height of image or video. Can be used with heightLte
-     * to create a range.
-     */
     fun heightGte(): Optional<Int> = Optional.ofNullable(heightGte)
 
-    /**
-     * Search files by less than or equal to height of image or video. Can be used with heightGte to
-     * create a range.
-     */
     fun heightLte(): Optional<Int> = Optional.ofNullable(heightLte)
 
-    /** Search files by greater than or equal to ID. Can be used with idLte to create a range. */
     fun idGte(): Optional<Long> = Optional.ofNullable(idGte)
 
-    /** Search files by less than or equal to ID. Can be used with idGte to create a range. */
     fun idLte(): Optional<Long> = Optional.ofNullable(idLte)
 
     fun ids(): Optional<List<Long>> = Optional.ofNullable(ids)
 
-    /**
-     * If true shows files that have been marked to be used in new content. It false shows files
-     * that should not be used in new content.
-     */
     fun isUsableInContent(): Optional<Boolean> = Optional.ofNullable(isUsableInContent)
 
-    /** Number of items to return. Default limit is 10, maximum limit is 100. */
+    /** The maximum number of results to display per page. */
     fun limit(): Optional<Int> = Optional.ofNullable(limit)
 
-    /** Search for files containing the given name. */
     fun name(): Optional<String> = Optional.ofNullable(name)
 
     fun parentFolderIds(): Optional<List<Long>> = Optional.ofNullable(parentFolderIds)
 
-    /** Search files by path. */
     fun path(): Optional<String> = Optional.ofNullable(path)
 
-    /** Desired file properties in the return object. */
     fun properties(): Optional<List<String>> = Optional.ofNullable(properties)
 
-    /** Search files by exact file size in bytes. */
     fun size(): Optional<Long> = Optional.ofNullable(size)
 
-    /**
-     * Search files by greater than or equal to file size. Can be used with sizeLte to create a
-     * range.
-     */
     fun sizeGte(): Optional<Long> = Optional.ofNullable(sizeGte)
 
-    /**
-     * Search files by less than or equal to file size. Can be used with sizeGte to create a range.
-     */
     fun sizeLte(): Optional<Long> = Optional.ofNullable(sizeLte)
 
-    /** Sort files by a given field. */
     fun sort(): Optional<List<String>> = Optional.ofNullable(sort)
 
-    /** Search files by file type. */
     fun type(): Optional<String> = Optional.ofNullable(type)
 
-    /** Search files by exact time of latest updated. Time must be epoch time in milliseconds. */
     fun updatedAt(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAt)
 
-    /**
-     * Search files by greater than or equal to time of latest update. Can be used with updatedAtLte
-     * to create a range.
-     */
     fun updatedAtGte(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAtGte)
 
-    /**
-     * Search files by less than or equal to time of latest update. Can be used with updatedAtGte to
-     * create a range.
-     */
     fun updatedAtLte(): Optional<OffsetDateTime> = Optional.ofNullable(updatedAtLte)
 
-    /** Search for given URL */
     fun url(): Optional<String> = Optional.ofNullable(url)
 
-    /** Search files by width of image or video. */
     fun width(): Optional<Int> = Optional.ofNullable(width)
 
-    /**
-     * Search files by greater than or equal to width of image or video. Can be used with widthLte
-     * to create a range.
-     */
     fun widthGte(): Optional<Int> = Optional.ofNullable(widthGte)
 
-    /**
-     * Search files by less than or equal to width of image or video. Can be used with widthGte to
-     * create a range.
-     */
     fun widthLte(): Optional<Int> = Optional.ofNullable(widthLte)
 
     /** Additional headers to send with the request. */
@@ -306,19 +233,14 @@ private constructor(
         }
 
         /**
-         * Offset search results by this value. The default offset is 0 and the maximum offset of
-         * items for a given search is 10,000. Narrow your search down if you are reaching this
-         * limit.
+         * The paging cursor token of the last successfully read resource will be returned as the
+         * `paging.next.after` JSON property of a paged response containing more results.
          */
         fun after(after: String?) = apply { this.after = after }
 
         /** Alias for calling [Builder.after] with `after.orElse(null)`. */
         fun after(after: Optional<String>) = after(after.getOrNull())
 
-        /**
-         * Search files by access. If 'true' will show only public files; if 'false' will show only
-         * private files
-         */
         fun allowsAnonymousAccess(allowsAnonymousAccess: Boolean?) = apply {
             this.allowsAnonymousAccess = allowsAnonymousAccess
         }
@@ -338,83 +260,60 @@ private constructor(
         fun allowsAnonymousAccess(allowsAnonymousAccess: Optional<Boolean>) =
             allowsAnonymousAccess(allowsAnonymousAccess.getOrNull())
 
-        /** Search files updated before this timestamp. Time must be epoch time in milliseconds. */
         fun before(before: String?) = apply { this.before = before }
 
         /** Alias for calling [Builder.before] with `before.orElse(null)`. */
         fun before(before: Optional<String>) = before(before.getOrNull())
 
-        /** Search files by exact time of creation. Time must be epoch time in milliseconds. */
         fun createdAt(createdAt: OffsetDateTime?) = apply { this.createdAt = createdAt }
 
         /** Alias for calling [Builder.createdAt] with `createdAt.orElse(null)`. */
         fun createdAt(createdAt: Optional<OffsetDateTime>) = createdAt(createdAt.getOrNull())
 
-        /**
-         * Search files by greater than or equal to time of creation. Can be used with createdAtLte
-         * to create a range.
-         */
         fun createdAtGte(createdAtGte: OffsetDateTime?) = apply { this.createdAtGte = createdAtGte }
 
         /** Alias for calling [Builder.createdAtGte] with `createdAtGte.orElse(null)`. */
         fun createdAtGte(createdAtGte: Optional<OffsetDateTime>) =
             createdAtGte(createdAtGte.getOrNull())
 
-        /**
-         * Search files by less than or equal to time of creation. Can be used with createdAtGte to
-         * create a range.
-         */
         fun createdAtLte(createdAtLte: OffsetDateTime?) = apply { this.createdAtLte = createdAtLte }
 
         /** Alias for calling [Builder.createdAtLte] with `createdAtLte.orElse(null)`. */
         fun createdAtLte(createdAtLte: Optional<OffsetDateTime>) =
             createdAtLte(createdAtLte.getOrNull())
 
-        /** Search files by specified encoding. */
         fun encoding(encoding: String?) = apply { this.encoding = encoding }
 
         /** Alias for calling [Builder.encoding] with `encoding.orElse(null)`. */
         fun encoding(encoding: Optional<String>) = encoding(encoding.getOrNull())
 
-        /** Search files by exact expires time. Time must be epoch time in milliseconds. */
         fun expiresAt(expiresAt: OffsetDateTime?) = apply { this.expiresAt = expiresAt }
 
         /** Alias for calling [Builder.expiresAt] with `expiresAt.orElse(null)`. */
         fun expiresAt(expiresAt: Optional<OffsetDateTime>) = expiresAt(expiresAt.getOrNull())
 
-        /**
-         * Search files by greater than or equal to expires time. Can be used with expiresAtLte to
-         * create a range.
-         */
         fun expiresAtGte(expiresAtGte: OffsetDateTime?) = apply { this.expiresAtGte = expiresAtGte }
 
         /** Alias for calling [Builder.expiresAtGte] with `expiresAtGte.orElse(null)`. */
         fun expiresAtGte(expiresAtGte: Optional<OffsetDateTime>) =
             expiresAtGte(expiresAtGte.getOrNull())
 
-        /**
-         * Search files by less than or equal to expires time. Can be used with expiresAtGte to
-         * create a range.
-         */
         fun expiresAtLte(expiresAtLte: OffsetDateTime?) = apply { this.expiresAtLte = expiresAtLte }
 
         /** Alias for calling [Builder.expiresAtLte] with `expiresAtLte.orElse(null)`. */
         fun expiresAtLte(expiresAtLte: Optional<OffsetDateTime>) =
             expiresAtLte(expiresAtLte.getOrNull())
 
-        /** Search files by given extension. */
         fun extension(extension: String?) = apply { this.extension = extension }
 
         /** Alias for calling [Builder.extension] with `extension.orElse(null)`. */
         fun extension(extension: Optional<String>) = extension(extension.getOrNull())
 
-        /** Search files by specific md5 hash. */
         fun fileMd5(fileMd5: String?) = apply { this.fileMd5 = fileMd5 }
 
         /** Alias for calling [Builder.fileMd5] with `fileMd5.orElse(null)`. */
         fun fileMd5(fileMd5: Optional<String>) = fileMd5(fileMd5.getOrNull())
 
-        /** Search files by height of image or video. */
         fun height(height: Int?) = apply { this.height = height }
 
         /**
@@ -427,10 +326,6 @@ private constructor(
         /** Alias for calling [Builder.height] with `height.orElse(null)`. */
         fun height(height: Optional<Int>) = height(height.getOrNull())
 
-        /**
-         * Search files by greater than or equal to height of image or video. Can be used with
-         * heightLte to create a range.
-         */
         fun heightGte(heightGte: Int?) = apply { this.heightGte = heightGte }
 
         /**
@@ -443,10 +338,6 @@ private constructor(
         /** Alias for calling [Builder.heightGte] with `heightGte.orElse(null)`. */
         fun heightGte(heightGte: Optional<Int>) = heightGte(heightGte.getOrNull())
 
-        /**
-         * Search files by less than or equal to height of image or video. Can be used with
-         * heightGte to create a range.
-         */
         fun heightLte(heightLte: Int?) = apply { this.heightLte = heightLte }
 
         /**
@@ -459,9 +350,6 @@ private constructor(
         /** Alias for calling [Builder.heightLte] with `heightLte.orElse(null)`. */
         fun heightLte(heightLte: Optional<Int>) = heightLte(heightLte.getOrNull())
 
-        /**
-         * Search files by greater than or equal to ID. Can be used with idLte to create a range.
-         */
         fun idGte(idGte: Long?) = apply { this.idGte = idGte }
 
         /**
@@ -474,7 +362,6 @@ private constructor(
         /** Alias for calling [Builder.idGte] with `idGte.orElse(null)`. */
         fun idGte(idGte: Optional<Long>) = idGte(idGte.getOrNull())
 
-        /** Search files by less than or equal to ID. Can be used with idGte to create a range. */
         fun idLte(idLte: Long?) = apply { this.idLte = idLte }
 
         /**
@@ -499,10 +386,6 @@ private constructor(
          */
         fun addId(id: Long) = apply { ids = (ids ?: mutableListOf()).apply { add(id) } }
 
-        /**
-         * If true shows files that have been marked to be used in new content. It false shows files
-         * that should not be used in new content.
-         */
         fun isUsableInContent(isUsableInContent: Boolean?) = apply {
             this.isUsableInContent = isUsableInContent
         }
@@ -519,7 +402,7 @@ private constructor(
         fun isUsableInContent(isUsableInContent: Optional<Boolean>) =
             isUsableInContent(isUsableInContent.getOrNull())
 
-        /** Number of items to return. Default limit is 10, maximum limit is 100. */
+        /** The maximum number of results to display per page. */
         fun limit(limit: Int?) = apply { this.limit = limit }
 
         /**
@@ -532,7 +415,6 @@ private constructor(
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Int>) = limit(limit.getOrNull())
 
-        /** Search for files containing the given name. */
         fun name(name: String?) = apply { this.name = name }
 
         /** Alias for calling [Builder.name] with `name.orElse(null)`. */
@@ -555,13 +437,11 @@ private constructor(
             parentFolderIds = (parentFolderIds ?: mutableListOf()).apply { add(parentFolderId) }
         }
 
-        /** Search files by path. */
         fun path(path: String?) = apply { this.path = path }
 
         /** Alias for calling [Builder.path] with `path.orElse(null)`. */
         fun path(path: Optional<String>) = path(path.getOrNull())
 
-        /** Desired file properties in the return object. */
         fun properties(properties: List<String>?) = apply {
             this.properties = properties?.toMutableList()
         }
@@ -578,7 +458,6 @@ private constructor(
             properties = (properties ?: mutableListOf()).apply { add(property) }
         }
 
-        /** Search files by exact file size in bytes. */
         fun size(size: Long?) = apply { this.size = size }
 
         /**
@@ -591,10 +470,6 @@ private constructor(
         /** Alias for calling [Builder.size] with `size.orElse(null)`. */
         fun size(size: Optional<Long>) = size(size.getOrNull())
 
-        /**
-         * Search files by greater than or equal to file size. Can be used with sizeLte to create a
-         * range.
-         */
         fun sizeGte(sizeGte: Long?) = apply { this.sizeGte = sizeGte }
 
         /**
@@ -607,10 +482,6 @@ private constructor(
         /** Alias for calling [Builder.sizeGte] with `sizeGte.orElse(null)`. */
         fun sizeGte(sizeGte: Optional<Long>) = sizeGte(sizeGte.getOrNull())
 
-        /**
-         * Search files by less than or equal to file size. Can be used with sizeGte to create a
-         * range.
-         */
         fun sizeLte(sizeLte: Long?) = apply { this.sizeLte = sizeLte }
 
         /**
@@ -623,7 +494,6 @@ private constructor(
         /** Alias for calling [Builder.sizeLte] with `sizeLte.orElse(null)`. */
         fun sizeLte(sizeLte: Optional<Long>) = sizeLte(sizeLte.getOrNull())
 
-        /** Sort files by a given field. */
         fun sort(sort: List<String>?) = apply { this.sort = sort?.toMutableList() }
 
         /** Alias for calling [Builder.sort] with `sort.orElse(null)`. */
@@ -638,47 +508,33 @@ private constructor(
             this.sort = (this.sort ?: mutableListOf()).apply { add(sort) }
         }
 
-        /** Search files by file type. */
         fun type(type: String?) = apply { this.type = type }
 
         /** Alias for calling [Builder.type] with `type.orElse(null)`. */
         fun type(type: Optional<String>) = type(type.getOrNull())
 
-        /**
-         * Search files by exact time of latest updated. Time must be epoch time in milliseconds.
-         */
         fun updatedAt(updatedAt: OffsetDateTime?) = apply { this.updatedAt = updatedAt }
 
         /** Alias for calling [Builder.updatedAt] with `updatedAt.orElse(null)`. */
         fun updatedAt(updatedAt: Optional<OffsetDateTime>) = updatedAt(updatedAt.getOrNull())
 
-        /**
-         * Search files by greater than or equal to time of latest update. Can be used with
-         * updatedAtLte to create a range.
-         */
         fun updatedAtGte(updatedAtGte: OffsetDateTime?) = apply { this.updatedAtGte = updatedAtGte }
 
         /** Alias for calling [Builder.updatedAtGte] with `updatedAtGte.orElse(null)`. */
         fun updatedAtGte(updatedAtGte: Optional<OffsetDateTime>) =
             updatedAtGte(updatedAtGte.getOrNull())
 
-        /**
-         * Search files by less than or equal to time of latest update. Can be used with
-         * updatedAtGte to create a range.
-         */
         fun updatedAtLte(updatedAtLte: OffsetDateTime?) = apply { this.updatedAtLte = updatedAtLte }
 
         /** Alias for calling [Builder.updatedAtLte] with `updatedAtLte.orElse(null)`. */
         fun updatedAtLte(updatedAtLte: Optional<OffsetDateTime>) =
             updatedAtLte(updatedAtLte.getOrNull())
 
-        /** Search for given URL */
         fun url(url: String?) = apply { this.url = url }
 
         /** Alias for calling [Builder.url] with `url.orElse(null)`. */
         fun url(url: Optional<String>) = url(url.getOrNull())
 
-        /** Search files by width of image or video. */
         fun width(width: Int?) = apply { this.width = width }
 
         /**
@@ -691,10 +547,6 @@ private constructor(
         /** Alias for calling [Builder.width] with `width.orElse(null)`. */
         fun width(width: Optional<Int>) = width(width.getOrNull())
 
-        /**
-         * Search files by greater than or equal to width of image or video. Can be used with
-         * widthLte to create a range.
-         */
         fun widthGte(widthGte: Int?) = apply { this.widthGte = widthGte }
 
         /**
@@ -707,10 +559,6 @@ private constructor(
         /** Alias for calling [Builder.widthGte] with `widthGte.orElse(null)`. */
         fun widthGte(widthGte: Optional<Int>) = widthGte(widthGte.getOrNull())
 
-        /**
-         * Search files by less than or equal to width of image or video. Can be used with widthGte
-         * to create a range.
-         */
         fun widthLte(widthLte: Int?) = apply { this.widthLte = widthLte }
 
         /**

@@ -17,7 +17,7 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetDraftPara
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePublishDraftParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePushDraftLiveParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageResetDraftParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageScheduleParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageUpdateDraftParams
@@ -209,35 +209,35 @@ interface LandingPageService {
      * Take any changes from the draft version of the Landing Page and apply them to the live
      * version.
      */
-    fun publishDraft(objectId: String) =
-        publishDraft(objectId, LandingPagePublishDraftParams.none())
+    fun pushDraftLive(objectId: String) =
+        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
 
-    /** @see publishDraft */
-    fun publishDraft(
+    /** @see pushDraftLive */
+    fun pushDraftLive(
         objectId: String,
-        params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
+        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = publishDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ) = pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see publishDraft */
-    fun publishDraft(
+    /** @see pushDraftLive */
+    fun pushDraftLive(
         objectId: String,
-        params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
-    ) = publishDraft(objectId, params, RequestOptions.none())
+        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
+    ) = pushDraftLive(objectId, params, RequestOptions.none())
 
-    /** @see publishDraft */
-    fun publishDraft(
-        params: LandingPagePublishDraftParams,
+    /** @see pushDraftLive */
+    fun pushDraftLive(
+        params: LandingPagePushDraftLiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see publishDraft */
-    fun publishDraft(params: LandingPagePublishDraftParams) =
-        publishDraft(params, RequestOptions.none())
+    /** @see pushDraftLive */
+    fun pushDraftLive(params: LandingPagePushDraftLiveParams) =
+        pushDraftLive(params, RequestOptions.none())
 
-    /** @see publishDraft */
-    fun publishDraft(objectId: String, requestOptions: RequestOptions) =
-        publishDraft(objectId, LandingPagePublishDraftParams.none(), requestOptions)
+    /** @see pushDraftLive */
+    fun pushDraftLive(objectId: String, requestOptions: RequestOptions) =
+        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
 
     /** Discards any edits and resets the draft to match the live version. */
     fun resetDraft(objectId: String) = resetDraft(objectId, LandingPageResetDraftParams.none())
@@ -570,44 +570,44 @@ interface LandingPageService {
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/landing-pages/{objectId}/draft/push-live`, but is otherwise the same
-         * as [LandingPageService.publishDraft].
+         * as [LandingPageService.pushDraftLive].
          */
         @MustBeClosed
-        fun publishDraft(objectId: String): HttpResponse =
-            publishDraft(objectId, LandingPagePublishDraftParams.none())
+        fun pushDraftLive(objectId: String): HttpResponse =
+            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
 
-        /** @see publishDraft */
+        /** @see pushDraftLive */
         @MustBeClosed
-        fun publishDraft(
+        fun pushDraftLive(
             objectId: String,
-            params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
+            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            publishDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+            pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see publishDraft */
+        /** @see pushDraftLive */
         @MustBeClosed
-        fun publishDraft(
+        fun pushDraftLive(
             objectId: String,
-            params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
-        ): HttpResponse = publishDraft(objectId, params, RequestOptions.none())
+            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
+        ): HttpResponse = pushDraftLive(objectId, params, RequestOptions.none())
 
-        /** @see publishDraft */
+        /** @see pushDraftLive */
         @MustBeClosed
-        fun publishDraft(
-            params: LandingPagePublishDraftParams,
+        fun pushDraftLive(
+            params: LandingPagePushDraftLiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see publishDraft */
+        /** @see pushDraftLive */
         @MustBeClosed
-        fun publishDraft(params: LandingPagePublishDraftParams): HttpResponse =
-            publishDraft(params, RequestOptions.none())
+        fun pushDraftLive(params: LandingPagePushDraftLiveParams): HttpResponse =
+            pushDraftLive(params, RequestOptions.none())
 
-        /** @see publishDraft */
+        /** @see pushDraftLive */
         @MustBeClosed
-        fun publishDraft(objectId: String, requestOptions: RequestOptions): HttpResponse =
-            publishDraft(objectId, LandingPagePublishDraftParams.none(), requestOptions)
+        fun pushDraftLive(objectId: String, requestOptions: RequestOptions): HttpResponse =
+            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

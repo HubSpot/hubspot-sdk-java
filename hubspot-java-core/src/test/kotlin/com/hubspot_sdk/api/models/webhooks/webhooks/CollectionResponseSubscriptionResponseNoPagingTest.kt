@@ -3,6 +3,7 @@
 package com.hubspot_sdk.api.models.webhooks.webhooks
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -25,6 +26,21 @@ internal class CollectionResponseSubscriptionResponseNoPagingTest {
                             SubscriptionResponse1.SubscriptionType.APP_LIFECYCLE_EVENT
                         )
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .actionOverrides(
+                            SubscriptionResponse1.ActionOverrides.builder()
+                                .putAdditionalProperty(
+                                    "foo",
+                                    JsonValue.from(
+                                        mapOf(
+                                            "associatedObjectTypeIds" to listOf("string"),
+                                            "listIds" to listOf(0),
+                                            "objectIds" to listOf(0),
+                                            "properties" to listOf("string"),
+                                        )
+                                    ),
+                                )
+                                .build()
+                        )
                         .addAssociatedObjectTypeId("string")
                         .createdBy(0L)
                         .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -46,6 +62,21 @@ internal class CollectionResponseSubscriptionResponseNoPagingTest {
                     .objectTypeId("objectTypeId")
                     .subscriptionType(SubscriptionResponse1.SubscriptionType.APP_LIFECYCLE_EVENT)
                     .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .actionOverrides(
+                        SubscriptionResponse1.ActionOverrides.builder()
+                            .putAdditionalProperty(
+                                "foo",
+                                JsonValue.from(
+                                    mapOf(
+                                        "associatedObjectTypeIds" to listOf("string"),
+                                        "listIds" to listOf(0),
+                                        "objectIds" to listOf(0),
+                                        "properties" to listOf("string"),
+                                    )
+                                ),
+                            )
+                            .build()
+                    )
                     .addAssociatedObjectTypeId("string")
                     .createdBy(0L)
                     .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -73,6 +104,21 @@ internal class CollectionResponseSubscriptionResponseNoPagingTest {
                             SubscriptionResponse1.SubscriptionType.APP_LIFECYCLE_EVENT
                         )
                         .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .actionOverrides(
+                            SubscriptionResponse1.ActionOverrides.builder()
+                                .putAdditionalProperty(
+                                    "foo",
+                                    JsonValue.from(
+                                        mapOf(
+                                            "associatedObjectTypeIds" to listOf("string"),
+                                            "listIds" to listOf(0),
+                                            "objectIds" to listOf(0),
+                                            "properties" to listOf("string"),
+                                        )
+                                    ),
+                                )
+                                .build()
+                        )
                         .addAssociatedObjectTypeId("string")
                         .createdBy(0L)
                         .deletedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

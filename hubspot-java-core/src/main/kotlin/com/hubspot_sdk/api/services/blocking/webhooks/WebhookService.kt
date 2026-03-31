@@ -7,34 +7,44 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.webhooks.webhooks.AppLifecycleEventSubscriptionUpsertRequest
+import com.hubspot_sdk.api.models.webhooks.webhooks.AssociationSubscriptionUpsertRequest
+import com.hubspot_sdk.api.models.webhooks.webhooks.CollectionResponseSubscriptionResponseNoPaging
 import com.hubspot_sdk.api.models.webhooks.webhooks.CrmObjectSnapshotBatchRequest
 import com.hubspot_sdk.api.models.webhooks.webhooks.CrmObjectSnapshotBatchResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.FilterCreateRequest
 import com.hubspot_sdk.api.models.webhooks.webhooks.FilterCreateResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.FilterResponse
+import com.hubspot_sdk.api.models.webhooks.webhooks.ListMembershipSubscriptionUpsertRequest
+import com.hubspot_sdk.api.models.webhooks.webhooks.ObjectSubscriptionUpsertRequest
 import com.hubspot_sdk.api.models.webhooks.webhooks.SettingsResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.SnapshotStatusResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionListResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionResponse
+import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionResponse1
+import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionUpsertRequest
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateCrmSnapshotParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateFilterParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateJournalSubscriptionParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateSubscriptionParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteFilterParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeletePortalParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteJournalSubscriptionParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeletePortalSubscriptionsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteSettingsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteSubscriptionParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetEarliestJournalLocalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetEarliestJournalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetFilterBySubscriptionParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetFilterParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalLocalStatusParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetFiltersBySubscriptionParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalNextByOffsetParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalStatusParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLatestJournalLocalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLatestJournalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetNextJournalByOffsetParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetNextJournalLocalByOffsetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalNextByOffsetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalStatusParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetSettingsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetSubscriptionParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookListJournalSubscriptionsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookListSubscriptionsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookUpdateSettingsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookUpdateSubscriptionParams
@@ -107,6 +117,97 @@ interface WebhookService {
     fun createFilter(filterCreateRequest: FilterCreateRequest): FilterCreateResponse =
         createFilter(filterCreateRequest, RequestOptions.none())
 
+    fun createJournalSubscription(
+        params: WebhookCreateJournalSubscriptionParams
+    ): SubscriptionResponse1 = createJournalSubscription(params, RequestOptions.none())
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        params: WebhookCreateJournalSubscriptionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse1
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        subscriptionUpsertRequest: SubscriptionUpsertRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse1 =
+        createJournalSubscription(
+            WebhookCreateJournalSubscriptionParams.builder()
+                .subscriptionUpsertRequest(subscriptionUpsertRequest)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        subscriptionUpsertRequest: SubscriptionUpsertRequest
+    ): SubscriptionResponse1 =
+        createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse1 =
+        createJournalSubscription(
+            SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
+                objectSubscriptionUpsertRequest
+            ),
+            requestOptions,
+        )
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
+    ): SubscriptionResponse1 =
+        createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        association: AssociationSubscriptionUpsertRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse1 =
+        createJournalSubscription(
+            SubscriptionUpsertRequest.ofAssociation(association),
+            requestOptions,
+        )
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        association: AssociationSubscriptionUpsertRequest
+    ): SubscriptionResponse1 = createJournalSubscription(association, RequestOptions.none())
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse1 =
+        createJournalSubscription(
+            SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
+            requestOptions,
+        )
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
+    ): SubscriptionResponse1 = createJournalSubscription(appLifecycleEvent, RequestOptions.none())
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        listMembership: ListMembershipSubscriptionUpsertRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): SubscriptionResponse1 =
+        createJournalSubscription(
+            SubscriptionUpsertRequest.ofListMembership(listMembership),
+            requestOptions,
+        )
+
+    /** @see createJournalSubscription */
+    fun createJournalSubscription(
+        listMembership: ListMembershipSubscriptionUpsertRequest
+    ): SubscriptionResponse1 = createJournalSubscription(listMembership, RequestOptions.none())
+
     /** Create new event subscription for the specified app. */
     fun createSubscription(
         appId: Int,
@@ -160,34 +261,81 @@ interface WebhookService {
     fun deleteFilter(filterId: Long, requestOptions: RequestOptions) =
         deleteFilter(filterId, WebhookDeleteFilterParams.none(), requestOptions)
 
-    fun deletePortal(portalId: Long) = deletePortal(portalId, WebhookDeletePortalParams.none())
+    fun deleteJournalSubscription(subscriptionId: Long) =
+        deleteJournalSubscription(subscriptionId, WebhookDeleteJournalSubscriptionParams.none())
 
-    /** @see deletePortal */
-    fun deletePortal(
-        portalId: Long,
-        params: WebhookDeletePortalParams = WebhookDeletePortalParams.none(),
+    /** @see deleteJournalSubscription */
+    fun deleteJournalSubscription(
+        subscriptionId: Long,
+        params: WebhookDeleteJournalSubscriptionParams =
+            WebhookDeleteJournalSubscriptionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = deletePortal(params.toBuilder().portalId(portalId).build(), requestOptions)
+    ) =
+        deleteJournalSubscription(
+            params.toBuilder().subscriptionId(subscriptionId).build(),
+            requestOptions,
+        )
 
-    /** @see deletePortal */
-    fun deletePortal(
-        portalId: Long,
-        params: WebhookDeletePortalParams = WebhookDeletePortalParams.none(),
-    ) = deletePortal(portalId, params, RequestOptions.none())
+    /** @see deleteJournalSubscription */
+    fun deleteJournalSubscription(
+        subscriptionId: Long,
+        params: WebhookDeleteJournalSubscriptionParams =
+            WebhookDeleteJournalSubscriptionParams.none(),
+    ) = deleteJournalSubscription(subscriptionId, params, RequestOptions.none())
 
-    /** @see deletePortal */
-    fun deletePortal(
-        params: WebhookDeletePortalParams,
+    /** @see deleteJournalSubscription */
+    fun deleteJournalSubscription(
+        params: WebhookDeleteJournalSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see deletePortal */
-    fun deletePortal(params: WebhookDeletePortalParams) =
-        deletePortal(params, RequestOptions.none())
+    /** @see deleteJournalSubscription */
+    fun deleteJournalSubscription(params: WebhookDeleteJournalSubscriptionParams) =
+        deleteJournalSubscription(params, RequestOptions.none())
 
-    /** @see deletePortal */
-    fun deletePortal(portalId: Long, requestOptions: RequestOptions) =
-        deletePortal(portalId, WebhookDeletePortalParams.none(), requestOptions)
+    /** @see deleteJournalSubscription */
+    fun deleteJournalSubscription(subscriptionId: Long, requestOptions: RequestOptions) =
+        deleteJournalSubscription(
+            subscriptionId,
+            WebhookDeleteJournalSubscriptionParams.none(),
+            requestOptions,
+        )
+
+    fun deletePortalSubscriptions(portalId: Long) =
+        deletePortalSubscriptions(portalId, WebhookDeletePortalSubscriptionsParams.none())
+
+    /** @see deletePortalSubscriptions */
+    fun deletePortalSubscriptions(
+        portalId: Long,
+        params: WebhookDeletePortalSubscriptionsParams =
+            WebhookDeletePortalSubscriptionsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) = deletePortalSubscriptions(params.toBuilder().portalId(portalId).build(), requestOptions)
+
+    /** @see deletePortalSubscriptions */
+    fun deletePortalSubscriptions(
+        portalId: Long,
+        params: WebhookDeletePortalSubscriptionsParams =
+            WebhookDeletePortalSubscriptionsParams.none(),
+    ) = deletePortalSubscriptions(portalId, params, RequestOptions.none())
+
+    /** @see deletePortalSubscriptions */
+    fun deletePortalSubscriptions(
+        params: WebhookDeletePortalSubscriptionsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see deletePortalSubscriptions */
+    fun deletePortalSubscriptions(params: WebhookDeletePortalSubscriptionsParams) =
+        deletePortalSubscriptions(params, RequestOptions.none())
+
+    /** @see deletePortalSubscriptions */
+    fun deletePortalSubscriptions(portalId: Long, requestOptions: RequestOptions) =
+        deletePortalSubscriptions(
+            portalId,
+            WebhookDeletePortalSubscriptionsParams.none(),
+            requestOptions,
+        )
 
     /**
      * Delete the webhook settings for the specified app. Event subscriptions will not be deleted,
@@ -247,50 +395,6 @@ interface WebhookService {
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    @MustBeClosed
-    fun getEarliestJournal(): HttpResponse =
-        getEarliestJournal(WebhookGetEarliestJournalParams.none())
-
-    /** @see getEarliestJournal */
-    @MustBeClosed
-    fun getEarliestJournal(
-        params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see getEarliestJournal */
-    @MustBeClosed
-    fun getEarliestJournal(
-        params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none()
-    ): HttpResponse = getEarliestJournal(params, RequestOptions.none())
-
-    /** @see getEarliestJournal */
-    @MustBeClosed
-    fun getEarliestJournal(requestOptions: RequestOptions): HttpResponse =
-        getEarliestJournal(WebhookGetEarliestJournalParams.none(), requestOptions)
-
-    @MustBeClosed
-    fun getEarliestJournalLocal(): HttpResponse =
-        getEarliestJournalLocal(WebhookGetEarliestJournalLocalParams.none())
-
-    /** @see getEarliestJournalLocal */
-    @MustBeClosed
-    fun getEarliestJournalLocal(
-        params: WebhookGetEarliestJournalLocalParams = WebhookGetEarliestJournalLocalParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
-
-    /** @see getEarliestJournalLocal */
-    @MustBeClosed
-    fun getEarliestJournalLocal(
-        params: WebhookGetEarliestJournalLocalParams = WebhookGetEarliestJournalLocalParams.none()
-    ): HttpResponse = getEarliestJournalLocal(params, RequestOptions.none())
-
-    /** @see getEarliestJournalLocal */
-    @MustBeClosed
-    fun getEarliestJournalLocal(requestOptions: RequestOptions): HttpResponse =
-        getEarliestJournalLocal(WebhookGetEarliestJournalLocalParams.none(), requestOptions)
-
     fun getFilter(filterId: Long): FilterResponse =
         getFilter(filterId, WebhookGetFilterParams.none())
 
@@ -321,81 +425,129 @@ interface WebhookService {
     fun getFilter(filterId: Long, requestOptions: RequestOptions): FilterResponse =
         getFilter(filterId, WebhookGetFilterParams.none(), requestOptions)
 
-    fun getFilterBySubscription(subscriptionId: Long): List<FilterResponse> =
-        getFilterBySubscription(subscriptionId, WebhookGetFilterBySubscriptionParams.none())
+    fun getFiltersBySubscription(subscriptionId: Long): List<FilterResponse> =
+        getFiltersBySubscription(subscriptionId, WebhookGetFiltersBySubscriptionParams.none())
 
-    /** @see getFilterBySubscription */
-    fun getFilterBySubscription(
+    /** @see getFiltersBySubscription */
+    fun getFiltersBySubscription(
         subscriptionId: Long,
-        params: WebhookGetFilterBySubscriptionParams = WebhookGetFilterBySubscriptionParams.none(),
+        params: WebhookGetFiltersBySubscriptionParams =
+            WebhookGetFiltersBySubscriptionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<FilterResponse> =
-        getFilterBySubscription(
+        getFiltersBySubscription(
             params.toBuilder().subscriptionId(subscriptionId).build(),
             requestOptions,
         )
 
-    /** @see getFilterBySubscription */
-    fun getFilterBySubscription(
+    /** @see getFiltersBySubscription */
+    fun getFiltersBySubscription(
         subscriptionId: Long,
-        params: WebhookGetFilterBySubscriptionParams = WebhookGetFilterBySubscriptionParams.none(),
-    ): List<FilterResponse> = getFilterBySubscription(subscriptionId, params, RequestOptions.none())
+        params: WebhookGetFiltersBySubscriptionParams = WebhookGetFiltersBySubscriptionParams.none(),
+    ): List<FilterResponse> =
+        getFiltersBySubscription(subscriptionId, params, RequestOptions.none())
 
-    /** @see getFilterBySubscription */
-    fun getFilterBySubscription(
-        params: WebhookGetFilterBySubscriptionParams,
+    /** @see getFiltersBySubscription */
+    fun getFiltersBySubscription(
+        params: WebhookGetFiltersBySubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): List<FilterResponse>
 
-    /** @see getFilterBySubscription */
-    fun getFilterBySubscription(
-        params: WebhookGetFilterBySubscriptionParams
-    ): List<FilterResponse> = getFilterBySubscription(params, RequestOptions.none())
+    /** @see getFiltersBySubscription */
+    fun getFiltersBySubscription(
+        params: WebhookGetFiltersBySubscriptionParams
+    ): List<FilterResponse> = getFiltersBySubscription(params, RequestOptions.none())
 
-    /** @see getFilterBySubscription */
-    fun getFilterBySubscription(
+    /** @see getFiltersBySubscription */
+    fun getFiltersBySubscription(
         subscriptionId: Long,
         requestOptions: RequestOptions,
     ): List<FilterResponse> =
-        getFilterBySubscription(
+        getFiltersBySubscription(
             subscriptionId,
-            WebhookGetFilterBySubscriptionParams.none(),
+            WebhookGetFiltersBySubscriptionParams.none(),
             requestOptions,
         )
 
-    fun getJournalLocalStatus(statusId: String): SnapshotStatusResponse =
-        getJournalLocalStatus(statusId, WebhookGetJournalLocalStatusParams.none())
+    @MustBeClosed
+    fun getJournalEarliest(): HttpResponse =
+        getJournalEarliest(WebhookGetJournalEarliestParams.none())
 
-    /** @see getJournalLocalStatus */
-    fun getJournalLocalStatus(
-        statusId: String,
-        params: WebhookGetJournalLocalStatusParams = WebhookGetJournalLocalStatusParams.none(),
+    /** @see getJournalEarliest */
+    @MustBeClosed
+    fun getJournalEarliest(
+        params: WebhookGetJournalEarliestParams = WebhookGetJournalEarliestParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SnapshotStatusResponse =
-        getJournalLocalStatus(params.toBuilder().statusId(statusId).build(), requestOptions)
+    ): HttpResponse
 
-    /** @see getJournalLocalStatus */
-    fun getJournalLocalStatus(
-        statusId: String,
-        params: WebhookGetJournalLocalStatusParams = WebhookGetJournalLocalStatusParams.none(),
-    ): SnapshotStatusResponse = getJournalLocalStatus(statusId, params, RequestOptions.none())
+    /** @see getJournalEarliest */
+    @MustBeClosed
+    fun getJournalEarliest(
+        params: WebhookGetJournalEarliestParams = WebhookGetJournalEarliestParams.none()
+    ): HttpResponse = getJournalEarliest(params, RequestOptions.none())
 
-    /** @see getJournalLocalStatus */
-    fun getJournalLocalStatus(
-        params: WebhookGetJournalLocalStatusParams,
+    /** @see getJournalEarliest */
+    @MustBeClosed
+    fun getJournalEarliest(requestOptions: RequestOptions): HttpResponse =
+        getJournalEarliest(WebhookGetJournalEarliestParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun getJournalLatest(): HttpResponse = getJournalLatest(WebhookGetJournalLatestParams.none())
+
+    /** @see getJournalLatest */
+    @MustBeClosed
+    fun getJournalLatest(
+        params: WebhookGetJournalLatestParams = WebhookGetJournalLatestParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SnapshotStatusResponse
+    ): HttpResponse
 
-    /** @see getJournalLocalStatus */
-    fun getJournalLocalStatus(params: WebhookGetJournalLocalStatusParams): SnapshotStatusResponse =
-        getJournalLocalStatus(params, RequestOptions.none())
+    /** @see getJournalLatest */
+    @MustBeClosed
+    fun getJournalLatest(
+        params: WebhookGetJournalLatestParams = WebhookGetJournalLatestParams.none()
+    ): HttpResponse = getJournalLatest(params, RequestOptions.none())
 
-    /** @see getJournalLocalStatus */
-    fun getJournalLocalStatus(
-        statusId: String,
-        requestOptions: RequestOptions,
-    ): SnapshotStatusResponse =
-        getJournalLocalStatus(statusId, WebhookGetJournalLocalStatusParams.none(), requestOptions)
+    /** @see getJournalLatest */
+    @MustBeClosed
+    fun getJournalLatest(requestOptions: RequestOptions): HttpResponse =
+        getJournalLatest(WebhookGetJournalLatestParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun getJournalNextByOffset(offset: String): HttpResponse =
+        getJournalNextByOffset(offset, WebhookGetJournalNextByOffsetParams.none())
+
+    /** @see getJournalNextByOffset */
+    @MustBeClosed
+    fun getJournalNextByOffset(
+        offset: String,
+        params: WebhookGetJournalNextByOffsetParams = WebhookGetJournalNextByOffsetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse =
+        getJournalNextByOffset(params.toBuilder().offset(offset).build(), requestOptions)
+
+    /** @see getJournalNextByOffset */
+    @MustBeClosed
+    fun getJournalNextByOffset(
+        offset: String,
+        params: WebhookGetJournalNextByOffsetParams = WebhookGetJournalNextByOffsetParams.none(),
+    ): HttpResponse = getJournalNextByOffset(offset, params, RequestOptions.none())
+
+    /** @see getJournalNextByOffset */
+    @MustBeClosed
+    fun getJournalNextByOffset(
+        params: WebhookGetJournalNextByOffsetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see getJournalNextByOffset */
+    @MustBeClosed
+    fun getJournalNextByOffset(params: WebhookGetJournalNextByOffsetParams): HttpResponse =
+        getJournalNextByOffset(params, RequestOptions.none())
+
+    /** @see getJournalNextByOffset */
+    @MustBeClosed
+    fun getJournalNextByOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
+        getJournalNextByOffset(offset, WebhookGetJournalNextByOffsetParams.none(), requestOptions)
 
     fun getJournalStatus(statusId: String): SnapshotStatusResponse =
         getJournalStatus(statusId, WebhookGetJournalStatusParams.none())
@@ -429,128 +581,114 @@ interface WebhookService {
         getJournalStatus(statusId, WebhookGetJournalStatusParams.none(), requestOptions)
 
     @MustBeClosed
-    fun getLatestJournal(): HttpResponse = getLatestJournal(WebhookGetLatestJournalParams.none())
+    fun getLocalEarliest(): HttpResponse = getLocalEarliest(WebhookGetLocalEarliestParams.none())
 
-    /** @see getLatestJournal */
+    /** @see getLocalEarliest */
     @MustBeClosed
-    fun getLatestJournal(
-        params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none(),
+    fun getLocalEarliest(
+        params: WebhookGetLocalEarliestParams = WebhookGetLocalEarliestParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getLatestJournal */
+    /** @see getLocalEarliest */
     @MustBeClosed
-    fun getLatestJournal(
-        params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none()
-    ): HttpResponse = getLatestJournal(params, RequestOptions.none())
+    fun getLocalEarliest(
+        params: WebhookGetLocalEarliestParams = WebhookGetLocalEarliestParams.none()
+    ): HttpResponse = getLocalEarliest(params, RequestOptions.none())
 
-    /** @see getLatestJournal */
+    /** @see getLocalEarliest */
     @MustBeClosed
-    fun getLatestJournal(requestOptions: RequestOptions): HttpResponse =
-        getLatestJournal(WebhookGetLatestJournalParams.none(), requestOptions)
+    fun getLocalEarliest(requestOptions: RequestOptions): HttpResponse =
+        getLocalEarliest(WebhookGetLocalEarliestParams.none(), requestOptions)
 
     @MustBeClosed
-    fun getLatestJournalLocal(): HttpResponse =
-        getLatestJournalLocal(WebhookGetLatestJournalLocalParams.none())
+    fun getLocalLatest(): HttpResponse = getLocalLatest(WebhookGetLocalLatestParams.none())
 
-    /** @see getLatestJournalLocal */
+    /** @see getLocalLatest */
     @MustBeClosed
-    fun getLatestJournalLocal(
-        params: WebhookGetLatestJournalLocalParams = WebhookGetLatestJournalLocalParams.none(),
+    fun getLocalLatest(
+        params: WebhookGetLocalLatestParams = WebhookGetLocalLatestParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getLatestJournalLocal */
+    /** @see getLocalLatest */
     @MustBeClosed
-    fun getLatestJournalLocal(
-        params: WebhookGetLatestJournalLocalParams = WebhookGetLatestJournalLocalParams.none()
-    ): HttpResponse = getLatestJournalLocal(params, RequestOptions.none())
+    fun getLocalLatest(
+        params: WebhookGetLocalLatestParams = WebhookGetLocalLatestParams.none()
+    ): HttpResponse = getLocalLatest(params, RequestOptions.none())
 
-    /** @see getLatestJournalLocal */
+    /** @see getLocalLatest */
     @MustBeClosed
-    fun getLatestJournalLocal(requestOptions: RequestOptions): HttpResponse =
-        getLatestJournalLocal(WebhookGetLatestJournalLocalParams.none(), requestOptions)
+    fun getLocalLatest(requestOptions: RequestOptions): HttpResponse =
+        getLocalLatest(WebhookGetLocalLatestParams.none(), requestOptions)
 
     @MustBeClosed
-    fun getNextJournalByOffset(offset: String): HttpResponse =
-        getNextJournalByOffset(offset, WebhookGetNextJournalByOffsetParams.none())
+    fun getLocalNextByOffset(offset: String): HttpResponse =
+        getLocalNextByOffset(offset, WebhookGetLocalNextByOffsetParams.none())
 
-    /** @see getNextJournalByOffset */
+    /** @see getLocalNextByOffset */
     @MustBeClosed
-    fun getNextJournalByOffset(
+    fun getLocalNextByOffset(
         offset: String,
-        params: WebhookGetNextJournalByOffsetParams = WebhookGetNextJournalByOffsetParams.none(),
+        params: WebhookGetLocalNextByOffsetParams = WebhookGetLocalNextByOffsetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse =
-        getNextJournalByOffset(params.toBuilder().offset(offset).build(), requestOptions)
+        getLocalNextByOffset(params.toBuilder().offset(offset).build(), requestOptions)
 
-    /** @see getNextJournalByOffset */
+    /** @see getLocalNextByOffset */
     @MustBeClosed
-    fun getNextJournalByOffset(
+    fun getLocalNextByOffset(
         offset: String,
-        params: WebhookGetNextJournalByOffsetParams = WebhookGetNextJournalByOffsetParams.none(),
-    ): HttpResponse = getNextJournalByOffset(offset, params, RequestOptions.none())
+        params: WebhookGetLocalNextByOffsetParams = WebhookGetLocalNextByOffsetParams.none(),
+    ): HttpResponse = getLocalNextByOffset(offset, params, RequestOptions.none())
 
-    /** @see getNextJournalByOffset */
+    /** @see getLocalNextByOffset */
     @MustBeClosed
-    fun getNextJournalByOffset(
-        params: WebhookGetNextJournalByOffsetParams,
+    fun getLocalNextByOffset(
+        params: WebhookGetLocalNextByOffsetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see getNextJournalByOffset */
+    /** @see getLocalNextByOffset */
     @MustBeClosed
-    fun getNextJournalByOffset(params: WebhookGetNextJournalByOffsetParams): HttpResponse =
-        getNextJournalByOffset(params, RequestOptions.none())
+    fun getLocalNextByOffset(params: WebhookGetLocalNextByOffsetParams): HttpResponse =
+        getLocalNextByOffset(params, RequestOptions.none())
 
-    /** @see getNextJournalByOffset */
+    /** @see getLocalNextByOffset */
     @MustBeClosed
-    fun getNextJournalByOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
-        getNextJournalByOffset(offset, WebhookGetNextJournalByOffsetParams.none(), requestOptions)
+    fun getLocalNextByOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
+        getLocalNextByOffset(offset, WebhookGetLocalNextByOffsetParams.none(), requestOptions)
 
-    @MustBeClosed
-    fun getNextJournalLocalByOffset(offset: String): HttpResponse =
-        getNextJournalLocalByOffset(offset, WebhookGetNextJournalLocalByOffsetParams.none())
+    fun getLocalStatus(statusId: String): SnapshotStatusResponse =
+        getLocalStatus(statusId, WebhookGetLocalStatusParams.none())
 
-    /** @see getNextJournalLocalByOffset */
-    @MustBeClosed
-    fun getNextJournalLocalByOffset(
-        offset: String,
-        params: WebhookGetNextJournalLocalByOffsetParams =
-            WebhookGetNextJournalLocalByOffsetParams.none(),
+    /** @see getLocalStatus */
+    fun getLocalStatus(
+        statusId: String,
+        params: WebhookGetLocalStatusParams = WebhookGetLocalStatusParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse =
-        getNextJournalLocalByOffset(params.toBuilder().offset(offset).build(), requestOptions)
+    ): SnapshotStatusResponse =
+        getLocalStatus(params.toBuilder().statusId(statusId).build(), requestOptions)
 
-    /** @see getNextJournalLocalByOffset */
-    @MustBeClosed
-    fun getNextJournalLocalByOffset(
-        offset: String,
-        params: WebhookGetNextJournalLocalByOffsetParams =
-            WebhookGetNextJournalLocalByOffsetParams.none(),
-    ): HttpResponse = getNextJournalLocalByOffset(offset, params, RequestOptions.none())
+    /** @see getLocalStatus */
+    fun getLocalStatus(
+        statusId: String,
+        params: WebhookGetLocalStatusParams = WebhookGetLocalStatusParams.none(),
+    ): SnapshotStatusResponse = getLocalStatus(statusId, params, RequestOptions.none())
 
-    /** @see getNextJournalLocalByOffset */
-    @MustBeClosed
-    fun getNextJournalLocalByOffset(
-        params: WebhookGetNextJournalLocalByOffsetParams,
+    /** @see getLocalStatus */
+    fun getLocalStatus(
+        params: WebhookGetLocalStatusParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): HttpResponse
+    ): SnapshotStatusResponse
 
-    /** @see getNextJournalLocalByOffset */
-    @MustBeClosed
-    fun getNextJournalLocalByOffset(
-        params: WebhookGetNextJournalLocalByOffsetParams
-    ): HttpResponse = getNextJournalLocalByOffset(params, RequestOptions.none())
+    /** @see getLocalStatus */
+    fun getLocalStatus(params: WebhookGetLocalStatusParams): SnapshotStatusResponse =
+        getLocalStatus(params, RequestOptions.none())
 
-    /** @see getNextJournalLocalByOffset */
-    @MustBeClosed
-    fun getNextJournalLocalByOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
-        getNextJournalLocalByOffset(
-            offset,
-            WebhookGetNextJournalLocalByOffsetParams.none(),
-            requestOptions,
-        )
+    /** @see getLocalStatus */
+    fun getLocalStatus(statusId: String, requestOptions: RequestOptions): SnapshotStatusResponse =
+        getLocalStatus(statusId, WebhookGetLocalStatusParams.none(), requestOptions)
 
     /**
      * Retrieve the webhook settings for the specified app, including the webhook’s target URL,
@@ -609,6 +747,28 @@ interface WebhookService {
         params: WebhookGetSubscriptionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): SubscriptionResponse
+
+    fun listJournalSubscriptions(): CollectionResponseSubscriptionResponseNoPaging =
+        listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
+
+    /** @see listJournalSubscriptions */
+    fun listJournalSubscriptions(
+        params: WebhookListJournalSubscriptionsParams =
+            WebhookListJournalSubscriptionsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CollectionResponseSubscriptionResponseNoPaging
+
+    /** @see listJournalSubscriptions */
+    fun listJournalSubscriptions(
+        params: WebhookListJournalSubscriptionsParams = WebhookListJournalSubscriptionsParams.none()
+    ): CollectionResponseSubscriptionResponseNoPaging =
+        listJournalSubscriptions(params, RequestOptions.none())
+
+    /** @see listJournalSubscriptions */
+    fun listJournalSubscriptions(
+        requestOptions: RequestOptions
+    ): CollectionResponseSubscriptionResponseNoPaging =
+        listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
     /** Retrieve event subscriptions for the specified app. */
     fun listSubscriptions(appId: Int): SubscriptionListResponse =
@@ -775,6 +935,117 @@ interface WebhookService {
             createFilter(filterCreateRequest, RequestOptions.none())
 
         /**
+         * Returns a raw HTTP response for `post /webhooks-journal/subscriptions/2026-03`, but is
+         * otherwise the same as [WebhookService.createJournalSubscription].
+         */
+        @MustBeClosed
+        fun createJournalSubscription(
+            params: WebhookCreateJournalSubscriptionParams
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(params, RequestOptions.none())
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            params: WebhookCreateJournalSubscriptionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse1>
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            subscriptionUpsertRequest: SubscriptionUpsertRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(
+                WebhookCreateJournalSubscriptionParams.builder()
+                    .subscriptionUpsertRequest(subscriptionUpsertRequest)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            subscriptionUpsertRequest: SubscriptionUpsertRequest
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(subscriptionUpsertRequest, RequestOptions.none())
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(
+                SubscriptionUpsertRequest.ofObjectSubscriptionUpsertRequest(
+                    objectSubscriptionUpsertRequest
+                ),
+                requestOptions,
+            )
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            objectSubscriptionUpsertRequest: ObjectSubscriptionUpsertRequest
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(objectSubscriptionUpsertRequest, RequestOptions.none())
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            association: AssociationSubscriptionUpsertRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(
+                SubscriptionUpsertRequest.ofAssociation(association),
+                requestOptions,
+            )
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            association: AssociationSubscriptionUpsertRequest
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(association, RequestOptions.none())
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(
+                SubscriptionUpsertRequest.ofAppLifecycleEvent(appLifecycleEvent),
+                requestOptions,
+            )
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            appLifecycleEvent: AppLifecycleEventSubscriptionUpsertRequest
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(appLifecycleEvent, RequestOptions.none())
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            listMembership: ListMembershipSubscriptionUpsertRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(
+                SubscriptionUpsertRequest.ofListMembership(listMembership),
+                requestOptions,
+            )
+
+        /** @see createJournalSubscription */
+        @MustBeClosed
+        fun createJournalSubscription(
+            listMembership: ListMembershipSubscriptionUpsertRequest
+        ): HttpResponseFor<SubscriptionResponse1> =
+            createJournalSubscription(listMembership, RequestOptions.none())
+
+        /**
          * Returns a raw HTTP response for `post /webhooks/2026-03/{appId}/subscriptions`, but is
          * otherwise the same as [WebhookService.createSubscription].
          */
@@ -851,45 +1122,110 @@ interface WebhookService {
 
         /**
          * Returns a raw HTTP response for `delete
-         * /webhooks-journal/subscriptions/2026-03/portals/{portalId}`, but is otherwise the same as
-         * [WebhookService.deletePortal].
+         * /webhooks-journal/subscriptions/2026-03/{subscriptionId}`, but is otherwise the same as
+         * [WebhookService.deleteJournalSubscription].
          */
         @MustBeClosed
-        fun deletePortal(portalId: Long): HttpResponse =
-            deletePortal(portalId, WebhookDeletePortalParams.none())
+        fun deleteJournalSubscription(subscriptionId: Long): HttpResponse =
+            deleteJournalSubscription(subscriptionId, WebhookDeleteJournalSubscriptionParams.none())
 
-        /** @see deletePortal */
+        /** @see deleteJournalSubscription */
         @MustBeClosed
-        fun deletePortal(
-            portalId: Long,
-            params: WebhookDeletePortalParams = WebhookDeletePortalParams.none(),
+        fun deleteJournalSubscription(
+            subscriptionId: Long,
+            params: WebhookDeleteJournalSubscriptionParams =
+                WebhookDeleteJournalSubscriptionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            deletePortal(params.toBuilder().portalId(portalId).build(), requestOptions)
+            deleteJournalSubscription(
+                params.toBuilder().subscriptionId(subscriptionId).build(),
+                requestOptions,
+            )
 
-        /** @see deletePortal */
+        /** @see deleteJournalSubscription */
         @MustBeClosed
-        fun deletePortal(
-            portalId: Long,
-            params: WebhookDeletePortalParams = WebhookDeletePortalParams.none(),
-        ): HttpResponse = deletePortal(portalId, params, RequestOptions.none())
+        fun deleteJournalSubscription(
+            subscriptionId: Long,
+            params: WebhookDeleteJournalSubscriptionParams =
+                WebhookDeleteJournalSubscriptionParams.none(),
+        ): HttpResponse = deleteJournalSubscription(subscriptionId, params, RequestOptions.none())
 
-        /** @see deletePortal */
+        /** @see deleteJournalSubscription */
         @MustBeClosed
-        fun deletePortal(
-            params: WebhookDeletePortalParams,
+        fun deleteJournalSubscription(
+            params: WebhookDeleteJournalSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see deletePortal */
+        /** @see deleteJournalSubscription */
         @MustBeClosed
-        fun deletePortal(params: WebhookDeletePortalParams): HttpResponse =
-            deletePortal(params, RequestOptions.none())
+        fun deleteJournalSubscription(
+            params: WebhookDeleteJournalSubscriptionParams
+        ): HttpResponse = deleteJournalSubscription(params, RequestOptions.none())
 
-        /** @see deletePortal */
+        /** @see deleteJournalSubscription */
         @MustBeClosed
-        fun deletePortal(portalId: Long, requestOptions: RequestOptions): HttpResponse =
-            deletePortal(portalId, WebhookDeletePortalParams.none(), requestOptions)
+        fun deleteJournalSubscription(
+            subscriptionId: Long,
+            requestOptions: RequestOptions,
+        ): HttpResponse =
+            deleteJournalSubscription(
+                subscriptionId,
+                WebhookDeleteJournalSubscriptionParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /webhooks-journal/subscriptions/2026-03/portals/{portalId}`, but is otherwise the same as
+         * [WebhookService.deletePortalSubscriptions].
+         */
+        @MustBeClosed
+        fun deletePortalSubscriptions(portalId: Long): HttpResponse =
+            deletePortalSubscriptions(portalId, WebhookDeletePortalSubscriptionsParams.none())
+
+        /** @see deletePortalSubscriptions */
+        @MustBeClosed
+        fun deletePortalSubscriptions(
+            portalId: Long,
+            params: WebhookDeletePortalSubscriptionsParams =
+                WebhookDeletePortalSubscriptionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            deletePortalSubscriptions(params.toBuilder().portalId(portalId).build(), requestOptions)
+
+        /** @see deletePortalSubscriptions */
+        @MustBeClosed
+        fun deletePortalSubscriptions(
+            portalId: Long,
+            params: WebhookDeletePortalSubscriptionsParams =
+                WebhookDeletePortalSubscriptionsParams.none(),
+        ): HttpResponse = deletePortalSubscriptions(portalId, params, RequestOptions.none())
+
+        /** @see deletePortalSubscriptions */
+        @MustBeClosed
+        fun deletePortalSubscriptions(
+            params: WebhookDeletePortalSubscriptionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see deletePortalSubscriptions */
+        @MustBeClosed
+        fun deletePortalSubscriptions(
+            params: WebhookDeletePortalSubscriptionsParams
+        ): HttpResponse = deletePortalSubscriptions(params, RequestOptions.none())
+
+        /** @see deletePortalSubscriptions */
+        @MustBeClosed
+        fun deletePortalSubscriptions(
+            portalId: Long,
+            requestOptions: RequestOptions,
+        ): HttpResponse =
+            deletePortalSubscriptions(
+                portalId,
+                WebhookDeletePortalSubscriptionsParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `delete /webhooks/2026-03/{appId}/settings`, but is
@@ -967,60 +1303,6 @@ interface WebhookService {
         ): HttpResponse
 
         /**
-         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/earliest`, but is
-         * otherwise the same as [WebhookService.getEarliestJournal].
-         */
-        @MustBeClosed
-        fun getEarliestJournal(): HttpResponse =
-            getEarliestJournal(WebhookGetEarliestJournalParams.none())
-
-        /** @see getEarliestJournal */
-        @MustBeClosed
-        fun getEarliestJournal(
-            params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see getEarliestJournal */
-        @MustBeClosed
-        fun getEarliestJournal(
-            params: WebhookGetEarliestJournalParams = WebhookGetEarliestJournalParams.none()
-        ): HttpResponse = getEarliestJournal(params, RequestOptions.none())
-
-        /** @see getEarliestJournal */
-        @MustBeClosed
-        fun getEarliestJournal(requestOptions: RequestOptions): HttpResponse =
-            getEarliestJournal(WebhookGetEarliestJournalParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /webhooks-journal/journal-local/2026-03/earliest`,
-         * but is otherwise the same as [WebhookService.getEarliestJournalLocal].
-         */
-        @MustBeClosed
-        fun getEarliestJournalLocal(): HttpResponse =
-            getEarliestJournalLocal(WebhookGetEarliestJournalLocalParams.none())
-
-        /** @see getEarliestJournalLocal */
-        @MustBeClosed
-        fun getEarliestJournalLocal(
-            params: WebhookGetEarliestJournalLocalParams =
-                WebhookGetEarliestJournalLocalParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see getEarliestJournalLocal */
-        @MustBeClosed
-        fun getEarliestJournalLocal(
-            params: WebhookGetEarliestJournalLocalParams =
-                WebhookGetEarliestJournalLocalParams.none()
-        ): HttpResponse = getEarliestJournalLocal(params, RequestOptions.none())
-
-        /** @see getEarliestJournalLocal */
-        @MustBeClosed
-        fun getEarliestJournalLocal(requestOptions: RequestOptions): HttpResponse =
-            getEarliestJournalLocal(WebhookGetEarliestJournalLocalParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/subscriptions/2026-03/filters/{filterId}`, but is otherwise the same as
          * [WebhookService.getFilter].
@@ -1068,109 +1350,156 @@ interface WebhookService {
         /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/subscriptions/2026-03/filters/subscription/{subscriptionId}`, but is
-         * otherwise the same as [WebhookService.getFilterBySubscription].
+         * otherwise the same as [WebhookService.getFiltersBySubscription].
          */
         @MustBeClosed
-        fun getFilterBySubscription(subscriptionId: Long): HttpResponseFor<List<FilterResponse>> =
-            getFilterBySubscription(subscriptionId, WebhookGetFilterBySubscriptionParams.none())
+        fun getFiltersBySubscription(subscriptionId: Long): HttpResponseFor<List<FilterResponse>> =
+            getFiltersBySubscription(subscriptionId, WebhookGetFiltersBySubscriptionParams.none())
 
-        /** @see getFilterBySubscription */
+        /** @see getFiltersBySubscription */
         @MustBeClosed
-        fun getFilterBySubscription(
+        fun getFiltersBySubscription(
             subscriptionId: Long,
-            params: WebhookGetFilterBySubscriptionParams =
-                WebhookGetFilterBySubscriptionParams.none(),
+            params: WebhookGetFiltersBySubscriptionParams =
+                WebhookGetFiltersBySubscriptionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<FilterResponse>> =
-            getFilterBySubscription(
+            getFiltersBySubscription(
                 params.toBuilder().subscriptionId(subscriptionId).build(),
                 requestOptions,
             )
 
-        /** @see getFilterBySubscription */
+        /** @see getFiltersBySubscription */
         @MustBeClosed
-        fun getFilterBySubscription(
+        fun getFiltersBySubscription(
             subscriptionId: Long,
-            params: WebhookGetFilterBySubscriptionParams =
-                WebhookGetFilterBySubscriptionParams.none(),
+            params: WebhookGetFiltersBySubscriptionParams =
+                WebhookGetFiltersBySubscriptionParams.none(),
         ): HttpResponseFor<List<FilterResponse>> =
-            getFilterBySubscription(subscriptionId, params, RequestOptions.none())
+            getFiltersBySubscription(subscriptionId, params, RequestOptions.none())
 
-        /** @see getFilterBySubscription */
+        /** @see getFiltersBySubscription */
         @MustBeClosed
-        fun getFilterBySubscription(
-            params: WebhookGetFilterBySubscriptionParams,
+        fun getFiltersBySubscription(
+            params: WebhookGetFiltersBySubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<List<FilterResponse>>
 
-        /** @see getFilterBySubscription */
+        /** @see getFiltersBySubscription */
         @MustBeClosed
-        fun getFilterBySubscription(
-            params: WebhookGetFilterBySubscriptionParams
+        fun getFiltersBySubscription(
+            params: WebhookGetFiltersBySubscriptionParams
         ): HttpResponseFor<List<FilterResponse>> =
-            getFilterBySubscription(params, RequestOptions.none())
+            getFiltersBySubscription(params, RequestOptions.none())
 
-        /** @see getFilterBySubscription */
+        /** @see getFiltersBySubscription */
         @MustBeClosed
-        fun getFilterBySubscription(
+        fun getFiltersBySubscription(
             subscriptionId: Long,
             requestOptions: RequestOptions,
         ): HttpResponseFor<List<FilterResponse>> =
-            getFilterBySubscription(
+            getFiltersBySubscription(
                 subscriptionId,
-                WebhookGetFilterBySubscriptionParams.none(),
+                WebhookGetFiltersBySubscriptionParams.none(),
                 requestOptions,
             )
 
         /**
-         * Returns a raw HTTP response for `get
-         * /webhooks-journal/journal-local/2026-03/status/{statusId}`, but is otherwise the same as
-         * [WebhookService.getJournalLocalStatus].
+         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/earliest`, but is
+         * otherwise the same as [WebhookService.getJournalEarliest].
          */
         @MustBeClosed
-        fun getJournalLocalStatus(statusId: String): HttpResponseFor<SnapshotStatusResponse> =
-            getJournalLocalStatus(statusId, WebhookGetJournalLocalStatusParams.none())
+        fun getJournalEarliest(): HttpResponse =
+            getJournalEarliest(WebhookGetJournalEarliestParams.none())
 
-        /** @see getJournalLocalStatus */
+        /** @see getJournalEarliest */
         @MustBeClosed
-        fun getJournalLocalStatus(
-            statusId: String,
-            params: WebhookGetJournalLocalStatusParams = WebhookGetJournalLocalStatusParams.none(),
+        fun getJournalEarliest(
+            params: WebhookGetJournalEarliestParams = WebhookGetJournalEarliestParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SnapshotStatusResponse> =
-            getJournalLocalStatus(params.toBuilder().statusId(statusId).build(), requestOptions)
+        ): HttpResponse
 
-        /** @see getJournalLocalStatus */
+        /** @see getJournalEarliest */
         @MustBeClosed
-        fun getJournalLocalStatus(
-            statusId: String,
-            params: WebhookGetJournalLocalStatusParams = WebhookGetJournalLocalStatusParams.none(),
-        ): HttpResponseFor<SnapshotStatusResponse> =
-            getJournalLocalStatus(statusId, params, RequestOptions.none())
+        fun getJournalEarliest(
+            params: WebhookGetJournalEarliestParams = WebhookGetJournalEarliestParams.none()
+        ): HttpResponse = getJournalEarliest(params, RequestOptions.none())
 
-        /** @see getJournalLocalStatus */
+        /** @see getJournalEarliest */
         @MustBeClosed
-        fun getJournalLocalStatus(
-            params: WebhookGetJournalLocalStatusParams,
+        fun getJournalEarliest(requestOptions: RequestOptions): HttpResponse =
+            getJournalEarliest(WebhookGetJournalEarliestParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/latest`, but is
+         * otherwise the same as [WebhookService.getJournalLatest].
+         */
+        @MustBeClosed
+        fun getJournalLatest(): HttpResponse =
+            getJournalLatest(WebhookGetJournalLatestParams.none())
+
+        /** @see getJournalLatest */
+        @MustBeClosed
+        fun getJournalLatest(
+            params: WebhookGetJournalLatestParams = WebhookGetJournalLatestParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SnapshotStatusResponse>
+        ): HttpResponse
 
-        /** @see getJournalLocalStatus */
+        /** @see getJournalLatest */
         @MustBeClosed
-        fun getJournalLocalStatus(
-            params: WebhookGetJournalLocalStatusParams
-        ): HttpResponseFor<SnapshotStatusResponse> =
-            getJournalLocalStatus(params, RequestOptions.none())
+        fun getJournalLatest(
+            params: WebhookGetJournalLatestParams = WebhookGetJournalLatestParams.none()
+        ): HttpResponse = getJournalLatest(params, RequestOptions.none())
 
-        /** @see getJournalLocalStatus */
+        /** @see getJournalLatest */
         @MustBeClosed
-        fun getJournalLocalStatus(
-            statusId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<SnapshotStatusResponse> =
-            getJournalLocalStatus(
-                statusId,
-                WebhookGetJournalLocalStatusParams.none(),
+        fun getJournalLatest(requestOptions: RequestOptions): HttpResponse =
+            getJournalLatest(WebhookGetJournalLatestParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /webhooks-journal/journal/2026-03/offset/{offset}/next`, but is otherwise the same as
+         * [WebhookService.getJournalNextByOffset].
+         */
+        @MustBeClosed
+        fun getJournalNextByOffset(offset: String): HttpResponse =
+            getJournalNextByOffset(offset, WebhookGetJournalNextByOffsetParams.none())
+
+        /** @see getJournalNextByOffset */
+        @MustBeClosed
+        fun getJournalNextByOffset(
+            offset: String,
+            params: WebhookGetJournalNextByOffsetParams =
+                WebhookGetJournalNextByOffsetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            getJournalNextByOffset(params.toBuilder().offset(offset).build(), requestOptions)
+
+        /** @see getJournalNextByOffset */
+        @MustBeClosed
+        fun getJournalNextByOffset(
+            offset: String,
+            params: WebhookGetJournalNextByOffsetParams = WebhookGetJournalNextByOffsetParams.none(),
+        ): HttpResponse = getJournalNextByOffset(offset, params, RequestOptions.none())
+
+        /** @see getJournalNextByOffset */
+        @MustBeClosed
+        fun getJournalNextByOffset(
+            params: WebhookGetJournalNextByOffsetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see getJournalNextByOffset */
+        @MustBeClosed
+        fun getJournalNextByOffset(params: WebhookGetJournalNextByOffsetParams): HttpResponse =
+            getJournalNextByOffset(params, RequestOptions.none())
+
+        /** @see getJournalNextByOffset */
+        @MustBeClosed
+        fun getJournalNextByOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
+            getJournalNextByOffset(
+                offset,
+                WebhookGetJournalNextByOffsetParams.none(),
                 requestOptions,
             )
 
@@ -1222,155 +1551,144 @@ interface WebhookService {
             getJournalStatus(statusId, WebhookGetJournalStatusParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /webhooks-journal/journal/2026-03/latest`, but is
-         * otherwise the same as [WebhookService.getLatestJournal].
+         * Returns a raw HTTP response for `get /webhooks-journal/journal-local/2026-03/earliest`,
+         * but is otherwise the same as [WebhookService.getLocalEarliest].
          */
         @MustBeClosed
-        fun getLatestJournal(): HttpResponse =
-            getLatestJournal(WebhookGetLatestJournalParams.none())
+        fun getLocalEarliest(): HttpResponse =
+            getLocalEarliest(WebhookGetLocalEarliestParams.none())
 
-        /** @see getLatestJournal */
+        /** @see getLocalEarliest */
         @MustBeClosed
-        fun getLatestJournal(
-            params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none(),
+        fun getLocalEarliest(
+            params: WebhookGetLocalEarliestParams = WebhookGetLocalEarliestParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getLatestJournal */
+        /** @see getLocalEarliest */
         @MustBeClosed
-        fun getLatestJournal(
-            params: WebhookGetLatestJournalParams = WebhookGetLatestJournalParams.none()
-        ): HttpResponse = getLatestJournal(params, RequestOptions.none())
+        fun getLocalEarliest(
+            params: WebhookGetLocalEarliestParams = WebhookGetLocalEarliestParams.none()
+        ): HttpResponse = getLocalEarliest(params, RequestOptions.none())
 
-        /** @see getLatestJournal */
+        /** @see getLocalEarliest */
         @MustBeClosed
-        fun getLatestJournal(requestOptions: RequestOptions): HttpResponse =
-            getLatestJournal(WebhookGetLatestJournalParams.none(), requestOptions)
+        fun getLocalEarliest(requestOptions: RequestOptions): HttpResponse =
+            getLocalEarliest(WebhookGetLocalEarliestParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /webhooks-journal/journal-local/2026-03/latest`, but
-         * is otherwise the same as [WebhookService.getLatestJournalLocal].
+         * is otherwise the same as [WebhookService.getLocalLatest].
          */
         @MustBeClosed
-        fun getLatestJournalLocal(): HttpResponse =
-            getLatestJournalLocal(WebhookGetLatestJournalLocalParams.none())
+        fun getLocalLatest(): HttpResponse = getLocalLatest(WebhookGetLocalLatestParams.none())
 
-        /** @see getLatestJournalLocal */
+        /** @see getLocalLatest */
         @MustBeClosed
-        fun getLatestJournalLocal(
-            params: WebhookGetLatestJournalLocalParams = WebhookGetLatestJournalLocalParams.none(),
+        fun getLocalLatest(
+            params: WebhookGetLocalLatestParams = WebhookGetLocalLatestParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getLatestJournalLocal */
+        /** @see getLocalLatest */
         @MustBeClosed
-        fun getLatestJournalLocal(
-            params: WebhookGetLatestJournalLocalParams = WebhookGetLatestJournalLocalParams.none()
-        ): HttpResponse = getLatestJournalLocal(params, RequestOptions.none())
+        fun getLocalLatest(
+            params: WebhookGetLocalLatestParams = WebhookGetLocalLatestParams.none()
+        ): HttpResponse = getLocalLatest(params, RequestOptions.none())
 
-        /** @see getLatestJournalLocal */
+        /** @see getLocalLatest */
         @MustBeClosed
-        fun getLatestJournalLocal(requestOptions: RequestOptions): HttpResponse =
-            getLatestJournalLocal(WebhookGetLatestJournalLocalParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /webhooks-journal/journal/2026-03/offset/{offset}/next`, but is otherwise the same as
-         * [WebhookService.getNextJournalByOffset].
-         */
-        @MustBeClosed
-        fun getNextJournalByOffset(offset: String): HttpResponse =
-            getNextJournalByOffset(offset, WebhookGetNextJournalByOffsetParams.none())
-
-        /** @see getNextJournalByOffset */
-        @MustBeClosed
-        fun getNextJournalByOffset(
-            offset: String,
-            params: WebhookGetNextJournalByOffsetParams =
-                WebhookGetNextJournalByOffsetParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            getNextJournalByOffset(params.toBuilder().offset(offset).build(), requestOptions)
-
-        /** @see getNextJournalByOffset */
-        @MustBeClosed
-        fun getNextJournalByOffset(
-            offset: String,
-            params: WebhookGetNextJournalByOffsetParams = WebhookGetNextJournalByOffsetParams.none(),
-        ): HttpResponse = getNextJournalByOffset(offset, params, RequestOptions.none())
-
-        /** @see getNextJournalByOffset */
-        @MustBeClosed
-        fun getNextJournalByOffset(
-            params: WebhookGetNextJournalByOffsetParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see getNextJournalByOffset */
-        @MustBeClosed
-        fun getNextJournalByOffset(params: WebhookGetNextJournalByOffsetParams): HttpResponse =
-            getNextJournalByOffset(params, RequestOptions.none())
-
-        /** @see getNextJournalByOffset */
-        @MustBeClosed
-        fun getNextJournalByOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
-            getNextJournalByOffset(
-                offset,
-                WebhookGetNextJournalByOffsetParams.none(),
-                requestOptions,
-            )
+        fun getLocalLatest(requestOptions: RequestOptions): HttpResponse =
+            getLocalLatest(WebhookGetLocalLatestParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/journal-local/2026-03/offset/{offset}/next`, but is otherwise the same
-         * as [WebhookService.getNextJournalLocalByOffset].
+         * as [WebhookService.getLocalNextByOffset].
          */
         @MustBeClosed
-        fun getNextJournalLocalByOffset(offset: String): HttpResponse =
-            getNextJournalLocalByOffset(offset, WebhookGetNextJournalLocalByOffsetParams.none())
+        fun getLocalNextByOffset(offset: String): HttpResponse =
+            getLocalNextByOffset(offset, WebhookGetLocalNextByOffsetParams.none())
 
-        /** @see getNextJournalLocalByOffset */
+        /** @see getLocalNextByOffset */
         @MustBeClosed
-        fun getNextJournalLocalByOffset(
+        fun getLocalNextByOffset(
             offset: String,
-            params: WebhookGetNextJournalLocalByOffsetParams =
-                WebhookGetNextJournalLocalByOffsetParams.none(),
+            params: WebhookGetLocalNextByOffsetParams = WebhookGetLocalNextByOffsetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            getNextJournalLocalByOffset(params.toBuilder().offset(offset).build(), requestOptions)
+            getLocalNextByOffset(params.toBuilder().offset(offset).build(), requestOptions)
 
-        /** @see getNextJournalLocalByOffset */
+        /** @see getLocalNextByOffset */
         @MustBeClosed
-        fun getNextJournalLocalByOffset(
+        fun getLocalNextByOffset(
             offset: String,
-            params: WebhookGetNextJournalLocalByOffsetParams =
-                WebhookGetNextJournalLocalByOffsetParams.none(),
-        ): HttpResponse = getNextJournalLocalByOffset(offset, params, RequestOptions.none())
+            params: WebhookGetLocalNextByOffsetParams = WebhookGetLocalNextByOffsetParams.none(),
+        ): HttpResponse = getLocalNextByOffset(offset, params, RequestOptions.none())
 
-        /** @see getNextJournalLocalByOffset */
+        /** @see getLocalNextByOffset */
         @MustBeClosed
-        fun getNextJournalLocalByOffset(
-            params: WebhookGetNextJournalLocalByOffsetParams,
+        fun getLocalNextByOffset(
+            params: WebhookGetLocalNextByOffsetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see getNextJournalLocalByOffset */
+        /** @see getLocalNextByOffset */
         @MustBeClosed
-        fun getNextJournalLocalByOffset(
-            params: WebhookGetNextJournalLocalByOffsetParams
-        ): HttpResponse = getNextJournalLocalByOffset(params, RequestOptions.none())
+        fun getLocalNextByOffset(params: WebhookGetLocalNextByOffsetParams): HttpResponse =
+            getLocalNextByOffset(params, RequestOptions.none())
 
-        /** @see getNextJournalLocalByOffset */
+        /** @see getLocalNextByOffset */
         @MustBeClosed
-        fun getNextJournalLocalByOffset(
-            offset: String,
+        fun getLocalNextByOffset(offset: String, requestOptions: RequestOptions): HttpResponse =
+            getLocalNextByOffset(offset, WebhookGetLocalNextByOffsetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /webhooks-journal/journal-local/2026-03/status/{statusId}`, but is otherwise the same as
+         * [WebhookService.getLocalStatus].
+         */
+        @MustBeClosed
+        fun getLocalStatus(statusId: String): HttpResponseFor<SnapshotStatusResponse> =
+            getLocalStatus(statusId, WebhookGetLocalStatusParams.none())
+
+        /** @see getLocalStatus */
+        @MustBeClosed
+        fun getLocalStatus(
+            statusId: String,
+            params: WebhookGetLocalStatusParams = WebhookGetLocalStatusParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SnapshotStatusResponse> =
+            getLocalStatus(params.toBuilder().statusId(statusId).build(), requestOptions)
+
+        /** @see getLocalStatus */
+        @MustBeClosed
+        fun getLocalStatus(
+            statusId: String,
+            params: WebhookGetLocalStatusParams = WebhookGetLocalStatusParams.none(),
+        ): HttpResponseFor<SnapshotStatusResponse> =
+            getLocalStatus(statusId, params, RequestOptions.none())
+
+        /** @see getLocalStatus */
+        @MustBeClosed
+        fun getLocalStatus(
+            params: WebhookGetLocalStatusParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<SnapshotStatusResponse>
+
+        /** @see getLocalStatus */
+        @MustBeClosed
+        fun getLocalStatus(
+            params: WebhookGetLocalStatusParams
+        ): HttpResponseFor<SnapshotStatusResponse> = getLocalStatus(params, RequestOptions.none())
+
+        /** @see getLocalStatus */
+        @MustBeClosed
+        fun getLocalStatus(
+            statusId: String,
             requestOptions: RequestOptions,
-        ): HttpResponse =
-            getNextJournalLocalByOffset(
-                offset,
-                WebhookGetNextJournalLocalByOffsetParams.none(),
-                requestOptions,
-            )
+        ): HttpResponseFor<SnapshotStatusResponse> =
+            getLocalStatus(statusId, WebhookGetLocalStatusParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /webhooks/2026-03/{appId}/settings`, but is
@@ -1452,6 +1770,38 @@ interface WebhookService {
             params: WebhookGetSubscriptionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<SubscriptionResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /webhooks-journal/subscriptions/2026-03`, but is
+         * otherwise the same as [WebhookService.listJournalSubscriptions].
+         */
+        @MustBeClosed
+        fun listJournalSubscriptions():
+            HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+            listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none())
+
+        /** @see listJournalSubscriptions */
+        @MustBeClosed
+        fun listJournalSubscriptions(
+            params: WebhookListJournalSubscriptionsParams =
+                WebhookListJournalSubscriptionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>
+
+        /** @see listJournalSubscriptions */
+        @MustBeClosed
+        fun listJournalSubscriptions(
+            params: WebhookListJournalSubscriptionsParams =
+                WebhookListJournalSubscriptionsParams.none()
+        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+            listJournalSubscriptions(params, RequestOptions.none())
+
+        /** @see listJournalSubscriptions */
+        @MustBeClosed
+        fun listJournalSubscriptions(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging> =
+            listJournalSubscriptions(WebhookListJournalSubscriptionsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /webhooks/2026-03/{appId}/subscriptions`, but is

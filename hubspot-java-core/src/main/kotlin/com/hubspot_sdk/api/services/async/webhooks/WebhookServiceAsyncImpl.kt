@@ -17,6 +17,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.webhooks.webhooks.CollectionResponseSubscriptionResponseNoPaging
 import com.hubspot_sdk.api.models.webhooks.webhooks.CrmObjectSnapshotBatchResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.FilterCreateResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.FilterResponse
@@ -24,25 +25,29 @@ import com.hubspot_sdk.api.models.webhooks.webhooks.SettingsResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.SnapshotStatusResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionListResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionResponse
+import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionResponse1
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateCrmSnapshotParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateFilterParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateJournalSubscriptionParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookCreateSubscriptionParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteFilterParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeletePortalParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteJournalSubscriptionParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeletePortalSubscriptionsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteSettingsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookDeleteSubscriptionParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetEarliestJournalLocalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetEarliestJournalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetFilterBySubscriptionParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetFilterParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalLocalStatusParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetFiltersBySubscriptionParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalNextByOffsetParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetJournalStatusParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLatestJournalLocalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLatestJournalParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetNextJournalByOffsetParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetNextJournalLocalByOffsetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalNextByOffsetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetLocalStatusParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetSettingsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookGetSubscriptionParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookListJournalSubscriptionsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookListSubscriptionsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookUpdateSettingsParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.WebhookUpdateSubscriptionParams
@@ -82,6 +87,13 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // post /webhooks-journal/subscriptions/2026-03/filters
         withRawResponse().createFilter(params, requestOptions).thenApply { it.parse() }
 
+    override fun createJournalSubscription(
+        params: WebhookCreateJournalSubscriptionParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SubscriptionResponse1> =
+        // post /webhooks-journal/subscriptions/2026-03
+        withRawResponse().createJournalSubscription(params, requestOptions).thenApply { it.parse() }
+
     override fun createSubscription(
         params: WebhookCreateSubscriptionParams,
         requestOptions: RequestOptions,
@@ -96,12 +108,19 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // delete /webhooks-journal/subscriptions/2026-03/filters/{filterId}
         withRawResponse().deleteFilter(params, requestOptions).thenAccept {}
 
-    override fun deletePortal(
-        params: WebhookDeletePortalParams,
+    override fun deleteJournalSubscription(
+        params: WebhookDeleteJournalSubscriptionParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /webhooks-journal/subscriptions/2026-03/{subscriptionId}
+        withRawResponse().deleteJournalSubscription(params, requestOptions).thenAccept {}
+
+    override fun deletePortalSubscriptions(
+        params: WebhookDeletePortalSubscriptionsParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // delete /webhooks-journal/subscriptions/2026-03/portals/{portalId}
-        withRawResponse().deletePortal(params, requestOptions).thenAccept {}
+        withRawResponse().deletePortalSubscriptions(params, requestOptions).thenAccept {}
 
     override fun deleteSettings(
         params: WebhookDeleteSettingsParams,
@@ -117,20 +136,6 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // delete /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
         withRawResponse().deleteSubscription(params, requestOptions).thenAccept {}
 
-    override fun getEarliestJournal(
-        params: WebhookGetEarliestJournalParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        // get /webhooks-journal/journal/2026-03/earliest
-        withRawResponse().getEarliestJournal(params, requestOptions)
-
-    override fun getEarliestJournalLocal(
-        params: WebhookGetEarliestJournalLocalParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        // get /webhooks-journal/journal-local/2026-03/earliest
-        withRawResponse().getEarliestJournalLocal(params, requestOptions)
-
     override fun getFilter(
         params: WebhookGetFilterParams,
         requestOptions: RequestOptions,
@@ -138,19 +143,33 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // get /webhooks-journal/subscriptions/2026-03/filters/{filterId}
         withRawResponse().getFilter(params, requestOptions).thenApply { it.parse() }
 
-    override fun getFilterBySubscription(
-        params: WebhookGetFilterBySubscriptionParams,
+    override fun getFiltersBySubscription(
+        params: WebhookGetFiltersBySubscriptionParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<List<FilterResponse>> =
         // get /webhooks-journal/subscriptions/2026-03/filters/subscription/{subscriptionId}
-        withRawResponse().getFilterBySubscription(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getFiltersBySubscription(params, requestOptions).thenApply { it.parse() }
 
-    override fun getJournalLocalStatus(
-        params: WebhookGetJournalLocalStatusParams,
+    override fun getJournalEarliest(
+        params: WebhookGetJournalEarliestParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<SnapshotStatusResponse> =
-        // get /webhooks-journal/journal-local/2026-03/status/{statusId}
-        withRawResponse().getJournalLocalStatus(params, requestOptions).thenApply { it.parse() }
+    ): CompletableFuture<HttpResponse> =
+        // get /webhooks-journal/journal/2026-03/earliest
+        withRawResponse().getJournalEarliest(params, requestOptions)
+
+    override fun getJournalLatest(
+        params: WebhookGetJournalLatestParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /webhooks-journal/journal/2026-03/latest
+        withRawResponse().getJournalLatest(params, requestOptions)
+
+    override fun getJournalNextByOffset(
+        params: WebhookGetJournalNextByOffsetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /webhooks-journal/journal/2026-03/offset/{offset}/next
+        withRawResponse().getJournalNextByOffset(params, requestOptions)
 
     override fun getJournalStatus(
         params: WebhookGetJournalStatusParams,
@@ -159,33 +178,33 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // get /webhooks-journal/journal/2026-03/status/{statusId}
         withRawResponse().getJournalStatus(params, requestOptions).thenApply { it.parse() }
 
-    override fun getLatestJournal(
-        params: WebhookGetLatestJournalParams,
+    override fun getLocalEarliest(
+        params: WebhookGetLocalEarliestParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
-        // get /webhooks-journal/journal/2026-03/latest
-        withRawResponse().getLatestJournal(params, requestOptions)
+        // get /webhooks-journal/journal-local/2026-03/earliest
+        withRawResponse().getLocalEarliest(params, requestOptions)
 
-    override fun getLatestJournalLocal(
-        params: WebhookGetLatestJournalLocalParams,
+    override fun getLocalLatest(
+        params: WebhookGetLocalLatestParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // get /webhooks-journal/journal-local/2026-03/latest
-        withRawResponse().getLatestJournalLocal(params, requestOptions)
+        withRawResponse().getLocalLatest(params, requestOptions)
 
-    override fun getNextJournalByOffset(
-        params: WebhookGetNextJournalByOffsetParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<HttpResponse> =
-        // get /webhooks-journal/journal/2026-03/offset/{offset}/next
-        withRawResponse().getNextJournalByOffset(params, requestOptions)
-
-    override fun getNextJournalLocalByOffset(
-        params: WebhookGetNextJournalLocalByOffsetParams,
+    override fun getLocalNextByOffset(
+        params: WebhookGetLocalNextByOffsetParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // get /webhooks-journal/journal-local/2026-03/offset/{offset}/next
-        withRawResponse().getNextJournalLocalByOffset(params, requestOptions)
+        withRawResponse().getLocalNextByOffset(params, requestOptions)
+
+    override fun getLocalStatus(
+        params: WebhookGetLocalStatusParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SnapshotStatusResponse> =
+        // get /webhooks-journal/journal-local/2026-03/status/{statusId}
+        withRawResponse().getLocalStatus(params, requestOptions).thenApply { it.parse() }
 
     override fun getSettings(
         params: WebhookGetSettingsParams,
@@ -200,6 +219,13 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
     ): CompletableFuture<SubscriptionResponse> =
         // get /webhooks/2026-03/{appId}/subscriptions/{subscriptionId}
         withRawResponse().getSubscription(params, requestOptions).thenApply { it.parse() }
+
+    override fun listJournalSubscriptions(
+        params: WebhookListJournalSubscriptionsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CollectionResponseSubscriptionResponseNoPaging> =
+        // get /webhooks-journal/subscriptions/2026-03
+        withRawResponse().listJournalSubscriptions(params, requestOptions).thenApply { it.parse() }
 
     override fun listSubscriptions(
         params: WebhookListSubscriptionsParams,
@@ -303,6 +329,37 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
+        private val createJournalSubscriptionHandler: Handler<SubscriptionResponse1> =
+            jsonHandler<SubscriptionResponse1>(clientOptions.jsonMapper)
+
+        override fun createJournalSubscription(
+            params: WebhookCreateJournalSubscriptionParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SubscriptionResponse1>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks-journal", "subscriptions", "2026-03")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createJournalSubscriptionHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val createSubscriptionHandler: Handler<SubscriptionResponse> =
             jsonHandler<SubscriptionResponse>(clientOptions.jsonMapper)
 
@@ -370,10 +427,42 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val deletePortalHandler: Handler<Void?> = emptyHandler()
+        private val deleteJournalSubscriptionHandler: Handler<Void?> = emptyHandler()
 
-        override fun deletePortal(
-            params: WebhookDeletePortalParams,
+        override fun deleteJournalSubscription(
+            params: WebhookDeleteJournalSubscriptionParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("subscriptionId", params.subscriptionId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks-journal",
+                        "subscriptions",
+                        "2026-03",
+                        params._pathParam(0),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteJournalSubscriptionHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val deletePortalSubscriptionsHandler: Handler<Void?> = emptyHandler()
+
+        override fun deletePortalSubscriptions(
+            params: WebhookDeletePortalSubscriptionsParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -398,7 +487,7 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { deletePortalHandler.handle(it) }
+                        response.use { deletePortalSubscriptionsHandler.handle(it) }
                     }
                 }
         }
@@ -463,42 +552,6 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        override fun getEarliestJournal(
-            params: WebhookGetEarliestJournalParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal", "2026-03", "earliest")
-                    .putHeader("Accept", "*/*")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
-        }
-
-        override fun getEarliestJournalLocal(
-            params: WebhookGetEarliestJournalLocalParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal-local", "2026-03", "earliest")
-                    .putHeader("Accept", "*/*")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
-        }
-
         private val getFilterHandler: Handler<FilterResponse> =
             jsonHandler<FilterResponse>(clientOptions.jsonMapper)
 
@@ -538,11 +591,11 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val getFilterBySubscriptionHandler: Handler<List<FilterResponse>> =
+        private val getFiltersBySubscriptionHandler: Handler<List<FilterResponse>> =
             jsonHandler<List<FilterResponse>>(clientOptions.jsonMapper)
 
-        override fun getFilterBySubscription(
-            params: WebhookGetFilterBySubscriptionParams,
+        override fun getFiltersBySubscription(
+            params: WebhookGetFiltersBySubscriptionParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<List<FilterResponse>>> {
             // We check here instead of in the params builder because this can be specified
@@ -568,7 +621,7 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { getFilterBySubscriptionHandler.handle(it) }
+                            .use { getFiltersBySubscriptionHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.forEach { it.validate() }
@@ -578,43 +631,68 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val getJournalLocalStatusHandler: Handler<SnapshotStatusResponse> =
-            jsonHandler<SnapshotStatusResponse>(clientOptions.jsonMapper)
-
-        override fun getJournalLocalStatus(
-            params: WebhookGetJournalLocalStatusParams,
+        override fun getJournalEarliest(
+            params: WebhookGetJournalEarliestParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<SnapshotStatusResponse>> {
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks-journal", "journal", "2026-03", "earliest")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun getJournalLatest(
+            params: WebhookGetJournalLatestParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks-journal", "journal", "2026-03", "latest")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun getJournalNextByOffset(
+            params: WebhookGetJournalNextByOffsetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("statusId", params.statusId().getOrNull())
+            checkRequired("offset", params.offset().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "webhooks-journal",
-                        "journal-local",
+                        "journal",
                         "2026-03",
-                        "status",
+                        "offset",
                         params._pathParam(0),
+                        "next",
                     )
+                    .putHeader("Accept", "*/*")
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getJournalLocalStatusHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
+                .thenApply { response -> errorHandler.handle(response) }
         }
 
         private val getJournalStatusHandler: Handler<SnapshotStatusResponse> =
@@ -656,15 +734,15 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        override fun getLatestJournal(
-            params: WebhookGetLatestJournalParams,
+        override fun getLocalEarliest(
+            params: WebhookGetLocalEarliestParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal", "2026-03", "latest")
+                    .addPathSegments("webhooks-journal", "journal-local", "2026-03", "earliest")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -674,8 +752,8 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun getLatestJournalLocal(
-            params: WebhookGetLatestJournalLocalParams,
+        override fun getLocalLatest(
+            params: WebhookGetLocalLatestParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
@@ -692,36 +770,8 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun getNextJournalByOffset(
-            params: WebhookGetNextJournalByOffsetParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("offset", params.offset().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "webhooks-journal",
-                        "journal",
-                        "2026-03",
-                        "offset",
-                        params._pathParam(0),
-                        "next",
-                    )
-                    .putHeader("Accept", "*/*")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response -> errorHandler.handle(response) }
-        }
-
-        override fun getNextJournalLocalByOffset(
-            params: WebhookGetNextJournalLocalByOffsetParams,
+        override fun getLocalNextByOffset(
+            params: WebhookGetLocalNextByOffsetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -746,6 +796,45 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
             return request
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        private val getLocalStatusHandler: Handler<SnapshotStatusResponse> =
+            jsonHandler<SnapshotStatusResponse>(clientOptions.jsonMapper)
+
+        override fun getLocalStatus(
+            params: WebhookGetLocalStatusParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SnapshotStatusResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("statusId", params.statusId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks-journal",
+                        "journal-local",
+                        "2026-03",
+                        "status",
+                        params._pathParam(0),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getLocalStatusHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
         }
 
         private val getSettingsHandler: Handler<SettingsResponse> =
@@ -811,6 +900,37 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                     errorHandler.handle(response).parseable {
                         response
                             .use { getSubscriptionHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listJournalSubscriptionsHandler:
+            Handler<CollectionResponseSubscriptionResponseNoPaging> =
+            jsonHandler<CollectionResponseSubscriptionResponseNoPaging>(clientOptions.jsonMapper)
+
+        override fun listJournalSubscriptions(
+            params: WebhookListJournalSubscriptionsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CollectionResponseSubscriptionResponseNoPaging>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks-journal", "subscriptions", "2026-03")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listJournalSubscriptionsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

@@ -13,12 +13,12 @@ internal class ABTestServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun createAbTestVariation() {
+    fun createLandingPageVariation() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val pageFuture =
-            abTestServiceAsync.createAbTestVariation(
+            abTestServiceAsync.createLandingPageVariation(
                 AbTestCreateRequestVNext.builder()
                     .contentId("contentId")
                     .variationName("variationName")
@@ -31,12 +31,30 @@ internal class ABTestServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun endAbTest() {
+    fun createSitePageVariation() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val abTestServiceAsync = client.cms().pages().aBTests()
+
+        val pageFuture =
+            abTestServiceAsync.createSitePageVariation(
+                AbTestCreateRequestVNext.builder()
+                    .contentId("contentId")
+                    .variationName("variationName")
+                    .build()
+            )
+
+        val page = pageFuture.get()
+        page.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun endLandingPageTest() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val future =
-            abTestServiceAsync.endAbTest(
+            abTestServiceAsync.endLandingPageTest(
                 AbTestEndRequestVNext.builder().abTestId("abTestId").winnerId("winnerId").build()
             )
 
@@ -45,12 +63,43 @@ internal class ABTestServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun rerunAbTest() {
+    fun endSitePageTest() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val future =
-            abTestServiceAsync.rerunAbTest(
+            abTestServiceAsync.endSitePageTest(
+                AbTestEndRequestVNext.builder().abTestId("abTestId").winnerId("winnerId").build()
+            )
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun rerunLandingPageTest() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val abTestServiceAsync = client.cms().pages().aBTests()
+
+        val future =
+            abTestServiceAsync.rerunLandingPageTest(
+                AbTestRerunRequestVNext.builder()
+                    .abTestId("abTestId")
+                    .variationId("variationId")
+                    .build()
+            )
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun rerunSitePageTest() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val abTestServiceAsync = client.cms().pages().aBTests()
+
+        val future =
+            abTestServiceAsync.rerunSitePageTest(
                 AbTestRerunRequestVNext.builder()
                     .abTestId("abTestId")
                     .variationId("variationId")

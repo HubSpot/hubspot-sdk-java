@@ -2,128 +2,57 @@
 
 package com.hubspot_sdk.api.models.auth.oauth
 
-import com.fasterxml.jackson.annotation.JsonAnyGetter
-import com.fasterxml.jackson.annotation.JsonAnySetter
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
-import com.hubspot_sdk.api.core.ExcludeMissing
-import com.hubspot_sdk.api.core.JsonField
-import com.hubspot_sdk.api.core.JsonMissing
+import com.fasterxml.jackson.core.JsonGenerator
+import com.fasterxml.jackson.core.ObjectCodec
+import com.fasterxml.jackson.databind.JsonNode
+import com.fasterxml.jackson.databind.SerializerProvider
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize
+import com.fasterxml.jackson.databind.annotation.JsonSerialize
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.hubspot_sdk.api.core.BaseDeserializer
+import com.hubspot_sdk.api.core.BaseSerializer
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.allMaxBy
+import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 
+@JsonDeserialize(using = TokenInfoResponseBaseIf.Deserializer::class)
+@JsonSerialize(using = TokenInfoResponseBaseIf.Serializer::class)
 class TokenInfoResponseBaseIf
-@JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val active: JsonField<Boolean>,
-    private val additionalProperties: MutableMap<String, JsonValue>,
+    private val publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse? = null,
+    private val publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse? = null,
+    private val _json: JsonValue? = null,
 ) {
 
-    @JsonCreator
-    private constructor(
-        @JsonProperty("active") @ExcludeMissing active: JsonField<Boolean> = JsonMissing.of()
-    ) : this(active, mutableMapOf())
+    fun publicAccessTokenInfoResponse(): Optional<PublicAccessTokenInfoResponse> =
+        Optional.ofNullable(publicAccessTokenInfoResponse)
 
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun active(): Boolean = active.getRequired("active")
+    fun publicRefreshTokenInfoResponse(): Optional<PublicRefreshTokenInfoResponse> =
+        Optional.ofNullable(publicRefreshTokenInfoResponse)
 
-    /**
-     * Returns the raw JSON value of [active].
-     *
-     * Unlike [active], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("active") @ExcludeMissing fun _active(): JsonField<Boolean> = active
+    fun isPublicAccessTokenInfoResponse(): Boolean = publicAccessTokenInfoResponse != null
 
-    @JsonAnySetter
-    private fun putAdditionalProperty(key: String, value: JsonValue) {
-        additionalProperties.put(key, value)
-    }
+    fun isPublicRefreshTokenInfoResponse(): Boolean = publicRefreshTokenInfoResponse != null
 
-    @JsonAnyGetter
-    @ExcludeMissing
-    fun _additionalProperties(): Map<String, JsonValue> =
-        Collections.unmodifiableMap(additionalProperties)
+    fun asPublicAccessTokenInfoResponse(): PublicAccessTokenInfoResponse =
+        publicAccessTokenInfoResponse.getOrThrow("publicAccessTokenInfoResponse")
 
-    fun toBuilder() = Builder().from(this)
+    fun asPublicRefreshTokenInfoResponse(): PublicRefreshTokenInfoResponse =
+        publicRefreshTokenInfoResponse.getOrThrow("publicRefreshTokenInfoResponse")
 
-    companion object {
+    fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
-        /**
-         * Returns a mutable builder for constructing an instance of [TokenInfoResponseBaseIf].
-         *
-         * The following fields are required:
-         * ```java
-         * .active()
-         * ```
-         */
-        @JvmStatic fun builder() = Builder()
-    }
-
-    /** A builder for [TokenInfoResponseBaseIf]. */
-    class Builder internal constructor() {
-
-        private var active: JsonField<Boolean>? = null
-        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-        @JvmSynthetic
-        internal fun from(tokenInfoResponseBaseIf: TokenInfoResponseBaseIf) = apply {
-            active = tokenInfoResponseBaseIf.active
-            additionalProperties = tokenInfoResponseBaseIf.additionalProperties.toMutableMap()
+    fun <T> accept(visitor: Visitor<T>): T =
+        when {
+            publicAccessTokenInfoResponse != null ->
+                visitor.visitPublicAccessTokenInfoResponse(publicAccessTokenInfoResponse)
+            publicRefreshTokenInfoResponse != null ->
+                visitor.visitPublicRefreshTokenInfoResponse(publicRefreshTokenInfoResponse)
+            else -> visitor.unknown(_json)
         }
-
-        fun active(active: Boolean) = active(JsonField.of(active))
-
-        /**
-         * Sets [Builder.active] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.active] with a well-typed [Boolean] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun active(active: JsonField<Boolean>) = apply { this.active = active }
-
-        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.clear()
-            putAllAdditionalProperties(additionalProperties)
-        }
-
-        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-            additionalProperties.put(key, value)
-        }
-
-        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-            this.additionalProperties.putAll(additionalProperties)
-        }
-
-        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-            keys.forEach(::removeAdditionalProperty)
-        }
-
-        /**
-         * Returns an immutable instance of [TokenInfoResponseBaseIf].
-         *
-         * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .active()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
-         */
-        fun build(): TokenInfoResponseBaseIf =
-            TokenInfoResponseBaseIf(
-                checkRequired("active", active),
-                additionalProperties.toMutableMap(),
-            )
-    }
 
     private var validated: Boolean = false
 
@@ -132,7 +61,21 @@ private constructor(
             return@apply
         }
 
-        active()
+        accept(
+            object : Visitor<Unit> {
+                override fun visitPublicAccessTokenInfoResponse(
+                    publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
+                ) {
+                    publicAccessTokenInfoResponse.validate()
+                }
+
+                override fun visitPublicRefreshTokenInfoResponse(
+                    publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
+                ) {
+                    publicRefreshTokenInfoResponse.validate()
+                }
+            }
+        )
         validated = true
     }
 
@@ -149,7 +92,21 @@ private constructor(
      *
      * Used for best match union deserialization.
      */
-    @JvmSynthetic internal fun validity(): Int = (if (active.asKnown().isPresent) 1 else 0)
+    @JvmSynthetic
+    internal fun validity(): Int =
+        accept(
+            object : Visitor<Int> {
+                override fun visitPublicAccessTokenInfoResponse(
+                    publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
+                ) = publicAccessTokenInfoResponse.validity()
+
+                override fun visitPublicRefreshTokenInfoResponse(
+                    publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
+                ) = publicRefreshTokenInfoResponse.validity()
+
+                override fun unknown(json: JsonValue?) = 0
+            }
+        )
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -157,14 +114,118 @@ private constructor(
         }
 
         return other is TokenInfoResponseBaseIf &&
-            active == other.active &&
-            additionalProperties == other.additionalProperties
+            publicAccessTokenInfoResponse == other.publicAccessTokenInfoResponse &&
+            publicRefreshTokenInfoResponse == other.publicRefreshTokenInfoResponse
     }
 
-    private val hashCode: Int by lazy { Objects.hash(active, additionalProperties) }
+    override fun hashCode(): Int =
+        Objects.hash(publicAccessTokenInfoResponse, publicRefreshTokenInfoResponse)
 
-    override fun hashCode(): Int = hashCode
+    override fun toString(): String =
+        when {
+            publicAccessTokenInfoResponse != null ->
+                "TokenInfoResponseBaseIf{publicAccessTokenInfoResponse=$publicAccessTokenInfoResponse}"
+            publicRefreshTokenInfoResponse != null ->
+                "TokenInfoResponseBaseIf{publicRefreshTokenInfoResponse=$publicRefreshTokenInfoResponse}"
+            _json != null -> "TokenInfoResponseBaseIf{_unknown=$_json}"
+            else -> throw IllegalStateException("Invalid TokenInfoResponseBaseIf")
+        }
 
-    override fun toString() =
-        "TokenInfoResponseBaseIf{active=$active, additionalProperties=$additionalProperties}"
+    companion object {
+
+        @JvmStatic
+        fun ofPublicAccessTokenInfoResponse(
+            publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
+        ) = TokenInfoResponseBaseIf(publicAccessTokenInfoResponse = publicAccessTokenInfoResponse)
+
+        @JvmStatic
+        fun ofPublicRefreshTokenInfoResponse(
+            publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
+        ) = TokenInfoResponseBaseIf(publicRefreshTokenInfoResponse = publicRefreshTokenInfoResponse)
+    }
+
+    /**
+     * An interface that defines how to map each variant of [TokenInfoResponseBaseIf] to a value of
+     * type [T].
+     */
+    interface Visitor<out T> {
+
+        fun visitPublicAccessTokenInfoResponse(
+            publicAccessTokenInfoResponse: PublicAccessTokenInfoResponse
+        ): T
+
+        fun visitPublicRefreshTokenInfoResponse(
+            publicRefreshTokenInfoResponse: PublicRefreshTokenInfoResponse
+        ): T
+
+        /**
+         * Maps an unknown variant of [TokenInfoResponseBaseIf] to a value of type [T].
+         *
+         * An instance of [TokenInfoResponseBaseIf] can contain an unknown variant if it was
+         * deserialized from data that doesn't match any known variant. For example, if the SDK is
+         * on an older version than the API, then the API may respond with new variants that the SDK
+         * is unaware of.
+         *
+         * @throws HubspotInvalidDataException in the default implementation.
+         */
+        fun unknown(json: JsonValue?): T {
+            throw HubspotInvalidDataException("Unknown TokenInfoResponseBaseIf: $json")
+        }
+    }
+
+    internal class Deserializer :
+        BaseDeserializer<TokenInfoResponseBaseIf>(TokenInfoResponseBaseIf::class) {
+
+        override fun ObjectCodec.deserialize(node: JsonNode): TokenInfoResponseBaseIf {
+            val json = JsonValue.fromJsonNode(node)
+
+            val bestMatches =
+                sequenceOf(
+                        tryDeserialize(node, jacksonTypeRef<PublicAccessTokenInfoResponse>())?.let {
+                            TokenInfoResponseBaseIf(
+                                publicAccessTokenInfoResponse = it,
+                                _json = json,
+                            )
+                        },
+                        tryDeserialize(node, jacksonTypeRef<PublicRefreshTokenInfoResponse>())
+                            ?.let {
+                                TokenInfoResponseBaseIf(
+                                    publicRefreshTokenInfoResponse = it,
+                                    _json = json,
+                                )
+                            },
+                    )
+                    .filterNotNull()
+                    .allMaxBy { it.validity() }
+                    .toList()
+            return when (bestMatches.size) {
+                // This can happen if what we're deserializing is completely incompatible with all
+                // the possible variants (e.g. deserializing from boolean).
+                0 -> TokenInfoResponseBaseIf(_json = json)
+                1 -> bestMatches.single()
+                // If there's more than one match with the highest validity, then use the first
+                // completely valid match, or simply the first match if none are completely valid.
+                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            }
+        }
+    }
+
+    internal class Serializer :
+        BaseSerializer<TokenInfoResponseBaseIf>(TokenInfoResponseBaseIf::class) {
+
+        override fun serialize(
+            value: TokenInfoResponseBaseIf,
+            generator: JsonGenerator,
+            provider: SerializerProvider,
+        ) {
+            when {
+                value.publicAccessTokenInfoResponse != null ->
+                    generator.writeObject(value.publicAccessTokenInfoResponse)
+                value.publicRefreshTokenInfoResponse != null ->
+                    generator.writeObject(value.publicRefreshTokenInfoResponse)
+                value._json != null -> generator.writeObject(value._json)
+                else -> throw IllegalStateException("Invalid TokenInfoResponseBaseIf")
+            }
+        }
+    }
 }

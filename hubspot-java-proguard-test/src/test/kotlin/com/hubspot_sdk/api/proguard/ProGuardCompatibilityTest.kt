@@ -5,11 +5,9 @@ package com.hubspot_sdk.api.proguard
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.models.cms.hubdb.BoundedNextPage
-import com.hubspot_sdk.api.models.cms.hubdb.BoundedPaging
-import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableRowV3Wrapper
-import com.hubspot_sdk.api.models.cms.hubdb.RandomAccessCollectionResponseWithTotalHubDbTableRowV3
-import com.hubspot_sdk.api.models.cms.hubdb.UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
+import com.hubspot_sdk.api.models.auth.oauth.PublicAccessTokenInfoResponse
+import com.hubspot_sdk.api.models.auth.oauth.SignedAccessToken
+import com.hubspot_sdk.api.models.auth.oauth.TokenInfoResponseBaseIf
 import com.hubspot_sdk.api.models.crm.objects.contacts.PublicGdprDeleteInput
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -85,35 +83,52 @@ internal class ProGuardCompatibilityTest {
     }
 
     @Test
-    fun unifiedCollectionResponseWithTotalBaseHubDbTableRowV3Roundtrip() {
+    fun tokenInfoResponseBaseIfRoundtrip() {
         val jsonMapper = jsonMapper()
-        val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-            UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                .ofRandomAccessCollectionResponseWithTotal(
-                    RandomAccessCollectionResponseWithTotalHubDbTableRowV3.builder()
-                        .addResult(HubDbTableRowV3Wrapper.builder().build())
-                        .total(0)
-                        .type(
-                            RandomAccessCollectionResponseWithTotalHubDbTableRowV3.Type
-                                .RANDOM_ACCESS
-                        )
-                        .paging(
-                            BoundedPaging.builder()
-                                .next(BoundedNextPage.builder().offset(0).link("link").build())
-                                .build()
-                        )
-                        .build()
-                )
-
-        val roundtrippedUnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
-            jsonMapper.readValue(
-                jsonMapper.writeValueAsString(
-                    unifiedCollectionResponseWithTotalBaseHubDbTableRowV3
-                ),
-                jacksonTypeRef<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>(),
+        val tokenInfoResponseBaseIf =
+            TokenInfoResponseBaseIf.ofPublicAccessTokenInfoResponse(
+                PublicAccessTokenInfoResponse.builder()
+                    .token("token")
+                    .active(true)
+                    .appId(0)
+                    .clientId("client_id")
+                    .expiresIn(0)
+                    .hubId(0)
+                    .isPrivateDistribution(true)
+                    .addScope("string")
+                    .signedAccessToken(
+                        SignedAccessToken.builder()
+                            .appId(0)
+                            .expiresAt(0L)
+                            .hubId(0)
+                            .hublet("hublet")
+                            .installingUserId(0)
+                            .isPrivateDistribution(true)
+                            .isServiceAccount(true)
+                            .isUserLevel(true)
+                            .newSignature("newSignature")
+                            .scopes("scopes")
+                            .scopeToScopeGroupPks("scopeToScopeGroupPks")
+                            .signature("signature")
+                            .trialScopes("trialScopes")
+                            .trialScopeToScopeGroupPks("trialScopeToScopeGroupPks")
+                            .userId(0)
+                            .build()
+                    )
+                    .tokenType("token_type")
+                    .tokenUse(PublicAccessTokenInfoResponse.TokenUse.ACCESS_TOKEN)
+                    .userId(0)
+                    .hubDomain("hub_domain")
+                    .user("user")
+                    .build()
             )
 
-        assertThat(roundtrippedUnifiedCollectionResponseWithTotalBaseHubDbTableRowV3)
-            .isEqualTo(unifiedCollectionResponseWithTotalBaseHubDbTableRowV3)
+        val roundtrippedTokenInfoResponseBaseIf =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(tokenInfoResponseBaseIf),
+                jacksonTypeRef<TokenInfoResponseBaseIf>(),
+            )
+
+        assertThat(roundtrippedTokenInfoResponseBaseIf).isEqualTo(tokenInfoResponseBaseIf)
     }
 }

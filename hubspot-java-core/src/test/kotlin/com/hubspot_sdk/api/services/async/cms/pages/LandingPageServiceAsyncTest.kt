@@ -785,11 +785,11 @@ internal class LandingPageServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun publishDraft() {
+    fun pushDraftLive() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val landingPageServiceAsync = client.cms().pages().landingPages()
 
-        val future = landingPageServiceAsync.publishDraft("objectId")
+        val future = landingPageServiceAsync.pushDraftLive("objectId")
 
         val response = future.get()
     }

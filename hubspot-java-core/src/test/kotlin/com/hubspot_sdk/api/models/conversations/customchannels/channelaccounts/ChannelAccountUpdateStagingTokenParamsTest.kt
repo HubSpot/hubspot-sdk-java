@@ -35,15 +35,7 @@ internal class ChannelAccountUpdateStagingTokenParamsTest {
                 .channelId(0)
                 .accountToken("accountToken")
                 .publicChannelAccountStagingTokenUpdateRequest(
-                    PublicChannelAccountStagingTokenUpdateRequest.builder()
-                        .accountName("accountName")
-                        .deliveryIdentifier(
-                            PublicDeliveryIdentifier.builder()
-                                .type(PublicDeliveryIdentifier.Type.CHANNEL_SPECIFIC_OPAQUE_ID)
-                                .value("value")
-                                .build()
-                        )
-                        .build()
+                    PublicChannelAccountStagingTokenUpdateRequest.builder().build()
                 )
                 .build()
 
@@ -86,5 +78,21 @@ internal class ChannelAccountUpdateStagingTokenParamsTest {
                     )
                     .build()
             )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            ChannelAccountUpdateStagingTokenParams.builder()
+                .channelId(0)
+                .accountToken("accountToken")
+                .publicChannelAccountStagingTokenUpdateRequest(
+                    PublicChannelAccountStagingTokenUpdateRequest.builder().build()
+                )
+                .build()
+
+        val body = params._body()
+
+        assertThat(body).isEqualTo(PublicChannelAccountStagingTokenUpdateRequest.builder().build())
     }
 }

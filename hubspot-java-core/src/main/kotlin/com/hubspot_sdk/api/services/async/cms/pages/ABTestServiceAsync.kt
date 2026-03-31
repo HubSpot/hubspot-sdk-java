@@ -10,9 +10,12 @@ import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestEndRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestRerunRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.Page
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateAbTestVariationParams
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndAbTestParams
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunAbTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateLandingPageVariationParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateSitePageVariationParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndLandingPageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndSitePageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunLandingPageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunSitePageTestParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -31,82 +34,169 @@ interface ABTestServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ABTestServiceAsync
 
     /** Create a new A/B test variation based on the information provided in the request body. */
-    fun createAbTestVariation(params: ABTestCreateAbTestVariationParams): CompletableFuture<Page> =
-        createAbTestVariation(params, RequestOptions.none())
+    fun createLandingPageVariation(
+        params: ABTestCreateLandingPageVariationParams
+    ): CompletableFuture<Page> = createLandingPageVariation(params, RequestOptions.none())
 
-    /** @see createAbTestVariation */
-    fun createAbTestVariation(
-        params: ABTestCreateAbTestVariationParams,
+    /** @see createLandingPageVariation */
+    fun createLandingPageVariation(
+        params: ABTestCreateLandingPageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Page>
 
-    /** @see createAbTestVariation */
-    fun createAbTestVariation(
+    /** @see createLandingPageVariation */
+    fun createLandingPageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Page> =
-        createAbTestVariation(
-            ABTestCreateAbTestVariationParams.builder()
+        createLandingPageVariation(
+            ABTestCreateLandingPageVariationParams.builder()
                 .abTestCreateRequestVNext(abTestCreateRequestVNext)
                 .build(),
             requestOptions,
         )
 
-    /** @see createAbTestVariation */
-    fun createAbTestVariation(
+    /** @see createLandingPageVariation */
+    fun createLandingPageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext
     ): CompletableFuture<Page> =
-        createAbTestVariation(abTestCreateRequestVNext, RequestOptions.none())
+        createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
-    /** End an active A/B test and designate a winner. */
-    fun endAbTest(params: ABTestEndAbTestParams): CompletableFuture<Void?> =
-        endAbTest(params, RequestOptions.none())
+    /** Create a new A/B test variation based on the information provided in the request body. */
+    fun createSitePageVariation(
+        params: ABTestCreateSitePageVariationParams
+    ): CompletableFuture<Page> = createSitePageVariation(params, RequestOptions.none())
 
-    /** @see endAbTest */
-    fun endAbTest(
-        params: ABTestEndAbTestParams,
+    /** @see createSitePageVariation */
+    fun createSitePageVariation(
+        params: ABTestCreateSitePageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
+    ): CompletableFuture<Page>
 
-    /** @see endAbTest */
-    fun endAbTest(
-        abTestEndRequestVNext: AbTestEndRequestVNext,
+    /** @see createSitePageVariation */
+    fun createSitePageVariation(
+        abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        endAbTest(
-            ABTestEndAbTestParams.builder().abTestEndRequestVNext(abTestEndRequestVNext).build(),
+    ): CompletableFuture<Page> =
+        createSitePageVariation(
+            ABTestCreateSitePageVariationParams.builder()
+                .abTestCreateRequestVNext(abTestCreateRequestVNext)
+                .build(),
             requestOptions,
         )
 
-    /** @see endAbTest */
-    fun endAbTest(abTestEndRequestVNext: AbTestEndRequestVNext): CompletableFuture<Void?> =
-        endAbTest(abTestEndRequestVNext, RequestOptions.none())
+    /** @see createSitePageVariation */
+    fun createSitePageVariation(
+        abTestCreateRequestVNext: AbTestCreateRequestVNext
+    ): CompletableFuture<Page> =
+        createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
-    /** Rerun a previous A/B test. */
-    fun rerunAbTest(params: ABTestRerunAbTestParams): CompletableFuture<Void?> =
-        rerunAbTest(params, RequestOptions.none())
+    /** End an active A/B test and designate a winner. */
+    fun endLandingPageTest(params: ABTestEndLandingPageTestParams): CompletableFuture<Void?> =
+        endLandingPageTest(params, RequestOptions.none())
 
-    /** @see rerunAbTest */
-    fun rerunAbTest(
-        params: ABTestRerunAbTestParams,
+    /** @see endLandingPageTest */
+    fun endLandingPageTest(
+        params: ABTestEndLandingPageTestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see rerunAbTest */
-    fun rerunAbTest(
+    /** @see endLandingPageTest */
+    fun endLandingPageTest(
+        abTestEndRequestVNext: AbTestEndRequestVNext,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        endLandingPageTest(
+            ABTestEndLandingPageTestParams.builder()
+                .abTestEndRequestVNext(abTestEndRequestVNext)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see endLandingPageTest */
+    fun endLandingPageTest(abTestEndRequestVNext: AbTestEndRequestVNext): CompletableFuture<Void?> =
+        endLandingPageTest(abTestEndRequestVNext, RequestOptions.none())
+
+    /** End an active A/B test and designate a winner. */
+    fun endSitePageTest(params: ABTestEndSitePageTestParams): CompletableFuture<Void?> =
+        endSitePageTest(params, RequestOptions.none())
+
+    /** @see endSitePageTest */
+    fun endSitePageTest(
+        params: ABTestEndSitePageTestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see endSitePageTest */
+    fun endSitePageTest(
+        abTestEndRequestVNext: AbTestEndRequestVNext,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        endSitePageTest(
+            ABTestEndSitePageTestParams.builder()
+                .abTestEndRequestVNext(abTestEndRequestVNext)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see endSitePageTest */
+    fun endSitePageTest(abTestEndRequestVNext: AbTestEndRequestVNext): CompletableFuture<Void?> =
+        endSitePageTest(abTestEndRequestVNext, RequestOptions.none())
+
+    /** Rerun a previous A/B test. */
+    fun rerunLandingPageTest(params: ABTestRerunLandingPageTestParams): CompletableFuture<Void?> =
+        rerunLandingPageTest(params, RequestOptions.none())
+
+    /** @see rerunLandingPageTest */
+    fun rerunLandingPageTest(
+        params: ABTestRerunLandingPageTestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see rerunLandingPageTest */
+    fun rerunLandingPageTest(
         abTestRerunRequestVNext: AbTestRerunRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        rerunAbTest(
-            ABTestRerunAbTestParams.builder()
+        rerunLandingPageTest(
+            ABTestRerunLandingPageTestParams.builder()
                 .abTestRerunRequestVNext(abTestRerunRequestVNext)
                 .build(),
             requestOptions,
         )
 
-    /** @see rerunAbTest */
-    fun rerunAbTest(abTestRerunRequestVNext: AbTestRerunRequestVNext): CompletableFuture<Void?> =
-        rerunAbTest(abTestRerunRequestVNext, RequestOptions.none())
+    /** @see rerunLandingPageTest */
+    fun rerunLandingPageTest(
+        abTestRerunRequestVNext: AbTestRerunRequestVNext
+    ): CompletableFuture<Void?> =
+        rerunLandingPageTest(abTestRerunRequestVNext, RequestOptions.none())
+
+    /** Rerun a previous A/B test. */
+    fun rerunSitePageTest(params: ABTestRerunSitePageTestParams): CompletableFuture<Void?> =
+        rerunSitePageTest(params, RequestOptions.none())
+
+    /** @see rerunSitePageTest */
+    fun rerunSitePageTest(
+        params: ABTestRerunSitePageTestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** @see rerunSitePageTest */
+    fun rerunSitePageTest(
+        abTestRerunRequestVNext: AbTestRerunRequestVNext,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        rerunSitePageTest(
+            ABTestRerunSitePageTestParams.builder()
+                .abTestRerunRequestVNext(abTestRerunRequestVNext)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see rerunSitePageTest */
+    fun rerunSitePageTest(
+        abTestRerunRequestVNext: AbTestRerunRequestVNext
+    ): CompletableFuture<Void?> = rerunSitePageTest(abTestRerunRequestVNext, RequestOptions.none())
 
     /**
      * A view of [ABTestServiceAsync] that provides access to raw HTTP responses for each method.
@@ -124,97 +214,197 @@ interface ABTestServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/site-pages/ab-test/create-variation`, but is otherwise the same as
-         * [ABTestServiceAsync.createAbTestVariation].
+         * /cms/pages/2026-03/landing-pages/ab-test/create-variation`, but is otherwise the same as
+         * [ABTestServiceAsync.createLandingPageVariation].
          */
-        fun createAbTestVariation(
-            params: ABTestCreateAbTestVariationParams
+        fun createLandingPageVariation(
+            params: ABTestCreateLandingPageVariationParams
         ): CompletableFuture<HttpResponseFor<Page>> =
-            createAbTestVariation(params, RequestOptions.none())
+            createLandingPageVariation(params, RequestOptions.none())
 
-        /** @see createAbTestVariation */
-        fun createAbTestVariation(
-            params: ABTestCreateAbTestVariationParams,
+        /** @see createLandingPageVariation */
+        fun createLandingPageVariation(
+            params: ABTestCreateLandingPageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Page>>
 
-        /** @see createAbTestVariation */
-        fun createAbTestVariation(
+        /** @see createLandingPageVariation */
+        fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Page>> =
-            createAbTestVariation(
-                ABTestCreateAbTestVariationParams.builder()
+            createLandingPageVariation(
+                ABTestCreateLandingPageVariationParams.builder()
                     .abTestCreateRequestVNext(abTestCreateRequestVNext)
                     .build(),
                 requestOptions,
             )
 
-        /** @see createAbTestVariation */
-        fun createAbTestVariation(
+        /** @see createLandingPageVariation */
+        fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext
         ): CompletableFuture<HttpResponseFor<Page>> =
-            createAbTestVariation(abTestCreateRequestVNext, RequestOptions.none())
+            createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/end`, but is
-         * otherwise the same as [ABTestServiceAsync.endAbTest].
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/site-pages/ab-test/create-variation`, but is otherwise the same as
+         * [ABTestServiceAsync.createSitePageVariation].
          */
-        fun endAbTest(params: ABTestEndAbTestParams): CompletableFuture<HttpResponse> =
-            endAbTest(params, RequestOptions.none())
+        fun createSitePageVariation(
+            params: ABTestCreateSitePageVariationParams
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            createSitePageVariation(params, RequestOptions.none())
 
-        /** @see endAbTest */
-        fun endAbTest(
-            params: ABTestEndAbTestParams,
+        /** @see createSitePageVariation */
+        fun createSitePageVariation(
+            params: ABTestCreateSitePageVariationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Page>>
+
+        /** @see createSitePageVariation */
+        fun createSitePageVariation(
+            abTestCreateRequestVNext: AbTestCreateRequestVNext,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            createSitePageVariation(
+                ABTestCreateSitePageVariationParams.builder()
+                    .abTestCreateRequestVNext(abTestCreateRequestVNext)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see createSitePageVariation */
+        fun createSitePageVariation(
+            abTestCreateRequestVNext: AbTestCreateRequestVNext
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/ab-test/end`, but
+         * is otherwise the same as [ABTestServiceAsync.endLandingPageTest].
+         */
+        fun endLandingPageTest(
+            params: ABTestEndLandingPageTestParams
+        ): CompletableFuture<HttpResponse> = endLandingPageTest(params, RequestOptions.none())
+
+        /** @see endLandingPageTest */
+        fun endLandingPageTest(
+            params: ABTestEndLandingPageTestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see endAbTest */
-        fun endAbTest(
+        /** @see endLandingPageTest */
+        fun endLandingPageTest(
             abTestEndRequestVNext: AbTestEndRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            endAbTest(
-                ABTestEndAbTestParams.builder()
+            endLandingPageTest(
+                ABTestEndLandingPageTestParams.builder()
                     .abTestEndRequestVNext(abTestEndRequestVNext)
                     .build(),
                 requestOptions,
             )
 
-        /** @see endAbTest */
-        fun endAbTest(
+        /** @see endLandingPageTest */
+        fun endLandingPageTest(
             abTestEndRequestVNext: AbTestEndRequestVNext
-        ): CompletableFuture<HttpResponse> = endAbTest(abTestEndRequestVNext, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> =
+            endLandingPageTest(abTestEndRequestVNext, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/rerun`, but
-         * is otherwise the same as [ABTestServiceAsync.rerunAbTest].
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/end`, but is
+         * otherwise the same as [ABTestServiceAsync.endSitePageTest].
          */
-        fun rerunAbTest(params: ABTestRerunAbTestParams): CompletableFuture<HttpResponse> =
-            rerunAbTest(params, RequestOptions.none())
+        fun endSitePageTest(params: ABTestEndSitePageTestParams): CompletableFuture<HttpResponse> =
+            endSitePageTest(params, RequestOptions.none())
 
-        /** @see rerunAbTest */
-        fun rerunAbTest(
-            params: ABTestRerunAbTestParams,
+        /** @see endSitePageTest */
+        fun endSitePageTest(
+            params: ABTestEndSitePageTestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see rerunAbTest */
-        fun rerunAbTest(
+        /** @see endSitePageTest */
+        fun endSitePageTest(
+            abTestEndRequestVNext: AbTestEndRequestVNext,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            endSitePageTest(
+                ABTestEndSitePageTestParams.builder()
+                    .abTestEndRequestVNext(abTestEndRequestVNext)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see endSitePageTest */
+        fun endSitePageTest(
+            abTestEndRequestVNext: AbTestEndRequestVNext
+        ): CompletableFuture<HttpResponse> =
+            endSitePageTest(abTestEndRequestVNext, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/ab-test/rerun`,
+         * but is otherwise the same as [ABTestServiceAsync.rerunLandingPageTest].
+         */
+        fun rerunLandingPageTest(
+            params: ABTestRerunLandingPageTestParams
+        ): CompletableFuture<HttpResponse> = rerunLandingPageTest(params, RequestOptions.none())
+
+        /** @see rerunLandingPageTest */
+        fun rerunLandingPageTest(
+            params: ABTestRerunLandingPageTestParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see rerunLandingPageTest */
+        fun rerunLandingPageTest(
             abTestRerunRequestVNext: AbTestRerunRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            rerunAbTest(
-                ABTestRerunAbTestParams.builder()
+            rerunLandingPageTest(
+                ABTestRerunLandingPageTestParams.builder()
                     .abTestRerunRequestVNext(abTestRerunRequestVNext)
                     .build(),
                 requestOptions,
             )
 
-        /** @see rerunAbTest */
-        fun rerunAbTest(
+        /** @see rerunLandingPageTest */
+        fun rerunLandingPageTest(
             abTestRerunRequestVNext: AbTestRerunRequestVNext
         ): CompletableFuture<HttpResponse> =
-            rerunAbTest(abTestRerunRequestVNext, RequestOptions.none())
+            rerunLandingPageTest(abTestRerunRequestVNext, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/rerun`, but
+         * is otherwise the same as [ABTestServiceAsync.rerunSitePageTest].
+         */
+        fun rerunSitePageTest(
+            params: ABTestRerunSitePageTestParams
+        ): CompletableFuture<HttpResponse> = rerunSitePageTest(params, RequestOptions.none())
+
+        /** @see rerunSitePageTest */
+        fun rerunSitePageTest(
+            params: ABTestRerunSitePageTestParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see rerunSitePageTest */
+        fun rerunSitePageTest(
+            abTestRerunRequestVNext: AbTestRerunRequestVNext,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            rerunSitePageTest(
+                ABTestRerunSitePageTestParams.builder()
+                    .abTestRerunRequestVNext(abTestRerunRequestVNext)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see rerunSitePageTest */
+        fun rerunSitePageTest(
+            abTestRerunRequestVNext: AbTestRerunRequestVNext
+        ): CompletableFuture<HttpResponse> =
+            rerunSitePageTest(abTestRerunRequestVNext, RequestOptions.none())
     }
 }

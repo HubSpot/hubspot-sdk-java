@@ -3,15 +3,18 @@
 package com.hubspot_sdk.api.services.blocking.cms
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.cms.pages.PageGetRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.PageListLandingPageFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.PageListLandingPagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageListSitePagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageQueryLandingPageFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.PageQueryLandingPagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageQuerySitePagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageRestoreRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.PageRestoreRevisionToDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPagesByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPagesParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePagesByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePagesParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreLandingPageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreLandingPageRevisionToDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreSitePageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreSitePageRevisionToDraftParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -20,13 +23,65 @@ internal class PageServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getRevision() {
+    fun getLandingPageFolders() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val cursorPagedResultContentFolderLong =
+            pageService.getLandingPageFolders(
+                PageGetLandingPageFoldersParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        cursorPagedResultContentFolderLong.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLandingPageFoldersByQuery() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val cursorPagedResultContentFolderLong =
+            pageService.getLandingPageFoldersByQuery(
+                PageGetLandingPageFoldersByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        cursorPagedResultContentFolderLong.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLandingPageRevision() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val pageService = client.cms().pages()
 
         val pageVersion =
-            pageService.getRevision(
-                PageGetRevisionParams.builder()
+            pageService.getLandingPageRevision(
+                PageGetLandingPageRevisionParams.builder()
                     .objectId("objectId")
                     .revisionId("revisionId")
                     .build()
@@ -37,39 +92,13 @@ internal class PageServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun listLandingPageFolders() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val pageService = client.cms().pages()
-
-        val cursorPagedResultContentFolderLong =
-            pageService.listLandingPageFolders(
-                PageListLandingPageFoldersParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .limit(0)
-                    .property("property")
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
-
-        cursorPagedResultContentFolderLong.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun listLandingPages() {
+    fun getLandingPages() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val pageService = client.cms().pages()
 
         val cursorPagedResultPageLong =
-            pageService.listLandingPages(
-                PageListLandingPagesParams.builder()
+            pageService.getLandingPages(
+                PageGetLandingPagesParams.builder()
                     .after("after")
                     .archived(true)
                     .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -89,137 +118,139 @@ internal class PageServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun listRevisions() {
+    fun getLandingPagesByQuery() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val pageService = client.cms().pages()
 
-        val page = pageService.listRevisions("objectId")
+        val cursorPagedResultPageLong =
+            pageService.getLandingPagesByQuery(
+                PageGetLandingPagesByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        cursorPagedResultPageLong.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getSitePageRevision() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val pageVersion =
+            pageService.getSitePageRevision(
+                PageGetSitePageRevisionParams.builder()
+                    .objectId("objectId")
+                    .revisionId("revisionId")
+                    .build()
+            )
+
+        pageVersion.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getSitePages() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val cursorPagedResultPageLong =
+            pageService.getSitePages(
+                PageGetSitePagesParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        cursorPagedResultPageLong.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getSitePagesByQuery() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val cursorPagedResultPageLong =
+            pageService.getSitePagesByQuery(
+                PageGetSitePagesByQueryParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        cursorPagedResultPageLong.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listLandingPageRevisions() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val page = pageService.listLandingPageRevisions("objectId")
 
         page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun listSitePages() {
+    fun listSitePageRevisions() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val pageService = client.cms().pages()
 
-        val cursorPagedResultPageLong =
-            pageService.listSitePages(
-                PageListSitePagesParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .limit(0)
-                    .property("property")
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
+        val page = pageService.listSitePageRevisions("objectId")
 
-        cursorPagedResultPageLong.validate()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun queryLandingPageFolders() {
+    fun resetSitePageDraft() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val pageService = client.cms().pages()
 
-        val cursorPagedResultContentFolderLong =
-            pageService.queryLandingPageFolders(
-                PageQueryLandingPageFoldersParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .limit(0)
-                    .property("property")
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
-
-        cursorPagedResultContentFolderLong.validate()
+        pageService.resetSitePageDraft("objectId")
     }
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun queryLandingPages() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val pageService = client.cms().pages()
-
-        val cursorPagedResultPageLong =
-            pageService.queryLandingPages(
-                PageQueryLandingPagesParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .limit(0)
-                    .property("property")
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
-
-        cursorPagedResultPageLong.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun querySitePages() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val pageService = client.cms().pages()
-
-        val cursorPagedResultPageLong =
-            pageService.querySitePages(
-                PageQuerySitePagesParams.builder()
-                    .after("after")
-                    .archived(true)
-                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .limit(0)
-                    .property("property")
-                    .addSort("string")
-                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .build()
-            )
-
-        cursorPagedResultPageLong.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun resetDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val pageService = client.cms().pages()
-
-        pageService.resetDraft("objectId")
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun restoreRevision() {
+    fun restoreLandingPageRevision() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val pageService = client.cms().pages()
 
         val page =
-            pageService.restoreRevision(
-                PageRestoreRevisionParams.builder()
+            pageService.restoreLandingPageRevision(
+                PageRestoreLandingPageRevisionParams.builder()
                     .objectId("objectId")
                     .revisionId("revisionId")
                     .build()
@@ -230,13 +261,47 @@ internal class PageServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun restoreRevisionToDraft() {
+    fun restoreLandingPageRevisionToDraft() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val pageService = client.cms().pages()
 
         val page =
-            pageService.restoreRevisionToDraft(
-                PageRestoreRevisionToDraftParams.builder()
+            pageService.restoreLandingPageRevisionToDraft(
+                PageRestoreLandingPageRevisionToDraftParams.builder()
+                    .objectId("objectId")
+                    .revisionId(0L)
+                    .build()
+            )
+
+        page.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun restoreSitePageRevision() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val page =
+            pageService.restoreSitePageRevision(
+                PageRestoreSitePageRevisionParams.builder()
+                    .objectId("objectId")
+                    .revisionId("revisionId")
+                    .build()
+            )
+
+        page.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun restoreSitePageRevisionToDraft() {
+        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val pageService = client.cms().pages()
+
+        val page =
+            pageService.restoreSitePageRevisionToDraft(
+                PageRestoreSitePageRevisionToDraftParams.builder()
                     .objectId("objectId")
                     .revisionId(0L)
                     .build()

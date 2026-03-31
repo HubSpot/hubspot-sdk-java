@@ -524,6 +524,9 @@ private constructor(
 
             @JvmField val HS_EMAIL_LAST_SEND_DATE = of("hs_email_last_send_date")
 
+            @JvmField
+            val HS_EMAIL_LIVE_SOURCING_RESTRICTED = of("hs_email_live_sourcing_restricted")
+
             @JvmField val HS_EMAIL_OPEN = of("hs_email_open")
 
             @JvmField
@@ -1237,6 +1240,7 @@ private constructor(
             HS_EMAIL_LAST_OPEN_DATE,
             HS_EMAIL_LAST_REPLY_DATE,
             HS_EMAIL_LAST_SEND_DATE,
+            HS_EMAIL_LIVE_SOURCING_RESTRICTED,
             HS_EMAIL_OPEN,
             HS_EMAIL_OPTIMAL_SEND_DAY_OF_WEEK,
             HS_EMAIL_OPTIMAL_SEND_TIME_OF_DAY,
@@ -1628,6 +1632,7 @@ private constructor(
             HS_EMAIL_LAST_OPEN_DATE,
             HS_EMAIL_LAST_REPLY_DATE,
             HS_EMAIL_LAST_SEND_DATE,
+            HS_EMAIL_LIVE_SOURCING_RESTRICTED,
             HS_EMAIL_OPEN,
             HS_EMAIL_OPTIMAL_SEND_DAY_OF_WEEK,
             HS_EMAIL_OPTIMAL_SEND_TIME_OF_DAY,
@@ -2035,6 +2040,7 @@ private constructor(
                 HS_EMAIL_LAST_OPEN_DATE -> Value.HS_EMAIL_LAST_OPEN_DATE
                 HS_EMAIL_LAST_REPLY_DATE -> Value.HS_EMAIL_LAST_REPLY_DATE
                 HS_EMAIL_LAST_SEND_DATE -> Value.HS_EMAIL_LAST_SEND_DATE
+                HS_EMAIL_LIVE_SOURCING_RESTRICTED -> Value.HS_EMAIL_LIVE_SOURCING_RESTRICTED
                 HS_EMAIL_OPEN -> Value.HS_EMAIL_OPEN
                 HS_EMAIL_OPTIMAL_SEND_DAY_OF_WEEK -> Value.HS_EMAIL_OPTIMAL_SEND_DAY_OF_WEEK
                 HS_EMAIL_OPTIMAL_SEND_TIME_OF_DAY -> Value.HS_EMAIL_OPTIMAL_SEND_TIME_OF_DAY
@@ -2463,6 +2469,7 @@ private constructor(
                 HS_EMAIL_LAST_OPEN_DATE -> Known.HS_EMAIL_LAST_OPEN_DATE
                 HS_EMAIL_LAST_REPLY_DATE -> Known.HS_EMAIL_LAST_REPLY_DATE
                 HS_EMAIL_LAST_SEND_DATE -> Known.HS_EMAIL_LAST_SEND_DATE
+                HS_EMAIL_LIVE_SOURCING_RESTRICTED -> Known.HS_EMAIL_LIVE_SOURCING_RESTRICTED
                 HS_EMAIL_OPEN -> Known.HS_EMAIL_OPEN
                 HS_EMAIL_OPTIMAL_SEND_DAY_OF_WEEK -> Known.HS_EMAIL_OPTIMAL_SEND_DAY_OF_WEEK
                 HS_EMAIL_OPTIMAL_SEND_TIME_OF_DAY -> Known.HS_EMAIL_OPTIMAL_SEND_TIME_OF_DAY
