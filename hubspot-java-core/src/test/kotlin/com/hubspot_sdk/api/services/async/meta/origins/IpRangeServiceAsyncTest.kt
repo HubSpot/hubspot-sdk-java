@@ -13,7 +13,7 @@ internal class IpRangeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ipRangeServiceAsync = client.meta().origins().ipRanges()
 
         val collectionResponseIpRangeNoPagingFuture =
@@ -31,7 +31,7 @@ internal class IpRangeServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listSimple() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ipRangeServiceAsync = client.meta().origins().ipRanges()
 
         val responseFuture =

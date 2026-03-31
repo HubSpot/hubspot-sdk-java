@@ -16,7 +16,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateResponse =
@@ -39,7 +39,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateResponse =
@@ -53,7 +53,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateResponse =
@@ -67,7 +67,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listAll() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val flagsForAppResponse = featureFlagService.listAll(0)
@@ -78,7 +78,7 @@ internal class FeatureFlagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listPortals() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
         val portalFlagStateBatchResponse =

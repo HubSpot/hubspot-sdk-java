@@ -29,7 +29,7 @@ internal class SubscriberStateServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val subscriberStateServiceAsync = client.marketing().events().subscriberState()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -72,7 +72,7 @@ internal class SubscriberStateServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val subscriberStateServiceAsync = client.marketing().events().subscriberState()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

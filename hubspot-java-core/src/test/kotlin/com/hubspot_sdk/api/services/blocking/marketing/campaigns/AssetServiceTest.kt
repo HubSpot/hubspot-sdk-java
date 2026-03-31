@@ -14,7 +14,7 @@ internal class AssetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val assetService = client.marketing().campaigns().assets()
 
         assetService.update(
@@ -29,7 +29,7 @@ internal class AssetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val assetService = client.marketing().campaigns().assets()
 
         val collectionResponsePublicCampaignAssetForwardPaging =
@@ -50,7 +50,7 @@ internal class AssetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val assetService = client.marketing().campaigns().assets()
 
         assetService.delete(

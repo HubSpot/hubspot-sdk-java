@@ -18,7 +18,7 @@ internal class CallbackServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun complete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val callbackServiceAsync = client.automation().actions().callbacks()
 
         val future =
@@ -58,7 +58,7 @@ internal class CallbackServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun completeBatch() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val callbackServiceAsync = client.automation().actions().callbacks()
 
         val future =

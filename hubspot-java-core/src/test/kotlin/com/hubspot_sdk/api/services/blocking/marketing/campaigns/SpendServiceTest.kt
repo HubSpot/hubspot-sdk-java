@@ -16,7 +16,7 @@ internal class SpendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val spendService = client.marketing().campaigns().spend()
 
         val publicSpendItem =
@@ -40,7 +40,7 @@ internal class SpendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val spendService = client.marketing().campaigns().spend()
 
         val publicSpendItem =
@@ -65,7 +65,7 @@ internal class SpendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val spendService = client.marketing().campaigns().spend()
 
         spendService.delete(
@@ -76,7 +76,7 @@ internal class SpendServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val spendService = client.marketing().campaigns().spend()
 
         val publicSpendItem =

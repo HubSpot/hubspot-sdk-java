@@ -11,7 +11,7 @@ internal class EnablementServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAll() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val enablementService = client.crm().objectLibrary().enablement()
 
         val portalObjectTypeEnablementPublicResponse = enablementService.getAll()
@@ -22,7 +22,7 @@ internal class EnablementServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeId() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val enablementService = client.crm().objectLibrary().enablement()
 
         val objectTypeEnablementPublicResponse = enablementService.getByObjectTypeId("objectTypeId")

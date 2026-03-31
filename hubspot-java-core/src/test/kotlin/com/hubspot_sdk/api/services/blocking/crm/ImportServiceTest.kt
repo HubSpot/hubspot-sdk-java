@@ -12,7 +12,7 @@ internal class ImportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val importService = client.crm().imports()
 
         val publicImportResponse =
@@ -29,7 +29,7 @@ internal class ImportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val importService = client.crm().imports()
 
         val page = importService.list()
@@ -40,7 +40,7 @@ internal class ImportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun cancel() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val importService = client.crm().imports()
 
         val actionResponse = importService.cancel(0L)
@@ -51,7 +51,7 @@ internal class ImportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val importService = client.crm().imports()
 
         val publicImportResponse = importService.get(0L)
@@ -62,7 +62,7 @@ internal class ImportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listErrors() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val importService = client.crm().imports()
 
         val page = importService.listErrors(0L)

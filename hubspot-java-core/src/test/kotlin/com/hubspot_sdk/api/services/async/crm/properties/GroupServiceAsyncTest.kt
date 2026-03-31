@@ -18,7 +18,7 @@ internal class GroupServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val groupServiceAsync = client.crm().properties().groups()
 
         val propertyGroupFuture =
@@ -42,7 +42,7 @@ internal class GroupServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val groupServiceAsync = client.crm().properties().groups()
 
         val propertyGroupFuture =
@@ -63,7 +63,7 @@ internal class GroupServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val groupServiceAsync = client.crm().properties().groups()
 
         val collectionResponsePropertyGroupNoPagingFuture =
@@ -79,7 +79,7 @@ internal class GroupServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val groupServiceAsync = client.crm().properties().groups()
 
         val future =
@@ -93,7 +93,7 @@ internal class GroupServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val groupServiceAsync = client.crm().properties().groups()
 
         val propertyGroupFuture =

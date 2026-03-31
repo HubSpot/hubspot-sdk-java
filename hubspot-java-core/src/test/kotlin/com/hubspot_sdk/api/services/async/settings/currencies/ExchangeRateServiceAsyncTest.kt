@@ -16,7 +16,7 @@ internal class ExchangeRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createExchangeRate() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val exchangeRateServiceAsync = client.settings().currencies().exchangeRates()
 
         val exchangeRateFuture =
@@ -35,7 +35,7 @@ internal class ExchangeRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getExchangeRateById() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val exchangeRateServiceAsync = client.settings().currencies().exchangeRates()
 
         val exchangeRateFuture = exchangeRateServiceAsync.getExchangeRateById("exchangeRateId")
@@ -47,7 +47,7 @@ internal class ExchangeRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listCurrentExchangeRates() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val exchangeRateServiceAsync = client.settings().currencies().exchangeRates()
 
         val collectionResponseExchangeRateNoPagingFuture =
@@ -61,7 +61,7 @@ internal class ExchangeRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listExchangeRates() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val exchangeRateServiceAsync = client.settings().currencies().exchangeRates()
 
         val pageFuture = exchangeRateServiceAsync.listExchangeRates()
@@ -73,7 +73,7 @@ internal class ExchangeRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateExchangeRate() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val exchangeRateServiceAsync = client.settings().currencies().exchangeRates()
 
         val exchangeRateFuture =
@@ -96,7 +96,7 @@ internal class ExchangeRateServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateVisibility() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val exchangeRateServiceAsync = client.settings().currencies().exchangeRates()
 
         val future =

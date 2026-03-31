@@ -16,7 +16,7 @@ internal class BudgetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val budgetService = client.marketing().campaigns().budget()
 
         val publicBudgetItem =
@@ -40,7 +40,7 @@ internal class BudgetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val budgetService = client.marketing().campaigns().budget()
 
         val publicBudgetItem =
@@ -65,7 +65,7 @@ internal class BudgetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val budgetService = client.marketing().campaigns().budget()
 
         budgetService.delete(
@@ -76,7 +76,7 @@ internal class BudgetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val budgetService = client.marketing().campaigns().budget()
 
         val publicBudgetItem =
@@ -90,7 +90,7 @@ internal class BudgetServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getTotals() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val budgetService = client.marketing().campaigns().budget()
 
         val publicBudgetTotals = budgetService.getTotals("campaignGuid")

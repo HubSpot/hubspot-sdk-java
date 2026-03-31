@@ -23,7 +23,7 @@ internal class ObjectSchemaServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
         val objectSchema =
@@ -84,7 +84,7 @@ internal class ObjectSchemaServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
         val objectTypeDefinition =
@@ -118,7 +118,7 @@ internal class ObjectSchemaServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
         val collectionResponseObjectSchemaNoPaging =
@@ -137,7 +137,7 @@ internal class ObjectSchemaServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
         objectSchemaService.delete(
@@ -148,7 +148,7 @@ internal class ObjectSchemaServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createAssociation() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
         val associationDefinition =
@@ -171,7 +171,7 @@ internal class ObjectSchemaServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteAssociation() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
         objectSchemaService.deleteAssociation(
@@ -185,7 +185,7 @@ internal class ObjectSchemaServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val objectSchemaService = client.crm().objectSchemas()
 
         val objectSchema =

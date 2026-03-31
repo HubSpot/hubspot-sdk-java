@@ -11,7 +11,7 @@ internal class AccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val accountService = client.account()
 
         val portalInformationResponse = accountService.get()
@@ -22,7 +22,7 @@ internal class AccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getDailyPrivateAppsUsage() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val accountService = client.account()
 
         val collectionResponseApiUsageNoPaging = accountService.getDailyPrivateAppsUsage()

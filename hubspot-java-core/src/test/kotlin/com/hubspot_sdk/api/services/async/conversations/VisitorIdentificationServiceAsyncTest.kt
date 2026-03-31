@@ -12,7 +12,7 @@ internal class VisitorIdentificationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun generateToken() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val visitorIdentificationServiceAsync = client.conversations().visitorIdentification()
 
         val identificationTokenResponseFuture =

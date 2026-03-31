@@ -20,7 +20,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByEventIdAndContactId() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().events().attendance()
 
         val batchResponseSubscriberVidResponse =
@@ -52,7 +52,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByEventIdAndEmail() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().events().attendance()
 
         val batchResponseSubscriberEmailResponse =
@@ -89,7 +89,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByExternalEventIdAndContactId() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().events().attendance()
 
         val batchResponseSubscriberVidResponse =
@@ -122,7 +122,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByExternalEventIdAndEmail() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().events().attendance()
 
         val batchResponseSubscriberEmailResponse =

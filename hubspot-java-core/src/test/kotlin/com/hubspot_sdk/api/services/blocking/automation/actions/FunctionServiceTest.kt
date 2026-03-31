@@ -18,7 +18,7 @@ internal class FunctionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val functionService = client.automation().actions().functions()
 
         val collectionResponsePublicActionFunctionIdentifierNoPaging =
@@ -32,7 +32,7 @@ internal class FunctionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val functionService = client.automation().actions().functions()
 
         functionService.delete(
@@ -48,7 +48,7 @@ internal class FunctionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOrReplace() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val functionService = client.automation().actions().functions()
 
         val publicActionFunctionIdentifier =
@@ -68,7 +68,7 @@ internal class FunctionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOrReplaceByFunctionType() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val functionService = client.automation().actions().functions()
 
         val publicActionFunctionIdentifier =
@@ -90,7 +90,7 @@ internal class FunctionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteByFunctionType() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val functionService = client.automation().actions().functions()
 
         functionService.deleteByFunctionType(
@@ -105,7 +105,7 @@ internal class FunctionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val functionService = client.automation().actions().functions()
 
         val publicActionFunction =
@@ -124,7 +124,7 @@ internal class FunctionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByFunctionType() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val functionService = client.automation().actions().functions()
 
         val publicActionFunction =

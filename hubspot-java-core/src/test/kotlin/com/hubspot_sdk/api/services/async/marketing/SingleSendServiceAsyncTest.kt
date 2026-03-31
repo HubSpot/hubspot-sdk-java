@@ -14,7 +14,7 @@ internal class SingleSendServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val singleSendServiceAsync = client.marketing().singleSend()
 
         val emailSendStatusViewFuture =

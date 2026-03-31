@@ -4,6 +4,8 @@ package com.hubspot_sdk.api.services
 
 import com.github.tomakehurst.wiremock.client.WireMock.anyUrl
 import com.github.tomakehurst.wiremock.client.WireMock.equalTo
+import com.github.tomakehurst.wiremock.client.WireMock.get
+import com.github.tomakehurst.wiremock.client.WireMock.getRequestedFor
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.postRequestedFor
@@ -19,6 +21,7 @@ import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInputForCreate
 import com.hubspot_sdk.api.models.crm.objects.contacts.ContactCreateParams
+import com.hubspot_sdk.api.models.crm.objects.contacts.ContactGetParams
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -35,7 +38,7 @@ internal class ServiceParamsTest {
         client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
     }
 
@@ -76,6 +79,32 @@ internal class ServiceParamsTest {
 
         verify(
             postRequestedFor(anyUrl())
+                .withHeader("Secret-Header", equalTo("42"))
+                .withQueryParam("secret_query_param", equalTo("42"))
+        )
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun get() {
+        val contactService = client.crm().objects().contacts()
+        stubFor(get(anyUrl()).willReturn(ok("{}")))
+
+        contactService.get(
+            ContactGetParams.builder()
+                .contactId("contactId")
+                .archived(true)
+                .addAssociation("string")
+                .idProperty("idProperty")
+                .addProperty("string")
+                .addPropertiesWithHistory("string")
+                .putAdditionalHeader("Secret-Header", "42")
+                .putAdditionalQueryParam("secret_query_param", "42")
+                .build()
+        )
+
+        verify(
+            getRequestedFor(anyUrl())
                 .withHeader("Secret-Header", equalTo("42"))
                 .withQueryParam("secret_query_param", equalTo("42"))
         )

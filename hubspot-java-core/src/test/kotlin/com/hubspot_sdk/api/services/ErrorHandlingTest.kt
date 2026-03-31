@@ -57,7 +57,7 @@ internal class ErrorHandlingTest {
         client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
     }
 

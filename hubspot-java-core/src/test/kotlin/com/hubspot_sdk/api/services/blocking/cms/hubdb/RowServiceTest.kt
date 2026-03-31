@@ -33,7 +33,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val hubDbTableRowV3 =
@@ -65,7 +65,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val page = rowService.list("tableIdOrName")
@@ -76,7 +76,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun cloneBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val batchResponseHubDbTableRowV3 =
@@ -102,7 +102,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun cloneDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val hubDbTableRowV3 =
@@ -120,7 +120,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val batchResponseHubDbTableRowV3 =
@@ -156,7 +156,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         rowService.deleteDraft(
@@ -170,7 +170,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val hubDbTableRowV3 =
@@ -188,7 +188,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val batchResponseHubDbTableRowV3 =
@@ -205,7 +205,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val hubDbTableRowV3 =
@@ -223,7 +223,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getDraftBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val batchResponseHubDbTableRowV3 =
@@ -240,7 +240,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun purgeBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val batchResponseHubDbTableRowV3 =
@@ -257,7 +257,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun replaceBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val batchResponseHubDbTableRowV3 =
@@ -294,7 +294,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun replaceDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val hubDbTableRowV3 =
@@ -327,7 +327,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateBatch() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val batchResponseHubDbTableRowV3 =
@@ -364,7 +364,7 @@ internal class RowServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
         val hubDbTableRowV3 =

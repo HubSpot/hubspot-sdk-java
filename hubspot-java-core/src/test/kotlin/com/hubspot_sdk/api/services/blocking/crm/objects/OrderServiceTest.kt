@@ -22,7 +22,7 @@ internal class OrderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val orderService = client.crm().objects().orders()
 
         val simplePublicObject =
@@ -55,7 +55,7 @@ internal class OrderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val orderService = client.crm().objects().orders()
 
         val simplePublicObject =
@@ -81,7 +81,7 @@ internal class OrderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val orderService = client.crm().objects().orders()
 
         val page = orderService.list()
@@ -92,7 +92,7 @@ internal class OrderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val orderService = client.crm().objects().orders()
 
         orderService.delete("orderId")
@@ -101,7 +101,7 @@ internal class OrderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val orderService = client.crm().objects().orders()
 
         val simplePublicObjectWithAssociations =
@@ -122,7 +122,7 @@ internal class OrderServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val orderService = client.crm().objects().orders()
 
         val collectionResponseWithTotalSimplePublicObject =

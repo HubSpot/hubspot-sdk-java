@@ -25,7 +25,7 @@ internal class ObjectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectServiceAsync = client.crm().objects().objects()
 
         val simplePublicObjectFuture =
@@ -64,7 +64,7 @@ internal class ObjectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectServiceAsync = client.crm().objects().objects()
 
         val simplePublicObjectFuture =
@@ -92,7 +92,7 @@ internal class ObjectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectServiceAsync = client.crm().objects().objects()
 
         val pageFuture = objectServiceAsync.list("objectType")
@@ -104,7 +104,7 @@ internal class ObjectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectServiceAsync = client.crm().objects().objects()
 
         val future =
@@ -118,7 +118,7 @@ internal class ObjectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectServiceAsync = client.crm().objects().objects()
 
         val simplePublicObjectWithAssociationsFuture =
@@ -141,7 +141,7 @@ internal class ObjectServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val objectServiceAsync = client.crm().objects().objects()
 
         val collectionResponseWithTotalSimplePublicObjectFuture =

@@ -15,7 +15,7 @@ internal class PropertiesValidationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeId() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertiesValidationService = client.crm().propertiesValidations()
 
         val collectionResponsePublicPropertyValidationRuleMapNoPaging =
@@ -27,7 +27,7 @@ internal class PropertiesValidationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeIdAndPropertyName() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertiesValidationService = client.crm().propertiesValidations()
 
         val collectionResponsePublicPropertyValidationRuleNoPaging =
@@ -44,7 +44,7 @@ internal class PropertiesValidationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypeIdPropertyNameAndRuleType() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertiesValidationService = client.crm().propertiesValidations()
 
         val publicPropertyValidationRule =
@@ -65,7 +65,7 @@ internal class PropertiesValidationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateByObjectTypeIdPropertyNameAndRuleType() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val propertiesValidationService = client.crm().propertiesValidations()
 
         propertiesValidationService.updateByObjectTypeIdPropertyNameAndRuleType(

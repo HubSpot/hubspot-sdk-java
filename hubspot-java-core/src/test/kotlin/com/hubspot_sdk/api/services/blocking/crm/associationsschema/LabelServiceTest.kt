@@ -20,7 +20,7 @@ internal class LabelServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchCreate() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val labelService = client.crm().associationsSchema().labels()
 
         val batchResponsePublicAssociationDefinitionUserConfiguration =
@@ -52,7 +52,7 @@ internal class LabelServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createLabel() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val labelService = client.crm().associationsSchema().labels()
 
         val collectionResponseAssociationSpecWithLabelNoPaging =
@@ -76,7 +76,7 @@ internal class LabelServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteLabel() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val labelService = client.crm().associationsSchema().labels()
 
         labelService.deleteLabel(
@@ -91,7 +91,7 @@ internal class LabelServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listLabels() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val labelService = client.crm().associationsSchema().labels()
 
         val collectionResponseAssociationSpecWithLabelNoPaging =
@@ -108,7 +108,7 @@ internal class LabelServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateLabel() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val labelService = client.crm().associationsSchema().labels()
 
         labelService.updateLabel(

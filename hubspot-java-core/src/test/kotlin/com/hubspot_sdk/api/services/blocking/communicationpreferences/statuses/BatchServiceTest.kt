@@ -17,7 +17,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getUnsubscribeAllStatuses() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicWideStatusBulkResponse =
@@ -35,7 +35,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun read() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicStatusBulkResponse =
@@ -53,7 +53,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun unsubscribeAll() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicBulkOptOutFromAllResponse =
@@ -72,7 +72,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateStatuses() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicStatus =

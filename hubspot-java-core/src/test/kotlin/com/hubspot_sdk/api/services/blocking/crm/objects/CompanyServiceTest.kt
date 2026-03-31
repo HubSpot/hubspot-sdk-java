@@ -23,7 +23,7 @@ internal class CompanyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val companyService = client.crm().objects().companies()
 
         val simplePublicObject =
@@ -56,7 +56,7 @@ internal class CompanyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val companyService = client.crm().objects().companies()
 
         val simplePublicObject =
@@ -82,7 +82,7 @@ internal class CompanyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val companyService = client.crm().objects().companies()
 
         val page = companyService.list()
@@ -93,7 +93,7 @@ internal class CompanyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val companyService = client.crm().objects().companies()
 
         companyService.delete("companyId")
@@ -102,7 +102,7 @@ internal class CompanyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val companyService = client.crm().objects().companies()
 
         val simplePublicObjectWithAssociations =
@@ -123,7 +123,7 @@ internal class CompanyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun merge() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val companyService = client.crm().objects().companies()
 
         val simplePublicObject =
@@ -140,7 +140,7 @@ internal class CompanyServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val companyService = client.crm().objects().companies()
 
         val collectionResponseWithTotalSimplePublicObject =

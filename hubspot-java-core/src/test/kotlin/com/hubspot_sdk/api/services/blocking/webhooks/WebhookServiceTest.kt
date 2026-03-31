@@ -42,7 +42,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createCrmSnapshot() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val crmObjectSnapshotBatchResponse =
@@ -65,7 +65,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createFilter() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val filterCreateResponse =
@@ -94,7 +94,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createJournalSubscription() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val subscriptionResponse1 =
@@ -115,7 +115,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createSubscription() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val subscriptionResponse =
@@ -142,7 +142,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteFilter() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         webhookService.deleteFilter(0L)
@@ -151,7 +151,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteJournalSubscription() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         webhookService.deleteJournalSubscription(0L)
@@ -160,7 +160,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deletePortalSubscriptions() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         webhookService.deletePortalSubscriptions(0L)
@@ -169,7 +169,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         webhookService.deleteSettings(0)
@@ -178,7 +178,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteSubscription() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         webhookService.deleteSubscription(
@@ -189,7 +189,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getFilter() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val filterResponse = webhookService.getFilter(0L)
@@ -200,7 +200,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getFiltersBySubscription() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val filterResponses = webhookService.getFiltersBySubscription(0L)
@@ -213,7 +213,7 @@ internal class WebhookServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val webhookService = client.webhooks().webhooks()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -231,7 +231,7 @@ internal class WebhookServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val webhookService = client.webhooks().webhooks()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -249,7 +249,7 @@ internal class WebhookServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val webhookService = client.webhooks().webhooks()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -268,7 +268,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getJournalStatus() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val snapshotStatusResponse =
@@ -282,7 +282,7 @@ internal class WebhookServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val webhookService = client.webhooks().webhooks()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -300,7 +300,7 @@ internal class WebhookServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val webhookService = client.webhooks().webhooks()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -318,7 +318,7 @@ internal class WebhookServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val webhookService = client.webhooks().webhooks()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -337,7 +337,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getLocalStatus() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val snapshotStatusResponse =
@@ -349,7 +349,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val settingsResponse = webhookService.getSettings(0)
@@ -360,7 +360,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getSubscription() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val subscriptionResponse =
@@ -374,7 +374,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listJournalSubscriptions() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val collectionResponseSubscriptionResponseNoPaging =
@@ -386,7 +386,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listSubscriptions() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val subscriptionListResponse = webhookService.listSubscriptions(0)
@@ -397,7 +397,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateSettings() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val settingsResponse =
@@ -421,7 +421,7 @@ internal class WebhookServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateSubscription() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val webhookService = client.webhooks().webhooks()
 
         val subscriptionResponse =

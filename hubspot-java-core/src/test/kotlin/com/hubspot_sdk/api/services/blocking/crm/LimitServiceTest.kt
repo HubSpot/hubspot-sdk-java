@@ -13,7 +13,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationLabelLimits() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val collectionResponseAssociationLabelLimitResponseNoPaging =
@@ -30,7 +30,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationRecordsLimitsByObjectType() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val associationRecordLimitResponse =
@@ -47,7 +47,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationRecordsLimitsFromObjects() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val collectionResponseObjectTypeNearOrAtAssociationLimitNoPaging =
@@ -59,7 +59,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAssociationRecordsLimitsToObjects() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val collectionResponseObjectTypeNearOrAtAssociationLimitNoPaging =
@@ -71,7 +71,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCalculatedPropertyLimits() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val calculatedPropertyLimitResponse = limitService.getCalculatedPropertyLimits()
@@ -82,7 +82,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCustomObjectTypeLimits() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val customObjectLimitResponse = limitService.getCustomObjectTypeLimits()
@@ -93,7 +93,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getCustomPropertyLimits() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val customPropertyLimitResponse = limitService.getCustomPropertyLimits()
@@ -104,7 +104,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getPipelineLimits() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val pipelineLimitResponse = limitService.getPipelineLimits()
@@ -115,7 +115,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRecordLimits() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().limits()
 
         val recordLimitResponse = limitService.getRecordLimits()

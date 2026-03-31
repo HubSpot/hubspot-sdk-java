@@ -41,7 +41,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -375,7 +375,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(patch(anyUrl()).willReturn(ok().withBody("abc")))
@@ -750,7 +750,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -779,7 +779,7 @@ internal class PostServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val postServiceAsync = client.cms().blogs().posts()
 
         val future =
@@ -795,7 +795,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -814,7 +814,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -837,7 +837,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -853,7 +853,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -884,7 +884,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -913,7 +913,7 @@ internal class PostServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun pushLive() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val postServiceAsync = client.cms().blogs().posts()
 
         val future = postServiceAsync.pushLive("objectId")
@@ -926,7 +926,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -957,7 +957,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -988,7 +988,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -1017,7 +1017,7 @@ internal class PostServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun resetDraft() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val postServiceAsync = client.cms().blogs().posts()
 
         val future = postServiceAsync.resetDraft("objectId")
@@ -1028,7 +1028,7 @@ internal class PostServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun schedule() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val postServiceAsync = client.cms().blogs().posts()
 
         val future =
@@ -1047,7 +1047,7 @@ internal class PostServiceAsyncTest {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val postServiceAsync = client.cms().blogs().posts()
         stubFor(patch(anyUrl()).willReturn(ok().withBody("abc")))

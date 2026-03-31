@@ -26,7 +26,7 @@ internal class OAuthServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val oauthService = client.auth().oauth()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -51,7 +51,7 @@ internal class OAuthServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun introspectToken() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val oauthService = client.auth().oauth()
 
         val tokenInfoResponseBaseIf =
@@ -72,7 +72,7 @@ internal class OAuthServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val oauthService = client.auth().oauth()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

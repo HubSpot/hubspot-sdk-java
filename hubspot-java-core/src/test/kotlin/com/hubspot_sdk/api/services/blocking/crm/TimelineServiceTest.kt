@@ -16,7 +16,7 @@ internal class TimelineServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createEvent() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val timelineService = client.crm().timeline()
 
         timelineService.createEvent(
@@ -51,7 +51,7 @@ internal class TimelineServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createProjectType() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val timelineService = client.crm().timeline()
 
         val appEventResolutionResponse =

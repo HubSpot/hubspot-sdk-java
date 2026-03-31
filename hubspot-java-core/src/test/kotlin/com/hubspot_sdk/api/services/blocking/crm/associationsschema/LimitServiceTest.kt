@@ -18,7 +18,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         val collectionResponsePublicAssociationDefinitionUserConfigurationNoPaging =
@@ -30,7 +30,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchDelete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         val batchResponseVoid =
@@ -57,7 +57,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchUpdate() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         val batchResponsePublicAssociationDefinitionConfigurationUpdateResult =
@@ -89,7 +89,7 @@ internal class LimitServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypes() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
         val collectionResponsePublicAssociationDefinitionUserConfigurationNoPaging =

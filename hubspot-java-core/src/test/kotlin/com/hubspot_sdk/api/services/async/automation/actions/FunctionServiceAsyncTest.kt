@@ -18,7 +18,7 @@ internal class FunctionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val functionServiceAsync = client.automation().actions().functions()
 
         val collectionResponsePublicActionFunctionIdentifierNoPagingFuture =
@@ -34,7 +34,7 @@ internal class FunctionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val functionServiceAsync = client.automation().actions().functions()
 
         val future =
@@ -53,7 +53,7 @@ internal class FunctionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOrReplace() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val functionServiceAsync = client.automation().actions().functions()
 
         val publicActionFunctionIdentifierFuture =
@@ -74,7 +74,7 @@ internal class FunctionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOrReplaceByFunctionType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val functionServiceAsync = client.automation().actions().functions()
 
         val publicActionFunctionIdentifierFuture =
@@ -97,7 +97,7 @@ internal class FunctionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteByFunctionType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val functionServiceAsync = client.automation().actions().functions()
 
         val future =
@@ -117,7 +117,7 @@ internal class FunctionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val functionServiceAsync = client.automation().actions().functions()
 
         val publicActionFunctionFuture =
@@ -137,7 +137,7 @@ internal class FunctionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByFunctionType() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val functionServiceAsync = client.automation().actions().functions()
 
         val publicActionFunctionFuture =

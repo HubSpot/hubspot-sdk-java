@@ -23,7 +23,7 @@ internal class AdvancedServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val advancedService = client.scheduler().meetings().advanced()
 
         val externalCalenderMeetingEventResponse =
@@ -93,7 +93,7 @@ internal class AdvancedServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun book() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val advancedService = client.scheduler().meetings().advanced()
 
         val externalMeetingBookingResponse =

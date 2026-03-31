@@ -13,7 +13,7 @@ internal class AuditLogServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val auditLogService = client.cms().auditLogs()
 
         val page = auditLogService.list()
@@ -24,7 +24,7 @@ internal class AuditLogServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun export() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val auditLogService = client.cms().auditLogs()
 
         auditLogService.export(

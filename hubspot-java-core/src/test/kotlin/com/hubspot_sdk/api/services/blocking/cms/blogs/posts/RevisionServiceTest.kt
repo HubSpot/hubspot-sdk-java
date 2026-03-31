@@ -27,7 +27,7 @@ internal class RevisionServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val revisionService = client.cms().blogs().posts().revisions()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -48,7 +48,7 @@ internal class RevisionServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val revisionService = client.cms().blogs().posts().revisions()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -71,7 +71,7 @@ internal class RevisionServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val revisionService = client.cms().blogs().posts().revisions()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -92,7 +92,7 @@ internal class RevisionServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val revisionService = client.cms().blogs().posts().revisions()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))

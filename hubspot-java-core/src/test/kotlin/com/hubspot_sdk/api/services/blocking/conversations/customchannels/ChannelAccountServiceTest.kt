@@ -18,7 +18,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccount =
@@ -47,7 +47,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccount =
@@ -70,7 +70,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val page = channelAccountService.list(0)
@@ -81,7 +81,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateStagingToken() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccountStagingToken =

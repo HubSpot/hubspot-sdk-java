@@ -25,7 +25,7 @@ internal class UrlMappingServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val urlMappingService = client.cms().urlMappings()
         stubFor(post(anyUrl()).willReturn(ok().withBody("abc")))
@@ -70,7 +70,7 @@ internal class UrlMappingServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val urlMappingService = client.cms().urlMappings()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
@@ -83,7 +83,7 @@ internal class UrlMappingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val urlMappingService = client.cms().urlMappings()
 
         urlMappingService.delete(0L)
@@ -94,7 +94,7 @@ internal class UrlMappingServiceTest {
         val client =
             HubspotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
-                .accessToken("pat-na1-xxxxxxxx-xxxx")
+                .accessToken("My Access Token")
                 .build()
         val urlMappingService = client.cms().urlMappings()
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
