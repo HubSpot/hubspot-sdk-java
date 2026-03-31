@@ -11,17 +11,17 @@ import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.cms.pages.BatchResponseContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentFolderVersion
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFoldersBatchParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsPage
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersPage
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateFolderParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderBatchGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListPage
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsPage
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateParams
 import java.util.function.Consumer
 
 interface FolderService {
@@ -39,240 +39,217 @@ interface FolderService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderService
 
     /** Create a new folder for landing pages. */
-    fun createFolder(params: FolderCreateFolderParams): ContentFolder =
-        createFolder(params, RequestOptions.none())
+    fun create(params: FolderCreateParams): ContentFolder = create(params, RequestOptions.none())
 
-    /** @see createFolder */
-    fun createFolder(
-        params: FolderCreateFolderParams,
+    /** @see create */
+    fun create(
+        params: FolderCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ContentFolder
 
-    /** @see createFolder */
-    fun createFolder(
+    /** @see create */
+    fun create(
         contentFolder: ContentFolder,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ContentFolder =
-        createFolder(
-            FolderCreateFolderParams.builder().contentFolder(contentFolder).build(),
-            requestOptions,
-        )
+        create(FolderCreateParams.builder().contentFolder(contentFolder).build(), requestOptions)
 
-    /** @see createFolder */
-    fun createFolder(contentFolder: ContentFolder): ContentFolder =
-        createFolder(contentFolder, RequestOptions.none())
+    /** @see create */
+    fun create(contentFolder: ContentFolder): ContentFolder =
+        create(contentFolder, RequestOptions.none())
 
-    /** Delete a landing page folder, specified by its ID. */
-    fun deleteFolder(objectId: String) = deleteFolder(objectId, FolderDeleteFolderParams.none())
+    /**
+     * Partially update a landing page folder, specified by the folder ID. You only need to specify
+     * the details values that you are modifying.
+     */
+    fun update(objectId: String, params: FolderUpdateParams): ContentFolder =
+        update(objectId, params, RequestOptions.none())
 
-    /** @see deleteFolder */
-    fun deleteFolder(
+    /** @see update */
+    fun update(
         objectId: String,
-        params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
+        params: FolderUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = deleteFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): ContentFolder = update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see deleteFolder */
-    fun deleteFolder(
-        objectId: String,
-        params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
-    ) = deleteFolder(objectId, params, RequestOptions.none())
+    /** @see update */
+    fun update(params: FolderUpdateParams): ContentFolder = update(params, RequestOptions.none())
 
-    /** @see deleteFolder */
-    fun deleteFolder(
-        params: FolderDeleteFolderParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see deleteFolder */
-    fun deleteFolder(params: FolderDeleteFolderParams) = deleteFolder(params, RequestOptions.none())
-
-    /** @see deleteFolder */
-    fun deleteFolder(objectId: String, requestOptions: RequestOptions) =
-        deleteFolder(objectId, FolderDeleteFolderParams.none(), requestOptions)
-
-    /** Retrieve a landing page folder, specified by its ID. */
-    fun getFolder(objectId: String): ContentFolder =
-        getFolder(objectId, FolderGetFolderParams.none())
-
-    /** @see getFolder */
-    fun getFolder(
-        objectId: String,
-        params: FolderGetFolderParams = FolderGetFolderParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ContentFolder = getFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see getFolder */
-    fun getFolder(
-        objectId: String,
-        params: FolderGetFolderParams = FolderGetFolderParams.none(),
-    ): ContentFolder = getFolder(objectId, params, RequestOptions.none())
-
-    /** @see getFolder */
-    fun getFolder(
-        params: FolderGetFolderParams,
+    /** @see update */
+    fun update(
+        params: FolderUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ContentFolder
-
-    /** @see getFolder */
-    fun getFolder(params: FolderGetFolderParams): ContentFolder =
-        getFolder(params, RequestOptions.none())
-
-    /** @see getFolder */
-    fun getFolder(objectId: String, requestOptions: RequestOptions): ContentFolder =
-        getFolder(objectId, FolderGetFolderParams.none(), requestOptions)
-
-    /** Retrieve a previous version of a folder, specified by the folder ID and revision ID. */
-    fun getFolderRevision(
-        revisionId: String,
-        params: FolderGetFolderRevisionParams,
-    ): ContentFolderVersion = getFolderRevision(revisionId, params, RequestOptions.none())
-
-    /** @see getFolderRevision */
-    fun getFolderRevision(
-        revisionId: String,
-        params: FolderGetFolderRevisionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ContentFolderVersion =
-        getFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-    /** @see getFolderRevision */
-    fun getFolderRevision(params: FolderGetFolderRevisionParams): ContentFolderVersion =
-        getFolderRevision(params, RequestOptions.none())
-
-    /** @see getFolderRevision */
-    fun getFolderRevision(
-        params: FolderGetFolderRevisionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ContentFolderVersion
-
-    /** Retrieve a batch of landing page folders as identified in the request body. */
-    fun getFoldersBatch(params: FolderGetFoldersBatchParams): BatchResponseContentFolder =
-        getFoldersBatch(params, RequestOptions.none())
-
-    /** @see getFoldersBatch */
-    fun getFoldersBatch(
-        params: FolderGetFoldersBatchParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseContentFolder
-
-    /** @see getFoldersBatch */
-    fun getFoldersBatch(
-        batchInputString: BatchInputString,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseContentFolder =
-        getFoldersBatch(
-            FolderGetFoldersBatchParams.builder().batchInputString(batchInputString).build(),
-            requestOptions,
-        )
-
-    /** @see getFoldersBatch */
-    fun getFoldersBatch(batchInputString: BatchInputString): BatchResponseContentFolder =
-        getFoldersBatch(batchInputString, RequestOptions.none())
-
-    /** Retrieves all the previous versions of a landing page folder. */
-    fun listFolderRevisions(objectId: String): FolderListFolderRevisionsPage =
-        listFolderRevisions(objectId, FolderListFolderRevisionsParams.none())
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        objectId: String,
-        params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): FolderListFolderRevisionsPage =
-        listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        objectId: String,
-        params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-    ): FolderListFolderRevisionsPage = listFolderRevisions(objectId, params, RequestOptions.none())
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        params: FolderListFolderRevisionsParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): FolderListFolderRevisionsPage
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        params: FolderListFolderRevisionsParams
-    ): FolderListFolderRevisionsPage = listFolderRevisions(params, RequestOptions.none())
-
-    /** @see listFolderRevisions */
-    fun listFolderRevisions(
-        objectId: String,
-        requestOptions: RequestOptions,
-    ): FolderListFolderRevisionsPage =
-        listFolderRevisions(objectId, FolderListFolderRevisionsParams.none(), requestOptions)
 
     /**
      * Get the list of Landing Page Folders. Supports paging and filtering. This method would be
      * useful for an integration that examined these models and used an external service to suggest
      * edits.
      */
-    fun listFolders(): FolderListFoldersPage = listFolders(FolderListFoldersParams.none())
+    fun list(): FolderListPage = list(FolderListParams.none())
 
-    /** @see listFolders */
-    fun listFolders(
-        params: FolderListFoldersParams = FolderListFoldersParams.none(),
+    /** @see list */
+    fun list(
+        params: FolderListParams = FolderListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FolderListFoldersPage
+    ): FolderListPage
 
-    /** @see listFolders */
-    fun listFolders(
-        params: FolderListFoldersParams = FolderListFoldersParams.none()
-    ): FolderListFoldersPage = listFolders(params, RequestOptions.none())
+    /** @see list */
+    fun list(params: FolderListParams = FolderListParams.none()): FolderListPage =
+        list(params, RequestOptions.none())
 
-    /** @see listFolders */
-    fun listFolders(requestOptions: RequestOptions): FolderListFoldersPage =
-        listFolders(FolderListFoldersParams.none(), requestOptions)
+    /** @see list */
+    fun list(requestOptions: RequestOptions): FolderListPage =
+        list(FolderListParams.none(), requestOptions)
 
-    /** Takes a specified version of a landing page folder and restores it. */
-    fun restoreFolderRevision(
-        revisionId: String,
-        params: FolderRestoreFolderRevisionParams,
-    ): ContentFolder = restoreFolderRevision(revisionId, params, RequestOptions.none())
+    /** Delete a landing page folder, specified by its ID. */
+    fun delete(objectId: String) = delete(objectId, FolderDeleteParams.none())
 
-    /** @see restoreFolderRevision */
-    fun restoreFolderRevision(
-        revisionId: String,
-        params: FolderRestoreFolderRevisionParams,
+    /** @see delete */
+    fun delete(
+        objectId: String,
+        params: FolderDeleteParams = FolderDeleteParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ContentFolder =
-        restoreFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+    ) = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see restoreFolderRevision */
-    fun restoreFolderRevision(params: FolderRestoreFolderRevisionParams): ContentFolder =
-        restoreFolderRevision(params, RequestOptions.none())
+    /** @see delete */
+    fun delete(objectId: String, params: FolderDeleteParams = FolderDeleteParams.none()) =
+        delete(objectId, params, RequestOptions.none())
 
-    /** @see restoreFolderRevision */
-    fun restoreFolderRevision(
-        params: FolderRestoreFolderRevisionParams,
+    /** @see delete */
+    fun delete(params: FolderDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
+
+    /** @see delete */
+    fun delete(params: FolderDeleteParams) = delete(params, RequestOptions.none())
+
+    /** @see delete */
+    fun delete(objectId: String, requestOptions: RequestOptions) =
+        delete(objectId, FolderDeleteParams.none(), requestOptions)
+
+    /** Retrieve a batch of landing page folders as identified in the request body. */
+    fun batchGet(params: FolderBatchGetParams): BatchResponseContentFolder =
+        batchGet(params, RequestOptions.none())
+
+    /** @see batchGet */
+    fun batchGet(
+        params: FolderBatchGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseContentFolder
+
+    /** @see batchGet */
+    fun batchGet(
+        batchInputString: BatchInputString,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): BatchResponseContentFolder =
+        batchGet(
+            FolderBatchGetParams.builder().batchInputString(batchInputString).build(),
+            requestOptions,
+        )
+
+    /** @see batchGet */
+    fun batchGet(batchInputString: BatchInputString): BatchResponseContentFolder =
+        batchGet(batchInputString, RequestOptions.none())
+
+    /** Retrieve a landing page folder, specified by its ID. */
+    fun get(objectId: String): ContentFolder = get(objectId, FolderGetParams.none())
+
+    /** @see get */
+    fun get(
+        objectId: String,
+        params: FolderGetParams = FolderGetParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ContentFolder = get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see get */
+    fun get(objectId: String, params: FolderGetParams = FolderGetParams.none()): ContentFolder =
+        get(objectId, params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: FolderGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ContentFolder
 
-    /**
-     * Partially update a landing page folder, specified by the folder ID. You only need to specify
-     * the details values that you are modifying.
-     */
-    fun updateFolder(objectId: String, params: FolderUpdateFolderParams): ContentFolder =
-        updateFolder(objectId, params, RequestOptions.none())
+    /** @see get */
+    fun get(params: FolderGetParams): ContentFolder = get(params, RequestOptions.none())
 
-    /** @see updateFolder */
-    fun updateFolder(
-        objectId: String,
-        params: FolderUpdateFolderParams,
+    /** @see get */
+    fun get(objectId: String, requestOptions: RequestOptions): ContentFolder =
+        get(objectId, FolderGetParams.none(), requestOptions)
+
+    /** Retrieve a previous version of a folder, specified by the folder ID and revision ID. */
+    fun getRevision(revisionId: String, params: FolderGetRevisionParams): ContentFolderVersion =
+        getRevision(revisionId, params, RequestOptions.none())
+
+    /** @see getRevision */
+    fun getRevision(
+        revisionId: String,
+        params: FolderGetRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ContentFolder = updateFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): ContentFolderVersion =
+        getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-    /** @see updateFolder */
-    fun updateFolder(params: FolderUpdateFolderParams): ContentFolder =
-        updateFolder(params, RequestOptions.none())
+    /** @see getRevision */
+    fun getRevision(params: FolderGetRevisionParams): ContentFolderVersion =
+        getRevision(params, RequestOptions.none())
 
-    /** @see updateFolder */
-    fun updateFolder(
-        params: FolderUpdateFolderParams,
+    /** @see getRevision */
+    fun getRevision(
+        params: FolderGetRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ContentFolderVersion
+
+    /** Retrieves all the previous versions of a landing page folder. */
+    fun listRevisions(objectId: String): FolderListRevisionsPage =
+        listRevisions(objectId, FolderListRevisionsParams.none())
+
+    /** @see listRevisions */
+    fun listRevisions(
+        objectId: String,
+        params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): FolderListRevisionsPage =
+        listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see listRevisions */
+    fun listRevisions(
+        objectId: String,
+        params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+    ): FolderListRevisionsPage = listRevisions(objectId, params, RequestOptions.none())
+
+    /** @see listRevisions */
+    fun listRevisions(
+        params: FolderListRevisionsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): FolderListRevisionsPage
+
+    /** @see listRevisions */
+    fun listRevisions(params: FolderListRevisionsParams): FolderListRevisionsPage =
+        listRevisions(params, RequestOptions.none())
+
+    /** @see listRevisions */
+    fun listRevisions(objectId: String, requestOptions: RequestOptions): FolderListRevisionsPage =
+        listRevisions(objectId, FolderListRevisionsParams.none(), requestOptions)
+
+    /** Takes a specified version of a landing page folder and restores it. */
+    fun restoreRevision(revisionId: String, params: FolderRestoreRevisionParams): ContentFolder =
+        restoreRevision(revisionId, params, RequestOptions.none())
+
+    /** @see restoreRevision */
+    fun restoreRevision(
+        revisionId: String,
+        params: FolderRestoreRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ContentFolder =
+        restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+    /** @see restoreRevision */
+    fun restoreRevision(params: FolderRestoreRevisionParams): ContentFolder =
+        restoreRevision(params, RequestOptions.none())
+
+    /** @see restoreRevision */
+    fun restoreRevision(
+        params: FolderRestoreRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ContentFolder
 
@@ -288,329 +265,314 @@ interface FolderService {
 
         /**
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/folders`, but is
-         * otherwise the same as [FolderService.createFolder].
+         * otherwise the same as [FolderService.create].
          */
         @MustBeClosed
-        fun createFolder(params: FolderCreateFolderParams): HttpResponseFor<ContentFolder> =
-            createFolder(params, RequestOptions.none())
+        fun create(params: FolderCreateParams): HttpResponseFor<ContentFolder> =
+            create(params, RequestOptions.none())
 
-        /** @see createFolder */
+        /** @see create */
         @MustBeClosed
-        fun createFolder(
-            params: FolderCreateFolderParams,
+        fun create(
+            params: FolderCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ContentFolder>
 
-        /** @see createFolder */
+        /** @see create */
         @MustBeClosed
-        fun createFolder(
+        fun create(
             contentFolder: ContentFolder,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ContentFolder> =
-            createFolder(
-                FolderCreateFolderParams.builder().contentFolder(contentFolder).build(),
+            create(
+                FolderCreateParams.builder().contentFolder(contentFolder).build(),
                 requestOptions,
             )
 
-        /** @see createFolder */
+        /** @see create */
         @MustBeClosed
-        fun createFolder(contentFolder: ContentFolder): HttpResponseFor<ContentFolder> =
-            createFolder(contentFolder, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `delete
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
-         * [FolderService.deleteFolder].
-         */
-        @MustBeClosed
-        fun deleteFolder(objectId: String): HttpResponse =
-            deleteFolder(objectId, FolderDeleteFolderParams.none())
-
-        /** @see deleteFolder */
-        @MustBeClosed
-        fun deleteFolder(
-            objectId: String,
-            params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            deleteFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see deleteFolder */
-        @MustBeClosed
-        fun deleteFolder(
-            objectId: String,
-            params: FolderDeleteFolderParams = FolderDeleteFolderParams.none(),
-        ): HttpResponse = deleteFolder(objectId, params, RequestOptions.none())
-
-        /** @see deleteFolder */
-        @MustBeClosed
-        fun deleteFolder(
-            params: FolderDeleteFolderParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see deleteFolder */
-        @MustBeClosed
-        fun deleteFolder(params: FolderDeleteFolderParams): HttpResponse =
-            deleteFolder(params, RequestOptions.none())
-
-        /** @see deleteFolder */
-        @MustBeClosed
-        fun deleteFolder(objectId: String, requestOptions: RequestOptions): HttpResponse =
-            deleteFolder(objectId, FolderDeleteFolderParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
-         * [FolderService.getFolder].
-         */
-        @MustBeClosed
-        fun getFolder(objectId: String): HttpResponseFor<ContentFolder> =
-            getFolder(objectId, FolderGetFolderParams.none())
-
-        /** @see getFolder */
-        @MustBeClosed
-        fun getFolder(
-            objectId: String,
-            params: FolderGetFolderParams = FolderGetFolderParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ContentFolder> =
-            getFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see getFolder */
-        @MustBeClosed
-        fun getFolder(
-            objectId: String,
-            params: FolderGetFolderParams = FolderGetFolderParams.none(),
-        ): HttpResponseFor<ContentFolder> = getFolder(objectId, params, RequestOptions.none())
-
-        /** @see getFolder */
-        @MustBeClosed
-        fun getFolder(
-            params: FolderGetFolderParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ContentFolder>
-
-        /** @see getFolder */
-        @MustBeClosed
-        fun getFolder(params: FolderGetFolderParams): HttpResponseFor<ContentFolder> =
-            getFolder(params, RequestOptions.none())
-
-        /** @see getFolder */
-        @MustBeClosed
-        fun getFolder(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ContentFolder> =
-            getFolder(objectId, FolderGetFolderParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}`, but is
-         * otherwise the same as [FolderService.getFolderRevision].
-         */
-        @MustBeClosed
-        fun getFolderRevision(
-            revisionId: String,
-            params: FolderGetFolderRevisionParams,
-        ): HttpResponseFor<ContentFolderVersion> =
-            getFolderRevision(revisionId, params, RequestOptions.none())
-
-        /** @see getFolderRevision */
-        @MustBeClosed
-        fun getFolderRevision(
-            revisionId: String,
-            params: FolderGetFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ContentFolderVersion> =
-            getFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see getFolderRevision */
-        @MustBeClosed
-        fun getFolderRevision(
-            params: FolderGetFolderRevisionParams
-        ): HttpResponseFor<ContentFolderVersion> = getFolderRevision(params, RequestOptions.none())
-
-        /** @see getFolderRevision */
-        @MustBeClosed
-        fun getFolderRevision(
-            params: FolderGetFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ContentFolderVersion>
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/folders/batch/read`, but is otherwise the same as
-         * [FolderService.getFoldersBatch].
-         */
-        @MustBeClosed
-        fun getFoldersBatch(
-            params: FolderGetFoldersBatchParams
-        ): HttpResponseFor<BatchResponseContentFolder> =
-            getFoldersBatch(params, RequestOptions.none())
-
-        /** @see getFoldersBatch */
-        @MustBeClosed
-        fun getFoldersBatch(
-            params: FolderGetFoldersBatchParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseContentFolder>
-
-        /** @see getFoldersBatch */
-        @MustBeClosed
-        fun getFoldersBatch(
-            batchInputString: BatchInputString,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseContentFolder> =
-            getFoldersBatch(
-                FolderGetFoldersBatchParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
-
-        /** @see getFoldersBatch */
-        @MustBeClosed
-        fun getFoldersBatch(
-            batchInputString: BatchInputString
-        ): HttpResponseFor<BatchResponseContentFolder> =
-            getFoldersBatch(batchInputString, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions`, but is otherwise the same
-         * as [FolderService.listFolderRevisions].
-         */
-        @MustBeClosed
-        fun listFolderRevisions(objectId: String): HttpResponseFor<FolderListFolderRevisionsPage> =
-            listFolderRevisions(objectId, FolderListFolderRevisionsParams.none())
-
-        /** @see listFolderRevisions */
-        @MustBeClosed
-        fun listFolderRevisions(
-            objectId: String,
-            params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FolderListFolderRevisionsPage> =
-            listFolderRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see listFolderRevisions */
-        @MustBeClosed
-        fun listFolderRevisions(
-            objectId: String,
-            params: FolderListFolderRevisionsParams = FolderListFolderRevisionsParams.none(),
-        ): HttpResponseFor<FolderListFolderRevisionsPage> =
-            listFolderRevisions(objectId, params, RequestOptions.none())
-
-        /** @see listFolderRevisions */
-        @MustBeClosed
-        fun listFolderRevisions(
-            params: FolderListFolderRevisionsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FolderListFolderRevisionsPage>
-
-        /** @see listFolderRevisions */
-        @MustBeClosed
-        fun listFolderRevisions(
-            params: FolderListFolderRevisionsParams
-        ): HttpResponseFor<FolderListFolderRevisionsPage> =
-            listFolderRevisions(params, RequestOptions.none())
-
-        /** @see listFolderRevisions */
-        @MustBeClosed
-        fun listFolderRevisions(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<FolderListFolderRevisionsPage> =
-            listFolderRevisions(objectId, FolderListFolderRevisionsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders`, but is
-         * otherwise the same as [FolderService.listFolders].
-         */
-        @MustBeClosed
-        fun listFolders(): HttpResponseFor<FolderListFoldersPage> =
-            listFolders(FolderListFoldersParams.none())
-
-        /** @see listFolders */
-        @MustBeClosed
-        fun listFolders(
-            params: FolderListFoldersParams = FolderListFoldersParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FolderListFoldersPage>
-
-        /** @see listFolders */
-        @MustBeClosed
-        fun listFolders(
-            params: FolderListFoldersParams = FolderListFoldersParams.none()
-        ): HttpResponseFor<FolderListFoldersPage> = listFolders(params, RequestOptions.none())
-
-        /** @see listFolders */
-        @MustBeClosed
-        fun listFolders(requestOptions: RequestOptions): HttpResponseFor<FolderListFoldersPage> =
-            listFolders(FolderListFoldersParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}/restore`, but
-         * is otherwise the same as [FolderService.restoreFolderRevision].
-         */
-        @MustBeClosed
-        fun restoreFolderRevision(
-            revisionId: String,
-            params: FolderRestoreFolderRevisionParams,
-        ): HttpResponseFor<ContentFolder> =
-            restoreFolderRevision(revisionId, params, RequestOptions.none())
-
-        /** @see restoreFolderRevision */
-        @MustBeClosed
-        fun restoreFolderRevision(
-            revisionId: String,
-            params: FolderRestoreFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ContentFolder> =
-            restoreFolderRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see restoreFolderRevision */
-        @MustBeClosed
-        fun restoreFolderRevision(
-            params: FolderRestoreFolderRevisionParams
-        ): HttpResponseFor<ContentFolder> = restoreFolderRevision(params, RequestOptions.none())
-
-        /** @see restoreFolderRevision */
-        @MustBeClosed
-        fun restoreFolderRevision(
-            params: FolderRestoreFolderRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ContentFolder>
+        fun create(contentFolder: ContentFolder): HttpResponseFor<ContentFolder> =
+            create(contentFolder, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch
          * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
-         * [FolderService.updateFolder].
+         * [FolderService.update].
          */
         @MustBeClosed
-        fun updateFolder(
-            objectId: String,
-            params: FolderUpdateFolderParams,
-        ): HttpResponseFor<ContentFolder> = updateFolder(objectId, params, RequestOptions.none())
+        fun update(objectId: String, params: FolderUpdateParams): HttpResponseFor<ContentFolder> =
+            update(objectId, params, RequestOptions.none())
 
-        /** @see updateFolder */
+        /** @see update */
         @MustBeClosed
-        fun updateFolder(
+        fun update(
             objectId: String,
-            params: FolderUpdateFolderParams,
+            params: FolderUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ContentFolder> =
-            updateFolder(params.toBuilder().objectId(objectId).build(), requestOptions)
+            update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see updateFolder */
+        /** @see update */
         @MustBeClosed
-        fun updateFolder(params: FolderUpdateFolderParams): HttpResponseFor<ContentFolder> =
-            updateFolder(params, RequestOptions.none())
+        fun update(params: FolderUpdateParams): HttpResponseFor<ContentFolder> =
+            update(params, RequestOptions.none())
 
-        /** @see updateFolder */
+        /** @see update */
         @MustBeClosed
-        fun updateFolder(
-            params: FolderUpdateFolderParams,
+        fun update(
+            params: FolderUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ContentFolder>
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders`, but is
+         * otherwise the same as [FolderService.list].
+         */
+        @MustBeClosed fun list(): HttpResponseFor<FolderListPage> = list(FolderListParams.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: FolderListParams = FolderListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<FolderListPage>
+
+        /** @see list */
+        @MustBeClosed
+        fun list(
+            params: FolderListParams = FolderListParams.none()
+        ): HttpResponseFor<FolderListPage> = list(params, RequestOptions.none())
+
+        /** @see list */
+        @MustBeClosed
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FolderListPage> =
+            list(FolderListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
+         * [FolderService.delete].
+         */
+        @MustBeClosed
+        fun delete(objectId: String): HttpResponse = delete(objectId, FolderDeleteParams.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            objectId: String,
+            params: FolderDeleteParams = FolderDeleteParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse = delete(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            objectId: String,
+            params: FolderDeleteParams = FolderDeleteParams.none(),
+        ): HttpResponse = delete(objectId, params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(
+            params: FolderDeleteParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(params: FolderDeleteParams): HttpResponse = delete(params, RequestOptions.none())
+
+        /** @see delete */
+        @MustBeClosed
+        fun delete(objectId: String, requestOptions: RequestOptions): HttpResponse =
+            delete(objectId, FolderDeleteParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/folders/batch/read`, but is otherwise the same as
+         * [FolderService.batchGet].
+         */
+        @MustBeClosed
+        fun batchGet(params: FolderBatchGetParams): HttpResponseFor<BatchResponseContentFolder> =
+            batchGet(params, RequestOptions.none())
+
+        /** @see batchGet */
+        @MustBeClosed
+        fun batchGet(
+            params: FolderBatchGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseContentFolder>
+
+        /** @see batchGet */
+        @MustBeClosed
+        fun batchGet(
+            batchInputString: BatchInputString,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<BatchResponseContentFolder> =
+            batchGet(
+                FolderBatchGetParams.builder().batchInputString(batchInputString).build(),
+                requestOptions,
+            )
+
+        /** @see batchGet */
+        @MustBeClosed
+        fun batchGet(
+            batchInputString: BatchInputString
+        ): HttpResponseFor<BatchResponseContentFolder> =
+            batchGet(batchInputString, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}`, but is otherwise the same as
+         * [FolderService.get].
+         */
+        @MustBeClosed
+        fun get(objectId: String): HttpResponseFor<ContentFolder> =
+            get(objectId, FolderGetParams.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            objectId: String,
+            params: FolderGetParams = FolderGetParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ContentFolder> =
+            get(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            objectId: String,
+            params: FolderGetParams = FolderGetParams.none(),
+        ): HttpResponseFor<ContentFolder> = get(objectId, params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(
+            params: FolderGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ContentFolder>
+
+        /** @see get */
+        @MustBeClosed
+        fun get(params: FolderGetParams): HttpResponseFor<ContentFolder> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        @MustBeClosed
+        fun get(objectId: String, requestOptions: RequestOptions): HttpResponseFor<ContentFolder> =
+            get(objectId, FolderGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}`, but is
+         * otherwise the same as [FolderService.getRevision].
+         */
+        @MustBeClosed
+        fun getRevision(
+            revisionId: String,
+            params: FolderGetRevisionParams,
+        ): HttpResponseFor<ContentFolderVersion> =
+            getRevision(revisionId, params, RequestOptions.none())
+
+        /** @see getRevision */
+        @MustBeClosed
+        fun getRevision(
+            revisionId: String,
+            params: FolderGetRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ContentFolderVersion> =
+            getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+        /** @see getRevision */
+        @MustBeClosed
+        fun getRevision(params: FolderGetRevisionParams): HttpResponseFor<ContentFolderVersion> =
+            getRevision(params, RequestOptions.none())
+
+        /** @see getRevision */
+        @MustBeClosed
+        fun getRevision(
+            params: FolderGetRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ContentFolderVersion>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions`, but is otherwise the same
+         * as [FolderService.listRevisions].
+         */
+        @MustBeClosed
+        fun listRevisions(objectId: String): HttpResponseFor<FolderListRevisionsPage> =
+            listRevisions(objectId, FolderListRevisionsParams.none())
+
+        /** @see listRevisions */
+        @MustBeClosed
+        fun listRevisions(
+            objectId: String,
+            params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<FolderListRevisionsPage> =
+            listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see listRevisions */
+        @MustBeClosed
+        fun listRevisions(
+            objectId: String,
+            params: FolderListRevisionsParams = FolderListRevisionsParams.none(),
+        ): HttpResponseFor<FolderListRevisionsPage> =
+            listRevisions(objectId, params, RequestOptions.none())
+
+        /** @see listRevisions */
+        @MustBeClosed
+        fun listRevisions(
+            params: FolderListRevisionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<FolderListRevisionsPage>
+
+        /** @see listRevisions */
+        @MustBeClosed
+        fun listRevisions(
+            params: FolderListRevisionsParams
+        ): HttpResponseFor<FolderListRevisionsPage> = listRevisions(params, RequestOptions.none())
+
+        /** @see listRevisions */
+        @MustBeClosed
+        fun listRevisions(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<FolderListRevisionsPage> =
+            listRevisions(objectId, FolderListRevisionsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}/restore`, but
+         * is otherwise the same as [FolderService.restoreRevision].
+         */
+        @MustBeClosed
+        fun restoreRevision(
+            revisionId: String,
+            params: FolderRestoreRevisionParams,
+        ): HttpResponseFor<ContentFolder> =
+            restoreRevision(revisionId, params, RequestOptions.none())
+
+        /** @see restoreRevision */
+        @MustBeClosed
+        fun restoreRevision(
+            revisionId: String,
+            params: FolderRestoreRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ContentFolder> =
+            restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+        /** @see restoreRevision */
+        @MustBeClosed
+        fun restoreRevision(params: FolderRestoreRevisionParams): HttpResponseFor<ContentFolder> =
+            restoreRevision(params, RequestOptions.none())
+
+        /** @see restoreRevision */
+        @MustBeClosed
+        fun restoreRevision(
+            params: FolderRestoreRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ContentFolder>
     }

@@ -9,18 +9,23 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.pages.CursorPagedResultContentFolderLong
 import com.hubspot_sdk.api.models.cms.pages.CursorPagedResultPageLong
 import com.hubspot_sdk.api.models.cms.pages.Page
-import com.hubspot_sdk.api.models.cms.pages.PageGetRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.PageListLandingPageFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.PageListLandingPagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageListRevisionsPageAsync
-import com.hubspot_sdk.api.models.cms.pages.PageListRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.PageListSitePagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageQueryLandingPageFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.PageQueryLandingPagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageQuerySitePagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageResetDraftParams
-import com.hubspot_sdk.api.models.cms.pages.PageRestoreRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.PageRestoreRevisionToDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPagesByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPagesParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePagesByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePagesParams
+import com.hubspot_sdk.api.models.cms.pages.PageListLandingPageRevisionsPageAsync
+import com.hubspot_sdk.api.models.cms.pages.PageListLandingPageRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.PageListSitePageRevisionsPageAsync
+import com.hubspot_sdk.api.models.cms.pages.PageListSitePageRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.PageResetSitePageDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreLandingPageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreLandingPageRevisionToDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreSitePageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreSitePageRevisionToDraftParams
 import com.hubspot_sdk.api.models.cms.pages.PageVersion
 import com.hubspot_sdk.api.services.async.cms.pages.ABTestServiceAsync
 import com.hubspot_sdk.api.services.async.cms.pages.BatchServiceAsync
@@ -57,270 +62,411 @@ interface PageServiceAsync {
 
     fun websitePages(): WebsitePageServiceAsync
 
-    /** Retrieve a previous version of a website page by the revision ID. */
-    fun getRevision(
-        revisionId: String,
-        params: PageGetRevisionParams,
-    ): CompletableFuture<PageVersion> = getRevision(revisionId, params, RequestOptions.none())
+    fun getLandingPageFolders(): CompletableFuture<CursorPagedResultContentFolderLong> =
+        getLandingPageFolders(PageGetLandingPageFoldersParams.none())
 
-    /** @see getRevision */
-    fun getRevision(
+    /** @see getLandingPageFolders */
+    fun getLandingPageFolders(
+        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CursorPagedResultContentFolderLong>
+
+    /** @see getLandingPageFolders */
+    fun getLandingPageFolders(
+        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
+    ): CompletableFuture<CursorPagedResultContentFolderLong> =
+        getLandingPageFolders(params, RequestOptions.none())
+
+    /** @see getLandingPageFolders */
+    fun getLandingPageFolders(
+        requestOptions: RequestOptions
+    ): CompletableFuture<CursorPagedResultContentFolderLong> =
+        getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
+
+    fun getLandingPageFoldersByQuery(): CompletableFuture<CursorPagedResultContentFolderLong> =
+        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
+
+    /** @see getLandingPageFoldersByQuery */
+    fun getLandingPageFoldersByQuery(
+        params: PageGetLandingPageFoldersByQueryParams =
+            PageGetLandingPageFoldersByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CursorPagedResultContentFolderLong>
+
+    /** @see getLandingPageFoldersByQuery */
+    fun getLandingPageFoldersByQuery(
+        params: PageGetLandingPageFoldersByQueryParams =
+            PageGetLandingPageFoldersByQueryParams.none()
+    ): CompletableFuture<CursorPagedResultContentFolderLong> =
+        getLandingPageFoldersByQuery(params, RequestOptions.none())
+
+    /** @see getLandingPageFoldersByQuery */
+    fun getLandingPageFoldersByQuery(
+        requestOptions: RequestOptions
+    ): CompletableFuture<CursorPagedResultContentFolderLong> =
+        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none(), requestOptions)
+
+    /** Retrieve a previous version of a landing page, specified by page ID and revision ID. */
+    fun getLandingPageRevision(
         revisionId: String,
-        params: PageGetRevisionParams,
+        params: PageGetLandingPageRevisionParams,
+    ): CompletableFuture<PageVersion> =
+        getLandingPageRevision(revisionId, params, RequestOptions.none())
+
+    /** @see getLandingPageRevision */
+    fun getLandingPageRevision(
+        revisionId: String,
+        params: PageGetLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PageVersion> =
-        getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+        getLandingPageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-    /** @see getRevision */
-    fun getRevision(params: PageGetRevisionParams): CompletableFuture<PageVersion> =
-        getRevision(params, RequestOptions.none())
+    /** @see getLandingPageRevision */
+    fun getLandingPageRevision(
+        params: PageGetLandingPageRevisionParams
+    ): CompletableFuture<PageVersion> = getLandingPageRevision(params, RequestOptions.none())
 
-    /** @see getRevision */
-    fun getRevision(
-        params: PageGetRevisionParams,
+    /** @see getLandingPageRevision */
+    fun getLandingPageRevision(
+        params: PageGetLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PageVersion>
 
-    fun listLandingPageFolders(): CompletableFuture<CursorPagedResultContentFolderLong> =
-        listLandingPageFolders(PageListLandingPageFoldersParams.none())
+    fun getLandingPages(): CompletableFuture<CursorPagedResultPageLong> =
+        getLandingPages(PageGetLandingPagesParams.none())
 
-    /** @see listLandingPageFolders */
-    fun listLandingPageFolders(
-        params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultContentFolderLong>
-
-    /** @see listLandingPageFolders */
-    fun listLandingPageFolders(
-        params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none()
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        listLandingPageFolders(params, RequestOptions.none())
-
-    /** @see listLandingPageFolders */
-    fun listLandingPageFolders(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        listLandingPageFolders(PageListLandingPageFoldersParams.none(), requestOptions)
-
-    fun listLandingPages(): CompletableFuture<CursorPagedResultPageLong> =
-        listLandingPages(PageListLandingPagesParams.none())
-
-    /** @see listLandingPages */
-    fun listLandingPages(
-        params: PageListLandingPagesParams = PageListLandingPagesParams.none(),
+    /** @see getLandingPages */
+    fun getLandingPages(
+        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CursorPagedResultPageLong>
 
-    /** @see listLandingPages */
-    fun listLandingPages(
-        params: PageListLandingPagesParams = PageListLandingPagesParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        listLandingPages(params, RequestOptions.none())
+    /** @see getLandingPages */
+    fun getLandingPages(
+        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
+    ): CompletableFuture<CursorPagedResultPageLong> = getLandingPages(params, RequestOptions.none())
 
-    /** @see listLandingPages */
-    fun listLandingPages(
+    /** @see getLandingPages */
+    fun getLandingPages(
         requestOptions: RequestOptions
     ): CompletableFuture<CursorPagedResultPageLong> =
-        listLandingPages(PageListLandingPagesParams.none(), requestOptions)
+        getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
 
-    /** Retrieves all the previous versions of a website page, specified by page ID. */
-    fun listRevisions(objectId: String): CompletableFuture<PageListRevisionsPageAsync> =
-        listRevisions(objectId, PageListRevisionsParams.none())
+    fun getLandingPagesByQuery(): CompletableFuture<CursorPagedResultPageLong> =
+        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
 
-    /** @see listRevisions */
-    fun listRevisions(
-        objectId: String,
-        params: PageListRevisionsParams = PageListRevisionsParams.none(),
+    /** @see getLandingPagesByQuery */
+    fun getLandingPagesByQuery(
+        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageListRevisionsPageAsync> =
-        listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): CompletableFuture<CursorPagedResultPageLong>
 
-    /** @see listRevisions */
-    fun listRevisions(
-        objectId: String,
-        params: PageListRevisionsParams = PageListRevisionsParams.none(),
-    ): CompletableFuture<PageListRevisionsPageAsync> =
-        listRevisions(objectId, params, RequestOptions.none())
+    /** @see getLandingPagesByQuery */
+    fun getLandingPagesByQuery(
+        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
+    ): CompletableFuture<CursorPagedResultPageLong> =
+        getLandingPagesByQuery(params, RequestOptions.none())
 
-    /** @see listRevisions */
-    fun listRevisions(
-        params: PageListRevisionsParams,
+    /** @see getLandingPagesByQuery */
+    fun getLandingPagesByQuery(
+        requestOptions: RequestOptions
+    ): CompletableFuture<CursorPagedResultPageLong> =
+        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
+
+    /** Retrieve a previous version of a website page by the revision ID. */
+    fun getSitePageRevision(
+        revisionId: String,
+        params: PageGetSitePageRevisionParams,
+    ): CompletableFuture<PageVersion> =
+        getSitePageRevision(revisionId, params, RequestOptions.none())
+
+    /** @see getSitePageRevision */
+    fun getSitePageRevision(
+        revisionId: String,
+        params: PageGetSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PageListRevisionsPageAsync>
+    ): CompletableFuture<PageVersion> =
+        getSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-    /** @see listRevisions */
-    fun listRevisions(
-        params: PageListRevisionsParams
-    ): CompletableFuture<PageListRevisionsPageAsync> = listRevisions(params, RequestOptions.none())
+    /** @see getSitePageRevision */
+    fun getSitePageRevision(params: PageGetSitePageRevisionParams): CompletableFuture<PageVersion> =
+        getSitePageRevision(params, RequestOptions.none())
 
-    /** @see listRevisions */
-    fun listRevisions(
+    /** @see getSitePageRevision */
+    fun getSitePageRevision(
+        params: PageGetSitePageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PageVersion>
+
+    fun getSitePages(): CompletableFuture<CursorPagedResultPageLong> =
+        getSitePages(PageGetSitePagesParams.none())
+
+    /** @see getSitePages */
+    fun getSitePages(
+        params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CursorPagedResultPageLong>
+
+    /** @see getSitePages */
+    fun getSitePages(
+        params: PageGetSitePagesParams = PageGetSitePagesParams.none()
+    ): CompletableFuture<CursorPagedResultPageLong> = getSitePages(params, RequestOptions.none())
+
+    /** @see getSitePages */
+    fun getSitePages(requestOptions: RequestOptions): CompletableFuture<CursorPagedResultPageLong> =
+        getSitePages(PageGetSitePagesParams.none(), requestOptions)
+
+    fun getSitePagesByQuery(): CompletableFuture<CursorPagedResultPageLong> =
+        getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
+
+    /** @see getSitePagesByQuery */
+    fun getSitePagesByQuery(
+        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CursorPagedResultPageLong>
+
+    /** @see getSitePagesByQuery */
+    fun getSitePagesByQuery(
+        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
+    ): CompletableFuture<CursorPagedResultPageLong> =
+        getSitePagesByQuery(params, RequestOptions.none())
+
+    /** @see getSitePagesByQuery */
+    fun getSitePagesByQuery(
+        requestOptions: RequestOptions
+    ): CompletableFuture<CursorPagedResultPageLong> =
+        getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
+
+    /** Retrieve all the previous versions of a landing page, specified by page ID. */
+    fun listLandingPageRevisions(
+        objectId: String
+    ): CompletableFuture<PageListLandingPageRevisionsPageAsync> =
+        listLandingPageRevisions(objectId, PageListLandingPageRevisionsParams.none())
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        objectId: String,
+        params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PageListLandingPageRevisionsPageAsync> =
+        listLandingPageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        objectId: String,
+        params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+    ): CompletableFuture<PageListLandingPageRevisionsPageAsync> =
+        listLandingPageRevisions(objectId, params, RequestOptions.none())
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        params: PageListLandingPageRevisionsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PageListLandingPageRevisionsPageAsync>
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        params: PageListLandingPageRevisionsParams
+    ): CompletableFuture<PageListLandingPageRevisionsPageAsync> =
+        listLandingPageRevisions(params, RequestOptions.none())
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
         objectId: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<PageListRevisionsPageAsync> =
-        listRevisions(objectId, PageListRevisionsParams.none(), requestOptions)
+    ): CompletableFuture<PageListLandingPageRevisionsPageAsync> =
+        listLandingPageRevisions(
+            objectId,
+            PageListLandingPageRevisionsParams.none(),
+            requestOptions,
+        )
 
-    fun listSitePages(): CompletableFuture<CursorPagedResultPageLong> =
-        listSitePages(PageListSitePagesParams.none())
+    /** Retrieves all the previous versions of a website page, specified by page ID. */
+    fun listSitePageRevisions(
+        objectId: String
+    ): CompletableFuture<PageListSitePageRevisionsPageAsync> =
+        listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none())
 
-    /** @see listSitePages */
-    fun listSitePages(
-        params: PageListSitePagesParams = PageListSitePagesParams.none(),
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        objectId: String,
+        params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultPageLong>
+    ): CompletableFuture<PageListSitePageRevisionsPageAsync> =
+        listSitePageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see listSitePages */
-    fun listSitePages(
-        params: PageListSitePagesParams = PageListSitePagesParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> = listSitePages(params, RequestOptions.none())
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        objectId: String,
+        params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
+    ): CompletableFuture<PageListSitePageRevisionsPageAsync> =
+        listSitePageRevisions(objectId, params, RequestOptions.none())
 
-    /** @see listSitePages */
-    fun listSitePages(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        listSitePages(PageListSitePagesParams.none(), requestOptions)
-
-    fun queryLandingPageFolders(): CompletableFuture<CursorPagedResultContentFolderLong> =
-        queryLandingPageFolders(PageQueryLandingPageFoldersParams.none())
-
-    /** @see queryLandingPageFolders */
-    fun queryLandingPageFolders(
-        params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none(),
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        params: PageListSitePageRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultContentFolderLong>
+    ): CompletableFuture<PageListSitePageRevisionsPageAsync>
 
-    /** @see queryLandingPageFolders */
-    fun queryLandingPageFolders(
-        params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none()
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        queryLandingPageFolders(params, RequestOptions.none())
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        params: PageListSitePageRevisionsParams
+    ): CompletableFuture<PageListSitePageRevisionsPageAsync> =
+        listSitePageRevisions(params, RequestOptions.none())
 
-    /** @see queryLandingPageFolders */
-    fun queryLandingPageFolders(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultContentFolderLong> =
-        queryLandingPageFolders(PageQueryLandingPageFoldersParams.none(), requestOptions)
-
-    fun queryLandingPages(): CompletableFuture<CursorPagedResultPageLong> =
-        queryLandingPages(PageQueryLandingPagesParams.none())
-
-    /** @see queryLandingPages */
-    fun queryLandingPages(
-        params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultPageLong>
-
-    /** @see queryLandingPages */
-    fun queryLandingPages(
-        params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        queryLandingPages(params, RequestOptions.none())
-
-    /** @see queryLandingPages */
-    fun queryLandingPages(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        queryLandingPages(PageQueryLandingPagesParams.none(), requestOptions)
-
-    fun querySitePages(): CompletableFuture<CursorPagedResultPageLong> =
-        querySitePages(PageQuerySitePagesParams.none())
-
-    /** @see querySitePages */
-    fun querySitePages(
-        params: PageQuerySitePagesParams = PageQuerySitePagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CursorPagedResultPageLong>
-
-    /** @see querySitePages */
-    fun querySitePages(
-        params: PageQuerySitePagesParams = PageQuerySitePagesParams.none()
-    ): CompletableFuture<CursorPagedResultPageLong> = querySitePages(params, RequestOptions.none())
-
-    /** @see querySitePages */
-    fun querySitePages(
-        requestOptions: RequestOptions
-    ): CompletableFuture<CursorPagedResultPageLong> =
-        querySitePages(PageQuerySitePagesParams.none(), requestOptions)
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        objectId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PageListSitePageRevisionsPageAsync> =
+        listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none(), requestOptions)
 
     /** Discards any edits and resets the draft to match the live version. */
-    fun resetDraft(objectId: String): CompletableFuture<Void?> =
-        resetDraft(objectId, PageResetDraftParams.none())
+    fun resetSitePageDraft(objectId: String): CompletableFuture<Void?> =
+        resetSitePageDraft(objectId, PageResetSitePageDraftParams.none())
 
-    /** @see resetDraft */
-    fun resetDraft(
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(
         objectId: String,
-        params: PageResetDraftParams = PageResetDraftParams.none(),
+        params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+        resetSitePageDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see resetDraft */
-    fun resetDraft(
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(
         objectId: String,
-        params: PageResetDraftParams = PageResetDraftParams.none(),
-    ): CompletableFuture<Void?> = resetDraft(objectId, params, RequestOptions.none())
+        params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
+    ): CompletableFuture<Void?> = resetSitePageDraft(objectId, params, RequestOptions.none())
 
-    /** @see resetDraft */
-    fun resetDraft(
-        params: PageResetDraftParams,
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(
+        params: PageResetSitePageDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see resetDraft */
-    fun resetDraft(params: PageResetDraftParams): CompletableFuture<Void?> =
-        resetDraft(params, RequestOptions.none())
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(params: PageResetSitePageDraftParams): CompletableFuture<Void?> =
+        resetSitePageDraft(params, RequestOptions.none())
 
-    /** @see resetDraft */
-    fun resetDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        resetDraft(objectId, PageResetDraftParams.none(), requestOptions)
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(
+        objectId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        resetSitePageDraft(objectId, PageResetSitePageDraftParams.none(), requestOptions)
 
-    /** Restores a website page to a previous version, specified by page ID and version ID. */
-    fun restoreRevision(
+    /** Restores a previous version of a landing page, specified by page ID and revision ID. */
+    fun restoreLandingPageRevision(
         revisionId: String,
-        params: PageRestoreRevisionParams,
-    ): CompletableFuture<Page> = restoreRevision(revisionId, params, RequestOptions.none())
+        params: PageRestoreLandingPageRevisionParams,
+    ): CompletableFuture<Page> =
+        restoreLandingPageRevision(revisionId, params, RequestOptions.none())
 
-    /** @see restoreRevision */
-    fun restoreRevision(
+    /** @see restoreLandingPageRevision */
+    fun restoreLandingPageRevision(
         revisionId: String,
-        params: PageRestoreRevisionParams,
+        params: PageRestoreLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Page> =
-        restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+        restoreLandingPageRevision(
+            params.toBuilder().revisionId(revisionId).build(),
+            requestOptions,
+        )
 
-    /** @see restoreRevision */
-    fun restoreRevision(params: PageRestoreRevisionParams): CompletableFuture<Page> =
-        restoreRevision(params, RequestOptions.none())
+    /** @see restoreLandingPageRevision */
+    fun restoreLandingPageRevision(
+        params: PageRestoreLandingPageRevisionParams
+    ): CompletableFuture<Page> = restoreLandingPageRevision(params, RequestOptions.none())
 
-    /** @see restoreRevision */
-    fun restoreRevision(
-        params: PageRestoreRevisionParams,
+    /** @see restoreLandingPageRevision */
+    fun restoreLandingPageRevision(
+        params: PageRestoreLandingPageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Page>
+
+    /** Specify a previous version of a landing page to set as the page draft. */
+    fun restoreLandingPageRevisionToDraft(
+        revisionId: Long,
+        params: PageRestoreLandingPageRevisionToDraftParams,
+    ): CompletableFuture<Page> =
+        restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
+
+    /** @see restoreLandingPageRevisionToDraft */
+    fun restoreLandingPageRevisionToDraft(
+        revisionId: Long,
+        params: PageRestoreLandingPageRevisionToDraftParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Page> =
+        restoreLandingPageRevisionToDraft(
+            params.toBuilder().revisionId(revisionId).build(),
+            requestOptions,
+        )
+
+    /** @see restoreLandingPageRevisionToDraft */
+    fun restoreLandingPageRevisionToDraft(
+        params: PageRestoreLandingPageRevisionToDraftParams
+    ): CompletableFuture<Page> = restoreLandingPageRevisionToDraft(params, RequestOptions.none())
+
+    /** @see restoreLandingPageRevisionToDraft */
+    fun restoreLandingPageRevisionToDraft(
+        params: PageRestoreLandingPageRevisionToDraftParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Page>
+
+    /** Restores a website page to a previous version, specified by page ID and version ID. */
+    fun restoreSitePageRevision(
+        revisionId: String,
+        params: PageRestoreSitePageRevisionParams,
+    ): CompletableFuture<Page> = restoreSitePageRevision(revisionId, params, RequestOptions.none())
+
+    /** @see restoreSitePageRevision */
+    fun restoreSitePageRevision(
+        revisionId: String,
+        params: PageRestoreSitePageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Page> =
+        restoreSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+    /** @see restoreSitePageRevision */
+    fun restoreSitePageRevision(
+        params: PageRestoreSitePageRevisionParams
+    ): CompletableFuture<Page> = restoreSitePageRevision(params, RequestOptions.none())
+
+    /** @see restoreSitePageRevision */
+    fun restoreSitePageRevision(
+        params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Page>
 
     /**
      * Takes a specified version of a website page and sets it as the new draft version of the page.
      */
-    fun restoreRevisionToDraft(
+    fun restoreSitePageRevisionToDraft(
         revisionId: Long,
-        params: PageRestoreRevisionToDraftParams,
-    ): CompletableFuture<Page> = restoreRevisionToDraft(revisionId, params, RequestOptions.none())
+        params: PageRestoreSitePageRevisionToDraftParams,
+    ): CompletableFuture<Page> =
+        restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
 
-    /** @see restoreRevisionToDraft */
-    fun restoreRevisionToDraft(
+    /** @see restoreSitePageRevisionToDraft */
+    fun restoreSitePageRevisionToDraft(
         revisionId: Long,
-        params: PageRestoreRevisionToDraftParams,
+        params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Page> =
-        restoreRevisionToDraft(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+        restoreSitePageRevisionToDraft(
+            params.toBuilder().revisionId(revisionId).build(),
+            requestOptions,
+        )
 
-    /** @see restoreRevisionToDraft */
-    fun restoreRevisionToDraft(params: PageRestoreRevisionToDraftParams): CompletableFuture<Page> =
-        restoreRevisionToDraft(params, RequestOptions.none())
+    /** @see restoreSitePageRevisionToDraft */
+    fun restoreSitePageRevisionToDraft(
+        params: PageRestoreSitePageRevisionToDraftParams
+    ): CompletableFuture<Page> = restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
-    /** @see restoreRevisionToDraft */
-    fun restoreRevisionToDraft(
-        params: PageRestoreRevisionToDraftParams,
+    /** @see restoreSitePageRevisionToDraft */
+    fun restoreSitePageRevisionToDraft(
+        params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Page>
 
@@ -347,332 +493,494 @@ interface PageServiceAsync {
         fun websitePages(): WebsitePageServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
-         * same as [PageServiceAsync.getRevision].
-         */
-        fun getRevision(
-            revisionId: String,
-            params: PageGetRevisionParams,
-        ): CompletableFuture<HttpResponseFor<PageVersion>> =
-            getRevision(revisionId, params, RequestOptions.none())
-
-        /** @see getRevision */
-        fun getRevision(
-            revisionId: String,
-            params: PageGetRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageVersion>> =
-            getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see getRevision */
-        fun getRevision(
-            params: PageGetRevisionParams
-        ): CompletableFuture<HttpResponseFor<PageVersion>> =
-            getRevision(params, RequestOptions.none())
-
-        /** @see getRevision */
-        fun getRevision(
-            params: PageGetRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageVersion>>
-
-        /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders/cursor`,
-         * but is otherwise the same as [PageServiceAsync.listLandingPageFolders].
+         * but is otherwise the same as [PageServiceAsync.getLandingPageFolders].
          */
-        fun listLandingPageFolders():
+        fun getLandingPageFolders():
             CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            listLandingPageFolders(PageListLandingPageFoldersParams.none())
+            getLandingPageFolders(PageGetLandingPageFoldersParams.none())
 
-        /** @see listLandingPageFolders */
-        fun listLandingPageFolders(
-            params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none(),
+        /** @see getLandingPageFolders */
+        fun getLandingPageFolders(
+            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>>
 
-        /** @see listLandingPageFolders */
-        fun listLandingPageFolders(
-            params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none()
+        /** @see getLandingPageFolders */
+        fun getLandingPageFolders(
+            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
         ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            listLandingPageFolders(params, RequestOptions.none())
+            getLandingPageFolders(params, RequestOptions.none())
 
-        /** @see listLandingPageFolders */
-        fun listLandingPageFolders(
+        /** @see getLandingPageFolders */
+        fun getLandingPageFolders(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            listLandingPageFolders(PageListLandingPageFoldersParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor`, but is
-         * otherwise the same as [PageServiceAsync.listLandingPages].
-         */
-        fun listLandingPages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            listLandingPages(PageListLandingPagesParams.none())
-
-        /** @see listLandingPages */
-        fun listLandingPages(
-            params: PageListLandingPagesParams = PageListLandingPagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
-
-        /** @see listLandingPages */
-        fun listLandingPages(
-            params: PageListLandingPagesParams = PageListLandingPagesParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            listLandingPages(params, RequestOptions.none())
-
-        /** @see listLandingPages */
-        fun listLandingPages(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            listLandingPages(PageListLandingPagesParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/{objectId}/revisions`,
-         * but is otherwise the same as [PageServiceAsync.listRevisions].
-         */
-        fun listRevisions(
-            objectId: String
-        ): CompletableFuture<HttpResponseFor<PageListRevisionsPageAsync>> =
-            listRevisions(objectId, PageListRevisionsParams.none())
-
-        /** @see listRevisions */
-        fun listRevisions(
-            objectId: String,
-            params: PageListRevisionsParams = PageListRevisionsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageListRevisionsPageAsync>> =
-            listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see listRevisions */
-        fun listRevisions(
-            objectId: String,
-            params: PageListRevisionsParams = PageListRevisionsParams.none(),
-        ): CompletableFuture<HttpResponseFor<PageListRevisionsPageAsync>> =
-            listRevisions(objectId, params, RequestOptions.none())
-
-        /** @see listRevisions */
-        fun listRevisions(
-            params: PageListRevisionsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PageListRevisionsPageAsync>>
-
-        /** @see listRevisions */
-        fun listRevisions(
-            params: PageListRevisionsParams
-        ): CompletableFuture<HttpResponseFor<PageListRevisionsPageAsync>> =
-            listRevisions(params, RequestOptions.none())
-
-        /** @see listRevisions */
-        fun listRevisions(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<PageListRevisionsPageAsync>> =
-            listRevisions(objectId, PageListRevisionsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor`, but is
-         * otherwise the same as [PageServiceAsync.listSitePages].
-         */
-        fun listSitePages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            listSitePages(PageListSitePagesParams.none())
-
-        /** @see listSitePages */
-        fun listSitePages(
-            params: PageListSitePagesParams = PageListSitePagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
-
-        /** @see listSitePages */
-        fun listSitePages(
-            params: PageListSitePagesParams = PageListSitePagesParams.none()
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            listSitePages(params, RequestOptions.none())
-
-        /** @see listSitePages */
-        fun listSitePages(
-            requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            listSitePages(PageListSitePagesParams.none(), requestOptions)
+            getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
          * /cms/pages/2026-03/landing-pages/folders/cursor/query`, but is otherwise the same as
-         * [PageServiceAsync.queryLandingPageFolders].
+         * [PageServiceAsync.getLandingPageFoldersByQuery].
          */
-        fun queryLandingPageFolders():
+        fun getLandingPageFoldersByQuery():
             CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            queryLandingPageFolders(PageQueryLandingPageFoldersParams.none())
+            getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
 
-        /** @see queryLandingPageFolders */
-        fun queryLandingPageFolders(
-            params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none(),
+        /** @see getLandingPageFoldersByQuery */
+        fun getLandingPageFoldersByQuery(
+            params: PageGetLandingPageFoldersByQueryParams =
+                PageGetLandingPageFoldersByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>>
 
-        /** @see queryLandingPageFolders */
-        fun queryLandingPageFolders(
-            params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none()
+        /** @see getLandingPageFoldersByQuery */
+        fun getLandingPageFoldersByQuery(
+            params: PageGetLandingPageFoldersByQueryParams =
+                PageGetLandingPageFoldersByQueryParams.none()
         ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            queryLandingPageFolders(params, RequestOptions.none())
+            getLandingPageFoldersByQuery(params, RequestOptions.none())
 
-        /** @see queryLandingPageFolders */
-        fun queryLandingPageFolders(
+        /** @see getLandingPageFoldersByQuery */
+        fun getLandingPageFoldersByQuery(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CursorPagedResultContentFolderLong>> =
-            queryLandingPageFolders(PageQueryLandingPageFoldersParams.none(), requestOptions)
+            getLandingPageFoldersByQuery(
+                PageGetLandingPageFoldersByQueryParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
+         * same as [PageServiceAsync.getLandingPageRevision].
+         */
+        fun getLandingPageRevision(
+            revisionId: String,
+            params: PageGetLandingPageRevisionParams,
+        ): CompletableFuture<HttpResponseFor<PageVersion>> =
+            getLandingPageRevision(revisionId, params, RequestOptions.none())
+
+        /** @see getLandingPageRevision */
+        fun getLandingPageRevision(
+            revisionId: String,
+            params: PageGetLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageVersion>> =
+            getLandingPageRevision(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
+
+        /** @see getLandingPageRevision */
+        fun getLandingPageRevision(
+            params: PageGetLandingPageRevisionParams
+        ): CompletableFuture<HttpResponseFor<PageVersion>> =
+            getLandingPageRevision(params, RequestOptions.none())
+
+        /** @see getLandingPageRevision */
+        fun getLandingPageRevision(
+            params: PageGetLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageVersion>>
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor`, but is
+         * otherwise the same as [PageServiceAsync.getLandingPages].
+         */
+        fun getLandingPages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getLandingPages(PageGetLandingPagesParams.none())
+
+        /** @see getLandingPages */
+        fun getLandingPages(
+            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
+
+        /** @see getLandingPages */
+        fun getLandingPages(
+            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
+        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getLandingPages(params, RequestOptions.none())
+
+        /** @see getLandingPages */
+        fun getLandingPages(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor/query`, but
-         * is otherwise the same as [PageServiceAsync.queryLandingPages].
+         * is otherwise the same as [PageServiceAsync.getLandingPagesByQuery].
          */
-        fun queryLandingPages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            queryLandingPages(PageQueryLandingPagesParams.none())
+        fun getLandingPagesByQuery():
+            CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
 
-        /** @see queryLandingPages */
-        fun queryLandingPages(
-            params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none(),
+        /** @see getLandingPagesByQuery */
+        fun getLandingPagesByQuery(
+            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
 
-        /** @see queryLandingPages */
-        fun queryLandingPages(
-            params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none()
+        /** @see getLandingPagesByQuery */
+        fun getLandingPagesByQuery(
+            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
         ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            queryLandingPages(params, RequestOptions.none())
+            getLandingPagesByQuery(params, RequestOptions.none())
 
-        /** @see queryLandingPages */
-        fun queryLandingPages(
+        /** @see getLandingPagesByQuery */
+        fun getLandingPagesByQuery(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            queryLandingPages(PageQueryLandingPagesParams.none(), requestOptions)
+            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
+         * same as [PageServiceAsync.getSitePageRevision].
+         */
+        fun getSitePageRevision(
+            revisionId: String,
+            params: PageGetSitePageRevisionParams,
+        ): CompletableFuture<HttpResponseFor<PageVersion>> =
+            getSitePageRevision(revisionId, params, RequestOptions.none())
+
+        /** @see getSitePageRevision */
+        fun getSitePageRevision(
+            revisionId: String,
+            params: PageGetSitePageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageVersion>> =
+            getSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+        /** @see getSitePageRevision */
+        fun getSitePageRevision(
+            params: PageGetSitePageRevisionParams
+        ): CompletableFuture<HttpResponseFor<PageVersion>> =
+            getSitePageRevision(params, RequestOptions.none())
+
+        /** @see getSitePageRevision */
+        fun getSitePageRevision(
+            params: PageGetSitePageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageVersion>>
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor`, but is
+         * otherwise the same as [PageServiceAsync.getSitePages].
+         */
+        fun getSitePages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getSitePages(PageGetSitePagesParams.none())
+
+        /** @see getSitePages */
+        fun getSitePages(
+            params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
+
+        /** @see getSitePages */
+        fun getSitePages(
+            params: PageGetSitePagesParams = PageGetSitePagesParams.none()
+        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getSitePages(params, RequestOptions.none())
+
+        /** @see getSitePages */
+        fun getSitePages(
+            requestOptions: RequestOptions
+        ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getSitePages(PageGetSitePagesParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor/query`, but is
-         * otherwise the same as [PageServiceAsync.querySitePages].
+         * otherwise the same as [PageServiceAsync.getSitePagesByQuery].
          */
-        fun querySitePages(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            querySitePages(PageQuerySitePagesParams.none())
+        fun getSitePagesByQuery(): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
+            getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
 
-        /** @see querySitePages */
-        fun querySitePages(
-            params: PageQuerySitePagesParams = PageQuerySitePagesParams.none(),
+        /** @see getSitePagesByQuery */
+        fun getSitePagesByQuery(
+            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>>
 
-        /** @see querySitePages */
-        fun querySitePages(
-            params: PageQuerySitePagesParams = PageQuerySitePagesParams.none()
+        /** @see getSitePagesByQuery */
+        fun getSitePagesByQuery(
+            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
         ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            querySitePages(params, RequestOptions.none())
+            getSitePagesByQuery(params, RequestOptions.none())
 
-        /** @see querySitePages */
-        fun querySitePages(
+        /** @see getSitePagesByQuery */
+        fun getSitePagesByQuery(
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<CursorPagedResultPageLong>> =
-            querySitePages(PageQuerySitePagesParams.none(), requestOptions)
+            getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions`, but is otherwise the same as
+         * [PageServiceAsync.listLandingPageRevisions].
+         */
+        fun listLandingPageRevisions(
+            objectId: String
+        ): CompletableFuture<HttpResponseFor<PageListLandingPageRevisionsPageAsync>> =
+            listLandingPageRevisions(objectId, PageListLandingPageRevisionsParams.none())
+
+        /** @see listLandingPageRevisions */
+        fun listLandingPageRevisions(
+            objectId: String,
+            params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageListLandingPageRevisionsPageAsync>> =
+            listLandingPageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see listLandingPageRevisions */
+        fun listLandingPageRevisions(
+            objectId: String,
+            params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+        ): CompletableFuture<HttpResponseFor<PageListLandingPageRevisionsPageAsync>> =
+            listLandingPageRevisions(objectId, params, RequestOptions.none())
+
+        /** @see listLandingPageRevisions */
+        fun listLandingPageRevisions(
+            params: PageListLandingPageRevisionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageListLandingPageRevisionsPageAsync>>
+
+        /** @see listLandingPageRevisions */
+        fun listLandingPageRevisions(
+            params: PageListLandingPageRevisionsParams
+        ): CompletableFuture<HttpResponseFor<PageListLandingPageRevisionsPageAsync>> =
+            listLandingPageRevisions(params, RequestOptions.none())
+
+        /** @see listLandingPageRevisions */
+        fun listLandingPageRevisions(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PageListLandingPageRevisionsPageAsync>> =
+            listLandingPageRevisions(
+                objectId,
+                PageListLandingPageRevisionsParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/{objectId}/revisions`,
+         * but is otherwise the same as [PageServiceAsync.listSitePageRevisions].
+         */
+        fun listSitePageRevisions(
+            objectId: String
+        ): CompletableFuture<HttpResponseFor<PageListSitePageRevisionsPageAsync>> =
+            listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none())
+
+        /** @see listSitePageRevisions */
+        fun listSitePageRevisions(
+            objectId: String,
+            params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageListSitePageRevisionsPageAsync>> =
+            listSitePageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see listSitePageRevisions */
+        fun listSitePageRevisions(
+            objectId: String,
+            params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
+        ): CompletableFuture<HttpResponseFor<PageListSitePageRevisionsPageAsync>> =
+            listSitePageRevisions(objectId, params, RequestOptions.none())
+
+        /** @see listSitePageRevisions */
+        fun listSitePageRevisions(
+            params: PageListSitePageRevisionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PageListSitePageRevisionsPageAsync>>
+
+        /** @see listSitePageRevisions */
+        fun listSitePageRevisions(
+            params: PageListSitePageRevisionsParams
+        ): CompletableFuture<HttpResponseFor<PageListSitePageRevisionsPageAsync>> =
+            listSitePageRevisions(params, RequestOptions.none())
+
+        /** @see listSitePageRevisions */
+        fun listSitePageRevisions(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PageListSitePageRevisionsPageAsync>> =
+            listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/site-pages/{objectId}/draft/reset`, but is otherwise the same as
-         * [PageServiceAsync.resetDraft].
+         * [PageServiceAsync.resetSitePageDraft].
          */
-        fun resetDraft(objectId: String): CompletableFuture<HttpResponse> =
-            resetDraft(objectId, PageResetDraftParams.none())
+        fun resetSitePageDraft(objectId: String): CompletableFuture<HttpResponse> =
+            resetSitePageDraft(objectId, PageResetSitePageDraftParams.none())
 
-        /** @see resetDraft */
-        fun resetDraft(
+        /** @see resetSitePageDraft */
+        fun resetSitePageDraft(
             objectId: String,
-            params: PageResetDraftParams = PageResetDraftParams.none(),
+            params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+            resetSitePageDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see resetDraft */
-        fun resetDraft(
+        /** @see resetSitePageDraft */
+        fun resetSitePageDraft(
             objectId: String,
-            params: PageResetDraftParams = PageResetDraftParams.none(),
-        ): CompletableFuture<HttpResponse> = resetDraft(objectId, params, RequestOptions.none())
+            params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
+        ): CompletableFuture<HttpResponse> =
+            resetSitePageDraft(objectId, params, RequestOptions.none())
 
-        /** @see resetDraft */
-        fun resetDraft(
-            params: PageResetDraftParams,
+        /** @see resetSitePageDraft */
+        fun resetSitePageDraft(
+            params: PageResetSitePageDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see resetDraft */
-        fun resetDraft(params: PageResetDraftParams): CompletableFuture<HttpResponse> =
-            resetDraft(params, RequestOptions.none())
+        /** @see resetSitePageDraft */
+        fun resetSitePageDraft(
+            params: PageResetSitePageDraftParams
+        ): CompletableFuture<HttpResponse> = resetSitePageDraft(params, RequestOptions.none())
 
-        /** @see resetDraft */
-        fun resetDraft(
+        /** @see resetSitePageDraft */
+        fun resetSitePageDraft(
             objectId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            resetDraft(objectId, PageResetDraftParams.none(), requestOptions)
+            resetSitePageDraft(objectId, PageResetSitePageDraftParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore`, but is
+         * otherwise the same as [PageServiceAsync.restoreLandingPageRevision].
+         */
+        fun restoreLandingPageRevision(
+            revisionId: String,
+            params: PageRestoreLandingPageRevisionParams,
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            restoreLandingPageRevision(revisionId, params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevision */
+        fun restoreLandingPageRevision(
+            revisionId: String,
+            params: PageRestoreLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            restoreLandingPageRevision(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
+
+        /** @see restoreLandingPageRevision */
+        fun restoreLandingPageRevision(
+            params: PageRestoreLandingPageRevisionParams
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            restoreLandingPageRevision(params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevision */
+        fun restoreLandingPageRevision(
+            params: PageRestoreLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Page>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore-to-draft`, but
+         * is otherwise the same as [PageServiceAsync.restoreLandingPageRevisionToDraft].
+         */
+        fun restoreLandingPageRevisionToDraft(
+            revisionId: Long,
+            params: PageRestoreLandingPageRevisionToDraftParams,
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevisionToDraft */
+        fun restoreLandingPageRevisionToDraft(
+            revisionId: Long,
+            params: PageRestoreLandingPageRevisionToDraftParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            restoreLandingPageRevisionToDraft(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
+
+        /** @see restoreLandingPageRevisionToDraft */
+        fun restoreLandingPageRevisionToDraft(
+            params: PageRestoreLandingPageRevisionToDraftParams
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            restoreLandingPageRevisionToDraft(params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevisionToDraft */
+        fun restoreLandingPageRevisionToDraft(
+            params: PageRestoreLandingPageRevisionToDraftParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Page>>
 
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore`, but is
-         * otherwise the same as [PageServiceAsync.restoreRevision].
+         * otherwise the same as [PageServiceAsync.restoreSitePageRevision].
          */
-        fun restoreRevision(
+        fun restoreSitePageRevision(
             revisionId: String,
-            params: PageRestoreRevisionParams,
+            params: PageRestoreSitePageRevisionParams,
         ): CompletableFuture<HttpResponseFor<Page>> =
-            restoreRevision(revisionId, params, RequestOptions.none())
+            restoreSitePageRevision(revisionId, params, RequestOptions.none())
 
-        /** @see restoreRevision */
-        fun restoreRevision(
+        /** @see restoreSitePageRevision */
+        fun restoreSitePageRevision(
             revisionId: String,
-            params: PageRestoreRevisionParams,
+            params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Page>> =
-            restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+            restoreSitePageRevision(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
 
-        /** @see restoreRevision */
-        fun restoreRevision(
-            params: PageRestoreRevisionParams
-        ): CompletableFuture<HttpResponseFor<Page>> = restoreRevision(params, RequestOptions.none())
+        /** @see restoreSitePageRevision */
+        fun restoreSitePageRevision(
+            params: PageRestoreSitePageRevisionParams
+        ): CompletableFuture<HttpResponseFor<Page>> =
+            restoreSitePageRevision(params, RequestOptions.none())
 
-        /** @see restoreRevision */
-        fun restoreRevision(
-            params: PageRestoreRevisionParams,
+        /** @see restoreSitePageRevision */
+        fun restoreSitePageRevision(
+            params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Page>>
 
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore-to-draft`, but is
-         * otherwise the same as [PageServiceAsync.restoreRevisionToDraft].
+         * otherwise the same as [PageServiceAsync.restoreSitePageRevisionToDraft].
          */
-        fun restoreRevisionToDraft(
+        fun restoreSitePageRevisionToDraft(
             revisionId: Long,
-            params: PageRestoreRevisionToDraftParams,
+            params: PageRestoreSitePageRevisionToDraftParams,
         ): CompletableFuture<HttpResponseFor<Page>> =
-            restoreRevisionToDraft(revisionId, params, RequestOptions.none())
+            restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
 
-        /** @see restoreRevisionToDraft */
-        fun restoreRevisionToDraft(
+        /** @see restoreSitePageRevisionToDraft */
+        fun restoreSitePageRevisionToDraft(
             revisionId: Long,
-            params: PageRestoreRevisionToDraftParams,
+            params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Page>> =
-            restoreRevisionToDraft(
+            restoreSitePageRevisionToDraft(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
             )
 
-        /** @see restoreRevisionToDraft */
-        fun restoreRevisionToDraft(
-            params: PageRestoreRevisionToDraftParams
+        /** @see restoreSitePageRevisionToDraft */
+        fun restoreSitePageRevisionToDraft(
+            params: PageRestoreSitePageRevisionToDraftParams
         ): CompletableFuture<HttpResponseFor<Page>> =
-            restoreRevisionToDraft(params, RequestOptions.none())
+            restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
-        /** @see restoreRevisionToDraft */
-        fun restoreRevisionToDraft(
-            params: PageRestoreRevisionToDraftParams,
+        /** @see restoreSitePageRevisionToDraft */
+        fun restoreSitePageRevisionToDraft(
+            params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Page>>
     }

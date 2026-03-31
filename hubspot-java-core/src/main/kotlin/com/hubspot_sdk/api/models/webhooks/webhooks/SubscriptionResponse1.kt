@@ -31,6 +31,7 @@ private constructor(
     private val objectTypeId: JsonField<String>,
     private val subscriptionType: JsonField<SubscriptionType>,
     private val updatedAt: JsonField<OffsetDateTime>,
+    private val actionOverrides: JsonField<ActionOverrides>,
     private val associatedObjectTypeIds: JsonField<List<String>>,
     private val createdBy: JsonField<Long>,
     private val deletedAt: JsonField<OffsetDateTime>,
@@ -60,6 +61,9 @@ private constructor(
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("actionOverrides")
+        @ExcludeMissing
+        actionOverrides: JsonField<ActionOverrides> = JsonMissing.of(),
         @JsonProperty("associatedObjectTypeIds")
         @ExcludeMissing
         associatedObjectTypeIds: JsonField<List<String>> = JsonMissing.of(),
@@ -83,6 +87,7 @@ private constructor(
         objectTypeId,
         subscriptionType,
         updatedAt,
+        actionOverrides,
         associatedObjectTypeIds,
         createdBy,
         deletedAt,
@@ -145,6 +150,13 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun actionOverrides(): Optional<ActionOverrides> =
+        actionOverrides.getOptional("actionOverrides")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -248,6 +260,15 @@ private constructor(
     fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
 
     /**
+     * Returns the raw JSON value of [actionOverrides].
+     *
+     * Unlike [actionOverrides], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("actionOverrides")
+    @ExcludeMissing
+    fun _actionOverrides(): JsonField<ActionOverrides> = actionOverrides
+
+    /**
      * Returns the raw JSON value of [associatedObjectTypeIds].
      *
      * Unlike [associatedObjectTypeIds], this method doesn't throw if the JSON field has an
@@ -344,6 +365,7 @@ private constructor(
         private var objectTypeId: JsonField<String>? = null
         private var subscriptionType: JsonField<SubscriptionType>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
+        private var actionOverrides: JsonField<ActionOverrides> = JsonMissing.of()
         private var associatedObjectTypeIds: JsonField<MutableList<String>>? = null
         private var createdBy: JsonField<Long> = JsonMissing.of()
         private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -362,6 +384,7 @@ private constructor(
             objectTypeId = subscriptionResponse1.objectTypeId
             subscriptionType = subscriptionResponse1.subscriptionType
             updatedAt = subscriptionResponse1.updatedAt
+            actionOverrides = subscriptionResponse1.actionOverrides
             associatedObjectTypeIds =
                 subscriptionResponse1.associatedObjectTypeIds.map { it.toMutableList() }
             createdBy = subscriptionResponse1.createdBy
@@ -479,6 +502,20 @@ private constructor(
          * supported value.
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
+
+        fun actionOverrides(actionOverrides: ActionOverrides) =
+            actionOverrides(JsonField.of(actionOverrides))
+
+        /**
+         * Sets [Builder.actionOverrides] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.actionOverrides] with a well-typed [ActionOverrides]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun actionOverrides(actionOverrides: JsonField<ActionOverrides>) = apply {
+            this.actionOverrides = actionOverrides
+        }
 
         fun associatedObjectTypeIds(associatedObjectTypeIds: List<String>) =
             associatedObjectTypeIds(JsonField.of(associatedObjectTypeIds))
@@ -658,6 +695,7 @@ private constructor(
                 checkRequired("objectTypeId", objectTypeId),
                 checkRequired("subscriptionType", subscriptionType),
                 checkRequired("updatedAt", updatedAt),
+                actionOverrides,
                 (associatedObjectTypeIds ?: JsonMissing.of()).map { it.toImmutable() },
                 createdBy,
                 deletedAt,
@@ -683,6 +721,7 @@ private constructor(
         objectTypeId()
         subscriptionType().validate()
         updatedAt()
+        actionOverrides().ifPresent { it.validate() }
         associatedObjectTypeIds()
         createdBy()
         deletedAt()
@@ -715,6 +754,7 @@ private constructor(
             (if (objectTypeId.asKnown().isPresent) 1 else 0) +
             (subscriptionType.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0) +
+            (actionOverrides.asKnown().getOrNull()?.validity() ?: 0) +
             (associatedObjectTypeIds.asKnown().getOrNull()?.size ?: 0) +
             (if (createdBy.asKnown().isPresent) 1 else 0) +
             (if (deletedAt.asKnown().isPresent) 1 else 0) +
@@ -1055,6 +1095,105 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    class ActionOverrides
+    @JsonCreator
+    private constructor(
+        @com.fasterxml.jackson.annotation.JsonValue
+        private val additionalProperties: Map<String, JsonValue>
+    ) {
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ActionOverrides]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ActionOverrides]. */
+        class Builder internal constructor() {
+
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(actionOverrides: ActionOverrides) = apply {
+                additionalProperties = actionOverrides.additionalProperties.toMutableMap()
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ActionOverrides].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ActionOverrides = ActionOverrides(additionalProperties.toImmutable())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): ActionOverrides = apply {
+            if (validated) {
+                return@apply
+            }
+
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: HubspotInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            additionalProperties.count { (_, value) -> !value.isNull() && !value.isMissing() }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ActionOverrides && additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() = "ActionOverrides{additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -1068,6 +1207,7 @@ private constructor(
             objectTypeId == other.objectTypeId &&
             subscriptionType == other.subscriptionType &&
             updatedAt == other.updatedAt &&
+            actionOverrides == other.actionOverrides &&
             associatedObjectTypeIds == other.associatedObjectTypeIds &&
             createdBy == other.createdBy &&
             deletedAt == other.deletedAt &&
@@ -1087,6 +1227,7 @@ private constructor(
             objectTypeId,
             subscriptionType,
             updatedAt,
+            actionOverrides,
             associatedObjectTypeIds,
             createdBy,
             deletedAt,
@@ -1101,5 +1242,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SubscriptionResponse1{id=$id, actions=$actions, appId=$appId, createdAt=$createdAt, objectTypeId=$objectTypeId, subscriptionType=$subscriptionType, updatedAt=$updatedAt, associatedObjectTypeIds=$associatedObjectTypeIds, createdBy=$createdBy, deletedAt=$deletedAt, listIds=$listIds, objectIds=$objectIds, portalId=$portalId, properties=$properties, additionalProperties=$additionalProperties}"
+        "SubscriptionResponse1{id=$id, actions=$actions, appId=$appId, createdAt=$createdAt, objectTypeId=$objectTypeId, subscriptionType=$subscriptionType, updatedAt=$updatedAt, actionOverrides=$actionOverrides, associatedObjectTypeIds=$associatedObjectTypeIds, createdBy=$createdBy, deletedAt=$deletedAt, listIds=$listIds, objectIds=$objectIds, portalId=$portalId, properties=$properties, additionalProperties=$additionalProperties}"
 }

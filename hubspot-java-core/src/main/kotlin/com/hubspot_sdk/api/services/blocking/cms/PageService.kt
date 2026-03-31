@@ -10,18 +10,23 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.pages.CursorPagedResultContentFolderLong
 import com.hubspot_sdk.api.models.cms.pages.CursorPagedResultPageLong
 import com.hubspot_sdk.api.models.cms.pages.Page
-import com.hubspot_sdk.api.models.cms.pages.PageGetRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.PageListLandingPageFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.PageListLandingPagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageListRevisionsPage
-import com.hubspot_sdk.api.models.cms.pages.PageListRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.PageListSitePagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageQueryLandingPageFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.PageQueryLandingPagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageQuerySitePagesParams
-import com.hubspot_sdk.api.models.cms.pages.PageResetDraftParams
-import com.hubspot_sdk.api.models.cms.pages.PageRestoreRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.PageRestoreRevisionToDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPagesByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPagesParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePagesByQueryParams
+import com.hubspot_sdk.api.models.cms.pages.PageGetSitePagesParams
+import com.hubspot_sdk.api.models.cms.pages.PageListLandingPageRevisionsPage
+import com.hubspot_sdk.api.models.cms.pages.PageListLandingPageRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.PageListSitePageRevisionsPage
+import com.hubspot_sdk.api.models.cms.pages.PageListSitePageRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.PageResetSitePageDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreLandingPageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreLandingPageRevisionToDraftParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreSitePageRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.PageRestoreSitePageRevisionToDraftParams
 import com.hubspot_sdk.api.models.cms.pages.PageVersion
 import com.hubspot_sdk.api.services.blocking.cms.pages.ABTestService
 import com.hubspot_sdk.api.services.blocking.cms.pages.BatchService
@@ -57,237 +62,380 @@ interface PageService {
 
     fun websitePages(): WebsitePageService
 
-    /** Retrieve a previous version of a website page by the revision ID. */
-    fun getRevision(revisionId: String, params: PageGetRevisionParams): PageVersion =
-        getRevision(revisionId, params, RequestOptions.none())
+    fun getLandingPageFolders(): CursorPagedResultContentFolderLong =
+        getLandingPageFolders(PageGetLandingPageFoldersParams.none())
 
-    /** @see getRevision */
-    fun getRevision(
-        revisionId: String,
-        params: PageGetRevisionParams,
+    /** @see getLandingPageFolders */
+    fun getLandingPageFolders(
+        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageVersion = getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+    ): CursorPagedResultContentFolderLong
 
-    /** @see getRevision */
-    fun getRevision(params: PageGetRevisionParams): PageVersion =
-        getRevision(params, RequestOptions.none())
+    /** @see getLandingPageFolders */
+    fun getLandingPageFolders(
+        params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
+    ): CursorPagedResultContentFolderLong = getLandingPageFolders(params, RequestOptions.none())
 
-    /** @see getRevision */
-    fun getRevision(
-        params: PageGetRevisionParams,
+    /** @see getLandingPageFolders */
+    fun getLandingPageFolders(requestOptions: RequestOptions): CursorPagedResultContentFolderLong =
+        getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
+
+    fun getLandingPageFoldersByQuery(): CursorPagedResultContentFolderLong =
+        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
+
+    /** @see getLandingPageFoldersByQuery */
+    fun getLandingPageFoldersByQuery(
+        params: PageGetLandingPageFoldersByQueryParams =
+            PageGetLandingPageFoldersByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CursorPagedResultContentFolderLong
+
+    /** @see getLandingPageFoldersByQuery */
+    fun getLandingPageFoldersByQuery(
+        params: PageGetLandingPageFoldersByQueryParams =
+            PageGetLandingPageFoldersByQueryParams.none()
+    ): CursorPagedResultContentFolderLong =
+        getLandingPageFoldersByQuery(params, RequestOptions.none())
+
+    /** @see getLandingPageFoldersByQuery */
+    fun getLandingPageFoldersByQuery(
+        requestOptions: RequestOptions
+    ): CursorPagedResultContentFolderLong =
+        getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none(), requestOptions)
+
+    /** Retrieve a previous version of a landing page, specified by page ID and revision ID. */
+    fun getLandingPageRevision(
+        revisionId: String,
+        params: PageGetLandingPageRevisionParams,
+    ): PageVersion = getLandingPageRevision(revisionId, params, RequestOptions.none())
+
+    /** @see getLandingPageRevision */
+    fun getLandingPageRevision(
+        revisionId: String,
+        params: PageGetLandingPageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PageVersion =
+        getLandingPageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+    /** @see getLandingPageRevision */
+    fun getLandingPageRevision(params: PageGetLandingPageRevisionParams): PageVersion =
+        getLandingPageRevision(params, RequestOptions.none())
+
+    /** @see getLandingPageRevision */
+    fun getLandingPageRevision(
+        params: PageGetLandingPageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PageVersion
 
-    fun listLandingPageFolders(): CursorPagedResultContentFolderLong =
-        listLandingPageFolders(PageListLandingPageFoldersParams.none())
+    fun getLandingPages(): CursorPagedResultPageLong =
+        getLandingPages(PageGetLandingPagesParams.none())
 
-    /** @see listLandingPageFolders */
-    fun listLandingPageFolders(
-        params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultContentFolderLong
-
-    /** @see listLandingPageFolders */
-    fun listLandingPageFolders(
-        params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none()
-    ): CursorPagedResultContentFolderLong = listLandingPageFolders(params, RequestOptions.none())
-
-    /** @see listLandingPageFolders */
-    fun listLandingPageFolders(requestOptions: RequestOptions): CursorPagedResultContentFolderLong =
-        listLandingPageFolders(PageListLandingPageFoldersParams.none(), requestOptions)
-
-    fun listLandingPages(): CursorPagedResultPageLong =
-        listLandingPages(PageListLandingPagesParams.none())
-
-    /** @see listLandingPages */
-    fun listLandingPages(
-        params: PageListLandingPagesParams = PageListLandingPagesParams.none(),
+    /** @see getLandingPages */
+    fun getLandingPages(
+        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CursorPagedResultPageLong
 
-    /** @see listLandingPages */
-    fun listLandingPages(
-        params: PageListLandingPagesParams = PageListLandingPagesParams.none()
-    ): CursorPagedResultPageLong = listLandingPages(params, RequestOptions.none())
+    /** @see getLandingPages */
+    fun getLandingPages(
+        params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
+    ): CursorPagedResultPageLong = getLandingPages(params, RequestOptions.none())
 
-    /** @see listLandingPages */
-    fun listLandingPages(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        listLandingPages(PageListLandingPagesParams.none(), requestOptions)
+    /** @see getLandingPages */
+    fun getLandingPages(requestOptions: RequestOptions): CursorPagedResultPageLong =
+        getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
+
+    fun getLandingPagesByQuery(): CursorPagedResultPageLong =
+        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
+
+    /** @see getLandingPagesByQuery */
+    fun getLandingPagesByQuery(
+        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CursorPagedResultPageLong
+
+    /** @see getLandingPagesByQuery */
+    fun getLandingPagesByQuery(
+        params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
+    ): CursorPagedResultPageLong = getLandingPagesByQuery(params, RequestOptions.none())
+
+    /** @see getLandingPagesByQuery */
+    fun getLandingPagesByQuery(requestOptions: RequestOptions): CursorPagedResultPageLong =
+        getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
+
+    /** Retrieve a previous version of a website page by the revision ID. */
+    fun getSitePageRevision(
+        revisionId: String,
+        params: PageGetSitePageRevisionParams,
+    ): PageVersion = getSitePageRevision(revisionId, params, RequestOptions.none())
+
+    /** @see getSitePageRevision */
+    fun getSitePageRevision(
+        revisionId: String,
+        params: PageGetSitePageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PageVersion =
+        getSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+    /** @see getSitePageRevision */
+    fun getSitePageRevision(params: PageGetSitePageRevisionParams): PageVersion =
+        getSitePageRevision(params, RequestOptions.none())
+
+    /** @see getSitePageRevision */
+    fun getSitePageRevision(
+        params: PageGetSitePageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PageVersion
+
+    fun getSitePages(): CursorPagedResultPageLong = getSitePages(PageGetSitePagesParams.none())
+
+    /** @see getSitePages */
+    fun getSitePages(
+        params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CursorPagedResultPageLong
+
+    /** @see getSitePages */
+    fun getSitePages(
+        params: PageGetSitePagesParams = PageGetSitePagesParams.none()
+    ): CursorPagedResultPageLong = getSitePages(params, RequestOptions.none())
+
+    /** @see getSitePages */
+    fun getSitePages(requestOptions: RequestOptions): CursorPagedResultPageLong =
+        getSitePages(PageGetSitePagesParams.none(), requestOptions)
+
+    fun getSitePagesByQuery(): CursorPagedResultPageLong =
+        getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
+
+    /** @see getSitePagesByQuery */
+    fun getSitePagesByQuery(
+        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CursorPagedResultPageLong
+
+    /** @see getSitePagesByQuery */
+    fun getSitePagesByQuery(
+        params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
+    ): CursorPagedResultPageLong = getSitePagesByQuery(params, RequestOptions.none())
+
+    /** @see getSitePagesByQuery */
+    fun getSitePagesByQuery(requestOptions: RequestOptions): CursorPagedResultPageLong =
+        getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
+
+    /** Retrieve all the previous versions of a landing page, specified by page ID. */
+    fun listLandingPageRevisions(objectId: String): PageListLandingPageRevisionsPage =
+        listLandingPageRevisions(objectId, PageListLandingPageRevisionsParams.none())
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        objectId: String,
+        params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PageListLandingPageRevisionsPage =
+        listLandingPageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        objectId: String,
+        params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+    ): PageListLandingPageRevisionsPage =
+        listLandingPageRevisions(objectId, params, RequestOptions.none())
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        params: PageListLandingPageRevisionsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PageListLandingPageRevisionsPage
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        params: PageListLandingPageRevisionsParams
+    ): PageListLandingPageRevisionsPage = listLandingPageRevisions(params, RequestOptions.none())
+
+    /** @see listLandingPageRevisions */
+    fun listLandingPageRevisions(
+        objectId: String,
+        requestOptions: RequestOptions,
+    ): PageListLandingPageRevisionsPage =
+        listLandingPageRevisions(
+            objectId,
+            PageListLandingPageRevisionsParams.none(),
+            requestOptions,
+        )
 
     /** Retrieves all the previous versions of a website page, specified by page ID. */
-    fun listRevisions(objectId: String): PageListRevisionsPage =
-        listRevisions(objectId, PageListRevisionsParams.none())
+    fun listSitePageRevisions(objectId: String): PageListSitePageRevisionsPage =
+        listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none())
 
-    /** @see listRevisions */
-    fun listRevisions(
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
         objectId: String,
-        params: PageListRevisionsParams = PageListRevisionsParams.none(),
+        params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageListRevisionsPage =
-        listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageListSitePageRevisionsPage =
+        listSitePageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see listRevisions */
-    fun listRevisions(
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
         objectId: String,
-        params: PageListRevisionsParams = PageListRevisionsParams.none(),
-    ): PageListRevisionsPage = listRevisions(objectId, params, RequestOptions.none())
+        params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
+    ): PageListSitePageRevisionsPage =
+        listSitePageRevisions(objectId, params, RequestOptions.none())
 
-    /** @see listRevisions */
-    fun listRevisions(
-        params: PageListRevisionsParams,
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        params: PageListSitePageRevisionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PageListRevisionsPage
+    ): PageListSitePageRevisionsPage
 
-    /** @see listRevisions */
-    fun listRevisions(params: PageListRevisionsParams): PageListRevisionsPage =
-        listRevisions(params, RequestOptions.none())
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        params: PageListSitePageRevisionsParams
+    ): PageListSitePageRevisionsPage = listSitePageRevisions(params, RequestOptions.none())
 
-    /** @see listRevisions */
-    fun listRevisions(objectId: String, requestOptions: RequestOptions): PageListRevisionsPage =
-        listRevisions(objectId, PageListRevisionsParams.none(), requestOptions)
-
-    fun listSitePages(): CursorPagedResultPageLong = listSitePages(PageListSitePagesParams.none())
-
-    /** @see listSitePages */
-    fun listSitePages(
-        params: PageListSitePagesParams = PageListSitePagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultPageLong
-
-    /** @see listSitePages */
-    fun listSitePages(
-        params: PageListSitePagesParams = PageListSitePagesParams.none()
-    ): CursorPagedResultPageLong = listSitePages(params, RequestOptions.none())
-
-    /** @see listSitePages */
-    fun listSitePages(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        listSitePages(PageListSitePagesParams.none(), requestOptions)
-
-    fun queryLandingPageFolders(): CursorPagedResultContentFolderLong =
-        queryLandingPageFolders(PageQueryLandingPageFoldersParams.none())
-
-    /** @see queryLandingPageFolders */
-    fun queryLandingPageFolders(
-        params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultContentFolderLong
-
-    /** @see queryLandingPageFolders */
-    fun queryLandingPageFolders(
-        params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none()
-    ): CursorPagedResultContentFolderLong = queryLandingPageFolders(params, RequestOptions.none())
-
-    /** @see queryLandingPageFolders */
-    fun queryLandingPageFolders(
-        requestOptions: RequestOptions
-    ): CursorPagedResultContentFolderLong =
-        queryLandingPageFolders(PageQueryLandingPageFoldersParams.none(), requestOptions)
-
-    fun queryLandingPages(): CursorPagedResultPageLong =
-        queryLandingPages(PageQueryLandingPagesParams.none())
-
-    /** @see queryLandingPages */
-    fun queryLandingPages(
-        params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultPageLong
-
-    /** @see queryLandingPages */
-    fun queryLandingPages(
-        params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none()
-    ): CursorPagedResultPageLong = queryLandingPages(params, RequestOptions.none())
-
-    /** @see queryLandingPages */
-    fun queryLandingPages(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        queryLandingPages(PageQueryLandingPagesParams.none(), requestOptions)
-
-    fun querySitePages(): CursorPagedResultPageLong =
-        querySitePages(PageQuerySitePagesParams.none())
-
-    /** @see querySitePages */
-    fun querySitePages(
-        params: PageQuerySitePagesParams = PageQuerySitePagesParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CursorPagedResultPageLong
-
-    /** @see querySitePages */
-    fun querySitePages(
-        params: PageQuerySitePagesParams = PageQuerySitePagesParams.none()
-    ): CursorPagedResultPageLong = querySitePages(params, RequestOptions.none())
-
-    /** @see querySitePages */
-    fun querySitePages(requestOptions: RequestOptions): CursorPagedResultPageLong =
-        querySitePages(PageQuerySitePagesParams.none(), requestOptions)
+    /** @see listSitePageRevisions */
+    fun listSitePageRevisions(
+        objectId: String,
+        requestOptions: RequestOptions,
+    ): PageListSitePageRevisionsPage =
+        listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none(), requestOptions)
 
     /** Discards any edits and resets the draft to match the live version. */
-    fun resetDraft(objectId: String) = resetDraft(objectId, PageResetDraftParams.none())
+    fun resetSitePageDraft(objectId: String) =
+        resetSitePageDraft(objectId, PageResetSitePageDraftParams.none())
 
-    /** @see resetDraft */
-    fun resetDraft(
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(
         objectId: String,
-        params: PageResetDraftParams = PageResetDraftParams.none(),
+        params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) = resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ) = resetSitePageDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see resetDraft */
-    fun resetDraft(objectId: String, params: PageResetDraftParams = PageResetDraftParams.none()) =
-        resetDraft(objectId, params, RequestOptions.none())
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(
+        objectId: String,
+        params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
+    ) = resetSitePageDraft(objectId, params, RequestOptions.none())
 
-    /** @see resetDraft */
-    fun resetDraft(
-        params: PageResetDraftParams,
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(
+        params: PageResetSitePageDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see resetDraft */
-    fun resetDraft(params: PageResetDraftParams) = resetDraft(params, RequestOptions.none())
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(params: PageResetSitePageDraftParams) =
+        resetSitePageDraft(params, RequestOptions.none())
 
-    /** @see resetDraft */
-    fun resetDraft(objectId: String, requestOptions: RequestOptions) =
-        resetDraft(objectId, PageResetDraftParams.none(), requestOptions)
+    /** @see resetSitePageDraft */
+    fun resetSitePageDraft(objectId: String, requestOptions: RequestOptions) =
+        resetSitePageDraft(objectId, PageResetSitePageDraftParams.none(), requestOptions)
+
+    /** Restores a previous version of a landing page, specified by page ID and revision ID. */
+    fun restoreLandingPageRevision(
+        revisionId: String,
+        params: PageRestoreLandingPageRevisionParams,
+    ): Page = restoreLandingPageRevision(revisionId, params, RequestOptions.none())
+
+    /** @see restoreLandingPageRevision */
+    fun restoreLandingPageRevision(
+        revisionId: String,
+        params: PageRestoreLandingPageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Page =
+        restoreLandingPageRevision(
+            params.toBuilder().revisionId(revisionId).build(),
+            requestOptions,
+        )
+
+    /** @see restoreLandingPageRevision */
+    fun restoreLandingPageRevision(params: PageRestoreLandingPageRevisionParams): Page =
+        restoreLandingPageRevision(params, RequestOptions.none())
+
+    /** @see restoreLandingPageRevision */
+    fun restoreLandingPageRevision(
+        params: PageRestoreLandingPageRevisionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Page
+
+    /** Specify a previous version of a landing page to set as the page draft. */
+    fun restoreLandingPageRevisionToDraft(
+        revisionId: Long,
+        params: PageRestoreLandingPageRevisionToDraftParams,
+    ): Page = restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
+
+    /** @see restoreLandingPageRevisionToDraft */
+    fun restoreLandingPageRevisionToDraft(
+        revisionId: Long,
+        params: PageRestoreLandingPageRevisionToDraftParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Page =
+        restoreLandingPageRevisionToDraft(
+            params.toBuilder().revisionId(revisionId).build(),
+            requestOptions,
+        )
+
+    /** @see restoreLandingPageRevisionToDraft */
+    fun restoreLandingPageRevisionToDraft(
+        params: PageRestoreLandingPageRevisionToDraftParams
+    ): Page = restoreLandingPageRevisionToDraft(params, RequestOptions.none())
+
+    /** @see restoreLandingPageRevisionToDraft */
+    fun restoreLandingPageRevisionToDraft(
+        params: PageRestoreLandingPageRevisionToDraftParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Page
 
     /** Restores a website page to a previous version, specified by page ID and version ID. */
-    fun restoreRevision(revisionId: String, params: PageRestoreRevisionParams): Page =
-        restoreRevision(revisionId, params, RequestOptions.none())
-
-    /** @see restoreRevision */
-    fun restoreRevision(
+    fun restoreSitePageRevision(
         revisionId: String,
-        params: PageRestoreRevisionParams,
+        params: PageRestoreSitePageRevisionParams,
+    ): Page = restoreSitePageRevision(revisionId, params, RequestOptions.none())
+
+    /** @see restoreSitePageRevision */
+    fun restoreSitePageRevision(
+        revisionId: String,
+        params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): Page = restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+    ): Page =
+        restoreSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
 
-    /** @see restoreRevision */
-    fun restoreRevision(params: PageRestoreRevisionParams): Page =
-        restoreRevision(params, RequestOptions.none())
+    /** @see restoreSitePageRevision */
+    fun restoreSitePageRevision(params: PageRestoreSitePageRevisionParams): Page =
+        restoreSitePageRevision(params, RequestOptions.none())
 
-    /** @see restoreRevision */
-    fun restoreRevision(
-        params: PageRestoreRevisionParams,
+    /** @see restoreSitePageRevision */
+    fun restoreSitePageRevision(
+        params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Page
 
     /**
      * Takes a specified version of a website page and sets it as the new draft version of the page.
      */
-    fun restoreRevisionToDraft(revisionId: Long, params: PageRestoreRevisionToDraftParams): Page =
-        restoreRevisionToDraft(revisionId, params, RequestOptions.none())
-
-    /** @see restoreRevisionToDraft */
-    fun restoreRevisionToDraft(
+    fun restoreSitePageRevisionToDraft(
         revisionId: Long,
-        params: PageRestoreRevisionToDraftParams,
+        params: PageRestoreSitePageRevisionToDraftParams,
+    ): Page = restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
+
+    /** @see restoreSitePageRevisionToDraft */
+    fun restoreSitePageRevisionToDraft(
+        revisionId: Long,
+        params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Page =
-        restoreRevisionToDraft(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+        restoreSitePageRevisionToDraft(
+            params.toBuilder().revisionId(revisionId).build(),
+            requestOptions,
+        )
 
-    /** @see restoreRevisionToDraft */
-    fun restoreRevisionToDraft(params: PageRestoreRevisionToDraftParams): Page =
-        restoreRevisionToDraft(params, RequestOptions.none())
+    /** @see restoreSitePageRevisionToDraft */
+    fun restoreSitePageRevisionToDraft(params: PageRestoreSitePageRevisionToDraftParams): Page =
+        restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
-    /** @see restoreRevisionToDraft */
-    fun restoreRevisionToDraft(
-        params: PageRestoreRevisionToDraftParams,
+    /** @see restoreSitePageRevisionToDraft */
+    fun restoreSitePageRevisionToDraft(
+        params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Page
 
@@ -314,362 +462,545 @@ interface PageService {
         fun websitePages(): WebsitePageService.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `get
-         * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
-         * same as [PageService.getRevision].
-         */
-        @MustBeClosed
-        fun getRevision(
-            revisionId: String,
-            params: PageGetRevisionParams,
-        ): HttpResponseFor<PageVersion> = getRevision(revisionId, params, RequestOptions.none())
-
-        /** @see getRevision */
-        @MustBeClosed
-        fun getRevision(
-            revisionId: String,
-            params: PageGetRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageVersion> =
-            getRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
-
-        /** @see getRevision */
-        @MustBeClosed
-        fun getRevision(params: PageGetRevisionParams): HttpResponseFor<PageVersion> =
-            getRevision(params, RequestOptions.none())
-
-        /** @see getRevision */
-        @MustBeClosed
-        fun getRevision(
-            params: PageGetRevisionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageVersion>
-
-        /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/folders/cursor`,
-         * but is otherwise the same as [PageService.listLandingPageFolders].
+         * but is otherwise the same as [PageService.getLandingPageFolders].
          */
         @MustBeClosed
-        fun listLandingPageFolders(): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            listLandingPageFolders(PageListLandingPageFoldersParams.none())
+        fun getLandingPageFolders(): HttpResponseFor<CursorPagedResultContentFolderLong> =
+            getLandingPageFolders(PageGetLandingPageFoldersParams.none())
 
-        /** @see listLandingPageFolders */
+        /** @see getLandingPageFolders */
         @MustBeClosed
-        fun listLandingPageFolders(
-            params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none(),
+        fun getLandingPageFolders(
+            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CursorPagedResultContentFolderLong>
 
-        /** @see listLandingPageFolders */
+        /** @see getLandingPageFolders */
         @MustBeClosed
-        fun listLandingPageFolders(
-            params: PageListLandingPageFoldersParams = PageListLandingPageFoldersParams.none()
+        fun getLandingPageFolders(
+            params: PageGetLandingPageFoldersParams = PageGetLandingPageFoldersParams.none()
         ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            listLandingPageFolders(params, RequestOptions.none())
+            getLandingPageFolders(params, RequestOptions.none())
 
-        /** @see listLandingPageFolders */
+        /** @see getLandingPageFolders */
         @MustBeClosed
-        fun listLandingPageFolders(
+        fun getLandingPageFolders(
             requestOptions: RequestOptions
         ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            listLandingPageFolders(PageListLandingPageFoldersParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor`, but is
-         * otherwise the same as [PageService.listLandingPages].
-         */
-        @MustBeClosed
-        fun listLandingPages(): HttpResponseFor<CursorPagedResultPageLong> =
-            listLandingPages(PageListLandingPagesParams.none())
-
-        /** @see listLandingPages */
-        @MustBeClosed
-        fun listLandingPages(
-            params: PageListLandingPagesParams = PageListLandingPagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultPageLong>
-
-        /** @see listLandingPages */
-        @MustBeClosed
-        fun listLandingPages(
-            params: PageListLandingPagesParams = PageListLandingPagesParams.none()
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            listLandingPages(params, RequestOptions.none())
-
-        /** @see listLandingPages */
-        @MustBeClosed
-        fun listLandingPages(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            listLandingPages(PageListLandingPagesParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/{objectId}/revisions`,
-         * but is otherwise the same as [PageService.listRevisions].
-         */
-        @MustBeClosed
-        fun listRevisions(objectId: String): HttpResponseFor<PageListRevisionsPage> =
-            listRevisions(objectId, PageListRevisionsParams.none())
-
-        /** @see listRevisions */
-        @MustBeClosed
-        fun listRevisions(
-            objectId: String,
-            params: PageListRevisionsParams = PageListRevisionsParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageListRevisionsPage> =
-            listRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
-
-        /** @see listRevisions */
-        @MustBeClosed
-        fun listRevisions(
-            objectId: String,
-            params: PageListRevisionsParams = PageListRevisionsParams.none(),
-        ): HttpResponseFor<PageListRevisionsPage> =
-            listRevisions(objectId, params, RequestOptions.none())
-
-        /** @see listRevisions */
-        @MustBeClosed
-        fun listRevisions(
-            params: PageListRevisionsParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PageListRevisionsPage>
-
-        /** @see listRevisions */
-        @MustBeClosed
-        fun listRevisions(params: PageListRevisionsParams): HttpResponseFor<PageListRevisionsPage> =
-            listRevisions(params, RequestOptions.none())
-
-        /** @see listRevisions */
-        @MustBeClosed
-        fun listRevisions(
-            objectId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PageListRevisionsPage> =
-            listRevisions(objectId, PageListRevisionsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor`, but is
-         * otherwise the same as [PageService.listSitePages].
-         */
-        @MustBeClosed
-        fun listSitePages(): HttpResponseFor<CursorPagedResultPageLong> =
-            listSitePages(PageListSitePagesParams.none())
-
-        /** @see listSitePages */
-        @MustBeClosed
-        fun listSitePages(
-            params: PageListSitePagesParams = PageListSitePagesParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CursorPagedResultPageLong>
-
-        /** @see listSitePages */
-        @MustBeClosed
-        fun listSitePages(
-            params: PageListSitePagesParams = PageListSitePagesParams.none()
-        ): HttpResponseFor<CursorPagedResultPageLong> = listSitePages(params, RequestOptions.none())
-
-        /** @see listSitePages */
-        @MustBeClosed
-        fun listSitePages(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CursorPagedResultPageLong> =
-            listSitePages(PageListSitePagesParams.none(), requestOptions)
+            getLandingPageFolders(PageGetLandingPageFoldersParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get
          * /cms/pages/2026-03/landing-pages/folders/cursor/query`, but is otherwise the same as
-         * [PageService.queryLandingPageFolders].
+         * [PageService.getLandingPageFoldersByQuery].
          */
         @MustBeClosed
-        fun queryLandingPageFolders(): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            queryLandingPageFolders(PageQueryLandingPageFoldersParams.none())
+        fun getLandingPageFoldersByQuery(): HttpResponseFor<CursorPagedResultContentFolderLong> =
+            getLandingPageFoldersByQuery(PageGetLandingPageFoldersByQueryParams.none())
 
-        /** @see queryLandingPageFolders */
+        /** @see getLandingPageFoldersByQuery */
         @MustBeClosed
-        fun queryLandingPageFolders(
-            params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none(),
+        fun getLandingPageFoldersByQuery(
+            params: PageGetLandingPageFoldersByQueryParams =
+                PageGetLandingPageFoldersByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CursorPagedResultContentFolderLong>
 
-        /** @see queryLandingPageFolders */
+        /** @see getLandingPageFoldersByQuery */
         @MustBeClosed
-        fun queryLandingPageFolders(
-            params: PageQueryLandingPageFoldersParams = PageQueryLandingPageFoldersParams.none()
+        fun getLandingPageFoldersByQuery(
+            params: PageGetLandingPageFoldersByQueryParams =
+                PageGetLandingPageFoldersByQueryParams.none()
         ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            queryLandingPageFolders(params, RequestOptions.none())
+            getLandingPageFoldersByQuery(params, RequestOptions.none())
 
-        /** @see queryLandingPageFolders */
+        /** @see getLandingPageFoldersByQuery */
         @MustBeClosed
-        fun queryLandingPageFolders(
+        fun getLandingPageFoldersByQuery(
             requestOptions: RequestOptions
         ): HttpResponseFor<CursorPagedResultContentFolderLong> =
-            queryLandingPageFolders(PageQueryLandingPageFoldersParams.none(), requestOptions)
+            getLandingPageFoldersByQuery(
+                PageGetLandingPageFoldersByQueryParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
+         * same as [PageService.getLandingPageRevision].
+         */
+        @MustBeClosed
+        fun getLandingPageRevision(
+            revisionId: String,
+            params: PageGetLandingPageRevisionParams,
+        ): HttpResponseFor<PageVersion> =
+            getLandingPageRevision(revisionId, params, RequestOptions.none())
+
+        /** @see getLandingPageRevision */
+        @MustBeClosed
+        fun getLandingPageRevision(
+            revisionId: String,
+            params: PageGetLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageVersion> =
+            getLandingPageRevision(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
+
+        /** @see getLandingPageRevision */
+        @MustBeClosed
+        fun getLandingPageRevision(
+            params: PageGetLandingPageRevisionParams
+        ): HttpResponseFor<PageVersion> = getLandingPageRevision(params, RequestOptions.none())
+
+        /** @see getLandingPageRevision */
+        @MustBeClosed
+        fun getLandingPageRevision(
+            params: PageGetLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageVersion>
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor`, but is
+         * otherwise the same as [PageService.getLandingPages].
+         */
+        @MustBeClosed
+        fun getLandingPages(): HttpResponseFor<CursorPagedResultPageLong> =
+            getLandingPages(PageGetLandingPagesParams.none())
+
+        /** @see getLandingPages */
+        @MustBeClosed
+        fun getLandingPages(
+            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CursorPagedResultPageLong>
+
+        /** @see getLandingPages */
+        @MustBeClosed
+        fun getLandingPages(
+            params: PageGetLandingPagesParams = PageGetLandingPagesParams.none()
+        ): HttpResponseFor<CursorPagedResultPageLong> =
+            getLandingPages(params, RequestOptions.none())
+
+        /** @see getLandingPages */
+        @MustBeClosed
+        fun getLandingPages(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<CursorPagedResultPageLong> =
+            getLandingPages(PageGetLandingPagesParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/cursor/query`, but
-         * is otherwise the same as [PageService.queryLandingPages].
+         * is otherwise the same as [PageService.getLandingPagesByQuery].
          */
         @MustBeClosed
-        fun queryLandingPages(): HttpResponseFor<CursorPagedResultPageLong> =
-            queryLandingPages(PageQueryLandingPagesParams.none())
+        fun getLandingPagesByQuery(): HttpResponseFor<CursorPagedResultPageLong> =
+            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none())
 
-        /** @see queryLandingPages */
+        /** @see getLandingPagesByQuery */
         @MustBeClosed
-        fun queryLandingPages(
-            params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none(),
+        fun getLandingPagesByQuery(
+            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CursorPagedResultPageLong>
 
-        /** @see queryLandingPages */
+        /** @see getLandingPagesByQuery */
         @MustBeClosed
-        fun queryLandingPages(
-            params: PageQueryLandingPagesParams = PageQueryLandingPagesParams.none()
+        fun getLandingPagesByQuery(
+            params: PageGetLandingPagesByQueryParams = PageGetLandingPagesByQueryParams.none()
         ): HttpResponseFor<CursorPagedResultPageLong> =
-            queryLandingPages(params, RequestOptions.none())
+            getLandingPagesByQuery(params, RequestOptions.none())
 
-        /** @see queryLandingPages */
+        /** @see getLandingPagesByQuery */
         @MustBeClosed
-        fun queryLandingPages(
+        fun getLandingPagesByQuery(
             requestOptions: RequestOptions
         ): HttpResponseFor<CursorPagedResultPageLong> =
-            queryLandingPages(PageQueryLandingPagesParams.none(), requestOptions)
+            getLandingPagesByQuery(PageGetLandingPagesByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}`, but is otherwise the
+         * same as [PageService.getSitePageRevision].
+         */
+        @MustBeClosed
+        fun getSitePageRevision(
+            revisionId: String,
+            params: PageGetSitePageRevisionParams,
+        ): HttpResponseFor<PageVersion> =
+            getSitePageRevision(revisionId, params, RequestOptions.none())
+
+        /** @see getSitePageRevision */
+        @MustBeClosed
+        fun getSitePageRevision(
+            revisionId: String,
+            params: PageGetSitePageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageVersion> =
+            getSitePageRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+
+        /** @see getSitePageRevision */
+        @MustBeClosed
+        fun getSitePageRevision(
+            params: PageGetSitePageRevisionParams
+        ): HttpResponseFor<PageVersion> = getSitePageRevision(params, RequestOptions.none())
+
+        /** @see getSitePageRevision */
+        @MustBeClosed
+        fun getSitePageRevision(
+            params: PageGetSitePageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageVersion>
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor`, but is
+         * otherwise the same as [PageService.getSitePages].
+         */
+        @MustBeClosed
+        fun getSitePages(): HttpResponseFor<CursorPagedResultPageLong> =
+            getSitePages(PageGetSitePagesParams.none())
+
+        /** @see getSitePages */
+        @MustBeClosed
+        fun getSitePages(
+            params: PageGetSitePagesParams = PageGetSitePagesParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CursorPagedResultPageLong>
+
+        /** @see getSitePages */
+        @MustBeClosed
+        fun getSitePages(
+            params: PageGetSitePagesParams = PageGetSitePagesParams.none()
+        ): HttpResponseFor<CursorPagedResultPageLong> = getSitePages(params, RequestOptions.none())
+
+        /** @see getSitePages */
+        @MustBeClosed
+        fun getSitePages(
+            requestOptions: RequestOptions
+        ): HttpResponseFor<CursorPagedResultPageLong> =
+            getSitePages(PageGetSitePagesParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/cursor/query`, but is
-         * otherwise the same as [PageService.querySitePages].
+         * otherwise the same as [PageService.getSitePagesByQuery].
          */
         @MustBeClosed
-        fun querySitePages(): HttpResponseFor<CursorPagedResultPageLong> =
-            querySitePages(PageQuerySitePagesParams.none())
+        fun getSitePagesByQuery(): HttpResponseFor<CursorPagedResultPageLong> =
+            getSitePagesByQuery(PageGetSitePagesByQueryParams.none())
 
-        /** @see querySitePages */
+        /** @see getSitePagesByQuery */
         @MustBeClosed
-        fun querySitePages(
-            params: PageQuerySitePagesParams = PageQuerySitePagesParams.none(),
+        fun getSitePagesByQuery(
+            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<CursorPagedResultPageLong>
 
-        /** @see querySitePages */
+        /** @see getSitePagesByQuery */
         @MustBeClosed
-        fun querySitePages(
-            params: PageQuerySitePagesParams = PageQuerySitePagesParams.none()
+        fun getSitePagesByQuery(
+            params: PageGetSitePagesByQueryParams = PageGetSitePagesByQueryParams.none()
         ): HttpResponseFor<CursorPagedResultPageLong> =
-            querySitePages(params, RequestOptions.none())
+            getSitePagesByQuery(params, RequestOptions.none())
 
-        /** @see querySitePages */
+        /** @see getSitePagesByQuery */
         @MustBeClosed
-        fun querySitePages(
+        fun getSitePagesByQuery(
             requestOptions: RequestOptions
         ): HttpResponseFor<CursorPagedResultPageLong> =
-            querySitePages(PageQuerySitePagesParams.none(), requestOptions)
+            getSitePagesByQuery(PageGetSitePagesByQueryParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions`, but is otherwise the same as
+         * [PageService.listLandingPageRevisions].
+         */
+        @MustBeClosed
+        fun listLandingPageRevisions(
+            objectId: String
+        ): HttpResponseFor<PageListLandingPageRevisionsPage> =
+            listLandingPageRevisions(objectId, PageListLandingPageRevisionsParams.none())
+
+        /** @see listLandingPageRevisions */
+        @MustBeClosed
+        fun listLandingPageRevisions(
+            objectId: String,
+            params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageListLandingPageRevisionsPage> =
+            listLandingPageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see listLandingPageRevisions */
+        @MustBeClosed
+        fun listLandingPageRevisions(
+            objectId: String,
+            params: PageListLandingPageRevisionsParams = PageListLandingPageRevisionsParams.none(),
+        ): HttpResponseFor<PageListLandingPageRevisionsPage> =
+            listLandingPageRevisions(objectId, params, RequestOptions.none())
+
+        /** @see listLandingPageRevisions */
+        @MustBeClosed
+        fun listLandingPageRevisions(
+            params: PageListLandingPageRevisionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageListLandingPageRevisionsPage>
+
+        /** @see listLandingPageRevisions */
+        @MustBeClosed
+        fun listLandingPageRevisions(
+            params: PageListLandingPageRevisionsParams
+        ): HttpResponseFor<PageListLandingPageRevisionsPage> =
+            listLandingPageRevisions(params, RequestOptions.none())
+
+        /** @see listLandingPageRevisions */
+        @MustBeClosed
+        fun listLandingPageRevisions(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PageListLandingPageRevisionsPage> =
+            listLandingPageRevisions(
+                objectId,
+                PageListLandingPageRevisionsParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/{objectId}/revisions`,
+         * but is otherwise the same as [PageService.listSitePageRevisions].
+         */
+        @MustBeClosed
+        fun listSitePageRevisions(
+            objectId: String
+        ): HttpResponseFor<PageListSitePageRevisionsPage> =
+            listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none())
+
+        /** @see listSitePageRevisions */
+        @MustBeClosed
+        fun listSitePageRevisions(
+            objectId: String,
+            params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageListSitePageRevisionsPage> =
+            listSitePageRevisions(params.toBuilder().objectId(objectId).build(), requestOptions)
+
+        /** @see listSitePageRevisions */
+        @MustBeClosed
+        fun listSitePageRevisions(
+            objectId: String,
+            params: PageListSitePageRevisionsParams = PageListSitePageRevisionsParams.none(),
+        ): HttpResponseFor<PageListSitePageRevisionsPage> =
+            listSitePageRevisions(objectId, params, RequestOptions.none())
+
+        /** @see listSitePageRevisions */
+        @MustBeClosed
+        fun listSitePageRevisions(
+            params: PageListSitePageRevisionsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PageListSitePageRevisionsPage>
+
+        /** @see listSitePageRevisions */
+        @MustBeClosed
+        fun listSitePageRevisions(
+            params: PageListSitePageRevisionsParams
+        ): HttpResponseFor<PageListSitePageRevisionsPage> =
+            listSitePageRevisions(params, RequestOptions.none())
+
+        /** @see listSitePageRevisions */
+        @MustBeClosed
+        fun listSitePageRevisions(
+            objectId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PageListSitePageRevisionsPage> =
+            listSitePageRevisions(objectId, PageListSitePageRevisionsParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/site-pages/{objectId}/draft/reset`, but is otherwise the same as
-         * [PageService.resetDraft].
+         * [PageService.resetSitePageDraft].
          */
         @MustBeClosed
-        fun resetDraft(objectId: String): HttpResponse =
-            resetDraft(objectId, PageResetDraftParams.none())
+        fun resetSitePageDraft(objectId: String): HttpResponse =
+            resetSitePageDraft(objectId, PageResetSitePageDraftParams.none())
 
-        /** @see resetDraft */
+        /** @see resetSitePageDraft */
         @MustBeClosed
-        fun resetDraft(
+        fun resetSitePageDraft(
             objectId: String,
-            params: PageResetDraftParams = PageResetDraftParams.none(),
+            params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse = resetDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+        ): HttpResponse =
+            resetSitePageDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see resetDraft */
+        /** @see resetSitePageDraft */
         @MustBeClosed
-        fun resetDraft(
+        fun resetSitePageDraft(
             objectId: String,
-            params: PageResetDraftParams = PageResetDraftParams.none(),
-        ): HttpResponse = resetDraft(objectId, params, RequestOptions.none())
+            params: PageResetSitePageDraftParams = PageResetSitePageDraftParams.none(),
+        ): HttpResponse = resetSitePageDraft(objectId, params, RequestOptions.none())
 
-        /** @see resetDraft */
+        /** @see resetSitePageDraft */
         @MustBeClosed
-        fun resetDraft(
-            params: PageResetDraftParams,
+        fun resetSitePageDraft(
+            params: PageResetSitePageDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see resetDraft */
+        /** @see resetSitePageDraft */
         @MustBeClosed
-        fun resetDraft(params: PageResetDraftParams): HttpResponse =
-            resetDraft(params, RequestOptions.none())
+        fun resetSitePageDraft(params: PageResetSitePageDraftParams): HttpResponse =
+            resetSitePageDraft(params, RequestOptions.none())
 
-        /** @see resetDraft */
+        /** @see resetSitePageDraft */
         @MustBeClosed
-        fun resetDraft(objectId: String, requestOptions: RequestOptions): HttpResponse =
-            resetDraft(objectId, PageResetDraftParams.none(), requestOptions)
+        fun resetSitePageDraft(objectId: String, requestOptions: RequestOptions): HttpResponse =
+            resetSitePageDraft(objectId, PageResetSitePageDraftParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore`, but is
+         * otherwise the same as [PageService.restoreLandingPageRevision].
+         */
+        @MustBeClosed
+        fun restoreLandingPageRevision(
+            revisionId: String,
+            params: PageRestoreLandingPageRevisionParams,
+        ): HttpResponseFor<Page> =
+            restoreLandingPageRevision(revisionId, params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevision */
+        @MustBeClosed
+        fun restoreLandingPageRevision(
+            revisionId: String,
+            params: PageRestoreLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Page> =
+            restoreLandingPageRevision(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
+
+        /** @see restoreLandingPageRevision */
+        @MustBeClosed
+        fun restoreLandingPageRevision(
+            params: PageRestoreLandingPageRevisionParams
+        ): HttpResponseFor<Page> = restoreLandingPageRevision(params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevision */
+        @MustBeClosed
+        fun restoreLandingPageRevision(
+            params: PageRestoreLandingPageRevisionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Page>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore-to-draft`, but
+         * is otherwise the same as [PageService.restoreLandingPageRevisionToDraft].
+         */
+        @MustBeClosed
+        fun restoreLandingPageRevisionToDraft(
+            revisionId: Long,
+            params: PageRestoreLandingPageRevisionToDraftParams,
+        ): HttpResponseFor<Page> =
+            restoreLandingPageRevisionToDraft(revisionId, params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevisionToDraft */
+        @MustBeClosed
+        fun restoreLandingPageRevisionToDraft(
+            revisionId: Long,
+            params: PageRestoreLandingPageRevisionToDraftParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Page> =
+            restoreLandingPageRevisionToDraft(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
+
+        /** @see restoreLandingPageRevisionToDraft */
+        @MustBeClosed
+        fun restoreLandingPageRevisionToDraft(
+            params: PageRestoreLandingPageRevisionToDraftParams
+        ): HttpResponseFor<Page> = restoreLandingPageRevisionToDraft(params, RequestOptions.none())
+
+        /** @see restoreLandingPageRevisionToDraft */
+        @MustBeClosed
+        fun restoreLandingPageRevisionToDraft(
+            params: PageRestoreLandingPageRevisionToDraftParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Page>
 
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore`, but is
-         * otherwise the same as [PageService.restoreRevision].
+         * otherwise the same as [PageService.restoreSitePageRevision].
          */
         @MustBeClosed
-        fun restoreRevision(
+        fun restoreSitePageRevision(
             revisionId: String,
-            params: PageRestoreRevisionParams,
-        ): HttpResponseFor<Page> = restoreRevision(revisionId, params, RequestOptions.none())
+            params: PageRestoreSitePageRevisionParams,
+        ): HttpResponseFor<Page> =
+            restoreSitePageRevision(revisionId, params, RequestOptions.none())
 
-        /** @see restoreRevision */
+        /** @see restoreSitePageRevision */
         @MustBeClosed
-        fun restoreRevision(
+        fun restoreSitePageRevision(
             revisionId: String,
-            params: PageRestoreRevisionParams,
+            params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Page> =
-            restoreRevision(params.toBuilder().revisionId(revisionId).build(), requestOptions)
+            restoreSitePageRevision(
+                params.toBuilder().revisionId(revisionId).build(),
+                requestOptions,
+            )
 
-        /** @see restoreRevision */
+        /** @see restoreSitePageRevision */
         @MustBeClosed
-        fun restoreRevision(params: PageRestoreRevisionParams): HttpResponseFor<Page> =
-            restoreRevision(params, RequestOptions.none())
+        fun restoreSitePageRevision(
+            params: PageRestoreSitePageRevisionParams
+        ): HttpResponseFor<Page> = restoreSitePageRevision(params, RequestOptions.none())
 
-        /** @see restoreRevision */
+        /** @see restoreSitePageRevision */
         @MustBeClosed
-        fun restoreRevision(
-            params: PageRestoreRevisionParams,
+        fun restoreSitePageRevision(
+            params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Page>
 
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore-to-draft`, but is
-         * otherwise the same as [PageService.restoreRevisionToDraft].
+         * otherwise the same as [PageService.restoreSitePageRevisionToDraft].
          */
         @MustBeClosed
-        fun restoreRevisionToDraft(
+        fun restoreSitePageRevisionToDraft(
             revisionId: Long,
-            params: PageRestoreRevisionToDraftParams,
-        ): HttpResponseFor<Page> = restoreRevisionToDraft(revisionId, params, RequestOptions.none())
+            params: PageRestoreSitePageRevisionToDraftParams,
+        ): HttpResponseFor<Page> =
+            restoreSitePageRevisionToDraft(revisionId, params, RequestOptions.none())
 
-        /** @see restoreRevisionToDraft */
+        /** @see restoreSitePageRevisionToDraft */
         @MustBeClosed
-        fun restoreRevisionToDraft(
+        fun restoreSitePageRevisionToDraft(
             revisionId: Long,
-            params: PageRestoreRevisionToDraftParams,
+            params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Page> =
-            restoreRevisionToDraft(
+            restoreSitePageRevisionToDraft(
                 params.toBuilder().revisionId(revisionId).build(),
                 requestOptions,
             )
 
-        /** @see restoreRevisionToDraft */
+        /** @see restoreSitePageRevisionToDraft */
         @MustBeClosed
-        fun restoreRevisionToDraft(
-            params: PageRestoreRevisionToDraftParams
-        ): HttpResponseFor<Page> = restoreRevisionToDraft(params, RequestOptions.none())
+        fun restoreSitePageRevisionToDraft(
+            params: PageRestoreSitePageRevisionToDraftParams
+        ): HttpResponseFor<Page> = restoreSitePageRevisionToDraft(params, RequestOptions.none())
 
-        /** @see restoreRevisionToDraft */
+        /** @see restoreSitePageRevisionToDraft */
         @MustBeClosed
-        fun restoreRevisionToDraft(
-            params: PageRestoreRevisionToDraftParams,
+        fun restoreSitePageRevisionToDraft(
+            params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Page>
     }

@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetDraftPara
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePublishDraftParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePushDraftLiveParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageResetDraftParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageScheduleParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageUpdateDraftParams
@@ -228,36 +228,36 @@ interface LandingPageServiceAsync {
      * Take any changes from the draft version of the Landing Page and apply them to the live
      * version.
      */
-    fun publishDraft(objectId: String): CompletableFuture<Void?> =
-        publishDraft(objectId, LandingPagePublishDraftParams.none())
+    fun pushDraftLive(objectId: String): CompletableFuture<Void?> =
+        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
 
-    /** @see publishDraft */
-    fun publishDraft(
+    /** @see pushDraftLive */
+    fun pushDraftLive(
         objectId: String,
-        params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
+        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        publishDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+        pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-    /** @see publishDraft */
-    fun publishDraft(
+    /** @see pushDraftLive */
+    fun pushDraftLive(
         objectId: String,
-        params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
-    ): CompletableFuture<Void?> = publishDraft(objectId, params, RequestOptions.none())
+        params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
+    ): CompletableFuture<Void?> = pushDraftLive(objectId, params, RequestOptions.none())
 
-    /** @see publishDraft */
-    fun publishDraft(
-        params: LandingPagePublishDraftParams,
+    /** @see pushDraftLive */
+    fun pushDraftLive(
+        params: LandingPagePushDraftLiveParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** @see publishDraft */
-    fun publishDraft(params: LandingPagePublishDraftParams): CompletableFuture<Void?> =
-        publishDraft(params, RequestOptions.none())
+    /** @see pushDraftLive */
+    fun pushDraftLive(params: LandingPagePushDraftLiveParams): CompletableFuture<Void?> =
+        pushDraftLive(params, RequestOptions.none())
 
-    /** @see publishDraft */
-    fun publishDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
-        publishDraft(objectId, LandingPagePublishDraftParams.none(), requestOptions)
+    /** @see pushDraftLive */
+    fun pushDraftLive(objectId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
+        pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
 
     /** Discards any edits and resets the draft to match the live version. */
     fun resetDraft(objectId: String): CompletableFuture<Void?> =
@@ -586,41 +586,41 @@ interface LandingPageServiceAsync {
         /**
          * Returns a raw HTTP response for `post
          * /cms/pages/2026-03/landing-pages/{objectId}/draft/push-live`, but is otherwise the same
-         * as [LandingPageServiceAsync.publishDraft].
+         * as [LandingPageServiceAsync.pushDraftLive].
          */
-        fun publishDraft(objectId: String): CompletableFuture<HttpResponse> =
-            publishDraft(objectId, LandingPagePublishDraftParams.none())
+        fun pushDraftLive(objectId: String): CompletableFuture<HttpResponse> =
+            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none())
 
-        /** @see publishDraft */
-        fun publishDraft(
+        /** @see pushDraftLive */
+        fun pushDraftLive(
             objectId: String,
-            params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
+            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            publishDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+            pushDraftLive(params.toBuilder().objectId(objectId).build(), requestOptions)
 
-        /** @see publishDraft */
-        fun publishDraft(
+        /** @see pushDraftLive */
+        fun pushDraftLive(
             objectId: String,
-            params: LandingPagePublishDraftParams = LandingPagePublishDraftParams.none(),
-        ): CompletableFuture<HttpResponse> = publishDraft(objectId, params, RequestOptions.none())
+            params: LandingPagePushDraftLiveParams = LandingPagePushDraftLiveParams.none(),
+        ): CompletableFuture<HttpResponse> = pushDraftLive(objectId, params, RequestOptions.none())
 
-        /** @see publishDraft */
-        fun publishDraft(
-            params: LandingPagePublishDraftParams,
+        /** @see pushDraftLive */
+        fun pushDraftLive(
+            params: LandingPagePushDraftLiveParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see publishDraft */
-        fun publishDraft(params: LandingPagePublishDraftParams): CompletableFuture<HttpResponse> =
-            publishDraft(params, RequestOptions.none())
+        /** @see pushDraftLive */
+        fun pushDraftLive(params: LandingPagePushDraftLiveParams): CompletableFuture<HttpResponse> =
+            pushDraftLive(params, RequestOptions.none())
 
-        /** @see publishDraft */
-        fun publishDraft(
+        /** @see pushDraftLive */
+        fun pushDraftLive(
             objectId: String,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> =
-            publishDraft(objectId, LandingPagePublishDraftParams.none(), requestOptions)
+            pushDraftLive(objectId, LandingPagePushDraftLiveParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

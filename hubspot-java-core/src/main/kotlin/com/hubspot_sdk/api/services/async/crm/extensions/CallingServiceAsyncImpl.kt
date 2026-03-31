@@ -17,14 +17,23 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateChannelConnectionSettingsParams
 import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateInboundCallParams
-import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateParams
-import com.hubspot_sdk.api.models.crm.extensions.calling.CallingDeleteParams
-import com.hubspot_sdk.api.models.crm.extensions.calling.CallingGetParams
-import com.hubspot_sdk.api.models.crm.extensions.calling.CallingMarkReadyParams
-import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateRecordingReadyParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateRecordingSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingDeleteChannelConnectionSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingDeleteSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingGetChannelConnectionSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingGetRecordingSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingGetSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateChannelConnectionSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateRecordingSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.ChannelConnectionSettingsResponse
 import com.hubspot_sdk.api.models.crm.extensions.calling.CompletedThirdPartyCallResponse
 import com.hubspot_sdk.api.models.crm.extensions.calling.RecordingSettingsResponse
+import com.hubspot_sdk.api.models.crm.extensions.calling.SettingsResponse
 import com.hubspot_sdk.api.services.async.crm.extensions.calling.TranscriptServiceAsync
 import com.hubspot_sdk.api.services.async.crm.extensions.calling.TranscriptServiceAsyncImpl
 import java.util.concurrent.CompletableFuture
@@ -49,26 +58,14 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
     override fun transcripts(): TranscriptServiceAsync = transcripts
 
-    override fun create(
-        params: CallingCreateParams,
+    override fun createChannelConnectionSettings(
+        params: CallingCreateChannelConnectionSettingsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingSettingsResponse> =
-        // post /crm/extensions/calling/2026-03/{appId}/settings/recording
-        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
-
-    override fun update(
-        params: CallingUpdateParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingSettingsResponse> =
-        // patch /crm/extensions/calling/2026-03/{appId}/settings/recording
-        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
-
-    override fun delete(
-        params: CallingDeleteParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // delete /crm/extensions/calling/2026-03/{appId}/settings/channel-connection
-        withRawResponse().delete(params, requestOptions).thenAccept {}
+    ): CompletableFuture<ChannelConnectionSettingsResponse> =
+        // post /crm/extensions/calling/2026-03/{appId}/settings/channel-connection
+        withRawResponse().createChannelConnectionSettings(params, requestOptions).thenApply {
+            it.parse()
+        }
 
     override fun createInboundCall(
         params: CallingCreateInboundCallParams,
@@ -77,19 +74,86 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
         // post /crm/extensions/calling/2026-03/inbound-call
         withRawResponse().createInboundCall(params, requestOptions).thenApply { it.parse() }
 
-    override fun get(
-        params: CallingGetParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<RecordingSettingsResponse> =
-        // get /crm/extensions/calling/2026-03/{appId}/settings/recording
-        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
-
-    override fun markReady(
-        params: CallingMarkReadyParams,
+    override fun createRecordingReady(
+        params: CallingCreateRecordingReadyParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /crm/extensions/calling/2026-03/recordings/ready
-        withRawResponse().markReady(params, requestOptions).thenAccept {}
+        withRawResponse().createRecordingReady(params, requestOptions).thenAccept {}
+
+    override fun createRecordingSettings(
+        params: CallingCreateRecordingSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RecordingSettingsResponse> =
+        // post /crm/extensions/calling/2026-03/{appId}/settings/recording
+        withRawResponse().createRecordingSettings(params, requestOptions).thenApply { it.parse() }
+
+    override fun createSettings(
+        params: CallingCreateSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SettingsResponse> =
+        // post /crm/extensions/calling/2026-03/{appId}/settings
+        withRawResponse().createSettings(params, requestOptions).thenApply { it.parse() }
+
+    override fun deleteChannelConnectionSettings(
+        params: CallingDeleteChannelConnectionSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /crm/extensions/calling/2026-03/{appId}/settings/channel-connection
+        withRawResponse().deleteChannelConnectionSettings(params, requestOptions).thenAccept {}
+
+    override fun deleteSettings(
+        params: CallingDeleteSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /crm/extensions/calling/2026-03/{appId}/settings
+        withRawResponse().deleteSettings(params, requestOptions).thenAccept {}
+
+    override fun getChannelConnectionSettings(
+        params: CallingGetChannelConnectionSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ChannelConnectionSettingsResponse> =
+        // get /crm/extensions/calling/2026-03/{appId}/settings/channel-connection
+        withRawResponse().getChannelConnectionSettings(params, requestOptions).thenApply {
+            it.parse()
+        }
+
+    override fun getRecordingSettings(
+        params: CallingGetRecordingSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RecordingSettingsResponse> =
+        // get /crm/extensions/calling/2026-03/{appId}/settings/recording
+        withRawResponse().getRecordingSettings(params, requestOptions).thenApply { it.parse() }
+
+    override fun getSettings(
+        params: CallingGetSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SettingsResponse> =
+        // get /crm/extensions/calling/2026-03/{appId}/settings
+        withRawResponse().getSettings(params, requestOptions).thenApply { it.parse() }
+
+    override fun updateChannelConnectionSettings(
+        params: CallingUpdateChannelConnectionSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ChannelConnectionSettingsResponse> =
+        // patch /crm/extensions/calling/2026-03/{appId}/settings/channel-connection
+        withRawResponse().updateChannelConnectionSettings(params, requestOptions).thenApply {
+            it.parse()
+        }
+
+    override fun updateRecordingSettings(
+        params: CallingUpdateRecordingSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RecordingSettingsResponse> =
+        // patch /crm/extensions/calling/2026-03/{appId}/settings/recording
+        withRawResponse().updateRecordingSettings(params, requestOptions).thenApply { it.parse() }
+
+    override fun updateSettings(
+        params: CallingUpdateSettingsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<SettingsResponse> =
+        // patch /crm/extensions/calling/2026-03/{appId}/settings
+        withRawResponse().updateSettings(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         CallingServiceAsync.WithRawResponse {
@@ -110,13 +174,14 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
 
         override fun transcripts(): TranscriptServiceAsync.WithRawResponse = transcripts
 
-        private val createHandler: Handler<RecordingSettingsResponse> =
-            jsonHandler<RecordingSettingsResponse>(clientOptions.jsonMapper)
+        private val createChannelConnectionSettingsHandler:
+            Handler<ChannelConnectionSettingsResponse> =
+            jsonHandler<ChannelConnectionSettingsResponse>(clientOptions.jsonMapper)
 
-        override fun create(
-            params: CallingCreateParams,
+        override fun createChannelConnectionSettings(
+            params: CallingCreateChannelConnectionSettingsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingSettingsResponse>> {
+        ): CompletableFuture<HttpResponseFor<ChannelConnectionSettingsResponse>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("appId", params.appId().getOrNull())
@@ -131,92 +196,9 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                         "2026-03",
                         params._pathParam(0),
                         "settings",
-                        "recording",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { createHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val updateHandler: Handler<RecordingSettingsResponse> =
-            jsonHandler<RecordingSettingsResponse>(clientOptions.jsonMapper)
-
-        override fun update(
-            params: CallingUpdateParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RecordingSettingsResponse>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("appId", params.appId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "extensions",
-                        "calling",
-                        "2026-03",
-                        params._pathParam(0),
-                        "settings",
-                        "recording",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { updateHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val deleteHandler: Handler<Void?> = emptyHandler()
-
-        override fun delete(
-            params: CallingDeleteParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("appId", params.appId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "extensions",
-                        "calling",
-                        "2026-03",
-                        params._pathParam(0),
-                        "settings",
                         "channel-connection",
                     )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -224,7 +206,13 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { deleteHandler.handle(it) }
+                        response
+                            .use { createChannelConnectionSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }
@@ -260,11 +248,236 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val getHandler: Handler<RecordingSettingsResponse> =
+        private val createRecordingReadyHandler: Handler<Void?> = emptyHandler()
+
+        override fun createRecordingReady(
+            params: CallingCreateRecordingReadyParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        "recordings",
+                        "ready",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { createRecordingReadyHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val createRecordingSettingsHandler: Handler<RecordingSettingsResponse> =
             jsonHandler<RecordingSettingsResponse>(clientOptions.jsonMapper)
 
-        override fun get(
-            params: CallingGetParams,
+        override fun createRecordingSettings(
+            params: CallingCreateRecordingSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RecordingSettingsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                        "recording",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createRecordingSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val createSettingsHandler: Handler<SettingsResponse> =
+            jsonHandler<SettingsResponse>(clientOptions.jsonMapper)
+
+        override fun createSettings(
+            params: CallingCreateSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SettingsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val deleteChannelConnectionSettingsHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteChannelConnectionSettings(
+            params: CallingDeleteChannelConnectionSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                        "channel-connection",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteChannelConnectionSettingsHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val deleteSettingsHandler: Handler<Void?> = emptyHandler()
+
+        override fun deleteSettings(
+            params: CallingDeleteSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response.use { deleteSettingsHandler.handle(it) }
+                    }
+                }
+        }
+
+        private val getChannelConnectionSettingsHandler:
+            Handler<ChannelConnectionSettingsResponse> =
+            jsonHandler<ChannelConnectionSettingsResponse>(clientOptions.jsonMapper)
+
+        override fun getChannelConnectionSettings(
+            params: CallingGetChannelConnectionSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ChannelConnectionSettingsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                        "channel-connection",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getChannelConnectionSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val getRecordingSettingsHandler: Handler<RecordingSettingsResponse> =
+            jsonHandler<RecordingSettingsResponse>(clientOptions.jsonMapper)
+
+        override fun getRecordingSettings(
+            params: CallingGetRecordingSettingsParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<RecordingSettingsResponse>> {
             // We check here instead of in the params builder because this can be specified
@@ -291,7 +504,7 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { getHandler.handle(it) }
+                            .use { getRecordingSettingsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -301,23 +514,69 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val markReadyHandler: Handler<Void?> = emptyHandler()
+        private val getSettingsHandler: Handler<SettingsResponse> =
+            jsonHandler<SettingsResponse>(clientOptions.jsonMapper)
 
-        override fun markReady(
-            params: CallingMarkReadyParams,
+        override fun getSettings(
+            params: CallingGetSettingsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
+        ): CompletableFuture<HttpResponseFor<SettingsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
                         "crm",
                         "extensions",
                         "calling",
                         "2026-03",
-                        "recordings",
-                        "ready",
+                        params._pathParam(0),
+                        "settings",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val updateChannelConnectionSettingsHandler:
+            Handler<ChannelConnectionSettingsResponse> =
+            jsonHandler<ChannelConnectionSettingsResponse>(clientOptions.jsonMapper)
+
+        override fun updateChannelConnectionSettings(
+            params: CallingUpdateChannelConnectionSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ChannelConnectionSettingsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                        "channel-connection",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -327,7 +586,96 @@ class CallingServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { markReadyHandler.handle(it) }
+                        response
+                            .use { updateChannelConnectionSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val updateRecordingSettingsHandler: Handler<RecordingSettingsResponse> =
+            jsonHandler<RecordingSettingsResponse>(clientOptions.jsonMapper)
+
+        override fun updateRecordingSettings(
+            params: CallingUpdateRecordingSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RecordingSettingsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                        "recording",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateRecordingSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val updateSettingsHandler: Handler<SettingsResponse> =
+            jsonHandler<SettingsResponse>(clientOptions.jsonMapper)
+
+        override fun updateSettings(
+            params: CallingUpdateSettingsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<SettingsResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "extensions",
+                        "calling",
+                        "2026-03",
+                        params._pathParam(0),
+                        "settings",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateSettingsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
                     }
                 }
         }

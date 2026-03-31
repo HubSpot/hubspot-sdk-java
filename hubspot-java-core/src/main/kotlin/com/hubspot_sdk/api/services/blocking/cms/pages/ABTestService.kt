@@ -11,9 +11,12 @@ import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestEndRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestRerunRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.Page
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateAbTestVariationParams
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndAbTestParams
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunAbTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateLandingPageVariationParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateSitePageVariationParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndLandingPageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndSitePageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunLandingPageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunSitePageTestParams
 import java.util.function.Consumer
 
 interface ABTestService {
@@ -31,78 +34,160 @@ interface ABTestService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ABTestService
 
     /** Create a new A/B test variation based on the information provided in the request body. */
-    fun createAbTestVariation(params: ABTestCreateAbTestVariationParams): Page =
-        createAbTestVariation(params, RequestOptions.none())
+    fun createLandingPageVariation(params: ABTestCreateLandingPageVariationParams): Page =
+        createLandingPageVariation(params, RequestOptions.none())
 
-    /** @see createAbTestVariation */
-    fun createAbTestVariation(
-        params: ABTestCreateAbTestVariationParams,
+    /** @see createLandingPageVariation */
+    fun createLandingPageVariation(
+        params: ABTestCreateLandingPageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Page
 
-    /** @see createAbTestVariation */
-    fun createAbTestVariation(
+    /** @see createLandingPageVariation */
+    fun createLandingPageVariation(
         abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Page =
-        createAbTestVariation(
-            ABTestCreateAbTestVariationParams.builder()
+        createLandingPageVariation(
+            ABTestCreateLandingPageVariationParams.builder()
                 .abTestCreateRequestVNext(abTestCreateRequestVNext)
                 .build(),
             requestOptions,
         )
 
-    /** @see createAbTestVariation */
-    fun createAbTestVariation(abTestCreateRequestVNext: AbTestCreateRequestVNext): Page =
-        createAbTestVariation(abTestCreateRequestVNext, RequestOptions.none())
+    /** @see createLandingPageVariation */
+    fun createLandingPageVariation(abTestCreateRequestVNext: AbTestCreateRequestVNext): Page =
+        createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
-    /** End an active A/B test and designate a winner. */
-    fun endAbTest(params: ABTestEndAbTestParams) = endAbTest(params, RequestOptions.none())
+    /** Create a new A/B test variation based on the information provided in the request body. */
+    fun createSitePageVariation(params: ABTestCreateSitePageVariationParams): Page =
+        createSitePageVariation(params, RequestOptions.none())
 
-    /** @see endAbTest */
-    fun endAbTest(
-        params: ABTestEndAbTestParams,
+    /** @see createSitePageVariation */
+    fun createSitePageVariation(
+        params: ABTestCreateSitePageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    )
+    ): Page
 
-    /** @see endAbTest */
-    fun endAbTest(
-        abTestEndRequestVNext: AbTestEndRequestVNext,
+    /** @see createSitePageVariation */
+    fun createSitePageVariation(
+        abTestCreateRequestVNext: AbTestCreateRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ) =
-        endAbTest(
-            ABTestEndAbTestParams.builder().abTestEndRequestVNext(abTestEndRequestVNext).build(),
+    ): Page =
+        createSitePageVariation(
+            ABTestCreateSitePageVariationParams.builder()
+                .abTestCreateRequestVNext(abTestCreateRequestVNext)
+                .build(),
             requestOptions,
         )
 
-    /** @see endAbTest */
-    fun endAbTest(abTestEndRequestVNext: AbTestEndRequestVNext) =
-        endAbTest(abTestEndRequestVNext, RequestOptions.none())
+    /** @see createSitePageVariation */
+    fun createSitePageVariation(abTestCreateRequestVNext: AbTestCreateRequestVNext): Page =
+        createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
-    /** Rerun a previous A/B test. */
-    fun rerunAbTest(params: ABTestRerunAbTestParams) = rerunAbTest(params, RequestOptions.none())
+    /** End an active A/B test and designate a winner. */
+    fun endLandingPageTest(params: ABTestEndLandingPageTestParams) =
+        endLandingPageTest(params, RequestOptions.none())
 
-    /** @see rerunAbTest */
-    fun rerunAbTest(
-        params: ABTestRerunAbTestParams,
+    /** @see endLandingPageTest */
+    fun endLandingPageTest(
+        params: ABTestEndLandingPageTestParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     )
 
-    /** @see rerunAbTest */
-    fun rerunAbTest(
+    /** @see endLandingPageTest */
+    fun endLandingPageTest(
+        abTestEndRequestVNext: AbTestEndRequestVNext,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) =
+        endLandingPageTest(
+            ABTestEndLandingPageTestParams.builder()
+                .abTestEndRequestVNext(abTestEndRequestVNext)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see endLandingPageTest */
+    fun endLandingPageTest(abTestEndRequestVNext: AbTestEndRequestVNext) =
+        endLandingPageTest(abTestEndRequestVNext, RequestOptions.none())
+
+    /** End an active A/B test and designate a winner. */
+    fun endSitePageTest(params: ABTestEndSitePageTestParams) =
+        endSitePageTest(params, RequestOptions.none())
+
+    /** @see endSitePageTest */
+    fun endSitePageTest(
+        params: ABTestEndSitePageTestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see endSitePageTest */
+    fun endSitePageTest(
+        abTestEndRequestVNext: AbTestEndRequestVNext,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) =
+        endSitePageTest(
+            ABTestEndSitePageTestParams.builder()
+                .abTestEndRequestVNext(abTestEndRequestVNext)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see endSitePageTest */
+    fun endSitePageTest(abTestEndRequestVNext: AbTestEndRequestVNext) =
+        endSitePageTest(abTestEndRequestVNext, RequestOptions.none())
+
+    /** Rerun a previous A/B test. */
+    fun rerunLandingPageTest(params: ABTestRerunLandingPageTestParams) =
+        rerunLandingPageTest(params, RequestOptions.none())
+
+    /** @see rerunLandingPageTest */
+    fun rerunLandingPageTest(
+        params: ABTestRerunLandingPageTestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see rerunLandingPageTest */
+    fun rerunLandingPageTest(
         abTestRerunRequestVNext: AbTestRerunRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
     ) =
-        rerunAbTest(
-            ABTestRerunAbTestParams.builder()
+        rerunLandingPageTest(
+            ABTestRerunLandingPageTestParams.builder()
                 .abTestRerunRequestVNext(abTestRerunRequestVNext)
                 .build(),
             requestOptions,
         )
 
-    /** @see rerunAbTest */
-    fun rerunAbTest(abTestRerunRequestVNext: AbTestRerunRequestVNext) =
-        rerunAbTest(abTestRerunRequestVNext, RequestOptions.none())
+    /** @see rerunLandingPageTest */
+    fun rerunLandingPageTest(abTestRerunRequestVNext: AbTestRerunRequestVNext) =
+        rerunLandingPageTest(abTestRerunRequestVNext, RequestOptions.none())
+
+    /** Rerun a previous A/B test. */
+    fun rerunSitePageTest(params: ABTestRerunSitePageTestParams) =
+        rerunSitePageTest(params, RequestOptions.none())
+
+    /** @see rerunSitePageTest */
+    fun rerunSitePageTest(
+        params: ABTestRerunSitePageTestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    )
+
+    /** @see rerunSitePageTest */
+    fun rerunSitePageTest(
+        abTestRerunRequestVNext: AbTestRerunRequestVNext,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ) =
+        rerunSitePageTest(
+            ABTestRerunSitePageTestParams.builder()
+                .abTestRerunRequestVNext(abTestRerunRequestVNext)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see rerunSitePageTest */
+    fun rerunSitePageTest(abTestRerunRequestVNext: AbTestRerunRequestVNext) =
+        rerunSitePageTest(abTestRerunRequestVNext, RequestOptions.none())
 
     /** A view of [ABTestService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -116,105 +201,208 @@ interface ABTestService {
 
         /**
          * Returns a raw HTTP response for `post
-         * /cms/pages/2026-03/site-pages/ab-test/create-variation`, but is otherwise the same as
-         * [ABTestService.createAbTestVariation].
+         * /cms/pages/2026-03/landing-pages/ab-test/create-variation`, but is otherwise the same as
+         * [ABTestService.createLandingPageVariation].
          */
         @MustBeClosed
-        fun createAbTestVariation(
-            params: ABTestCreateAbTestVariationParams
-        ): HttpResponseFor<Page> = createAbTestVariation(params, RequestOptions.none())
+        fun createLandingPageVariation(
+            params: ABTestCreateLandingPageVariationParams
+        ): HttpResponseFor<Page> = createLandingPageVariation(params, RequestOptions.none())
 
-        /** @see createAbTestVariation */
+        /** @see createLandingPageVariation */
         @MustBeClosed
-        fun createAbTestVariation(
-            params: ABTestCreateAbTestVariationParams,
+        fun createLandingPageVariation(
+            params: ABTestCreateLandingPageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Page>
 
-        /** @see createAbTestVariation */
+        /** @see createLandingPageVariation */
         @MustBeClosed
-        fun createAbTestVariation(
+        fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Page> =
-            createAbTestVariation(
-                ABTestCreateAbTestVariationParams.builder()
+            createLandingPageVariation(
+                ABTestCreateLandingPageVariationParams.builder()
                     .abTestCreateRequestVNext(abTestCreateRequestVNext)
                     .build(),
                 requestOptions,
             )
 
-        /** @see createAbTestVariation */
+        /** @see createLandingPageVariation */
         @MustBeClosed
-        fun createAbTestVariation(
+        fun createLandingPageVariation(
             abTestCreateRequestVNext: AbTestCreateRequestVNext
         ): HttpResponseFor<Page> =
-            createAbTestVariation(abTestCreateRequestVNext, RequestOptions.none())
+            createLandingPageVariation(abTestCreateRequestVNext, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/end`, but is
-         * otherwise the same as [ABTestService.endAbTest].
+         * Returns a raw HTTP response for `post
+         * /cms/pages/2026-03/site-pages/ab-test/create-variation`, but is otherwise the same as
+         * [ABTestService.createSitePageVariation].
          */
         @MustBeClosed
-        fun endAbTest(params: ABTestEndAbTestParams): HttpResponse =
-            endAbTest(params, RequestOptions.none())
+        fun createSitePageVariation(
+            params: ABTestCreateSitePageVariationParams
+        ): HttpResponseFor<Page> = createSitePageVariation(params, RequestOptions.none())
 
-        /** @see endAbTest */
+        /** @see createSitePageVariation */
         @MustBeClosed
-        fun endAbTest(
-            params: ABTestEndAbTestParams,
+        fun createSitePageVariation(
+            params: ABTestCreateSitePageVariationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Page>
+
+        /** @see createSitePageVariation */
+        @MustBeClosed
+        fun createSitePageVariation(
+            abTestCreateRequestVNext: AbTestCreateRequestVNext,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Page> =
+            createSitePageVariation(
+                ABTestCreateSitePageVariationParams.builder()
+                    .abTestCreateRequestVNext(abTestCreateRequestVNext)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see createSitePageVariation */
+        @MustBeClosed
+        fun createSitePageVariation(
+            abTestCreateRequestVNext: AbTestCreateRequestVNext
+        ): HttpResponseFor<Page> =
+            createSitePageVariation(abTestCreateRequestVNext, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/ab-test/end`, but
+         * is otherwise the same as [ABTestService.endLandingPageTest].
+         */
+        @MustBeClosed
+        fun endLandingPageTest(params: ABTestEndLandingPageTestParams): HttpResponse =
+            endLandingPageTest(params, RequestOptions.none())
+
+        /** @see endLandingPageTest */
+        @MustBeClosed
+        fun endLandingPageTest(
+            params: ABTestEndLandingPageTestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see endAbTest */
+        /** @see endLandingPageTest */
         @MustBeClosed
-        fun endAbTest(
+        fun endLandingPageTest(
             abTestEndRequestVNext: AbTestEndRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            endAbTest(
-                ABTestEndAbTestParams.builder()
+            endLandingPageTest(
+                ABTestEndLandingPageTestParams.builder()
                     .abTestEndRequestVNext(abTestEndRequestVNext)
                     .build(),
                 requestOptions,
             )
 
-        /** @see endAbTest */
+        /** @see endLandingPageTest */
         @MustBeClosed
-        fun endAbTest(abTestEndRequestVNext: AbTestEndRequestVNext): HttpResponse =
-            endAbTest(abTestEndRequestVNext, RequestOptions.none())
+        fun endLandingPageTest(abTestEndRequestVNext: AbTestEndRequestVNext): HttpResponse =
+            endLandingPageTest(abTestEndRequestVNext, RequestOptions.none())
 
         /**
-         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/rerun`, but
-         * is otherwise the same as [ABTestService.rerunAbTest].
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/end`, but is
+         * otherwise the same as [ABTestService.endSitePageTest].
          */
         @MustBeClosed
-        fun rerunAbTest(params: ABTestRerunAbTestParams): HttpResponse =
-            rerunAbTest(params, RequestOptions.none())
+        fun endSitePageTest(params: ABTestEndSitePageTestParams): HttpResponse =
+            endSitePageTest(params, RequestOptions.none())
 
-        /** @see rerunAbTest */
+        /** @see endSitePageTest */
         @MustBeClosed
-        fun rerunAbTest(
-            params: ABTestRerunAbTestParams,
+        fun endSitePageTest(
+            params: ABTestEndSitePageTestParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see rerunAbTest */
+        /** @see endSitePageTest */
         @MustBeClosed
-        fun rerunAbTest(
+        fun endSitePageTest(
+            abTestEndRequestVNext: AbTestEndRequestVNext,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            endSitePageTest(
+                ABTestEndSitePageTestParams.builder()
+                    .abTestEndRequestVNext(abTestEndRequestVNext)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see endSitePageTest */
+        @MustBeClosed
+        fun endSitePageTest(abTestEndRequestVNext: AbTestEndRequestVNext): HttpResponse =
+            endSitePageTest(abTestEndRequestVNext, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/ab-test/rerun`,
+         * but is otherwise the same as [ABTestService.rerunLandingPageTest].
+         */
+        @MustBeClosed
+        fun rerunLandingPageTest(params: ABTestRerunLandingPageTestParams): HttpResponse =
+            rerunLandingPageTest(params, RequestOptions.none())
+
+        /** @see rerunLandingPageTest */
+        @MustBeClosed
+        fun rerunLandingPageTest(
+            params: ABTestRerunLandingPageTestParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see rerunLandingPageTest */
+        @MustBeClosed
+        fun rerunLandingPageTest(
             abTestRerunRequestVNext: AbTestRerunRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse =
-            rerunAbTest(
-                ABTestRerunAbTestParams.builder()
+            rerunLandingPageTest(
+                ABTestRerunLandingPageTestParams.builder()
                     .abTestRerunRequestVNext(abTestRerunRequestVNext)
                     .build(),
                 requestOptions,
             )
 
-        /** @see rerunAbTest */
+        /** @see rerunLandingPageTest */
         @MustBeClosed
-        fun rerunAbTest(abTestRerunRequestVNext: AbTestRerunRequestVNext): HttpResponse =
-            rerunAbTest(abTestRerunRequestVNext, RequestOptions.none())
+        fun rerunLandingPageTest(abTestRerunRequestVNext: AbTestRerunRequestVNext): HttpResponse =
+            rerunLandingPageTest(abTestRerunRequestVNext, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/ab-test/rerun`, but
+         * is otherwise the same as [ABTestService.rerunSitePageTest].
+         */
+        @MustBeClosed
+        fun rerunSitePageTest(params: ABTestRerunSitePageTestParams): HttpResponse =
+            rerunSitePageTest(params, RequestOptions.none())
+
+        /** @see rerunSitePageTest */
+        @MustBeClosed
+        fun rerunSitePageTest(
+            params: ABTestRerunSitePageTestParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see rerunSitePageTest */
+        @MustBeClosed
+        fun rerunSitePageTest(
+            abTestRerunRequestVNext: AbTestRerunRequestVNext,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse =
+            rerunSitePageTest(
+                ABTestRerunSitePageTestParams.builder()
+                    .abTestRerunRequestVNext(abTestRerunRequestVNext)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see rerunSitePageTest */
+        @MustBeClosed
+        fun rerunSitePageTest(abTestRerunRequestVNext: AbTestRerunRequestVNext): HttpResponse =
+            rerunSitePageTest(abTestRerunRequestVNext, RequestOptions.none())
     }
 }

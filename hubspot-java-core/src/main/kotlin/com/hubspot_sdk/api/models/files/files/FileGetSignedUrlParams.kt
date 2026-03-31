@@ -26,16 +26,10 @@ private constructor(
 
     fun fileId(): Optional<String> = Optional.ofNullable(fileId)
 
-    /** How long in seconds the link will provide access to the file. */
     fun expirationSeconds(): Optional<Long> = Optional.ofNullable(expirationSeconds)
 
-    /**
-     * For image files. This will resize the image to the desired size before sharing. Does not
-     * affect the original file, just the file served by this signed URL.
-     */
     fun size(): Optional<Size> = Optional.ofNullable(size)
 
-    /** If size is provided, this will upscale the image to fit the size dimensions. */
     fun upscale(): Optional<Boolean> = Optional.ofNullable(upscale)
 
     /** Additional headers to send with the request. */
@@ -79,7 +73,6 @@ private constructor(
         /** Alias for calling [Builder.fileId] with `fileId.orElse(null)`. */
         fun fileId(fileId: Optional<String>) = fileId(fileId.getOrNull())
 
-        /** How long in seconds the link will provide access to the file. */
         fun expirationSeconds(expirationSeconds: Long?) = apply {
             this.expirationSeconds = expirationSeconds
         }
@@ -96,16 +89,11 @@ private constructor(
         fun expirationSeconds(expirationSeconds: Optional<Long>) =
             expirationSeconds(expirationSeconds.getOrNull())
 
-        /**
-         * For image files. This will resize the image to the desired size before sharing. Does not
-         * affect the original file, just the file served by this signed URL.
-         */
         fun size(size: Size?) = apply { this.size = size }
 
         /** Alias for calling [Builder.size] with `size.orElse(null)`. */
         fun size(size: Optional<Size>) = size(size.getOrNull())
 
-        /** If size is provided, this will upscale the image to fit the size dimensions. */
         fun upscale(upscale: Boolean?) = apply { this.upscale = upscale }
 
         /**
@@ -250,10 +238,6 @@ private constructor(
             }
             .build()
 
-    /**
-     * For image files. This will resize the image to the desired size before sharing. Does not
-     * affect the original file, just the file served by this signed URL.
-     */
     class Size @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

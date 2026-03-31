@@ -10,10 +10,10 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class PublicChannelAccountStagingTokenUpdateRequest
@@ -35,17 +35,17 @@ private constructor(
     ) : this(accountName, deliveryIdentifier, mutableMapOf())
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun accountName(): String = accountName.getRequired("accountName")
+    fun accountName(): Optional<String> = accountName.getOptional("accountName")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun deliveryIdentifier(): PublicDeliveryIdentifier =
-        deliveryIdentifier.getRequired("deliveryIdentifier")
+    fun deliveryIdentifier(): Optional<PublicDeliveryIdentifier> =
+        deliveryIdentifier.getOptional("deliveryIdentifier")
 
     /**
      * Returns the raw JSON value of [accountName].
@@ -81,12 +81,6 @@ private constructor(
         /**
          * Returns a mutable builder for constructing an instance of
          * [PublicChannelAccountStagingTokenUpdateRequest].
-         *
-         * The following fields are required:
-         * ```java
-         * .accountName()
-         * .deliveryIdentifier()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -94,8 +88,8 @@ private constructor(
     /** A builder for [PublicChannelAccountStagingTokenUpdateRequest]. */
     class Builder internal constructor() {
 
-        private var accountName: JsonField<String>? = null
-        private var deliveryIdentifier: JsonField<PublicDeliveryIdentifier>? = null
+        private var accountName: JsonField<String> = JsonMissing.of()
+        private var deliveryIdentifier: JsonField<PublicDeliveryIdentifier> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -157,19 +151,11 @@ private constructor(
          * Returns an immutable instance of [PublicChannelAccountStagingTokenUpdateRequest].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .accountName()
-         * .deliveryIdentifier()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PublicChannelAccountStagingTokenUpdateRequest =
             PublicChannelAccountStagingTokenUpdateRequest(
-                checkRequired("accountName", accountName),
-                checkRequired("deliveryIdentifier", deliveryIdentifier),
+                accountName,
+                deliveryIdentifier,
                 additionalProperties.toMutableMap(),
             )
     }
@@ -182,7 +168,7 @@ private constructor(
         }
 
         accountName()
-        deliveryIdentifier().validate()
+        deliveryIdentifier().ifPresent { it.validate() }
         validated = true
     }
 

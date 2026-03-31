@@ -26,7 +26,7 @@ import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetDraftPara
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListPageAsync
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageListParams
-import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePublishDraftParams
+import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPagePushDraftLiveParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageResetDraftParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageScheduleParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageUpdateDraftParams
@@ -96,12 +96,12 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
         // get /cms/pages/2026-03/landing-pages/{objectId}/draft
         withRawResponse().getDraft(params, requestOptions).thenApply { it.parse() }
 
-    override fun publishDraft(
-        params: LandingPagePublishDraftParams,
+    override fun pushDraftLive(
+        params: LandingPagePushDraftLiveParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Void?> =
         // post /cms/pages/2026-03/landing-pages/{objectId}/draft/push-live
-        withRawResponse().publishDraft(params, requestOptions).thenAccept {}
+        withRawResponse().pushDraftLive(params, requestOptions).thenAccept {}
 
     override fun resetDraft(
         params: LandingPageResetDraftParams,
@@ -384,10 +384,10 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val publishDraftHandler: Handler<Void?> = emptyHandler()
+        private val pushDraftLiveHandler: Handler<Void?> = emptyHandler()
 
-        override fun publishDraft(
-            params: LandingPagePublishDraftParams,
+        override fun pushDraftLive(
+            params: LandingPagePushDraftLiveParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -414,7 +414,7 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { publishDraftHandler.handle(it) }
+                        response.use { pushDraftLiveHandler.handle(it) }
                     }
                 }
         }

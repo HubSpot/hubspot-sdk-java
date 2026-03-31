@@ -22,17 +22,17 @@ import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalContentFo
 import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalContentFolderVersion
 import com.hubspot_sdk.api.models.cms.pages.ContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentFolderVersion
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFoldersBatchParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsPageAsync
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersPageAsync
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateFolderParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderBatchGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListPageAsync
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsPageAsync
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -49,68 +49,68 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderServiceAsync =
         FolderServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun createFolder(
-        params: FolderCreateFolderParams,
+    override fun create(
+        params: FolderCreateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ContentFolder> =
         // post /cms/pages/2026-03/landing-pages/folders
-        withRawResponse().createFolder(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
-    override fun deleteFolder(
-        params: FolderDeleteFolderParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // delete /cms/pages/2026-03/landing-pages/folders/{objectId}
-        withRawResponse().deleteFolder(params, requestOptions).thenAccept {}
-
-    override fun getFolder(
-        params: FolderGetFolderParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ContentFolder> =
-        // get /cms/pages/2026-03/landing-pages/folders/{objectId}
-        withRawResponse().getFolder(params, requestOptions).thenApply { it.parse() }
-
-    override fun getFolderRevision(
-        params: FolderGetFolderRevisionParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ContentFolderVersion> =
-        // get /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}
-        withRawResponse().getFolderRevision(params, requestOptions).thenApply { it.parse() }
-
-    override fun getFoldersBatch(
-        params: FolderGetFoldersBatchParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseContentFolder> =
-        // post /cms/pages/2026-03/landing-pages/folders/batch/read
-        withRawResponse().getFoldersBatch(params, requestOptions).thenApply { it.parse() }
-
-    override fun listFolderRevisions(
-        params: FolderListFolderRevisionsParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<FolderListFolderRevisionsPageAsync> =
-        // get /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions
-        withRawResponse().listFolderRevisions(params, requestOptions).thenApply { it.parse() }
-
-    override fun listFolders(
-        params: FolderListFoldersParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<FolderListFoldersPageAsync> =
-        // get /cms/pages/2026-03/landing-pages/folders
-        withRawResponse().listFolders(params, requestOptions).thenApply { it.parse() }
-
-    override fun restoreFolderRevision(
-        params: FolderRestoreFolderRevisionParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ContentFolder> =
-        // post /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}/restore
-        withRawResponse().restoreFolderRevision(params, requestOptions).thenApply { it.parse() }
-
-    override fun updateFolder(
-        params: FolderUpdateFolderParams,
+    override fun update(
+        params: FolderUpdateParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ContentFolder> =
         // patch /cms/pages/2026-03/landing-pages/folders/{objectId}
-        withRawResponse().updateFolder(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().update(params, requestOptions).thenApply { it.parse() }
+
+    override fun list(
+        params: FolderListParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<FolderListPageAsync> =
+        // get /cms/pages/2026-03/landing-pages/folders
+        withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun delete(
+        params: FolderDeleteParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        // delete /cms/pages/2026-03/landing-pages/folders/{objectId}
+        withRawResponse().delete(params, requestOptions).thenAccept {}
+
+    override fun batchGet(
+        params: FolderBatchGetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BatchResponseContentFolder> =
+        // post /cms/pages/2026-03/landing-pages/folders/batch/read
+        withRawResponse().batchGet(params, requestOptions).thenApply { it.parse() }
+
+    override fun get(
+        params: FolderGetParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ContentFolder> =
+        // get /cms/pages/2026-03/landing-pages/folders/{objectId}
+        withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+
+    override fun getRevision(
+        params: FolderGetRevisionParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ContentFolderVersion> =
+        // get /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}
+        withRawResponse().getRevision(params, requestOptions).thenApply { it.parse() }
+
+    override fun listRevisions(
+        params: FolderListRevisionsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<FolderListRevisionsPageAsync> =
+        // get /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions
+        withRawResponse().listRevisions(params, requestOptions).thenApply { it.parse() }
+
+    override fun restoreRevision(
+        params: FolderRestoreRevisionParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ContentFolder> =
+        // post /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}/restore
+        withRawResponse().restoreRevision(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FolderServiceAsync.WithRawResponse {
@@ -125,11 +125,11 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createFolderHandler: Handler<ContentFolder> =
+        private val createHandler: Handler<ContentFolder> =
             jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun createFolder(
-            params: FolderCreateFolderParams,
+        override fun create(
+            params: FolderCreateParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ContentFolder>> {
             val request =
@@ -146,7 +146,7 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { createFolderHandler.handle(it) }
+                            .use { createHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -156,10 +156,91 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val deleteFolderHandler: Handler<Void?> = emptyHandler()
+        private val updateHandler: Handler<ContentFolder> =
+            jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun deleteFolder(
-            params: FolderDeleteFolderParams,
+        override fun update(
+            params: FolderUpdateParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ContentFolder>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectId", params.objectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "pages",
+                        "2026-03",
+                        "landing-pages",
+                        "folders",
+                        params._pathParam(0),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { updateHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listHandler: Handler<CollectionResponseWithTotalContentFolderForwardPaging> =
+            jsonHandler<CollectionResponseWithTotalContentFolderForwardPaging>(
+                clientOptions.jsonMapper
+            )
+
+        override fun list(
+            params: FolderListParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<FolderListPageAsync>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "folders")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                FolderListPageAsync.builder()
+                                    .service(FolderServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
+                            }
+                    }
+                }
+        }
+
+        private val deleteHandler: Handler<Void?> = emptyHandler()
+
+        override fun delete(
+            params: FolderDeleteParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -185,16 +266,55 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response.use { deleteFolderHandler.handle(it) }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }
 
-        private val getFolderHandler: Handler<ContentFolder> =
+        private val batchGetHandler: Handler<BatchResponseContentFolder> =
+            jsonHandler<BatchResponseContentFolder>(clientOptions.jsonMapper)
+
+        override fun batchGet(
+            params: FolderBatchGetParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "pages",
+                        "2026-03",
+                        "landing-pages",
+                        "folders",
+                        "batch",
+                        "read",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { batchGetHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val getHandler: Handler<ContentFolder> =
             jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun getFolder(
-            params: FolderGetFolderParams,
+        override fun get(
+            params: FolderGetParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ContentFolder>> {
             // We check here instead of in the params builder because this can be specified
@@ -220,7 +340,7 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { getFolderHandler.handle(it) }
+                            .use { getHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -230,11 +350,11 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val getFolderRevisionHandler: Handler<ContentFolderVersion> =
+        private val getRevisionHandler: Handler<ContentFolderVersion> =
             jsonHandler<ContentFolderVersion>(clientOptions.jsonMapper)
 
-        override fun getFolderRevision(
-            params: FolderGetFolderRevisionParams,
+        override fun getRevision(
+            params: FolderGetRevisionParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ContentFolderVersion>> {
             // We check here instead of in the params builder because this can be specified
@@ -262,7 +382,7 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { getFolderRevisionHandler.handle(it) }
+                            .use { getRevisionHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -272,53 +392,13 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val getFoldersBatchHandler: Handler<BatchResponseContentFolder> =
-            jsonHandler<BatchResponseContentFolder>(clientOptions.jsonMapper)
-
-        override fun getFoldersBatch(
-            params: FolderGetFoldersBatchParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseContentFolder>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        "folders",
-                        "batch",
-                        "read",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { getFoldersBatchHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val listFolderRevisionsHandler:
-            Handler<CollectionResponseWithTotalContentFolderVersion> =
+        private val listRevisionsHandler: Handler<CollectionResponseWithTotalContentFolderVersion> =
             jsonHandler<CollectionResponseWithTotalContentFolderVersion>(clientOptions.jsonMapper)
 
-        override fun listFolderRevisions(
-            params: FolderListFolderRevisionsParams,
+        override fun listRevisions(
+            params: FolderListRevisionsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FolderListFolderRevisionsPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<FolderListRevisionsPageAsync>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -343,14 +423,14 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { listFolderRevisionsHandler.handle(it) }
+                            .use { listRevisionsHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
                             }
                             .let {
-                                FolderListFolderRevisionsPageAsync.builder()
+                                FolderListRevisionsPageAsync.builder()
                                     .service(FolderServiceAsyncImpl(clientOptions))
                                     .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
@@ -361,52 +441,11 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listFoldersHandler:
-            Handler<CollectionResponseWithTotalContentFolderForwardPaging> =
-            jsonHandler<CollectionResponseWithTotalContentFolderForwardPaging>(
-                clientOptions.jsonMapper
-            )
-
-        override fun listFolders(
-            params: FolderListFoldersParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FolderListFoldersPageAsync>> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "folders")
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { listFoldersHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                            .let {
-                                FolderListFoldersPageAsync.builder()
-                                    .service(FolderServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
-                    }
-                }
-        }
-
-        private val restoreFolderRevisionHandler: Handler<ContentFolder> =
+        private val restoreRevisionHandler: Handler<ContentFolder> =
             jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun restoreFolderRevision(
-            params: FolderRestoreFolderRevisionParams,
+        override fun restoreRevision(
+            params: FolderRestoreRevisionParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ContentFolder>> {
             // We check here instead of in the params builder because this can be specified
@@ -436,48 +475,7 @@ class FolderServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { restoreFolderRevisionHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val updateFolderHandler: Handler<ContentFolder> =
-            jsonHandler<ContentFolder>(clientOptions.jsonMapper)
-
-        override fun updateFolder(
-            params: FolderUpdateFolderParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ContentFolder>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        "folders",
-                        params._pathParam(0),
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { updateFolderHandler.handle(it) }
+                            .use { restoreRevisionHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

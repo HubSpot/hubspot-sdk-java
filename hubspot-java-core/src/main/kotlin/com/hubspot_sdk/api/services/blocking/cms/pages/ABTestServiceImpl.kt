@@ -17,9 +17,12 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.cms.pages.Page
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateAbTestVariationParams
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndAbTestParams
-import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunAbTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateLandingPageVariationParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateSitePageVariationParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndLandingPageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndSitePageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunLandingPageTestParams
+import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestRerunSitePageTestParams
 import java.util.function.Consumer
 
 class ABTestServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -34,21 +37,50 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): ABTestService =
         ABTestServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun createAbTestVariation(
-        params: ABTestCreateAbTestVariationParams,
+    override fun createLandingPageVariation(
+        params: ABTestCreateLandingPageVariationParams,
+        requestOptions: RequestOptions,
+    ): Page =
+        // post /cms/pages/2026-03/landing-pages/ab-test/create-variation
+        withRawResponse().createLandingPageVariation(params, requestOptions).parse()
+
+    override fun createSitePageVariation(
+        params: ABTestCreateSitePageVariationParams,
         requestOptions: RequestOptions,
     ): Page =
         // post /cms/pages/2026-03/site-pages/ab-test/create-variation
-        withRawResponse().createAbTestVariation(params, requestOptions).parse()
+        withRawResponse().createSitePageVariation(params, requestOptions).parse()
 
-    override fun endAbTest(params: ABTestEndAbTestParams, requestOptions: RequestOptions) {
-        // post /cms/pages/2026-03/site-pages/ab-test/end
-        withRawResponse().endAbTest(params, requestOptions)
+    override fun endLandingPageTest(
+        params: ABTestEndLandingPageTestParams,
+        requestOptions: RequestOptions,
+    ) {
+        // post /cms/pages/2026-03/landing-pages/ab-test/end
+        withRawResponse().endLandingPageTest(params, requestOptions)
     }
 
-    override fun rerunAbTest(params: ABTestRerunAbTestParams, requestOptions: RequestOptions) {
+    override fun endSitePageTest(
+        params: ABTestEndSitePageTestParams,
+        requestOptions: RequestOptions,
+    ) {
+        // post /cms/pages/2026-03/site-pages/ab-test/end
+        withRawResponse().endSitePageTest(params, requestOptions)
+    }
+
+    override fun rerunLandingPageTest(
+        params: ABTestRerunLandingPageTestParams,
+        requestOptions: RequestOptions,
+    ) {
+        // post /cms/pages/2026-03/landing-pages/ab-test/rerun
+        withRawResponse().rerunLandingPageTest(params, requestOptions)
+    }
+
+    override fun rerunSitePageTest(
+        params: ABTestRerunSitePageTestParams,
+        requestOptions: RequestOptions,
+    ) {
         // post /cms/pages/2026-03/site-pages/ab-test/rerun
-        withRawResponse().rerunAbTest(params, requestOptions)
+        withRawResponse().rerunSitePageTest(params, requestOptions)
     }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -64,11 +96,46 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createAbTestVariationHandler: Handler<Page> =
+        private val createLandingPageVariationHandler: Handler<Page> =
             jsonHandler<Page>(clientOptions.jsonMapper)
 
-        override fun createAbTestVariation(
-            params: ABTestCreateAbTestVariationParams,
+        override fun createLandingPageVariation(
+            params: ABTestCreateLandingPageVariationParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Page> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "pages",
+                        "2026-03",
+                        "landing-pages",
+                        "ab-test",
+                        "create-variation",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createLandingPageVariationHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val createSitePageVariationHandler: Handler<Page> =
+            jsonHandler<Page>(clientOptions.jsonMapper)
+
+        override fun createSitePageVariation(
+            params: ABTestCreateSitePageVariationParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<Page> {
             val request =
@@ -90,7 +157,7 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createAbTestVariationHandler.handle(it) }
+                    .use { createSitePageVariationHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -99,10 +166,31 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val endAbTestHandler: Handler<Void?> = emptyHandler()
+        private val endLandingPageTestHandler: Handler<Void?> = emptyHandler()
 
-        override fun endAbTest(
-            params: ABTestEndAbTestParams,
+        override fun endLandingPageTest(
+            params: ABTestEndLandingPageTestParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "ab-test", "end")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { endLandingPageTestHandler.handle(it) }
+            }
+        }
+
+        private val endSitePageTestHandler: Handler<Void?> = emptyHandler()
+
+        override fun endSitePageTest(
+            params: ABTestEndSitePageTestParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             val request =
@@ -116,14 +204,35 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { endAbTestHandler.handle(it) }
+                response.use { endSitePageTestHandler.handle(it) }
             }
         }
 
-        private val rerunAbTestHandler: Handler<Void?> = emptyHandler()
+        private val rerunLandingPageTestHandler: Handler<Void?> = emptyHandler()
 
-        override fun rerunAbTest(
-            params: ABTestRerunAbTestParams,
+        override fun rerunLandingPageTest(
+            params: ABTestRerunLandingPageTestParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "ab-test", "rerun")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { rerunLandingPageTestHandler.handle(it) }
+            }
+        }
+
+        private val rerunSitePageTestHandler: Handler<Void?> = emptyHandler()
+
+        override fun rerunSitePageTest(
+            params: ABTestRerunSitePageTestParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             val request =
@@ -137,7 +246,7 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { rerunAbTestHandler.handle(it) }
+                response.use { rerunSitePageTestHandler.handle(it) }
             }
         }
     }

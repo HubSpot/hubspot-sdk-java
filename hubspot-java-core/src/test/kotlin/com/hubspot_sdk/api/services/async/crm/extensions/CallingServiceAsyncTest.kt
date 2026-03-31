@@ -4,13 +4,21 @@ package com.hubspot_sdk.api.services.async.crm.extensions
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateParams
-import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateChannelConnectionSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateRecordingSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingCreateSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateChannelConnectionSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateRecordingSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.CallingUpdateSettingsParams
+import com.hubspot_sdk.api.models.crm.extensions.calling.ChannelConnectionSettingsPatchRequest
+import com.hubspot_sdk.api.models.crm.extensions.calling.ChannelConnectionSettingsRequest
 import com.hubspot_sdk.api.models.crm.extensions.calling.CompletedThirdPartyCallRequest
 import com.hubspot_sdk.api.models.crm.extensions.calling.FormattedPhoneNumber
 import com.hubspot_sdk.api.models.crm.extensions.calling.MarkRecordingAsReadyRequest
 import com.hubspot_sdk.api.models.crm.extensions.calling.RecordingSettingsPatchRequest
 import com.hubspot_sdk.api.models.crm.extensions.calling.RecordingSettingsRequest
+import com.hubspot_sdk.api.models.crm.extensions.calling.SettingsPatchRequest
+import com.hubspot_sdk.api.models.crm.extensions.calling.SettingsRequest
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -19,57 +27,22 @@ internal class CallingServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun create() {
+    fun createChannelConnectionSettings() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val callingServiceAsync = client.crm().extensions().calling()
 
-        val recordingSettingsResponseFuture =
-            callingServiceAsync.create(
-                CallingCreateParams.builder()
+        val channelConnectionSettingsResponseFuture =
+            callingServiceAsync.createChannelConnectionSettings(
+                CallingCreateChannelConnectionSettingsParams.builder()
                     .appId(0)
-                    .recordingSettingsRequest(
-                        RecordingSettingsRequest.builder()
-                            .urlToRetrieveAuthedRecording("urlToRetrieveAuthedRecording")
-                            .build()
+                    .channelConnectionSettingsRequest(
+                        ChannelConnectionSettingsRequest.builder().isReady(true).url("url").build()
                     )
                     .build()
             )
 
-        val recordingSettingsResponse = recordingSettingsResponseFuture.get()
-        recordingSettingsResponse.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val callingServiceAsync = client.crm().extensions().calling()
-
-        val recordingSettingsResponseFuture =
-            callingServiceAsync.update(
-                CallingUpdateParams.builder()
-                    .appId(0)
-                    .recordingSettingsPatchRequest(
-                        RecordingSettingsPatchRequest.builder()
-                            .urlToRetrieveAuthedRecording("urlToRetrieveAuthedRecording")
-                            .build()
-                    )
-                    .build()
-            )
-
-        val recordingSettingsResponse = recordingSettingsResponseFuture.get()
-        recordingSettingsResponse.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
-        val callingServiceAsync = client.crm().extensions().calling()
-
-        val future = callingServiceAsync.delete(0)
-
-        val response = future.get()
+        val channelConnectionSettingsResponse = channelConnectionSettingsResponseFuture.get()
+        channelConnectionSettingsResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -116,11 +89,35 @@ internal class CallingServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun get() {
+    fun createRecordingReady() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val callingServiceAsync = client.crm().extensions().calling()
 
-        val recordingSettingsResponseFuture = callingServiceAsync.get(0)
+        val future =
+            callingServiceAsync.createRecordingReady(
+                MarkRecordingAsReadyRequest.builder().engagementId(0L).build()
+            )
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun createRecordingSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val recordingSettingsResponseFuture =
+            callingServiceAsync.createRecordingSettings(
+                CallingCreateRecordingSettingsParams.builder()
+                    .appId(0)
+                    .recordingSettingsRequest(
+                        RecordingSettingsRequest.builder()
+                            .urlToRetrieveAuthedRecording("urlToRetrieveAuthedRecording")
+                            .build()
+                    )
+                    .build()
+            )
 
         val recordingSettingsResponse = recordingSettingsResponseFuture.get()
         recordingSettingsResponse.validate()
@@ -128,15 +125,165 @@ internal class CallingServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun markReady() {
+    fun createSettings() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val callingServiceAsync = client.crm().extensions().calling()
 
-        val future =
-            callingServiceAsync.markReady(
-                MarkRecordingAsReadyRequest.builder().engagementId(0L).build()
+        val settingsResponseFuture =
+            callingServiceAsync.createSettings(
+                CallingCreateSettingsParams.builder()
+                    .appId(0)
+                    .settingsRequest(
+                        SettingsRequest.builder()
+                            .height(0)
+                            .isReady(true)
+                            .name("name")
+                            .supportsCustomObjects(true)
+                            .supportsInboundCalling(true)
+                            .url("url")
+                            .usesCallingWindow(true)
+                            .usesRemote(true)
+                            .width(0)
+                            .build()
+                    )
+                    .build()
             )
 
+        val settingsResponse = settingsResponseFuture.get()
+        settingsResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deleteChannelConnectionSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val future = callingServiceAsync.deleteChannelConnectionSettings(0)
+
         val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deleteSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val future = callingServiceAsync.deleteSettings(0)
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getChannelConnectionSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val channelConnectionSettingsResponseFuture =
+            callingServiceAsync.getChannelConnectionSettings(0)
+
+        val channelConnectionSettingsResponse = channelConnectionSettingsResponseFuture.get()
+        channelConnectionSettingsResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getRecordingSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val recordingSettingsResponseFuture = callingServiceAsync.getRecordingSettings(0)
+
+        val recordingSettingsResponse = recordingSettingsResponseFuture.get()
+        recordingSettingsResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val settingsResponseFuture = callingServiceAsync.getSettings(0)
+
+        val settingsResponse = settingsResponseFuture.get()
+        settingsResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateChannelConnectionSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val channelConnectionSettingsResponseFuture =
+            callingServiceAsync.updateChannelConnectionSettings(
+                CallingUpdateChannelConnectionSettingsParams.builder()
+                    .appId(0)
+                    .channelConnectionSettingsPatchRequest(
+                        ChannelConnectionSettingsPatchRequest.builder()
+                            .isReady(true)
+                            .url("url")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val channelConnectionSettingsResponse = channelConnectionSettingsResponseFuture.get()
+        channelConnectionSettingsResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateRecordingSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val recordingSettingsResponseFuture =
+            callingServiceAsync.updateRecordingSettings(
+                CallingUpdateRecordingSettingsParams.builder()
+                    .appId(0)
+                    .recordingSettingsPatchRequest(
+                        RecordingSettingsPatchRequest.builder()
+                            .urlToRetrieveAuthedRecording("urlToRetrieveAuthedRecording")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val recordingSettingsResponse = recordingSettingsResponseFuture.get()
+        recordingSettingsResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateSettings() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
+        val callingServiceAsync = client.crm().extensions().calling()
+
+        val settingsResponseFuture =
+            callingServiceAsync.updateSettings(
+                CallingUpdateSettingsParams.builder()
+                    .appId(0)
+                    .settingsPatchRequest(
+                        SettingsPatchRequest.builder()
+                            .height(0)
+                            .isReady(true)
+                            .name("name")
+                            .supportsCustomObjects(true)
+                            .supportsInboundCalling(true)
+                            .url("url")
+                            .usesCallingWindow(true)
+                            .usesRemote(true)
+                            .width(0)
+                            .build()
+                    )
+                    .build()
+            )
+
+        val settingsResponse = settingsResponseFuture.get()
+        settingsResponse.validate()
     }
 }

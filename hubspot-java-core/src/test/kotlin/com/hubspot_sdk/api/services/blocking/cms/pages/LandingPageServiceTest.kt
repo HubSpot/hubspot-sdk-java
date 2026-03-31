@@ -776,11 +776,11 @@ internal class LandingPageServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun publishDraft() {
+    fun pushDraftLive() {
         val client = HubspotOkHttpClient.builder().accessToken("pat-na1-xxxxxxxx-xxxx").build()
         val landingPageService = client.cms().pages().landingPages()
 
-        landingPageService.publishDraft("objectId")
+        landingPageService.pushDraftLive("objectId")
     }
 
     @Disabled("Mock server tests are disabled")

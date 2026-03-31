@@ -22,17 +22,17 @@ import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalContentFo
 import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalContentFolderVersion
 import com.hubspot_sdk.api.models.cms.pages.ContentFolder
 import com.hubspot_sdk.api.models.cms.pages.ContentFolderVersion
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetFoldersBatchParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsPage
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFolderRevisionsParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersPage
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderListFoldersParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreFolderRevisionParams
-import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateFolderParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderBatchGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderCreateParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderDeleteParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderGetRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListPage
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsPage
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderListRevisionsParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderRestoreRevisionParams
+import com.hubspot_sdk.api.models.cms.pages.folders.FolderUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -48,66 +48,54 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FolderService =
         FolderServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun createFolder(
-        params: FolderCreateFolderParams,
-        requestOptions: RequestOptions,
-    ): ContentFolder =
+    override fun create(params: FolderCreateParams, requestOptions: RequestOptions): ContentFolder =
         // post /cms/pages/2026-03/landing-pages/folders
-        withRawResponse().createFolder(params, requestOptions).parse()
+        withRawResponse().create(params, requestOptions).parse()
 
-    override fun deleteFolder(params: FolderDeleteFolderParams, requestOptions: RequestOptions) {
+    override fun update(params: FolderUpdateParams, requestOptions: RequestOptions): ContentFolder =
+        // patch /cms/pages/2026-03/landing-pages/folders/{objectId}
+        withRawResponse().update(params, requestOptions).parse()
+
+    override fun list(params: FolderListParams, requestOptions: RequestOptions): FolderListPage =
+        // get /cms/pages/2026-03/landing-pages/folders
+        withRawResponse().list(params, requestOptions).parse()
+
+    override fun delete(params: FolderDeleteParams, requestOptions: RequestOptions) {
         // delete /cms/pages/2026-03/landing-pages/folders/{objectId}
-        withRawResponse().deleteFolder(params, requestOptions)
+        withRawResponse().delete(params, requestOptions)
     }
 
-    override fun getFolder(
-        params: FolderGetFolderParams,
-        requestOptions: RequestOptions,
-    ): ContentFolder =
-        // get /cms/pages/2026-03/landing-pages/folders/{objectId}
-        withRawResponse().getFolder(params, requestOptions).parse()
-
-    override fun getFolderRevision(
-        params: FolderGetFolderRevisionParams,
-        requestOptions: RequestOptions,
-    ): ContentFolderVersion =
-        // get /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}
-        withRawResponse().getFolderRevision(params, requestOptions).parse()
-
-    override fun getFoldersBatch(
-        params: FolderGetFoldersBatchParams,
+    override fun batchGet(
+        params: FolderBatchGetParams,
         requestOptions: RequestOptions,
     ): BatchResponseContentFolder =
         // post /cms/pages/2026-03/landing-pages/folders/batch/read
-        withRawResponse().getFoldersBatch(params, requestOptions).parse()
+        withRawResponse().batchGet(params, requestOptions).parse()
 
-    override fun listFolderRevisions(
-        params: FolderListFolderRevisionsParams,
+    override fun get(params: FolderGetParams, requestOptions: RequestOptions): ContentFolder =
+        // get /cms/pages/2026-03/landing-pages/folders/{objectId}
+        withRawResponse().get(params, requestOptions).parse()
+
+    override fun getRevision(
+        params: FolderGetRevisionParams,
         requestOptions: RequestOptions,
-    ): FolderListFolderRevisionsPage =
+    ): ContentFolderVersion =
+        // get /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}
+        withRawResponse().getRevision(params, requestOptions).parse()
+
+    override fun listRevisions(
+        params: FolderListRevisionsParams,
+        requestOptions: RequestOptions,
+    ): FolderListRevisionsPage =
         // get /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions
-        withRawResponse().listFolderRevisions(params, requestOptions).parse()
+        withRawResponse().listRevisions(params, requestOptions).parse()
 
-    override fun listFolders(
-        params: FolderListFoldersParams,
-        requestOptions: RequestOptions,
-    ): FolderListFoldersPage =
-        // get /cms/pages/2026-03/landing-pages/folders
-        withRawResponse().listFolders(params, requestOptions).parse()
-
-    override fun restoreFolderRevision(
-        params: FolderRestoreFolderRevisionParams,
+    override fun restoreRevision(
+        params: FolderRestoreRevisionParams,
         requestOptions: RequestOptions,
     ): ContentFolder =
         // post /cms/pages/2026-03/landing-pages/folders/{objectId}/revisions/{revisionId}/restore
-        withRawResponse().restoreFolderRevision(params, requestOptions).parse()
-
-    override fun updateFolder(
-        params: FolderUpdateFolderParams,
-        requestOptions: RequestOptions,
-    ): ContentFolder =
-        // patch /cms/pages/2026-03/landing-pages/folders/{objectId}
-        withRawResponse().updateFolder(params, requestOptions).parse()
+        withRawResponse().restoreRevision(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FolderService.WithRawResponse {
@@ -122,11 +110,11 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createFolderHandler: Handler<ContentFolder> =
+        private val createHandler: Handler<ContentFolder> =
             jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun createFolder(
-            params: FolderCreateFolderParams,
+        override fun create(
+            params: FolderCreateParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ContentFolder> {
             val request =
@@ -141,7 +129,7 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createFolderHandler.handle(it) }
+                    .use { createHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -150,10 +138,84 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val deleteFolderHandler: Handler<Void?> = emptyHandler()
+        private val updateHandler: Handler<ContentFolder> =
+            jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun deleteFolder(
-            params: FolderDeleteFolderParams,
+        override fun update(
+            params: FolderUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ContentFolder> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectId", params.objectId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "pages",
+                        "2026-03",
+                        "landing-pages",
+                        "folders",
+                        params._pathParam(0),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<CollectionResponseWithTotalContentFolderForwardPaging> =
+            jsonHandler<CollectionResponseWithTotalContentFolderForwardPaging>(
+                clientOptions.jsonMapper
+            )
+
+        override fun list(
+            params: FolderListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<FolderListPage> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "folders")
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        FolderListPage.builder()
+                            .service(FolderServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
+                    }
+            }
+        }
+
+        private val deleteHandler: Handler<Void?> = emptyHandler()
+
+        override fun delete(
+            params: FolderDeleteParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -177,15 +239,51 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { deleteFolderHandler.handle(it) }
+                response.use { deleteHandler.handle(it) }
             }
         }
 
-        private val getFolderHandler: Handler<ContentFolder> =
+        private val batchGetHandler: Handler<BatchResponseContentFolder> =
+            jsonHandler<BatchResponseContentFolder>(clientOptions.jsonMapper)
+
+        override fun batchGet(
+            params: FolderBatchGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseContentFolder> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "cms",
+                        "pages",
+                        "2026-03",
+                        "landing-pages",
+                        "folders",
+                        "batch",
+                        "read",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { batchGetHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getHandler: Handler<ContentFolder> =
             jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun getFolder(
-            params: FolderGetFolderParams,
+        override fun get(
+            params: FolderGetParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ContentFolder> {
             // We check here instead of in the params builder because this can be specified
@@ -209,7 +307,7 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getFolderHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -218,11 +316,11 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val getFolderRevisionHandler: Handler<ContentFolderVersion> =
+        private val getRevisionHandler: Handler<ContentFolderVersion> =
             jsonHandler<ContentFolderVersion>(clientOptions.jsonMapper)
 
-        override fun getFolderRevision(
-            params: FolderGetFolderRevisionParams,
+        override fun getRevision(
+            params: FolderGetRevisionParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ContentFolderVersion> {
             // We check here instead of in the params builder because this can be specified
@@ -248,7 +346,7 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getFolderRevisionHandler.handle(it) }
+                    .use { getRevisionHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -257,50 +355,13 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val getFoldersBatchHandler: Handler<BatchResponseContentFolder> =
-            jsonHandler<BatchResponseContentFolder>(clientOptions.jsonMapper)
-
-        override fun getFoldersBatch(
-            params: FolderGetFoldersBatchParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseContentFolder> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        "folders",
-                        "batch",
-                        "read",
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { getFoldersBatchHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val listFolderRevisionsHandler:
-            Handler<CollectionResponseWithTotalContentFolderVersion> =
+        private val listRevisionsHandler: Handler<CollectionResponseWithTotalContentFolderVersion> =
             jsonHandler<CollectionResponseWithTotalContentFolderVersion>(clientOptions.jsonMapper)
 
-        override fun listFolderRevisions(
-            params: FolderListFolderRevisionsParams,
+        override fun listRevisions(
+            params: FolderListRevisionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<FolderListFolderRevisionsPage> {
+        ): HttpResponseFor<FolderListRevisionsPage> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -323,14 +384,14 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { listFolderRevisionsHandler.handle(it) }
+                    .use { listRevisionsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
                     }
                     .let {
-                        FolderListFolderRevisionsPage.builder()
+                        FolderListRevisionsPage.builder()
                             .service(FolderServiceImpl(clientOptions))
                             .params(params)
                             .response(it)
@@ -339,48 +400,11 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listFoldersHandler:
-            Handler<CollectionResponseWithTotalContentFolderForwardPaging> =
-            jsonHandler<CollectionResponseWithTotalContentFolderForwardPaging>(
-                clientOptions.jsonMapper
-            )
-
-        override fun listFolders(
-            params: FolderListFoldersParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<FolderListFoldersPage> {
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "pages", "2026-03", "landing-pages", "folders")
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listFoldersHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        FolderListFoldersPage.builder()
-                            .service(FolderServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
-                    }
-            }
-        }
-
-        private val restoreFolderRevisionHandler: Handler<ContentFolder> =
+        private val restoreRevisionHandler: Handler<ContentFolder> =
             jsonHandler<ContentFolder>(clientOptions.jsonMapper)
 
-        override fun restoreFolderRevision(
-            params: FolderRestoreFolderRevisionParams,
+        override fun restoreRevision(
+            params: FolderRestoreRevisionParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ContentFolder> {
             // We check here instead of in the params builder because this can be specified
@@ -408,45 +432,7 @@ class FolderServiceImpl internal constructor(private val clientOptions: ClientOp
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { restoreFolderRevisionHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val updateFolderHandler: Handler<ContentFolder> =
-            jsonHandler<ContentFolder>(clientOptions.jsonMapper)
-
-        override fun updateFolder(
-            params: FolderUpdateFolderParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ContentFolder> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("objectId", params.objectId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "cms",
-                        "pages",
-                        "2026-03",
-                        "landing-pages",
-                        "folders",
-                        params._pathParam(0),
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateFolderHandler.handle(it) }
+                    .use { restoreRevisionHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
