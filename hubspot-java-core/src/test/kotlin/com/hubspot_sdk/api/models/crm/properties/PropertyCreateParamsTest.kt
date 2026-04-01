@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.models.crm.properties
 
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.PropertyCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -21,6 +20,7 @@ internal class PropertyCreateParamsTest {
                     .name("name")
                     .type(PropertyCreate.Type.BOOL)
                     .calculationFormula("calculationFormula")
+                    .currencyPropertyName("currencyPropertyName")
                     .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                     .description("description")
                     .displayOrder(0)
@@ -38,6 +38,7 @@ internal class PropertyCreateParamsTest {
                             .build()
                     )
                     .referencedObjectType("referencedObjectType")
+                    .showCurrencySymbol(true)
                     .build()
             )
             .build()
@@ -77,6 +78,7 @@ internal class PropertyCreateParamsTest {
                         .name("name")
                         .type(PropertyCreate.Type.BOOL)
                         .calculationFormula("calculationFormula")
+                        .currencyPropertyName("currencyPropertyName")
                         .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                         .description("description")
                         .displayOrder(0)
@@ -94,6 +96,7 @@ internal class PropertyCreateParamsTest {
                                 .build()
                         )
                         .referencedObjectType("referencedObjectType")
+                        .showCurrencySymbol(true)
                         .build()
                 )
                 .build()
@@ -109,6 +112,7 @@ internal class PropertyCreateParamsTest {
                     .name("name")
                     .type(PropertyCreate.Type.BOOL)
                     .calculationFormula("calculationFormula")
+                    .currencyPropertyName("currencyPropertyName")
                     .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                     .description("description")
                     .displayOrder(0)
@@ -126,6 +130,7 @@ internal class PropertyCreateParamsTest {
                             .build()
                     )
                     .referencedObjectType("referencedObjectType")
+                    .showCurrencySymbol(true)
                     .build()
             )
     }

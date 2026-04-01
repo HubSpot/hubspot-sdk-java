@@ -11,10 +11,11 @@ import com.hubspot_sdk.api.models.crm.lists.ListAddMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListCreateRequest
 import com.hubspot_sdk.api.models.crm.lists.ListFilterUpdateRequest
 import com.hubspot_sdk.api.models.crm.lists.ListFolderCreateRequest
-import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeIdAndNameParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeAndNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetIdMappingParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetRecordMembershipsParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetSizeAndEditsHistoryBetweenParams
 import com.hubspot_sdk.api.models.crm.lists.ListListFoldersParams
 import com.hubspot_sdk.api.models.crm.lists.ListListParams
 import com.hubspot_sdk.api.models.crm.lists.ListMoveFolderParams
@@ -595,15 +596,6 @@ internal class ListServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun deleteScheduleConversion() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
-        val listService = client.crm().lists()
-
-        listService.deleteScheduleConversion("listId")
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
     fun get() {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listService = client.crm().lists()
@@ -616,13 +608,13 @@ internal class ListServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun getByObjectTypeIdAndName() {
+    fun getByObjectTypeAndName() {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listService = client.crm().lists()
 
         val listFetchResponse =
-            listService.getByObjectTypeIdAndName(
-                ListGetByObjectTypeIdAndNameParams.builder()
+            listService.getByObjectTypeAndName(
+                ListGetByObjectTypeAndNameParams.builder()
                     .objectTypeId("objectTypeId")
                     .listName("listName")
                     .includeFilters(true)
@@ -644,6 +636,17 @@ internal class ListServiceTest {
             )
 
         publicMigrationMapping.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getMembershipsJoinOrder() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val listService = client.crm().lists()
+
+        val page = listService.getMembershipsJoinOrder("listId")
+
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -676,6 +679,47 @@ internal class ListServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun getSizeAndEditsHistoryBetween() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val listService = client.crm().lists()
+
+        val listSizeAndEditHistoryResponse =
+            listService.getSizeAndEditsHistoryBetween(
+                ListGetSizeAndEditsHistoryBetweenParams.builder()
+                    .listId("listId")
+                    .endDate("endDate")
+                    .startDate("startDate")
+                    .build()
+            )
+
+        listSizeAndEditHistoryResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listBySearch() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val listService = client.crm().lists()
+
+        val listSearchResponse =
+            listService.listBySearch(
+                ListSearchRequest.builder()
+                    .addAdditionalProperty("string")
+                    .addListId("string")
+                    .offset(0)
+                    .addProcessingType("string")
+                    .count(0)
+                    .objectTypeId("objectTypeId")
+                    .query("query")
+                    .sort("sort")
+                    .build()
+            )
+
+        listSearchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun listFolders() {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listService = client.crm().lists()
@@ -693,17 +737,6 @@ internal class ListServiceTest {
         val listService = client.crm().lists()
 
         val page = listService.listMemberships("listId")
-
-        page.response().validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun listMembershipsJoinOrder() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
-        val listService = client.crm().lists()
-
-        val page = listService.listMembershipsJoinOrder("listId")
 
         page.response().validate()
     }
@@ -778,25 +811,11 @@ internal class ListServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun search() {
+    fun scheduleConversion() {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val listService = client.crm().lists()
 
-        val listSearchResponse =
-            listService.search(
-                ListSearchRequest.builder()
-                    .addAdditionalProperty("string")
-                    .addListId("string")
-                    .offset(0)
-                    .addProcessingType("string")
-                    .count(0)
-                    .objectTypeId("objectTypeId")
-                    .query("query")
-                    .sort("sort")
-                    .build()
-            )
-
-        listSearchResponse.validate()
+        listService.scheduleConversion("listId")
     }
 
     @Disabled("Mock server tests are disabled")

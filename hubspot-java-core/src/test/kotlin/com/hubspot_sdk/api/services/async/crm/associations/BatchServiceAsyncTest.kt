@@ -50,7 +50,7 @@ internal class BatchServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
-        val batchResponseVoidFuture =
+        val future =
             batchServiceAsync.delete(
                 BatchDeleteParams.builder()
                     .fromObjectType("fromObjectType")
@@ -68,8 +68,7 @@ internal class BatchServiceAsyncTest {
                     .build()
             )
 
-        val batchResponseVoid = batchResponseVoidFuture.get()
-        batchResponseVoid.validate()
+        val response = future.get()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -107,7 +106,7 @@ internal class BatchServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
-        val batchResponseVoidFuture =
+        val future =
             batchServiceAsync.deleteLabels(
                 BatchDeleteLabelsParams.builder()
                     .fromObjectType("fromObjectType")
@@ -133,8 +132,7 @@ internal class BatchServiceAsyncTest {
                     .build()
             )
 
-        val batchResponseVoid = batchResponseVoidFuture.get()
-        batchResponseVoid.validate()
+        val response = future.get()
     }
 
     @Disabled("Mock server tests are disabled")

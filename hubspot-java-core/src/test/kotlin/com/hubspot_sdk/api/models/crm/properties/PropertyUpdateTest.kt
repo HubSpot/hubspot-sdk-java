@@ -16,6 +16,7 @@ internal class PropertyUpdateTest {
         val propertyUpdate =
             PropertyUpdate.builder()
                 .calculationFormula("calculationFormula")
+                .currencyPropertyName("currencyPropertyName")
                 .description("description")
                 .displayOrder(0)
                 .fieldType(PropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -32,10 +33,12 @@ internal class PropertyUpdateTest {
                         .description("description")
                         .build()
                 )
+                .showCurrencySymbol(true)
                 .type(PropertyUpdate.Type.BOOL)
                 .build()
 
         assertThat(propertyUpdate.calculationFormula()).contains("calculationFormula")
+        assertThat(propertyUpdate.currencyPropertyName()).contains("currencyPropertyName")
         assertThat(propertyUpdate.description()).contains("description")
         assertThat(propertyUpdate.displayOrder()).contains(0)
         assertThat(propertyUpdate.fieldType()).contains(PropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -53,6 +56,7 @@ internal class PropertyUpdateTest {
                     .description("description")
                     .build()
             )
+        assertThat(propertyUpdate.showCurrencySymbol()).contains(true)
         assertThat(propertyUpdate.type()).contains(PropertyUpdate.Type.BOOL)
     }
 
@@ -62,6 +66,7 @@ internal class PropertyUpdateTest {
         val propertyUpdate =
             PropertyUpdate.builder()
                 .calculationFormula("calculationFormula")
+                .currencyPropertyName("currencyPropertyName")
                 .description("description")
                 .displayOrder(0)
                 .fieldType(PropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -78,6 +83,7 @@ internal class PropertyUpdateTest {
                         .description("description")
                         .build()
                 )
+                .showCurrencySymbol(true)
                 .type(PropertyUpdate.Type.BOOL)
                 .build()
 

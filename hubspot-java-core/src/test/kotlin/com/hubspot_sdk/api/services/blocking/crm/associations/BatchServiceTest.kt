@@ -48,25 +48,22 @@ internal class BatchServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().associations().batch()
 
-        val batchResponseVoid =
-            batchService.delete(
-                BatchDeleteParams.builder()
-                    .fromObjectType("fromObjectType")
-                    .toObjectType("toObjectType")
-                    .batchInputPublicAssociationMultiArchive(
-                        BatchInputPublicAssociationMultiArchive.builder()
-                            .addInput(
-                                PublicAssociationMultiArchive.builder()
-                                    .from(PublicObjectId.builder().id("id").build())
-                                    .addTo(PublicObjectId.builder().id("id").build())
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        batchResponseVoid.validate()
+        batchService.delete(
+            BatchDeleteParams.builder()
+                .fromObjectType("fromObjectType")
+                .toObjectType("toObjectType")
+                .batchInputPublicAssociationMultiArchive(
+                    BatchInputPublicAssociationMultiArchive.builder()
+                        .addInput(
+                            PublicAssociationMultiArchive.builder()
+                                .from(PublicObjectId.builder().id("id").build())
+                                .addTo(PublicObjectId.builder().id("id").build())
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+        )
     }
 
     @Disabled("Mock server tests are disabled")
@@ -102,33 +99,30 @@ internal class BatchServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().associations().batch()
 
-        val batchResponseVoid =
-            batchService.deleteLabels(
-                BatchDeleteLabelsParams.builder()
-                    .fromObjectType("fromObjectType")
-                    .toObjectType("toObjectType")
-                    .batchInputPublicAssociationMultiPost(
-                        BatchInputPublicAssociationMultiPost.builder()
-                            .addInput(
-                                PublicAssociationMultiPost.builder()
-                                    .from(PublicObjectId.builder().id("id").build())
-                                    .to(PublicObjectId.builder().id("id").build())
-                                    .addType(
-                                        AssociationSpec.builder()
-                                            .associationCategory(
-                                                AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
-                                            )
-                                            .associationTypeId(0)
-                                            .build()
-                                    )
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        batchResponseVoid.validate()
+        batchService.deleteLabels(
+            BatchDeleteLabelsParams.builder()
+                .fromObjectType("fromObjectType")
+                .toObjectType("toObjectType")
+                .batchInputPublicAssociationMultiPost(
+                    BatchInputPublicAssociationMultiPost.builder()
+                        .addInput(
+                            PublicAssociationMultiPost.builder()
+                                .from(PublicObjectId.builder().id("id").build())
+                                .to(PublicObjectId.builder().id("id").build())
+                                .addType(
+                                    AssociationSpec.builder()
+                                        .associationCategory(
+                                            AssociationSpec.AssociationCategory.HUBSPOT_DEFINED
+                                        )
+                                        .associationTypeId(0)
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .build()
+                )
+                .build()
+        )
     }
 
     @Disabled("Mock server tests are disabled")

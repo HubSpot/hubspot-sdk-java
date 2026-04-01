@@ -4,8 +4,8 @@ package com.hubspot_sdk.api.services.async.crm.associationsschema
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
 import com.hubspot_sdk.api.models.crm.associationsschema.CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging
 import com.hubspot_sdk.api.models.crm.associationsschema.limits.LimitBatchDeleteParams
@@ -61,26 +61,25 @@ interface LimitServiceAsync {
     fun batchDelete(
         toObjectType: String,
         params: LimitBatchDeleteParams,
-    ): CompletableFuture<BatchResponseVoid> =
-        batchDelete(toObjectType, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = batchDelete(toObjectType, params, RequestOptions.none())
 
     /** @see batchDelete */
     fun batchDelete(
         toObjectType: String,
         params: LimitBatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseVoid> =
+    ): CompletableFuture<Void?> =
         batchDelete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see batchDelete */
-    fun batchDelete(params: LimitBatchDeleteParams): CompletableFuture<BatchResponseVoid> =
+    fun batchDelete(params: LimitBatchDeleteParams): CompletableFuture<Void?> =
         batchDelete(params, RequestOptions.none())
 
     /** @see batchDelete */
     fun batchDelete(
         params: LimitBatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseVoid>
+    ): CompletableFuture<Void?>
 
     /** Batch update association limits that have been configured between two object types. */
     fun batchUpdate(
@@ -193,7 +192,7 @@ interface LimitServiceAsync {
         fun batchDelete(
             toObjectType: String,
             params: LimitBatchDeleteParams,
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        ): CompletableFuture<HttpResponse> =
             batchDelete(toObjectType, params, RequestOptions.none())
 
         /** @see batchDelete */
@@ -201,20 +200,18 @@ interface LimitServiceAsync {
             toObjectType: String,
             params: LimitBatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        ): CompletableFuture<HttpResponse> =
             batchDelete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see batchDelete */
-        fun batchDelete(
-            params: LimitBatchDeleteParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        fun batchDelete(params: LimitBatchDeleteParams): CompletableFuture<HttpResponse> =
             batchDelete(params, RequestOptions.none())
 
         /** @see batchDelete */
         fun batchDelete(
             params: LimitBatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>>
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `post

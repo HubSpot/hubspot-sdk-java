@@ -318,10 +318,7 @@ interface RowServiceAsync {
      * Permanently delete rows from the draft version of a table, given a set of row IDs. Maximum of
      * 100 row IDs per call.
      */
-    fun purgeBatch(
-        tableIdOrName: String,
-        params: RowPurgeBatchParams,
-    ): CompletableFuture<BatchResponseHubDbTableRowV3> =
+    fun purgeBatch(tableIdOrName: String, params: RowPurgeBatchParams): CompletableFuture<Void?> =
         purgeBatch(tableIdOrName, params, RequestOptions.none())
 
     /** @see purgeBatch */
@@ -329,18 +326,18 @@ interface RowServiceAsync {
         tableIdOrName: String,
         params: RowPurgeBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseHubDbTableRowV3> =
+    ): CompletableFuture<Void?> =
         purgeBatch(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
     /** @see purgeBatch */
-    fun purgeBatch(params: RowPurgeBatchParams): CompletableFuture<BatchResponseHubDbTableRowV3> =
+    fun purgeBatch(params: RowPurgeBatchParams): CompletableFuture<Void?> =
         purgeBatch(params, RequestOptions.none())
 
     /** @see purgeBatch */
     fun purgeBatch(
         params: RowPurgeBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseHubDbTableRowV3>
+    ): CompletableFuture<Void?>
 
     /**
      * Replaces multiple rows as a batch in the draft version of the table, with a maximum of 100
@@ -786,7 +783,7 @@ interface RowServiceAsync {
         fun purgeBatch(
             tableIdOrName: String,
             params: RowPurgeBatchParams,
-        ): CompletableFuture<HttpResponseFor<BatchResponseHubDbTableRowV3>> =
+        ): CompletableFuture<HttpResponse> =
             purgeBatch(tableIdOrName, params, RequestOptions.none())
 
         /** @see purgeBatch */
@@ -794,20 +791,18 @@ interface RowServiceAsync {
             tableIdOrName: String,
             params: RowPurgeBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseHubDbTableRowV3>> =
+        ): CompletableFuture<HttpResponse> =
             purgeBatch(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
         /** @see purgeBatch */
-        fun purgeBatch(
-            params: RowPurgeBatchParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseHubDbTableRowV3>> =
+        fun purgeBatch(params: RowPurgeBatchParams): CompletableFuture<HttpResponse> =
             purgeBatch(params, RequestOptions.none())
 
         /** @see purgeBatch */
         fun purgeBatch(
             params: RowPurgeBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseHubDbTableRowV3>>
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `post

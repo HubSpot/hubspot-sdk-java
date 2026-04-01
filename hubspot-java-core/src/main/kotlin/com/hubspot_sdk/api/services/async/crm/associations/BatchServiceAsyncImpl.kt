@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.crm.associations
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.handlers.emptyHandler
 import com.hubspot_sdk.api.core.handlers.errorBodyHandler
 import com.hubspot_sdk.api.core.handlers.errorHandler
 import com.hubspot_sdk.api.core.handlers.jsonHandler
@@ -17,7 +18,6 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateParams
@@ -51,9 +51,9 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun delete(
         params: BatchDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseVoid> =
+    ): CompletableFuture<Void?> =
         // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/archive
-        withRawResponse().delete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().delete(params, requestOptions).thenAccept {}
 
     override fun createDefault(
         params: BatchCreateDefaultParams,
@@ -65,9 +65,9 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun deleteLabels(
         params: BatchDeleteLabelsParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseVoid> =
+    ): CompletableFuture<Void?> =
         // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/labels/archive
-        withRawResponse().deleteLabels(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().deleteLabels(params, requestOptions).thenAccept {}
 
     override fun get(
         params: BatchGetParams,
@@ -133,13 +133,12 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val deleteHandler: Handler<BatchResponseVoid> =
-            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: BatchDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toObjectType", params.toObjectType().getOrNull())
@@ -164,13 +163,7 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteHandler.handle(it) }
                     }
                 }
         }
@@ -218,13 +211,12 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val deleteLabelsHandler: Handler<BatchResponseVoid> =
-            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+        private val deleteLabelsHandler: Handler<Void?> = emptyHandler()
 
         override fun deleteLabels(
             params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toObjectType", params.toObjectType().getOrNull())
@@ -250,13 +242,7 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { deleteLabelsHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { deleteLabelsHandler.handle(it) }
                     }
                 }
         }

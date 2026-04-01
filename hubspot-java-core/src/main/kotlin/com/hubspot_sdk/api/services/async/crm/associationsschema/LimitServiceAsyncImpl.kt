@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.async.crm.associationsschema
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.handlers.emptyHandler
 import com.hubspot_sdk.api.core.handlers.errorBodyHandler
 import com.hubspot_sdk.api.core.handlers.errorHandler
 import com.hubspot_sdk.api.core.handlers.jsonHandler
@@ -16,7 +17,6 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
 import com.hubspot_sdk.api.models.crm.associationsschema.CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging
 import com.hubspot_sdk.api.models.crm.associationsschema.limits.LimitBatchDeleteParams
@@ -49,10 +49,10 @@ class LimitServiceAsyncImpl internal constructor(private val clientOptions: Clie
     override fun batchDelete(
         params: LimitBatchDeleteParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseVoid> =
+    ): CompletableFuture<Void?> =
         // post
         // /crm/associations/2026-03/definitions/configurations/{fromObjectType}/{toObjectType}/batch/purge
-        withRawResponse().batchDelete(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().batchDelete(params, requestOptions).thenAccept {}
 
     override fun batchUpdate(
         params: LimitBatchUpdateParams,
@@ -124,13 +124,12 @@ class LimitServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 }
         }
 
-        private val batchDeleteHandler: Handler<BatchResponseVoid> =
-            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+        private val batchDeleteHandler: Handler<Void?> = emptyHandler()
 
         override fun batchDelete(
             params: LimitBatchDeleteParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toObjectType", params.toObjectType().getOrNull())
@@ -157,13 +156,7 @@ class LimitServiceAsyncImpl internal constructor(private val clientOptions: Clie
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { batchDeleteHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { batchDeleteHandler.handle(it) }
                     }
                 }
         }

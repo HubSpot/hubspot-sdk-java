@@ -109,12 +109,10 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
         // post /cms/hubdb/2026-03/tables/{tableIdOrName}/rows/draft/batch/read
         withRawResponse().getDraftBatch(params, requestOptions).parse()
 
-    override fun purgeBatch(
-        params: RowPurgeBatchParams,
-        requestOptions: RequestOptions,
-    ): BatchResponseHubDbTableRowV3 =
+    override fun purgeBatch(params: RowPurgeBatchParams, requestOptions: RequestOptions) {
         // post /cms/hubdb/2026-03/tables/{tableIdOrName}/rows/draft/batch/purge
-        withRawResponse().purgeBatch(params, requestOptions).parse()
+        withRawResponse().purgeBatch(params, requestOptions)
+    }
 
     override fun replaceBatch(
         params: RowReplaceBatchParams,
@@ -555,13 +553,12 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
             }
         }
 
-        private val purgeBatchHandler: Handler<BatchResponseHubDbTableRowV3> =
-            jsonHandler<BatchResponseHubDbTableRowV3>(clientOptions.jsonMapper)
+        private val purgeBatchHandler: Handler<Void?> = emptyHandler()
 
         override fun purgeBatch(
             params: RowPurgeBatchParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseHubDbTableRowV3> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tableIdOrName", params.tableIdOrName().getOrNull())
@@ -586,13 +583,7 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { purgeBatchHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { purgeBatchHandler.handle(it) }
             }
         }
 

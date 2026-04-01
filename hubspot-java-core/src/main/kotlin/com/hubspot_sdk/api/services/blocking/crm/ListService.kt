@@ -22,19 +22,20 @@ import com.hubspot_sdk.api.models.crm.lists.ListCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteParams
-import com.hubspot_sdk.api.models.crm.lists.ListDeleteScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListFetchResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderCreateRequest
 import com.hubspot_sdk.api.models.crm.lists.ListFolderCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderFetchResponse
-import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeIdAndNameParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeAndNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetIdMappingParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderPage
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetRecordMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetScheduleConversionParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetSizeAndEditsHistoryBetweenParams
+import com.hubspot_sdk.api.models.crm.lists.ListListBySearchParams
 import com.hubspot_sdk.api.models.crm.lists.ListListFoldersParams
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderPage
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsPage
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListListParams
@@ -44,9 +45,10 @@ import com.hubspot_sdk.api.models.crm.lists.ListMoveRequest
 import com.hubspot_sdk.api.models.crm.lists.ListRemoveMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListRenameFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListRestoreParams
-import com.hubspot_sdk.api.models.crm.lists.ListSearchParams
+import com.hubspot_sdk.api.models.crm.lists.ListScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListSearchRequest
 import com.hubspot_sdk.api.models.crm.lists.ListSearchResponse
+import com.hubspot_sdk.api.models.crm.lists.ListSizeAndEditHistoryResponse
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListFiltersParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateResponse
@@ -331,36 +333,6 @@ interface ListService {
     fun deleteMemberships(listId: String, requestOptions: RequestOptions) =
         deleteMemberships(listId, ListDeleteMembershipsParams.none(), requestOptions)
 
-    fun deleteScheduleConversion(listId: String) =
-        deleteScheduleConversion(listId, ListDeleteScheduleConversionParams.none())
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        listId: String,
-        params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ) = deleteScheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        listId: String,
-        params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-    ) = deleteScheduleConversion(listId, params, RequestOptions.none())
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        params: ListDeleteScheduleConversionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    )
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(params: ListDeleteScheduleConversionParams) =
-        deleteScheduleConversion(params, RequestOptions.none())
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(listId: String, requestOptions: RequestOptions) =
-        deleteScheduleConversion(listId, ListDeleteScheduleConversionParams.none(), requestOptions)
-
     fun get(listId: String): ListFetchResponse = get(listId, ListGetParams.none())
 
     /** @see get */
@@ -387,26 +359,26 @@ interface ListService {
     fun get(listId: String, requestOptions: RequestOptions): ListFetchResponse =
         get(listId, ListGetParams.none(), requestOptions)
 
-    fun getByObjectTypeIdAndName(
+    fun getByObjectTypeAndName(
         listName: String,
-        params: ListGetByObjectTypeIdAndNameParams,
-    ): ListFetchResponse = getByObjectTypeIdAndName(listName, params, RequestOptions.none())
+        params: ListGetByObjectTypeAndNameParams,
+    ): ListFetchResponse = getByObjectTypeAndName(listName, params, RequestOptions.none())
 
-    /** @see getByObjectTypeIdAndName */
-    fun getByObjectTypeIdAndName(
+    /** @see getByObjectTypeAndName */
+    fun getByObjectTypeAndName(
         listName: String,
-        params: ListGetByObjectTypeIdAndNameParams,
+        params: ListGetByObjectTypeAndNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ListFetchResponse =
-        getByObjectTypeIdAndName(params.toBuilder().listName(listName).build(), requestOptions)
+        getByObjectTypeAndName(params.toBuilder().listName(listName).build(), requestOptions)
 
-    /** @see getByObjectTypeIdAndName */
-    fun getByObjectTypeIdAndName(params: ListGetByObjectTypeIdAndNameParams): ListFetchResponse =
-        getByObjectTypeIdAndName(params, RequestOptions.none())
+    /** @see getByObjectTypeAndName */
+    fun getByObjectTypeAndName(params: ListGetByObjectTypeAndNameParams): ListFetchResponse =
+        getByObjectTypeAndName(params, RequestOptions.none())
 
-    /** @see getByObjectTypeIdAndName */
-    fun getByObjectTypeIdAndName(
-        params: ListGetByObjectTypeIdAndNameParams,
+    /** @see getByObjectTypeAndName */
+    fun getByObjectTypeAndName(
+        params: ListGetByObjectTypeAndNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): ListFetchResponse
 
@@ -426,6 +398,42 @@ interface ListService {
     /** @see getIdMapping */
     fun getIdMapping(requestOptions: RequestOptions): PublicMigrationMapping =
         getIdMapping(ListGetIdMappingParams.none(), requestOptions)
+
+    fun getMembershipsJoinOrder(listId: String): ListGetMembershipsJoinOrderPage =
+        getMembershipsJoinOrder(listId, ListGetMembershipsJoinOrderParams.none())
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        listId: String,
+        params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ListGetMembershipsJoinOrderPage =
+        getMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        listId: String,
+        params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+    ): ListGetMembershipsJoinOrderPage =
+        getMembershipsJoinOrder(listId, params, RequestOptions.none())
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        params: ListGetMembershipsJoinOrderParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ListGetMembershipsJoinOrderPage
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        params: ListGetMembershipsJoinOrderParams
+    ): ListGetMembershipsJoinOrderPage = getMembershipsJoinOrder(params, RequestOptions.none())
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        listId: String,
+        requestOptions: RequestOptions,
+    ): ListGetMembershipsJoinOrderPage =
+        getMembershipsJoinOrder(listId, ListGetMembershipsJoinOrderParams.none(), requestOptions)
 
     fun getRecordMemberships(
         recordId: String,
@@ -488,6 +496,71 @@ interface ListService {
     ): PublicListConversionResponse =
         getScheduleConversion(listId, ListGetScheduleConversionParams.none(), requestOptions)
 
+    fun getSizeAndEditsHistoryBetween(listId: String): ListSizeAndEditHistoryResponse =
+        getSizeAndEditsHistoryBetween(listId, ListGetSizeAndEditsHistoryBetweenParams.none())
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        listId: String,
+        params: ListGetSizeAndEditsHistoryBetweenParams =
+            ListGetSizeAndEditsHistoryBetweenParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ListSizeAndEditHistoryResponse =
+        getSizeAndEditsHistoryBetween(params.toBuilder().listId(listId).build(), requestOptions)
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        listId: String,
+        params: ListGetSizeAndEditsHistoryBetweenParams =
+            ListGetSizeAndEditsHistoryBetweenParams.none(),
+    ): ListSizeAndEditHistoryResponse =
+        getSizeAndEditsHistoryBetween(listId, params, RequestOptions.none())
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        params: ListGetSizeAndEditsHistoryBetweenParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ListSizeAndEditHistoryResponse
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        params: ListGetSizeAndEditsHistoryBetweenParams
+    ): ListSizeAndEditHistoryResponse = getSizeAndEditsHistoryBetween(params, RequestOptions.none())
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        listId: String,
+        requestOptions: RequestOptions,
+    ): ListSizeAndEditHistoryResponse =
+        getSizeAndEditsHistoryBetween(
+            listId,
+            ListGetSizeAndEditsHistoryBetweenParams.none(),
+            requestOptions,
+        )
+
+    fun listBySearch(params: ListListBySearchParams): ListSearchResponse =
+        listBySearch(params, RequestOptions.none())
+
+    /** @see listBySearch */
+    fun listBySearch(
+        params: ListListBySearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ListSearchResponse
+
+    /** @see listBySearch */
+    fun listBySearch(
+        listSearchRequest: ListSearchRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): ListSearchResponse =
+        listBySearch(
+            ListListBySearchParams.builder().listSearchRequest(listSearchRequest).build(),
+            requestOptions,
+        )
+
+    /** @see listBySearch */
+    fun listBySearch(listSearchRequest: ListSearchRequest): ListSearchResponse =
+        listBySearch(listSearchRequest, RequestOptions.none())
+
     fun listFolders(): ListFolderFetchResponse = listFolders(ListListFoldersParams.none())
 
     /** @see listFolders */
@@ -535,42 +608,6 @@ interface ListService {
     /** @see listMemberships */
     fun listMemberships(listId: String, requestOptions: RequestOptions): ListListMembershipsPage =
         listMemberships(listId, ListListMembershipsParams.none(), requestOptions)
-
-    fun listMembershipsJoinOrder(listId: String): ListListMembershipsJoinOrderPage =
-        listMembershipsJoinOrder(listId, ListListMembershipsJoinOrderParams.none())
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        listId: String,
-        params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ListListMembershipsJoinOrderPage =
-        listMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        listId: String,
-        params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-    ): ListListMembershipsJoinOrderPage =
-        listMembershipsJoinOrder(listId, params, RequestOptions.none())
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        params: ListListMembershipsJoinOrderParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): ListListMembershipsJoinOrderPage
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        params: ListListMembershipsJoinOrderParams
-    ): ListListMembershipsJoinOrderPage = listMembershipsJoinOrder(params, RequestOptions.none())
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        listId: String,
-        requestOptions: RequestOptions,
-    ): ListListMembershipsJoinOrderPage =
-        listMembershipsJoinOrder(listId, ListListMembershipsJoinOrderParams.none(), requestOptions)
 
     fun moveFolder(
         newParentFolderId: String,
@@ -691,27 +728,35 @@ interface ListService {
     fun restore(listId: String, requestOptions: RequestOptions) =
         restore(listId, ListRestoreParams.none(), requestOptions)
 
-    fun search(params: ListSearchParams): ListSearchResponse = search(params, RequestOptions.none())
+    fun scheduleConversion(listId: String) =
+        scheduleConversion(listId, ListScheduleConversionParams.none())
 
-    /** @see search */
-    fun search(
-        params: ListSearchParams,
+    /** @see scheduleConversion */
+    fun scheduleConversion(
+        listId: String,
+        params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ListSearchResponse
+    ) = scheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
 
-    /** @see search */
-    fun search(
-        listSearchRequest: ListSearchRequest,
+    /** @see scheduleConversion */
+    fun scheduleConversion(
+        listId: String,
+        params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
+    ) = scheduleConversion(listId, params, RequestOptions.none())
+
+    /** @see scheduleConversion */
+    fun scheduleConversion(
+        params: ListScheduleConversionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ListSearchResponse =
-        search(
-            ListSearchParams.builder().listSearchRequest(listSearchRequest).build(),
-            requestOptions,
-        )
+    )
 
-    /** @see search */
-    fun search(listSearchRequest: ListSearchRequest): ListSearchResponse =
-        search(listSearchRequest, RequestOptions.none())
+    /** @see scheduleConversion */
+    fun scheduleConversion(params: ListScheduleConversionParams) =
+        scheduleConversion(params, RequestOptions.none())
+
+    /** @see scheduleConversion */
+    fun scheduleConversion(listId: String, requestOptions: RequestOptions) =
+        scheduleConversion(listId, ListScheduleConversionParams.none(), requestOptions)
 
     fun updateListFilters(listId: String, params: ListUpdateListFiltersParams): ListUpdateResponse =
         updateListFilters(listId, params, RequestOptions.none())
@@ -1183,51 +1228,6 @@ interface ListService {
             deleteMemberships(listId, ListDeleteMembershipsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /crm/lists/2026-03/{listId}/schedule-conversion`,
-         * but is otherwise the same as [ListService.deleteScheduleConversion].
-         */
-        @MustBeClosed
-        fun deleteScheduleConversion(listId: String): HttpResponse =
-            deleteScheduleConversion(listId, ListDeleteScheduleConversionParams.none())
-
-        /** @see deleteScheduleConversion */
-        @MustBeClosed
-        fun deleteScheduleConversion(
-            listId: String,
-            params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse =
-            deleteScheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
-
-        /** @see deleteScheduleConversion */
-        @MustBeClosed
-        fun deleteScheduleConversion(
-            listId: String,
-            params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-        ): HttpResponse = deleteScheduleConversion(listId, params, RequestOptions.none())
-
-        /** @see deleteScheduleConversion */
-        @MustBeClosed
-        fun deleteScheduleConversion(
-            params: ListDeleteScheduleConversionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponse
-
-        /** @see deleteScheduleConversion */
-        @MustBeClosed
-        fun deleteScheduleConversion(params: ListDeleteScheduleConversionParams): HttpResponse =
-            deleteScheduleConversion(params, RequestOptions.none())
-
-        /** @see deleteScheduleConversion */
-        @MustBeClosed
-        fun deleteScheduleConversion(listId: String, requestOptions: RequestOptions): HttpResponse =
-            deleteScheduleConversion(
-                listId,
-                ListDeleteScheduleConversionParams.none(),
-                requestOptions,
-            )
-
-        /**
          * Returns a raw HTTP response for `get /crm/lists/2026-03/{listId}`, but is otherwise the
          * same as [ListService.get].
          */
@@ -1273,35 +1273,35 @@ interface ListService {
         /**
          * Returns a raw HTTP response for `get
          * /crm/lists/2026-03/object-type-id/{objectTypeId}/name/{listName}`, but is otherwise the
-         * same as [ListService.getByObjectTypeIdAndName].
+         * same as [ListService.getByObjectTypeAndName].
          */
         @MustBeClosed
-        fun getByObjectTypeIdAndName(
+        fun getByObjectTypeAndName(
             listName: String,
-            params: ListGetByObjectTypeIdAndNameParams,
+            params: ListGetByObjectTypeAndNameParams,
         ): HttpResponseFor<ListFetchResponse> =
-            getByObjectTypeIdAndName(listName, params, RequestOptions.none())
+            getByObjectTypeAndName(listName, params, RequestOptions.none())
 
-        /** @see getByObjectTypeIdAndName */
+        /** @see getByObjectTypeAndName */
         @MustBeClosed
-        fun getByObjectTypeIdAndName(
+        fun getByObjectTypeAndName(
             listName: String,
-            params: ListGetByObjectTypeIdAndNameParams,
+            params: ListGetByObjectTypeAndNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ListFetchResponse> =
-            getByObjectTypeIdAndName(params.toBuilder().listName(listName).build(), requestOptions)
+            getByObjectTypeAndName(params.toBuilder().listName(listName).build(), requestOptions)
 
-        /** @see getByObjectTypeIdAndName */
+        /** @see getByObjectTypeAndName */
         @MustBeClosed
-        fun getByObjectTypeIdAndName(
-            params: ListGetByObjectTypeIdAndNameParams
+        fun getByObjectTypeAndName(
+            params: ListGetByObjectTypeAndNameParams
         ): HttpResponseFor<ListFetchResponse> =
-            getByObjectTypeIdAndName(params, RequestOptions.none())
+            getByObjectTypeAndName(params, RequestOptions.none())
 
-        /** @see getByObjectTypeIdAndName */
+        /** @see getByObjectTypeAndName */
         @MustBeClosed
-        fun getByObjectTypeIdAndName(
-            params: ListGetByObjectTypeIdAndNameParams,
+        fun getByObjectTypeAndName(
+            params: ListGetByObjectTypeAndNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<ListFetchResponse>
 
@@ -1330,6 +1330,59 @@ interface ListService {
         @MustBeClosed
         fun getIdMapping(requestOptions: RequestOptions): HttpResponseFor<PublicMigrationMapping> =
             getIdMapping(ListGetIdMappingParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /crm/lists/2026-03/{listId}/memberships/join-order`,
+         * but is otherwise the same as [ListService.getMembershipsJoinOrder].
+         */
+        @MustBeClosed
+        fun getMembershipsJoinOrder(
+            listId: String
+        ): HttpResponseFor<ListGetMembershipsJoinOrderPage> =
+            getMembershipsJoinOrder(listId, ListGetMembershipsJoinOrderParams.none())
+
+        /** @see getMembershipsJoinOrder */
+        @MustBeClosed
+        fun getMembershipsJoinOrder(
+            listId: String,
+            params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ListGetMembershipsJoinOrderPage> =
+            getMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
+
+        /** @see getMembershipsJoinOrder */
+        @MustBeClosed
+        fun getMembershipsJoinOrder(
+            listId: String,
+            params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+        ): HttpResponseFor<ListGetMembershipsJoinOrderPage> =
+            getMembershipsJoinOrder(listId, params, RequestOptions.none())
+
+        /** @see getMembershipsJoinOrder */
+        @MustBeClosed
+        fun getMembershipsJoinOrder(
+            params: ListGetMembershipsJoinOrderParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ListGetMembershipsJoinOrderPage>
+
+        /** @see getMembershipsJoinOrder */
+        @MustBeClosed
+        fun getMembershipsJoinOrder(
+            params: ListGetMembershipsJoinOrderParams
+        ): HttpResponseFor<ListGetMembershipsJoinOrderPage> =
+            getMembershipsJoinOrder(params, RequestOptions.none())
+
+        /** @see getMembershipsJoinOrder */
+        @MustBeClosed
+        fun getMembershipsJoinOrder(
+            listId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ListGetMembershipsJoinOrderPage> =
+            getMembershipsJoinOrder(
+                listId,
+                ListGetMembershipsJoinOrderParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get
@@ -1414,6 +1467,95 @@ interface ListService {
             getScheduleConversion(listId, ListGetScheduleConversionParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `get
+         * /crm/lists/2026-03/{listId}/size-and-edits-history/between`, but is otherwise the same as
+         * [ListService.getSizeAndEditsHistoryBetween].
+         */
+        @MustBeClosed
+        fun getSizeAndEditsHistoryBetween(
+            listId: String
+        ): HttpResponseFor<ListSizeAndEditHistoryResponse> =
+            getSizeAndEditsHistoryBetween(listId, ListGetSizeAndEditsHistoryBetweenParams.none())
+
+        /** @see getSizeAndEditsHistoryBetween */
+        @MustBeClosed
+        fun getSizeAndEditsHistoryBetween(
+            listId: String,
+            params: ListGetSizeAndEditsHistoryBetweenParams =
+                ListGetSizeAndEditsHistoryBetweenParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ListSizeAndEditHistoryResponse> =
+            getSizeAndEditsHistoryBetween(params.toBuilder().listId(listId).build(), requestOptions)
+
+        /** @see getSizeAndEditsHistoryBetween */
+        @MustBeClosed
+        fun getSizeAndEditsHistoryBetween(
+            listId: String,
+            params: ListGetSizeAndEditsHistoryBetweenParams =
+                ListGetSizeAndEditsHistoryBetweenParams.none(),
+        ): HttpResponseFor<ListSizeAndEditHistoryResponse> =
+            getSizeAndEditsHistoryBetween(listId, params, RequestOptions.none())
+
+        /** @see getSizeAndEditsHistoryBetween */
+        @MustBeClosed
+        fun getSizeAndEditsHistoryBetween(
+            params: ListGetSizeAndEditsHistoryBetweenParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ListSizeAndEditHistoryResponse>
+
+        /** @see getSizeAndEditsHistoryBetween */
+        @MustBeClosed
+        fun getSizeAndEditsHistoryBetween(
+            params: ListGetSizeAndEditsHistoryBetweenParams
+        ): HttpResponseFor<ListSizeAndEditHistoryResponse> =
+            getSizeAndEditsHistoryBetween(params, RequestOptions.none())
+
+        /** @see getSizeAndEditsHistoryBetween */
+        @MustBeClosed
+        fun getSizeAndEditsHistoryBetween(
+            listId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ListSizeAndEditHistoryResponse> =
+            getSizeAndEditsHistoryBetween(
+                listId,
+                ListGetSizeAndEditsHistoryBetweenParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `post /crm/lists/2026-03/search`, but is otherwise the
+         * same as [ListService.listBySearch].
+         */
+        @MustBeClosed
+        fun listBySearch(params: ListListBySearchParams): HttpResponseFor<ListSearchResponse> =
+            listBySearch(params, RequestOptions.none())
+
+        /** @see listBySearch */
+        @MustBeClosed
+        fun listBySearch(
+            params: ListListBySearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ListSearchResponse>
+
+        /** @see listBySearch */
+        @MustBeClosed
+        fun listBySearch(
+            listSearchRequest: ListSearchRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<ListSearchResponse> =
+            listBySearch(
+                ListListBySearchParams.builder().listSearchRequest(listSearchRequest).build(),
+                requestOptions,
+            )
+
+        /** @see listBySearch */
+        @MustBeClosed
+        fun listBySearch(
+            listSearchRequest: ListSearchRequest
+        ): HttpResponseFor<ListSearchResponse> =
+            listBySearch(listSearchRequest, RequestOptions.none())
+
+        /**
          * Returns a raw HTTP response for `get /crm/lists/2026-03/folders`, but is otherwise the
          * same as [ListService.listFolders].
          */
@@ -1484,59 +1626,6 @@ interface ListService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<ListListMembershipsPage> =
             listMemberships(listId, ListListMembershipsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /crm/lists/2026-03/{listId}/memberships/join-order`,
-         * but is otherwise the same as [ListService.listMembershipsJoinOrder].
-         */
-        @MustBeClosed
-        fun listMembershipsJoinOrder(
-            listId: String
-        ): HttpResponseFor<ListListMembershipsJoinOrderPage> =
-            listMembershipsJoinOrder(listId, ListListMembershipsJoinOrderParams.none())
-
-        /** @see listMembershipsJoinOrder */
-        @MustBeClosed
-        fun listMembershipsJoinOrder(
-            listId: String,
-            params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ListListMembershipsJoinOrderPage> =
-            listMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
-
-        /** @see listMembershipsJoinOrder */
-        @MustBeClosed
-        fun listMembershipsJoinOrder(
-            listId: String,
-            params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-        ): HttpResponseFor<ListListMembershipsJoinOrderPage> =
-            listMembershipsJoinOrder(listId, params, RequestOptions.none())
-
-        /** @see listMembershipsJoinOrder */
-        @MustBeClosed
-        fun listMembershipsJoinOrder(
-            params: ListListMembershipsJoinOrderParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ListListMembershipsJoinOrderPage>
-
-        /** @see listMembershipsJoinOrder */
-        @MustBeClosed
-        fun listMembershipsJoinOrder(
-            params: ListListMembershipsJoinOrderParams
-        ): HttpResponseFor<ListListMembershipsJoinOrderPage> =
-            listMembershipsJoinOrder(params, RequestOptions.none())
-
-        /** @see listMembershipsJoinOrder */
-        @MustBeClosed
-        fun listMembershipsJoinOrder(
-            listId: String,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ListListMembershipsJoinOrderPage> =
-            listMembershipsJoinOrder(
-                listId,
-                ListListMembershipsJoinOrderParams.none(),
-                requestOptions,
-            )
 
         /**
          * Returns a raw HTTP response for `put
@@ -1724,35 +1813,45 @@ interface ListService {
             restore(listId, ListRestoreParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/lists/2026-03/search`, but is otherwise the
-         * same as [ListService.search].
+         * Returns a raw HTTP response for `delete /crm/lists/2026-03/{listId}/schedule-conversion`,
+         * but is otherwise the same as [ListService.scheduleConversion].
          */
         @MustBeClosed
-        fun search(params: ListSearchParams): HttpResponseFor<ListSearchResponse> =
-            search(params, RequestOptions.none())
+        fun scheduleConversion(listId: String): HttpResponse =
+            scheduleConversion(listId, ListScheduleConversionParams.none())
 
-        /** @see search */
+        /** @see scheduleConversion */
         @MustBeClosed
-        fun search(
-            params: ListSearchParams,
+        fun scheduleConversion(
+            listId: String,
+            params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ListSearchResponse>
+        ): HttpResponse =
+            scheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
 
-        /** @see search */
+        /** @see scheduleConversion */
         @MustBeClosed
-        fun search(
-            listSearchRequest: ListSearchRequest,
+        fun scheduleConversion(
+            listId: String,
+            params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
+        ): HttpResponse = scheduleConversion(listId, params, RequestOptions.none())
+
+        /** @see scheduleConversion */
+        @MustBeClosed
+        fun scheduleConversion(
+            params: ListScheduleConversionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ListSearchResponse> =
-            search(
-                ListSearchParams.builder().listSearchRequest(listSearchRequest).build(),
-                requestOptions,
-            )
+        ): HttpResponse
 
-        /** @see search */
+        /** @see scheduleConversion */
         @MustBeClosed
-        fun search(listSearchRequest: ListSearchRequest): HttpResponseFor<ListSearchResponse> =
-            search(listSearchRequest, RequestOptions.none())
+        fun scheduleConversion(params: ListScheduleConversionParams): HttpResponse =
+            scheduleConversion(params, RequestOptions.none())
+
+        /** @see scheduleConversion */
+        @MustBeClosed
+        fun scheduleConversion(listId: String, requestOptions: RequestOptions): HttpResponse =
+            scheduleConversion(listId, ListScheduleConversionParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /crm/lists/2026-03/{listId}/update-list-filters`,

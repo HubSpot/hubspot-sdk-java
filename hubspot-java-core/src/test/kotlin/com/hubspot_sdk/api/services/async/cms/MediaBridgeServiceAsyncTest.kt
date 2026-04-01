@@ -8,7 +8,6 @@ import com.hubspot_sdk.api.models.AssociationDefinitionEgg
 import com.hubspot_sdk.api.models.ObjectTypeDefinitionLabels
 import com.hubspot_sdk.api.models.ObjectTypeDefinitionPatch
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.PropertyCreate
 import com.hubspot_sdk.api.models.PropertyGroupCreate
 import com.hubspot_sdk.api.models.PropertyGroupUpdate
 import com.hubspot_sdk.api.models.cms.mediabridge.AttentionSpanCalculatedValues
@@ -46,6 +45,7 @@ import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSchemaParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaBridgeUpdateSettingsParams
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedEventRequest
 import com.hubspot_sdk.api.models.cms.mediabridge.MediaPlayedPercentageEventRequest
+import com.hubspot_sdk.api.models.cms.mediabridge.PropertyCreate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 

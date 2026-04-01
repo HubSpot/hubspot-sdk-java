@@ -24,6 +24,7 @@ class PropertyUpdate
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val calculationFormula: JsonField<String>,
+    private val currencyPropertyName: JsonField<String>,
     private val description: JsonField<String>,
     private val displayOrder: JsonField<Int>,
     private val fieldType: JsonField<FieldType>,
@@ -32,6 +33,7 @@ private constructor(
     private val hidden: JsonField<Boolean>,
     private val label: JsonField<String>,
     private val options: JsonField<List<OptionInput>>,
+    private val showCurrencySymbol: JsonField<Boolean>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -41,6 +43,9 @@ private constructor(
         @JsonProperty("calculationFormula")
         @ExcludeMissing
         calculationFormula: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("currencyPropertyName")
+        @ExcludeMissing
+        currencyPropertyName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
@@ -57,9 +62,13 @@ private constructor(
         @JsonProperty("options")
         @ExcludeMissing
         options: JsonField<List<OptionInput>> = JsonMissing.of(),
+        @JsonProperty("showCurrencySymbol")
+        @ExcludeMissing
+        showCurrencySymbol: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
         calculationFormula,
+        currencyPropertyName,
         description,
         displayOrder,
         fieldType,
@@ -68,6 +77,7 @@ private constructor(
         hidden,
         label,
         options,
+        showCurrencySymbol,
         type,
         mutableMapOf(),
     )
@@ -80,6 +90,13 @@ private constructor(
      */
     fun calculationFormula(): Optional<String> =
         calculationFormula.getOptional("calculationFormula")
+
+    /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun currencyPropertyName(): Optional<String> =
+        currencyPropertyName.getOptional("currencyPropertyName")
 
     /**
      * A description of the property that will be shown as help text in HubSpot.
@@ -147,6 +164,13 @@ private constructor(
     fun options(): Optional<List<OptionInput>> = options.getOptional("options")
 
     /**
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun showCurrencySymbol(): Optional<Boolean> =
+        showCurrencySymbol.getOptional("showCurrencySymbol")
+
+    /**
      * The data type of the property.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -163,6 +187,16 @@ private constructor(
     @JsonProperty("calculationFormula")
     @ExcludeMissing
     fun _calculationFormula(): JsonField<String> = calculationFormula
+
+    /**
+     * Returns the raw JSON value of [currencyPropertyName].
+     *
+     * Unlike [currencyPropertyName], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("currencyPropertyName")
+    @ExcludeMissing
+    fun _currencyPropertyName(): JsonField<String> = currencyPropertyName
 
     /**
      * Returns the raw JSON value of [description].
@@ -221,6 +255,16 @@ private constructor(
     @JsonProperty("options") @ExcludeMissing fun _options(): JsonField<List<OptionInput>> = options
 
     /**
+     * Returns the raw JSON value of [showCurrencySymbol].
+     *
+     * Unlike [showCurrencySymbol], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("showCurrencySymbol")
+    @ExcludeMissing
+    fun _showCurrencySymbol(): JsonField<Boolean> = showCurrencySymbol
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -249,6 +293,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var calculationFormula: JsonField<String> = JsonMissing.of()
+        private var currencyPropertyName: JsonField<String> = JsonMissing.of()
         private var description: JsonField<String> = JsonMissing.of()
         private var displayOrder: JsonField<Int> = JsonMissing.of()
         private var fieldType: JsonField<FieldType> = JsonMissing.of()
@@ -257,12 +302,14 @@ private constructor(
         private var hidden: JsonField<Boolean> = JsonMissing.of()
         private var label: JsonField<String> = JsonMissing.of()
         private var options: JsonField<MutableList<OptionInput>>? = null
+        private var showCurrencySymbol: JsonField<Boolean> = JsonMissing.of()
         private var type: JsonField<Type> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(propertyUpdate: PropertyUpdate) = apply {
             calculationFormula = propertyUpdate.calculationFormula
+            currencyPropertyName = propertyUpdate.currencyPropertyName
             description = propertyUpdate.description
             displayOrder = propertyUpdate.displayOrder
             fieldType = propertyUpdate.fieldType
@@ -271,6 +318,7 @@ private constructor(
             hidden = propertyUpdate.hidden
             label = propertyUpdate.label
             options = propertyUpdate.options.map { it.toMutableList() }
+            showCurrencySymbol = propertyUpdate.showCurrencySymbol
             type = propertyUpdate.type
             additionalProperties = propertyUpdate.additionalProperties.toMutableMap()
         }
@@ -288,6 +336,20 @@ private constructor(
          */
         fun calculationFormula(calculationFormula: JsonField<String>) = apply {
             this.calculationFormula = calculationFormula
+        }
+
+        fun currencyPropertyName(currencyPropertyName: String) =
+            currencyPropertyName(JsonField.of(currencyPropertyName))
+
+        /**
+         * Sets [Builder.currencyPropertyName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.currencyPropertyName] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun currencyPropertyName(currencyPropertyName: JsonField<String>) = apply {
+            this.currencyPropertyName = currencyPropertyName
         }
 
         /** A description of the property that will be shown as help text in HubSpot. */
@@ -401,6 +463,20 @@ private constructor(
                 }
         }
 
+        fun showCurrencySymbol(showCurrencySymbol: Boolean) =
+            showCurrencySymbol(JsonField.of(showCurrencySymbol))
+
+        /**
+         * Sets [Builder.showCurrencySymbol] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.showCurrencySymbol] with a well-typed [Boolean] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun showCurrencySymbol(showCurrencySymbol: JsonField<Boolean>) = apply {
+            this.showCurrencySymbol = showCurrencySymbol
+        }
+
         /** The data type of the property. */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -439,6 +515,7 @@ private constructor(
         fun build(): PropertyUpdate =
             PropertyUpdate(
                 calculationFormula,
+                currencyPropertyName,
                 description,
                 displayOrder,
                 fieldType,
@@ -447,6 +524,7 @@ private constructor(
                 hidden,
                 label,
                 (options ?: JsonMissing.of()).map { it.toImmutable() },
+                showCurrencySymbol,
                 type,
                 additionalProperties.toMutableMap(),
             )
@@ -460,6 +538,7 @@ private constructor(
         }
 
         calculationFormula()
+        currencyPropertyName()
         description()
         displayOrder()
         fieldType().ifPresent { it.validate() }
@@ -468,6 +547,7 @@ private constructor(
         hidden()
         label()
         options().ifPresent { it.forEach { it.validate() } }
+        showCurrencySymbol()
         type().ifPresent { it.validate() }
         validated = true
     }
@@ -488,6 +568,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (calculationFormula.asKnown().isPresent) 1 else 0) +
+            (if (currencyPropertyName.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (if (displayOrder.asKnown().isPresent) 1 else 0) +
             (fieldType.asKnown().getOrNull()?.validity() ?: 0) +
@@ -496,6 +577,7 @@ private constructor(
             (if (hidden.asKnown().isPresent) 1 else 0) +
             (if (label.asKnown().isPresent) 1 else 0) +
             (options.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (if (showCurrencySymbol.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
     /** Controls how the property appears in HubSpot. */
@@ -849,6 +931,7 @@ private constructor(
 
         return other is PropertyUpdate &&
             calculationFormula == other.calculationFormula &&
+            currencyPropertyName == other.currencyPropertyName &&
             description == other.description &&
             displayOrder == other.displayOrder &&
             fieldType == other.fieldType &&
@@ -857,6 +940,7 @@ private constructor(
             hidden == other.hidden &&
             label == other.label &&
             options == other.options &&
+            showCurrencySymbol == other.showCurrencySymbol &&
             type == other.type &&
             additionalProperties == other.additionalProperties
     }
@@ -864,6 +948,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             calculationFormula,
+            currencyPropertyName,
             description,
             displayOrder,
             fieldType,
@@ -872,6 +957,7 @@ private constructor(
             hidden,
             label,
             options,
+            showCurrencySymbol,
             type,
             additionalProperties,
         )
@@ -880,5 +966,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PropertyUpdate{calculationFormula=$calculationFormula, description=$description, displayOrder=$displayOrder, fieldType=$fieldType, formField=$formField, groupName=$groupName, hidden=$hidden, label=$label, options=$options, type=$type, additionalProperties=$additionalProperties}"
+        "PropertyUpdate{calculationFormula=$calculationFormula, currencyPropertyName=$currencyPropertyName, description=$description, displayOrder=$displayOrder, fieldType=$fieldType, formField=$formField, groupName=$groupName, hidden=$hidden, label=$label, options=$options, showCurrencySymbol=$showCurrencySymbol, type=$type, additionalProperties=$additionalProperties}"
 }

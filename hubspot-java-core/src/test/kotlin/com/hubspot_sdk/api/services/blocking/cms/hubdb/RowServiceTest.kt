@@ -243,15 +243,12 @@ internal class RowServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
-        val batchResponseHubDbTableRowV3 =
-            rowService.purgeBatch(
-                RowPurgeBatchParams.builder()
-                    .tableIdOrName("tableIdOrName")
-                    .batchInputString(BatchInputString.builder().addInput("string").build())
-                    .build()
-            )
-
-        batchResponseHubDbTableRowV3.validate()
+        rowService.purgeBatch(
+            RowPurgeBatchParams.builder()
+                .tableIdOrName("tableIdOrName")
+                .batchInputString(BatchInputString.builder().addInput("string").build())
+                .build()
+        )
     }
 
     @Disabled("Mock server tests are disabled")

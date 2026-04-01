@@ -21,19 +21,20 @@ import com.hubspot_sdk.api.models.crm.lists.ListCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteParams
-import com.hubspot_sdk.api.models.crm.lists.ListDeleteScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListFetchResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderCreateRequest
 import com.hubspot_sdk.api.models.crm.lists.ListFolderCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderFetchResponse
-import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeIdAndNameParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeAndNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetIdMappingParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderPageAsync
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetRecordMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetScheduleConversionParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetSizeAndEditsHistoryBetweenParams
+import com.hubspot_sdk.api.models.crm.lists.ListListBySearchParams
 import com.hubspot_sdk.api.models.crm.lists.ListListFoldersParams
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderPageAsync
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsPageAsync
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListListParams
@@ -43,9 +44,10 @@ import com.hubspot_sdk.api.models.crm.lists.ListMoveRequest
 import com.hubspot_sdk.api.models.crm.lists.ListRemoveMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListRenameFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListRestoreParams
-import com.hubspot_sdk.api.models.crm.lists.ListSearchParams
+import com.hubspot_sdk.api.models.crm.lists.ListScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListSearchRequest
 import com.hubspot_sdk.api.models.crm.lists.ListSearchResponse
+import com.hubspot_sdk.api.models.crm.lists.ListSizeAndEditHistoryResponse
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListFiltersParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateResponse
@@ -357,41 +359,6 @@ interface ListServiceAsync {
     ): CompletableFuture<Void?> =
         deleteMemberships(listId, ListDeleteMembershipsParams.none(), requestOptions)
 
-    fun deleteScheduleConversion(listId: String): CompletableFuture<Void?> =
-        deleteScheduleConversion(listId, ListDeleteScheduleConversionParams.none())
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        listId: String,
-        params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?> =
-        deleteScheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        listId: String,
-        params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-    ): CompletableFuture<Void?> = deleteScheduleConversion(listId, params, RequestOptions.none())
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        params: ListDeleteScheduleConversionParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Void?>
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        params: ListDeleteScheduleConversionParams
-    ): CompletableFuture<Void?> = deleteScheduleConversion(params, RequestOptions.none())
-
-    /** @see deleteScheduleConversion */
-    fun deleteScheduleConversion(
-        listId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        deleteScheduleConversion(listId, ListDeleteScheduleConversionParams.none(), requestOptions)
-
     fun get(listId: String): CompletableFuture<ListFetchResponse> =
         get(listId, ListGetParams.none())
 
@@ -423,29 +390,28 @@ interface ListServiceAsync {
     fun get(listId: String, requestOptions: RequestOptions): CompletableFuture<ListFetchResponse> =
         get(listId, ListGetParams.none(), requestOptions)
 
-    fun getByObjectTypeIdAndName(
+    fun getByObjectTypeAndName(
         listName: String,
-        params: ListGetByObjectTypeIdAndNameParams,
+        params: ListGetByObjectTypeAndNameParams,
     ): CompletableFuture<ListFetchResponse> =
-        getByObjectTypeIdAndName(listName, params, RequestOptions.none())
+        getByObjectTypeAndName(listName, params, RequestOptions.none())
 
-    /** @see getByObjectTypeIdAndName */
-    fun getByObjectTypeIdAndName(
+    /** @see getByObjectTypeAndName */
+    fun getByObjectTypeAndName(
         listName: String,
-        params: ListGetByObjectTypeIdAndNameParams,
+        params: ListGetByObjectTypeAndNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ListFetchResponse> =
-        getByObjectTypeIdAndName(params.toBuilder().listName(listName).build(), requestOptions)
+        getByObjectTypeAndName(params.toBuilder().listName(listName).build(), requestOptions)
 
-    /** @see getByObjectTypeIdAndName */
-    fun getByObjectTypeIdAndName(
-        params: ListGetByObjectTypeIdAndNameParams
-    ): CompletableFuture<ListFetchResponse> =
-        getByObjectTypeIdAndName(params, RequestOptions.none())
+    /** @see getByObjectTypeAndName */
+    fun getByObjectTypeAndName(
+        params: ListGetByObjectTypeAndNameParams
+    ): CompletableFuture<ListFetchResponse> = getByObjectTypeAndName(params, RequestOptions.none())
 
-    /** @see getByObjectTypeIdAndName */
-    fun getByObjectTypeIdAndName(
-        params: ListGetByObjectTypeIdAndNameParams,
+    /** @see getByObjectTypeAndName */
+    fun getByObjectTypeAndName(
+        params: ListGetByObjectTypeAndNameParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<ListFetchResponse>
 
@@ -466,6 +432,45 @@ interface ListServiceAsync {
     /** @see getIdMapping */
     fun getIdMapping(requestOptions: RequestOptions): CompletableFuture<PublicMigrationMapping> =
         getIdMapping(ListGetIdMappingParams.none(), requestOptions)
+
+    fun getMembershipsJoinOrder(
+        listId: String
+    ): CompletableFuture<ListGetMembershipsJoinOrderPageAsync> =
+        getMembershipsJoinOrder(listId, ListGetMembershipsJoinOrderParams.none())
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        listId: String,
+        params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ListGetMembershipsJoinOrderPageAsync> =
+        getMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        listId: String,
+        params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+    ): CompletableFuture<ListGetMembershipsJoinOrderPageAsync> =
+        getMembershipsJoinOrder(listId, params, RequestOptions.none())
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        params: ListGetMembershipsJoinOrderParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ListGetMembershipsJoinOrderPageAsync>
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        params: ListGetMembershipsJoinOrderParams
+    ): CompletableFuture<ListGetMembershipsJoinOrderPageAsync> =
+        getMembershipsJoinOrder(params, RequestOptions.none())
+
+    /** @see getMembershipsJoinOrder */
+    fun getMembershipsJoinOrder(
+        listId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ListGetMembershipsJoinOrderPageAsync> =
+        getMembershipsJoinOrder(listId, ListGetMembershipsJoinOrderParams.none(), requestOptions)
 
     fun getRecordMemberships(
         recordId: String,
@@ -530,6 +535,74 @@ interface ListServiceAsync {
     ): CompletableFuture<PublicListConversionResponse> =
         getScheduleConversion(listId, ListGetScheduleConversionParams.none(), requestOptions)
 
+    fun getSizeAndEditsHistoryBetween(
+        listId: String
+    ): CompletableFuture<ListSizeAndEditHistoryResponse> =
+        getSizeAndEditsHistoryBetween(listId, ListGetSizeAndEditsHistoryBetweenParams.none())
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        listId: String,
+        params: ListGetSizeAndEditsHistoryBetweenParams =
+            ListGetSizeAndEditsHistoryBetweenParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ListSizeAndEditHistoryResponse> =
+        getSizeAndEditsHistoryBetween(params.toBuilder().listId(listId).build(), requestOptions)
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        listId: String,
+        params: ListGetSizeAndEditsHistoryBetweenParams =
+            ListGetSizeAndEditsHistoryBetweenParams.none(),
+    ): CompletableFuture<ListSizeAndEditHistoryResponse> =
+        getSizeAndEditsHistoryBetween(listId, params, RequestOptions.none())
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        params: ListGetSizeAndEditsHistoryBetweenParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ListSizeAndEditHistoryResponse>
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        params: ListGetSizeAndEditsHistoryBetweenParams
+    ): CompletableFuture<ListSizeAndEditHistoryResponse> =
+        getSizeAndEditsHistoryBetween(params, RequestOptions.none())
+
+    /** @see getSizeAndEditsHistoryBetween */
+    fun getSizeAndEditsHistoryBetween(
+        listId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ListSizeAndEditHistoryResponse> =
+        getSizeAndEditsHistoryBetween(
+            listId,
+            ListGetSizeAndEditsHistoryBetweenParams.none(),
+            requestOptions,
+        )
+
+    fun listBySearch(params: ListListBySearchParams): CompletableFuture<ListSearchResponse> =
+        listBySearch(params, RequestOptions.none())
+
+    /** @see listBySearch */
+    fun listBySearch(
+        params: ListListBySearchParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ListSearchResponse>
+
+    /** @see listBySearch */
+    fun listBySearch(
+        listSearchRequest: ListSearchRequest,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<ListSearchResponse> =
+        listBySearch(
+            ListListBySearchParams.builder().listSearchRequest(listSearchRequest).build(),
+            requestOptions,
+        )
+
+    /** @see listBySearch */
+    fun listBySearch(listSearchRequest: ListSearchRequest): CompletableFuture<ListSearchResponse> =
+        listBySearch(listSearchRequest, RequestOptions.none())
+
     fun listFolders(): CompletableFuture<ListFolderFetchResponse> =
         listFolders(ListListFoldersParams.none())
 
@@ -584,45 +657,6 @@ interface ListServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<ListListMembershipsPageAsync> =
         listMemberships(listId, ListListMembershipsParams.none(), requestOptions)
-
-    fun listMembershipsJoinOrder(
-        listId: String
-    ): CompletableFuture<ListListMembershipsJoinOrderPageAsync> =
-        listMembershipsJoinOrder(listId, ListListMembershipsJoinOrderParams.none())
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        listId: String,
-        params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ListListMembershipsJoinOrderPageAsync> =
-        listMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        listId: String,
-        params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-    ): CompletableFuture<ListListMembershipsJoinOrderPageAsync> =
-        listMembershipsJoinOrder(listId, params, RequestOptions.none())
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        params: ListListMembershipsJoinOrderParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ListListMembershipsJoinOrderPageAsync>
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        params: ListListMembershipsJoinOrderParams
-    ): CompletableFuture<ListListMembershipsJoinOrderPageAsync> =
-        listMembershipsJoinOrder(params, RequestOptions.none())
-
-    /** @see listMembershipsJoinOrder */
-    fun listMembershipsJoinOrder(
-        listId: String,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ListListMembershipsJoinOrderPageAsync> =
-        listMembershipsJoinOrder(listId, ListListMembershipsJoinOrderParams.none(), requestOptions)
 
     fun moveFolder(
         newParentFolderId: String,
@@ -762,28 +796,39 @@ interface ListServiceAsync {
     fun restore(listId: String, requestOptions: RequestOptions): CompletableFuture<Void?> =
         restore(listId, ListRestoreParams.none(), requestOptions)
 
-    fun search(params: ListSearchParams): CompletableFuture<ListSearchResponse> =
-        search(params, RequestOptions.none())
+    fun scheduleConversion(listId: String): CompletableFuture<Void?> =
+        scheduleConversion(listId, ListScheduleConversionParams.none())
 
-    /** @see search */
-    fun search(
-        params: ListSearchParams,
+    /** @see scheduleConversion */
+    fun scheduleConversion(
+        listId: String,
+        params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ListSearchResponse>
+    ): CompletableFuture<Void?> =
+        scheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
 
-    /** @see search */
-    fun search(
-        listSearchRequest: ListSearchRequest,
+    /** @see scheduleConversion */
+    fun scheduleConversion(
+        listId: String,
+        params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
+    ): CompletableFuture<Void?> = scheduleConversion(listId, params, RequestOptions.none())
+
+    /** @see scheduleConversion */
+    fun scheduleConversion(
+        params: ListScheduleConversionParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ListSearchResponse> =
-        search(
-            ListSearchParams.builder().listSearchRequest(listSearchRequest).build(),
-            requestOptions,
-        )
+    ): CompletableFuture<Void?>
 
-    /** @see search */
-    fun search(listSearchRequest: ListSearchRequest): CompletableFuture<ListSearchResponse> =
-        search(listSearchRequest, RequestOptions.none())
+    /** @see scheduleConversion */
+    fun scheduleConversion(params: ListScheduleConversionParams): CompletableFuture<Void?> =
+        scheduleConversion(params, RequestOptions.none())
+
+    /** @see scheduleConversion */
+    fun scheduleConversion(
+        listId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<Void?> =
+        scheduleConversion(listId, ListScheduleConversionParams.none(), requestOptions)
 
     fun updateListFilters(
         listId: String,
@@ -1240,50 +1285,6 @@ interface ListServiceAsync {
             deleteMemberships(listId, ListDeleteMembershipsParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `delete /crm/lists/2026-03/{listId}/schedule-conversion`,
-         * but is otherwise the same as [ListServiceAsync.deleteScheduleConversion].
-         */
-        fun deleteScheduleConversion(listId: String): CompletableFuture<HttpResponse> =
-            deleteScheduleConversion(listId, ListDeleteScheduleConversionParams.none())
-
-        /** @see deleteScheduleConversion */
-        fun deleteScheduleConversion(
-            listId: String,
-            params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse> =
-            deleteScheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
-
-        /** @see deleteScheduleConversion */
-        fun deleteScheduleConversion(
-            listId: String,
-            params: ListDeleteScheduleConversionParams = ListDeleteScheduleConversionParams.none(),
-        ): CompletableFuture<HttpResponse> =
-            deleteScheduleConversion(listId, params, RequestOptions.none())
-
-        /** @see deleteScheduleConversion */
-        fun deleteScheduleConversion(
-            params: ListDeleteScheduleConversionParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponse>
-
-        /** @see deleteScheduleConversion */
-        fun deleteScheduleConversion(
-            params: ListDeleteScheduleConversionParams
-        ): CompletableFuture<HttpResponse> = deleteScheduleConversion(params, RequestOptions.none())
-
-        /** @see deleteScheduleConversion */
-        fun deleteScheduleConversion(
-            listId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> =
-            deleteScheduleConversion(
-                listId,
-                ListDeleteScheduleConversionParams.none(),
-                requestOptions,
-            )
-
-        /**
          * Returns a raw HTTP response for `get /crm/lists/2026-03/{listId}`, but is otherwise the
          * same as [ListServiceAsync.get].
          */
@@ -1325,31 +1326,31 @@ interface ListServiceAsync {
         /**
          * Returns a raw HTTP response for `get
          * /crm/lists/2026-03/object-type-id/{objectTypeId}/name/{listName}`, but is otherwise the
-         * same as [ListServiceAsync.getByObjectTypeIdAndName].
+         * same as [ListServiceAsync.getByObjectTypeAndName].
          */
-        fun getByObjectTypeIdAndName(
+        fun getByObjectTypeAndName(
             listName: String,
-            params: ListGetByObjectTypeIdAndNameParams,
+            params: ListGetByObjectTypeAndNameParams,
         ): CompletableFuture<HttpResponseFor<ListFetchResponse>> =
-            getByObjectTypeIdAndName(listName, params, RequestOptions.none())
+            getByObjectTypeAndName(listName, params, RequestOptions.none())
 
-        /** @see getByObjectTypeIdAndName */
-        fun getByObjectTypeIdAndName(
+        /** @see getByObjectTypeAndName */
+        fun getByObjectTypeAndName(
             listName: String,
-            params: ListGetByObjectTypeIdAndNameParams,
+            params: ListGetByObjectTypeAndNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ListFetchResponse>> =
-            getByObjectTypeIdAndName(params.toBuilder().listName(listName).build(), requestOptions)
+            getByObjectTypeAndName(params.toBuilder().listName(listName).build(), requestOptions)
 
-        /** @see getByObjectTypeIdAndName */
-        fun getByObjectTypeIdAndName(
-            params: ListGetByObjectTypeIdAndNameParams
+        /** @see getByObjectTypeAndName */
+        fun getByObjectTypeAndName(
+            params: ListGetByObjectTypeAndNameParams
         ): CompletableFuture<HttpResponseFor<ListFetchResponse>> =
-            getByObjectTypeIdAndName(params, RequestOptions.none())
+            getByObjectTypeAndName(params, RequestOptions.none())
 
-        /** @see getByObjectTypeIdAndName */
-        fun getByObjectTypeIdAndName(
-            params: ListGetByObjectTypeIdAndNameParams,
+        /** @see getByObjectTypeAndName */
+        fun getByObjectTypeAndName(
+            params: ListGetByObjectTypeAndNameParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<ListFetchResponse>>
 
@@ -1377,6 +1378,53 @@ interface ListServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<PublicMigrationMapping>> =
             getIdMapping(ListGetIdMappingParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /crm/lists/2026-03/{listId}/memberships/join-order`,
+         * but is otherwise the same as [ListServiceAsync.getMembershipsJoinOrder].
+         */
+        fun getMembershipsJoinOrder(
+            listId: String
+        ): CompletableFuture<HttpResponseFor<ListGetMembershipsJoinOrderPageAsync>> =
+            getMembershipsJoinOrder(listId, ListGetMembershipsJoinOrderParams.none())
+
+        /** @see getMembershipsJoinOrder */
+        fun getMembershipsJoinOrder(
+            listId: String,
+            params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ListGetMembershipsJoinOrderPageAsync>> =
+            getMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
+
+        /** @see getMembershipsJoinOrder */
+        fun getMembershipsJoinOrder(
+            listId: String,
+            params: ListGetMembershipsJoinOrderParams = ListGetMembershipsJoinOrderParams.none(),
+        ): CompletableFuture<HttpResponseFor<ListGetMembershipsJoinOrderPageAsync>> =
+            getMembershipsJoinOrder(listId, params, RequestOptions.none())
+
+        /** @see getMembershipsJoinOrder */
+        fun getMembershipsJoinOrder(
+            params: ListGetMembershipsJoinOrderParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ListGetMembershipsJoinOrderPageAsync>>
+
+        /** @see getMembershipsJoinOrder */
+        fun getMembershipsJoinOrder(
+            params: ListGetMembershipsJoinOrderParams
+        ): CompletableFuture<HttpResponseFor<ListGetMembershipsJoinOrderPageAsync>> =
+            getMembershipsJoinOrder(params, RequestOptions.none())
+
+        /** @see getMembershipsJoinOrder */
+        fun getMembershipsJoinOrder(
+            listId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ListGetMembershipsJoinOrderPageAsync>> =
+            getMembershipsJoinOrder(
+                listId,
+                ListGetMembershipsJoinOrderParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `get
@@ -1453,6 +1501,87 @@ interface ListServiceAsync {
             getScheduleConversion(listId, ListGetScheduleConversionParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `get
+         * /crm/lists/2026-03/{listId}/size-and-edits-history/between`, but is otherwise the same as
+         * [ListServiceAsync.getSizeAndEditsHistoryBetween].
+         */
+        fun getSizeAndEditsHistoryBetween(
+            listId: String
+        ): CompletableFuture<HttpResponseFor<ListSizeAndEditHistoryResponse>> =
+            getSizeAndEditsHistoryBetween(listId, ListGetSizeAndEditsHistoryBetweenParams.none())
+
+        /** @see getSizeAndEditsHistoryBetween */
+        fun getSizeAndEditsHistoryBetween(
+            listId: String,
+            params: ListGetSizeAndEditsHistoryBetweenParams =
+                ListGetSizeAndEditsHistoryBetweenParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ListSizeAndEditHistoryResponse>> =
+            getSizeAndEditsHistoryBetween(params.toBuilder().listId(listId).build(), requestOptions)
+
+        /** @see getSizeAndEditsHistoryBetween */
+        fun getSizeAndEditsHistoryBetween(
+            listId: String,
+            params: ListGetSizeAndEditsHistoryBetweenParams =
+                ListGetSizeAndEditsHistoryBetweenParams.none(),
+        ): CompletableFuture<HttpResponseFor<ListSizeAndEditHistoryResponse>> =
+            getSizeAndEditsHistoryBetween(listId, params, RequestOptions.none())
+
+        /** @see getSizeAndEditsHistoryBetween */
+        fun getSizeAndEditsHistoryBetween(
+            params: ListGetSizeAndEditsHistoryBetweenParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ListSizeAndEditHistoryResponse>>
+
+        /** @see getSizeAndEditsHistoryBetween */
+        fun getSizeAndEditsHistoryBetween(
+            params: ListGetSizeAndEditsHistoryBetweenParams
+        ): CompletableFuture<HttpResponseFor<ListSizeAndEditHistoryResponse>> =
+            getSizeAndEditsHistoryBetween(params, RequestOptions.none())
+
+        /** @see getSizeAndEditsHistoryBetween */
+        fun getSizeAndEditsHistoryBetween(
+            listId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ListSizeAndEditHistoryResponse>> =
+            getSizeAndEditsHistoryBetween(
+                listId,
+                ListGetSizeAndEditsHistoryBetweenParams.none(),
+                requestOptions,
+            )
+
+        /**
+         * Returns a raw HTTP response for `post /crm/lists/2026-03/search`, but is otherwise the
+         * same as [ListServiceAsync.listBySearch].
+         */
+        fun listBySearch(
+            params: ListListBySearchParams
+        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> =
+            listBySearch(params, RequestOptions.none())
+
+        /** @see listBySearch */
+        fun listBySearch(
+            params: ListListBySearchParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ListSearchResponse>>
+
+        /** @see listBySearch */
+        fun listBySearch(
+            listSearchRequest: ListSearchRequest,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> =
+            listBySearch(
+                ListListBySearchParams.builder().listSearchRequest(listSearchRequest).build(),
+                requestOptions,
+            )
+
+        /** @see listBySearch */
+        fun listBySearch(
+            listSearchRequest: ListSearchRequest
+        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> =
+            listBySearch(listSearchRequest, RequestOptions.none())
+
+        /**
          * Returns a raw HTTP response for `get /crm/lists/2026-03/folders`, but is otherwise the
          * same as [ListServiceAsync.listFolders].
          */
@@ -1519,53 +1648,6 @@ interface ListServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ListListMembershipsPageAsync>> =
             listMemberships(listId, ListListMembershipsParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `get /crm/lists/2026-03/{listId}/memberships/join-order`,
-         * but is otherwise the same as [ListServiceAsync.listMembershipsJoinOrder].
-         */
-        fun listMembershipsJoinOrder(
-            listId: String
-        ): CompletableFuture<HttpResponseFor<ListListMembershipsJoinOrderPageAsync>> =
-            listMembershipsJoinOrder(listId, ListListMembershipsJoinOrderParams.none())
-
-        /** @see listMembershipsJoinOrder */
-        fun listMembershipsJoinOrder(
-            listId: String,
-            params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ListListMembershipsJoinOrderPageAsync>> =
-            listMembershipsJoinOrder(params.toBuilder().listId(listId).build(), requestOptions)
-
-        /** @see listMembershipsJoinOrder */
-        fun listMembershipsJoinOrder(
-            listId: String,
-            params: ListListMembershipsJoinOrderParams = ListListMembershipsJoinOrderParams.none(),
-        ): CompletableFuture<HttpResponseFor<ListListMembershipsJoinOrderPageAsync>> =
-            listMembershipsJoinOrder(listId, params, RequestOptions.none())
-
-        /** @see listMembershipsJoinOrder */
-        fun listMembershipsJoinOrder(
-            params: ListListMembershipsJoinOrderParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ListListMembershipsJoinOrderPageAsync>>
-
-        /** @see listMembershipsJoinOrder */
-        fun listMembershipsJoinOrder(
-            params: ListListMembershipsJoinOrderParams
-        ): CompletableFuture<HttpResponseFor<ListListMembershipsJoinOrderPageAsync>> =
-            listMembershipsJoinOrder(params, RequestOptions.none())
-
-        /** @see listMembershipsJoinOrder */
-        fun listMembershipsJoinOrder(
-            listId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ListListMembershipsJoinOrderPageAsync>> =
-            listMembershipsJoinOrder(
-                listId,
-                ListListMembershipsJoinOrderParams.none(),
-                requestOptions,
-            )
 
         /**
          * Returns a raw HTTP response for `put
@@ -1740,35 +1822,44 @@ interface ListServiceAsync {
             restore(listId, ListRestoreParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `post /crm/lists/2026-03/search`, but is otherwise the
-         * same as [ListServiceAsync.search].
+         * Returns a raw HTTP response for `delete /crm/lists/2026-03/{listId}/schedule-conversion`,
+         * but is otherwise the same as [ListServiceAsync.scheduleConversion].
          */
-        fun search(
-            params: ListSearchParams
-        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> =
-            search(params, RequestOptions.none())
+        fun scheduleConversion(listId: String): CompletableFuture<HttpResponse> =
+            scheduleConversion(listId, ListScheduleConversionParams.none())
 
-        /** @see search */
-        fun search(
-            params: ListSearchParams,
+        /** @see scheduleConversion */
+        fun scheduleConversion(
+            listId: String,
+            params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ListSearchResponse>>
+        ): CompletableFuture<HttpResponse> =
+            scheduleConversion(params.toBuilder().listId(listId).build(), requestOptions)
 
-        /** @see search */
-        fun search(
-            listSearchRequest: ListSearchRequest,
+        /** @see scheduleConversion */
+        fun scheduleConversion(
+            listId: String,
+            params: ListScheduleConversionParams = ListScheduleConversionParams.none(),
+        ): CompletableFuture<HttpResponse> =
+            scheduleConversion(listId, params, RequestOptions.none())
+
+        /** @see scheduleConversion */
+        fun scheduleConversion(
+            params: ListScheduleConversionParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> =
-            search(
-                ListSearchParams.builder().listSearchRequest(listSearchRequest).build(),
-                requestOptions,
-            )
+        ): CompletableFuture<HttpResponse>
 
-        /** @see search */
-        fun search(
-            listSearchRequest: ListSearchRequest
-        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> =
-            search(listSearchRequest, RequestOptions.none())
+        /** @see scheduleConversion */
+        fun scheduleConversion(
+            params: ListScheduleConversionParams
+        ): CompletableFuture<HttpResponse> = scheduleConversion(params, RequestOptions.none())
+
+        /** @see scheduleConversion */
+        fun scheduleConversion(
+            listId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> =
+            scheduleConversion(listId, ListScheduleConversionParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put /crm/lists/2026-03/{listId}/update-list-filters`,

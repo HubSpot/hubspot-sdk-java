@@ -17,10 +17,12 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
 import com.hubspot_sdk.api.models.crm.objects.goaltargets.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.goaltargets.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.goaltargets.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.goaltargets.batch.BatchUpdateParams
+import com.hubspot_sdk.api.models.crm.objects.goaltargets.batch.BatchUpsertParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -63,6 +65,13 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         // post /crm/objects/2026-03/goal_targets/batch/read
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+
+    override fun upsert(
+        params: BatchUpsertParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
+        // post /crm/objects/2026-03/goal_targets/batch/upsert
+        withRawResponse().upsert(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BatchServiceAsync.WithRawResponse {
@@ -192,6 +201,37 @@ class BatchServiceAsyncImpl internal constructor(private val clientOptions: Clie
                     errorHandler.handle(response).parseable {
                         response
                             .use { getHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val upsertHandler: Handler<BatchResponseSimplePublicUpsertObject> =
+            jsonHandler<BatchResponseSimplePublicUpsertObject>(clientOptions.jsonMapper)
+
+        override fun upsert(
+            params: BatchUpsertParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "objects", "2026-03", "goal_targets", "batch", "upsert")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { upsertHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

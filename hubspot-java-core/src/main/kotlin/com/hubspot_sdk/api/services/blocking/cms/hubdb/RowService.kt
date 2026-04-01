@@ -295,28 +295,24 @@ interface RowService {
      * Permanently delete rows from the draft version of a table, given a set of row IDs. Maximum of
      * 100 row IDs per call.
      */
-    fun purgeBatch(
-        tableIdOrName: String,
-        params: RowPurgeBatchParams,
-    ): BatchResponseHubDbTableRowV3 = purgeBatch(tableIdOrName, params, RequestOptions.none())
+    fun purgeBatch(tableIdOrName: String, params: RowPurgeBatchParams) =
+        purgeBatch(tableIdOrName, params, RequestOptions.none())
 
     /** @see purgeBatch */
     fun purgeBatch(
         tableIdOrName: String,
         params: RowPurgeBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseHubDbTableRowV3 =
-        purgeBatch(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
+    ) = purgeBatch(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
     /** @see purgeBatch */
-    fun purgeBatch(params: RowPurgeBatchParams): BatchResponseHubDbTableRowV3 =
-        purgeBatch(params, RequestOptions.none())
+    fun purgeBatch(params: RowPurgeBatchParams) = purgeBatch(params, RequestOptions.none())
 
     /** @see purgeBatch */
     fun purgeBatch(
         params: RowPurgeBatchParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseHubDbTableRowV3
+    )
 
     /**
      * Replaces multiple rows as a batch in the draft version of the table, with a maximum of 100
@@ -772,10 +768,7 @@ interface RowService {
          * same as [RowService.purgeBatch].
          */
         @MustBeClosed
-        fun purgeBatch(
-            tableIdOrName: String,
-            params: RowPurgeBatchParams,
-        ): HttpResponseFor<BatchResponseHubDbTableRowV3> =
+        fun purgeBatch(tableIdOrName: String, params: RowPurgeBatchParams): HttpResponse =
             purgeBatch(tableIdOrName, params, RequestOptions.none())
 
         /** @see purgeBatch */
@@ -784,12 +777,12 @@ interface RowService {
             tableIdOrName: String,
             params: RowPurgeBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseHubDbTableRowV3> =
+        ): HttpResponse =
             purgeBatch(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
         /** @see purgeBatch */
         @MustBeClosed
-        fun purgeBatch(params: RowPurgeBatchParams): HttpResponseFor<BatchResponseHubDbTableRowV3> =
+        fun purgeBatch(params: RowPurgeBatchParams): HttpResponse =
             purgeBatch(params, RequestOptions.none())
 
         /** @see purgeBatch */
@@ -797,7 +790,7 @@ interface RowService {
         fun purgeBatch(
             params: RowPurgeBatchParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseHubDbTableRowV3>
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `post

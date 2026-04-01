@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.models.crm.properties
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.Option
-import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
@@ -40,6 +39,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                         .calculationFormula("calculationFormula")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
+                        .currencyPropertyName("currencyPropertyName")
                         .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                         .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)
@@ -89,6 +89,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                     .calculationFormula("calculationFormula")
                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdUserId("createdUserId")
+                    .currencyPropertyName("currencyPropertyName")
                     .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                     .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                     .displayOrder(0)
@@ -142,6 +143,7 @@ internal class CollectionResponsePropertyNoPagingTest {
                         .calculationFormula("calculationFormula")
                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdUserId("createdUserId")
+                        .currencyPropertyName("currencyPropertyName")
                         .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                         .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                         .displayOrder(0)

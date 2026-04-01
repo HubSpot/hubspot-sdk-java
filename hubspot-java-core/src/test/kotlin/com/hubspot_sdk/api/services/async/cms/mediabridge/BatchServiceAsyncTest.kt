@@ -3,12 +3,12 @@
 package com.hubspot_sdk.api.services.async.cms.mediabridge
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
-import com.hubspot_sdk.api.models.BatchInputPropertyCreate
 import com.hubspot_sdk.api.models.BatchInputPropertyName
 import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.PropertyCreate
 import com.hubspot_sdk.api.models.PropertyName
+import com.hubspot_sdk.api.models.cms.mediabridge.BatchInputPropertyCreate
+import com.hubspot_sdk.api.models.cms.mediabridge.PropertyCreate
 import com.hubspot_sdk.api.models.cms.mediabridge.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.cms.mediabridge.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.cms.mediabridge.batch.BatchGetParams

@@ -16,6 +16,7 @@ internal class PropertyUpdateParamsTest {
             .propertyUpdate(
                 PropertyUpdate.builder()
                     .calculationFormula("calculationFormula")
+                    .currencyPropertyName("currencyPropertyName")
                     .description("description")
                     .displayOrder(0)
                     .fieldType(PropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -32,6 +33,7 @@ internal class PropertyUpdateParamsTest {
                             .description("description")
                             .build()
                     )
+                    .showCurrencySymbol(true)
                     .type(PropertyUpdate.Type.BOOL)
                     .build()
             )
@@ -62,6 +64,7 @@ internal class PropertyUpdateParamsTest {
                 .propertyUpdate(
                     PropertyUpdate.builder()
                         .calculationFormula("calculationFormula")
+                        .currencyPropertyName("currencyPropertyName")
                         .description("description")
                         .displayOrder(0)
                         .fieldType(PropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -78,6 +81,7 @@ internal class PropertyUpdateParamsTest {
                                 .description("description")
                                 .build()
                         )
+                        .showCurrencySymbol(true)
                         .type(PropertyUpdate.Type.BOOL)
                         .build()
                 )
@@ -89,6 +93,7 @@ internal class PropertyUpdateParamsTest {
             .isEqualTo(
                 PropertyUpdate.builder()
                     .calculationFormula("calculationFormula")
+                    .currencyPropertyName("currencyPropertyName")
                     .description("description")
                     .displayOrder(0)
                     .fieldType(PropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -105,6 +110,7 @@ internal class PropertyUpdateParamsTest {
                             .description("description")
                             .build()
                     )
+                    .showCurrencySymbol(true)
                     .type(PropertyUpdate.Type.BOOL)
                     .build()
             )

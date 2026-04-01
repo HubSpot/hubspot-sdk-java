@@ -8,13 +8,16 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicUpsertObject
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchUpdateParams
+import com.hubspot_sdk.api.models.crm.objects.leads.batch.BatchUpsertParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -161,6 +164,42 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         get(batchReadInputSimplePublicObjectId, RequestOptions.none())
 
+    /**
+     * Create or update records identified by a unique property value as specified by the
+     * `idProperty` query param. `idProperty` query param refers to a property whose values are
+     * unique for the object.
+     */
+    fun upsert(
+        params: BatchUpsertParams
+    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
+        upsert(params, RequestOptions.none())
+
+    /** @see upsert */
+    fun upsert(
+        params: BatchUpsertParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseSimplePublicUpsertObject>
+
+    /** @see upsert */
+    fun upsert(
+        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
+        upsert(
+            BatchUpsertParams.builder()
+                .batchInputSimplePublicObjectBatchInputUpsert(
+                    batchInputSimplePublicObjectBatchInputUpsert
+                )
+                .build(),
+            requestOptions,
+        )
+
+    /** @see upsert */
+    fun upsert(
+        batchInputSimplePublicObjectBatchInputUpsert: BatchInputSimplePublicObjectBatchInputUpsert
+    ): CompletableFuture<BatchResponseSimplePublicUpsertObject> =
+        upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
+
     /** A view of [BatchServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -306,5 +345,42 @@ interface BatchServiceAsync {
             batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
         ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
             get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/leads/batch/upsert`, but is
+         * otherwise the same as [BatchServiceAsync.upsert].
+         */
+        fun upsert(
+            params: BatchUpsertParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
+            upsert(params, RequestOptions.none())
+
+        /** @see upsert */
+        fun upsert(
+            params: BatchUpsertParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>>
+
+        /** @see upsert */
+        fun upsert(
+            batchInputSimplePublicObjectBatchInputUpsert:
+                BatchInputSimplePublicObjectBatchInputUpsert,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
+            upsert(
+                BatchUpsertParams.builder()
+                    .batchInputSimplePublicObjectBatchInputUpsert(
+                        batchInputSimplePublicObjectBatchInputUpsert
+                    )
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see upsert */
+        fun upsert(
+            batchInputSimplePublicObjectBatchInputUpsert:
+                BatchInputSimplePublicObjectBatchInputUpsert
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicUpsertObject>> =
+            upsert(batchInputSimplePublicObjectBatchInputUpsert, RequestOptions.none())
     }
 }

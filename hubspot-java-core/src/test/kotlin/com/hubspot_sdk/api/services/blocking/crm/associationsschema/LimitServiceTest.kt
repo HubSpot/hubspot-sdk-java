@@ -33,25 +33,19 @@ internal class LimitServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val limitService = client.crm().associationsSchema().limits()
 
-        val batchResponseVoid =
-            limitService.batchDelete(
-                LimitBatchDeleteParams.builder()
-                    .fromObjectType("fromObjectType")
-                    .toObjectType("toObjectType")
-                    .batchInputPublicAssociationSpec(
-                        BatchInputPublicAssociationSpec.builder()
-                            .addInput(
-                                PublicAssociationSpec.builder()
-                                    .category("category")
-                                    .typeId(0)
-                                    .build()
-                            )
-                            .build()
-                    )
-                    .build()
-            )
-
-        batchResponseVoid.validate()
+        limitService.batchDelete(
+            LimitBatchDeleteParams.builder()
+                .fromObjectType("fromObjectType")
+                .toObjectType("toObjectType")
+                .batchInputPublicAssociationSpec(
+                    BatchInputPublicAssociationSpec.builder()
+                        .addInput(
+                            PublicAssociationSpec.builder().category("category").typeId(0).build()
+                        )
+                        .build()
+                )
+                .build()
+        )
     }
 
     @Disabled("Mock server tests are disabled")

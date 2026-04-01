@@ -5,9 +5,9 @@ package com.hubspot_sdk.api.services.blocking.crm.associations
 import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateParams
@@ -54,7 +54,7 @@ interface BatchService {
     ): BatchResponsePublicDefaultAssociation
 
     /** Batch delete associations for objects */
-    fun delete(toObjectType: String, params: BatchDeleteParams): BatchResponseVoid =
+    fun delete(toObjectType: String, params: BatchDeleteParams) =
         delete(toObjectType, params, RequestOptions.none())
 
     /** @see delete */
@@ -62,17 +62,13 @@ interface BatchService {
         toObjectType: String,
         params: BatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseVoid =
-        delete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+    ) = delete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see delete */
-    fun delete(params: BatchDeleteParams): BatchResponseVoid = delete(params, RequestOptions.none())
+    fun delete(params: BatchDeleteParams) = delete(params, RequestOptions.none())
 
     /** @see delete */
-    fun delete(
-        params: BatchDeleteParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseVoid
+    fun delete(params: BatchDeleteParams, requestOptions: RequestOptions = RequestOptions.none())
 
     /** Create the default (most generic) association type between two object types */
     fun createDefault(
@@ -103,7 +99,7 @@ interface BatchService {
      * Batch delete specific association labels for objects. Deleting an unlabeled association will
      * also delete all labeled associations between those two objects
      */
-    fun deleteLabels(toObjectType: String, params: BatchDeleteLabelsParams): BatchResponseVoid =
+    fun deleteLabels(toObjectType: String, params: BatchDeleteLabelsParams) =
         deleteLabels(toObjectType, params, RequestOptions.none())
 
     /** @see deleteLabels */
@@ -111,18 +107,16 @@ interface BatchService {
         toObjectType: String,
         params: BatchDeleteLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseVoid =
-        deleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+    ) = deleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see deleteLabels */
-    fun deleteLabels(params: BatchDeleteLabelsParams): BatchResponseVoid =
-        deleteLabels(params, RequestOptions.none())
+    fun deleteLabels(params: BatchDeleteLabelsParams) = deleteLabels(params, RequestOptions.none())
 
     /** @see deleteLabels */
     fun deleteLabels(
         params: BatchDeleteLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseVoid
+    )
 
     /**
      * Batch read associations for objects to specific object type. The 'after' field in a returned
@@ -205,10 +199,8 @@ interface BatchService {
          * otherwise the same as [BatchService.delete].
          */
         @MustBeClosed
-        fun delete(
-            toObjectType: String,
-            params: BatchDeleteParams,
-        ): HttpResponseFor<BatchResponseVoid> = delete(toObjectType, params, RequestOptions.none())
+        fun delete(toObjectType: String, params: BatchDeleteParams): HttpResponse =
+            delete(toObjectType, params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
@@ -216,20 +208,19 @@ interface BatchService {
             toObjectType: String,
             params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseVoid> =
+        ): HttpResponse =
             delete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see delete */
         @MustBeClosed
-        fun delete(params: BatchDeleteParams): HttpResponseFor<BatchResponseVoid> =
-            delete(params, RequestOptions.none())
+        fun delete(params: BatchDeleteParams): HttpResponse = delete(params, RequestOptions.none())
 
         /** @see delete */
         @MustBeClosed
         fun delete(
             params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseVoid>
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `post
@@ -272,10 +263,7 @@ interface BatchService {
          * otherwise the same as [BatchService.deleteLabels].
          */
         @MustBeClosed
-        fun deleteLabels(
-            toObjectType: String,
-            params: BatchDeleteLabelsParams,
-        ): HttpResponseFor<BatchResponseVoid> =
+        fun deleteLabels(toObjectType: String, params: BatchDeleteLabelsParams): HttpResponse =
             deleteLabels(toObjectType, params, RequestOptions.none())
 
         /** @see deleteLabels */
@@ -284,12 +272,12 @@ interface BatchService {
             toObjectType: String,
             params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseVoid> =
+        ): HttpResponse =
             deleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see deleteLabels */
         @MustBeClosed
-        fun deleteLabels(params: BatchDeleteLabelsParams): HttpResponseFor<BatchResponseVoid> =
+        fun deleteLabels(params: BatchDeleteLabelsParams): HttpResponse =
             deleteLabels(params, RequestOptions.none())
 
         /** @see deleteLabels */
@@ -297,7 +285,7 @@ interface BatchService {
         fun deleteLabels(
             params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseVoid>
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `post
