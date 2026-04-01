@@ -15,13 +15,14 @@ import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateLanguageVariatio
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDetachFromLangGroupParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateLanguagesParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
@@ -96,6 +97,10 @@ interface AuthorService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
+    /**
+     * Get the list of blog authors. Supports paging and filtering. This method would be useful for
+     * an integration that examined these models and used an external service to suggest edits.
+     */
     @MustBeClosed fun list(): HttpResponse = list(AuthorListParams.none())
 
     /** @see list */
@@ -264,105 +269,131 @@ interface AuthorService {
     fun get(objectId: String, requestOptions: RequestOptions): HttpResponse =
         get(objectId, AuthorGetParams.none(), requestOptions)
 
-    @MustBeClosed fun listByQuery(): HttpResponse = listByQuery(AuthorListByQueryParams.none())
+    @MustBeClosed fun getCursor(): HttpResponse = getCursor(AuthorGetCursorParams.none())
 
-    /** @see listByQuery */
+    /** @see getCursor */
     @MustBeClosed
-    fun listByQuery(
-        params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+    fun getCursor(
+        params: AuthorGetCursorParams = AuthorGetCursorParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see listByQuery */
+    /** @see getCursor */
     @MustBeClosed
-    fun listByQuery(
-        params: AuthorListByQueryParams = AuthorListByQueryParams.none()
-    ): HttpResponse = listByQuery(params, RequestOptions.none())
+    fun getCursor(params: AuthorGetCursorParams = AuthorGetCursorParams.none()): HttpResponse =
+        getCursor(params, RequestOptions.none())
 
-    /** @see listByQuery */
+    /** @see getCursor */
     @MustBeClosed
-    fun listByQuery(requestOptions: RequestOptions): HttpResponse =
-        listByQuery(AuthorListByQueryParams.none(), requestOptions)
+    fun getCursor(requestOptions: RequestOptions): HttpResponse =
+        getCursor(AuthorGetCursorParams.none(), requestOptions)
 
-    @MustBeClosed fun listPosts(): HttpResponse = listPosts(AuthorListPostsParams.none())
-
-    /** @see listPosts */
     @MustBeClosed
-    fun listPosts(
-        params: AuthorListPostsParams = AuthorListPostsParams.none(),
+    fun getCursorByQuery(): HttpResponse = getCursorByQuery(AuthorGetCursorByQueryParams.none())
+
+    /** @see getCursorByQuery */
+    @MustBeClosed
+    fun getCursorByQuery(
+        params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see listPosts */
+    /** @see getCursorByQuery */
     @MustBeClosed
-    fun listPosts(params: AuthorListPostsParams = AuthorListPostsParams.none()): HttpResponse =
-        listPosts(params, RequestOptions.none())
+    fun getCursorByQuery(
+        params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none()
+    ): HttpResponse = getCursorByQuery(params, RequestOptions.none())
 
-    /** @see listPosts */
+    /** @see getCursorByQuery */
     @MustBeClosed
-    fun listPosts(requestOptions: RequestOptions): HttpResponse =
-        listPosts(AuthorListPostsParams.none(), requestOptions)
+    fun getCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+        getCursorByQuery(AuthorGetCursorByQueryParams.none(), requestOptions)
 
     @MustBeClosed
-    fun listPostsByQuery(): HttpResponse = listPostsByQuery(AuthorListPostsByQueryParams.none())
+    fun getPostsCursor(): HttpResponse = getPostsCursor(AuthorGetPostsCursorParams.none())
 
-    /** @see listPostsByQuery */
+    /** @see getPostsCursor */
     @MustBeClosed
-    fun listPostsByQuery(
-        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+    fun getPostsCursor(
+        params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see listPostsByQuery */
+    /** @see getPostsCursor */
     @MustBeClosed
-    fun listPostsByQuery(
-        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
-    ): HttpResponse = listPostsByQuery(params, RequestOptions.none())
+    fun getPostsCursor(
+        params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none()
+    ): HttpResponse = getPostsCursor(params, RequestOptions.none())
 
-    /** @see listPostsByQuery */
+    /** @see getPostsCursor */
     @MustBeClosed
-    fun listPostsByQuery(requestOptions: RequestOptions): HttpResponse =
-        listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+    fun getPostsCursor(requestOptions: RequestOptions): HttpResponse =
+        getPostsCursor(AuthorGetPostsCursorParams.none(), requestOptions)
 
-    @MustBeClosed fun listTags(): HttpResponse = listTags(AuthorListTagsParams.none())
-
-    /** @see listTags */
     @MustBeClosed
-    fun listTags(
-        params: AuthorListTagsParams = AuthorListTagsParams.none(),
+    fun getPostsCursorByQuery(): HttpResponse =
+        getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none())
+
+    /** @see getPostsCursorByQuery */
+    @MustBeClosed
+    fun getPostsCursorByQuery(
+        params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see listTags */
+    /** @see getPostsCursorByQuery */
     @MustBeClosed
-    fun listTags(params: AuthorListTagsParams = AuthorListTagsParams.none()): HttpResponse =
-        listTags(params, RequestOptions.none())
+    fun getPostsCursorByQuery(
+        params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none()
+    ): HttpResponse = getPostsCursorByQuery(params, RequestOptions.none())
 
-    /** @see listTags */
+    /** @see getPostsCursorByQuery */
     @MustBeClosed
-    fun listTags(requestOptions: RequestOptions): HttpResponse =
-        listTags(AuthorListTagsParams.none(), requestOptions)
+    fun getPostsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+        getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none(), requestOptions)
 
     @MustBeClosed
-    fun listTagsByQuery(): HttpResponse = listTagsByQuery(AuthorListTagsByQueryParams.none())
+    fun getTagsCursor(): HttpResponse = getTagsCursor(AuthorGetTagsCursorParams.none())
 
-    /** @see listTagsByQuery */
+    /** @see getTagsCursor */
     @MustBeClosed
-    fun listTagsByQuery(
-        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+    fun getTagsCursor(
+        params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): HttpResponse
 
-    /** @see listTagsByQuery */
+    /** @see getTagsCursor */
     @MustBeClosed
-    fun listTagsByQuery(
-        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
-    ): HttpResponse = listTagsByQuery(params, RequestOptions.none())
+    fun getTagsCursor(
+        params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none()
+    ): HttpResponse = getTagsCursor(params, RequestOptions.none())
 
-    /** @see listTagsByQuery */
+    /** @see getTagsCursor */
     @MustBeClosed
-    fun listTagsByQuery(requestOptions: RequestOptions): HttpResponse =
-        listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
+    fun getTagsCursor(requestOptions: RequestOptions): HttpResponse =
+        getTagsCursor(AuthorGetTagsCursorParams.none(), requestOptions)
+
+    @MustBeClosed
+    fun getTagsCursorByQuery(): HttpResponse =
+        getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none())
+
+    /** @see getTagsCursorByQuery */
+    @MustBeClosed
+    fun getTagsCursorByQuery(
+        params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): HttpResponse
+
+    /** @see getTagsCursorByQuery */
+    @MustBeClosed
+    fun getTagsCursorByQuery(
+        params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none()
+    ): HttpResponse = getTagsCursorByQuery(params, RequestOptions.none())
+
+    /** @see getTagsCursorByQuery */
+    @MustBeClosed
+    fun getTagsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+        getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none(), requestOptions)
 
     /** Set a Blog Author as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: AuthorSetNewLangPrimaryParams) =
@@ -486,8 +517,8 @@ interface AuthorService {
         ): HttpResponse
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
-         * the same as [AuthorService.list].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors`, but is otherwise the
+         * same as [AuthorService.list].
          */
         @MustBeClosed fun list(): HttpResponse = list(AuthorListParams.none())
 
@@ -690,124 +721,154 @@ interface AuthorService {
             get(objectId, AuthorGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
-         * otherwise the same as [AuthorService.listByQuery].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
+         * the same as [AuthorService.getCursor].
          */
-        @MustBeClosed fun listByQuery(): HttpResponse = listByQuery(AuthorListByQueryParams.none())
+        @MustBeClosed fun getCursor(): HttpResponse = getCursor(AuthorGetCursorParams.none())
 
-        /** @see listByQuery */
+        /** @see getCursor */
         @MustBeClosed
-        fun listByQuery(
-            params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+        fun getCursor(
+            params: AuthorGetCursorParams = AuthorGetCursorParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see listByQuery */
+        /** @see getCursor */
         @MustBeClosed
-        fun listByQuery(
-            params: AuthorListByQueryParams = AuthorListByQueryParams.none()
-        ): HttpResponse = listByQuery(params, RequestOptions.none())
+        fun getCursor(params: AuthorGetCursorParams = AuthorGetCursorParams.none()): HttpResponse =
+            getCursor(params, RequestOptions.none())
 
-        /** @see listByQuery */
+        /** @see getCursor */
         @MustBeClosed
-        fun listByQuery(requestOptions: RequestOptions): HttpResponse =
-            listByQuery(AuthorListByQueryParams.none(), requestOptions)
+        fun getCursor(requestOptions: RequestOptions): HttpResponse =
+            getCursor(AuthorGetCursorParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
+         * otherwise the same as [AuthorService.getCursorByQuery].
+         */
+        @MustBeClosed
+        fun getCursorByQuery(): HttpResponse = getCursorByQuery(AuthorGetCursorByQueryParams.none())
+
+        /** @see getCursorByQuery */
+        @MustBeClosed
+        fun getCursorByQuery(
+            params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponse
+
+        /** @see getCursorByQuery */
+        @MustBeClosed
+        fun getCursorByQuery(
+            params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none()
+        ): HttpResponse = getCursorByQuery(params, RequestOptions.none())
+
+        /** @see getCursorByQuery */
+        @MustBeClosed
+        fun getCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+            getCursorByQuery(AuthorGetCursorByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor`, but is otherwise
-         * the same as [AuthorService.listPosts].
+         * the same as [AuthorService.getPostsCursor].
          */
-        @MustBeClosed fun listPosts(): HttpResponse = listPosts(AuthorListPostsParams.none())
-
-        /** @see listPosts */
         @MustBeClosed
-        fun listPosts(
-            params: AuthorListPostsParams = AuthorListPostsParams.none(),
+        fun getPostsCursor(): HttpResponse = getPostsCursor(AuthorGetPostsCursorParams.none())
+
+        /** @see getPostsCursor */
+        @MustBeClosed
+        fun getPostsCursor(
+            params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see listPosts */
+        /** @see getPostsCursor */
         @MustBeClosed
-        fun listPosts(params: AuthorListPostsParams = AuthorListPostsParams.none()): HttpResponse =
-            listPosts(params, RequestOptions.none())
+        fun getPostsCursor(
+            params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none()
+        ): HttpResponse = getPostsCursor(params, RequestOptions.none())
 
-        /** @see listPosts */
+        /** @see getPostsCursor */
         @MustBeClosed
-        fun listPosts(requestOptions: RequestOptions): HttpResponse =
-            listPosts(AuthorListPostsParams.none(), requestOptions)
+        fun getPostsCursor(requestOptions: RequestOptions): HttpResponse =
+            getPostsCursor(AuthorGetPostsCursorParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor/query`, but is
-         * otherwise the same as [AuthorService.listPostsByQuery].
+         * otherwise the same as [AuthorService.getPostsCursorByQuery].
          */
         @MustBeClosed
-        fun listPostsByQuery(): HttpResponse = listPostsByQuery(AuthorListPostsByQueryParams.none())
+        fun getPostsCursorByQuery(): HttpResponse =
+            getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none())
 
-        /** @see listPostsByQuery */
+        /** @see getPostsCursorByQuery */
         @MustBeClosed
-        fun listPostsByQuery(
-            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+        fun getPostsCursorByQuery(
+            params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see listPostsByQuery */
+        /** @see getPostsCursorByQuery */
         @MustBeClosed
-        fun listPostsByQuery(
-            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
-        ): HttpResponse = listPostsByQuery(params, RequestOptions.none())
+        fun getPostsCursorByQuery(
+            params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none()
+        ): HttpResponse = getPostsCursorByQuery(params, RequestOptions.none())
 
-        /** @see listPostsByQuery */
+        /** @see getPostsCursorByQuery */
         @MustBeClosed
-        fun listPostsByQuery(requestOptions: RequestOptions): HttpResponse =
-            listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+        fun getPostsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+            getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor`, but is otherwise
-         * the same as [AuthorService.listTags].
+         * the same as [AuthorService.getTagsCursor].
          */
-        @MustBeClosed fun listTags(): HttpResponse = listTags(AuthorListTagsParams.none())
-
-        /** @see listTags */
         @MustBeClosed
-        fun listTags(
-            params: AuthorListTagsParams = AuthorListTagsParams.none(),
+        fun getTagsCursor(): HttpResponse = getTagsCursor(AuthorGetTagsCursorParams.none())
+
+        /** @see getTagsCursor */
+        @MustBeClosed
+        fun getTagsCursor(
+            params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see listTags */
+        /** @see getTagsCursor */
         @MustBeClosed
-        fun listTags(params: AuthorListTagsParams = AuthorListTagsParams.none()): HttpResponse =
-            listTags(params, RequestOptions.none())
+        fun getTagsCursor(
+            params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none()
+        ): HttpResponse = getTagsCursor(params, RequestOptions.none())
 
-        /** @see listTags */
+        /** @see getTagsCursor */
         @MustBeClosed
-        fun listTags(requestOptions: RequestOptions): HttpResponse =
-            listTags(AuthorListTagsParams.none(), requestOptions)
+        fun getTagsCursor(requestOptions: RequestOptions): HttpResponse =
+            getTagsCursor(AuthorGetTagsCursorParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor/query`, but is
-         * otherwise the same as [AuthorService.listTagsByQuery].
+         * otherwise the same as [AuthorService.getTagsCursorByQuery].
          */
         @MustBeClosed
-        fun listTagsByQuery(): HttpResponse = listTagsByQuery(AuthorListTagsByQueryParams.none())
+        fun getTagsCursorByQuery(): HttpResponse =
+            getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none())
 
-        /** @see listTagsByQuery */
+        /** @see getTagsCursorByQuery */
         @MustBeClosed
-        fun listTagsByQuery(
-            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+        fun getTagsCursorByQuery(
+            params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponse
 
-        /** @see listTagsByQuery */
+        /** @see getTagsCursorByQuery */
         @MustBeClosed
-        fun listTagsByQuery(
-            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
-        ): HttpResponse = listTagsByQuery(params, RequestOptions.none())
+        fun getTagsCursorByQuery(
+            params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none()
+        ): HttpResponse = getTagsCursorByQuery(params, RequestOptions.none())
 
-        /** @see listTagsByQuery */
+        /** @see getTagsCursorByQuery */
         @MustBeClosed
-        fun listTagsByQuery(requestOptions: RequestOptions): HttpResponse =
-            listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
+        fun getTagsCursorByQuery(requestOptions: RequestOptions): HttpResponse =
+            getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put

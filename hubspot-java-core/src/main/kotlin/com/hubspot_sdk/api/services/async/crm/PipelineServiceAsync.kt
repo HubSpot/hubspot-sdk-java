@@ -6,16 +6,25 @@ import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.pipelines.CollectionResponsePipelineNoPaging
 import com.hubspot_sdk.api.models.crm.pipelines.CollectionResponsePipelineStageNoPaging
 import com.hubspot_sdk.api.models.crm.pipelines.CollectionResponsePublicAuditInfoNoPaging
+import com.hubspot_sdk.api.models.crm.pipelines.Pipeline
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineCreateParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineCreateStageParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineDeleteParams
-import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetAuditParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineDeleteStageParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetStageParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListAuditParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineListParams
-import com.hubspot_sdk.api.models.crm.pipelines.PipelineReplaceParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListStageAuditParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListStagesParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineStage
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateAllPropertiesParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateStageAllPropertiesParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateStageParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -33,87 +42,103 @@ interface PipelineServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PipelineServiceAsync
 
-    /** Create a pipeline stage */
-    fun create(pipelineId: String, params: PipelineCreateParams): CompletableFuture<PipelineStage> =
-        create(pipelineId, params, RequestOptions.none())
+    /**
+     * Create a new pipeline with the provided property values. The entire pipeline object,
+     * including its unique ID, will be returned in the response.
+     */
+    fun create(objectType: String, params: PipelineCreateParams): CompletableFuture<Pipeline> =
+        create(objectType, params, RequestOptions.none())
 
     /** @see create */
     fun create(
-        pipelineId: String,
+        objectType: String,
         params: PipelineCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PipelineStage> =
-        create(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+    ): CompletableFuture<Pipeline> =
+        create(params.toBuilder().objectType(objectType).build(), requestOptions)
 
     /** @see create */
-    fun create(params: PipelineCreateParams): CompletableFuture<PipelineStage> =
+    fun create(params: PipelineCreateParams): CompletableFuture<Pipeline> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: PipelineCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PipelineStage>
+    ): CompletableFuture<Pipeline>
 
-    fun update(stageId: String, params: PipelineUpdateParams): CompletableFuture<PipelineStage> =
-        update(stageId, params, RequestOptions.none())
+    /**
+     * Perform a partial update of the pipeline identified by `{pipelineId}`. The updated pipeline
+     * will be returned in the response.
+     */
+    fun update(pipelineId: String, params: PipelineUpdateParams): CompletableFuture<Pipeline> =
+        update(pipelineId, params, RequestOptions.none())
 
     /** @see update */
     fun update(
-        stageId: String,
+        pipelineId: String,
         params: PipelineUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PipelineStage> =
-        update(params.toBuilder().stageId(stageId).build(), requestOptions)
+    ): CompletableFuture<Pipeline> =
+        update(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: PipelineUpdateParams): CompletableFuture<PipelineStage> =
+    fun update(params: PipelineUpdateParams): CompletableFuture<Pipeline> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: PipelineUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PipelineStage>
+    ): CompletableFuture<Pipeline>
 
-    /** Return all the stages associated with the pipeline identified by `{pipelineId}`. */
-    fun list(
-        pipelineId: String,
-        params: PipelineListParams,
-    ): CompletableFuture<CollectionResponsePipelineStageNoPaging> =
-        list(pipelineId, params, RequestOptions.none())
+    /** Return all pipelines for the object type specified by `{objectType}`. */
+    fun list(objectType: String): CompletableFuture<CollectionResponsePipelineNoPaging> =
+        list(objectType, PipelineListParams.none())
 
     /** @see list */
     fun list(
-        pipelineId: String,
+        objectType: String,
+        params: PipelineListParams = PipelineListParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponsePipelineNoPaging> =
+        list(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+    /** @see list */
+    fun list(
+        objectType: String,
+        params: PipelineListParams = PipelineListParams.none(),
+    ): CompletableFuture<CollectionResponsePipelineNoPaging> =
+        list(objectType, params, RequestOptions.none())
+
+    /** @see list */
+    fun list(
         params: PipelineListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePipelineStageNoPaging> =
-        list(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+    ): CompletableFuture<CollectionResponsePipelineNoPaging>
 
     /** @see list */
-    fun list(
-        params: PipelineListParams
-    ): CompletableFuture<CollectionResponsePipelineStageNoPaging> =
+    fun list(params: PipelineListParams): CompletableFuture<CollectionResponsePipelineNoPaging> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
-        params: PipelineListParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CollectionResponsePipelineStageNoPaging>
+        objectType: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CollectionResponsePipelineNoPaging> =
+        list(objectType, PipelineListParams.none(), requestOptions)
 
-    /** Delete a pipeline stage */
-    fun delete(stageId: String, params: PipelineDeleteParams): CompletableFuture<Void?> =
-        delete(stageId, params, RequestOptions.none())
+    /** Delete a pipeline */
+    fun delete(pipelineId: String, params: PipelineDeleteParams): CompletableFuture<Void?> =
+        delete(pipelineId, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
-        stageId: String,
+        pipelineId: String,
         params: PipelineDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?> =
-        delete(params.toBuilder().stageId(stageId).build(), requestOptions)
+        delete(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
 
     /** @see delete */
     fun delete(params: PipelineDeleteParams): CompletableFuture<Void?> =
@@ -125,80 +150,259 @@ interface PipelineServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Void?>
 
-    /** Return a pipeline stage by ID */
-    fun get(stageId: String, params: PipelineGetParams): CompletableFuture<PipelineStage> =
-        get(stageId, params, RequestOptions.none())
+    /** Create a pipeline stage */
+    fun createStage(
+        pipelineId: String,
+        params: PipelineCreateStageParams,
+    ): CompletableFuture<PipelineStage> = createStage(pipelineId, params, RequestOptions.none())
+
+    /** @see createStage */
+    fun createStage(
+        pipelineId: String,
+        params: PipelineCreateStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PipelineStage> =
+        createStage(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+    /** @see createStage */
+    fun createStage(params: PipelineCreateStageParams): CompletableFuture<PipelineStage> =
+        createStage(params, RequestOptions.none())
+
+    /** @see createStage */
+    fun createStage(
+        params: PipelineCreateStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PipelineStage>
+
+    /** Delete a pipeline stage */
+    fun deleteStage(stageId: String, params: PipelineDeleteStageParams): CompletableFuture<Void?> =
+        deleteStage(stageId, params, RequestOptions.none())
+
+    /** @see deleteStage */
+    fun deleteStage(
+        stageId: String,
+        params: PipelineDeleteStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?> =
+        deleteStage(params.toBuilder().stageId(stageId).build(), requestOptions)
+
+    /** @see deleteStage */
+    fun deleteStage(params: PipelineDeleteStageParams): CompletableFuture<Void?> =
+        deleteStage(params, RequestOptions.none())
+
+    /** @see deleteStage */
+    fun deleteStage(
+        params: PipelineDeleteStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Void?>
+
+    /** Return a single pipeline object identified by its unique `{pipelineId}`. */
+    fun get(pipelineId: String, params: PipelineGetParams): CompletableFuture<Pipeline> =
+        get(pipelineId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
-        stageId: String,
+        pipelineId: String,
         params: PipelineGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PipelineStage> =
-        get(params.toBuilder().stageId(stageId).build(), requestOptions)
+    ): CompletableFuture<Pipeline> =
+        get(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
 
     /** @see get */
-    fun get(params: PipelineGetParams): CompletableFuture<PipelineStage> =
+    fun get(params: PipelineGetParams): CompletableFuture<Pipeline> =
         get(params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: PipelineGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Pipeline>
+
+    /** Return a pipeline stage by ID */
+    fun getStage(
+        stageId: String,
+        params: PipelineGetStageParams,
+    ): CompletableFuture<PipelineStage> = getStage(stageId, params, RequestOptions.none())
+
+    /** @see getStage */
+    fun getStage(
+        stageId: String,
+        params: PipelineGetStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PipelineStage> =
+        getStage(params.toBuilder().stageId(stageId).build(), requestOptions)
+
+    /** @see getStage */
+    fun getStage(params: PipelineGetStageParams): CompletableFuture<PipelineStage> =
+        getStage(params, RequestOptions.none())
+
+    /** @see getStage */
+    fun getStage(
+        params: PipelineGetStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PipelineStage>
+
+    /**
+     * Return a reverse chronological list of all mutations that have occurred on the pipeline
+     * identified by `{pipelineId}`.
+     */
+    fun listAudit(
+        pipelineId: String,
+        params: PipelineListAuditParams,
+    ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging> =
+        listAudit(pipelineId, params, RequestOptions.none())
+
+    /** @see listAudit */
+    fun listAudit(
+        pipelineId: String,
+        params: PipelineListAuditParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging> =
+        listAudit(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+    /** @see listAudit */
+    fun listAudit(
+        params: PipelineListAuditParams
+    ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging> =
+        listAudit(params, RequestOptions.none())
+
+    /** @see listAudit */
+    fun listAudit(
+        params: PipelineListAuditParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging>
 
     /**
      * Return a reverse chronological list of all mutations that have occurred on the pipeline stage
      * identified by `{stageId}`.
      */
-    fun getAudit(
+    fun listStageAudit(
         stageId: String,
-        params: PipelineGetAuditParams,
+        params: PipelineListStageAuditParams,
     ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging> =
-        getAudit(stageId, params, RequestOptions.none())
+        listStageAudit(stageId, params, RequestOptions.none())
 
-    /** @see getAudit */
-    fun getAudit(
+    /** @see listStageAudit */
+    fun listStageAudit(
         stageId: String,
-        params: PipelineGetAuditParams,
+        params: PipelineListStageAuditParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging> =
-        getAudit(params.toBuilder().stageId(stageId).build(), requestOptions)
+        listStageAudit(params.toBuilder().stageId(stageId).build(), requestOptions)
 
-    /** @see getAudit */
-    fun getAudit(
-        params: PipelineGetAuditParams
+    /** @see listStageAudit */
+    fun listStageAudit(
+        params: PipelineListStageAuditParams
     ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging> =
-        getAudit(params, RequestOptions.none())
+        listStageAudit(params, RequestOptions.none())
 
-    /** @see getAudit */
-    fun getAudit(
-        params: PipelineGetAuditParams,
+    /** @see listStageAudit */
+    fun listStageAudit(
+        params: PipelineListStageAuditParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<CollectionResponsePublicAuditInfoNoPaging>
+
+    /** Return all the stages associated with the pipeline identified by `{pipelineId}`. */
+    fun listStages(
+        pipelineId: String,
+        params: PipelineListStagesParams,
+    ): CompletableFuture<CollectionResponsePipelineStageNoPaging> =
+        listStages(pipelineId, params, RequestOptions.none())
+
+    /** @see listStages */
+    fun listStages(
+        pipelineId: String,
+        params: PipelineListStagesParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponsePipelineStageNoPaging> =
+        listStages(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+    /** @see listStages */
+    fun listStages(
+        params: PipelineListStagesParams
+    ): CompletableFuture<CollectionResponsePipelineStageNoPaging> =
+        listStages(params, RequestOptions.none())
+
+    /** @see listStages */
+    fun listStages(
+        params: PipelineListStagesParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CollectionResponsePipelineStageNoPaging>
+
+    /** Replace a pipeline */
+    fun updateAllProperties(
+        pipelineId: String,
+        params: PipelineUpdateAllPropertiesParams,
+    ): CompletableFuture<Pipeline> = updateAllProperties(pipelineId, params, RequestOptions.none())
+
+    /** @see updateAllProperties */
+    fun updateAllProperties(
+        pipelineId: String,
+        params: PipelineUpdateAllPropertiesParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Pipeline> =
+        updateAllProperties(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+    /** @see updateAllProperties */
+    fun updateAllProperties(
+        params: PipelineUpdateAllPropertiesParams
+    ): CompletableFuture<Pipeline> = updateAllProperties(params, RequestOptions.none())
+
+    /** @see updateAllProperties */
+    fun updateAllProperties(
+        params: PipelineUpdateAllPropertiesParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Pipeline>
+
+    fun updateStage(
+        stageId: String,
+        params: PipelineUpdateStageParams,
+    ): CompletableFuture<PipelineStage> = updateStage(stageId, params, RequestOptions.none())
+
+    /** @see updateStage */
+    fun updateStage(
+        stageId: String,
+        params: PipelineUpdateStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PipelineStage> =
+        updateStage(params.toBuilder().stageId(stageId).build(), requestOptions)
+
+    /** @see updateStage */
+    fun updateStage(params: PipelineUpdateStageParams): CompletableFuture<PipelineStage> =
+        updateStage(params, RequestOptions.none())
+
+    /** @see updateStage */
+    fun updateStage(
+        params: PipelineUpdateStageParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PipelineStage>
 
     /**
      * Replace all the properties of an existing pipeline stage with the values provided. The
      * updated stage will be returned in the response.
      */
-    fun replace(stageId: String, params: PipelineReplaceParams): CompletableFuture<PipelineStage> =
-        replace(stageId, params, RequestOptions.none())
-
-    /** @see replace */
-    fun replace(
+    fun updateStageAllProperties(
         stageId: String,
-        params: PipelineReplaceParams,
+        params: PipelineUpdateStageAllPropertiesParams,
+    ): CompletableFuture<PipelineStage> =
+        updateStageAllProperties(stageId, params, RequestOptions.none())
+
+    /** @see updateStageAllProperties */
+    fun updateStageAllProperties(
+        stageId: String,
+        params: PipelineUpdateStageAllPropertiesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PipelineStage> =
-        replace(params.toBuilder().stageId(stageId).build(), requestOptions)
+        updateStageAllProperties(params.toBuilder().stageId(stageId).build(), requestOptions)
 
-    /** @see replace */
-    fun replace(params: PipelineReplaceParams): CompletableFuture<PipelineStage> =
-        replace(params, RequestOptions.none())
+    /** @see updateStageAllProperties */
+    fun updateStageAllProperties(
+        params: PipelineUpdateStageAllPropertiesParams
+    ): CompletableFuture<PipelineStage> = updateStageAllProperties(params, RequestOptions.none())
 
-    /** @see replace */
-    fun replace(
-        params: PipelineReplaceParams,
+    /** @see updateStageAllProperties */
+    fun updateStageAllProperties(
+        params: PipelineUpdateStageAllPropertiesParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PipelineStage>
 
@@ -217,111 +421,121 @@ interface PipelineServiceAsync {
         ): PipelineServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post
-         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages`, but is otherwise the same as
-         * [PipelineServiceAsync.create].
+         * Returns a raw HTTP response for `post /crm/pipelines/2026-03/{objectType}`, but is
+         * otherwise the same as [PipelineServiceAsync.create].
          */
         fun create(
-            pipelineId: String,
+            objectType: String,
             params: PipelineCreateParams,
-        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            create(pipelineId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            create(objectType, params, RequestOptions.none())
 
         /** @see create */
         fun create(
-            pipelineId: String,
-            params: PipelineCreateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            create(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
-
-        /** @see create */
-        fun create(
-            params: PipelineCreateParams
-        ): CompletableFuture<HttpResponseFor<PipelineStage>> = create(params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
+            objectType: String,
             params: PipelineCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PipelineStage>>
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            create(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see create */
+        fun create(params: PipelineCreateParams): CompletableFuture<HttpResponseFor<Pipeline>> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            params: PipelineCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Pipeline>>
 
         /**
-         * Returns a raw HTTP response for `patch
-         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
-         * same as [PipelineServiceAsync.update].
+         * Returns a raw HTTP response for `patch /crm/pipelines/2026-03/{objectType}/{pipelineId}`,
+         * but is otherwise the same as [PipelineServiceAsync.update].
          */
         fun update(
-            stageId: String,
+            pipelineId: String,
             params: PipelineUpdateParams,
-        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            update(stageId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            update(pipelineId, params, RequestOptions.none())
 
         /** @see update */
         fun update(
-            stageId: String,
-            params: PipelineUpdateParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            update(params.toBuilder().stageId(stageId).build(), requestOptions)
-
-        /** @see update */
-        fun update(
-            params: PipelineUpdateParams
-        ): CompletableFuture<HttpResponseFor<PipelineStage>> = update(params, RequestOptions.none())
-
-        /** @see update */
-        fun update(
+            pipelineId: String,
             params: PipelineUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PipelineStage>>
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            update(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+        /** @see update */
+        fun update(params: PipelineUpdateParams): CompletableFuture<HttpResponseFor<Pipeline>> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: PipelineUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Pipeline>>
 
         /**
-         * Returns a raw HTTP response for `get
-         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages`, but is otherwise the same as
-         * [PipelineServiceAsync.list].
+         * Returns a raw HTTP response for `get /crm/pipelines/2026-03/{objectType}`, but is
+         * otherwise the same as [PipelineServiceAsync.list].
          */
         fun list(
-            pipelineId: String,
-            params: PipelineListParams,
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>> =
-            list(pipelineId, params, RequestOptions.none())
+            objectType: String
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineNoPaging>> =
+            list(objectType, PipelineListParams.none())
 
         /** @see list */
         fun list(
-            pipelineId: String,
+            objectType: String,
+            params: PipelineListParams = PipelineListParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineNoPaging>> =
+            list(params.toBuilder().objectType(objectType).build(), requestOptions)
+
+        /** @see list */
+        fun list(
+            objectType: String,
+            params: PipelineListParams = PipelineListParams.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineNoPaging>> =
+            list(objectType, params, RequestOptions.none())
+
+        /** @see list */
+        fun list(
             params: PipelineListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>> =
-            list(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineNoPaging>>
 
         /** @see list */
         fun list(
             params: PipelineListParams
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>> =
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineNoPaging>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
-            params: PipelineListParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>>
+            objectType: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineNoPaging>> =
+            list(objectType, PipelineListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `delete
-         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
-         * same as [PipelineServiceAsync.delete].
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}`, but is otherwise the same as
+         * [PipelineServiceAsync.delete].
          */
-        fun delete(stageId: String, params: PipelineDeleteParams): CompletableFuture<HttpResponse> =
-            delete(stageId, params, RequestOptions.none())
+        fun delete(
+            pipelineId: String,
+            params: PipelineDeleteParams,
+        ): CompletableFuture<HttpResponse> = delete(pipelineId, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
-            stageId: String,
+            pipelineId: String,
             params: PipelineDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse> =
-            delete(params.toBuilder().stageId(stageId).build(), requestOptions)
+            delete(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
 
         /** @see delete */
         fun delete(params: PipelineDeleteParams): CompletableFuture<HttpResponse> =
@@ -334,93 +548,305 @@ interface PipelineServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /**
-         * Returns a raw HTTP response for `get
-         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
-         * same as [PipelineServiceAsync.get].
+         * Returns a raw HTTP response for `post
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages`, but is otherwise the same as
+         * [PipelineServiceAsync.createStage].
          */
-        fun get(
-            stageId: String,
-            params: PipelineGetParams,
+        fun createStage(
+            pipelineId: String,
+            params: PipelineCreateStageParams,
         ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            get(stageId, params, RequestOptions.none())
+            createStage(pipelineId, params, RequestOptions.none())
 
-        /** @see get */
-        fun get(
-            stageId: String,
-            params: PipelineGetParams,
+        /** @see createStage */
+        fun createStage(
+            pipelineId: String,
+            params: PipelineCreateStageParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            get(params.toBuilder().stageId(stageId).build(), requestOptions)
+            createStage(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+        /** @see createStage */
+        fun createStage(
+            params: PipelineCreateStageParams
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            createStage(params, RequestOptions.none())
+
+        /** @see createStage */
+        fun createStage(
+            params: PipelineCreateStageParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PipelineStage>>
+
+        /**
+         * Returns a raw HTTP response for `delete
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
+         * same as [PipelineServiceAsync.deleteStage].
+         */
+        fun deleteStage(
+            stageId: String,
+            params: PipelineDeleteStageParams,
+        ): CompletableFuture<HttpResponse> = deleteStage(stageId, params, RequestOptions.none())
+
+        /** @see deleteStage */
+        fun deleteStage(
+            stageId: String,
+            params: PipelineDeleteStageParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            deleteStage(params.toBuilder().stageId(stageId).build(), requestOptions)
+
+        /** @see deleteStage */
+        fun deleteStage(params: PipelineDeleteStageParams): CompletableFuture<HttpResponse> =
+            deleteStage(params, RequestOptions.none())
+
+        /** @see deleteStage */
+        fun deleteStage(
+            params: PipelineDeleteStageParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /**
+         * Returns a raw HTTP response for `get /crm/pipelines/2026-03/{objectType}/{pipelineId}`,
+         * but is otherwise the same as [PipelineServiceAsync.get].
+         */
+        fun get(
+            pipelineId: String,
+            params: PipelineGetParams,
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            get(pipelineId, params, RequestOptions.none())
 
         /** @see get */
-        fun get(params: PipelineGetParams): CompletableFuture<HttpResponseFor<PipelineStage>> =
+        fun get(
+            pipelineId: String,
+            params: PipelineGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            get(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+        /** @see get */
+        fun get(params: PipelineGetParams): CompletableFuture<HttpResponseFor<Pipeline>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: PipelineGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Pipeline>>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
+         * same as [PipelineServiceAsync.getStage].
+         */
+        fun getStage(
+            stageId: String,
+            params: PipelineGetStageParams,
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            getStage(stageId, params, RequestOptions.none())
+
+        /** @see getStage */
+        fun getStage(
+            stageId: String,
+            params: PipelineGetStageParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            getStage(params.toBuilder().stageId(stageId).build(), requestOptions)
+
+        /** @see getStage */
+        fun getStage(
+            params: PipelineGetStageParams
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            getStage(params, RequestOptions.none())
+
+        /** @see getStage */
+        fun getStage(
+            params: PipelineGetStageParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PipelineStage>>
 
         /**
          * Returns a raw HTTP response for `get
-         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}/audit`, but is
-         * otherwise the same as [PipelineServiceAsync.getAudit].
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/audit`, but is otherwise the same as
+         * [PipelineServiceAsync.listAudit].
          */
-        fun getAudit(
-            stageId: String,
-            params: PipelineGetAuditParams,
+        fun listAudit(
+            pipelineId: String,
+            params: PipelineListAuditParams,
         ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>> =
-            getAudit(stageId, params, RequestOptions.none())
+            listAudit(pipelineId, params, RequestOptions.none())
 
-        /** @see getAudit */
-        fun getAudit(
-            stageId: String,
-            params: PipelineGetAuditParams,
+        /** @see listAudit */
+        fun listAudit(
+            pipelineId: String,
+            params: PipelineListAuditParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>> =
-            getAudit(params.toBuilder().stageId(stageId).build(), requestOptions)
+            listAudit(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
 
-        /** @see getAudit */
-        fun getAudit(
-            params: PipelineGetAuditParams
+        /** @see listAudit */
+        fun listAudit(
+            params: PipelineListAuditParams
         ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>> =
-            getAudit(params, RequestOptions.none())
+            listAudit(params, RequestOptions.none())
 
-        /** @see getAudit */
-        fun getAudit(
-            params: PipelineGetAuditParams,
+        /** @see listAudit */
+        fun listAudit(
+            params: PipelineListAuditParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>>
 
         /**
-         * Returns a raw HTTP response for `put
-         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
-         * same as [PipelineServiceAsync.replace].
+         * Returns a raw HTTP response for `get
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}/audit`, but is
+         * otherwise the same as [PipelineServiceAsync.listStageAudit].
          */
-        fun replace(
+        fun listStageAudit(
             stageId: String,
-            params: PipelineReplaceParams,
-        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            replace(stageId, params, RequestOptions.none())
+            params: PipelineListStageAuditParams,
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>> =
+            listStageAudit(stageId, params, RequestOptions.none())
 
-        /** @see replace */
-        fun replace(
+        /** @see listStageAudit */
+        fun listStageAudit(
             stageId: String,
-            params: PipelineReplaceParams,
+            params: PipelineListStageAuditParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>> =
+            listStageAudit(params.toBuilder().stageId(stageId).build(), requestOptions)
+
+        /** @see listStageAudit */
+        fun listStageAudit(
+            params: PipelineListStageAuditParams
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>> =
+            listStageAudit(params, RequestOptions.none())
+
+        /** @see listStageAudit */
+        fun listStageAudit(
+            params: PipelineListStageAuditParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging>>
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages`, but is otherwise the same as
+         * [PipelineServiceAsync.listStages].
+         */
+        fun listStages(
+            pipelineId: String,
+            params: PipelineListStagesParams,
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>> =
+            listStages(pipelineId, params, RequestOptions.none())
+
+        /** @see listStages */
+        fun listStages(
+            pipelineId: String,
+            params: PipelineListStagesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>> =
+            listStages(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+        /** @see listStages */
+        fun listStages(
+            params: PipelineListStagesParams
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>> =
+            listStages(params, RequestOptions.none())
+
+        /** @see listStages */
+        fun listStages(
+            params: PipelineListStagesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CollectionResponsePipelineStageNoPaging>>
+
+        /**
+         * Returns a raw HTTP response for `put /crm/pipelines/2026-03/{objectType}/{pipelineId}`,
+         * but is otherwise the same as [PipelineServiceAsync.updateAllProperties].
+         */
+        fun updateAllProperties(
+            pipelineId: String,
+            params: PipelineUpdateAllPropertiesParams,
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            updateAllProperties(pipelineId, params, RequestOptions.none())
+
+        /** @see updateAllProperties */
+        fun updateAllProperties(
+            pipelineId: String,
+            params: PipelineUpdateAllPropertiesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            updateAllProperties(params.toBuilder().pipelineId(pipelineId).build(), requestOptions)
+
+        /** @see updateAllProperties */
+        fun updateAllProperties(
+            params: PipelineUpdateAllPropertiesParams
+        ): CompletableFuture<HttpResponseFor<Pipeline>> =
+            updateAllProperties(params, RequestOptions.none())
+
+        /** @see updateAllProperties */
+        fun updateAllProperties(
+            params: PipelineUpdateAllPropertiesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Pipeline>>
+
+        /**
+         * Returns a raw HTTP response for `patch
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
+         * same as [PipelineServiceAsync.updateStage].
+         */
+        fun updateStage(
+            stageId: String,
+            params: PipelineUpdateStageParams,
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            updateStage(stageId, params, RequestOptions.none())
+
+        /** @see updateStage */
+        fun updateStage(
+            stageId: String,
+            params: PipelineUpdateStageParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            replace(params.toBuilder().stageId(stageId).build(), requestOptions)
+            updateStage(params.toBuilder().stageId(stageId).build(), requestOptions)
 
-        /** @see replace */
-        fun replace(
-            params: PipelineReplaceParams
+        /** @see updateStage */
+        fun updateStage(
+            params: PipelineUpdateStageParams
         ): CompletableFuture<HttpResponseFor<PipelineStage>> =
-            replace(params, RequestOptions.none())
+            updateStage(params, RequestOptions.none())
 
-        /** @see replace */
-        fun replace(
-            params: PipelineReplaceParams,
+        /** @see updateStage */
+        fun updateStage(
+            params: PipelineUpdateStageParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PipelineStage>>
+
+        /**
+         * Returns a raw HTTP response for `put
+         * /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}`, but is otherwise the
+         * same as [PipelineServiceAsync.updateStageAllProperties].
+         */
+        fun updateStageAllProperties(
+            stageId: String,
+            params: PipelineUpdateStageAllPropertiesParams,
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            updateStageAllProperties(stageId, params, RequestOptions.none())
+
+        /** @see updateStageAllProperties */
+        fun updateStageAllProperties(
+            stageId: String,
+            params: PipelineUpdateStageAllPropertiesParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            updateStageAllProperties(params.toBuilder().stageId(stageId).build(), requestOptions)
+
+        /** @see updateStageAllProperties */
+        fun updateStageAllProperties(
+            params: PipelineUpdateStageAllPropertiesParams
+        ): CompletableFuture<HttpResponseFor<PipelineStage>> =
+            updateStageAllProperties(params, RequestOptions.none())
+
+        /** @see updateStageAllProperties */
+        fun updateStageAllProperties(
+            params: PipelineUpdateStageAllPropertiesParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<PipelineStage>>
     }

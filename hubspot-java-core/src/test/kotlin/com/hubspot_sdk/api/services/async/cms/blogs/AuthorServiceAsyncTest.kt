@@ -17,13 +17,14 @@ import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
 import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.BlogAuthor
 import com.hubspot_sdk.api.models.cms.blogs.authors.BlogAuthorCloneRequestVNext
@@ -273,7 +274,7 @@ internal class AuthorServiceAsyncTest {
     }
 
     @Test
-    fun listByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -283,8 +284,8 @@ internal class AuthorServiceAsyncTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            authorServiceAsync.listByQuery(
-                AuthorListByQueryParams.builder()
+            authorServiceAsync.getCursor(
+                AuthorGetCursorParams.builder()
                     .after("after")
                     .archived(true)
                     .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -304,7 +305,7 @@ internal class AuthorServiceAsyncTest {
     }
 
     @Test
-    fun listPosts(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -314,8 +315,8 @@ internal class AuthorServiceAsyncTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            authorServiceAsync.listPosts(
-                AuthorListPostsParams.builder()
+            authorServiceAsync.getCursorByQuery(
+                AuthorGetCursorByQueryParams.builder()
                     .after("after")
                     .archived(true)
                     .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -335,7 +336,7 @@ internal class AuthorServiceAsyncTest {
     }
 
     @Test
-    fun listPostsByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getPostsCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -345,8 +346,8 @@ internal class AuthorServiceAsyncTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            authorServiceAsync.listPostsByQuery(
-                AuthorListPostsByQueryParams.builder()
+            authorServiceAsync.getPostsCursor(
+                AuthorGetPostsCursorParams.builder()
                     .after("after")
                     .archived(true)
                     .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -366,7 +367,7 @@ internal class AuthorServiceAsyncTest {
     }
 
     @Test
-    fun listTags(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getPostsCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -376,8 +377,8 @@ internal class AuthorServiceAsyncTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            authorServiceAsync.listTags(
-                AuthorListTagsParams.builder()
+            authorServiceAsync.getPostsCursorByQuery(
+                AuthorGetPostsCursorByQueryParams.builder()
                     .after("after")
                     .archived(true)
                     .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -397,7 +398,7 @@ internal class AuthorServiceAsyncTest {
     }
 
     @Test
-    fun listTagsByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+    fun getTagsCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
             HubspotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
@@ -407,8 +408,39 @@ internal class AuthorServiceAsyncTest {
         stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
 
         val responseFuture =
-            authorServiceAsync.listTagsByQuery(
-                AuthorListTagsByQueryParams.builder()
+            authorServiceAsync.getTagsCursor(
+                AuthorGetTagsCursorParams.builder()
+                    .after("after")
+                    .archived(true)
+                    .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .createdBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .limit(0)
+                    .property("property")
+                    .addSort("string")
+                    .updatedAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .updatedBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .build()
+            )
+
+        val response = responseFuture.get()
+        assertThat(response.body()).hasContent("abc")
+    }
+
+    @Test
+    fun getTagsCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
+        val client =
+            HubspotOkHttpClientAsync.builder()
+                .baseUrl(wmRuntimeInfo.httpBaseUrl)
+                .accessToken("My Access Token")
+                .build()
+        val authorServiceAsync = client.cms().blogs().authors()
+        stubFor(get(anyUrl()).willReturn(ok().withBody("abc")))
+
+        val responseFuture =
+            authorServiceAsync.getTagsCursorByQuery(
+                AuthorGetTagsCursorByQueryParams.builder()
                     .after("after")
                     .archived(true)
                     .createdAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

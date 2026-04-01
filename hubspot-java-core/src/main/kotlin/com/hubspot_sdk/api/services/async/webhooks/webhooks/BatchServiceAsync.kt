@@ -8,11 +8,15 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.webhooks.webhooks.BatchResponseJournalFetchResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.BatchResponseSubscriptionResponse
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetEarliestParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalNextParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetNextParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchReadParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchUpdateSubscriptionsParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -30,30 +34,27 @@ interface BatchServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchServiceAsync
 
-    /** Batch create event subscriptions for the specified app. */
-    fun create(
-        appId: Int,
-        params: BatchCreateParams,
-    ): CompletableFuture<BatchResponseSubscriptionResponse> =
-        create(appId, params, RequestOptions.none())
+    fun get(params: BatchGetParams): CompletableFuture<BatchResponseJournalFetchResponse> =
+        get(params, RequestOptions.none())
 
-    /** @see create */
-    fun create(
-        appId: Int,
-        params: BatchCreateParams,
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSubscriptionResponse> =
-        create(params.toBuilder().appId(appId).build(), requestOptions)
+    ): CompletableFuture<BatchResponseJournalFetchResponse>
 
-    /** @see create */
-    fun create(params: BatchCreateParams): CompletableFuture<BatchResponseSubscriptionResponse> =
-        create(params, RequestOptions.none())
-
-    /** @see create */
-    fun create(
-        params: BatchCreateParams,
+    /** @see get */
+    fun get(
+        batchInputString: BatchInputString,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseSubscriptionResponse>
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        get(BatchGetParams.builder().batchInputString(batchInputString).build(), requestOptions)
+
+    /** @see get */
+    fun get(
+        batchInputString: BatchInputString
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        get(batchInputString, RequestOptions.none())
 
     fun getEarliest(count: Int): CompletableFuture<BatchResponseJournalFetchResponse> =
         getEarliest(count, BatchGetEarliestParams.none())
@@ -129,6 +130,133 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseJournalFetchResponse> =
         getLatest(count, BatchGetLatestParams.none(), requestOptions)
 
+    fun getLocal(
+        params: BatchGetLocalParams
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocal(params, RequestOptions.none())
+
+    /** @see getLocal */
+    fun getLocal(
+        params: BatchGetLocalParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse>
+
+    /** @see getLocal */
+    fun getLocal(
+        batchInputString: BatchInputString,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocal(
+            BatchGetLocalParams.builder().batchInputString(batchInputString).build(),
+            requestOptions,
+        )
+
+    /** @see getLocal */
+    fun getLocal(
+        batchInputString: BatchInputString
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocal(batchInputString, RequestOptions.none())
+
+    fun getLocalEarliest(count: Int): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalEarliest(count, BatchGetLocalEarliestParams.none())
+
+    /** @see getLocalEarliest */
+    fun getLocalEarliest(
+        count: Int,
+        params: BatchGetLocalEarliestParams = BatchGetLocalEarliestParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalEarliest(params.toBuilder().count(count).build(), requestOptions)
+
+    /** @see getLocalEarliest */
+    fun getLocalEarliest(
+        count: Int,
+        params: BatchGetLocalEarliestParams = BatchGetLocalEarliestParams.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalEarliest(count, params, RequestOptions.none())
+
+    /** @see getLocalEarliest */
+    fun getLocalEarliest(
+        params: BatchGetLocalEarliestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse>
+
+    /** @see getLocalEarliest */
+    fun getLocalEarliest(
+        params: BatchGetLocalEarliestParams
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalEarliest(params, RequestOptions.none())
+
+    /** @see getLocalEarliest */
+    fun getLocalEarliest(
+        count: Int,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalEarliest(count, BatchGetLocalEarliestParams.none(), requestOptions)
+
+    fun getLocalLatest(count: Int): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalLatest(count, BatchGetLocalLatestParams.none())
+
+    /** @see getLocalLatest */
+    fun getLocalLatest(
+        count: Int,
+        params: BatchGetLocalLatestParams = BatchGetLocalLatestParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalLatest(params.toBuilder().count(count).build(), requestOptions)
+
+    /** @see getLocalLatest */
+    fun getLocalLatest(
+        count: Int,
+        params: BatchGetLocalLatestParams = BatchGetLocalLatestParams.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalLatest(count, params, RequestOptions.none())
+
+    /** @see getLocalLatest */
+    fun getLocalLatest(
+        params: BatchGetLocalLatestParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse>
+
+    /** @see getLocalLatest */
+    fun getLocalLatest(
+        params: BatchGetLocalLatestParams
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalLatest(params, RequestOptions.none())
+
+    /** @see getLocalLatest */
+    fun getLocalLatest(
+        count: Int,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalLatest(count, BatchGetLocalLatestParams.none(), requestOptions)
+
+    fun getLocalNext(
+        count: Int,
+        params: BatchGetLocalNextParams,
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalNext(count, params, RequestOptions.none())
+
+    /** @see getLocalNext */
+    fun getLocalNext(
+        count: Int,
+        params: BatchGetLocalNextParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalNext(params.toBuilder().count(count).build(), requestOptions)
+
+    /** @see getLocalNext */
+    fun getLocalNext(
+        params: BatchGetLocalNextParams
+    ): CompletableFuture<BatchResponseJournalFetchResponse> =
+        getLocalNext(params, RequestOptions.none())
+
+    /** @see getLocalNext */
+    fun getLocalNext(
+        params: BatchGetLocalNextParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseJournalFetchResponse>
+
     fun getNext(
         count: Int,
         params: BatchGetNextParams,
@@ -153,27 +281,32 @@ interface BatchServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BatchResponseJournalFetchResponse>
 
-    fun read(params: BatchReadParams): CompletableFuture<BatchResponseJournalFetchResponse> =
-        read(params, RequestOptions.none())
+    /** Batch create event subscriptions for the specified app. */
+    fun updateSubscriptions(
+        appId: Int,
+        params: BatchUpdateSubscriptionsParams,
+    ): CompletableFuture<BatchResponseSubscriptionResponse> =
+        updateSubscriptions(appId, params, RequestOptions.none())
 
-    /** @see read */
-    fun read(
-        params: BatchReadParams,
+    /** @see updateSubscriptions */
+    fun updateSubscriptions(
+        appId: Int,
+        params: BatchUpdateSubscriptionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseJournalFetchResponse>
+    ): CompletableFuture<BatchResponseSubscriptionResponse> =
+        updateSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
 
-    /** @see read */
-    fun read(
-        batchInputString: BatchInputString,
+    /** @see updateSubscriptions */
+    fun updateSubscriptions(
+        params: BatchUpdateSubscriptionsParams
+    ): CompletableFuture<BatchResponseSubscriptionResponse> =
+        updateSubscriptions(params, RequestOptions.none())
+
+    /** @see updateSubscriptions */
+    fun updateSubscriptions(
+        params: BatchUpdateSubscriptionsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseJournalFetchResponse> =
-        read(BatchReadParams.builder().batchInputString(batchInputString).build(), requestOptions)
-
-    /** @see read */
-    fun read(
-        batchInputString: BatchInputString
-    ): CompletableFuture<BatchResponseJournalFetchResponse> =
-        read(batchInputString, RequestOptions.none())
+    ): CompletableFuture<BatchResponseSubscriptionResponse>
 
     /** A view of [BatchServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -189,34 +322,32 @@ interface BatchServiceAsync {
 
         /**
          * Returns a raw HTTP response for `post
-         * /webhooks/2026-03/{appId}/subscriptions/batch/update`, but is otherwise the same as
-         * [BatchServiceAsync.create].
+         * /webhooks-journal/journal-local/2026-03/batch/read`, but is otherwise the same as
+         * [BatchServiceAsync.get].
          */
-        fun create(
-            appId: Int,
-            params: BatchCreateParams,
-        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>> =
-            create(appId, params, RequestOptions.none())
+        fun get(
+            params: BatchGetParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            get(params, RequestOptions.none())
 
-        /** @see create */
-        fun create(
-            appId: Int,
-            params: BatchCreateParams,
+        /** @see get */
+        fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>> =
-            create(params.toBuilder().appId(appId).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>>
 
-        /** @see create */
-        fun create(
-            params: BatchCreateParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>> =
-            create(params, RequestOptions.none())
-
-        /** @see create */
-        fun create(
-            params: BatchCreateParams,
+        /** @see get */
+        fun get(
+            batchInputString: BatchInputString,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>>
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            get(BatchGetParams.builder().batchInputString(batchInputString).build(), requestOptions)
+
+        /** @see get */
+        fun get(
+            batchInputString: BatchInputString
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            get(batchInputString, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get
@@ -307,6 +438,156 @@ interface BatchServiceAsync {
             getLatest(count, BatchGetLatestParams.none(), requestOptions)
 
         /**
+         * Returns a raw HTTP response for `post /webhooks-journal/journal/2026-03/batch/read`, but
+         * is otherwise the same as [BatchServiceAsync.getLocal].
+         */
+        fun getLocal(
+            params: BatchGetLocalParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocal(params, RequestOptions.none())
+
+        /** @see getLocal */
+        fun getLocal(
+            params: BatchGetLocalParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>>
+
+        /** @see getLocal */
+        fun getLocal(
+            batchInputString: BatchInputString,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocal(
+                BatchGetLocalParams.builder().batchInputString(batchInputString).build(),
+                requestOptions,
+            )
+
+        /** @see getLocal */
+        fun getLocal(
+            batchInputString: BatchInputString
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocal(batchInputString, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /webhooks-journal/journal-local/2026-03/batch/earliest/{count}`, but is otherwise the
+         * same as [BatchServiceAsync.getLocalEarliest].
+         */
+        fun getLocalEarliest(
+            count: Int
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalEarliest(count, BatchGetLocalEarliestParams.none())
+
+        /** @see getLocalEarliest */
+        fun getLocalEarliest(
+            count: Int,
+            params: BatchGetLocalEarliestParams = BatchGetLocalEarliestParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalEarliest(params.toBuilder().count(count).build(), requestOptions)
+
+        /** @see getLocalEarliest */
+        fun getLocalEarliest(
+            count: Int,
+            params: BatchGetLocalEarliestParams = BatchGetLocalEarliestParams.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalEarliest(count, params, RequestOptions.none())
+
+        /** @see getLocalEarliest */
+        fun getLocalEarliest(
+            params: BatchGetLocalEarliestParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>>
+
+        /** @see getLocalEarliest */
+        fun getLocalEarliest(
+            params: BatchGetLocalEarliestParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalEarliest(params, RequestOptions.none())
+
+        /** @see getLocalEarliest */
+        fun getLocalEarliest(
+            count: Int,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalEarliest(count, BatchGetLocalEarliestParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /webhooks-journal/journal-local/2026-03/batch/latest/{count}`, but is otherwise the same
+         * as [BatchServiceAsync.getLocalLatest].
+         */
+        fun getLocalLatest(
+            count: Int
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalLatest(count, BatchGetLocalLatestParams.none())
+
+        /** @see getLocalLatest */
+        fun getLocalLatest(
+            count: Int,
+            params: BatchGetLocalLatestParams = BatchGetLocalLatestParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalLatest(params.toBuilder().count(count).build(), requestOptions)
+
+        /** @see getLocalLatest */
+        fun getLocalLatest(
+            count: Int,
+            params: BatchGetLocalLatestParams = BatchGetLocalLatestParams.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalLatest(count, params, RequestOptions.none())
+
+        /** @see getLocalLatest */
+        fun getLocalLatest(
+            params: BatchGetLocalLatestParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>>
+
+        /** @see getLocalLatest */
+        fun getLocalLatest(
+            params: BatchGetLocalLatestParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalLatest(params, RequestOptions.none())
+
+        /** @see getLocalLatest */
+        fun getLocalLatest(
+            count: Int,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalLatest(count, BatchGetLocalLatestParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /webhooks-journal/journal-local/2026-03/batch/{offset}/next/{count}`, but is otherwise
+         * the same as [BatchServiceAsync.getLocalNext].
+         */
+        fun getLocalNext(
+            count: Int,
+            params: BatchGetLocalNextParams,
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalNext(count, params, RequestOptions.none())
+
+        /** @see getLocalNext */
+        fun getLocalNext(
+            count: Int,
+            params: BatchGetLocalNextParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalNext(params.toBuilder().count(count).build(), requestOptions)
+
+        /** @see getLocalNext */
+        fun getLocalNext(
+            params: BatchGetLocalNextParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
+            getLocalNext(params, RequestOptions.none())
+
+        /** @see getLocalNext */
+        fun getLocalNext(
+            params: BatchGetLocalNextParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>>
+
+        /**
          * Returns a raw HTTP response for `get
          * /webhooks-journal/journal/2026-03/batch/{offset}/next/{count}`, but is otherwise the same
          * as [BatchServiceAsync.getNext].
@@ -338,34 +619,34 @@ interface BatchServiceAsync {
         ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>>
 
         /**
-         * Returns a raw HTTP response for `post /webhooks-journal/journal/2026-03/batch/read`, but
-         * is otherwise the same as [BatchServiceAsync.read].
+         * Returns a raw HTTP response for `post
+         * /webhooks/2026-03/{appId}/subscriptions/batch/update`, but is otherwise the same as
+         * [BatchServiceAsync.updateSubscriptions].
          */
-        fun read(
-            params: BatchReadParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
-            read(params, RequestOptions.none())
+        fun updateSubscriptions(
+            appId: Int,
+            params: BatchUpdateSubscriptionsParams,
+        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>> =
+            updateSubscriptions(appId, params, RequestOptions.none())
 
-        /** @see read */
-        fun read(
-            params: BatchReadParams,
+        /** @see updateSubscriptions */
+        fun updateSubscriptions(
+            appId: Int,
+            params: BatchUpdateSubscriptionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>>
+        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>> =
+            updateSubscriptions(params.toBuilder().appId(appId).build(), requestOptions)
 
-        /** @see read */
-        fun read(
-            batchInputString: BatchInputString,
+        /** @see updateSubscriptions */
+        fun updateSubscriptions(
+            params: BatchUpdateSubscriptionsParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>> =
+            updateSubscriptions(params, RequestOptions.none())
+
+        /** @see updateSubscriptions */
+        fun updateSubscriptions(
+            params: BatchUpdateSubscriptionsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
-            read(
-                BatchReadParams.builder().batchInputString(batchInputString).build(),
-                requestOptions,
-            )
-
-        /** @see read */
-        fun read(
-            batchInputString: BatchInputString
-        ): CompletableFuture<HttpResponseFor<BatchResponseJournalFetchResponse>> =
-            read(batchInputString, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<BatchResponseSubscriptionResponse>>
     }
 }

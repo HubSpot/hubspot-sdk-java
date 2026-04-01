@@ -13,13 +13,13 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Delete an account-level flag state for a specific HubSpot account. No request body is included.
+ * Delete a feature flag in an app. For example, delete the `hs-release-app-cards` flag after all
+ * accounts have been migrated.
  */
 class FeatureFlagDeleteParams
 private constructor(
     private val appId: Int,
-    private val flagName: String,
-    private val portalId: Int?,
+    private val flagName: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -27,9 +27,7 @@ private constructor(
 
     fun appId(): Int = appId
 
-    fun flagName(): String = flagName
-
-    fun portalId(): Optional<Int> = Optional.ofNullable(portalId)
+    fun flagName(): Optional<String> = Optional.ofNullable(flagName)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -50,7 +48,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .flagName()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -61,7 +58,6 @@ private constructor(
 
         private var appId: Int? = null
         private var flagName: String? = null
-        private var portalId: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -70,7 +66,6 @@ private constructor(
         internal fun from(featureFlagDeleteParams: FeatureFlagDeleteParams) = apply {
             appId = featureFlagDeleteParams.appId
             flagName = featureFlagDeleteParams.flagName
-            portalId = featureFlagDeleteParams.portalId
             additionalHeaders = featureFlagDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = featureFlagDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties =
@@ -79,19 +74,10 @@ private constructor(
 
         fun appId(appId: Int) = apply { this.appId = appId }
 
-        fun flagName(flagName: String) = apply { this.flagName = flagName }
+        fun flagName(flagName: String?) = apply { this.flagName = flagName }
 
-        fun portalId(portalId: Int?) = apply { this.portalId = portalId }
-
-        /**
-         * Alias for [Builder.portalId].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun portalId(portalId: Int) = portalId(portalId as Int?)
-
-        /** Alias for calling [Builder.portalId] with `portalId.orElse(null)`. */
-        fun portalId(portalId: Optional<Int>) = portalId(portalId.getOrNull())
+        /** Alias for calling [Builder.flagName] with `flagName.orElse(null)`. */
+        fun flagName(flagName: Optional<String>) = flagName(flagName.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -221,7 +207,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .flagName()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -229,8 +214,7 @@ private constructor(
         fun build(): FeatureFlagDeleteParams =
             FeatureFlagDeleteParams(
                 checkRequired("appId", appId),
-                checkRequired("flagName", flagName),
-                portalId,
+                flagName,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -243,8 +227,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> appId.toString()
-            1 -> flagName
-            2 -> portalId?.toString() ?: ""
+            1 -> flagName ?: ""
             else -> ""
         }
 
@@ -260,7 +243,6 @@ private constructor(
         return other is FeatureFlagDeleteParams &&
             appId == other.appId &&
             flagName == other.flagName &&
-            portalId == other.portalId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
@@ -270,12 +252,11 @@ private constructor(
         Objects.hash(
             appId,
             flagName,
-            portalId,
             additionalHeaders,
             additionalQueryParams,
             additionalBodyProperties,
         )
 
     override fun toString() =
-        "FeatureFlagDeleteParams{appId=$appId, flagName=$flagName, portalId=$portalId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "FeatureFlagDeleteParams{appId=$appId, flagName=$flagName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

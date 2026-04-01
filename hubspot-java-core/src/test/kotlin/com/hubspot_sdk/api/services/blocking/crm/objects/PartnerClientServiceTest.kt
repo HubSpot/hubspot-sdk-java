@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -71,6 +72,23 @@ internal class PartnerClientServiceTest {
             )
 
         simplePublicObjectWithAssociations.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listAssociations() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val partnerClientService = client.crm().objects().partnerClients()
+
+        val page =
+            partnerClientService.listAssociations(
+                PartnerClientListAssociationsParams.builder()
+                    .partnerClientId("partnerClientId")
+                    .toObjectType("toObjectType")
+                    .build()
+            )
+
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

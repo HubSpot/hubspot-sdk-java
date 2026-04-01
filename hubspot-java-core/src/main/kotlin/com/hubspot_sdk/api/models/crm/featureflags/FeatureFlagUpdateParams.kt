@@ -11,27 +11,26 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Specify an account-level flag state for a specific HubSpot account. */
+/**
+ * Set a feature flag for an app. For example, update the `hs-hide-crm-cards` flag's `defaultState`
+ * to `ON` to hide classic CRM cards from new installs.
+ */
 class FeatureFlagUpdateParams
 private constructor(
     private val appId: Int,
-    private val flagName: String,
-    private val portalId: Int?,
-    private val portalFlagStatePutRequest: PortalFlagStatePutRequest,
+    private val flagName: String?,
+    private val flagPutRequest: FlagPutRequest,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun appId(): Int = appId
 
-    fun flagName(): String = flagName
+    fun flagName(): Optional<String> = Optional.ofNullable(flagName)
 
-    fun portalId(): Optional<Int> = Optional.ofNullable(portalId)
+    fun flagPutRequest(): FlagPutRequest = flagPutRequest
 
-    fun portalFlagStatePutRequest(): PortalFlagStatePutRequest = portalFlagStatePutRequest
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> =
-        portalFlagStatePutRequest._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = flagPutRequest._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -49,8 +48,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .flagName()
-         * .portalFlagStatePutRequest()
+         * .flagPutRequest()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -61,8 +59,7 @@ private constructor(
 
         private var appId: Int? = null
         private var flagName: String? = null
-        private var portalId: Int? = null
-        private var portalFlagStatePutRequest: PortalFlagStatePutRequest? = null
+        private var flagPutRequest: FlagPutRequest? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -70,32 +67,21 @@ private constructor(
         internal fun from(featureFlagUpdateParams: FeatureFlagUpdateParams) = apply {
             appId = featureFlagUpdateParams.appId
             flagName = featureFlagUpdateParams.flagName
-            portalId = featureFlagUpdateParams.portalId
-            portalFlagStatePutRequest = featureFlagUpdateParams.portalFlagStatePutRequest
+            flagPutRequest = featureFlagUpdateParams.flagPutRequest
             additionalHeaders = featureFlagUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = featureFlagUpdateParams.additionalQueryParams.toBuilder()
         }
 
         fun appId(appId: Int) = apply { this.appId = appId }
 
-        fun flagName(flagName: String) = apply { this.flagName = flagName }
+        fun flagName(flagName: String?) = apply { this.flagName = flagName }
 
-        fun portalId(portalId: Int?) = apply { this.portalId = portalId }
+        /** Alias for calling [Builder.flagName] with `flagName.orElse(null)`. */
+        fun flagName(flagName: Optional<String>) = flagName(flagName.getOrNull())
 
-        /**
-         * Alias for [Builder.portalId].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun portalId(portalId: Int) = portalId(portalId as Int?)
-
-        /** Alias for calling [Builder.portalId] with `portalId.orElse(null)`. */
-        fun portalId(portalId: Optional<Int>) = portalId(portalId.getOrNull())
-
-        fun portalFlagStatePutRequest(portalFlagStatePutRequest: PortalFlagStatePutRequest) =
-            apply {
-                this.portalFlagStatePutRequest = portalFlagStatePutRequest
-            }
+        fun flagPutRequest(flagPutRequest: FlagPutRequest) = apply {
+            this.flagPutRequest = flagPutRequest
+        }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -203,8 +189,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .flagName()
-         * .portalFlagStatePutRequest()
+         * .flagPutRequest()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -212,21 +197,19 @@ private constructor(
         fun build(): FeatureFlagUpdateParams =
             FeatureFlagUpdateParams(
                 checkRequired("appId", appId),
-                checkRequired("flagName", flagName),
-                portalId,
-                checkRequired("portalFlagStatePutRequest", portalFlagStatePutRequest),
+                flagName,
+                checkRequired("flagPutRequest", flagPutRequest),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): PortalFlagStatePutRequest = portalFlagStatePutRequest
+    fun _body(): FlagPutRequest = flagPutRequest
 
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> appId.toString()
-            1 -> flagName
-            2 -> portalId?.toString() ?: ""
+            1 -> flagName ?: ""
             else -> ""
         }
 
@@ -242,22 +225,14 @@ private constructor(
         return other is FeatureFlagUpdateParams &&
             appId == other.appId &&
             flagName == other.flagName &&
-            portalId == other.portalId &&
-            portalFlagStatePutRequest == other.portalFlagStatePutRequest &&
+            flagPutRequest == other.flagPutRequest &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            appId,
-            flagName,
-            portalId,
-            portalFlagStatePutRequest,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(appId, flagName, flagPutRequest, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "FeatureFlagUpdateParams{appId=$appId, flagName=$flagName, portalId=$portalId, portalFlagStatePutRequest=$portalFlagStatePutRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "FeatureFlagUpdateParams{appId=$appId, flagName=$flagName, flagPutRequest=$flagPutRequest, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

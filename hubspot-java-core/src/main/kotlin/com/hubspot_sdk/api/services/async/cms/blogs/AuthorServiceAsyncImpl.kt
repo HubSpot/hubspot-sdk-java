@@ -20,13 +20,14 @@ import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateLanguageVariatio
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDetachFromLangGroupParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateLanguagesParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
@@ -70,7 +71,7 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
         params: AuthorListParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
-        // get /cms/blogs/2026-03/authors/cursor
+        // get /cms/blogs/2026-03/authors
         withRawResponse().list(params, requestOptions)
 
     override fun delete(
@@ -108,40 +109,47 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // get /cms/blogs/2026-03/authors/{objectId}
         withRawResponse().get(params, requestOptions)
 
-    override fun listByQuery(
-        params: AuthorListByQueryParams,
+    override fun getCursor(
+        params: AuthorGetCursorParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /cms/blogs/2026-03/authors/cursor
+        withRawResponse().getCursor(params, requestOptions)
+
+    override fun getCursorByQuery(
+        params: AuthorGetCursorByQueryParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // get /cms/blogs/2026-03/authors/cursor/query
-        withRawResponse().listByQuery(params, requestOptions)
+        withRawResponse().getCursorByQuery(params, requestOptions)
 
-    override fun listPosts(
-        params: AuthorListPostsParams,
+    override fun getPostsCursor(
+        params: AuthorGetPostsCursorParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // get /cms/blogs/2026-03/posts/cursor
-        withRawResponse().listPosts(params, requestOptions)
+        withRawResponse().getPostsCursor(params, requestOptions)
 
-    override fun listPostsByQuery(
-        params: AuthorListPostsByQueryParams,
+    override fun getPostsCursorByQuery(
+        params: AuthorGetPostsCursorByQueryParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // get /cms/blogs/2026-03/posts/cursor/query
-        withRawResponse().listPostsByQuery(params, requestOptions)
+        withRawResponse().getPostsCursorByQuery(params, requestOptions)
 
-    override fun listTags(
-        params: AuthorListTagsParams,
+    override fun getTagsCursor(
+        params: AuthorGetTagsCursorParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // get /cms/blogs/2026-03/tags/cursor
-        withRawResponse().listTags(params, requestOptions)
+        withRawResponse().getTagsCursor(params, requestOptions)
 
-    override fun listTagsByQuery(
-        params: AuthorListTagsByQueryParams,
+    override fun getTagsCursorByQuery(
+        params: AuthorGetTagsCursorByQueryParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<HttpResponse> =
         // get /cms/blogs/2026-03/tags/cursor/query
-        withRawResponse().listTagsByQuery(params, requestOptions)
+        withRawResponse().getTagsCursorByQuery(params, requestOptions)
 
     override fun setNewLangPrimary(
         params: AuthorSetNewLangPrimaryParams,
@@ -225,7 +233,7 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor")
+                    .addPathSegments("cms", "blogs", "2026-03", "authors")
                     .putHeader("Accept", "*/*")
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -361,8 +369,26 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun listByQuery(
-            params: AuthorListByQueryParams,
+        override fun getCursor(
+            params: AuthorGetCursorParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cms", "blogs", "2026-03", "authors", "cursor")
+                    .putHeader("Accept", "*/*")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
+        }
+
+        override fun getCursorByQuery(
+            params: AuthorGetCursorByQueryParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
@@ -379,8 +405,8 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun listPosts(
-            params: AuthorListPostsParams,
+        override fun getPostsCursor(
+            params: AuthorGetPostsCursorParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
@@ -397,8 +423,8 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun listPostsByQuery(
-            params: AuthorListPostsByQueryParams,
+        override fun getPostsCursorByQuery(
+            params: AuthorGetPostsCursorByQueryParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
@@ -415,8 +441,8 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun listTags(
-            params: AuthorListTagsParams,
+        override fun getTagsCursor(
+            params: AuthorGetTagsCursorParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =
@@ -433,8 +459,8 @@ class AuthorServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response -> errorHandler.handle(response) }
         }
 
-        override fun listTagsByQuery(
-            params: AuthorListTagsByQueryParams,
+        override fun getTagsCursorByQuery(
+            params: AuthorGetTagsCursorByQueryParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
             val request =

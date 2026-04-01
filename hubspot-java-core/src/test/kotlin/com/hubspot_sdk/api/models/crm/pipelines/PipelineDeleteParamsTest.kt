@@ -2,6 +2,7 @@
 
 package com.hubspot_sdk.api.models.crm.pipelines
 
+import com.hubspot_sdk.api.core.http.QueryParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -12,23 +13,50 @@ internal class PipelineDeleteParamsTest {
         PipelineDeleteParams.builder()
             .objectType("objectType")
             .pipelineId("pipelineId")
-            .stageId("stageId")
+            .validateDealStageUsagesBeforeDelete(true)
+            .validateReferencesBeforeDelete(true)
             .build()
     }
 
     @Test
     fun pathParams() {
         val params =
-            PipelineDeleteParams.builder()
-                .objectType("objectType")
-                .pipelineId("pipelineId")
-                .stageId("stageId")
-                .build()
+            PipelineDeleteParams.builder().objectType("objectType").pipelineId("pipelineId").build()
 
         assertThat(params._pathParam(0)).isEqualTo("objectType")
         assertThat(params._pathParam(1)).isEqualTo("pipelineId")
-        assertThat(params._pathParam(2)).isEqualTo("stageId")
         // out-of-bound path param
-        assertThat(params._pathParam(3)).isEqualTo("")
+        assertThat(params._pathParam(2)).isEqualTo("")
+    }
+
+    @Test
+    fun queryParams() {
+        val params =
+            PipelineDeleteParams.builder()
+                .objectType("objectType")
+                .pipelineId("pipelineId")
+                .validateDealStageUsagesBeforeDelete(true)
+                .validateReferencesBeforeDelete(true)
+                .build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams)
+            .isEqualTo(
+                QueryParams.builder()
+                    .put("validateDealStageUsagesBeforeDelete", "true")
+                    .put("validateReferencesBeforeDelete", "true")
+                    .build()
+            )
+    }
+
+    @Test
+    fun queryParamsWithoutOptionalFields() {
+        val params =
+            PipelineDeleteParams.builder().objectType("objectType").pipelineId("pipelineId").build()
+
+        val queryParams = params._queryParams()
+
+        assertThat(queryParams).isEqualTo(QueryParams.builder().build())
     }
 }

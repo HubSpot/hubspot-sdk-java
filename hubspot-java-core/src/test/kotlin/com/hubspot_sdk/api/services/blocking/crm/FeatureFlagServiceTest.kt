@@ -4,9 +4,13 @@ package com.hubspot_sdk.api.services.blocking.crm
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagDeleteParams
+import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagDeletePortalStateParams
 import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagGetParams
+import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagGetPortalStateParams
 import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagListPortalsParams
 import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagUpdateParams
+import com.hubspot_sdk.api.models.crm.featureflags.FeatureFlagUpdatePortalStateParams
+import com.hubspot_sdk.api.models.crm.featureflags.FlagPutRequest
 import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStatePutRequest
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -19,21 +23,21 @@ internal class FeatureFlagServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
-        val portalFlagStateResponse =
+        val flagResponse =
             featureFlagService.update(
                 FeatureFlagUpdateParams.builder()
                     .appId(0)
                     .flagName("flagName")
-                    .portalId(0)
-                    .portalFlagStatePutRequest(
-                        PortalFlagStatePutRequest.builder()
-                            .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
+                    .flagPutRequest(
+                        FlagPutRequest.builder()
+                            .defaultState(FlagPutRequest.DefaultState.ABSENT)
+                            .overrideState(FlagPutRequest.OverrideState.ABSENT)
                             .build()
                     )
                     .build()
             )
 
-        portalFlagStateResponse.validate()
+        flagResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -42,9 +46,27 @@ internal class FeatureFlagServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
-        val portalFlagStateResponse =
+        val flagResponse =
             featureFlagService.delete(
-                FeatureFlagDeleteParams.builder().appId(0).flagName("flagName").portalId(0).build()
+                FeatureFlagDeleteParams.builder().appId(0).flagName("flagName").build()
+            )
+
+        flagResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun deletePortalState() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val featureFlagService = client.crm().featureFlags()
+
+        val portalFlagStateResponse =
+            featureFlagService.deletePortalState(
+                FeatureFlagDeletePortalStateParams.builder()
+                    .appId(0)
+                    .flagName("flagName")
+                    .portalId(0)
+                    .build()
             )
 
         portalFlagStateResponse.validate()
@@ -56,9 +78,27 @@ internal class FeatureFlagServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val featureFlagService = client.crm().featureFlags()
 
-        val portalFlagStateResponse =
+        val flagResponse =
             featureFlagService.get(
-                FeatureFlagGetParams.builder().appId(0).flagName("flagName").portalId(0).build()
+                FeatureFlagGetParams.builder().appId(0).flagName("flagName").build()
+            )
+
+        flagResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getPortalState() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val featureFlagService = client.crm().featureFlags()
+
+        val portalFlagStateResponse =
+            featureFlagService.getPortalState(
+                FeatureFlagGetPortalStateParams.builder()
+                    .appId(0)
+                    .flagName("flagName")
+                    .portalId(0)
+                    .build()
             )
 
         portalFlagStateResponse.validate()
@@ -92,5 +132,28 @@ internal class FeatureFlagServiceTest {
             )
 
         portalFlagStateBatchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updatePortalState() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val featureFlagService = client.crm().featureFlags()
+
+        val portalFlagStateResponse =
+            featureFlagService.updatePortalState(
+                FeatureFlagUpdatePortalStateParams.builder()
+                    .appId(0)
+                    .flagName("flagName")
+                    .portalId(0)
+                    .portalFlagStatePutRequest(
+                        PortalFlagStatePutRequest.builder()
+                            .flagState(PortalFlagStatePutRequest.FlagState.ABSENT)
+                            .build()
+                    )
+                    .build()
+            )
+
+        portalFlagStateResponse.validate()
     }
 }

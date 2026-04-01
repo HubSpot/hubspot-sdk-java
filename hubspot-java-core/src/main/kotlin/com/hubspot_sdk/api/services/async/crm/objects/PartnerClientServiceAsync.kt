@@ -10,6 +10,8 @@ import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsPageAsync
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientSearchParams
@@ -119,6 +121,36 @@ interface PartnerClientServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         get(partnerClientId, PartnerClientGetParams.none(), requestOptions)
+
+    /**
+     * Retrieve a list of associations for a specific partner client based on the specified object
+     * type.
+     */
+    fun listAssociations(
+        toObjectType: String,
+        params: PartnerClientListAssociationsParams,
+    ): CompletableFuture<PartnerClientListAssociationsPageAsync> =
+        listAssociations(toObjectType, params, RequestOptions.none())
+
+    /** @see listAssociations */
+    fun listAssociations(
+        toObjectType: String,
+        params: PartnerClientListAssociationsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PartnerClientListAssociationsPageAsync> =
+        listAssociations(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+    /** @see listAssociations */
+    fun listAssociations(
+        params: PartnerClientListAssociationsParams
+    ): CompletableFuture<PartnerClientListAssociationsPageAsync> =
+        listAssociations(params, RequestOptions.none())
+
+    /** @see listAssociations */
+    fun listAssociations(
+        params: PartnerClientListAssociationsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<PartnerClientListAssociationsPageAsync>
 
     /**
      * Execute a search for partner clients based on defined filters, properties, and sorting
@@ -270,6 +302,37 @@ interface PartnerClientServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<SimplePublicObjectWithAssociations>> =
             get(partnerClientId, PartnerClientGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /crm/objects/2026-03/partner_clients/{partnerClientId}/associations/{toObjectType}`, but
+         * is otherwise the same as [PartnerClientServiceAsync.listAssociations].
+         */
+        fun listAssociations(
+            toObjectType: String,
+            params: PartnerClientListAssociationsParams,
+        ): CompletableFuture<HttpResponseFor<PartnerClientListAssociationsPageAsync>> =
+            listAssociations(toObjectType, params, RequestOptions.none())
+
+        /** @see listAssociations */
+        fun listAssociations(
+            toObjectType: String,
+            params: PartnerClientListAssociationsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PartnerClientListAssociationsPageAsync>> =
+            listAssociations(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+        /** @see listAssociations */
+        fun listAssociations(
+            params: PartnerClientListAssociationsParams
+        ): CompletableFuture<HttpResponseFor<PartnerClientListAssociationsPageAsync>> =
+            listAssociations(params, RequestOptions.none())
+
+        /** @see listAssociations */
+        fun listAssociations(
+            params: PartnerClientListAssociationsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<PartnerClientListAssociationsPageAsync>>
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_clients/search`, but

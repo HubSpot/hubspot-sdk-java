@@ -10,21 +10,18 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Return a pipeline stage by ID */
+/** Return a single pipeline object identified by its unique `{pipelineId}`. */
 class PipelineGetParams
 private constructor(
     private val objectType: String,
-    private val pipelineId: String,
-    private val stageId: String?,
+    private val pipelineId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun objectType(): String = objectType
 
-    fun pipelineId(): String = pipelineId
-
-    fun stageId(): Optional<String> = Optional.ofNullable(stageId)
+    fun pipelineId(): Optional<String> = Optional.ofNullable(pipelineId)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -42,7 +39,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .objectType()
-         * .pipelineId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -53,7 +49,6 @@ private constructor(
 
         private var objectType: String? = null
         private var pipelineId: String? = null
-        private var stageId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -61,19 +56,16 @@ private constructor(
         internal fun from(pipelineGetParams: PipelineGetParams) = apply {
             objectType = pipelineGetParams.objectType
             pipelineId = pipelineGetParams.pipelineId
-            stageId = pipelineGetParams.stageId
             additionalHeaders = pipelineGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = pipelineGetParams.additionalQueryParams.toBuilder()
         }
 
         fun objectType(objectType: String) = apply { this.objectType = objectType }
 
-        fun pipelineId(pipelineId: String) = apply { this.pipelineId = pipelineId }
+        fun pipelineId(pipelineId: String?) = apply { this.pipelineId = pipelineId }
 
-        fun stageId(stageId: String?) = apply { this.stageId = stageId }
-
-        /** Alias for calling [Builder.stageId] with `stageId.orElse(null)`. */
-        fun stageId(stageId: Optional<String>) = stageId(stageId.getOrNull())
+        /** Alias for calling [Builder.pipelineId] with `pipelineId.orElse(null)`. */
+        fun pipelineId(pipelineId: Optional<String>) = pipelineId(pipelineId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -181,7 +173,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .objectType()
-         * .pipelineId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -189,8 +180,7 @@ private constructor(
         fun build(): PipelineGetParams =
             PipelineGetParams(
                 checkRequired("objectType", objectType),
-                checkRequired("pipelineId", pipelineId),
-                stageId,
+                pipelineId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -199,8 +189,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> objectType
-            1 -> pipelineId
-            2 -> stageId ?: ""
+            1 -> pipelineId ?: ""
             else -> ""
         }
 
@@ -216,14 +205,13 @@ private constructor(
         return other is PipelineGetParams &&
             objectType == other.objectType &&
             pipelineId == other.pipelineId &&
-            stageId == other.stageId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectType, pipelineId, stageId, additionalHeaders, additionalQueryParams)
+        Objects.hash(objectType, pipelineId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "PipelineGetParams{objectType=$objectType, pipelineId=$pipelineId, stageId=$stageId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PipelineGetParams{objectType=$objectType, pipelineId=$pipelineId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

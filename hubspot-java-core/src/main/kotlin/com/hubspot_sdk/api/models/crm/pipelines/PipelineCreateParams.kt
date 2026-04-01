@@ -11,24 +11,23 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a pipeline stage */
+/**
+ * Create a new pipeline with the provided property values. The entire pipeline object, including
+ * its unique ID, will be returned in the response.
+ */
 class PipelineCreateParams
 private constructor(
-    private val objectType: String,
-    private val pipelineId: String?,
-    private val pipelineStageInput: PipelineStageInput,
+    private val objectType: String?,
+    private val pipelineInput: PipelineInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun objectType(): String = objectType
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
-    fun pipelineId(): Optional<String> = Optional.ofNullable(pipelineId)
+    fun pipelineInput(): PipelineInput = pipelineInput
 
-    fun pipelineStageInput(): PipelineStageInput = pipelineStageInput
-
-    fun _additionalBodyProperties(): Map<String, JsonValue> =
-        pipelineStageInput._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = pipelineInput._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -45,8 +44,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .objectType()
-         * .pipelineStageInput()
+         * .pipelineInput()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -56,29 +54,25 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectType: String? = null
-        private var pipelineId: String? = null
-        private var pipelineStageInput: PipelineStageInput? = null
+        private var pipelineInput: PipelineInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(pipelineCreateParams: PipelineCreateParams) = apply {
             objectType = pipelineCreateParams.objectType
-            pipelineId = pipelineCreateParams.pipelineId
-            pipelineStageInput = pipelineCreateParams.pipelineStageInput
+            pipelineInput = pipelineCreateParams.pipelineInput
             additionalHeaders = pipelineCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = pipelineCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun objectType(objectType: String) = apply { this.objectType = objectType }
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
 
-        fun pipelineId(pipelineId: String?) = apply { this.pipelineId = pipelineId }
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
-        /** Alias for calling [Builder.pipelineId] with `pipelineId.orElse(null)`. */
-        fun pipelineId(pipelineId: Optional<String>) = pipelineId(pipelineId.getOrNull())
-
-        fun pipelineStageInput(pipelineStageInput: PipelineStageInput) = apply {
-            this.pipelineStageInput = pipelineStageInput
+        fun pipelineInput(pipelineInput: PipelineInput) = apply {
+            this.pipelineInput = pipelineInput
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -186,28 +180,25 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .objectType()
-         * .pipelineStageInput()
+         * .pipelineInput()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PipelineCreateParams =
             PipelineCreateParams(
-                checkRequired("objectType", objectType),
-                pipelineId,
-                checkRequired("pipelineStageInput", pipelineStageInput),
+                objectType,
+                checkRequired("pipelineInput", pipelineInput),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): PipelineStageInput = pipelineStageInput
+    fun _body(): PipelineInput = pipelineInput
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> objectType
-            1 -> pipelineId ?: ""
+            0 -> objectType ?: ""
             else -> ""
         }
 
@@ -222,21 +213,14 @@ private constructor(
 
         return other is PipelineCreateParams &&
             objectType == other.objectType &&
-            pipelineId == other.pipelineId &&
-            pipelineStageInput == other.pipelineStageInput &&
+            pipelineInput == other.pipelineInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(
-            objectType,
-            pipelineId,
-            pipelineStageInput,
-            additionalHeaders,
-            additionalQueryParams,
-        )
+        Objects.hash(objectType, pipelineInput, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "PipelineCreateParams{objectType=$objectType, pipelineId=$pipelineId, pipelineStageInput=$pipelineStageInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PipelineCreateParams{objectType=$objectType, pipelineInput=$pipelineInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
