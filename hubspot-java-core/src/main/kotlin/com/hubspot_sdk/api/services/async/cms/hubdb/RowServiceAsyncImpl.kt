@@ -125,9 +125,9 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun purgeBatch(
         params: RowPurgeBatchParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<BatchResponseHubDbTableRowV3> =
+    ): CompletableFuture<Void?> =
         // post /cms/hubdb/2026-03/tables/{tableIdOrName}/rows/draft/batch/purge
-        withRawResponse().purgeBatch(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().purgeBatch(params, requestOptions).thenAccept {}
 
     override fun replaceBatch(
         params: RowReplaceBatchParams,
@@ -599,13 +599,12 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
                 }
         }
 
-        private val purgeBatchHandler: Handler<BatchResponseHubDbTableRowV3> =
-            jsonHandler<BatchResponseHubDbTableRowV3>(clientOptions.jsonMapper)
+        private val purgeBatchHandler: Handler<Void?> = emptyHandler()
 
         override fun purgeBatch(
             params: RowPurgeBatchParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<BatchResponseHubDbTableRowV3>> {
+        ): CompletableFuture<HttpResponse> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tableIdOrName", params.tableIdOrName().getOrNull())
@@ -632,13 +631,7 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { purgeBatchHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { purgeBatchHandler.handle(it) }
                     }
                 }
         }

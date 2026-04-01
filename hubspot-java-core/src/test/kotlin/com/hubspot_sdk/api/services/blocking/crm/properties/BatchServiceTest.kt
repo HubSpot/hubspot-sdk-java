@@ -3,12 +3,12 @@
 package com.hubspot_sdk.api.services.blocking.crm.properties
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
-import com.hubspot_sdk.api.models.BatchInputPropertyCreate
 import com.hubspot_sdk.api.models.BatchInputPropertyName
 import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.PropertyCreate
 import com.hubspot_sdk.api.models.PropertyName
+import com.hubspot_sdk.api.models.crm.properties.BatchInputPropertyCreate
+import com.hubspot_sdk.api.models.crm.properties.PropertyCreate
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchDeleteParams
 import com.hubspot_sdk.api.models.crm.properties.batch.BatchGetParams
@@ -37,6 +37,7 @@ internal class BatchServiceTest {
                                     .name("name")
                                     .type(PropertyCreate.Type.BOOL)
                                     .calculationFormula("calculationFormula")
+                                    .currencyPropertyName("currencyPropertyName")
                                     .dataSensitivity(
                                         PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE
                                     )
@@ -56,6 +57,7 @@ internal class BatchServiceTest {
                                             .build()
                                     )
                                     .referencedObjectType("referencedObjectType")
+                                    .showCurrencySymbol(true)
                                     .build()
                             )
                             .build()

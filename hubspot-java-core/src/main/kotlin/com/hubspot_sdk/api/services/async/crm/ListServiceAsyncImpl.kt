@@ -31,18 +31,19 @@ import com.hubspot_sdk.api.models.crm.lists.ListCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteParams
-import com.hubspot_sdk.api.models.crm.lists.ListDeleteScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListFetchResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderFetchResponse
-import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeIdAndNameParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeAndNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetIdMappingParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderPageAsync
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetRecordMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetScheduleConversionParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetSizeAndEditsHistoryBetweenParams
+import com.hubspot_sdk.api.models.crm.lists.ListListBySearchParams
 import com.hubspot_sdk.api.models.crm.lists.ListListFoldersParams
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderPageAsync
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsPageAsync
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListListParams
@@ -51,8 +52,9 @@ import com.hubspot_sdk.api.models.crm.lists.ListMoveListParams
 import com.hubspot_sdk.api.models.crm.lists.ListRemoveMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListRenameFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListRestoreParams
-import com.hubspot_sdk.api.models.crm.lists.ListSearchParams
+import com.hubspot_sdk.api.models.crm.lists.ListScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListSearchResponse
+import com.hubspot_sdk.api.models.crm.lists.ListSizeAndEditHistoryResponse
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListFiltersParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateResponse
@@ -155,13 +157,6 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // delete /crm/lists/2026-03/{listId}/memberships
         withRawResponse().deleteMemberships(params, requestOptions).thenAccept {}
 
-    override fun deleteScheduleConversion(
-        params: ListDeleteScheduleConversionParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Void?> =
-        // delete /crm/lists/2026-03/{listId}/schedule-conversion
-        withRawResponse().deleteScheduleConversion(params, requestOptions).thenAccept {}
-
     override fun get(
         params: ListGetParams,
         requestOptions: RequestOptions,
@@ -169,12 +164,12 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // get /crm/lists/2026-03/{listId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
-    override fun getByObjectTypeIdAndName(
-        params: ListGetByObjectTypeIdAndNameParams,
+    override fun getByObjectTypeAndName(
+        params: ListGetByObjectTypeAndNameParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<ListFetchResponse> =
         // get /crm/lists/2026-03/object-type-id/{objectTypeId}/name/{listName}
-        withRawResponse().getByObjectTypeIdAndName(params, requestOptions).thenApply { it.parse() }
+        withRawResponse().getByObjectTypeAndName(params, requestOptions).thenApply { it.parse() }
 
     override fun getIdMapping(
         params: ListGetIdMappingParams,
@@ -182,6 +177,13 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
     ): CompletableFuture<PublicMigrationMapping> =
         // get /crm/lists/2026-03/idmapping
         withRawResponse().getIdMapping(params, requestOptions).thenApply { it.parse() }
+
+    override fun getMembershipsJoinOrder(
+        params: ListGetMembershipsJoinOrderParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ListGetMembershipsJoinOrderPageAsync> =
+        // get /crm/lists/2026-03/{listId}/memberships/join-order
+        withRawResponse().getMembershipsJoinOrder(params, requestOptions).thenApply { it.parse() }
 
     override fun getRecordMemberships(
         params: ListGetRecordMembershipsParams,
@@ -197,6 +199,22 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // get /crm/lists/2026-03/{listId}/schedule-conversion
         withRawResponse().getScheduleConversion(params, requestOptions).thenApply { it.parse() }
 
+    override fun getSizeAndEditsHistoryBetween(
+        params: ListGetSizeAndEditsHistoryBetweenParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ListSizeAndEditHistoryResponse> =
+        // get /crm/lists/2026-03/{listId}/size-and-edits-history/between
+        withRawResponse().getSizeAndEditsHistoryBetween(params, requestOptions).thenApply {
+            it.parse()
+        }
+
+    override fun listBySearch(
+        params: ListListBySearchParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<ListSearchResponse> =
+        // post /crm/lists/2026-03/search
+        withRawResponse().listBySearch(params, requestOptions).thenApply { it.parse() }
+
     override fun listFolders(
         params: ListListFoldersParams,
         requestOptions: RequestOptions,
@@ -210,13 +228,6 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
     ): CompletableFuture<ListListMembershipsPageAsync> =
         // get /crm/lists/2026-03/{listId}/memberships
         withRawResponse().listMemberships(params, requestOptions).thenApply { it.parse() }
-
-    override fun listMembershipsJoinOrder(
-        params: ListListMembershipsJoinOrderParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<ListListMembershipsJoinOrderPageAsync> =
-        // get /crm/lists/2026-03/{listId}/memberships/join-order
-        withRawResponse().listMembershipsJoinOrder(params, requestOptions).thenApply { it.parse() }
 
     override fun moveFolder(
         params: ListMoveFolderParams,
@@ -253,12 +264,12 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
         // put /crm/lists/2026-03/{listId}/restore
         withRawResponse().restore(params, requestOptions).thenAccept {}
 
-    override fun search(
-        params: ListSearchParams,
+    override fun scheduleConversion(
+        params: ListScheduleConversionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ListSearchResponse> =
-        // post /crm/lists/2026-03/search
-        withRawResponse().search(params, requestOptions).thenApply { it.parse() }
+    ): CompletableFuture<Void?> =
+        // delete /crm/lists/2026-03/{listId}/schedule-conversion
+        withRawResponse().scheduleConversion(params, requestOptions).thenAccept {}
 
     override fun updateListFilters(
         params: ListUpdateListFiltersParams,
@@ -654,39 +665,6 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val deleteScheduleConversionHandler: Handler<Void?> = emptyHandler()
-
-        override fun deleteScheduleConversion(
-            params: ListDeleteScheduleConversionParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("listId", params.listId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "lists",
-                        "2026-03",
-                        params._pathParam(0),
-                        "schedule-conversion",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response.use { deleteScheduleConversionHandler.handle(it) }
-                    }
-                }
-        }
-
         private val getHandler: Handler<ListFetchResponse> =
             jsonHandler<ListFetchResponse>(clientOptions.jsonMapper)
 
@@ -720,11 +698,11 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val getByObjectTypeIdAndNameHandler: Handler<ListFetchResponse> =
+        private val getByObjectTypeAndNameHandler: Handler<ListFetchResponse> =
             jsonHandler<ListFetchResponse>(clientOptions.jsonMapper)
 
-        override fun getByObjectTypeIdAndName(
-            params: ListGetByObjectTypeIdAndNameParams,
+        override fun getByObjectTypeAndName(
+            params: ListGetByObjectTypeAndNameParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<ListFetchResponse>> {
             // We check here instead of in the params builder because this can be specified
@@ -751,7 +729,7 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { getByObjectTypeIdAndNameHandler.handle(it) }
+                            .use { getByObjectTypeAndNameHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -786,6 +764,55 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                    }
+                }
+        }
+
+        private val getMembershipsJoinOrderHandler:
+            Handler<ApiCollectionResponseJoinTimeAndRecordId> =
+            jsonHandler<ApiCollectionResponseJoinTimeAndRecordId>(clientOptions.jsonMapper)
+
+        override fun getMembershipsJoinOrder(
+            params: ListGetMembershipsJoinOrderParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ListGetMembershipsJoinOrderPageAsync>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("listId", params.listId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "lists",
+                        "2026-03",
+                        params._pathParam(0),
+                        "memberships",
+                        "join-order",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getMembershipsJoinOrderHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                ListGetMembershipsJoinOrderPageAsync.builder()
+                                    .service(ListServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }
@@ -872,6 +899,77 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
+        private val getSizeAndEditsHistoryBetweenHandler: Handler<ListSizeAndEditHistoryResponse> =
+            jsonHandler<ListSizeAndEditHistoryResponse>(clientOptions.jsonMapper)
+
+        override fun getSizeAndEditsHistoryBetween(
+            params: ListGetSizeAndEditsHistoryBetweenParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ListSizeAndEditHistoryResponse>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("listId", params.listId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "lists",
+                        "2026-03",
+                        params._pathParam(0),
+                        "size-and-edits-history",
+                        "between",
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { getSizeAndEditsHistoryBetweenHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val listBySearchHandler: Handler<ListSearchResponse> =
+            jsonHandler<ListSearchResponse>(clientOptions.jsonMapper)
+
+        override fun listBySearch(
+            params: ListListBySearchParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "lists", "2026-03", "search")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listBySearchHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
         private val listFoldersHandler: Handler<ListFolderFetchResponse> =
             jsonHandler<ListFolderFetchResponse>(clientOptions.jsonMapper)
 
@@ -933,55 +1031,6 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                             }
                             .let {
                                 ListListMembershipsPageAsync.builder()
-                                    .service(ListServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
-                            }
-                    }
-                }
-        }
-
-        private val listMembershipsJoinOrderHandler:
-            Handler<ApiCollectionResponseJoinTimeAndRecordId> =
-            jsonHandler<ApiCollectionResponseJoinTimeAndRecordId>(clientOptions.jsonMapper)
-
-        override fun listMembershipsJoinOrder(
-            params: ListListMembershipsJoinOrderParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ListListMembershipsJoinOrderPageAsync>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("listId", params.listId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "lists",
-                        "2026-03",
-                        params._pathParam(0),
-                        "memberships",
-                        "join-order",
-                    )
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { listMembershipsJoinOrderHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                            .let {
-                                ListListMembershipsJoinOrderPageAsync.builder()
                                     .service(ListServiceAsyncImpl(clientOptions))
                                     .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
                                     .params(params)
@@ -1167,19 +1216,27 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val searchHandler: Handler<ListSearchResponse> =
-            jsonHandler<ListSearchResponse>(clientOptions.jsonMapper)
+        private val scheduleConversionHandler: Handler<Void?> = emptyHandler()
 
-        override fun search(
-            params: ListSearchParams,
+        override fun scheduleConversion(
+            params: ListScheduleConversionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ListSearchResponse>> {
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("listId", params.listId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "lists", "2026-03", "search")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .addPathSegments(
+                        "crm",
+                        "lists",
+                        "2026-03",
+                        params._pathParam(0),
+                        "schedule-conversion",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -1187,13 +1244,7 @@ class ListServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
-                        response
-                            .use { searchHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
+                        response.use { scheduleConversionHandler.handle(it) }
                     }
                 }
         }

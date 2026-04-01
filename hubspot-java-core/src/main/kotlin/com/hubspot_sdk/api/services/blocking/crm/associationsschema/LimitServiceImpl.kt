@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.blocking.crm.associationsschema
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.handlers.emptyHandler
 import com.hubspot_sdk.api.core.handlers.errorBodyHandler
 import com.hubspot_sdk.api.core.handlers.errorHandler
 import com.hubspot_sdk.api.core.handlers.jsonHandler
@@ -16,7 +17,6 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
 import com.hubspot_sdk.api.models.crm.associationsschema.CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging
 import com.hubspot_sdk.api.models.crm.associationsschema.limits.LimitBatchDeleteParams
@@ -45,13 +45,11 @@ class LimitServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /crm/associations/2026-03/definitions/configurations/all
         withRawResponse().list(params, requestOptions).parse()
 
-    override fun batchDelete(
-        params: LimitBatchDeleteParams,
-        requestOptions: RequestOptions,
-    ): BatchResponseVoid =
+    override fun batchDelete(params: LimitBatchDeleteParams, requestOptions: RequestOptions) {
         // post
         // /crm/associations/2026-03/definitions/configurations/{fromObjectType}/{toObjectType}/batch/purge
-        withRawResponse().batchDelete(params, requestOptions).parse()
+        withRawResponse().batchDelete(params, requestOptions)
+    }
 
     override fun batchUpdate(
         params: LimitBatchUpdateParams,
@@ -118,13 +116,12 @@ class LimitServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val batchDeleteHandler: Handler<BatchResponseVoid> =
-            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+        private val batchDeleteHandler: Handler<Void?> = emptyHandler()
 
         override fun batchDelete(
             params: LimitBatchDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseVoid> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toObjectType", params.toObjectType().getOrNull())
@@ -149,13 +146,7 @@ class LimitServiceImpl internal constructor(private val clientOptions: ClientOpt
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { batchDeleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { batchDeleteHandler.handle(it) }
             }
         }
 

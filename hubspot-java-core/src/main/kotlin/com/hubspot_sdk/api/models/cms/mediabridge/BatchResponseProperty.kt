@@ -15,7 +15,6 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
-import com.hubspot_sdk.api.models.StandardError
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -26,12 +25,10 @@ class BatchResponseProperty
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val completedAt: JsonField<OffsetDateTime>,
-    private val results: JsonField<List<Property1>>,
+    private val results: JsonField<List<Property>>,
     private val startedAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
-    private val errors: JsonField<List<StandardError>>,
     private val links: JsonField<Links>,
-    private val numErrors: JsonField<Int>,
     private val requestedAt: JsonField<OffsetDateTime>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -43,30 +40,16 @@ private constructor(
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("results")
         @ExcludeMissing
-        results: JsonField<List<Property1>> = JsonMissing.of(),
+        results: JsonField<List<Property>> = JsonMissing.of(),
         @JsonProperty("startedAt")
         @ExcludeMissing
         startedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        @JsonProperty("errors")
-        @ExcludeMissing
-        errors: JsonField<List<StandardError>> = JsonMissing.of(),
         @JsonProperty("links") @ExcludeMissing links: JsonField<Links> = JsonMissing.of(),
-        @JsonProperty("numErrors") @ExcludeMissing numErrors: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("requestedAt")
         @ExcludeMissing
         requestedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-    ) : this(
-        completedAt,
-        results,
-        startedAt,
-        status,
-        errors,
-        links,
-        numErrors,
-        requestedAt,
-        mutableMapOf(),
-    )
+    ) : this(completedAt, results, startedAt, status, links, requestedAt, mutableMapOf())
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -78,7 +61,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun results(): List<Property1> = results.getRequired("results")
+    fun results(): List<Property> = results.getRequired("results")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -96,19 +79,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun errors(): Optional<List<StandardError>> = errors.getOptional("errors")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
     fun links(): Optional<Links> = links.getOptional("links")
-
-    /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun numErrors(): Optional<Int> = numErrors.getOptional("numErrors")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -130,7 +101,7 @@ private constructor(
      *
      * Unlike [results], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<Property1>> = results
+    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<Property>> = results
 
     /**
      * Returns the raw JSON value of [startedAt].
@@ -149,25 +120,11 @@ private constructor(
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
-     * Returns the raw JSON value of [errors].
-     *
-     * Unlike [errors], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("errors") @ExcludeMissing fun _errors(): JsonField<List<StandardError>> = errors
-
-    /**
      * Returns the raw JSON value of [links].
      *
      * Unlike [links], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("links") @ExcludeMissing fun _links(): JsonField<Links> = links
-
-    /**
-     * Returns the raw JSON value of [numErrors].
-     *
-     * Unlike [numErrors], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("numErrors") @ExcludeMissing fun _numErrors(): JsonField<Int> = numErrors
 
     /**
      * Returns the raw JSON value of [requestedAt].
@@ -210,12 +167,10 @@ private constructor(
     class Builder internal constructor() {
 
         private var completedAt: JsonField<OffsetDateTime>? = null
-        private var results: JsonField<MutableList<Property1>>? = null
+        private var results: JsonField<MutableList<Property>>? = null
         private var startedAt: JsonField<OffsetDateTime>? = null
         private var status: JsonField<Status>? = null
-        private var errors: JsonField<MutableList<StandardError>>? = null
         private var links: JsonField<Links> = JsonMissing.of()
-        private var numErrors: JsonField<Int> = JsonMissing.of()
         private var requestedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -225,9 +180,7 @@ private constructor(
             results = batchResponseProperty.results.map { it.toMutableList() }
             startedAt = batchResponseProperty.startedAt
             status = batchResponseProperty.status
-            errors = batchResponseProperty.errors.map { it.toMutableList() }
             links = batchResponseProperty.links
-            numErrors = batchResponseProperty.numErrors
             requestedAt = batchResponseProperty.requestedAt
             additionalProperties = batchResponseProperty.additionalProperties.toMutableMap()
         }
@@ -245,25 +198,25 @@ private constructor(
             this.completedAt = completedAt
         }
 
-        fun results(results: List<Property1>) = results(JsonField.of(results))
+        fun results(results: List<Property>) = results(JsonField.of(results))
 
         /**
          * Sets [Builder.results] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.results] with a well-typed `List<Property1>` value
+         * You should usually call [Builder.results] with a well-typed `List<Property>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun results(results: JsonField<List<Property1>>) = apply {
+        fun results(results: JsonField<List<Property>>) = apply {
             this.results = results.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [Property1] to [results].
+         * Adds a single [Property] to [results].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResult(result: Property1) = apply {
+        fun addResult(result: Property) = apply {
             results =
                 (results ?: JsonField.of(mutableListOf())).also {
                     checkKnown("results", it).add(result)
@@ -291,31 +244,6 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        fun errors(errors: List<StandardError>) = errors(JsonField.of(errors))
-
-        /**
-         * Sets [Builder.errors] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.errors] with a well-typed `List<StandardError>` value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun errors(errors: JsonField<List<StandardError>>) = apply {
-            this.errors = errors.map { it.toMutableList() }
-        }
-
-        /**
-         * Adds a single [StandardError] to [errors].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addError(error: StandardError) = apply {
-            errors =
-                (errors ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("errors", it).add(error)
-                }
-        }
-
         fun links(links: Links) = links(JsonField.of(links))
 
         /**
@@ -325,16 +253,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun links(links: JsonField<Links>) = apply { this.links = links }
-
-        fun numErrors(numErrors: Int) = numErrors(JsonField.of(numErrors))
-
-        /**
-         * Sets [Builder.numErrors] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.numErrors] with a well-typed [Int] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun numErrors(numErrors: JsonField<Int>) = apply { this.numErrors = numErrors }
 
         fun requestedAt(requestedAt: OffsetDateTime) = requestedAt(JsonField.of(requestedAt))
 
@@ -389,9 +307,7 @@ private constructor(
                 checkRequired("results", results).map { it.toImmutable() },
                 checkRequired("startedAt", startedAt),
                 checkRequired("status", status),
-                (errors ?: JsonMissing.of()).map { it.toImmutable() },
                 links,
-                numErrors,
                 requestedAt,
                 additionalProperties.toMutableMap(),
             )
@@ -408,9 +324,7 @@ private constructor(
         results().forEach { it.validate() }
         startedAt()
         status().validate()
-        errors().ifPresent { it.forEach { it.validate() } }
         links().ifPresent { it.validate() }
-        numErrors()
         requestedAt()
         validated = true
     }
@@ -434,9 +348,7 @@ private constructor(
             (results.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (startedAt.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
-            (errors.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (links.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (numErrors.asKnown().isPresent) 1 else 0) +
             (if (requestedAt.asKnown().isPresent) 1 else 0)
 
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -685,9 +597,7 @@ private constructor(
             results == other.results &&
             startedAt == other.startedAt &&
             status == other.status &&
-            errors == other.errors &&
             links == other.links &&
-            numErrors == other.numErrors &&
             requestedAt == other.requestedAt &&
             additionalProperties == other.additionalProperties
     }
@@ -698,9 +608,7 @@ private constructor(
             results,
             startedAt,
             status,
-            errors,
             links,
-            numErrors,
             requestedAt,
             additionalProperties,
         )
@@ -709,5 +617,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "BatchResponseProperty{completedAt=$completedAt, results=$results, startedAt=$startedAt, status=$status, errors=$errors, links=$links, numErrors=$numErrors, requestedAt=$requestedAt, additionalProperties=$additionalProperties}"
+        "BatchResponseProperty{completedAt=$completedAt, results=$results, startedAt=$startedAt, status=$status, links=$links, requestedAt=$requestedAt, additionalProperties=$additionalProperties}"
 }

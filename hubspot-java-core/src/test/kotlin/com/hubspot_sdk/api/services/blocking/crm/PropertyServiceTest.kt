@@ -4,7 +4,7 @@ package com.hubspot_sdk.api.services.blocking.crm
 
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.PropertyCreate
+import com.hubspot_sdk.api.models.crm.properties.PropertyCreate
 import com.hubspot_sdk.api.models.crm.properties.PropertyCreateParams
 import com.hubspot_sdk.api.models.crm.properties.PropertyDeleteParams
 import com.hubspot_sdk.api.models.crm.properties.PropertyGetParams
@@ -34,6 +34,7 @@ internal class PropertyServiceTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
@@ -51,6 +52,7 @@ internal class PropertyServiceTest {
                                     .build()
                             )
                             .referencedObjectType("referencedObjectType")
+                            .showCurrencySymbol(true)
                             .build()
                     )
                     .build()
@@ -73,6 +75,7 @@ internal class PropertyServiceTest {
                     .propertyUpdate(
                         PropertyUpdate.builder()
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .description("description")
                             .displayOrder(0)
                             .fieldType(PropertyUpdate.FieldType.BOOLEANCHECKBOX)
@@ -89,6 +92,7 @@ internal class PropertyServiceTest {
                                     .description("description")
                                     .build()
                             )
+                            .showCurrencySymbol(true)
                             .type(PropertyUpdate.Type.BOOL)
                             .build()
                     )

@@ -5,8 +5,8 @@ package com.hubspot_sdk.api.services.blocking.crm.associationsschema
 import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchResponsePublicAssociationDefinitionConfigurationUpdateResult
 import com.hubspot_sdk.api.models.crm.associationsschema.CollectionResponsePublicAssociationDefinitionUserConfigurationNoPaging
 import com.hubspot_sdk.api.models.crm.associationsschema.limits.LimitBatchDeleteParams
@@ -57,7 +57,7 @@ interface LimitService {
     /**
      * Batch delete limits that have been defined for association types between two object types.
      */
-    fun batchDelete(toObjectType: String, params: LimitBatchDeleteParams): BatchResponseVoid =
+    fun batchDelete(toObjectType: String, params: LimitBatchDeleteParams) =
         batchDelete(toObjectType, params, RequestOptions.none())
 
     /** @see batchDelete */
@@ -65,18 +65,16 @@ interface LimitService {
         toObjectType: String,
         params: LimitBatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseVoid =
-        batchDelete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+    ) = batchDelete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see batchDelete */
-    fun batchDelete(params: LimitBatchDeleteParams): BatchResponseVoid =
-        batchDelete(params, RequestOptions.none())
+    fun batchDelete(params: LimitBatchDeleteParams) = batchDelete(params, RequestOptions.none())
 
     /** @see batchDelete */
     fun batchDelete(
         params: LimitBatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponseVoid
+    )
 
     /** Batch update association limits that have been configured between two object types. */
     fun batchUpdate(
@@ -183,10 +181,7 @@ interface LimitService {
          * but is otherwise the same as [LimitService.batchDelete].
          */
         @MustBeClosed
-        fun batchDelete(
-            toObjectType: String,
-            params: LimitBatchDeleteParams,
-        ): HttpResponseFor<BatchResponseVoid> =
+        fun batchDelete(toObjectType: String, params: LimitBatchDeleteParams): HttpResponse =
             batchDelete(toObjectType, params, RequestOptions.none())
 
         /** @see batchDelete */
@@ -195,12 +190,12 @@ interface LimitService {
             toObjectType: String,
             params: LimitBatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseVoid> =
+        ): HttpResponse =
             batchDelete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see batchDelete */
         @MustBeClosed
-        fun batchDelete(params: LimitBatchDeleteParams): HttpResponseFor<BatchResponseVoid> =
+        fun batchDelete(params: LimitBatchDeleteParams): HttpResponse =
             batchDelete(params, RequestOptions.none())
 
         /** @see batchDelete */
@@ -208,7 +203,7 @@ interface LimitService {
         fun batchDelete(
             params: LimitBatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponseVoid>
+        ): HttpResponse
 
         /**
          * Returns a raw HTTP response for `post

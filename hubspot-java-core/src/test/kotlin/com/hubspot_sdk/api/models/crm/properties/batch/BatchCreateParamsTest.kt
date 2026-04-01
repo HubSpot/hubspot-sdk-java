@@ -2,9 +2,9 @@
 
 package com.hubspot_sdk.api.models.crm.properties.batch
 
-import com.hubspot_sdk.api.models.BatchInputPropertyCreate
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.PropertyCreate
+import com.hubspot_sdk.api.models.crm.properties.BatchInputPropertyCreate
+import com.hubspot_sdk.api.models.crm.properties.PropertyCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -24,6 +24,7 @@ internal class BatchCreateParamsTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
@@ -41,6 +42,7 @@ internal class BatchCreateParamsTest {
                                     .build()
                             )
                             .referencedObjectType("referencedObjectType")
+                            .showCurrencySymbol(true)
                             .build()
                     )
                     .build()
@@ -88,6 +90,7 @@ internal class BatchCreateParamsTest {
                                 .name("name")
                                 .type(PropertyCreate.Type.BOOL)
                                 .calculationFormula("calculationFormula")
+                                .currencyPropertyName("currencyPropertyName")
                                 .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                                 .description("description")
                                 .displayOrder(0)
@@ -105,6 +108,7 @@ internal class BatchCreateParamsTest {
                                         .build()
                                 )
                                 .referencedObjectType("referencedObjectType")
+                                .showCurrencySymbol(true)
                                 .build()
                         )
                         .build()
@@ -124,6 +128,7 @@ internal class BatchCreateParamsTest {
                             .name("name")
                             .type(PropertyCreate.Type.BOOL)
                             .calculationFormula("calculationFormula")
+                            .currencyPropertyName("currencyPropertyName")
                             .dataSensitivity(PropertyCreate.DataSensitivity.HIGHLY_SENSITIVE)
                             .description("description")
                             .displayOrder(0)
@@ -141,6 +146,7 @@ internal class BatchCreateParamsTest {
                                     .build()
                             )
                             .referencedObjectType("referencedObjectType")
+                            .showCurrencySymbol(true)
                             .build()
                     )
                     .build()

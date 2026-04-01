@@ -5,6 +5,7 @@ package com.hubspot_sdk.api.services.blocking.crm.associations
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.checkRequired
+import com.hubspot_sdk.api.core.handlers.emptyHandler
 import com.hubspot_sdk.api.core.handlers.errorBodyHandler
 import com.hubspot_sdk.api.core.handlers.errorHandler
 import com.hubspot_sdk.api.core.handlers.jsonHandler
@@ -17,7 +18,6 @@ import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateParams
@@ -47,12 +47,10 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
         // /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun delete(
-        params: BatchDeleteParams,
-        requestOptions: RequestOptions,
-    ): BatchResponseVoid =
+    override fun delete(params: BatchDeleteParams, requestOptions: RequestOptions) {
         // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/archive
-        withRawResponse().delete(params, requestOptions).parse()
+        withRawResponse().delete(params, requestOptions)
+    }
 
     override fun createDefault(
         params: BatchCreateDefaultParams,
@@ -61,12 +59,10 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
         // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/associate/default
         withRawResponse().createDefault(params, requestOptions).parse()
 
-    override fun deleteLabels(
-        params: BatchDeleteLabelsParams,
-        requestOptions: RequestOptions,
-    ): BatchResponseVoid =
+    override fun deleteLabels(params: BatchDeleteLabelsParams, requestOptions: RequestOptions) {
         // post /crm/associations/2026-03/{fromObjectType}/{toObjectType}/batch/labels/archive
-        withRawResponse().deleteLabels(params, requestOptions).parse()
+        withRawResponse().deleteLabels(params, requestOptions)
+    }
 
     override fun get(
         params: BatchGetParams,
@@ -129,13 +125,12 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val deleteHandler: Handler<BatchResponseVoid> =
-            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+        private val deleteHandler: Handler<Void?> = emptyHandler()
 
         override fun delete(
             params: BatchDeleteParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseVoid> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toObjectType", params.toObjectType().getOrNull())
@@ -158,13 +153,7 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteHandler.handle(it) }
             }
         }
 
@@ -208,13 +197,12 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val deleteLabelsHandler: Handler<BatchResponseVoid> =
-            jsonHandler<BatchResponseVoid>(clientOptions.jsonMapper)
+        private val deleteLabelsHandler: Handler<Void?> = emptyHandler()
 
         override fun deleteLabels(
             params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseVoid> {
+        ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("toObjectType", params.toObjectType().getOrNull())
@@ -238,13 +226,7 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { deleteLabelsHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { deleteLabelsHandler.handle(it) }
             }
         }
 

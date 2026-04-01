@@ -31,18 +31,19 @@ import com.hubspot_sdk.api.models.crm.lists.ListCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListDeleteParams
-import com.hubspot_sdk.api.models.crm.lists.ListDeleteScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListFetchResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderCreateResponse
 import com.hubspot_sdk.api.models.crm.lists.ListFolderFetchResponse
-import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeIdAndNameParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetByObjectTypeAndNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetIdMappingParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderPage
+import com.hubspot_sdk.api.models.crm.lists.ListGetMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetRecordMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListGetScheduleConversionParams
+import com.hubspot_sdk.api.models.crm.lists.ListGetSizeAndEditsHistoryBetweenParams
+import com.hubspot_sdk.api.models.crm.lists.ListListBySearchParams
 import com.hubspot_sdk.api.models.crm.lists.ListListFoldersParams
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderPage
-import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsJoinOrderParams
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsPage
 import com.hubspot_sdk.api.models.crm.lists.ListListMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListListParams
@@ -51,8 +52,9 @@ import com.hubspot_sdk.api.models.crm.lists.ListMoveListParams
 import com.hubspot_sdk.api.models.crm.lists.ListRemoveMembershipsParams
 import com.hubspot_sdk.api.models.crm.lists.ListRenameFolderParams
 import com.hubspot_sdk.api.models.crm.lists.ListRestoreParams
-import com.hubspot_sdk.api.models.crm.lists.ListSearchParams
+import com.hubspot_sdk.api.models.crm.lists.ListScheduleConversionParams
 import com.hubspot_sdk.api.models.crm.lists.ListSearchResponse
+import com.hubspot_sdk.api.models.crm.lists.ListSizeAndEditHistoryResponse
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListFiltersParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateListNameParams
 import com.hubspot_sdk.api.models.crm.lists.ListUpdateResponse
@@ -148,24 +150,16 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
         withRawResponse().deleteMemberships(params, requestOptions)
     }
 
-    override fun deleteScheduleConversion(
-        params: ListDeleteScheduleConversionParams,
-        requestOptions: RequestOptions,
-    ) {
-        // delete /crm/lists/2026-03/{listId}/schedule-conversion
-        withRawResponse().deleteScheduleConversion(params, requestOptions)
-    }
-
     override fun get(params: ListGetParams, requestOptions: RequestOptions): ListFetchResponse =
         // get /crm/lists/2026-03/{listId}
         withRawResponse().get(params, requestOptions).parse()
 
-    override fun getByObjectTypeIdAndName(
-        params: ListGetByObjectTypeIdAndNameParams,
+    override fun getByObjectTypeAndName(
+        params: ListGetByObjectTypeAndNameParams,
         requestOptions: RequestOptions,
     ): ListFetchResponse =
         // get /crm/lists/2026-03/object-type-id/{objectTypeId}/name/{listName}
-        withRawResponse().getByObjectTypeIdAndName(params, requestOptions).parse()
+        withRawResponse().getByObjectTypeAndName(params, requestOptions).parse()
 
     override fun getIdMapping(
         params: ListGetIdMappingParams,
@@ -173,6 +167,13 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
     ): PublicMigrationMapping =
         // get /crm/lists/2026-03/idmapping
         withRawResponse().getIdMapping(params, requestOptions).parse()
+
+    override fun getMembershipsJoinOrder(
+        params: ListGetMembershipsJoinOrderParams,
+        requestOptions: RequestOptions,
+    ): ListGetMembershipsJoinOrderPage =
+        // get /crm/lists/2026-03/{listId}/memberships/join-order
+        withRawResponse().getMembershipsJoinOrder(params, requestOptions).parse()
 
     override fun getRecordMemberships(
         params: ListGetRecordMembershipsParams,
@@ -188,6 +189,20 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
         // get /crm/lists/2026-03/{listId}/schedule-conversion
         withRawResponse().getScheduleConversion(params, requestOptions).parse()
 
+    override fun getSizeAndEditsHistoryBetween(
+        params: ListGetSizeAndEditsHistoryBetweenParams,
+        requestOptions: RequestOptions,
+    ): ListSizeAndEditHistoryResponse =
+        // get /crm/lists/2026-03/{listId}/size-and-edits-history/between
+        withRawResponse().getSizeAndEditsHistoryBetween(params, requestOptions).parse()
+
+    override fun listBySearch(
+        params: ListListBySearchParams,
+        requestOptions: RequestOptions,
+    ): ListSearchResponse =
+        // post /crm/lists/2026-03/search
+        withRawResponse().listBySearch(params, requestOptions).parse()
+
     override fun listFolders(
         params: ListListFoldersParams,
         requestOptions: RequestOptions,
@@ -201,13 +216,6 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
     ): ListListMembershipsPage =
         // get /crm/lists/2026-03/{listId}/memberships
         withRawResponse().listMemberships(params, requestOptions).parse()
-
-    override fun listMembershipsJoinOrder(
-        params: ListListMembershipsJoinOrderParams,
-        requestOptions: RequestOptions,
-    ): ListListMembershipsJoinOrderPage =
-        // get /crm/lists/2026-03/{listId}/memberships/join-order
-        withRawResponse().listMembershipsJoinOrder(params, requestOptions).parse()
 
     override fun moveFolder(
         params: ListMoveFolderParams,
@@ -240,12 +248,13 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
         withRawResponse().restore(params, requestOptions)
     }
 
-    override fun search(
-        params: ListSearchParams,
+    override fun scheduleConversion(
+        params: ListScheduleConversionParams,
         requestOptions: RequestOptions,
-    ): ListSearchResponse =
-        // post /crm/lists/2026-03/search
-        withRawResponse().search(params, requestOptions).parse()
+    ) {
+        // delete /crm/lists/2026-03/{listId}/schedule-conversion
+        withRawResponse().scheduleConversion(params, requestOptions)
+    }
 
     override fun updateListFilters(
         params: ListUpdateListFiltersParams,
@@ -608,36 +617,6 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val deleteScheduleConversionHandler: Handler<Void?> = emptyHandler()
-
-        override fun deleteScheduleConversion(
-            params: ListDeleteScheduleConversionParams,
-            requestOptions: RequestOptions,
-        ): HttpResponse {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("listId", params.listId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.DELETE)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "lists",
-                        "2026-03",
-                        params._pathParam(0),
-                        "schedule-conversion",
-                    )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response.use { deleteScheduleConversionHandler.handle(it) }
-            }
-        }
-
         private val getHandler: Handler<ListFetchResponse> =
             jsonHandler<ListFetchResponse>(clientOptions.jsonMapper)
 
@@ -668,11 +647,11 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val getByObjectTypeIdAndNameHandler: Handler<ListFetchResponse> =
+        private val getByObjectTypeAndNameHandler: Handler<ListFetchResponse> =
             jsonHandler<ListFetchResponse>(clientOptions.jsonMapper)
 
-        override fun getByObjectTypeIdAndName(
-            params: ListGetByObjectTypeIdAndNameParams,
+        override fun getByObjectTypeAndName(
+            params: ListGetByObjectTypeAndNameParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<ListFetchResponse> {
             // We check here instead of in the params builder because this can be specified
@@ -697,7 +676,7 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getByObjectTypeIdAndNameHandler.handle(it) }
+                    .use { getByObjectTypeAndNameHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -729,6 +708,51 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+            }
+        }
+
+        private val getMembershipsJoinOrderHandler:
+            Handler<ApiCollectionResponseJoinTimeAndRecordId> =
+            jsonHandler<ApiCollectionResponseJoinTimeAndRecordId>(clientOptions.jsonMapper)
+
+        override fun getMembershipsJoinOrder(
+            params: ListGetMembershipsJoinOrderParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ListGetMembershipsJoinOrderPage> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("listId", params.listId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "lists",
+                        "2026-03",
+                        params._pathParam(0),
+                        "memberships",
+                        "join-order",
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getMembershipsJoinOrderHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        ListGetMembershipsJoinOrderPage.builder()
+                            .service(ListServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }
@@ -808,6 +832,71 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
+        private val getSizeAndEditsHistoryBetweenHandler: Handler<ListSizeAndEditHistoryResponse> =
+            jsonHandler<ListSizeAndEditHistoryResponse>(clientOptions.jsonMapper)
+
+        override fun getSizeAndEditsHistoryBetween(
+            params: ListGetSizeAndEditsHistoryBetweenParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ListSizeAndEditHistoryResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("listId", params.listId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "lists",
+                        "2026-03",
+                        params._pathParam(0),
+                        "size-and-edits-history",
+                        "between",
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getSizeAndEditsHistoryBetweenHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listBySearchHandler: Handler<ListSearchResponse> =
+            jsonHandler<ListSearchResponse>(clientOptions.jsonMapper)
+
+        override fun listBySearch(
+            params: ListListBySearchParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<ListSearchResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "lists", "2026-03", "search")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listBySearchHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val listFoldersHandler: Handler<ListFolderFetchResponse> =
             jsonHandler<ListFolderFetchResponse>(clientOptions.jsonMapper)
 
@@ -864,51 +953,6 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
                     }
                     .let {
                         ListListMembershipsPage.builder()
-                            .service(ListServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
-                    }
-            }
-        }
-
-        private val listMembershipsJoinOrderHandler:
-            Handler<ApiCollectionResponseJoinTimeAndRecordId> =
-            jsonHandler<ApiCollectionResponseJoinTimeAndRecordId>(clientOptions.jsonMapper)
-
-        override fun listMembershipsJoinOrder(
-            params: ListListMembershipsJoinOrderParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<ListListMembershipsJoinOrderPage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("listId", params.listId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "lists",
-                        "2026-03",
-                        params._pathParam(0),
-                        "memberships",
-                        "join-order",
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listMembershipsJoinOrderHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-                    .let {
-                        ListListMembershipsJoinOrderPage.builder()
                             .service(ListServiceImpl(clientOptions))
                             .params(params)
                             .response(it)
@@ -1077,31 +1121,33 @@ class ListServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val searchHandler: Handler<ListSearchResponse> =
-            jsonHandler<ListSearchResponse>(clientOptions.jsonMapper)
+        private val scheduleConversionHandler: Handler<Void?> = emptyHandler()
 
-        override fun search(
-            params: ListSearchParams,
+        override fun scheduleConversion(
+            params: ListScheduleConversionParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ListSearchResponse> {
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("listId", params.listId().getOrNull())
             val request =
                 HttpRequest.builder()
-                    .method(HttpMethod.POST)
+                    .method(HttpMethod.DELETE)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("crm", "lists", "2026-03", "search")
-                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .addPathSegments(
+                        "crm",
+                        "lists",
+                        "2026-03",
+                        params._pathParam(0),
+                        "schedule-conversion",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response
-                    .use { searchHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
+                response.use { scheduleConversionHandler.handle(it) }
             }
         }
 

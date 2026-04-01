@@ -4,9 +4,9 @@ package com.hubspot_sdk.api.services.async.crm.associations
 
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
+import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
-import com.hubspot_sdk.api.models.crm.BatchResponseVoid
 import com.hubspot_sdk.api.models.crm.associations.BatchResponsePublicAssociationMultiWithLabel
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateDefaultParams
 import com.hubspot_sdk.api.models.crm.associations.batch.BatchCreateParams
@@ -57,28 +57,26 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponsePublicDefaultAssociation>
 
     /** Batch delete associations for objects */
-    fun delete(
-        toObjectType: String,
-        params: BatchDeleteParams,
-    ): CompletableFuture<BatchResponseVoid> = delete(toObjectType, params, RequestOptions.none())
+    fun delete(toObjectType: String, params: BatchDeleteParams): CompletableFuture<Void?> =
+        delete(toObjectType, params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         toObjectType: String,
         params: BatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseVoid> =
+    ): CompletableFuture<Void?> =
         delete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see delete */
-    fun delete(params: BatchDeleteParams): CompletableFuture<BatchResponseVoid> =
+    fun delete(params: BatchDeleteParams): CompletableFuture<Void?> =
         delete(params, RequestOptions.none())
 
     /** @see delete */
     fun delete(
         params: BatchDeleteParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseVoid>
+    ): CompletableFuture<Void?>
 
     /** Create the default (most generic) association type between two object types */
     fun createDefault(
@@ -114,26 +112,25 @@ interface BatchServiceAsync {
     fun deleteLabels(
         toObjectType: String,
         params: BatchDeleteLabelsParams,
-    ): CompletableFuture<BatchResponseVoid> =
-        deleteLabels(toObjectType, params, RequestOptions.none())
+    ): CompletableFuture<Void?> = deleteLabels(toObjectType, params, RequestOptions.none())
 
     /** @see deleteLabels */
     fun deleteLabels(
         toObjectType: String,
         params: BatchDeleteLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseVoid> =
+    ): CompletableFuture<Void?> =
         deleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
     /** @see deleteLabels */
-    fun deleteLabels(params: BatchDeleteLabelsParams): CompletableFuture<BatchResponseVoid> =
+    fun deleteLabels(params: BatchDeleteLabelsParams): CompletableFuture<Void?> =
         deleteLabels(params, RequestOptions.none())
 
     /** @see deleteLabels */
     fun deleteLabels(
         params: BatchDeleteLabelsParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BatchResponseVoid>
+    ): CompletableFuture<Void?>
 
     /**
      * Batch read associations for objects to specific object type. The 'after' field in a returned
@@ -218,28 +215,25 @@ interface BatchServiceAsync {
         fun delete(
             toObjectType: String,
             params: BatchDeleteParams,
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
-            delete(toObjectType, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponse> = delete(toObjectType, params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             toObjectType: String,
             params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        ): CompletableFuture<HttpResponse> =
             delete(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see delete */
-        fun delete(
-            params: BatchDeleteParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        fun delete(params: BatchDeleteParams): CompletableFuture<HttpResponse> =
             delete(params, RequestOptions.none())
 
         /** @see delete */
         fun delete(
             params: BatchDeleteParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>>
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `post
@@ -280,7 +274,7 @@ interface BatchServiceAsync {
         fun deleteLabels(
             toObjectType: String,
             params: BatchDeleteLabelsParams,
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        ): CompletableFuture<HttpResponse> =
             deleteLabels(toObjectType, params, RequestOptions.none())
 
         /** @see deleteLabels */
@@ -288,20 +282,18 @@ interface BatchServiceAsync {
             toObjectType: String,
             params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        ): CompletableFuture<HttpResponse> =
             deleteLabels(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
 
         /** @see deleteLabels */
-        fun deleteLabels(
-            params: BatchDeleteLabelsParams
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>> =
+        fun deleteLabels(params: BatchDeleteLabelsParams): CompletableFuture<HttpResponse> =
             deleteLabels(params, RequestOptions.none())
 
         /** @see deleteLabels */
         fun deleteLabels(
             params: BatchDeleteLabelsParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BatchResponseVoid>>
+        ): CompletableFuture<HttpResponse>
 
         /**
          * Returns a raw HTTP response for `post

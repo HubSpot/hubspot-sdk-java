@@ -255,7 +255,7 @@ internal class RowServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val rowServiceAsync = client.cms().hubdb().rows()
 
-        val batchResponseHubDbTableRowV3Future =
+        val future =
             rowServiceAsync.purgeBatch(
                 RowPurgeBatchParams.builder()
                     .tableIdOrName("tableIdOrName")
@@ -263,8 +263,7 @@ internal class RowServiceAsyncTest {
                     .build()
             )
 
-        val batchResponseHubDbTableRowV3 = batchResponseHubDbTableRowV3Future.get()
-        batchResponseHubDbTableRowV3.validate()
+        val response = future.get()
     }
 
     @Disabled("Mock server tests are disabled")

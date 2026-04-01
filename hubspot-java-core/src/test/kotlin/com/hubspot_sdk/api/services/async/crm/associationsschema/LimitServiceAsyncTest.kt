@@ -35,7 +35,7 @@ internal class LimitServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().associationsSchema().limits()
 
-        val batchResponseVoidFuture =
+        val future =
             limitServiceAsync.batchDelete(
                 LimitBatchDeleteParams.builder()
                     .fromObjectType("fromObjectType")
@@ -53,8 +53,7 @@ internal class LimitServiceAsyncTest {
                     .build()
             )
 
-        val batchResponseVoid = batchResponseVoidFuture.get()
-        batchResponseVoid.validate()
+        val response = future.get()
     }
 
     @Disabled("Mock server tests are disabled")

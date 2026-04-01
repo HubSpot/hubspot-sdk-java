@@ -8,11 +8,13 @@ import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.PublicAssociationsForObject
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputForCreate
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInputUpsert
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.goaltargets.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
@@ -126,5 +128,34 @@ internal class BatchServiceAsyncTest {
 
         val batchResponseSimplePublicObject = batchResponseSimplePublicObjectFuture.get()
         batchResponseSimplePublicObject.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun upsert() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val batchServiceAsync = client.crm().objects().goalTargets().batch()
+
+        val batchResponseSimplePublicUpsertObjectFuture =
+            batchServiceAsync.upsert(
+                BatchInputSimplePublicObjectBatchInputUpsert.builder()
+                    .addInput(
+                        SimplePublicObjectBatchInputUpsert.builder()
+                            .id("id")
+                            .properties(
+                                SimplePublicObjectBatchInputUpsert.Properties.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .idProperty("idProperty")
+                            .objectWriteTraceId("objectWriteTraceId")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val batchResponseSimplePublicUpsertObject =
+            batchResponseSimplePublicUpsertObjectFuture.get()
+        batchResponseSimplePublicUpsertObject.validate()
     }
 }

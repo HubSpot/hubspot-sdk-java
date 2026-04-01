@@ -2,9 +2,9 @@
 
 package com.hubspot_sdk.api.models.cms.mediabridge.batch
 
-import com.hubspot_sdk.api.models.BatchInputPropertyCreate
 import com.hubspot_sdk.api.models.OptionInput
-import com.hubspot_sdk.api.models.PropertyCreate
+import com.hubspot_sdk.api.models.cms.mediabridge.BatchInputPropertyCreate
+import com.hubspot_sdk.api.models.cms.mediabridge.PropertyCreate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
