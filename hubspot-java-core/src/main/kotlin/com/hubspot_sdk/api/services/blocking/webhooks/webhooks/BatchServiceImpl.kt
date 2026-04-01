@@ -18,11 +18,15 @@ import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
 import com.hubspot_sdk.api.models.webhooks.webhooks.BatchResponseJournalFetchResponse
 import com.hubspot_sdk.api.models.webhooks.webhooks.BatchResponseSubscriptionResponse
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetEarliestParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalNextParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetNextParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchReadParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchUpdateSubscriptionsParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -38,12 +42,12 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BatchService =
         BatchServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: BatchCreateParams,
+    override fun get(
+        params: BatchGetParams,
         requestOptions: RequestOptions,
-    ): BatchResponseSubscriptionResponse =
-        // post /webhooks/2026-03/{appId}/subscriptions/batch/update
-        withRawResponse().create(params, requestOptions).parse()
+    ): BatchResponseJournalFetchResponse =
+        // post /webhooks-journal/journal-local/2026-03/batch/read
+        withRawResponse().get(params, requestOptions).parse()
 
     override fun getEarliest(
         params: BatchGetEarliestParams,
@@ -59,6 +63,34 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /webhooks-journal/journal/2026-03/batch/latest/{count}
         withRawResponse().getLatest(params, requestOptions).parse()
 
+    override fun getLocal(
+        params: BatchGetLocalParams,
+        requestOptions: RequestOptions,
+    ): BatchResponseJournalFetchResponse =
+        // post /webhooks-journal/journal/2026-03/batch/read
+        withRawResponse().getLocal(params, requestOptions).parse()
+
+    override fun getLocalEarliest(
+        params: BatchGetLocalEarliestParams,
+        requestOptions: RequestOptions,
+    ): BatchResponseJournalFetchResponse =
+        // get /webhooks-journal/journal-local/2026-03/batch/earliest/{count}
+        withRawResponse().getLocalEarliest(params, requestOptions).parse()
+
+    override fun getLocalLatest(
+        params: BatchGetLocalLatestParams,
+        requestOptions: RequestOptions,
+    ): BatchResponseJournalFetchResponse =
+        // get /webhooks-journal/journal-local/2026-03/batch/latest/{count}
+        withRawResponse().getLocalLatest(params, requestOptions).parse()
+
+    override fun getLocalNext(
+        params: BatchGetLocalNextParams,
+        requestOptions: RequestOptions,
+    ): BatchResponseJournalFetchResponse =
+        // get /webhooks-journal/journal-local/2026-03/batch/{offset}/next/{count}
+        withRawResponse().getLocalNext(params, requestOptions).parse()
+
     override fun getNext(
         params: BatchGetNextParams,
         requestOptions: RequestOptions,
@@ -66,12 +98,12 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /webhooks-journal/journal/2026-03/batch/{offset}/next/{count}
         withRawResponse().getNext(params, requestOptions).parse()
 
-    override fun read(
-        params: BatchReadParams,
+    override fun updateSubscriptions(
+        params: BatchUpdateSubscriptionsParams,
         requestOptions: RequestOptions,
-    ): BatchResponseJournalFetchResponse =
-        // post /webhooks-journal/journal/2026-03/batch/read
-        withRawResponse().read(params, requestOptions).parse()
+    ): BatchResponseSubscriptionResponse =
+        // post /webhooks/2026-03/{appId}/subscriptions/batch/update
+        withRawResponse().updateSubscriptions(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BatchService.WithRawResponse {
@@ -86,27 +118,23 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<BatchResponseSubscriptionResponse> =
-            jsonHandler<BatchResponseSubscriptionResponse>(clientOptions.jsonMapper)
+        private val getHandler: Handler<BatchResponseJournalFetchResponse> =
+            jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
 
-        override fun create(
-            params: BatchCreateParams,
+        override fun get(
+            params: BatchGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseSubscriptionResponse> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("appId", params.appId().getOrNull())
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments(
-                        "webhooks",
+                        "webhooks-journal",
+                        "journal-local",
                         "2026-03",
-                        params._pathParam(0),
-                        "subscriptions",
                         "batch",
-                        "update",
+                        "read",
                     )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
@@ -115,7 +143,7 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createHandler.handle(it) }
+                    .use { getHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -198,6 +226,146 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
+        private val getLocalHandler: Handler<BatchResponseJournalFetchResponse> =
+            jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
+
+        override fun getLocal(
+            params: BatchGetLocalParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("webhooks-journal", "journal", "2026-03", "batch", "read")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getLocalHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getLocalEarliestHandler: Handler<BatchResponseJournalFetchResponse> =
+            jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
+
+        override fun getLocalEarliest(
+            params: BatchGetLocalEarliestParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("count", params.count().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks-journal",
+                        "journal-local",
+                        "2026-03",
+                        "batch",
+                        "earliest",
+                        params._pathParam(0),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getLocalEarliestHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getLocalLatestHandler: Handler<BatchResponseJournalFetchResponse> =
+            jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
+
+        override fun getLocalLatest(
+            params: BatchGetLocalLatestParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("count", params.count().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks-journal",
+                        "journal-local",
+                        "2026-03",
+                        "batch",
+                        "latest",
+                        params._pathParam(0),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getLocalLatestHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getLocalNextHandler: Handler<BatchResponseJournalFetchResponse> =
+            jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
+
+        override fun getLocalNext(
+            params: BatchGetLocalNextParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<BatchResponseJournalFetchResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("count", params.count().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "webhooks-journal",
+                        "journal-local",
+                        "2026-03",
+                        "batch",
+                        params._pathParam(0),
+                        "next",
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getLocalNextHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
         private val getNextHandler: Handler<BatchResponseJournalFetchResponse> =
             jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
 
@@ -236,18 +404,28 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val readHandler: Handler<BatchResponseJournalFetchResponse> =
-            jsonHandler<BatchResponseJournalFetchResponse>(clientOptions.jsonMapper)
+        private val updateSubscriptionsHandler: Handler<BatchResponseSubscriptionResponse> =
+            jsonHandler<BatchResponseSubscriptionResponse>(clientOptions.jsonMapper)
 
-        override fun read(
-            params: BatchReadParams,
+        override fun updateSubscriptions(
+            params: BatchUpdateSubscriptionsParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BatchResponseJournalFetchResponse> {
+        ): HttpResponseFor<BatchResponseSubscriptionResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("appId", params.appId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("webhooks-journal", "journal", "2026-03", "batch", "read")
+                    .addPathSegments(
+                        "webhooks",
+                        "2026-03",
+                        params._pathParam(0),
+                        "subscriptions",
+                        "batch",
+                        "update",
+                    )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -255,7 +433,7 @@ class BatchServiceImpl internal constructor(private val clientOptions: ClientOpt
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { readHandler.handle(it) }
+                    .use { updateSubscriptionsHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

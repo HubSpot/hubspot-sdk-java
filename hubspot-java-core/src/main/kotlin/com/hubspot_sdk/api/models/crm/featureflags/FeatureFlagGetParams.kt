@@ -10,21 +10,18 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve the account-level flag state of a specific HubSpot account. */
+/** Retrieve the current status of the app's feature flags. No request body is included. */
 class FeatureFlagGetParams
 private constructor(
     private val appId: Int,
-    private val flagName: String,
-    private val portalId: Int?,
+    private val flagName: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun appId(): Int = appId
 
-    fun flagName(): String = flagName
-
-    fun portalId(): Optional<Int> = Optional.ofNullable(portalId)
+    fun flagName(): Optional<String> = Optional.ofNullable(flagName)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -42,7 +39,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .flagName()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -53,7 +49,6 @@ private constructor(
 
         private var appId: Int? = null
         private var flagName: String? = null
-        private var portalId: Int? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -61,26 +56,16 @@ private constructor(
         internal fun from(featureFlagGetParams: FeatureFlagGetParams) = apply {
             appId = featureFlagGetParams.appId
             flagName = featureFlagGetParams.flagName
-            portalId = featureFlagGetParams.portalId
             additionalHeaders = featureFlagGetParams.additionalHeaders.toBuilder()
             additionalQueryParams = featureFlagGetParams.additionalQueryParams.toBuilder()
         }
 
         fun appId(appId: Int) = apply { this.appId = appId }
 
-        fun flagName(flagName: String) = apply { this.flagName = flagName }
+        fun flagName(flagName: String?) = apply { this.flagName = flagName }
 
-        fun portalId(portalId: Int?) = apply { this.portalId = portalId }
-
-        /**
-         * Alias for [Builder.portalId].
-         *
-         * This unboxed primitive overload exists for backwards compatibility.
-         */
-        fun portalId(portalId: Int) = portalId(portalId as Int?)
-
-        /** Alias for calling [Builder.portalId] with `portalId.orElse(null)`. */
-        fun portalId(portalId: Optional<Int>) = portalId(portalId.getOrNull())
+        /** Alias for calling [Builder.flagName] with `flagName.orElse(null)`. */
+        fun flagName(flagName: Optional<String>) = flagName(flagName.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -188,7 +173,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .appId()
-         * .flagName()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -196,8 +180,7 @@ private constructor(
         fun build(): FeatureFlagGetParams =
             FeatureFlagGetParams(
                 checkRequired("appId", appId),
-                checkRequired("flagName", flagName),
-                portalId,
+                flagName,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -206,8 +189,7 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> appId.toString()
-            1 -> flagName
-            2 -> portalId?.toString() ?: ""
+            1 -> flagName ?: ""
             else -> ""
         }
 
@@ -223,14 +205,13 @@ private constructor(
         return other is FeatureFlagGetParams &&
             appId == other.appId &&
             flagName == other.flagName &&
-            portalId == other.portalId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(appId, flagName, portalId, additionalHeaders, additionalQueryParams)
+        Objects.hash(appId, flagName, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "FeatureFlagGetParams{appId=$appId, flagName=$flagName, portalId=$portalId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "FeatureFlagGetParams{appId=$appId, flagName=$flagName, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

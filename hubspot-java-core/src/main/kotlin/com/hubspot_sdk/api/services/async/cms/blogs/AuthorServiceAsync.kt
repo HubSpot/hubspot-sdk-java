@@ -14,13 +14,14 @@ import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateLanguageVariatio
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorCreateParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDeleteParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorDetachFromLangGroupParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetPostsCursorParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorByQueryParams
+import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorGetTagsCursorParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListPostsParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsByQueryParams
-import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorListTagsParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorSetNewLangPrimaryParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateLanguagesParams
 import com.hubspot_sdk.api.models.cms.blogs.authors.AuthorUpdateParams
@@ -92,6 +93,10 @@ interface AuthorServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
+    /**
+     * Get the list of blog authors. Supports paging and filtering. This method would be useful for
+     * an integration that examined these models and used an external service to suggest edits.
+     */
     fun list(): CompletableFuture<HttpResponse> = list(AuthorListParams.none())
 
     /** @see list */
@@ -258,92 +263,112 @@ interface AuthorServiceAsync {
     fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
         get(objectId, AuthorGetParams.none(), requestOptions)
 
-    fun listByQuery(): CompletableFuture<HttpResponse> = listByQuery(AuthorListByQueryParams.none())
+    fun getCursor(): CompletableFuture<HttpResponse> = getCursor(AuthorGetCursorParams.none())
 
-    /** @see listByQuery */
-    fun listByQuery(
-        params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+    /** @see getCursor */
+    fun getCursor(
+        params: AuthorGetCursorParams = AuthorGetCursorParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    /** @see listByQuery */
-    fun listByQuery(
-        params: AuthorListByQueryParams = AuthorListByQueryParams.none()
-    ): CompletableFuture<HttpResponse> = listByQuery(params, RequestOptions.none())
+    /** @see getCursor */
+    fun getCursor(
+        params: AuthorGetCursorParams = AuthorGetCursorParams.none()
+    ): CompletableFuture<HttpResponse> = getCursor(params, RequestOptions.none())
 
-    /** @see listByQuery */
-    fun listByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-        listByQuery(AuthorListByQueryParams.none(), requestOptions)
+    /** @see getCursor */
+    fun getCursor(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        getCursor(AuthorGetCursorParams.none(), requestOptions)
 
-    fun listPosts(): CompletableFuture<HttpResponse> = listPosts(AuthorListPostsParams.none())
+    fun getCursorByQuery(): CompletableFuture<HttpResponse> =
+        getCursorByQuery(AuthorGetCursorByQueryParams.none())
 
-    /** @see listPosts */
-    fun listPosts(
-        params: AuthorListPostsParams = AuthorListPostsParams.none(),
+    /** @see getCursorByQuery */
+    fun getCursorByQuery(
+        params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    /** @see listPosts */
-    fun listPosts(
-        params: AuthorListPostsParams = AuthorListPostsParams.none()
-    ): CompletableFuture<HttpResponse> = listPosts(params, RequestOptions.none())
+    /** @see getCursorByQuery */
+    fun getCursorByQuery(
+        params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none()
+    ): CompletableFuture<HttpResponse> = getCursorByQuery(params, RequestOptions.none())
 
-    /** @see listPosts */
-    fun listPosts(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-        listPosts(AuthorListPostsParams.none(), requestOptions)
+    /** @see getCursorByQuery */
+    fun getCursorByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        getCursorByQuery(AuthorGetCursorByQueryParams.none(), requestOptions)
 
-    fun listPostsByQuery(): CompletableFuture<HttpResponse> =
-        listPostsByQuery(AuthorListPostsByQueryParams.none())
+    fun getPostsCursor(): CompletableFuture<HttpResponse> =
+        getPostsCursor(AuthorGetPostsCursorParams.none())
 
-    /** @see listPostsByQuery */
-    fun listPostsByQuery(
-        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+    /** @see getPostsCursor */
+    fun getPostsCursor(
+        params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    /** @see listPostsByQuery */
-    fun listPostsByQuery(
-        params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
-    ): CompletableFuture<HttpResponse> = listPostsByQuery(params, RequestOptions.none())
+    /** @see getPostsCursor */
+    fun getPostsCursor(
+        params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none()
+    ): CompletableFuture<HttpResponse> = getPostsCursor(params, RequestOptions.none())
 
-    /** @see listPostsByQuery */
-    fun listPostsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-        listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+    /** @see getPostsCursor */
+    fun getPostsCursor(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        getPostsCursor(AuthorGetPostsCursorParams.none(), requestOptions)
 
-    fun listTags(): CompletableFuture<HttpResponse> = listTags(AuthorListTagsParams.none())
+    fun getPostsCursorByQuery(): CompletableFuture<HttpResponse> =
+        getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none())
 
-    /** @see listTags */
-    fun listTags(
-        params: AuthorListTagsParams = AuthorListTagsParams.none(),
+    /** @see getPostsCursorByQuery */
+    fun getPostsCursorByQuery(
+        params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    /** @see listTags */
-    fun listTags(
-        params: AuthorListTagsParams = AuthorListTagsParams.none()
-    ): CompletableFuture<HttpResponse> = listTags(params, RequestOptions.none())
+    /** @see getPostsCursorByQuery */
+    fun getPostsCursorByQuery(
+        params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none()
+    ): CompletableFuture<HttpResponse> = getPostsCursorByQuery(params, RequestOptions.none())
 
-    /** @see listTags */
-    fun listTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-        listTags(AuthorListTagsParams.none(), requestOptions)
+    /** @see getPostsCursorByQuery */
+    fun getPostsCursorByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none(), requestOptions)
 
-    fun listTagsByQuery(): CompletableFuture<HttpResponse> =
-        listTagsByQuery(AuthorListTagsByQueryParams.none())
+    fun getTagsCursor(): CompletableFuture<HttpResponse> =
+        getTagsCursor(AuthorGetTagsCursorParams.none())
 
-    /** @see listTagsByQuery */
-    fun listTagsByQuery(
-        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+    /** @see getTagsCursor */
+    fun getTagsCursor(
+        params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<HttpResponse>
 
-    /** @see listTagsByQuery */
-    fun listTagsByQuery(
-        params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
-    ): CompletableFuture<HttpResponse> = listTagsByQuery(params, RequestOptions.none())
+    /** @see getTagsCursor */
+    fun getTagsCursor(
+        params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none()
+    ): CompletableFuture<HttpResponse> = getTagsCursor(params, RequestOptions.none())
 
-    /** @see listTagsByQuery */
-    fun listTagsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-        listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
+    /** @see getTagsCursor */
+    fun getTagsCursor(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        getTagsCursor(AuthorGetTagsCursorParams.none(), requestOptions)
+
+    fun getTagsCursorByQuery(): CompletableFuture<HttpResponse> =
+        getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none())
+
+    /** @see getTagsCursorByQuery */
+    fun getTagsCursorByQuery(
+        params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see getTagsCursorByQuery */
+    fun getTagsCursorByQuery(
+        params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none()
+    ): CompletableFuture<HttpResponse> = getTagsCursorByQuery(params, RequestOptions.none())
+
+    /** @see getTagsCursorByQuery */
+    fun getTagsCursorByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none(), requestOptions)
 
     /** Set a Blog Author as the primary language of a multi-language group. */
     fun setNewLangPrimary(params: AuthorSetNewLangPrimaryParams): CompletableFuture<Void?> =
@@ -467,8 +492,8 @@ interface AuthorServiceAsync {
         ): CompletableFuture<HttpResponse>
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
-         * the same as [AuthorServiceAsync.list].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors`, but is otherwise the
+         * same as [AuthorServiceAsync.list].
          */
         fun list(): CompletableFuture<HttpResponse> = list(AuthorListParams.none())
 
@@ -660,112 +685,135 @@ interface AuthorServiceAsync {
             get(objectId, AuthorGetParams.none(), requestOptions)
 
         /**
-         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
-         * otherwise the same as [AuthorServiceAsync.listByQuery].
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor`, but is otherwise
+         * the same as [AuthorServiceAsync.getCursor].
          */
-        fun listByQuery(): CompletableFuture<HttpResponse> =
-            listByQuery(AuthorListByQueryParams.none())
+        fun getCursor(): CompletableFuture<HttpResponse> = getCursor(AuthorGetCursorParams.none())
 
-        /** @see listByQuery */
-        fun listByQuery(
-            params: AuthorListByQueryParams = AuthorListByQueryParams.none(),
+        /** @see getCursor */
+        fun getCursor(
+            params: AuthorGetCursorParams = AuthorGetCursorParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see listByQuery */
-        fun listByQuery(
-            params: AuthorListByQueryParams = AuthorListByQueryParams.none()
-        ): CompletableFuture<HttpResponse> = listByQuery(params, RequestOptions.none())
+        /** @see getCursor */
+        fun getCursor(
+            params: AuthorGetCursorParams = AuthorGetCursorParams.none()
+        ): CompletableFuture<HttpResponse> = getCursor(params, RequestOptions.none())
 
-        /** @see listByQuery */
-        fun listByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-            listByQuery(AuthorListByQueryParams.none(), requestOptions)
+        /** @see getCursor */
+        fun getCursor(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            getCursor(AuthorGetCursorParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /cms/blogs/2026-03/authors/cursor/query`, but is
+         * otherwise the same as [AuthorServiceAsync.getCursorByQuery].
+         */
+        fun getCursorByQuery(): CompletableFuture<HttpResponse> =
+            getCursorByQuery(AuthorGetCursorByQueryParams.none())
+
+        /** @see getCursorByQuery */
+        fun getCursorByQuery(
+            params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see getCursorByQuery */
+        fun getCursorByQuery(
+            params: AuthorGetCursorByQueryParams = AuthorGetCursorByQueryParams.none()
+        ): CompletableFuture<HttpResponse> = getCursorByQuery(params, RequestOptions.none())
+
+        /** @see getCursorByQuery */
+        fun getCursorByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            getCursorByQuery(AuthorGetCursorByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor`, but is otherwise
-         * the same as [AuthorServiceAsync.listPosts].
+         * the same as [AuthorServiceAsync.getPostsCursor].
          */
-        fun listPosts(): CompletableFuture<HttpResponse> = listPosts(AuthorListPostsParams.none())
+        fun getPostsCursor(): CompletableFuture<HttpResponse> =
+            getPostsCursor(AuthorGetPostsCursorParams.none())
 
-        /** @see listPosts */
-        fun listPosts(
-            params: AuthorListPostsParams = AuthorListPostsParams.none(),
+        /** @see getPostsCursor */
+        fun getPostsCursor(
+            params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see listPosts */
-        fun listPosts(
-            params: AuthorListPostsParams = AuthorListPostsParams.none()
-        ): CompletableFuture<HttpResponse> = listPosts(params, RequestOptions.none())
+        /** @see getPostsCursor */
+        fun getPostsCursor(
+            params: AuthorGetPostsCursorParams = AuthorGetPostsCursorParams.none()
+        ): CompletableFuture<HttpResponse> = getPostsCursor(params, RequestOptions.none())
 
-        /** @see listPosts */
-        fun listPosts(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-            listPosts(AuthorListPostsParams.none(), requestOptions)
+        /** @see getPostsCursor */
+        fun getPostsCursor(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            getPostsCursor(AuthorGetPostsCursorParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/posts/cursor/query`, but is
-         * otherwise the same as [AuthorServiceAsync.listPostsByQuery].
+         * otherwise the same as [AuthorServiceAsync.getPostsCursorByQuery].
          */
-        fun listPostsByQuery(): CompletableFuture<HttpResponse> =
-            listPostsByQuery(AuthorListPostsByQueryParams.none())
+        fun getPostsCursorByQuery(): CompletableFuture<HttpResponse> =
+            getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none())
 
-        /** @see listPostsByQuery */
-        fun listPostsByQuery(
-            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none(),
+        /** @see getPostsCursorByQuery */
+        fun getPostsCursorByQuery(
+            params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see listPostsByQuery */
-        fun listPostsByQuery(
-            params: AuthorListPostsByQueryParams = AuthorListPostsByQueryParams.none()
-        ): CompletableFuture<HttpResponse> = listPostsByQuery(params, RequestOptions.none())
+        /** @see getPostsCursorByQuery */
+        fun getPostsCursorByQuery(
+            params: AuthorGetPostsCursorByQueryParams = AuthorGetPostsCursorByQueryParams.none()
+        ): CompletableFuture<HttpResponse> = getPostsCursorByQuery(params, RequestOptions.none())
 
-        /** @see listPostsByQuery */
-        fun listPostsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-            listPostsByQuery(AuthorListPostsByQueryParams.none(), requestOptions)
+        /** @see getPostsCursorByQuery */
+        fun getPostsCursorByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            getPostsCursorByQuery(AuthorGetPostsCursorByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor`, but is otherwise
-         * the same as [AuthorServiceAsync.listTags].
+         * the same as [AuthorServiceAsync.getTagsCursor].
          */
-        fun listTags(): CompletableFuture<HttpResponse> = listTags(AuthorListTagsParams.none())
+        fun getTagsCursor(): CompletableFuture<HttpResponse> =
+            getTagsCursor(AuthorGetTagsCursorParams.none())
 
-        /** @see listTags */
-        fun listTags(
-            params: AuthorListTagsParams = AuthorListTagsParams.none(),
+        /** @see getTagsCursor */
+        fun getTagsCursor(
+            params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see listTags */
-        fun listTags(
-            params: AuthorListTagsParams = AuthorListTagsParams.none()
-        ): CompletableFuture<HttpResponse> = listTags(params, RequestOptions.none())
+        /** @see getTagsCursor */
+        fun getTagsCursor(
+            params: AuthorGetTagsCursorParams = AuthorGetTagsCursorParams.none()
+        ): CompletableFuture<HttpResponse> = getTagsCursor(params, RequestOptions.none())
 
-        /** @see listTags */
-        fun listTags(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-            listTags(AuthorListTagsParams.none(), requestOptions)
+        /** @see getTagsCursor */
+        fun getTagsCursor(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            getTagsCursor(AuthorGetTagsCursorParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/blogs/2026-03/tags/cursor/query`, but is
-         * otherwise the same as [AuthorServiceAsync.listTagsByQuery].
+         * otherwise the same as [AuthorServiceAsync.getTagsCursorByQuery].
          */
-        fun listTagsByQuery(): CompletableFuture<HttpResponse> =
-            listTagsByQuery(AuthorListTagsByQueryParams.none())
+        fun getTagsCursorByQuery(): CompletableFuture<HttpResponse> =
+            getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none())
 
-        /** @see listTagsByQuery */
-        fun listTagsByQuery(
-            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none(),
+        /** @see getTagsCursorByQuery */
+        fun getTagsCursorByQuery(
+            params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponse>
 
-        /** @see listTagsByQuery */
-        fun listTagsByQuery(
-            params: AuthorListTagsByQueryParams = AuthorListTagsByQueryParams.none()
-        ): CompletableFuture<HttpResponse> = listTagsByQuery(params, RequestOptions.none())
+        /** @see getTagsCursorByQuery */
+        fun getTagsCursorByQuery(
+            params: AuthorGetTagsCursorByQueryParams = AuthorGetTagsCursorByQueryParams.none()
+        ): CompletableFuture<HttpResponse> = getTagsCursorByQuery(params, RequestOptions.none())
 
-        /** @see listTagsByQuery */
-        fun listTagsByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
-            listTagsByQuery(AuthorListTagsByQueryParams.none(), requestOptions)
+        /** @see getTagsCursorByQuery */
+        fun getTagsCursorByQuery(requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+            getTagsCursorByQuery(AuthorGetTagsCursorByQueryParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `put

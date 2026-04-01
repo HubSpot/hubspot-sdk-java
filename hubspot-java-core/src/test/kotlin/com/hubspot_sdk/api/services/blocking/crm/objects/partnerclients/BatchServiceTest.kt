@@ -5,7 +5,11 @@ package com.hubspot_sdk.api.services.blocking.crm.objects.partnerclients
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchCreateDefaultAssociationParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -30,6 +34,49 @@ internal class BatchServiceTest {
                             )
                             .idProperty("my_unique_property_name")
                             .objectWriteTraceId("objectWriteTraceId")
+                            .build()
+                    )
+                    .build()
+            )
+
+        batchResponseSimplePublicObject.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun createDefaultAssociation() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val batchService = client.crm().objects().partnerClients().batch()
+
+        val batchResponsePublicDefaultAssociation =
+            batchService.createDefaultAssociation(
+                BatchCreateDefaultAssociationParams.builder()
+                    .fromObjectType("fromObjectType")
+                    .fromObjectId("fromObjectId")
+                    .toObjectType("toObjectType")
+                    .toObjectId("toObjectId")
+                    .build()
+            )
+
+        batchResponsePublicDefaultAssociation.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun get() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val batchService = client.crm().objects().partnerClients().batch()
+
+        val batchResponseSimplePublicObject =
+            batchService.get(
+                BatchGetParams.builder()
+                    .archived(true)
+                    .batchReadInputSimplePublicObjectId(
+                        BatchReadInputSimplePublicObjectId.builder()
+                            .addInput(SimplePublicObjectId.builder().id("430001").build())
+                            .addProperty("string")
+                            .addPropertiesWithHistory("string")
+                            .idProperty("idProperty")
                             .build()
                     )
                     .build()

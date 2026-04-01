@@ -16,11 +16,14 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabelForwardPaging
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsPage
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListPage
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientSearchParams
@@ -66,6 +69,13 @@ class PartnerClientServiceImpl internal constructor(private val clientOptions: C
     ): SimplePublicObjectWithAssociations =
         // get /crm/objects/2026-03/partner_clients/{partnerClientId}
         withRawResponse().get(params, requestOptions).parse()
+
+    override fun listAssociations(
+        params: PartnerClientListAssociationsParams,
+        requestOptions: RequestOptions,
+    ): PartnerClientListAssociationsPage =
+        // get /crm/objects/2026-03/partner_clients/{partnerClientId}/associations/{toObjectType}
+        withRawResponse().listAssociations(params, requestOptions).parse()
 
     override fun search(
         params: PartnerClientSearchParams,
@@ -199,6 +209,54 @@ class PartnerClientServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+            }
+        }
+
+        private val listAssociationsHandler:
+            Handler<CollectionResponseMultiAssociatedObjectWithLabelForwardPaging> =
+            jsonHandler<CollectionResponseMultiAssociatedObjectWithLabelForwardPaging>(
+                clientOptions.jsonMapper
+            )
+
+        override fun listAssociations(
+            params: PartnerClientListAssociationsParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PartnerClientListAssociationsPage> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "objects",
+                        "2026-03",
+                        "partner_clients",
+                        params._pathParam(0),
+                        "associations",
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listAssociationsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+                    .let {
+                        PartnerClientListAssociationsPage.builder()
+                            .service(PartnerClientServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

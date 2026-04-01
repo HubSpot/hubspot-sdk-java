@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectInput
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -74,6 +75,24 @@ internal class PartnerClientServiceAsyncTest {
 
         val simplePublicObjectWithAssociations = simplePublicObjectWithAssociationsFuture.get()
         simplePublicObjectWithAssociations.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listAssociations() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val partnerClientServiceAsync = client.crm().objects().partnerClients()
+
+        val pageFuture =
+            partnerClientServiceAsync.listAssociations(
+                PartnerClientListAssociationsParams.builder()
+                    .partnerClientId("partnerClientId")
+                    .toObjectType("toObjectType")
+                    .build()
+            )
+
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -12,17 +12,23 @@ internal class PipelineCreateParamsTest {
     fun create() {
         PipelineCreateParams.builder()
             .objectType("objectType")
-            .pipelineId("pipelineId")
-            .pipelineStageInput(
-                PipelineStageInput.builder()
+            .pipelineInput(
+                PipelineInput.builder()
                     .displayOrder(0)
                     .label("label")
-                    .metadata(
-                        PipelineStageInput.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .addStage(
+                        PipelineStageInput.builder()
+                            .displayOrder(0)
+                            .label("label")
+                            .metadata(
+                                PipelineStageInput.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .stageId("stageId")
                             .build()
                     )
-                    .stageId("stageId")
+                    .pipelineId("pipelineId")
                     .build()
             )
             .build()
@@ -33,14 +39,19 @@ internal class PipelineCreateParamsTest {
         val params =
             PipelineCreateParams.builder()
                 .objectType("objectType")
-                .pipelineId("pipelineId")
-                .pipelineStageInput(
-                    PipelineStageInput.builder()
+                .pipelineInput(
+                    PipelineInput.builder()
                         .displayOrder(0)
                         .label("label")
-                        .metadata(
-                            PipelineStageInput.Metadata.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .addStage(
+                            PipelineStageInput.builder()
+                                .displayOrder(0)
+                                .label("label")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -48,9 +59,8 @@ internal class PipelineCreateParamsTest {
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("objectType")
-        assertThat(params._pathParam(1)).isEqualTo("pipelineId")
         // out-of-bound path param
-        assertThat(params._pathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 
     @Test
@@ -58,17 +68,23 @@ internal class PipelineCreateParamsTest {
         val params =
             PipelineCreateParams.builder()
                 .objectType("objectType")
-                .pipelineId("pipelineId")
-                .pipelineStageInput(
-                    PipelineStageInput.builder()
+                .pipelineInput(
+                    PipelineInput.builder()
                         .displayOrder(0)
                         .label("label")
-                        .metadata(
-                            PipelineStageInput.Metadata.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .addStage(
+                            PipelineStageInput.builder()
+                                .displayOrder(0)
+                                .label("label")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
+                                .stageId("stageId")
                                 .build()
                         )
-                        .stageId("stageId")
+                        .pipelineId("pipelineId")
                         .build()
                 )
                 .build()
@@ -77,15 +93,22 @@ internal class PipelineCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                PipelineStageInput.builder()
+                PipelineInput.builder()
                     .displayOrder(0)
                     .label("label")
-                    .metadata(
-                        PipelineStageInput.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .addStage(
+                        PipelineStageInput.builder()
+                            .displayOrder(0)
+                            .label("label")
+                            .metadata(
+                                PipelineStageInput.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
+                            .stageId("stageId")
                             .build()
                     )
-                    .stageId("stageId")
+                    .pipelineId("pipelineId")
                     .build()
             )
     }
@@ -95,14 +118,19 @@ internal class PipelineCreateParamsTest {
         val params =
             PipelineCreateParams.builder()
                 .objectType("objectType")
-                .pipelineId("pipelineId")
-                .pipelineStageInput(
-                    PipelineStageInput.builder()
+                .pipelineInput(
+                    PipelineInput.builder()
                         .displayOrder(0)
                         .label("label")
-                        .metadata(
-                            PipelineStageInput.Metadata.builder()
-                                .putAdditionalProperty("foo", JsonValue.from("string"))
+                        .addStage(
+                            PipelineStageInput.builder()
+                                .displayOrder(0)
+                                .label("label")
+                                .metadata(
+                                    PipelineStageInput.Metadata.builder()
+                                        .putAdditionalProperty("foo", JsonValue.from("string"))
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -113,12 +141,18 @@ internal class PipelineCreateParamsTest {
 
         assertThat(body)
             .isEqualTo(
-                PipelineStageInput.builder()
+                PipelineInput.builder()
                     .displayOrder(0)
                     .label("label")
-                    .metadata(
-                        PipelineStageInput.Metadata.builder()
-                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                    .addStage(
+                        PipelineStageInput.builder()
+                            .displayOrder(0)
+                            .label("label")
+                            .metadata(
+                                PipelineStageInput.Metadata.builder()
+                                    .putAdditionalProperty("foo", JsonValue.from("string"))
+                                    .build()
+                            )
                             .build()
                     )
                     .build()

@@ -17,16 +17,25 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
+import com.hubspot_sdk.api.models.crm.pipelines.CollectionResponsePipelineNoPaging
 import com.hubspot_sdk.api.models.crm.pipelines.CollectionResponsePipelineStageNoPaging
 import com.hubspot_sdk.api.models.crm.pipelines.CollectionResponsePublicAuditInfoNoPaging
+import com.hubspot_sdk.api.models.crm.pipelines.Pipeline
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineCreateParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineCreateStageParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineDeleteParams
-import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetAuditParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineDeleteStageParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetStageParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListAuditParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineListParams
-import com.hubspot_sdk.api.models.crm.pipelines.PipelineReplaceParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListStageAuditParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListStagesParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineStage
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateAllPropertiesParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateStageAllPropertiesParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateStageParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -42,49 +51,90 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): PipelineService =
         PipelineServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(
-        params: PipelineCreateParams,
-        requestOptions: RequestOptions,
-    ): PipelineStage =
-        // post /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages
+    override fun create(params: PipelineCreateParams, requestOptions: RequestOptions): Pipeline =
+        // post /crm/pipelines/2026-03/{objectType}
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun update(
-        params: PipelineUpdateParams,
-        requestOptions: RequestOptions,
-    ): PipelineStage =
-        // patch /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}
+    override fun update(params: PipelineUpdateParams, requestOptions: RequestOptions): Pipeline =
+        // patch /crm/pipelines/2026-03/{objectType}/{pipelineId}
         withRawResponse().update(params, requestOptions).parse()
 
     override fun list(
         params: PipelineListParams,
         requestOptions: RequestOptions,
-    ): CollectionResponsePipelineStageNoPaging =
-        // get /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages
+    ): CollectionResponsePipelineNoPaging =
+        // get /crm/pipelines/2026-03/{objectType}
         withRawResponse().list(params, requestOptions).parse()
 
     override fun delete(params: PipelineDeleteParams, requestOptions: RequestOptions) {
-        // delete /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}
+        // delete /crm/pipelines/2026-03/{objectType}/{pipelineId}
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun get(params: PipelineGetParams, requestOptions: RequestOptions): PipelineStage =
-        // get /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}
+    override fun createStage(
+        params: PipelineCreateStageParams,
+        requestOptions: RequestOptions,
+    ): PipelineStage =
+        // post /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages
+        withRawResponse().createStage(params, requestOptions).parse()
+
+    override fun deleteStage(params: PipelineDeleteStageParams, requestOptions: RequestOptions) {
+        // delete /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}
+        withRawResponse().deleteStage(params, requestOptions)
+    }
+
+    override fun get(params: PipelineGetParams, requestOptions: RequestOptions): Pipeline =
+        // get /crm/pipelines/2026-03/{objectType}/{pipelineId}
         withRawResponse().get(params, requestOptions).parse()
 
-    override fun getAudit(
-        params: PipelineGetAuditParams,
+    override fun getStage(
+        params: PipelineGetStageParams,
+        requestOptions: RequestOptions,
+    ): PipelineStage =
+        // get /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}
+        withRawResponse().getStage(params, requestOptions).parse()
+
+    override fun listAudit(
+        params: PipelineListAuditParams,
+        requestOptions: RequestOptions,
+    ): CollectionResponsePublicAuditInfoNoPaging =
+        // get /crm/pipelines/2026-03/{objectType}/{pipelineId}/audit
+        withRawResponse().listAudit(params, requestOptions).parse()
+
+    override fun listStageAudit(
+        params: PipelineListStageAuditParams,
         requestOptions: RequestOptions,
     ): CollectionResponsePublicAuditInfoNoPaging =
         // get /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}/audit
-        withRawResponse().getAudit(params, requestOptions).parse()
+        withRawResponse().listStageAudit(params, requestOptions).parse()
 
-    override fun replace(
-        params: PipelineReplaceParams,
+    override fun listStages(
+        params: PipelineListStagesParams,
+        requestOptions: RequestOptions,
+    ): CollectionResponsePipelineStageNoPaging =
+        // get /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages
+        withRawResponse().listStages(params, requestOptions).parse()
+
+    override fun updateAllProperties(
+        params: PipelineUpdateAllPropertiesParams,
+        requestOptions: RequestOptions,
+    ): Pipeline =
+        // put /crm/pipelines/2026-03/{objectType}/{pipelineId}
+        withRawResponse().updateAllProperties(params, requestOptions).parse()
+
+    override fun updateStage(
+        params: PipelineUpdateStageParams,
+        requestOptions: RequestOptions,
+    ): PipelineStage =
+        // patch /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}
+        withRawResponse().updateStage(params, requestOptions).parse()
+
+    override fun updateStageAllProperties(
+        params: PipelineUpdateStageAllPropertiesParams,
         requestOptions: RequestOptions,
     ): PipelineStage =
         // put /crm/pipelines/2026-03/{objectType}/{pipelineId}/stages/{stageId}
-        withRawResponse().replace(params, requestOptions).parse()
+        withRawResponse().updateStageAllProperties(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         PipelineService.WithRawResponse {
@@ -99,11 +149,139 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<PipelineStage> =
-            jsonHandler<PipelineStage>(clientOptions.jsonMapper)
+        private val createHandler: Handler<Pipeline> =
+            jsonHandler<Pipeline>(clientOptions.jsonMapper)
 
         override fun create(
             params: PipelineCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Pipeline> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectType", params.objectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "pipelines", "2026-03", params._pathParam(0))
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateHandler: Handler<Pipeline> =
+            jsonHandler<Pipeline>(clientOptions.jsonMapper)
+
+        override fun update(
+            params: PipelineUpdateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Pipeline> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("pipelineId", params.pipelineId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "pipelines",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listHandler: Handler<CollectionResponsePipelineNoPaging> =
+            jsonHandler<CollectionResponsePipelineNoPaging>(clientOptions.jsonMapper)
+
+        override fun list(
+            params: PipelineListParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CollectionResponsePipelineNoPaging> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("objectType", params.objectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("crm", "pipelines", "2026-03", params._pathParam(0))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val deleteHandler: Handler<Void?> = emptyHandler()
+
+        override fun delete(
+            params: PipelineDeleteParams,
+            requestOptions: RequestOptions,
+        ): HttpResponse {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("pipelineId", params.pipelineId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.DELETE)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "pipelines",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response.use { deleteHandler.handle(it) }
+            }
+        }
+
+        private val createStageHandler: Handler<PipelineStage> =
+            jsonHandler<PipelineStage>(clientOptions.jsonMapper)
+
+        override fun createStage(
+            params: PipelineCreateStageParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PipelineStage> {
             // We check here instead of in the params builder because this can be specified
@@ -128,7 +306,7 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { createHandler.handle(it) }
+                    .use { createStageHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -137,86 +315,10 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val updateHandler: Handler<PipelineStage> =
-            jsonHandler<PipelineStage>(clientOptions.jsonMapper)
+        private val deleteStageHandler: Handler<Void?> = emptyHandler()
 
-        override fun update(
-            params: PipelineUpdateParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<PipelineStage> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("stageId", params.stageId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.PATCH)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "pipelines",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "stages",
-                        params._pathParam(2),
-                    )
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val listHandler: Handler<CollectionResponsePipelineStageNoPaging> =
-            jsonHandler<CollectionResponsePipelineStageNoPaging>(clientOptions.jsonMapper)
-
-        override fun list(
-            params: PipelineListParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<CollectionResponsePipelineStageNoPaging> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("pipelineId", params.pipelineId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.GET)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments(
-                        "crm",
-                        "pipelines",
-                        "2026-03",
-                        params._pathParam(0),
-                        params._pathParam(1),
-                        "stages",
-                    )
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { listHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val deleteHandler: Handler<Void?> = emptyHandler()
-
-        override fun delete(
-            params: PipelineDeleteParams,
+        override fun deleteStage(
+            params: PipelineDeleteStageParams,
             requestOptions: RequestOptions,
         ): HttpResponse {
             // We check here instead of in the params builder because this can be specified
@@ -241,15 +343,50 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
-                response.use { deleteHandler.handle(it) }
+                response.use { deleteStageHandler.handle(it) }
             }
         }
 
-        private val getHandler: Handler<PipelineStage> =
-            jsonHandler<PipelineStage>(clientOptions.jsonMapper)
+        private val getHandler: Handler<Pipeline> = jsonHandler<Pipeline>(clientOptions.jsonMapper)
 
         override fun get(
             params: PipelineGetParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Pipeline> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("pipelineId", params.pipelineId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "pipelines",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { getHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val getStageHandler: Handler<PipelineStage> =
+            jsonHandler<PipelineStage>(clientOptions.jsonMapper)
+
+        override fun getStage(
+            params: PipelineGetStageParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PipelineStage> {
             // We check here instead of in the params builder because this can be specified
@@ -274,7 +411,7 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getHandler.handle(it) }
+                    .use { getStageHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -283,11 +420,48 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val getAuditHandler: Handler<CollectionResponsePublicAuditInfoNoPaging> =
+        private val listAuditHandler: Handler<CollectionResponsePublicAuditInfoNoPaging> =
             jsonHandler<CollectionResponsePublicAuditInfoNoPaging>(clientOptions.jsonMapper)
 
-        override fun getAudit(
-            params: PipelineGetAuditParams,
+        override fun listAudit(
+            params: PipelineListAuditParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("pipelineId", params.pipelineId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "pipelines",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "audit",
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listAuditHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val listStageAuditHandler: Handler<CollectionResponsePublicAuditInfoNoPaging> =
+            jsonHandler<CollectionResponsePublicAuditInfoNoPaging>(clientOptions.jsonMapper)
+
+        override fun listStageAudit(
+            params: PipelineListStageAuditParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<CollectionResponsePublicAuditInfoNoPaging> {
             // We check here instead of in the params builder because this can be specified
@@ -313,7 +487,7 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { getAuditHandler.handle(it) }
+                    .use { listStageAuditHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -322,11 +496,124 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val replaceHandler: Handler<PipelineStage> =
+        private val listStagesHandler: Handler<CollectionResponsePipelineStageNoPaging> =
+            jsonHandler<CollectionResponsePipelineStageNoPaging>(clientOptions.jsonMapper)
+
+        override fun listStages(
+            params: PipelineListStagesParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CollectionResponsePipelineStageNoPaging> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("pipelineId", params.pipelineId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "pipelines",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "stages",
+                    )
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { listStagesHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateAllPropertiesHandler: Handler<Pipeline> =
+            jsonHandler<Pipeline>(clientOptions.jsonMapper)
+
+        override fun updateAllProperties(
+            params: PipelineUpdateAllPropertiesParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Pipeline> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("pipelineId", params.pipelineId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PUT)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "pipelines",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateAllPropertiesHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateStageHandler: Handler<PipelineStage> =
             jsonHandler<PipelineStage>(clientOptions.jsonMapper)
 
-        override fun replace(
-            params: PipelineReplaceParams,
+        override fun updateStage(
+            params: PipelineUpdateStageParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<PipelineStage> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("stageId", params.stageId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.PATCH)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "pipelines",
+                        "2026-03",
+                        params._pathParam(0),
+                        params._pathParam(1),
+                        "stages",
+                        params._pathParam(2),
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { updateStageHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val updateStageAllPropertiesHandler: Handler<PipelineStage> =
+            jsonHandler<PipelineStage>(clientOptions.jsonMapper)
+
+        override fun updateStageAllProperties(
+            params: PipelineUpdateStageAllPropertiesParams,
             requestOptions: RequestOptions,
         ): HttpResponseFor<PipelineStage> {
             // We check here instead of in the params builder because this can be specified
@@ -352,7 +639,7 @@ class PipelineServiceImpl internal constructor(private val clientOptions: Client
             val response = clientOptions.httpClient.execute(request, requestOptions)
             return errorHandler.handle(response).parseable {
                 response
-                    .use { replaceHandler.handle(it) }
+                    .use { updateStageAllPropertiesHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

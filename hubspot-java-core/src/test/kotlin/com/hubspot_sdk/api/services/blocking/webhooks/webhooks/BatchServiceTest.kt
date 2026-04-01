@@ -6,11 +6,15 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
 import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.webhooks.webhooks.BatchInputSubscriptionBatchUpdateRequest
 import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionBatchUpdateRequest
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetEarliestParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalNextParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetNextParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchReadParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchUpdateSubscriptionsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -18,25 +22,19 @@ internal class BatchServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun create() {
+    fun get() {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.webhooks().webhooks().batch()
 
-        val batchResponseSubscriptionResponse =
-            batchService.create(
-                BatchCreateParams.builder()
-                    .appId(0)
-                    .batchInputSubscriptionBatchUpdateRequest(
-                        BatchInputSubscriptionBatchUpdateRequest.builder()
-                            .addInput(
-                                SubscriptionBatchUpdateRequest.builder().id(0).active(true).build()
-                            )
-                            .build()
-                    )
+        val batchResponseJournalFetchResponse =
+            batchService.get(
+                BatchGetParams.builder()
+                    .installPortalId(0)
+                    .batchInputString(BatchInputString.builder().addInput("string").build())
                     .build()
             )
 
-        batchResponseSubscriptionResponse.validate()
+        batchResponseJournalFetchResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -69,6 +67,69 @@ internal class BatchServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun getLocal() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val batchService = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponse =
+            batchService.getLocal(
+                BatchGetLocalParams.builder()
+                    .installPortalId(0)
+                    .batchInputString(BatchInputString.builder().addInput("string").build())
+                    .build()
+            )
+
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLocalEarliest() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val batchService = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponse =
+            batchService.getLocalEarliest(
+                BatchGetLocalEarliestParams.builder().count(1).installPortalId(0).build()
+            )
+
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLocalLatest() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val batchService = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponse =
+            batchService.getLocalLatest(
+                BatchGetLocalLatestParams.builder().count(1).installPortalId(0).build()
+            )
+
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLocalNext() {
+        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val batchService = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponse =
+            batchService.getLocalNext(
+                BatchGetLocalNextParams.builder()
+                    .offset("offset")
+                    .count(1)
+                    .installPortalId(0)
+                    .build()
+            )
+
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun getNext() {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.webhooks().webhooks().batch()
@@ -83,18 +144,24 @@ internal class BatchServiceTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun read() {
+    fun updateSubscriptions() {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.webhooks().webhooks().batch()
 
-        val batchResponseJournalFetchResponse =
-            batchService.read(
-                BatchReadParams.builder()
-                    .installPortalId(0)
-                    .batchInputString(BatchInputString.builder().addInput("string").build())
+        val batchResponseSubscriptionResponse =
+            batchService.updateSubscriptions(
+                BatchUpdateSubscriptionsParams.builder()
+                    .appId(0)
+                    .batchInputSubscriptionBatchUpdateRequest(
+                        BatchInputSubscriptionBatchUpdateRequest.builder()
+                            .addInput(
+                                SubscriptionBatchUpdateRequest.builder().id(0).active(true).build()
+                            )
+                            .build()
+                    )
                     .build()
             )
 
-        batchResponseJournalFetchResponse.validate()
+        batchResponseSubscriptionResponse.validate()
     }
 }

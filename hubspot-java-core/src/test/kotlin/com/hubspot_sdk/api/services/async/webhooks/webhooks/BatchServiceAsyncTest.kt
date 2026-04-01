@@ -6,11 +6,15 @@ import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.webhooks.webhooks.BatchInputSubscriptionBatchUpdateRequest
 import com.hubspot_sdk.api.models.webhooks.webhooks.SubscriptionBatchUpdateRequest
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchCreateParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetEarliestParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalEarliestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalLatestParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalNextParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetLocalParams
 import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetNextParams
-import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchReadParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchGetParams
+import com.hubspot_sdk.api.models.webhooks.webhooks.batch.BatchUpdateSubscriptionsParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -18,26 +22,20 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun create() {
+    fun get() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.webhooks().webhooks().batch()
 
-        val batchResponseSubscriptionResponseFuture =
-            batchServiceAsync.create(
-                BatchCreateParams.builder()
-                    .appId(0)
-                    .batchInputSubscriptionBatchUpdateRequest(
-                        BatchInputSubscriptionBatchUpdateRequest.builder()
-                            .addInput(
-                                SubscriptionBatchUpdateRequest.builder().id(0).active(true).build()
-                            )
-                            .build()
-                    )
+        val batchResponseJournalFetchResponseFuture =
+            batchServiceAsync.get(
+                BatchGetParams.builder()
+                    .installPortalId(0)
+                    .batchInputString(BatchInputString.builder().addInput("string").build())
                     .build()
             )
 
-        val batchResponseSubscriptionResponse = batchResponseSubscriptionResponseFuture.get()
-        batchResponseSubscriptionResponse.validate()
+        val batchResponseJournalFetchResponse = batchResponseJournalFetchResponseFuture.get()
+        batchResponseJournalFetchResponse.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -72,6 +70,73 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
+    fun getLocal() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val batchServiceAsync = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponseFuture =
+            batchServiceAsync.getLocal(
+                BatchGetLocalParams.builder()
+                    .installPortalId(0)
+                    .batchInputString(BatchInputString.builder().addInput("string").build())
+                    .build()
+            )
+
+        val batchResponseJournalFetchResponse = batchResponseJournalFetchResponseFuture.get()
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLocalEarliest() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val batchServiceAsync = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponseFuture =
+            batchServiceAsync.getLocalEarliest(
+                BatchGetLocalEarliestParams.builder().count(1).installPortalId(0).build()
+            )
+
+        val batchResponseJournalFetchResponse = batchResponseJournalFetchResponseFuture.get()
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLocalLatest() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val batchServiceAsync = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponseFuture =
+            batchServiceAsync.getLocalLatest(
+                BatchGetLocalLatestParams.builder().count(1).installPortalId(0).build()
+            )
+
+        val batchResponseJournalFetchResponse = batchResponseJournalFetchResponseFuture.get()
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getLocalNext() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val batchServiceAsync = client.webhooks().webhooks().batch()
+
+        val batchResponseJournalFetchResponseFuture =
+            batchServiceAsync.getLocalNext(
+                BatchGetLocalNextParams.builder()
+                    .offset("offset")
+                    .count(1)
+                    .installPortalId(0)
+                    .build()
+            )
+
+        val batchResponseJournalFetchResponse = batchResponseJournalFetchResponseFuture.get()
+        batchResponseJournalFetchResponse.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
     fun getNext() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.webhooks().webhooks().batch()
@@ -87,19 +152,25 @@ internal class BatchServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun read() {
+    fun updateSubscriptions() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.webhooks().webhooks().batch()
 
-        val batchResponseJournalFetchResponseFuture =
-            batchServiceAsync.read(
-                BatchReadParams.builder()
-                    .installPortalId(0)
-                    .batchInputString(BatchInputString.builder().addInput("string").build())
+        val batchResponseSubscriptionResponseFuture =
+            batchServiceAsync.updateSubscriptions(
+                BatchUpdateSubscriptionsParams.builder()
+                    .appId(0)
+                    .batchInputSubscriptionBatchUpdateRequest(
+                        BatchInputSubscriptionBatchUpdateRequest.builder()
+                            .addInput(
+                                SubscriptionBatchUpdateRequest.builder().id(0).active(true).build()
+                            )
+                            .build()
+                    )
                     .build()
             )
 
-        val batchResponseJournalFetchResponse = batchResponseJournalFetchResponseFuture.get()
-        batchResponseJournalFetchResponse.validate()
+        val batchResponseSubscriptionResponse = batchResponseSubscriptionResponseFuture.get()
+        batchResponseSubscriptionResponse.validate()
     }
 }

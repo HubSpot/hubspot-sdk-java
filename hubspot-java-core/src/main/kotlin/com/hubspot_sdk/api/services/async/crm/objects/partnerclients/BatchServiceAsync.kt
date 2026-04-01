@@ -5,8 +5,12 @@ package com.hubspot_sdk.api.services.async.crm.objects.partnerclients
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
+import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
+import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchCreateDefaultAssociationParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -57,6 +61,64 @@ interface BatchServiceAsync {
     ): CompletableFuture<BatchResponseSimplePublicObject> =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
 
+    fun createDefaultAssociation(
+        toObjectId: String,
+        params: BatchCreateDefaultAssociationParams,
+    ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
+        createDefaultAssociation(toObjectId, params, RequestOptions.none())
+
+    /** @see createDefaultAssociation */
+    fun createDefaultAssociation(
+        toObjectId: String,
+        params: BatchCreateDefaultAssociationParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
+        createDefaultAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
+
+    /** @see createDefaultAssociation */
+    fun createDefaultAssociation(
+        params: BatchCreateDefaultAssociationParams
+    ): CompletableFuture<BatchResponsePublicDefaultAssociation> =
+        createDefaultAssociation(params, RequestOptions.none())
+
+    /** @see createDefaultAssociation */
+    fun createDefaultAssociation(
+        params: BatchCreateDefaultAssociationParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponsePublicDefaultAssociation>
+
+    /**
+     * Retrieve multiple partner client objects in a single request by specifying their IDs. This
+     * endpoint is useful for efficiently accessing data for multiple clients at once, particularly
+     * when integrating with third-party systems.
+     */
+    fun get(params: BatchGetParams): CompletableFuture<BatchResponseSimplePublicObject> =
+        get(params, RequestOptions.none())
+
+    /** @see get */
+    fun get(
+        params: BatchGetParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseSimplePublicObject>
+
+    /** @see get */
+    fun get(
+        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<BatchResponseSimplePublicObject> =
+        get(
+            BatchGetParams.builder()
+                .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see get */
+    fun get(
+        batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
+    ): CompletableFuture<BatchResponseSimplePublicObject> =
+        get(batchReadInputSimplePublicObjectId, RequestOptions.none())
+
     /** A view of [BatchServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
 
@@ -101,5 +163,72 @@ interface BatchServiceAsync {
             batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
         ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
             update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
+
+        /**
+         * Returns a raw HTTP response for `put
+         * /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}`,
+         * but is otherwise the same as [BatchServiceAsync.createDefaultAssociation].
+         */
+        fun createDefaultAssociation(
+            toObjectId: String,
+            params: BatchCreateDefaultAssociationParams,
+        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
+            createDefaultAssociation(toObjectId, params, RequestOptions.none())
+
+        /** @see createDefaultAssociation */
+        fun createDefaultAssociation(
+            toObjectId: String,
+            params: BatchCreateDefaultAssociationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
+            createDefaultAssociation(
+                params.toBuilder().toObjectId(toObjectId).build(),
+                requestOptions,
+            )
+
+        /** @see createDefaultAssociation */
+        fun createDefaultAssociation(
+            params: BatchCreateDefaultAssociationParams
+        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>> =
+            createDefaultAssociation(params, RequestOptions.none())
+
+        /** @see createDefaultAssociation */
+        fun createDefaultAssociation(
+            params: BatchCreateDefaultAssociationParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponsePublicDefaultAssociation>>
+
+        /**
+         * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_clients/batch/read`,
+         * but is otherwise the same as [BatchServiceAsync.get].
+         */
+        fun get(
+            params: BatchGetParams
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+            get(params, RequestOptions.none())
+
+        /** @see get */
+        fun get(
+            params: BatchGetParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>>
+
+        /** @see get */
+        fun get(
+            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+            get(
+                BatchGetParams.builder()
+                    .batchReadInputSimplePublicObjectId(batchReadInputSimplePublicObjectId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see get */
+        fun get(
+            batchReadInputSimplePublicObjectId: BatchReadInputSimplePublicObjectId
+        ): CompletableFuture<HttpResponseFor<BatchResponseSimplePublicObject>> =
+            get(batchReadInputSimplePublicObjectId, RequestOptions.none())
     }
 }

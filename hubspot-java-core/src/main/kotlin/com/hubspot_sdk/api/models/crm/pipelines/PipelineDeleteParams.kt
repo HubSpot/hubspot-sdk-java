@@ -12,12 +12,13 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Delete a pipeline stage */
+/** Delete a pipeline */
 class PipelineDeleteParams
 private constructor(
     private val objectType: String,
-    private val pipelineId: String,
-    private val stageId: String?,
+    private val pipelineId: String?,
+    private val validateDealStageUsagesBeforeDelete: Boolean?,
+    private val validateReferencesBeforeDelete: Boolean?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
     private val additionalBodyProperties: Map<String, JsonValue>,
@@ -25,9 +26,13 @@ private constructor(
 
     fun objectType(): String = objectType
 
-    fun pipelineId(): String = pipelineId
+    fun pipelineId(): Optional<String> = Optional.ofNullable(pipelineId)
 
-    fun stageId(): Optional<String> = Optional.ofNullable(stageId)
+    fun validateDealStageUsagesBeforeDelete(): Optional<Boolean> =
+        Optional.ofNullable(validateDealStageUsagesBeforeDelete)
+
+    fun validateReferencesBeforeDelete(): Optional<Boolean> =
+        Optional.ofNullable(validateReferencesBeforeDelete)
 
     /** Additional body properties to send with the request. */
     fun _additionalBodyProperties(): Map<String, JsonValue> = additionalBodyProperties
@@ -48,7 +53,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .objectType()
-         * .pipelineId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -59,7 +63,8 @@ private constructor(
 
         private var objectType: String? = null
         private var pipelineId: String? = null
-        private var stageId: String? = null
+        private var validateDealStageUsagesBeforeDelete: Boolean? = null
+        private var validateReferencesBeforeDelete: Boolean? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
         private var additionalBodyProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -68,7 +73,9 @@ private constructor(
         internal fun from(pipelineDeleteParams: PipelineDeleteParams) = apply {
             objectType = pipelineDeleteParams.objectType
             pipelineId = pipelineDeleteParams.pipelineId
-            stageId = pipelineDeleteParams.stageId
+            validateDealStageUsagesBeforeDelete =
+                pipelineDeleteParams.validateDealStageUsagesBeforeDelete
+            validateReferencesBeforeDelete = pipelineDeleteParams.validateReferencesBeforeDelete
             additionalHeaders = pipelineDeleteParams.additionalHeaders.toBuilder()
             additionalQueryParams = pipelineDeleteParams.additionalQueryParams.toBuilder()
             additionalBodyProperties = pipelineDeleteParams.additionalBodyProperties.toMutableMap()
@@ -76,12 +83,50 @@ private constructor(
 
         fun objectType(objectType: String) = apply { this.objectType = objectType }
 
-        fun pipelineId(pipelineId: String) = apply { this.pipelineId = pipelineId }
+        fun pipelineId(pipelineId: String?) = apply { this.pipelineId = pipelineId }
 
-        fun stageId(stageId: String?) = apply { this.stageId = stageId }
+        /** Alias for calling [Builder.pipelineId] with `pipelineId.orElse(null)`. */
+        fun pipelineId(pipelineId: Optional<String>) = pipelineId(pipelineId.getOrNull())
 
-        /** Alias for calling [Builder.stageId] with `stageId.orElse(null)`. */
-        fun stageId(stageId: Optional<String>) = stageId(stageId.getOrNull())
+        fun validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete: Boolean?) =
+            apply {
+                this.validateDealStageUsagesBeforeDelete = validateDealStageUsagesBeforeDelete
+            }
+
+        /**
+         * Alias for [Builder.validateDealStageUsagesBeforeDelete].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete: Boolean) =
+            validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete as Boolean?)
+
+        /**
+         * Alias for calling [Builder.validateDealStageUsagesBeforeDelete] with
+         * `validateDealStageUsagesBeforeDelete.orElse(null)`.
+         */
+        fun validateDealStageUsagesBeforeDelete(
+            validateDealStageUsagesBeforeDelete: Optional<Boolean>
+        ) = validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete.getOrNull())
+
+        fun validateReferencesBeforeDelete(validateReferencesBeforeDelete: Boolean?) = apply {
+            this.validateReferencesBeforeDelete = validateReferencesBeforeDelete
+        }
+
+        /**
+         * Alias for [Builder.validateReferencesBeforeDelete].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun validateReferencesBeforeDelete(validateReferencesBeforeDelete: Boolean) =
+            validateReferencesBeforeDelete(validateReferencesBeforeDelete as Boolean?)
+
+        /**
+         * Alias for calling [Builder.validateReferencesBeforeDelete] with
+         * `validateReferencesBeforeDelete.orElse(null)`.
+         */
+        fun validateReferencesBeforeDelete(validateReferencesBeforeDelete: Optional<Boolean>) =
+            validateReferencesBeforeDelete(validateReferencesBeforeDelete.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -211,7 +256,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .objectType()
-         * .pipelineId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -219,8 +263,9 @@ private constructor(
         fun build(): PipelineDeleteParams =
             PipelineDeleteParams(
                 checkRequired("objectType", objectType),
-                checkRequired("pipelineId", pipelineId),
-                stageId,
+                pipelineId,
+                validateDealStageUsagesBeforeDelete,
+                validateReferencesBeforeDelete,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
                 additionalBodyProperties.toImmutable(),
@@ -233,14 +278,24 @@ private constructor(
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> objectType
-            1 -> pipelineId
-            2 -> stageId ?: ""
+            1 -> pipelineId ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                validateDealStageUsagesBeforeDelete?.let {
+                    put("validateDealStageUsagesBeforeDelete", it.toString())
+                }
+                validateReferencesBeforeDelete?.let {
+                    put("validateReferencesBeforeDelete", it.toString())
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -250,7 +305,8 @@ private constructor(
         return other is PipelineDeleteParams &&
             objectType == other.objectType &&
             pipelineId == other.pipelineId &&
-            stageId == other.stageId &&
+            validateDealStageUsagesBeforeDelete == other.validateDealStageUsagesBeforeDelete &&
+            validateReferencesBeforeDelete == other.validateReferencesBeforeDelete &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams &&
             additionalBodyProperties == other.additionalBodyProperties
@@ -260,12 +316,13 @@ private constructor(
         Objects.hash(
             objectType,
             pipelineId,
-            stageId,
+            validateDealStageUsagesBeforeDelete,
+            validateReferencesBeforeDelete,
             additionalHeaders,
             additionalQueryParams,
             additionalBodyProperties,
         )
 
     override fun toString() =
-        "PipelineDeleteParams{objectType=$objectType, pipelineId=$pipelineId, stageId=$stageId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
+        "PipelineDeleteParams{objectType=$objectType, pipelineId=$pipelineId, validateDealStageUsagesBeforeDelete=$validateDealStageUsagesBeforeDelete, validateReferencesBeforeDelete=$validateReferencesBeforeDelete, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams, additionalBodyProperties=$additionalBodyProperties}"
 }

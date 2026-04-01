@@ -3,25 +3,21 @@
 package com.hubspot_sdk.api.models.crm.pipelines
 
 import com.hubspot_sdk.api.core.Params
-import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Return all the stages associated with the pipeline identified by `{pipelineId}`. */
+/** Return all pipelines for the object type specified by `{objectType}`. */
 class PipelineListParams
 private constructor(
-    private val objectType: String,
-    private val pipelineId: String?,
+    private val objectType: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun objectType(): String = objectType
-
-    fun pipelineId(): Optional<String> = Optional.ofNullable(pipelineId)
+    fun objectType(): Optional<String> = Optional.ofNullable(objectType)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -33,14 +29,9 @@ private constructor(
 
     companion object {
 
-        /**
-         * Returns a mutable builder for constructing an instance of [PipelineListParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .objectType()
-         * ```
-         */
+        @JvmStatic fun none(): PipelineListParams = builder().build()
+
+        /** Returns a mutable builder for constructing an instance of [PipelineListParams]. */
         @JvmStatic fun builder() = Builder()
     }
 
@@ -48,24 +39,20 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectType: String? = null
-        private var pipelineId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(pipelineListParams: PipelineListParams) = apply {
             objectType = pipelineListParams.objectType
-            pipelineId = pipelineListParams.pipelineId
             additionalHeaders = pipelineListParams.additionalHeaders.toBuilder()
             additionalQueryParams = pipelineListParams.additionalQueryParams.toBuilder()
         }
 
-        fun objectType(objectType: String) = apply { this.objectType = objectType }
+        fun objectType(objectType: String?) = apply { this.objectType = objectType }
 
-        fun pipelineId(pipelineId: String?) = apply { this.pipelineId = pipelineId }
-
-        /** Alias for calling [Builder.pipelineId] with `pipelineId.orElse(null)`. */
-        fun pipelineId(pipelineId: Optional<String>) = pipelineId(pipelineId.getOrNull())
+        /** Alias for calling [Builder.objectType] with `objectType.orElse(null)`. */
+        fun objectType(objectType: Optional<String>) = objectType(objectType.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -169,27 +156,14 @@ private constructor(
          * Returns an immutable instance of [PipelineListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .objectType()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): PipelineListParams =
-            PipelineListParams(
-                checkRequired("objectType", objectType),
-                pipelineId,
-                additionalHeaders.build(),
-                additionalQueryParams.build(),
-            )
+            PipelineListParams(objectType, additionalHeaders.build(), additionalQueryParams.build())
     }
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> objectType
-            1 -> pipelineId ?: ""
+            0 -> objectType ?: ""
             else -> ""
         }
 
@@ -204,14 +178,13 @@ private constructor(
 
         return other is PipelineListParams &&
             objectType == other.objectType &&
-            pipelineId == other.pipelineId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectType, pipelineId, additionalHeaders, additionalQueryParams)
+        Objects.hash(objectType, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "PipelineListParams{objectType=$objectType, pipelineId=$pipelineId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PipelineListParams{objectType=$objectType, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

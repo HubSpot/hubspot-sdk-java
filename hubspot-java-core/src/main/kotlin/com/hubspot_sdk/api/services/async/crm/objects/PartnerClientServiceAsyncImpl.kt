@@ -16,11 +16,14 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.crm.CollectionResponseMultiAssociatedObjectWithLabelForwardPaging
 import com.hubspot_sdk.api.models.crm.CollectionResponseWithTotalSimplePublicObject
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.CollectionResponseSimplePublicObjectWithAssociationsForwardPaging
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsPageAsync
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListPageAsync
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientSearchParams
@@ -67,6 +70,13 @@ class PartnerClientServiceAsyncImpl internal constructor(private val clientOptio
     ): CompletableFuture<SimplePublicObjectWithAssociations> =
         // get /crm/objects/2026-03/partner_clients/{partnerClientId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
+
+    override fun listAssociations(
+        params: PartnerClientListAssociationsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<PartnerClientListAssociationsPageAsync> =
+        // get /crm/objects/2026-03/partner_clients/{partnerClientId}/associations/{toObjectType}
+        withRawResponse().listAssociations(params, requestOptions).thenApply { it.parse() }
 
     override fun search(
         params: PartnerClientSearchParams,
@@ -209,6 +219,58 @@ class PartnerClientServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                    }
+                }
+        }
+
+        private val listAssociationsHandler:
+            Handler<CollectionResponseMultiAssociatedObjectWithLabelForwardPaging> =
+            jsonHandler<CollectionResponseMultiAssociatedObjectWithLabelForwardPaging>(
+                clientOptions.jsonMapper
+            )
+
+        override fun listAssociations(
+            params: PartnerClientListAssociationsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<PartnerClientListAssociationsPageAsync>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("toObjectType", params.toObjectType().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "crm",
+                        "objects",
+                        "2026-03",
+                        "partner_clients",
+                        params._pathParam(0),
+                        "associations",
+                        params._pathParam(1),
+                    )
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { listAssociationsHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                            .let {
+                                PartnerClientListAssociationsPageAsync.builder()
+                                    .service(PartnerClientServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -11,6 +11,8 @@ import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
 import com.hubspot_sdk.api.models.crm.SimplePublicObject
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectWithAssociations
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientGetParams
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsPage
+import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListAssociationsParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListPage
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientListParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.PartnerClientSearchParams
@@ -115,6 +117,35 @@ interface PartnerClientService {
         requestOptions: RequestOptions,
     ): SimplePublicObjectWithAssociations =
         get(partnerClientId, PartnerClientGetParams.none(), requestOptions)
+
+    /**
+     * Retrieve a list of associations for a specific partner client based on the specified object
+     * type.
+     */
+    fun listAssociations(
+        toObjectType: String,
+        params: PartnerClientListAssociationsParams,
+    ): PartnerClientListAssociationsPage =
+        listAssociations(toObjectType, params, RequestOptions.none())
+
+    /** @see listAssociations */
+    fun listAssociations(
+        toObjectType: String,
+        params: PartnerClientListAssociationsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PartnerClientListAssociationsPage =
+        listAssociations(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+    /** @see listAssociations */
+    fun listAssociations(
+        params: PartnerClientListAssociationsParams
+    ): PartnerClientListAssociationsPage = listAssociations(params, RequestOptions.none())
+
+    /** @see listAssociations */
+    fun listAssociations(
+        params: PartnerClientListAssociationsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PartnerClientListAssociationsPage
 
     /**
      * Execute a search for partner clients based on defined filters, properties, and sorting
@@ -268,6 +299,41 @@ interface PartnerClientService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<SimplePublicObjectWithAssociations> =
             get(partnerClientId, PartnerClientGetParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get
+         * /crm/objects/2026-03/partner_clients/{partnerClientId}/associations/{toObjectType}`, but
+         * is otherwise the same as [PartnerClientService.listAssociations].
+         */
+        @MustBeClosed
+        fun listAssociations(
+            toObjectType: String,
+            params: PartnerClientListAssociationsParams,
+        ): HttpResponseFor<PartnerClientListAssociationsPage> =
+            listAssociations(toObjectType, params, RequestOptions.none())
+
+        /** @see listAssociations */
+        @MustBeClosed
+        fun listAssociations(
+            toObjectType: String,
+            params: PartnerClientListAssociationsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PartnerClientListAssociationsPage> =
+            listAssociations(params.toBuilder().toObjectType(toObjectType).build(), requestOptions)
+
+        /** @see listAssociations */
+        @MustBeClosed
+        fun listAssociations(
+            params: PartnerClientListAssociationsParams
+        ): HttpResponseFor<PartnerClientListAssociationsPage> =
+            listAssociations(params, RequestOptions.none())
+
+        /** @see listAssociations */
+        @MustBeClosed
+        fun listAssociations(
+            params: PartnerClientListAssociationsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<PartnerClientListAssociationsPage>
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_clients/search`, but

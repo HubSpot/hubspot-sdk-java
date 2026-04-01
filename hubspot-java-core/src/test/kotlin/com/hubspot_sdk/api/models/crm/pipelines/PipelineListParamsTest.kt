@@ -9,17 +9,15 @@ internal class PipelineListParamsTest {
 
     @Test
     fun create() {
-        PipelineListParams.builder().objectType("objectType").pipelineId("pipelineId").build()
+        PipelineListParams.builder().objectType("objectType").build()
     }
 
     @Test
     fun pathParams() {
-        val params =
-            PipelineListParams.builder().objectType("objectType").pipelineId("pipelineId").build()
+        val params = PipelineListParams.builder().objectType("objectType").build()
 
         assertThat(params._pathParam(0)).isEqualTo("objectType")
-        assertThat(params._pathParam(1)).isEqualTo("pipelineId")
         // out-of-bound path param
-        assertThat(params._pathParam(2)).isEqualTo("")
+        assertThat(params._pathParam(1)).isEqualTo("")
     }
 }

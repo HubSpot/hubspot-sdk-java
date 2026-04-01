@@ -11,26 +11,35 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
+/**
+ * Perform a partial update of the pipeline identified by `{pipelineId}`. The updated pipeline will
+ * be returned in the response.
+ */
 class PipelineUpdateParams
 private constructor(
     private val objectType: String,
-    private val pipelineId: String,
-    private val stageId: String?,
-    private val pipelineStagePatchInput: PipelineStagePatchInput,
+    private val pipelineId: String?,
+    private val validateDealStageUsagesBeforeDelete: Boolean?,
+    private val validateReferencesBeforeDelete: Boolean?,
+    private val pipelinePatchInput: PipelinePatchInput,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun objectType(): String = objectType
 
-    fun pipelineId(): String = pipelineId
+    fun pipelineId(): Optional<String> = Optional.ofNullable(pipelineId)
 
-    fun stageId(): Optional<String> = Optional.ofNullable(stageId)
+    fun validateDealStageUsagesBeforeDelete(): Optional<Boolean> =
+        Optional.ofNullable(validateDealStageUsagesBeforeDelete)
 
-    fun pipelineStagePatchInput(): PipelineStagePatchInput = pipelineStagePatchInput
+    fun validateReferencesBeforeDelete(): Optional<Boolean> =
+        Optional.ofNullable(validateReferencesBeforeDelete)
+
+    fun pipelinePatchInput(): PipelinePatchInput = pipelinePatchInput
 
     fun _additionalBodyProperties(): Map<String, JsonValue> =
-        pipelineStagePatchInput._additionalProperties()
+        pipelinePatchInput._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -48,8 +57,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .objectType()
-         * .pipelineId()
-         * .pipelineStagePatchInput()
+         * .pipelinePatchInput()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -60,8 +68,9 @@ private constructor(
 
         private var objectType: String? = null
         private var pipelineId: String? = null
-        private var stageId: String? = null
-        private var pipelineStagePatchInput: PipelineStagePatchInput? = null
+        private var validateDealStageUsagesBeforeDelete: Boolean? = null
+        private var validateReferencesBeforeDelete: Boolean? = null
+        private var pipelinePatchInput: PipelinePatchInput? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -69,23 +78,63 @@ private constructor(
         internal fun from(pipelineUpdateParams: PipelineUpdateParams) = apply {
             objectType = pipelineUpdateParams.objectType
             pipelineId = pipelineUpdateParams.pipelineId
-            stageId = pipelineUpdateParams.stageId
-            pipelineStagePatchInput = pipelineUpdateParams.pipelineStagePatchInput
+            validateDealStageUsagesBeforeDelete =
+                pipelineUpdateParams.validateDealStageUsagesBeforeDelete
+            validateReferencesBeforeDelete = pipelineUpdateParams.validateReferencesBeforeDelete
+            pipelinePatchInput = pipelineUpdateParams.pipelinePatchInput
             additionalHeaders = pipelineUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = pipelineUpdateParams.additionalQueryParams.toBuilder()
         }
 
         fun objectType(objectType: String) = apply { this.objectType = objectType }
 
-        fun pipelineId(pipelineId: String) = apply { this.pipelineId = pipelineId }
+        fun pipelineId(pipelineId: String?) = apply { this.pipelineId = pipelineId }
 
-        fun stageId(stageId: String?) = apply { this.stageId = stageId }
+        /** Alias for calling [Builder.pipelineId] with `pipelineId.orElse(null)`. */
+        fun pipelineId(pipelineId: Optional<String>) = pipelineId(pipelineId.getOrNull())
 
-        /** Alias for calling [Builder.stageId] with `stageId.orElse(null)`. */
-        fun stageId(stageId: Optional<String>) = stageId(stageId.getOrNull())
+        fun validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete: Boolean?) =
+            apply {
+                this.validateDealStageUsagesBeforeDelete = validateDealStageUsagesBeforeDelete
+            }
 
-        fun pipelineStagePatchInput(pipelineStagePatchInput: PipelineStagePatchInput) = apply {
-            this.pipelineStagePatchInput = pipelineStagePatchInput
+        /**
+         * Alias for [Builder.validateDealStageUsagesBeforeDelete].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete: Boolean) =
+            validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete as Boolean?)
+
+        /**
+         * Alias for calling [Builder.validateDealStageUsagesBeforeDelete] with
+         * `validateDealStageUsagesBeforeDelete.orElse(null)`.
+         */
+        fun validateDealStageUsagesBeforeDelete(
+            validateDealStageUsagesBeforeDelete: Optional<Boolean>
+        ) = validateDealStageUsagesBeforeDelete(validateDealStageUsagesBeforeDelete.getOrNull())
+
+        fun validateReferencesBeforeDelete(validateReferencesBeforeDelete: Boolean?) = apply {
+            this.validateReferencesBeforeDelete = validateReferencesBeforeDelete
+        }
+
+        /**
+         * Alias for [Builder.validateReferencesBeforeDelete].
+         *
+         * This unboxed primitive overload exists for backwards compatibility.
+         */
+        fun validateReferencesBeforeDelete(validateReferencesBeforeDelete: Boolean) =
+            validateReferencesBeforeDelete(validateReferencesBeforeDelete as Boolean?)
+
+        /**
+         * Alias for calling [Builder.validateReferencesBeforeDelete] with
+         * `validateReferencesBeforeDelete.orElse(null)`.
+         */
+        fun validateReferencesBeforeDelete(validateReferencesBeforeDelete: Optional<Boolean>) =
+            validateReferencesBeforeDelete(validateReferencesBeforeDelete.getOrNull())
+
+        fun pipelinePatchInput(pipelinePatchInput: PipelinePatchInput) = apply {
+            this.pipelinePatchInput = pipelinePatchInput
         }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
@@ -194,8 +243,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .objectType()
-         * .pipelineId()
-         * .pipelineStagePatchInput()
+         * .pipelinePatchInput()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -203,27 +251,38 @@ private constructor(
         fun build(): PipelineUpdateParams =
             PipelineUpdateParams(
                 checkRequired("objectType", objectType),
-                checkRequired("pipelineId", pipelineId),
-                stageId,
-                checkRequired("pipelineStagePatchInput", pipelineStagePatchInput),
+                pipelineId,
+                validateDealStageUsagesBeforeDelete,
+                validateReferencesBeforeDelete,
+                checkRequired("pipelinePatchInput", pipelinePatchInput),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): PipelineStagePatchInput = pipelineStagePatchInput
+    fun _body(): PipelinePatchInput = pipelinePatchInput
 
     fun _pathParam(index: Int): String =
         when (index) {
             0 -> objectType
-            1 -> pipelineId
-            2 -> stageId ?: ""
+            1 -> pipelineId ?: ""
             else -> ""
         }
 
     override fun _headers(): Headers = additionalHeaders
 
-    override fun _queryParams(): QueryParams = additionalQueryParams
+    override fun _queryParams(): QueryParams =
+        QueryParams.builder()
+            .apply {
+                validateDealStageUsagesBeforeDelete?.let {
+                    put("validateDealStageUsagesBeforeDelete", it.toString())
+                }
+                validateReferencesBeforeDelete?.let {
+                    put("validateReferencesBeforeDelete", it.toString())
+                }
+                putAll(additionalQueryParams)
+            }
+            .build()
 
     override fun equals(other: Any?): Boolean {
         if (this === other) {
@@ -233,8 +292,9 @@ private constructor(
         return other is PipelineUpdateParams &&
             objectType == other.objectType &&
             pipelineId == other.pipelineId &&
-            stageId == other.stageId &&
-            pipelineStagePatchInput == other.pipelineStagePatchInput &&
+            validateDealStageUsagesBeforeDelete == other.validateDealStageUsagesBeforeDelete &&
+            validateReferencesBeforeDelete == other.validateReferencesBeforeDelete &&
+            pipelinePatchInput == other.pipelinePatchInput &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -243,12 +303,13 @@ private constructor(
         Objects.hash(
             objectType,
             pipelineId,
-            stageId,
-            pipelineStagePatchInput,
+            validateDealStageUsagesBeforeDelete,
+            validateReferencesBeforeDelete,
+            pipelinePatchInput,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "PipelineUpdateParams{objectType=$objectType, pipelineId=$pipelineId, stageId=$stageId, pipelineStagePatchInput=$pipelineStagePatchInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "PipelineUpdateParams{objectType=$objectType, pipelineId=$pipelineId, validateDealStageUsagesBeforeDelete=$validateDealStageUsagesBeforeDelete, validateReferencesBeforeDelete=$validateReferencesBeforeDelete, pipelinePatchInput=$pipelinePatchInput, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

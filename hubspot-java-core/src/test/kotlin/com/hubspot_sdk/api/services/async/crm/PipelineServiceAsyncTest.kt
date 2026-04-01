@@ -5,15 +5,24 @@ package com.hubspot_sdk.api.services.async.crm
 import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineCreateParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineCreateStageParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineDeleteParams
-import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetAuditParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineDeleteStageParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetParams
-import com.hubspot_sdk.api.models.crm.pipelines.PipelineListParams
-import com.hubspot_sdk.api.models.crm.pipelines.PipelineReplaceParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineGetStageParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineInput
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListAuditParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListStageAuditParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineListStagesParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelinePatchInput
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineReplaceInput
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineStageInput
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineStagePatchInput
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineStageReplaceInput
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateAllPropertiesParams
 import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateStageAllPropertiesParams
+import com.hubspot_sdk.api.models.crm.pipelines.PipelineUpdateStageParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -25,9 +34,103 @@ internal class PipelineServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pipelineServiceAsync = client.crm().pipelines()
 
-        val pipelineStageFuture =
+        val pipelineFuture =
             pipelineServiceAsync.create(
                 PipelineCreateParams.builder()
+                    .objectType("objectType")
+                    .pipelineInput(
+                        PipelineInput.builder()
+                            .displayOrder(0)
+                            .label("label")
+                            .addStage(
+                                PipelineStageInput.builder()
+                                    .displayOrder(0)
+                                    .label("label")
+                                    .metadata(
+                                        PipelineStageInput.Metadata.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .stageId("stageId")
+                                    .build()
+                            )
+                            .pipelineId("pipelineId")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val pipeline = pipelineFuture.get()
+        pipeline.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun update() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val pipelineFuture =
+            pipelineServiceAsync.update(
+                PipelineUpdateParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .validateDealStageUsagesBeforeDelete(true)
+                    .validateReferencesBeforeDelete(true)
+                    .pipelinePatchInput(
+                        PipelinePatchInput.builder()
+                            .archived(true)
+                            .displayOrder(0)
+                            .label("label")
+                            .build()
+                    )
+                    .build()
+            )
+
+        val pipeline = pipelineFuture.get()
+        pipeline.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun list() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val collectionResponsePipelineNoPagingFuture = pipelineServiceAsync.list("objectType")
+
+        val collectionResponsePipelineNoPaging = collectionResponsePipelineNoPagingFuture.get()
+        collectionResponsePipelineNoPaging.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun delete() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val future =
+            pipelineServiceAsync.delete(
+                PipelineDeleteParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .validateDealStageUsagesBeforeDelete(true)
+                    .validateReferencesBeforeDelete(true)
+                    .build()
+            )
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun createStage() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val pipelineStageFuture =
+            pipelineServiceAsync.createStage(
+                PipelineCreateStageParams.builder()
                     .objectType("objectType")
                     .pipelineId("pipelineId")
                     .pipelineStageInput(
@@ -51,13 +154,164 @@ internal class PipelineServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun update() {
+    fun deleteStage() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val future =
+            pipelineServiceAsync.deleteStage(
+                PipelineDeleteStageParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .stageId("stageId")
+                    .build()
+            )
+
+        val response = future.get()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun get() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val pipelineFuture =
+            pipelineServiceAsync.get(
+                PipelineGetParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .build()
+            )
+
+        val pipeline = pipelineFuture.get()
+        pipeline.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun getStage() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pipelineServiceAsync = client.crm().pipelines()
 
         val pipelineStageFuture =
-            pipelineServiceAsync.update(
-                PipelineUpdateParams.builder()
+            pipelineServiceAsync.getStage(
+                PipelineGetStageParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .stageId("stageId")
+                    .build()
+            )
+
+        val pipelineStage = pipelineStageFuture.get()
+        pipelineStage.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listAudit() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val collectionResponsePublicAuditInfoNoPagingFuture =
+            pipelineServiceAsync.listAudit(
+                PipelineListAuditParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .build()
+            )
+
+        val collectionResponsePublicAuditInfoNoPaging =
+            collectionResponsePublicAuditInfoNoPagingFuture.get()
+        collectionResponsePublicAuditInfoNoPaging.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listStageAudit() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val collectionResponsePublicAuditInfoNoPagingFuture =
+            pipelineServiceAsync.listStageAudit(
+                PipelineListStageAuditParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .stageId("stageId")
+                    .build()
+            )
+
+        val collectionResponsePublicAuditInfoNoPaging =
+            collectionResponsePublicAuditInfoNoPagingFuture.get()
+        collectionResponsePublicAuditInfoNoPaging.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun listStages() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val collectionResponsePipelineStageNoPagingFuture =
+            pipelineServiceAsync.listStages(
+                PipelineListStagesParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .build()
+            )
+
+        val collectionResponsePipelineStageNoPaging =
+            collectionResponsePipelineStageNoPagingFuture.get()
+        collectionResponsePipelineStageNoPaging.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateAllProperties() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val pipelineFuture =
+            pipelineServiceAsync.updateAllProperties(
+                PipelineUpdateAllPropertiesParams.builder()
+                    .objectType("objectType")
+                    .pipelineId("pipelineId")
+                    .validateDealStageUsagesBeforeDelete(true)
+                    .validateReferencesBeforeDelete(true)
+                    .pipelineReplaceInput(
+                        PipelineReplaceInput.builder()
+                            .displayOrder(0)
+                            .label("label")
+                            .addStage(
+                                PipelineStageInput.builder()
+                                    .displayOrder(0)
+                                    .label("label")
+                                    .metadata(
+                                        PipelineStageInput.Metadata.builder()
+                                            .putAdditionalProperty("foo", JsonValue.from("string"))
+                                            .build()
+                                    )
+                                    .stageId("stageId")
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .build()
+            )
+
+        val pipeline = pipelineFuture.get()
+        pipeline.validate()
+    }
+
+    @Disabled("Mock server tests are disabled")
+    @Test
+    fun updateStage() {
+        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val pipelineServiceAsync = client.crm().pipelines()
+
+        val pipelineStageFuture =
+            pipelineServiceAsync.updateStage(
+                PipelineUpdateStageParams.builder()
                     .objectType("objectType")
                     .pipelineId("pipelineId")
                     .stageId("stageId")
@@ -82,89 +336,13 @@ internal class PipelineServiceAsyncTest {
 
     @Disabled("Mock server tests are disabled")
     @Test
-    fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
-        val pipelineServiceAsync = client.crm().pipelines()
-
-        val collectionResponsePipelineStageNoPagingFuture =
-            pipelineServiceAsync.list(
-                PipelineListParams.builder()
-                    .objectType("objectType")
-                    .pipelineId("pipelineId")
-                    .build()
-            )
-
-        val collectionResponsePipelineStageNoPaging =
-            collectionResponsePipelineStageNoPagingFuture.get()
-        collectionResponsePipelineStageNoPaging.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
-        val pipelineServiceAsync = client.crm().pipelines()
-
-        val future =
-            pipelineServiceAsync.delete(
-                PipelineDeleteParams.builder()
-                    .objectType("objectType")
-                    .pipelineId("pipelineId")
-                    .stageId("stageId")
-                    .build()
-            )
-
-        val response = future.get()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun get() {
+    fun updateStageAllProperties() {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pipelineServiceAsync = client.crm().pipelines()
 
         val pipelineStageFuture =
-            pipelineServiceAsync.get(
-                PipelineGetParams.builder()
-                    .objectType("objectType")
-                    .pipelineId("pipelineId")
-                    .stageId("stageId")
-                    .build()
-            )
-
-        val pipelineStage = pipelineStageFuture.get()
-        pipelineStage.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun getAudit() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
-        val pipelineServiceAsync = client.crm().pipelines()
-
-        val collectionResponsePublicAuditInfoNoPagingFuture =
-            pipelineServiceAsync.getAudit(
-                PipelineGetAuditParams.builder()
-                    .objectType("objectType")
-                    .pipelineId("pipelineId")
-                    .stageId("stageId")
-                    .build()
-            )
-
-        val collectionResponsePublicAuditInfoNoPaging =
-            collectionResponsePublicAuditInfoNoPagingFuture.get()
-        collectionResponsePublicAuditInfoNoPaging.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun replace() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
-        val pipelineServiceAsync = client.crm().pipelines()
-
-        val pipelineStageFuture =
-            pipelineServiceAsync.replace(
-                PipelineReplaceParams.builder()
+            pipelineServiceAsync.updateStageAllProperties(
+                PipelineUpdateStageAllPropertiesParams.builder()
                     .objectType("objectType")
                     .pipelineId("pipelineId")
                     .stageId("stageId")
