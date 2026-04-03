@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models.crm.properties
+package com.hubspot_sdk.api.models.events.definitions
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
@@ -38,7 +38,6 @@ internal class PropertyTest {
                 .calculationFormula("calculationFormula")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdUserId("createdUserId")
-                .currencyPropertyName("currencyPropertyName")
                 .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                 .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                 .displayOrder(0)
@@ -84,7 +83,6 @@ internal class PropertyTest {
         assertThat(property.calculationFormula()).contains("calculationFormula")
         assertThat(property.createdAt()).contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(property.createdUserId()).contains("createdUserId")
-        assertThat(property.currencyPropertyName()).contains("currencyPropertyName")
         assertThat(property.dataSensitivity()).contains(Property.DataSensitivity.HIGHLY_SENSITIVE)
         assertThat(property.dateDisplayHint()).contains(Property.DateDisplayHint.ABSOLUTE)
         assertThat(property.displayOrder()).contains(0)
@@ -135,7 +133,6 @@ internal class PropertyTest {
                 .calculationFormula("calculationFormula")
                 .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .createdUserId("createdUserId")
-                .currencyPropertyName("currencyPropertyName")
                 .dataSensitivity(Property.DataSensitivity.HIGHLY_SENSITIVE)
                 .dateDisplayHint(Property.DateDisplayHint.ABSOLUTE)
                 .displayOrder(0)

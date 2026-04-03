@@ -200,7 +200,7 @@ private constructor(
 
         companion object {
 
-            @JvmField val Unknown0 = of("%")
+            @JvmField val PERCENT = of("%")
 
             @JvmField val CH = of("ch")
 
@@ -239,7 +239,7 @@ private constructor(
 
         /** An enum containing [Units]'s known values. */
         enum class Known {
-            Unknown0,
+            PERCENT,
             CH,
             CM,
             EM,
@@ -268,7 +268,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            Unknown0,
+            PERCENT,
             CH,
             CM,
             EM,
@@ -298,7 +298,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                Unknown0 -> Value.Unknown0
+                PERCENT -> Value.PERCENT
                 CH -> Value.CH
                 CM -> Value.CM
                 EM -> Value.EM
@@ -329,7 +329,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                Unknown0 -> Known.Unknown0
+                PERCENT -> Known.PERCENT
                 CH -> Known.CH
                 CM -> Known.CM
                 EM -> Known.EM

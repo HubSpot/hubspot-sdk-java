@@ -9,6 +9,7 @@ import com.hubspot_sdk.api.models.ErrorDetail
 import com.hubspot_sdk.api.models.Option
 import com.hubspot_sdk.api.models.PropertyModificationMetadata
 import com.hubspot_sdk.api.models.StandardError
+import com.hubspot_sdk.api.models.crm.Property
 import java.time.OffsetDateTime
 import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat

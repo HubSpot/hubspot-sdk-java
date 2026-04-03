@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models
+package com.hubspot_sdk.api.models.events.definitions
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -15,6 +15,8 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.models.Option
+import com.hubspot_sdk.api.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -154,7 +156,7 @@ private constructor(
     )
 
     /**
-     * A description of the property that will be shown as help text in HubSpot.
+     * A summary of the property's purpose.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -162,7 +164,8 @@ private constructor(
     fun description(): String = description.getRequired("description")
 
     /**
-     * Controls how the property appears in HubSpot.
+     * Determines how the property will appear in HubSpot's UI or on a form. Learn more in the
+     * properties API guide.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -170,7 +173,7 @@ private constructor(
     fun fieldType(): String = fieldType.getRequired("fieldType")
 
     /**
-     * The name of the property group the property belongs to.
+     * The name of the group to which the property is assigned.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -178,7 +181,7 @@ private constructor(
     fun groupName(): String = groupName.getRequired("groupName")
 
     /**
-     * A human-readable property label that will be shown in HubSpot.
+     * The display label for the property.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -186,7 +189,7 @@ private constructor(
     fun label(): String = label.getRequired("label")
 
     /**
-     * The internal property name, which must be used when referencing the property via the API.
+     * The internal name for the property.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -194,8 +197,7 @@ private constructor(
     fun name(): String = name.getRequired("name")
 
     /**
-     * A list of valid options for the property. This field is required for enumerated properties,
-     * but will be empty for other property types.
+     * A list of valid options for the property. This field is required for enumerated properties.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -203,7 +205,7 @@ private constructor(
     fun options(): List<Option> = options.getRequired("options")
 
     /**
-     * The property data type.
+     * The data type of the property, such as string or number.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -211,7 +213,7 @@ private constructor(
     fun type(): String = type.getRequired("type")
 
     /**
-     * Whether or not the property is archived.
+     * Whether the property is archived.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -219,7 +221,7 @@ private constructor(
     fun archived(): Optional<Boolean> = archived.getOptional("archived")
 
     /**
-     * When the property was archived.
+     * The timestamp when the property was archived, in ISO 8601 format.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -227,8 +229,7 @@ private constructor(
     fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
 
     /**
-     * For default properties, true indicates that the property is calculated by a HubSpot process.
-     * It has no effect for custom properties.
+     * Whether the property is a calculated field.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -245,7 +246,7 @@ private constructor(
         calculationFormula.getOptional("calculationFormula")
 
     /**
-     * When the property was created
+     * The timestamp when the property was created, in ISO 8601 format.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -253,8 +254,7 @@ private constructor(
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("createdAt")
 
     /**
-     * The internal ID of the user who created the property in HubSpot. This field may not exist if
-     * the property was created outside of HubSpot.
+     * The ID of the user who created the property.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -272,9 +272,6 @@ private constructor(
         dataSensitivity.getOptional("dataSensitivity")
 
     /**
-     * Controls how date properties are displayed in the HubSpot UI, with options such as
-     * 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -282,10 +279,7 @@ private constructor(
         dateDisplayHint.getOptional("dateDisplayHint")
 
     /**
-     * The order that this property should be displayed in the HubSpot UI relative to other
-     * properties for this object type. Properties are displayed in order starting with the lowest
-     * positive integer value. A value of -1 will cause the property to be displayed **after** any
-     * positive values.
+     * The position of the item relative to others in the list.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -293,8 +287,8 @@ private constructor(
     fun displayOrder(): Optional<Int> = displayOrder.getOptional("displayOrder")
 
     /**
-     * For default properties, true indicates that the options are stored externally to the property
-     * settings.
+     * Applicable only for enumeration type properties. Should be set to true with a
+     * 'referencedObjectType' of 'OWNER'. Otherwise false.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -302,7 +296,7 @@ private constructor(
     fun externalOptions(): Optional<Boolean> = externalOptions.getOptional("externalOptions")
 
     /**
-     * Whether or not the property can be used in a HubSpot form.
+     * Whether the property can appear on forms.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -310,7 +304,7 @@ private constructor(
     fun formField(): Optional<Boolean> = formField.getOptional("formField")
 
     /**
-     * Whether or not the property's value must be unique. Once set, this can't be changed.
+     * Whether the property is a unique identifier property.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -318,7 +312,8 @@ private constructor(
     fun hasUniqueValue(): Optional<Boolean> = hasUniqueValue.getOptional("hasUniqueValue")
 
     /**
-     * Hidden options won't be shown in HubSpot.
+     * Whether or not the property will be hidden from the HubSpot UI. It's recommended that this be
+     * set to false for custom properties.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -326,7 +321,7 @@ private constructor(
     fun hidden(): Optional<Boolean> = hidden.getOptional("hidden")
 
     /**
-     * This will be true for default object properties built into HubSpot.
+     * A boolean value set to true for HubSpot default properties.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -341,7 +336,7 @@ private constructor(
         modificationMetadata.getOptional("modificationMetadata")
 
     /**
-     * If this property is related to other object(s), they'll be listed here.
+     * Deprecated. Use externalOptionsReferenceType instead.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -360,7 +355,7 @@ private constructor(
         sensitiveDataCategories.getOptional("sensitiveDataCategories")
 
     /**
-     * Whether the property will display the currency symbol set in the account settings.
+     * Whether to show the currency symbol in HubSpot's UI.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -369,7 +364,7 @@ private constructor(
         showCurrencySymbol.getOptional("showCurrencySymbol")
 
     /**
-     * When the object type was last updated.
+     * The timestamp when the property was last updated, in ISO 8601 format.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -377,9 +372,6 @@ private constructor(
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
 
     /**
-     * The internal user ID of the user who updated the property in HubSpot. This field may not
-     * exist if the property was updated outside of HubSpot.
-     *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -704,7 +696,7 @@ private constructor(
             additionalProperties = property.additionalProperties.toMutableMap()
         }
 
-        /** A description of the property that will be shown as help text in HubSpot. */
+        /** A summary of the property's purpose. */
         fun description(description: String) = description(JsonField.of(description))
 
         /**
@@ -716,7 +708,10 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { this.description = description }
 
-        /** Controls how the property appears in HubSpot. */
+        /**
+         * Determines how the property will appear in HubSpot's UI or on a form. Learn more in the
+         * properties API guide.
+         */
         fun fieldType(fieldType: String) = fieldType(JsonField.of(fieldType))
 
         /**
@@ -728,7 +723,7 @@ private constructor(
          */
         fun fieldType(fieldType: JsonField<String>) = apply { this.fieldType = fieldType }
 
-        /** The name of the property group the property belongs to. */
+        /** The name of the group to which the property is assigned. */
         fun groupName(groupName: String) = groupName(JsonField.of(groupName))
 
         /**
@@ -740,7 +735,7 @@ private constructor(
          */
         fun groupName(groupName: JsonField<String>) = apply { this.groupName = groupName }
 
-        /** A human-readable property label that will be shown in HubSpot. */
+        /** The display label for the property. */
         fun label(label: String) = label(JsonField.of(label))
 
         /**
@@ -751,9 +746,7 @@ private constructor(
          */
         fun label(label: JsonField<String>) = apply { this.label = label }
 
-        /**
-         * The internal property name, which must be used when referencing the property via the API.
-         */
+        /** The internal name for the property. */
         fun name(name: String) = name(JsonField.of(name))
 
         /**
@@ -766,7 +759,7 @@ private constructor(
 
         /**
          * A list of valid options for the property. This field is required for enumerated
-         * properties, but will be empty for other property types.
+         * properties.
          */
         fun options(options: List<Option>) = options(JsonField.of(options))
 
@@ -793,7 +786,7 @@ private constructor(
                 }
         }
 
-        /** The property data type. */
+        /** The data type of the property, such as string or number. */
         fun type(type: String) = type(JsonField.of(type))
 
         /**
@@ -804,7 +797,7 @@ private constructor(
          */
         fun type(type: JsonField<String>) = apply { this.type = type }
 
-        /** Whether or not the property is archived. */
+        /** Whether the property is archived. */
         fun archived(archived: Boolean) = archived(JsonField.of(archived))
 
         /**
@@ -816,7 +809,7 @@ private constructor(
          */
         fun archived(archived: JsonField<Boolean>) = apply { this.archived = archived }
 
-        /** When the property was archived. */
+        /** The timestamp when the property was archived, in ISO 8601 format. */
         fun archivedAt(archivedAt: OffsetDateTime) = archivedAt(JsonField.of(archivedAt))
 
         /**
@@ -830,10 +823,7 @@ private constructor(
             this.archivedAt = archivedAt
         }
 
-        /**
-         * For default properties, true indicates that the property is calculated by a HubSpot
-         * process. It has no effect for custom properties.
-         */
+        /** Whether the property is a calculated field. */
         fun calculated(calculated: Boolean) = calculated(JsonField.of(calculated))
 
         /**
@@ -860,7 +850,7 @@ private constructor(
             this.calculationFormula = calculationFormula
         }
 
-        /** When the property was created */
+        /** The timestamp when the property was created, in ISO 8601 format. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -872,10 +862,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /**
-         * The internal ID of the user who created the property in HubSpot. This field may not exist
-         * if the property was created outside of HubSpot.
-         */
+        /** The ID of the user who created the property. */
         fun createdUserId(createdUserId: String) = createdUserId(JsonField.of(createdUserId))
 
         /**
@@ -907,10 +894,6 @@ private constructor(
             this.dataSensitivity = dataSensitivity
         }
 
-        /**
-         * Controls how date properties are displayed in the HubSpot UI, with options such as
-         * 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.
-         */
         fun dateDisplayHint(dateDisplayHint: DateDisplayHint) =
             dateDisplayHint(JsonField.of(dateDisplayHint))
 
@@ -925,12 +908,7 @@ private constructor(
             this.dateDisplayHint = dateDisplayHint
         }
 
-        /**
-         * The order that this property should be displayed in the HubSpot UI relative to other
-         * properties for this object type. Properties are displayed in order starting with the
-         * lowest positive integer value. A value of -1 will cause the property to be displayed
-         * **after** any positive values.
-         */
+        /** The position of the item relative to others in the list. */
         fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
 
         /**
@@ -943,8 +921,8 @@ private constructor(
         fun displayOrder(displayOrder: JsonField<Int>) = apply { this.displayOrder = displayOrder }
 
         /**
-         * For default properties, true indicates that the options are stored externally to the
-         * property settings.
+         * Applicable only for enumeration type properties. Should be set to true with a
+         * 'referencedObjectType' of 'OWNER'. Otherwise false.
          */
         fun externalOptions(externalOptions: Boolean) =
             externalOptions(JsonField.of(externalOptions))
@@ -960,7 +938,7 @@ private constructor(
             this.externalOptions = externalOptions
         }
 
-        /** Whether or not the property can be used in a HubSpot form. */
+        /** Whether the property can appear on forms. */
         fun formField(formField: Boolean) = formField(JsonField.of(formField))
 
         /**
@@ -972,7 +950,7 @@ private constructor(
          */
         fun formField(formField: JsonField<Boolean>) = apply { this.formField = formField }
 
-        /** Whether or not the property's value must be unique. Once set, this can't be changed. */
+        /** Whether the property is a unique identifier property. */
         fun hasUniqueValue(hasUniqueValue: Boolean) = hasUniqueValue(JsonField.of(hasUniqueValue))
 
         /**
@@ -986,7 +964,10 @@ private constructor(
             this.hasUniqueValue = hasUniqueValue
         }
 
-        /** Hidden options won't be shown in HubSpot. */
+        /**
+         * Whether or not the property will be hidden from the HubSpot UI. It's recommended that
+         * this be set to false for custom properties.
+         */
         fun hidden(hidden: Boolean) = hidden(JsonField.of(hidden))
 
         /**
@@ -997,7 +978,7 @@ private constructor(
          */
         fun hidden(hidden: JsonField<Boolean>) = apply { this.hidden = hidden }
 
-        /** This will be true for default object properties built into HubSpot. */
+        /** A boolean value set to true for HubSpot default properties. */
         fun hubspotDefined(hubspotDefined: Boolean) = hubspotDefined(JsonField.of(hubspotDefined))
 
         /**
@@ -1026,7 +1007,7 @@ private constructor(
                 this.modificationMetadata = modificationMetadata
             }
 
-        /** If this property is related to other object(s), they'll be listed here. */
+        /** Deprecated. Use externalOptionsReferenceType instead. */
         fun referencedObjectType(referencedObjectType: String) =
             referencedObjectType(JsonField.of(referencedObjectType))
 
@@ -1071,7 +1052,7 @@ private constructor(
                 }
         }
 
-        /** Whether the property will display the currency symbol set in the account settings. */
+        /** Whether to show the currency symbol in HubSpot's UI. */
         fun showCurrencySymbol(showCurrencySymbol: Boolean) =
             showCurrencySymbol(JsonField.of(showCurrencySymbol))
 
@@ -1086,7 +1067,7 @@ private constructor(
             this.showCurrencySymbol = showCurrencySymbol
         }
 
-        /** When the object type was last updated. */
+        /** The timestamp when the property was last updated, in ISO 8601 format. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -1098,10 +1079,6 @@ private constructor(
          */
         fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply { this.updatedAt = updatedAt }
 
-        /**
-         * The internal user ID of the user who updated the property in HubSpot. This field may not
-         * exist if the property was updated outside of HubSpot.
-         */
         fun updatedUserId(updatedUserId: String) = updatedUserId(JsonField.of(updatedUserId))
 
         /**
@@ -1404,10 +1381,6 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /**
-     * Controls how date properties are displayed in the HubSpot UI, with options such as
-     * 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.
-     */
     class DateDisplayHint @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
 
