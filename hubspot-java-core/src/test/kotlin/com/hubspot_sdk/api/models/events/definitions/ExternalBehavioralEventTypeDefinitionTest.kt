@@ -5,7 +5,6 @@ package com.hubspot_sdk.api.models.events.definitions
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.jsonMapper
 import com.hubspot_sdk.api.models.Option
-import com.hubspot_sdk.api.models.Property
 import com.hubspot_sdk.api.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat

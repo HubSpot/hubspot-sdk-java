@@ -13,20 +13,20 @@ internal class PaddingTest {
     fun create() {
         val padding =
             Padding.builder()
-                .bottom(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
-                .left(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
-                .right(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
-                .top(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
+                .bottom(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .left(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .right(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .top(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
                 .build()
 
         assertThat(padding.bottom())
-            .isEqualTo(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
+            .isEqualTo(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
         assertThat(padding.left())
-            .isEqualTo(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
+            .isEqualTo(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
         assertThat(padding.right())
-            .isEqualTo(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
+            .isEqualTo(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
         assertThat(padding.top())
-            .isEqualTo(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
+            .isEqualTo(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
     }
 
     @Test
@@ -34,10 +34,10 @@ internal class PaddingTest {
         val jsonMapper = jsonMapper()
         val padding =
             Padding.builder()
-                .bottom(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
-                .left(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
-                .right(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
-                .top(Size.builder().units(Size.Units.Unknown0).value(0.0).build())
+                .bottom(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .left(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .right(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
+                .top(Size.builder().units(Size.Units.PERCENT).value(0.0).build())
                 .build()
 
         val roundtrippedPadding =

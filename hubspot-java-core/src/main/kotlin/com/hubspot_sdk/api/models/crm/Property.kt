@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.hubspot_sdk.api.models.crm.properties
+package com.hubspot_sdk.api.models.crm
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -243,7 +243,7 @@ private constructor(
     fun calculated(): Optional<Boolean> = calculated.getOptional("calculated")
 
     /**
-     * Represents a formula that is used to compute a calculated property.
+     * The formula used for calculated properties.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -252,7 +252,7 @@ private constructor(
         calculationFormula.getOptional("calculationFormula")
 
     /**
-     * The timestamp when the property was created, in ISO 8601 format.
+     * When the property was created
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -260,8 +260,8 @@ private constructor(
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("createdAt")
 
     /**
-     * The internal user ID of the user who created the property in HubSpot. This field may not
-     * exist if the property was created outside of HubSpot.
+     * The internal ID of the user who created the property in HubSpot. This field may not exist if
+     * the property was created outside of HubSpot.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -288,8 +288,8 @@ private constructor(
         dataSensitivity.getOptional("dataSensitivity")
 
     /**
-     * Indicates how date values should be displayed, with options such as 'absolute',
-     * 'absolute_with_relative', 'time_since', or 'time_until'.
+     * Controls how date properties are displayed in the HubSpot UI, with options such as
+     * 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -298,7 +298,10 @@ private constructor(
         dateDisplayHint.getOptional("dateDisplayHint")
 
     /**
-     * Properties are shown in order, starting with the lowest positive integer value.
+     * The order that this property should be displayed in the HubSpot UI relative to other
+     * properties for this object type. Properties are displayed in order starting with the lowest
+     * positive integer value. A value of -1 will cause the property to be displayed **after** any
+     * positive values.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -331,8 +334,7 @@ private constructor(
     fun hasUniqueValue(): Optional<Boolean> = hasUniqueValue.getOptional("hasUniqueValue")
 
     /**
-     * Whether or not the property will be hidden from the HubSpot UI. It's recommended this be set
-     * to false for custom properties.
+     * Hidden options won't be shown in HubSpot.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -374,7 +376,7 @@ private constructor(
         sensitiveDataCategories.getOptional("sensitiveDataCategories")
 
     /**
-     * Whether or not the property will display the currency symbol set in the account settings.
+     * Whether the property will display the currency symbol set in the account settings.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -383,7 +385,7 @@ private constructor(
         showCurrencySymbol.getOptional("showCurrencySymbol")
 
     /**
-     * The timestamp when the property was last updated, in ISO 8601 format.
+     * When the object type was last updated.
      *
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -871,7 +873,7 @@ private constructor(
          */
         fun calculated(calculated: JsonField<Boolean>) = apply { this.calculated = calculated }
 
-        /** Represents a formula that is used to compute a calculated property. */
+        /** The formula used for calculated properties. */
         fun calculationFormula(calculationFormula: String) =
             calculationFormula(JsonField.of(calculationFormula))
 
@@ -886,7 +888,7 @@ private constructor(
             this.calculationFormula = calculationFormula
         }
 
-        /** The timestamp when the property was created, in ISO 8601 format. */
+        /** When the property was created */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
         /**
@@ -899,8 +901,8 @@ private constructor(
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
         /**
-         * The internal user ID of the user who created the property in HubSpot. This field may not
-         * exist if the property was created outside of HubSpot.
+         * The internal ID of the user who created the property in HubSpot. This field may not exist
+         * if the property was created outside of HubSpot.
          */
         fun createdUserId(createdUserId: String) = createdUserId(JsonField.of(createdUserId))
 
@@ -949,8 +951,8 @@ private constructor(
         }
 
         /**
-         * Indicates how date values should be displayed, with options such as 'absolute',
-         * 'absolute_with_relative', 'time_since', or 'time_until'.
+         * Controls how date properties are displayed in the HubSpot UI, with options such as
+         * 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.
          */
         fun dateDisplayHint(dateDisplayHint: DateDisplayHint) =
             dateDisplayHint(JsonField.of(dateDisplayHint))
@@ -966,7 +968,12 @@ private constructor(
             this.dateDisplayHint = dateDisplayHint
         }
 
-        /** Properties are shown in order, starting with the lowest positive integer value. */
+        /**
+         * The order that this property should be displayed in the HubSpot UI relative to other
+         * properties for this object type. Properties are displayed in order starting with the
+         * lowest positive integer value. A value of -1 will cause the property to be displayed
+         * **after** any positive values.
+         */
         fun displayOrder(displayOrder: Int) = displayOrder(JsonField.of(displayOrder))
 
         /**
@@ -1022,10 +1029,7 @@ private constructor(
             this.hasUniqueValue = hasUniqueValue
         }
 
-        /**
-         * Whether or not the property will be hidden from the HubSpot UI. It's recommended this be
-         * set to false for custom properties.
-         */
+        /** Hidden options won't be shown in HubSpot. */
         fun hidden(hidden: Boolean) = hidden(JsonField.of(hidden))
 
         /**
@@ -1110,9 +1114,7 @@ private constructor(
                 }
         }
 
-        /**
-         * Whether or not the property will display the currency symbol set in the account settings.
-         */
+        /** Whether the property will display the currency symbol set in the account settings. */
         fun showCurrencySymbol(showCurrencySymbol: Boolean) =
             showCurrencySymbol(JsonField.of(showCurrencySymbol))
 
@@ -1127,7 +1129,7 @@ private constructor(
             this.showCurrencySymbol = showCurrencySymbol
         }
 
-        /** The timestamp when the property was last updated, in ISO 8601 format. */
+        /** When the object type was last updated. */
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 
         /**
@@ -1449,8 +1451,8 @@ private constructor(
     }
 
     /**
-     * Indicates how date values should be displayed, with options such as 'absolute',
-     * 'absolute_with_relative', 'time_since', or 'time_until'.
+     * Controls how date properties are displayed in the HubSpot UI, with options such as
+     * 'absolute', 'absolute_with_relative', 'time_since', and 'time_until'.
      */
     class DateDisplayHint @JsonCreator private constructor(private val value: JsonField<String>) :
         Enum {
