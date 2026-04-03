@@ -3,8 +3,7 @@
 package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.BusinessUnitServiceAsync
-import com.hubspot_sdk.api.services.async.businessunits.BusinessUnitServiceAsync
+import com.hubspot_sdk.api.services.async.businessunits.BusinessUnitEntryServiceAsync
 import java.util.function.Consumer
 
 interface BusinessUnitServiceAsync {
@@ -21,7 +20,7 @@ interface BusinessUnitServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BusinessUnitServiceAsync
 
-    fun businessUnits(): BusinessUnitServiceAsync
+    fun businessUnitEntries(): BusinessUnitEntryServiceAsync
 
     /**
      * A view of [BusinessUnitServiceAsync] that provides access to raw HTTP responses for each
@@ -38,6 +37,6 @@ interface BusinessUnitServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): BusinessUnitServiceAsync.WithRawResponse
 
-        fun businessUnits(): BusinessUnitServiceAsync.WithRawResponse
+        fun businessUnitEntries(): BusinessUnitEntryServiceAsync.WithRawResponse
     }
 }

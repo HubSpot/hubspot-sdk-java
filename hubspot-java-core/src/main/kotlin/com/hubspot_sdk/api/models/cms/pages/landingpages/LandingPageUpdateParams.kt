@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -20,7 +20,7 @@ class LandingPageUpdateParams
 private constructor(
     private val objectId: String?,
     private val archived: Boolean?,
-    private val page: Page,
+    private val cmsPage: CmsPage,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -30,9 +30,9 @@ private constructor(
     /** Whether to return only results that have been archived. */
     fun archived(): Optional<Boolean> = Optional.ofNullable(archived)
 
-    fun page(): Page = page
+    fun cmsPage(): CmsPage = cmsPage
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = page._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = cmsPage._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -49,7 +49,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .page()
+         * .cmsPage()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -60,7 +60,7 @@ private constructor(
 
         private var objectId: String? = null
         private var archived: Boolean? = null
-        private var page: Page? = null
+        private var cmsPage: CmsPage? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -68,7 +68,7 @@ private constructor(
         internal fun from(landingPageUpdateParams: LandingPageUpdateParams) = apply {
             objectId = landingPageUpdateParams.objectId
             archived = landingPageUpdateParams.archived
-            page = landingPageUpdateParams.page
+            cmsPage = landingPageUpdateParams.cmsPage
             additionalHeaders = landingPageUpdateParams.additionalHeaders.toBuilder()
             additionalQueryParams = landingPageUpdateParams.additionalQueryParams.toBuilder()
         }
@@ -91,7 +91,7 @@ private constructor(
         /** Alias for calling [Builder.archived] with `archived.orElse(null)`. */
         fun archived(archived: Optional<Boolean>) = archived(archived.getOrNull())
 
-        fun page(page: Page) = apply { this.page = page }
+        fun cmsPage(cmsPage: CmsPage) = apply { this.cmsPage = cmsPage }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -198,7 +198,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .page()
+         * .cmsPage()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -207,13 +207,13 @@ private constructor(
             LandingPageUpdateParams(
                 objectId,
                 archived,
-                checkRequired("page", page),
+                checkRequired("cmsPage", cmsPage),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Page = page
+    fun _body(): CmsPage = cmsPage
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -239,14 +239,14 @@ private constructor(
         return other is LandingPageUpdateParams &&
             objectId == other.objectId &&
             archived == other.archived &&
-            page == other.page &&
+            cmsPage == other.cmsPage &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectId, archived, page, additionalHeaders, additionalQueryParams)
+        Objects.hash(objectId, archived, cmsPage, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LandingPageUpdateParams{objectId=$objectId, archived=$archived, page=$page, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LandingPageUpdateParams{objectId=$objectId, archived=$archived, cmsPage=$cmsPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

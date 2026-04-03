@@ -3,10 +3,8 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.WebhookService
-import com.hubspot_sdk.api.services.blocking.WebhookServiceImpl
-import com.hubspot_sdk.api.services.blocking.webhooks.WebhookService
-import com.hubspot_sdk.api.services.blocking.webhooks.WebhookServiceImpl
+import com.hubspot_sdk.api.services.blocking.webhooks.WebhookSubscriptionService
+import com.hubspot_sdk.api.services.blocking.webhooks.WebhookSubscriptionServiceImpl
 import java.util.function.Consumer
 
 class WebhookServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -16,20 +14,22 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
         WithRawResponseImpl(clientOptions)
     }
 
-    private val webhooks: WebhookService by lazy { WebhookServiceImpl(clientOptions) }
+    private val webhookSubscriptions: WebhookSubscriptionService by lazy {
+        WebhookSubscriptionServiceImpl(clientOptions)
+    }
 
     override fun withRawResponse(): WebhookService.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookService =
         WebhookServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun webhooks(): WebhookService = webhooks
+    override fun webhookSubscriptions(): WebhookSubscriptionService = webhookSubscriptions
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WebhookService.WithRawResponse {
 
-        private val webhooks: WebhookService.WithRawResponse by lazy {
-            WebhookServiceImpl.WithRawResponseImpl(clientOptions)
+        private val webhookSubscriptions: WebhookSubscriptionService.WithRawResponse by lazy {
+            WebhookSubscriptionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -39,6 +39,7 @@ class WebhookServiceImpl internal constructor(private val clientOptions: ClientO
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        override fun webhooks(): WebhookService.WithRawResponse = webhooks
+        override fun webhookSubscriptions(): WebhookSubscriptionService.WithRawResponse =
+            webhookSubscriptions
     }
 }

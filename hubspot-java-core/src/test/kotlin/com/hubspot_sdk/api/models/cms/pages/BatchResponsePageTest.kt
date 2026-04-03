@@ -18,14 +18,14 @@ internal class BatchResponsePageTest {
             BatchResponsePage.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
-                    Page.builder()
+                    CmsPage.builder()
                         .id("id")
-                        .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            Page.AttachedStylesheet.builder()
+                            CmsPage.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -33,11 +33,11 @@ internal class BatchResponsePageTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(Page.ContentTypeCategory._0)
+                        .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(Page.CurrentState.AGENT_GENERATED)
+                        .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -51,9 +51,9 @@ internal class BatchResponsePageTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(Page.Language.AA)
+                        .language(CmsPage.Language.AA)
                         .layoutSections(
-                            Page.LayoutSections.builder()
+                            CmsPage.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -296,13 +296,13 @@ internal class BatchResponsePageTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            Page.ThemeSettingsValues.builder()
+                            CmsPage.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            Page.Translations.builder()
+                            CmsPage.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -332,12 +332,12 @@ internal class BatchResponsePageTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            Page.WidgetContainers.builder()
+                            CmsPage.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            Page.Widgets.builder()
+                            CmsPage.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -357,14 +357,14 @@ internal class BatchResponsePageTest {
             .isEqualTo(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(batchResponsePage.results())
             .containsExactly(
-                Page.builder()
+                CmsPage.builder()
                     .id("id")
-                    .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        Page.AttachedStylesheet.builder()
+                        CmsPage.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -372,11 +372,11 @@ internal class BatchResponsePageTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(Page.ContentTypeCategory._0)
+                    .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(Page.CurrentState.AGENT_GENERATED)
+                    .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -390,9 +390,9 @@ internal class BatchResponsePageTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(Page.Language.AA)
+                    .language(CmsPage.Language.AA)
                     .layoutSections(
-                        Page.LayoutSections.builder()
+                        CmsPage.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -623,13 +623,13 @@ internal class BatchResponsePageTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        Page.ThemeSettingsValues.builder()
+                        CmsPage.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        Page.Translations.builder()
+                        CmsPage.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -659,12 +659,12 @@ internal class BatchResponsePageTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        Page.WidgetContainers.builder()
+                        CmsPage.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        Page.Widgets.builder()
+                        CmsPage.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -690,14 +690,14 @@ internal class BatchResponsePageTest {
             BatchResponsePage.builder()
                 .completedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                 .addResult(
-                    Page.builder()
+                    CmsPage.builder()
                         .id("id")
-                        .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                        .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                         .abTestId("abTestId")
                         .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .archivedInDashboard(true)
                         .addAttachedStylesheet(
-                            Page.AttachedStylesheet.builder()
+                            CmsPage.AttachedStylesheet.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
@@ -705,11 +705,11 @@ internal class BatchResponsePageTest {
                         .campaign("campaign")
                         .categoryId(0)
                         .contentGroupId("contentGroupId")
-                        .contentTypeCategory(Page.ContentTypeCategory._0)
+                        .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                         .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .createdById("createdById")
                         .currentlyPublished(true)
-                        .currentState(Page.CurrentState.AGENT_GENERATED)
+                        .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                         .domain("domain")
                         .dynamicPageDataSourceId("dynamicPageDataSourceId")
                         .dynamicPageDataSourceType(0)
@@ -723,9 +723,9 @@ internal class BatchResponsePageTest {
                         .headHtml("headHtml")
                         .htmlTitle("htmlTitle")
                         .includeDefaultCustomCss(true)
-                        .language(Page.Language.AA)
+                        .language(CmsPage.Language.AA)
                         .layoutSections(
-                            Page.LayoutSections.builder()
+                            CmsPage.LayoutSections.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -968,13 +968,13 @@ internal class BatchResponsePageTest {
                         .subcategory("subcategory")
                         .templatePath("templatePath")
                         .themeSettingsValues(
-                            Page.ThemeSettingsValues.builder()
+                            CmsPage.ThemeSettingsValues.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .translatedFromId("translatedFromId")
                         .translations(
-                            Page.Translations.builder()
+                            CmsPage.Translations.builder()
                                 .putAdditionalProperty(
                                     "foo",
                                     JsonValue.from(
@@ -1004,12 +1004,12 @@ internal class BatchResponsePageTest {
                         .url("url")
                         .useFeaturedImage(true)
                         .widgetContainers(
-                            Page.WidgetContainers.builder()
+                            CmsPage.WidgetContainers.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )
                         .widgets(
-                            Page.Widgets.builder()
+                            CmsPage.Widgets.builder()
                                 .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                                 .build()
                         )

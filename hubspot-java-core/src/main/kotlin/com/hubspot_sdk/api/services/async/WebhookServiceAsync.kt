@@ -3,8 +3,7 @@
 package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.WebhookServiceAsync
-import com.hubspot_sdk.api.services.async.webhooks.WebhookServiceAsync
+import com.hubspot_sdk.api.services.async.webhooks.WebhookSubscriptionServiceAsync
 import java.util.function.Consumer
 
 interface WebhookServiceAsync {
@@ -21,7 +20,7 @@ interface WebhookServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookServiceAsync
 
-    fun webhooks(): WebhookServiceAsync
+    fun webhookSubscriptions(): WebhookSubscriptionServiceAsync
 
     /**
      * A view of [WebhookServiceAsync] that provides access to raw HTTP responses for each method.
@@ -37,6 +36,6 @@ interface WebhookServiceAsync {
             modifier: Consumer<ClientOptions.Builder>
         ): WebhookServiceAsync.WithRawResponse
 
-        fun webhooks(): WebhookServiceAsync.WithRawResponse
+        fun webhookSubscriptions(): WebhookSubscriptionServiceAsync.WithRawResponse
     }
 }

@@ -3,8 +3,7 @@
 package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.FileServiceAsync
-import com.hubspot_sdk.api.services.async.files.FileServiceAsync
+import com.hubspot_sdk.api.services.async.files.FileAssetServiceAsync
 import com.hubspot_sdk.api.services.async.files.FolderServiceAsync
 import java.util.function.Consumer
 
@@ -22,7 +21,7 @@ interface FileServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileServiceAsync
 
-    fun files(): FileServiceAsync
+    fun fileAssets(): FileAssetServiceAsync
 
     fun folders(): FolderServiceAsync
 
@@ -36,7 +35,7 @@ interface FileServiceAsync {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileServiceAsync.WithRawResponse
 
-        fun files(): FileServiceAsync.WithRawResponse
+        fun fileAssets(): FileAssetServiceAsync.WithRawResponse
 
         fun folders(): FolderServiceAsync.WithRawResponse
     }

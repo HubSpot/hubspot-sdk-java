@@ -54,7 +54,7 @@ internal class MultiLanguageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val multiLanguageServiceAsync = client.cms().pages().multiLanguage()
 
-        val pageFuture =
+        val cmsPageFuture =
             multiLanguageServiceAsync.createLanguageVariation(
                 ContentLanguageCloneRequestVNext.builder()
                     .id("id")
@@ -63,8 +63,8 @@ internal class MultiLanguageServiceAsyncTest {
                     .build()
             )
 
-        val page = pageFuture.get()
-        page.validate()
+        val cmsPage = cmsPageFuture.get()
+        cmsPage.validate()
     }
 
     @Test

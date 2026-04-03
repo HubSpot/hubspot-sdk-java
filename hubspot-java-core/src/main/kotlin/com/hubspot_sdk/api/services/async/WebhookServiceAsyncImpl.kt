@@ -3,10 +3,8 @@
 package com.hubspot_sdk.api.services.async
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.WebhookServiceAsync
-import com.hubspot_sdk.api.services.async.WebhookServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.webhooks.WebhookServiceAsync
-import com.hubspot_sdk.api.services.async.webhooks.WebhookServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.webhooks.WebhookSubscriptionServiceAsync
+import com.hubspot_sdk.api.services.async.webhooks.WebhookSubscriptionServiceAsyncImpl
 import java.util.function.Consumer
 
 class WebhookServiceAsyncImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -16,20 +14,22 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
         WithRawResponseImpl(clientOptions)
     }
 
-    private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
+    private val webhookSubscriptions: WebhookSubscriptionServiceAsync by lazy {
+        WebhookSubscriptionServiceAsyncImpl(clientOptions)
+    }
 
     override fun withRawResponse(): WebhookServiceAsync.WithRawResponse = withRawResponse
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookServiceAsync =
         WebhookServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun webhooks(): WebhookServiceAsync = webhooks
+    override fun webhookSubscriptions(): WebhookSubscriptionServiceAsync = webhookSubscriptions
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         WebhookServiceAsync.WithRawResponse {
 
-        private val webhooks: WebhookServiceAsync.WithRawResponse by lazy {
-            WebhookServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val webhookSubscriptions: WebhookSubscriptionServiceAsync.WithRawResponse by lazy {
+            WebhookSubscriptionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -39,6 +39,7 @@ class WebhookServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        override fun webhooks(): WebhookServiceAsync.WithRawResponse = webhooks
+        override fun webhookSubscriptions(): WebhookSubscriptionServiceAsync.WithRawResponse =
+            webhookSubscriptions
     }
 }

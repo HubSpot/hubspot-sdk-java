@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
@@ -19,16 +19,16 @@ import kotlin.jvm.optionals.getOrNull
 class LandingPageUpdateDraftParams
 private constructor(
     private val objectId: String?,
-    private val page: Page,
+    private val cmsPage: CmsPage,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
     fun objectId(): Optional<String> = Optional.ofNullable(objectId)
 
-    fun page(): Page = page
+    fun cmsPage(): CmsPage = cmsPage
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = page._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = cmsPage._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -45,7 +45,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .page()
+         * .cmsPage()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -55,14 +55,14 @@ private constructor(
     class Builder internal constructor() {
 
         private var objectId: String? = null
-        private var page: Page? = null
+        private var cmsPage: CmsPage? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(landingPageUpdateDraftParams: LandingPageUpdateDraftParams) = apply {
             objectId = landingPageUpdateDraftParams.objectId
-            page = landingPageUpdateDraftParams.page
+            cmsPage = landingPageUpdateDraftParams.cmsPage
             additionalHeaders = landingPageUpdateDraftParams.additionalHeaders.toBuilder()
             additionalQueryParams = landingPageUpdateDraftParams.additionalQueryParams.toBuilder()
         }
@@ -72,7 +72,7 @@ private constructor(
         /** Alias for calling [Builder.objectId] with `objectId.orElse(null)`. */
         fun objectId(objectId: Optional<String>) = objectId(objectId.getOrNull())
 
-        fun page(page: Page) = apply { this.page = page }
+        fun cmsPage(cmsPage: CmsPage) = apply { this.cmsPage = cmsPage }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -179,7 +179,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .page()
+         * .cmsPage()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -187,13 +187,13 @@ private constructor(
         fun build(): LandingPageUpdateDraftParams =
             LandingPageUpdateDraftParams(
                 objectId,
-                checkRequired("page", page),
+                checkRequired("cmsPage", cmsPage),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): Page = page
+    fun _body(): CmsPage = cmsPage
 
     fun _pathParam(index: Int): String =
         when (index) {
@@ -212,14 +212,14 @@ private constructor(
 
         return other is LandingPageUpdateDraftParams &&
             objectId == other.objectId &&
-            page == other.page &&
+            cmsPage == other.cmsPage &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(objectId, page, additionalHeaders, additionalQueryParams)
+        Objects.hash(objectId, cmsPage, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LandingPageUpdateDraftParams{objectId=$objectId, page=$page, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LandingPageUpdateDraftParams{objectId=$objectId, cmsPage=$cmsPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -7,8 +7,8 @@ import com.hubspot_sdk.api.services.async.marketing.CampaignServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.CampaignServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.marketing.EmailServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.EmailServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.marketing.EventServiceAsync
-import com.hubspot_sdk.api.services.async.marketing.EventServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.marketing.MarketingEventServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.MarketingEventServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.marketing.SingleSendServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.SingleSendServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.marketing.TransactionalServiceAsync
@@ -26,7 +26,9 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
 
     private val emails: EmailServiceAsync by lazy { EmailServiceAsyncImpl(clientOptions) }
 
-    private val events: EventServiceAsync by lazy { EventServiceAsyncImpl(clientOptions) }
+    private val marketingEvents: MarketingEventServiceAsync by lazy {
+        MarketingEventServiceAsyncImpl(clientOptions)
+    }
 
     private val singleSend: SingleSendServiceAsync by lazy {
         SingleSendServiceAsyncImpl(clientOptions)
@@ -45,7 +47,7 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
 
     override fun emails(): EmailServiceAsync = emails
 
-    override fun events(): EventServiceAsync = events
+    override fun marketingEvents(): MarketingEventServiceAsync = marketingEvents
 
     override fun singleSend(): SingleSendServiceAsync = singleSend
 
@@ -62,8 +64,8 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
             EmailServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val events: EventServiceAsync.WithRawResponse by lazy {
-            EventServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val marketingEvents: MarketingEventServiceAsync.WithRawResponse by lazy {
+            MarketingEventServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val singleSend: SingleSendServiceAsync.WithRawResponse by lazy {
@@ -85,7 +87,7 @@ class MarketingServiceAsyncImpl internal constructor(private val clientOptions: 
 
         override fun emails(): EmailServiceAsync.WithRawResponse = emails
 
-        override fun events(): EventServiceAsync.WithRawResponse = events
+        override fun marketingEvents(): MarketingEventServiceAsync.WithRawResponse = marketingEvents
 
         override fun singleSend(): SingleSendServiceAsync.WithRawResponse = singleSend
 

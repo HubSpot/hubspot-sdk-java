@@ -17,8 +17,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalPageForwardPaging
-import com.hubspot_sdk.api.models.cms.pages.Page
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageDeleteParams
@@ -50,14 +50,14 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
     override fun create(
         params: LandingPageCreateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // post /cms/pages/2026-03/landing-pages
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
 
     override fun update(
         params: LandingPageUpdateParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // patch /cms/pages/2026-03/landing-pages/{objectId}
         withRawResponse().update(params, requestOptions).thenApply { it.parse() }
 
@@ -78,21 +78,21 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
     override fun clone(
         params: LandingPageCloneParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // post /cms/pages/2026-03/landing-pages/clone
         withRawResponse().clone(params, requestOptions).thenApply { it.parse() }
 
     override fun get(
         params: LandingPageGetParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // get /cms/pages/2026-03/landing-pages/{objectId}
         withRawResponse().get(params, requestOptions).thenApply { it.parse() }
 
     override fun getDraft(
         params: LandingPageGetDraftParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // get /cms/pages/2026-03/landing-pages/{objectId}/draft
         withRawResponse().getDraft(params, requestOptions).thenApply { it.parse() }
 
@@ -120,7 +120,7 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
     override fun updateDraft(
         params: LandingPageUpdateDraftParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // patch /cms/pages/2026-03/landing-pages/{objectId}/draft
         withRawResponse().updateDraft(params, requestOptions).thenApply { it.parse() }
 
@@ -137,12 +137,12 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<Page> = jsonHandler<Page>(clientOptions.jsonMapper)
+        private val createHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun create(
             params: LandingPageCreateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -167,12 +167,12 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val updateHandler: Handler<Page> = jsonHandler<Page>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun update(
             params: LandingPageUpdateParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -277,12 +277,12 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val cloneHandler: Handler<Page> = jsonHandler<Page>(clientOptions.jsonMapper)
+        private val cloneHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun clone(
             params: LandingPageCloneParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -307,12 +307,12 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val getHandler: Handler<Page> = jsonHandler<Page>(clientOptions.jsonMapper)
+        private val getHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun get(
             params: LandingPageGetParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -345,12 +345,13 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val getDraftHandler: Handler<Page> = jsonHandler<Page>(clientOptions.jsonMapper)
+        private val getDraftHandler: Handler<CmsPage> =
+            jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun getDraft(
             params: LandingPageGetDraftParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -478,12 +479,13 @@ class LandingPageServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val updateDraftHandler: Handler<Page> = jsonHandler<Page>(clientOptions.jsonMapper)
+        private val updateDraftHandler: Handler<CmsPage> =
+            jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun updateDraft(
             params: LandingPageUpdateDraftParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())

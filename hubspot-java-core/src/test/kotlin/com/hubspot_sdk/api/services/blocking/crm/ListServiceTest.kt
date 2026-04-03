@@ -704,10 +704,10 @@ internal class ListServiceTest {
         val listSearchResponse =
             listService.listBySearch(
                 ListSearchRequest.builder()
-                    .addAdditionalProperty("string")
                     .addListId("string")
                     .offset(0)
                     .addProcessingType("string")
+                    .addAdditionalFilterProperty("string")
                     .count(0)
                     .objectTypeId("objectTypeId")
                     .query("query")

@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.services.async.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CartServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CommercePaymentServiceAsync
@@ -18,6 +17,7 @@ import com.hubspot_sdk.api.services.async.crm.objects.DiscountServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.EmailServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.FeeServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.FeedbackSubmissionServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.GenericObjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.GoalTargetServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.InvoiceServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.LeadServiceAsync
@@ -25,7 +25,6 @@ import com.hubspot_sdk.api.services.async.crm.objects.LineItemServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.ListingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.MeetingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.NoteServiceAsync
-import com.hubspot_sdk.api.services.async.crm.objects.ObjectServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.OrderServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerClientServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerServiceServiceAsync
@@ -97,7 +96,7 @@ interface ObjectServiceAsync {
 
     fun notes(): NoteServiceAsync
 
-    fun objects(): ObjectServiceAsync
+    fun genericObjects(): GenericObjectServiceAsync
 
     fun orders(): OrderServiceAsync
 
@@ -181,7 +180,7 @@ interface ObjectServiceAsync {
 
         fun notes(): NoteServiceAsync.WithRawResponse
 
-        fun objects(): ObjectServiceAsync.WithRawResponse
+        fun genericObjects(): GenericObjectServiceAsync.WithRawResponse
 
         fun orders(): OrderServiceAsync.WithRawResponse
 

@@ -3,10 +3,8 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.FileService
-import com.hubspot_sdk.api.services.blocking.FileServiceImpl
-import com.hubspot_sdk.api.services.blocking.files.FileService
-import com.hubspot_sdk.api.services.blocking.files.FileServiceImpl
+import com.hubspot_sdk.api.services.blocking.files.FileAssetService
+import com.hubspot_sdk.api.services.blocking.files.FileAssetServiceImpl
 import com.hubspot_sdk.api.services.blocking.files.FolderService
 import com.hubspot_sdk.api.services.blocking.files.FolderServiceImpl
 import java.util.function.Consumer
@@ -17,7 +15,7 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
         WithRawResponseImpl(clientOptions)
     }
 
-    private val files: FileService by lazy { FileServiceImpl(clientOptions) }
+    private val fileAssets: FileAssetService by lazy { FileAssetServiceImpl(clientOptions) }
 
     private val folders: FolderService by lazy { FolderServiceImpl(clientOptions) }
 
@@ -26,15 +24,15 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): FileService =
         FileServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun files(): FileService = files
+    override fun fileAssets(): FileAssetService = fileAssets
 
     override fun folders(): FolderService = folders
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FileService.WithRawResponse {
 
-        private val files: FileService.WithRawResponse by lazy {
-            FileServiceImpl.WithRawResponseImpl(clientOptions)
+        private val fileAssets: FileAssetService.WithRawResponse by lazy {
+            FileAssetServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val folders: FolderService.WithRawResponse by lazy {
@@ -48,7 +46,7 @@ class FileServiceImpl internal constructor(private val clientOptions: ClientOpti
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        override fun files(): FileService.WithRawResponse = files
+        override fun fileAssets(): FileAssetService.WithRawResponse = fileAssets
 
         override fun folders(): FolderService.WithRawResponse = folders
     }

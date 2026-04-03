@@ -19,7 +19,6 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.core.allMaxBy
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.errors.HubspotInvalidDataException
@@ -577,49 +576,38 @@ private constructor(
             this.filterBranch = filterBranch
         }
 
-        /** Alias for calling [filterBranch] with `FilterBranch.ofPublicOr(publicOr)`. */
-        fun filterBranch(publicOr: PublicOrFilterBranch) =
-            filterBranch(FilterBranch.ofPublicOr(publicOr))
+        /** Alias for calling [filterBranch] with `FilterBranch.ofOr(or)`. */
+        fun filterBranch(or: PublicOrFilterBranch) = filterBranch(FilterBranch.ofOr(or))
 
-        /** Alias for calling [filterBranch] with `FilterBranch.ofPublicAnd(publicAnd)`. */
-        fun filterBranch(publicAnd: PublicAndFilterBranch) =
-            filterBranch(FilterBranch.ofPublicAnd(publicAnd))
+        /** Alias for calling [filterBranch] with `FilterBranch.ofAnd(and)`. */
+        fun filterBranch(and: PublicAndFilterBranch) = filterBranch(FilterBranch.ofAnd(and))
 
-        /** Alias for calling [filterBranch] with `FilterBranch.ofPublicNotAll(publicNotAll)`. */
-        fun filterBranch(publicNotAll: PublicNotAllFilterBranch) =
-            filterBranch(FilterBranch.ofPublicNotAll(publicNotAll))
+        /** Alias for calling [filterBranch] with `FilterBranch.ofNotAll(notAll)`. */
+        fun filterBranch(notAll: PublicNotAllFilterBranch) =
+            filterBranch(FilterBranch.ofNotAll(notAll))
 
-        /** Alias for calling [filterBranch] with `FilterBranch.ofPublicNotAny(publicNotAny)`. */
-        fun filterBranch(publicNotAny: PublicNotAnyFilterBranch) =
-            filterBranch(FilterBranch.ofPublicNotAny(publicNotAny))
+        /** Alias for calling [filterBranch] with `FilterBranch.ofNotAny(notAny)`. */
+        fun filterBranch(notAny: PublicNotAnyFilterBranch) =
+            filterBranch(FilterBranch.ofNotAny(notAny))
 
-        /**
-         * Alias for calling [filterBranch] with
-         * `FilterBranch.ofPublicRestricted(publicRestricted)`.
-         */
-        fun filterBranch(publicRestricted: PublicRestrictedFilterBranch) =
-            filterBranch(FilterBranch.ofPublicRestricted(publicRestricted))
+        /** Alias for calling [filterBranch] with `FilterBranch.ofRestricted(restricted)`. */
+        fun filterBranch(restricted: PublicRestrictedFilterBranch) =
+            filterBranch(FilterBranch.ofRestricted(restricted))
 
-        /**
-         * Alias for calling [filterBranch] with
-         * `FilterBranch.ofPublicUnifiedEvents(publicUnifiedEvents)`.
-         */
-        fun filterBranch(publicUnifiedEvents: PublicUnifiedEventsFilterBranch) =
-            filterBranch(FilterBranch.ofPublicUnifiedEvents(publicUnifiedEvents))
+        /** Alias for calling [filterBranch] with `FilterBranch.ofUnifiedEvents(unifiedEvents)`. */
+        fun filterBranch(unifiedEvents: PublicUnifiedEventsFilterBranch) =
+            filterBranch(FilterBranch.ofUnifiedEvents(unifiedEvents))
 
         /**
          * Alias for calling [filterBranch] with
-         * `FilterBranch.ofPublicPropertyAssociation(publicPropertyAssociation)`.
+         * `FilterBranch.ofPropertyAssociation(propertyAssociation)`.
          */
-        fun filterBranch(publicPropertyAssociation: PublicPropertyAssociationFilterBranch) =
-            filterBranch(FilterBranch.ofPublicPropertyAssociation(publicPropertyAssociation))
+        fun filterBranch(propertyAssociation: PublicPropertyAssociationFilterBranch) =
+            filterBranch(FilterBranch.ofPropertyAssociation(propertyAssociation))
 
-        /**
-         * Alias for calling [filterBranch] with
-         * `FilterBranch.ofPublicAssociation(publicAssociation)`.
-         */
-        fun filterBranch(publicAssociation: PublicAssociationFilterBranch) =
-            filterBranch(FilterBranch.ofPublicAssociation(publicAssociation))
+        /** Alias for calling [filterBranch] with `FilterBranch.ofAssociation(association)`. */
+        fun filterBranch(association: PublicAssociationFilterBranch) =
+            filterBranch(FilterBranch.ofAssociation(association))
 
         /** The time when the filters for this list were last updated. */
         fun filtersUpdatedAt(filtersUpdatedAt: OffsetDateTime) =
@@ -823,86 +811,82 @@ private constructor(
     @JsonSerialize(using = FilterBranch.Serializer::class)
     class FilterBranch
     private constructor(
-        private val publicOr: PublicOrFilterBranch? = null,
-        private val publicAnd: PublicAndFilterBranch? = null,
-        private val publicNotAll: PublicNotAllFilterBranch? = null,
-        private val publicNotAny: PublicNotAnyFilterBranch? = null,
-        private val publicRestricted: PublicRestrictedFilterBranch? = null,
-        private val publicUnifiedEvents: PublicUnifiedEventsFilterBranch? = null,
-        private val publicPropertyAssociation: PublicPropertyAssociationFilterBranch? = null,
-        private val publicAssociation: PublicAssociationFilterBranch? = null,
+        private val or: PublicOrFilterBranch? = null,
+        private val and: PublicAndFilterBranch? = null,
+        private val notAll: PublicNotAllFilterBranch? = null,
+        private val notAny: PublicNotAnyFilterBranch? = null,
+        private val restricted: PublicRestrictedFilterBranch? = null,
+        private val unifiedEvents: PublicUnifiedEventsFilterBranch? = null,
+        private val propertyAssociation: PublicPropertyAssociationFilterBranch? = null,
+        private val association: PublicAssociationFilterBranch? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicOr(): Optional<PublicOrFilterBranch> = Optional.ofNullable(publicOr)
+        fun or(): Optional<PublicOrFilterBranch> = Optional.ofNullable(or)
 
-        fun publicAnd(): Optional<PublicAndFilterBranch> = Optional.ofNullable(publicAnd)
+        fun and(): Optional<PublicAndFilterBranch> = Optional.ofNullable(and)
 
-        fun publicNotAll(): Optional<PublicNotAllFilterBranch> = Optional.ofNullable(publicNotAll)
+        fun notAll(): Optional<PublicNotAllFilterBranch> = Optional.ofNullable(notAll)
 
-        fun publicNotAny(): Optional<PublicNotAnyFilterBranch> = Optional.ofNullable(publicNotAny)
+        fun notAny(): Optional<PublicNotAnyFilterBranch> = Optional.ofNullable(notAny)
 
-        fun publicRestricted(): Optional<PublicRestrictedFilterBranch> =
-            Optional.ofNullable(publicRestricted)
+        fun restricted(): Optional<PublicRestrictedFilterBranch> = Optional.ofNullable(restricted)
 
-        fun publicUnifiedEvents(): Optional<PublicUnifiedEventsFilterBranch> =
-            Optional.ofNullable(publicUnifiedEvents)
+        fun unifiedEvents(): Optional<PublicUnifiedEventsFilterBranch> =
+            Optional.ofNullable(unifiedEvents)
 
-        fun publicPropertyAssociation(): Optional<PublicPropertyAssociationFilterBranch> =
-            Optional.ofNullable(publicPropertyAssociation)
+        fun propertyAssociation(): Optional<PublicPropertyAssociationFilterBranch> =
+            Optional.ofNullable(propertyAssociation)
 
-        fun publicAssociation(): Optional<PublicAssociationFilterBranch> =
-            Optional.ofNullable(publicAssociation)
+        fun association(): Optional<PublicAssociationFilterBranch> =
+            Optional.ofNullable(association)
 
-        fun isPublicOr(): Boolean = publicOr != null
+        fun isOr(): Boolean = or != null
 
-        fun isPublicAnd(): Boolean = publicAnd != null
+        fun isAnd(): Boolean = and != null
 
-        fun isPublicNotAll(): Boolean = publicNotAll != null
+        fun isNotAll(): Boolean = notAll != null
 
-        fun isPublicNotAny(): Boolean = publicNotAny != null
+        fun isNotAny(): Boolean = notAny != null
 
-        fun isPublicRestricted(): Boolean = publicRestricted != null
+        fun isRestricted(): Boolean = restricted != null
 
-        fun isPublicUnifiedEvents(): Boolean = publicUnifiedEvents != null
+        fun isUnifiedEvents(): Boolean = unifiedEvents != null
 
-        fun isPublicPropertyAssociation(): Boolean = publicPropertyAssociation != null
+        fun isPropertyAssociation(): Boolean = propertyAssociation != null
 
-        fun isPublicAssociation(): Boolean = publicAssociation != null
+        fun isAssociation(): Boolean = association != null
 
-        fun asPublicOr(): PublicOrFilterBranch = publicOr.getOrThrow("publicOr")
+        fun asOr(): PublicOrFilterBranch = or.getOrThrow("or")
 
-        fun asPublicAnd(): PublicAndFilterBranch = publicAnd.getOrThrow("publicAnd")
+        fun asAnd(): PublicAndFilterBranch = and.getOrThrow("and")
 
-        fun asPublicNotAll(): PublicNotAllFilterBranch = publicNotAll.getOrThrow("publicNotAll")
+        fun asNotAll(): PublicNotAllFilterBranch = notAll.getOrThrow("notAll")
 
-        fun asPublicNotAny(): PublicNotAnyFilterBranch = publicNotAny.getOrThrow("publicNotAny")
+        fun asNotAny(): PublicNotAnyFilterBranch = notAny.getOrThrow("notAny")
 
-        fun asPublicRestricted(): PublicRestrictedFilterBranch =
-            publicRestricted.getOrThrow("publicRestricted")
+        fun asRestricted(): PublicRestrictedFilterBranch = restricted.getOrThrow("restricted")
 
-        fun asPublicUnifiedEvents(): PublicUnifiedEventsFilterBranch =
-            publicUnifiedEvents.getOrThrow("publicUnifiedEvents")
+        fun asUnifiedEvents(): PublicUnifiedEventsFilterBranch =
+            unifiedEvents.getOrThrow("unifiedEvents")
 
-        fun asPublicPropertyAssociation(): PublicPropertyAssociationFilterBranch =
-            publicPropertyAssociation.getOrThrow("publicPropertyAssociation")
+        fun asPropertyAssociation(): PublicPropertyAssociationFilterBranch =
+            propertyAssociation.getOrThrow("propertyAssociation")
 
-        fun asPublicAssociation(): PublicAssociationFilterBranch =
-            publicAssociation.getOrThrow("publicAssociation")
+        fun asAssociation(): PublicAssociationFilterBranch = association.getOrThrow("association")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicOr != null -> visitor.visitPublicOr(publicOr)
-                publicAnd != null -> visitor.visitPublicAnd(publicAnd)
-                publicNotAll != null -> visitor.visitPublicNotAll(publicNotAll)
-                publicNotAny != null -> visitor.visitPublicNotAny(publicNotAny)
-                publicRestricted != null -> visitor.visitPublicRestricted(publicRestricted)
-                publicUnifiedEvents != null -> visitor.visitPublicUnifiedEvents(publicUnifiedEvents)
-                publicPropertyAssociation != null ->
-                    visitor.visitPublicPropertyAssociation(publicPropertyAssociation)
-                publicAssociation != null -> visitor.visitPublicAssociation(publicAssociation)
+                or != null -> visitor.visitOr(or)
+                and != null -> visitor.visitAnd(and)
+                notAll != null -> visitor.visitNotAll(notAll)
+                notAny != null -> visitor.visitNotAny(notAny)
+                restricted != null -> visitor.visitRestricted(restricted)
+                unifiedEvents != null -> visitor.visitUnifiedEvents(unifiedEvents)
+                propertyAssociation != null -> visitor.visitPropertyAssociation(propertyAssociation)
+                association != null -> visitor.visitAssociation(association)
                 else -> visitor.unknown(_json)
             }
 
@@ -915,44 +899,40 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicOr(publicOr: PublicOrFilterBranch) {
-                        publicOr.validate()
+                    override fun visitOr(or: PublicOrFilterBranch) {
+                        or.validate()
                     }
 
-                    override fun visitPublicAnd(publicAnd: PublicAndFilterBranch) {
-                        publicAnd.validate()
+                    override fun visitAnd(and: PublicAndFilterBranch) {
+                        and.validate()
                     }
 
-                    override fun visitPublicNotAll(publicNotAll: PublicNotAllFilterBranch) {
-                        publicNotAll.validate()
+                    override fun visitNotAll(notAll: PublicNotAllFilterBranch) {
+                        notAll.validate()
                     }
 
-                    override fun visitPublicNotAny(publicNotAny: PublicNotAnyFilterBranch) {
-                        publicNotAny.validate()
+                    override fun visitNotAny(notAny: PublicNotAnyFilterBranch) {
+                        notAny.validate()
                     }
 
-                    override fun visitPublicRestricted(
-                        publicRestricted: PublicRestrictedFilterBranch
+                    override fun visitRestricted(restricted: PublicRestrictedFilterBranch) {
+                        restricted.validate()
+                    }
+
+                    override fun visitUnifiedEvents(
+                        unifiedEvents: PublicUnifiedEventsFilterBranch
                     ) {
-                        publicRestricted.validate()
+                        unifiedEvents.validate()
                     }
 
-                    override fun visitPublicUnifiedEvents(
-                        publicUnifiedEvents: PublicUnifiedEventsFilterBranch
+                    override fun visitPropertyAssociation(
+                        propertyAssociation: PublicPropertyAssociationFilterBranch
                     ) {
-                        publicUnifiedEvents.validate()
+                        propertyAssociation.validate()
                     }
 
-                    override fun visitPublicPropertyAssociation(
-                        publicPropertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) {
-                        publicPropertyAssociation.validate()
-                    }
-
-                    override fun visitPublicAssociation(
-                        publicAssociation: PublicAssociationFilterBranch
-                    ) {
-                        publicAssociation.validate()
+                    override fun visitAssociation(association: PublicAssociationFilterBranch) {
+                        association.validate()
                     }
                 }
             )
@@ -977,32 +957,27 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicOr(publicOr: PublicOrFilterBranch) = publicOr.validity()
+                    override fun visitOr(or: PublicOrFilterBranch) = or.validity()
 
-                    override fun visitPublicAnd(publicAnd: PublicAndFilterBranch) =
-                        publicAnd.validity()
+                    override fun visitAnd(and: PublicAndFilterBranch) = and.validity()
 
-                    override fun visitPublicNotAll(publicNotAll: PublicNotAllFilterBranch) =
-                        publicNotAll.validity()
+                    override fun visitNotAll(notAll: PublicNotAllFilterBranch) = notAll.validity()
 
-                    override fun visitPublicNotAny(publicNotAny: PublicNotAnyFilterBranch) =
-                        publicNotAny.validity()
+                    override fun visitNotAny(notAny: PublicNotAnyFilterBranch) = notAny.validity()
 
-                    override fun visitPublicRestricted(
-                        publicRestricted: PublicRestrictedFilterBranch
-                    ) = publicRestricted.validity()
+                    override fun visitRestricted(restricted: PublicRestrictedFilterBranch) =
+                        restricted.validity()
 
-                    override fun visitPublicUnifiedEvents(
-                        publicUnifiedEvents: PublicUnifiedEventsFilterBranch
-                    ) = publicUnifiedEvents.validity()
+                    override fun visitUnifiedEvents(
+                        unifiedEvents: PublicUnifiedEventsFilterBranch
+                    ) = unifiedEvents.validity()
 
-                    override fun visitPublicPropertyAssociation(
-                        publicPropertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) = publicPropertyAssociation.validity()
+                    override fun visitPropertyAssociation(
+                        propertyAssociation: PublicPropertyAssociationFilterBranch
+                    ) = propertyAssociation.validity()
 
-                    override fun visitPublicAssociation(
-                        publicAssociation: PublicAssociationFilterBranch
-                    ) = publicAssociation.validity()
+                    override fun visitAssociation(association: PublicAssociationFilterBranch) =
+                        association.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1014,76 +989,70 @@ private constructor(
             }
 
             return other is FilterBranch &&
-                publicOr == other.publicOr &&
-                publicAnd == other.publicAnd &&
-                publicNotAll == other.publicNotAll &&
-                publicNotAny == other.publicNotAny &&
-                publicRestricted == other.publicRestricted &&
-                publicUnifiedEvents == other.publicUnifiedEvents &&
-                publicPropertyAssociation == other.publicPropertyAssociation &&
-                publicAssociation == other.publicAssociation
+                or == other.or &&
+                and == other.and &&
+                notAll == other.notAll &&
+                notAny == other.notAny &&
+                restricted == other.restricted &&
+                unifiedEvents == other.unifiedEvents &&
+                propertyAssociation == other.propertyAssociation &&
+                association == other.association
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                publicOr,
-                publicAnd,
-                publicNotAll,
-                publicNotAny,
-                publicRestricted,
-                publicUnifiedEvents,
-                publicPropertyAssociation,
-                publicAssociation,
+                or,
+                and,
+                notAll,
+                notAny,
+                restricted,
+                unifiedEvents,
+                propertyAssociation,
+                association,
             )
 
         override fun toString(): String =
             when {
-                publicOr != null -> "FilterBranch{publicOr=$publicOr}"
-                publicAnd != null -> "FilterBranch{publicAnd=$publicAnd}"
-                publicNotAll != null -> "FilterBranch{publicNotAll=$publicNotAll}"
-                publicNotAny != null -> "FilterBranch{publicNotAny=$publicNotAny}"
-                publicRestricted != null -> "FilterBranch{publicRestricted=$publicRestricted}"
-                publicUnifiedEvents != null ->
-                    "FilterBranch{publicUnifiedEvents=$publicUnifiedEvents}"
-                publicPropertyAssociation != null ->
-                    "FilterBranch{publicPropertyAssociation=$publicPropertyAssociation}"
-                publicAssociation != null -> "FilterBranch{publicAssociation=$publicAssociation}"
+                or != null -> "FilterBranch{or=$or}"
+                and != null -> "FilterBranch{and=$and}"
+                notAll != null -> "FilterBranch{notAll=$notAll}"
+                notAny != null -> "FilterBranch{notAny=$notAny}"
+                restricted != null -> "FilterBranch{restricted=$restricted}"
+                unifiedEvents != null -> "FilterBranch{unifiedEvents=$unifiedEvents}"
+                propertyAssociation != null ->
+                    "FilterBranch{propertyAssociation=$propertyAssociation}"
+                association != null -> "FilterBranch{association=$association}"
                 _json != null -> "FilterBranch{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid FilterBranch")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicOr(publicOr: PublicOrFilterBranch) = FilterBranch(publicOr = publicOr)
+            @JvmStatic fun ofOr(or: PublicOrFilterBranch) = FilterBranch(or = or)
+
+            @JvmStatic fun ofAnd(and: PublicAndFilterBranch) = FilterBranch(and = and)
 
             @JvmStatic
-            fun ofPublicAnd(publicAnd: PublicAndFilterBranch) = FilterBranch(publicAnd = publicAnd)
+            fun ofNotAll(notAll: PublicNotAllFilterBranch) = FilterBranch(notAll = notAll)
 
             @JvmStatic
-            fun ofPublicNotAll(publicNotAll: PublicNotAllFilterBranch) =
-                FilterBranch(publicNotAll = publicNotAll)
+            fun ofNotAny(notAny: PublicNotAnyFilterBranch) = FilterBranch(notAny = notAny)
 
             @JvmStatic
-            fun ofPublicNotAny(publicNotAny: PublicNotAnyFilterBranch) =
-                FilterBranch(publicNotAny = publicNotAny)
+            fun ofRestricted(restricted: PublicRestrictedFilterBranch) =
+                FilterBranch(restricted = restricted)
 
             @JvmStatic
-            fun ofPublicRestricted(publicRestricted: PublicRestrictedFilterBranch) =
-                FilterBranch(publicRestricted = publicRestricted)
+            fun ofUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilterBranch) =
+                FilterBranch(unifiedEvents = unifiedEvents)
 
             @JvmStatic
-            fun ofPublicUnifiedEvents(publicUnifiedEvents: PublicUnifiedEventsFilterBranch) =
-                FilterBranch(publicUnifiedEvents = publicUnifiedEvents)
+            fun ofPropertyAssociation(propertyAssociation: PublicPropertyAssociationFilterBranch) =
+                FilterBranch(propertyAssociation = propertyAssociation)
 
             @JvmStatic
-            fun ofPublicPropertyAssociation(
-                publicPropertyAssociation: PublicPropertyAssociationFilterBranch
-            ) = FilterBranch(publicPropertyAssociation = publicPropertyAssociation)
-
-            @JvmStatic
-            fun ofPublicAssociation(publicAssociation: PublicAssociationFilterBranch) =
-                FilterBranch(publicAssociation = publicAssociation)
+            fun ofAssociation(association: PublicAssociationFilterBranch) =
+                FilterBranch(association = association)
         }
 
         /**
@@ -1092,23 +1061,23 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicOr(publicOr: PublicOrFilterBranch): T
+            fun visitOr(or: PublicOrFilterBranch): T
 
-            fun visitPublicAnd(publicAnd: PublicAndFilterBranch): T
+            fun visitAnd(and: PublicAndFilterBranch): T
 
-            fun visitPublicNotAll(publicNotAll: PublicNotAllFilterBranch): T
+            fun visitNotAll(notAll: PublicNotAllFilterBranch): T
 
-            fun visitPublicNotAny(publicNotAny: PublicNotAnyFilterBranch): T
+            fun visitNotAny(notAny: PublicNotAnyFilterBranch): T
 
-            fun visitPublicRestricted(publicRestricted: PublicRestrictedFilterBranch): T
+            fun visitRestricted(restricted: PublicRestrictedFilterBranch): T
 
-            fun visitPublicUnifiedEvents(publicUnifiedEvents: PublicUnifiedEventsFilterBranch): T
+            fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilterBranch): T
 
-            fun visitPublicPropertyAssociation(
-                publicPropertyAssociation: PublicPropertyAssociationFilterBranch
+            fun visitPropertyAssociation(
+                propertyAssociation: PublicPropertyAssociationFilterBranch
             ): T
 
-            fun visitPublicAssociation(publicAssociation: PublicAssociationFilterBranch): T
+            fun visitAssociation(association: PublicAssociationFilterBranch): T
 
             /**
              * Maps an unknown variant of [FilterBranch] to a value of type [T].
@@ -1129,48 +1098,59 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): FilterBranch {
                 val json = JsonValue.fromJsonNode(node)
+                val filterBranchType =
+                    json.asObject().getOrNull()?.get("filterBranchType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicOrFilterBranch>())?.let {
-                                FilterBranch(publicOr = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicAndFilterBranch>())?.let {
-                                FilterBranch(publicAnd = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicNotAllFilterBranch>())?.let {
-                                FilterBranch(publicNotAll = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicNotAnyFilterBranch>())?.let {
-                                FilterBranch(publicNotAny = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicRestrictedFilterBranch>())
-                                ?.let { FilterBranch(publicRestricted = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicUnifiedEventsFilterBranch>())
-                                ?.let { FilterBranch(publicUnifiedEvents = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicPropertyAssociationFilterBranch>(),
-                                )
-                                ?.let {
-                                    FilterBranch(publicPropertyAssociation = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicAssociationFilterBranch>())
-                                ?.let { FilterBranch(publicAssociation = it, _json = json) },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> FilterBranch(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (filterBranchType) {
+                    "OR" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicOrFilterBranch>())?.let {
+                            FilterBranch(or = it, _json = json)
+                        } ?: FilterBranch(_json = json)
+                    }
+                    "AND" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAndFilterBranch>())?.let {
+                            FilterBranch(and = it, _json = json)
+                        } ?: FilterBranch(_json = json)
+                    }
+                    "NOT_ALL" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNotAllFilterBranch>())
+                            ?.let { FilterBranch(notAll = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "NOT_ANY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNotAnyFilterBranch>())
+                            ?.let { FilterBranch(notAny = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "RESTRICTED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicRestrictedFilterBranch>())
+                            ?.let { FilterBranch(restricted = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "UNIFIED_EVENTS" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicUnifiedEventsFilterBranch>(),
+                            )
+                            ?.let { FilterBranch(unifiedEvents = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "PROPERTY_ASSOCIATION" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicPropertyAssociationFilterBranch>(),
+                            )
+                            ?.let { FilterBranch(propertyAssociation = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "ASSOCIATION" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAssociationFilterBranch>())
+                            ?.let { FilterBranch(association = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
                 }
+
+                return FilterBranch(_json = json)
             }
         }
 
@@ -1182,17 +1162,15 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicOr != null -> generator.writeObject(value.publicOr)
-                    value.publicAnd != null -> generator.writeObject(value.publicAnd)
-                    value.publicNotAll != null -> generator.writeObject(value.publicNotAll)
-                    value.publicNotAny != null -> generator.writeObject(value.publicNotAny)
-                    value.publicRestricted != null -> generator.writeObject(value.publicRestricted)
-                    value.publicUnifiedEvents != null ->
-                        generator.writeObject(value.publicUnifiedEvents)
-                    value.publicPropertyAssociation != null ->
-                        generator.writeObject(value.publicPropertyAssociation)
-                    value.publicAssociation != null ->
-                        generator.writeObject(value.publicAssociation)
+                    value.or != null -> generator.writeObject(value.or)
+                    value.and != null -> generator.writeObject(value.and)
+                    value.notAll != null -> generator.writeObject(value.notAll)
+                    value.notAny != null -> generator.writeObject(value.notAny)
+                    value.restricted != null -> generator.writeObject(value.restricted)
+                    value.unifiedEvents != null -> generator.writeObject(value.unifiedEvents)
+                    value.propertyAssociation != null ->
+                        generator.writeObject(value.propertyAssociation)
+                    value.association != null -> generator.writeObject(value.association)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid FilterBranch")
                 }

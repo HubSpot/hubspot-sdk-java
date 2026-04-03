@@ -341,7 +341,7 @@ internal class PublicNotAllFilterBranchTest {
 
         assertThat(publicNotAllFilterBranch.filterBranches())
             .containsExactly(
-                PublicNotAllFilterBranch.FilterBranch.ofPublicOr(
+                PublicNotAllFilterBranch.FilterBranch.ofOr(
                     PublicOrFilterBranch.builder()
                         .addFilterBranch(
                             PublicAndFilterBranch.builder()
@@ -656,7 +656,7 @@ internal class PublicNotAllFilterBranchTest {
             .isEqualTo(PublicNotAllFilterBranch.FilterBranchType.NOT_ALL)
         assertThat(publicNotAllFilterBranch.filters())
             .containsExactly(
-                PublicNotAllFilterBranch.Filter.ofPublicProperty(
+                PublicNotAllFilterBranch.Filter.ofProperty(
                     PublicPropertyFilter.builder()
                         .filterType(PublicPropertyFilter.FilterType.PROPERTY)
                         .operation(

@@ -7,7 +7,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
 import com.hubspot_sdk.api.models.cms.PublicAccessRule
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageDeleteParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageGetParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageUpdateDraftParams
@@ -24,16 +24,16 @@ internal class LandingPageServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val page =
+        val cmsPage =
             landingPageService.create(
-                Page.builder()
+                CmsPage.builder()
                     .id("id")
-                    .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        Page.AttachedStylesheet.builder()
+                        CmsPage.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -41,11 +41,11 @@ internal class LandingPageServiceTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(Page.ContentTypeCategory._0)
+                    .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(Page.CurrentState.AGENT_GENERATED)
+                    .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -59,9 +59,9 @@ internal class LandingPageServiceTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(Page.Language.AA)
+                    .language(CmsPage.Language.AA)
                     .layoutSections(
-                        Page.LayoutSections.builder()
+                        CmsPage.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -292,13 +292,13 @@ internal class LandingPageServiceTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        Page.ThemeSettingsValues.builder()
+                        CmsPage.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        Page.Translations.builder()
+                        CmsPage.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -328,19 +328,19 @@ internal class LandingPageServiceTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        Page.WidgetContainers.builder()
+                        CmsPage.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        Page.Widgets.builder()
+                        CmsPage.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -349,20 +349,20 @@ internal class LandingPageServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val page =
+        val cmsPage =
             landingPageService.update(
                 LandingPageUpdateParams.builder()
                     .objectId("objectId")
                     .archived(true)
-                    .page(
-                        Page.builder()
+                    .cmsPage(
+                        CmsPage.builder()
                             .id("id")
-                            .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                Page.AttachedStylesheet.builder()
+                                CmsPage.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -373,11 +373,11 @@ internal class LandingPageServiceTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(Page.ContentTypeCategory._0)
+                            .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(Page.CurrentState.AGENT_GENERATED)
+                            .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -391,9 +391,9 @@ internal class LandingPageServiceTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(Page.Language.AA)
+                            .language(CmsPage.Language.AA)
                             .layoutSections(
-                                Page.LayoutSections.builder()
+                                CmsPage.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -647,7 +647,7 @@ internal class LandingPageServiceTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                Page.ThemeSettingsValues.builder()
+                                CmsPage.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -656,7 +656,7 @@ internal class LandingPageServiceTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                Page.Translations.builder()
+                                CmsPage.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -686,7 +686,7 @@ internal class LandingPageServiceTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                Page.WidgetContainers.builder()
+                                CmsPage.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -694,7 +694,7 @@ internal class LandingPageServiceTest {
                                     .build()
                             )
                             .widgets(
-                                Page.Widgets.builder()
+                                CmsPage.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -706,7 +706,7 @@ internal class LandingPageServiceTest {
                     .build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -737,12 +737,12 @@ internal class LandingPageServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val page =
+        val cmsPage =
             landingPageService.clone(
                 ContentCloneRequestVNext.builder().id("id").cloneName("cloneName").build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -751,7 +751,7 @@ internal class LandingPageServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val page =
+        val cmsPage =
             landingPageService.get(
                 LandingPageGetParams.builder()
                     .objectId("objectId")
@@ -760,7 +760,7 @@ internal class LandingPageServiceTest {
                     .build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -769,9 +769,9 @@ internal class LandingPageServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val page = landingPageService.getDraft("objectId")
+        val cmsPage = landingPageService.getDraft("objectId")
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -812,19 +812,19 @@ internal class LandingPageServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val landingPageService = client.cms().pages().landingPages()
 
-        val page =
+        val cmsPage =
             landingPageService.updateDraft(
                 LandingPageUpdateDraftParams.builder()
                     .objectId("objectId")
-                    .page(
-                        Page.builder()
+                    .cmsPage(
+                        CmsPage.builder()
                             .id("id")
-                            .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                Page.AttachedStylesheet.builder()
+                                CmsPage.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -835,11 +835,11 @@ internal class LandingPageServiceTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(Page.ContentTypeCategory._0)
+                            .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(Page.CurrentState.AGENT_GENERATED)
+                            .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -853,9 +853,9 @@ internal class LandingPageServiceTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(Page.Language.AA)
+                            .language(CmsPage.Language.AA)
                             .layoutSections(
-                                Page.LayoutSections.builder()
+                                CmsPage.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1109,7 +1109,7 @@ internal class LandingPageServiceTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                Page.ThemeSettingsValues.builder()
+                                CmsPage.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1118,7 +1118,7 @@ internal class LandingPageServiceTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                Page.Translations.builder()
+                                CmsPage.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1148,7 +1148,7 @@ internal class LandingPageServiceTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                Page.WidgetContainers.builder()
+                                CmsPage.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1156,7 +1156,7 @@ internal class LandingPageServiceTest {
                                     .build()
                             )
                             .widgets(
-                                Page.Widgets.builder()
+                                CmsPage.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1168,6 +1168,6 @@ internal class LandingPageServiceTest {
                     .build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 }

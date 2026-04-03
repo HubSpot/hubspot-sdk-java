@@ -3,8 +3,6 @@
 package com.hubspot_sdk.api.services.async.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsync
-import com.hubspot_sdk.api.services.async.crm.ObjectServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.CallServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.CartServiceAsync
@@ -33,6 +31,8 @@ import com.hubspot_sdk.api.services.async.crm.objects.FeeServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.FeeServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.FeedbackSubmissionServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.FeedbackSubmissionServiceAsyncImpl
+import com.hubspot_sdk.api.services.async.crm.objects.GenericObjectServiceAsync
+import com.hubspot_sdk.api.services.async.crm.objects.GenericObjectServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.GoalTargetServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.GoalTargetServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.InvoiceServiceAsync
@@ -47,8 +47,6 @@ import com.hubspot_sdk.api.services.async.crm.objects.MeetingServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.MeetingServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.NoteServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.NoteServiceAsyncImpl
-import com.hubspot_sdk.api.services.async.crm.objects.ObjectServiceAsync
-import com.hubspot_sdk.api.services.async.crm.objects.ObjectServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.OrderServiceAsync
 import com.hubspot_sdk.api.services.async.crm.objects.OrderServiceAsyncImpl
 import com.hubspot_sdk.api.services.async.crm.objects.PartnerClientServiceAsync
@@ -134,7 +132,9 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     private val notes: NoteServiceAsync by lazy { NoteServiceAsyncImpl(clientOptions) }
 
-    private val objects: ObjectServiceAsync by lazy { ObjectServiceAsyncImpl(clientOptions) }
+    private val genericObjects: GenericObjectServiceAsync by lazy {
+        GenericObjectServiceAsyncImpl(clientOptions)
+    }
 
     private val orders: OrderServiceAsync by lazy { OrderServiceAsyncImpl(clientOptions) }
 
@@ -217,7 +217,7 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
     override fun notes(): NoteServiceAsync = notes
 
-    override fun objects(): ObjectServiceAsync = objects
+    override fun genericObjects(): GenericObjectServiceAsync = genericObjects
 
     override fun orders(): OrderServiceAsync = orders
 
@@ -332,8 +332,8 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
             NoteServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val objects: ObjectServiceAsync.WithRawResponse by lazy {
-            ObjectServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val genericObjects: GenericObjectServiceAsync.WithRawResponse by lazy {
+            GenericObjectServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val orders: OrderServiceAsync.WithRawResponse by lazy {
@@ -439,7 +439,7 @@ class ObjectServiceAsyncImpl internal constructor(private val clientOptions: Cli
 
         override fun notes(): NoteServiceAsync.WithRawResponse = notes
 
-        override fun objects(): ObjectServiceAsync.WithRawResponse = objects
+        override fun genericObjects(): GenericObjectServiceAsync.WithRawResponse = genericObjects
 
         override fun orders(): OrderServiceAsync.WithRawResponse = orders
 

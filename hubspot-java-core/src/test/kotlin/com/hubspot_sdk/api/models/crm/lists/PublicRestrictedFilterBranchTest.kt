@@ -341,7 +341,7 @@ internal class PublicRestrictedFilterBranchTest {
 
         assertThat(publicRestrictedFilterBranch.filterBranches())
             .containsExactly(
-                PublicRestrictedFilterBranch.FilterBranch.ofPublicOr(
+                PublicRestrictedFilterBranch.FilterBranch.ofOr(
                     PublicOrFilterBranch.builder()
                         .addFilterBranch(
                             PublicAndFilterBranch.builder()
@@ -656,7 +656,7 @@ internal class PublicRestrictedFilterBranchTest {
             .isEqualTo(PublicRestrictedFilterBranch.FilterBranchType.RESTRICTED)
         assertThat(publicRestrictedFilterBranch.filters())
             .containsExactly(
-                PublicRestrictedFilterBranch.Filter.ofPublicProperty(
+                PublicRestrictedFilterBranch.Filter.ofProperty(
                     PublicPropertyFilter.builder()
                         .filterType(PublicPropertyFilter.FilterType.PROPERTY)
                         .operation(

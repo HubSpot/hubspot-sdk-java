@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.services.async
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.async.marketing.CampaignServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.EmailServiceAsync
-import com.hubspot_sdk.api.services.async.marketing.EventServiceAsync
+import com.hubspot_sdk.api.services.async.marketing.MarketingEventServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.SingleSendServiceAsync
 import com.hubspot_sdk.api.services.async.marketing.TransactionalServiceAsync
 import java.util.function.Consumer
@@ -28,7 +28,7 @@ interface MarketingServiceAsync {
 
     fun emails(): EmailServiceAsync
 
-    fun events(): EventServiceAsync
+    fun marketingEvents(): MarketingEventServiceAsync
 
     fun singleSend(): SingleSendServiceAsync
 
@@ -52,7 +52,7 @@ interface MarketingServiceAsync {
 
         fun emails(): EmailServiceAsync.WithRawResponse
 
-        fun events(): EventServiceAsync.WithRawResponse
+        fun marketingEvents(): MarketingEventServiceAsync.WithRawResponse
 
         fun singleSend(): SingleSendServiceAsync.WithRawResponse
 
