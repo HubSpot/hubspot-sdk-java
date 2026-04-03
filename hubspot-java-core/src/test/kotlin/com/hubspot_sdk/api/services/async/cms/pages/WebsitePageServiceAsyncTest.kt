@@ -8,7 +8,7 @@ import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
 import com.hubspot_sdk.api.models.cms.PublicAccessRule
 import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.websitepages.WebsitePageDeleteParams
 import com.hubspot_sdk.api.models.cms.pages.websitepages.WebsitePageGetParams
 import com.hubspot_sdk.api.models.cms.pages.websitepages.WebsitePageUpdateDraftParams
@@ -25,16 +25,16 @@ internal class WebsitePageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val websitePageServiceAsync = client.cms().pages().websitePages()
 
-        val pageFuture =
+        val cmsPageFuture =
             websitePageServiceAsync.create(
-                Page.builder()
+                CmsPage.builder()
                     .id("id")
-                    .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                    .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                     .abTestId("abTestId")
                     .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .archivedInDashboard(true)
                     .addAttachedStylesheet(
-                        Page.AttachedStylesheet.builder()
+                        CmsPage.AttachedStylesheet.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
@@ -42,11 +42,11 @@ internal class WebsitePageServiceAsyncTest {
                     .campaign("campaign")
                     .categoryId(0)
                     .contentGroupId("contentGroupId")
-                    .contentTypeCategory(Page.ContentTypeCategory._0)
+                    .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                     .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .createdById("createdById")
                     .currentlyPublished(true)
-                    .currentState(Page.CurrentState.AGENT_GENERATED)
+                    .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                     .domain("domain")
                     .dynamicPageDataSourceId("dynamicPageDataSourceId")
                     .dynamicPageDataSourceType(0)
@@ -60,9 +60,9 @@ internal class WebsitePageServiceAsyncTest {
                     .headHtml("headHtml")
                     .htmlTitle("htmlTitle")
                     .includeDefaultCustomCss(true)
-                    .language(Page.Language.AA)
+                    .language(CmsPage.Language.AA)
                     .layoutSections(
-                        Page.LayoutSections.builder()
+                        CmsPage.LayoutSections.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -293,13 +293,13 @@ internal class WebsitePageServiceAsyncTest {
                     .subcategory("subcategory")
                     .templatePath("templatePath")
                     .themeSettingsValues(
-                        Page.ThemeSettingsValues.builder()
+                        CmsPage.ThemeSettingsValues.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .translatedFromId("translatedFromId")
                     .translations(
-                        Page.Translations.builder()
+                        CmsPage.Translations.builder()
                             .putAdditionalProperty(
                                 "foo",
                                 JsonValue.from(
@@ -329,20 +329,20 @@ internal class WebsitePageServiceAsyncTest {
                     .url("url")
                     .useFeaturedImage(true)
                     .widgetContainers(
-                        Page.WidgetContainers.builder()
+                        CmsPage.WidgetContainers.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .widgets(
-                        Page.Widgets.builder()
+                        CmsPage.Widgets.builder()
                             .putAdditionalProperty("foo", JsonValue.from(mapOf<String, Any>()))
                             .build()
                     )
                     .build()
             )
 
-        val page = pageFuture.get()
-        page.validate()
+        val cmsPage = cmsPageFuture.get()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -351,20 +351,20 @@ internal class WebsitePageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val websitePageServiceAsync = client.cms().pages().websitePages()
 
-        val pageFuture =
+        val cmsPageFuture =
             websitePageServiceAsync.update(
                 WebsitePageUpdateParams.builder()
                     .objectId("objectId")
                     .archived(true)
-                    .page(
-                        Page.builder()
+                    .cmsPage(
+                        CmsPage.builder()
                             .id("id")
-                            .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                Page.AttachedStylesheet.builder()
+                                CmsPage.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -375,11 +375,11 @@ internal class WebsitePageServiceAsyncTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(Page.ContentTypeCategory._0)
+                            .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(Page.CurrentState.AGENT_GENERATED)
+                            .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -393,9 +393,9 @@ internal class WebsitePageServiceAsyncTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(Page.Language.AA)
+                            .language(CmsPage.Language.AA)
                             .layoutSections(
-                                Page.LayoutSections.builder()
+                                CmsPage.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -649,7 +649,7 @@ internal class WebsitePageServiceAsyncTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                Page.ThemeSettingsValues.builder()
+                                CmsPage.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -658,7 +658,7 @@ internal class WebsitePageServiceAsyncTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                Page.Translations.builder()
+                                CmsPage.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -688,7 +688,7 @@ internal class WebsitePageServiceAsyncTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                Page.WidgetContainers.builder()
+                                CmsPage.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -696,7 +696,7 @@ internal class WebsitePageServiceAsyncTest {
                                     .build()
                             )
                             .widgets(
-                                Page.Widgets.builder()
+                                CmsPage.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -708,8 +708,8 @@ internal class WebsitePageServiceAsyncTest {
                     .build()
             )
 
-        val page = pageFuture.get()
-        page.validate()
+        val cmsPage = cmsPageFuture.get()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -744,13 +744,13 @@ internal class WebsitePageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val websitePageServiceAsync = client.cms().pages().websitePages()
 
-        val pageFuture =
+        val cmsPageFuture =
             websitePageServiceAsync.clone(
                 ContentCloneRequestVNext.builder().id("id").cloneName("cloneName").build()
             )
 
-        val page = pageFuture.get()
-        page.validate()
+        val cmsPage = cmsPageFuture.get()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -759,7 +759,7 @@ internal class WebsitePageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val websitePageServiceAsync = client.cms().pages().websitePages()
 
-        val pageFuture =
+        val cmsPageFuture =
             websitePageServiceAsync.get(
                 WebsitePageGetParams.builder()
                     .objectId("objectId")
@@ -768,8 +768,8 @@ internal class WebsitePageServiceAsyncTest {
                     .build()
             )
 
-        val page = pageFuture.get()
-        page.validate()
+        val cmsPage = cmsPageFuture.get()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -778,10 +778,10 @@ internal class WebsitePageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val websitePageServiceAsync = client.cms().pages().websitePages()
 
-        val pageFuture = websitePageServiceAsync.getDraft("objectId")
+        val cmsPageFuture = websitePageServiceAsync.getDraft("objectId")
 
-        val page = pageFuture.get()
-        page.validate()
+        val cmsPage = cmsPageFuture.get()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -832,19 +832,19 @@ internal class WebsitePageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val websitePageServiceAsync = client.cms().pages().websitePages()
 
-        val pageFuture =
+        val cmsPageFuture =
             websitePageServiceAsync.updateDraft(
                 WebsitePageUpdateDraftParams.builder()
                     .objectId("objectId")
-                    .page(
-                        Page.builder()
+                    .cmsPage(
+                        CmsPage.builder()
                             .id("id")
-                            .abStatus(Page.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                Page.AttachedStylesheet.builder()
+                                CmsPage.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -855,11 +855,11 @@ internal class WebsitePageServiceAsyncTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(Page.ContentTypeCategory._0)
+                            .contentTypeCategory(CmsPage.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(Page.CurrentState.AGENT_GENERATED)
+                            .currentState(CmsPage.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -873,9 +873,9 @@ internal class WebsitePageServiceAsyncTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(Page.Language.AA)
+                            .language(CmsPage.Language.AA)
                             .layoutSections(
-                                Page.LayoutSections.builder()
+                                CmsPage.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1129,7 +1129,7 @@ internal class WebsitePageServiceAsyncTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                Page.ThemeSettingsValues.builder()
+                                CmsPage.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1138,7 +1138,7 @@ internal class WebsitePageServiceAsyncTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                Page.Translations.builder()
+                                CmsPage.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -1168,7 +1168,7 @@ internal class WebsitePageServiceAsyncTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                Page.WidgetContainers.builder()
+                                CmsPage.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1176,7 +1176,7 @@ internal class WebsitePageServiceAsyncTest {
                                     .build()
                             )
                             .widgets(
-                                Page.Widgets.builder()
+                                CmsPage.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -1188,7 +1188,7 @@ internal class WebsitePageServiceAsyncTest {
                     .build()
             )
 
-        val page = pageFuture.get()
-        page.validate()
+        val cmsPage = cmsPageFuture.get()
+        cmsPage.validate()
     }
 }

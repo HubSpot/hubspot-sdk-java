@@ -8,7 +8,7 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageDeleteParams
@@ -39,30 +39,31 @@ interface LandingPageServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LandingPageServiceAsync
 
     /** Create a new landing page. */
-    fun create(params: LandingPageCreateParams): CompletableFuture<Page> =
+    fun create(params: LandingPageCreateParams): CompletableFuture<CmsPage> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: LandingPageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see create */
     fun create(
-        page: Page,
+        cmsPage: CmsPage,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
-        create(LandingPageCreateParams.builder().page(page).build(), requestOptions)
+    ): CompletableFuture<CmsPage> =
+        create(LandingPageCreateParams.builder().cmsPage(cmsPage).build(), requestOptions)
 
     /** @see create */
-    fun create(page: Page): CompletableFuture<Page> = create(page, RequestOptions.none())
+    fun create(cmsPage: CmsPage): CompletableFuture<CmsPage> =
+        create(cmsPage, RequestOptions.none())
 
     /**
      * Sparse updates a single Landing Page object identified by the id in the path. You only need
      * to specify the column values that you are modifying.
      */
-    fun update(objectId: String, params: LandingPageUpdateParams): CompletableFuture<Page> =
+    fun update(objectId: String, params: LandingPageUpdateParams): CompletableFuture<CmsPage> =
         update(objectId, params, RequestOptions.none())
 
     /** @see update */
@@ -70,18 +71,18 @@ interface LandingPageServiceAsync {
         objectId: String,
         params: LandingPageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: LandingPageUpdateParams): CompletableFuture<Page> =
+    fun update(params: LandingPageUpdateParams): CompletableFuture<CmsPage> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: LandingPageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /**
      * Get the list of landing pages. Supports paging and filtering. This method would be useful for
@@ -137,20 +138,20 @@ interface LandingPageServiceAsync {
         delete(objectId, LandingPageDeleteParams.none(), requestOptions)
 
     /** Create a copy of an existing landing page. */
-    fun clone(params: LandingPageCloneParams): CompletableFuture<Page> =
+    fun clone(params: LandingPageCloneParams): CompletableFuture<CmsPage> =
         clone(params, RequestOptions.none())
 
     /** @see clone */
     fun clone(
         params: LandingPageCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see clone */
     fun clone(
         contentCloneRequestVNext: ContentCloneRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         clone(
             LandingPageCloneParams.builder()
                 .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -159,41 +160,43 @@ interface LandingPageServiceAsync {
         )
 
     /** @see clone */
-    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): CompletableFuture<Page> =
+    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): CompletableFuture<CmsPage> =
         clone(contentCloneRequestVNext, RequestOptions.none())
 
     /** Retrieve a landing page, specified by its ID. */
-    fun get(objectId: String): CompletableFuture<Page> = get(objectId, LandingPageGetParams.none())
+    fun get(objectId: String): CompletableFuture<CmsPage> =
+        get(objectId, LandingPageGetParams.none())
 
     /** @see get */
     fun get(
         objectId: String,
         params: LandingPageGetParams = LandingPageGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> = get(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): CompletableFuture<CmsPage> =
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see get */
     fun get(
         objectId: String,
         params: LandingPageGetParams = LandingPageGetParams.none(),
-    ): CompletableFuture<Page> = get(objectId, params, RequestOptions.none())
+    ): CompletableFuture<CmsPage> = get(objectId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: LandingPageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see get */
-    fun get(params: LandingPageGetParams): CompletableFuture<Page> =
+    fun get(params: LandingPageGetParams): CompletableFuture<CmsPage> =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<Page> =
+    fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<CmsPage> =
         get(objectId, LandingPageGetParams.none(), requestOptions)
 
     /** Retrieve the full draft version of a landing page, specified by page ID. */
-    fun getDraft(objectId: String): CompletableFuture<Page> =
+    fun getDraft(objectId: String): CompletableFuture<CmsPage> =
         getDraft(objectId, LandingPageGetDraftParams.none())
 
     /** @see getDraft */
@@ -201,27 +204,27 @@ interface LandingPageServiceAsync {
         objectId: String,
         params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see getDraft */
     fun getDraft(
         objectId: String,
         params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-    ): CompletableFuture<Page> = getDraft(objectId, params, RequestOptions.none())
+    ): CompletableFuture<CmsPage> = getDraft(objectId, params, RequestOptions.none())
 
     /** @see getDraft */
     fun getDraft(
         params: LandingPageGetDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see getDraft */
-    fun getDraft(params: LandingPageGetDraftParams): CompletableFuture<Page> =
+    fun getDraft(params: LandingPageGetDraftParams): CompletableFuture<CmsPage> =
         getDraft(params, RequestOptions.none())
 
     /** @see getDraft */
-    fun getDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<Page> =
+    fun getDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<CmsPage> =
         getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
 
     /**
@@ -325,25 +328,25 @@ interface LandingPageServiceAsync {
     fun updateDraft(
         objectId: String,
         params: LandingPageUpdateDraftParams,
-    ): CompletableFuture<Page> = updateDraft(objectId, params, RequestOptions.none())
+    ): CompletableFuture<CmsPage> = updateDraft(objectId, params, RequestOptions.none())
 
     /** @see updateDraft */
     fun updateDraft(
         objectId: String,
         params: LandingPageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see updateDraft */
-    fun updateDraft(params: LandingPageUpdateDraftParams): CompletableFuture<Page> =
+    fun updateDraft(params: LandingPageUpdateDraftParams): CompletableFuture<CmsPage> =
         updateDraft(params, RequestOptions.none())
 
     /** @see updateDraft */
     fun updateDraft(
         params: LandingPageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /**
      * A view of [LandingPageServiceAsync] that provides access to raw HTTP responses for each
@@ -364,25 +367,25 @@ interface LandingPageServiceAsync {
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages`, but is otherwise
          * the same as [LandingPageServiceAsync.create].
          */
-        fun create(params: LandingPageCreateParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun create(params: LandingPageCreateParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: LandingPageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see create */
         fun create(
-            page: Page,
+            cmsPage: CmsPage,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
-            create(LandingPageCreateParams.builder().page(page).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
+            create(LandingPageCreateParams.builder().cmsPage(cmsPage).build(), requestOptions)
 
         /** @see create */
-        fun create(page: Page): CompletableFuture<HttpResponseFor<Page>> =
-            create(page, RequestOptions.none())
+        fun create(cmsPage: CmsPage): CompletableFuture<HttpResponseFor<CmsPage>> =
+            create(cmsPage, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /cms/pages/2026-03/landing-pages/{objectId}`, but
@@ -391,7 +394,7 @@ interface LandingPageServiceAsync {
         fun update(
             objectId: String,
             params: LandingPageUpdateParams,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             update(objectId, params, RequestOptions.none())
 
         /** @see update */
@@ -399,18 +402,18 @@ interface LandingPageServiceAsync {
             objectId: String,
             params: LandingPageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see update */
-        fun update(params: LandingPageUpdateParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun update(params: LandingPageUpdateParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: LandingPageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages`, but is otherwise
@@ -479,20 +482,20 @@ interface LandingPageServiceAsync {
          * Returns a raw HTTP response for `post /cms/pages/2026-03/landing-pages/clone`, but is
          * otherwise the same as [LandingPageServiceAsync.clone].
          */
-        fun clone(params: LandingPageCloneParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun clone(params: LandingPageCloneParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             clone(params, RequestOptions.none())
 
         /** @see clone */
         fun clone(
             params: LandingPageCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see clone */
         fun clone(
             contentCloneRequestVNext: ContentCloneRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             clone(
                 LandingPageCloneParams.builder()
                     .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -503,14 +506,14 @@ interface LandingPageServiceAsync {
         /** @see clone */
         fun clone(
             contentCloneRequestVNext: ContentCloneRequestVNext
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             clone(contentCloneRequestVNext, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/{objectId}`, but is
          * otherwise the same as [LandingPageServiceAsync.get].
          */
-        fun get(objectId: String): CompletableFuture<HttpResponseFor<Page>> =
+        fun get(objectId: String): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(objectId, LandingPageGetParams.none())
 
         /** @see get */
@@ -518,37 +521,38 @@ interface LandingPageServiceAsync {
             objectId: String,
             params: LandingPageGetParams = LandingPageGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see get */
         fun get(
             objectId: String,
             params: LandingPageGetParams = LandingPageGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> = get(objectId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
+            get(objectId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: LandingPageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see get */
-        fun get(params: LandingPageGetParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun get(params: LandingPageGetParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             objectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(objectId, LandingPageGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages/{objectId}/draft`,
          * but is otherwise the same as [LandingPageServiceAsync.getDraft].
          */
-        fun getDraft(objectId: String): CompletableFuture<HttpResponseFor<Page>> =
+        fun getDraft(objectId: String): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(objectId, LandingPageGetDraftParams.none())
 
         /** @see getDraft */
@@ -556,31 +560,32 @@ interface LandingPageServiceAsync {
             objectId: String,
             params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see getDraft */
         fun getDraft(
             objectId: String,
             params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(objectId, params, RequestOptions.none())
 
         /** @see getDraft */
         fun getDraft(
             params: LandingPageGetDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see getDraft */
-        fun getDraft(params: LandingPageGetDraftParams): CompletableFuture<HttpResponseFor<Page>> =
-            getDraft(params, RequestOptions.none())
+        fun getDraft(
+            params: LandingPageGetDraftParams
+        ): CompletableFuture<HttpResponseFor<CmsPage>> = getDraft(params, RequestOptions.none())
 
         /** @see getDraft */
         fun getDraft(
             objectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
 
         /**
@@ -700,7 +705,7 @@ interface LandingPageServiceAsync {
         fun updateDraft(
             objectId: String,
             params: LandingPageUpdateDraftParams,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             updateDraft(objectId, params, RequestOptions.none())
 
         /** @see updateDraft */
@@ -708,18 +713,18 @@ interface LandingPageServiceAsync {
             objectId: String,
             params: LandingPageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see updateDraft */
         fun updateDraft(
             params: LandingPageUpdateDraftParams
-        ): CompletableFuture<HttpResponseFor<Page>> = updateDraft(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<CmsPage>> = updateDraft(params, RequestOptions.none())
 
         /** @see updateDraft */
         fun updateDraft(
             params: LandingPageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
     }
 }

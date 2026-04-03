@@ -29,7 +29,7 @@ internal class PublicPropertyFilterTest {
             .isEqualTo(PublicPropertyFilter.FilterType.PROPERTY)
         assertThat(publicPropertyFilter.operation())
             .isEqualTo(
-                PublicPropertyFilter.Operation.ofPublicBoolProperty(
+                PublicPropertyFilter.Operation.ofBool(
                     PublicBoolPropertyOperation.builder()
                         .includeObjectsWithNoValueSet(true)
                         .operationType(PublicBoolPropertyOperation.OperationType.BOOL)

@@ -331,7 +331,7 @@ internal class PublicUnifiedEventsFilterBranchTest {
         assertThat(publicUnifiedEventsFilterBranch.eventTypeId()).isEqualTo("eventTypeId")
         assertThat(publicUnifiedEventsFilterBranch.filterBranches())
             .containsExactly(
-                PublicUnifiedEventsFilterBranch.FilterBranch.ofPublicOr(
+                PublicUnifiedEventsFilterBranch.FilterBranch.ofOr(
                     PublicOrFilterBranch.builder()
                         .addFilterBranch(
                             PublicAndFilterBranch.builder()
@@ -619,7 +619,7 @@ internal class PublicUnifiedEventsFilterBranchTest {
             .isEqualTo(PublicUnifiedEventsFilterBranch.FilterBranchType.UNIFIED_EVENTS)
         assertThat(publicUnifiedEventsFilterBranch.filters())
             .containsExactly(
-                PublicUnifiedEventsFilterBranch.Filter.ofPublicProperty(
+                PublicUnifiedEventsFilterBranch.Filter.ofProperty(
                     PublicPropertyFilter.builder()
                         .filterType(PublicPropertyFilter.FilterType.PROPERTY)
                         .operation(

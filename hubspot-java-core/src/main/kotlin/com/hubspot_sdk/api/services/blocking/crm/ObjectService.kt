@@ -3,7 +3,6 @@
 package com.hubspot_sdk.api.services.blocking.crm
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.crm.ObjectService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CallService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CartService
 import com.hubspot_sdk.api.services.blocking.crm.objects.CommercePaymentService
@@ -18,6 +17,7 @@ import com.hubspot_sdk.api.services.blocking.crm.objects.DiscountService
 import com.hubspot_sdk.api.services.blocking.crm.objects.EmailService
 import com.hubspot_sdk.api.services.blocking.crm.objects.FeeService
 import com.hubspot_sdk.api.services.blocking.crm.objects.FeedbackSubmissionService
+import com.hubspot_sdk.api.services.blocking.crm.objects.GenericObjectService
 import com.hubspot_sdk.api.services.blocking.crm.objects.GoalTargetService
 import com.hubspot_sdk.api.services.blocking.crm.objects.InvoiceService
 import com.hubspot_sdk.api.services.blocking.crm.objects.LeadService
@@ -25,7 +25,6 @@ import com.hubspot_sdk.api.services.blocking.crm.objects.LineItemService
 import com.hubspot_sdk.api.services.blocking.crm.objects.ListingService
 import com.hubspot_sdk.api.services.blocking.crm.objects.MeetingService
 import com.hubspot_sdk.api.services.blocking.crm.objects.NoteService
-import com.hubspot_sdk.api.services.blocking.crm.objects.ObjectService
 import com.hubspot_sdk.api.services.blocking.crm.objects.OrderService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PartnerClientService
 import com.hubspot_sdk.api.services.blocking.crm.objects.PartnerServiceService
@@ -97,7 +96,7 @@ interface ObjectService {
 
     fun notes(): NoteService
 
-    fun objects(): ObjectService
+    fun genericObjects(): GenericObjectService
 
     fun orders(): OrderService
 
@@ -177,7 +176,7 @@ interface ObjectService {
 
         fun notes(): NoteService.WithRawResponse
 
-        fun objects(): ObjectService.WithRawResponse
+        fun genericObjects(): GenericObjectService.WithRawResponse
 
         fun orders(): OrderService.WithRawResponse
 

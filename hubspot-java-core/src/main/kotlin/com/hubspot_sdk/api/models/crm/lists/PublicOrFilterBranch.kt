@@ -20,7 +20,6 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.core.allMaxBy
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
@@ -191,49 +190,40 @@ private constructor(
                 }
         }
 
-        /** Alias for calling [addFilterBranch] with `FilterBranch.ofPublicOr(publicOr)`. */
-        fun addFilterBranch(publicOr: PublicOrFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicOr(publicOr))
+        /** Alias for calling [addFilterBranch] with `FilterBranch.ofOr(or)`. */
+        fun addFilterBranch(or: PublicOrFilterBranch) = addFilterBranch(FilterBranch.ofOr(or))
 
-        /** Alias for calling [addFilterBranch] with `FilterBranch.ofPublicAnd(publicAnd)`. */
-        fun addFilterBranch(publicAnd: PublicAndFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicAnd(publicAnd))
+        /** Alias for calling [addFilterBranch] with `FilterBranch.ofAnd(and)`. */
+        fun addFilterBranch(and: PublicAndFilterBranch) = addFilterBranch(FilterBranch.ofAnd(and))
 
-        /** Alias for calling [addFilterBranch] with `FilterBranch.ofPublicNotAll(publicNotAll)`. */
-        fun addFilterBranch(publicNotAll: PublicNotAllFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicNotAll(publicNotAll))
+        /** Alias for calling [addFilterBranch] with `FilterBranch.ofNotAll(notAll)`. */
+        fun addFilterBranch(notAll: PublicNotAllFilterBranch) =
+            addFilterBranch(FilterBranch.ofNotAll(notAll))
 
-        /** Alias for calling [addFilterBranch] with `FilterBranch.ofPublicNotAny(publicNotAny)`. */
-        fun addFilterBranch(publicNotAny: PublicNotAnyFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicNotAny(publicNotAny))
+        /** Alias for calling [addFilterBranch] with `FilterBranch.ofNotAny(notAny)`. */
+        fun addFilterBranch(notAny: PublicNotAnyFilterBranch) =
+            addFilterBranch(FilterBranch.ofNotAny(notAny))
+
+        /** Alias for calling [addFilterBranch] with `FilterBranch.ofRestricted(restricted)`. */
+        fun addFilterBranch(restricted: PublicRestrictedFilterBranch) =
+            addFilterBranch(FilterBranch.ofRestricted(restricted))
+
+        /**
+         * Alias for calling [addFilterBranch] with `FilterBranch.ofUnifiedEvents(unifiedEvents)`.
+         */
+        fun addFilterBranch(unifiedEvents: PublicUnifiedEventsFilterBranch) =
+            addFilterBranch(FilterBranch.ofUnifiedEvents(unifiedEvents))
 
         /**
          * Alias for calling [addFilterBranch] with
-         * `FilterBranch.ofPublicRestricted(publicRestricted)`.
+         * `FilterBranch.ofPropertyAssociation(propertyAssociation)`.
          */
-        fun addFilterBranch(publicRestricted: PublicRestrictedFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicRestricted(publicRestricted))
+        fun addFilterBranch(propertyAssociation: PublicPropertyAssociationFilterBranch) =
+            addFilterBranch(FilterBranch.ofPropertyAssociation(propertyAssociation))
 
-        /**
-         * Alias for calling [addFilterBranch] with
-         * `FilterBranch.ofPublicUnifiedEvents(publicUnifiedEvents)`.
-         */
-        fun addFilterBranch(publicUnifiedEvents: PublicUnifiedEventsFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicUnifiedEvents(publicUnifiedEvents))
-
-        /**
-         * Alias for calling [addFilterBranch] with
-         * `FilterBranch.ofPublicPropertyAssociation(publicPropertyAssociation)`.
-         */
-        fun addFilterBranch(publicPropertyAssociation: PublicPropertyAssociationFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicPropertyAssociation(publicPropertyAssociation))
-
-        /**
-         * Alias for calling [addFilterBranch] with
-         * `FilterBranch.ofPublicAssociation(publicAssociation)`.
-         */
-        fun addFilterBranch(publicAssociation: PublicAssociationFilterBranch) =
-            addFilterBranch(FilterBranch.ofPublicAssociation(publicAssociation))
+        /** Alias for calling [addFilterBranch] with `FilterBranch.ofAssociation(association)`. */
+        fun addFilterBranch(association: PublicAssociationFilterBranch) =
+            addFilterBranch(FilterBranch.ofAssociation(association))
 
         /** The logical operator used to combine the filters within the branch (OR). */
         fun filterBranchOperator(filterBranchOperator: String) =
@@ -290,136 +280,294 @@ private constructor(
                 }
         }
 
-        /** Alias for calling [addFilter] with `Filter.ofPublicProperty(publicProperty)`. */
-        fun addFilter(publicProperty: PublicPropertyFilter) =
-            addFilter(Filter.ofPublicProperty(publicProperty))
+        /** Alias for calling [addFilter] with `Filter.ofProperty(property)`. */
+        fun addFilter(property: PublicPropertyFilter) = addFilter(Filter.ofProperty(property))
+
+        /** Alias for calling [addFilter] with `Filter.ofAssociation(association)`. */
+        fun addFilter(association: PublicAssociationInListFilter) =
+            addFilter(Filter.ofAssociation(association))
+
+        /** Alias for calling [addFilter] with `Filter.ofPageView(pageView)`. */
+        fun addFilter(pageView: PublicPageViewAnalyticsFilter) =
+            addFilter(Filter.ofPageView(pageView))
+
+        /** Alias for calling [addFilter] with `Filter.ofCta(cta)`. */
+        fun addFilter(cta: PublicCtaAnalyticsFilter) = addFilter(Filter.ofCta(cta))
+
+        /** Alias for calling [addFilter] with `Filter.ofEvent(event)`. */
+        fun addFilter(event: PublicEventAnalyticsFilter) = addFilter(Filter.ofEvent(event))
+
+        /** Alias for calling [addFilter] with `Filter.ofFormSubmission(formSubmission)`. */
+        fun addFilter(formSubmission: PublicFormSubmissionFilter) =
+            addFilter(Filter.ofFormSubmission(formSubmission))
+
+        /**
+         * Alias for calling [addFilter] with the following:
+         * ```java
+         * PublicFormSubmissionFilter.builder()
+         *     .filterType(PublicFormSubmissionFilter.FilterType.FORM_SUBMISSION)
+         *     .operator(operator)
+         *     .build()
+         * ```
+         */
+        fun addFormSubmissionFilter(operator: PublicFormSubmissionFilter.Operator) =
+            addFilter(
+                PublicFormSubmissionFilter.builder()
+                    .filterType(PublicFormSubmissionFilter.FilterType.FORM_SUBMISSION)
+                    .operator(operator)
+                    .build()
+            )
+
+        /**
+         * Alias for calling [addFilter] with `Filter.ofFormSubmissionOnPage(formSubmissionOnPage)`.
+         */
+        fun addFilter(formSubmissionOnPage: PublicFormSubmissionOnPageFilter) =
+            addFilter(Filter.ofFormSubmissionOnPage(formSubmissionOnPage))
+
+        /** Alias for calling [addFilter] with `Filter.ofIntegrationEvent(integrationEvent)`. */
+        fun addFilter(integrationEvent: PublicIntegrationEventFilter) =
+            addFilter(Filter.ofIntegrationEvent(integrationEvent))
+
+        /** Alias for calling [addFilter] with `Filter.ofEmailSubscription(emailSubscription)`. */
+        fun addFilter(emailSubscription: PublicEmailSubscriptionFilter) =
+            addFilter(Filter.ofEmailSubscription(emailSubscription))
 
         /**
          * Alias for calling [addFilter] with
-         * `Filter.ofPublicAssociationInList(publicAssociationInList)`.
+         * `Filter.ofCommunicationSubscription(communicationSubscription)`.
          */
-        fun addFilter(publicAssociationInList: PublicAssociationInListFilter) =
-            addFilter(Filter.ofPublicAssociationInList(publicAssociationInList))
+        fun addFilter(communicationSubscription: PublicCommunicationSubscriptionFilter) =
+            addFilter(Filter.ofCommunicationSubscription(communicationSubscription))
+
+        /** Alias for calling [addFilter] with `Filter.ofCampaignInfluenced(campaignInfluenced)`. */
+        fun addFilter(campaignInfluenced: PublicCampaignInfluencedFilter) =
+            addFilter(Filter.ofCampaignInfluenced(campaignInfluenced))
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicPageViewAnalytics(publicPageViewAnalytics)`.
+         * Alias for calling [addFilter] with the following:
+         * ```java
+         * PublicCampaignInfluencedFilter.builder()
+         *     .filterType(PublicCampaignInfluencedFilter.FilterType.CAMPAIGN_INFLUENCED)
+         *     .campaignId(campaignId)
+         *     .build()
+         * ```
          */
-        fun addFilter(publicPageViewAnalytics: PublicPageViewAnalyticsFilter) =
-            addFilter(Filter.ofPublicPageViewAnalytics(publicPageViewAnalytics))
+        fun addCampaignInfluencedFilter(campaignId: String) =
+            addFilter(
+                PublicCampaignInfluencedFilter.builder()
+                    .filterType(PublicCampaignInfluencedFilter.FilterType.CAMPAIGN_INFLUENCED)
+                    .campaignId(campaignId)
+                    .build()
+            )
 
-        /** Alias for calling [addFilter] with `Filter.ofPublicCtaAnalytics(publicCtaAnalytics)`. */
-        fun addFilter(publicCtaAnalytics: PublicCtaAnalyticsFilter) =
-            addFilter(Filter.ofPublicCtaAnalytics(publicCtaAnalytics))
+        /** Alias for calling [addFilter] with `Filter.ofSurveyMonkey(surveyMonkey)`. */
+        fun addFilter(surveyMonkey: PublicSurveyMonkeyFilter) =
+            addFilter(Filter.ofSurveyMonkey(surveyMonkey))
+
+        /** Alias for calling [addFilter] with `Filter.ofSurveyMonkeyValue(surveyMonkeyValue)`. */
+        fun addFilter(surveyMonkeyValue: PublicSurveyMonkeyValueFilter) =
+            addFilter(Filter.ofSurveyMonkeyValue(surveyMonkeyValue))
+
+        /** Alias for calling [addFilter] with `Filter.ofWebinar(webinar)`. */
+        fun addFilter(webinar: PublicWebinarFilter) = addFilter(Filter.ofWebinar(webinar))
 
         /**
-         * Alias for calling [addFilter] with `Filter.ofPublicEventAnalytics(publicEventAnalytics)`.
+         * Alias for calling [addFilter] with the following:
+         * ```java
+         * PublicWebinarFilter.builder()
+         *     .filterType(PublicWebinarFilter.FilterType.WEBINAR)
+         *     .operator(operator)
+         *     .build()
+         * ```
          */
-        fun addFilter(publicEventAnalytics: PublicEventAnalyticsFilter) =
-            addFilter(Filter.ofPublicEventAnalytics(publicEventAnalytics))
+        fun addWebinarFilter(operator: String) =
+            addFilter(
+                PublicWebinarFilter.builder()
+                    .filterType(PublicWebinarFilter.FilterType.WEBINAR)
+                    .operator(operator)
+                    .build()
+            )
+
+        /** Alias for calling [addFilter] with `Filter.ofEmailEvent(emailEvent)`. */
+        fun addFilter(emailEvent: PublicEmailEventFilter) =
+            addFilter(Filter.ofEmailEvent(emailEvent))
+
+        /** Alias for calling [addFilter] with `Filter.ofPrivacy(privacy)`. */
+        fun addFilter(privacy: PublicPrivacyAnalyticsFilter) = addFilter(Filter.ofPrivacy(privacy))
+
+        /** Alias for calling [addFilter] with `Filter.ofAdsSearch(adsSearch)`. */
+        fun addFilter(adsSearch: PublicAdsSearchFilter) = addFilter(Filter.ofAdsSearch(adsSearch))
+
+        /** Alias for calling [addFilter] with `Filter.ofAdsTime(adsTime)`. */
+        fun addFilter(adsTime: PublicAdsTimeFilter) = addFilter(Filter.ofAdsTime(adsTime))
 
         /**
-         * Alias for calling [addFilter] with `Filter.ofPublicFormSubmission(publicFormSubmission)`.
+         * Alias for calling [addFilter] with the following:
+         * ```java
+         * PublicAdsTimeFilter.builder()
+         *     .filterType(PublicAdsTimeFilter.FilterType.ADS_TIME)
+         *     .pruningRefineBy(pruningRefineBy)
+         *     .build()
+         * ```
          */
-        fun addFilter(publicFormSubmission: PublicFormSubmissionFilter) =
-            addFilter(Filter.ofPublicFormSubmission(publicFormSubmission))
+        fun addAdsTimeFilter(pruningRefineBy: PublicAdsTimeFilter.PruningRefineBy) =
+            addFilter(
+                PublicAdsTimeFilter.builder()
+                    .filterType(PublicAdsTimeFilter.FilterType.ADS_TIME)
+                    .pruningRefineBy(pruningRefineBy)
+                    .build()
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicFormSubmissionOnPage(publicFormSubmissionOnPage)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicNumOccurrences(publicNumOccurrences)`.
          */
-        fun addFilter(publicFormSubmissionOnPage: PublicFormSubmissionOnPageFilter) =
-            addFilter(Filter.ofPublicFormSubmissionOnPage(publicFormSubmissionOnPage))
+        fun addAdsTimeFilter(publicNumOccurrences: PublicNumOccurrencesRefineBy) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicNumOccurrences(publicNumOccurrences)
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicIntegrationEvent(publicIntegrationEvent)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicSetOccurrences(publicSetOccurrences)`.
          */
-        fun addFilter(publicIntegrationEvent: PublicIntegrationEventFilter) =
-            addFilter(Filter.ofPublicIntegrationEvent(publicIntegrationEvent))
+        fun addAdsTimeFilter(publicSetOccurrences: PublicSetOccurrencesRefineBy) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicSetOccurrences(publicSetOccurrences)
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicEmailSubscription(publicEmailSubscription)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeComparativeTimestamp(publicRelativeComparativeTimestamp)`.
          */
-        fun addFilter(publicEmailSubscription: PublicEmailSubscriptionFilter) =
-            addFilter(Filter.ofPublicEmailSubscription(publicEmailSubscription))
+        fun addAdsTimeFilter(
+            publicRelativeComparativeTimestamp: PublicRelativeComparativeTimestampRefineBy
+        ) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeComparativeTimestamp(
+                    publicRelativeComparativeTimestamp
+                )
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicCommunicationSubscription(publicCommunicationSubscription)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeRangedTimestamp(publicRelativeRangedTimestamp)`.
          */
-        fun addFilter(publicCommunicationSubscription: PublicCommunicationSubscriptionFilter) =
-            addFilter(Filter.ofPublicCommunicationSubscription(publicCommunicationSubscription))
+        fun addAdsTimeFilter(publicRelativeRangedTimestamp: PublicRelativeRangedTimestampRefineBy) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicRelativeRangedTimestamp(
+                    publicRelativeRangedTimestamp
+                )
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicCampaignInfluenced(publicCampaignInfluenced)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteComparativeTimestamp(publicAbsoluteComparativeTimestamp)`.
          */
-        fun addFilter(publicCampaignInfluenced: PublicCampaignInfluencedFilter) =
-            addFilter(Filter.ofPublicCampaignInfluenced(publicCampaignInfluenced))
-
-        /** Alias for calling [addFilter] with `Filter.ofPublicSurveyMonkey(publicSurveyMonkey)`. */
-        fun addFilter(publicSurveyMonkey: PublicSurveyMonkeyFilter) =
-            addFilter(Filter.ofPublicSurveyMonkey(publicSurveyMonkey))
+        fun addAdsTimeFilter(
+            publicAbsoluteComparativeTimestamp: PublicAbsoluteComparativeTimestampRefineBy
+        ) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteComparativeTimestamp(
+                    publicAbsoluteComparativeTimestamp
+                )
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicSurveyMonkeyValue(publicSurveyMonkeyValue)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteRangedTimestamp(publicAbsoluteRangedTimestamp)`.
          */
-        fun addFilter(publicSurveyMonkeyValue: PublicSurveyMonkeyValueFilter) =
-            addFilter(Filter.ofPublicSurveyMonkeyValue(publicSurveyMonkeyValue))
-
-        /** Alias for calling [addFilter] with `Filter.ofPublicWebinar(publicWebinar)`. */
-        fun addFilter(publicWebinar: PublicWebinarFilter) =
-            addFilter(Filter.ofPublicWebinar(publicWebinar))
-
-        /** Alias for calling [addFilter] with `Filter.ofPublicEmailEvent(publicEmailEvent)`. */
-        fun addFilter(publicEmailEvent: PublicEmailEventFilter) =
-            addFilter(Filter.ofPublicEmailEvent(publicEmailEvent))
+        fun addAdsTimeFilter(publicAbsoluteRangedTimestamp: PublicAbsoluteRangedTimestampRefineBy) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicAbsoluteRangedTimestamp(
+                    publicAbsoluteRangedTimestamp
+                )
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicPrivacyAnalytics(publicPrivacyAnalytics)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicAllHistory(publicAllHistory)`.
          */
-        fun addFilter(publicPrivacyAnalytics: PublicPrivacyAnalyticsFilter) =
-            addFilter(Filter.ofPublicPrivacyAnalytics(publicPrivacyAnalytics))
-
-        /** Alias for calling [addFilter] with `Filter.ofPublicAdsSearch(publicAdsSearch)`. */
-        fun addFilter(publicAdsSearch: PublicAdsSearchFilter) =
-            addFilter(Filter.ofPublicAdsSearch(publicAdsSearch))
-
-        /** Alias for calling [addFilter] with `Filter.ofPublicAdsTime(publicAdsTime)`. */
-        fun addFilter(publicAdsTime: PublicAdsTimeFilter) =
-            addFilter(Filter.ofPublicAdsTime(publicAdsTime))
-
-        /** Alias for calling [addFilter] with `Filter.ofPublicInList(publicInList)`. */
-        fun addFilter(publicInList: PublicInListFilter) =
-            addFilter(Filter.ofPublicInList(publicInList))
+        fun addAdsTimeFilter(publicAllHistory: PublicAllHistoryRefineBy) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicAllHistory(publicAllHistory)
+            )
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicNumAssociations(publicNumAssociations)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicTimePointOperation(publicTimePointOperation)`.
          */
-        fun addFilter(publicNumAssociations: PublicNumAssociationsFilter) =
-            addFilter(Filter.ofPublicNumAssociations(publicNumAssociations))
+        fun addAdsTimeFilter(publicTimePointOperation: PublicTimePointOperation) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicTimePointOperation(
+                    publicTimePointOperation
+                )
+            )
 
         /**
-         * Alias for calling [addFilter] with `Filter.ofPublicUnifiedEvents(publicUnifiedEvents)`.
+         * Alias for calling [addAdsTimeFilter] with
+         * `PublicAdsTimeFilter.PruningRefineBy.ofPublicRangedTimeOperation(publicRangedTimeOperation)`.
          */
-        fun addFilter(publicUnifiedEvents: PublicUnifiedEventsFilter) =
-            addFilter(Filter.ofPublicUnifiedEvents(publicUnifiedEvents))
+        fun addAdsTimeFilter(publicRangedTimeOperation: PublicRangedTimeOperation) =
+            addAdsTimeFilter(
+                PublicAdsTimeFilter.PruningRefineBy.ofPublicRangedTimeOperation(
+                    publicRangedTimeOperation
+                )
+            )
+
+        /** Alias for calling [addFilter] with `Filter.ofInList(inList)`. */
+        fun addFilter(inList: PublicInListFilter) = addFilter(Filter.ofInList(inList))
+
+        /** Alias for calling [addFilter] with `Filter.ofNumAssociations(numAssociations)`. */
+        fun addFilter(numAssociations: PublicNumAssociationsFilter) =
+            addFilter(Filter.ofNumAssociations(numAssociations))
+
+        /** Alias for calling [addFilter] with `Filter.ofUnifiedEvents(unifiedEvents)`. */
+        fun addFilter(unifiedEvents: PublicUnifiedEventsFilter) =
+            addFilter(Filter.ofUnifiedEvents(unifiedEvents))
 
         /**
-         * Alias for calling [addFilter] with
-         * `Filter.ofPublicPropertyAssociationInList(publicPropertyAssociationInList)`.
+         * Alias for calling [addFilter] with the following:
+         * ```java
+         * PublicUnifiedEventsFilter.builder()
+         *     .filterType(PublicUnifiedEventsFilter.FilterType.UNIFIED_EVENTS)
+         *     .filterLines(filterLines)
+         *     .build()
+         * ```
          */
-        fun addFilter(publicPropertyAssociationInList: PublicPropertyAssociationInListFilter) =
-            addFilter(Filter.ofPublicPropertyAssociationInList(publicPropertyAssociationInList))
+        fun addUnifiedEventsFilter(filterLines: List<PublicEventFilterMetadata>) =
+            addFilter(
+                PublicUnifiedEventsFilter.builder()
+                    .filterType(PublicUnifiedEventsFilter.FilterType.UNIFIED_EVENTS)
+                    .filterLines(filterLines)
+                    .build()
+            )
 
-        /** Alias for calling [addFilter] with `Filter.ofPublicConstant(publicConstant)`. */
-        fun addFilter(publicConstant: PublicConstantFilter) =
-            addFilter(Filter.ofPublicConstant(publicConstant))
+        /**
+         * Alias for calling [addFilter] with `Filter.ofPropertyAssociation(propertyAssociation)`.
+         */
+        fun addFilter(propertyAssociation: PublicPropertyAssociationInListFilter) =
+            addFilter(Filter.ofPropertyAssociation(propertyAssociation))
+
+        /** Alias for calling [addFilter] with `Filter.ofConstant(constant)`. */
+        fun addFilter(constant: PublicConstantFilter) = addFilter(Filter.ofConstant(constant))
+
+        /**
+         * Alias for calling [addFilter] with the following:
+         * ```java
+         * PublicConstantFilter.builder()
+         *     .filterType(PublicConstantFilter.FilterType.CONSTANT)
+         *     .shouldAccept(shouldAccept)
+         *     .build()
+         * ```
+         */
+        fun addConstantFilter(shouldAccept: Boolean) =
+            addFilter(
+                PublicConstantFilter.builder()
+                    .filterType(PublicConstantFilter.FilterType.CONSTANT)
+                    .shouldAccept(shouldAccept)
+                    .build()
+            )
 
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
@@ -503,86 +651,82 @@ private constructor(
     @JsonSerialize(using = FilterBranch.Serializer::class)
     class FilterBranch
     private constructor(
-        private val publicOr: PublicOrFilterBranch? = null,
-        private val publicAnd: PublicAndFilterBranch? = null,
-        private val publicNotAll: PublicNotAllFilterBranch? = null,
-        private val publicNotAny: PublicNotAnyFilterBranch? = null,
-        private val publicRestricted: PublicRestrictedFilterBranch? = null,
-        private val publicUnifiedEvents: PublicUnifiedEventsFilterBranch? = null,
-        private val publicPropertyAssociation: PublicPropertyAssociationFilterBranch? = null,
-        private val publicAssociation: PublicAssociationFilterBranch? = null,
+        private val or: PublicOrFilterBranch? = null,
+        private val and: PublicAndFilterBranch? = null,
+        private val notAll: PublicNotAllFilterBranch? = null,
+        private val notAny: PublicNotAnyFilterBranch? = null,
+        private val restricted: PublicRestrictedFilterBranch? = null,
+        private val unifiedEvents: PublicUnifiedEventsFilterBranch? = null,
+        private val propertyAssociation: PublicPropertyAssociationFilterBranch? = null,
+        private val association: PublicAssociationFilterBranch? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicOr(): Optional<PublicOrFilterBranch> = Optional.ofNullable(publicOr)
+        fun or(): Optional<PublicOrFilterBranch> = Optional.ofNullable(or)
 
-        fun publicAnd(): Optional<PublicAndFilterBranch> = Optional.ofNullable(publicAnd)
+        fun and(): Optional<PublicAndFilterBranch> = Optional.ofNullable(and)
 
-        fun publicNotAll(): Optional<PublicNotAllFilterBranch> = Optional.ofNullable(publicNotAll)
+        fun notAll(): Optional<PublicNotAllFilterBranch> = Optional.ofNullable(notAll)
 
-        fun publicNotAny(): Optional<PublicNotAnyFilterBranch> = Optional.ofNullable(publicNotAny)
+        fun notAny(): Optional<PublicNotAnyFilterBranch> = Optional.ofNullable(notAny)
 
-        fun publicRestricted(): Optional<PublicRestrictedFilterBranch> =
-            Optional.ofNullable(publicRestricted)
+        fun restricted(): Optional<PublicRestrictedFilterBranch> = Optional.ofNullable(restricted)
 
-        fun publicUnifiedEvents(): Optional<PublicUnifiedEventsFilterBranch> =
-            Optional.ofNullable(publicUnifiedEvents)
+        fun unifiedEvents(): Optional<PublicUnifiedEventsFilterBranch> =
+            Optional.ofNullable(unifiedEvents)
 
-        fun publicPropertyAssociation(): Optional<PublicPropertyAssociationFilterBranch> =
-            Optional.ofNullable(publicPropertyAssociation)
+        fun propertyAssociation(): Optional<PublicPropertyAssociationFilterBranch> =
+            Optional.ofNullable(propertyAssociation)
 
-        fun publicAssociation(): Optional<PublicAssociationFilterBranch> =
-            Optional.ofNullable(publicAssociation)
+        fun association(): Optional<PublicAssociationFilterBranch> =
+            Optional.ofNullable(association)
 
-        fun isPublicOr(): Boolean = publicOr != null
+        fun isOr(): Boolean = or != null
 
-        fun isPublicAnd(): Boolean = publicAnd != null
+        fun isAnd(): Boolean = and != null
 
-        fun isPublicNotAll(): Boolean = publicNotAll != null
+        fun isNotAll(): Boolean = notAll != null
 
-        fun isPublicNotAny(): Boolean = publicNotAny != null
+        fun isNotAny(): Boolean = notAny != null
 
-        fun isPublicRestricted(): Boolean = publicRestricted != null
+        fun isRestricted(): Boolean = restricted != null
 
-        fun isPublicUnifiedEvents(): Boolean = publicUnifiedEvents != null
+        fun isUnifiedEvents(): Boolean = unifiedEvents != null
 
-        fun isPublicPropertyAssociation(): Boolean = publicPropertyAssociation != null
+        fun isPropertyAssociation(): Boolean = propertyAssociation != null
 
-        fun isPublicAssociation(): Boolean = publicAssociation != null
+        fun isAssociation(): Boolean = association != null
 
-        fun asPublicOr(): PublicOrFilterBranch = publicOr.getOrThrow("publicOr")
+        fun asOr(): PublicOrFilterBranch = or.getOrThrow("or")
 
-        fun asPublicAnd(): PublicAndFilterBranch = publicAnd.getOrThrow("publicAnd")
+        fun asAnd(): PublicAndFilterBranch = and.getOrThrow("and")
 
-        fun asPublicNotAll(): PublicNotAllFilterBranch = publicNotAll.getOrThrow("publicNotAll")
+        fun asNotAll(): PublicNotAllFilterBranch = notAll.getOrThrow("notAll")
 
-        fun asPublicNotAny(): PublicNotAnyFilterBranch = publicNotAny.getOrThrow("publicNotAny")
+        fun asNotAny(): PublicNotAnyFilterBranch = notAny.getOrThrow("notAny")
 
-        fun asPublicRestricted(): PublicRestrictedFilterBranch =
-            publicRestricted.getOrThrow("publicRestricted")
+        fun asRestricted(): PublicRestrictedFilterBranch = restricted.getOrThrow("restricted")
 
-        fun asPublicUnifiedEvents(): PublicUnifiedEventsFilterBranch =
-            publicUnifiedEvents.getOrThrow("publicUnifiedEvents")
+        fun asUnifiedEvents(): PublicUnifiedEventsFilterBranch =
+            unifiedEvents.getOrThrow("unifiedEvents")
 
-        fun asPublicPropertyAssociation(): PublicPropertyAssociationFilterBranch =
-            publicPropertyAssociation.getOrThrow("publicPropertyAssociation")
+        fun asPropertyAssociation(): PublicPropertyAssociationFilterBranch =
+            propertyAssociation.getOrThrow("propertyAssociation")
 
-        fun asPublicAssociation(): PublicAssociationFilterBranch =
-            publicAssociation.getOrThrow("publicAssociation")
+        fun asAssociation(): PublicAssociationFilterBranch = association.getOrThrow("association")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicOr != null -> visitor.visitPublicOr(publicOr)
-                publicAnd != null -> visitor.visitPublicAnd(publicAnd)
-                publicNotAll != null -> visitor.visitPublicNotAll(publicNotAll)
-                publicNotAny != null -> visitor.visitPublicNotAny(publicNotAny)
-                publicRestricted != null -> visitor.visitPublicRestricted(publicRestricted)
-                publicUnifiedEvents != null -> visitor.visitPublicUnifiedEvents(publicUnifiedEvents)
-                publicPropertyAssociation != null ->
-                    visitor.visitPublicPropertyAssociation(publicPropertyAssociation)
-                publicAssociation != null -> visitor.visitPublicAssociation(publicAssociation)
+                or != null -> visitor.visitOr(or)
+                and != null -> visitor.visitAnd(and)
+                notAll != null -> visitor.visitNotAll(notAll)
+                notAny != null -> visitor.visitNotAny(notAny)
+                restricted != null -> visitor.visitRestricted(restricted)
+                unifiedEvents != null -> visitor.visitUnifiedEvents(unifiedEvents)
+                propertyAssociation != null -> visitor.visitPropertyAssociation(propertyAssociation)
+                association != null -> visitor.visitAssociation(association)
                 else -> visitor.unknown(_json)
             }
 
@@ -595,44 +739,40 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicOr(publicOr: PublicOrFilterBranch) {
-                        publicOr.validate()
+                    override fun visitOr(or: PublicOrFilterBranch) {
+                        or.validate()
                     }
 
-                    override fun visitPublicAnd(publicAnd: PublicAndFilterBranch) {
-                        publicAnd.validate()
+                    override fun visitAnd(and: PublicAndFilterBranch) {
+                        and.validate()
                     }
 
-                    override fun visitPublicNotAll(publicNotAll: PublicNotAllFilterBranch) {
-                        publicNotAll.validate()
+                    override fun visitNotAll(notAll: PublicNotAllFilterBranch) {
+                        notAll.validate()
                     }
 
-                    override fun visitPublicNotAny(publicNotAny: PublicNotAnyFilterBranch) {
-                        publicNotAny.validate()
+                    override fun visitNotAny(notAny: PublicNotAnyFilterBranch) {
+                        notAny.validate()
                     }
 
-                    override fun visitPublicRestricted(
-                        publicRestricted: PublicRestrictedFilterBranch
+                    override fun visitRestricted(restricted: PublicRestrictedFilterBranch) {
+                        restricted.validate()
+                    }
+
+                    override fun visitUnifiedEvents(
+                        unifiedEvents: PublicUnifiedEventsFilterBranch
                     ) {
-                        publicRestricted.validate()
+                        unifiedEvents.validate()
                     }
 
-                    override fun visitPublicUnifiedEvents(
-                        publicUnifiedEvents: PublicUnifiedEventsFilterBranch
+                    override fun visitPropertyAssociation(
+                        propertyAssociation: PublicPropertyAssociationFilterBranch
                     ) {
-                        publicUnifiedEvents.validate()
+                        propertyAssociation.validate()
                     }
 
-                    override fun visitPublicPropertyAssociation(
-                        publicPropertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) {
-                        publicPropertyAssociation.validate()
-                    }
-
-                    override fun visitPublicAssociation(
-                        publicAssociation: PublicAssociationFilterBranch
-                    ) {
-                        publicAssociation.validate()
+                    override fun visitAssociation(association: PublicAssociationFilterBranch) {
+                        association.validate()
                     }
                 }
             )
@@ -657,32 +797,27 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicOr(publicOr: PublicOrFilterBranch) = publicOr.validity()
+                    override fun visitOr(or: PublicOrFilterBranch) = or.validity()
 
-                    override fun visitPublicAnd(publicAnd: PublicAndFilterBranch) =
-                        publicAnd.validity()
+                    override fun visitAnd(and: PublicAndFilterBranch) = and.validity()
 
-                    override fun visitPublicNotAll(publicNotAll: PublicNotAllFilterBranch) =
-                        publicNotAll.validity()
+                    override fun visitNotAll(notAll: PublicNotAllFilterBranch) = notAll.validity()
 
-                    override fun visitPublicNotAny(publicNotAny: PublicNotAnyFilterBranch) =
-                        publicNotAny.validity()
+                    override fun visitNotAny(notAny: PublicNotAnyFilterBranch) = notAny.validity()
 
-                    override fun visitPublicRestricted(
-                        publicRestricted: PublicRestrictedFilterBranch
-                    ) = publicRestricted.validity()
+                    override fun visitRestricted(restricted: PublicRestrictedFilterBranch) =
+                        restricted.validity()
 
-                    override fun visitPublicUnifiedEvents(
-                        publicUnifiedEvents: PublicUnifiedEventsFilterBranch
-                    ) = publicUnifiedEvents.validity()
+                    override fun visitUnifiedEvents(
+                        unifiedEvents: PublicUnifiedEventsFilterBranch
+                    ) = unifiedEvents.validity()
 
-                    override fun visitPublicPropertyAssociation(
-                        publicPropertyAssociation: PublicPropertyAssociationFilterBranch
-                    ) = publicPropertyAssociation.validity()
+                    override fun visitPropertyAssociation(
+                        propertyAssociation: PublicPropertyAssociationFilterBranch
+                    ) = propertyAssociation.validity()
 
-                    override fun visitPublicAssociation(
-                        publicAssociation: PublicAssociationFilterBranch
-                    ) = publicAssociation.validity()
+                    override fun visitAssociation(association: PublicAssociationFilterBranch) =
+                        association.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -694,76 +829,70 @@ private constructor(
             }
 
             return other is FilterBranch &&
-                publicOr == other.publicOr &&
-                publicAnd == other.publicAnd &&
-                publicNotAll == other.publicNotAll &&
-                publicNotAny == other.publicNotAny &&
-                publicRestricted == other.publicRestricted &&
-                publicUnifiedEvents == other.publicUnifiedEvents &&
-                publicPropertyAssociation == other.publicPropertyAssociation &&
-                publicAssociation == other.publicAssociation
+                or == other.or &&
+                and == other.and &&
+                notAll == other.notAll &&
+                notAny == other.notAny &&
+                restricted == other.restricted &&
+                unifiedEvents == other.unifiedEvents &&
+                propertyAssociation == other.propertyAssociation &&
+                association == other.association
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                publicOr,
-                publicAnd,
-                publicNotAll,
-                publicNotAny,
-                publicRestricted,
-                publicUnifiedEvents,
-                publicPropertyAssociation,
-                publicAssociation,
+                or,
+                and,
+                notAll,
+                notAny,
+                restricted,
+                unifiedEvents,
+                propertyAssociation,
+                association,
             )
 
         override fun toString(): String =
             when {
-                publicOr != null -> "FilterBranch{publicOr=$publicOr}"
-                publicAnd != null -> "FilterBranch{publicAnd=$publicAnd}"
-                publicNotAll != null -> "FilterBranch{publicNotAll=$publicNotAll}"
-                publicNotAny != null -> "FilterBranch{publicNotAny=$publicNotAny}"
-                publicRestricted != null -> "FilterBranch{publicRestricted=$publicRestricted}"
-                publicUnifiedEvents != null ->
-                    "FilterBranch{publicUnifiedEvents=$publicUnifiedEvents}"
-                publicPropertyAssociation != null ->
-                    "FilterBranch{publicPropertyAssociation=$publicPropertyAssociation}"
-                publicAssociation != null -> "FilterBranch{publicAssociation=$publicAssociation}"
+                or != null -> "FilterBranch{or=$or}"
+                and != null -> "FilterBranch{and=$and}"
+                notAll != null -> "FilterBranch{notAll=$notAll}"
+                notAny != null -> "FilterBranch{notAny=$notAny}"
+                restricted != null -> "FilterBranch{restricted=$restricted}"
+                unifiedEvents != null -> "FilterBranch{unifiedEvents=$unifiedEvents}"
+                propertyAssociation != null ->
+                    "FilterBranch{propertyAssociation=$propertyAssociation}"
+                association != null -> "FilterBranch{association=$association}"
                 _json != null -> "FilterBranch{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid FilterBranch")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicOr(publicOr: PublicOrFilterBranch) = FilterBranch(publicOr = publicOr)
+            @JvmStatic fun ofOr(or: PublicOrFilterBranch) = FilterBranch(or = or)
+
+            @JvmStatic fun ofAnd(and: PublicAndFilterBranch) = FilterBranch(and = and)
 
             @JvmStatic
-            fun ofPublicAnd(publicAnd: PublicAndFilterBranch) = FilterBranch(publicAnd = publicAnd)
+            fun ofNotAll(notAll: PublicNotAllFilterBranch) = FilterBranch(notAll = notAll)
 
             @JvmStatic
-            fun ofPublicNotAll(publicNotAll: PublicNotAllFilterBranch) =
-                FilterBranch(publicNotAll = publicNotAll)
+            fun ofNotAny(notAny: PublicNotAnyFilterBranch) = FilterBranch(notAny = notAny)
 
             @JvmStatic
-            fun ofPublicNotAny(publicNotAny: PublicNotAnyFilterBranch) =
-                FilterBranch(publicNotAny = publicNotAny)
+            fun ofRestricted(restricted: PublicRestrictedFilterBranch) =
+                FilterBranch(restricted = restricted)
 
             @JvmStatic
-            fun ofPublicRestricted(publicRestricted: PublicRestrictedFilterBranch) =
-                FilterBranch(publicRestricted = publicRestricted)
+            fun ofUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilterBranch) =
+                FilterBranch(unifiedEvents = unifiedEvents)
 
             @JvmStatic
-            fun ofPublicUnifiedEvents(publicUnifiedEvents: PublicUnifiedEventsFilterBranch) =
-                FilterBranch(publicUnifiedEvents = publicUnifiedEvents)
+            fun ofPropertyAssociation(propertyAssociation: PublicPropertyAssociationFilterBranch) =
+                FilterBranch(propertyAssociation = propertyAssociation)
 
             @JvmStatic
-            fun ofPublicPropertyAssociation(
-                publicPropertyAssociation: PublicPropertyAssociationFilterBranch
-            ) = FilterBranch(publicPropertyAssociation = publicPropertyAssociation)
-
-            @JvmStatic
-            fun ofPublicAssociation(publicAssociation: PublicAssociationFilterBranch) =
-                FilterBranch(publicAssociation = publicAssociation)
+            fun ofAssociation(association: PublicAssociationFilterBranch) =
+                FilterBranch(association = association)
         }
 
         /**
@@ -772,23 +901,23 @@ private constructor(
          */
         interface Visitor<out T> {
 
-            fun visitPublicOr(publicOr: PublicOrFilterBranch): T
+            fun visitOr(or: PublicOrFilterBranch): T
 
-            fun visitPublicAnd(publicAnd: PublicAndFilterBranch): T
+            fun visitAnd(and: PublicAndFilterBranch): T
 
-            fun visitPublicNotAll(publicNotAll: PublicNotAllFilterBranch): T
+            fun visitNotAll(notAll: PublicNotAllFilterBranch): T
 
-            fun visitPublicNotAny(publicNotAny: PublicNotAnyFilterBranch): T
+            fun visitNotAny(notAny: PublicNotAnyFilterBranch): T
 
-            fun visitPublicRestricted(publicRestricted: PublicRestrictedFilterBranch): T
+            fun visitRestricted(restricted: PublicRestrictedFilterBranch): T
 
-            fun visitPublicUnifiedEvents(publicUnifiedEvents: PublicUnifiedEventsFilterBranch): T
+            fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilterBranch): T
 
-            fun visitPublicPropertyAssociation(
-                publicPropertyAssociation: PublicPropertyAssociationFilterBranch
+            fun visitPropertyAssociation(
+                propertyAssociation: PublicPropertyAssociationFilterBranch
             ): T
 
-            fun visitPublicAssociation(publicAssociation: PublicAssociationFilterBranch): T
+            fun visitAssociation(association: PublicAssociationFilterBranch): T
 
             /**
              * Maps an unknown variant of [FilterBranch] to a value of type [T].
@@ -809,48 +938,59 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): FilterBranch {
                 val json = JsonValue.fromJsonNode(node)
+                val filterBranchType =
+                    json.asObject().getOrNull()?.get("filterBranchType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicOrFilterBranch>())?.let {
-                                FilterBranch(publicOr = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicAndFilterBranch>())?.let {
-                                FilterBranch(publicAnd = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicNotAllFilterBranch>())?.let {
-                                FilterBranch(publicNotAll = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicNotAnyFilterBranch>())?.let {
-                                FilterBranch(publicNotAny = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicRestrictedFilterBranch>())
-                                ?.let { FilterBranch(publicRestricted = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicUnifiedEventsFilterBranch>())
-                                ?.let { FilterBranch(publicUnifiedEvents = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicPropertyAssociationFilterBranch>(),
-                                )
-                                ?.let {
-                                    FilterBranch(publicPropertyAssociation = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicAssociationFilterBranch>())
-                                ?.let { FilterBranch(publicAssociation = it, _json = json) },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> FilterBranch(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (filterBranchType) {
+                    "OR" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicOrFilterBranch>())?.let {
+                            FilterBranch(or = it, _json = json)
+                        } ?: FilterBranch(_json = json)
+                    }
+                    "AND" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAndFilterBranch>())?.let {
+                            FilterBranch(and = it, _json = json)
+                        } ?: FilterBranch(_json = json)
+                    }
+                    "NOT_ALL" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNotAllFilterBranch>())
+                            ?.let { FilterBranch(notAll = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "NOT_ANY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNotAnyFilterBranch>())
+                            ?.let { FilterBranch(notAny = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "RESTRICTED" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicRestrictedFilterBranch>())
+                            ?.let { FilterBranch(restricted = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "UNIFIED_EVENTS" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicUnifiedEventsFilterBranch>(),
+                            )
+                            ?.let { FilterBranch(unifiedEvents = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "PROPERTY_ASSOCIATION" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicPropertyAssociationFilterBranch>(),
+                            )
+                            ?.let { FilterBranch(propertyAssociation = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
+                    "ASSOCIATION" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAssociationFilterBranch>())
+                            ?.let { FilterBranch(association = it, _json = json) }
+                            ?: FilterBranch(_json = json)
+                    }
                 }
+
+                return FilterBranch(_json = json)
             }
         }
 
@@ -862,17 +1002,15 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicOr != null -> generator.writeObject(value.publicOr)
-                    value.publicAnd != null -> generator.writeObject(value.publicAnd)
-                    value.publicNotAll != null -> generator.writeObject(value.publicNotAll)
-                    value.publicNotAny != null -> generator.writeObject(value.publicNotAny)
-                    value.publicRestricted != null -> generator.writeObject(value.publicRestricted)
-                    value.publicUnifiedEvents != null ->
-                        generator.writeObject(value.publicUnifiedEvents)
-                    value.publicPropertyAssociation != null ->
-                        generator.writeObject(value.publicPropertyAssociation)
-                    value.publicAssociation != null ->
-                        generator.writeObject(value.publicAssociation)
+                    value.or != null -> generator.writeObject(value.or)
+                    value.and != null -> generator.writeObject(value.and)
+                    value.notAll != null -> generator.writeObject(value.notAll)
+                    value.notAny != null -> generator.writeObject(value.notAny)
+                    value.restricted != null -> generator.writeObject(value.restricted)
+                    value.unifiedEvents != null -> generator.writeObject(value.unifiedEvents)
+                    value.propertyAssociation != null ->
+                        generator.writeObject(value.propertyAssociation)
+                    value.association != null -> generator.writeObject(value.association)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid FilterBranch")
                 }
@@ -1008,246 +1146,219 @@ private constructor(
     @JsonSerialize(using = Filter.Serializer::class)
     class Filter
     private constructor(
-        private val publicProperty: PublicPropertyFilter? = null,
-        private val publicAssociationInList: PublicAssociationInListFilter? = null,
-        private val publicPageViewAnalytics: PublicPageViewAnalyticsFilter? = null,
-        private val publicCtaAnalytics: PublicCtaAnalyticsFilter? = null,
-        private val publicEventAnalytics: PublicEventAnalyticsFilter? = null,
-        private val publicFormSubmission: PublicFormSubmissionFilter? = null,
-        private val publicFormSubmissionOnPage: PublicFormSubmissionOnPageFilter? = null,
-        private val publicIntegrationEvent: PublicIntegrationEventFilter? = null,
-        private val publicEmailSubscription: PublicEmailSubscriptionFilter? = null,
-        private val publicCommunicationSubscription: PublicCommunicationSubscriptionFilter? = null,
-        private val publicCampaignInfluenced: PublicCampaignInfluencedFilter? = null,
-        private val publicSurveyMonkey: PublicSurveyMonkeyFilter? = null,
-        private val publicSurveyMonkeyValue: PublicSurveyMonkeyValueFilter? = null,
-        private val publicWebinar: PublicWebinarFilter? = null,
-        private val publicEmailEvent: PublicEmailEventFilter? = null,
-        private val publicPrivacyAnalytics: PublicPrivacyAnalyticsFilter? = null,
-        private val publicAdsSearch: PublicAdsSearchFilter? = null,
-        private val publicAdsTime: PublicAdsTimeFilter? = null,
-        private val publicInList: PublicInListFilter? = null,
-        private val publicNumAssociations: PublicNumAssociationsFilter? = null,
-        private val publicUnifiedEvents: PublicUnifiedEventsFilter? = null,
-        private val publicPropertyAssociationInList: PublicPropertyAssociationInListFilter? = null,
-        private val publicConstant: PublicConstantFilter? = null,
+        private val property: PublicPropertyFilter? = null,
+        private val association: PublicAssociationInListFilter? = null,
+        private val pageView: PublicPageViewAnalyticsFilter? = null,
+        private val cta: PublicCtaAnalyticsFilter? = null,
+        private val event: PublicEventAnalyticsFilter? = null,
+        private val formSubmission: PublicFormSubmissionFilter? = null,
+        private val formSubmissionOnPage: PublicFormSubmissionOnPageFilter? = null,
+        private val integrationEvent: PublicIntegrationEventFilter? = null,
+        private val emailSubscription: PublicEmailSubscriptionFilter? = null,
+        private val communicationSubscription: PublicCommunicationSubscriptionFilter? = null,
+        private val campaignInfluenced: PublicCampaignInfluencedFilter? = null,
+        private val surveyMonkey: PublicSurveyMonkeyFilter? = null,
+        private val surveyMonkeyValue: PublicSurveyMonkeyValueFilter? = null,
+        private val webinar: PublicWebinarFilter? = null,
+        private val emailEvent: PublicEmailEventFilter? = null,
+        private val privacy: PublicPrivacyAnalyticsFilter? = null,
+        private val adsSearch: PublicAdsSearchFilter? = null,
+        private val adsTime: PublicAdsTimeFilter? = null,
+        private val inList: PublicInListFilter? = null,
+        private val numAssociations: PublicNumAssociationsFilter? = null,
+        private val unifiedEvents: PublicUnifiedEventsFilter? = null,
+        private val propertyAssociation: PublicPropertyAssociationInListFilter? = null,
+        private val constant: PublicConstantFilter? = null,
         private val _json: JsonValue? = null,
     ) {
 
-        fun publicProperty(): Optional<PublicPropertyFilter> = Optional.ofNullable(publicProperty)
+        fun property(): Optional<PublicPropertyFilter> = Optional.ofNullable(property)
 
-        fun publicAssociationInList(): Optional<PublicAssociationInListFilter> =
-            Optional.ofNullable(publicAssociationInList)
+        fun association(): Optional<PublicAssociationInListFilter> =
+            Optional.ofNullable(association)
 
-        fun publicPageViewAnalytics(): Optional<PublicPageViewAnalyticsFilter> =
-            Optional.ofNullable(publicPageViewAnalytics)
+        fun pageView(): Optional<PublicPageViewAnalyticsFilter> = Optional.ofNullable(pageView)
 
-        fun publicCtaAnalytics(): Optional<PublicCtaAnalyticsFilter> =
-            Optional.ofNullable(publicCtaAnalytics)
+        fun cta(): Optional<PublicCtaAnalyticsFilter> = Optional.ofNullable(cta)
 
-        fun publicEventAnalytics(): Optional<PublicEventAnalyticsFilter> =
-            Optional.ofNullable(publicEventAnalytics)
+        fun event(): Optional<PublicEventAnalyticsFilter> = Optional.ofNullable(event)
 
-        fun publicFormSubmission(): Optional<PublicFormSubmissionFilter> =
-            Optional.ofNullable(publicFormSubmission)
+        fun formSubmission(): Optional<PublicFormSubmissionFilter> =
+            Optional.ofNullable(formSubmission)
 
-        fun publicFormSubmissionOnPage(): Optional<PublicFormSubmissionOnPageFilter> =
-            Optional.ofNullable(publicFormSubmissionOnPage)
+        fun formSubmissionOnPage(): Optional<PublicFormSubmissionOnPageFilter> =
+            Optional.ofNullable(formSubmissionOnPage)
 
-        fun publicIntegrationEvent(): Optional<PublicIntegrationEventFilter> =
-            Optional.ofNullable(publicIntegrationEvent)
+        fun integrationEvent(): Optional<PublicIntegrationEventFilter> =
+            Optional.ofNullable(integrationEvent)
 
-        fun publicEmailSubscription(): Optional<PublicEmailSubscriptionFilter> =
-            Optional.ofNullable(publicEmailSubscription)
+        fun emailSubscription(): Optional<PublicEmailSubscriptionFilter> =
+            Optional.ofNullable(emailSubscription)
 
-        fun publicCommunicationSubscription(): Optional<PublicCommunicationSubscriptionFilter> =
-            Optional.ofNullable(publicCommunicationSubscription)
+        fun communicationSubscription(): Optional<PublicCommunicationSubscriptionFilter> =
+            Optional.ofNullable(communicationSubscription)
 
-        fun publicCampaignInfluenced(): Optional<PublicCampaignInfluencedFilter> =
-            Optional.ofNullable(publicCampaignInfluenced)
+        fun campaignInfluenced(): Optional<PublicCampaignInfluencedFilter> =
+            Optional.ofNullable(campaignInfluenced)
 
-        fun publicSurveyMonkey(): Optional<PublicSurveyMonkeyFilter> =
-            Optional.ofNullable(publicSurveyMonkey)
+        fun surveyMonkey(): Optional<PublicSurveyMonkeyFilter> = Optional.ofNullable(surveyMonkey)
 
-        fun publicSurveyMonkeyValue(): Optional<PublicSurveyMonkeyValueFilter> =
-            Optional.ofNullable(publicSurveyMonkeyValue)
+        fun surveyMonkeyValue(): Optional<PublicSurveyMonkeyValueFilter> =
+            Optional.ofNullable(surveyMonkeyValue)
 
-        fun publicWebinar(): Optional<PublicWebinarFilter> = Optional.ofNullable(publicWebinar)
+        fun webinar(): Optional<PublicWebinarFilter> = Optional.ofNullable(webinar)
 
-        fun publicEmailEvent(): Optional<PublicEmailEventFilter> =
-            Optional.ofNullable(publicEmailEvent)
+        fun emailEvent(): Optional<PublicEmailEventFilter> = Optional.ofNullable(emailEvent)
 
-        fun publicPrivacyAnalytics(): Optional<PublicPrivacyAnalyticsFilter> =
-            Optional.ofNullable(publicPrivacyAnalytics)
+        fun privacy(): Optional<PublicPrivacyAnalyticsFilter> = Optional.ofNullable(privacy)
 
-        fun publicAdsSearch(): Optional<PublicAdsSearchFilter> =
-            Optional.ofNullable(publicAdsSearch)
+        fun adsSearch(): Optional<PublicAdsSearchFilter> = Optional.ofNullable(adsSearch)
 
-        fun publicAdsTime(): Optional<PublicAdsTimeFilter> = Optional.ofNullable(publicAdsTime)
+        fun adsTime(): Optional<PublicAdsTimeFilter> = Optional.ofNullable(adsTime)
 
-        fun publicInList(): Optional<PublicInListFilter> = Optional.ofNullable(publicInList)
+        fun inList(): Optional<PublicInListFilter> = Optional.ofNullable(inList)
 
-        fun publicNumAssociations(): Optional<PublicNumAssociationsFilter> =
-            Optional.ofNullable(publicNumAssociations)
+        fun numAssociations(): Optional<PublicNumAssociationsFilter> =
+            Optional.ofNullable(numAssociations)
 
-        fun publicUnifiedEvents(): Optional<PublicUnifiedEventsFilter> =
-            Optional.ofNullable(publicUnifiedEvents)
+        fun unifiedEvents(): Optional<PublicUnifiedEventsFilter> =
+            Optional.ofNullable(unifiedEvents)
 
-        fun publicPropertyAssociationInList(): Optional<PublicPropertyAssociationInListFilter> =
-            Optional.ofNullable(publicPropertyAssociationInList)
+        fun propertyAssociation(): Optional<PublicPropertyAssociationInListFilter> =
+            Optional.ofNullable(propertyAssociation)
 
-        fun publicConstant(): Optional<PublicConstantFilter> = Optional.ofNullable(publicConstant)
+        fun constant(): Optional<PublicConstantFilter> = Optional.ofNullable(constant)
 
-        fun isPublicProperty(): Boolean = publicProperty != null
+        fun isProperty(): Boolean = property != null
 
-        fun isPublicAssociationInList(): Boolean = publicAssociationInList != null
+        fun isAssociation(): Boolean = association != null
 
-        fun isPublicPageViewAnalytics(): Boolean = publicPageViewAnalytics != null
+        fun isPageView(): Boolean = pageView != null
 
-        fun isPublicCtaAnalytics(): Boolean = publicCtaAnalytics != null
+        fun isCta(): Boolean = cta != null
 
-        fun isPublicEventAnalytics(): Boolean = publicEventAnalytics != null
+        fun isEvent(): Boolean = event != null
 
-        fun isPublicFormSubmission(): Boolean = publicFormSubmission != null
+        fun isFormSubmission(): Boolean = formSubmission != null
 
-        fun isPublicFormSubmissionOnPage(): Boolean = publicFormSubmissionOnPage != null
+        fun isFormSubmissionOnPage(): Boolean = formSubmissionOnPage != null
 
-        fun isPublicIntegrationEvent(): Boolean = publicIntegrationEvent != null
+        fun isIntegrationEvent(): Boolean = integrationEvent != null
 
-        fun isPublicEmailSubscription(): Boolean = publicEmailSubscription != null
+        fun isEmailSubscription(): Boolean = emailSubscription != null
 
-        fun isPublicCommunicationSubscription(): Boolean = publicCommunicationSubscription != null
+        fun isCommunicationSubscription(): Boolean = communicationSubscription != null
 
-        fun isPublicCampaignInfluenced(): Boolean = publicCampaignInfluenced != null
+        fun isCampaignInfluenced(): Boolean = campaignInfluenced != null
 
-        fun isPublicSurveyMonkey(): Boolean = publicSurveyMonkey != null
+        fun isSurveyMonkey(): Boolean = surveyMonkey != null
 
-        fun isPublicSurveyMonkeyValue(): Boolean = publicSurveyMonkeyValue != null
+        fun isSurveyMonkeyValue(): Boolean = surveyMonkeyValue != null
 
-        fun isPublicWebinar(): Boolean = publicWebinar != null
+        fun isWebinar(): Boolean = webinar != null
 
-        fun isPublicEmailEvent(): Boolean = publicEmailEvent != null
+        fun isEmailEvent(): Boolean = emailEvent != null
 
-        fun isPublicPrivacyAnalytics(): Boolean = publicPrivacyAnalytics != null
+        fun isPrivacy(): Boolean = privacy != null
 
-        fun isPublicAdsSearch(): Boolean = publicAdsSearch != null
+        fun isAdsSearch(): Boolean = adsSearch != null
 
-        fun isPublicAdsTime(): Boolean = publicAdsTime != null
+        fun isAdsTime(): Boolean = adsTime != null
 
-        fun isPublicInList(): Boolean = publicInList != null
+        fun isInList(): Boolean = inList != null
 
-        fun isPublicNumAssociations(): Boolean = publicNumAssociations != null
+        fun isNumAssociations(): Boolean = numAssociations != null
 
-        fun isPublicUnifiedEvents(): Boolean = publicUnifiedEvents != null
+        fun isUnifiedEvents(): Boolean = unifiedEvents != null
 
-        fun isPublicPropertyAssociationInList(): Boolean = publicPropertyAssociationInList != null
+        fun isPropertyAssociation(): Boolean = propertyAssociation != null
 
-        fun isPublicConstant(): Boolean = publicConstant != null
+        fun isConstant(): Boolean = constant != null
 
-        fun asPublicProperty(): PublicPropertyFilter = publicProperty.getOrThrow("publicProperty")
+        fun asProperty(): PublicPropertyFilter = property.getOrThrow("property")
 
-        fun asPublicAssociationInList(): PublicAssociationInListFilter =
-            publicAssociationInList.getOrThrow("publicAssociationInList")
+        fun asAssociation(): PublicAssociationInListFilter = association.getOrThrow("association")
 
-        fun asPublicPageViewAnalytics(): PublicPageViewAnalyticsFilter =
-            publicPageViewAnalytics.getOrThrow("publicPageViewAnalytics")
+        fun asPageView(): PublicPageViewAnalyticsFilter = pageView.getOrThrow("pageView")
 
-        fun asPublicCtaAnalytics(): PublicCtaAnalyticsFilter =
-            publicCtaAnalytics.getOrThrow("publicCtaAnalytics")
+        fun asCta(): PublicCtaAnalyticsFilter = cta.getOrThrow("cta")
 
-        fun asPublicEventAnalytics(): PublicEventAnalyticsFilter =
-            publicEventAnalytics.getOrThrow("publicEventAnalytics")
+        fun asEvent(): PublicEventAnalyticsFilter = event.getOrThrow("event")
 
-        fun asPublicFormSubmission(): PublicFormSubmissionFilter =
-            publicFormSubmission.getOrThrow("publicFormSubmission")
+        fun asFormSubmission(): PublicFormSubmissionFilter =
+            formSubmission.getOrThrow("formSubmission")
 
-        fun asPublicFormSubmissionOnPage(): PublicFormSubmissionOnPageFilter =
-            publicFormSubmissionOnPage.getOrThrow("publicFormSubmissionOnPage")
+        fun asFormSubmissionOnPage(): PublicFormSubmissionOnPageFilter =
+            formSubmissionOnPage.getOrThrow("formSubmissionOnPage")
 
-        fun asPublicIntegrationEvent(): PublicIntegrationEventFilter =
-            publicIntegrationEvent.getOrThrow("publicIntegrationEvent")
+        fun asIntegrationEvent(): PublicIntegrationEventFilter =
+            integrationEvent.getOrThrow("integrationEvent")
 
-        fun asPublicEmailSubscription(): PublicEmailSubscriptionFilter =
-            publicEmailSubscription.getOrThrow("publicEmailSubscription")
+        fun asEmailSubscription(): PublicEmailSubscriptionFilter =
+            emailSubscription.getOrThrow("emailSubscription")
 
-        fun asPublicCommunicationSubscription(): PublicCommunicationSubscriptionFilter =
-            publicCommunicationSubscription.getOrThrow("publicCommunicationSubscription")
+        fun asCommunicationSubscription(): PublicCommunicationSubscriptionFilter =
+            communicationSubscription.getOrThrow("communicationSubscription")
 
-        fun asPublicCampaignInfluenced(): PublicCampaignInfluencedFilter =
-            publicCampaignInfluenced.getOrThrow("publicCampaignInfluenced")
+        fun asCampaignInfluenced(): PublicCampaignInfluencedFilter =
+            campaignInfluenced.getOrThrow("campaignInfluenced")
 
-        fun asPublicSurveyMonkey(): PublicSurveyMonkeyFilter =
-            publicSurveyMonkey.getOrThrow("publicSurveyMonkey")
+        fun asSurveyMonkey(): PublicSurveyMonkeyFilter = surveyMonkey.getOrThrow("surveyMonkey")
 
-        fun asPublicSurveyMonkeyValue(): PublicSurveyMonkeyValueFilter =
-            publicSurveyMonkeyValue.getOrThrow("publicSurveyMonkeyValue")
+        fun asSurveyMonkeyValue(): PublicSurveyMonkeyValueFilter =
+            surveyMonkeyValue.getOrThrow("surveyMonkeyValue")
 
-        fun asPublicWebinar(): PublicWebinarFilter = publicWebinar.getOrThrow("publicWebinar")
+        fun asWebinar(): PublicWebinarFilter = webinar.getOrThrow("webinar")
 
-        fun asPublicEmailEvent(): PublicEmailEventFilter =
-            publicEmailEvent.getOrThrow("publicEmailEvent")
+        fun asEmailEvent(): PublicEmailEventFilter = emailEvent.getOrThrow("emailEvent")
 
-        fun asPublicPrivacyAnalytics(): PublicPrivacyAnalyticsFilter =
-            publicPrivacyAnalytics.getOrThrow("publicPrivacyAnalytics")
+        fun asPrivacy(): PublicPrivacyAnalyticsFilter = privacy.getOrThrow("privacy")
 
-        fun asPublicAdsSearch(): PublicAdsSearchFilter =
-            publicAdsSearch.getOrThrow("publicAdsSearch")
+        fun asAdsSearch(): PublicAdsSearchFilter = adsSearch.getOrThrow("adsSearch")
 
-        fun asPublicAdsTime(): PublicAdsTimeFilter = publicAdsTime.getOrThrow("publicAdsTime")
+        fun asAdsTime(): PublicAdsTimeFilter = adsTime.getOrThrow("adsTime")
 
-        fun asPublicInList(): PublicInListFilter = publicInList.getOrThrow("publicInList")
+        fun asInList(): PublicInListFilter = inList.getOrThrow("inList")
 
-        fun asPublicNumAssociations(): PublicNumAssociationsFilter =
-            publicNumAssociations.getOrThrow("publicNumAssociations")
+        fun asNumAssociations(): PublicNumAssociationsFilter =
+            numAssociations.getOrThrow("numAssociations")
 
-        fun asPublicUnifiedEvents(): PublicUnifiedEventsFilter =
-            publicUnifiedEvents.getOrThrow("publicUnifiedEvents")
+        fun asUnifiedEvents(): PublicUnifiedEventsFilter = unifiedEvents.getOrThrow("unifiedEvents")
 
-        fun asPublicPropertyAssociationInList(): PublicPropertyAssociationInListFilter =
-            publicPropertyAssociationInList.getOrThrow("publicPropertyAssociationInList")
+        fun asPropertyAssociation(): PublicPropertyAssociationInListFilter =
+            propertyAssociation.getOrThrow("propertyAssociation")
 
-        fun asPublicConstant(): PublicConstantFilter = publicConstant.getOrThrow("publicConstant")
+        fun asConstant(): PublicConstantFilter = constant.getOrThrow("constant")
 
         fun _json(): Optional<JsonValue> = Optional.ofNullable(_json)
 
         fun <T> accept(visitor: Visitor<T>): T =
             when {
-                publicProperty != null -> visitor.visitPublicProperty(publicProperty)
-                publicAssociationInList != null ->
-                    visitor.visitPublicAssociationInList(publicAssociationInList)
-                publicPageViewAnalytics != null ->
-                    visitor.visitPublicPageViewAnalytics(publicPageViewAnalytics)
-                publicCtaAnalytics != null -> visitor.visitPublicCtaAnalytics(publicCtaAnalytics)
-                publicEventAnalytics != null ->
-                    visitor.visitPublicEventAnalytics(publicEventAnalytics)
-                publicFormSubmission != null ->
-                    visitor.visitPublicFormSubmission(publicFormSubmission)
-                publicFormSubmissionOnPage != null ->
-                    visitor.visitPublicFormSubmissionOnPage(publicFormSubmissionOnPage)
-                publicIntegrationEvent != null ->
-                    visitor.visitPublicIntegrationEvent(publicIntegrationEvent)
-                publicEmailSubscription != null ->
-                    visitor.visitPublicEmailSubscription(publicEmailSubscription)
-                publicCommunicationSubscription != null ->
-                    visitor.visitPublicCommunicationSubscription(publicCommunicationSubscription)
-                publicCampaignInfluenced != null ->
-                    visitor.visitPublicCampaignInfluenced(publicCampaignInfluenced)
-                publicSurveyMonkey != null -> visitor.visitPublicSurveyMonkey(publicSurveyMonkey)
-                publicSurveyMonkeyValue != null ->
-                    visitor.visitPublicSurveyMonkeyValue(publicSurveyMonkeyValue)
-                publicWebinar != null -> visitor.visitPublicWebinar(publicWebinar)
-                publicEmailEvent != null -> visitor.visitPublicEmailEvent(publicEmailEvent)
-                publicPrivacyAnalytics != null ->
-                    visitor.visitPublicPrivacyAnalytics(publicPrivacyAnalytics)
-                publicAdsSearch != null -> visitor.visitPublicAdsSearch(publicAdsSearch)
-                publicAdsTime != null -> visitor.visitPublicAdsTime(publicAdsTime)
-                publicInList != null -> visitor.visitPublicInList(publicInList)
-                publicNumAssociations != null ->
-                    visitor.visitPublicNumAssociations(publicNumAssociations)
-                publicUnifiedEvents != null -> visitor.visitPublicUnifiedEvents(publicUnifiedEvents)
-                publicPropertyAssociationInList != null ->
-                    visitor.visitPublicPropertyAssociationInList(publicPropertyAssociationInList)
-                publicConstant != null -> visitor.visitPublicConstant(publicConstant)
+                property != null -> visitor.visitProperty(property)
+                association != null -> visitor.visitAssociation(association)
+                pageView != null -> visitor.visitPageView(pageView)
+                cta != null -> visitor.visitCta(cta)
+                event != null -> visitor.visitEvent(event)
+                formSubmission != null -> visitor.visitFormSubmission(formSubmission)
+                formSubmissionOnPage != null ->
+                    visitor.visitFormSubmissionOnPage(formSubmissionOnPage)
+                integrationEvent != null -> visitor.visitIntegrationEvent(integrationEvent)
+                emailSubscription != null -> visitor.visitEmailSubscription(emailSubscription)
+                communicationSubscription != null ->
+                    visitor.visitCommunicationSubscription(communicationSubscription)
+                campaignInfluenced != null -> visitor.visitCampaignInfluenced(campaignInfluenced)
+                surveyMonkey != null -> visitor.visitSurveyMonkey(surveyMonkey)
+                surveyMonkeyValue != null -> visitor.visitSurveyMonkeyValue(surveyMonkeyValue)
+                webinar != null -> visitor.visitWebinar(webinar)
+                emailEvent != null -> visitor.visitEmailEvent(emailEvent)
+                privacy != null -> visitor.visitPrivacy(privacy)
+                adsSearch != null -> visitor.visitAdsSearch(adsSearch)
+                adsTime != null -> visitor.visitAdsTime(adsTime)
+                inList != null -> visitor.visitInList(inList)
+                numAssociations != null -> visitor.visitNumAssociations(numAssociations)
+                unifiedEvents != null -> visitor.visitUnifiedEvents(unifiedEvents)
+                propertyAssociation != null -> visitor.visitPropertyAssociation(propertyAssociation)
+                constant != null -> visitor.visitConstant(constant)
                 else -> visitor.unknown(_json)
             }
 
@@ -1260,128 +1371,112 @@ private constructor(
 
             accept(
                 object : Visitor<Unit> {
-                    override fun visitPublicProperty(publicProperty: PublicPropertyFilter) {
-                        publicProperty.validate()
+                    override fun visitProperty(property: PublicPropertyFilter) {
+                        property.validate()
                     }
 
-                    override fun visitPublicAssociationInList(
-                        publicAssociationInList: PublicAssociationInListFilter
+                    override fun visitAssociation(association: PublicAssociationInListFilter) {
+                        association.validate()
+                    }
+
+                    override fun visitPageView(pageView: PublicPageViewAnalyticsFilter) {
+                        pageView.validate()
+                    }
+
+                    override fun visitCta(cta: PublicCtaAnalyticsFilter) {
+                        cta.validate()
+                    }
+
+                    override fun visitEvent(event: PublicEventAnalyticsFilter) {
+                        event.validate()
+                    }
+
+                    override fun visitFormSubmission(formSubmission: PublicFormSubmissionFilter) {
+                        formSubmission.validate()
+                    }
+
+                    override fun visitFormSubmissionOnPage(
+                        formSubmissionOnPage: PublicFormSubmissionOnPageFilter
                     ) {
-                        publicAssociationInList.validate()
+                        formSubmissionOnPage.validate()
                     }
 
-                    override fun visitPublicPageViewAnalytics(
-                        publicPageViewAnalytics: PublicPageViewAnalyticsFilter
+                    override fun visitIntegrationEvent(
+                        integrationEvent: PublicIntegrationEventFilter
                     ) {
-                        publicPageViewAnalytics.validate()
+                        integrationEvent.validate()
                     }
 
-                    override fun visitPublicCtaAnalytics(
-                        publicCtaAnalytics: PublicCtaAnalyticsFilter
+                    override fun visitEmailSubscription(
+                        emailSubscription: PublicEmailSubscriptionFilter
                     ) {
-                        publicCtaAnalytics.validate()
+                        emailSubscription.validate()
                     }
 
-                    override fun visitPublicEventAnalytics(
-                        publicEventAnalytics: PublicEventAnalyticsFilter
+                    override fun visitCommunicationSubscription(
+                        communicationSubscription: PublicCommunicationSubscriptionFilter
                     ) {
-                        publicEventAnalytics.validate()
+                        communicationSubscription.validate()
                     }
 
-                    override fun visitPublicFormSubmission(
-                        publicFormSubmission: PublicFormSubmissionFilter
+                    override fun visitCampaignInfluenced(
+                        campaignInfluenced: PublicCampaignInfluencedFilter
                     ) {
-                        publicFormSubmission.validate()
+                        campaignInfluenced.validate()
                     }
 
-                    override fun visitPublicFormSubmissionOnPage(
-                        publicFormSubmissionOnPage: PublicFormSubmissionOnPageFilter
+                    override fun visitSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter) {
+                        surveyMonkey.validate()
+                    }
+
+                    override fun visitSurveyMonkeyValue(
+                        surveyMonkeyValue: PublicSurveyMonkeyValueFilter
                     ) {
-                        publicFormSubmissionOnPage.validate()
+                        surveyMonkeyValue.validate()
                     }
 
-                    override fun visitPublicIntegrationEvent(
-                        publicIntegrationEvent: PublicIntegrationEventFilter
+                    override fun visitWebinar(webinar: PublicWebinarFilter) {
+                        webinar.validate()
+                    }
+
+                    override fun visitEmailEvent(emailEvent: PublicEmailEventFilter) {
+                        emailEvent.validate()
+                    }
+
+                    override fun visitPrivacy(privacy: PublicPrivacyAnalyticsFilter) {
+                        privacy.validate()
+                    }
+
+                    override fun visitAdsSearch(adsSearch: PublicAdsSearchFilter) {
+                        adsSearch.validate()
+                    }
+
+                    override fun visitAdsTime(adsTime: PublicAdsTimeFilter) {
+                        adsTime.validate()
+                    }
+
+                    override fun visitInList(inList: PublicInListFilter) {
+                        inList.validate()
+                    }
+
+                    override fun visitNumAssociations(
+                        numAssociations: PublicNumAssociationsFilter
                     ) {
-                        publicIntegrationEvent.validate()
+                        numAssociations.validate()
                     }
 
-                    override fun visitPublicEmailSubscription(
-                        publicEmailSubscription: PublicEmailSubscriptionFilter
+                    override fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter) {
+                        unifiedEvents.validate()
+                    }
+
+                    override fun visitPropertyAssociation(
+                        propertyAssociation: PublicPropertyAssociationInListFilter
                     ) {
-                        publicEmailSubscription.validate()
+                        propertyAssociation.validate()
                     }
 
-                    override fun visitPublicCommunicationSubscription(
-                        publicCommunicationSubscription: PublicCommunicationSubscriptionFilter
-                    ) {
-                        publicCommunicationSubscription.validate()
-                    }
-
-                    override fun visitPublicCampaignInfluenced(
-                        publicCampaignInfluenced: PublicCampaignInfluencedFilter
-                    ) {
-                        publicCampaignInfluenced.validate()
-                    }
-
-                    override fun visitPublicSurveyMonkey(
-                        publicSurveyMonkey: PublicSurveyMonkeyFilter
-                    ) {
-                        publicSurveyMonkey.validate()
-                    }
-
-                    override fun visitPublicSurveyMonkeyValue(
-                        publicSurveyMonkeyValue: PublicSurveyMonkeyValueFilter
-                    ) {
-                        publicSurveyMonkeyValue.validate()
-                    }
-
-                    override fun visitPublicWebinar(publicWebinar: PublicWebinarFilter) {
-                        publicWebinar.validate()
-                    }
-
-                    override fun visitPublicEmailEvent(publicEmailEvent: PublicEmailEventFilter) {
-                        publicEmailEvent.validate()
-                    }
-
-                    override fun visitPublicPrivacyAnalytics(
-                        publicPrivacyAnalytics: PublicPrivacyAnalyticsFilter
-                    ) {
-                        publicPrivacyAnalytics.validate()
-                    }
-
-                    override fun visitPublicAdsSearch(publicAdsSearch: PublicAdsSearchFilter) {
-                        publicAdsSearch.validate()
-                    }
-
-                    override fun visitPublicAdsTime(publicAdsTime: PublicAdsTimeFilter) {
-                        publicAdsTime.validate()
-                    }
-
-                    override fun visitPublicInList(publicInList: PublicInListFilter) {
-                        publicInList.validate()
-                    }
-
-                    override fun visitPublicNumAssociations(
-                        publicNumAssociations: PublicNumAssociationsFilter
-                    ) {
-                        publicNumAssociations.validate()
-                    }
-
-                    override fun visitPublicUnifiedEvents(
-                        publicUnifiedEvents: PublicUnifiedEventsFilter
-                    ) {
-                        publicUnifiedEvents.validate()
-                    }
-
-                    override fun visitPublicPropertyAssociationInList(
-                        publicPropertyAssociationInList: PublicPropertyAssociationInListFilter
-                    ) {
-                        publicPropertyAssociationInList.validate()
-                    }
-
-                    override fun visitPublicConstant(publicConstant: PublicConstantFilter) {
-                        publicConstant.validate()
+                    override fun visitConstant(constant: PublicConstantFilter) {
+                        constant.validate()
                     }
                 }
             )
@@ -1406,90 +1501,75 @@ private constructor(
         internal fun validity(): Int =
             accept(
                 object : Visitor<Int> {
-                    override fun visitPublicProperty(publicProperty: PublicPropertyFilter) =
-                        publicProperty.validity()
+                    override fun visitProperty(property: PublicPropertyFilter) = property.validity()
 
-                    override fun visitPublicAssociationInList(
-                        publicAssociationInList: PublicAssociationInListFilter
-                    ) = publicAssociationInList.validity()
+                    override fun visitAssociation(association: PublicAssociationInListFilter) =
+                        association.validity()
 
-                    override fun visitPublicPageViewAnalytics(
-                        publicPageViewAnalytics: PublicPageViewAnalyticsFilter
-                    ) = publicPageViewAnalytics.validity()
+                    override fun visitPageView(pageView: PublicPageViewAnalyticsFilter) =
+                        pageView.validity()
 
-                    override fun visitPublicCtaAnalytics(
-                        publicCtaAnalytics: PublicCtaAnalyticsFilter
-                    ) = publicCtaAnalytics.validity()
+                    override fun visitCta(cta: PublicCtaAnalyticsFilter) = cta.validity()
 
-                    override fun visitPublicEventAnalytics(
-                        publicEventAnalytics: PublicEventAnalyticsFilter
-                    ) = publicEventAnalytics.validity()
+                    override fun visitEvent(event: PublicEventAnalyticsFilter) = event.validity()
 
-                    override fun visitPublicFormSubmission(
-                        publicFormSubmission: PublicFormSubmissionFilter
-                    ) = publicFormSubmission.validity()
+                    override fun visitFormSubmission(formSubmission: PublicFormSubmissionFilter) =
+                        formSubmission.validity()
 
-                    override fun visitPublicFormSubmissionOnPage(
-                        publicFormSubmissionOnPage: PublicFormSubmissionOnPageFilter
-                    ) = publicFormSubmissionOnPage.validity()
+                    override fun visitFormSubmissionOnPage(
+                        formSubmissionOnPage: PublicFormSubmissionOnPageFilter
+                    ) = formSubmissionOnPage.validity()
 
-                    override fun visitPublicIntegrationEvent(
-                        publicIntegrationEvent: PublicIntegrationEventFilter
-                    ) = publicIntegrationEvent.validity()
+                    override fun visitIntegrationEvent(
+                        integrationEvent: PublicIntegrationEventFilter
+                    ) = integrationEvent.validity()
 
-                    override fun visitPublicEmailSubscription(
-                        publicEmailSubscription: PublicEmailSubscriptionFilter
-                    ) = publicEmailSubscription.validity()
+                    override fun visitEmailSubscription(
+                        emailSubscription: PublicEmailSubscriptionFilter
+                    ) = emailSubscription.validity()
 
-                    override fun visitPublicCommunicationSubscription(
-                        publicCommunicationSubscription: PublicCommunicationSubscriptionFilter
-                    ) = publicCommunicationSubscription.validity()
+                    override fun visitCommunicationSubscription(
+                        communicationSubscription: PublicCommunicationSubscriptionFilter
+                    ) = communicationSubscription.validity()
 
-                    override fun visitPublicCampaignInfluenced(
-                        publicCampaignInfluenced: PublicCampaignInfluencedFilter
-                    ) = publicCampaignInfluenced.validity()
+                    override fun visitCampaignInfluenced(
+                        campaignInfluenced: PublicCampaignInfluencedFilter
+                    ) = campaignInfluenced.validity()
 
-                    override fun visitPublicSurveyMonkey(
-                        publicSurveyMonkey: PublicSurveyMonkeyFilter
-                    ) = publicSurveyMonkey.validity()
+                    override fun visitSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter) =
+                        surveyMonkey.validity()
 
-                    override fun visitPublicSurveyMonkeyValue(
-                        publicSurveyMonkeyValue: PublicSurveyMonkeyValueFilter
-                    ) = publicSurveyMonkeyValue.validity()
+                    override fun visitSurveyMonkeyValue(
+                        surveyMonkeyValue: PublicSurveyMonkeyValueFilter
+                    ) = surveyMonkeyValue.validity()
 
-                    override fun visitPublicWebinar(publicWebinar: PublicWebinarFilter) =
-                        publicWebinar.validity()
+                    override fun visitWebinar(webinar: PublicWebinarFilter) = webinar.validity()
 
-                    override fun visitPublicEmailEvent(publicEmailEvent: PublicEmailEventFilter) =
-                        publicEmailEvent.validity()
+                    override fun visitEmailEvent(emailEvent: PublicEmailEventFilter) =
+                        emailEvent.validity()
 
-                    override fun visitPublicPrivacyAnalytics(
-                        publicPrivacyAnalytics: PublicPrivacyAnalyticsFilter
-                    ) = publicPrivacyAnalytics.validity()
+                    override fun visitPrivacy(privacy: PublicPrivacyAnalyticsFilter) =
+                        privacy.validity()
 
-                    override fun visitPublicAdsSearch(publicAdsSearch: PublicAdsSearchFilter) =
-                        publicAdsSearch.validity()
+                    override fun visitAdsSearch(adsSearch: PublicAdsSearchFilter) =
+                        adsSearch.validity()
 
-                    override fun visitPublicAdsTime(publicAdsTime: PublicAdsTimeFilter) =
-                        publicAdsTime.validity()
+                    override fun visitAdsTime(adsTime: PublicAdsTimeFilter) = adsTime.validity()
 
-                    override fun visitPublicInList(publicInList: PublicInListFilter) =
-                        publicInList.validity()
+                    override fun visitInList(inList: PublicInListFilter) = inList.validity()
 
-                    override fun visitPublicNumAssociations(
-                        publicNumAssociations: PublicNumAssociationsFilter
-                    ) = publicNumAssociations.validity()
+                    override fun visitNumAssociations(
+                        numAssociations: PublicNumAssociationsFilter
+                    ) = numAssociations.validity()
 
-                    override fun visitPublicUnifiedEvents(
-                        publicUnifiedEvents: PublicUnifiedEventsFilter
-                    ) = publicUnifiedEvents.validity()
+                    override fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter) =
+                        unifiedEvents.validity()
 
-                    override fun visitPublicPropertyAssociationInList(
-                        publicPropertyAssociationInList: PublicPropertyAssociationInListFilter
-                    ) = publicPropertyAssociationInList.validity()
+                    override fun visitPropertyAssociation(
+                        propertyAssociation: PublicPropertyAssociationInListFilter
+                    ) = propertyAssociation.validity()
 
-                    override fun visitPublicConstant(publicConstant: PublicConstantFilter) =
-                        publicConstant.validity()
+                    override fun visitConstant(constant: PublicConstantFilter) = constant.validity()
 
                     override fun unknown(json: JsonValue?) = 0
                 }
@@ -1501,261 +1581,218 @@ private constructor(
             }
 
             return other is Filter &&
-                publicProperty == other.publicProperty &&
-                publicAssociationInList == other.publicAssociationInList &&
-                publicPageViewAnalytics == other.publicPageViewAnalytics &&
-                publicCtaAnalytics == other.publicCtaAnalytics &&
-                publicEventAnalytics == other.publicEventAnalytics &&
-                publicFormSubmission == other.publicFormSubmission &&
-                publicFormSubmissionOnPage == other.publicFormSubmissionOnPage &&
-                publicIntegrationEvent == other.publicIntegrationEvent &&
-                publicEmailSubscription == other.publicEmailSubscription &&
-                publicCommunicationSubscription == other.publicCommunicationSubscription &&
-                publicCampaignInfluenced == other.publicCampaignInfluenced &&
-                publicSurveyMonkey == other.publicSurveyMonkey &&
-                publicSurveyMonkeyValue == other.publicSurveyMonkeyValue &&
-                publicWebinar == other.publicWebinar &&
-                publicEmailEvent == other.publicEmailEvent &&
-                publicPrivacyAnalytics == other.publicPrivacyAnalytics &&
-                publicAdsSearch == other.publicAdsSearch &&
-                publicAdsTime == other.publicAdsTime &&
-                publicInList == other.publicInList &&
-                publicNumAssociations == other.publicNumAssociations &&
-                publicUnifiedEvents == other.publicUnifiedEvents &&
-                publicPropertyAssociationInList == other.publicPropertyAssociationInList &&
-                publicConstant == other.publicConstant
+                property == other.property &&
+                association == other.association &&
+                pageView == other.pageView &&
+                cta == other.cta &&
+                event == other.event &&
+                formSubmission == other.formSubmission &&
+                formSubmissionOnPage == other.formSubmissionOnPage &&
+                integrationEvent == other.integrationEvent &&
+                emailSubscription == other.emailSubscription &&
+                communicationSubscription == other.communicationSubscription &&
+                campaignInfluenced == other.campaignInfluenced &&
+                surveyMonkey == other.surveyMonkey &&
+                surveyMonkeyValue == other.surveyMonkeyValue &&
+                webinar == other.webinar &&
+                emailEvent == other.emailEvent &&
+                privacy == other.privacy &&
+                adsSearch == other.adsSearch &&
+                adsTime == other.adsTime &&
+                inList == other.inList &&
+                numAssociations == other.numAssociations &&
+                unifiedEvents == other.unifiedEvents &&
+                propertyAssociation == other.propertyAssociation &&
+                constant == other.constant
         }
 
         override fun hashCode(): Int =
             Objects.hash(
-                publicProperty,
-                publicAssociationInList,
-                publicPageViewAnalytics,
-                publicCtaAnalytics,
-                publicEventAnalytics,
-                publicFormSubmission,
-                publicFormSubmissionOnPage,
-                publicIntegrationEvent,
-                publicEmailSubscription,
-                publicCommunicationSubscription,
-                publicCampaignInfluenced,
-                publicSurveyMonkey,
-                publicSurveyMonkeyValue,
-                publicWebinar,
-                publicEmailEvent,
-                publicPrivacyAnalytics,
-                publicAdsSearch,
-                publicAdsTime,
-                publicInList,
-                publicNumAssociations,
-                publicUnifiedEvents,
-                publicPropertyAssociationInList,
-                publicConstant,
+                property,
+                association,
+                pageView,
+                cta,
+                event,
+                formSubmission,
+                formSubmissionOnPage,
+                integrationEvent,
+                emailSubscription,
+                communicationSubscription,
+                campaignInfluenced,
+                surveyMonkey,
+                surveyMonkeyValue,
+                webinar,
+                emailEvent,
+                privacy,
+                adsSearch,
+                adsTime,
+                inList,
+                numAssociations,
+                unifiedEvents,
+                propertyAssociation,
+                constant,
             )
 
         override fun toString(): String =
             when {
-                publicProperty != null -> "Filter{publicProperty=$publicProperty}"
-                publicAssociationInList != null ->
-                    "Filter{publicAssociationInList=$publicAssociationInList}"
-                publicPageViewAnalytics != null ->
-                    "Filter{publicPageViewAnalytics=$publicPageViewAnalytics}"
-                publicCtaAnalytics != null -> "Filter{publicCtaAnalytics=$publicCtaAnalytics}"
-                publicEventAnalytics != null -> "Filter{publicEventAnalytics=$publicEventAnalytics}"
-                publicFormSubmission != null -> "Filter{publicFormSubmission=$publicFormSubmission}"
-                publicFormSubmissionOnPage != null ->
-                    "Filter{publicFormSubmissionOnPage=$publicFormSubmissionOnPage}"
-                publicIntegrationEvent != null ->
-                    "Filter{publicIntegrationEvent=$publicIntegrationEvent}"
-                publicEmailSubscription != null ->
-                    "Filter{publicEmailSubscription=$publicEmailSubscription}"
-                publicCommunicationSubscription != null ->
-                    "Filter{publicCommunicationSubscription=$publicCommunicationSubscription}"
-                publicCampaignInfluenced != null ->
-                    "Filter{publicCampaignInfluenced=$publicCampaignInfluenced}"
-                publicSurveyMonkey != null -> "Filter{publicSurveyMonkey=$publicSurveyMonkey}"
-                publicSurveyMonkeyValue != null ->
-                    "Filter{publicSurveyMonkeyValue=$publicSurveyMonkeyValue}"
-                publicWebinar != null -> "Filter{publicWebinar=$publicWebinar}"
-                publicEmailEvent != null -> "Filter{publicEmailEvent=$publicEmailEvent}"
-                publicPrivacyAnalytics != null ->
-                    "Filter{publicPrivacyAnalytics=$publicPrivacyAnalytics}"
-                publicAdsSearch != null -> "Filter{publicAdsSearch=$publicAdsSearch}"
-                publicAdsTime != null -> "Filter{publicAdsTime=$publicAdsTime}"
-                publicInList != null -> "Filter{publicInList=$publicInList}"
-                publicNumAssociations != null ->
-                    "Filter{publicNumAssociations=$publicNumAssociations}"
-                publicUnifiedEvents != null -> "Filter{publicUnifiedEvents=$publicUnifiedEvents}"
-                publicPropertyAssociationInList != null ->
-                    "Filter{publicPropertyAssociationInList=$publicPropertyAssociationInList}"
-                publicConstant != null -> "Filter{publicConstant=$publicConstant}"
+                property != null -> "Filter{property=$property}"
+                association != null -> "Filter{association=$association}"
+                pageView != null -> "Filter{pageView=$pageView}"
+                cta != null -> "Filter{cta=$cta}"
+                event != null -> "Filter{event=$event}"
+                formSubmission != null -> "Filter{formSubmission=$formSubmission}"
+                formSubmissionOnPage != null -> "Filter{formSubmissionOnPage=$formSubmissionOnPage}"
+                integrationEvent != null -> "Filter{integrationEvent=$integrationEvent}"
+                emailSubscription != null -> "Filter{emailSubscription=$emailSubscription}"
+                communicationSubscription != null ->
+                    "Filter{communicationSubscription=$communicationSubscription}"
+                campaignInfluenced != null -> "Filter{campaignInfluenced=$campaignInfluenced}"
+                surveyMonkey != null -> "Filter{surveyMonkey=$surveyMonkey}"
+                surveyMonkeyValue != null -> "Filter{surveyMonkeyValue=$surveyMonkeyValue}"
+                webinar != null -> "Filter{webinar=$webinar}"
+                emailEvent != null -> "Filter{emailEvent=$emailEvent}"
+                privacy != null -> "Filter{privacy=$privacy}"
+                adsSearch != null -> "Filter{adsSearch=$adsSearch}"
+                adsTime != null -> "Filter{adsTime=$adsTime}"
+                inList != null -> "Filter{inList=$inList}"
+                numAssociations != null -> "Filter{numAssociations=$numAssociations}"
+                unifiedEvents != null -> "Filter{unifiedEvents=$unifiedEvents}"
+                propertyAssociation != null -> "Filter{propertyAssociation=$propertyAssociation}"
+                constant != null -> "Filter{constant=$constant}"
                 _json != null -> "Filter{_unknown=$_json}"
                 else -> throw IllegalStateException("Invalid Filter")
             }
 
         companion object {
 
-            @JvmStatic
-            fun ofPublicProperty(publicProperty: PublicPropertyFilter) =
-                Filter(publicProperty = publicProperty)
+            @JvmStatic fun ofProperty(property: PublicPropertyFilter) = Filter(property = property)
 
             @JvmStatic
-            fun ofPublicAssociationInList(publicAssociationInList: PublicAssociationInListFilter) =
-                Filter(publicAssociationInList = publicAssociationInList)
+            fun ofAssociation(association: PublicAssociationInListFilter) =
+                Filter(association = association)
 
             @JvmStatic
-            fun ofPublicPageViewAnalytics(publicPageViewAnalytics: PublicPageViewAnalyticsFilter) =
-                Filter(publicPageViewAnalytics = publicPageViewAnalytics)
+            fun ofPageView(pageView: PublicPageViewAnalyticsFilter) = Filter(pageView = pageView)
+
+            @JvmStatic fun ofCta(cta: PublicCtaAnalyticsFilter) = Filter(cta = cta)
+
+            @JvmStatic fun ofEvent(event: PublicEventAnalyticsFilter) = Filter(event = event)
 
             @JvmStatic
-            fun ofPublicCtaAnalytics(publicCtaAnalytics: PublicCtaAnalyticsFilter) =
-                Filter(publicCtaAnalytics = publicCtaAnalytics)
+            fun ofFormSubmission(formSubmission: PublicFormSubmissionFilter) =
+                Filter(formSubmission = formSubmission)
 
             @JvmStatic
-            fun ofPublicEventAnalytics(publicEventAnalytics: PublicEventAnalyticsFilter) =
-                Filter(publicEventAnalytics = publicEventAnalytics)
+            fun ofFormSubmissionOnPage(formSubmissionOnPage: PublicFormSubmissionOnPageFilter) =
+                Filter(formSubmissionOnPage = formSubmissionOnPage)
 
             @JvmStatic
-            fun ofPublicFormSubmission(publicFormSubmission: PublicFormSubmissionFilter) =
-                Filter(publicFormSubmission = publicFormSubmission)
+            fun ofIntegrationEvent(integrationEvent: PublicIntegrationEventFilter) =
+                Filter(integrationEvent = integrationEvent)
 
             @JvmStatic
-            fun ofPublicFormSubmissionOnPage(
-                publicFormSubmissionOnPage: PublicFormSubmissionOnPageFilter
-            ) = Filter(publicFormSubmissionOnPage = publicFormSubmissionOnPage)
+            fun ofEmailSubscription(emailSubscription: PublicEmailSubscriptionFilter) =
+                Filter(emailSubscription = emailSubscription)
 
             @JvmStatic
-            fun ofPublicIntegrationEvent(publicIntegrationEvent: PublicIntegrationEventFilter) =
-                Filter(publicIntegrationEvent = publicIntegrationEvent)
+            fun ofCommunicationSubscription(
+                communicationSubscription: PublicCommunicationSubscriptionFilter
+            ) = Filter(communicationSubscription = communicationSubscription)
 
             @JvmStatic
-            fun ofPublicEmailSubscription(publicEmailSubscription: PublicEmailSubscriptionFilter) =
-                Filter(publicEmailSubscription = publicEmailSubscription)
+            fun ofCampaignInfluenced(campaignInfluenced: PublicCampaignInfluencedFilter) =
+                Filter(campaignInfluenced = campaignInfluenced)
 
             @JvmStatic
-            fun ofPublicCommunicationSubscription(
-                publicCommunicationSubscription: PublicCommunicationSubscriptionFilter
-            ) = Filter(publicCommunicationSubscription = publicCommunicationSubscription)
+            fun ofSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter) =
+                Filter(surveyMonkey = surveyMonkey)
 
             @JvmStatic
-            fun ofPublicCampaignInfluenced(
-                publicCampaignInfluenced: PublicCampaignInfluencedFilter
-            ) = Filter(publicCampaignInfluenced = publicCampaignInfluenced)
+            fun ofSurveyMonkeyValue(surveyMonkeyValue: PublicSurveyMonkeyValueFilter) =
+                Filter(surveyMonkeyValue = surveyMonkeyValue)
+
+            @JvmStatic fun ofWebinar(webinar: PublicWebinarFilter) = Filter(webinar = webinar)
 
             @JvmStatic
-            fun ofPublicSurveyMonkey(publicSurveyMonkey: PublicSurveyMonkeyFilter) =
-                Filter(publicSurveyMonkey = publicSurveyMonkey)
+            fun ofEmailEvent(emailEvent: PublicEmailEventFilter) = Filter(emailEvent = emailEvent)
 
             @JvmStatic
-            fun ofPublicSurveyMonkeyValue(publicSurveyMonkeyValue: PublicSurveyMonkeyValueFilter) =
-                Filter(publicSurveyMonkeyValue = publicSurveyMonkeyValue)
+            fun ofPrivacy(privacy: PublicPrivacyAnalyticsFilter) = Filter(privacy = privacy)
 
             @JvmStatic
-            fun ofPublicWebinar(publicWebinar: PublicWebinarFilter) =
-                Filter(publicWebinar = publicWebinar)
+            fun ofAdsSearch(adsSearch: PublicAdsSearchFilter) = Filter(adsSearch = adsSearch)
+
+            @JvmStatic fun ofAdsTime(adsTime: PublicAdsTimeFilter) = Filter(adsTime = adsTime)
+
+            @JvmStatic fun ofInList(inList: PublicInListFilter) = Filter(inList = inList)
 
             @JvmStatic
-            fun ofPublicEmailEvent(publicEmailEvent: PublicEmailEventFilter) =
-                Filter(publicEmailEvent = publicEmailEvent)
+            fun ofNumAssociations(numAssociations: PublicNumAssociationsFilter) =
+                Filter(numAssociations = numAssociations)
 
             @JvmStatic
-            fun ofPublicPrivacyAnalytics(publicPrivacyAnalytics: PublicPrivacyAnalyticsFilter) =
-                Filter(publicPrivacyAnalytics = publicPrivacyAnalytics)
+            fun ofUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter) =
+                Filter(unifiedEvents = unifiedEvents)
 
             @JvmStatic
-            fun ofPublicAdsSearch(publicAdsSearch: PublicAdsSearchFilter) =
-                Filter(publicAdsSearch = publicAdsSearch)
+            fun ofPropertyAssociation(propertyAssociation: PublicPropertyAssociationInListFilter) =
+                Filter(propertyAssociation = propertyAssociation)
 
-            @JvmStatic
-            fun ofPublicAdsTime(publicAdsTime: PublicAdsTimeFilter) =
-                Filter(publicAdsTime = publicAdsTime)
-
-            @JvmStatic
-            fun ofPublicInList(publicInList: PublicInListFilter) =
-                Filter(publicInList = publicInList)
-
-            @JvmStatic
-            fun ofPublicNumAssociations(publicNumAssociations: PublicNumAssociationsFilter) =
-                Filter(publicNumAssociations = publicNumAssociations)
-
-            @JvmStatic
-            fun ofPublicUnifiedEvents(publicUnifiedEvents: PublicUnifiedEventsFilter) =
-                Filter(publicUnifiedEvents = publicUnifiedEvents)
-
-            @JvmStatic
-            fun ofPublicPropertyAssociationInList(
-                publicPropertyAssociationInList: PublicPropertyAssociationInListFilter
-            ) = Filter(publicPropertyAssociationInList = publicPropertyAssociationInList)
-
-            @JvmStatic
-            fun ofPublicConstant(publicConstant: PublicConstantFilter) =
-                Filter(publicConstant = publicConstant)
+            @JvmStatic fun ofConstant(constant: PublicConstantFilter) = Filter(constant = constant)
         }
 
         /** An interface that defines how to map each variant of [Filter] to a value of type [T]. */
         interface Visitor<out T> {
 
-            fun visitPublicProperty(publicProperty: PublicPropertyFilter): T
+            fun visitProperty(property: PublicPropertyFilter): T
 
-            fun visitPublicAssociationInList(
-                publicAssociationInList: PublicAssociationInListFilter
+            fun visitAssociation(association: PublicAssociationInListFilter): T
+
+            fun visitPageView(pageView: PublicPageViewAnalyticsFilter): T
+
+            fun visitCta(cta: PublicCtaAnalyticsFilter): T
+
+            fun visitEvent(event: PublicEventAnalyticsFilter): T
+
+            fun visitFormSubmission(formSubmission: PublicFormSubmissionFilter): T
+
+            fun visitFormSubmissionOnPage(formSubmissionOnPage: PublicFormSubmissionOnPageFilter): T
+
+            fun visitIntegrationEvent(integrationEvent: PublicIntegrationEventFilter): T
+
+            fun visitEmailSubscription(emailSubscription: PublicEmailSubscriptionFilter): T
+
+            fun visitCommunicationSubscription(
+                communicationSubscription: PublicCommunicationSubscriptionFilter
             ): T
 
-            fun visitPublicPageViewAnalytics(
-                publicPageViewAnalytics: PublicPageViewAnalyticsFilter
+            fun visitCampaignInfluenced(campaignInfluenced: PublicCampaignInfluencedFilter): T
+
+            fun visitSurveyMonkey(surveyMonkey: PublicSurveyMonkeyFilter): T
+
+            fun visitSurveyMonkeyValue(surveyMonkeyValue: PublicSurveyMonkeyValueFilter): T
+
+            fun visitWebinar(webinar: PublicWebinarFilter): T
+
+            fun visitEmailEvent(emailEvent: PublicEmailEventFilter): T
+
+            fun visitPrivacy(privacy: PublicPrivacyAnalyticsFilter): T
+
+            fun visitAdsSearch(adsSearch: PublicAdsSearchFilter): T
+
+            fun visitAdsTime(adsTime: PublicAdsTimeFilter): T
+
+            fun visitInList(inList: PublicInListFilter): T
+
+            fun visitNumAssociations(numAssociations: PublicNumAssociationsFilter): T
+
+            fun visitUnifiedEvents(unifiedEvents: PublicUnifiedEventsFilter): T
+
+            fun visitPropertyAssociation(
+                propertyAssociation: PublicPropertyAssociationInListFilter
             ): T
 
-            fun visitPublicCtaAnalytics(publicCtaAnalytics: PublicCtaAnalyticsFilter): T
-
-            fun visitPublicEventAnalytics(publicEventAnalytics: PublicEventAnalyticsFilter): T
-
-            fun visitPublicFormSubmission(publicFormSubmission: PublicFormSubmissionFilter): T
-
-            fun visitPublicFormSubmissionOnPage(
-                publicFormSubmissionOnPage: PublicFormSubmissionOnPageFilter
-            ): T
-
-            fun visitPublicIntegrationEvent(publicIntegrationEvent: PublicIntegrationEventFilter): T
-
-            fun visitPublicEmailSubscription(
-                publicEmailSubscription: PublicEmailSubscriptionFilter
-            ): T
-
-            fun visitPublicCommunicationSubscription(
-                publicCommunicationSubscription: PublicCommunicationSubscriptionFilter
-            ): T
-
-            fun visitPublicCampaignInfluenced(
-                publicCampaignInfluenced: PublicCampaignInfluencedFilter
-            ): T
-
-            fun visitPublicSurveyMonkey(publicSurveyMonkey: PublicSurveyMonkeyFilter): T
-
-            fun visitPublicSurveyMonkeyValue(
-                publicSurveyMonkeyValue: PublicSurveyMonkeyValueFilter
-            ): T
-
-            fun visitPublicWebinar(publicWebinar: PublicWebinarFilter): T
-
-            fun visitPublicEmailEvent(publicEmailEvent: PublicEmailEventFilter): T
-
-            fun visitPublicPrivacyAnalytics(publicPrivacyAnalytics: PublicPrivacyAnalyticsFilter): T
-
-            fun visitPublicAdsSearch(publicAdsSearch: PublicAdsSearchFilter): T
-
-            fun visitPublicAdsTime(publicAdsTime: PublicAdsTimeFilter): T
-
-            fun visitPublicInList(publicInList: PublicInListFilter): T
-
-            fun visitPublicNumAssociations(publicNumAssociations: PublicNumAssociationsFilter): T
-
-            fun visitPublicUnifiedEvents(publicUnifiedEvents: PublicUnifiedEventsFilter): T
-
-            fun visitPublicPropertyAssociationInList(
-                publicPropertyAssociationInList: PublicPropertyAssociationInListFilter
-            ): T
-
-            fun visitPublicConstant(publicConstant: PublicConstantFilter): T
+            fun visitConstant(constant: PublicConstantFilter): T
 
             /**
              * Maps an unknown variant of [Filter] to a value of type [T].
@@ -1776,89 +1813,135 @@ private constructor(
 
             override fun ObjectCodec.deserialize(node: JsonNode): Filter {
                 val json = JsonValue.fromJsonNode(node)
+                val filterType =
+                    json.asObject().getOrNull()?.get("filterType")?.asString()?.getOrNull()
 
-                val bestMatches =
-                    sequenceOf(
-                            tryDeserialize(node, jacksonTypeRef<PublicPropertyFilter>())?.let {
-                                Filter(publicProperty = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicAssociationInListFilter>())
-                                ?.let { Filter(publicAssociationInList = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicPageViewAnalyticsFilter>())
-                                ?.let { Filter(publicPageViewAnalytics = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicCtaAnalyticsFilter>())?.let {
-                                Filter(publicCtaAnalytics = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicEventAnalyticsFilter>())
-                                ?.let { Filter(publicEventAnalytics = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicFormSubmissionFilter>())
-                                ?.let { Filter(publicFormSubmission = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicFormSubmissionOnPageFilter>())
-                                ?.let { Filter(publicFormSubmissionOnPage = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicIntegrationEventFilter>())
-                                ?.let { Filter(publicIntegrationEvent = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicEmailSubscriptionFilter>())
-                                ?.let { Filter(publicEmailSubscription = it, _json = json) },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicCommunicationSubscriptionFilter>(),
-                                )
-                                ?.let {
-                                    Filter(publicCommunicationSubscription = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicCampaignInfluencedFilter>())
-                                ?.let { Filter(publicCampaignInfluenced = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicSurveyMonkeyFilter>())?.let {
-                                Filter(publicSurveyMonkey = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicSurveyMonkeyValueFilter>())
-                                ?.let { Filter(publicSurveyMonkeyValue = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicWebinarFilter>())?.let {
-                                Filter(publicWebinar = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicEmailEventFilter>())?.let {
-                                Filter(publicEmailEvent = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicPrivacyAnalyticsFilter>())
-                                ?.let { Filter(publicPrivacyAnalytics = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicAdsSearchFilter>())?.let {
-                                Filter(publicAdsSearch = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicAdsTimeFilter>())?.let {
-                                Filter(publicAdsTime = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicInListFilter>())?.let {
-                                Filter(publicInList = it, _json = json)
-                            },
-                            tryDeserialize(node, jacksonTypeRef<PublicNumAssociationsFilter>())
-                                ?.let { Filter(publicNumAssociations = it, _json = json) },
-                            tryDeserialize(node, jacksonTypeRef<PublicUnifiedEventsFilter>())?.let {
-                                Filter(publicUnifiedEvents = it, _json = json)
-                            },
-                            tryDeserialize(
-                                    node,
-                                    jacksonTypeRef<PublicPropertyAssociationInListFilter>(),
-                                )
-                                ?.let {
-                                    Filter(publicPropertyAssociationInList = it, _json = json)
-                                },
-                            tryDeserialize(node, jacksonTypeRef<PublicConstantFilter>())?.let {
-                                Filter(publicConstant = it, _json = json)
-                            },
-                        )
-                        .filterNotNull()
-                        .allMaxBy { it.validity() }
-                        .toList()
-                return when (bestMatches.size) {
-                    // This can happen if what we're deserializing is completely incompatible with
-                    // all the possible variants (e.g. deserializing from boolean).
-                    0 -> Filter(_json = json)
-                    1 -> bestMatches.single()
-                    // If there's more than one match with the highest validity, then use the first
-                    // completely valid match, or simply the first match if none are completely
-                    // valid.
-                    else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+                when (filterType) {
+                    "PROPERTY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicPropertyFilter>())?.let {
+                            Filter(property = it, _json = json)
+                        } ?: Filter(_json = json)
+                    }
+                    "ASSOCIATION" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAssociationInListFilter>())
+                            ?.let { Filter(association = it, _json = json) } ?: Filter(_json = json)
+                    }
+                    "PAGE_VIEW" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicPageViewAnalyticsFilter>())
+                            ?.let { Filter(pageView = it, _json = json) } ?: Filter(_json = json)
+                    }
+                    "CTA" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicCtaAnalyticsFilter>())
+                            ?.let { Filter(cta = it, _json = json) } ?: Filter(_json = json)
+                    }
+                    "EVENT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicEventAnalyticsFilter>())
+                            ?.let { Filter(event = it, _json = json) } ?: Filter(_json = json)
+                    }
+                    "FORM_SUBMISSION" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicFormSubmissionFilter>())
+                            ?.let { Filter(formSubmission = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "FORM_SUBMISSION_ON_PAGE" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicFormSubmissionOnPageFilter>(),
+                            )
+                            ?.let { Filter(formSubmissionOnPage = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "INTEGRATION_EVENT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicIntegrationEventFilter>())
+                            ?.let { Filter(integrationEvent = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "EMAIL_SUBSCRIPTION" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicEmailSubscriptionFilter>())
+                            ?.let { Filter(emailSubscription = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "COMMUNICATION_SUBSCRIPTION" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicCommunicationSubscriptionFilter>(),
+                            )
+                            ?.let { Filter(communicationSubscription = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "CAMPAIGN_INFLUENCED" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicCampaignInfluencedFilter>(),
+                            )
+                            ?.let { Filter(campaignInfluenced = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "SURVEY_MONKEY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicSurveyMonkeyFilter>())
+                            ?.let { Filter(surveyMonkey = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "SURVEY_MONKEY_VALUE" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicSurveyMonkeyValueFilter>())
+                            ?.let { Filter(surveyMonkeyValue = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "WEBINAR" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicWebinarFilter>())?.let {
+                            Filter(webinar = it, _json = json)
+                        } ?: Filter(_json = json)
+                    }
+                    "EMAIL_EVENT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicEmailEventFilter>())?.let {
+                            Filter(emailEvent = it, _json = json)
+                        } ?: Filter(_json = json)
+                    }
+                    "PRIVACY" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicPrivacyAnalyticsFilter>())
+                            ?.let { Filter(privacy = it, _json = json) } ?: Filter(_json = json)
+                    }
+                    "ADS_SEARCH" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAdsSearchFilter>())?.let {
+                            Filter(adsSearch = it, _json = json)
+                        } ?: Filter(_json = json)
+                    }
+                    "ADS_TIME" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicAdsTimeFilter>())?.let {
+                            Filter(adsTime = it, _json = json)
+                        } ?: Filter(_json = json)
+                    }
+                    "IN_LIST" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicInListFilter>())?.let {
+                            Filter(inList = it, _json = json)
+                        } ?: Filter(_json = json)
+                    }
+                    "NUM_ASSOCIATIONS" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicNumAssociationsFilter>())
+                            ?.let { Filter(numAssociations = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "UNIFIED_EVENTS" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicUnifiedEventsFilter>())
+                            ?.let { Filter(unifiedEvents = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "PROPERTY_ASSOCIATION" -> {
+                        return tryDeserialize(
+                                node,
+                                jacksonTypeRef<PublicPropertyAssociationInListFilter>(),
+                            )
+                            ?.let { Filter(propertyAssociation = it, _json = json) }
+                            ?: Filter(_json = json)
+                    }
+                    "CONSTANT" -> {
+                        return tryDeserialize(node, jacksonTypeRef<PublicConstantFilter>())?.let {
+                            Filter(constant = it, _json = json)
+                        } ?: Filter(_json = json)
+                    }
                 }
+
+                return Filter(_json = json)
             }
         }
 
@@ -1870,45 +1953,35 @@ private constructor(
                 provider: SerializerProvider,
             ) {
                 when {
-                    value.publicProperty != null -> generator.writeObject(value.publicProperty)
-                    value.publicAssociationInList != null ->
-                        generator.writeObject(value.publicAssociationInList)
-                    value.publicPageViewAnalytics != null ->
-                        generator.writeObject(value.publicPageViewAnalytics)
-                    value.publicCtaAnalytics != null ->
-                        generator.writeObject(value.publicCtaAnalytics)
-                    value.publicEventAnalytics != null ->
-                        generator.writeObject(value.publicEventAnalytics)
-                    value.publicFormSubmission != null ->
-                        generator.writeObject(value.publicFormSubmission)
-                    value.publicFormSubmissionOnPage != null ->
-                        generator.writeObject(value.publicFormSubmissionOnPage)
-                    value.publicIntegrationEvent != null ->
-                        generator.writeObject(value.publicIntegrationEvent)
-                    value.publicEmailSubscription != null ->
-                        generator.writeObject(value.publicEmailSubscription)
-                    value.publicCommunicationSubscription != null ->
-                        generator.writeObject(value.publicCommunicationSubscription)
-                    value.publicCampaignInfluenced != null ->
-                        generator.writeObject(value.publicCampaignInfluenced)
-                    value.publicSurveyMonkey != null ->
-                        generator.writeObject(value.publicSurveyMonkey)
-                    value.publicSurveyMonkeyValue != null ->
-                        generator.writeObject(value.publicSurveyMonkeyValue)
-                    value.publicWebinar != null -> generator.writeObject(value.publicWebinar)
-                    value.publicEmailEvent != null -> generator.writeObject(value.publicEmailEvent)
-                    value.publicPrivacyAnalytics != null ->
-                        generator.writeObject(value.publicPrivacyAnalytics)
-                    value.publicAdsSearch != null -> generator.writeObject(value.publicAdsSearch)
-                    value.publicAdsTime != null -> generator.writeObject(value.publicAdsTime)
-                    value.publicInList != null -> generator.writeObject(value.publicInList)
-                    value.publicNumAssociations != null ->
-                        generator.writeObject(value.publicNumAssociations)
-                    value.publicUnifiedEvents != null ->
-                        generator.writeObject(value.publicUnifiedEvents)
-                    value.publicPropertyAssociationInList != null ->
-                        generator.writeObject(value.publicPropertyAssociationInList)
-                    value.publicConstant != null -> generator.writeObject(value.publicConstant)
+                    value.property != null -> generator.writeObject(value.property)
+                    value.association != null -> generator.writeObject(value.association)
+                    value.pageView != null -> generator.writeObject(value.pageView)
+                    value.cta != null -> generator.writeObject(value.cta)
+                    value.event != null -> generator.writeObject(value.event)
+                    value.formSubmission != null -> generator.writeObject(value.formSubmission)
+                    value.formSubmissionOnPage != null ->
+                        generator.writeObject(value.formSubmissionOnPage)
+                    value.integrationEvent != null -> generator.writeObject(value.integrationEvent)
+                    value.emailSubscription != null ->
+                        generator.writeObject(value.emailSubscription)
+                    value.communicationSubscription != null ->
+                        generator.writeObject(value.communicationSubscription)
+                    value.campaignInfluenced != null ->
+                        generator.writeObject(value.campaignInfluenced)
+                    value.surveyMonkey != null -> generator.writeObject(value.surveyMonkey)
+                    value.surveyMonkeyValue != null ->
+                        generator.writeObject(value.surveyMonkeyValue)
+                    value.webinar != null -> generator.writeObject(value.webinar)
+                    value.emailEvent != null -> generator.writeObject(value.emailEvent)
+                    value.privacy != null -> generator.writeObject(value.privacy)
+                    value.adsSearch != null -> generator.writeObject(value.adsSearch)
+                    value.adsTime != null -> generator.writeObject(value.adsTime)
+                    value.inList != null -> generator.writeObject(value.inList)
+                    value.numAssociations != null -> generator.writeObject(value.numAssociations)
+                    value.unifiedEvents != null -> generator.writeObject(value.unifiedEvents)
+                    value.propertyAssociation != null ->
+                        generator.writeObject(value.propertyAssociation)
+                    value.constant != null -> generator.writeObject(value.constant)
                     value._json != null -> generator.writeObject(value._json)
                     else -> throw IllegalStateException("Invalid Filter")
                 }

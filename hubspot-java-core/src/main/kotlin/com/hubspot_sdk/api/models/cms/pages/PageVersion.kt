@@ -22,7 +22,7 @@ class PageVersion
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val object_: JsonField<Page>,
+    private val object_: JsonField<CmsPage>,
     private val updatedAt: JsonField<OffsetDateTime>,
     private val user: JsonField<VersionUser>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -31,7 +31,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("object") @ExcludeMissing object_: JsonField<Page> = JsonMissing.of(),
+        @JsonProperty("object") @ExcludeMissing object_: JsonField<CmsPage> = JsonMissing.of(),
         @JsonProperty("updatedAt")
         @ExcludeMissing
         updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -48,7 +48,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun object_(): Page = object_.getRequired("object")
+    fun object_(): CmsPage = object_.getRequired("object")
 
     /**
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
@@ -74,7 +74,7 @@ private constructor(
      *
      * Unlike [object_], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<Page> = object_
+    @JsonProperty("object") @ExcludeMissing fun _object_(): JsonField<CmsPage> = object_
 
     /**
      * Returns the raw JSON value of [updatedAt].
@@ -124,7 +124,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var object_: JsonField<Page>? = null
+        private var object_: JsonField<CmsPage>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
         private var user: JsonField<VersionUser>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -148,15 +148,15 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        fun object_(object_: Page) = object_(JsonField.of(object_))
+        fun object_(object_: CmsPage) = object_(JsonField.of(object_))
 
         /**
          * Sets [Builder.object_] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.object_] with a well-typed [Page] value instead. This
+         * You should usually call [Builder.object_] with a well-typed [CmsPage] value instead. This
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun object_(object_: JsonField<Page>) = apply { this.object_ = object_ }
+        fun object_(object_: JsonField<CmsPage>) = apply { this.object_ = object_ }
 
         fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
 

@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateLandingPageVariationParams
 import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateSitePageVariationParams
 import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndLandingPageTestParams
@@ -40,14 +40,14 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun createLandingPageVariation(
         params: ABTestCreateLandingPageVariationParams,
         requestOptions: RequestOptions,
-    ): Page =
+    ): CmsPage =
         // post /cms/pages/2026-03/landing-pages/ab-test/create-variation
         withRawResponse().createLandingPageVariation(params, requestOptions).parse()
 
     override fun createSitePageVariation(
         params: ABTestCreateSitePageVariationParams,
         requestOptions: RequestOptions,
-    ): Page =
+    ): CmsPage =
         // post /cms/pages/2026-03/site-pages/ab-test/create-variation
         withRawResponse().createSitePageVariation(params, requestOptions).parse()
 
@@ -96,13 +96,13 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createLandingPageVariationHandler: Handler<Page> =
-            jsonHandler<Page>(clientOptions.jsonMapper)
+        private val createLandingPageVariationHandler: Handler<CmsPage> =
+            jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun createLandingPageVariation(
             params: ABTestCreateLandingPageVariationParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Page> {
+        ): HttpResponseFor<CmsPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -131,13 +131,13 @@ class ABTestServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val createSitePageVariationHandler: Handler<Page> =
-            jsonHandler<Page>(clientOptions.jsonMapper)
+        private val createSitePageVariationHandler: Handler<CmsPage> =
+            jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun createSitePageVariation(
             params: ABTestCreateSitePageVariationParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Page> {
+        ): HttpResponseFor<CmsPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

@@ -3,10 +3,8 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.BusinessUnitService
-import com.hubspot_sdk.api.services.blocking.BusinessUnitServiceImpl
-import com.hubspot_sdk.api.services.blocking.businessunits.BusinessUnitService
-import com.hubspot_sdk.api.services.blocking.businessunits.BusinessUnitServiceImpl
+import com.hubspot_sdk.api.services.blocking.businessunits.BusinessUnitEntryService
+import com.hubspot_sdk.api.services.blocking.businessunits.BusinessUnitEntryServiceImpl
 import java.util.function.Consumer
 
 class BusinessUnitServiceImpl internal constructor(private val clientOptions: ClientOptions) :
@@ -16,8 +14,8 @@ class BusinessUnitServiceImpl internal constructor(private val clientOptions: Cl
         WithRawResponseImpl(clientOptions)
     }
 
-    private val businessUnits: BusinessUnitService by lazy {
-        BusinessUnitServiceImpl(clientOptions)
+    private val businessUnitEntries: BusinessUnitEntryService by lazy {
+        BusinessUnitEntryServiceImpl(clientOptions)
     }
 
     override fun withRawResponse(): BusinessUnitService.WithRawResponse = withRawResponse
@@ -25,13 +23,13 @@ class BusinessUnitServiceImpl internal constructor(private val clientOptions: Cl
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BusinessUnitService =
         BusinessUnitServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun businessUnits(): BusinessUnitService = businessUnits
+    override fun businessUnitEntries(): BusinessUnitEntryService = businessUnitEntries
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         BusinessUnitService.WithRawResponse {
 
-        private val businessUnits: BusinessUnitService.WithRawResponse by lazy {
-            BusinessUnitServiceImpl.WithRawResponseImpl(clientOptions)
+        private val businessUnitEntries: BusinessUnitEntryService.WithRawResponse by lazy {
+            BusinessUnitEntryServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         override fun withOptions(
@@ -41,6 +39,7 @@ class BusinessUnitServiceImpl internal constructor(private val clientOptions: Cl
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        override fun businessUnits(): BusinessUnitService.WithRawResponse = businessUnits
+        override fun businessUnitEntries(): BusinessUnitEntryService.WithRawResponse =
+            businessUnitEntries
     }
 }

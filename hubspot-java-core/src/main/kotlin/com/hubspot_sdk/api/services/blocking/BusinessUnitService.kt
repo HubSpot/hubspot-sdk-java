@@ -3,8 +3,7 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.BusinessUnitService
-import com.hubspot_sdk.api.services.blocking.businessunits.BusinessUnitService
+import com.hubspot_sdk.api.services.blocking.businessunits.BusinessUnitEntryService
 import java.util.function.Consumer
 
 interface BusinessUnitService {
@@ -21,7 +20,7 @@ interface BusinessUnitService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BusinessUnitService
 
-    fun businessUnits(): BusinessUnitService
+    fun businessUnitEntries(): BusinessUnitEntryService
 
     /**
      * A view of [BusinessUnitService] that provides access to raw HTTP responses for each method.
@@ -37,6 +36,6 @@ interface BusinessUnitService {
             modifier: Consumer<ClientOptions.Builder>
         ): BusinessUnitService.WithRawResponse
 
-        fun businessUnits(): BusinessUnitService.WithRawResponse
+        fun businessUnitEntries(): BusinessUnitEntryService.WithRawResponse
     }
 }

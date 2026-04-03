@@ -22,10 +22,10 @@ import kotlin.jvm.optionals.getOrNull
 class ListSearchRequest
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val additionalProperties: JsonField<List<String>>,
     private val listIds: JsonField<List<String>>,
     private val offset: JsonField<Int>,
     private val processingTypes: JsonField<List<String>>,
+    private val additionalFilterProperties: JsonField<List<String>>,
     private val count: JsonField<Int>,
     private val objectTypeId: JsonField<String>,
     private val query: JsonField<String>,
@@ -35,9 +35,6 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("additionalProperties")
-        @ExcludeMissing
-        additionalProperties: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("listIds")
         @ExcludeMissing
         listIds: JsonField<List<String>> = JsonMissing.of(),
@@ -45,6 +42,9 @@ private constructor(
         @JsonProperty("processingTypes")
         @ExcludeMissing
         processingTypes: JsonField<List<String>> = JsonMissing.of(),
+        @JsonProperty("additional_filter_properties")
+        @ExcludeMissing
+        additionalFilterProperties: JsonField<List<String>> = JsonMissing.of(),
         @JsonProperty("count") @ExcludeMissing count: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("objectTypeId")
         @ExcludeMissing
@@ -52,30 +52,16 @@ private constructor(
         @JsonProperty("query") @ExcludeMissing query: JsonField<String> = JsonMissing.of(),
         @JsonProperty("sort") @ExcludeMissing sort: JsonField<String> = JsonMissing.of(),
     ) : this(
-        additionalProperties,
         listIds,
         offset,
         processingTypes,
+        additionalFilterProperties,
         count,
         objectTypeId,
         query,
         sort,
         mutableMapOf(),
     )
-
-    /**
-     * The property names of any additional list properties to include in the response. Properties
-     * that do not exist or that are empty for a particular list are not included in the response.
-     *
-     * By default, all requests will fetch the following properties for each list: `hs_list_size`,
-     * `hs_last_record_added_at`, `hs_last_record_removed_at`, `hs_folder_name`, and
-     * `hs_list_reference_count`.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun additionalProperties(): List<String> =
-        additionalProperties.getRequired("additionalProperties")
 
     /**
      * ILS list ids to be included in search results. If not specified, all lists matching other
@@ -103,6 +89,20 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun processingTypes(): List<String> = processingTypes.getRequired("processingTypes")
+
+    /**
+     * The property names of any additional list properties to include in the response. Properties
+     * that do not exist or that are empty for a particular list are not included in the response.
+     *
+     * By default, all requests will fetch the following properties for each list: `hs_list_size`,
+     * `hs_last_record_added_at`, `hs_last_record_removed_at`, `hs_folder_name`, and
+     * `hs_list_reference_count`.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun additionalFilterProperties(): Optional<List<String>> =
+        additionalFilterProperties.getOptional("additional_filter_properties")
 
     /**
      * The number of lists to include in the response. Defaults to `20` if no value is provided. The
@@ -137,16 +137,6 @@ private constructor(
     fun sort(): Optional<String> = sort.getOptional("sort")
 
     /**
-     * Returns the raw JSON value of [additionalProperties].
-     *
-     * Unlike [additionalProperties], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("additionalProperties")
-    @ExcludeMissing
-    fun _additionalProperties(): JsonField<List<String>> = additionalProperties
-
-    /**
      * Returns the raw JSON value of [listIds].
      *
      * Unlike [listIds], this method doesn't throw if the JSON field has an unexpected type.
@@ -168,6 +158,16 @@ private constructor(
     @JsonProperty("processingTypes")
     @ExcludeMissing
     fun _processingTypes(): JsonField<List<String>> = processingTypes
+
+    /**
+     * Returns the raw JSON value of [additionalFilterProperties].
+     *
+     * Unlike [additionalFilterProperties], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("additional_filter_properties")
+    @ExcludeMissing
+    fun _additionalFilterProperties(): JsonField<List<String>> = additionalFilterProperties
 
     /**
      * Returns the raw JSON value of [count].
@@ -218,7 +218,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .additionalProperties()
          * .listIds()
          * .offset()
          * .processingTypes()
@@ -230,10 +229,10 @@ private constructor(
     /** A builder for [ListSearchRequest]. */
     class Builder internal constructor() {
 
-        private var additionalProperties: JsonField<MutableList<String>>? = null
         private var listIds: JsonField<MutableList<String>>? = null
         private var offset: JsonField<Int>? = null
         private var processingTypes: JsonField<MutableList<String>>? = null
+        private var additionalFilterProperties: JsonField<MutableList<String>>? = null
         private var count: JsonField<Int> = JsonMissing.of()
         private var objectTypeId: JsonField<String> = JsonMissing.of()
         private var query: JsonField<String> = JsonMissing.of()
@@ -242,50 +241,16 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(listSearchRequest: ListSearchRequest) = apply {
-            additionalProperties = listSearchRequest.additionalProperties.map { it.toMutableList() }
             listIds = listSearchRequest.listIds.map { it.toMutableList() }
             offset = listSearchRequest.offset
             processingTypes = listSearchRequest.processingTypes.map { it.toMutableList() }
+            additionalFilterProperties =
+                listSearchRequest.additionalFilterProperties.map { it.toMutableList() }
             count = listSearchRequest.count
             objectTypeId = listSearchRequest.objectTypeId
             query = listSearchRequest.query
             sort = listSearchRequest.sort
             additionalProperties = listSearchRequest.additionalProperties.toMutableMap()
-        }
-
-        /**
-         * The property names of any additional list properties to include in the response.
-         * Properties that do not exist or that are empty for a particular list are not included in
-         * the response.
-         *
-         * By default, all requests will fetch the following properties for each list:
-         * `hs_list_size`, `hs_last_record_added_at`, `hs_last_record_removed_at`, `hs_folder_name`,
-         * and `hs_list_reference_count`.
-         */
-        fun additionalProperties(additionalProperties: List<String>) =
-            additionalProperties(JsonField.of(additionalProperties))
-
-        /**
-         * Sets [Builder.additionalProperties] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.additionalProperties] with a well-typed `List<String>`
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun additionalProperties(additionalProperties: JsonField<List<String>>) = apply {
-            this.additionalProperties = additionalProperties.map { it.toMutableList() }
-        }
-
-        /**
-         * Adds a single [String] to [additionalProperties].
-         *
-         * @throws IllegalStateException if the field was previously set to a non-list.
-         */
-        fun addAdditionalProperty(additionalProperty: String) = apply {
-            additionalProperties =
-                (additionalProperties ?: JsonField.of(mutableListOf())).also {
-                    checkKnown("additionalProperties", it).add(additionalProperty)
-                }
         }
 
         /**
@@ -359,6 +324,43 @@ private constructor(
             processingTypes =
                 (processingTypes ?: JsonField.of(mutableListOf())).also {
                     checkKnown("processingTypes", it).add(processingType)
+                }
+        }
+
+        /**
+         * The property names of any additional list properties to include in the response.
+         * Properties that do not exist or that are empty for a particular list are not included in
+         * the response.
+         *
+         * By default, all requests will fetch the following properties for each list:
+         * `hs_list_size`, `hs_last_record_added_at`, `hs_last_record_removed_at`, `hs_folder_name`,
+         * and `hs_list_reference_count`.
+         */
+        fun additionalFilterProperties(additionalFilterProperties: List<String>) =
+            additionalFilterProperties(JsonField.of(additionalFilterProperties))
+
+        /**
+         * Sets [Builder.additionalFilterProperties] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.additionalFilterProperties] with a well-typed
+         * `List<String>` value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun additionalFilterProperties(additionalFilterProperties: JsonField<List<String>>) =
+            apply {
+                this.additionalFilterProperties =
+                    additionalFilterProperties.map { it.toMutableList() }
+            }
+
+        /**
+         * Adds a single [String] to [additionalFilterProperties].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addAdditionalFilterProperty(additionalFilterProperty: String) = apply {
+            additionalFilterProperties =
+                (additionalFilterProperties ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("additionalFilterProperties", it).add(additionalFilterProperty)
                 }
         }
 
@@ -440,7 +442,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .additionalProperties()
          * .listIds()
          * .offset()
          * .processingTypes()
@@ -450,12 +451,10 @@ private constructor(
          */
         fun build(): ListSearchRequest =
             ListSearchRequest(
-                checkRequired("additionalProperties", additionalProperties).map {
-                    it.toImmutable()
-                },
                 checkRequired("listIds", listIds).map { it.toImmutable() },
                 checkRequired("offset", offset),
                 checkRequired("processingTypes", processingTypes).map { it.toImmutable() },
+                (additionalFilterProperties ?: JsonMissing.of()).map { it.toImmutable() },
                 count,
                 objectTypeId,
                 query,
@@ -471,10 +470,10 @@ private constructor(
             return@apply
         }
 
-        additionalProperties()
         listIds()
         offset()
         processingTypes()
+        additionalFilterProperties()
         count()
         objectTypeId()
         query()
@@ -497,10 +496,10 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (additionalProperties.asKnown().getOrNull()?.size ?: 0) +
-            (listIds.asKnown().getOrNull()?.size ?: 0) +
+        (listIds.asKnown().getOrNull()?.size ?: 0) +
             (if (offset.asKnown().isPresent) 1 else 0) +
             (processingTypes.asKnown().getOrNull()?.size ?: 0) +
+            (additionalFilterProperties.asKnown().getOrNull()?.size ?: 0) +
             (if (count.asKnown().isPresent) 1 else 0) +
             (if (objectTypeId.asKnown().isPresent) 1 else 0) +
             (if (query.asKnown().isPresent) 1 else 0) +
@@ -512,10 +511,10 @@ private constructor(
         }
 
         return other is ListSearchRequest &&
-            additionalProperties == other.additionalProperties &&
             listIds == other.listIds &&
             offset == other.offset &&
             processingTypes == other.processingTypes &&
+            additionalFilterProperties == other.additionalFilterProperties &&
             count == other.count &&
             objectTypeId == other.objectTypeId &&
             query == other.query &&
@@ -525,10 +524,10 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            additionalProperties,
             listIds,
             offset,
             processingTypes,
+            additionalFilterProperties,
             count,
             objectTypeId,
             query,
@@ -540,5 +539,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ListSearchRequest{additionalProperties=$additionalProperties, listIds=$listIds, offset=$offset, processingTypes=$processingTypes, count=$count, objectTypeId=$objectTypeId, query=$query, sort=$sort, additionalProperties=$additionalProperties}"
+        "ListSearchRequest{listIds=$listIds, offset=$offset, processingTypes=$processingTypes, additionalFilterProperties=$additionalFilterProperties, count=$count, objectTypeId=$objectTypeId, query=$query, sort=$sort, additionalProperties=$additionalProperties}"
 }

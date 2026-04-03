@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.services.blocking
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.services.blocking.marketing.CampaignService
 import com.hubspot_sdk.api.services.blocking.marketing.EmailService
-import com.hubspot_sdk.api.services.blocking.marketing.EventService
+import com.hubspot_sdk.api.services.blocking.marketing.MarketingEventService
 import com.hubspot_sdk.api.services.blocking.marketing.SingleSendService
 import com.hubspot_sdk.api.services.blocking.marketing.TransactionalService
 import java.util.function.Consumer
@@ -28,7 +28,7 @@ interface MarketingService {
 
     fun emails(): EmailService
 
-    fun events(): EventService
+    fun marketingEvents(): MarketingEventService
 
     fun singleSend(): SingleSendService
 
@@ -48,7 +48,7 @@ interface MarketingService {
 
         fun emails(): EmailService.WithRawResponse
 
-        fun events(): EventService.WithRawResponse
+        fun marketingEvents(): MarketingEventService.WithRawResponse
 
         fun singleSend(): SingleSendService.WithRawResponse
 

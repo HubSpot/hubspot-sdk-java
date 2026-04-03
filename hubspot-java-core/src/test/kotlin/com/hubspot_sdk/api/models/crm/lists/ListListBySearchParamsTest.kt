@@ -12,10 +12,10 @@ internal class ListListBySearchParamsTest {
         ListListBySearchParams.builder()
             .listSearchRequest(
                 ListSearchRequest.builder()
-                    .addAdditionalProperty("string")
                     .addListId("string")
                     .offset(0)
                     .addProcessingType("string")
+                    .addAdditionalFilterProperty("string")
                     .count(0)
                     .objectTypeId("objectTypeId")
                     .query("query")
@@ -31,10 +31,10 @@ internal class ListListBySearchParamsTest {
             ListListBySearchParams.builder()
                 .listSearchRequest(
                     ListSearchRequest.builder()
-                        .addAdditionalProperty("string")
                         .addListId("string")
                         .offset(0)
                         .addProcessingType("string")
+                        .addAdditionalFilterProperty("string")
                         .count(0)
                         .objectTypeId("objectTypeId")
                         .query("query")
@@ -48,10 +48,10 @@ internal class ListListBySearchParamsTest {
         assertThat(body)
             .isEqualTo(
                 ListSearchRequest.builder()
-                    .addAdditionalProperty("string")
                     .addListId("string")
                     .offset(0)
                     .addProcessingType("string")
+                    .addAdditionalFilterProperty("string")
                     .count(0)
                     .objectTypeId("objectTypeId")
                     .query("query")
@@ -66,7 +66,6 @@ internal class ListListBySearchParamsTest {
             ListListBySearchParams.builder()
                 .listSearchRequest(
                     ListSearchRequest.builder()
-                        .addAdditionalProperty("string")
                         .addListId("string")
                         .offset(0)
                         .addProcessingType("string")
@@ -79,7 +78,6 @@ internal class ListListBySearchParamsTest {
         assertThat(body)
             .isEqualTo(
                 ListSearchRequest.builder()
-                    .addAdditionalProperty("string")
                     .addListId("string")
                     .offset(0)
                     .addProcessingType("string")

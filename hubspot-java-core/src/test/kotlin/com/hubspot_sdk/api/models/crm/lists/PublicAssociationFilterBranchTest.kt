@@ -345,7 +345,7 @@ internal class PublicAssociationFilterBranchTest {
         assertThat(publicAssociationFilterBranch.associationTypeId()).isEqualTo(0)
         assertThat(publicAssociationFilterBranch.filterBranches())
             .containsExactly(
-                PublicAssociationFilterBranch.FilterBranch.ofPublicOr(
+                PublicAssociationFilterBranch.FilterBranch.ofOr(
                     PublicOrFilterBranch.builder()
                         .addFilterBranch(
                             PublicAndFilterBranch.builder()
@@ -657,7 +657,7 @@ internal class PublicAssociationFilterBranchTest {
             .isEqualTo(PublicAssociationFilterBranch.FilterBranchType.ASSOCIATION)
         assertThat(publicAssociationFilterBranch.filters())
             .containsExactly(
-                PublicAssociationFilterBranch.Filter.ofPublicProperty(
+                PublicAssociationFilterBranch.Filter.ofProperty(
                     PublicPropertyFilter.builder()
                         .filterType(PublicPropertyFilter.FilterType.PROPERTY)
                         .operation(

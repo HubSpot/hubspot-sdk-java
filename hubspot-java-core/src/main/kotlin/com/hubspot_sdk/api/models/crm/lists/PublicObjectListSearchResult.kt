@@ -22,13 +22,13 @@ import kotlin.jvm.optionals.getOrNull
 class PublicObjectListSearchResult
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
-    private val additionalProperties: JsonField<AdditionalProperties>,
     private val listId: JsonField<String>,
     private val listVersion: JsonField<Int>,
     private val name: JsonField<String>,
     private val objectTypeId: JsonField<String>,
     private val processingStatus: JsonField<String>,
     private val processingType: JsonField<String>,
+    private val additionalFilterProperties: JsonField<AdditionalFilterProperties>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdById: JsonField<String>,
     private val deletedAt: JsonField<OffsetDateTime>,
@@ -40,9 +40,6 @@ private constructor(
 
     @JsonCreator
     private constructor(
-        @JsonProperty("additionalProperties")
-        @ExcludeMissing
-        additionalProperties: JsonField<AdditionalProperties> = JsonMissing.of(),
         @JsonProperty("listId") @ExcludeMissing listId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("listVersion") @ExcludeMissing listVersion: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
@@ -55,6 +52,9 @@ private constructor(
         @JsonProperty("processingType")
         @ExcludeMissing
         processingType: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("additional_filter_properties")
+        @ExcludeMissing
+        additionalFilterProperties: JsonField<AdditionalFilterProperties> = JsonMissing.of(),
         @JsonProperty("createdAt")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -74,13 +74,13 @@ private constructor(
         @ExcludeMissing
         updatedById: JsonField<String> = JsonMissing.of(),
     ) : this(
-        additionalProperties,
         listId,
         listVersion,
         name,
         objectTypeId,
         processingStatus,
         processingType,
+        additionalFilterProperties,
         createdAt,
         createdById,
         deletedAt,
@@ -89,16 +89,6 @@ private constructor(
         updatedById,
         mutableMapOf(),
     )
-
-    /**
-     * The name and value of any additional properties that exist for this list and that were
-     * included in the search request.
-     *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun additionalProperties(): AdditionalProperties =
-        additionalProperties.getRequired("additionalProperties")
 
     /**
      * The **ILS ID** of the list.
@@ -147,6 +137,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun processingType(): String = processingType.getRequired("processingType")
+
+    /**
+     * The name and value of any additional properties that exist for this list and that were
+     * included in the search request.
+     *
+     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun additionalFilterProperties(): Optional<AdditionalFilterProperties> =
+        additionalFilterProperties.getOptional("additional_filter_properties")
 
     /**
      * The time when the list was created.
@@ -198,16 +198,6 @@ private constructor(
     fun updatedById(): Optional<String> = updatedById.getOptional("updatedById")
 
     /**
-     * Returns the raw JSON value of [additionalProperties].
-     *
-     * Unlike [additionalProperties], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("additionalProperties")
-    @ExcludeMissing
-    fun _additionalProperties(): JsonField<AdditionalProperties> = additionalProperties
-
-    /**
      * Returns the raw JSON value of [listId].
      *
      * Unlike [listId], this method doesn't throw if the JSON field has an unexpected type.
@@ -255,6 +245,17 @@ private constructor(
     @JsonProperty("processingType")
     @ExcludeMissing
     fun _processingType(): JsonField<String> = processingType
+
+    /**
+     * Returns the raw JSON value of [additionalFilterProperties].
+     *
+     * Unlike [additionalFilterProperties], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("additional_filter_properties")
+    @ExcludeMissing
+    fun _additionalFilterProperties(): JsonField<AdditionalFilterProperties> =
+        additionalFilterProperties
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -326,7 +327,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .additionalProperties()
          * .listId()
          * .listVersion()
          * .name()
@@ -341,13 +341,14 @@ private constructor(
     /** A builder for [PublicObjectListSearchResult]. */
     class Builder internal constructor() {
 
-        private var additionalProperties: JsonField<AdditionalProperties>? = null
         private var listId: JsonField<String>? = null
         private var listVersion: JsonField<Int>? = null
         private var name: JsonField<String>? = null
         private var objectTypeId: JsonField<String>? = null
         private var processingStatus: JsonField<String>? = null
         private var processingType: JsonField<String>? = null
+        private var additionalFilterProperties: JsonField<AdditionalFilterProperties> =
+            JsonMissing.of()
         private var createdAt: JsonField<OffsetDateTime> = JsonMissing.of()
         private var createdById: JsonField<String> = JsonMissing.of()
         private var deletedAt: JsonField<OffsetDateTime> = JsonMissing.of()
@@ -358,13 +359,13 @@ private constructor(
 
         @JvmSynthetic
         internal fun from(publicObjectListSearchResult: PublicObjectListSearchResult) = apply {
-            additionalProperties = publicObjectListSearchResult.additionalProperties
             listId = publicObjectListSearchResult.listId
             listVersion = publicObjectListSearchResult.listVersion
             name = publicObjectListSearchResult.name
             objectTypeId = publicObjectListSearchResult.objectTypeId
             processingStatus = publicObjectListSearchResult.processingStatus
             processingType = publicObjectListSearchResult.processingType
+            additionalFilterProperties = publicObjectListSearchResult.additionalFilterProperties
             createdAt = publicObjectListSearchResult.createdAt
             createdById = publicObjectListSearchResult.createdById
             deletedAt = publicObjectListSearchResult.deletedAt
@@ -372,24 +373,6 @@ private constructor(
             updatedAt = publicObjectListSearchResult.updatedAt
             updatedById = publicObjectListSearchResult.updatedById
             additionalProperties = publicObjectListSearchResult.additionalProperties.toMutableMap()
-        }
-
-        /**
-         * The name and value of any additional properties that exist for this list and that were
-         * included in the search request.
-         */
-        fun additionalProperties(additionalProperties: AdditionalProperties) =
-            additionalProperties(JsonField.of(additionalProperties))
-
-        /**
-         * Sets [Builder.additionalProperties] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.additionalProperties] with a well-typed
-         * [AdditionalProperties] value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
-         */
-        fun additionalProperties(additionalProperties: JsonField<AdditionalProperties>) = apply {
-            this.additionalProperties = additionalProperties
         }
 
         /** The **ILS ID** of the list. */
@@ -467,6 +450,24 @@ private constructor(
         fun processingType(processingType: JsonField<String>) = apply {
             this.processingType = processingType
         }
+
+        /**
+         * The name and value of any additional properties that exist for this list and that were
+         * included in the search request.
+         */
+        fun additionalFilterProperties(additionalFilterProperties: AdditionalFilterProperties) =
+            additionalFilterProperties(JsonField.of(additionalFilterProperties))
+
+        /**
+         * Sets [Builder.additionalFilterProperties] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.additionalFilterProperties] with a well-typed
+         * [AdditionalFilterProperties] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun additionalFilterProperties(
+            additionalFilterProperties: JsonField<AdditionalFilterProperties>
+        ) = apply { this.additionalFilterProperties = additionalFilterProperties }
 
         /** The time when the list was created. */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
@@ -569,7 +570,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .additionalProperties()
          * .listId()
          * .listVersion()
          * .name()
@@ -582,13 +582,13 @@ private constructor(
          */
         fun build(): PublicObjectListSearchResult =
             PublicObjectListSearchResult(
-                checkRequired("additionalProperties", additionalProperties),
                 checkRequired("listId", listId),
                 checkRequired("listVersion", listVersion),
                 checkRequired("name", name),
                 checkRequired("objectTypeId", objectTypeId),
                 checkRequired("processingStatus", processingStatus),
                 checkRequired("processingType", processingType),
+                additionalFilterProperties,
                 createdAt,
                 createdById,
                 deletedAt,
@@ -606,13 +606,13 @@ private constructor(
             return@apply
         }
 
-        additionalProperties().validate()
         listId()
         listVersion()
         name()
         objectTypeId()
         processingStatus()
         processingType()
+        additionalFilterProperties().ifPresent { it.validate() }
         createdAt()
         createdById()
         deletedAt()
@@ -637,13 +637,13 @@ private constructor(
      */
     @JvmSynthetic
     internal fun validity(): Int =
-        (additionalProperties.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (listId.asKnown().isPresent) 1 else 0) +
+        (if (listId.asKnown().isPresent) 1 else 0) +
             (if (listVersion.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (objectTypeId.asKnown().isPresent) 1 else 0) +
             (if (processingStatus.asKnown().isPresent) 1 else 0) +
             (if (processingType.asKnown().isPresent) 1 else 0) +
+            (additionalFilterProperties.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (createdById.asKnown().isPresent) 1 else 0) +
             (if (deletedAt.asKnown().isPresent) 1 else 0) +
@@ -655,7 +655,7 @@ private constructor(
      * The name and value of any additional properties that exist for this list and that were
      * included in the search request.
      */
-    class AdditionalProperties
+    class AdditionalFilterProperties
     @JsonCreator
     private constructor(
         @com.fasterxml.jackson.annotation.JsonValue
@@ -670,18 +670,22 @@ private constructor(
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [AdditionalProperties]. */
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AdditionalFilterProperties].
+             */
             @JvmStatic fun builder() = Builder()
         }
 
-        /** A builder for [AdditionalProperties]. */
+        /** A builder for [AdditionalFilterProperties]. */
         class Builder internal constructor() {
 
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
-            internal fun from(additionalProperties: AdditionalProperties) = apply {
-                this.additionalProperties = additionalProperties.additionalProperties.toMutableMap()
+            internal fun from(additionalFilterProperties: AdditionalFilterProperties) = apply {
+                additionalProperties =
+                    additionalFilterProperties.additionalProperties.toMutableMap()
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -704,17 +708,17 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [AdditionalProperties].
+             * Returns an immutable instance of [AdditionalFilterProperties].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): AdditionalProperties =
-                AdditionalProperties(additionalProperties.toImmutable())
+            fun build(): AdditionalFilterProperties =
+                AdditionalFilterProperties(additionalProperties.toImmutable())
         }
 
         private var validated: Boolean = false
 
-        fun validate(): AdditionalProperties = apply {
+        fun validate(): AdditionalFilterProperties = apply {
             if (validated) {
                 return@apply
             }
@@ -745,7 +749,7 @@ private constructor(
                 return true
             }
 
-            return other is AdditionalProperties &&
+            return other is AdditionalFilterProperties &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -753,7 +757,8 @@ private constructor(
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "AdditionalProperties{additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "AdditionalFilterProperties{additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
@@ -762,13 +767,13 @@ private constructor(
         }
 
         return other is PublicObjectListSearchResult &&
-            additionalProperties == other.additionalProperties &&
             listId == other.listId &&
             listVersion == other.listVersion &&
             name == other.name &&
             objectTypeId == other.objectTypeId &&
             processingStatus == other.processingStatus &&
             processingType == other.processingType &&
+            additionalFilterProperties == other.additionalFilterProperties &&
             createdAt == other.createdAt &&
             createdById == other.createdById &&
             deletedAt == other.deletedAt &&
@@ -780,13 +785,13 @@ private constructor(
 
     private val hashCode: Int by lazy {
         Objects.hash(
-            additionalProperties,
             listId,
             listVersion,
             name,
             objectTypeId,
             processingStatus,
             processingType,
+            additionalFilterProperties,
             createdAt,
             createdById,
             deletedAt,
@@ -800,5 +805,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicObjectListSearchResult{additionalProperties=$additionalProperties, listId=$listId, listVersion=$listVersion, name=$name, objectTypeId=$objectTypeId, processingStatus=$processingStatus, processingType=$processingType, createdAt=$createdAt, createdById=$createdById, deletedAt=$deletedAt, filtersUpdatedAt=$filtersUpdatedAt, updatedAt=$updatedAt, updatedById=$updatedById, additionalProperties=$additionalProperties}"
+        "PublicObjectListSearchResult{listId=$listId, listVersion=$listVersion, name=$name, objectTypeId=$objectTypeId, processingStatus=$processingStatus, processingType=$processingType, additionalFilterProperties=$additionalFilterProperties, createdAt=$createdAt, createdById=$createdById, deletedAt=$deletedAt, filtersUpdatedAt=$filtersUpdatedAt, updatedAt=$updatedAt, updatedById=$updatedById, additionalProperties=$additionalProperties}"
 }

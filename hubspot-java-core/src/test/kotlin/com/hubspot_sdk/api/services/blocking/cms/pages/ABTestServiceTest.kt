@@ -17,7 +17,7 @@ internal class ABTestServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val abTestService = client.cms().pages().aBTests()
 
-        val page =
+        val cmsPage =
             abTestService.createLandingPageVariation(
                 AbTestCreateRequestVNext.builder()
                     .contentId("contentId")
@@ -25,7 +25,7 @@ internal class ABTestServiceTest {
                     .build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -34,7 +34,7 @@ internal class ABTestServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val abTestService = client.cms().pages().aBTests()
 
-        val page =
+        val cmsPage =
             abTestService.createSitePageVariation(
                 AbTestCreateRequestVNext.builder()
                     .contentId("contentId")
@@ -42,7 +42,7 @@ internal class ABTestServiceTest {
                     .build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -410,7 +410,7 @@ internal class ListCreateRequestTest {
             )
         assertThat(listCreateRequest.filterBranch())
             .contains(
-                ListCreateRequest.FilterBranch.ofPublicOr(
+                ListCreateRequest.FilterBranch.ofOr(
                     PublicOrFilterBranch.builder()
                         .addFilterBranch(
                             PublicAndFilterBranch.builder()

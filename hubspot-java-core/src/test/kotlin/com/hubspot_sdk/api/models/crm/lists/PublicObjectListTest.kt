@@ -416,7 +416,7 @@ internal class PublicObjectListTest {
             .contains(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
         assertThat(publicObjectList.filterBranch())
             .contains(
-                PublicObjectList.FilterBranch.ofPublicOr(
+                PublicObjectList.FilterBranch.ofOr(
                     PublicOrFilterBranch.builder()
                         .addFilterBranch(
                             PublicAndFilterBranch.builder()

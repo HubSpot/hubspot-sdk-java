@@ -3,8 +3,7 @@
 package com.hubspot_sdk.api.services.blocking
 
 import com.hubspot_sdk.api.core.ClientOptions
-import com.hubspot_sdk.api.services.blocking.WebhookService
-import com.hubspot_sdk.api.services.blocking.webhooks.WebhookService
+import com.hubspot_sdk.api.services.blocking.webhooks.WebhookSubscriptionService
 import java.util.function.Consumer
 
 interface WebhookService {
@@ -21,7 +20,7 @@ interface WebhookService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookService
 
-    fun webhooks(): WebhookService
+    fun webhookSubscriptions(): WebhookSubscriptionService
 
     /** A view of [WebhookService] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -33,6 +32,6 @@ interface WebhookService {
          */
         fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebhookService.WithRawResponse
 
-        fun webhooks(): WebhookService.WithRawResponse
+        fun webhookSubscriptions(): WebhookSubscriptionService.WithRawResponse
     }
 }

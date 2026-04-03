@@ -53,7 +53,7 @@ internal class MultiLanguageServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val multiLanguageService = client.cms().pages().multiLanguage()
 
-        val page =
+        val cmsPage =
             multiLanguageService.createLanguageVariation(
                 ContentLanguageCloneRequestVNext.builder()
                     .id("id")
@@ -62,7 +62,7 @@ internal class MultiLanguageServiceTest {
                     .build()
             )
 
-        page.validate()
+        cmsPage.validate()
     }
 
     @Test

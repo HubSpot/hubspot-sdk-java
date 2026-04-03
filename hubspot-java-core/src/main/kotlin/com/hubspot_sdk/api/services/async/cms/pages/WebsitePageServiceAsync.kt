@@ -9,7 +9,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
 import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.websitepages.WebsitePageCloneParams
 import com.hubspot_sdk.api.models.cms.pages.websitepages.WebsitePageCreateParams
 import com.hubspot_sdk.api.models.cms.pages.websitepages.WebsitePageDeleteParams
@@ -40,30 +40,31 @@ interface WebsitePageServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): WebsitePageServiceAsync
 
     /** Create a new website page. */
-    fun create(params: WebsitePageCreateParams): CompletableFuture<Page> =
+    fun create(params: WebsitePageCreateParams): CompletableFuture<CmsPage> =
         create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: WebsitePageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see create */
     fun create(
-        page: Page,
+        cmsPage: CmsPage,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
-        create(WebsitePageCreateParams.builder().page(page).build(), requestOptions)
+    ): CompletableFuture<CmsPage> =
+        create(WebsitePageCreateParams.builder().cmsPage(cmsPage).build(), requestOptions)
 
     /** @see create */
-    fun create(page: Page): CompletableFuture<Page> = create(page, RequestOptions.none())
+    fun create(cmsPage: CmsPage): CompletableFuture<CmsPage> =
+        create(cmsPage, RequestOptions.none())
 
     /**
      * Partially updates a single website page, specified by its ID. You only need to specify the
      * column values that you are modifying.
      */
-    fun update(objectId: String, params: WebsitePageUpdateParams): CompletableFuture<Page> =
+    fun update(objectId: String, params: WebsitePageUpdateParams): CompletableFuture<CmsPage> =
         update(objectId, params, RequestOptions.none())
 
     /** @see update */
@@ -71,18 +72,18 @@ interface WebsitePageServiceAsync {
         objectId: String,
         params: WebsitePageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: WebsitePageUpdateParams): CompletableFuture<Page> =
+    fun update(params: WebsitePageUpdateParams): CompletableFuture<CmsPage> =
         update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: WebsitePageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /**
      * Retrieve all website pages. Supports paging and filtering. This method would be useful for an
@@ -138,20 +139,20 @@ interface WebsitePageServiceAsync {
         delete(objectId, WebsitePageDeleteParams.none(), requestOptions)
 
     /** Create a copy of an existing website page. */
-    fun clone(params: WebsitePageCloneParams): CompletableFuture<Page> =
+    fun clone(params: WebsitePageCloneParams): CompletableFuture<CmsPage> =
         clone(params, RequestOptions.none())
 
     /** @see clone */
     fun clone(
         params: WebsitePageCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see clone */
     fun clone(
         contentCloneRequestVNext: ContentCloneRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         clone(
             WebsitePageCloneParams.builder()
                 .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -160,41 +161,43 @@ interface WebsitePageServiceAsync {
         )
 
     /** @see clone */
-    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): CompletableFuture<Page> =
+    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): CompletableFuture<CmsPage> =
         clone(contentCloneRequestVNext, RequestOptions.none())
 
     /** Retrieve a website page by its ID. */
-    fun get(objectId: String): CompletableFuture<Page> = get(objectId, WebsitePageGetParams.none())
+    fun get(objectId: String): CompletableFuture<CmsPage> =
+        get(objectId, WebsitePageGetParams.none())
 
     /** @see get */
     fun get(
         objectId: String,
         params: WebsitePageGetParams = WebsitePageGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> = get(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): CompletableFuture<CmsPage> =
+        get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see get */
     fun get(
         objectId: String,
         params: WebsitePageGetParams = WebsitePageGetParams.none(),
-    ): CompletableFuture<Page> = get(objectId, params, RequestOptions.none())
+    ): CompletableFuture<CmsPage> = get(objectId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: WebsitePageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see get */
-    fun get(params: WebsitePageGetParams): CompletableFuture<Page> =
+    fun get(params: WebsitePageGetParams): CompletableFuture<CmsPage> =
         get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<Page> =
+    fun get(objectId: String, requestOptions: RequestOptions): CompletableFuture<CmsPage> =
         get(objectId, WebsitePageGetParams.none(), requestOptions)
 
     /** Retrieve the full draft version of a website page, specified by its ID. */
-    fun getDraft(objectId: String): CompletableFuture<Page> =
+    fun getDraft(objectId: String): CompletableFuture<CmsPage> =
         getDraft(objectId, WebsitePageGetDraftParams.none())
 
     /** @see getDraft */
@@ -202,27 +205,27 @@ interface WebsitePageServiceAsync {
         objectId: String,
         params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see getDraft */
     fun getDraft(
         objectId: String,
         params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
-    ): CompletableFuture<Page> = getDraft(objectId, params, RequestOptions.none())
+    ): CompletableFuture<CmsPage> = getDraft(objectId, params, RequestOptions.none())
 
     /** @see getDraft */
     fun getDraft(
         params: WebsitePageGetDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /** @see getDraft */
-    fun getDraft(params: WebsitePageGetDraftParams): CompletableFuture<Page> =
+    fun getDraft(params: WebsitePageGetDraftParams): CompletableFuture<CmsPage> =
         getDraft(params, RequestOptions.none())
 
     /** @see getDraft */
-    fun getDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<Page> =
+    fun getDraft(objectId: String, requestOptions: RequestOptions): CompletableFuture<CmsPage> =
         getDraft(objectId, WebsitePageGetDraftParams.none(), requestOptions)
 
     /**
@@ -322,25 +325,25 @@ interface WebsitePageServiceAsync {
     fun updateDraft(
         objectId: String,
         params: WebsitePageUpdateDraftParams,
-    ): CompletableFuture<Page> = updateDraft(objectId, params, RequestOptions.none())
+    ): CompletableFuture<CmsPage> = updateDraft(objectId, params, RequestOptions.none())
 
     /** @see updateDraft */
     fun updateDraft(
         objectId: String,
         params: WebsitePageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see updateDraft */
-    fun updateDraft(params: WebsitePageUpdateDraftParams): CompletableFuture<Page> =
+    fun updateDraft(params: WebsitePageUpdateDraftParams): CompletableFuture<CmsPage> =
         updateDraft(params, RequestOptions.none())
 
     /** @see updateDraft */
     fun updateDraft(
         params: WebsitePageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Page>
+    ): CompletableFuture<CmsPage>
 
     /**
      * A view of [WebsitePageServiceAsync] that provides access to raw HTTP responses for each
@@ -361,25 +364,25 @@ interface WebsitePageServiceAsync {
          * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages`, but is otherwise
          * the same as [WebsitePageServiceAsync.create].
          */
-        fun create(params: WebsitePageCreateParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun create(params: WebsitePageCreateParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             create(params, RequestOptions.none())
 
         /** @see create */
         fun create(
             params: WebsitePageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see create */
         fun create(
-            page: Page,
+            cmsPage: CmsPage,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
-            create(WebsitePageCreateParams.builder().page(page).build(), requestOptions)
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
+            create(WebsitePageCreateParams.builder().cmsPage(cmsPage).build(), requestOptions)
 
         /** @see create */
-        fun create(page: Page): CompletableFuture<HttpResponseFor<Page>> =
-            create(page, RequestOptions.none())
+        fun create(cmsPage: CmsPage): CompletableFuture<HttpResponseFor<CmsPage>> =
+            create(cmsPage, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /cms/pages/2026-03/site-pages/{objectId}`, but is
@@ -388,7 +391,7 @@ interface WebsitePageServiceAsync {
         fun update(
             objectId: String,
             params: WebsitePageUpdateParams,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             update(objectId, params, RequestOptions.none())
 
         /** @see update */
@@ -396,18 +399,18 @@ interface WebsitePageServiceAsync {
             objectId: String,
             params: WebsitePageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see update */
-        fun update(params: WebsitePageUpdateParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun update(params: WebsitePageUpdateParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             update(params, RequestOptions.none())
 
         /** @see update */
         fun update(
             params: WebsitePageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages`, but is otherwise the
@@ -476,20 +479,20 @@ interface WebsitePageServiceAsync {
          * Returns a raw HTTP response for `post /cms/pages/2026-03/site-pages/clone`, but is
          * otherwise the same as [WebsitePageServiceAsync.clone].
          */
-        fun clone(params: WebsitePageCloneParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun clone(params: WebsitePageCloneParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             clone(params, RequestOptions.none())
 
         /** @see clone */
         fun clone(
             params: WebsitePageCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see clone */
         fun clone(
             contentCloneRequestVNext: ContentCloneRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             clone(
                 WebsitePageCloneParams.builder()
                     .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -500,14 +503,14 @@ interface WebsitePageServiceAsync {
         /** @see clone */
         fun clone(
             contentCloneRequestVNext: ContentCloneRequestVNext
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             clone(contentCloneRequestVNext, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/{objectId}`, but is
          * otherwise the same as [WebsitePageServiceAsync.get].
          */
-        fun get(objectId: String): CompletableFuture<HttpResponseFor<Page>> =
+        fun get(objectId: String): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(objectId, WebsitePageGetParams.none())
 
         /** @see get */
@@ -515,37 +518,38 @@ interface WebsitePageServiceAsync {
             objectId: String,
             params: WebsitePageGetParams = WebsitePageGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see get */
         fun get(
             objectId: String,
             params: WebsitePageGetParams = WebsitePageGetParams.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> = get(objectId, params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
+            get(objectId, params, RequestOptions.none())
 
         /** @see get */
         fun get(
             params: WebsitePageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see get */
-        fun get(params: WebsitePageGetParams): CompletableFuture<HttpResponseFor<Page>> =
+        fun get(params: WebsitePageGetParams): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(params, RequestOptions.none())
 
         /** @see get */
         fun get(
             objectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             get(objectId, WebsitePageGetParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/site-pages/{objectId}/draft`, but
          * is otherwise the same as [WebsitePageServiceAsync.getDraft].
          */
-        fun getDraft(objectId: String): CompletableFuture<HttpResponseFor<Page>> =
+        fun getDraft(objectId: String): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(objectId, WebsitePageGetDraftParams.none())
 
         /** @see getDraft */
@@ -553,31 +557,32 @@ interface WebsitePageServiceAsync {
             objectId: String,
             params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see getDraft */
         fun getDraft(
             objectId: String,
             params: WebsitePageGetDraftParams = WebsitePageGetDraftParams.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(objectId, params, RequestOptions.none())
 
         /** @see getDraft */
         fun getDraft(
             params: WebsitePageGetDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
 
         /** @see getDraft */
-        fun getDraft(params: WebsitePageGetDraftParams): CompletableFuture<HttpResponseFor<Page>> =
-            getDraft(params, RequestOptions.none())
+        fun getDraft(
+            params: WebsitePageGetDraftParams
+        ): CompletableFuture<HttpResponseFor<CmsPage>> = getDraft(params, RequestOptions.none())
 
         /** @see getDraft */
         fun getDraft(
             objectId: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             getDraft(objectId, WebsitePageGetDraftParams.none(), requestOptions)
 
         /**
@@ -690,7 +695,7 @@ interface WebsitePageServiceAsync {
         fun updateDraft(
             objectId: String,
             params: WebsitePageUpdateDraftParams,
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             updateDraft(objectId, params, RequestOptions.none())
 
         /** @see updateDraft */
@@ -698,18 +703,18 @@ interface WebsitePageServiceAsync {
             objectId: String,
             params: WebsitePageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>> =
+        ): CompletableFuture<HttpResponseFor<CmsPage>> =
             updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see updateDraft */
         fun updateDraft(
             params: WebsitePageUpdateDraftParams
-        ): CompletableFuture<HttpResponseFor<Page>> = updateDraft(params, RequestOptions.none())
+        ): CompletableFuture<HttpResponseFor<CmsPage>> = updateDraft(params, RequestOptions.none())
 
         /** @see updateDraft */
         fun updateDraft(
             params: WebsitePageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Page>>
+        ): CompletableFuture<HttpResponseFor<CmsPage>>
     }
 }

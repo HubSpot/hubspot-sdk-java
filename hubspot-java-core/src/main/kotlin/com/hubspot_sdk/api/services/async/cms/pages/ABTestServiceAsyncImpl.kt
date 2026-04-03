@@ -16,7 +16,7 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.cms.pages.Page
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateLandingPageVariationParams
 import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestCreateSitePageVariationParams
 import com.hubspot_sdk.api.models.cms.pages.abtests.ABTestEndLandingPageTestParams
@@ -41,7 +41,7 @@ class ABTestServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun createLandingPageVariation(
         params: ABTestCreateLandingPageVariationParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // post /cms/pages/2026-03/landing-pages/ab-test/create-variation
         withRawResponse().createLandingPageVariation(params, requestOptions).thenApply {
             it.parse()
@@ -50,7 +50,7 @@ class ABTestServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun createSitePageVariation(
         params: ABTestCreateSitePageVariationParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<Page> =
+    ): CompletableFuture<CmsPage> =
         // post /cms/pages/2026-03/site-pages/ab-test/create-variation
         withRawResponse().createSitePageVariation(params, requestOptions).thenApply { it.parse() }
 
@@ -95,13 +95,13 @@ class ABTestServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createLandingPageVariationHandler: Handler<Page> =
-            jsonHandler<Page>(clientOptions.jsonMapper)
+        private val createLandingPageVariationHandler: Handler<CmsPage> =
+            jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun createLandingPageVariation(
             params: ABTestCreateLandingPageVariationParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -133,13 +133,13 @@ class ABTestServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val createSitePageVariationHandler: Handler<Page> =
-            jsonHandler<Page>(clientOptions.jsonMapper)
+        private val createSitePageVariationHandler: Handler<CmsPage> =
+            jsonHandler<CmsPage>(clientOptions.jsonMapper)
 
         override fun createSitePageVariation(
             params: ABTestCreateSitePageVariationParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Page>> {
+        ): CompletableFuture<HttpResponseFor<CmsPage>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)

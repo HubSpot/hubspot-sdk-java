@@ -6,8 +6,8 @@ import com.hubspot_sdk.api.core.AutoPagerAsync
 import com.hubspot_sdk.api.core.PageAsync
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.models.ForwardPaging
+import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalPageForwardPaging
-import com.hubspot_sdk.api.models.cms.pages.Page
 import com.hubspot_sdk.api.services.async.cms.pages.LandingPageServiceAsync
 import java.util.Objects
 import java.util.Optional
@@ -22,7 +22,7 @@ private constructor(
     private val streamHandlerExecutor: Executor,
     private val params: LandingPageListParams,
     private val response: CollectionResponseWithTotalPageForwardPaging,
-) : PageAsync<Page> {
+) : PageAsync<CmsPage> {
 
     /**
      * Delegates to [CollectionResponseWithTotalPageForwardPaging], but gracefully handles missing
@@ -30,7 +30,7 @@ private constructor(
      *
      * @see CollectionResponseWithTotalPageForwardPaging.results
      */
-    fun results(): List<Page> =
+    fun results(): List<CmsPage> =
         response._results().getOptional("results").getOrNull() ?: emptyList()
 
     /**
@@ -41,7 +41,7 @@ private constructor(
      */
     fun paging(): Optional<ForwardPaging> = response._paging().getOptional("paging")
 
-    override fun items(): List<Page> = results()
+    override fun items(): List<CmsPage> = results()
 
     override fun hasNextPage(): Boolean =
         items().isNotEmpty() &&
@@ -62,7 +62,7 @@ private constructor(
     override fun nextPage(): CompletableFuture<LandingPageListPageAsync> =
         service.list(nextPageParams())
 
-    fun autoPager(): AutoPagerAsync<Page> = AutoPagerAsync.from(this, streamHandlerExecutor)
+    fun autoPager(): AutoPagerAsync<CmsPage> = AutoPagerAsync.from(this, streamHandlerExecutor)
 
     /** The parameters that were used to request this page. */
     fun params(): LandingPageListParams = params

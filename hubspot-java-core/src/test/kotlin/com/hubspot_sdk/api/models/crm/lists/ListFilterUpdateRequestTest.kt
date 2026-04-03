@@ -379,7 +379,7 @@ internal class ListFilterUpdateRequestTest {
 
         assertThat(listFilterUpdateRequest.filterBranch())
             .isEqualTo(
-                ListFilterUpdateRequest.FilterBranch.ofPublicOr(
+                ListFilterUpdateRequest.FilterBranch.ofOr(
                     PublicOrFilterBranch.builder()
                         .addFilterBranch(
                             PublicAndFilterBranch.builder()
