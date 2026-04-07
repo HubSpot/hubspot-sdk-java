@@ -46,6 +46,7 @@ tasks.withType<Test>().configureEach {
     // Run tests in parallel to some degree.
     maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
     forkEvery = 100
+    maxHeapSize = "2g"
 
     testLogging {
         exceptionFormat = TestExceptionFormat.FULL
