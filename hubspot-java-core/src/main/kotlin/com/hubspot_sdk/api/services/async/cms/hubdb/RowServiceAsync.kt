@@ -8,6 +8,7 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.hubdb.BatchResponseHubDbTableRowV3
 import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableRowV3
+import com.hubspot_sdk.api.models.cms.hubdb.UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCloneBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCloneDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowCreateBatchParams
@@ -17,7 +18,6 @@ import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
-import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowPurgeBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowReplaceBatchParams
@@ -76,7 +76,9 @@ interface RowServiceAsync {
      * for detailed filtering and sorting options. **Note:** This endpoint can be accessed without
      * any authentication, if the table is set to be allowed for public access.
      */
-    fun list(tableIdOrName: String): CompletableFuture<RowListPageAsync> =
+    fun list(
+        tableIdOrName: String
+    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
         list(tableIdOrName, RowListParams.none())
 
     /** @see list */
@@ -84,30 +86,33 @@ interface RowServiceAsync {
         tableIdOrName: String,
         params: RowListParams = RowListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RowListPageAsync> =
+    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
         list(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
     /** @see list */
     fun list(
         tableIdOrName: String,
         params: RowListParams = RowListParams.none(),
-    ): CompletableFuture<RowListPageAsync> = list(tableIdOrName, params, RequestOptions.none())
+    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
+        list(tableIdOrName, params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RowListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RowListPageAsync>
+    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
 
     /** @see list */
-    fun list(params: RowListParams): CompletableFuture<RowListPageAsync> =
+    fun list(
+        params: RowListParams
+    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         tableIdOrName: String,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RowListPageAsync> =
+    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
         list(tableIdOrName, RowListParams.none(), requestOptions)
 
     /**
@@ -497,40 +502,49 @@ interface RowServiceAsync {
          * Returns a raw HTTP response for `get /cms/hubdb/2026-03/tables/{tableIdOrName}/rows`, but
          * is otherwise the same as [RowServiceAsync.list].
          */
-        fun list(tableIdOrName: String): CompletableFuture<HttpResponseFor<RowListPageAsync>> =
-            list(tableIdOrName, RowListParams.none())
+        fun list(
+            tableIdOrName: String
+        ): CompletableFuture<
+            HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
+        > = list(tableIdOrName, RowListParams.none())
 
         /** @see list */
         fun list(
             tableIdOrName: String,
             params: RowListParams = RowListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RowListPageAsync>> =
-            list(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
+        ): CompletableFuture<
+            HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
+        > = list(params.toBuilder().tableIdOrName(tableIdOrName).build(), requestOptions)
 
         /** @see list */
         fun list(
             tableIdOrName: String,
             params: RowListParams = RowListParams.none(),
-        ): CompletableFuture<HttpResponseFor<RowListPageAsync>> =
-            list(tableIdOrName, params, RequestOptions.none())
+        ): CompletableFuture<
+            HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
+        > = list(tableIdOrName, params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: RowListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RowListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>>
 
         /** @see list */
-        fun list(params: RowListParams): CompletableFuture<HttpResponseFor<RowListPageAsync>> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: RowListParams
+        ): CompletableFuture<
+            HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
+        > = list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             tableIdOrName: String,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RowListPageAsync>> =
-            list(tableIdOrName, RowListParams.none(), requestOptions)
+        ): CompletableFuture<
+            HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
+        > = list(tableIdOrName, RowListParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

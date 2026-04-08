@@ -6,11 +6,9 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.hubspot_sdk.api.core.ClientOptions
 import com.hubspot_sdk.api.core.RequestOptions
 import com.hubspot_sdk.api.core.http.HttpResponseFor
-import com.hubspot_sdk.api.models.crm.BatchResponsePublicDefaultAssociation
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.BatchResponseSimplePublicObject
-import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchCreateDefaultAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchGetParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchUpdateParams
 import java.util.function.Consumer
@@ -60,32 +58,6 @@ interface BatchService {
         batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
     ): BatchResponseSimplePublicObject =
         update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
-
-    fun createDefaultAssociation(
-        toObjectId: String,
-        params: BatchCreateDefaultAssociationParams,
-    ): BatchResponsePublicDefaultAssociation =
-        createDefaultAssociation(toObjectId, params, RequestOptions.none())
-
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
-        toObjectId: String,
-        params: BatchCreateDefaultAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponsePublicDefaultAssociation =
-        createDefaultAssociation(params.toBuilder().toObjectId(toObjectId).build(), requestOptions)
-
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
-        params: BatchCreateDefaultAssociationParams
-    ): BatchResponsePublicDefaultAssociation =
-        createDefaultAssociation(params, RequestOptions.none())
-
-    /** @see createDefaultAssociation */
-    fun createDefaultAssociation(
-        params: BatchCreateDefaultAssociationParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): BatchResponsePublicDefaultAssociation
 
     /**
      * Retrieve multiple partner client objects in a single request by specifying their IDs. This
@@ -163,44 +135,6 @@ interface BatchService {
             batchInputSimplePublicObjectBatchInput: BatchInputSimplePublicObjectBatchInput
         ): HttpResponseFor<BatchResponseSimplePublicObject> =
             update(batchInputSimplePublicObjectBatchInput, RequestOptions.none())
-
-        /**
-         * Returns a raw HTTP response for `put
-         * /crm/objects/2026-03/{fromObjectType}/{fromObjectId}/associations/default/{toObjectType}/{toObjectId}`,
-         * but is otherwise the same as [BatchService.createDefaultAssociation].
-         */
-        @MustBeClosed
-        fun createDefaultAssociation(
-            toObjectId: String,
-            params: BatchCreateDefaultAssociationParams,
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            createDefaultAssociation(toObjectId, params, RequestOptions.none())
-
-        /** @see createDefaultAssociation */
-        @MustBeClosed
-        fun createDefaultAssociation(
-            toObjectId: String,
-            params: BatchCreateDefaultAssociationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            createDefaultAssociation(
-                params.toBuilder().toObjectId(toObjectId).build(),
-                requestOptions,
-            )
-
-        /** @see createDefaultAssociation */
-        @MustBeClosed
-        fun createDefaultAssociation(
-            params: BatchCreateDefaultAssociationParams
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation> =
-            createDefaultAssociation(params, RequestOptions.none())
-
-        /** @see createDefaultAssociation */
-        @MustBeClosed
-        fun createDefaultAssociation(
-            params: BatchCreateDefaultAssociationParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BatchResponsePublicDefaultAssociation>
 
         /**
          * Returns a raw HTTP response for `post /crm/objects/2026-03/partner_clients/batch/read`,

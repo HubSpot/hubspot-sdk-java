@@ -116,6 +116,10 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
     private val fees: FeeService by lazy { FeeServiceImpl(clientOptions) }
 
+    private val genericObjects: GenericObjectService by lazy {
+        GenericObjectServiceImpl(clientOptions)
+    }
+
     private val goalTargets: GoalTargetService by lazy { GoalTargetServiceImpl(clientOptions) }
 
     private val invoices: InvoiceService by lazy { InvoiceServiceImpl(clientOptions) }
@@ -129,10 +133,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
     private val meetings: MeetingService by lazy { MeetingServiceImpl(clientOptions) }
 
     private val notes: NoteService by lazy { NoteServiceImpl(clientOptions) }
-
-    private val genericObjects: GenericObjectService by lazy {
-        GenericObjectServiceImpl(clientOptions)
-    }
 
     private val orders: OrderService by lazy { OrderServiceImpl(clientOptions) }
 
@@ -199,6 +199,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
     override fun fees(): FeeService = fees
 
+    override fun genericObjects(): GenericObjectService = genericObjects
+
     override fun goalTargets(): GoalTargetService = goalTargets
 
     override fun invoices(): InvoiceService = invoices
@@ -212,8 +214,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun meetings(): MeetingService = meetings
 
     override fun notes(): NoteService = notes
-
-    override fun genericObjects(): GenericObjectService = genericObjects
 
     override fun orders(): OrderService = orders
 
@@ -300,6 +300,10 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
             FeeServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val genericObjects: GenericObjectService.WithRawResponse by lazy {
+            GenericObjectServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val goalTargets: GoalTargetService.WithRawResponse by lazy {
             GoalTargetServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -326,10 +330,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
         private val notes: NoteService.WithRawResponse by lazy {
             NoteServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val genericObjects: GenericObjectService.WithRawResponse by lazy {
-            GenericObjectServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val orders: OrderService.WithRawResponse by lazy {
@@ -420,6 +420,8 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
 
         override fun fees(): FeeService.WithRawResponse = fees
 
+        override fun genericObjects(): GenericObjectService.WithRawResponse = genericObjects
+
         override fun goalTargets(): GoalTargetService.WithRawResponse = goalTargets
 
         override fun invoices(): InvoiceService.WithRawResponse = invoices
@@ -433,8 +435,6 @@ class ObjectServiceImpl internal constructor(private val clientOptions: ClientOp
         override fun meetings(): MeetingService.WithRawResponse = meetings
 
         override fun notes(): NoteService.WithRawResponse = notes
-
-        override fun genericObjects(): GenericObjectService.WithRawResponse = genericObjects
 
         override fun orders(): OrderService.WithRawResponse = orders
 

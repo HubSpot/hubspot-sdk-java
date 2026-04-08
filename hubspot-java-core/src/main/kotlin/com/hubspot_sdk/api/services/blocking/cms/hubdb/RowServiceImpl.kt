@@ -29,7 +29,6 @@ import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
-import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListPage
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowPurgeBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowReplaceBatchParams
@@ -54,7 +53,10 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
         // post /cms/hubdb/2026-03/tables/{tableIdOrName}/rows
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun list(params: RowListParams, requestOptions: RequestOptions): RowListPage =
+    override fun list(
+        params: RowListParams,
+        requestOptions: RequestOptions,
+    ): UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
         // get /cms/hubdb/2026-03/tables/{tableIdOrName}/rows
         withRawResponse().list(params, requestOptions).parse()
 
@@ -201,7 +203,7 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
         override fun list(
             params: RowListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<RowListPage> {
+        ): HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tableIdOrName", params.tableIdOrName().getOrNull())
@@ -228,13 +230,6 @@ class RowServiceImpl internal constructor(private val clientOptions: ClientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        RowListPage.builder()
-                            .service(RowServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

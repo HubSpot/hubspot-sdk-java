@@ -11,8 +11,8 @@ import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
 import com.hubspot_sdk.api.models.cms.SetNewLanguagePrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.UpdateLanguagesRequestVNext
-import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.ContentLanguageCloneRequestVNext
+import com.hubspot_sdk.api.models.cms.pages.PageData
 import com.hubspot_sdk.api.models.cms.pages.multilanguage.MultiLanguageAttachToLangGroupParams
 import com.hubspot_sdk.api.models.cms.pages.multilanguage.MultiLanguageCreateLanguageVariationParams
 import com.hubspot_sdk.api.models.cms.pages.multilanguage.MultiLanguageDetachFromLangGroupParams
@@ -66,20 +66,20 @@ interface MultiLanguageService {
     ): HttpResponse = attachToLangGroup(attachToLangPrimaryRequestVNext, RequestOptions.none())
 
     /** Create a new language variation from an existing site page */
-    fun createLanguageVariation(params: MultiLanguageCreateLanguageVariationParams): CmsPage =
+    fun createLanguageVariation(params: MultiLanguageCreateLanguageVariationParams): PageData =
         createLanguageVariation(params, RequestOptions.none())
 
     /** @see createLanguageVariation */
     fun createLanguageVariation(
         params: MultiLanguageCreateLanguageVariationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage
+    ): PageData
 
     /** @see createLanguageVariation */
     fun createLanguageVariation(
         contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage =
+    ): PageData =
         createLanguageVariation(
             MultiLanguageCreateLanguageVariationParams.builder()
                 .contentLanguageCloneRequestVNext(contentLanguageCloneRequestVNext)
@@ -90,7 +90,7 @@ interface MultiLanguageService {
     /** @see createLanguageVariation */
     fun createLanguageVariation(
         contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext
-    ): CmsPage = createLanguageVariation(contentLanguageCloneRequestVNext, RequestOptions.none())
+    ): PageData = createLanguageVariation(contentLanguageCloneRequestVNext, RequestOptions.none())
 
     /** Detach a website page from a multi-language group. */
     @MustBeClosed
@@ -236,21 +236,21 @@ interface MultiLanguageService {
         @MustBeClosed
         fun createLanguageVariation(
             params: MultiLanguageCreateLanguageVariationParams
-        ): HttpResponseFor<CmsPage> = createLanguageVariation(params, RequestOptions.none())
+        ): HttpResponseFor<PageData> = createLanguageVariation(params, RequestOptions.none())
 
         /** @see createLanguageVariation */
         @MustBeClosed
         fun createLanguageVariation(
             params: MultiLanguageCreateLanguageVariationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage>
+        ): HttpResponseFor<PageData>
 
         /** @see createLanguageVariation */
         @MustBeClosed
         fun createLanguageVariation(
             contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage> =
+        ): HttpResponseFor<PageData> =
             createLanguageVariation(
                 MultiLanguageCreateLanguageVariationParams.builder()
                     .contentLanguageCloneRequestVNext(contentLanguageCloneRequestVNext)
@@ -262,7 +262,7 @@ interface MultiLanguageService {
         @MustBeClosed
         fun createLanguageVariation(
             contentLanguageCloneRequestVNext: ContentLanguageCloneRequestVNext
-        ): HttpResponseFor<CmsPage> =
+        ): HttpResponseFor<PageData> =
             createLanguageVariation(contentLanguageCloneRequestVNext, RequestOptions.none())
 
         /**

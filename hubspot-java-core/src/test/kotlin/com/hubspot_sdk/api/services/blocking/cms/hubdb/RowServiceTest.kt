@@ -20,6 +20,7 @@ import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
+import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowPurgeBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowReplaceBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowReplaceDraftParams
@@ -68,9 +69,20 @@ internal class RowServiceTest {
         val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
         val rowService = client.cms().hubdb().rows()
 
-        val page = rowService.list("tableIdOrName")
+        val unifiedCollectionResponseWithTotalBaseHubDbTableRowV3 =
+            rowService.list(
+                RowListParams.builder()
+                    .tableIdOrName("tableIdOrName")
+                    .after("after")
+                    .archived(true)
+                    .limit(0)
+                    .offset(0)
+                    .addProperty("string")
+                    .addSort("string")
+                    .build()
+            )
 
-        page.response().validate()
+        unifiedCollectionResponseWithTotalBaseHubDbTableRowV3.validate()
     }
 
     @Disabled("Mock server tests are disabled")

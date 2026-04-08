@@ -29,7 +29,6 @@ import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetDraftParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowGetParams
-import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListPageAsync
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowListParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowPurgeBatchParams
 import com.hubspot_sdk.api.models.cms.hubdb.rows.RowReplaceBatchParams
@@ -62,7 +61,7 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: RowListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<RowListPageAsync> =
+    ): CompletableFuture<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3> =
         // get /cms/hubdb/2026-03/tables/{tableIdOrName}/rows
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -219,7 +218,9 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
         override fun list(
             params: RowListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<RowListPageAsync>> {
+        ): CompletableFuture<
+            HttpResponseFor<UnifiedCollectionResponseWithTotalBaseHubDbTableRowV3>
+        > {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("tableIdOrName", params.tableIdOrName().getOrNull())
@@ -248,14 +249,6 @@ class RowServiceAsyncImpl internal constructor(private val clientOptions: Client
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                RowListPageAsync.builder()
-                                    .service(RowServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -17,8 +17,8 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepare
-import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalPageForwardPaging
+import com.hubspot_sdk.api.models.cms.pages.PageData
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageDeleteParams
@@ -46,11 +46,11 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): LandingPageService =
         LandingPageServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(params: LandingPageCreateParams, requestOptions: RequestOptions): CmsPage =
+    override fun create(params: LandingPageCreateParams, requestOptions: RequestOptions): PageData =
         // post /cms/pages/2026-03/landing-pages
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun update(params: LandingPageUpdateParams, requestOptions: RequestOptions): CmsPage =
+    override fun update(params: LandingPageUpdateParams, requestOptions: RequestOptions): PageData =
         // patch /cms/pages/2026-03/landing-pages/{objectId}
         withRawResponse().update(params, requestOptions).parse()
 
@@ -66,18 +66,18 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
         withRawResponse().delete(params, requestOptions)
     }
 
-    override fun clone(params: LandingPageCloneParams, requestOptions: RequestOptions): CmsPage =
+    override fun clone(params: LandingPageCloneParams, requestOptions: RequestOptions): PageData =
         // post /cms/pages/2026-03/landing-pages/clone
         withRawResponse().clone(params, requestOptions).parse()
 
-    override fun get(params: LandingPageGetParams, requestOptions: RequestOptions): CmsPage =
+    override fun get(params: LandingPageGetParams, requestOptions: RequestOptions): PageData =
         // get /cms/pages/2026-03/landing-pages/{objectId}
         withRawResponse().get(params, requestOptions).parse()
 
     override fun getDraft(
         params: LandingPageGetDraftParams,
         requestOptions: RequestOptions,
-    ): CmsPage =
+    ): PageData =
         // get /cms/pages/2026-03/landing-pages/{objectId}/draft
         withRawResponse().getDraft(params, requestOptions).parse()
 
@@ -102,7 +102,7 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
     override fun updateDraft(
         params: LandingPageUpdateDraftParams,
         requestOptions: RequestOptions,
-    ): CmsPage =
+    ): PageData =
         // patch /cms/pages/2026-03/landing-pages/{objectId}/draft
         withRawResponse().updateDraft(params, requestOptions).parse()
 
@@ -119,12 +119,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val createHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun create(
             params: LandingPageCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CmsPage> {
+        ): HttpResponseFor<PageData> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -146,12 +147,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updateHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun update(
             params: LandingPageUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CmsPage> {
+        ): HttpResponseFor<PageData> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -246,12 +248,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val cloneHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val cloneHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun clone(
             params: LandingPageCloneParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CmsPage> {
+        ): HttpResponseFor<PageData> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
@@ -273,12 +276,12 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val getHandler: Handler<CmsPage> = jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val getHandler: Handler<PageData> = jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun get(
             params: LandingPageGetParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CmsPage> {
+        ): HttpResponseFor<PageData> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -308,13 +311,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val getDraftHandler: Handler<CmsPage> =
-            jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val getDraftHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun getDraft(
             params: LandingPageGetDraftParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CmsPage> {
+        ): HttpResponseFor<PageData> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
@@ -430,13 +433,13 @@ class LandingPageServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val updateDraftHandler: Handler<CmsPage> =
-            jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val updateDraftHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun updateDraft(
             params: LandingPageUpdateDraftParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CmsPage> {
+        ): HttpResponseFor<PageData> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("objectId", params.objectId().getOrNull())
