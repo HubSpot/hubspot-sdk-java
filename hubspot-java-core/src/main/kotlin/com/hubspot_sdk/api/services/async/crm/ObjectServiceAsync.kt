@@ -82,6 +82,8 @@ interface ObjectServiceAsync {
 
     fun fees(): FeeServiceAsync
 
+    fun genericObjects(): GenericObjectServiceAsync
+
     fun goalTargets(): GoalTargetServiceAsync
 
     fun invoices(): InvoiceServiceAsync
@@ -95,8 +97,6 @@ interface ObjectServiceAsync {
     fun meetings(): MeetingServiceAsync
 
     fun notes(): NoteServiceAsync
-
-    fun genericObjects(): GenericObjectServiceAsync
 
     fun orders(): OrderServiceAsync
 
@@ -166,6 +166,8 @@ interface ObjectServiceAsync {
 
         fun fees(): FeeServiceAsync.WithRawResponse
 
+        fun genericObjects(): GenericObjectServiceAsync.WithRawResponse
+
         fun goalTargets(): GoalTargetServiceAsync.WithRawResponse
 
         fun invoices(): InvoiceServiceAsync.WithRawResponse
@@ -179,8 +181,6 @@ interface ObjectServiceAsync {
         fun meetings(): MeetingServiceAsync.WithRawResponse
 
         fun notes(): NoteServiceAsync.WithRawResponse
-
-        fun genericObjects(): GenericObjectServiceAsync.WithRawResponse
 
         fun orders(): OrderServiceAsync.WithRawResponse
 

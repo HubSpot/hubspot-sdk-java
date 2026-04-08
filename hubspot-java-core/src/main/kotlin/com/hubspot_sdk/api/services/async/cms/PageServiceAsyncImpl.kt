@@ -17,10 +17,10 @@ import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.core.http.json
 import com.hubspot_sdk.api.core.http.parseable
 import com.hubspot_sdk.api.core.prepareAsync
-import com.hubspot_sdk.api.models.cms.pages.CmsPage
 import com.hubspot_sdk.api.models.cms.pages.CollectionResponseWithTotalPageVersion
 import com.hubspot_sdk.api.models.cms.pages.CursorPagedResultContentFolderLong
 import com.hubspot_sdk.api.models.cms.pages.CursorPagedResultPageLong
+import com.hubspot_sdk.api.models.cms.pages.PageData
 import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersByQueryParams
 import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageFoldersParams
 import com.hubspot_sdk.api.models.cms.pages.PageGetLandingPageRevisionParams
@@ -179,7 +179,7 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun restoreLandingPageRevision(
         params: PageRestoreLandingPageRevisionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CmsPage> =
+    ): CompletableFuture<PageData> =
         // post /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore
         withRawResponse().restoreLandingPageRevision(params, requestOptions).thenApply {
             it.parse()
@@ -188,7 +188,7 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun restoreLandingPageRevisionToDraft(
         params: PageRestoreLandingPageRevisionToDraftParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CmsPage> =
+    ): CompletableFuture<PageData> =
         // post /cms/pages/2026-03/landing-pages/{objectId}/revisions/{revisionId}/restore-to-draft
         withRawResponse().restoreLandingPageRevisionToDraft(params, requestOptions).thenApply {
             it.parse()
@@ -197,14 +197,14 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun restoreSitePageRevision(
         params: PageRestoreSitePageRevisionParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CmsPage> =
+    ): CompletableFuture<PageData> =
         // post /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore
         withRawResponse().restoreSitePageRevision(params, requestOptions).thenApply { it.parse() }
 
     override fun restoreSitePageRevisionToDraft(
         params: PageRestoreSitePageRevisionToDraftParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CmsPage> =
+    ): CompletableFuture<PageData> =
         // post /cms/pages/2026-03/site-pages/{objectId}/revisions/{revisionId}/restore-to-draft
         withRawResponse().restoreSitePageRevisionToDraft(params, requestOptions).thenApply {
             it.parse()
@@ -669,13 +669,13 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val restoreLandingPageRevisionHandler: Handler<CmsPage> =
-            jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val restoreLandingPageRevisionHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun restoreLandingPageRevision(
             params: PageRestoreLandingPageRevisionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CmsPage>> {
+        ): CompletableFuture<HttpResponseFor<PageData>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())
@@ -712,13 +712,13 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val restoreLandingPageRevisionToDraftHandler: Handler<CmsPage> =
-            jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val restoreLandingPageRevisionToDraftHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun restoreLandingPageRevisionToDraft(
             params: PageRestoreLandingPageRevisionToDraftParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CmsPage>> {
+        ): CompletableFuture<HttpResponseFor<PageData>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())
@@ -755,13 +755,13 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val restoreSitePageRevisionHandler: Handler<CmsPage> =
-            jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val restoreSitePageRevisionHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun restoreSitePageRevision(
             params: PageRestoreSitePageRevisionParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CmsPage>> {
+        ): CompletableFuture<HttpResponseFor<PageData>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())
@@ -798,13 +798,13 @@ class PageServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val restoreSitePageRevisionToDraftHandler: Handler<CmsPage> =
-            jsonHandler<CmsPage>(clientOptions.jsonMapper)
+        private val restoreSitePageRevisionToDraftHandler: Handler<PageData> =
+            jsonHandler<PageData>(clientOptions.jsonMapper)
 
         override fun restoreSitePageRevisionToDraft(
             params: PageRestoreSitePageRevisionToDraftParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CmsPage>> {
+        ): CompletableFuture<HttpResponseFor<PageData>> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
             checkRequired("revisionId", params.revisionId().getOrNull())

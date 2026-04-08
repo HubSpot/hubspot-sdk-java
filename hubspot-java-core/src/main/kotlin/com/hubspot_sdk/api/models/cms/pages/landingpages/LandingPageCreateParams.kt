@@ -7,20 +7,20 @@ import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.models.cms.pages.CmsPage
+import com.hubspot_sdk.api.models.cms.pages.PageData
 import java.util.Objects
 
 /** Create a new landing page. */
 class LandingPageCreateParams
 private constructor(
-    private val cmsPage: CmsPage,
+    private val pageData: PageData,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    fun cmsPage(): CmsPage = cmsPage
+    fun pageData(): PageData = pageData
 
-    fun _additionalBodyProperties(): Map<String, JsonValue> = cmsPage._additionalProperties()
+    fun _additionalBodyProperties(): Map<String, JsonValue> = pageData._additionalProperties()
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -37,7 +37,7 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .cmsPage()
+         * .pageData()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -46,18 +46,18 @@ private constructor(
     /** A builder for [LandingPageCreateParams]. */
     class Builder internal constructor() {
 
-        private var cmsPage: CmsPage? = null
+        private var pageData: PageData? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
         internal fun from(landingPageCreateParams: LandingPageCreateParams) = apply {
-            cmsPage = landingPageCreateParams.cmsPage
+            pageData = landingPageCreateParams.pageData
             additionalHeaders = landingPageCreateParams.additionalHeaders.toBuilder()
             additionalQueryParams = landingPageCreateParams.additionalQueryParams.toBuilder()
         }
 
-        fun cmsPage(cmsPage: CmsPage) = apply { this.cmsPage = cmsPage }
+        fun pageData(pageData: PageData) = apply { this.pageData = pageData }
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -164,20 +164,20 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .cmsPage()
+         * .pageData()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
         fun build(): LandingPageCreateParams =
             LandingPageCreateParams(
-                checkRequired("cmsPage", cmsPage),
+                checkRequired("pageData", pageData),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
     }
 
-    fun _body(): CmsPage = cmsPage
+    fun _body(): PageData = pageData
 
     override fun _headers(): Headers = additionalHeaders
 
@@ -189,13 +189,13 @@ private constructor(
         }
 
         return other is LandingPageCreateParams &&
-            cmsPage == other.cmsPage &&
+            pageData == other.pageData &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(cmsPage, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int = Objects.hash(pageData, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LandingPageCreateParams{cmsPage=$cmsPage, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LandingPageCreateParams{pageData=$pageData, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

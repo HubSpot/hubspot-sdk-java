@@ -82,6 +82,8 @@ interface ObjectService {
 
     fun fees(): FeeService
 
+    fun genericObjects(): GenericObjectService
+
     fun goalTargets(): GoalTargetService
 
     fun invoices(): InvoiceService
@@ -95,8 +97,6 @@ interface ObjectService {
     fun meetings(): MeetingService
 
     fun notes(): NoteService
-
-    fun genericObjects(): GenericObjectService
 
     fun orders(): OrderService
 
@@ -162,6 +162,8 @@ interface ObjectService {
 
         fun fees(): FeeService.WithRawResponse
 
+        fun genericObjects(): GenericObjectService.WithRawResponse
+
         fun goalTargets(): GoalTargetService.WithRawResponse
 
         fun invoices(): InvoiceService.WithRawResponse
@@ -175,8 +177,6 @@ interface ObjectService {
         fun meetings(): MeetingService.WithRawResponse
 
         fun notes(): NoteService.WithRawResponse
-
-        fun genericObjects(): GenericObjectService.WithRawResponse
 
         fun orders(): OrderService.WithRawResponse
 

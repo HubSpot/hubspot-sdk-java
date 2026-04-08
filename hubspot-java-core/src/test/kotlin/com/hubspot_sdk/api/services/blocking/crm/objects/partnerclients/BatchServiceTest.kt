@@ -8,7 +8,6 @@ import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchI
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
-import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchCreateDefaultAssociationParams
 import com.hubspot_sdk.api.models.crm.objects.partnerclients.batch.BatchGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -40,25 +39,6 @@ internal class BatchServiceTest {
             )
 
         batchResponseSimplePublicObject.validate()
-    }
-
-    @Disabled("Mock server tests are disabled")
-    @Test
-    fun createDefaultAssociation() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
-        val batchService = client.crm().objects().partnerClients().batch()
-
-        val batchResponsePublicDefaultAssociation =
-            batchService.createDefaultAssociation(
-                BatchCreateDefaultAssociationParams.builder()
-                    .fromObjectType("fromObjectType")
-                    .fromObjectId("fromObjectId")
-                    .toObjectType("toObjectType")
-                    .toObjectId("toObjectId")
-                    .build()
-            )
-
-        batchResponsePublicDefaultAssociation.validate()
     }
 
     @Disabled("Mock server tests are disabled")

@@ -26,7 +26,7 @@ class BatchResponsePageWithErrors
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val completedAt: JsonField<OffsetDateTime>,
-    private val results: JsonField<List<CmsPage>>,
+    private val results: JsonField<List<PageData>>,
     private val startedAt: JsonField<OffsetDateTime>,
     private val status: JsonField<Status>,
     private val errors: JsonField<List<StandardError>>,
@@ -43,7 +43,7 @@ private constructor(
         completedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("results")
         @ExcludeMissing
-        results: JsonField<List<CmsPage>> = JsonMissing.of(),
+        results: JsonField<List<PageData>> = JsonMissing.of(),
         @JsonProperty("startedAt")
         @ExcludeMissing
         startedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -82,7 +82,7 @@ private constructor(
      * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun results(): List<CmsPage> = results.getRequired("results")
+    fun results(): List<PageData> = results.getRequired("results")
 
     /**
      * Time of batch operation start.
@@ -146,7 +146,7 @@ private constructor(
      *
      * Unlike [results], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<CmsPage>> = results
+    @JsonProperty("results") @ExcludeMissing fun _results(): JsonField<List<PageData>> = results
 
     /**
      * Returns the raw JSON value of [startedAt].
@@ -226,7 +226,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var completedAt: JsonField<OffsetDateTime>? = null
-        private var results: JsonField<MutableList<CmsPage>>? = null
+        private var results: JsonField<MutableList<PageData>>? = null
         private var startedAt: JsonField<OffsetDateTime>? = null
         private var status: JsonField<Status>? = null
         private var errors: JsonField<MutableList<StandardError>>? = null
@@ -263,25 +263,25 @@ private constructor(
         }
 
         /** Results of batch operation. */
-        fun results(results: List<CmsPage>) = results(JsonField.of(results))
+        fun results(results: List<PageData>) = results(JsonField.of(results))
 
         /**
          * Sets [Builder.results] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.results] with a well-typed `List<CmsPage>` value
+         * You should usually call [Builder.results] with a well-typed `List<PageData>` value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun results(results: JsonField<List<CmsPage>>) = apply {
+        fun results(results: JsonField<List<PageData>>) = apply {
             this.results = results.map { it.toMutableList() }
         }
 
         /**
-         * Adds a single [CmsPage] to [results].
+         * Adds a single [PageData] to [results].
          *
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
-        fun addResult(result: CmsPage) = apply {
+        fun addResult(result: PageData) = apply {
             results =
                 (results ?: JsonField.of(mutableListOf())).also {
                     checkKnown("results", it).add(result)

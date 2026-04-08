@@ -260,7 +260,7 @@ internal class PageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
-        val cmsPageFuture =
+        val pageDataFuture =
             pageServiceAsync.restoreLandingPageRevision(
                 PageRestoreLandingPageRevisionParams.builder()
                     .objectId("objectId")
@@ -268,8 +268,8 @@ internal class PageServiceAsyncTest {
                     .build()
             )
 
-        val cmsPage = cmsPageFuture.get()
-        cmsPage.validate()
+        val pageData = pageDataFuture.get()
+        pageData.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -278,7 +278,7 @@ internal class PageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
-        val cmsPageFuture =
+        val pageDataFuture =
             pageServiceAsync.restoreLandingPageRevisionToDraft(
                 PageRestoreLandingPageRevisionToDraftParams.builder()
                     .objectId("objectId")
@@ -286,8 +286,8 @@ internal class PageServiceAsyncTest {
                     .build()
             )
 
-        val cmsPage = cmsPageFuture.get()
-        cmsPage.validate()
+        val pageData = pageDataFuture.get()
+        pageData.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -296,7 +296,7 @@ internal class PageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
-        val cmsPageFuture =
+        val pageDataFuture =
             pageServiceAsync.restoreSitePageRevision(
                 PageRestoreSitePageRevisionParams.builder()
                     .objectId("objectId")
@@ -304,8 +304,8 @@ internal class PageServiceAsyncTest {
                     .build()
             )
 
-        val cmsPage = cmsPageFuture.get()
-        cmsPage.validate()
+        val pageData = pageDataFuture.get()
+        pageData.validate()
     }
 
     @Disabled("Mock server tests are disabled")
@@ -314,7 +314,7 @@ internal class PageServiceAsyncTest {
         val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val pageServiceAsync = client.cms().pages()
 
-        val cmsPageFuture =
+        val pageDataFuture =
             pageServiceAsync.restoreSitePageRevisionToDraft(
                 PageRestoreSitePageRevisionToDraftParams.builder()
                     .objectId("objectId")
@@ -322,7 +322,7 @@ internal class PageServiceAsyncTest {
                     .build()
             )
 
-        val cmsPage = cmsPageFuture.get()
-        cmsPage.validate()
+        val pageData = pageDataFuture.get()
+        pageData.validate()
     }
 }

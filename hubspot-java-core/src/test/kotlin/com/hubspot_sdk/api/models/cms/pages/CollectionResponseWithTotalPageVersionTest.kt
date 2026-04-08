@@ -24,14 +24,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                     PageVersion.builder()
                         .id("id")
                         .object_(
-                            CmsPage.builder()
+                            PageData.builder()
                                 .id("id")
-                                .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                                .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                                 .abTestId("abTestId")
                                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .archivedInDashboard(true)
                                 .addAttachedStylesheet(
-                                    CmsPage.AttachedStylesheet.builder()
+                                    PageData.AttachedStylesheet.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -42,11 +42,11 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .campaign("campaign")
                                 .categoryId(0)
                                 .contentGroupId("contentGroupId")
-                                .contentTypeCategory(CmsPage.ContentTypeCategory._0)
+                                .contentTypeCategory(PageData.ContentTypeCategory._0)
                                 .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdById("createdById")
                                 .currentlyPublished(true)
-                                .currentState(CmsPage.CurrentState.AGENT_GENERATED)
+                                .currentState(PageData.CurrentState.AGENT_GENERATED)
                                 .domain("domain")
                                 .dynamicPageDataSourceId("dynamicPageDataSourceId")
                                 .dynamicPageDataSourceType(0)
@@ -60,9 +60,9 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .headHtml("headHtml")
                                 .htmlTitle("htmlTitle")
                                 .includeDefaultCustomCss(true)
-                                .language(CmsPage.Language.AA)
+                                .language(PageData.Language.AA)
                                 .layoutSections(
-                                    CmsPage.LayoutSections.builder()
+                                    PageData.LayoutSections.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -328,7 +328,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .subcategory("subcategory")
                                 .templatePath("templatePath")
                                 .themeSettingsValues(
-                                    CmsPage.ThemeSettingsValues.builder()
+                                    PageData.ThemeSettingsValues.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -337,7 +337,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 )
                                 .translatedFromId("translatedFromId")
                                 .translations(
-                                    CmsPage.Translations.builder()
+                                    PageData.Translations.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -368,7 +368,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .url("url")
                                 .useFeaturedImage(true)
                                 .widgetContainers(
-                                    CmsPage.WidgetContainers.builder()
+                                    PageData.WidgetContainers.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -376,7 +376,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                         .build()
                                 )
                                 .widgets(
-                                    CmsPage.Widgets.builder()
+                                    PageData.Widgets.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -409,14 +409,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                 PageVersion.builder()
                     .id("id")
                     .object_(
-                        CmsPage.builder()
+                        PageData.builder()
                             .id("id")
-                            .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                            .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                             .abTestId("abTestId")
                             .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .archivedInDashboard(true)
                             .addAttachedStylesheet(
-                                CmsPage.AttachedStylesheet.builder()
+                                PageData.AttachedStylesheet.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -427,11 +427,11 @@ internal class CollectionResponseWithTotalPageVersionTest {
                             .campaign("campaign")
                             .categoryId(0)
                             .contentGroupId("contentGroupId")
-                            .contentTypeCategory(CmsPage.ContentTypeCategory._0)
+                            .contentTypeCategory(PageData.ContentTypeCategory._0)
                             .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .createdById("createdById")
                             .currentlyPublished(true)
-                            .currentState(CmsPage.CurrentState.AGENT_GENERATED)
+                            .currentState(PageData.CurrentState.AGENT_GENERATED)
                             .domain("domain")
                             .dynamicPageDataSourceId("dynamicPageDataSourceId")
                             .dynamicPageDataSourceType(0)
@@ -445,9 +445,9 @@ internal class CollectionResponseWithTotalPageVersionTest {
                             .headHtml("headHtml")
                             .htmlTitle("htmlTitle")
                             .includeDefaultCustomCss(true)
-                            .language(CmsPage.Language.AA)
+                            .language(PageData.Language.AA)
                             .layoutSections(
-                                CmsPage.LayoutSections.builder()
+                                PageData.LayoutSections.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -701,7 +701,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                             .subcategory("subcategory")
                             .templatePath("templatePath")
                             .themeSettingsValues(
-                                CmsPage.ThemeSettingsValues.builder()
+                                PageData.ThemeSettingsValues.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -710,7 +710,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                             )
                             .translatedFromId("translatedFromId")
                             .translations(
-                                CmsPage.Translations.builder()
+                                PageData.Translations.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(
@@ -740,7 +740,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                             .url("url")
                             .useFeaturedImage(true)
                             .widgetContainers(
-                                CmsPage.WidgetContainers.builder()
+                                PageData.WidgetContainers.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -748,7 +748,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                     .build()
                             )
                             .widgets(
-                                CmsPage.Widgets.builder()
+                                PageData.Widgets.builder()
                                     .putAdditionalProperty(
                                         "foo",
                                         JsonValue.from(mapOf<String, Any>()),
@@ -782,14 +782,14 @@ internal class CollectionResponseWithTotalPageVersionTest {
                     PageVersion.builder()
                         .id("id")
                         .object_(
-                            CmsPage.builder()
+                            PageData.builder()
                                 .id("id")
-                                .abStatus(CmsPage.AbStatus.AUTOMATED_LOSER_VARIANT)
+                                .abStatus(PageData.AbStatus.AUTOMATED_LOSER_VARIANT)
                                 .abTestId("abTestId")
                                 .archivedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .archivedInDashboard(true)
                                 .addAttachedStylesheet(
-                                    CmsPage.AttachedStylesheet.builder()
+                                    PageData.AttachedStylesheet.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -800,11 +800,11 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .campaign("campaign")
                                 .categoryId(0)
                                 .contentGroupId("contentGroupId")
-                                .contentTypeCategory(CmsPage.ContentTypeCategory._0)
+                                .contentTypeCategory(PageData.ContentTypeCategory._0)
                                 .created(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .createdById("createdById")
                                 .currentlyPublished(true)
-                                .currentState(CmsPage.CurrentState.AGENT_GENERATED)
+                                .currentState(PageData.CurrentState.AGENT_GENERATED)
                                 .domain("domain")
                                 .dynamicPageDataSourceId("dynamicPageDataSourceId")
                                 .dynamicPageDataSourceType(0)
@@ -818,9 +818,9 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .headHtml("headHtml")
                                 .htmlTitle("htmlTitle")
                                 .includeDefaultCustomCss(true)
-                                .language(CmsPage.Language.AA)
+                                .language(PageData.Language.AA)
                                 .layoutSections(
-                                    CmsPage.LayoutSections.builder()
+                                    PageData.LayoutSections.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -1086,7 +1086,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .subcategory("subcategory")
                                 .templatePath("templatePath")
                                 .themeSettingsValues(
-                                    CmsPage.ThemeSettingsValues.builder()
+                                    PageData.ThemeSettingsValues.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -1095,7 +1095,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 )
                                 .translatedFromId("translatedFromId")
                                 .translations(
-                                    CmsPage.Translations.builder()
+                                    PageData.Translations.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(
@@ -1126,7 +1126,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                 .url("url")
                                 .useFeaturedImage(true)
                                 .widgetContainers(
-                                    CmsPage.WidgetContainers.builder()
+                                    PageData.WidgetContainers.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),
@@ -1134,7 +1134,7 @@ internal class CollectionResponseWithTotalPageVersionTest {
                                         .build()
                                 )
                                 .widgets(
-                                    CmsPage.Widgets.builder()
+                                    PageData.Widgets.builder()
                                         .putAdditionalProperty(
                                             "foo",
                                             JsonValue.from(mapOf<String, Any>()),

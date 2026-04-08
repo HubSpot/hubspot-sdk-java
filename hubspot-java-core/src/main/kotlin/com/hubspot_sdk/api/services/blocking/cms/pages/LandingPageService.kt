@@ -9,7 +9,7 @@ import com.hubspot_sdk.api.core.http.HttpResponse
 import com.hubspot_sdk.api.core.http.HttpResponseFor
 import com.hubspot_sdk.api.models.cms.ContentCloneRequestVNext
 import com.hubspot_sdk.api.models.cms.ContentScheduleRequestVNext
-import com.hubspot_sdk.api.models.cms.pages.CmsPage
+import com.hubspot_sdk.api.models.cms.pages.PageData
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCloneParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageCreateParams
 import com.hubspot_sdk.api.models.cms.pages.landingpages.LandingPageDeleteParams
@@ -39,26 +39,29 @@ interface LandingPageService {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LandingPageService
 
     /** Create a new landing page. */
-    fun create(params: LandingPageCreateParams): CmsPage = create(params, RequestOptions.none())
+    fun create(params: LandingPageCreateParams): PageData = create(params, RequestOptions.none())
 
     /** @see create */
     fun create(
         params: LandingPageCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage
+    ): PageData
 
     /** @see create */
-    fun create(cmsPage: CmsPage, requestOptions: RequestOptions = RequestOptions.none()): CmsPage =
-        create(LandingPageCreateParams.builder().cmsPage(cmsPage).build(), requestOptions)
+    fun create(
+        pageData: PageData,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): PageData =
+        create(LandingPageCreateParams.builder().pageData(pageData).build(), requestOptions)
 
     /** @see create */
-    fun create(cmsPage: CmsPage): CmsPage = create(cmsPage, RequestOptions.none())
+    fun create(pageData: PageData): PageData = create(pageData, RequestOptions.none())
 
     /**
      * Sparse updates a single Landing Page object identified by the id in the path. You only need
      * to specify the column values that you are modifying.
      */
-    fun update(objectId: String, params: LandingPageUpdateParams): CmsPage =
+    fun update(objectId: String, params: LandingPageUpdateParams): PageData =
         update(objectId, params, RequestOptions.none())
 
     /** @see update */
@@ -66,16 +69,16 @@ interface LandingPageService {
         objectId: String,
         params: LandingPageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage = update(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see update */
-    fun update(params: LandingPageUpdateParams): CmsPage = update(params, RequestOptions.none())
+    fun update(params: LandingPageUpdateParams): PageData = update(params, RequestOptions.none())
 
     /** @see update */
     fun update(
         params: LandingPageUpdateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage
+    ): PageData
 
     /**
      * Get the list of landing pages. Supports paging and filtering. This method would be useful for
@@ -125,19 +128,19 @@ interface LandingPageService {
         delete(objectId, LandingPageDeleteParams.none(), requestOptions)
 
     /** Create a copy of an existing landing page. */
-    fun clone(params: LandingPageCloneParams): CmsPage = clone(params, RequestOptions.none())
+    fun clone(params: LandingPageCloneParams): PageData = clone(params, RequestOptions.none())
 
     /** @see clone */
     fun clone(
         params: LandingPageCloneParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage
+    ): PageData
 
     /** @see clone */
     fun clone(
         contentCloneRequestVNext: ContentCloneRequestVNext,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage =
+    ): PageData =
         clone(
             LandingPageCloneParams.builder()
                 .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -146,64 +149,66 @@ interface LandingPageService {
         )
 
     /** @see clone */
-    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): CmsPage =
+    fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): PageData =
         clone(contentCloneRequestVNext, RequestOptions.none())
 
     /** Retrieve a landing page, specified by its ID. */
-    fun get(objectId: String): CmsPage = get(objectId, LandingPageGetParams.none())
+    fun get(objectId: String): PageData = get(objectId, LandingPageGetParams.none())
 
     /** @see get */
     fun get(
         objectId: String,
         params: LandingPageGetParams = LandingPageGetParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage = get(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see get */
-    fun get(objectId: String, params: LandingPageGetParams = LandingPageGetParams.none()): CmsPage =
-        get(objectId, params, RequestOptions.none())
+    fun get(
+        objectId: String,
+        params: LandingPageGetParams = LandingPageGetParams.none(),
+    ): PageData = get(objectId, params, RequestOptions.none())
 
     /** @see get */
     fun get(
         params: LandingPageGetParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage
+    ): PageData
 
     /** @see get */
-    fun get(params: LandingPageGetParams): CmsPage = get(params, RequestOptions.none())
+    fun get(params: LandingPageGetParams): PageData = get(params, RequestOptions.none())
 
     /** @see get */
-    fun get(objectId: String, requestOptions: RequestOptions): CmsPage =
+    fun get(objectId: String, requestOptions: RequestOptions): PageData =
         get(objectId, LandingPageGetParams.none(), requestOptions)
 
     /** Retrieve the full draft version of a landing page, specified by page ID. */
-    fun getDraft(objectId: String): CmsPage = getDraft(objectId, LandingPageGetDraftParams.none())
+    fun getDraft(objectId: String): PageData = getDraft(objectId, LandingPageGetDraftParams.none())
 
     /** @see getDraft */
     fun getDraft(
         objectId: String,
         params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage = getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see getDraft */
     fun getDraft(
         objectId: String,
         params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-    ): CmsPage = getDraft(objectId, params, RequestOptions.none())
+    ): PageData = getDraft(objectId, params, RequestOptions.none())
 
     /** @see getDraft */
     fun getDraft(
         params: LandingPageGetDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage
+    ): PageData
 
     /** @see getDraft */
-    fun getDraft(params: LandingPageGetDraftParams): CmsPage =
+    fun getDraft(params: LandingPageGetDraftParams): PageData =
         getDraft(params, RequestOptions.none())
 
     /** @see getDraft */
-    fun getDraft(objectId: String, requestOptions: RequestOptions): CmsPage =
+    fun getDraft(objectId: String, requestOptions: RequestOptions): PageData =
         getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
 
     /**
@@ -298,7 +303,7 @@ interface LandingPageService {
      * Partially updates the draft version of a single landing page, specified by its ID. You only
      * need to specify the column values that you are modifying.
      */
-    fun updateDraft(objectId: String, params: LandingPageUpdateDraftParams): CmsPage =
+    fun updateDraft(objectId: String, params: LandingPageUpdateDraftParams): PageData =
         updateDraft(objectId, params, RequestOptions.none())
 
     /** @see updateDraft */
@@ -306,17 +311,17 @@ interface LandingPageService {
         objectId: String,
         params: LandingPageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage = updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
+    ): PageData = updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
     /** @see updateDraft */
-    fun updateDraft(params: LandingPageUpdateDraftParams): CmsPage =
+    fun updateDraft(params: LandingPageUpdateDraftParams): PageData =
         updateDraft(params, RequestOptions.none())
 
     /** @see updateDraft */
     fun updateDraft(
         params: LandingPageUpdateDraftParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CmsPage
+    ): PageData
 
     /**
      * A view of [LandingPageService] that provides access to raw HTTP responses for each method.
@@ -337,7 +342,7 @@ interface LandingPageService {
          * the same as [LandingPageService.create].
          */
         @MustBeClosed
-        fun create(params: LandingPageCreateParams): HttpResponseFor<CmsPage> =
+        fun create(params: LandingPageCreateParams): HttpResponseFor<PageData> =
             create(params, RequestOptions.none())
 
         /** @see create */
@@ -345,27 +350,27 @@ interface LandingPageService {
         fun create(
             params: LandingPageCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage>
+        ): HttpResponseFor<PageData>
 
         /** @see create */
         @MustBeClosed
         fun create(
-            cmsPage: CmsPage,
+            pageData: PageData,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage> =
-            create(LandingPageCreateParams.builder().cmsPage(cmsPage).build(), requestOptions)
+        ): HttpResponseFor<PageData> =
+            create(LandingPageCreateParams.builder().pageData(pageData).build(), requestOptions)
 
         /** @see create */
         @MustBeClosed
-        fun create(cmsPage: CmsPage): HttpResponseFor<CmsPage> =
-            create(cmsPage, RequestOptions.none())
+        fun create(pageData: PageData): HttpResponseFor<PageData> =
+            create(pageData, RequestOptions.none())
 
         /**
          * Returns a raw HTTP response for `patch /cms/pages/2026-03/landing-pages/{objectId}`, but
          * is otherwise the same as [LandingPageService.update].
          */
         @MustBeClosed
-        fun update(objectId: String, params: LandingPageUpdateParams): HttpResponseFor<CmsPage> =
+        fun update(objectId: String, params: LandingPageUpdateParams): HttpResponseFor<PageData> =
             update(objectId, params, RequestOptions.none())
 
         /** @see update */
@@ -374,12 +379,12 @@ interface LandingPageService {
             objectId: String,
             params: LandingPageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage> =
+        ): HttpResponseFor<PageData> =
             update(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see update */
         @MustBeClosed
-        fun update(params: LandingPageUpdateParams): HttpResponseFor<CmsPage> =
+        fun update(params: LandingPageUpdateParams): HttpResponseFor<PageData> =
             update(params, RequestOptions.none())
 
         /** @see update */
@@ -387,7 +392,7 @@ interface LandingPageService {
         fun update(
             params: LandingPageUpdateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage>
+        ): HttpResponseFor<PageData>
 
         /**
          * Returns a raw HTTP response for `get /cms/pages/2026-03/landing-pages`, but is otherwise
@@ -459,7 +464,7 @@ interface LandingPageService {
          * otherwise the same as [LandingPageService.clone].
          */
         @MustBeClosed
-        fun clone(params: LandingPageCloneParams): HttpResponseFor<CmsPage> =
+        fun clone(params: LandingPageCloneParams): HttpResponseFor<PageData> =
             clone(params, RequestOptions.none())
 
         /** @see clone */
@@ -467,14 +472,14 @@ interface LandingPageService {
         fun clone(
             params: LandingPageCloneParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage>
+        ): HttpResponseFor<PageData>
 
         /** @see clone */
         @MustBeClosed
         fun clone(
             contentCloneRequestVNext: ContentCloneRequestVNext,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage> =
+        ): HttpResponseFor<PageData> =
             clone(
                 LandingPageCloneParams.builder()
                     .contentCloneRequestVNext(contentCloneRequestVNext)
@@ -484,7 +489,7 @@ interface LandingPageService {
 
         /** @see clone */
         @MustBeClosed
-        fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): HttpResponseFor<CmsPage> =
+        fun clone(contentCloneRequestVNext: ContentCloneRequestVNext): HttpResponseFor<PageData> =
             clone(contentCloneRequestVNext, RequestOptions.none())
 
         /**
@@ -492,7 +497,7 @@ interface LandingPageService {
          * otherwise the same as [LandingPageService.get].
          */
         @MustBeClosed
-        fun get(objectId: String): HttpResponseFor<CmsPage> =
+        fun get(objectId: String): HttpResponseFor<PageData> =
             get(objectId, LandingPageGetParams.none())
 
         /** @see get */
@@ -501,7 +506,7 @@ interface LandingPageService {
             objectId: String,
             params: LandingPageGetParams = LandingPageGetParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage> =
+        ): HttpResponseFor<PageData> =
             get(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see get */
@@ -509,23 +514,23 @@ interface LandingPageService {
         fun get(
             objectId: String,
             params: LandingPageGetParams = LandingPageGetParams.none(),
-        ): HttpResponseFor<CmsPage> = get(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<PageData> = get(objectId, params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
         fun get(
             params: LandingPageGetParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage>
+        ): HttpResponseFor<PageData>
 
         /** @see get */
         @MustBeClosed
-        fun get(params: LandingPageGetParams): HttpResponseFor<CmsPage> =
+        fun get(params: LandingPageGetParams): HttpResponseFor<PageData> =
             get(params, RequestOptions.none())
 
         /** @see get */
         @MustBeClosed
-        fun get(objectId: String, requestOptions: RequestOptions): HttpResponseFor<CmsPage> =
+        fun get(objectId: String, requestOptions: RequestOptions): HttpResponseFor<PageData> =
             get(objectId, LandingPageGetParams.none(), requestOptions)
 
         /**
@@ -533,7 +538,7 @@ interface LandingPageService {
          * but is otherwise the same as [LandingPageService.getDraft].
          */
         @MustBeClosed
-        fun getDraft(objectId: String): HttpResponseFor<CmsPage> =
+        fun getDraft(objectId: String): HttpResponseFor<PageData> =
             getDraft(objectId, LandingPageGetDraftParams.none())
 
         /** @see getDraft */
@@ -542,7 +547,7 @@ interface LandingPageService {
             objectId: String,
             params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage> =
+        ): HttpResponseFor<PageData> =
             getDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see getDraft */
@@ -550,23 +555,23 @@ interface LandingPageService {
         fun getDraft(
             objectId: String,
             params: LandingPageGetDraftParams = LandingPageGetDraftParams.none(),
-        ): HttpResponseFor<CmsPage> = getDraft(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<PageData> = getDraft(objectId, params, RequestOptions.none())
 
         /** @see getDraft */
         @MustBeClosed
         fun getDraft(
             params: LandingPageGetDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage>
+        ): HttpResponseFor<PageData>
 
         /** @see getDraft */
         @MustBeClosed
-        fun getDraft(params: LandingPageGetDraftParams): HttpResponseFor<CmsPage> =
+        fun getDraft(params: LandingPageGetDraftParams): HttpResponseFor<PageData> =
             getDraft(params, RequestOptions.none())
 
         /** @see getDraft */
         @MustBeClosed
-        fun getDraft(objectId: String, requestOptions: RequestOptions): HttpResponseFor<CmsPage> =
+        fun getDraft(objectId: String, requestOptions: RequestOptions): HttpResponseFor<PageData> =
             getDraft(objectId, LandingPageGetDraftParams.none(), requestOptions)
 
         /**
@@ -694,7 +699,7 @@ interface LandingPageService {
         fun updateDraft(
             objectId: String,
             params: LandingPageUpdateDraftParams,
-        ): HttpResponseFor<CmsPage> = updateDraft(objectId, params, RequestOptions.none())
+        ): HttpResponseFor<PageData> = updateDraft(objectId, params, RequestOptions.none())
 
         /** @see updateDraft */
         @MustBeClosed
@@ -702,12 +707,12 @@ interface LandingPageService {
             objectId: String,
             params: LandingPageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage> =
+        ): HttpResponseFor<PageData> =
             updateDraft(params.toBuilder().objectId(objectId).build(), requestOptions)
 
         /** @see updateDraft */
         @MustBeClosed
-        fun updateDraft(params: LandingPageUpdateDraftParams): HttpResponseFor<CmsPage> =
+        fun updateDraft(params: LandingPageUpdateDraftParams): HttpResponseFor<PageData> =
             updateDraft(params, RequestOptions.none())
 
         /** @see updateDraft */
@@ -715,6 +720,6 @@ interface LandingPageService {
         fun updateDraft(
             params: LandingPageUpdateDraftParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CmsPage>
+        ): HttpResponseFor<PageData>
     }
 }
