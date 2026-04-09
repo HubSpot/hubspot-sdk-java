@@ -1,9 +1,9 @@
-# Hubspot Java API Library
+# HubSpot Java API Library
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.hubspot_sdk.api/hubspot-java)](https://central.sonatype.com/artifact/com.hubspot_sdk.api/hubspot-java/0.0.1)
 [![javadoc](https://javadoc.io/badge2/com.hubspot_sdk.api/hubspot-java/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.hubspot_sdk.api/hubspot-java/0.0.1)
 
-The Hubspot Java SDK provides convenient access to the [Hubspot REST API](https://developers.hubspot.com/docs/api-reference/overview) from applications written in Java.
+The HubSpot Java SDK provides convenient access to HubSpot's date-versioned REST API (`2026-03` release) from applications written in Java.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
@@ -119,7 +119,7 @@ The `withOptions()` method does not affect the original client or service.
 
 ## Requests and responses
 
-To send a request to the Hubspot API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
+To send a request to the HubSpot API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Java class.
 
 For example, `client.crm().objects().contacts().get(...)` should be called with an instance of `ContactGetParams`, and it will return an instance of `SimplePublicObjectWithAssociations`.
 
