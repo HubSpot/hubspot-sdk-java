@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -48,37 +48,37 @@ private constructor(
     ) : this(addresses, emails, phones, urls, name, org, mutableMapOf())
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun addresses(): List<ContactAddress> = addresses.getRequired("addresses")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun emails(): List<ContactEmail> = emails.getRequired("emails")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun phones(): List<ContactPhone> = phones.getRequired("phones")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun urls(): List<ContactUrl> = urls.getRequired("urls")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<ContactName> = name.getOptional("name")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun org(): Optional<ContactOrg> = org.getOptional("org")
@@ -361,7 +361,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.conversations.customchannels
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountEgg
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingTokenUpdateRequest
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountUpdateRequest
@@ -18,7 +18,7 @@ internal class ChannelAccountServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccountFuture =
@@ -48,7 +48,7 @@ internal class ChannelAccountServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccountFuture =
@@ -72,7 +72,7 @@ internal class ChannelAccountServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
         val pageFuture = channelAccountServiceAsync.list(0)
@@ -84,7 +84,7 @@ internal class ChannelAccountServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateStagingToken() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val channelAccountServiceAsync = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccountStagingTokenFuture =

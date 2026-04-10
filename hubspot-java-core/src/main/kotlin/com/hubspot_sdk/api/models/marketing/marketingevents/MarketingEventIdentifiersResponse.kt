@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -53,7 +53,7 @@ private constructor(
     /**
      * The ID that is associated with this marketing event in the external event application
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun externalEventId(): String = externalEventId.getRequired("externalEventId")
@@ -61,7 +61,7 @@ private constructor(
     /**
      * The name of the marketing event
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun marketingEventName(): String = marketingEventName.getRequired("marketingEventName")
@@ -69,13 +69,13 @@ private constructor(
     /**
      * The internal ID of the marketing event in HubSpot CRM
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun objectId(): String = objectId.getRequired("objectId")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun appInfo(): Optional<AppInfo> = appInfo.getOptional("appInfo")
@@ -83,7 +83,7 @@ private constructor(
     /**
      * The accountId that is associated with this marketing event in the external event application
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun externalAccountId(): Optional<String> = externalAccountId.getOptional("externalAccountId")
@@ -313,7 +313,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

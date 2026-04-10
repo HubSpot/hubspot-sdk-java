@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -50,7 +50,7 @@ private constructor(
     /**
      * The ID of the source object in the association.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fromObjectId(): String = fromObjectId.getRequired("fromObjectId")
@@ -58,7 +58,7 @@ private constructor(
     /**
      * The type ID of the source object in the association.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fromObjectTypeId(): String = fromObjectTypeId.getRequired("fromObjectTypeId")
@@ -66,7 +66,7 @@ private constructor(
     /**
      * An array of labels associated with the relationship between the objects.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun labels(): List<String> = labels.getRequired("labels")
@@ -74,7 +74,7 @@ private constructor(
     /**
      * The ID of the target object in the association.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun toObjectId(): String = toObjectId.getRequired("toObjectId")
@@ -82,7 +82,7 @@ private constructor(
     /**
      * The type ID of the target object in the association.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun toObjectTypeId(): String = toObjectTypeId.getRequired("toObjectTypeId")
@@ -324,7 +324,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

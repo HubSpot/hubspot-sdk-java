@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -41,7 +41,7 @@ private constructor(
     /**
      * ID of the object to add to a multi-language group.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -49,7 +49,7 @@ private constructor(
     /**
      * Designated language of the object to add to a multi-language group.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun language(): Language = language.getRequired("language")
@@ -57,7 +57,7 @@ private constructor(
     /**
      * ID of primary language object in multi-language group.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun primaryId(): String = primaryId.getRequired("primaryId")
@@ -65,7 +65,7 @@ private constructor(
     /**
      * Primary language of the multi-language group.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun primaryLanguage(): Optional<PrimaryLanguage> =
@@ -260,7 +260,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -4545,7 +4545,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -5393,7 +5393,7 @@ private constructor(
                 ZH_TW -> Known.ZH_TW
                 ZU -> Known.ZU
                 ZU_ZA -> Known.ZU_ZA
-                else -> throw HubspotInvalidDataException("Unknown Language: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Language: $value")
             }
 
         /**
@@ -5402,11 +5402,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -5423,7 +5423,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -9721,7 +9721,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -10569,7 +10569,7 @@ private constructor(
                 ZH_TW -> Known.ZH_TW
                 ZU -> Known.ZU
                 ZU_ZA -> Known.ZU_ZA
-                else -> throw HubspotInvalidDataException("Unknown PrimaryLanguage: $value")
+                else -> throw HubSpotInvalidDataException("Unknown PrimaryLanguage: $value")
             }
 
         /**
@@ -10578,11 +10578,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -10599,7 +10599,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

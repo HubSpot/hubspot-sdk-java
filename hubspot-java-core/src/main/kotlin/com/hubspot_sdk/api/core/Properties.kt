@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.core
 
-import com.hubspot_sdk.api.client.HubspotClient
+import com.hubspot_sdk.api.client.HubSpotClient
 
 fun getOsArch(): String {
     val osArch = System.getProperty("os.arch")
@@ -37,6 +37,6 @@ fun getOsName(): String {
 fun getOsVersion(): String = System.getProperty("os.version", "unknown") ?: "unknown"
 
 fun getPackageVersion(): String =
-    HubspotClient::class.java.`package`?.implementationVersion ?: "unknown"
+    HubSpotClient::class.java.`package`?.implementationVersion ?: "unknown"
 
 fun getJavaVersion(): String = System.getProperty("java.version", "unknown") ?: "unknown"

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.automation.actions
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AutomationActionsOption
 import com.hubspot_sdk.api.models.automation.actions.FieldTypeDefinition
@@ -32,7 +32,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.automation().actions().definitions()
 
         val publicActionDefinition =
@@ -188,7 +188,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.automation().actions().definitions()
 
         val publicActionDefinition =
@@ -335,7 +335,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.automation().actions().definitions()
 
         val page = definitionService.list(0)
@@ -346,7 +346,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.automation().actions().definitions()
 
         definitionService.delete(
@@ -357,7 +357,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createRequiresObject() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.automation().actions().definitions()
 
         definitionService.createRequiresObject(
@@ -376,7 +376,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.automation().actions().definitions()
 
         val publicActionDefinition =
@@ -394,7 +394,7 @@ internal class DefinitionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRequiresObject() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val definitionService = client.automation().actions().definitions()
 
         val publicActionDefinitionRequiresObjectResponse =

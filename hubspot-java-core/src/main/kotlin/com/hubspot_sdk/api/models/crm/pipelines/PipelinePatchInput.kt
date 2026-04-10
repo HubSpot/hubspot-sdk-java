@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -38,7 +38,7 @@ private constructor(
      * archived pipeline. If it's provided in any other call, the request will fail and a `400 Bad
      * Request` will be returned.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun archived(): Optional<Boolean> = archived.getOptional("archived")
@@ -47,7 +47,7 @@ private constructor(
      * The order for displaying this pipeline. If two pipelines have a matching `displayOrder`, they
      * will be sorted alphabetically by label.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun displayOrder(): Optional<Int> = displayOrder.getOptional("displayOrder")
@@ -55,7 +55,7 @@ private constructor(
     /**
      * A unique label used to organize pipelines in HubSpot's UI
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun label(): Optional<String> = label.getOptional("label")
@@ -202,7 +202,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

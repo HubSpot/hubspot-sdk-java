@@ -10,7 +10,7 @@ import kotlin.jvm.optionals.getOrNull
 
 class NotFoundException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    HubspotServiceException("404: $body", cause) {
+    HubSpotServiceException("404: $body", cause) {
 
     override fun statusCode(): Int = 404
 

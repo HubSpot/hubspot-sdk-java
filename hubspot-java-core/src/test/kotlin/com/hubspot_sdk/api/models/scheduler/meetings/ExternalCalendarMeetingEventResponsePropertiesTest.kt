@@ -36,7 +36,7 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
                     ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS
                 )
                 .hsUniqueId("hs_unique_id")
-                .hubspotOwnerId("hubspot_owner_id")
+                .hubSpotOwnerId("hubspot_owner_id")
                 .build()
 
         assertThat(externalCalendarMeetingEventResponseProperties.hsEngagementSource())
@@ -73,7 +73,7 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
             .contains(ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS)
         assertThat(externalCalendarMeetingEventResponseProperties.hsUniqueId())
             .contains("hs_unique_id")
-        assertThat(externalCalendarMeetingEventResponseProperties.hubspotOwnerId())
+        assertThat(externalCalendarMeetingEventResponseProperties.hubSpotOwnerId())
             .contains("hubspot_owner_id")
     }
 
@@ -103,7 +103,7 @@ internal class ExternalCalendarMeetingEventResponsePropertiesTest {
                     ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS
                 )
                 .hsUniqueId("hs_unique_id")
-                .hubspotOwnerId("hubspot_owner_id")
+                .hubSpotOwnerId("hubspot_owner_id")
                 .build()
 
         val roundtrippedExternalCalendarMeetingEventResponseProperties =

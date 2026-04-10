@@ -7,7 +7,7 @@ import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
@@ -87,7 +87,7 @@ private constructor(private val additionalProperties: MutableMap<String, JsonVal
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

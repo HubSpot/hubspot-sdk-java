@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -51,7 +51,7 @@ private constructor(
     /**
      * The URL where the subscriber can manage their communication preferences.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun managePreferencesUrl(): String = managePreferencesUrl.getRequired("managePreferencesUrl")
@@ -59,7 +59,7 @@ private constructor(
     /**
      * A string representing the unique identifier of the subscriber.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun subscriberIdString(): String = subscriberIdString.getRequired("subscriberIdString")
@@ -67,7 +67,7 @@ private constructor(
     /**
      * A string containing the URL for unsubscribing the subscriber from all communications.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun unsubscribeAllUrl(): String = unsubscribeAllUrl.getRequired("unsubscribeAllUrl")
@@ -75,7 +75,7 @@ private constructor(
     /**
      * A string containing the URL to unsubscribe the subscriber from a single communication.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun unsubscribeSingleUrl(): Optional<String> =
@@ -289,7 +289,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

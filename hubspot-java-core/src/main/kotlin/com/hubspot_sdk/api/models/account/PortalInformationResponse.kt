@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import kotlin.jvm.optionals.getOrNull
@@ -71,13 +71,13 @@ private constructor(
     /**
      * The type of account, such as APP_DEVELOPER, DEVELOPER_TEST, SANDBOX, or STANDARD.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun accountType(): AccountType = accountType.getRequired("accountType")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun additionalCurrencies(): List<String> =
@@ -86,7 +86,7 @@ private constructor(
     /**
      * The primary currency used by the company.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun companyCurrency(): String = companyCurrency.getRequired("companyCurrency")
@@ -94,7 +94,7 @@ private constructor(
     /**
      * The location where the account's data is hosted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dataHostingLocation(): String = dataHostingLocation.getRequired("dataHostingLocation")
@@ -102,7 +102,7 @@ private constructor(
     /**
      * The unique identifier for the HubSpot account.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun portalId(): Int = portalId.getRequired("portalId")
@@ -110,7 +110,7 @@ private constructor(
     /**
      * The time zone in which the account operates.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun timeZone(): String = timeZone.getRequired("timeZone")
@@ -118,7 +118,7 @@ private constructor(
     /**
      * The domain used for accessing the HubSpot user interface.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun uiDomain(): String = uiDomain.getRequired("uiDomain")
@@ -126,7 +126,7 @@ private constructor(
     /**
      * The time zone offset from UTC in hours and minutes.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun utcOffset(): String = utcOffset.getRequired("utcOffset")
@@ -134,7 +134,7 @@ private constructor(
     /**
      * The time zone offset from UTC in milliseconds.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun utcOffsetMilliseconds(): Long = utcOffsetMilliseconds.getRequired("utcOffsetMilliseconds")
@@ -486,7 +486,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -584,7 +584,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -593,7 +593,7 @@ private constructor(
                 DEVELOPER_TEST -> Known.DEVELOPER_TEST
                 SANDBOX -> Known.SANDBOX
                 STANDARD -> Known.STANDARD
-                else -> throw HubspotInvalidDataException("Unknown AccountType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown AccountType: $value")
             }
 
         /**
@@ -602,11 +602,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -623,7 +623,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

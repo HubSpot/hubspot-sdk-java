@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -37,7 +37,7 @@ private constructor(
     /**
      * The unique identifier for the campaign asset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -45,7 +45,7 @@ private constructor(
     /**
      * A collection of metrics associated with the campaign asset, represented as key-value pairs.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun metrics(): Optional<Metrics> = metrics.getOptional("metrics")
@@ -53,7 +53,7 @@ private constructor(
     /**
      * The name of the campaign asset.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
@@ -213,7 +213,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -301,7 +301,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

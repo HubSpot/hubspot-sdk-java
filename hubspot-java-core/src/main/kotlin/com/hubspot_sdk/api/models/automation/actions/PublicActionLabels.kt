@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -78,7 +78,7 @@ private constructor(
     /**
      * The name of the action.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun actionName(): String = actionName.getRequired("actionName")
@@ -86,7 +86,7 @@ private constructor(
     /**
      * Content displayed on the action card.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun actionCardContent(): Optional<String> = actionCardContent.getOptional("actionCardContent")
@@ -94,7 +94,7 @@ private constructor(
     /**
      * A description of what the action does.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun actionDescription(): Optional<String> = actionDescription.getOptional("actionDescription")
@@ -102,7 +102,7 @@ private constructor(
     /**
      * The display name of the application associated with the action.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun appDisplayName(): Optional<String> = appDisplayName.getOptional("appDisplayName")
@@ -110,7 +110,7 @@ private constructor(
     /**
      * Rules that govern the execution of the action.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun executionRules(): Optional<ExecutionRules> = executionRules.getOptional("executionRules")
@@ -118,7 +118,7 @@ private constructor(
     /**
      * Descriptions for each input field.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun inputFieldDescriptions(): Optional<InputFieldDescriptions> =
@@ -127,7 +127,7 @@ private constructor(
     /**
      * Labels for the input fields.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun inputFieldLabels(): Optional<InputFieldLabels> =
@@ -136,7 +136,7 @@ private constructor(
     /**
      * Labels for the options available in input fields.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun inputFieldOptionLabels(): Optional<InputFieldOptionLabels> =
@@ -145,7 +145,7 @@ private constructor(
     /**
      * Labels for the output fields.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun outputFieldLabels(): Optional<OutputFieldLabels> =
@@ -491,7 +491,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -583,7 +583,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -686,7 +686,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -788,7 +788,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -891,7 +891,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -993,7 +993,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.conversations.customchannels
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountEgg
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountStagingTokenUpdateRequest
 import com.hubspot_sdk.api.models.conversations.customchannels.PublicChannelAccountUpdateRequest
@@ -18,7 +18,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccount =
@@ -47,7 +47,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccount =
@@ -70,7 +70,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val page = channelAccountService.list(0)
@@ -81,7 +81,7 @@ internal class ChannelAccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateStagingToken() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val channelAccountService = client.conversations().customChannels().channelAccounts()
 
         val publicChannelAccountStagingToken =

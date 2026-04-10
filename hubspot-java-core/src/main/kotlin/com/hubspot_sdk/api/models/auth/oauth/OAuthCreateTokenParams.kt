@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -29,49 +29,49 @@ private constructor(
 ) : Params {
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun clientId(): Optional<String> = body.clientId()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun clientSecret(): Optional<String> = body.clientSecret()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun code(): Optional<String> = body.code()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun codeVerifier(): Optional<String> = body.codeVerifier()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun grantType(): Optional<GrantType> = body.grantType()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun redirectUri(): Optional<String> = body.redirectUri()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun refreshToken(): Optional<String> = body.refreshToken()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun scope(): Optional<String> = body.scope()
@@ -454,49 +454,49 @@ private constructor(
         )
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun clientId(): Optional<String> = clientId.getOptional("client_id")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun clientSecret(): Optional<String> = clientSecret.getOptional("client_secret")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun code(): Optional<String> = code.getOptional("code")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun codeVerifier(): Optional<String> = codeVerifier.getOptional("code_verifier")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun grantType(): Optional<GrantType> = grantType.getOptional("grant_type")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun redirectUri(): Optional<String> = redirectUri.getOptional("redirect_uri")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun refreshToken(): Optional<String> = refreshToken.getOptional("refresh_token")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun scope(): Optional<String> = scope.getOptional("scope")
@@ -770,7 +770,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -893,14 +893,14 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 AUTHORIZATION_CODE -> Known.AUTHORIZATION_CODE
                 REFRESH_TOKEN -> Known.REFRESH_TOKEN
-                else -> throw HubspotInvalidDataException("Unknown GrantType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown GrantType: $value")
             }
 
         /**
@@ -909,11 +909,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -930,7 +930,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

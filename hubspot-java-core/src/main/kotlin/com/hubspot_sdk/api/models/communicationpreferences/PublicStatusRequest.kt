@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -61,7 +61,7 @@ private constructor(
     /**
      * The type of communication channel. Currently, only `EMAIL` is supported.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun channel(): Channel = channel.getRequired("channel")
@@ -69,7 +69,7 @@ private constructor(
     /**
      * The status of the contact's subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun statusState(): StatusState = statusState.getRequired("statusState")
@@ -77,7 +77,7 @@ private constructor(
     /**
      * The contact's email address.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun subscriberIdString(): String = subscriberIdString.getRequired("subscriberIdString")
@@ -85,7 +85,7 @@ private constructor(
     /**
      * The ID of the subscription to update.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun subscriptionId(): Int = subscriptionId.getRequired("subscriptionId")
@@ -93,7 +93,7 @@ private constructor(
     /**
      * The legal basis for communication.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun legalBasis(): Optional<LegalBasis> = legalBasis.getOptional("legalBasis")
@@ -101,7 +101,7 @@ private constructor(
     /**
      * The explanation for the legal basis.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun legalBasisExplanation(): Optional<String> =
@@ -358,7 +358,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -435,13 +435,13 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 EMAIL -> Known.EMAIL
-                else -> throw HubspotInvalidDataException("Unknown Channel: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Channel: $value")
             }
 
         /**
@@ -450,11 +450,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -471,7 +471,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -568,7 +568,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -576,7 +576,7 @@ private constructor(
                 NOT_SPECIFIED -> Known.NOT_SPECIFIED
                 SUBSCRIBED -> Known.SUBSCRIBED
                 UNSUBSCRIBED -> Known.UNSUBSCRIBED
-                else -> throw HubspotInvalidDataException("Unknown StatusState: $value")
+                else -> throw HubSpotInvalidDataException("Unknown StatusState: $value")
             }
 
         /**
@@ -585,11 +585,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -606,7 +606,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -722,7 +722,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -734,7 +734,7 @@ private constructor(
                 NON_GDPR -> Known.NON_GDPR
                 PERFORMANCE_OF_CONTRACT -> Known.PERFORMANCE_OF_CONTRACT
                 PROCESS_AND_STORE -> Known.PROCESS_AND_STORE
-                else -> throw HubspotInvalidDataException("Unknown LegalBasis: $value")
+                else -> throw HubSpotInvalidDataException("Unknown LegalBasis: $value")
             }
 
         /**
@@ -743,11 +743,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -764,7 +764,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

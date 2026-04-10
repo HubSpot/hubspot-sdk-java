@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -45,7 +45,7 @@ private constructor(
     /**
      * Specifies the name of the property that the time reference is applied to.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun property(): String = property.getRequired("property")
@@ -54,7 +54,7 @@ private constructor(
      * Specifies the type of reference for the property (VALUE, UPDATED_AT, ANNIVERSARY,
      * VALUE_WITH_ZONE_SAME_LOCAL_CONVERSION, ANNIVERSARY_WITH_ZONE_SAME_LOCAL_CONVERSION).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun referenceType(): String = referenceType.getRequired("referenceType")
@@ -62,7 +62,7 @@ private constructor(
     /**
      * Defines the type of time (PROPERTY_REFERENCED).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun timeType(): TimeType = timeType.getRequired("timeType")
@@ -70,7 +70,7 @@ private constructor(
     /**
      * Indicates the identifier for the time zone associated with the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun zoneId(): String = zoneId.getRequired("zoneId")
@@ -78,7 +78,7 @@ private constructor(
     /**
      * Specifies the source of the time zone information for the property (CUSTOM, USER, PORTAL).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun timezoneSource(): Optional<String> = timezoneSource.getOptional("timezoneSource")
@@ -302,7 +302,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -378,13 +378,13 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 PROPERTY_REFERENCED -> Known.PROPERTY_REFERENCED
-                else -> throw HubspotInvalidDataException("Unknown TimeType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown TimeType: $value")
             }
 
         /**
@@ -393,11 +393,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -414,7 +414,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.cms
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataParams
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class SiteSearchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getIndexedData() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val siteSearchServiceAsync = client.cms().siteSearch()
 
         val indexedDataFuture =
@@ -28,7 +28,7 @@ internal class SiteSearchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val siteSearchServiceAsync = client.cms().siteSearch()
 
         val publicSearchResultsFuture =

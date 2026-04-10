@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -85,7 +85,7 @@ private constructor(
     )
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun communicationConsentCheckboxes(): List<ExternalCommunicationConsentCheckbox> =
@@ -94,7 +94,7 @@ private constructor(
     /**
      * The text that describes the consent for communication preferences.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun communicationConsentText(): String =
@@ -103,13 +103,13 @@ private constructor(
     /**
      * Whether the legal basis for processing is legitimate interest.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isLegitimateInterest(): Boolean = isLegitimateInterest.getRequired("isLegitimateInterest")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun legitimateInterestSubscriptionTypes(): List<Long> =
@@ -118,7 +118,7 @@ private constructor(
     /**
      * The text that describes the data processing privacy policy.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun privacyPolicyText(): String = privacyPolicyText.getRequired("privacyPolicyText")
@@ -126,7 +126,7 @@ private constructor(
     /**
      * The label for the checkbox used to obtain consent for data processing.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun processingConsentCheckboxLabel(): String =
@@ -136,7 +136,7 @@ private constructor(
      * The footer text accompanying the consent for data processing. This field is not used by the
      * meeting platform and will always be empty.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun processingConsentFooterText(): String =
@@ -145,7 +145,7 @@ private constructor(
     /**
      * The text that describes the consent for processing personal data.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun processingConsentText(): String = processingConsentText.getRequired("processingConsentText")
@@ -154,7 +154,7 @@ private constructor(
      * The type of consent required for processing. Accepted values are: IMPLICIT,
      * REQUIRED_CHECKBOX.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun processingConsentType(): ProcessingConsentType =
@@ -165,7 +165,7 @@ private constructor(
      * LEGITIMATE_INTEREST_PQL, LEGITIMATE_INTEREST_CLIENT, PERFORMANCE_OF_CONTRACT,
      * CONSENT_WITH_NOTICE, NON_GDPR, PROCESS_AND_STORE, LEGITIMATE_INTEREST_OTHER.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun legitimateInterestLegalBasis(): Optional<LegitimateInterestLegalBasis> =
@@ -627,7 +627,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -723,14 +723,14 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 IMPLICIT -> Known.IMPLICIT
                 REQUIRED_CHECKBOX -> Known.REQUIRED_CHECKBOX
-                else -> throw HubspotInvalidDataException("Unknown ProcessingConsentType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown ProcessingConsentType: $value")
             }
 
         /**
@@ -739,11 +739,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -760,7 +760,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -885,7 +885,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -898,7 +898,7 @@ private constructor(
                 PERFORMANCE_OF_CONTRACT -> Known.PERFORMANCE_OF_CONTRACT
                 PROCESS_AND_STORE -> Known.PROCESS_AND_STORE
                 else ->
-                    throw HubspotInvalidDataException(
+                    throw HubSpotInvalidDataException(
                         "Unknown LegitimateInterestLegalBasis: $value"
                     )
             }
@@ -909,11 +909,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -930,7 +930,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

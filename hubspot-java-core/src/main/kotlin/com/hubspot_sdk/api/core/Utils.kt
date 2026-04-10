@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.core
 
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.SortedMap
 import java.util.concurrent.CompletableFuture
@@ -10,7 +10,7 @@ import java.util.concurrent.locks.Lock
 
 @JvmSynthetic
 internal fun <T : Any> T?.getOrThrow(name: String): T =
-    this ?: throw HubspotInvalidDataException("`${name}` is not present")
+    this ?: throw HubSpotInvalidDataException("`${name}` is not present")
 
 @JvmSynthetic
 internal fun <T> List<T>.toImmutable(): List<T> =

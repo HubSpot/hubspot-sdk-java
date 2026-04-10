@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.extensions
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.extensions.videoconferencing.ExternalSettings
 import com.hubspot_sdk.api.models.crm.extensions.videoconferencing.VideoConferencingUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class VideoConferencingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val videoConferencingServiceAsync = client.crm().extensions().videoConferencing()
 
         val externalSettingsFuture =
@@ -39,7 +39,7 @@ internal class VideoConferencingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val videoConferencingServiceAsync = client.crm().extensions().videoConferencing()
 
         val future = videoConferencingServiceAsync.delete(0)
@@ -50,7 +50,7 @@ internal class VideoConferencingServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val videoConferencingServiceAsync = client.crm().extensions().videoConferencing()
 
         val externalSettingsFuture = videoConferencingServiceAsync.get(0)

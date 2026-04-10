@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -56,7 +56,7 @@ private constructor(
     )
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun additionalRowData(): List<String> = additionalRowData.getRequired("additionalRowData")
@@ -64,7 +64,7 @@ private constructor(
     /**
      * Indicates whether this row contains values that were encrypted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun containsEncryptedProperties(): Boolean =
@@ -73,7 +73,7 @@ private constructor(
     /**
      * The unique identifier of the uploaded file containing this row.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fileId(): Int = fileId.getRequired("fileId")
@@ -82,13 +82,13 @@ private constructor(
      * The 1-indexed line number of this row in the source file. Line number 0 is reserved for
      * file-wide errors that don't correspond to a specific row.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun lineNumber(): Int = lineNumber.getRequired("lineNumber")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun rowData(): List<String> = rowData.getRequired("rowData")
@@ -96,7 +96,7 @@ private constructor(
     /**
      * The name of the spreadsheet sheet/page containing this row.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun pageName(): Optional<String> = pageName.getOptional("pageName")
@@ -369,7 +369,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

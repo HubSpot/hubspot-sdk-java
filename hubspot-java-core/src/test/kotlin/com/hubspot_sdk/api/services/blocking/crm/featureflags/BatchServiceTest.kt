@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.featureflags
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.crm.featureflags.BatchPortalEntry
 import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchDeleteRequest
 import com.hubspot_sdk.api.models.crm.featureflags.PortalFlagStateBatchPutRequest
@@ -16,7 +16,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().featureFlags().batch()
 
         val portalFlagStateBatchResponse =
@@ -36,7 +36,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upsert() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().featureFlags().batch()
 
         val portalFlagStateBatchResponse =

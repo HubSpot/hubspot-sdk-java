@@ -8,7 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.cms.BatchInputJsonNode
@@ -29,7 +29,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.cms().blogs().tags().batch()
 
         val future = batchServiceAsync.delete(BatchInputString.builder().addInput("string").build())
@@ -40,7 +40,7 @@ internal class BatchServiceAsyncTest {
     @Test
     fun createBatch(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -72,7 +72,7 @@ internal class BatchServiceAsyncTest {
     @Test
     fun getBatch(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -94,7 +94,7 @@ internal class BatchServiceAsyncTest {
     @Test
     fun updateBatch(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()

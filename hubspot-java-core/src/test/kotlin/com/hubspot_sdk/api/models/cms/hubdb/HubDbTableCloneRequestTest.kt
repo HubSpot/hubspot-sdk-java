@@ -14,13 +14,13 @@ internal class HubDbTableCloneRequestTest {
         val hubDbTableCloneRequest =
             HubDbTableCloneRequest.builder()
                 .copyRows(true)
-                .isHubspotDefined(true)
+                .isHubSpotDefined(true)
                 .newLabel("newLabel")
                 .newName("newName")
                 .build()
 
         assertThat(hubDbTableCloneRequest.copyRows()).isEqualTo(true)
-        assertThat(hubDbTableCloneRequest.isHubspotDefined()).isEqualTo(true)
+        assertThat(hubDbTableCloneRequest.isHubSpotDefined()).isEqualTo(true)
         assertThat(hubDbTableCloneRequest.newLabel()).contains("newLabel")
         assertThat(hubDbTableCloneRequest.newName()).contains("newName")
     }
@@ -31,7 +31,7 @@ internal class HubDbTableCloneRequestTest {
         val hubDbTableCloneRequest =
             HubDbTableCloneRequest.builder()
                 .copyRows(true)
-                .isHubspotDefined(true)
+                .isHubSpotDefined(true)
                 .newLabel("newLabel")
                 .newName("newName")
                 .build()

@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -85,7 +85,7 @@ private constructor(
     /**
      * The unique identifier for the subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -93,7 +93,7 @@ private constructor(
     /**
      * The date and time when the subscription was created.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
@@ -101,7 +101,7 @@ private constructor(
     /**
      * A description of the subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun description(): String = description.getRequired("description")
@@ -109,7 +109,7 @@ private constructor(
     /**
      * Indicates whether the subscription is active.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isActive(): Boolean = isActive.getRequired("isActive")
@@ -117,7 +117,7 @@ private constructor(
     /**
      * Indicates whether the subscription is the default option.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isDefault(): Boolean = isDefault.getRequired("isDefault")
@@ -125,7 +125,7 @@ private constructor(
     /**
      * Indicates whether the subscription is internal.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isInternal(): Boolean = isInternal.getRequired("isInternal")
@@ -133,7 +133,7 @@ private constructor(
     /**
      * The name of the subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -141,7 +141,7 @@ private constructor(
     /**
      * The date and time when the subscription was last updated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
@@ -149,7 +149,7 @@ private constructor(
     /**
      * The ID of the business unit associated with the subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun businessUnitId(): Optional<Long> = businessUnitId.getOptional("businessUnitId")
@@ -157,7 +157,7 @@ private constructor(
     /**
      * The method of communication for the subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun communicationMethod(): Optional<String> =
@@ -166,7 +166,7 @@ private constructor(
     /**
      * The purpose of the subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun purpose(): Optional<String> = purpose.getOptional("purpose")
@@ -174,7 +174,7 @@ private constructor(
     /**
      * A list of translations associated with the subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun subscriptionTranslations(): Optional<List<PublicSubscriptionTranslation>> =
@@ -593,7 +593,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

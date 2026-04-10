@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.events
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.events.BatchedBehavioralEventHttpCompletionRequest
@@ -26,7 +26,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val externalBehavioralEventTypeDefinitionFuture =
@@ -75,7 +75,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val externalBehavioralEventTypeDefinitionFuture =
@@ -99,7 +99,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val pageFuture = definitionServiceAsync.list()
@@ -111,7 +111,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val future = definitionServiceAsync.delete("eventName")
@@ -122,7 +122,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createProperty() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val propertyFuture =
@@ -156,7 +156,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteProperty() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val future =
@@ -173,7 +173,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val externalBehavioralEventTypeDefinitionFuture = definitionServiceAsync.get("eventName")
@@ -186,7 +186,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun sendBatch() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val future =
@@ -216,7 +216,7 @@ internal class DefinitionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateProperty() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val definitionServiceAsync = client.events().definitions()
 
         val propertyFuture =

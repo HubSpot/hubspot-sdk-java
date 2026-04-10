@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
@@ -19,7 +19,7 @@ internal class AssociationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val associationServiceAsync = client.crm().associations()
 
         val pageFuture =
@@ -38,7 +38,7 @@ internal class AssociationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val associationServiceAsync = client.crm().associations()
 
         val future =
@@ -57,7 +57,7 @@ internal class AssociationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun requestHighUsageReport() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val associationServiceAsync = client.crm().associations()
 
         val reportCreationResponseFuture = associationServiceAsync.requestHighUsageReport(0)
@@ -69,7 +69,7 @@ internal class AssociationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val associationServiceAsync = client.crm().associations()
 
         val collectionResponseWithTotalSimplePublicObjectFuture =
@@ -109,7 +109,7 @@ internal class AssociationServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateAssociationLabels() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val associationServiceAsync = client.crm().associations()
 
         val labelsBetweenObjectPairFuture =

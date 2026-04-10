@@ -9,7 +9,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.cms.blogs.posts.revisions.RevisionGetPreviousVersionParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.revisions.RevisionGetPreviousVersionsParams
 import com.hubspot_sdk.api.models.cms.blogs.posts.revisions.RevisionRestorePreviousVersionParams
@@ -25,7 +25,7 @@ internal class RevisionServiceAsyncTest {
     @Test
     fun getPreviousVersion(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -47,7 +47,7 @@ internal class RevisionServiceAsyncTest {
     @Test
     fun getPreviousVersions(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -71,7 +71,7 @@ internal class RevisionServiceAsyncTest {
     @Test
     fun restorePreviousVersion(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -93,7 +93,7 @@ internal class RevisionServiceAsyncTest {
     @Test
     fun restorePreviousVersionToDraft(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()

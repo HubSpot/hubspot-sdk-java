@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
@@ -22,7 +22,7 @@ private constructor(
     private val displayOrder: JsonField<Int>,
     private val fulcrumPortalId: JsonField<Int>,
     private val fulcrumTimestamp: JsonField<Long>,
-    private val hubspotDefined: JsonField<Boolean>,
+    private val hubSpotDefined: JsonField<Boolean>,
     private val name: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -43,50 +43,50 @@ private constructor(
         fulcrumTimestamp: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("hubspotDefined")
         @ExcludeMissing
-        hubspotDefined: JsonField<Boolean> = JsonMissing.of(),
+        hubSpotDefined: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
     ) : this(
         displayName,
         displayOrder,
         fulcrumPortalId,
         fulcrumTimestamp,
-        hubspotDefined,
+        hubSpotDefined,
         name,
         mutableMapOf(),
     )
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun displayName(): String = displayName.getRequired("displayName")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun displayOrder(): Int = displayOrder.getRequired("displayOrder")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fulcrumPortalId(): Int = fulcrumPortalId.getRequired("fulcrumPortalId")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fulcrumTimestamp(): Long = fulcrumTimestamp.getRequired("fulcrumTimestamp")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun hubspotDefined(): Boolean = hubspotDefined.getRequired("hubspotDefined")
+    fun hubSpotDefined(): Boolean = hubSpotDefined.getRequired("hubspotDefined")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -125,13 +125,13 @@ private constructor(
     fun _fulcrumTimestamp(): JsonField<Long> = fulcrumTimestamp
 
     /**
-     * Returns the raw JSON value of [hubspotDefined].
+     * Returns the raw JSON value of [hubSpotDefined].
      *
-     * Unlike [hubspotDefined], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [hubSpotDefined], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("hubspotDefined")
     @ExcludeMissing
-    fun _hubspotDefined(): JsonField<Boolean> = hubspotDefined
+    fun _hubSpotDefined(): JsonField<Boolean> = hubSpotDefined
 
     /**
      * Returns the raw JSON value of [name].
@@ -163,7 +163,7 @@ private constructor(
          * .displayOrder()
          * .fulcrumPortalId()
          * .fulcrumTimestamp()
-         * .hubspotDefined()
+         * .hubSpotDefined()
          * .name()
          * ```
          */
@@ -177,7 +177,7 @@ private constructor(
         private var displayOrder: JsonField<Int>? = null
         private var fulcrumPortalId: JsonField<Int>? = null
         private var fulcrumTimestamp: JsonField<Long>? = null
-        private var hubspotDefined: JsonField<Boolean>? = null
+        private var hubSpotDefined: JsonField<Boolean>? = null
         private var name: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -187,7 +187,7 @@ private constructor(
             displayOrder = groupView.displayOrder
             fulcrumPortalId = groupView.fulcrumPortalId
             fulcrumTimestamp = groupView.fulcrumTimestamp
-            hubspotDefined = groupView.hubspotDefined
+            hubSpotDefined = groupView.hubSpotDefined
             name = groupView.name
             additionalProperties = groupView.additionalProperties.toMutableMap()
         }
@@ -241,17 +241,17 @@ private constructor(
             this.fulcrumTimestamp = fulcrumTimestamp
         }
 
-        fun hubspotDefined(hubspotDefined: Boolean) = hubspotDefined(JsonField.of(hubspotDefined))
+        fun hubSpotDefined(hubSpotDefined: Boolean) = hubSpotDefined(JsonField.of(hubSpotDefined))
 
         /**
-         * Sets [Builder.hubspotDefined] to an arbitrary JSON value.
+         * Sets [Builder.hubSpotDefined] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.hubspotDefined] with a well-typed [Boolean] value
+         * You should usually call [Builder.hubSpotDefined] with a well-typed [Boolean] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun hubspotDefined(hubspotDefined: JsonField<Boolean>) = apply {
-            this.hubspotDefined = hubspotDefined
+        fun hubSpotDefined(hubSpotDefined: JsonField<Boolean>) = apply {
+            this.hubSpotDefined = hubSpotDefined
         }
 
         fun name(name: String) = name(JsonField.of(name))
@@ -294,7 +294,7 @@ private constructor(
          * .displayOrder()
          * .fulcrumPortalId()
          * .fulcrumTimestamp()
-         * .hubspotDefined()
+         * .hubSpotDefined()
          * .name()
          * ```
          *
@@ -306,7 +306,7 @@ private constructor(
                 checkRequired("displayOrder", displayOrder),
                 checkRequired("fulcrumPortalId", fulcrumPortalId),
                 checkRequired("fulcrumTimestamp", fulcrumTimestamp),
-                checkRequired("hubspotDefined", hubspotDefined),
+                checkRequired("hubSpotDefined", hubSpotDefined),
                 checkRequired("name", name),
                 additionalProperties.toMutableMap(),
             )
@@ -323,7 +323,7 @@ private constructor(
         displayOrder()
         fulcrumPortalId()
         fulcrumTimestamp()
-        hubspotDefined()
+        hubSpotDefined()
         name()
         validated = true
     }
@@ -332,7 +332,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -347,7 +347,7 @@ private constructor(
             (if (displayOrder.asKnown().isPresent) 1 else 0) +
             (if (fulcrumPortalId.asKnown().isPresent) 1 else 0) +
             (if (fulcrumTimestamp.asKnown().isPresent) 1 else 0) +
-            (if (hubspotDefined.asKnown().isPresent) 1 else 0) +
+            (if (hubSpotDefined.asKnown().isPresent) 1 else 0) +
             (if (name.asKnown().isPresent) 1 else 0)
 
     override fun equals(other: Any?): Boolean {
@@ -360,7 +360,7 @@ private constructor(
             displayOrder == other.displayOrder &&
             fulcrumPortalId == other.fulcrumPortalId &&
             fulcrumTimestamp == other.fulcrumTimestamp &&
-            hubspotDefined == other.hubspotDefined &&
+            hubSpotDefined == other.hubSpotDefined &&
             name == other.name &&
             additionalProperties == other.additionalProperties
     }
@@ -371,7 +371,7 @@ private constructor(
             displayOrder,
             fulcrumPortalId,
             fulcrumTimestamp,
-            hubspotDefined,
+            hubSpotDefined,
             name,
             additionalProperties,
         )
@@ -380,5 +380,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "GroupView{displayName=$displayName, displayOrder=$displayOrder, fulcrumPortalId=$fulcrumPortalId, fulcrumTimestamp=$fulcrumTimestamp, hubspotDefined=$hubspotDefined, name=$name, additionalProperties=$additionalProperties}"
+        "GroupView{displayName=$displayName, displayOrder=$displayOrder, fulcrumPortalId=$fulcrumPortalId, fulcrumTimestamp=$fulcrumTimestamp, hubSpotDefined=$hubSpotDefined, name=$name, additionalProperties=$additionalProperties}"
 }

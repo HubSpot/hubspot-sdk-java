@@ -28,7 +28,7 @@ internal class RecordLimitResponseTest {
                         .overallUsage(0)
                         .build()
                 )
-                .addHubspotDefinedObjectType(
+                .addHubSpotDefinedObjectType(
                     LimitAndUsageForObjectType.builder()
                         .limit(0)
                         .objectTypeId("objectTypeId")
@@ -56,7 +56,7 @@ internal class RecordLimitResponseTest {
                     .overallUsage(0)
                     .build()
             )
-        assertThat(recordLimitResponse.hubspotDefinedObjectTypes())
+        assertThat(recordLimitResponse.hubSpotDefinedObjectTypes())
             .containsExactly(
                 LimitAndUsageForObjectType.builder()
                     .limit(0)
@@ -89,7 +89,7 @@ internal class RecordLimitResponseTest {
                         .overallUsage(0)
                         .build()
                 )
-                .addHubspotDefinedObjectType(
+                .addHubSpotDefinedObjectType(
                     LimitAndUsageForObjectType.builder()
                         .limit(0)
                         .objectTypeId("objectTypeId")

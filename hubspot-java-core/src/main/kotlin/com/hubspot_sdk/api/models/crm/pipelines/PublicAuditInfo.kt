@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -57,7 +57,7 @@ private constructor(
     /**
      * The action performed that triggered the audit event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun action(): String = action.getRequired("action")
@@ -65,7 +65,7 @@ private constructor(
     /**
      * A unique string identifier for the audit event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun identifier(): String = identifier.getRequired("identifier")
@@ -73,7 +73,7 @@ private constructor(
     /**
      * The unique identifier for the HubSpot portal where the audit event occurred.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun portalId(): Int = portalId.getRequired("portalId")
@@ -81,7 +81,7 @@ private constructor(
     /**
      * The ID of the user who initiated the audit event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fromUserId(): Optional<Int> = fromUserId.getOptional("fromUserId")
@@ -89,7 +89,7 @@ private constructor(
     /**
      * A descriptive message related to the audit event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun message(): Optional<String> = message.getOptional("message")
@@ -107,7 +107,7 @@ private constructor(
     /**
      * The date and time when the audit event took place.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun timestamp(): Optional<OffsetDateTime> = timestamp.getOptional("timestamp")
@@ -344,7 +344,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

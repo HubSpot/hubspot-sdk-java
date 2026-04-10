@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -121,7 +121,7 @@ private constructor(
     /**
      * Id of the table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -129,7 +129,7 @@ private constructor(
     /**
      * Specifies whether child tables can be created
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun allowChildTables(): Boolean = allowChildTables.getRequired("allowChildTables")
@@ -137,7 +137,7 @@ private constructor(
     /**
      * Specifies whether the table can be read by public without authorization
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun allowPublicApiAccess(): Boolean = allowPublicApiAccess.getRequired("allowPublicApiAccess")
@@ -145,7 +145,7 @@ private constructor(
     /**
      * Number of columns including deleted
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun columnCount(): Int = columnCount.getRequired("columnCount")
@@ -153,7 +153,7 @@ private constructor(
     /**
      * List of columns in the table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun columns(): List<Column> = columns.getRequired("columns")
@@ -161,7 +161,7 @@ private constructor(
     /**
      * Timestamp at which the table is created
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
@@ -169,7 +169,7 @@ private constructor(
     /**
      * Specifies whether the table is marked as deleted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun deleted(): Boolean = deleted.getRequired("deleted")
@@ -177,7 +177,7 @@ private constructor(
     /**
      * The timestamp indicating when the table was deleted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun deletedAt(): OffsetDateTime = deletedAt.getRequired("deletedAt")
@@ -187,7 +187,7 @@ private constructor(
      * [metadata fields](https://developers.hubspot.com/docs/cms/guides/dynamic-pages/hubdb#dynamic-pages)
      * with the associated column IDs.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dynamicMetaTags(): DynamicMetaTags = dynamicMetaTags.getRequired("dynamicMetaTags")
@@ -195,7 +195,7 @@ private constructor(
     /**
      * Specifies creation of multi-level dynamic pages using child tables
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enableChildTablePages(): Boolean =
@@ -204,7 +204,7 @@ private constructor(
     /**
      * Label of the table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
@@ -212,7 +212,7 @@ private constructor(
     /**
      * Name of the table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -220,7 +220,7 @@ private constructor(
     /**
      * Indicates whether the table is currently published.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun published(): Boolean = published.getRequired("published")
@@ -228,7 +228,7 @@ private constructor(
     /**
      * Timestamp at which the table is published recently
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publishedAt(): OffsetDateTime = publishedAt.getRequired("publishedAt")
@@ -236,7 +236,7 @@ private constructor(
     /**
      * Number of rows in the table
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun rowCount(): Int = rowCount.getRequired("rowCount")
@@ -244,7 +244,7 @@ private constructor(
     /**
      * Timestamp at which the table is updated recently
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
@@ -252,13 +252,13 @@ private constructor(
     /**
      * Specifies whether the table can be used for creation of dynamic pages
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun useForPages(): Boolean = useForPages.getRequired("useForPages")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun createdBy(): Optional<SimpleUser> = createdBy.getOptional("createdBy")
@@ -266,13 +266,13 @@ private constructor(
     /**
      * Indicates whether the table rows are ordered manually.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isOrderedManually(): Optional<Boolean> = isOrderedManually.getOptional("isOrderedManually")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun updatedBy(): Optional<SimpleUser> = updatedBy.getOptional("updatedBy")
@@ -906,7 +906,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -1013,7 +1013,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

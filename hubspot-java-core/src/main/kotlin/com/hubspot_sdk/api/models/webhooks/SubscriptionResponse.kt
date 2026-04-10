@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -70,7 +70,7 @@ private constructor(
     /**
      * The unique ID of the webhook subscription.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -79,7 +79,7 @@ private constructor(
      * Whether the subscription is active or paused. If true, the subscription will send webhook
      * notifications. If false, the subscription is paused and will not send notifications.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun active(): Boolean = active.getRequired("active")
@@ -88,7 +88,7 @@ private constructor(
      * The timestamp when the webhook subscription was created, in ISO 8601 format (e.g.,
      * 2020-02-29T12:30:00Z).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("createdAt")
@@ -97,7 +97,7 @@ private constructor(
      * The type of event to listen for. Accepted values include contact.creation, contact.deletion,
      * contact.propertyChange, and similar event types for other CRM objects and custom objects.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun eventType(): EventType = eventType.getRequired("eventType")
@@ -106,7 +106,7 @@ private constructor(
      * The name of the event to listen for. This is used with custom objects to specify custom event
      * types beyond the standard eventType enum values.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun eventTypeName(): Optional<String> = eventTypeName.getOptional("eventTypeName")
@@ -115,7 +115,7 @@ private constructor(
      * The ID of the object type for the subscription. This can be a standard CRM object (e.g.,
      * 'contact', 'company', 'deal') or a custom object ID for custom object subscriptions.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectTypeId(): Optional<String> = objectTypeId.getOptional("objectTypeId")
@@ -124,7 +124,7 @@ private constructor(
      * The internal name of the property to monitor for changes. Only applies when eventType is
      * propertyChange.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun propertyName(): Optional<String> = propertyName.getOptional("propertyName")
@@ -133,7 +133,7 @@ private constructor(
      * The timestamp when the webhook subscription was last updated, in ISO 8601 format (e.g.,
      * 2020-02-29T12:30:00Z).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
@@ -450,7 +450,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -769,7 +769,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -822,7 +822,7 @@ private constructor(
                 TICKET_MERGE -> Known.TICKET_MERGE
                 TICKET_PROPERTY_CHANGE -> Known.TICKET_PROPERTY_CHANGE
                 TICKET_RESTORE -> Known.TICKET_RESTORE
-                else -> throw HubspotInvalidDataException("Unknown EventType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown EventType: $value")
             }
 
         /**
@@ -831,11 +831,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -852,7 +852,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

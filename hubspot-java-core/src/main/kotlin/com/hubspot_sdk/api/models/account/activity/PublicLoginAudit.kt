@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -70,7 +70,7 @@ private constructor(
     /**
      * The login activity's unique ID.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -78,7 +78,7 @@ private constructor(
     /**
      * The time the login took place.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun loginAt(): OffsetDateTime = loginAt.getRequired("loginAt")
@@ -86,7 +86,7 @@ private constructor(
     /**
      * Whether the login was successful or not.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun loginSucceeded(): Boolean = loginSucceeded.getRequired("loginSucceeded")
@@ -94,7 +94,7 @@ private constructor(
     /**
      * The approximate country code of the login
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun countryCode(): Optional<String> = countryCode.getOptional("countryCode")
@@ -102,7 +102,7 @@ private constructor(
     /**
      * Email address of the user associated with the login.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun email(): Optional<String> = email.getOptional("email")
@@ -110,7 +110,7 @@ private constructor(
     /**
      * IP address where the activity originated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun ipAddress(): Optional<String> = ipAddress.getOptional("ipAddress")
@@ -118,7 +118,7 @@ private constructor(
     /**
      * The approximate location where the login activity originated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun location(): Optional<String> = location.getOptional("location")
@@ -126,7 +126,7 @@ private constructor(
     /**
      * The approximate region code of the login
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun regionCode(): Optional<String> = regionCode.getOptional("regionCode")
@@ -134,7 +134,7 @@ private constructor(
     /**
      * Information about the device used for logging in.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun userAgent(): Optional<String> = userAgent.getOptional("userAgent")
@@ -142,7 +142,7 @@ private constructor(
     /**
      * The user's unique ID.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun userId(): Optional<Int> = userId.getOptional("userId")
@@ -467,7 +467,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

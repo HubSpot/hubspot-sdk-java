@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
@@ -19,7 +19,7 @@ internal class AssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val associationService = client.crm().associations()
 
         val page =
@@ -37,7 +37,7 @@ internal class AssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val associationService = client.crm().associations()
 
         associationService.delete(
@@ -53,7 +53,7 @@ internal class AssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun requestHighUsageReport() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val associationService = client.crm().associations()
 
         val reportCreationResponse = associationService.requestHighUsageReport(0)
@@ -64,7 +64,7 @@ internal class AssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val associationService = client.crm().associations()
 
         val collectionResponseWithTotalSimplePublicObject =
@@ -102,7 +102,7 @@ internal class AssociationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateAssociationLabels() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val associationService = client.crm().associations()
 
         val labelsBetweenObjectPair =

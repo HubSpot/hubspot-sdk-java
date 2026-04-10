@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.communicationpreferences.statuses
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.BatchInputString
 import com.hubspot_sdk.api.models.communicationpreferences.BatchInputPublicStatusRequest
 import com.hubspot_sdk.api.models.communicationpreferences.PublicStatusRequest
@@ -17,7 +17,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getUnsubscribeAllStatuses() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicWideStatusBulkResponse =
@@ -35,7 +35,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun read() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicStatusBulkResponse =
@@ -53,7 +53,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun unsubscribeAll() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicBulkOptOutFromAllResponse =
@@ -72,7 +72,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateStatuses() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.communicationPreferences().statuses().batch()
 
         val batchResponsePublicStatus =

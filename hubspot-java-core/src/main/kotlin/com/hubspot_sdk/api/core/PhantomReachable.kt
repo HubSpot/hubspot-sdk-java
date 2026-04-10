@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.core
 
-import com.hubspot_sdk.api.errors.HubspotException
+import com.hubspot_sdk.api.errors.HubSpotException
 import java.lang.reflect.InvocationTargetException
 
 /**
@@ -46,7 +46,7 @@ private val closeWhenPhantomReachable: ((Any, () -> Unit) -> Unit)? by lazy {
                         is Error -> throw cause
                     }
                 }
-                throw HubspotException("Unexpected reflective invocation failure", e)
+                throw HubSpotException("Unexpected reflective invocation failure", e)
             }
         }
     } catch (e: ReflectiveOperationException) {

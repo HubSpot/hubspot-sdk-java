@@ -24,7 +24,7 @@ import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -45,7 +45,7 @@ private constructor(
     ) : this(callerIdMatches, mutableMapOf())
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun callerIdMatches(): List<CallerIdMatch> = callerIdMatches.getRequired("callerIdMatches")
@@ -193,7 +193,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -261,7 +261,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -334,10 +334,10 @@ private constructor(
              * older version than the API, then the API may respond with new variants that the SDK
              * is unaware of.
              *
-             * @throws HubspotInvalidDataException in the default implementation.
+             * @throws HubSpotInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw HubspotInvalidDataException("Unknown CallerIdMatch: $json")
+                throw HubSpotInvalidDataException("Unknown CallerIdMatch: $json")
             }
         }
 

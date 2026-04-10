@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -120,19 +120,19 @@ private constructor(
      * An array containing the closed range availability for a meeting link. Closed range times are
      * provided as minute offsets from midnight (e.g., 540 corresponds to 9am).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun availability(): Availability = availability.getRequired("availability")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun durations(): List<Long> = durations.getRequired("durations")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun formFields(): List<ExternalLinkFormField> = formFields.getRequired("formFields")
@@ -140,7 +140,7 @@ private constructor(
     /**
      * Whether the legal consent checkbox is displayed during meeting booking.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun legalConsentEnabled(): Boolean = legalConsentEnabled.getRequired("legalConsentEnabled")
@@ -148,7 +148,7 @@ private constructor(
     /**
      * The minimum buffer time in milliseconds between consecutive meetings.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun meetingBufferTime(): Int = meetingBufferTime.getRequired("meetingBufferTime")
@@ -157,7 +157,7 @@ private constructor(
      * Indicates whether the meeting owner is prioritized during booking. Only applies to link types
      * of ROUND_ROBIN.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun ownerPrioritized(): Boolean = ownerPrioritized.getRequired("ownerPrioritized")
@@ -166,7 +166,7 @@ private constructor(
      * The increment for available start times of meetings, spelt out as a word (e.g. 15 minute
      * increment corresponds to `FIFTEEN`). `MEETING_DURATION` is also a valid value.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun startTimeIncrementMinutes(): StartTimeIncrementMinutes =
@@ -176,7 +176,7 @@ private constructor(
      * Legacy property that indicates the number of weeks in advance that availability is
      * advertised. May be outdated or superseded by other properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun weeksToAdvertise(): Int = weeksToAdvertise.getRequired("weeksToAdvertise")
@@ -185,7 +185,7 @@ private constructor(
      * The end date for a meeting link's custom availability window, represented as Unix time in
      * milliseconds.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun customAvailabilityEndDate(): Optional<Long> =
@@ -195,20 +195,20 @@ private constructor(
      * The start date for a meeting link's custom availability window, represented as Unix time in
      * milliseconds.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun customAvailabilityStartDate(): Optional<Long> =
         customAvailabilityStartDate.getOptional("customAvailabilityStartDate")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun displayInfo(): Optional<ExternalLinkDisplayInfo> = displayInfo.getOptional("displayInfo")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun guestSettings(): Optional<ExternalGuestSettings> =
@@ -217,13 +217,13 @@ private constructor(
     /**
      * The language setting used for the meeting link.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun language(): Optional<String> = language.getOptional("language")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun legalConsentOptions(): Optional<ExternalLegalConsentOptions> =
@@ -232,7 +232,7 @@ private constructor(
     /**
      * The locale setting used for formatting dates and times in the meeting link.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun locale(): Optional<String> = locale.getOptional("locale")
@@ -240,7 +240,7 @@ private constructor(
     /**
      * The physical or virtual location where the meeting will take place.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun location(): Optional<String> = location.getOptional("location")
@@ -248,13 +248,13 @@ private constructor(
     /**
      * The URL to redirect to after a meeting is booked.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun redirectUrl(): Optional<String> = redirectUrl.getOptional("redirectUrl")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun welcomeScreenInfo(): Optional<ExternalMeetingsWelcomeScreenInfo> =
@@ -886,7 +886,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -990,7 +990,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -1133,7 +1133,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1149,7 +1149,7 @@ private constructor(
                 THIRTY -> Known.THIRTY
                 TWENTY -> Known.TWENTY
                 else ->
-                    throw HubspotInvalidDataException("Unknown StartTimeIncrementMinutes: $value")
+                    throw HubSpotInvalidDataException("Unknown StartTimeIncrementMinutes: $value")
             }
 
         /**
@@ -1158,11 +1158,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1179,7 +1179,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

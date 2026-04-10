@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -24,7 +24,7 @@ private constructor(
     private val blogEmailType: JsonField<String>,
     private val blogImageMaxWidth: JsonField<Int>,
     private val blogLayout: JsonField<BlogLayout>,
-    private val hubspotBlogId: JsonField<String>,
+    private val hubSpotBlogId: JsonField<String>,
     private val maxEntries: JsonField<Int>,
     private val rssEntryTemplate: JsonField<String>,
     private val timing: JsonField<Timing>,
@@ -46,7 +46,7 @@ private constructor(
         blogLayout: JsonField<BlogLayout> = JsonMissing.of(),
         @JsonProperty("hubspotBlogId")
         @ExcludeMissing
-        hubspotBlogId: JsonField<String> = JsonMissing.of(),
+        hubSpotBlogId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("maxEntries") @ExcludeMissing maxEntries: JsonField<Int> = JsonMissing.of(),
         @JsonProperty("rssEntryTemplate")
         @ExcludeMissing
@@ -60,7 +60,7 @@ private constructor(
         blogEmailType,
         blogImageMaxWidth,
         blogLayout,
-        hubspotBlogId,
+        hubSpotBlogId,
         maxEntries,
         rssEntryTemplate,
         timing,
@@ -70,55 +70,55 @@ private constructor(
     )
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun blogEmailType(): Optional<String> = blogEmailType.getOptional("blogEmailType")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun blogImageMaxWidth(): Optional<Int> = blogImageMaxWidth.getOptional("blogImageMaxWidth")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun blogLayout(): Optional<BlogLayout> = blogLayout.getOptional("blogLayout")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun hubspotBlogId(): Optional<String> = hubspotBlogId.getOptional("hubspotBlogId")
+    fun hubSpotBlogId(): Optional<String> = hubSpotBlogId.getOptional("hubspotBlogId")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun maxEntries(): Optional<Int> = maxEntries.getOptional("maxEntries")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun rssEntryTemplate(): Optional<String> = rssEntryTemplate.getOptional("rssEntryTemplate")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun timing(): Optional<Timing> = timing.getOptional("timing")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun url(): Optional<String> = url.getOptional("url")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun useHeadlineAsSubject(): Optional<Boolean> =
@@ -153,13 +153,13 @@ private constructor(
     fun _blogLayout(): JsonField<BlogLayout> = blogLayout
 
     /**
-     * Returns the raw JSON value of [hubspotBlogId].
+     * Returns the raw JSON value of [hubSpotBlogId].
      *
-     * Unlike [hubspotBlogId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [hubSpotBlogId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("hubspotBlogId")
     @ExcludeMissing
-    fun _hubspotBlogId(): JsonField<String> = hubspotBlogId
+    fun _hubSpotBlogId(): JsonField<String> = hubSpotBlogId
 
     /**
      * Returns the raw JSON value of [maxEntries].
@@ -226,7 +226,7 @@ private constructor(
         private var blogEmailType: JsonField<String> = JsonMissing.of()
         private var blogImageMaxWidth: JsonField<Int> = JsonMissing.of()
         private var blogLayout: JsonField<BlogLayout> = JsonMissing.of()
-        private var hubspotBlogId: JsonField<String> = JsonMissing.of()
+        private var hubSpotBlogId: JsonField<String> = JsonMissing.of()
         private var maxEntries: JsonField<Int> = JsonMissing.of()
         private var rssEntryTemplate: JsonField<String> = JsonMissing.of()
         private var timing: JsonField<Timing> = JsonMissing.of()
@@ -239,7 +239,7 @@ private constructor(
             blogEmailType = publicRssEmailDetails.blogEmailType
             blogImageMaxWidth = publicRssEmailDetails.blogImageMaxWidth
             blogLayout = publicRssEmailDetails.blogLayout
-            hubspotBlogId = publicRssEmailDetails.hubspotBlogId
+            hubSpotBlogId = publicRssEmailDetails.hubSpotBlogId
             maxEntries = publicRssEmailDetails.maxEntries
             rssEntryTemplate = publicRssEmailDetails.rssEntryTemplate
             timing = publicRssEmailDetails.timing
@@ -286,17 +286,17 @@ private constructor(
          */
         fun blogLayout(blogLayout: JsonField<BlogLayout>) = apply { this.blogLayout = blogLayout }
 
-        fun hubspotBlogId(hubspotBlogId: String) = hubspotBlogId(JsonField.of(hubspotBlogId))
+        fun hubSpotBlogId(hubSpotBlogId: String) = hubSpotBlogId(JsonField.of(hubSpotBlogId))
 
         /**
-         * Sets [Builder.hubspotBlogId] to an arbitrary JSON value.
+         * Sets [Builder.hubSpotBlogId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.hubspotBlogId] with a well-typed [String] value instead.
+         * You should usually call [Builder.hubSpotBlogId] with a well-typed [String] value instead.
          * This method is primarily for setting the field to an undocumented or not yet supported
          * value.
          */
-        fun hubspotBlogId(hubspotBlogId: JsonField<String>) = apply {
-            this.hubspotBlogId = hubspotBlogId
+        fun hubSpotBlogId(hubSpotBlogId: JsonField<String>) = apply {
+            this.hubSpotBlogId = hubSpotBlogId
         }
 
         fun maxEntries(maxEntries: Int) = maxEntries(JsonField.of(maxEntries))
@@ -386,7 +386,7 @@ private constructor(
                 blogEmailType,
                 blogImageMaxWidth,
                 blogLayout,
-                hubspotBlogId,
+                hubSpotBlogId,
                 maxEntries,
                 rssEntryTemplate,
                 timing,
@@ -406,7 +406,7 @@ private constructor(
         blogEmailType()
         blogImageMaxWidth()
         blogLayout().ifPresent { it.validate() }
-        hubspotBlogId()
+        hubSpotBlogId()
         maxEntries()
         rssEntryTemplate()
         timing().ifPresent { it.validate() }
@@ -419,7 +419,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -433,7 +433,7 @@ private constructor(
         (if (blogEmailType.asKnown().isPresent) 1 else 0) +
             (if (blogImageMaxWidth.asKnown().isPresent) 1 else 0) +
             (blogLayout.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (hubspotBlogId.asKnown().isPresent) 1 else 0) +
+            (if (hubSpotBlogId.asKnown().isPresent) 1 else 0) +
             (if (maxEntries.asKnown().isPresent) 1 else 0) +
             (if (rssEntryTemplate.asKnown().isPresent) 1 else 0) +
             (timing.asKnown().getOrNull()?.validity() ?: 0) +
@@ -510,7 +510,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -518,7 +518,7 @@ private constructor(
                 FULL_POST -> Known.FULL_POST
                 SUMMARY_NO_FEATURED_IMAGE -> Known.SUMMARY_NO_FEATURED_IMAGE
                 SUMMARY_WITH_FEATURED_IMAGE -> Known.SUMMARY_WITH_FEATURED_IMAGE
-                else -> throw HubspotInvalidDataException("Unknown BlogLayout: $value")
+                else -> throw HubSpotInvalidDataException("Unknown BlogLayout: $value")
             }
 
         /**
@@ -527,11 +527,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -548,7 +548,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -643,7 +643,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -681,7 +681,7 @@ private constructor(
             blogEmailType == other.blogEmailType &&
             blogImageMaxWidth == other.blogImageMaxWidth &&
             blogLayout == other.blogLayout &&
-            hubspotBlogId == other.hubspotBlogId &&
+            hubSpotBlogId == other.hubSpotBlogId &&
             maxEntries == other.maxEntries &&
             rssEntryTemplate == other.rssEntryTemplate &&
             timing == other.timing &&
@@ -695,7 +695,7 @@ private constructor(
             blogEmailType,
             blogImageMaxWidth,
             blogLayout,
-            hubspotBlogId,
+            hubSpotBlogId,
             maxEntries,
             rssEntryTemplate,
             timing,
@@ -708,5 +708,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PublicRssEmailDetails{blogEmailType=$blogEmailType, blogImageMaxWidth=$blogImageMaxWidth, blogLayout=$blogLayout, hubspotBlogId=$hubspotBlogId, maxEntries=$maxEntries, rssEntryTemplate=$rssEntryTemplate, timing=$timing, url=$url, useHeadlineAsSubject=$useHeadlineAsSubject, additionalProperties=$additionalProperties}"
+        "PublicRssEmailDetails{blogEmailType=$blogEmailType, blogImageMaxWidth=$blogImageMaxWidth, blogLayout=$blogLayout, hubSpotBlogId=$hubSpotBlogId, maxEntries=$maxEntries, rssEntryTemplate=$rssEntryTemplate, timing=$timing, url=$url, useHeadlineAsSubject=$useHeadlineAsSubject, additionalProperties=$additionalProperties}"
 }

@@ -44,7 +44,7 @@ internal class Property1Test {
                 .formField(true)
                 .hasUniqueValue(true)
                 .hidden(true)
-                .hubspotDefined(true)
+                .hubSpotDefined(true)
                 .modificationMetadata(
                     PropertyModificationMetadata.builder()
                         .archivable(true)
@@ -90,7 +90,7 @@ internal class Property1Test {
         assertThat(property1.formField()).contains(true)
         assertThat(property1.hasUniqueValue()).contains(true)
         assertThat(property1.hidden()).contains(true)
-        assertThat(property1.hubspotDefined()).contains(true)
+        assertThat(property1.hubSpotDefined()).contains(true)
         assertThat(property1.modificationMetadata())
             .contains(
                 PropertyModificationMetadata.builder()
@@ -140,7 +140,7 @@ internal class Property1Test {
                 .formField(true)
                 .hasUniqueValue(true)
                 .hidden(true)
-                .hubspotDefined(true)
+                .hubSpotDefined(true)
                 .modificationMetadata(
                     PropertyModificationMetadata.builder()
                         .archivable(true)

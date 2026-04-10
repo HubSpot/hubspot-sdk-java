@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -67,7 +67,7 @@ private constructor(
      * ILS list ids to be included in search results. If not specified, all lists matching other
      * criteria will be included
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun listIds(): List<String> = listIds.getRequired("listIds")
@@ -76,7 +76,7 @@ private constructor(
      * Value used to paginate through lists. The `offset` provided in the response can be used in
      * the next request to fetch the next page of results. Defaults to `0` if no offset is provided.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun offset(): Int = offset.getRequired("offset")
@@ -85,7 +85,7 @@ private constructor(
      * List processing types to be included in search results. If not specified, all lists with all
      * processing types will be included.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun processingTypes(): List<String> = processingTypes.getRequired("processingTypes")
@@ -98,7 +98,7 @@ private constructor(
      * `hs_last_record_added_at`, `hs_last_record_removed_at`, `hs_folder_name`, and
      * `hs_list_reference_count`.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun additionalFilterProperties(): Optional<List<String>> =
@@ -108,13 +108,13 @@ private constructor(
      * The number of lists to include in the response. Defaults to `20` if no value is provided. The
      * max `count` is `500`.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun count(): Optional<Int> = count.getOptional("count")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectTypeId(): Optional<String> = objectTypeId.getOptional("objectTypeId")
@@ -123,7 +123,7 @@ private constructor(
      * The `query` that will be used to search for lists by list name. If no `query` is provided,
      * then the results will include all lists.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun query(): Optional<String> = query.getOptional("query")
@@ -131,7 +131,7 @@ private constructor(
     /**
      * Sort field and order
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun sort(): Optional<String> = sort.getOptional("sort")
@@ -485,7 +485,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

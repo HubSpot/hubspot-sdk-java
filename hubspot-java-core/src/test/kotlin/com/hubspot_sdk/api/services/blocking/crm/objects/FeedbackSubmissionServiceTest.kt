@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.objects
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
@@ -15,7 +15,7 @@ internal class FeedbackSubmissionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val feedbackSubmissionService = client.crm().objects().feedbackSubmissions()
 
         val page = feedbackSubmissionService.list()
@@ -26,7 +26,7 @@ internal class FeedbackSubmissionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val feedbackSubmissionService = client.crm().objects().feedbackSubmissions()
 
         val simplePublicObjectWithAssociations =
@@ -47,7 +47,7 @@ internal class FeedbackSubmissionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val feedbackSubmissionService = client.crm().objects().feedbackSubmissions()
 
         val collectionResponseWithTotalSimplePublicObject =

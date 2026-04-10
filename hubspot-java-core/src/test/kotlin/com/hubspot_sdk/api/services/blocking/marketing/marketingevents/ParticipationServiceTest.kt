@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.marketing.marketingevents
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.marketing.marketingevents.participations.ParticipationGetByExternalAccountAndEventIdParams
 import com.hubspot_sdk.api.models.marketing.marketingevents.participations.ParticipationListBreakdownByExternalAccountAndEventIdParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class ParticipationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByExternalAccountAndEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val participationService = client.marketing().marketingEvents().participations()
 
         val attendanceCounters =
@@ -30,7 +30,7 @@ internal class ParticipationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getById() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val participationService = client.marketing().marketingEvents().participations()
 
         val attendanceCounters = participationService.getById(0L)
@@ -41,7 +41,7 @@ internal class ParticipationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listBreakdownByContact() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val participationService = client.marketing().marketingEvents().participations()
 
         val page = participationService.listBreakdownByContact("contactIdentifier")
@@ -52,7 +52,7 @@ internal class ParticipationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listBreakdownByExternalAccountAndEventId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val participationService = client.marketing().marketingEvents().participations()
 
         val page =
@@ -69,7 +69,7 @@ internal class ParticipationServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listBreakdownById() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val participationService = client.marketing().marketingEvents().participations()
 
         val page = participationService.listBreakdownById(0L)

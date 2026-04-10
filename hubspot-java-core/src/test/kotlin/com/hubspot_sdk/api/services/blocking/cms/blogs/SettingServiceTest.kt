@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.cms.blogs
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.cms.blogs.settings.SettingGetRevisionParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.cms().blogs().settings()
 
         val page = settingService.list()
@@ -23,7 +23,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.cms().blogs().settings()
 
         val blog = settingService.get("blogId")
@@ -34,7 +34,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getRevision() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.cms().blogs().settings()
 
         val blogVersion =
@@ -48,7 +48,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listRevisions() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.cms().blogs().settings()
 
         val page = settingService.listRevisions("blogId")

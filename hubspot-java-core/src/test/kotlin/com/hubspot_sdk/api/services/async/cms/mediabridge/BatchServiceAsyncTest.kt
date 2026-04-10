@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.cms.mediabridge
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.BatchInputPropertyName
 import com.hubspot_sdk.api.models.BatchReadInputPropertyName
 import com.hubspot_sdk.api.models.OptionInput
@@ -20,7 +20,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.cms().mediaBridge().batch()
 
         val batchResponsePropertyFuture =
@@ -71,7 +71,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.cms().mediaBridge().batch()
 
         val future =
@@ -93,7 +93,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.cms().mediaBridge().batch()
 
         val batchResponsePropertyFuture =

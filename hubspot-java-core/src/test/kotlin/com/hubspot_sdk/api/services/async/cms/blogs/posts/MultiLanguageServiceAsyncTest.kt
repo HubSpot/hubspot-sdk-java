@@ -8,7 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
@@ -27,7 +27,7 @@ internal class MultiLanguageServiceAsyncTest {
     @Test
     fun attachToLangGroup(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -51,7 +51,7 @@ internal class MultiLanguageServiceAsyncTest {
     @Test
     fun createLangVariation(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -70,7 +70,7 @@ internal class MultiLanguageServiceAsyncTest {
     @Test
     fun detachFromLangGroup(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -89,7 +89,7 @@ internal class MultiLanguageServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun setLangPrimary() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val multiLanguageServiceAsync = client.cms().blogs().posts().multiLanguage()
 
         val future =
@@ -103,7 +103,7 @@ internal class MultiLanguageServiceAsyncTest {
     @Test
     fun updateLangs(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()

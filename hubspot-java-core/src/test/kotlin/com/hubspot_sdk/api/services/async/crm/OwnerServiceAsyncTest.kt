@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.owners.OwnerGetParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -12,7 +12,7 @@ internal class OwnerServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ownerServiceAsync = client.crm().owners()
 
         val pageFuture = ownerServiceAsync.list()
@@ -24,7 +24,7 @@ internal class OwnerServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val ownerServiceAsync = client.crm().owners()
 
         val publicOwnerFuture =

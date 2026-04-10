@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.settings
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.settings.users.PublicUserUpdate
 import com.hubspot_sdk.api.models.settings.users.UserDeleteParams
 import com.hubspot_sdk.api.models.settings.users.UserGetParams
@@ -16,7 +16,7 @@ internal class UserServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val userService = client.settings().users()
 
         val publicUser =
@@ -38,7 +38,7 @@ internal class UserServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val userService = client.settings().users()
 
         val publicUser =
@@ -64,7 +64,7 @@ internal class UserServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val userService = client.settings().users()
 
         val page = userService.list()
@@ -75,7 +75,7 @@ internal class UserServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val userService = client.settings().users()
 
         userService.delete(
@@ -89,7 +89,7 @@ internal class UserServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val userService = client.settings().users()
 
         val publicUser =
@@ -106,7 +106,7 @@ internal class UserServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listRoles() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val userService = client.settings().users()
 
         val collectionResponsePublicPermissionSetNoPaging = userService.listRoles()
@@ -117,7 +117,7 @@ internal class UserServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listTeams() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val userService = client.settings().users()
 
         val collectionResponsePublicTeamNoPaging = userService.listTeams()

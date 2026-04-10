@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.cms.pages
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.AbTestCreateRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestEndRequestVNext
 import com.hubspot_sdk.api.models.cms.pages.AbTestRerunRequestVNext
@@ -14,7 +14,7 @@ internal class ABTestServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createLandingPageVariation() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val pageDataFuture =
@@ -32,7 +32,7 @@ internal class ABTestServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createSitePageVariation() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val pageDataFuture =
@@ -50,7 +50,7 @@ internal class ABTestServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun endLandingPageTest() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val future =
@@ -64,7 +64,7 @@ internal class ABTestServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun endSitePageTest() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val future =
@@ -78,7 +78,7 @@ internal class ABTestServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun rerunLandingPageTest() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val future =
@@ -95,7 +95,7 @@ internal class ABTestServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun rerunSitePageTest() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val abTestServiceAsync = client.cms().pages().aBTests()
 
         val future =

@@ -8,7 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.cms.hubdb.ColumnRequest
 import com.hubspot_sdk.api.models.cms.hubdb.HubDbTableCloneRequest
@@ -39,7 +39,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =
@@ -106,7 +106,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val page = tableService.list()
@@ -117,7 +117,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         tableService.delete("tableIdOrName")
@@ -126,7 +126,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun cloneDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =
@@ -136,7 +136,7 @@ internal class TableServiceTest {
                     .hubDbTableCloneRequest(
                         HubDbTableCloneRequest.builder()
                             .copyRows(true)
-                            .isHubspotDefined(true)
+                            .isHubSpotDefined(true)
                             .newLabel("newLabel")
                             .newName("newName")
                             .build()
@@ -150,7 +150,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteVersion() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         tableService.deleteVersion(
@@ -161,7 +161,7 @@ internal class TableServiceTest {
     @Test
     fun export(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -179,7 +179,7 @@ internal class TableServiceTest {
     @Test
     fun exportDraft(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -200,7 +200,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =
@@ -219,7 +219,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =
@@ -238,7 +238,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun importDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val importResult =
@@ -256,7 +256,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val page = tableService.listDraft()
@@ -267,7 +267,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun publishDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =
@@ -284,7 +284,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun resetDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =
@@ -301,7 +301,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun unpublish() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =
@@ -318,7 +318,7 @@ internal class TableServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateDraft() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tableService = client.cms().hubdb().tables()
 
         val hubDbTableV3 =

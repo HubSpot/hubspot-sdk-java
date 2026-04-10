@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.timeline
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.timeline.AppEventOccurrence
 import com.hubspot_sdk.api.models.crm.timeline.BatchInputAppEventOccurrence
@@ -16,7 +16,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().timeline().batch()
 
         val batchResponseAppEventOccurrenceFuture =

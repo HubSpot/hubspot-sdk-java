@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -67,7 +67,7 @@ private constructor(
     /**
      * The unique identifier for the sequence enrollment.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -75,7 +75,7 @@ private constructor(
     /**
      * The date and time when the contact was enrolled in the sequence.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enrolledAt(): OffsetDateTime = enrolledAt.getRequired("enrolledAt")
@@ -83,7 +83,7 @@ private constructor(
     /**
      * The identifier of the user who enrolled the contact in the sequence.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enrolledBy(): String = enrolledBy.getRequired("enrolledBy")
@@ -91,7 +91,7 @@ private constructor(
     /**
      * The email address of the user who enrolled the contact in the sequence.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enrolledByEmail(): String = enrolledByEmail.getRequired("enrolledByEmail")
@@ -99,7 +99,7 @@ private constructor(
     /**
      * The unique identifier of the sequence in which the contact is enrolled.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sequenceId(): String = sequenceId.getRequired("sequenceId")
@@ -107,7 +107,7 @@ private constructor(
     /**
      * The name of the sequence in which the contact is enrolled.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sequenceName(): String = sequenceName.getRequired("sequenceName")
@@ -115,7 +115,7 @@ private constructor(
     /**
      * The email address of the contact enrolled in the sequence.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun toEmail(): String = toEmail.getRequired("toEmail")
@@ -123,7 +123,7 @@ private constructor(
     /**
      * The date and time when the sequence enrollment was last updated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updatedAt")
@@ -428,7 +428,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

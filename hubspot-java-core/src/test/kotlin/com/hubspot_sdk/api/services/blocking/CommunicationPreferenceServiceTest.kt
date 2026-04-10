@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGenerateLinksParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetStatusesParams
 import com.hubspot_sdk.api.models.communicationpreferences.CommunicationPreferenceGetUnsubscribeAllStatusParams
@@ -18,7 +18,7 @@ internal class CommunicationPreferenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun generateLinks() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val communicationPreferenceService = client.communicationPreferences()
 
         val linkGenerationResponse =
@@ -42,7 +42,7 @@ internal class CommunicationPreferenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getStatuses() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val communicationPreferenceService = client.communicationPreferences()
 
         val actionResponseWithResultsPublicStatus =
@@ -60,7 +60,7 @@ internal class CommunicationPreferenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getUnsubscribeAllStatus() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val communicationPreferenceService = client.communicationPreferences()
 
         val actionResponseWithResultsPublicWideStatus =
@@ -79,7 +79,7 @@ internal class CommunicationPreferenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun unsubscribeAll() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val communicationPreferenceService = client.communicationPreferences()
 
         val actionResponseWithResultsPublicStatus =
@@ -98,7 +98,7 @@ internal class CommunicationPreferenceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun updateStatus() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val communicationPreferenceService = client.communicationPreferences()
 
         val actionResponseWithResultsPublicStatus =

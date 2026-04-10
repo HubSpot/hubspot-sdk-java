@@ -10,7 +10,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.cms.AttachToLangPrimaryRequestVNext
 import com.hubspot_sdk.api.models.cms.DetachFromLangGroupRequestVNext
@@ -41,7 +41,7 @@ internal class TagServiceTest {
     @Test
     fun create(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -68,7 +68,7 @@ internal class TagServiceTest {
     @Test
     fun update(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -101,7 +101,7 @@ internal class TagServiceTest {
     @Test
     fun list(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -131,7 +131,7 @@ internal class TagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tagService = client.cms().blogs().tags()
 
         tagService.delete(TagDeleteParams.builder().objectId("objectId").archived(true).build())
@@ -140,7 +140,7 @@ internal class TagServiceTest {
     @Test
     fun attachToLangGroup(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -163,7 +163,7 @@ internal class TagServiceTest {
     @Test
     fun createLangVariation(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -186,7 +186,7 @@ internal class TagServiceTest {
     @Test
     fun detachFromLangGroup(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -204,7 +204,7 @@ internal class TagServiceTest {
     @Test
     fun get(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -226,7 +226,7 @@ internal class TagServiceTest {
     @Test
     fun listAuthorsCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -256,7 +256,7 @@ internal class TagServiceTest {
     @Test
     fun listAuthorsCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -286,7 +286,7 @@ internal class TagServiceTest {
     @Test
     fun listCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -316,7 +316,7 @@ internal class TagServiceTest {
     @Test
     fun listCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -346,7 +346,7 @@ internal class TagServiceTest {
     @Test
     fun listPostsCursor(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -376,7 +376,7 @@ internal class TagServiceTest {
     @Test
     fun listPostsCursorByQuery(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -406,7 +406,7 @@ internal class TagServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun setLangPrimary() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val tagService = client.cms().blogs().tags()
 
         tagService.setLangPrimary(SetNewLanguagePrimaryRequestVNext.builder().id("id").build())
@@ -415,7 +415,7 @@ internal class TagServiceTest {
     @Test
     fun updateLangs(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClient.builder()
+            HubSpotOkHttpClient.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()

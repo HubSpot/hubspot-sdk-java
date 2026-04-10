@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.campaigns
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.marketing.campaigns.PublicBudgetItemInput
 import com.hubspot_sdk.api.models.marketing.campaigns.budget.BudgetCreateParams
 import com.hubspot_sdk.api.models.marketing.campaigns.budget.BudgetDeleteParams
@@ -16,7 +16,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetItemFuture =
@@ -41,7 +41,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetItemFuture =
@@ -67,7 +67,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val future =
@@ -81,7 +81,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetItemFuture =
@@ -96,7 +96,7 @@ internal class BudgetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getTotals() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val budgetServiceAsync = client.marketing().campaigns().budget()
 
         val publicBudgetTotalsFuture = budgetServiceAsync.getTotals("campaignGuid")

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.cms
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlMapping
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlMappingCreateRequestBody
 import com.hubspot_sdk.api.models.cms.urlredirects.UrlRedirectUpdateParams
@@ -15,7 +15,7 @@ internal class UrlRedirectServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val urlRedirectService = client.cms().urlRedirects()
 
         val urlMapping =
@@ -40,7 +40,7 @@ internal class UrlRedirectServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val urlRedirectService = client.cms().urlRedirects()
 
         val urlMapping =
@@ -73,7 +73,7 @@ internal class UrlRedirectServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val urlRedirectService = client.cms().urlRedirects()
 
         val page = urlRedirectService.list()
@@ -84,7 +84,7 @@ internal class UrlRedirectServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val urlRedirectService = client.cms().urlRedirects()
 
         urlRedirectService.delete("urlRedirectId")
@@ -93,7 +93,7 @@ internal class UrlRedirectServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val urlRedirectService = client.cms().urlRedirects()
 
         val urlMapping = urlRedirectService.get("urlRedirectId")

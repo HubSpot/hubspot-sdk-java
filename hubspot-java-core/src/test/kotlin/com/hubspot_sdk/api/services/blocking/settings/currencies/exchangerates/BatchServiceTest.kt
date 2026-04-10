@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.settings.currencies.exchangerates
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.BatchInputPublicObjectId
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.settings.currencies.BatchInputExchangeRateCreateRequest
@@ -18,7 +18,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.settings().currencies().exchangeRates().batch()
 
         val batchResponseExchangeRate =
@@ -40,7 +40,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.settings().currencies().exchangeRates().batch()
 
         val batchResponseExchangeRate =
@@ -62,7 +62,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.settings().currencies().exchangeRates().batch()
 
         val batchResponseExchangeRate =

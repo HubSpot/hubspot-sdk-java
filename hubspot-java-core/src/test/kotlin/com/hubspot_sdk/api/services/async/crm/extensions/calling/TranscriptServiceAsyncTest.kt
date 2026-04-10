@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.extensions.calling
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.extensions.calling.CompletedThirdPartyCallRequest
 import com.hubspot_sdk.api.models.crm.extensions.calling.FormattedPhoneNumber
@@ -18,7 +18,7 @@ internal class TranscriptServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val transcriptServiceAsync = client.crm().extensions().calling().transcripts()
 
         val transcriptCreateResponseFuture =
@@ -44,7 +44,7 @@ internal class TranscriptServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val transcriptServiceAsync = client.crm().extensions().calling().transcripts()
 
         val future = transcriptServiceAsync.delete("transcriptId")
@@ -55,7 +55,7 @@ internal class TranscriptServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createInboundCall() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val transcriptServiceAsync = client.crm().extensions().calling().transcripts()
 
         val completedThirdPartyCallResponseFuture =
@@ -97,7 +97,7 @@ internal class TranscriptServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val transcriptServiceAsync = client.crm().extensions().calling().transcripts()
 
         val transcriptResponseFuture = transcriptServiceAsync.get("transcriptId")

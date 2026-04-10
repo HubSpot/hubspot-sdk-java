@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -96,7 +96,7 @@ private constructor(
     /**
      * ID of object to set as primary in multi-language group.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): Long = id.getRequired("id")
@@ -105,7 +105,7 @@ private constructor(
      * If True, the variant will not show up in your dashboard, although the post could still be
      * live.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun archivedInDashboard(): Boolean = archivedInDashboard.getRequired("archivedInDashboard")
@@ -114,7 +114,7 @@ private constructor(
      * The name of the user who last published the blog post. For posts that haven't been published
      * yet, this property will reflect the user who initially created the draft.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun authorName(): String = authorName.getRequired("authorName")
@@ -122,7 +122,7 @@ private constructor(
     /**
      * The GUID of the marketing campaign this page is a part of.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun campaign(): String = campaign.getRequired("campaign")
@@ -130,7 +130,7 @@ private constructor(
     /**
      * Name of the associated marketing campaign.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun campaignName(): String = campaignName.getRequired("campaignName")
@@ -138,7 +138,7 @@ private constructor(
     /**
      * The timestamp (ISO8601 format) when this Blog Post was created.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun created(): OffsetDateTime = created.getRequired("created")
@@ -146,7 +146,7 @@ private constructor(
     /**
      * The internal name of the content language variation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -155,13 +155,13 @@ private constructor(
      * Set this to create a password protected page. Entering the password will be required to view
      * the page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun password(): String = password.getRequired("password")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publicAccessRules(): List<PublicAccessRule> =
@@ -170,7 +170,7 @@ private constructor(
     /**
      * Boolean to determine whether or not to respect publicAccessRules.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publicAccessRulesEnabled(): Boolean =
@@ -179,7 +179,7 @@ private constructor(
     /**
      * The date (ISO8601 format) the page is to be published at.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun publishDate(): OffsetDateTime = publishDate.getRequired("publishDate")
@@ -188,7 +188,7 @@ private constructor(
      * The path of the this page. This field is appended to the domain to construct the url of this
      * page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun slug(): String = slug.getRequired("slug")
@@ -198,7 +198,7 @@ private constructor(
      *
      * Maximum string length: 25
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun state(): String = state.getRequired("state")
@@ -206,13 +206,13 @@ private constructor(
     /**
      * The timestamp (ISO8601 format) when this Blog Post was updated.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updated(): OffsetDateTime = updated.getRequired("updated")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun tagIds(): Optional<List<Long>> = tagIds.getOptional("tagIds")
@@ -735,7 +735,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

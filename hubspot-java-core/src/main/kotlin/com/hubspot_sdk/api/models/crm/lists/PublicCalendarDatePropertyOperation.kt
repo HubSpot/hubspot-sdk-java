@@ -12,7 +12,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -64,7 +64,7 @@ private constructor(
     /**
      * Indicates whether objects with no value set for the property should be included.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun includeObjectsWithNoValueSet(): Boolean =
@@ -73,7 +73,7 @@ private constructor(
     /**
      * The type of operation, which is (CALENDAR_DATE).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun operationType(): OperationType = operationType.getRequired("operationType")
@@ -82,7 +82,7 @@ private constructor(
      * Defines the operation to be applied to the calendar date property (IN_THIS_TIME_UNIT,
      * IN_THIS_TIME_UNIT_SO_FAR, IN_NEXT_TIME_UNIT, IN_LAST_TIME_UNIT).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun operator(): String = operator.getRequired("operator")
@@ -90,7 +90,7 @@ private constructor(
     /**
      * The unit of time to be used in the operation (DAY, WEEK, MONTH, QUARTER, YEAR).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun timeUnit(): String = timeUnit.getRequired("timeUnit")
@@ -98,7 +98,7 @@ private constructor(
     /**
      * The month in which the fiscal year starts.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun fiscalYearStart(): Optional<FiscalYearStart> =
@@ -107,7 +107,7 @@ private constructor(
     /**
      * The count of time units to be applied in the operation (1).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun timeUnitCount(): Optional<Int> = timeUnitCount.getOptional("timeUnitCount")
@@ -115,7 +115,7 @@ private constructor(
     /**
      * Specifies whether the fiscal year should be used in the operation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun useFiscalYear(): Optional<Boolean> = useFiscalYear.getOptional("useFiscalYear")
@@ -402,7 +402,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -484,13 +484,13 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 CALENDAR_DATE -> Known.CALENDAR_DATE
-                else -> throw HubspotInvalidDataException("Unknown OperationType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown OperationType: $value")
             }
 
         /**
@@ -499,11 +499,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -520,7 +520,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -663,7 +663,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -680,7 +680,7 @@ private constructor(
                 NOVEMBER -> Known.NOVEMBER
                 OCTOBER -> Known.OCTOBER
                 SEPTEMBER -> Known.SEPTEMBER
-                else -> throw HubspotInvalidDataException("Unknown FiscalYearStart: $value")
+                else -> throw HubSpotInvalidDataException("Unknown FiscalYearStart: $value")
             }
 
         /**
@@ -689,11 +689,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -710,7 +710,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

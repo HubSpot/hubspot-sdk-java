@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.OptionInput
 import com.hubspot_sdk.api.models.crm.properties.PropertyCreate
 import com.hubspot_sdk.api.models.crm.properties.PropertyCreateParams
@@ -19,7 +19,7 @@ internal class PropertyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
         val propertyFuture =
@@ -65,7 +65,7 @@ internal class PropertyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
         val propertyFuture =
@@ -107,7 +107,7 @@ internal class PropertyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
         val collectionResponsePropertyNoPagingFuture =
@@ -128,7 +128,7 @@ internal class PropertyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
         val future =
@@ -145,7 +145,7 @@ internal class PropertyServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val propertyServiceAsync = client.crm().properties()
 
         val propertyFuture =

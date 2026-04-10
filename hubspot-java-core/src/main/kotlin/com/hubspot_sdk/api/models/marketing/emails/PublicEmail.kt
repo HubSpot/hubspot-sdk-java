@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -255,7 +255,7 @@ private constructor(
     )
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isAb(): Boolean = isAb.getRequired("isAb")
@@ -263,7 +263,7 @@ private constructor(
     /**
      * The email ID.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun id(): Optional<String> = id.getOptional("id")
@@ -271,7 +271,7 @@ private constructor(
     /**
      * The active domain of the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun activeDomain(): Optional<String> = activeDomain.getOptional("activeDomain")
@@ -279,7 +279,7 @@ private constructor(
     /**
      * List of emailCampaignIds.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun allEmailCampaignIds(): Optional<List<String>> =
@@ -288,13 +288,13 @@ private constructor(
     /**
      * Determines if the email is archived or not.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun archived(): Optional<Boolean> = archived.getOptional("archived")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun businessUnitId(): Optional<String> = businessUnitId.getOptional("businessUnitId")
@@ -302,7 +302,7 @@ private constructor(
     /**
      * The ID of the campaign this email is associated to.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun campaign(): Optional<String> = campaign.getOptional("campaign")
@@ -310,13 +310,13 @@ private constructor(
     /**
      * The name of the campaign.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun campaignName(): Optional<String> = campaignName.getOptional("campaignName")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun campaignUtm(): Optional<String> = campaignUtm.getOptional("campaignUtm")
@@ -324,13 +324,13 @@ private constructor(
     /**
      * The ID of the email this email was cloned from.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun clonedFrom(): Optional<String> = clonedFrom.getOptional("clonedFrom")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun content(): Optional<PublicEmailContent> = content.getOptional("content")
@@ -338,7 +338,7 @@ private constructor(
     /**
      * The date and time of the email's creation, in ISO8601 representation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("createdAt")
@@ -346,7 +346,7 @@ private constructor(
     /**
      * The id of the user who created the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun createdById(): Optional<String> = createdById.getOptional("createdById")
@@ -354,20 +354,20 @@ private constructor(
     /**
      * The date and time the email was deleted at, in ISO8601 representation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun deletedAt(): Optional<OffsetDateTime> = deletedAt.getOptional("deletedAt")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun emailCampaignGroupId(): Optional<String> =
         emailCampaignGroupId.getOptional("emailCampaignGroupId")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun emailTemplateMode(): Optional<EmailTemplateMode> =
@@ -376,25 +376,25 @@ private constructor(
     /**
      * The ID of the feedback survey linked to the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun feedbackSurveyId(): Optional<String> = feedbackSurveyId.getOptional("feedbackSurveyId")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun folderId(): Optional<Long> = folderId.getOptional("folderId")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun folderIdV2(): Optional<Long> = folderIdV2.getOptional("folderIdV2")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun from(): Optional<PublicEmailFromDetails> = from.getOptional("from")
@@ -402,7 +402,7 @@ private constructor(
     /**
      * Returns the published status of the email. This is read only.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isPublished(): Optional<Boolean> = isPublished.getOptional("isPublished")
@@ -410,19 +410,19 @@ private constructor(
     /**
      * Returns whether the email is a transactional email or not. This is read only.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isTransactional(): Optional<Boolean> = isTransactional.getOptional("isTransactional")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun jitterSendTime(): Optional<Boolean> = jitterSendTime.getOptional("jitterSendTime")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun language(): Optional<Language> = language.getOptional("language")
@@ -430,19 +430,19 @@ private constructor(
     /**
      * The name of the email, as displayed on the email dashboard.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun previewKey(): Optional<String> = previewKey.getOptional("previewKey")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun primaryEmailCampaignId(): Optional<String> =
@@ -452,7 +452,7 @@ private constructor(
      * The date and time the email is scheduled for, in ISO8601 representation. This is only used in
      * local time or scheduled emails.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun publishDate(): Optional<OffsetDateTime> = publishDate.getOptional("publishDate")
@@ -460,7 +460,7 @@ private constructor(
     /**
      * The date and time the email was published at, in ISO8601 representation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun publishedAt(): Optional<OffsetDateTime> = publishedAt.getOptional("publishedAt")
@@ -468,7 +468,7 @@ private constructor(
     /**
      * Email of the user who published/sent the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun publishedByEmail(): Optional<String> = publishedByEmail.getOptional("publishedByEmail")
@@ -476,7 +476,7 @@ private constructor(
     /**
      * The ID of the user who published the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun publishedById(): Optional<String> = publishedById.getOptional("publishedById")
@@ -484,13 +484,13 @@ private constructor(
     /**
      * Name of the user who published the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun publishedByName(): Optional<String> = publishedByName.getOptional("publishedByName")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun rssData(): Optional<PublicRssEmailDetails> = rssData.getOptional("rssData")
@@ -498,7 +498,7 @@ private constructor(
     /**
      * Determines whether the email will be sent immediately on publish.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun sendOnPublish(): Optional<Boolean> = sendOnPublish.getOptional("sendOnPublish")
@@ -506,13 +506,13 @@ private constructor(
     /**
      * The email state.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun state(): Optional<State> = state.getOptional("state")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun stats(): Optional<EmailStatisticsData> = stats.getOptional("stats")
@@ -520,7 +520,7 @@ private constructor(
     /**
      * The email subcategory.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun subcategory(): Optional<String> = subcategory.getOptional("subcategory")
@@ -528,32 +528,32 @@ private constructor(
     /**
      * The subject of the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun subject(): Optional<String> = subject.getOptional("subject")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun subscriptionDetails(): Optional<PublicEmailSubscriptionDetails> =
         subscriptionDetails.getOptional("subscriptionDetails")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun teamsWithAccess(): Optional<List<String>> = teamsWithAccess.getOptional("teamsWithAccess")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun testing(): Optional<PublicEmailTestingDetails> = testing.getOptional("testing")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun to(): Optional<PublicEmailToDetails> = to.getOptional("to")
@@ -561,13 +561,13 @@ private constructor(
     /**
      * The email type, this is derived from other properties on the email such as subcategory.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun type(): Optional<Type> = type.getOptional("type")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun unpublishedAt(): Optional<OffsetDateTime> = unpublishedAt.getOptional("unpublishedAt")
@@ -575,7 +575,7 @@ private constructor(
     /**
      * The date and time of the last update to the email, in ISO8601 representation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
@@ -583,19 +583,19 @@ private constructor(
     /**
      * The id of the user who last updated the email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun updatedById(): Optional<String> = updatedById.getOptional("updatedById")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun usersWithAccess(): Optional<List<String>> = usersWithAccess.getOptional("usersWithAccess")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun webversion(): Optional<PublicWebversionDetails> = webversion.getOptional("webversion")
@@ -603,7 +603,7 @@ private constructor(
     /**
      * Names of workflows in which the email is used within a "send email" action.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun workflowNames(): Optional<List<String>> = workflowNames.getOptional("workflowNames")
@@ -1966,7 +1966,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -2094,14 +2094,14 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 DESIGN_MANAGER -> Known.DESIGN_MANAGER
                 DRAG_AND_DROP -> Known.DRAG_AND_DROP
-                else -> throw HubspotInvalidDataException("Unknown EmailTemplateMode: $value")
+                else -> throw HubSpotInvalidDataException("Unknown EmailTemplateMode: $value")
             }
 
         /**
@@ -2110,11 +2110,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2131,7 +2131,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -6424,7 +6424,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -7272,7 +7272,7 @@ private constructor(
                 ZH_TW -> Known.ZH_TW
                 ZU -> Known.ZU
                 ZU_ZA -> Known.ZU_ZA
-                else -> throw HubspotInvalidDataException("Unknown Language: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Language: $value")
             }
 
         /**
@@ -7281,11 +7281,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -7302,7 +7302,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -7541,7 +7541,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -7578,7 +7578,7 @@ private constructor(
                 SCHEDULED -> Known.SCHEDULED
                 SCHEDULED_AB -> Known.SCHEDULED_AB
                 SCHEDULED_OR_PUBLISHED -> Known.SCHEDULED_OR_PUBLISHED
-                else -> throw HubspotInvalidDataException("Unknown State: $value")
+                else -> throw HubSpotInvalidDataException("Unknown State: $value")
             }
 
         /**
@@ -7587,11 +7587,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -7608,7 +7608,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -7852,7 +7852,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -7890,7 +7890,7 @@ private constructor(
                 SINGLE_SEND_API -> Known.SINGLE_SEND_API
                 SMTP_TOKEN -> Known.SMTP_TOKEN
                 TICKET_EMAIL -> Known.TICKET_EMAIL
-                else -> throw HubspotInvalidDataException("Unknown Type: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Type: $value")
             }
 
         /**
@@ -7899,11 +7899,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -7920,7 +7920,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

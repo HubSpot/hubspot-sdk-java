@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.Option
 import com.hubspot_sdk.api.models.PropertyModificationMetadata
 import java.time.OffsetDateTime
@@ -47,7 +47,7 @@ private constructor(
     private val formField: JsonField<Boolean>,
     private val hasUniqueValue: JsonField<Boolean>,
     private val hidden: JsonField<Boolean>,
-    private val hubspotDefined: JsonField<Boolean>,
+    private val hubSpotDefined: JsonField<Boolean>,
     private val modificationMetadata: JsonField<PropertyModificationMetadata>,
     private val referencedObjectType: JsonField<String>,
     private val sensitiveDataCategories: JsonField<List<String>>,
@@ -105,7 +105,7 @@ private constructor(
         @JsonProperty("hidden") @ExcludeMissing hidden: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("hubspotDefined")
         @ExcludeMissing
-        hubspotDefined: JsonField<Boolean> = JsonMissing.of(),
+        hubSpotDefined: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("modificationMetadata")
         @ExcludeMissing
         modificationMetadata: JsonField<PropertyModificationMetadata> = JsonMissing.of(),
@@ -145,7 +145,7 @@ private constructor(
         formField,
         hasUniqueValue,
         hidden,
-        hubspotDefined,
+        hubSpotDefined,
         modificationMetadata,
         referencedObjectType,
         sensitiveDataCategories,
@@ -158,7 +158,7 @@ private constructor(
     /**
      * A summary of the property's purpose.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun description(): String = description.getRequired("description")
@@ -167,7 +167,7 @@ private constructor(
      * Determines how the property will appear in HubSpot's UI or on a form. Learn more in the
      * properties API guide.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fieldType(): String = fieldType.getRequired("fieldType")
@@ -175,7 +175,7 @@ private constructor(
     /**
      * The name of the group to which the property is assigned.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun groupName(): String = groupName.getRequired("groupName")
@@ -183,7 +183,7 @@ private constructor(
     /**
      * The display label for the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
@@ -191,7 +191,7 @@ private constructor(
     /**
      * The internal name for the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -199,7 +199,7 @@ private constructor(
     /**
      * A list of valid options for the property. This field is required for enumerated properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun options(): List<Option> = options.getRequired("options")
@@ -207,7 +207,7 @@ private constructor(
     /**
      * The data type of the property, such as string or number.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): String = type.getRequired("type")
@@ -215,7 +215,7 @@ private constructor(
     /**
      * Whether the property is archived.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun archived(): Optional<Boolean> = archived.getOptional("archived")
@@ -223,7 +223,7 @@ private constructor(
     /**
      * The timestamp when the property was archived, in ISO 8601 format.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun archivedAt(): Optional<OffsetDateTime> = archivedAt.getOptional("archivedAt")
@@ -231,7 +231,7 @@ private constructor(
     /**
      * Whether the property is a calculated field.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun calculated(): Optional<Boolean> = calculated.getOptional("calculated")
@@ -239,7 +239,7 @@ private constructor(
     /**
      * The formula used for calculated properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun calculationFormula(): Optional<String> =
@@ -248,7 +248,7 @@ private constructor(
     /**
      * The timestamp when the property was created, in ISO 8601 format.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun createdAt(): Optional<OffsetDateTime> = createdAt.getOptional("createdAt")
@@ -256,7 +256,7 @@ private constructor(
     /**
      * The ID of the user who created the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun createdUserId(): Optional<String> = createdUserId.getOptional("createdUserId")
@@ -265,14 +265,14 @@ private constructor(
      * Indicates the sensitivity level of the property, such as "non_sensitive", "sensitive", or
      * "highly_sensitive".
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun dataSensitivity(): Optional<DataSensitivity> =
         dataSensitivity.getOptional("dataSensitivity")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun dateDisplayHint(): Optional<DateDisplayHint> =
@@ -281,7 +281,7 @@ private constructor(
     /**
      * The position of the item relative to others in the list.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun displayOrder(): Optional<Int> = displayOrder.getOptional("displayOrder")
@@ -290,7 +290,7 @@ private constructor(
      * Applicable only for enumeration type properties. Should be set to true with a
      * 'referencedObjectType' of 'OWNER'. Otherwise false.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun externalOptions(): Optional<Boolean> = externalOptions.getOptional("externalOptions")
@@ -298,7 +298,7 @@ private constructor(
     /**
      * Whether the property can appear on forms.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun formField(): Optional<Boolean> = formField.getOptional("formField")
@@ -306,7 +306,7 @@ private constructor(
     /**
      * Whether the property is a unique identifier property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hasUniqueValue(): Optional<Boolean> = hasUniqueValue.getOptional("hasUniqueValue")
@@ -315,7 +315,7 @@ private constructor(
      * Whether or not the property will be hidden from the HubSpot UI. It's recommended that this be
      * set to false for custom properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hidden(): Optional<Boolean> = hidden.getOptional("hidden")
@@ -323,13 +323,13 @@ private constructor(
     /**
      * A boolean value set to true for HubSpot default properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun hubspotDefined(): Optional<Boolean> = hubspotDefined.getOptional("hubspotDefined")
+    fun hubSpotDefined(): Optional<Boolean> = hubSpotDefined.getOptional("hubspotDefined")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun modificationMetadata(): Optional<PropertyModificationMetadata> =
@@ -338,7 +338,7 @@ private constructor(
     /**
      * Deprecated. Use externalOptionsReferenceType instead.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun referencedObjectType(): Optional<String> =
@@ -348,7 +348,7 @@ private constructor(
      * When sensitiveData is true, lists the type of sensitive data contained in the property (e.g.,
      * "HIPAA").
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun sensitiveDataCategories(): Optional<List<String>> =
@@ -357,7 +357,7 @@ private constructor(
     /**
      * Whether to show the currency symbol in HubSpot's UI.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun showCurrencySymbol(): Optional<Boolean> =
@@ -366,13 +366,13 @@ private constructor(
     /**
      * The timestamp when the property was last updated, in ISO 8601 format.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun updatedAt(): Optional<OffsetDateTime> = updatedAt.getOptional("updatedAt")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun updatedUserId(): Optional<String> = updatedUserId.getOptional("updatedUserId")
@@ -535,13 +535,13 @@ private constructor(
     @JsonProperty("hidden") @ExcludeMissing fun _hidden(): JsonField<Boolean> = hidden
 
     /**
-     * Returns the raw JSON value of [hubspotDefined].
+     * Returns the raw JSON value of [hubSpotDefined].
      *
-     * Unlike [hubspotDefined], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [hubSpotDefined], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("hubspotDefined")
     @ExcludeMissing
-    fun _hubspotDefined(): JsonField<Boolean> = hubspotDefined
+    fun _hubSpotDefined(): JsonField<Boolean> = hubSpotDefined
 
     /**
      * Returns the raw JSON value of [modificationMetadata].
@@ -655,7 +655,7 @@ private constructor(
         private var formField: JsonField<Boolean> = JsonMissing.of()
         private var hasUniqueValue: JsonField<Boolean> = JsonMissing.of()
         private var hidden: JsonField<Boolean> = JsonMissing.of()
-        private var hubspotDefined: JsonField<Boolean> = JsonMissing.of()
+        private var hubSpotDefined: JsonField<Boolean> = JsonMissing.of()
         private var modificationMetadata: JsonField<PropertyModificationMetadata> = JsonMissing.of()
         private var referencedObjectType: JsonField<String> = JsonMissing.of()
         private var sensitiveDataCategories: JsonField<MutableList<String>>? = null
@@ -686,7 +686,7 @@ private constructor(
             formField = property.formField
             hasUniqueValue = property.hasUniqueValue
             hidden = property.hidden
-            hubspotDefined = property.hubspotDefined
+            hubSpotDefined = property.hubSpotDefined
             modificationMetadata = property.modificationMetadata
             referencedObjectType = property.referencedObjectType
             sensitiveDataCategories = property.sensitiveDataCategories.map { it.toMutableList() }
@@ -979,17 +979,17 @@ private constructor(
         fun hidden(hidden: JsonField<Boolean>) = apply { this.hidden = hidden }
 
         /** A boolean value set to true for HubSpot default properties. */
-        fun hubspotDefined(hubspotDefined: Boolean) = hubspotDefined(JsonField.of(hubspotDefined))
+        fun hubSpotDefined(hubSpotDefined: Boolean) = hubSpotDefined(JsonField.of(hubSpotDefined))
 
         /**
-         * Sets [Builder.hubspotDefined] to an arbitrary JSON value.
+         * Sets [Builder.hubSpotDefined] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.hubspotDefined] with a well-typed [Boolean] value
+         * You should usually call [Builder.hubSpotDefined] with a well-typed [Boolean] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun hubspotDefined(hubspotDefined: JsonField<Boolean>) = apply {
-            this.hubspotDefined = hubspotDefined
+        fun hubSpotDefined(hubSpotDefined: JsonField<Boolean>) = apply {
+            this.hubSpotDefined = hubSpotDefined
         }
 
         fun modificationMetadata(modificationMetadata: PropertyModificationMetadata) =
@@ -1151,7 +1151,7 @@ private constructor(
                 formField,
                 hasUniqueValue,
                 hidden,
-                hubspotDefined,
+                hubSpotDefined,
                 modificationMetadata,
                 referencedObjectType,
                 (sensitiveDataCategories ?: JsonMissing.of()).map { it.toImmutable() },
@@ -1189,7 +1189,7 @@ private constructor(
         formField()
         hasUniqueValue()
         hidden()
-        hubspotDefined()
+        hubSpotDefined()
         modificationMetadata().ifPresent { it.validate() }
         referencedObjectType()
         sensitiveDataCategories()
@@ -1203,7 +1203,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -1234,7 +1234,7 @@ private constructor(
             (if (formField.asKnown().isPresent) 1 else 0) +
             (if (hasUniqueValue.asKnown().isPresent) 1 else 0) +
             (if (hidden.asKnown().isPresent) 1 else 0) +
-            (if (hubspotDefined.asKnown().isPresent) 1 else 0) +
+            (if (hubSpotDefined.asKnown().isPresent) 1 else 0) +
             (modificationMetadata.asKnown().getOrNull()?.validity() ?: 0) +
             (if (referencedObjectType.asKnown().isPresent) 1 else 0) +
             (sensitiveDataCategories.asKnown().getOrNull()?.size ?: 0) +
@@ -1318,7 +1318,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1326,7 +1326,7 @@ private constructor(
                 HIGHLY_SENSITIVE -> Known.HIGHLY_SENSITIVE
                 NON_SENSITIVE -> Known.NON_SENSITIVE
                 SENSITIVE -> Known.SENSITIVE
-                else -> throw HubspotInvalidDataException("Unknown DataSensitivity: $value")
+                else -> throw HubSpotInvalidDataException("Unknown DataSensitivity: $value")
             }
 
         /**
@@ -1335,11 +1335,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1356,7 +1356,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -1458,7 +1458,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -1467,7 +1467,7 @@ private constructor(
                 ABSOLUTE_WITH_RELATIVE -> Known.ABSOLUTE_WITH_RELATIVE
                 TIME_SINCE -> Known.TIME_SINCE
                 TIME_UNTIL -> Known.TIME_UNTIL
-                else -> throw HubspotInvalidDataException("Unknown DateDisplayHint: $value")
+                else -> throw HubSpotInvalidDataException("Unknown DateDisplayHint: $value")
             }
 
         /**
@@ -1476,11 +1476,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -1497,7 +1497,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -1548,7 +1548,7 @@ private constructor(
             formField == other.formField &&
             hasUniqueValue == other.hasUniqueValue &&
             hidden == other.hidden &&
-            hubspotDefined == other.hubspotDefined &&
+            hubSpotDefined == other.hubSpotDefined &&
             modificationMetadata == other.modificationMetadata &&
             referencedObjectType == other.referencedObjectType &&
             sensitiveDataCategories == other.sensitiveDataCategories &&
@@ -1580,7 +1580,7 @@ private constructor(
             formField,
             hasUniqueValue,
             hidden,
-            hubspotDefined,
+            hubSpotDefined,
             modificationMetadata,
             referencedObjectType,
             sensitiveDataCategories,
@@ -1594,5 +1594,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Property{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubspotDefined=$hubspotDefined, modificationMetadata=$modificationMetadata, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
+        "Property{description=$description, fieldType=$fieldType, groupName=$groupName, label=$label, name=$name, options=$options, type=$type, archived=$archived, archivedAt=$archivedAt, calculated=$calculated, calculationFormula=$calculationFormula, createdAt=$createdAt, createdUserId=$createdUserId, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, displayOrder=$displayOrder, externalOptions=$externalOptions, formField=$formField, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, modificationMetadata=$modificationMetadata, referencedObjectType=$referencedObjectType, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, updatedAt=$updatedAt, updatedUserId=$updatedUserId, additionalProperties=$additionalProperties}"
 }

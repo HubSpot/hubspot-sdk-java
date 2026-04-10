@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.marketingevents
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.marketing.marketingevents.MarketingEventCompleteRequestParams
 import com.hubspot_sdk.api.models.marketing.marketingevents.events.EventCancelByExternalEventIdParams
 import com.hubspot_sdk.api.models.marketing.marketingevents.events.EventCompleteByExternalEventIdParams
@@ -15,7 +15,7 @@ internal class EventServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun cancelByExternalEventId() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val eventServiceAsync = client.marketing().marketingEvents().events()
 
         val marketingEventDefaultResponseFuture =
@@ -33,7 +33,7 @@ internal class EventServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun completeByExternalEventId() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val eventServiceAsync = client.marketing().marketingEvents().events()
 
         val marketingEventDefaultResponseFuture =

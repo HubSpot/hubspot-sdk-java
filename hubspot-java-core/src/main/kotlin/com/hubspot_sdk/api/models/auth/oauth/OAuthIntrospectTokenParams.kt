@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.Params
 import com.hubspot_sdk.api.core.http.Headers
 import com.hubspot_sdk.api.core.http.QueryParams
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -27,25 +27,25 @@ private constructor(
 ) : Params {
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun token(): Optional<String> = body.token()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun clientId(): Optional<String> = body.clientId()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun clientSecret(): Optional<String> = body.clientSecret()
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun tokenTypeHint(): Optional<String> = body.tokenTypeHint()
@@ -331,25 +331,25 @@ private constructor(
         ) : this(token, clientId, clientSecret, tokenTypeHint, mutableMapOf())
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun token(): Optional<String> = token.getOptional("token")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun clientId(): Optional<String> = clientId.getOptional("client_id")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun clientSecret(): Optional<String> = clientSecret.getOptional("client_secret")
 
         /**
-         * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+         * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
          *   server responded with an unexpected value).
          */
         fun tokenTypeHint(): Optional<String> = tokenTypeHint.getOptional("token_type_hint")
@@ -524,7 +524,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

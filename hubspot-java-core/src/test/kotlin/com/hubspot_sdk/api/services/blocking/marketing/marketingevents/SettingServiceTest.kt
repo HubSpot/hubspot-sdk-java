@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.marketing.marketingevents
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.marketing.marketingevents.EventDetailSettingsUrl
 import com.hubspot_sdk.api.models.marketing.marketingevents.settings.SettingCreateOrUpdateParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createOrUpdate() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.marketing().marketingEvents().settings()
 
         val eventDetailSettings =
@@ -32,7 +32,7 @@ internal class SettingServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val settingService = client.marketing().marketingEvents().settings()
 
         val eventDetailSettings = settingService.get(0)

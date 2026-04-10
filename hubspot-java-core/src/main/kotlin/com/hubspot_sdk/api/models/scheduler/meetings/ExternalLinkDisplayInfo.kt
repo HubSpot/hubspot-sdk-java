@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -42,7 +42,7 @@ private constructor(
     /**
      * The URL of the user's custom uploaded avatar image.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun avatar(): Optional<String> = avatar.getOptional("avatar")
@@ -50,7 +50,7 @@ private constructor(
     /**
      * The URL of the company's avatar image.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun companyAvatar(): Optional<String> = companyAvatar.getOptional("companyAvatar")
@@ -58,7 +58,7 @@ private constructor(
     /**
      * Deprecated field with no impact of link display info.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun headline(): Optional<String> = headline.getOptional("headline")
@@ -67,7 +67,7 @@ private constructor(
      * Option for determining which avatar to display on scheduling page. Accepted values are:
      * PROFILE_IMAGE, COMPANY_LOGO, CUSTOM_AVATAR,
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun publicDisplayAvatarOption(): Optional<PublicDisplayAvatarOption> =
@@ -250,7 +250,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -345,7 +345,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -354,7 +354,7 @@ private constructor(
                 CUSTOM_AVATAR -> Known.CUSTOM_AVATAR
                 PROFILE_IMAGE -> Known.PROFILE_IMAGE
                 else ->
-                    throw HubspotInvalidDataException("Unknown PublicDisplayAvatarOption: $value")
+                    throw HubSpotInvalidDataException("Unknown PublicDisplayAvatarOption: $value")
             }
 
         /**
@@ -363,11 +363,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -384,7 +384,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

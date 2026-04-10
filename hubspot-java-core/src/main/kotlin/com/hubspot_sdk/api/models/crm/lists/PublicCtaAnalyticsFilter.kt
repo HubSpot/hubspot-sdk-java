@@ -23,7 +23,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.allMaxBy
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.getOrThrow
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -58,7 +58,7 @@ private constructor(
     /**
      * The name of the Call-to-Action (CTA) to be used in the filter.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun ctaName(): String = ctaName.getRequired("ctaName")
@@ -66,7 +66,7 @@ private constructor(
     /**
      * Indicates the type of filter being applied, which is (CTA).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun filterType(): FilterType = filterType.getRequired("filterType")
@@ -76,7 +76,7 @@ private constructor(
      * HAS_OPENED_CTA, HAS_NOT_OPENED_CTA, HAS_CLICKED_CTA_PLACEMENT, HAS_NOT_CLICKED_CTA_PLACEMENT,
      * HAS_OPENED_CTA_PLACEMENT, HAS_NOT_OPENED_CTA_PLACEMENT).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun operator(): String = operator.getRequired("operator")
@@ -84,7 +84,7 @@ private constructor(
     /**
      * Specifies the criteria for refining the filter by coalescing.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun coalescingRefineBy(): Optional<CoalescingRefineBy> =
@@ -93,7 +93,7 @@ private constructor(
     /**
      * Specifies the criteria for refining the filter by pruning.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun pruningRefineBy(): Optional<PruningRefineBy> =
@@ -485,7 +485,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -563,13 +563,13 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 CTA -> Known.CTA
-                else -> throw HubspotInvalidDataException("Unknown FilterType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown FilterType: $value")
             }
 
         /**
@@ -578,11 +578,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -599,7 +599,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -820,7 +820,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -1019,10 +1019,10 @@ private constructor(
              * is on an older version than the API, then the API may respond with new variants that
              * the SDK is unaware of.
              *
-             * @throws HubspotInvalidDataException in the default implementation.
+             * @throws HubSpotInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw HubspotInvalidDataException("Unknown CoalescingRefineBy: $json")
+                throw HubSpotInvalidDataException("Unknown CoalescingRefineBy: $json")
             }
         }
 
@@ -1336,7 +1336,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -1535,10 +1535,10 @@ private constructor(
              * is on an older version than the API, then the API may respond with new variants that
              * the SDK is unaware of.
              *
-             * @throws HubspotInvalidDataException in the default implementation.
+             * @throws HubSpotInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw HubspotInvalidDataException("Unknown PruningRefineBy: $json")
+                throw HubSpotInvalidDataException("Unknown PruningRefineBy: $json")
             }
         }
 

@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.ObjectTypeDefinitionLabels
 import java.util.Collections
 import java.util.Objects
@@ -83,7 +83,7 @@ private constructor(
     /**
      * Determines if the object type can include properties that are marked as sensitive.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun allowsSensitiveProperties(): Boolean =
@@ -92,13 +92,13 @@ private constructor(
     /**
      * Associations defined for this object type.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun associatedObjects(): List<String> = associatedObjects.getRequired("associatedObjects")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun labels(): ObjectTypeDefinitionLabels = labels.getRequired("labels")
@@ -106,7 +106,7 @@ private constructor(
     /**
      * A unique name for this object. For internal use only.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -114,7 +114,7 @@ private constructor(
     /**
      * Properties defined for this object type.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun properties(): List<ObjectTypePropertyCreate> = properties.getRequired("properties")
@@ -122,7 +122,7 @@ private constructor(
     /**
      * The names of properties that should be **required** when creating an object of this type.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun requiredProperties(): List<String> = requiredProperties.getRequired("requiredProperties")
@@ -130,7 +130,7 @@ private constructor(
     /**
      * Names of properties that will be indexed for this object type in by HubSpot's product search.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun searchableProperties(): List<String> =
@@ -140,7 +140,7 @@ private constructor(
      * The names of secondary properties for this object. These will be displayed as secondary on
      * the HubSpot record page for this object type.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun secondaryDisplayProperties(): List<String> =
@@ -149,7 +149,7 @@ private constructor(
     /**
      * A brief explanation of the object type.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun description(): Optional<String> = description.getOptional("description")
@@ -158,7 +158,7 @@ private constructor(
      * The name of the primary property for this object. This will be displayed as primary on the
      * HubSpot record page for this object type.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun primaryDisplayProperty(): Optional<String> =
@@ -613,7 +613,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

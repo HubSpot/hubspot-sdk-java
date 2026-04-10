@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.timeline.AppEventOccurrence
 import com.hubspot_sdk.api.models.crm.timeline.ExternalAppEventResolutionRequest
@@ -16,7 +16,7 @@ internal class TimelineServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createEvent() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val timelineService = client.crm().timeline()
 
         timelineService.createEvent(
@@ -51,7 +51,7 @@ internal class TimelineServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createProjectType() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val timelineService = client.crm().timeline()
 
         val appEventResolutionResponse =

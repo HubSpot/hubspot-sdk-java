@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import com.hubspot_sdk.api.models.AutomationActionsOption
 import java.util.Collections
 import java.util.Objects
@@ -48,7 +48,7 @@ private constructor(
     private val groupName: JsonField<String>,
     private val hasUniqueValue: JsonField<Boolean>,
     private val hidden: JsonField<Boolean>,
-    private val hubspotDefined: JsonField<Boolean>,
+    private val hubSpotDefined: JsonField<Boolean>,
     private val isCustomizedDefault: JsonField<Boolean>,
     private val isMultiValued: JsonField<Boolean>,
     private val isPartial: JsonField<Boolean>,
@@ -134,7 +134,7 @@ private constructor(
         @JsonProperty("hidden") @ExcludeMissing hidden: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("hubspotDefined")
         @ExcludeMissing
-        hubspotDefined: JsonField<Boolean> = JsonMissing.of(),
+        hubSpotDefined: JsonField<Boolean> = JsonMissing.of(),
         @JsonProperty("isCustomizedDefault")
         @ExcludeMissing
         isCustomizedDefault: JsonField<Boolean> = JsonMissing.of(),
@@ -214,7 +214,7 @@ private constructor(
         groupName,
         hasUniqueValue,
         hidden,
-        hubspotDefined,
+        hubSpotDefined,
         isCustomizedDefault,
         isMultiValued,
         isPartial,
@@ -243,7 +243,7 @@ private constructor(
     /**
      * Object types permitted to use this property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun allowedObjectTypes(): List<ObjectTypeIdProto> =
@@ -252,19 +252,19 @@ private constructor(
     /**
      * Whether the property is a calculated field.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun calculated(): Boolean = calculated.getRequired("calculated")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun canArchive(): Boolean = canArchive.getRequired("canArchive")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun canRestore(): Boolean = canRestore.getRequired("canRestore")
@@ -272,7 +272,7 @@ private constructor(
     /**
      * The timestamp when the property was created, in ISO 8601 format.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): Long = createdAt.getRequired("createdAt")
@@ -280,7 +280,7 @@ private constructor(
     /**
      * The ID of the user who created the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdUserId(): Long = createdUserId.getRequired("createdUserId")
@@ -288,7 +288,7 @@ private constructor(
     /**
      * The name of the related currency property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun currencyPropertyName(): String = currencyPropertyName.getRequired("currencyPropertyName")
@@ -297,13 +297,13 @@ private constructor(
      * Indicates the sensitivity level of the property, such as "non_sensitive", "sensitive", or
      * "highly_sensitive".
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dataSensitivity(): DataSensitivity = dataSensitivity.getRequired("dataSensitivity")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun dateDisplayHint(): DateDisplayHint = dateDisplayHint.getRequired("dateDisplayHint")
@@ -311,7 +311,7 @@ private constructor(
     /**
      * Whether the property has been deleted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun deleted(): Boolean = deleted.getRequired("deleted")
@@ -319,7 +319,7 @@ private constructor(
     /**
      * A summary of the property's purpose.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun description(): String = description.getRequired("description")
@@ -328,7 +328,7 @@ private constructor(
      * The mode in which the property is displayed. Can be: "current_value" or
      * "all_unique_versions".
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun displayMode(): DisplayMode = displayMode.getRequired("displayMode")
@@ -336,13 +336,13 @@ private constructor(
     /**
      * The position of the item relative to others in the list.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun displayOrder(): Int = displayOrder.getRequired("displayOrder")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun enforceMultivalueUniqueness(): Boolean =
@@ -352,7 +352,7 @@ private constructor(
      * Applicable only for enumeration type properties. Should be set to true with a
      * 'referencedObjectType' of 'OWNER'. Otherwise false.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun externalOptions(): Boolean = externalOptions.getRequired("externalOptions")
@@ -361,7 +361,7 @@ private constructor(
      * When externalOptions is true, indicates the property's option values will be populated from
      * other systems (e.g., "OWNER" for the hubspot_owner_id property).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun externalOptionsReferenceType(): String =
@@ -370,7 +370,7 @@ private constructor(
     /**
      * Deprecated. Whether the property is marked as a favorite.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun favorited(): Boolean = favorited.getRequired("favorited")
@@ -378,7 +378,7 @@ private constructor(
     /**
      * Deprecated. The order position when marked as favorited.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun favoritedOrder(): Int = favoritedOrder.getRequired("favoritedOrder")
@@ -387,7 +387,7 @@ private constructor(
      * Determines how the property will appear in HubSpot's UI or on a form. Learn more in the
      * properties API guide.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fieldType(): String = fieldType.getRequired("fieldType")
@@ -395,7 +395,7 @@ private constructor(
     /**
      * Whether the property can appear on forms.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun formField(): Boolean = formField.getRequired("formField")
@@ -403,7 +403,7 @@ private constructor(
     /**
      * The ID of the user who last updated the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fromUserId(): Long = fromUserId.getRequired("fromUserId")
@@ -411,7 +411,7 @@ private constructor(
     /**
      * The name of the group to which the property is assigned.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun groupName(): String = groupName.getRequired("groupName")
@@ -419,7 +419,7 @@ private constructor(
     /**
      * Whether the property is a unique identifier property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hasUniqueValue(): Boolean = hasUniqueValue.getRequired("hasUniqueValue")
@@ -428,7 +428,7 @@ private constructor(
      * Whether or not the property will be hidden from the HubSpot UI. It's recommended that this be
      * set to false for custom properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hidden(): Boolean = hidden.getRequired("hidden")
@@ -436,16 +436,16 @@ private constructor(
     /**
      * A boolean value set to true for HubSpot default properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun hubspotDefined(): Boolean = hubspotDefined.getRequired("hubspotDefined")
+    fun hubSpotDefined(): Boolean = hubSpotDefined.getRequired("hubspotDefined")
 
     /**
      * For default properties, whether the property has been customized. Equivalent to the
      * 'isCustomizedDefault' field.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isCustomizedDefault(): Boolean = isCustomizedDefault.getRequired("isCustomizedDefault")
@@ -453,7 +453,7 @@ private constructor(
     /**
      * Whether the property can contain multiple values.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isMultiValued(): Boolean = isMultiValued.getRequired("isMultiValued")
@@ -462,7 +462,7 @@ private constructor(
      * For default properties, whether the property has been customized. Equivalent to the
      * 'isCustomizedDefault' field.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun isPartial(): Boolean = isPartial.getRequired("isPartial")
@@ -470,7 +470,7 @@ private constructor(
     /**
      * The display label for the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun label(): String = label.getRequired("label")
@@ -478,7 +478,7 @@ private constructor(
     /**
      * Whether the property definition can be customized but not deleted.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun mutableDefinitionNotDeletable(): Boolean =
@@ -487,7 +487,7 @@ private constructor(
     /**
      * The internal name for the property.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun name(): String = name.getRequired("name")
@@ -496,7 +496,7 @@ private constructor(
      * Hint for how a number property is displayed and validated in HubSpot's UI. Can be:
      * "unformatted", "formatted", "currency", "percentage", "duration", or "probability".
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun numberDisplayHint(): NumberDisplayHint = numberDisplayHint.getRequired("numberDisplayHint")
@@ -504,7 +504,7 @@ private constructor(
     /**
      * A list of valid options for the property. This field is required for enumerated properties.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun options(): List<AutomationActionsOption> = options.getRequired("options")
@@ -512,7 +512,7 @@ private constructor(
     /**
      * Whether options can be modified after creation.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun optionsAreMutable(): Boolean = optionsAreMutable.getRequired("optionsAreMutable")
@@ -521,14 +521,14 @@ private constructor(
      * Specifies how to sort property options. Can be either "DISPLAY_ORDER" to defer to the
      * displayOrder field, or "ALPHABETICAL".
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun optionSortStrategy(): OptionSortStrategy =
         optionSortStrategy.getRequired("optionSortStrategy")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun owningAppId(): Long = owningAppId.getRequired("owningAppId")
@@ -536,7 +536,7 @@ private constructor(
     /**
      * The ID of the HubSpot account where the property is defined.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun portalId(): Long = portalId.getRequired("portalId")
@@ -544,7 +544,7 @@ private constructor(
     /**
      * Whether the property's description is read-only.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun readOnlyDefinition(): Boolean = readOnlyDefinition.getRequired("readOnlyDefinition")
@@ -552,7 +552,7 @@ private constructor(
     /**
      * Indicates if the property's value is read-only.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun readOnlyValue(): Boolean = readOnlyValue.getRequired("readOnlyValue")
@@ -560,7 +560,7 @@ private constructor(
     /**
      * Deprecated. Use externalOptionsReferenceType instead.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun referencedObjectType(): ReferencedObjectType =
@@ -569,14 +569,14 @@ private constructor(
     /**
      * Whether the property is searchable globaly.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun searchableInGlobalSearch(): Boolean =
         searchableInGlobalSearch.getRequired("searchableInGlobalSearch")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun searchTextAnalysisMode(): SearchTextAnalysisMode =
@@ -586,7 +586,7 @@ private constructor(
      * When sensitiveData is true, lists the type of sensitive data contained in the property (e.g.,
      * "HIPAA").
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sensitiveDataCategories(): List<String> =
@@ -595,7 +595,7 @@ private constructor(
     /**
      * Whether to show the currency symbol in HubSpot's UI.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun showCurrencySymbol(): Boolean = showCurrencySymbol.getRequired("showCurrencySymbol")
@@ -605,7 +605,7 @@ private constructor(
      * "unformatted_single_line", "multi_line", "email", "phone_number", "domain_name",
      * "ip_address", "physical_address", or "postal_code".
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun textDisplayHint(): TextDisplayHint = textDisplayHint.getRequired("textDisplayHint")
@@ -613,7 +613,7 @@ private constructor(
     /**
      * The data type of the property, such as string or number.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
@@ -621,7 +621,7 @@ private constructor(
     /**
      * The timestamp when the property was last updated, in ISO 8601 format.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updatedAt(): Long = updatedAt.getRequired("updatedAt")
@@ -821,13 +821,13 @@ private constructor(
     @JsonProperty("hidden") @ExcludeMissing fun _hidden(): JsonField<Boolean> = hidden
 
     /**
-     * Returns the raw JSON value of [hubspotDefined].
+     * Returns the raw JSON value of [hubSpotDefined].
      *
-     * Unlike [hubspotDefined], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [hubSpotDefined], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("hubspotDefined")
     @ExcludeMissing
-    fun _hubspotDefined(): JsonField<Boolean> = hubspotDefined
+    fun _hubSpotDefined(): JsonField<Boolean> = hubSpotDefined
 
     /**
      * Returns the raw JSON value of [isCustomizedDefault].
@@ -1067,7 +1067,7 @@ private constructor(
          * .groupName()
          * .hasUniqueValue()
          * .hidden()
-         * .hubspotDefined()
+         * .hubSpotDefined()
          * .isCustomizedDefault()
          * .isMultiValued()
          * .isPartial()
@@ -1122,7 +1122,7 @@ private constructor(
         private var groupName: JsonField<String>? = null
         private var hasUniqueValue: JsonField<Boolean>? = null
         private var hidden: JsonField<Boolean>? = null
-        private var hubspotDefined: JsonField<Boolean>? = null
+        private var hubSpotDefined: JsonField<Boolean>? = null
         private var isCustomizedDefault: JsonField<Boolean>? = null
         private var isMultiValued: JsonField<Boolean>? = null
         private var isPartial: JsonField<Boolean>? = null
@@ -1173,7 +1173,7 @@ private constructor(
             groupName = property.groupName
             hasUniqueValue = property.hasUniqueValue
             hidden = property.hidden
-            hubspotDefined = property.hubspotDefined
+            hubSpotDefined = property.hubSpotDefined
             isCustomizedDefault = property.isCustomizedDefault
             isMultiValued = property.isMultiValued
             isPartial = property.isPartial
@@ -1539,17 +1539,17 @@ private constructor(
         fun hidden(hidden: JsonField<Boolean>) = apply { this.hidden = hidden }
 
         /** A boolean value set to true for HubSpot default properties. */
-        fun hubspotDefined(hubspotDefined: Boolean) = hubspotDefined(JsonField.of(hubspotDefined))
+        fun hubSpotDefined(hubSpotDefined: Boolean) = hubSpotDefined(JsonField.of(hubSpotDefined))
 
         /**
-         * Sets [Builder.hubspotDefined] to an arbitrary JSON value.
+         * Sets [Builder.hubSpotDefined] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.hubspotDefined] with a well-typed [Boolean] value
+         * You should usually call [Builder.hubSpotDefined] with a well-typed [Boolean] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun hubspotDefined(hubspotDefined: JsonField<Boolean>) = apply {
-            this.hubspotDefined = hubspotDefined
+        fun hubSpotDefined(hubSpotDefined: JsonField<Boolean>) = apply {
+            this.hubSpotDefined = hubSpotDefined
         }
 
         /**
@@ -1949,7 +1949,7 @@ private constructor(
          * .groupName()
          * .hasUniqueValue()
          * .hidden()
-         * .hubspotDefined()
+         * .hubSpotDefined()
          * .isCustomizedDefault()
          * .isMultiValued()
          * .isPartial()
@@ -2002,7 +2002,7 @@ private constructor(
                 checkRequired("groupName", groupName),
                 checkRequired("hasUniqueValue", hasUniqueValue),
                 checkRequired("hidden", hidden),
-                checkRequired("hubspotDefined", hubspotDefined),
+                checkRequired("hubSpotDefined", hubSpotDefined),
                 checkRequired("isCustomizedDefault", isCustomizedDefault),
                 checkRequired("isMultiValued", isMultiValued),
                 checkRequired("isPartial", isPartial),
@@ -2062,7 +2062,7 @@ private constructor(
         groupName()
         hasUniqueValue()
         hidden()
-        hubspotDefined()
+        hubSpotDefined()
         isCustomizedDefault()
         isMultiValued()
         isPartial()
@@ -2092,7 +2092,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -2127,7 +2127,7 @@ private constructor(
             (if (groupName.asKnown().isPresent) 1 else 0) +
             (if (hasUniqueValue.asKnown().isPresent) 1 else 0) +
             (if (hidden.asKnown().isPresent) 1 else 0) +
-            (if (hubspotDefined.asKnown().isPresent) 1 else 0) +
+            (if (hubSpotDefined.asKnown().isPresent) 1 else 0) +
             (if (isCustomizedDefault.asKnown().isPresent) 1 else 0) +
             (if (isMultiValued.asKnown().isPresent) 1 else 0) +
             (if (isPartial.asKnown().isPresent) 1 else 0) +
@@ -2227,7 +2227,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -2235,7 +2235,7 @@ private constructor(
                 HIGH -> Known.HIGH
                 NONE -> Known.NONE
                 STANDARD -> Known.STANDARD
-                else -> throw HubspotInvalidDataException("Unknown DataSensitivity: $value")
+                else -> throw HubSpotInvalidDataException("Unknown DataSensitivity: $value")
             }
 
         /**
@@ -2244,11 +2244,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2265,7 +2265,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -2367,7 +2367,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -2376,7 +2376,7 @@ private constructor(
                 ABSOLUTE_WITH_RELATIVE -> Known.ABSOLUTE_WITH_RELATIVE
                 TIME_SINCE -> Known.TIME_SINCE
                 TIME_UNTIL -> Known.TIME_UNTIL
-                else -> throw HubspotInvalidDataException("Unknown DateDisplayHint: $value")
+                else -> throw HubSpotInvalidDataException("Unknown DateDisplayHint: $value")
             }
 
         /**
@@ -2385,11 +2385,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2406,7 +2406,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -2501,14 +2501,14 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 ALL_UNIQUE_VERSIONS -> Known.ALL_UNIQUE_VERSIONS
                 CURRENT_VALUE -> Known.CURRENT_VALUE
-                else -> throw HubspotInvalidDataException("Unknown DisplayMode: $value")
+                else -> throw HubSpotInvalidDataException("Unknown DisplayMode: $value")
             }
 
         /**
@@ -2517,11 +2517,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2538,7 +2538,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -2654,7 +2654,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -2665,7 +2665,7 @@ private constructor(
                 PERCENTAGE -> Known.PERCENTAGE
                 PROBABILITY -> Known.PROBABILITY
                 UNFORMATTED -> Known.UNFORMATTED
-                else -> throw HubspotInvalidDataException("Unknown NumberDisplayHint: $value")
+                else -> throw HubSpotInvalidDataException("Unknown NumberDisplayHint: $value")
             }
 
         /**
@@ -2674,11 +2674,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2695,7 +2695,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -2792,14 +2792,14 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 ALPHABETICAL -> Known.ALPHABETICAL
                 DISPLAY_ORDER -> Known.DISPLAY_ORDER
-                else -> throw HubspotInvalidDataException("Unknown OptionSortStrategy: $value")
+                else -> throw HubSpotInvalidDataException("Unknown OptionSortStrategy: $value")
             }
 
         /**
@@ -2808,11 +2808,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -2829,7 +2829,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -3720,7 +3720,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -3886,7 +3886,7 @@ private constructor(
                 VIEW -> Known.VIEW
                 VIEW_BLOCK -> Known.VIEW_BLOCK
                 WEB_INTERACTIVE -> Known.WEB_INTERACTIVE
-                else -> throw HubspotInvalidDataException("Unknown ReferencedObjectType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown ReferencedObjectType: $value")
             }
 
         /**
@@ -3895,11 +3895,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -3916,7 +3916,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -4011,14 +4011,14 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
             when (this) {
                 NONE -> Known.NONE
                 NOT_ANALYZED_TEXT -> Known.NOT_ANALYZED_TEXT
-                else -> throw HubspotInvalidDataException("Unknown SearchTextAnalysisMode: $value")
+                else -> throw HubSpotInvalidDataException("Unknown SearchTextAnalysisMode: $value")
             }
 
         /**
@@ -4027,11 +4027,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -4048,7 +4048,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -4175,7 +4175,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -4188,7 +4188,7 @@ private constructor(
                 PHYSICAL_ADDRESS -> Known.PHYSICAL_ADDRESS
                 POSTAL_CODE -> Known.POSTAL_CODE
                 UNFORMATTED_SINGLE_LINE -> Known.UNFORMATTED_SINGLE_LINE
-                else -> throw HubspotInvalidDataException("Unknown TextDisplayHint: $value")
+                else -> throw HubSpotInvalidDataException("Unknown TextDisplayHint: $value")
             }
 
         /**
@@ -4197,11 +4197,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -4218,7 +4218,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -4347,7 +4347,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -4362,7 +4362,7 @@ private constructor(
                 OBJECT_COORDINATES -> Known.OBJECT_COORDINATES
                 PHONE_NUMBER -> Known.PHONE_NUMBER
                 STRING -> Known.STRING
-                else -> throw HubspotInvalidDataException("Unknown Type: $value")
+                else -> throw HubSpotInvalidDataException("Unknown Type: $value")
             }
 
         /**
@@ -4371,11 +4371,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -4392,7 +4392,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -4447,7 +4447,7 @@ private constructor(
             groupName == other.groupName &&
             hasUniqueValue == other.hasUniqueValue &&
             hidden == other.hidden &&
-            hubspotDefined == other.hubspotDefined &&
+            hubSpotDefined == other.hubSpotDefined &&
             isCustomizedDefault == other.isCustomizedDefault &&
             isMultiValued == other.isMultiValued &&
             isPartial == other.isPartial &&
@@ -4499,7 +4499,7 @@ private constructor(
             groupName,
             hasUniqueValue,
             hidden,
-            hubspotDefined,
+            hubSpotDefined,
             isCustomizedDefault,
             isMultiValued,
             isPartial,
@@ -4529,5 +4529,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Property{allowedObjectTypes=$allowedObjectTypes, calculated=$calculated, canArchive=$canArchive, canRestore=$canRestore, createdAt=$createdAt, createdUserId=$createdUserId, currencyPropertyName=$currencyPropertyName, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, deleted=$deleted, description=$description, displayMode=$displayMode, displayOrder=$displayOrder, enforceMultivalueUniqueness=$enforceMultivalueUniqueness, externalOptions=$externalOptions, externalOptionsReferenceType=$externalOptionsReferenceType, favorited=$favorited, favoritedOrder=$favoritedOrder, fieldType=$fieldType, formField=$formField, fromUserId=$fromUserId, groupName=$groupName, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubspotDefined=$hubspotDefined, isCustomizedDefault=$isCustomizedDefault, isMultiValued=$isMultiValued, isPartial=$isPartial, label=$label, mutableDefinitionNotDeletable=$mutableDefinitionNotDeletable, name=$name, numberDisplayHint=$numberDisplayHint, options=$options, optionsAreMutable=$optionsAreMutable, optionSortStrategy=$optionSortStrategy, owningAppId=$owningAppId, portalId=$portalId, readOnlyDefinition=$readOnlyDefinition, readOnlyValue=$readOnlyValue, referencedObjectType=$referencedObjectType, searchableInGlobalSearch=$searchableInGlobalSearch, searchTextAnalysisMode=$searchTextAnalysisMode, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, textDisplayHint=$textDisplayHint, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Property{allowedObjectTypes=$allowedObjectTypes, calculated=$calculated, canArchive=$canArchive, canRestore=$canRestore, createdAt=$createdAt, createdUserId=$createdUserId, currencyPropertyName=$currencyPropertyName, dataSensitivity=$dataSensitivity, dateDisplayHint=$dateDisplayHint, deleted=$deleted, description=$description, displayMode=$displayMode, displayOrder=$displayOrder, enforceMultivalueUniqueness=$enforceMultivalueUniqueness, externalOptions=$externalOptions, externalOptionsReferenceType=$externalOptionsReferenceType, favorited=$favorited, favoritedOrder=$favoritedOrder, fieldType=$fieldType, formField=$formField, fromUserId=$fromUserId, groupName=$groupName, hasUniqueValue=$hasUniqueValue, hidden=$hidden, hubSpotDefined=$hubSpotDefined, isCustomizedDefault=$isCustomizedDefault, isMultiValued=$isMultiValued, isPartial=$isPartial, label=$label, mutableDefinitionNotDeletable=$mutableDefinitionNotDeletable, name=$name, numberDisplayHint=$numberDisplayHint, options=$options, optionsAreMutable=$optionsAreMutable, optionSortStrategy=$optionSortStrategy, owningAppId=$owningAppId, portalId=$portalId, readOnlyDefinition=$readOnlyDefinition, readOnlyValue=$readOnlyValue, referencedObjectType=$referencedObjectType, searchableInGlobalSearch=$searchableInGlobalSearch, searchTextAnalysisMode=$searchTextAnalysisMode, sensitiveDataCategories=$sensitiveDataCategories, showCurrencySymbol=$showCurrencySymbol, textDisplayHint=$textDisplayHint, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }

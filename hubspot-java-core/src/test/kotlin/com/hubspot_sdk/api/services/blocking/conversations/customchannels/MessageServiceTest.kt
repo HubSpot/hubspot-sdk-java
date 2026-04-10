@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.conversations.customchannels
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationMessageEgg
 import com.hubspot_sdk.api.models.conversations.customchannels.ChannelIntegrationParticipant
 import com.hubspot_sdk.api.models.conversations.customchannels.FileAttachment
@@ -22,7 +22,7 @@ internal class MessageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val messageService = client.conversations().customChannels().messages()
 
         val publicConversationsMessage =
@@ -103,7 +103,7 @@ internal class MessageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val messageService = client.conversations().customChannels().messages()
 
         val publicConversationsMessage =
@@ -128,7 +128,7 @@ internal class MessageServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val messageService = client.conversations().customChannels().messages()
 
         val publicConversationsMessage =

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.cms
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchGetIndexedDataParams
 import com.hubspot_sdk.api.models.cms.sitesearch.SiteSearchSearchParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class SiteSearchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getIndexedData() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val siteSearchService = client.cms().siteSearch()
 
         val indexedData =
@@ -27,7 +27,7 @@ internal class SiteSearchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val siteSearchService = client.cms().siteSearch()
 
         val publicSearchResults =

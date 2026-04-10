@@ -14,7 +14,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -29,7 +29,7 @@ private constructor(
     private val hsMeetingStartTime: JsonField<OffsetDateTime>,
     private val hsMeetingTitle: JsonField<String>,
     private val hsTimestamp: JsonField<OffsetDateTime>,
-    private val hubspotOwnerId: JsonField<String>,
+    private val hubSpotOwnerId: JsonField<String>,
     private val hsActivityType: JsonField<String>,
     private val hsAttachmentIds: JsonField<List<String>>,
     private val hsAttendeeOwnerIds: JsonField<List<String>>,
@@ -59,7 +59,7 @@ private constructor(
         hsTimestamp: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("hubspot_owner_id")
         @ExcludeMissing
-        hubspotOwnerId: JsonField<String> = JsonMissing.of(),
+        hubSpotOwnerId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("hs_activity_type")
         @ExcludeMissing
         hsActivityType: JsonField<String> = JsonMissing.of(),
@@ -87,7 +87,7 @@ private constructor(
         hsMeetingStartTime,
         hsMeetingTitle,
         hsTimestamp,
-        hubspotOwnerId,
+        hubSpotOwnerId,
         hsActivityType,
         hsAttachmentIds,
         hsAttendeeOwnerIds,
@@ -101,7 +101,7 @@ private constructor(
     /**
      * The time that the meeting should end in ISO 8601 format.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hsMeetingEndTime(): OffsetDateTime = hsMeetingEndTime.getRequired("hs_meeting_end_time")
@@ -110,7 +110,7 @@ private constructor(
      * The outcome of the meeting. Acceptable default values are: SCHEDULED, COMPLETED, RESCHEDULED,
      * NO_SHOW, CANCELED. This property can be changed to include additional custom values.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hsMeetingOutcome(): String = hsMeetingOutcome.getRequired("hs_meeting_outcome")
@@ -118,7 +118,7 @@ private constructor(
     /**
      * The time that the meeting should start in ISO 8601 format.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hsMeetingStartTime(): OffsetDateTime =
@@ -127,7 +127,7 @@ private constructor(
     /**
      * The title of the meeting and calendar event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hsMeetingTitle(): String = hsMeetingTitle.getRequired("hs_meeting_title")
@@ -136,7 +136,7 @@ private constructor(
      * The time that the meeting should start in ISO 8601 format. This value should be the same as
      * `hs_meeting_start_time`.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun hsTimestamp(): OffsetDateTime = hsTimestamp.getRequired("hs_timestamp")
@@ -144,28 +144,28 @@ private constructor(
     /**
      * The ownerId of the HubSpot user who will host the meeting.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun hubspotOwnerId(): String = hubspotOwnerId.getRequired("hubspot_owner_id")
+    fun hubSpotOwnerId(): String = hubSpotOwnerId.getRequired("hubspot_owner_id")
 
     /**
      * The activity type of the meeting. Acceptable values are based on portal defined call and
      * meeting types.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hsActivityType(): Optional<String> = hsActivityType.getOptional("hs_activity_type")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hsAttachmentIds(): Optional<List<String>> = hsAttachmentIds.getOptional("hs_attachment_ids")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hsAttendeeOwnerIds(): Optional<List<String>> =
@@ -174,7 +174,7 @@ private constructor(
     /**
      * Internal notes related to the meeting.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hsInternalMeetingNotes(): Optional<String> =
@@ -183,7 +183,7 @@ private constructor(
     /**
      * The description of the meeting and calendar event.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hsMeetingBody(): Optional<String> = hsMeetingBody.getOptional("hs_meeting_body")
@@ -191,7 +191,7 @@ private constructor(
     /**
      * The physical address, virtual location, or phone number where the meeting will take place.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hsMeetingLocation(): Optional<String> = hsMeetingLocation.getOptional("hs_meeting_location")
@@ -199,7 +199,7 @@ private constructor(
     /**
      * The type of location for the meeting. Acceptable values are: ADDRESS, CUSTOM, PHONE.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun hsMeetingLocationType(): Optional<HsMeetingLocationType> =
@@ -254,13 +254,13 @@ private constructor(
     fun _hsTimestamp(): JsonField<OffsetDateTime> = hsTimestamp
 
     /**
-     * Returns the raw JSON value of [hubspotOwnerId].
+     * Returns the raw JSON value of [hubSpotOwnerId].
      *
-     * Unlike [hubspotOwnerId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [hubSpotOwnerId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("hubspot_owner_id")
     @ExcludeMissing
-    fun _hubspotOwnerId(): JsonField<String> = hubspotOwnerId
+    fun _hubSpotOwnerId(): JsonField<String> = hubSpotOwnerId
 
     /**
      * Returns the raw JSON value of [hsActivityType].
@@ -354,7 +354,7 @@ private constructor(
          * .hsMeetingStartTime()
          * .hsMeetingTitle()
          * .hsTimestamp()
-         * .hubspotOwnerId()
+         * .hubSpotOwnerId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -368,7 +368,7 @@ private constructor(
         private var hsMeetingStartTime: JsonField<OffsetDateTime>? = null
         private var hsMeetingTitle: JsonField<String>? = null
         private var hsTimestamp: JsonField<OffsetDateTime>? = null
-        private var hubspotOwnerId: JsonField<String>? = null
+        private var hubSpotOwnerId: JsonField<String>? = null
         private var hsActivityType: JsonField<String> = JsonMissing.of()
         private var hsAttachmentIds: JsonField<MutableList<String>>? = null
         private var hsAttendeeOwnerIds: JsonField<MutableList<String>>? = null
@@ -388,7 +388,7 @@ private constructor(
             hsMeetingStartTime = externalCalendarMeetingEventCreateProperties.hsMeetingStartTime
             hsMeetingTitle = externalCalendarMeetingEventCreateProperties.hsMeetingTitle
             hsTimestamp = externalCalendarMeetingEventCreateProperties.hsTimestamp
-            hubspotOwnerId = externalCalendarMeetingEventCreateProperties.hubspotOwnerId
+            hubSpotOwnerId = externalCalendarMeetingEventCreateProperties.hubSpotOwnerId
             hsActivityType = externalCalendarMeetingEventCreateProperties.hsActivityType
             hsAttachmentIds =
                 externalCalendarMeetingEventCreateProperties.hsAttachmentIds.map {
@@ -489,17 +489,17 @@ private constructor(
         }
 
         /** The ownerId of the HubSpot user who will host the meeting. */
-        fun hubspotOwnerId(hubspotOwnerId: String) = hubspotOwnerId(JsonField.of(hubspotOwnerId))
+        fun hubSpotOwnerId(hubSpotOwnerId: String) = hubSpotOwnerId(JsonField.of(hubSpotOwnerId))
 
         /**
-         * Sets [Builder.hubspotOwnerId] to an arbitrary JSON value.
+         * Sets [Builder.hubSpotOwnerId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.hubspotOwnerId] with a well-typed [String] value
+         * You should usually call [Builder.hubSpotOwnerId] with a well-typed [String] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun hubspotOwnerId(hubspotOwnerId: JsonField<String>) = apply {
-            this.hubspotOwnerId = hubspotOwnerId
+        fun hubSpotOwnerId(hubSpotOwnerId: JsonField<String>) = apply {
+            this.hubSpotOwnerId = hubSpotOwnerId
         }
 
         /**
@@ -664,7 +664,7 @@ private constructor(
          * .hsMeetingStartTime()
          * .hsMeetingTitle()
          * .hsTimestamp()
-         * .hubspotOwnerId()
+         * .hubSpotOwnerId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -676,7 +676,7 @@ private constructor(
                 checkRequired("hsMeetingStartTime", hsMeetingStartTime),
                 checkRequired("hsMeetingTitle", hsMeetingTitle),
                 checkRequired("hsTimestamp", hsTimestamp),
-                checkRequired("hubspotOwnerId", hubspotOwnerId),
+                checkRequired("hubSpotOwnerId", hubSpotOwnerId),
                 hsActivityType,
                 (hsAttachmentIds ?: JsonMissing.of()).map { it.toImmutable() },
                 (hsAttendeeOwnerIds ?: JsonMissing.of()).map { it.toImmutable() },
@@ -700,7 +700,7 @@ private constructor(
         hsMeetingStartTime()
         hsMeetingTitle()
         hsTimestamp()
-        hubspotOwnerId()
+        hubSpotOwnerId()
         hsActivityType()
         hsAttachmentIds()
         hsAttendeeOwnerIds()
@@ -715,7 +715,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -731,7 +731,7 @@ private constructor(
             (if (hsMeetingStartTime.asKnown().isPresent) 1 else 0) +
             (if (hsMeetingTitle.asKnown().isPresent) 1 else 0) +
             (if (hsTimestamp.asKnown().isPresent) 1 else 0) +
-            (if (hubspotOwnerId.asKnown().isPresent) 1 else 0) +
+            (if (hubSpotOwnerId.asKnown().isPresent) 1 else 0) +
             (if (hsActivityType.asKnown().isPresent) 1 else 0) +
             (hsAttachmentIds.asKnown().getOrNull()?.size ?: 0) +
             (hsAttendeeOwnerIds.asKnown().getOrNull()?.size ?: 0) +
@@ -815,7 +815,7 @@ private constructor(
          * Use the [value] method instead if you're uncertain the value is always known and don't
          * want to throw for the unknown case.
          *
-         * @throws HubspotInvalidDataException if this class instance's value is a not a known
+         * @throws HubSpotInvalidDataException if this class instance's value is a not a known
          *   member.
          */
         fun known(): Known =
@@ -823,7 +823,7 @@ private constructor(
                 ADDRESS -> Known.ADDRESS
                 CUSTOM -> Known.CUSTOM
                 PHONE -> Known.PHONE
-                else -> throw HubspotInvalidDataException("Unknown HsMeetingLocationType: $value")
+                else -> throw HubSpotInvalidDataException("Unknown HsMeetingLocationType: $value")
             }
 
         /**
@@ -832,11 +832,11 @@ private constructor(
          * This differs from the [toString] method because that method is primarily for debugging
          * and generally doesn't throw.
          *
-         * @throws HubspotInvalidDataException if this class instance's value does not have the
+         * @throws HubSpotInvalidDataException if this class instance's value does not have the
          *   expected primitive type.
          */
         fun asString(): String =
-            _value().asString().orElseThrow { HubspotInvalidDataException("Value is not a String") }
+            _value().asString().orElseThrow { HubSpotInvalidDataException("Value is not a String") }
 
         private var validated: Boolean = false
 
@@ -853,7 +853,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -889,7 +889,7 @@ private constructor(
             hsMeetingStartTime == other.hsMeetingStartTime &&
             hsMeetingTitle == other.hsMeetingTitle &&
             hsTimestamp == other.hsTimestamp &&
-            hubspotOwnerId == other.hubspotOwnerId &&
+            hubSpotOwnerId == other.hubSpotOwnerId &&
             hsActivityType == other.hsActivityType &&
             hsAttachmentIds == other.hsAttachmentIds &&
             hsAttendeeOwnerIds == other.hsAttendeeOwnerIds &&
@@ -907,7 +907,7 @@ private constructor(
             hsMeetingStartTime,
             hsMeetingTitle,
             hsTimestamp,
-            hubspotOwnerId,
+            hubSpotOwnerId,
             hsActivityType,
             hsAttachmentIds,
             hsAttendeeOwnerIds,
@@ -922,5 +922,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "ExternalCalendarMeetingEventCreateProperties{hsMeetingEndTime=$hsMeetingEndTime, hsMeetingOutcome=$hsMeetingOutcome, hsMeetingStartTime=$hsMeetingStartTime, hsMeetingTitle=$hsMeetingTitle, hsTimestamp=$hsTimestamp, hubspotOwnerId=$hubspotOwnerId, hsActivityType=$hsActivityType, hsAttachmentIds=$hsAttachmentIds, hsAttendeeOwnerIds=$hsAttendeeOwnerIds, hsInternalMeetingNotes=$hsInternalMeetingNotes, hsMeetingBody=$hsMeetingBody, hsMeetingLocation=$hsMeetingLocation, hsMeetingLocationType=$hsMeetingLocationType, additionalProperties=$additionalProperties}"
+        "ExternalCalendarMeetingEventCreateProperties{hsMeetingEndTime=$hsMeetingEndTime, hsMeetingOutcome=$hsMeetingOutcome, hsMeetingStartTime=$hsMeetingStartTime, hsMeetingTitle=$hsMeetingTitle, hsTimestamp=$hsTimestamp, hubSpotOwnerId=$hubSpotOwnerId, hsActivityType=$hsActivityType, hsAttachmentIds=$hsAttachmentIds, hsAttendeeOwnerIds=$hsAttendeeOwnerIds, hsInternalMeetingNotes=$hsInternalMeetingNotes, hsMeetingBody=$hsMeetingBody, hsMeetingLocation=$hsMeetingLocation, hsMeetingLocationType=$hsMeetingLocationType, additionalProperties=$additionalProperties}"
 }

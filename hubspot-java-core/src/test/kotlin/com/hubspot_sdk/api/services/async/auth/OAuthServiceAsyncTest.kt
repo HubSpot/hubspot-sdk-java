@@ -8,7 +8,7 @@ import com.github.tomakehurst.wiremock.client.WireMock.post
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.auth.oauth.OAuthCreateTokenParams
 import com.hubspot_sdk.api.models.auth.oauth.OAuthIntrospectTokenParams
 import com.hubspot_sdk.api.models.auth.oauth.OAuthRevokeTokenParams
@@ -24,7 +24,7 @@ internal class OAuthServiceAsyncTest {
     @Test
     fun createToken(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()
@@ -52,7 +52,7 @@ internal class OAuthServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun introspectToken() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val oauthServiceAsync = client.auth().oauth()
 
         val tokenInfoResponseBaseIfFuture =
@@ -72,7 +72,7 @@ internal class OAuthServiceAsyncTest {
     @Test
     fun revokeToken(wmRuntimeInfo: WireMockRuntimeInfo) {
         val client =
-            HubspotOkHttpClientAsync.builder()
+            HubSpotOkHttpClientAsync.builder()
                 .baseUrl(wmRuntimeInfo.httpBaseUrl)
                 .accessToken("My Access Token")
                 .build()

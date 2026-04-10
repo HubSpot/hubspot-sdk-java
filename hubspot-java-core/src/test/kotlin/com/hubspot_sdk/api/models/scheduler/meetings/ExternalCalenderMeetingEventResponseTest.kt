@@ -42,7 +42,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                                 .ADDRESS
                         )
                         .hsUniqueId("hs_unique_id")
-                        .hubspotOwnerId("hubspot_owner_id")
+                        .hubSpotOwnerId("hubspot_owner_id")
                         .build()
                 )
                 .build()
@@ -76,7 +76,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                         ExternalCalendarMeetingEventResponseProperties.HsMeetingLocationType.ADDRESS
                     )
                     .hsUniqueId("hs_unique_id")
-                    .hubspotOwnerId("hubspot_owner_id")
+                    .hubSpotOwnerId("hubspot_owner_id")
                     .build()
             )
     }
@@ -114,7 +114,7 @@ internal class ExternalCalenderMeetingEventResponseTest {
                                 .ADDRESS
                         )
                         .hsUniqueId("hs_unique_id")
-                        .hubspotOwnerId("hubspot_owner_id")
+                        .hubSpotOwnerId("hubspot_owner_id")
                         .build()
                 )
                 .build()

@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.campaigns
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.marketing.campaigns.BatchInputPublicCampaignBatchUpdateItem
 import com.hubspot_sdk.api.models.marketing.campaigns.BatchInputPublicCampaignDeleteInput
@@ -21,7 +21,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.marketing().campaigns().batch()
 
         val batchResponsePublicCampaignFuture =
@@ -46,7 +46,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.marketing().campaigns().batch()
 
         val batchResponsePublicCampaignFuture =
@@ -72,7 +72,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.marketing().campaigns().batch()
 
         val future =
@@ -88,7 +88,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.marketing().campaigns().batch()
 
         val batchResponsePublicCampaignWithAssetsFuture =

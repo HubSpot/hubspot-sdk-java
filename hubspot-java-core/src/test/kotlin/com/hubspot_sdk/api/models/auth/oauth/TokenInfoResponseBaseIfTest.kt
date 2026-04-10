@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.auth.oauth
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -178,7 +178,7 @@ internal class TokenInfoResponseBaseIfTest {
         val tokenInfoResponseBaseIf =
             jsonMapper().convertValue(testCase.value, jacksonTypeRef<TokenInfoResponseBaseIf>())
 
-        val e = assertThrows<HubspotInvalidDataException> { tokenInfoResponseBaseIf.validate() }
+        val e = assertThrows<HubSpotInvalidDataException> { tokenInfoResponseBaseIf.validate() }
         assertThat(e).hasMessageStartingWith("Unknown ")
     }
 }

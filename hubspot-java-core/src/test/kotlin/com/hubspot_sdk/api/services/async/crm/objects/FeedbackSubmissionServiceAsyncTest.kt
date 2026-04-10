@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.objects
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.PublicObjectSearchRequest
@@ -15,7 +15,7 @@ internal class FeedbackSubmissionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val feedbackSubmissionServiceAsync = client.crm().objects().feedbackSubmissions()
 
         val pageFuture = feedbackSubmissionServiceAsync.list()
@@ -27,7 +27,7 @@ internal class FeedbackSubmissionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val feedbackSubmissionServiceAsync = client.crm().objects().feedbackSubmissions()
 
         val simplePublicObjectWithAssociationsFuture =
@@ -49,7 +49,7 @@ internal class FeedbackSubmissionServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val feedbackSubmissionServiceAsync = client.crm().objects().feedbackSubmissions()
 
         val collectionResponseWithTotalSimplePublicObjectFuture =

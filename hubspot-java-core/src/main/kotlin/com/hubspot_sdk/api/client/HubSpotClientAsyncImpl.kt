@@ -36,7 +36,7 @@ import com.hubspot_sdk.api.services.async.WebhookServiceAsync
 import com.hubspot_sdk.api.services.async.WebhookServiceAsyncImpl
 import java.util.function.Consumer
 
-class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : HubspotClientAsync {
+class HubSpotClientAsyncImpl(private val clientOptions: ClientOptions) : HubSpotClientAsync {
 
     private val clientOptionsWithUserAgent =
         if (clientOptions.headers.names().contains("User-Agent")) clientOptions
@@ -47,9 +47,9 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
                 .build()
 
     // Pass the original clientOptions so that this client sets its own User-Agent.
-    private val sync: HubspotClient by lazy { HubspotClientImpl(clientOptions) }
+    private val sync: HubSpotClient by lazy { HubSpotClientImpl(clientOptions) }
 
-    private val withRawResponse: HubspotClientAsync.WithRawResponse by lazy {
+    private val withRawResponse: HubSpotClientAsync.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
     }
 
@@ -103,12 +103,12 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
         WebhookServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    override fun sync(): HubspotClient = sync
+    override fun sync(): HubSpotClient = sync
 
-    override fun withRawResponse(): HubspotClientAsync.WithRawResponse = withRawResponse
+    override fun withRawResponse(): HubSpotClientAsync.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubspotClientAsync =
-        HubspotClientAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): HubSpotClientAsync =
+        HubSpotClientAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
     override fun account(): AccountServiceAsync = account
 
@@ -144,7 +144,7 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
     override fun close() = clientOptions.close()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        HubspotClientAsync.WithRawResponse {
+        HubSpotClientAsync.WithRawResponse {
 
         private val account: AccountServiceAsync.WithRawResponse by lazy {
             AccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -209,8 +209,8 @@ class HubspotClientAsyncImpl(private val clientOptions: ClientOptions) : Hubspot
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
-        ): HubspotClientAsync.WithRawResponse =
-            HubspotClientAsyncImpl.WithRawResponseImpl(
+        ): HubSpotClientAsync.WithRawResponse =
+            HubSpotClientAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 

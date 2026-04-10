@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
 import com.hubspot_sdk.api.models.crm.exports.PublicCrmSearchRequest
@@ -15,7 +15,7 @@ internal class ExportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createAsync() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exportService = client.crm().exports()
 
         val taskLocator =
@@ -71,7 +71,7 @@ internal class ExportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exportService = client.crm().exports()
 
         val publicExportResponse = exportService.get(0L)
@@ -82,7 +82,7 @@ internal class ExportServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getStatus() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val exportService = client.crm().exports()
 
         val actionResponseWithSingleResultUri = exportService.getStatus(0L)

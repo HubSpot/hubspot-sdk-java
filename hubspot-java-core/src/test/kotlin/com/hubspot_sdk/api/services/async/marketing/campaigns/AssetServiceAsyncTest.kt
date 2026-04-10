@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.campaigns
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.marketing.campaigns.assets.AssetDeleteParams
 import com.hubspot_sdk.api.models.marketing.campaigns.assets.AssetListParams
 import com.hubspot_sdk.api.models.marketing.campaigns.assets.AssetUpdateParams
@@ -14,7 +14,7 @@ internal class AssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val assetServiceAsync = client.marketing().campaigns().assets()
 
         val future =
@@ -32,7 +32,7 @@ internal class AssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val assetServiceAsync = client.marketing().campaigns().assets()
 
         val collectionResponsePublicCampaignAssetForwardPagingFuture =
@@ -55,7 +55,7 @@ internal class AssetServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val assetServiceAsync = client.marketing().campaigns().assets()
 
         val future =

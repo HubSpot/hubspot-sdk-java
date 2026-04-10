@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.associations
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
 import com.hubspot_sdk.api.models.crm.associations.BatchInputPublicAssociationMultiArchive
@@ -26,7 +26,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
         val batchResponsePublicDefaultAssociationFuture =
@@ -47,7 +47,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
         val future =
@@ -74,7 +74,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createDefault() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
         val batchResponsePublicDefaultAssociationFuture =
@@ -103,7 +103,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun deleteLabels() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
         val future =
@@ -138,7 +138,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().associations().batch()
 
         val batchResponsePublicAssociationMultiWithLabelFuture =

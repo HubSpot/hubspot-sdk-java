@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.cms
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.cms.auditlogs.CmsAuditLoggingExportFilters
 import com.hubspot_sdk.api.models.cms.auditlogs.CmsAuditLoggingExportSettings
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class AuditLogServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val auditLogService = client.cms().auditLogs()
 
         val page = auditLogService.list()
@@ -24,7 +24,7 @@ internal class AuditLogServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun export() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val auditLogService = client.cms().auditLogs()
 
         auditLogService.export(

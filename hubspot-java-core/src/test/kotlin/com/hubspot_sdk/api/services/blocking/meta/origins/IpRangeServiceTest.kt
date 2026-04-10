@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.meta.origins
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.meta.origins.ipranges.IpRangeListParams
 import com.hubspot_sdk.api.models.meta.origins.ipranges.IpRangeListSimpleParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class IpRangeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val ipRangeService = client.meta().origins().ipRanges()
 
         val collectionResponseIpRangeNoPaging =
@@ -30,7 +30,7 @@ internal class IpRangeServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun listSimple() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val ipRangeService = client.meta().origins().ipRanges()
 
         ipRangeService.listSimple(

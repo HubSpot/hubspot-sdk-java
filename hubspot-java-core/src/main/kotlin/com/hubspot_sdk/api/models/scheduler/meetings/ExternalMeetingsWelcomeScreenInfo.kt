@@ -10,7 +10,7 @@ import com.hubspot_sdk.api.core.ExcludeMissing
 import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -44,7 +44,7 @@ private constructor(
     /**
      * A brief description displayed the welcome screen below the title.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun description(): Optional<String> = description.getOptional("description")
@@ -53,7 +53,7 @@ private constructor(
      * The URL of the logo image to be displayed on the welcome screen, only used if
      * `useCompanyLogo` is false.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun logoUrl(): Optional<String> = logoUrl.getOptional("logoUrl")
@@ -61,7 +61,7 @@ private constructor(
     /**
      * Deprecated property. Value can be ignored but will always be false.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun showWelcomeScreen(): Optional<Boolean> = showWelcomeScreen.getOptional("showWelcomeScreen")
@@ -69,7 +69,7 @@ private constructor(
     /**
      * The main heading displayed on the welcome screen.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun title(): Optional<String> = title.getOptional("title")
@@ -77,7 +77,7 @@ private constructor(
     /**
      * Whether the company's logo should be displayed on the welcome screen.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun useCompanyLogo(): Optional<Boolean> = useCompanyLogo.getOptional("useCompanyLogo")
@@ -285,7 +285,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

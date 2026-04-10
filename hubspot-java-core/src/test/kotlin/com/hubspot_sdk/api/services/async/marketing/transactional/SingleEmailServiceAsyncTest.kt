@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.marketing.transactional
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.marketing.PublicSingleSendEmail
 import com.hubspot_sdk.api.models.marketing.PublicSingleSendRequestEgg
@@ -14,7 +14,7 @@ internal class SingleEmailServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun send() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val singleEmailServiceAsync = client.marketing().transactional().singleEmail()
 
         val emailSendStatusViewFuture =

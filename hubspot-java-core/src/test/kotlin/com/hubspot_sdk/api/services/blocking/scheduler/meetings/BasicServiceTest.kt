@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.scheduler.meetings
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.scheduler.meetings.basic.BasicGetAvailabilityBySlugParams
 import com.hubspot_sdk.api.models.scheduler.meetings.basic.BasicGetBookingInfoBySlugParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class BasicServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val basicService = client.scheduler().meetings().basic()
 
         val page = basicService.list()
@@ -24,7 +24,7 @@ internal class BasicServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getAvailabilityBySlug() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val basicService = client.scheduler().meetings().basic()
 
         val externalLinkAvailabilityAndBusyTimes =
@@ -42,7 +42,7 @@ internal class BasicServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getBookingInfoBySlug() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val basicService = client.scheduler().meetings().basic()
 
         val externalBookingInfo =

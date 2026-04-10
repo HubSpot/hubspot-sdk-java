@@ -5,7 +5,7 @@ package com.hubspot_sdk.api.models.webhooks
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.jsonMapper
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -207,7 +207,7 @@ internal class SubscriptionUpsertRequestTest {
         val subscriptionUpsertRequest =
             jsonMapper().convertValue(testCase.value, jacksonTypeRef<SubscriptionUpsertRequest>())
 
-        val e = assertThrows<HubspotInvalidDataException> { subscriptionUpsertRequest.validate() }
+        val e = assertThrows<HubSpotInvalidDataException> { subscriptionUpsertRequest.validate() }
         assertThat(e).hasMessageStartingWith("Unknown ")
     }
 }

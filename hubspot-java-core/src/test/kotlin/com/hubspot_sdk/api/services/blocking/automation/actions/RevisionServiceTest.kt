@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.automation.actions
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionGetParams
 import com.hubspot_sdk.api.models.automation.actions.revisions.RevisionListParams
 import org.junit.jupiter.api.Disabled
@@ -13,7 +13,7 @@ internal class RevisionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val revisionService = client.automation().actions().revisions()
 
         val page =
@@ -27,7 +27,7 @@ internal class RevisionServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val revisionService = client.automation().actions().revisions()
 
         val publicActionRevision =

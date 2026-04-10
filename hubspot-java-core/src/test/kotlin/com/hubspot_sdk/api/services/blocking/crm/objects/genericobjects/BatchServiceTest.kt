@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.objects.genericobjects
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.AssociationSpec
 import com.hubspot_sdk.api.models.PublicObjectId
@@ -29,7 +29,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().objects().genericObjects().batch()
 
         val batchResponseSimplePublicObject =
@@ -73,7 +73,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().objects().genericObjects().batch()
 
         val batchResponseSimplePublicObject =
@@ -105,7 +105,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().objects().genericObjects().batch()
 
         batchService.delete(
@@ -123,7 +123,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().objects().genericObjects().batch()
 
         val batchResponseSimplePublicObject =
@@ -148,7 +148,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun upsert() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().objects().genericObjects().batch()
 
         val batchResponseSimplePublicUpsertObject =

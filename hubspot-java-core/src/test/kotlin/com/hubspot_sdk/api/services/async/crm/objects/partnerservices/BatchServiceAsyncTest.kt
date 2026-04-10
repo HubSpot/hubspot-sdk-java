@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.objects.partnerservices
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.objects.BatchInputSimplePublicObjectBatchInput
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
@@ -17,7 +17,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().objects().partnerServices().batch()
 
         val batchResponseSimplePublicObjectFuture =
@@ -45,7 +45,7 @@ internal class BatchServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val batchServiceAsync = client.crm().objects().partnerServices().batch()
 
         val batchResponseSimplePublicObjectFuture =

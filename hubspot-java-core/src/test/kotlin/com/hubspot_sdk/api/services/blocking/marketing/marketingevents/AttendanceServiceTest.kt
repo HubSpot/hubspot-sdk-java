@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.marketing.marketingevents
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.marketing.marketingevents.BatchInputMarketingEventEmailSubscriber
 import com.hubspot_sdk.api.models.marketing.marketingevents.BatchInputMarketingEventSubscriber
@@ -20,7 +20,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByEventIdAndContactId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberVidResponse =
@@ -52,7 +52,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByEventIdAndEmail() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberEmailResponse =
@@ -89,7 +89,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByExternalEventIdAndContactId() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberVidResponse =
@@ -122,7 +122,7 @@ internal class AttendanceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun createByExternalEventIdAndEmail() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val attendanceService = client.marketing().marketingEvents().attendance()
 
         val batchResponseSubscriberEmailResponse =

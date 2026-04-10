@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -78,7 +78,7 @@ private constructor(
      * The destination URL, where the target URL should be redirected if it matches the
      * `routePrefix`.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun destination(): String = destination.getRequired("destination")
@@ -88,7 +88,7 @@ private constructor(
      * (proxy). Find more details
      * [here](https://knowledge.hubspot.com/cos-general/how-to-redirect-a-hubspot-page).
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun redirectStyle(): Int = redirectStyle.getRequired("redirectStyle")
@@ -96,7 +96,7 @@ private constructor(
     /**
      * The target incoming URL, path, or pattern to match for redirection.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun routePrefix(): String = routePrefix.getRequired("routePrefix")
@@ -104,7 +104,7 @@ private constructor(
     /**
      * Whether the `routePrefix` should match on the entire URL, including the domain.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isMatchFullUrl(): Optional<Boolean> = isMatchFullUrl.getOptional("isMatchFullUrl")
@@ -112,7 +112,7 @@ private constructor(
     /**
      * Whether the `routePrefix` should match on the entire URL path, including the query string.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isMatchQueryString(): Optional<Boolean> =
@@ -122,7 +122,7 @@ private constructor(
      * Whether the URL redirect mapping should apply only if a live page on the URL isn't found. If
      * False, the URL redirect mapping will take precedence over any existing page.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isOnlyAfterNotFound(): Optional<Boolean> =
@@ -131,7 +131,7 @@ private constructor(
     /**
      * Whether the `routePrefix` should match based on pattern.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isPattern(): Optional<Boolean> = isPattern.getOptional("isPattern")
@@ -139,7 +139,7 @@ private constructor(
     /**
      * Whether the `routePrefix` should match both HTTP and HTTPS protocols.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isProtocolAgnostic(): Optional<Boolean> =
@@ -148,7 +148,7 @@ private constructor(
     /**
      * Whether a trailing slash will be ignored.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun isTrailingSlashOptional(): Optional<Boolean> =
@@ -158,7 +158,7 @@ private constructor(
      * Used to prioritize URL redirection. If a given URL matches more than one redirect, the one
      * with the **lower** precedence will be used.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun precedence(): Optional<Int> = precedence.getOptional("precedence")
@@ -530,7 +530,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

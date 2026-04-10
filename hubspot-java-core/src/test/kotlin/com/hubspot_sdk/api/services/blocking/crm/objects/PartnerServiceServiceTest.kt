@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.objects
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.crm.Filter
 import com.hubspot_sdk.api.models.crm.FilterGroup
@@ -19,7 +19,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val simplePublicObject =
@@ -45,7 +45,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val page =
@@ -62,7 +62,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val simplePublicObjectWithAssociations =
@@ -83,7 +83,7 @@ internal class PartnerServiceServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun search() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val partnerServiceService = client.crm().objects().partnerServices()
 
         val collectionResponseWithTotalSimplePublicObject =

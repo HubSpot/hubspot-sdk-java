@@ -13,7 +13,7 @@ import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.checkRequired
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -74,7 +74,7 @@ private constructor(
     /**
      * The user's unique ID.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
@@ -82,7 +82,7 @@ private constructor(
     /**
      * The user's email.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun email(): String = email.getRequired("email")
@@ -90,7 +90,7 @@ private constructor(
     /**
      * A list of role IDs assigned to the user.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun roleIds(): List<String> = roleIds.getRequired("roleIds")
@@ -98,7 +98,7 @@ private constructor(
     /**
      * Whether the user has super admin privileges.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun superAdmin(): Boolean = superAdmin.getRequired("superAdmin")
@@ -106,7 +106,7 @@ private constructor(
     /**
      * The user's first name.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun firstName(): Optional<String> = firstName.getOptional("firstName")
@@ -114,7 +114,7 @@ private constructor(
     /**
      * The user's last name.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun lastName(): Optional<String> = lastName.getOptional("lastName")
@@ -122,7 +122,7 @@ private constructor(
     /**
      * The user's primary team
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun primaryTeamId(): Optional<String> = primaryTeamId.getOptional("primaryTeamId")
@@ -130,7 +130,7 @@ private constructor(
     /**
      * The user's role.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun roleId(): Optional<String> = roleId.getOptional("roleId")
@@ -138,7 +138,7 @@ private constructor(
     /**
      * The user's additional teams.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun secondaryTeamIds(): Optional<List<String>> =
@@ -148,7 +148,7 @@ private constructor(
      * Whether a welcome email was sent to the user. This value will only be populated in response
      * to a provisioning request. Subsequent queries will be false.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun sendWelcomeEmail(): Optional<Boolean> = sendWelcomeEmail.getOptional("sendWelcomeEmail")
@@ -516,7 +516,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

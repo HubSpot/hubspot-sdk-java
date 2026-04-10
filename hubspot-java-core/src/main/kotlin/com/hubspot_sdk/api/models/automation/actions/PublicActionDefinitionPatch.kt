@@ -23,7 +23,7 @@ import com.hubspot_sdk.api.core.allMaxBy
 import com.hubspot_sdk.api.core.checkKnown
 import com.hubspot_sdk.api.core.getOrThrow
 import com.hubspot_sdk.api.core.toImmutable
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
@@ -83,27 +83,27 @@ private constructor(
     /**
      * The URL endpoint where the action is executed.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun actionUrl(): Optional<String> = actionUrl.getOptional("actionUrl")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun executionRules(): Optional<List<PublicExecutionTranslationRule>> =
         executionRules.getOptional("executionRules")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun inputFieldDependencies(): Optional<List<InputFieldDependency>> =
         inputFieldDependencies.getOptional("inputFieldDependencies")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun inputFields(): Optional<List<PublicInputFieldDefinition>> =
@@ -112,26 +112,26 @@ private constructor(
     /**
      * Contains labels for the action, including names and descriptions.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun labels(): Optional<Labels> = labels.getOptional("labels")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectRequestOptions(): Optional<PublicObjectRequestOptions> =
         objectRequestOptions.getOptional("objectRequestOptions")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun objectTypes(): Optional<List<String>> = objectTypes.getOptional("objectTypes")
 
     /**
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun outputFields(): Optional<List<OutputFieldDefinition>> =
@@ -140,7 +140,7 @@ private constructor(
     /**
      * Indicates whether the action is published and available for use.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun published(): Optional<Boolean> = published.getOptional("published")
@@ -532,7 +532,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 
@@ -614,7 +614,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 
@@ -692,10 +692,10 @@ private constructor(
              * is on an older version than the API, then the API may respond with new variants that
              * the SDK is unaware of.
              *
-             * @throws HubspotInvalidDataException in the default implementation.
+             * @throws HubSpotInvalidDataException in the default implementation.
              */
             fun unknown(json: JsonValue?): T {
-                throw HubspotInvalidDataException("Unknown InputFieldDependency: $json")
+                throw HubSpotInvalidDataException("Unknown InputFieldDependency: $json")
             }
         }
 
@@ -823,7 +823,7 @@ private constructor(
             try {
                 validate()
                 true
-            } catch (e: HubspotInvalidDataException) {
+            } catch (e: HubSpotInvalidDataException) {
                 false
             }
 

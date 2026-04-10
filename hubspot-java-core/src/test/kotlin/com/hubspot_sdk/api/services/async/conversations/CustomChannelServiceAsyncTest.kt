@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.conversations
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelGetParams
 import com.hubspot_sdk.api.models.conversations.customchannels.CustomChannelUpdateParams
@@ -16,7 +16,7 @@ internal class CustomChannelServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun create() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
         val publicChannelIntegrationChannelFuture =
@@ -42,7 +42,7 @@ internal class CustomChannelServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
         val publicChannelIntegrationChannelFuture =
@@ -78,7 +78,7 @@ internal class CustomChannelServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
         val pageFuture = customChannelServiceAsync.list()
@@ -90,7 +90,7 @@ internal class CustomChannelServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun delete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
         val future = customChannelServiceAsync.delete(0)
@@ -101,7 +101,7 @@ internal class CustomChannelServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val customChannelServiceAsync = client.conversations().customChannels()
 
         val publicChannelAccountFuture =

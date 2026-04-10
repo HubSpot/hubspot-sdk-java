@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
 
@@ -11,7 +11,7 @@ internal class AccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val accountService = client.account()
 
         val portalInformationResponse = accountService.get()
@@ -22,7 +22,7 @@ internal class AccountServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getDailyPrivateAppsUsage() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val accountService = client.account()
 
         val collectionResponseApiUsageNoPaging = accountService.getDailyPrivateAppsUsage()

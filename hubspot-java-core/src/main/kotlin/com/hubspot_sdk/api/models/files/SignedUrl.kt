@@ -11,7 +11,7 @@ import com.hubspot_sdk.api.core.JsonField
 import com.hubspot_sdk.api.core.JsonMissing
 import com.hubspot_sdk.api.core.JsonValue
 import com.hubspot_sdk.api.core.checkRequired
-import com.hubspot_sdk.api.errors.HubspotInvalidDataException
+import com.hubspot_sdk.api.errors.HubSpotInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
@@ -48,7 +48,7 @@ private constructor(
     /**
      * Timestamp of when the URL will no longer grant access to the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun expiresAt(): OffsetDateTime = expiresAt.getRequired("expiresAt")
@@ -57,7 +57,7 @@ private constructor(
      * Signed URL with access to the specified file. Anyone with this URL will be able to access the
      * file until it expires.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type or is
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun url(): String = url.getRequired("url")
@@ -65,7 +65,7 @@ private constructor(
     /**
      * Extension of the requested file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun extension(): Optional<String> = extension.getOptional("extension")
@@ -73,7 +73,7 @@ private constructor(
     /**
      * For image and video files. The height of the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun height(): Optional<Int> = height.getOptional("height")
@@ -81,7 +81,7 @@ private constructor(
     /**
      * Name of the requested file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = name.getOptional("name")
@@ -89,7 +89,7 @@ private constructor(
     /**
      * Size in bytes of the requested file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun size(): Optional<Long> = size.getOptional("size")
@@ -97,7 +97,7 @@ private constructor(
     /**
      * Type of the file. Can be IMG, DOCUMENT, AUDIO, MOVIE, or OTHER.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun type(): Optional<String> = type.getOptional("type")
@@ -105,7 +105,7 @@ private constructor(
     /**
      * For image and video files. The width of the file.
      *
-     * @throws HubspotInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     * @throws HubSpotInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun width(): Optional<Int> = width.getOptional("width")
@@ -381,7 +381,7 @@ private constructor(
         try {
             validate()
             true
-        } catch (e: HubspotInvalidDataException) {
+        } catch (e: HubSpotInvalidDataException) {
             false
         }
 

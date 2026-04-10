@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.async.crm.associationsschema
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClientAsync
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClientAsync
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchInputPublicAssociationDefinitionConfigurationUpdateRequest
 import com.hubspot_sdk.api.models.crm.associationsschema.BatchInputPublicAssociationSpec
 import com.hubspot_sdk.api.models.crm.associationsschema.PublicAssociationDefinitionConfigurationUpdateRequest
@@ -18,7 +18,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().associationsSchema().limits()
 
         val collectionResponsePublicAssociationDefinitionUserConfigurationNoPagingFuture =
@@ -32,7 +32,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchDelete() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().associationsSchema().limits()
 
         val future =
@@ -59,7 +59,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun batchUpdate() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().associationsSchema().limits()
 
         val batchResponsePublicAssociationDefinitionConfigurationUpdateResultFuture =
@@ -93,7 +93,7 @@ internal class LimitServiceAsyncTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun getByObjectTypes() {
-        val client = HubspotOkHttpClientAsync.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClientAsync.builder().accessToken("My Access Token").build()
         val limitServiceAsync = client.crm().associationsSchema().limits()
 
         val collectionResponsePublicAssociationDefinitionUserConfigurationNoPagingFuture =

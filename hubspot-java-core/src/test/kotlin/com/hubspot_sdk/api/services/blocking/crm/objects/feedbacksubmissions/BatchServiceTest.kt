@@ -2,7 +2,7 @@
 
 package com.hubspot_sdk.api.services.blocking.crm.objects.feedbacksubmissions
 
-import com.hubspot_sdk.api.client.okhttp.HubspotOkHttpClient
+import com.hubspot_sdk.api.client.okhttp.HubSpotOkHttpClient
 import com.hubspot_sdk.api.models.crm.objects.BatchReadInputSimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.SimplePublicObjectId
 import com.hubspot_sdk.api.models.crm.objects.feedbacksubmissions.batch.BatchGetParams
@@ -14,7 +14,7 @@ internal class BatchServiceTest {
     @Disabled("Mock server tests are disabled")
     @Test
     fun get() {
-        val client = HubspotOkHttpClient.builder().accessToken("My Access Token").build()
+        val client = HubSpotOkHttpClient.builder().accessToken("My Access Token").build()
         val batchService = client.crm().objects().feedbackSubmissions().batch()
 
         val batchResponseSimplePublicObject =
