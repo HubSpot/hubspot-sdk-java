@@ -26,9 +26,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/stainless-sdks/hubspot-sdk-java.git")
-                    developerConnection.set("scm:git:git://github.com/stainless-sdks/hubspot-sdk-java.git")
-                    url.set("https://github.com/stainless-sdks/hubspot-sdk-java")
+                    connection.set("scm:git:git://github.com/HubSpot/hubspot-sdk-java.git")
+                    developerConnection.set("scm:git:git://github.com/HubSpot/hubspot-sdk-java.git")
+                    url.set("https://github.com/HubSpot/hubspot-sdk-java")
                 }
 
                 versionMapping {
